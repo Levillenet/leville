@@ -1,13 +1,33 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Helmet } from "react-helmet-async";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Features from "@/components/Features";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <>
+      <Helmet>
+        <title>Leville.net – Majoitus Levin keskustassa | Huoneistot & Mökit</title>
+        <meta 
+          name="description" 
+          content="Leville.net tarjoaa laadukasta majoitusta Levin keskustassa. Modernit huoneistot, tilavat perheasunnot ja tunnelmalliset hirsimökit parhailla paikoilla. Varaa suoraan meiltä!" 
+        />
+        <meta name="keywords" content="Levi majoitus, Levi huoneisto, Levi mökki, Levi keskusta, Levin majoitus, loma Levi" />
+        <link rel="canonical" href="https://leville.net" />
+      </Helmet>
+      
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main>
+          <Hero />
+          <About />
+          <Features />
+        </main>
+        <Footer />
       </div>
-    </div>
+    </>
   );
 };
 
