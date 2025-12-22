@@ -25,32 +25,32 @@ const features = [
 
 const Features = () => {
   return (
-    <section id="yritys" className="py-24 bg-card relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
+    <section id="yritys" className="py-28 bg-card relative overflow-hidden">
+      {/* Subtle aurora glow */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-aurora-green/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-aurora-blue/5 rounded-full blur-3xl" />
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-6">
+        <div className="max-w-3xl mx-auto text-center mb-20">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight">
             Miksi valita <span className="text-gradient">Leville.net?</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-lg leading-relaxed">
             Tarjoamme laadukasta majoitusta parhailla sijainneilla Levin keskustassa jo vuosien kokemuksella.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <div 
               key={feature.title}
-              className="group p-8 rounded-2xl bg-secondary/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-elegant"
+              className="group p-8 rounded-xl bg-secondary/40 border border-border/30 hover:border-aurora-green/30 transition-all duration-500 hover:shadow-elegant"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                <feature.icon className="w-7 h-7 text-primary" />
+              <div className="w-12 h-12 rounded-lg bg-aurora-green/10 flex items-center justify-center mb-6 group-hover:bg-aurora-green/20 transition-colors duration-500">
+                <feature.icon className="w-6 h-6 text-aurora-green" />
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-3">
+              <h3 className="text-lg font-semibold text-foreground mb-3 font-serif tracking-tight">
                 {feature.title}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">

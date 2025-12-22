@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Montserrat', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        sans: ['DM Sans', 'sans-serif'],
+        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -60,6 +60,15 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        aurora: {
+          green: "hsl(160 60% 45%)",
+          blue: "hsl(195 70% 45%)",
+        },
+        lapland: {
+          dark: "hsl(218 30% 8%)",
+          night: "hsl(218 28% 12%)",
+          forest: "hsl(200 25% 18%)",
         },
       },
       borderRadius: {
