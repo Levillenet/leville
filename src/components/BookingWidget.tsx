@@ -24,11 +24,16 @@ const BookingWidget = () => {
   }, []);
 
   return (
-    <div className="glass-card rounded-2xl p-6 md:p-8 shadow-elegant border border-border/50 max-w-3xl mx-auto">
-      <h2 className="text-xl font-serif font-semibold text-foreground mb-6">
+    <div className="glass-card rounded-xl p-6 md:p-8 shadow-elegant border border-border/30 max-w-4xl mx-auto relative" style={{ overflow: 'visible', zIndex: 40 }}>
+      <h2 className="text-xl font-serif font-semibold text-foreground mb-6 tracking-wide">
         Katso vapaana olevat majoituksemme
       </h2>
-      <div id="moder-embed" ref={containerRef} className="min-h-[200px]" />
+      <div 
+        id="moder-embed" 
+        ref={containerRef} 
+        className="min-h-[250px] relative"
+        style={{ overflow: 'visible', zIndex: 50 }}
+      />
     </div>
   );
 };
