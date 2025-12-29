@@ -6,7 +6,7 @@ import { Home, Users, Mountain, Wifi, Car, Snowflake } from "lucide-react";
 
 const accommodations = [
   {
-    title: "Modernit huoneistot",
+    title: "Modernit huoneistot Skistarissa",
     description: "Täysin varustetut huoneistot Levin keskustassa. Täydellinen sijainti sekä rinteille että palveluihin.",
     icon: Home,
     features: ["2-4 henkilöä", "Keittiö", "Sauna", "WiFi"],
