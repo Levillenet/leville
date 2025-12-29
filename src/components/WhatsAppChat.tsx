@@ -8,7 +8,7 @@ const WhatsAppChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
 
-  const phoneNumber = "358441313131"; // Leville.net WhatsApp number
+  const phoneNumber = "35844131313"; // Leville.net WhatsApp number
   
   const handleSend = () => {
     if (!message.trim()) return;
