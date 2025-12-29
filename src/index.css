@@ -237,65 +237,65 @@
   @keyframes subpageAurora1 {
     0%, 100% { 
       transform: translateX(0) translateY(0) scale(1);
-      opacity: 0.08;
+      opacity: 0.2;
     }
     50% { 
-      transform: translateX(30px) translateY(-20px) scale(1.1);
-      opacity: 0.12;
+      transform: translateX(40px) translateY(-25px) scale(1.15);
+      opacity: 0.3;
     }
   }
 
   @keyframes subpageAurora2 {
     0%, 100% { 
       transform: translateX(0) translateY(0) scale(1);
-      opacity: 0.06;
+      opacity: 0.15;
     }
     50% { 
-      transform: translateX(-40px) translateY(15px) scale(1.15);
-      opacity: 0.1;
+      transform: translateX(-50px) translateY(20px) scale(1.2);
+      opacity: 0.25;
     }
   }
 
   @keyframes subpageAurora3 {
     0%, 100% { 
       transform: translateX(0) scale(1);
-      opacity: 0.04;
+      opacity: 0.12;
     }
     33% { 
-      transform: translateX(50px) scale(1.08);
-      opacity: 0.07;
+      transform: translateX(60px) scale(1.1);
+      opacity: 0.18;
     }
     66% { 
-      transform: translateX(-30px) scale(1.05);
-      opacity: 0.05;
+      transform: translateX(-40px) scale(1.08);
+      opacity: 0.15;
     }
   }
 
   @keyframes subpageTwinkle {
     0%, 100% { 
-      opacity: 0.1;
-      transform: scale(0.8);
+      opacity: 0.2;
+      transform: scale(0.6);
     }
     50% { 
-      opacity: 0.6;
-      transform: scale(1.2);
+      opacity: 1;
+      transform: scale(1.3);
     }
   }
 
   .animate-subpage-aurora-1 {
-    animation: subpageAurora1 12s ease-in-out infinite;
+    animation: subpageAurora1 10s ease-in-out infinite;
   }
 
   .animate-subpage-aurora-2 {
-    animation: subpageAurora2 15s ease-in-out infinite;
+    animation: subpageAurora2 12s ease-in-out infinite;
   }
 
   .animate-subpage-aurora-3 {
-    animation: subpageAurora3 18s ease-in-out infinite;
+    animation: subpageAurora3 15s ease-in-out infinite;
   }
 
   .animate-subpage-twinkle {
-    animation: subpageTwinkle 3s ease-in-out infinite;
+    animation: subpageTwinkle 2.5s ease-in-out infinite;
   }
 
   .text-snow-white {
