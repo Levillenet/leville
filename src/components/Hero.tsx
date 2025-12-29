@@ -164,7 +164,9 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
       {/* Walking Santa Claus - visible until January 6th */}
       {(() => {
         const now = new Date();
-        const showSanta = now <= new Date('2025-01-06T23:59:59');
+        // Show Santa until Jan 6th (next upcoming Jan 6 relative to today)
+        const endYear = now.getMonth() === 11 ? now.getFullYear() + 1 : now.getFullYear();
+        const showSanta = now <= new Date(endYear, 0, 6, 23, 59, 59);
         if (!showSanta) return null;
         
         const greeting = lang === "en" ? "Merry Christmas!" : "Hyvää joulua!";
