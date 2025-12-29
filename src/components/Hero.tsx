@@ -161,7 +161,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         </div>
       </div>
 
-      {/* Santa Claus - visible until January 6th */}
+      {/* Walking Santa Claus - visible until January 6th */}
       {(() => {
         const now = new Date();
         const showSanta = now <= new Date('2025-01-06T23:59:59');
@@ -170,78 +170,128 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         const greeting = lang === "en" ? "Merry Christmas!" : "Hyvää joulua!";
         
         return (
-          <div className="absolute bottom-24 md:bottom-20 left-4 md:left-12 z-20 pointer-events-none">
+          <div 
+            className="fixed bottom-4 z-50 pointer-events-none"
+            style={{
+              animation: 'santaWalk 20s linear infinite',
+            }}
+          >
+            <style>
+              {`
+                @keyframes santaWalk {
+                  0% { left: -150px; }
+                  45% { left: calc(50% - 75px); }
+                  55% { left: calc(50% - 75px); }
+                  100% { left: calc(100% + 150px); }
+                }
+                @keyframes santaBounce {
+                  0%, 100% { transform: translateY(0); }
+                  50% { transform: translateY(-8px); }
+                }
+                @keyframes legWalk {
+                  0%, 100% { transform: rotate(-15deg); }
+                  50% { transform: rotate(15deg); }
+                }
+                @keyframes legWalkAlt {
+                  0%, 100% { transform: rotate(15deg); }
+                  50% { transform: rotate(-15deg); }
+                }
+                @keyframes waveHand {
+                  0%, 100% { transform: rotate(0deg); }
+                  25% { transform: rotate(25deg); }
+                  75% { transform: rotate(-15deg); }
+                }
+                .santa-body {
+                  animation: santaBounce 0.4s ease-in-out infinite;
+                }
+                .santa-leg-left {
+                  transform-origin: 35px 95px;
+                  animation: legWalk 0.4s ease-in-out infinite;
+                }
+                .santa-leg-right {
+                  transform-origin: 55px 95px;
+                  animation: legWalkAlt 0.4s ease-in-out infinite;
+                }
+                .santa-wave {
+                  transform-origin: 75px 55px;
+                  animation: waveHand 0.6s ease-in-out infinite;
+                }
+              `}
+            </style>
+            
             {/* Speech bubble */}
-            <div className="relative mb-2 animate-bounce" style={{ animationDuration: '3s' }}>
-              <div className="bg-white text-gray-800 px-4 py-2 rounded-2xl text-sm md:text-base font-medium shadow-lg">
-                {greeting} 🎄
+            <div className="absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap">
+              <div className="bg-white text-gray-800 px-4 py-2 rounded-2xl text-sm md:text-base font-bold shadow-xl border-2 border-red-500">
+                {greeting} 🎄🎅
               </div>
-              <div className="absolute -bottom-2 left-8 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white" />
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white" />
             </div>
-            {/* Santa peeking */}
-            <svg viewBox="0 0 140 100" className="w-28 md:w-36 h-auto drop-shadow-2xl">
-              <style>
-                {`
-                  @keyframes wave {
-                    0%, 100% { transform: rotate(0deg); }
-                    25% { transform: rotate(20deg); }
-                    75% { transform: rotate(-10deg); }
-                  }
-                  .santa-hand {
-                    transform-origin: 105px 70px;
-                    animation: wave 0.8s ease-in-out infinite;
-                  }
-                `}
-              </style>
+            
+            {/* Full body walking Santa */}
+            <svg viewBox="0 0 100 140" className="w-24 md:w-32 h-auto drop-shadow-2xl santa-body">
+              {/* Shadow */}
+              <ellipse cx="50" cy="138" rx="30" ry="5" fill="#000" opacity="0.2" />
               
-              {/* Santa's hat */}
-              <ellipse cx="60" cy="95" rx="35" ry="8" fill="#1a1a1a" opacity="0.2" />
-              <path d="M25 60 Q30 20 60 15 Q90 20 95 60 L85 60 Q80 30 60 25 Q40 30 35 60 Z" fill="#c41e3a" />
-              <ellipse cx="60" cy="60" rx="40" ry="8" fill="#fff" />
-              <circle cx="95" cy="18" r="10" fill="#fff" />
+              {/* Legs */}
+              <g className="santa-leg-left">
+                <rect x="30" y="95" width="12" height="35" rx="5" fill="#1a1a1a" />
+                <ellipse cx="36" cy="132" rx="10" ry="6" fill="#1a1a1a" />
+              </g>
+              <g className="santa-leg-right">
+                <rect x="50" y="95" width="12" height="35" rx="5" fill="#1a1a1a" />
+                <ellipse cx="56" cy="132" rx="10" ry="6" fill="#1a1a1a" />
+              </g>
               
-              {/* Santa's face */}
-              <ellipse cx="60" cy="75" rx="28" ry="22" fill="#fdd9b5" />
+              {/* Body (red coat) */}
+              <path d="M25 55 Q20 95 30 100 L62 100 Q72 95 67 55 Q60 45 46 45 Q32 45 25 55" fill="#c41e3a" />
+              {/* Belt */}
+              <rect x="28" y="80" width="36" height="8" fill="#1a1a1a" />
+              <rect x="40" y="78" width="12" height="12" rx="2" fill="#ffd700" />
               
+              {/* White trim */}
+              <path d="M25 55 Q30 50 46 48 Q62 50 67 55" stroke="#fff" strokeWidth="6" fill="none" />
+              <rect x="28" y="95" width="36" height="8" fill="#fff" />
+              
+              {/* Arms */}
+              <g className="santa-wave">
+                {/* Right arm waving */}
+                <path d="M67 58 Q80 50 85 35" stroke="#c41e3a" strokeWidth="12" strokeLinecap="round" fill="none" />
+                <circle cx="85" cy="32" r="8" fill="#fdd9b5" />
+                {/* Cuff */}
+                <ellipse cx="78" cy="42" rx="7" ry="5" fill="#fff" />
+              </g>
+              {/* Left arm */}
+              <path d="M25 58 Q15 70 20 85" stroke="#c41e3a" strokeWidth="12" strokeLinecap="round" fill="none" />
+              <ellipse cx="18" cy="62" rx="7" ry="5" fill="#fff" />
+              <circle cx="20" cy="88" r="7" fill="#fdd9b5" />
+              
+              {/* Head */}
+              <circle cx="46" cy="28" r="22" fill="#fdd9b5" />
+              
+              {/* Hat */}
+              <path d="M24 28 Q24 8 46 5 Q68 8 68 28" fill="#c41e3a" />
+              <rect x="20" y="25" width="52" height="8" rx="4" fill="#fff" />
+              <circle cx="68" cy="8" r="8" fill="#fff" />
+              
+              {/* Face */}
               {/* Eyes */}
-              <ellipse cx="50" cy="70" rx="4" ry="5" fill="#2c1810" />
-              <ellipse cx="70" cy="70" rx="4" ry="5" fill="#2c1810" />
-              <circle cx="51" cy="69" r="1.5" fill="#fff" />
-              <circle cx="71" cy="69" r="1.5" fill="#fff" />
+              <circle cx="38" cy="24" r="3" fill="#2c1810" />
+              <circle cx="54" cy="24" r="3" fill="#2c1810" />
+              <circle cx="39" cy="23" r="1" fill="#fff" />
+              <circle cx="55" cy="23" r="1" fill="#fff" />
               
               {/* Rosy cheeks */}
-              <circle cx="42" cy="78" r="5" fill="#ffb6c1" opacity="0.6" />
-              <circle cx="78" cy="78" r="5" fill="#ffb6c1" opacity="0.6" />
+              <circle cx="32" cy="32" r="4" fill="#ffb6c1" opacity="0.6" />
+              <circle cx="60" cy="32" r="4" fill="#ffb6c1" opacity="0.6" />
               
               {/* Nose */}
-              <ellipse cx="60" cy="78" rx="5" ry="4" fill="#e8a090" />
+              <circle cx="46" cy="30" r="4" fill="#e8a090" />
               
               {/* Mustache */}
-              <path d="M45 83 Q50 88 60 85 Q70 88 75 83 Q70 90 60 88 Q50 90 45 83" fill="#fff" />
+              <path d="M34 36 Q40 40 46 38 Q52 40 58 36" stroke="#fff" strokeWidth="4" fill="none" />
               
               {/* Beard */}
-              <path d="M32 75 Q30 95 60 100 Q90 95 88 75 Q85 85 60 90 Q35 85 32 75" fill="#fff" />
-              
-              {/* Eyebrows */}
-              <path d="M44 64 Q50 62 54 65" stroke="#fff" strokeWidth="2" fill="none" />
-              <path d="M66 65 Q70 62 76 64" stroke="#fff" strokeWidth="2" fill="none" />
-              
-              {/* Waving arm and hand */}
-              <g className="santa-hand">
-                {/* Arm (red sleeve) */}
-                <path d="M88 85 Q100 75 110 55 Q115 50 120 52 L125 60 Q118 62 115 68 Q108 82 95 90" fill="#c41e3a" />
-                {/* White cuff */}
-                <ellipse cx="118" cy="56" rx="6" ry="4" fill="#fff" />
-                {/* Hand */}
-                <ellipse cx="122" cy="48" rx="7" ry="8" fill="#fdd9b5" />
-                {/* Fingers */}
-                <ellipse cx="118" cy="42" rx="2" ry="4" fill="#fdd9b5" />
-                <ellipse cx="122" cy="40" rx="2" ry="5" fill="#fdd9b5" />
-                <ellipse cx="126" cy="41" rx="2" ry="4" fill="#fdd9b5" />
-                <ellipse cx="129" cy="44" rx="2" ry="3" fill="#fdd9b5" />
-                {/* Thumb */}
-                <ellipse cx="115" cy="48" rx="3" ry="2" fill="#fdd9b5" />
-              </g>
+              <path d="M28 35 Q26 55 46 60 Q66 55 64 35" fill="#fff" />
             </svg>
           </div>
         );
