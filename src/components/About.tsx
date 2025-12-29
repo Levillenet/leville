@@ -1,16 +1,8 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const aboutPoints = [
-  "Modernit studiohuoneistot yksin tai kaksin matkustaville",
-  "Tilavat perheasunnot koko perheen lomailijoille",
-  "Tunnelmalliset hirsimökit aidon Lappi-tunnelman etsijöille",
-  "Kaikki kohteet varusteltu täysin"
-];
-
+const aboutPoints = ["Modernit studiohuoneistot yksin tai kaksin matkustaville", "Tilavat perheasunnot koko perheen lomailijoille", "Tunnelmalliset hirsimökit aidon Lappi-tunnelman etsijöille", "Kaikki kohteet varusteltu täysin"];
 const About = () => {
-  return (
-    <section id="majoitukset" className="py-28 bg-background relative overflow-hidden">
+  return <section id="majoitukset" className="py-28 bg-background relative overflow-hidden">
       {/* Subtle decorations */}
       <div className="absolute top-1/2 -left-32 w-64 h-64 bg-aurora-blue/5 rounded-full blur-3xl" />
       
@@ -19,26 +11,22 @@ const About = () => {
           {/* Content */}
           <div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-8 tracking-tight leading-tight">
-              Laadukas majoitus <br/><span className="text-gradient">Levin sydämessä</span>
+              Laadukas majoitus <br /><span className="text-gradient">Levin sydämessä</span>
             </h2>
             
-            <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-              Etsitkö laadukasta majoitusta parhailla sijainnilla Leviltä? Leville.net tarjoaa monipuolisen valikoiman huoneistoja ja vuokramökkejä aivan Levin keskustan parhailla paikoilla.
-            </p>
+            <p className="text-muted-foreground text-lg mb-6 leading-relaxed">Etsitkö majoitusta parhailla sijainnilla Leviltä? Leville.net tarjoaa monipuolisen valikoiman huoneistoja ja vuokramökkejä aivan Levin keskustan parhailla paikoilla.</p>
 
             <p className="text-muted-foreground mb-10 leading-relaxed">
               Olitpa suunnittelemassa talvilomaa Levin laskettelurinteillä, kesäretkeä Lapin luontoon tai työmatkaa pohjoiseen, meiltä löydät sinulle sopivan majoitusratkaisun.
             </p>
 
             <ul className="space-y-4 mb-12">
-              {aboutPoints.map((point) => (
-                <li key={point} className="flex items-start gap-4">
+              {aboutPoints.map(point => <li key={point} className="flex items-start gap-4">
                   <div className="w-5 h-5 rounded-full bg-aurora-green/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Check className="w-3 h-3 text-aurora-green" />
                   </div>
                   <span className="text-foreground">{point}</span>
-                </li>
-              ))}
+                </li>)}
             </ul>
 
             <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8">
@@ -67,8 +55,6 @@ const About = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default About;

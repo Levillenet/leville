@@ -27,14 +27,12 @@ const Hero = () => {
         overflow: 'visible'
       }}>
           {/* Main heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold text-foreground mb-6 animate-slide-up tracking-tight">Tervetuloa Leville<span className="text-gradient">Leville</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold text-foreground mb-6 animate-slide-up tracking-tight">Tervetuloa Leville<span className="text-gradient">Leville</span>
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto animate-slide-up leading-relaxed" style={{
           animationDelay: '0.2s'
-        }}>
-            Majoitu mukavasti Levin keskustassa – modernit huoneistot ja tunnelmalliset mökit parhailla paikoilla
-          </p>
+        }}>Majoitu leppoisasti Levin keskustassa – modernit huoneistot ja tunnelmalliset mökit parhailla paikoilla</p>
 
           {/* Booking Widget */}
           <div className="animate-slide-up" style={{
