@@ -133,7 +133,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 relative z-10" style={{ overflow: 'visible' }}>
         <div className="max-w-4xl mx-auto text-center" style={{ overflow: 'visible' }}>
           {/* Main heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold text-foreground mb-6 animate-slide-up tracking-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-8xl font-serif font-semibold text-foreground mb-6 animate-slide-up tracking-tight">
             Tervetuloa <span className="text-gradient">Leville</span>
           </h1>
 
