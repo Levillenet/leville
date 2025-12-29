@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon } from "lucide-react";
+import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
@@ -67,6 +67,22 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
         <Breadcrumbs lang={lang} />
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4">
+            {/* Discount code banner */}
+            <ScrollReveal>
+              <div className="text-center mb-6">
+                <a 
+                  href={isEnglish ? "/en/news" : "/ajankohtaista"}
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/20 to-aurora-green/20 backdrop-blur-sm border border-primary/40 rounded-full px-4 py-2 hover:border-primary/60 transition-colors group"
+                >
+                  <Tag className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-semibold text-foreground">
+                    {isEnglish ? "Use code" : "Käytä koodia"} <span className="text-primary">winter10</span> {isEnglish ? "– 10% off spring 2026!" : "– 10% alennus keväälle 2026!"}
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              </div>
+            </ScrollReveal>
+
             {/* Hero Section */}
             <ScrollReveal>
               <section className="text-center mb-10 md:mb-16 px-2">
