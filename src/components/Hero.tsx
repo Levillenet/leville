@@ -47,15 +47,18 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center pt-20 pb-32"
       style={{ overflow: 'visible' }}
     >
-      {/* Background images slideshow with crossfade */}
+      {/* Background images slideshow with crossfade and Ken Burns effect */}
       <div className="absolute inset-0 overflow-hidden">
         {heroImages.map((image, index) => (
           <div
             key={index}
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[3000ms] ease-in-out"
+            className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[3000ms] ease-in-out ${
+              index === currentImageIndex ? 'animate-ken-burns' : ''
+            }`}
             style={{
               backgroundImage: `url(${image})`,
               opacity: index === currentImageIndex ? 1 : 0,
+              transform: index === currentImageIndex ? undefined : 'scale(1)',
             }}
           />
         ))}
@@ -202,6 +205,13 @@ const Hero = () => {
           0%, 100% { transform: translateX(0) translateY(0) scale(1); opacity: 0.6; }
           33% { transform: translateX(120px) translateY(-70px) scale(1.25); opacity: 1; }
           66% { transform: translateX(-60px) translateY(-40px) scale(1.1); opacity: 0.85; }
+        }
+        .animate-ken-burns {
+          animation: kenBurns 8s ease-out forwards;
+        }
+        @keyframes kenBurns {
+          0% { transform: scale(1); }
+          100% { transform: scale(1.08); }
         }
       `}</style>
     </section>
