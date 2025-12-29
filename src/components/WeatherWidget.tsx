@@ -58,13 +58,13 @@ const WeatherWidget = () => {
     return null;
   }
 
-  const label = isEnglish ? "Levi now" : "Levi nyt";
+  const label = isEnglish ? "WEATHER IN LEVI NOW" : "SÄÄ LEVILLÄ NYT";
 
   return (
-    <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+    <div className="flex items-center gap-2 text-foreground">
       {getWeatherIcon(weather.weatherCode)}
-      <span className="font-medium">{weather.temperature}°C</span>
-      <span className="hidden sm:inline text-xs opacity-70">{label}</span>
+      <span className="font-semibold text-base">{weather.temperature}°C</span>
+      <span className="text-sm font-medium tracking-wide opacity-80">{label}</span>
     </div>
   );
 };

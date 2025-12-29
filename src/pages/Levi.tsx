@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon } from "lucide-react";
+import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 
 // Import images
@@ -132,6 +132,37 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                   </div>
                 ))}
               </div>
+            </section>
+
+            {/* Live Camera Section */}
+            <section className="mb-20">
+              <Card className="glass-card border-border/30 overflow-hidden">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <Video className="w-6 h-6 text-primary" />
+                      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
+                    </div>
+                    <CardTitle>{lang === "en" ? "Levi Live Camera" : "Levin live-kamera"}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="aspect-video w-full">
+                    <iframe
+                      src="https://www.youtube.com/embed/Wr9b5aYA4mI?autoplay=0&rel=0"
+                      title="Levi Live Camera"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <p className="text-sm text-muted-foreground p-4 text-center">
+                    {lang === "en" 
+                      ? "Live view from Levi ski resort – see the current conditions on the slopes" 
+                      : "Suora näkymä Levin hiihtokeskuksesta – näe rinteiden tilanne reaaliajassa"}
+                  </p>
+                </CardContent>
+              </Card>
             </section>
 
             {/* Weather & Map Section */}
