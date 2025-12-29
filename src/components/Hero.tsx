@@ -1,41 +1,41 @@
+import { useState, useEffect } from "react";
 import BookingWidget from "./BookingWidget";
 import heroCabin from "@/assets/hero-cabin.jpg";
 import heroChalet from "@/assets/hero-chalet.png";
 import heroVillage from "@/assets/hero-village.png";
+import heroApartment from "@/assets/hero-apartment.png";
+import heroLodge from "@/assets/hero-lodge.png";
+
+const heroImages = [heroCabin, heroChalet, heroVillage, heroApartment, heroLodge];
 
 const Hero = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 6000); // Change image every 6 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       className="relative min-h-screen flex items-center justify-center pt-20 pb-32"
       style={{ overflow: 'visible' }}
     >
-      {/* Background images collage */}
+      {/* Background images slideshow */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Main background - cabin with aurora */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${heroCabin})` }}
-        />
-        
-        {/* Left side image - village */}
-        <div 
-          className="absolute left-0 bottom-0 w-1/3 h-2/3 bg-cover bg-center opacity-40 hidden lg:block"
-          style={{ 
-            backgroundImage: `url(${heroVillage})`,
-            maskImage: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)',
-            WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)'
-          }}
-        />
-        
-        {/* Right side image - chalet */}
-        <div 
-          className="absolute right-0 bottom-0 w-1/3 h-2/3 bg-cover bg-center opacity-40 hidden lg:block"
-          style={{ 
-            backgroundImage: `url(${heroChalet})`,
-            maskImage: 'linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)',
-            WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)'
-          }}
-        />
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[2000ms] ease-in-out"
+            style={{
+              backgroundImage: `url(${image})`,
+              opacity: index === currentImageIndex ? 1 : 0,
+            }}
+          />
+        ))}
         
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/90" />
