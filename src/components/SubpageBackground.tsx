@@ -15,14 +15,14 @@ const SubpageBackground = () => {
   useEffect(() => {
     // Generate random stars/snow crystals
     const generatedStars: Star[] = [];
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < 18; i++) {
       generatedStars.push({
         id: i,
         x: Math.random() * 100,
-        y: Math.random() * 85,
-        size: Math.random() * 8 + 5,
-        delay: Math.random() * 2,
-        duration: Math.random() * 1 + 1,
+        y: Math.random() * 80,
+        size: Math.random() * 6 + 4,
+        delay: Math.random() * 4,
+        duration: Math.random() * 2 + 3,
       });
     }
     setStars(generatedStars);
