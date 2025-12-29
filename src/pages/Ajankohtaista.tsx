@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Sparkles, Clock } from "lucide-react";
@@ -39,7 +40,8 @@ const Ajankohtaista = ({ lang = "fi" }: AjankohtaistaProps) => {
       
       <div className="min-h-screen bg-background">
         <Header />
-        <main className="pt-32 pb-20">
+        <Breadcrumbs lang={lang} />
+        <main className="pt-8 pb-20">
           <div className="container mx-auto px-4">
             {/* Hero Section */}
             <ScrollReveal>

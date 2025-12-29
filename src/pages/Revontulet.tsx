@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Sparkles, MapPin, Clock, Eye, Home, ExternalLink, Smartphone, Video } from "lucide-react";
@@ -113,7 +114,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
       
       <div className="min-h-screen bg-background">
         <Header />
-        <main className="pt-32 pb-20">
+        <Breadcrumbs lang={lang} />
+        <main className="pt-8 pb-20">
           <div className="container mx-auto px-4">
             {/* Hero Section */}
             <ScrollReveal>

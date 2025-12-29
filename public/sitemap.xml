@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Finnish Pages -->
+  <url>
+    <loc>https://leville.net/</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/majoitukset</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/majoitukset"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/accommodations"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/ajankohtaista</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/ajankohtaista"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/news"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/yhteystiedot</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/yhteystiedot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/contact"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/revontulet</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/revontulet"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/northern-lights"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/ukk</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/ukk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/faq"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/yritys</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/yritys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/company"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/varausehdot</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/terms"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- English Pages -->
+  <url>
+    <loc>https://leville.net/en</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/en/accommodations</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/majoitukset"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/accommodations"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/en/levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/en/news</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/ajankohtaista"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/news"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/yhteystiedot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/contact"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/en/northern-lights</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/revontulet"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/northern-lights"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/en/faq</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/ukk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/faq"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/en/company</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/yritys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/company"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://leville.net/en/terms</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/terms"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+</urlset>
