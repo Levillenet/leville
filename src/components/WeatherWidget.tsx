@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 interface WeatherData {
   temperature: number;
   weatherCode: number;
+  snowDepth: number | null;
 }
 
 const getWeatherIcon = (code: number) => {
@@ -31,7 +32,7 @@ const WeatherWidget = () => {
       try {
         // Levi coordinates: 67.8039° N, 24.8084° E
         const response = await fetch(
-          "https://api.open-meteo.com/v1/forecast?latitude=67.8039&longitude=24.8084&current=temperature_2m,weather_code&timezone=Europe%2FHelsinki"
+          "https://api.open-meteo.com/v1/forecast?latitude=67.8039&longitude=24.8084&current=temperature_2m,weather_code,snow_depth&timezone=Europe%2FHelsinki"
         );
         const data = await response.json();
         
@@ -39,6 +40,7 @@ const WeatherWidget = () => {
           setWeather({
             temperature: Math.round(data.current.temperature_2m),
             weatherCode: data.current.weather_code,
+            snowDepth: data.current.snow_depth !== undefined ? Math.round(data.current.snow_depth * 100) : null, // Convert m to cm
           });
         }
       } catch (error) {
@@ -59,12 +61,21 @@ const WeatherWidget = () => {
   }
 
   const label = isEnglish ? "WEATHER IN LEVI NOW" : "SÄÄ LEVILLÄ NYT";
+  const snowLabel = isEnglish ? "snow" : "lunta";
 
   return (
     <div className="flex items-center gap-2 text-foreground">
       {getWeatherIcon(weather.weatherCode)}
       <span className="font-semibold text-base">{weather.temperature}°C</span>
-      <span className="text-sm font-medium tracking-wide opacity-80">{label}</span>
+      {weather.snowDepth !== null && weather.snowDepth > 0 && (
+        <>
+          <span className="text-muted-foreground">|</span>
+          <Snowflake className="w-3.5 h-3.5 text-blue-300" />
+          <span className="font-semibold text-base">{weather.snowDepth} cm</span>
+          <span className="text-xs opacity-70">{snowLabel}</span>
+        </>
+      )}
+      <span className="text-sm font-medium tracking-wide opacity-80 ml-1">{label}</span>
     </div>
   );
 };
