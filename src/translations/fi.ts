@@ -66,7 +66,7 @@ export const fi = {
       {
         title: "Modernit huoneistot Skistarissa",
         description: "Täysin varustetut huoneistot Levin keskustassa. Täydellinen sijainti sekä rinteille että palveluihin.",
-        features: ["2-6 henkilöä", "Superior huoneistoissa sauna"]
+        features: ["2-6 henkilöä", "Superior huoneistoissa sauna", "Kaikissa huoneistoissa keittiö ja täysi varustelu mukavaa lomaasi ajatellen"]
       },
       {
         title: "Tilavat perheasunnot Levin keskustassa",
