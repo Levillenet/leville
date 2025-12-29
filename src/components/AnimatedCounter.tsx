@@ -29,6 +29,11 @@ const AnimatedCounter = ({
   const display = useTransform(spring, (current) => Math.round(current));
   const [displayValue, setDisplayValue] = useState(0);
 
+  // Format number with space as thousand separator
+  const formatNumber = (num: number) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
+
   useEffect(() => {
     if (isVisible && !hasAnimated) {
       spring.set(target);
@@ -44,9 +49,9 @@ const AnimatedCounter = ({
   }, [display]);
 
   return (
-    <motion.span ref={ref} className={className}>
+    <motion.span ref={ref} className={`whitespace-nowrap ${className}`}>
       {prefix}
-      {displayValue}
+      {formatNumber(displayValue)}
       {suffix}
     </motion.span>
   );
