@@ -10,6 +10,24 @@ const Header = () => {
   const location = useLocation();
   const isEnglish = location.pathname.startsWith("/en");
 
+  // Route mapping between languages
+  const routeMap: Record<string, string> = {
+    "/": "/en",
+    "/en": "/",
+    "/majoitukset": "/en/accommodations",
+    "/en/accommodations": "/majoitukset",
+    "/yritys": "/en/company",
+    "/en/company": "/yritys",
+    "/levi": "/en/levi",
+    "/en/levi": "/levi",
+    "/revontulet": "/en/northern-lights",
+    "/en/northern-lights": "/revontulet",
+    "/yhteystiedot": "/en/contact",
+    "/en/contact": "/yhteystiedot",
+    "/ukk": "/en/faq",
+    "/en/faq": "/ukk",
+  };
+
   const navLinksFi = [
     { name: "Majoitukset", href: "/majoitukset" },
     { name: "Yritys", href: "/yritys" },
@@ -29,7 +47,9 @@ const Header = () => {
   ];
 
   const navLinks = isEnglish ? navLinksEn : navLinksFi;
-  const langSwitchHref = isEnglish ? "/" : "/en";
+  
+  // Get the equivalent route in the other language, fallback to home
+  const langSwitchHref = routeMap[location.pathname] || (isEnglish ? "/" : "/en");
   const langSwitchLabel = isEnglish ? "FI" : "EN";
 
   return (
