@@ -1,19 +1,33 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Menu, X, Globe } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import levilleLogo from "@/assets/leville-logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const isEnglish = location.pathname.startsWith("/en");
 
-  const navLinks = [
+  const navLinksFi = [
     { name: "Majoitukset", href: "/majoitukset" },
     { name: "Yritys", href: "/yritys" },
     { name: "Levi", href: "/levi" },
     { name: "Yhteystiedot", href: "/yhteystiedot" },
     { name: "UKK", href: "/ukk" },
   ];
+
+  const navLinksEn = [
+    { name: "Accommodations", href: "/en/accommodations" },
+    { name: "Company", href: "/en/company" },
+    { name: "Levi", href: "/en/levi" },
+    { name: "Contact", href: "/en/contact" },
+    { name: "FAQ", href: "/en/faq" },
+  ];
+
+  const navLinks = isEnglish ? navLinksEn : navLinksFi;
+  const langSwitchHref = isEnglish ? "/" : "/en";
+  const langSwitchLabel = isEnglish ? "FI" : "EN";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/30">
@@ -39,8 +53,15 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
+            <Link
+              to={langSwitchHref}
+              className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              <Globe className="w-4 h-4" />
+              {langSwitchLabel}
+            </Link>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6">
-              Varaa nyt
+              {isEnglish ? "Book now" : "Varaa nyt"}
             </Button>
           </nav>
 
@@ -68,8 +89,16 @@ const Header = () => {
                   {link.name}
                 </Link>
               ))}
+              <Link
+                to={langSwitchHref}
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
+              >
+                <Globe className="w-4 h-4" />
+                {langSwitchLabel}
+              </Link>
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium mt-2">
-                Varaa nyt
+                {isEnglish ? "Book now" : "Varaa nyt"}
               </Button>
             </div>
           </nav>
