@@ -222,8 +222,8 @@ export const fi = {
   ajankohtaista: {
     meta: {
       title: "Ajankohtaista – Varaa parhaat ajankohdat Leviltä | Leville.net",
-      description: "Ajankohtaiset uutiset Levin majoituksista. Loppukevään vapaat ajankohdat ja joulukuu 2026 nyt myynnissä. Varaa lomasi Leviltä ajoissa!",
-      keywords: "Levi varaus 2025, Levi joulu 2026, Levi kevät, Levi majoitus tarjous, Levi loma varaus",
+      description: "Ajankohtaiset uutiset Levin majoituksista. Kevätkauden 2026 alennuskoodi -10%, loppukevään vapaat ajankohdat ja joulukuu 2026 nyt myynnissä!",
+      keywords: "Levi alennuskoodi, Levi tarjous 2026, Levi kevät alennus, Levi joulu 2026, Levi majoitus tarjous",
       canonical: "https://leville.net/ajankohtaista"
     },
     title: "Ajankohtaista",
@@ -232,18 +232,25 @@ export const fi = {
     bookCta: "Tutustu vapaisiin ajankohtiin ja varaa",
     items: [
       {
-        badge: "Kevät 2025",
+        badge: "🎿 Kevät 2025",
         date: "29.12.2024",
         title: "Loppukeväälle on vielä tilaa Levillä",
         description: "Kevättalvi ja alkukevät ovat Levillä monen suosikkiaikaa. Valoisat päivät, loistavat hiihto- ja ulkoiluolosuhteet sekä rauhallisempi tunnelma tekevät loppukeväästä erinomaisen ajankohdan lomalle. Useissa majoituskohteissamme on vielä vapaita ajankohtia, joten nyt on hyvä hetki varata.",
-        highlight: "Suosittelemme tekemään varauksen heti, jotta valinnanvaraa on vielä runsaasti."
+        highlight: "Koodilla \"winter10\" saat nyt -10% alennuksen kevätkauden 2026 majoituksiin! Hyödynnä etusi heti!"
       },
       {
-        badge: "Joulu 2026",
+        badge: "🎄 Joulu 2026",
         date: "29.12.2024",
         title: "Joulukuu 2026 on nyt avattu myyntiin",
         description: "Olemme avanneet varaukset joulukuulle 2026. Joulusesonki on Levillä erittäin kysytty, ja suosituimmat päivät sekä majoitukset varataan usein pitkälle etukäteen. Varaamalla ajoissa varmistat, että saat juuri sinulle sopivat päivät ja mieluisimman majoituskohteen.",
         highlight: "Varaa ajoissa ja suunnittele matkasi rauhassa etukäteen!"
+      },
+      {
+        badge: "🌟 Vinkki",
+        date: "29.12.2024",
+        title: "Varaa suoraan meiltä – paras hinta taattu",
+        description: "Varaamalla suoraan Leville.netin kautta saat aina parhaan hinnan ilman välikäsiä. Tarjoamme henkilökohtaista palvelua ja joustavuutta varauksiin. Ota yhteyttä, niin autamme löytämään juuri sinulle sopivan majoituksen Leviltä.",
+        highlight: "Suora varaus = paras hinta + henkilökohtainen palvelu!"
       }
     ]
   }
