@@ -179,7 +179,21 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
               <div className="absolute -bottom-2 left-8 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white" />
             </div>
             {/* Santa peeking */}
-            <svg viewBox="0 0 120 100" className="w-24 md:w-32 h-auto drop-shadow-2xl">
+            <svg viewBox="0 0 140 100" className="w-28 md:w-36 h-auto drop-shadow-2xl">
+              <style>
+                {`
+                  @keyframes wave {
+                    0%, 100% { transform: rotate(0deg); }
+                    25% { transform: rotate(20deg); }
+                    75% { transform: rotate(-10deg); }
+                  }
+                  .santa-hand {
+                    transform-origin: 105px 70px;
+                    animation: wave 0.8s ease-in-out infinite;
+                  }
+                `}
+              </style>
+              
               {/* Santa's hat */}
               <ellipse cx="60" cy="95" rx="35" ry="8" fill="#1a1a1a" opacity="0.2" />
               <path d="M25 60 Q30 20 60 15 Q90 20 95 60 L85 60 Q80 30 60 25 Q40 30 35 60 Z" fill="#c41e3a" />
@@ -211,6 +225,23 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
               {/* Eyebrows */}
               <path d="M44 64 Q50 62 54 65" stroke="#fff" strokeWidth="2" fill="none" />
               <path d="M66 65 Q70 62 76 64" stroke="#fff" strokeWidth="2" fill="none" />
+              
+              {/* Waving arm and hand */}
+              <g className="santa-hand">
+                {/* Arm (red sleeve) */}
+                <path d="M88 85 Q100 75 110 55 Q115 50 120 52 L125 60 Q118 62 115 68 Q108 82 95 90" fill="#c41e3a" />
+                {/* White cuff */}
+                <ellipse cx="118" cy="56" rx="6" ry="4" fill="#fff" />
+                {/* Hand */}
+                <ellipse cx="122" cy="48" rx="7" ry="8" fill="#fdd9b5" />
+                {/* Fingers */}
+                <ellipse cx="118" cy="42" rx="2" ry="4" fill="#fdd9b5" />
+                <ellipse cx="122" cy="40" rx="2" ry="5" fill="#fdd9b5" />
+                <ellipse cx="126" cy="41" rx="2" ry="4" fill="#fdd9b5" />
+                <ellipse cx="129" cy="44" rx="2" ry="3" fill="#fdd9b5" />
+                {/* Thumb */}
+                <ellipse cx="115" cy="48" rx="3" ry="2" fill="#fdd9b5" />
+              </g>
             </svg>
           </div>
         );
