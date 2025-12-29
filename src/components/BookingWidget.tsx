@@ -4,9 +4,10 @@ const BookingWidget = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Set up Moder settings
+    // Set up Moder settings with new window target
     (window as any).ModerSettings = {
-      property: 'levillenet'
+      property: 'levillenet',
+      target: '_blank'
     };
 
     // Check if script already exists
