@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
 
 const contactInfo = [
   {
@@ -10,24 +10,35 @@ const contactInfo = [
     title: "Sähköposti",
     value: "info@leville.net",
     href: "mailto:info@leville.net",
+    isWhatsApp: false,
   },
   {
     icon: Phone,
     title: "Puhelin",
-    value: "+358 40 123 4567",
-    href: "tel:+358401234567",
+    value: "+358 44 131 313",
+    href: "tel:+35844131313",
+    isWhatsApp: false,
+  },
+  {
+    icon: MessageCircle,
+    title: "WhatsApp",
+    value: "+358 44 131 313",
+    href: "https://wa.me/35844131313",
+    isWhatsApp: true,
   },
   {
     icon: MapPin,
     title: "Osoite",
     value: "Leville.net\nLevin keskusta\n99130 Sirkka",
     href: null,
+    isWhatsApp: false,
   },
   {
     icon: Clock,
     title: "Asiakaspalvelu",
     value: "Ma-Pe 9:00-17:00\nLa-Su 10:00-16:00",
     href: null,
+    isWhatsApp: false,
   },
 ];
 
@@ -59,12 +70,12 @@ const Yhteystiedot = () => {
             </section>
 
             {/* Contact Cards */}
-            <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+            <section className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mb-20">
               {contactInfo.map((info) => (
                 <Card key={info.title} className="glass-card border-border/30 text-center">
                   <CardHeader>
-                    <div className="w-14 h-14 rounded-lg bg-primary/20 flex items-center justify-center mx-auto mb-4">
-                      <info.icon className="w-7 h-7 text-primary" />
+                    <div className={`w-14 h-14 rounded-lg flex items-center justify-center mx-auto mb-4 ${info.isWhatsApp ? 'bg-green-500/20' : 'bg-primary/20'}`}>
+                      <info.icon className={`w-7 h-7 ${info.isWhatsApp ? 'text-green-500' : 'text-primary'}`} />
                     </div>
                     <CardTitle className="text-lg text-foreground">{info.title}</CardTitle>
                   </CardHeader>
@@ -72,7 +83,9 @@ const Yhteystiedot = () => {
                     {info.href ? (
                       <a 
                         href={info.href} 
-                        className="text-muted-foreground hover:text-primary transition-colors whitespace-pre-line"
+                        target={info.isWhatsApp ? "_blank" : undefined}
+                        rel={info.isWhatsApp ? "noopener noreferrer" : undefined}
+                        className={`transition-colors whitespace-pre-line ${info.isWhatsApp ? 'text-green-500 hover:text-green-400' : 'text-muted-foreground hover:text-primary'}`}
                       >
                         {info.value}
                       </a>
