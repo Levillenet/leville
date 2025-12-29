@@ -216,8 +216,7 @@ export const fi = {
     ],
     usefulLinks: [
       { name: "Levi.fi – Virallinen matkailusivusto", url: "https://www.levi.fi/" },
-      { name: "Levin rinnekartta", url: "https://www.levi.fi/fi/rinteet-ladut/rinteet/rinnekartta" },
-      { name: "Ski.fi – Latukartta", url: "https://www.ski.fi/" }
+      { name: "Tietoa Levin rinteistä", url: "https://www.levi.fi/laskettelu-ja-hiihto/rinteet-ja-hissit/" }
     ]
   }
 };
