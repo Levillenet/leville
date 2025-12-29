@@ -1,4 +1,5 @@
-import { MapPin, Car, MessageCircle, BadgePercent } from "lucide-react";
+import { useState, useEffect } from "react";
+import { MapPin, Car, MessageCircle, BadgePercent, Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const features = [
   {
@@ -23,7 +24,68 @@ const features = [
   }
 ];
 
+const testimonials = [
+  {
+    name: "Laura M.",
+    location: "Helsinki",
+    rating: 5,
+    text: "Todella loistava majoitus Levillä. Sijainti oli aivan täydellinen, kaikki palvelut ja rinteet kävelymatkan päässä. Asiakaspalvelu oli poikkeuksellisen ystävällistä ja nopeaa. Tulemme ehdottomasti uudelleen.",
+  },
+  {
+    name: "James W.",
+    location: "United Kingdom",
+    rating: 5,
+    text: "Fantastic place to stay in Levi. The apartment was spacious, clean and very comfortable. Communication was excellent from start to finish. One of the smoothest holiday stays we have ever had.",
+  },
+  {
+    name: "Mikko S.",
+    location: "Tampere",
+    rating: 5,
+    text: "Erittäin onnistunut reissu. Majoitus oli laadukas ja vastasi täysin odotuksia, jopa ylitti ne. Asiakaspalvelu oli joustavaa ja ammattimaista. Harvinaisen toimiva kokonaisuus.",
+  },
+  {
+    name: "Anna-Lena K.",
+    location: "Germany",
+    rating: 5,
+    text: "We had a wonderful stay. The apartment was cozy, modern and very well equipped, perfect for a winter holiday. Customer service was outstanding, friendly and always available. Highly recommended.",
+  },
+  {
+    name: "Carlos M.",
+    location: "Barcelona, Spain",
+    rating: 5,
+    text: "Karhupirtti oli yksinkertaisesti upein majoitus, jossa olen koskaan ollut. Tunnelma oli aivan ainutlaatuinen, aitoa Lapin henkeä. Tämä paikka teki Lapin-matkasta unohtumattoman.",
+  },
+];
+
 const Features = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  const goToPrevious = () => {
+    setIsAutoPlaying(false);
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const goToNext = () => {
+    setIsAutoPlaying(false);
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setIsAutoPlaying(false);
+    setCurrentIndex(index);
+  };
+
   return (
     <section id="yritys" className="py-28 bg-card relative overflow-hidden">
       {/* Subtle aurora glow */}
@@ -40,7 +102,7 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {features.map((feature, index) => (
             <div 
               key={feature.title}
@@ -58,6 +120,92 @@ const Features = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* Testimonial Carousel */}
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl md:text-3xl font-serif font-semibold text-foreground text-center mb-12 tracking-tight">
+            Asiakkaidemme kokemuksia
+          </h3>
+          
+          <div className="relative">
+            {/* Carousel Container */}
+            <div className="overflow-hidden rounded-2xl">
+              <div 
+                className="flex transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              >
+                {testimonials.map((testimonial, index) => (
+                  <div 
+                    key={index}
+                    className="w-full flex-shrink-0 px-4"
+                  >
+                    <div className="glass-card border-border/30 p-8 md:p-12 rounded-2xl relative">
+                      {/* Quote Icon */}
+                      <Quote className="absolute top-6 right-6 w-12 h-12 text-primary/10" />
+                      
+                      {/* Stars */}
+                      <div className="flex gap-1 mb-6">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
+                        ))}
+                      </div>
+                      
+                      {/* Review Text */}
+                      <blockquote className="text-lg md:text-xl text-foreground leading-relaxed mb-8 font-serif italic">
+                        "{testimonial.text}"
+                      </blockquote>
+                      
+                      {/* Author */}
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/40 to-aurora-green/40 flex items-center justify-center">
+                          <span className="text-foreground font-bold text-lg">
+                            {testimonial.name.charAt(0)}
+                          </span>
+                        </div>
+                        <div>
+                          <p className="text-foreground font-semibold">{testimonial.name}</p>
+                          <p className="text-muted-foreground text-sm">{testimonial.location}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={goToPrevious}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-12 h-12 rounded-full glass-card border-border/30 flex items-center justify-center text-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
+              aria-label="Edellinen arvostelu"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={goToNext}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-12 h-12 rounded-full glass-card border-border/30 flex items-center justify-center text-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
+              aria-label="Seuraava arvostelu"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Dots Navigation */}
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  index === currentIndex 
+                    ? 'bg-primary w-8' 
+                    : 'bg-border/50 hover:bg-border'
+                }`}
+                aria-label={`Siirry arvosteluun ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
