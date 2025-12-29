@@ -51,15 +51,23 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         {heroImages.map((image, index) => (
           <div
             key={index}
-            className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[3000ms] ease-in-out ${
+            className={`absolute inset-0 transition-opacity duration-[3000ms] ease-in-out ${
               index === currentImageIndex ? 'animate-ken-burns' : ''
             }`}
             style={{
-              backgroundImage: `url(${image})`,
               opacity: index === currentImageIndex ? 1 : 0,
               transform: index === currentImageIndex ? undefined : 'scale(1)',
             }}
-          />
+          >
+            <img
+              src={image}
+              alt=""
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              fetchPriority={index === 0 ? "high" : "auto"}
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
+          </div>
         ))}
         
         {/* Dark overlay for text readability - optimized for commercial clarity */}

@@ -74,6 +74,8 @@ const About = ({ lang = "fi" }: AboutProps) => {
                     key={index}
                     src={image}
                     alt={`${t.imageAlt} ${index + 1}`}
+                    loading={index < 3 ? "eager" : "lazy"}
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out"
                     style={{
                       opacity: index === currentImageIndex ? 1 : 0,
