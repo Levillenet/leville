@@ -16,15 +16,15 @@ const SubpageBackground = () => {
   // Generate stars only once on mount
   useEffect(() => {
     const generatedStars: Star[] = [];
-    for (let i = 0; i < 35; i++) {
+    for (let i = 0; i < 45; i++) {
       generatedStars.push({
         id: i,
         x: Math.random() * 100,
-        y: Math.random() * 70, // Keep stars in upper portion
-        size: Math.random() * 2 + 1, // Small, delicate stars
-        delay: Math.random() * 8,
-        duration: Math.random() * 4 + 4, // Slow, gentle twinkling
-        brightness: Math.random() * 0.4 + 0.3, // Subtle brightness variation
+        y: Math.random() * 75, // Keep stars in upper portion
+        size: Math.random() * 3 + 2, // Slightly larger stars
+        delay: Math.random() * 6,
+        duration: Math.random() * 3 + 3, // Faster twinkling
+        brightness: Math.random() * 0.5 + 0.5, // Brighter base
       });
     }
     setStars(generatedStars);
@@ -200,8 +200,8 @@ const SubpageBackground = () => {
           <div 
             className="w-full h-full rounded-full"
             style={{
-              background: 'radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(200,220,255,0.4) 50%, transparent 100%)',
-              boxShadow: '0 0 2px rgba(255,255,255,0.3)',
+              background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(220,240,255,0.7) 40%, rgba(180,210,255,0.3) 70%, transparent 100%)',
+              boxShadow: '0 0 4px rgba(255,255,255,0.6), 0 0 8px rgba(200,220,255,0.3)',
             }}
           />
         </div>
