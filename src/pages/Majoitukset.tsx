@@ -18,10 +18,10 @@ const accommodations = [
     features: ["4-10 henkilöä", "3-5 makuuhuonetta", "Täysin varustetut keittiöt", "Parvekkeet kaikissa huoneistoissa"],
   },
   {
-    title: "Tunnelmalliset hirsimökit",
-    description: "Perinteisiä hirsimökkejä luonnon rauhassa. Aitoa Lapin tunnelmaa.",
+    title: "Karhupirtti",
+    description: "Tunnelmallinen iso hirsimökki Levin keskustassa. Perinteinen hirsimökki täysin mukavuuksin isolle ryhmälle.",
     icon: Mountain,
-    features: ["2-6 henkilöä", "Takka", "Oma piha", "Grilli"],
+    features: ["Max 14 henkilöä", "7 makuuhuonetta", "Takka", "Keittiö", "Poreallas ulkona", "Oma piha"],
   },
 ];
 
