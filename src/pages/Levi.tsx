@@ -81,6 +81,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </p>
             </section>
 
+            {/* Seasons Section */}
+            <LeviSeasons lang={lang} />
+
             {/* Hero Image Gallery - Masonry-style */}
             <section className="mb-20">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -113,9 +116,6 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 ))}
               </div>
             </section>
-
-            {/* Seasons Section */}
-            <LeviSeasons lang={lang} />
 
             {/* Activities */}
             <section className="grid md:grid-cols-3 gap-8 mb-20">
