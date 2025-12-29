@@ -155,7 +155,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             </section>
 
             {/* Seasons Section */}
-            <LeviSeasons />
+            <LeviSeasons lang={lang} />
 
             {/* Live Camera Section */}
             <section className="mb-20">
