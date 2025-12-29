@@ -72,16 +72,13 @@ const WeatherWidget = () => {
   }
 
   const snowLabel = isEnglish ? "snow" : "lunta";
-  const coldestLabel = isEnglish ? "coldest" : "kylmin";
-  
-  // Show coldest temperature if it's below -20°C
-  const showColdWarning = weather.minTemp24h !== null && weather.minTemp24h <= -20;
+  const coldestLabel = isEnglish ? "coldest 24h" : "kylmin 24h";
 
   return (
     <div className="flex items-center gap-2 text-foreground">
       {getWeatherIcon(weather.weatherCode)}
       <span className="font-semibold text-base">{weather.temperature}°C</span>
-      {showColdWarning && weather.minTemp24h !== null && (
+      {weather.minTemp24h !== null && (
         <>
           <span className="text-muted-foreground">|</span>
           <ThermometerSnowflake className="w-3.5 h-3.5 text-cyan-400" />
