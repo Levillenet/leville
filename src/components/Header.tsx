@@ -9,6 +9,7 @@ const Header = () => {
 
   const navLinks = [
     { name: "Majoitukset", href: "/majoitukset" },
+    { name: "Yritys", href: "/yritys" },
     { name: "Levi", href: "/levi" },
     { name: "Yhteystiedot", href: "/yhteystiedot" },
     { name: "UKK", href: "/ukk" },
