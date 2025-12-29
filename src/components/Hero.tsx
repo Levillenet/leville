@@ -6,7 +6,7 @@ import heroChalet from "@/assets/hero-chalet.png";
 import heroVillage from "@/assets/hero-village.png";
 import heroApartment from "@/assets/hero-apartment.png";
 import heroLodge from "@/assets/hero-lodge.png";
-import santaWalking from "@/assets/santa-walking.png";
+import santaCartoon from "@/assets/santa-cartoon.png";
 
 const heroImages = [heroCabin, heroChalet, heroVillage, heroApartment, heroLodge];
 
@@ -205,11 +205,15 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
               <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white" />
             </div>
             
-            {/* Realistic Santa image */}
+            {/* Cartoon Santa image - semi-transparent with white background removed via mix-blend */}
             <img 
-              src={santaWalking} 
+              src={santaCartoon} 
               alt="Santa Claus" 
-              className="h-40 md:h-52 w-auto santa-realistic drop-shadow-2xl"
+              className="h-36 md:h-48 w-auto santa-realistic drop-shadow-xl"
+              style={{
+                mixBlendMode: 'multiply',
+                opacity: 0.9,
+              }}
             />
           </div>
         );
