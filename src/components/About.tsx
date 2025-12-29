@@ -2,56 +2,16 @@ import { useState, useEffect } from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { getTranslations, Language } from "@/translations";
+import { galleryImages } from "@/data/galleryImages";
 
-import galleryKitchen from "@/assets/gallery/kitchen-modern.jpg";
-import galleryBathroom from "@/assets/gallery/bathroom.jpg";
-import galleryBedroom from "@/assets/gallery/bedroom.jpg";
-import galleryStudio from "@/assets/gallery/studio.jpg";
-import galleryLiving from "@/assets/gallery/living-room.jpg";
-import galleryLivingKitchen from "@/assets/gallery/living-kitchen.jpg";
-import galleryApartment from "@/assets/gallery/apartment-view.jpg";
-import gallerySauna from "@/assets/gallery/sauna.jpg";
-import galleryCabinKitchen from "@/assets/gallery/cabin-kitchen.jpg";
-import galleryHotTub from "@/assets/gallery/hot-tub.jpg";
-import galleryCabinDining from "@/assets/gallery/cabin-dining.jpg";
-import gallerySaunaModern from "@/assets/gallery/sauna-modern.jpg";
-import galleryShower from "@/assets/gallery/shower.jpg";
-import galleryLivingFireplace from "@/assets/gallery/living-fireplace.jpg";
-import galleryDiningLiving from "@/assets/gallery/dining-living.jpg";
-import galleryLivingStairs from "@/assets/gallery/living-stairs.jpg";
-import gallerySaunaLight from "@/assets/gallery/sauna-light.jpg";
-import galleryKitchenDining from "@/assets/gallery/kitchen-dining.jpg";
+interface AboutProps {
+  lang?: Language;
+}
 
-const galleryImages = [
-  galleryKitchen,
-  galleryCabinDining,
-  galleryBedroom,
-  galleryLivingFireplace,
-  galleryStudio,
-  gallerySaunaModern,
-  galleryLiving,
-  galleryShower,
-  galleryLivingKitchen,
-  galleryDiningLiving,
-  galleryApartment,
-  galleryLivingStairs,
-  gallerySauna,
-  gallerySaunaLight,
-  galleryCabinKitchen,
-  galleryKitchenDining,
-  galleryHotTub,
-  galleryBathroom,
-];
-
-const aboutPoints = [
-  "Modernit studiohuoneistot yksin tai kaksin matkustaville",
-  "Tilavat asunnot niin perheille kuin porukoille",
-  "Tunnelmalliset hirsimökit aidon Lappi-tunnelman etsijöille",
-  "Kaikki kohteemme on täysin varusteltuja mutkattomaan loman viettoosi"
-];
-
-const About = () => {
+const About = ({ lang = "fi" }: AboutProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const t = getTranslations(lang).about;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -71,19 +31,19 @@ const About = () => {
           {/* Content */}
           <div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-8 tracking-tight leading-tight">
-              Laadukas majoitus <br /><span className="text-gradient">Levin sydämessä</span>
+              {t.title} <br /><span className="text-gradient">{t.titleHighlight}</span>
             </h2>
             
             <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-              Etsitkö majoitusta parhailla sijainnilla Leviltä? Leville.net tarjoaa monipuolisen valikoiman huoneistoja ja vuokramökkejä aivan Levin keskustan parhailla paikoilla.
+              {t.intro}
             </p>
 
             <p className="text-muted-foreground mb-10 leading-relaxed">
-              Olitpa suunnittelemassa talvilomaa Levin laskettelurinteillä, kesäretkeä Lapin luontoon tai työmatkaa pohjoiseen, meiltä löydät sinulle sopivan majoitusratkaisun.
+              {t.description}
             </p>
 
             <ul className="space-y-4 mb-12">
-              {aboutPoints.map(point => (
+              {t.points.map(point => (
                 <li key={point} className="flex items-start gap-4">
                   <div className="w-5 h-5 rounded-full bg-aurora-green/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Check className="w-3 h-3 text-aurora-green" />
@@ -95,7 +55,7 @@ const About = () => {
 
             <Link to="/majoitukset">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8">
-                Selaa majoituksia
+                {t.cta}
               </Button>
             </Link>
           </div>
@@ -107,7 +67,7 @@ const About = () => {
                 <img
                   key={index}
                   src={image}
-                  alt={`Majoituskuva ${index + 1}`}
+                  alt={`${t.imageAlt} ${index + 1}`}
                   className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out"
                   style={{
                     opacity: index === currentImageIndex ? 1 : 0,

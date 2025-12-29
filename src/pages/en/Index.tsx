@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import HeroEN from "@/components/en/Hero";
-import AboutEN from "@/components/en/About";
-import FeaturesEN from "@/components/en/Features";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Features from "@/components/Features";
 
 const IndexEN = () => {
   return (
@@ -22,9 +22,9 @@ const IndexEN = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <main>
-          <HeroEN />
-          <AboutEN />
-          <FeaturesEN />
+          <Hero lang="en" />
+          <About lang="en" />
+          <Features lang="en" />
         </main>
         <Footer />
       </div>
