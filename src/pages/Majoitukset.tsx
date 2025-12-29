@@ -70,7 +70,7 @@ const Majoitukset = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground mb-4">{acc.description}</p>
-                    <ul className="space-y-2">
+                    <ul className="space-y-2 mb-6">
                       {acc.features.map((feature) => (
                         <li key={feature} className="text-sm text-muted-foreground flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -78,6 +78,14 @@ const Majoitukset = () => {
                         </li>
                       ))}
                     </ul>
+                    <a
+                      href="https://app.moder.fi/levillenet"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block w-full text-center py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                    >
+                      Varaa heti lomasi
+                    </a>
                   </CardContent>
                 </Card>
               ))}
