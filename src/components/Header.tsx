@@ -3,6 +3,7 @@ import { Menu, X, Globe } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import levilleLogo from "@/assets/leville-logo.png";
+import WeatherWidget from "@/components/WeatherWidget";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,7 +44,9 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden md:flex items-center gap-8">
+            <WeatherWidget />
+            <div className="w-px h-5 bg-border/50" />
             {navLinks.map((link) => (
               <Link
                 key={link.name}
