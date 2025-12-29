@@ -48,9 +48,9 @@ const Footer = () => {
   const content = isEnglish ? contentEn : contentFi;
 
   return (
-    <footer id="yhteystiedot" className="bg-card border-t border-border/30 py-20">
+    <footer id="yhteystiedot" className="bg-card border-t border-border/30 py-12 md:py-20">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-16 mb-16">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-16 mb-12 md:mb-16">
           {/* Brand */}
           <div>
             <Link to={isEnglish ? "/en" : "/"} className="inline-block mb-6">
