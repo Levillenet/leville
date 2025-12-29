@@ -134,13 +134,14 @@ const Footer = () => {
               href="https://www.booking.com/hotel/fi/levillenet-apartments.html" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="opacity-70 hover:opacity-100 transition-opacity"
+              className="opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
               aria-label="Booking.com Partner"
             >
               <img 
                 src={bookingLogo} 
                 alt="Booking.com" 
-                className="h-6 md:h-8 w-auto"
+                className="h-5 md:h-6 w-auto"
+                style={{ filter: 'brightness(0) invert(1)', opacity: 0.8 }}
               />
             </a>
 
@@ -149,13 +150,14 @@ const Footer = () => {
               href="https://www.airbnb.com/users/show/123456789" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="opacity-70 hover:opacity-100 transition-opacity"
+              className="opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
               aria-label="Airbnb Partner"
             >
               <img 
                 src={airbnbLogo} 
                 alt="Airbnb" 
-                className="h-6 md:h-8 w-auto"
+                className="h-5 md:h-6 w-auto"
+                style={{ filter: 'brightness(0) invert(1)', opacity: 0.8 }}
               />
             </a>
 
@@ -164,7 +166,7 @@ const Footer = () => {
               href="https://www.levi.fi" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="opacity-70 hover:opacity-100 transition-opacity"
+              className="opacity-80 hover:opacity-100 transition-opacity"
               aria-label="Visit Levi Partner"
             >
               <img 
