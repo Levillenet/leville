@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { ArrowRight, Star, Tag } from "lucide-react";
 import BookingWidget from "./BookingWidget";
-import { Button } from "@/components/ui/button";
 import { getTranslations, Language } from "@/translations";
 import heroCabin from "@/assets/hero-cabin.jpg";
 import heroChalet from "@/assets/hero-chalet.png";
@@ -38,7 +37,6 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
     return () => clearInterval(interval);
   }, []);
 
-  const ctaText = lang === "en" ? "View Accommodations" : "Katso majoitukset";
   const ratingText = lang === "en" ? "Excellent reviews" : "Erinomaiset arviot";
 
   return (
@@ -129,33 +127,6 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           >
             {t.subtitle}
           </p>
-
-          {/* Primary CTA buttons */}
-          <div 
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 md:mb-10 animate-slide-up"
-            style={{ animationDelay: '0.3s' }}
-          >
-            <Button 
-              asChild 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"
-            >
-              <a href="https://app.moder.fi/levillenet" target="_blank" rel="noopener noreferrer">
-                {lang === "en" ? "Book Now" : "Varaa nyt"}
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </a>
-            </Button>
-            <Button 
-              asChild 
-              variant="outline" 
-              size="lg" 
-              className="border-foreground/30 text-foreground hover:bg-foreground/10 font-medium px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg w-full sm:w-auto"
-            >
-              <a href={lang === "en" ? "/en/accommodations" : "/majoitukset"}>
-                {ctaText}
-              </a>
-            </Button>
-          </div>
 
           {/* Discount code banner - above booking widget */}
           <a 
