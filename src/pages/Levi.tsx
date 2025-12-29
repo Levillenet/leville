@@ -3,12 +3,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
+import LeviSeasons from "@/components/LeviSeasons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
-
 // Import images
 import leviSunsetSlope from "@/assets/levi-sunset-slope.jpg";
 import leviCampfire from "@/assets/levi-campfire.jpg";
@@ -153,6 +153,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 ))}
               </div>
             </section>
+
+            {/* Seasons Section */}
+            <LeviSeasons />
 
             {/* Live Camera Section */}
             <section className="mb-20">
