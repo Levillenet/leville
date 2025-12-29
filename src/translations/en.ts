@@ -74,7 +74,7 @@ export const en = {
         features: ["4-10 persons", "3-5 bedrooms", "Fully equipped kitchens", "Balconies in all apartments"]
       },
       {
-        title: "Karhupirtti",
+        title: "Bear Lodge",
         description: "Atmospheric large log cabin in Levi center. Traditional log cabin with full amenities for large groups.",
         features: ["Max 14 persons", "7 bedrooms", "Fireplace", "Kitchen", "Outdoor hot tub", "Private yard"]
       }
