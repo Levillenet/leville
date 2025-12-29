@@ -28,17 +28,17 @@ const Footer = () => {
     description: "Quality accommodation in Levi center. Book directly from us for the best price.",
     siteTitle: "Site",
     links: [
-      { label: "Accommodations", href: "/en/accommodations" },
-      { label: "Company", href: "/en/company" },
-      { label: "Levi", href: "/en/levi" },
-      { label: "Contact", href: "/en/contact" },
+      { label: "Accommodations", href: "/majoitukset" },
+      { label: "Company", href: "/yritys" },
+      { label: "Levi", href: "/levi" },
+      { label: "Contact", href: "/yhteystiedot" },
     ],
     contactTitle: "Contact",
     location: "Levi Center, Kittilä",
     copyright: `© ${new Date().getFullYear()} Leville.net. All rights reserved.`,
     privacy: "Privacy Policy",
     terms: "Terms & Conditions",
-    termsLink: "/en/terms",
+    termsLink: "/varausehdot",
   };
 
   const content = isEnglish ? contentEn : contentFi;
