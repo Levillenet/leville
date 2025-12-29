@@ -152,26 +152,6 @@ const Sauna = () => {
               </CardContent>
             </Card>
 
-            {/* Welcome Letter Download */}
-            <Card className="glass-card border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
-              <CardContent className="p-6">
-                <div className="flex flex-col sm:flex-row items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
-                    <span className="text-2xl">🎅</span>
-                  </div>
-                  <div className="text-center sm:text-left flex-grow">
-                    <p className="font-medium text-foreground mb-1">Tervetulokirje Leville</p>
-                    <p className="text-sm text-muted-foreground">Joulupukin tervehdys perheellesi!</p>
-                  </div>
-                  <Button asChild variant="outline">
-                    <a href="/docs/tervetulokirje.pdf" target="_blank" rel="noopener noreferrer">
-                      <Download className="w-4 h-4 mr-2" />
-                      Lataa PDF
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </main>
         <Footer />

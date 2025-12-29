@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Users, Mountain, Wifi, Car, Snowflake, LucideIcon } from "lucide-react";
+import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
@@ -101,6 +101,38 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               })}
             </section>
 
+
+            {/* Welcome Letter */}
+            <ScrollReveal delay={0.2}>
+              <section className="mb-16">
+                <div className="glass-card border-primary/30 bg-gradient-to-br from-primary/5 to-transparent rounded-xl p-6 md:p-8">
+                  <div className="flex flex-col md:flex-row items-center gap-6">
+                    <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                      <span className="text-3xl">🎅</span>
+                    </div>
+                    <div className="text-center md:text-left flex-grow">
+                      <h2 className="text-xl font-semibold text-foreground mb-2">
+                        {isEnglish ? "Welcome Letter to Levi" : "Tervetulokirje Leville"}
+                      </h2>
+                      <p className="text-muted-foreground">
+                        {isEnglish 
+                          ? "With this letter, you can give your children a wonderful welcome to Levi from Santa himself!" 
+                          : "Tällä kirjeellä on mukava toivottaa lapsetkin tervetulleeksi Leville – Joulupukin tervehdyksellä!"}
+                      </p>
+                    </div>
+                    <a
+                      href="/docs/tervetulokirje.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 py-3 px-6 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                    >
+                      <Download className="w-5 h-5" />
+                      {isEnglish ? "Download Letter" : "Lataa kirje"}
+                    </a>
+                  </div>
+                </div>
+              </section>
+            </ScrollReveal>
 
             {/* Amenities */}
             <ScrollReveal delay={0.3}>
