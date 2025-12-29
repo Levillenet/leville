@@ -322,12 +322,14 @@
 
   @keyframes starTwinkle {
     0%, 100% { 
-      opacity: 0.3;
-      transform: scale(1);
+      opacity: 0.15;
+      transform: scale(0.8);
+      filter: blur(0.5px);
     }
     50% { 
       opacity: 1;
-      transform: scale(1.1);
+      transform: scale(1.2);
+      filter: blur(0px);
     }
   }
 
@@ -356,7 +358,7 @@
   }
 
   .star-twinkle {
-    animation: starTwinkle 5s ease-in-out infinite;
+    animation: starTwinkle 3.5s ease-in-out infinite;
   }
 
   .text-snow-white {
