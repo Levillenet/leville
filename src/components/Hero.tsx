@@ -1,30 +1,66 @@
 import BookingWidget from "./BookingWidget";
+import heroCabin from "@/assets/hero-cabin.jpg";
+import heroChalet from "@/assets/hero-chalet.png";
+import heroVillage from "@/assets/hero-village.png";
 
 const Hero = () => {
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center hero-gradient pt-20 pb-32"
+      className="relative min-h-screen flex items-center justify-center pt-20 pb-32"
       style={{ overflow: 'visible' }}
     >
-      {/* Aurora borealis effect */}
+      {/* Background images collage */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Main background - cabin with aurora */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${heroCabin})` }}
+        />
+        
+        {/* Left side image - village */}
+        <div 
+          className="absolute left-0 bottom-0 w-1/3 h-2/3 bg-cover bg-center opacity-40 hidden lg:block"
+          style={{ 
+            backgroundImage: `url(${heroVillage})`,
+            maskImage: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)'
+          }}
+        />
+        
+        {/* Right side image - chalet */}
+        <div 
+          className="absolute right-0 bottom-0 w-1/3 h-2/3 bg-cover bg-center opacity-40 hidden lg:block"
+          style={{ 
+            backgroundImage: `url(${heroChalet})`,
+            maskImage: 'linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)',
+            WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)'
+          }}
+        />
+        
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/90" />
+      </div>
+
+      {/* Aurora borealis effect overlay */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-gradient-to-b from-aurora-green/20 via-aurora-blue/10 to-transparent rounded-full blur-3xl animate-aurora" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-gradient-to-b from-aurora-green/30 via-aurora-blue/15 to-transparent rounded-full blur-3xl animate-aurora mix-blend-screen" />
         <div
-          className="absolute top-10 right-1/4 w-[500px] h-[350px] bg-gradient-to-b from-aurora-blue/15 via-aurora-green/8 to-transparent rounded-full blur-3xl animate-aurora"
+          className="absolute top-10 right-1/4 w-[500px] h-[350px] bg-gradient-to-b from-aurora-blue/20 via-aurora-green/10 to-transparent rounded-full blur-3xl animate-aurora mix-blend-screen"
           style={{ animationDelay: '-5s' }}
         />
       </div>
 
       {/* Snow/stars effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(40)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-foreground/30 rounded-full"
+            className="absolute w-1 h-1 bg-white/50 rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 60}%`,
               animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
             }}
           />
         ))}
