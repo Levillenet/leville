@@ -1,6 +1,6 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-const aboutPoints = ["Modernit studiohuoneistot yksin tai kaksin matkustaville", "Tilavat asunnot niin perheille kuin porukoille", "Tunnelmalliset hirsimökit aidon Lappi-tunnelman etsijöille", "Kaikki kohteet varusteltu täysin"];
+const aboutPoints = ["Modernit studiohuoneistot yksin tai kaksin matkustaville", "Tilavat asunnot niin perheille kuin porukoille", "Tunnelmalliset hirsimökit aidon Lappi-tunnelman etsijöille", "Kaikki kohteemme on täysin varusteltuja mutkattomaan loman viettoosi"];
 const About = () => {
   return <section id="majoitukset" className="py-16 bg-background relative overflow-hidden">
       {/* Subtle decorations */}
