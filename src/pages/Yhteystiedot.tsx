@@ -4,60 +4,9 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { WhatsAppIcon, FacebookIcon, InstagramIcon } from "@/components/icons/SocialIcons";
+import { getTranslations, Language } from "@/translations";
 
 type SocialType = "whatsapp" | "facebook" | "instagram" | null;
-
-const contactInfo = [
-  {
-    icon: Mail,
-    title: "Sähköposti",
-    value: "info@leville.net",
-    href: "mailto:info@leville.net",
-    socialType: null as SocialType,
-  },
-  {
-    icon: Phone,
-    title: "Puhelin",
-    value: "+358 44 131 313",
-    href: "tel:+35844131313",
-    socialType: null as SocialType,
-  },
-  {
-    icon: "whatsapp",
-    title: "WhatsApp",
-    value: "+358 44 131 313",
-    href: "https://wa.me/35844131313",
-    socialType: "whatsapp" as SocialType,
-  },
-  {
-    icon: "facebook",
-    title: "Facebook",
-    value: "Leville.net",
-    href: "https://facebook.com/leville.net",
-    socialType: "facebook" as SocialType,
-  },
-  {
-    icon: "instagram",
-    title: "Instagram",
-    value: "@leville.net",
-    href: "https://instagram.com/leville.net",
-    socialType: "instagram" as SocialType,
-  },
-  {
-    icon: MapPin,
-    title: "Osoite",
-    value: "Leville.net\nLevin keskusta\n99130 Sirkka",
-    href: null,
-    socialType: null as SocialType,
-  },
-  {
-    icon: Clock,
-    title: "Asiakaspalvelu",
-    value: "Ma-Pe 9:00-17:00\nLa-Su 10:00-16:00",
-    href: null,
-    socialType: null as SocialType,
-  },
-];
 
 const getSocialIcon = (socialType: SocialType, className: string) => {
   switch (socialType) {
@@ -85,17 +34,73 @@ const getSocialColor = (socialType: SocialType) => {
   }
 };
 
-const Yhteystiedot = () => {
+interface YhteystiedotProps {
+  lang?: Language;
+}
+
+const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
+  const t = getTranslations(lang).yhteystiedot;
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: t.contactInfo.email,
+      value: "info@leville.net",
+      href: "mailto:info@leville.net",
+      socialType: null as SocialType,
+    },
+    {
+      icon: Phone,
+      title: t.contactInfo.phone,
+      value: "+358 44 131 313",
+      href: "tel:+35844131313",
+      socialType: null as SocialType,
+    },
+    {
+      icon: "whatsapp",
+      title: "WhatsApp",
+      value: "+358 44 131 313",
+      href: "https://wa.me/35844131313",
+      socialType: "whatsapp" as SocialType,
+    },
+    {
+      icon: "facebook",
+      title: "Facebook",
+      value: "Leville.net",
+      href: "https://facebook.com/leville.net",
+      socialType: "facebook" as SocialType,
+    },
+    {
+      icon: "instagram",
+      title: "Instagram",
+      value: "@leville.net",
+      href: "https://instagram.com/leville.net",
+      socialType: "instagram" as SocialType,
+    },
+    {
+      icon: MapPin,
+      title: t.contactInfo.address,
+      value: t.contactInfo.addressValue,
+      href: null,
+      socialType: null as SocialType,
+    },
+    {
+      icon: Clock,
+      title: t.contactInfo.customerService,
+      value: t.contactInfo.hoursValue,
+      href: null,
+      socialType: null as SocialType,
+    },
+  ];
+
   return (
     <>
       <Helmet>
-        <title>Yhteystiedot | Leville.net – Ota yhteyttä</title>
-        <meta 
-          name="description" 
-          content="Ota yhteyttä Leville.net asiakaspalveluun. Autamme sinua majoitusvarauksissa ja vastaamme kysymyksiisi Levin lomasta." 
-        />
-        <meta name="keywords" content="Leville yhteystiedot, Levi majoitus yhteystiedot, Levi varaus" />
-        <link rel="canonical" href="https://leville.net/yhteystiedot" />
+        <title>{t.meta.title}</title>
+        <meta name="description" content={t.meta.description} />
+        <meta name="keywords" content={t.meta.keywords} />
+        <link rel="canonical" href={t.meta.canonical} />
+        {lang === "en" && <html lang="en" />}
       </Helmet>
       
       <div className="min-h-screen bg-background">
@@ -105,10 +110,10 @@ const Yhteystiedot = () => {
             {/* Hero Section */}
             <section className="text-center mb-16">
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                Yhteystiedot
+                {t.title}
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Autamme sinua mielellämme! Ota yhteyttä ja kerro, miten voimme auttaa lomasuunnitelmissasi.
+                {t.subtitle}
               </p>
             </section>
 
@@ -151,7 +156,7 @@ const Yhteystiedot = () => {
 
             {/* Map Section */}
             <section>
-              <h2 className="text-2xl font-semibold text-foreground text-center mb-8">Sijainti</h2>
+              <h2 className="text-2xl font-semibold text-foreground text-center mb-8">{t.locationTitle}</h2>
               <div className="glass-card border-border/30 rounded-lg overflow-hidden h-96">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14269.254901538582!2d24.80!3d67.80!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x45d28a3a3a3a3a3a%3A0x0!2sLevi%2C%20Finland!5e0!3m2!1sen!2sfi!4v1234567890"
@@ -161,7 +166,7 @@ const Yhteystiedot = () => {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Leville.net sijainti kartalla"
+                  title={t.mapTitle}
                 />
               </div>
             </section>
