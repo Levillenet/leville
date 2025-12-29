@@ -23,17 +23,17 @@ const About = ({ lang = "fi" }: AboutProps) => {
   }, []);
 
   return (
-    <section id="majoitukset" className="py-16 bg-background relative overflow-hidden">
+    <section id="majoitukset" className="py-12 md:py-16 bg-background relative overflow-hidden">
       {/* Subtle decorations */}
       <div className="absolute top-1/2 -left-32 w-64 h-64 bg-aurora-blue/5 rounded-full blur-3xl" />
       
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 md:gap-16 lg:gap-20 items-center">
           {/* Content */}
           <ScrollReveal direction="left" delay={0.1}>
             <div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-8 tracking-tight leading-tight">
-                {t.title} <br /><span className="text-gradient">{t.titleHighlight}</span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 md:mb-8 tracking-tight leading-tight">
+                {t.title} <br className="hidden sm:block" /><span className="text-gradient">{t.titleHighlight}</span>
               </h2>
               
               <p className="text-muted-foreground text-lg mb-6 leading-relaxed">

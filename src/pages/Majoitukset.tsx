@@ -69,18 +69,18 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
           <div className="container mx-auto px-4">
             {/* Hero Section */}
             <ScrollReveal>
-              <section className="text-center mb-16">
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+              <section className="text-center mb-10 md:mb-16 px-2">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 md:mb-6">
                   {t.title}
                 </h1>
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                   {t.subtitle}
                 </p>
               </section>
             </ScrollReveal>
 
             {/* Accommodations Grid */}
-            <section className="grid md:grid-cols-3 gap-8 mb-20">
+            <section className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-16 md:mb-20">
               {t.accommodations.map((acc, index) => {
                 const Icon = accommodationIcons[index];
                 return (
@@ -88,11 +88,11 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     <TiltCard className="h-full">
                       <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 flex flex-col h-full relative overflow-hidden group">
                         {/* Background image */}
-                        <div className={`absolute -right-8 w-80 h-80 md:w-96 md:h-96 overflow-hidden pointer-events-none z-0 ${index === 2 ? 'bottom-16' : '-bottom-8'}`}>
+                        <div className={`absolute -right-4 sm:-right-8 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden pointer-events-none z-0 ${index === 2 ? 'bottom-12 sm:bottom-16' : '-bottom-4 sm:-bottom-8'}`}>
                           <img 
                             src={accommodationImages[index]} 
                             alt=""
-                            className={`w-full h-full object-cover opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-2xl ${index === 2 ? 'object-top' : ''}`}
+                            className={`w-full h-full object-cover opacity-35 sm:opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-xl sm:rounded-2xl ${index === 2 ? 'object-top' : ''}`}
                             style={{
                               maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
                               WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
@@ -100,11 +100,11 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                           />
                         </div>
                         
-                        <CardHeader className="relative z-10">
-                          <div className="w-14 h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                            <Icon className="w-7 h-7 text-primary" />
+                        <CardHeader className="relative z-10 p-4 sm:p-6">
+                          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-3 sm:mb-4">
+                            <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-primary" />
                           </div>
-                          <CardTitle className="text-xl text-foreground">{acc.title}</CardTitle>
+                          <CardTitle className="text-lg sm:text-xl text-foreground">{acc.title}</CardTitle>
                         </CardHeader>
                         <CardContent className="flex flex-col flex-grow relative z-10">
                           <p className="text-muted-foreground mb-4">{acc.description}</p>
@@ -120,7 +120,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                             href="https://app.moder.fi/levillenet"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-block w-full text-center py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors mt-auto"
+                            className="inline-block w-full text-center py-2.5 sm:py-3 px-3 sm:px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm sm:text-base hover:bg-primary/90 transition-colors mt-auto"
                           >
                             {t.bookCta}
                           </a>

@@ -54,14 +54,14 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/30">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+      <div className="container mx-auto px-3 sm:px-4">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
               src={levilleLogo} 
               alt="Leville.net - Apartments & Villas" 
-              className="h-20 md:h-24 w-auto"
+              className="h-16 sm:h-20 md:h-24 w-auto"
             />
           </Link>
 
@@ -104,7 +104,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden py-6 border-t border-border/30 animate-fade-in">
+          <nav className="md:hidden py-4 sm:py-6 border-t border-border/30 animate-fade-in">
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <Link

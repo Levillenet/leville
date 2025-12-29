@@ -129,12 +129,12 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
       <div className="container mx-auto px-4 relative z-10" style={{ overflow: 'visible' }}>
         <div className="max-w-4xl mx-auto text-center" style={{ overflow: 'visible' }}>
           {/* Main heading */}
-          <h1 className="text-5xl md:text-6xl lg:text-8xl font-serif font-semibold text-foreground mb-6 animate-slide-up tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-serif font-semibold text-foreground mb-4 md:mb-6 animate-slide-up tracking-tight leading-tight">
             {t.title} <span className="text-gradient">{t.titleHighlight}</span>
           </h1>
 
           <p
-            className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto animate-slide-up leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 md:mb-12 max-w-2xl mx-auto animate-slide-up leading-relaxed px-2"
             style={{ animationDelay: '0.2s' }}
           >
             {t.subtitle}
@@ -147,13 +147,13 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
           {/* Trust indicators */}
           <div
-            className="mt-8 flex flex-wrap items-center justify-center gap-6 md:gap-12 animate-fade-in"
+            className="mt-6 md:mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-8 lg:gap-12 animate-fade-in px-2"
             style={{ animationDelay: '0.6s' }}
           >
             {t.trustIndicators.map((indicator) => (
-              <div key={indicator} className="flex items-center gap-3">
+              <div key={indicator} className="flex items-center gap-2 sm:gap-3">
                 <span className="w-2 h-2 bg-aurora-green rounded-full shadow-[0_0_8px_hsl(160_60%_45%/0.6)]" />
-                <span className="font-display text-sm md:text-base lg:text-lg text-foreground/90 tracking-widest uppercase font-medium">
+                <span className="font-display text-xs sm:text-sm md:text-base lg:text-lg text-foreground/90 tracking-wide sm:tracking-widest uppercase font-medium">
                   {indicator}
                 </span>
               </div>
