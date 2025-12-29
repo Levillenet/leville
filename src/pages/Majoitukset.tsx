@@ -12,10 +12,10 @@ const accommodations = [
     features: ["2-6 henkilöä", "Superior huoneistoissa sauna"],
   },
   {
-    title: "Tilavat perheasunnot",
-    description: "Isommat asunnot perheille ja ryhmille. Runsaasti tilaa ja mukavuuksia kaikille.",
+    title: "Tilavat perheasunnot Levin keskustassa",
+    description: "Isot alppihuoneistot Levin ytimessä perheille ja ryhmille. Runsaasti tilaa rentoon lomailuun.",
     icon: Users,
-    features: ["4-8 henkilöä", "Useita makuuhuoneita", "Täysvarustettu keittiö", "Parveke"],
+    features: ["4-10 henkilöä", "3-5 makuuhuonetta", "Täysin varustetut keittiöt", "Parvekkeet kaikissa huoneistoissa"],
   },
   {
     title: "Tunnelmalliset hirsimökit",
