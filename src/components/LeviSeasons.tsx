@@ -185,16 +185,15 @@ const LeviSeasons = ({ lang = "fi" }: LeviSeasonsProps) => {
             {/* Color gradient overlay */}
             <div className={`absolute inset-0 bg-gradient-to-br ${season.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`} />
             
-            {/* Background season image - subtle in bottom right corner */}
-            <div className="absolute bottom-0 right-0 w-48 h-48 md:w-64 md:h-64 overflow-hidden pointer-events-none z-0">
-              <div 
-                className="absolute inset-0 opacity-[0.12] group-hover:opacity-[0.18] transition-opacity duration-500"
+            {/* Background season image - visible in bottom right corner */}
+            <div className="absolute -bottom-4 -right-4 w-56 h-56 md:w-80 md:h-80 overflow-hidden pointer-events-none z-0">
+              <img 
+                src={seasonImages[index]} 
+                alt=""
+                className="w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity duration-500 rounded-2xl"
                 style={{
-                  backgroundImage: `url(${seasonImages[index]})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  maskImage: 'radial-gradient(ellipse at bottom right, black 0%, transparent 70%)',
-                  WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 0%, transparent 70%)',
+                  maskImage: 'radial-gradient(ellipse at bottom right, black 20%, transparent 75%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 20%, transparent 75%)',
                 }}
               />
             </div>
