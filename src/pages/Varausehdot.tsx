@@ -6,12 +6,22 @@ const Varausehdot = () => {
   return (
     <>
       <Helmet>
+        <html lang="fi" />
         <title>Varausehdot | Leville.net</title>
         <meta 
           name="description" 
-          content="Leville.net varausehdot - peruutusehdot, majoitusohjeet ja vastuut." 
+          content="Leville.net varausehdot - peruutusehdot, majoitusohjeet ja vastuut. Lue vuokrausehdot ennen majoituksen varaamista." 
         />
+        <meta name="keywords" content="Leville varausehdot, Levi majoitus ehdot, peruutusehdot Levi, vuokrausehdot" />
         <link rel="canonical" href="https://leville.net/varausehdot" />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://leville.net/varausehdot" />
+        <meta property="og:title" content="Varausehdot | Leville.net" />
+        <meta property="og:description" content="Leville.net varausehdot - peruutusehdot, majoitusohjeet ja vastuut." />
+        <meta property="og:locale" content="fi_FI" />
+        <meta property="og:site_name" content="Leville.net" />
       </Helmet>
       
       <div className="min-h-screen bg-background">

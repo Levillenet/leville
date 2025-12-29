@@ -33,14 +33,63 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
         { value: 500, label: "Tyytyväistä asiakasta", prefix: "", suffix: "+", icon: Heart },
       ];
 
+  const isEnglish = lang === "en";
+
+  // Organization Schema
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Leville.net",
+    "url": "https://leville.net",
+    "logo": "https://leville.net/leville-logo.png",
+    "foundingDate": "2011",
+    "description": isEnglish 
+      ? "Leville.net offers quality accommodation in Levi since 2011."
+      : "Leville.net tarjoaa laadukasta majoitusta Levillä vuodesta 2011.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sirkka",
+      "postalCode": "99130",
+      "addressCountry": "FI"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+358 44 131 313",
+      "contactType": "customer service",
+      "email": "info@leville.net"
+    },
+    "sameAs": [
+      "https://facebook.com/leville.net",
+      "https://instagram.com/leville.net"
+    ]
+  };
+
   return (
     <>
       <Helmet>
+        <html lang={isEnglish ? "en" : "fi"} />
         <title>{t.meta.title}</title>
         <meta name="description" content={t.meta.description} />
         <meta name="keywords" content={t.meta.keywords} />
         <link rel="canonical" href={t.meta.canonical} />
-        {lang === "en" && <html lang="en" />}
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={t.meta.canonical} />
+        <meta property="og:title" content={t.meta.title} />
+        <meta property="og:description" content={t.meta.description} />
+        <meta property="og:locale" content={isEnglish ? "en_US" : "fi_FI"} />
+        <meta property="og:site_name" content="Leville.net" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={t.meta.title} />
+        <meta name="twitter:description" content={t.meta.description} />
+        
+        {/* Organization Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </script>
       </Helmet>
       
       <div className="min-h-screen bg-background">
