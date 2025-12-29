@@ -66,7 +66,7 @@ export const en = {
       {
         title: "Modern apartments in Skistar",
         description: "Fully equipped apartments in Levi center. Perfect location for both slopes and services.",
-        features: ["2-6 persons", "Sauna in Superior apartments"]
+        features: ["2-6 persons", "Sauna in Superior apartments", "All apartments have kitchen and full amenities for your comfortable holiday"]
       },
       {
         title: "Spacious family apartments in Levi center",
