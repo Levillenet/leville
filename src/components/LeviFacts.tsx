@@ -124,17 +124,6 @@ const LeviFacts = ({ lang = "fi" }: LeviFactsProps) => {
     <>
       {/* Ski Resort Facts */}
       <section className="mb-16">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            {isEnglish ? "Levi Ski Resort" : "Levin hiihtokeskus"}
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {isEnglish 
-              ? "Finland's most popular ski resort with world-class facilities."
-              : "Suomen suosituin hiihtokeskus maailmanluokan palveluilla."}
-          </p>
-        </div>
-
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
           {skiResortFacts.map((fact, index) => renderFactCard(fact, index))}
         </div>
