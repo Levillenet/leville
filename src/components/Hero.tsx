@@ -205,16 +205,47 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
               <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white" />
             </div>
             
-            {/* Cartoon Santa image - semi-transparent with white background removed via mix-blend */}
-            <img 
-              src={santaCartoon} 
-              alt="Santa Claus" 
-              className="h-36 md:h-48 w-auto santa-realistic drop-shadow-xl"
-              style={{
-                mixBlendMode: 'multiply',
-                opacity: 0.9,
-              }}
-            />
+            {/* Cartoon Santa - SVG for true transparency */}
+            <svg viewBox="0 0 100 130" className="h-36 md:h-48 w-auto drop-shadow-xl">
+              {/* Santa body */}
+              <ellipse cx="50" cy="90" rx="22" ry="28" fill="#cc0000"/>
+              {/* White fur trim bottom */}
+              <ellipse cx="50" cy="115" rx="20" ry="8" fill="#fff"/>
+              {/* Belt */}
+              <rect x="30" y="85" width="40" height="8" fill="#4a3728"/>
+              <rect x="45" y="83" width="10" height="12" rx="2" fill="#ffd700"/>
+              {/* Arms */}
+              <ellipse cx="28" cy="80" rx="8" ry="12" fill="#cc0000"/>
+              <ellipse cx="72" cy="80" rx="8" ry="12" fill="#cc0000"/>
+              <circle cx="28" cy="90" r="6" fill="#fff"/>
+              <circle cx="72" cy="90" r="6" fill="#fff"/>
+              {/* Head */}
+              <circle cx="50" cy="45" r="20" fill="#fad9c7"/>
+              {/* Beard */}
+              <ellipse cx="50" cy="58" rx="16" ry="14" fill="#fff"/>
+              <ellipse cx="42" cy="52" rx="8" ry="6" fill="#fff"/>
+              <ellipse cx="58" cy="52" rx="8" ry="6" fill="#fff"/>
+              {/* Eyes */}
+              <circle cx="44" cy="42" r="3" fill="#2d2d2d"/>
+              <circle cx="56" cy="42" r="3" fill="#2d2d2d"/>
+              <circle cx="45" cy="41" r="1" fill="#fff"/>
+              <circle cx="57" cy="41" r="1" fill="#fff"/>
+              {/* Nose */}
+              <ellipse cx="50" cy="48" rx="4" ry="3" fill="#e8a090"/>
+              {/* Cheeks */}
+              <circle cx="38" cy="48" r="4" fill="#ffb6b6" opacity="0.6"/>
+              <circle cx="62" cy="48" r="4" fill="#ffb6b6" opacity="0.6"/>
+              {/* Hat */}
+              <path d="M30 38 Q50 5 70 38 L68 42 Q50 35 32 42 Z" fill="#cc0000"/>
+              <ellipse cx="50" cy="40" rx="22" ry="5" fill="#fff"/>
+              <circle cx="75" cy="18" r="7" fill="#fff"/>
+              {/* Legs */}
+              <rect x="38" y="115" width="10" height="12" fill="#cc0000"/>
+              <rect x="52" y="115" width="10" height="12" fill="#cc0000"/>
+              {/* Boots */}
+              <ellipse cx="43" cy="128" rx="8" ry="4" fill="#2d2d2d"/>
+              <ellipse cx="57" cy="128" rx="8" ry="4" fill="#2d2d2d"/>
+            </svg>
           </div>
         );
       })()}
