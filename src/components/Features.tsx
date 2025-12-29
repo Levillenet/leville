@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { MapPin, Car, MessageCircle, BadgePercent, Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { testimonials } from "@/data/testimonials";
 
 const features = [
   {
@@ -22,39 +23,6 @@ const features = [
     title: "Paras hinta suoraan meiltä",
     description: "Varaa suoraan meiltä – edullisin hinta ilman välikäsiä."
   }
-];
-
-const testimonials = [
-  {
-    name: "Laura M.",
-    location: "Helsinki",
-    rating: 5,
-    text: "Todella loistava majoitus Levillä. Sijainti oli aivan täydellinen, kaikki palvelut ja rinteet kävelymatkan päässä. Asiakaspalvelu oli poikkeuksellisen ystävällistä ja nopeaa. Tulemme ehdottomasti uudelleen.",
-  },
-  {
-    name: "James W.",
-    location: "United Kingdom",
-    rating: 5,
-    text: "Fantastic place to stay in Levi. The apartment was spacious, clean and very comfortable. Communication was excellent from start to finish. One of the smoothest holiday stays we have ever had.",
-  },
-  {
-    name: "Mikko S.",
-    location: "Tampere",
-    rating: 5,
-    text: "Erittäin onnistunut reissu. Majoitus oli laadukas ja vastasi täysin odotuksia, jopa ylitti ne. Asiakaspalvelu oli joustavaa ja ammattimaista. Harvinaisen toimiva kokonaisuus.",
-  },
-  {
-    name: "Anna-Lena K.",
-    location: "Germany",
-    rating: 5,
-    text: "We had a wonderful stay. The apartment was cozy, modern and very well equipped, perfect for a winter holiday. Customer service was outstanding, friendly and always available. Highly recommended.",
-  },
-  {
-    name: "Carlos M.",
-    location: "Barcelona, Spain",
-    rating: 5,
-    text: "Karhupirtti oli yksinkertaisesti upein majoitus, jossa olen koskaan ollut. Tunnelma oli aivan ainutlaatuinen, aitoa Lapin henkeä. Tämä paikka teki Lapin-matkasta unohtumattoman.",
-  },
 ];
 
 const Features = () => {
