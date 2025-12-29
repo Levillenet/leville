@@ -150,17 +150,13 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
     };
   }, [location.pathname]);
 
-  return (
-    <div 
-      className="rounded-xl p-4 md:p-6 shadow-elegant border border-primary/20 max-w-4xl mx-auto relative" 
-      style={{ 
-        overflow: 'visible', 
-        zIndex: 40,
-        background: 'linear-gradient(135deg, hsl(218 22% 14% / 0.95), hsl(218 25% 10% / 0.9))',
-        backdropFilter: 'blur(20px)',
-      }}
-    >
-      <style>{`
+  // Inject custom styles for the Moder embed
+  useEffect(() => {
+    const styleId = 'moder-custom-styles';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
         #moder-embed,
         #moder-embed > div,
         #moder-embed form,
@@ -193,7 +189,21 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
           background: hsl(195 70% 45%) !important;
           color: hsl(218 25% 10%) !important;
         }
-      `}</style>
+      `;
+      document.head.appendChild(style);
+    }
+  }, []);
+
+  return (
+    <div 
+      className="rounded-xl p-4 md:p-6 shadow-elegant border border-primary/20 max-w-4xl mx-auto relative" 
+      style={{ 
+        overflow: 'visible', 
+        zIndex: 40,
+        background: 'linear-gradient(135deg, hsl(218 22% 14% / 0.95), hsl(218 25% 10% / 0.9))',
+        backdropFilter: 'blur(20px)',
+      }}
+    >
       <div 
         id="moder-embed" 
         ref={containerRef} 
