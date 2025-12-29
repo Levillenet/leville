@@ -5,6 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink } from "lucide-react";
 
+// Import images
+import leviSunsetSlope from "@/assets/levi-sunset-slope.jpg";
+import leviCampfire from "@/assets/levi-campfire.jpg";
+import leviReindeer from "@/assets/levi-reindeer.jpg";
+import leviSlopes from "@/assets/levi-slopes.jpg";
+import leviSkiTracks from "@/assets/levi-ski-tracks.jpg";
+import leviPanorama from "@/assets/levi-panorama.jpg";
+
 const activities = [
   {
     title: "Laskettelu",
@@ -27,6 +35,39 @@ const usefulLinks = [
   { name: "Levi.fi – Virallinen matkailusivusto", url: "https://www.levi.fi/" },
   { name: "Levin rinnekartta", url: "https://www.levi.fi/fi/rinteet-ladut/rinteet/rinnekartta" },
   { name: "Ski.fi – Latukartta", url: "https://www.ski.fi/" },
+];
+
+const galleryImages = [
+  {
+    src: leviSunsetSlope,
+    alt: "Lumilautailija Levin rinteillä auringonlaskun aikaan",
+    caption: "Auringonlasku rinteillä",
+  },
+  {
+    src: leviSlopes,
+    alt: "Levin laskettelurinteet kirkkaana talvipäivänä",
+    caption: "Levin rinteet",
+  },
+  {
+    src: leviCampfire,
+    alt: "Nuotiohetki lumisessa Lapin maisemassa",
+    caption: "Tunnelmaa nuotiolla",
+  },
+  {
+    src: leviReindeer,
+    alt: "Poro lähikuvassa Lapissa",
+    caption: "Lapin asukkeja",
+  },
+  {
+    src: leviSkiTracks,
+    alt: "Hiihtoladut aurinkoisena päivänä",
+    caption: "Ladut kutsuvat",
+  },
+  {
+    src: leviPanorama,
+    alt: "Levin tunturimaisema keväällä",
+    caption: "Tunturimaisema",
+  },
 ];
 
 const Levi = () => {
@@ -56,6 +97,39 @@ const Levi = () => {
               </p>
             </section>
 
+            {/* Hero Image Gallery - Masonry-style */}
+            <section className="mb-20">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Large featured image */}
+                <div className="md:col-span-2 lg:row-span-2 relative group overflow-hidden rounded-2xl">
+                  <img 
+                    src={galleryImages[0].src} 
+                    alt={galleryImages[0].alt}
+                    className="w-full h-64 md:h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <p className="text-foreground font-medium text-lg">{galleryImages[0].caption}</p>
+                  </div>
+                </div>
+
+                {/* Smaller images */}
+                {galleryImages.slice(1, 3).map((image, index) => (
+                  <div key={index} className="relative group overflow-hidden rounded-2xl">
+                    <img 
+                      src={image.src} 
+                      alt={image.alt}
+                      className="w-full h-48 md:h-56 object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                      <p className="text-foreground font-medium">{image.caption}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             {/* Activities */}
             <section className="grid md:grid-cols-3 gap-8 mb-20">
               {activities.map((activity) => (
@@ -71,6 +145,26 @@ const Levi = () => {
                   </CardContent>
                 </Card>
               ))}
+            </section>
+
+            {/* Second Gallery Row */}
+            <section className="mb-20">
+              <h2 className="text-2xl font-semibold text-foreground mb-8 text-center">Tunnelmia Leviltä</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {galleryImages.slice(3).map((image, index) => (
+                  <div key={index} className="relative group overflow-hidden rounded-2xl aspect-[4/3]">
+                    <img 
+                      src={image.src} 
+                      alt={image.alt}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <p className="text-foreground font-medium">{image.caption}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </section>
 
             {/* Weather & Map Section */}
