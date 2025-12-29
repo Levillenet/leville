@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, Building, Home, Users, Briefcase, MapPin, Mail } from "lucide-react";
+import { Check, Building, Home, Users, Briefcase, MapPin, Mail, Star, Quote } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -40,6 +40,39 @@ const benefits = [
   "Henkilökohtainen palvelu – ei välikäsiä",
   "Erinomainen sijainti – Kohteemme Levin keskustassa",
   "Laadukas, vastuullinen ja joustava majoitus Levillä",
+];
+
+const testimonials = [
+  {
+    name: "Laura M.",
+    location: "Helsinki",
+    rating: 5,
+    text: "Todella loistava majoitus Levillä. Sijainti oli aivan täydellinen, kaikki palvelut ja rinteet kävelymatkan päässä, mutta silti rauhallinen ympäristö. Asunto oli erittäin siisti ja hyvin varusteltu, ja kaikki toimi juuri kuten oli luvattu. Asiakaspalvelu oli poikkeuksellisen ystävällistä ja nopeaa, kysymyksiin vastattiin heti. Tulemme ehdottomasti uudelleen.",
+  },
+  {
+    name: "James W.",
+    location: "United Kingdom",
+    rating: 5,
+    text: "Fantastic place to stay in Levi. The apartment was spacious, clean and very comfortable, exactly as described. Location could not be better, close to restaurants, ski lifts and shops. Communication was excellent from start to finish and everything was very well organised. One of the smoothest holiday stays we have ever had.",
+  },
+  {
+    name: "Mikko S.",
+    location: "Tampere",
+    rating: 5,
+    text: "Erittäin onnistunut reissu. Majoitus oli laadukas ja vastasi täysin odotuksia, jopa ylitti ne. Sijainti teki lomasta helpon, ei tarvinnut autoa lainkaan. Asiakaspalvelu oli joustavaa ja ammattimaista, tuli tunne että asiakkaasta oikeasti välitetään. Harvinaisen toimiva kokonaisuus.",
+  },
+  {
+    name: "Anna-Lena K.",
+    location: "Germany",
+    rating: 5,
+    text: "We had a wonderful stay. The apartment was cozy, modern and very well equipped, perfect for a winter holiday. The location was excellent, everything in Levi centre was close by. Customer service was outstanding, friendly, helpful and always available when needed. Highly recommended.",
+  },
+  {
+    name: "Petri ja Sari L.",
+    location: "Turku",
+    rating: 5,
+    text: "Kaikki sujui alusta loppuun todella vaivattomasti. Varaus, ohjeet ja sisäänkirjautuminen olivat selkeitä. Majoitus oli lämmin, viihtyisä ja hyväkuntoinen, juuri sellainen kuin lomalla toivoo. Sijainti Levillä oli erinomainen ja asiakaspalvelu ansaitsee erityismaininnan nopeudesta ja ystävällisyydestä.",
+  },
 ];
 
 const Yritys = () => {
@@ -135,6 +168,55 @@ const Yritys = () => {
                     </ul>
                   </CardContent>
                 </Card>
+              </div>
+            </section>
+
+            {/* Customer Testimonials */}
+            <section className="mb-20">
+              <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-4">
+                Asiakkaiden kokemuksia
+              </h2>
+              <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+                Lue mitä asiakkaamme sanovat majoituksistamme
+              </p>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {testimonials.map((testimonial, index) => (
+                  <Card 
+                    key={index} 
+                    className="glass-card border-border/30 hover:border-primary/30 transition-all duration-300 group relative overflow-hidden"
+                  >
+                    <CardContent className="p-6 relative">
+                      {/* Quote icon */}
+                      <Quote className="absolute top-4 right-4 w-8 h-8 text-primary/10 group-hover:text-primary/20 transition-colors" />
+                      
+                      {/* Stars */}
+                      <div className="flex gap-1 mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500" />
+                        ))}
+                      </div>
+                      
+                      {/* Review text */}
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-5">
+                        "{testimonial.text}"
+                      </p>
+                      
+                      {/* Author */}
+                      <div className="flex items-center gap-3 pt-4 border-t border-border/30">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-aurora-green/30 flex items-center justify-center">
+                          <span className="text-foreground font-semibold text-sm">
+                            {testimonial.name.charAt(0)}
+                          </span>
+                        </div>
+                        <div>
+                          <p className="text-foreground font-medium text-sm">{testimonial.name}</p>
+                          <p className="text-muted-foreground text-xs">{testimonial.location}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </section>
 
