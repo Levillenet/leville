@@ -3,7 +3,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink } from "lucide-react";
+import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon } from "lucide-react";
+import { getTranslations, Language } from "@/translations";
 
 // Import images
 import leviSunsetSlope from "@/assets/levi-sunset-slope.jpg";
@@ -13,74 +14,37 @@ import leviSlopes from "@/assets/levi-slopes.jpg";
 import leviSkiTracks from "@/assets/levi-ski-tracks.jpg";
 import leviPanorama from "@/assets/levi-panorama.jpg";
 
-const activities = [
-  {
-    title: "Laskettelu",
-    description: "Levin laskettelukeskus tarjoaa 43 rinnettä ja 28 hissiä. Rinteitä löytyy kaikentasoisille laskijoille.",
-    icon: Mountain,
-  },
-  {
-    title: "Hiihto",
-    description: "Yli 230 km huollettuja latuja. Lapin upeat maisemat avautuvat latuverkostolla.",
-    icon: Snowflake,
-  },
-  {
-    title: "Revontulet",
-    description: "Levi on yksi parhaista paikoista ihailla revontulia. Kausi kestää syyskuusta maaliskuuhun.",
-    icon: Sun,
-  },
+const activityIcons: LucideIcon[] = [Mountain, Snowflake, Sun];
+const galleryImageSources = [
+  leviSunsetSlope,
+  leviSlopes,
+  leviCampfire,
+  leviReindeer,
+  leviSkiTracks,
+  leviPanorama,
 ];
 
-const usefulLinks = [
-  { name: "Levi.fi – Virallinen matkailusivusto", url: "https://www.levi.fi/" },
-  { name: "Levin rinnekartta", url: "https://www.levi.fi/fi/rinteet-ladut/rinteet/rinnekartta" },
-  { name: "Ski.fi – Latukartta", url: "https://www.ski.fi/" },
-];
+interface LeviProps {
+  lang?: Language;
+}
 
-const galleryImages = [
-  {
-    src: leviSunsetSlope,
-    alt: "Lumilautailija Levin rinteillä auringonlaskun aikaan",
-    caption: "Auringonlasku rinteillä",
-  },
-  {
-    src: leviSlopes,
-    alt: "Levin laskettelurinteet kirkkaana talvipäivänä",
-    caption: "Levin rinteet",
-  },
-  {
-    src: leviCampfire,
-    alt: "Nuotiohetki lumisessa Lapin maisemassa",
-    caption: "Tunnelmaa nuotiolla",
-  },
-  {
-    src: leviReindeer,
-    alt: "Poro lähikuvassa Lapissa",
-    caption: "Lapin asukkeja",
-  },
-  {
-    src: leviSkiTracks,
-    alt: "Hiihtoladut aurinkoisena päivänä",
-    caption: "Ladut kutsuvat",
-  },
-  {
-    src: leviPanorama,
-    alt: "Levin tunturimaisema keväällä",
-    caption: "Tunturimaisema",
-  },
-];
+const Levi = ({ lang = "fi" }: LeviProps) => {
+  const t = getTranslations(lang).levi;
 
-const Levi = () => {
+  const galleryImages = t.gallery.map((item, index) => ({
+    src: galleryImageSources[index],
+    alt: item.alt,
+    caption: item.caption,
+  }));
+
   return (
     <>
       <Helmet>
-        <title>Levi – Aktiviteetit ja tietoa | Leville.net</title>
-        <meta 
-          name="description" 
-          content="Tutustu Levin aktiviteetteihin: laskettelu, hiihto, revontulet ja paljon muuta. Hyödyllisiä linkkejä Levin palveluihin ja säätietoihin." 
-        />
-        <meta name="keywords" content="Levi aktiviteetit, Levi laskettelu, Levi hiihto, Levi revontulet, Levi sää" />
-        <link rel="canonical" href="https://leville.net/levi" />
+        <title>{t.meta.title}</title>
+        <meta name="description" content={t.meta.description} />
+        <meta name="keywords" content={t.meta.keywords} />
+        <link rel="canonical" href={t.meta.canonical} />
+        {lang === "en" && <html lang="en" />}
       </Helmet>
       
       <div className="min-h-screen bg-background">
@@ -90,10 +54,10 @@ const Levi = () => {
             {/* Hero Section */}
             <section className="text-center mb-16">
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                Levi – Lapin helmi
+                {t.title}
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Suomen suurin hiihtokeskus tarjoaa elämyksiä ympäri vuoden. Tutustu Levin aktiviteetteihin ja palveluihin.
+                {t.subtitle}
               </p>
             </section>
 
@@ -132,24 +96,27 @@ const Levi = () => {
 
             {/* Activities */}
             <section className="grid md:grid-cols-3 gap-8 mb-20">
-              {activities.map((activity) => (
-                <Card key={activity.title} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300">
-                  <CardHeader>
-                    <div className="w-14 h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                      <activity.icon className="w-7 h-7 text-primary" />
-                    </div>
-                    <CardTitle className="text-xl text-foreground">{activity.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">{activity.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
+              {t.activities.map((activity, index) => {
+                const Icon = activityIcons[index];
+                return (
+                  <Card key={activity.title} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300">
+                    <CardHeader>
+                      <div className="w-14 h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
+                        <Icon className="w-7 h-7 text-primary" />
+                      </div>
+                      <CardTitle className="text-xl text-foreground">{activity.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">{activity.description}</p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </section>
 
             {/* Second Gallery Row */}
             <section className="mb-20">
-              <h2 className="text-2xl font-semibold text-foreground mb-8 text-center">Tunnelmia Leviltä</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-8 text-center">{t.galleryTitle}</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {galleryImages.slice(3).map((image, index) => (
                   <div key={index} className="relative group overflow-hidden rounded-2xl aspect-[4/3]">
@@ -173,16 +140,16 @@ const Levi = () => {
                 <CardHeader>
                   <div className="flex items-center gap-3">
                     <Cloud className="w-6 h-6 text-primary" />
-                    <CardTitle>Levin sää</CardTitle>
+                    <CardTitle>{t.weatherTitle}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">
-                    Tarkista Levin ajankohtainen säätilanne ja ennuste ennen matkaasi.
+                    {t.weatherText}
                   </p>
                   <Button asChild variant="outline" className="w-full">
                     <a href="https://www.foreca.fi/Finland/Levi" target="_blank" rel="noopener noreferrer">
-                      Katso säätiedot <ExternalLink className="w-4 h-4 ml-2" />
+                      {t.weatherCta} <ExternalLink className="w-4 h-4 ml-2" />
                     </a>
                   </Button>
                 </CardContent>
@@ -192,16 +159,16 @@ const Levi = () => {
                 <CardHeader>
                   <div className="flex items-center gap-3">
                     <MapPin className="w-6 h-6 text-primary" />
-                    <CardTitle>Levin kartta</CardTitle>
+                    <CardTitle>{t.mapTitle}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">
-                    Tutustu Levin keskustaan ja ympäristöön kartan avulla.
+                    {t.mapText}
                   </p>
                   <Button asChild variant="outline" className="w-full">
                     <a href="https://www.google.com/maps/place/Levi,+Finland" target="_blank" rel="noopener noreferrer">
-                      Avaa kartta <ExternalLink className="w-4 h-4 ml-2" />
+                      {t.mapCta} <ExternalLink className="w-4 h-4 ml-2" />
                     </a>
                   </Button>
                 </CardContent>
@@ -210,9 +177,9 @@ const Levi = () => {
 
             {/* Useful Links */}
             <section className="text-center">
-              <h2 className="text-2xl font-semibold text-foreground mb-8">Hyödyllisiä linkkejä</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-8">{t.linksTitle}</h2>
               <div className="flex flex-wrap justify-center gap-4">
-                {usefulLinks.map((link) => (
+                {t.usefulLinks.map((link) => (
                   <Button key={link.name} asChild variant="secondary">
                     <a href={link.url} target="_blank" rel="noopener noreferrer">
                       {link.name} <ExternalLink className="w-4 h-4 ml-2" />
