@@ -60,7 +60,6 @@ const WeatherWidget = () => {
     return null;
   }
 
-  const label = isEnglish ? "WEATHER IN LEVI NOW" : "SÄÄ LEVILLÄ NYT";
   const snowLabel = isEnglish ? "snow" : "lunta";
 
   return (
@@ -75,7 +74,6 @@ const WeatherWidget = () => {
           <span className="text-xs opacity-70">{snowLabel}</span>
         </>
       )}
-      <span className="text-sm font-medium tracking-wide opacity-80 ml-1">{label}</span>
     </div>
   );
 };
