@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
+import IndexEN from "./pages/en/Index";
 import Majoitukset from "./pages/Majoitukset";
 import Levi from "./pages/Levi";
 import Yhteystiedot from "./pages/Yhteystiedot";
@@ -24,6 +25,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/en" element={<IndexEN />} />
             <Route path="/majoitukset" element={<Majoitukset />} />
             <Route path="/levi" element={<Levi />} />
             <Route path="/yhteystiedot" element={<Yhteystiedot />} />
