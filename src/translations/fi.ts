@@ -218,5 +218,26 @@ export const fi = {
       { name: "Levi.fi – Virallinen matkailusivusto", url: "https://www.levi.fi/" },
       { name: "Tietoa Levin rinteistä", url: "https://www.levi.fi/laskettelu-ja-hiihto/rinteet-ja-hissit/" }
     ]
+  },
+  ajankohtaista: {
+    meta: {
+      title: "Ajankohtaista & Tarjoukset | Leville.net",
+      description: "Ajankohtaiset uutiset ja tarjoukset Leville.net majoituksista. Varaa lomasi Leviltä edullisesti!",
+      keywords: "Levi tarjoukset, Levi varaus, Levi loma 2026, Levi majoitus tarjous",
+      canonical: "https://leville.net/ajankohtaista"
+    },
+    title: "Ajankohtaista & Tarjoukset",
+    subtitle: "Pysy ajan tasalla uusimmista tarjouksistamme ja ajankohtaisista uutisista.",
+    badge: "Uutiset & Tarjoukset",
+    bookCta: "Varaa nyt",
+    items: [
+      {
+        badge: "UUTTA!",
+        date: "29.12.2024",
+        title: "Joulukuu 2026 avattu nyt myyntiin!",
+        description: "Ensi vuoden joulusesongin varaukset ovat nyt avoinna! Levin joulukausi on aina erittäin suosittu ja parhaat kohteet varataan nopeasti. Älä jää ilman – varaa nyt haluamasi ajankohta ja majoitus.",
+        highlight: "Varauksia tulee koko ajan, joten varaa nyt omasi!"
+      }
+    ]
   }
 };

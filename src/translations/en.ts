@@ -218,5 +218,26 @@ export const en = {
       { name: "Levi.fi – Official tourism site", url: "https://www.levi.fi/en" },
       { name: "Levi slopes info", url: "https://www.levi.fi/laskettelu-ja-hiihto/rinteet-ja-hissit/" }
     ]
+  },
+  ajankohtaista: {
+    meta: {
+      title: "News & Offers | Leville.net",
+      description: "Latest news and offers from Leville.net accommodations. Book your Levi holiday at great prices!",
+      keywords: "Levi offers, Levi booking, Levi holiday 2026, Levi accommodation deal",
+      canonical: "https://leville.net/en/news"
+    },
+    title: "News & Offers",
+    subtitle: "Stay up to date with our latest offers and news.",
+    badge: "News & Offers",
+    bookCta: "Book now",
+    items: [
+      {
+        badge: "NEW!",
+        date: "Dec 29, 2024",
+        title: "December 2026 now open for bookings!",
+        description: "Next year's Christmas season bookings are now open! The Christmas season in Levi is always extremely popular and the best properties get booked quickly. Don't miss out – book your preferred dates and accommodation now.",
+        highlight: "Bookings are coming in constantly, so book yours now!"
+      }
+    ]
   }
 };
