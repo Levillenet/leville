@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getTranslations, Language } from "@/translations";
+import WhatsAppChat from "@/components/WhatsAppChat";
 
 interface UKKProps {
   lang?: Language;
@@ -95,6 +96,7 @@ const UKK = ({ lang = "fi" }: UKKProps) => {
           </div>
         </main>
         <Footer />
+        <WhatsAppChat lang={lang} />
       </div>
     </>
   );

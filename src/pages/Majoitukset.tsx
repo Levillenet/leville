@@ -6,6 +6,7 @@ import { Home, Users, Mountain, Wifi, Car, Snowflake, LucideIcon } from "lucide-
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
+import WhatsAppChat from "@/components/WhatsAppChat";
 
 const accommodationIcons: LucideIcon[] = [Home, Users, Mountain];
 const amenityIcons: LucideIcon[] = [Wifi, Car, Snowflake];
@@ -118,6 +119,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
           </div>
         </main>
         <Footer />
+        <WhatsAppChat lang={lang} />
       </div>
     </>
   );

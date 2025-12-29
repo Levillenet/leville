@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Features from "@/components/Features";
+import WhatsAppChat from "@/components/WhatsAppChat";
 
 const IndexEN = () => {
   const schemaData = {
@@ -68,6 +69,7 @@ const IndexEN = () => {
           <Features lang="en" />
         </main>
         <Footer />
+        <WhatsAppChat lang="en" />
       </div>
     </>
   );

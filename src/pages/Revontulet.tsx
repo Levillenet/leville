@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, MapPin, Clock, Eye, Home, ExternalLink, Smartphone, Video } from "lucide-react";
 import AuroraForecast from "@/components/AuroraForecast";
 import ScrollReveal from "@/components/ScrollReveal";
+import WhatsAppChat from "@/components/WhatsAppChat";
 
 interface RevontuletProps {
   lang?: "fi" | "en";
@@ -303,6 +304,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
           </div>
         </main>
         <Footer />
+        <WhatsAppChat lang={lang} />
       </div>
     </>
   );

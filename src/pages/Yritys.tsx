@@ -10,6 +10,7 @@ import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import WhatsAppChat from "@/components/WhatsAppChat";
 
 const serviceIcons: LucideIcon[] = [Building, Home, Users, Briefcase, MapPin];
 
@@ -308,6 +309,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
           </div>
         </main>
         <Footer />
+        <WhatsAppChat lang={lang} />
       </div>
     </>
   );

@@ -4,11 +4,30 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 
-const WhatsAppChat = () => {
+interface WhatsAppChatProps {
+  lang?: "fi" | "en";
+}
+
+const WhatsAppChat = ({ lang = "fi" }: WhatsAppChatProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
 
   const phoneNumber = "35844131313"; // Leville.net WhatsApp number
+
+  const content = {
+    fi: {
+      greeting: "Kysy meiltä mitä vain! 👋",
+      responseTime: "Yleensä vastaamme tunnissa",
+      placeholder: "Kirjoita viestisi...",
+    },
+    en: {
+      greeting: "Ask us anything! 👋",
+      responseTime: "Usually we reply within an hour",
+      placeholder: "Type your message...",
+    },
+  };
+
+  const t = lang === "en" ? content.en : content.fi;
   
   const handleSend = () => {
     if (!message.trim()) return;
@@ -55,7 +74,7 @@ const WhatsAppChat = () => {
                 </div>
                 <div>
                   <h3 className="text-white font-semibold text-sm">Leville.net</h3>
-                  <p className="text-white/80 text-xs">Yleensä vastaamme tunnissa</p>
+                  <p className="text-white/80 text-xs">{t.responseTime}</p>
                 </div>
               </div>
               <button 
@@ -70,7 +89,7 @@ const WhatsAppChat = () => {
             <div className="p-4 bg-muted/30 min-h-[120px]">
               <div className="bg-background rounded-lg p-3 shadow-sm max-w-[85%]">
                 <p className="text-sm text-foreground">
-                  Hei! 👋 Miten voimme auttaa sinua tänään?
+                  {t.greeting}
                 </p>
                 <span className="text-xs text-muted-foreground mt-1 block">
                   Leville.net
@@ -85,7 +104,7 @@ const WhatsAppChat = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Kirjoita viestisi..."
+                  placeholder={t.placeholder}
                   className="flex-1 bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-[#25D366]"
                 />
                 <Button 
