@@ -39,7 +39,7 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsTransitioning(true);
-      setNextImageIndex((currentImageIndex + 1) % heroImages.length);
+      setNextImageIndex((prev) => (prev + 1) % heroImages.length);
       
       // After transition completes, update current index
       setTimeout(() => {
@@ -49,7 +49,7 @@ const Hero = () => {
     }, 7000);
 
     return () => clearInterval(interval);
-  }, [currentImageIndex]);
+  }, []);
 
   return (
     <section
@@ -163,20 +163,20 @@ const Hero = () => {
 
           {/* Trust indicators */}
           <div
-            className="mt-8 flex flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground animate-fade-in"
+            className="mt-8 flex flex-wrap items-center justify-center gap-6 md:gap-10 text-sm md:text-base lg:text-xl text-muted-foreground animate-fade-in"
             style={{ animationDelay: '0.6s' }}
           >
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-aurora-green rounded-full" />
-              <span className="tracking-wide">Keskustan parhaat sijainnit</span>
+              <span className="w-2 h-2 bg-aurora-green rounded-full" />
+              <span className="tracking-wide font-medium">Keskustan parhaat sijainnit</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-aurora-green rounded-full" />
-              <span className="tracking-wide">Suora varaus ilman välikäsiä</span>
+              <span className="w-2 h-2 bg-aurora-green rounded-full" />
+              <span className="tracking-wide font-medium">Suora varaus ilman välikäsiä</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-aurora-green rounded-full" />
-              <span className="tracking-wide">Henkilökohtainen palvelu</span>
+              <span className="w-2 h-2 bg-aurora-green rounded-full" />
+              <span className="tracking-wide font-medium">Henkilökohtainen palvelu</span>
             </div>
           </div>
         </div>
