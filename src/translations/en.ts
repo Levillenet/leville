@@ -216,7 +216,7 @@ export const en = {
     ],
     usefulLinks: [
       { name: "Levi.fi – Official tourism site", url: "https://www.levi.fi/en" },
-      { name: "Levi slopes info", url: "https://www.levi.fi/laskettelu-ja-hiihto/rinteet-ja-hissit/" }
+      { name: "Levi slopes info", url: "https://www.levi.fi/en/skiing-and-cross-country/slopes-and-lifts/" }
     ]
   },
   ajankohtaista: {
