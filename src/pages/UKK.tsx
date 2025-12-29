@@ -11,7 +11,7 @@ import {
 const faqs = [
   {
     question: "Mihin aikaan voin saapua majoitukseen?",
-    answer: "Sisäänkirjautuminen on klo 16:00 alkaen ja uloskirjautuminen viimeistään klo 11:00. Mikäli tarvitset joustoa aikoihin, ota meihin yhteyttä etukäteen.",
+    answer: "Sisäänkirjautuminen on klo 17:00 alkaen ja uloskirjautuminen viimeistään klo 11:00. Mikäli tarvitset joustoa aikoihin, ota meihin yhteyttä etukäteen.",
   },
   {
     question: "Onko majoituksissa WiFi?",
@@ -23,11 +23,11 @@ const faqs = [
   },
   {
     question: "Miten peruutus toimii?",
-    answer: "Ilmainen peruutus on mahdollista 14 vuorokautta ennen saapumista. Myöhemmistä peruutuksista veloitamme ensimmäisen yön hinnan. Katso tarkemmat ehdot varausvahvistuksesta.",
+    answer: "Ilmainen peruutus on mahdollista 60 vuorokautta ennen saapumista. Katso tarkemmat ehdot varausvahvistuksesta. Mikäli suunnitelmasi muuttuvat, ole meihin yhteydessä ja etsimme joustavan tavan hoitaa asia.",
   },
   {
     question: "Kuinka kaukana rinteet ovat majoituksista?",
-    answer: "Useimmat majoituksemme sijaitsevat aivan Levin keskustassa, kävelymatkan päässä rinteistä ja hisseistä. Tarkka etäisyys ilmoitetaan kunkin majoituksen tiedoissa.",
+    answer: "Majoituksemme sijaitsevat aivan Levin keskustassa, kävelymatkan päässä rinteistä ja hisseistä. Tarkka etäisyys ilmoitetaan kunkin majoituksen tiedoissa.",
   },
   {
     question: "Onko pysäköinti maksullista?",
@@ -39,7 +39,7 @@ const faqs = [
   },
   {
     question: "Miten saan avaimen majoitukseen?",
-    answer: "Lähetämme saapumisohjeet ja avainkoodin sähköpostitse ennen saapumistasi. Käytössä on sähköiset lukot, joten avainten nouto ei ole tarpeen.",
+    answer: "Lähetämme saapumisohjeet ja avainkoodin sähköpostitse ennen saapumistasi. Käytössä on avainboksit tai sähköiset lukot, joten avainten nouto ei ole tarpeen.",
   },
 ];
 
