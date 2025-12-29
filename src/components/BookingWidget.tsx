@@ -1,7 +1,14 @@
 import { useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 
-const BookingWidget = () => {
+interface BookingWidgetProps {
+  lang?: "fi" | "en";
+}
+
+const BookingWidget = ({ lang }: BookingWidgetProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const isEnglish = lang === "en" || location.pathname.startsWith("/en");
 
   useEffect(() => {
     // Set up Moder settings (some options may be ignored by the embed)
@@ -10,9 +17,27 @@ const BookingWidget = () => {
       target: "_blank",
     };
 
+    // Remove any existing widget content and re-init
+    const container = document.getElementById("moder-embed");
+    if (container) {
+      container.innerHTML = "";
+    }
+
     // Check if script already exists
     const existingScript = document.querySelector('script[src*="moder-embeds"]');
-    if (!existingScript) {
+    if (existingScript) {
+      // If script exists, try to reinitialize the widget
+      if ((window as any).ModerEmbed && typeof (window as any).ModerEmbed.init === 'function') {
+        (window as any).ModerEmbed.init();
+      } else {
+        // Force reload by removing and re-adding script
+        existingScript.remove();
+        const script = document.createElement("script");
+        script.src = "https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js";
+        script.defer = true;
+        document.body.appendChild(script);
+      }
+    } else {
       const script = document.createElement("script");
       script.src = "https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js";
       script.defer = true;
@@ -87,12 +112,16 @@ const BookingWidget = () => {
       root.removeEventListener("click", onClickCapture, true);
       root.removeEventListener("submit", onSubmitCapture, true);
     };
-  }, []);
+  }, [location.pathname]);
+
+  const title = isEnglish 
+    ? "Check our available accommodations" 
+    : "Katso vapaana olevat majoituksemme";
 
   return (
     <div className="glass-card rounded-xl p-6 md:p-8 shadow-elegant border border-border/30 max-w-4xl mx-auto relative" style={{ overflow: 'visible', zIndex: 40 }}>
       <h2 className="text-xl font-serif font-semibold text-foreground mb-6 tracking-wide">
-        Katso vapaana olevat majoituksemme
+        {title}
       </h2>
       <div 
         id="moder-embed" 
