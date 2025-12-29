@@ -73,6 +73,12 @@ const testimonials = [
     rating: 5,
     text: "Kaikki sujui alusta loppuun todella vaivattomasti. Varaus, ohjeet ja sisäänkirjautuminen olivat selkeitä. Majoitus oli lämmin, viihtyisä ja hyväkuntoinen, juuri sellainen kuin lomalla toivoo. Sijainti Levillä oli erinomainen ja asiakaspalvelu ansaitsee erityismaininnan nopeudesta ja ystävällisyydestä.",
   },
+  {
+    name: "Carlos M.",
+    location: "Barcelona, Spain",
+    rating: 5,
+    text: "Karhupirtti oli yksinkertaisesti upein majoitus, jossa olen koskaan ollut. Tunnelma oli aivan ainutlaatuinen, aitoa Lapin henkeä, lämmin ja kodikas hirsimökki keskellä talvista maisemaa. Erityisesti poreallas kruunasi koko kokemuksen, oli uskomattoman rentouttavaa istua lämpimässä vedessä pakkasillassa. Majoitus oli erittäin siisti ja hyvin varusteltu, ja asiakaspalvelu toimi erinomaisesti koko vierailun ajan. Tämä paikka teki Lapin-matkasta unohtumattoman.",
+  },
 ];
 
 const Yritys = () => {
