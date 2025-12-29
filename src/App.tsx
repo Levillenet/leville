@@ -16,6 +16,7 @@ import Yhteystiedot from "./pages/Yhteystiedot";
 import UKK from "./pages/UKK";
 import Varausehdot from "./pages/Varausehdot";
 import Yritys from "./pages/Yritys";
+import Sauna from "./pages/Sauna";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +48,7 @@ const App = () => (
               <Route path="/varausehdot" element={<Varausehdot />} />
               <Route path="/yritys" element={<Yritys />} />
               <Route path="/en/company" element={<Yritys lang="en" />} />
+              <Route path="/sauna" element={<Sauna />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
