@@ -4,23 +4,88 @@ const BookingWidget = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Set up Moder settings with new window target
+    // Set up Moder settings (some options may be ignored by the embed)
     (window as any).ModerSettings = {
-      property: 'levillenet',
-      target: '_blank'
+      property: "levillenet",
+      target: "_blank",
     };
 
     // Check if script already exists
     const existingScript = document.querySelector('script[src*="moder-embeds"]');
     if (!existingScript) {
-      const script = document.createElement('script');
-      script.src = 'https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js';
+      const script = document.createElement("script");
+      script.src = "https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js";
       script.defer = true;
       document.body.appendChild(script);
     }
 
+    // Force external navigation (search/results) to open in a new tab.
+    // This is needed in some embeds where `target` is not respected.
+    const root = containerRef.current;
+    if (!root) return;
+
+    const openExternal = (url: string) => {
+      try {
+        const u = new URL(url, window.location.href);
+        // Only open actual external navigation in a new tab
+        if (u.origin !== window.location.origin) {
+          window.open(u.toString(), "_blank", "noopener,noreferrer");
+          return true;
+        }
+      } catch {
+        // ignore
+      }
+      return false;
+    };
+
+    const onClickCapture = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const a = target?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!a) return;
+      if (a.target === "_blank") return;
+
+      const href = a.getAttribute("href");
+      if (!href) return;
+
+      // Many embeds navigate to app.moder.fi (or similar) for search/results
+      const shouldOpen = /(^https?:)?\/\/.*moder\.fi\//i.test(href) || href.includes("app.moder.fi");
+      if (!shouldOpen) return;
+
+      if (openExternal(href)) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+
+    const onSubmitCapture = (e: Event) => {
+      const form = e.target as HTMLFormElement | null;
+      if (!form || form.tagName !== "FORM") return;
+
+      const action = form.getAttribute("action") || "";
+      const shouldOpen = /(^https?:)?\/\/.*moder\.fi\//i.test(action) || action.includes("app.moder.fi");
+      if (!shouldOpen) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      try {
+        const url = new URL(action, window.location.href);
+        const data = new FormData(form);
+        for (const [k, v] of data.entries()) {
+          url.searchParams.set(k, String(v));
+        }
+        window.open(url.toString(), "_blank", "noopener,noreferrer");
+      } catch {
+        // If building URL fails, let the embed handle it.
+      }
+    };
+
+    root.addEventListener("click", onClickCapture, true);
+    root.addEventListener("submit", onSubmitCapture, true);
+
     return () => {
-      // Cleanup if needed
+      root.removeEventListener("click", onClickCapture, true);
+      root.removeEventListener("submit", onSubmitCapture, true);
     };
   }, []);
 
