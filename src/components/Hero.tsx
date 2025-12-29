@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Star, Tag } from "lucide-react";
 import BookingWidget from "./BookingWidget";
 import { Button } from "@/components/ui/button";
 import { getTranslations, Language } from "@/translations";
@@ -105,6 +105,18 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
       <div className="container mx-auto px-4 relative z-10" style={{ overflow: 'visible' }}>
         <div className="max-w-4xl mx-auto text-center" style={{ overflow: 'visible' }}>
           
+          {/* Discount code banner */}
+          <a 
+            href={lang === "en" ? "/en/news" : "/ajankohtaista"}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/20 to-aurora-green/20 backdrop-blur-sm border border-primary/40 rounded-full px-4 py-2 mb-4 animate-fade-in hover:border-primary/60 transition-colors group"
+          >
+            <Tag className="w-4 h-4 text-primary" />
+            <span className="text-sm font-semibold text-foreground">
+              {lang === "en" ? "Use code" : "Käytä koodia"} <span className="text-primary">winter10</span> {lang === "en" ? "– 10% off spring 2026!" : "– 10% alennus keväälle 2026!"}
+            </span>
+            <ArrowRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+          </a>
+
           {/* Social proof badge */}
           <div 
             className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6 animate-fade-in"
