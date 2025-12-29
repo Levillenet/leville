@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SubpageBackground from "@/components/SubpageBackground";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Sparkles, Clock } from "lucide-react";
@@ -38,7 +39,8 @@ const Ajankohtaista = ({ lang = "fi" }: AjankohtaistaProps) => {
         <meta name="twitter:description" content={t.meta.description} />
       </Helmet>
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        <SubpageBackground />
         <Header />
         <Breadcrumbs lang={lang} />
         <main className="pt-8 pb-20">

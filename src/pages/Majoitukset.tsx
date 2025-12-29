@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SubpageBackground from "@/components/SubpageBackground";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
@@ -54,7 +55,8 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
         <meta name="twitter:description" content={t.meta.description} />
       </Helmet>
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        <SubpageBackground />
         <Header />
         <Breadcrumbs lang={lang} />
         <main className="pt-8 pb-20">
