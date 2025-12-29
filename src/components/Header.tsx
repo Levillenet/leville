@@ -14,6 +14,7 @@ const Header = () => {
     { name: "Majoitukset", href: "/majoitukset" },
     { name: "Yritys", href: "/yritys" },
     { name: "Levi", href: "/levi" },
+    { name: "Revontulet", href: "/revontulet" },
     { name: "Yhteystiedot", href: "/yhteystiedot" },
     { name: "UKK", href: "/ukk" },
   ];
@@ -22,6 +23,7 @@ const Header = () => {
     { name: "Accommodations", href: "/en/accommodations" },
     { name: "Company", href: "/en/company" },
     { name: "Levi", href: "/en/levi" },
+    { name: "Northern Lights", href: "/en/northern-lights" },
     { name: "Contact", href: "/en/contact" },
     { name: "FAQ", href: "/en/faq" },
   ];
