@@ -10,8 +10,6 @@ const heroImages = [heroCabin, heroChalet, heroVillage, heroApartment, heroLodge
 
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [nextImageIndex, setNextImageIndex] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Generate stable star positions
   const stars = useMemo(() => 
@@ -38,15 +36,8 @@ const Hero = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsTransitioning(true);
-      setNextImageIndex((prev) => (prev + 1) % heroImages.length);
-      
-      // After transition completes, update current index
-      setTimeout(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-        setIsTransitioning(false);
-      }, 2500);
-    }, 7000);
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, []);
@@ -58,22 +49,16 @@ const Hero = () => {
     >
       {/* Background images slideshow with crossfade */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Current image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[2500ms] ease-in-out"
-          style={{
-            backgroundImage: `url(${heroImages[currentImageIndex]})`,
-            opacity: isTransitioning ? 0 : 1,
-          }}
-        />
-        {/* Next image fading in */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[2500ms] ease-in-out"
-          style={{
-            backgroundImage: `url(${heroImages[nextImageIndex]})`,
-            opacity: isTransitioning ? 1 : 0,
-          }}
-        />
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-[3000ms] ease-in-out"
+            style={{
+              backgroundImage: `url(${image})`,
+              opacity: index === currentImageIndex ? 1 : 0,
+            }}
+          />
+        ))}
         
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/85" />
