@@ -9,7 +9,7 @@ const accommodations = [
     title: "Modernit huoneistot Skistarissa",
     description: "Täysin varustetut huoneistot Levin keskustassa. Täydellinen sijainti sekä rinteille että palveluihin.",
     icon: Home,
-    features: ["2-4 henkilöä", "Keittiö", "Sauna", "WiFi"],
+    features: ["2-6 henkilöä", "Superior huoneistoissa sauna"],
   },
   {
     title: "Tilavat perheasunnot",
