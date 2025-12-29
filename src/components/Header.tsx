@@ -16,8 +16,8 @@ const Header = () => {
     "/en": "/",
     "/majoitukset": "/en/accommodations",
     "/en/accommodations": "/majoitukset",
-    "/yritys": "/en/company",
-    "/en/company": "/yritys",
+    "/ajankohtaista": "/en/news",
+    "/en/news": "/ajankohtaista",
     "/levi": "/en/levi",
     "/en/levi": "/levi",
     "/revontulet": "/en/northern-lights",
@@ -26,24 +26,24 @@ const Header = () => {
     "/en/contact": "/yhteystiedot",
     "/ukk": "/en/faq",
     "/en/faq": "/ukk",
+    "/yritys": "/en/company",
+    "/en/company": "/yritys",
   };
 
   const navLinksFi = [
     { name: "Majoitukset", href: "/majoitukset" },
-    { name: "Yritys", href: "/yritys" },
+    { name: "Ajankohtaista", href: "/ajankohtaista" },
     { name: "Levi", href: "/levi" },
     { name: "Revontulet", href: "/revontulet" },
     { name: "Yhteystiedot", href: "/yhteystiedot" },
-    { name: "UKK", href: "/ukk" },
   ];
 
   const navLinksEn = [
     { name: "Accommodations", href: "/en/accommodations" },
-    { name: "Company", href: "/en/company" },
+    { name: "News", href: "/en/news" },
     { name: "Levi", href: "/en/levi" },
     { name: "Northern Lights", href: "/en/northern-lights" },
     { name: "Contact", href: "/en/contact" },
-    { name: "FAQ", href: "/en/faq" },
   ];
 
   const navLinks = isEnglish ? navLinksEn : navLinksFi;

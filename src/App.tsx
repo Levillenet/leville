@@ -9,6 +9,7 @@ import PageTransition from "./components/PageTransition";
 import Index from "./pages/Index";
 import IndexEN from "./pages/en/Index";
 import Majoitukset from "./pages/Majoitukset";
+import Ajankohtaista from "./pages/Ajankohtaista";
 import Levi from "./pages/Levi";
 import Revontulet from "./pages/Revontulet";
 import Yhteystiedot from "./pages/Yhteystiedot";
@@ -33,6 +34,8 @@ const App = () => (
               <Route path="/en" element={<IndexEN />} />
               <Route path="/majoitukset" element={<Majoitukset />} />
               <Route path="/en/accommodations" element={<Majoitukset lang="en" />} />
+              <Route path="/ajankohtaista" element={<Ajankohtaista />} />
+              <Route path="/en/news" element={<Ajankohtaista lang="en" />} />
               <Route path="/levi" element={<Levi />} />
               <Route path="/en/levi" element={<Levi lang="en" />} />
               <Route path="/revontulet" element={<Revontulet />} />
