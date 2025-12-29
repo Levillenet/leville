@@ -319,12 +319,24 @@
 
   @keyframes subpageTwinkle {
     0%, 100% { 
-      opacity: 0.2;
-      transform: scale(0.6);
+      opacity: 0;
+      transform: scale(0.3);
+      filter: blur(0px);
+    }
+    25% {
+      opacity: 1;
+      transform: scale(1.5);
+      filter: blur(0px);
     }
     50% { 
+      opacity: 0.2;
+      transform: scale(0.8);
+      filter: blur(1px);
+    }
+    75% {
       opacity: 1;
-      transform: scale(1.3);
+      transform: scale(1.4);
+      filter: blur(0px);
     }
   }
 
@@ -349,7 +361,7 @@
   }
 
   .animate-subpage-twinkle {
-    animation: subpageTwinkle 2.5s ease-in-out infinite;
+    animation: subpageTwinkle 1.5s ease-in-out infinite;
   }
 
   .text-snow-white {
