@@ -71,7 +71,7 @@ const WeatherWidget = () => {
   }
 
   const snowLabel = isEnglish ? "snow" : "lunta";
-  const coldestLabel = isEnglish ? "coldest 24h" : "kylmin 24h";
+  const coldestLabel = isEnglish ? "coldest in 24h" : "kylmin 24h:ssa";
 
   return (
     <div className="flex items-center gap-2 text-foreground">
