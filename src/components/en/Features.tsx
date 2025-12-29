@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { MapPin, Car, MessageCircle, BadgePercent, Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { testimonials } from "@/data/testimonials";
 
 const features = [
   {
@@ -21,27 +22,6 @@ const features = [
     icon: BadgePercent,
     title: "Best price directly from us",
     description: "Book directly from us – the best price without intermediaries."
-  }
-];
-
-const testimonials = [
-  {
-    name: "Maria S.",
-    location: "Helsinki",
-    text: "Excellent location and a cozy apartment! The view of the slopes was amazing and everything was within walking distance.",
-    rating: 5
-  },
-  {
-    name: "John T.",
-    location: "Stockholm",
-    text: "We had an amazing family holiday. The cabin was spacious and fully equipped. Will definitely come back!",
-    rating: 5
-  },
-  {
-    name: "Anna K.",
-    location: "Oslo",
-    text: "Perfect service from start to finish. The booking was easy and the apartment exceeded our expectations.",
-    rating: 5
   }
 ];
 
