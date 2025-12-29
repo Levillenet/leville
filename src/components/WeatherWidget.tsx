@@ -31,10 +31,9 @@ const WeatherWidget = () => {
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        // Levi coordinates: 67.8039° N, 24.8084° E
-        // Fetch current weather and hourly forecast for next 24 hours
+        // Kittilä coordinates: 67.6603° N, 24.9076° E (more accurate valley temperatures)
         const response = await fetch(
-          "https://api.open-meteo.com/v1/forecast?latitude=67.8039&longitude=24.8084&current=temperature_2m,weather_code,snow_depth&hourly=temperature_2m&forecast_hours=24&timezone=Europe%2FHelsinki"
+          "https://api.open-meteo.com/v1/forecast?latitude=67.6603&longitude=24.9076&current=temperature_2m,weather_code,snow_depth&hourly=temperature_2m&forecast_hours=24&timezone=Europe%2FHelsinki"
         );
         const data = await response.json();
         
