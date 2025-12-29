@@ -111,10 +111,27 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               })}
             </section>
 
+            {/* Amenities */}
+            <ScrollReveal delay={0.2}>
+              <section className="text-center mb-16">
+                <h2 className="text-2xl font-semibold text-foreground mb-8">{t.amenitiesTitle}</h2>
+                <div className="flex flex-wrap justify-center gap-8">
+                  {t.amenities.map((amenity, index) => {
+                    const Icon = amenityIcons[index];
+                    return (
+                      <div key={amenity.label} className="flex items-center gap-3 text-muted-foreground">
+                        <Icon className="w-5 h-5 text-primary" />
+                        <span>{amenity.label}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            </ScrollReveal>
 
             {/* Welcome Letter */}
-            <ScrollReveal delay={0.2}>
-              <section className="mb-16">
+            <ScrollReveal delay={0.3}>
+              <section>
                 <div className="glass-card border-primary/30 bg-gradient-to-br from-primary/5 to-transparent rounded-xl p-6 md:p-8">
                   <div className="flex flex-col md:flex-row items-center gap-6">
                     <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
@@ -141,24 +158,6 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                       {isEnglish ? "Download Letter" : "Lataa kirje"}
                     </a>
                   </div>
-                </div>
-              </section>
-            </ScrollReveal>
-
-            {/* Amenities */}
-            <ScrollReveal delay={0.3}>
-              <section className="text-center">
-                <h2 className="text-2xl font-semibold text-foreground mb-8">{t.amenitiesTitle}</h2>
-                <div className="flex flex-wrap justify-center gap-8">
-                  {t.amenities.map((amenity, index) => {
-                    const Icon = amenityIcons[index];
-                    return (
-                      <div key={amenity.label} className="flex items-center gap-3 text-muted-foreground">
-                        <Icon className="w-5 h-5 text-primary" />
-                        <span>{amenity.label}</span>
-                      </div>
-                    );
-                  })}
                 </div>
               </section>
             </ScrollReveal>
