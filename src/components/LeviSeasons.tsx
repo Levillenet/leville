@@ -2,6 +2,12 @@ import { Leaf, Snowflake, Sun, TreeDeciduous } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Language } from "@/translations";
 
+// Import season images
+import winterImg from "@/assets/seasons/winter.jpg";
+import autumnImg from "@/assets/seasons/autumn.jpg";
+import summerImg from "@/assets/seasons/summer.jpg";
+import springImg from "@/assets/seasons/spring.jpg";
+
 interface SeasonData {
   id: string;
   title: string;
@@ -141,11 +147,13 @@ const seasonsData: Record<Language, SeasonData[]> = {
 };
 
 const icons = [
-  <Leaf className="w-8 h-8" />,
-  <Snowflake className="w-8 h-8" />,
-  <Sun className="w-8 h-8" />,
-  <TreeDeciduous className="w-8 h-8" />
+  <Leaf className="w-8 h-8" key="leaf" />,
+  <Snowflake className="w-8 h-8" key="snowflake" />,
+  <Sun className="w-8 h-8" key="sun" />,
+  <TreeDeciduous className="w-8 h-8" key="tree" />
 ];
+
+const seasonImages = [autumnImg, winterImg, springImg, summerImg];
 
 interface LeviSeasonsProps {
   lang?: Language;
@@ -172,11 +180,26 @@ const LeviSeasons = ({ lang = "fi" }: LeviSeasonsProps) => {
         {seasons.map((season, index) => (
           <Card 
             key={season.id} 
-            className="glass-card border-border/30 overflow-hidden group hover:border-primary/30 transition-all duration-500"
+            className="glass-card border-border/30 overflow-hidden group hover:border-primary/30 transition-all duration-500 relative"
           >
-            <div className={`absolute inset-0 bg-gradient-to-br ${season.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+            {/* Color gradient overlay */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${season.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`} />
             
-            <CardContent className="p-6 md:p-8 relative">
+            {/* Background season image - subtle in bottom right corner */}
+            <div className="absolute bottom-0 right-0 w-48 h-48 md:w-64 md:h-64 overflow-hidden pointer-events-none z-0">
+              <div 
+                className="absolute inset-0 opacity-[0.12] group-hover:opacity-[0.18] transition-opacity duration-500"
+                style={{
+                  backgroundImage: `url(${seasonImages[index]})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  maskImage: 'radial-gradient(ellipse at bottom right, black 0%, transparent 70%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 0%, transparent 70%)',
+                }}
+              />
+            </div>
+            
+            <CardContent className="p-6 md:p-8 relative z-20">
               {/* Header */}
               <div className="flex items-start gap-4 mb-5">
                 <div className={`p-3 rounded-xl bg-card/80 border border-border/50 ${season.accentColor} group-hover:scale-110 transition-transform duration-300`}>
