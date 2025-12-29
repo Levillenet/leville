@@ -61,16 +61,16 @@ const Majoitukset = () => {
             {/* Accommodations Grid */}
             <section className="grid md:grid-cols-3 gap-8 mb-20">
               {accommodations.map((acc) => (
-                <Card key={acc.title} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300">
+                <Card key={acc.title} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 flex flex-col">
                   <CardHeader>
                     <div className="w-14 h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
                       <acc.icon className="w-7 h-7 text-primary" />
                     </div>
                     <CardTitle className="text-xl text-foreground">{acc.title}</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="flex flex-col flex-grow">
                     <p className="text-muted-foreground mb-4">{acc.description}</p>
-                    <ul className="space-y-2 mb-6">
+                    <ul className="space-y-2 mb-6 flex-grow">
                       {acc.features.map((feature) => (
                         <li key={feature} className="text-sm text-muted-foreground flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -82,7 +82,7 @@ const Majoitukset = () => {
                       href="https://app.moder.fi/levillenet"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block w-full text-center py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                      className="inline-block w-full text-center py-3 px-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors mt-auto"
                     >
                       Varaa heti lomasi
                     </a>
