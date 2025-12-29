@@ -170,9 +170,9 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         const greeting = lang === "en" ? "Merry Christmas!" : "Hyvää joulua!";
         
         return (
-          <div className="absolute bottom-0 left-8 md:left-16 z-20 animate-slide-up pointer-events-none">
+          <div className="absolute bottom-24 md:bottom-20 left-4 md:left-12 z-20 pointer-events-none">
             {/* Speech bubble */}
-            <div className="relative mb-2">
+            <div className="relative mb-2 animate-bounce" style={{ animationDuration: '3s' }}>
               <div className="bg-white text-gray-800 px-4 py-2 rounded-2xl text-sm md:text-base font-medium shadow-lg">
                 {greeting} 🎄
               </div>
