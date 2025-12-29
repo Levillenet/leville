@@ -82,21 +82,21 @@ const Hero = () => {
       {/* Moving Aurora overlay effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 
-          className="absolute -top-20 left-0 w-[1000px] h-[600px] bg-gradient-to-b from-aurora-green/35 via-aurora-blue/20 to-transparent rounded-full blur-3xl mix-blend-screen"
+          className="absolute -top-20 left-0 w-[1200px] h-[700px] bg-gradient-to-b from-aurora-green/40 via-aurora-blue/25 to-transparent rounded-full blur-3xl mix-blend-screen"
           style={{
-            animation: 'auroraMove1 8s ease-in-out infinite',
+            animation: 'auroraMove1 6s ease-in-out infinite',
           }}
         />
         <div
-          className="absolute -top-10 right-0 w-[800px] h-[500px] bg-gradient-to-b from-aurora-blue/30 via-aurora-green/18 to-transparent rounded-full blur-3xl mix-blend-screen"
+          className="absolute -top-10 right-0 w-[1000px] h-[600px] bg-gradient-to-b from-aurora-blue/35 via-aurora-green/22 to-transparent rounded-full blur-3xl mix-blend-screen"
           style={{
-            animation: 'auroraMove2 10s ease-in-out infinite',
+            animation: 'auroraMove2 7s ease-in-out infinite',
           }}
         />
         <div
-          className="absolute top-10 left-1/3 w-[600px] h-[400px] bg-gradient-to-br from-aurora-green/25 via-transparent to-aurora-blue/15 rounded-full blur-3xl mix-blend-screen"
+          className="absolute top-10 left-1/3 w-[800px] h-[500px] bg-gradient-to-br from-aurora-green/30 via-transparent to-aurora-blue/20 rounded-full blur-3xl mix-blend-screen"
           style={{
-            animation: 'auroraMove3 12s ease-in-out infinite',
+            animation: 'auroraMove3 8s ease-in-out infinite',
           }}
         />
       </div>
@@ -163,20 +163,20 @@ const Hero = () => {
 
           {/* Trust indicators */}
           <div
-            className="mt-8 flex flex-wrap items-center justify-center gap-6 md:gap-10 text-sm md:text-base lg:text-xl text-muted-foreground animate-fade-in"
+            className="mt-8 flex flex-wrap items-center justify-center gap-6 md:gap-12 animate-fade-in"
             style={{ animationDelay: '0.6s' }}
           >
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-aurora-green rounded-full" />
-              <span className="tracking-wide font-medium">Keskustan parhaat sijainnit</span>
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 bg-aurora-green rounded-full shadow-[0_0_8px_hsl(160_60%_45%/0.6)]" />
+              <span className="font-display text-sm md:text-base lg:text-lg text-foreground/90 tracking-widest uppercase font-medium">Keskustan parhaat sijainnit</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-aurora-green rounded-full" />
-              <span className="tracking-wide font-medium">Suora varaus ilman välikäsiä</span>
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 bg-aurora-green rounded-full shadow-[0_0_8px_hsl(160_60%_45%/0.6)]" />
+              <span className="font-display text-sm md:text-base lg:text-lg text-foreground/90 tracking-widest uppercase font-medium">Suora varaus ilman välikäsiä</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-aurora-green rounded-full" />
-              <span className="tracking-wide font-medium">Henkilökohtainen palvelu</span>
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 bg-aurora-green rounded-full shadow-[0_0_8px_hsl(160_60%_45%/0.6)]" />
+              <span className="font-display text-sm md:text-base lg:text-lg text-foreground/90 tracking-widest uppercase font-medium">Henkilökohtainen palvelu</span>
             </div>
           </div>
         </div>
@@ -203,15 +203,20 @@ const Hero = () => {
         }
         @keyframes auroraMove1 {
           0%, 100% { transform: translateX(0) translateY(0) scale(1); }
-          50% { transform: translateX(150px) translateY(-40px) scale(1.1); }
+          25% { transform: translateX(80px) translateY(-30px) scale(1.05); }
+          50% { transform: translateX(200px) translateY(-60px) scale(1.15); }
+          75% { transform: translateX(100px) translateY(-20px) scale(1.08); }
         }
         @keyframes auroraMove2 {
           0%, 100% { transform: translateX(0) translateY(0) scale(1); }
-          50% { transform: translateX(-120px) translateY(30px) scale(1.15); }
+          25% { transform: translateX(-60px) translateY(20px) scale(1.08); }
+          50% { transform: translateX(-180px) translateY(50px) scale(1.2); }
+          75% { transform: translateX(-90px) translateY(25px) scale(1.1); }
         }
         @keyframes auroraMove3 {
-          0%, 100% { transform: translateX(0) translateY(0) scale(1); opacity: 0.7; }
-          50% { transform: translateX(80px) translateY(-50px) scale(1.2); opacity: 1; }
+          0%, 100% { transform: translateX(0) translateY(0) scale(1); opacity: 0.6; }
+          33% { transform: translateX(120px) translateY(-70px) scale(1.25); opacity: 1; }
+          66% { transform: translateX(-60px) translateY(-40px) scale(1.1); opacity: 0.85; }
         }
       `}</style>
     </section>
