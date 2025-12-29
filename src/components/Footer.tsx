@@ -1,9 +1,6 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import levilleLogo from "@/assets/leville-logo.png";
-import leviLogo from "@/assets/partners/levi-logo.jpg";
-import airbnbLogo from "@/assets/partners/airbnb-logo.png";
-import bookingLogo from "@/assets/partners/booking-logo.png";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
 
 const Footer = () => {
@@ -123,60 +120,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Partners */}
-        <div className="pt-10 border-t border-border/30 mb-10">
-          <p className="text-xs text-muted-foreground text-center mb-6">
-            {isEnglish ? "Our Partners" : "Yhteistyökumppanit"}
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-            {/* Booking.com */}
-            <a 
-              href="https://www.booking.com/hotel/fi/levillenet-apartments.html" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
-              aria-label="Booking.com Partner"
-            >
-              <img 
-                src={bookingLogo} 
-                alt="Booking.com" 
-                className="h-5 md:h-6 w-auto"
-                style={{ filter: 'brightness(0) invert(1)', opacity: 0.8 }}
-              />
-            </a>
-
-            {/* Airbnb */}
-            <a 
-              href="https://www.airbnb.com/users/show/123456789" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
-              aria-label="Airbnb Partner"
-            >
-              <img 
-                src={airbnbLogo} 
-                alt="Airbnb" 
-                className="h-5 md:h-6 w-auto"
-                style={{ filter: 'brightness(0) invert(1)', opacity: 0.8 }}
-              />
-            </a>
-
-            {/* Visit Levi */}
-            <a 
-              href="https://www.levi.fi" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="opacity-80 hover:opacity-100 transition-opacity"
-              aria-label="Visit Levi Partner"
-            >
-              <img 
-                src={leviLogo} 
-                alt="Visit Levi" 
-                className="h-8 md:h-10 w-auto rounded-full"
-              />
-            </a>
-          </div>
-        </div>
 
         {/* Bottom */}
         <div className="pt-6 border-t border-border/30 flex flex-col md:flex-row items-center justify-between gap-4">
