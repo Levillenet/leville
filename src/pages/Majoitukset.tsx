@@ -88,11 +88,11 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     <TiltCard className="h-full">
                       <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 flex flex-col h-full relative overflow-hidden group">
                         {/* Background image */}
-                        <div className="absolute -bottom-8 -right-8 w-80 h-80 md:w-96 md:h-96 overflow-hidden pointer-events-none z-0">
+                        <div className={`absolute -right-8 w-80 h-80 md:w-96 md:h-96 overflow-hidden pointer-events-none z-0 ${index === 2 ? '-bottom-4' : '-bottom-8'}`}>
                           <img 
                             src={accommodationImages[index]} 
                             alt=""
-                            className="w-full h-full object-cover opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-2xl"
+                            className={`w-full h-full object-cover opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-2xl ${index === 2 ? 'object-top' : ''}`}
                             style={{
                               maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
                               WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
