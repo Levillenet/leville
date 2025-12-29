@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -13,6 +13,8 @@ interface AboutProps {
 const About = ({ lang = "fi" }: AboutProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
   const t = getTranslations(lang).about;
 
   const goToNext = useCallback(() => {
@@ -26,6 +28,34 @@ const About = ({ lang = "fi" }: AboutProps) => {
   const goToSlide = useCallback((index: number) => {
     setCurrentImageIndex(index);
   }, []);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    setIsPaused(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const diff = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 50;
+
+    if (Math.abs(diff) > minSwipeDistance) {
+      if (diff > 0) {
+        goToNext();
+      } else {
+        goToPrev();
+      }
+    }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+    setIsPaused(false);
+  };
 
   useEffect(() => {
     if (isPaused) return;
@@ -83,9 +113,12 @@ const About = ({ lang = "fi" }: AboutProps) => {
           {/* Image Gallery with crossfade */}
           <ScrollReveal direction="right" delay={0.2}>
             <div 
-              className="relative group"
+              className="relative group touch-pan-y"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
               <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-elegant border border-border/20">
                 {galleryImages.map((image, index) => (
