@@ -8,6 +8,7 @@ import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import { supabase } from "@/integrations/supabase/client";
 
 const accommodationIcons: LucideIcon[] = [Home, Users, Mountain];
 const amenityIcons: LucideIcon[] = [Wifi, Car, Snowflake];
@@ -18,8 +19,17 @@ interface MajoituksetProps {
 
 const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
   const t = getTranslations(lang).majoitukset;
-
   const isEnglish = lang === "en";
+
+  const trackDownload = async () => {
+    try {
+      await supabase.functions.invoke('log-download', {
+        body: { document_type: 'welcome_letter', language: lang }
+      });
+    } catch (error) {
+      console.error('Failed to log download:', error);
+    }
+  };
 
   return (
     <>
@@ -124,6 +134,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                       href="/docs/tervetulokirje.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={trackDownload}
                       className="inline-flex items-center gap-2 py-3 px-6 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
                     >
                       <Download className="w-5 h-5" />

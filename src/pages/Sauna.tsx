@@ -4,6 +4,17 @@ import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Flame, Clock, Timer, Download, ThermometerSun } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+const trackDownload = async () => {
+  try {
+    await supabase.functions.invoke('log-download', {
+      body: { document_type: 'sauna_instructions', language: 'fi' }
+    });
+  } catch (error) {
+    console.error('Failed to log download:', error);
+  }
+};
 
 const Sauna = () => {
   return (
@@ -35,7 +46,12 @@ const Sauna = () => {
             {/* Download PDF */}
             <section className="mb-8">
               <Button asChild size="lg" className="w-full sm:w-auto">
-                <a href="/docs/sauna-ohjeet.pdf" target="_blank" rel="noopener noreferrer">
+                <a 
+                  href="/docs/sauna-ohjeet.pdf" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  onClick={trackDownload}
+                >
                   <Download className="w-5 h-5 mr-2" />
                   Lataa ohjeet PDF-muodossa
                 </a>
