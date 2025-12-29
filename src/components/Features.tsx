@@ -80,7 +80,7 @@ const Features = () => {
               <div className="w-12 h-12 rounded-lg bg-aurora-green/10 flex items-center justify-center mb-6 group-hover:bg-aurora-green/20 transition-colors duration-500">
                 <feature.icon className="w-6 h-6 text-aurora-green" />
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-3 font-serif tracking-tight">
+              <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground mb-3 font-serif tracking-tight">
                 {feature.title}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
