@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
+import WhatsAppChat from "@/components/WhatsAppChat";
 
 const Index = () => {
   const schemaData = {
@@ -74,6 +75,7 @@ const Index = () => {
           <Features />
         </main>
         <Footer />
+        <WhatsAppChat />
       </div>
     </>
   );
