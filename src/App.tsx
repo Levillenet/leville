@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import IndexEN from "./pages/en/Index";
 import Majoitukset from "./pages/Majoitukset";
 import Levi from "./pages/Levi";
+import Revontulet from "./pages/Revontulet";
 import Yhteystiedot from "./pages/Yhteystiedot";
 import UKK from "./pages/UKK";
 import Varausehdot from "./pages/Varausehdot";
@@ -34,6 +35,8 @@ const App = () => (
               <Route path="/en/accommodations" element={<Majoitukset lang="en" />} />
               <Route path="/levi" element={<Levi />} />
               <Route path="/en/levi" element={<Levi lang="en" />} />
+              <Route path="/revontulet" element={<Revontulet />} />
+              <Route path="/en/northern-lights" element={<Revontulet lang="en" />} />
               <Route path="/yhteystiedot" element={<Yhteystiedot />} />
               <Route path="/en/contact" element={<Yhteystiedot lang="en" />} />
               <Route path="/ukk" element={<UKK />} />
