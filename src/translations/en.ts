@@ -222,8 +222,8 @@ export const en = {
   ajankohtaista: {
     meta: {
       title: "News – Book the Best Dates in Levi | Leville.net",
-      description: "Latest news about Levi accommodations. Late spring availability and December 2026 now on sale. Book your Levi holiday early!",
-      keywords: "Levi booking 2025, Levi Christmas 2026, Levi spring, Levi accommodation offer, Levi holiday booking",
+      description: "Latest news about Levi accommodations. Spring 2026 discount code -10%, late spring availability and December 2026 now on sale!",
+      keywords: "Levi discount code, Levi offer 2026, Levi spring discount, Levi Christmas 2026, Levi accommodation offer",
       canonical: "https://leville.net/en/news"
     },
     title: "News",
@@ -232,18 +232,25 @@ export const en = {
     bookCta: "Browse availability and book",
     items: [
       {
-        badge: "Spring 2025",
+        badge: "🎿 Spring 2025",
         date: "Dec 29, 2024",
         title: "Late spring availability in Levi",
         description: "Late winter and early spring are many visitors' favorite time in Levi. Bright days, excellent skiing and outdoor conditions, and a more peaceful atmosphere make late spring an excellent time for a holiday. Several of our accommodations still have available dates, so now is a good time to book.",
-        highlight: "We recommend booking now while there is still plenty of choice."
+        highlight: "Use code \"winter10\" to get -10% discount on spring 2026 accommodations! Claim your discount now!"
       },
       {
-        badge: "Christmas 2026",
+        badge: "🎄 Christmas 2026",
         date: "Dec 29, 2024",
         title: "December 2026 is now open for bookings",
         description: "We have opened bookings for December 2026. The Christmas season in Levi is extremely popular, and the most sought-after dates and accommodations are often booked well in advance. By booking early, you ensure you get the dates that suit you and your preferred accommodation.",
         highlight: "Book early and plan your trip in peace!"
+      },
+      {
+        badge: "🌟 Tip",
+        date: "Dec 29, 2024",
+        title: "Book directly from us – best price guaranteed",
+        description: "By booking directly through Leville.net, you always get the best price without intermediaries. We offer personal service and flexibility with bookings. Contact us and we will help you find the perfect accommodation in Levi.",
+        highlight: "Direct booking = best price + personal service!"
       }
     ]
   }
