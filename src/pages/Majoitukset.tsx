@@ -92,6 +92,8 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                           <img 
                             src={accommodationImages[index]} 
                             alt=""
+                            loading="lazy"
+                            decoding="async"
                             className={`w-full h-full object-cover opacity-35 sm:opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-xl sm:rounded-2xl ${index === 2 ? 'object-top' : ''}`}
                             style={{
                               maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
