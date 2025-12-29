@@ -18,11 +18,11 @@ const Header = () => {
   ];
 
   const navLinksEn = [
-    { name: "Accommodations", href: "/en/accommodations" },
-    { name: "Company", href: "/en/company" },
-    { name: "Levi", href: "/en/levi" },
-    { name: "Contact", href: "/en/contact" },
-    { name: "FAQ", href: "/en/faq" },
+    { name: "Accommodations", href: "/majoitukset" },
+    { name: "Company", href: "/yritys" },
+    { name: "Levi", href: "/levi" },
+    { name: "Contact", href: "/yhteystiedot" },
+    { name: "FAQ", href: "/ukk" },
   ];
 
   const navLinks = isEnglish ? navLinksEn : navLinksFi;
