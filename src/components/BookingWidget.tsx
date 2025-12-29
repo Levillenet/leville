@@ -151,11 +151,53 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
   }, [location.pathname]);
 
   return (
-    <div className="bg-background/60 backdrop-blur-xl rounded-xl p-4 md:p-6 shadow-elegant border border-primary/20 max-w-4xl mx-auto relative" style={{ overflow: 'visible', zIndex: 40 }}>
+    <div 
+      className="rounded-xl p-4 md:p-6 shadow-elegant border border-primary/20 max-w-4xl mx-auto relative" 
+      style={{ 
+        overflow: 'visible', 
+        zIndex: 40,
+        background: 'linear-gradient(135deg, hsl(218 22% 14% / 0.95), hsl(218 25% 10% / 0.9))',
+        backdropFilter: 'blur(20px)',
+      }}
+    >
+      <style>{`
+        #moder-embed,
+        #moder-embed > div,
+        #moder-embed form,
+        #moder-embed .moder-search,
+        #moder-embed .moder-widget,
+        #moder-embed [class*="search"],
+        #moder-embed [class*="widget"],
+        #moder-embed [class*="container"],
+        #moder-embed [class*="wrapper"] {
+          background: transparent !important;
+          background-color: transparent !important;
+        }
+        #moder-embed input,
+        #moder-embed select {
+          background: hsl(218 18% 22% / 0.8) !important;
+          border: 1px solid hsl(218 18% 30%) !important;
+          color: hsl(210 40% 98%) !important;
+        }
+        #moder-embed input::placeholder {
+          color: hsl(215 20% 60%) !important;
+        }
+        #moder-embed label,
+        #moder-embed span,
+        #moder-embed p {
+          color: hsl(210 40% 90%) !important;
+        }
+        #moder-embed button[type="submit"],
+        #moder-embed .moder-submit,
+        #moder-embed [class*="submit"] {
+          background: hsl(195 70% 45%) !important;
+          color: hsl(218 25% 10%) !important;
+        }
+      `}</style>
       <div 
         id="moder-embed" 
         ref={containerRef} 
-        className="min-h-[250px] relative [&_*]:!bg-transparent [&_input]:!bg-muted/50 [&_input]:!border-border/50 [&_input]:!text-foreground [&_button]:!bg-primary [&_button]:!text-primary-foreground [&_label]:!text-foreground/80"
+        className="min-h-[250px] relative"
       />
     </div>
   );
