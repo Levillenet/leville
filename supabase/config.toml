@@ -2,3 +2,9 @@ project_id = "jcvxklzcxngctyqmknax"
 
 [functions.log-download]
 verify_jwt = false
+
+[functions.verify-admin]
+verify_jwt = false
+
+[functions.get-download-stats]
+verify_jwt = false
