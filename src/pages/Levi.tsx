@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
+import WhatsAppChat from "@/components/WhatsAppChat";
 
 // Import images
 import leviSunsetSlope from "@/assets/levi-sunset-slope.jpg";
@@ -237,6 +238,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
           </div>
         </main>
         <Footer />
+        <WhatsAppChat lang={lang} />
       </div>
     </>
   );
