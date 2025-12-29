@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         sans: ['DM Sans', 'sans-serif'],
         serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+        display: ['Raleway', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
