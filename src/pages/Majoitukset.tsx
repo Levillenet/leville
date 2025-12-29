@@ -11,8 +11,14 @@ import TiltCard from "@/components/TiltCard";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { supabase } from "@/integrations/supabase/client";
 
+// Import accommodation background images
+import karhupirttiImg from "@/assets/accommodations/karhupirtti.jpg";
+import skistarImg from "@/assets/accommodations/skistar.png";
+import perheasunnotImg from "@/assets/accommodations/perheasunnot.png";
+
 const accommodationIcons: LucideIcon[] = [Home, Users, Mountain];
 const amenityIcons: LucideIcon[] = [Wifi, Car, Snowflake];
+const accommodationImages = [karhupirttiImg, skistarImg, perheasunnotImg];
 
 interface MajoituksetProps {
   lang?: Language;
@@ -80,14 +86,27 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                 return (
                   <ScrollReveal key={acc.title} delay={index * 0.15} direction="up">
                     <TiltCard className="h-full">
-                      <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 flex flex-col h-full">
-                        <CardHeader>
+                      <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 flex flex-col h-full relative overflow-hidden group">
+                        {/* Background image */}
+                        <div className="absolute -bottom-8 -right-8 w-80 h-80 md:w-96 md:h-96 overflow-hidden pointer-events-none z-0">
+                          <img 
+                            src={accommodationImages[index]} 
+                            alt=""
+                            className="w-full h-full object-cover opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-2xl"
+                            style={{
+                              maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
+                              WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
+                            }}
+                          />
+                        </div>
+                        
+                        <CardHeader className="relative z-10">
                           <div className="w-14 h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
                             <Icon className="w-7 h-7 text-primary" />
                           </div>
                           <CardTitle className="text-xl text-foreground">{acc.title}</CardTitle>
                         </CardHeader>
-                        <CardContent className="flex flex-col flex-grow">
+                        <CardContent className="flex flex-col flex-grow relative z-10">
                           <p className="text-muted-foreground mb-4">{acc.description}</p>
                           <ul className="space-y-2 mb-6 flex-grow">
                             {acc.features.map((feature) => (
