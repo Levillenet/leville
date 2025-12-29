@@ -114,6 +114,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </div>
             </section>
 
+            {/* Seasons Section */}
+            <LeviSeasons lang={lang} />
+
             {/* Activities */}
             <section className="grid md:grid-cols-3 gap-8 mb-20">
               {t.activities.map((activity, index) => {
@@ -153,9 +156,6 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 ))}
               </div>
             </section>
-
-            {/* Seasons Section */}
-            <LeviSeasons lang={lang} />
 
             {/* Live Camera Section */}
             <section className="mb-20">

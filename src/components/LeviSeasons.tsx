@@ -186,14 +186,14 @@ const LeviSeasons = ({ lang = "fi" }: LeviSeasonsProps) => {
             <div className={`absolute inset-0 bg-gradient-to-br ${season.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`} />
             
             {/* Background season image - visible in bottom right corner */}
-            <div className="absolute -bottom-6 -right-6 w-72 h-72 md:w-96 md:h-96 overflow-hidden pointer-events-none z-0">
+            <div className="absolute -bottom-8 -right-8 w-80 h-80 md:w-[28rem] md:h-[28rem] overflow-hidden pointer-events-none z-0">
               <img 
                 src={seasonImages[index]} 
                 alt=""
-                className="w-full h-full object-cover opacity-40 group-hover:opacity-50 transition-opacity duration-500 rounded-2xl"
+                className="w-full h-full object-cover opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-2xl"
                 style={{
-                  maskImage: 'radial-gradient(ellipse at bottom right, black 20%, transparent 75%)',
-                  WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 20%, transparent 75%)',
+                  maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
                 }}
               />
             </div>
