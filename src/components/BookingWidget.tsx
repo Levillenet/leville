@@ -11,10 +11,11 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
   const isEnglish = lang === "en" || location.pathname.startsWith("/en");
 
   useEffect(() => {
-    // Set up Moder settings (some options may be ignored by the embed)
+    // Set up Moder settings with language based on route
     (window as any).ModerSettings = {
       property: "levillenet",
       target: "_blank",
+      language: isEnglish ? "en" : "fi",
     };
 
     // Remove any existing widget content and re-init
