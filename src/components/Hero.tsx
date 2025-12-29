@@ -137,17 +137,18 @@ const Hero = () => {
             <span className="animate-slide-up inline-block">Tervetuloa</span>{" "}
             <span className="inline-block relative">
               <span 
-                className="text-gradient inline-block animate-text-reveal"
+                className="font-script text-5xl md:text-6xl lg:text-7xl text-white inline-block animate-text-reveal drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]"
                 style={{ 
-                  transform: 'rotate(-2deg)',
+                  transform: 'rotate(-3deg)',
                   transformOrigin: 'center center',
+                  textShadow: '0 0 30px rgba(255,255,255,0.4), 0 0 60px rgba(160,210,180,0.3)',
                 }}
               >
                 Leville
               </span>
               {/* Sparkle effect */}
-              <span className="absolute -top-2 -right-4 md:-right-6 animate-sparkle-burst">
-                <svg width="24" height="24" viewBox="0 0 24 24" className="text-yellow-300 drop-shadow-[0_0_8px_rgba(253,224,71,0.8)]">
+              <span className="absolute -top-4 -right-2 md:-right-4 animate-sparkle-burst">
+                <svg width="32" height="32" viewBox="0 0 24 24" className="text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.9)]">
                   <path
                     d="M12 0L13.5 9L22 10.5L13.5 12L12 21L10.5 12L2 10.5L10.5 9L12 0Z"
                     fill="currentColor"

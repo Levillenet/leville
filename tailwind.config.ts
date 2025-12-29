@@ -17,6 +17,7 @@ export default {
         sans: ['DM Sans', 'sans-serif'],
         serif: ['Cormorant Garamond', 'Georgia', 'serif'],
         display: ['Raleway', 'sans-serif'],
+        script: ['Great Vibes', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",
