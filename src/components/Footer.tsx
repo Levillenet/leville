@@ -139,6 +139,13 @@ const Footer = () => {
             </Link>
           </div>
         </div>
+
+        {/* Payment info */}
+        <div className="pt-4 text-center">
+          <p className="text-muted-foreground/70 text-xs">
+            {isEnglish ? "Secure payments powered by Paytrail" : "Turvallisen maksamisen takaa Paytrail"}
+          </p>
+        </div>
       </div>
     </footer>
   );
