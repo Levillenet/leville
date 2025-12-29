@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Check } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { getTranslations, Language } from "@/translations";
@@ -12,15 +12,30 @@ interface AboutProps {
 
 const About = ({ lang = "fi" }: AboutProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const t = getTranslations(lang).about;
 
+  const goToNext = useCallback(() => {
+    setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
+  }, []);
+
+  const goToPrev = useCallback(() => {
+    setCurrentImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  }, []);
+
+  const goToSlide = useCallback((index: number) => {
+    setCurrentImageIndex(index);
+  }, []);
+
   useEffect(() => {
+    if (isPaused) return;
+    
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
+      goToNext();
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isPaused, goToNext]);
 
   return (
     <section id="majoitukset" className="py-12 md:py-16 bg-background relative overflow-hidden">
@@ -67,7 +82,11 @@ const About = ({ lang = "fi" }: AboutProps) => {
 
           {/* Image Gallery with crossfade */}
           <ScrollReveal direction="right" delay={0.2}>
-            <div className="relative">
+            <div 
+              className="relative group"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
               <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-elegant border border-border/20">
                 {galleryImages.map((image, index) => (
                   <img
@@ -84,18 +103,36 @@ const About = ({ lang = "fi" }: AboutProps) => {
                 ))}
               </div>
               
+              {/* Navigation arrows */}
+              <button
+                onClick={goToPrev}
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border/30 flex items-center justify-center text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-background"
+                aria-label={lang === "en" ? "Previous image" : "Edellinen kuva"}
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={goToNext}
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border/30 flex items-center justify-center text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-background"
+                aria-label={lang === "en" ? "Next image" : "Seuraava kuva"}
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+              
               {/* Decorative elements */}
               <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-aurora-green/10 rounded-xl -z-10" />
               <div className="absolute -top-4 -left-4 w-16 h-16 bg-aurora-blue/10 rounded-xl -z-10" />
 
-              {/* Image indicators */}
+              {/* Clickable image indicators */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
                 {galleryImages.map((_, index) => (
-                  <div
+                  <button
                     key={index}
-                    className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${
-                      index === currentImageIndex ? 'bg-white w-4' : 'bg-white/40'
+                    onClick={() => goToSlide(index)}
+                    className={`h-1.5 rounded-full transition-all duration-500 hover:bg-white/70 ${
+                      index === currentImageIndex ? 'bg-white w-4' : 'bg-white/40 w-1.5'
                     }`}
+                    aria-label={`${lang === "en" ? "Go to image" : "Siirry kuvaan"} ${index + 1}`}
                   />
                 ))}
               </div>
