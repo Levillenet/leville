@@ -150,15 +150,8 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
     };
   }, [location.pathname]);
 
-  const title = isEnglish 
-    ? "Check our available accommodations" 
-    : "Katso vapaana olevat majoituksemme";
-
   return (
-    <div className="glass-card rounded-xl p-6 md:p-8 shadow-elegant border border-border/30 max-w-4xl mx-auto relative" style={{ overflow: 'visible', zIndex: 40 }}>
-      <h2 className="text-xl font-serif font-semibold text-foreground mb-6 tracking-wide">
-        {title}
-      </h2>
+    <div className="glass-card rounded-xl p-4 md:p-6 shadow-elegant border border-border/30 max-w-4xl mx-auto relative" style={{ overflow: 'visible', zIndex: 40 }}>
       <div 
         id="moder-embed" 
         ref={containerRef} 
