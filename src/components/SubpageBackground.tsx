@@ -15,14 +15,14 @@ const SubpageBackground = () => {
   useEffect(() => {
     // Generate random stars/snow crystals
     const generatedStars: Star[] = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 35; i++) {
       generatedStars.push({
         id: i,
         x: Math.random() * 100,
-        y: Math.random() * 80,
-        size: Math.random() * 5 + 3,
-        delay: Math.random() * 5,
-        duration: Math.random() * 3 + 2,
+        y: Math.random() * 85,
+        size: Math.random() * 8 + 5,
+        delay: Math.random() * 2,
+        duration: Math.random() * 1 + 1,
       });
     }
     setStars(generatedStars);
@@ -130,7 +130,7 @@ const SubpageBackground = () => {
           <svg 
             viewBox="0 0 24 24" 
             className="w-full h-full"
-            style={{ color: 'rgba(255, 255, 255, 0.7)' }}
+            style={{ color: 'rgba(255, 255, 255, 0.95)' }}
             fill="currentColor"
           >
             <circle cx="12" cy="12" r="3" />
