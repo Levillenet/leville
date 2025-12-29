@@ -32,7 +32,6 @@ const BookingWidget = () => {
         id="moder-embed" 
         ref={containerRef} 
         className="min-h-[250px] relative"
-        style={{ overflow: 'visible', zIndex: 50 }}
       />
     </div>
   );
