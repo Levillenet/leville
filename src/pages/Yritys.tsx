@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, Building, Home, Users, Briefcase, MapPin, Mail, Star, Quote, LucideIcon, Calendar, Award, Heart } from "lucide-react";
+import { Check, Building, Home, Users, Briefcase, MapPin, Mail, Star, Quote, LucideIcon, Calendar, Award, Heart, Moon, UserCheck, Building2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { testimonials } from "@/data/testimonials";
 import { getTranslations, Language } from "@/translations";
@@ -23,14 +23,16 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
 
   const stats = lang === "en" 
     ? [
-        { value: 2011, label: "Established", prefix: "", suffix: "", icon: Calendar },
+        { value: 20000, label: "Nights annually", prefix: "", suffix: "+", icon: Moon },
+        { value: 5000, label: "Guests annually", prefix: "", suffix: "+", icon: UserCheck },
+        { value: 30, label: "Properties", prefix: "", suffix: "", icon: Building2 },
         { value: 14, label: "Years of experience", prefix: "", suffix: "+", icon: Award },
-        { value: 500, label: "Happy customers", prefix: "", suffix: "+", icon: Heart },
       ]
     : [
-        { value: 2011, label: "Perustettu", prefix: "", suffix: "", icon: Calendar },
+        { value: 20000, label: "Yöpymistä vuodessa", prefix: "", suffix: "+", icon: Moon },
+        { value: 5000, label: "Asiakasta vuodessa", prefix: "", suffix: "+", icon: UserCheck },
+        { value: 30, label: "Majoituskohdetta", prefix: "", suffix: "", icon: Building2 },
         { value: 14, label: "Vuotta kokemusta", prefix: "", suffix: "+", icon: Award },
-        { value: 500, label: "Tyytyväistä asiakasta", prefix: "", suffix: "+", icon: Heart },
       ];
 
   const isEnglish = lang === "en";
@@ -110,22 +112,25 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
 
             {/* Animated Stats */}
             <ScrollReveal delay={0.1}>
-              <section className="grid md:grid-cols-3 gap-6 mb-20 max-w-4xl mx-auto">
+              <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-20 max-w-5xl mx-auto">
                 {stats.map((stat, index) => (
                   <div 
                     key={stat.label}
-                    className="glass-card border-border/30 rounded-xl p-8 text-center"
+                    className="glass-card border-border/30 rounded-xl p-6 md:p-8 text-center group hover:border-primary/50 transition-all duration-300 hover:scale-105"
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <stat.icon className="w-8 h-8 text-primary mx-auto mb-4" />
-                    <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/30 transition-colors">
+                      <stat.icon className="w-6 h-6 md:w-7 md:h-7 text-primary" />
+                    </div>
+                    <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-2">
                       <AnimatedCounter 
                         target={stat.value} 
                         prefix={stat.prefix} 
                         suffix={stat.suffix}
-                        duration={2}
+                        duration={2.5}
                       />
                     </div>
-                    <p className="text-muted-foreground">{stat.label}</p>
+                    <p className="text-sm md:text-base text-muted-foreground">{stat.label}</p>
                   </div>
                 ))}
               </section>
