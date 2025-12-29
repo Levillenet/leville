@@ -15,12 +15,12 @@ const SubpageBackground = () => {
   useEffect(() => {
     // Generate random stars/snow crystals
     const generatedStars: Star[] = [];
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 20; i++) {
       generatedStars.push({
         id: i,
         x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 6 + 3,
+        y: Math.random() * 80,
+        size: Math.random() * 5 + 3,
         delay: Math.random() * 5,
         duration: Math.random() * 3 + 2,
       });
@@ -30,37 +30,84 @@ const SubpageBackground = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {/* Faint Aurora Borealis */}
+      {/* Aurora Borealis - Curtain-like bands */}
       <div className="absolute inset-0">
-        {/* Aurora layer 1 - green/cyan - main glow */}
+        {/* Aurora curtain 1 - green, leftmost */}
         <div 
-          className="absolute top-0 left-1/4 w-[80%] h-[50%] opacity-[0.2] blur-[80px] animate-subpage-aurora-1"
+          className="absolute animate-aurora-curtain-1"
           style={{
-            background: 'radial-gradient(ellipse 120% 80% at 50% 20%, hsl(160 70% 50% / 0.7), hsl(195 80% 50% / 0.4), transparent 70%)',
-          }}
-        />
-        
-        {/* Aurora layer 2 - blue */}
-        <div 
-          className="absolute top-[5%] right-1/4 w-[60%] h-[45%] opacity-[0.15] blur-[60px] animate-subpage-aurora-2"
-          style={{
-            background: 'radial-gradient(ellipse 100% 70% at 60% 30%, hsl(195 80% 55% / 0.6), hsl(180 60% 45% / 0.3), transparent 70%)',
-          }}
-        />
-        
-        {/* Aurora layer 3 - violet/pink hint */}
-        <div 
-          className="absolute top-[10%] left-1/3 w-[50%] h-[35%] opacity-[0.12] blur-[100px] animate-subpage-aurora-3"
-          style={{
-            background: 'radial-gradient(ellipse at center, hsl(280 50% 55% / 0.5), hsl(220 60% 50% / 0.3), transparent 70%)',
+            top: '-10%',
+            left: '5%',
+            width: '25%',
+            height: '70%',
+            background: 'linear-gradient(180deg, transparent 0%, hsl(160 70% 50% / 0.3) 20%, hsl(160 60% 45% / 0.5) 40%, hsl(170 70% 50% / 0.3) 60%, hsl(180 60% 45% / 0.2) 80%, transparent 100%)',
+            filter: 'blur(30px)',
+            transform: 'skewX(-15deg)',
           }}
         />
 
-        {/* Additional subtle shimmer layer */}
+        {/* Aurora curtain 2 - cyan/blue */}
         <div 
-          className="absolute top-0 left-0 w-full h-[40%] opacity-[0.08] blur-[120px]"
+          className="absolute animate-aurora-curtain-2"
           style={{
-            background: 'linear-gradient(180deg, hsl(160 60% 45% / 0.3) 0%, transparent 100%)',
+            top: '-5%',
+            left: '25%',
+            width: '20%',
+            height: '65%',
+            background: 'linear-gradient(180deg, transparent 0%, hsl(180 70% 50% / 0.25) 15%, hsl(195 80% 50% / 0.45) 35%, hsl(200 70% 45% / 0.35) 55%, hsl(190 60% 40% / 0.2) 75%, transparent 100%)',
+            filter: 'blur(25px)',
+            transform: 'skewX(-10deg)',
+          }}
+        />
+
+        {/* Aurora curtain 3 - green/teal, center */}
+        <div 
+          className="absolute animate-aurora-curtain-3"
+          style={{
+            top: '-8%',
+            left: '40%',
+            width: '30%',
+            height: '75%',
+            background: 'linear-gradient(180deg, transparent 0%, hsl(165 65% 50% / 0.2) 10%, hsl(160 70% 50% / 0.4) 30%, hsl(170 75% 48% / 0.5) 50%, hsl(180 65% 45% / 0.3) 70%, hsl(190 55% 40% / 0.15) 85%, transparent 100%)',
+            filter: 'blur(35px)',
+            transform: 'skewX(-5deg)',
+          }}
+        />
+
+        {/* Aurora curtain 4 - blue/purple */}
+        <div 
+          className="absolute animate-aurora-curtain-4"
+          style={{
+            top: '-3%',
+            left: '60%',
+            width: '22%',
+            height: '60%',
+            background: 'linear-gradient(180deg, transparent 0%, hsl(200 70% 50% / 0.2) 20%, hsl(220 60% 50% / 0.35) 40%, hsl(260 50% 50% / 0.25) 60%, hsl(240 45% 45% / 0.15) 80%, transparent 100%)',
+            filter: 'blur(28px)',
+            transform: 'skewX(-12deg)',
+          }}
+        />
+
+        {/* Aurora curtain 5 - rightmost, green */}
+        <div 
+          className="absolute animate-aurora-curtain-5"
+          style={{
+            top: '-6%',
+            left: '78%',
+            width: '18%',
+            height: '55%',
+            background: 'linear-gradient(180deg, transparent 0%, hsl(160 60% 50% / 0.2) 25%, hsl(165 70% 48% / 0.35) 45%, hsl(175 65% 45% / 0.25) 65%, transparent 100%)',
+            filter: 'blur(22px)',
+            transform: 'skewX(-8deg)',
+          }}
+        />
+
+        {/* Soft glow overlay at top */}
+        <div 
+          className="absolute top-0 left-0 w-full h-[30%] opacity-30"
+          style={{
+            background: 'linear-gradient(180deg, hsl(160 50% 45% / 0.15) 0%, transparent 100%)',
+            filter: 'blur(60px)',
           }}
         />
       </div>
@@ -79,7 +126,7 @@ const SubpageBackground = () => {
             animationDuration: `${star.duration}s`,
           }}
         >
-          {/* Snow crystal shape - brighter */}
+          {/* Snow crystal shape */}
           <svg 
             viewBox="0 0 24 24" 
             className="w-full h-full"
@@ -96,14 +143,6 @@ const SubpageBackground = () => {
           </svg>
         </div>
       ))}
-
-      {/* Subtle gradient overlay at bottom for depth */}
-      <div 
-        className="absolute bottom-0 left-0 right-0 h-[40%] pointer-events-none"
-        style={{
-          background: 'linear-gradient(to top, hsl(218 25% 10% / 0.5), transparent)',
-        }}
-      />
     </div>
   );
 };
