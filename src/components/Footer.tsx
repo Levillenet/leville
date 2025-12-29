@@ -53,7 +53,7 @@ const Footer = () => {
               <img 
                 src={levilleLogo} 
                 alt="Leville.net - Apartments & Villas" 
-                className="h-12 w-auto"
+                className="h-20 md:h-24 w-auto"
               />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
