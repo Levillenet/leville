@@ -221,22 +221,29 @@ export const fi = {
   },
   ajankohtaista: {
     meta: {
-      title: "Ajankohtaista & Tarjoukset | Leville.net",
-      description: "Ajankohtaiset uutiset ja tarjoukset Leville.net majoituksista. Varaa lomasi Leviltä edullisesti!",
-      keywords: "Levi tarjoukset, Levi varaus, Levi loma 2026, Levi majoitus tarjous",
+      title: "Ajankohtaista – Varaa parhaat ajankohdat Leviltä | Leville.net",
+      description: "Ajankohtaiset uutiset Levin majoituksista. Loppukevään vapaat ajankohdat ja joulukuu 2026 nyt myynnissä. Varaa lomasi Leviltä ajoissa!",
+      keywords: "Levi varaus 2025, Levi joulu 2026, Levi kevät, Levi majoitus tarjous, Levi loma varaus",
       canonical: "https://leville.net/ajankohtaista"
     },
-    title: "Ajankohtaista & Tarjoukset",
-    subtitle: "Pysy ajan tasalla uusimmista tarjouksistamme ja ajankohtaisista uutisista.",
+    title: "Ajankohtaista",
+    subtitle: "Varaa nyt parhaat ajankohdat",
     badge: "Uutiset & Tarjoukset",
-    bookCta: "Varaa nyt",
+    bookCta: "Tutustu vapaisiin ajankohtiin ja varaa",
     items: [
       {
-        badge: "UUTTA!",
+        badge: "Kevät 2025",
         date: "29.12.2024",
-        title: "Joulukuu 2026 avattu nyt myyntiin!",
-        description: "Ensi vuoden joulusesongin varaukset ovat nyt avoinna! Levin joulukausi on aina erittäin suosittu ja parhaat kohteet varataan nopeasti. Älä jää ilman – varaa nyt haluamasi ajankohta ja majoitus.",
-        highlight: "Varauksia tulee koko ajan, joten varaa nyt omasi!"
+        title: "Loppukeväälle on vielä tilaa Levillä",
+        description: "Kevättalvi ja alkukevät ovat Levillä monen suosikkiaikaa. Valoisat päivät, loistavat hiihto- ja ulkoiluolosuhteet sekä rauhallisempi tunnelma tekevät loppukeväästä erinomaisen ajankohdan lomalle. Useissa majoituskohteissamme on vielä vapaita ajankohtia, joten nyt on hyvä hetki varata.",
+        highlight: "Suosittelemme tekemään varauksen heti, jotta valinnanvaraa on vielä runsaasti."
+      },
+      {
+        badge: "Joulu 2026",
+        date: "29.12.2024",
+        title: "Joulukuu 2026 on nyt avattu myyntiin",
+        description: "Olemme avanneet varaukset joulukuulle 2026. Joulusesonki on Levillä erittäin kysytty, ja suosituimmat päivät sekä majoitukset varataan usein pitkälle etukäteen. Varaamalla ajoissa varmistat, että saat juuri sinulle sopivat päivät ja mieluisimman majoituskohteen.",
+        highlight: "Varaa ajoissa ja suunnittele matkasi rauhassa etukäteen!"
       }
     ]
   }

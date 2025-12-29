@@ -221,22 +221,29 @@ export const en = {
   },
   ajankohtaista: {
     meta: {
-      title: "News & Offers | Leville.net",
-      description: "Latest news and offers from Leville.net accommodations. Book your Levi holiday at great prices!",
-      keywords: "Levi offers, Levi booking, Levi holiday 2026, Levi accommodation deal",
+      title: "News – Book the Best Dates in Levi | Leville.net",
+      description: "Latest news about Levi accommodations. Late spring availability and December 2026 now on sale. Book your Levi holiday early!",
+      keywords: "Levi booking 2025, Levi Christmas 2026, Levi spring, Levi accommodation offer, Levi holiday booking",
       canonical: "https://leville.net/en/news"
     },
-    title: "News & Offers",
-    subtitle: "Stay up to date with our latest offers and news.",
+    title: "News",
+    subtitle: "Book the best dates now",
     badge: "News & Offers",
-    bookCta: "Book now",
+    bookCta: "Browse availability and book",
     items: [
       {
-        badge: "NEW!",
+        badge: "Spring 2025",
         date: "Dec 29, 2024",
-        title: "December 2026 now open for bookings!",
-        description: "Next year's Christmas season bookings are now open! The Christmas season in Levi is always extremely popular and the best properties get booked quickly. Don't miss out – book your preferred dates and accommodation now.",
-        highlight: "Bookings are coming in constantly, so book yours now!"
+        title: "Late spring availability in Levi",
+        description: "Late winter and early spring are many visitors' favorite time in Levi. Bright days, excellent skiing and outdoor conditions, and a more peaceful atmosphere make late spring an excellent time for a holiday. Several of our accommodations still have available dates, so now is a good time to book.",
+        highlight: "We recommend booking now while there is still plenty of choice."
+      },
+      {
+        badge: "Christmas 2026",
+        date: "Dec 29, 2024",
+        title: "December 2026 is now open for bookings",
+        description: "We have opened bookings for December 2026. The Christmas season in Levi is extremely popular, and the most sought-after dates and accommodations are often booked well in advance. By booking early, you ensure you get the dates that suit you and your preferred accommodation.",
+        highlight: "Book early and plan your trip in peace!"
       }
     ]
   }
