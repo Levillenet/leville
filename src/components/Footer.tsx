@@ -88,7 +88,7 @@ const Footer = () => {
             <a href="#" className="text-muted-foreground hover:text-foreground transition-colors tracking-wide">
               Tietosuojaseloste
             </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors tracking-wide">
+            <a href="/varausehdot" className="text-muted-foreground hover:text-foreground transition-colors tracking-wide">
               Varausehdot
             </a>
           </div>

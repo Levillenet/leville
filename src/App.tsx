@@ -9,6 +9,7 @@ import Majoitukset from "./pages/Majoitukset";
 import Levi from "./pages/Levi";
 import Yhteystiedot from "./pages/Yhteystiedot";
 import UKK from "./pages/UKK";
+import Varausehdot from "./pages/Varausehdot";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/levi" element={<Levi />} />
             <Route path="/yhteystiedot" element={<Yhteystiedot />} />
             <Route path="/ukk" element={<UKK />} />
+            <Route path="/varausehdot" element={<Varausehdot />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
