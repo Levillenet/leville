@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Cloud, Sun, CloudRain, Snowflake, CloudFog, Wind } from "lucide-react";
+import { Cloud, Sun, CloudRain, Snowflake, CloudFog, Wind, ThermometerSnowflake } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
 interface WeatherData {
   temperature: number;
   weatherCode: number;
   snowDepth: number | null;
+  minTemp24h: number | null;
 }
 
 const getWeatherIcon = (code: number) => {
@@ -31,16 +32,26 @@ const WeatherWidget = () => {
     const fetchWeather = async () => {
       try {
         // Levi coordinates: 67.8039° N, 24.8084° E
+        // Fetch current weather and hourly forecast for next 24 hours
         const response = await fetch(
-          "https://api.open-meteo.com/v1/forecast?latitude=67.8039&longitude=24.8084&current=temperature_2m,weather_code,snow_depth&timezone=Europe%2FHelsinki"
+          "https://api.open-meteo.com/v1/forecast?latitude=67.8039&longitude=24.8084&current=temperature_2m,weather_code,snow_depth&hourly=temperature_2m&forecast_hours=24&timezone=Europe%2FHelsinki"
         );
         const data = await response.json();
+        
+        let minTemp24h: number | null = null;
+        
+        // Find minimum temperature in the next 24 hours
+        if (data.hourly && data.hourly.temperature_2m) {
+          const temps = data.hourly.temperature_2m as number[];
+          minTemp24h = Math.round(Math.min(...temps));
+        }
         
         if (data.current) {
           setWeather({
             temperature: Math.round(data.current.temperature_2m),
             weatherCode: data.current.weather_code,
             snowDepth: data.current.snow_depth !== undefined ? Math.round(data.current.snow_depth * 100) : null, // Convert m to cm
+            minTemp24h,
           });
         }
       } catch (error) {
@@ -61,11 +72,23 @@ const WeatherWidget = () => {
   }
 
   const snowLabel = isEnglish ? "snow" : "lunta";
+  const coldestLabel = isEnglish ? "coldest" : "kylmin";
+  
+  // Show coldest temperature if it's below -20°C
+  const showColdWarning = weather.minTemp24h !== null && weather.minTemp24h <= -20;
 
   return (
     <div className="flex items-center gap-2 text-foreground">
       {getWeatherIcon(weather.weatherCode)}
       <span className="font-semibold text-base">{weather.temperature}°C</span>
+      {showColdWarning && weather.minTemp24h !== null && (
+        <>
+          <span className="text-muted-foreground">|</span>
+          <ThermometerSnowflake className="w-3.5 h-3.5 text-cyan-400" />
+          <span className="font-semibold text-base text-cyan-400">{weather.minTemp24h}°C</span>
+          <span className="text-xs opacity-70">{coldestLabel}</span>
+        </>
+      )}
       {weather.snowDepth !== null && weather.snowDepth > 0 && (
         <>
           <span className="text-muted-foreground">|</span>
