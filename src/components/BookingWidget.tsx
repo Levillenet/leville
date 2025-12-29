@@ -151,11 +151,11 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
   }, [location.pathname]);
 
   return (
-    <div className="glass-card rounded-xl p-4 md:p-6 shadow-elegant border border-border/30 max-w-4xl mx-auto relative" style={{ overflow: 'visible', zIndex: 40 }}>
+    <div className="bg-background/60 backdrop-blur-xl rounded-xl p-4 md:p-6 shadow-elegant border border-primary/20 max-w-4xl mx-auto relative" style={{ overflow: 'visible', zIndex: 40 }}>
       <div 
         id="moder-embed" 
         ref={containerRef} 
-        className="min-h-[250px] relative"
+        className="min-h-[250px] relative [&_*]:!bg-transparent [&_input]:!bg-muted/50 [&_input]:!border-border/50 [&_input]:!text-foreground [&_button]:!bg-primary [&_button]:!text-primary-foreground [&_label]:!text-foreground/80"
       />
     </div>
   );
