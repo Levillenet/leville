@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 interface Star {
   id: number;
@@ -7,24 +7,22 @@ interface Star {
   size: number;
   delay: number;
   duration: number;
-  brightness: number;
 }
 
 const SubpageBackground = () => {
   const [stars, setStars] = useState<Star[]>([]);
 
-  // Generate stars only once on mount
   useEffect(() => {
+    // Generate random stars/snow crystals
     const generatedStars: Star[] = [];
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 20; i++) {
       generatedStars.push({
         id: i,
         x: Math.random() * 100,
-        y: Math.random() * 75, // Keep stars in upper portion
-        size: Math.random() * 3 + 2, // Slightly larger stars
-        delay: Math.random() * 6,
-        duration: Math.random() * 3 + 3, // Faster twinkling
-        brightness: Math.random() * 0.5 + 0.5, // Brighter base
+        y: Math.random() * 80,
+        size: Math.random() * 5 + 3,
+        delay: Math.random() * 5,
+        duration: Math.random() * 3 + 2,
       });
     }
     setStars(generatedStars);
@@ -32,161 +30,93 @@ const SubpageBackground = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {/* Deep dark night sky base */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          background: 'radial-gradient(ellipse 150% 100% at 50% 0%, hsl(218 30% 12%) 0%, hsl(218 25% 8%) 50%, hsl(218 28% 6%) 100%)',
-        }}
-      />
-
-      {/* Aurora Borealis - Flowing horizontal bands */}
+      {/* Aurora Borealis - Curtain-like bands */}
       <div className="absolute inset-0">
-        {/* Primary aurora band - soft green, widest */}
+        {/* Aurora curtain 1 - green, leftmost */}
         <div 
-          className="absolute aurora-band-1"
+          className="absolute animate-aurora-curtain-1"
           style={{
-            top: '5%',
-            left: '-10%',
-            width: '120%',
-            height: '35%',
-            background: `
-              linear-gradient(90deg, 
-                transparent 0%, 
-                hsl(160 55% 40% / 0.08) 10%,
-                hsl(155 60% 42% / 0.15) 25%,
-                hsl(160 65% 45% / 0.22) 40%,
-                hsl(165 60% 43% / 0.18) 55%,
-                hsl(158 55% 40% / 0.12) 70%,
-                hsl(162 50% 38% / 0.08) 85%,
-                transparent 100%
-              )
-            `,
-            filter: 'blur(40px)',
-            transform: 'scaleY(0.4) rotate(-2deg)',
-            transformOrigin: 'center center',
-          }}
-        />
-
-        {/* Secondary aurora band - green with blue hint */}
-        <div 
-          className="absolute aurora-band-2"
-          style={{
-            top: '12%',
-            left: '-5%',
-            width: '110%',
-            height: '28%',
-            background: `
-              linear-gradient(90deg, 
-                transparent 0%, 
-                hsl(165 50% 38% / 0.06) 15%,
-                hsl(170 55% 42% / 0.14) 30%,
-                hsl(175 60% 45% / 0.2) 45%,
-                hsl(180 55% 43% / 0.16) 60%,
-                hsl(172 50% 40% / 0.1) 75%,
-                transparent 100%
-              )
-            `,
-            filter: 'blur(35px)',
-            transform: 'scaleY(0.35) rotate(1deg)',
-            transformOrigin: 'center center',
-          }}
-        />
-
-        {/* Tertiary aurora band - subtle purple hint */}
-        <div 
-          className="absolute aurora-band-3"
-          style={{
-            top: '8%',
+            top: '-10%',
             left: '5%',
-            width: '90%',
-            height: '25%',
-            background: `
-              linear-gradient(90deg, 
-                transparent 0%, 
-                hsl(200 45% 40% / 0.05) 20%,
-                hsl(240 35% 45% / 0.1) 40%,
-                hsl(270 30% 42% / 0.08) 55%,
-                hsl(255 35% 40% / 0.06) 70%,
-                transparent 100%
-              )
-            `,
-            filter: 'blur(45px)',
-            transform: 'scaleY(0.3) rotate(-1deg)',
-            transformOrigin: 'center center',
-          }}
-        />
-
-        {/* Accent aurora wisps - delicate green highlights */}
-        <div 
-          className="absolute aurora-wisp-1"
-          style={{
-            top: '3%',
-            left: '20%',
-            width: '40%',
-            height: '20%',
-            background: `
-              linear-gradient(95deg, 
-                transparent 0%, 
-                hsl(158 60% 45% / 0.12) 30%,
-                hsl(162 65% 48% / 0.18) 50%,
-                hsl(156 55% 42% / 0.1) 70%,
-                transparent 100%
-              )
-            `,
-            filter: 'blur(25px)',
-            transform: 'scaleY(0.25) rotate(-3deg)',
-          }}
-        />
-
-        {/* Secondary wisp with blue tint */}
-        <div 
-          className="absolute aurora-wisp-2"
-          style={{
-            top: '15%',
-            left: '50%',
-            width: '35%',
-            height: '18%',
-            background: `
-              linear-gradient(88deg, 
-                transparent 0%, 
-                hsl(175 50% 42% / 0.08) 25%,
-                hsl(190 45% 45% / 0.14) 50%,
-                hsl(185 40% 40% / 0.08) 75%,
-                transparent 100%
-              )
-            `,
-            filter: 'blur(30px)',
-            transform: 'scaleY(0.22) rotate(2deg)',
-          }}
-        />
-
-        {/* Subtle purple accent at edges */}
-        <div 
-          className="absolute aurora-purple-accent"
-          style={{
-            top: '6%',
-            left: '65%',
             width: '25%',
-            height: '22%',
-            background: `
-              radial-gradient(ellipse 100% 50% at 50% 50%, 
-                hsl(280 30% 40% / 0.06) 0%,
-                hsl(260 25% 38% / 0.04) 50%,
-                transparent 100%
-              )
-            `,
+            height: '70%',
+            background: 'linear-gradient(180deg, transparent 0%, hsl(160 70% 50% / 0.3) 20%, hsl(160 60% 45% / 0.5) 40%, hsl(170 70% 50% / 0.3) 60%, hsl(180 60% 45% / 0.2) 80%, transparent 100%)',
+            filter: 'blur(30px)',
+            transform: 'skewX(-15deg)',
+          }}
+        />
+
+        {/* Aurora curtain 2 - cyan/blue */}
+        <div 
+          className="absolute animate-aurora-curtain-2"
+          style={{
+            top: '-5%',
+            left: '25%',
+            width: '20%',
+            height: '65%',
+            background: 'linear-gradient(180deg, transparent 0%, hsl(180 70% 50% / 0.25) 15%, hsl(195 80% 50% / 0.45) 35%, hsl(200 70% 45% / 0.35) 55%, hsl(190 60% 40% / 0.2) 75%, transparent 100%)',
+            filter: 'blur(25px)',
+            transform: 'skewX(-10deg)',
+          }}
+        />
+
+        {/* Aurora curtain 3 - green/teal, center */}
+        <div 
+          className="absolute animate-aurora-curtain-3"
+          style={{
+            top: '-8%',
+            left: '40%',
+            width: '30%',
+            height: '75%',
+            background: 'linear-gradient(180deg, transparent 0%, hsl(165 65% 50% / 0.2) 10%, hsl(160 70% 50% / 0.4) 30%, hsl(170 75% 48% / 0.5) 50%, hsl(180 65% 45% / 0.3) 70%, hsl(190 55% 40% / 0.15) 85%, transparent 100%)',
             filter: 'blur(35px)',
-            transform: 'scaleY(0.3)',
+            transform: 'skewX(-5deg)',
+          }}
+        />
+
+        {/* Aurora curtain 4 - blue/purple */}
+        <div 
+          className="absolute animate-aurora-curtain-4"
+          style={{
+            top: '-3%',
+            left: '60%',
+            width: '22%',
+            height: '60%',
+            background: 'linear-gradient(180deg, transparent 0%, hsl(200 70% 50% / 0.2) 20%, hsl(220 60% 50% / 0.35) 40%, hsl(260 50% 50% / 0.25) 60%, hsl(240 45% 45% / 0.15) 80%, transparent 100%)',
+            filter: 'blur(28px)',
+            transform: 'skewX(-12deg)',
+          }}
+        />
+
+        {/* Aurora curtain 5 - rightmost, green */}
+        <div 
+          className="absolute animate-aurora-curtain-5"
+          style={{
+            top: '-6%',
+            left: '78%',
+            width: '18%',
+            height: '55%',
+            background: 'linear-gradient(180deg, transparent 0%, hsl(160 60% 50% / 0.2) 25%, hsl(165 70% 48% / 0.35) 45%, hsl(175 65% 45% / 0.25) 65%, transparent 100%)',
+            filter: 'blur(22px)',
+            transform: 'skewX(-8deg)',
+          }}
+        />
+
+        {/* Soft glow overlay at top */}
+        <div 
+          className="absolute top-0 left-0 w-full h-[30%] opacity-30"
+          style={{
+            background: 'linear-gradient(180deg, hsl(160 50% 45% / 0.15) 0%, transparent 100%)',
+            filter: 'blur(60px)',
           }}
         />
       </div>
 
-      {/* Twinkling Stars - Ice crystals */}
+      {/* Twinkling Stars / Snow Crystals */}
       {stars.map((star) => (
         <div
           key={star.id}
-          className="absolute star-twinkle"
+          className="absolute animate-subpage-twinkle"
           style={{
             left: `${star.x}%`,
             top: `${star.y}%`,
@@ -194,41 +124,25 @@ const SubpageBackground = () => {
             height: `${star.size}px`,
             animationDelay: `${star.delay}s`,
             animationDuration: `${star.duration}s`,
-            opacity: star.brightness,
           }}
         >
-          <div 
-            className="w-full h-full rounded-full"
-            style={{
-              background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(220,240,255,0.7) 40%, rgba(180,210,255,0.3) 70%, transparent 100%)',
-              boxShadow: '0 0 4px rgba(255,255,255,0.6), 0 0 8px rgba(200,220,255,0.3)',
-            }}
-          />
+          {/* Snow crystal shape */}
+          <svg 
+            viewBox="0 0 24 24" 
+            className="w-full h-full"
+            style={{ color: 'rgba(255, 255, 255, 0.7)' }}
+            fill="currentColor"
+          >
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 2v4M12 18v4M2 12h4M18 12h4M5.64 5.64l2.83 2.83M15.54 15.54l2.83 2.83M5.64 18.36l2.83-2.83M15.54 8.46l2.83-2.83" 
+              stroke="currentColor" 
+              strokeWidth="1" 
+              fill="none"
+              opacity="0.8"
+            />
+          </svg>
         </div>
       ))}
-
-      {/* Soft dark overlay for text readability */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          background: `
-            linear-gradient(180deg, 
-              transparent 0%, 
-              hsl(218 25% 8% / 0.2) 30%,
-              hsl(218 25% 8% / 0.4) 60%,
-              hsl(218 25% 8% / 0.6) 100%
-            )
-          `,
-        }}
-      />
-
-      {/* Very subtle vignette for depth */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 30%, transparent 0%, hsl(218 28% 6% / 0.3) 100%)',
-        }}
-      />
     </div>
   );
 };
