@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SubpageBackground from "@/components/SubpageBackground";
 import WhatsAppChat from "@/components/WhatsAppChat";
 
 const Varausehdot = () => {
@@ -26,7 +27,8 @@ const Varausehdot = () => {
         <meta property="og:site_name" content="Leville.net" />
       </Helmet>
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        <SubpageBackground />
         <Header />
         <Breadcrumbs />
         <main className="pt-8 pb-20">

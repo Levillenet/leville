@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SubpageBackground from "@/components/SubpageBackground";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Flame, Clock, Timer, Download, ThermometerSun } from "lucide-react";
@@ -26,7 +27,8 @@ const Sauna = () => {
         <meta name="description" content="Sähkösaunan lämmitysohjeet majoituskohteissamme." />
       </Helmet>
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        <SubpageBackground />
         <Header />
         <main className="pt-32 pb-20">
           <div className="container mx-auto px-4 max-w-3xl">

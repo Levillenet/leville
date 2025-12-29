@@ -232,6 +232,75 @@
   .animate-ken-burns {
     animation: kenBurns 8s ease-out forwards;
   }
+
+  /* Subpage background animations */
+  @keyframes subpageAurora1 {
+    0%, 100% { 
+      transform: translateX(0) translateY(0) scale(1);
+      opacity: 0.08;
+    }
+    50% { 
+      transform: translateX(30px) translateY(-20px) scale(1.1);
+      opacity: 0.12;
+    }
+  }
+
+  @keyframes subpageAurora2 {
+    0%, 100% { 
+      transform: translateX(0) translateY(0) scale(1);
+      opacity: 0.06;
+    }
+    50% { 
+      transform: translateX(-40px) translateY(15px) scale(1.15);
+      opacity: 0.1;
+    }
+  }
+
+  @keyframes subpageAurora3 {
+    0%, 100% { 
+      transform: translateX(0) scale(1);
+      opacity: 0.04;
+    }
+    33% { 
+      transform: translateX(50px) scale(1.08);
+      opacity: 0.07;
+    }
+    66% { 
+      transform: translateX(-30px) scale(1.05);
+      opacity: 0.05;
+    }
+  }
+
+  @keyframes subpageTwinkle {
+    0%, 100% { 
+      opacity: 0.1;
+      transform: scale(0.8);
+    }
+    50% { 
+      opacity: 0.6;
+      transform: scale(1.2);
+    }
+  }
+
+  .animate-subpage-aurora-1 {
+    animation: subpageAurora1 12s ease-in-out infinite;
+  }
+
+  .animate-subpage-aurora-2 {
+    animation: subpageAurora2 15s ease-in-out infinite;
+  }
+
+  .animate-subpage-aurora-3 {
+    animation: subpageAurora3 18s ease-in-out infinite;
+  }
+
+  .animate-subpage-twinkle {
+    animation: subpageTwinkle 3s ease-in-out infinite;
+  }
+
+  .text-snow-white {
+    color: hsl(var(--snow-white));
+  }
 }
 
 /* Moder widget layering (avoid clipping without breaking widget logic) */
