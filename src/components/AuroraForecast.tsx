@@ -99,8 +99,11 @@ const AuroraForecast = ({ lang = "fi" }: AuroraForecastProps) => {
   if (!aurora) return null;
 
   const title = lang === "en" ? "Aurora Forecast Today" : "Revontuliennuste tänään";
-  const kpLabel = "Kp-indeksi";
+  const kpLabel = lang === "en" ? "Kp Index" : "Kp-indeksi";
   const probabilityLabel = lang === "en" ? "Probability" : "Todennäköisyys";
+  const kpExplanation = lang === "en" 
+    ? "The Kp index (0-9) measures geomagnetic activity. Higher values mean stronger aurora. Kp 3+ is good for Levi, Kp 5+ brings spectacular displays." 
+    : "Kp-indeksi (0-9) mittaa geomagneettista aktiivisuutta. Korkeampi arvo tarkoittaa voimakkaampia revontulia. Kp 3+ on hyvä Leville, Kp 5+ tuo upeat näytökset.";
 
   return (
     <Card className="glass-card border-border/30 overflow-hidden relative">
@@ -133,6 +136,11 @@ const AuroraForecast = ({ lang = "fi" }: AuroraForecastProps) => {
 
         <p className="text-sm text-muted-foreground border-t border-border/30 pt-4">
           {aurora.description}
+        </p>
+
+        {/* Kp explanation */}
+        <p className="text-xs text-muted-foreground/70 italic">
+          {kpExplanation}
         </p>
 
         {/* Kp scale visualization */}
