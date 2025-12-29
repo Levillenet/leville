@@ -132,9 +132,29 @@ const Hero = () => {
 
       <div className="container mx-auto px-4 relative z-10" style={{ overflow: 'visible' }}>
         <div className="max-w-4xl mx-auto text-center" style={{ overflow: 'visible' }}>
-          {/* Main heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold text-foreground mb-6 animate-slide-up tracking-tight">
-            Tervetuloa <span className="text-gradient">Leville</span>
+          {/* Main heading with animated Leville text */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold text-foreground mb-6 tracking-tight">
+            <span className="animate-slide-up inline-block">Tervetuloa</span>{" "}
+            <span className="inline-block relative">
+              <span 
+                className="text-gradient inline-block animate-text-reveal"
+                style={{ 
+                  transform: 'rotate(-2deg)',
+                  transformOrigin: 'center center',
+                }}
+              >
+                Leville
+              </span>
+              {/* Sparkle effect */}
+              <span className="absolute -top-2 -right-4 md:-right-6 animate-sparkle-burst">
+                <svg width="24" height="24" viewBox="0 0 24 24" className="text-yellow-300 drop-shadow-[0_0_8px_rgba(253,224,71,0.8)]">
+                  <path
+                    d="M12 0L13.5 9L22 10.5L13.5 12L12 21L10.5 12L2 10.5L10.5 9L12 0Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+            </span>
           </h1>
 
           <p
@@ -212,6 +232,55 @@ const Hero = () => {
         @keyframes kenBurns {
           0% { transform: scale(1); }
           100% { transform: scale(1.08); }
+        }
+        
+        /* Text reveal animation for Leville */
+        .animate-text-reveal {
+          animation: textReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+        }
+        @keyframes textReveal {
+          0% {
+            opacity: 0;
+            clip-path: inset(0 100% 0 0);
+            transform: rotate(-2deg) translateX(-20px);
+          }
+          60% {
+            opacity: 1;
+            clip-path: inset(0 0 0 0);
+            transform: rotate(-2deg) translateX(0);
+          }
+          80% {
+            transform: rotate(-1deg) translateX(2px);
+          }
+          100% {
+            opacity: 1;
+            clip-path: inset(0 0 0 0);
+            transform: rotate(-2deg) translateX(0);
+          }
+        }
+        
+        /* Sparkle burst animation */
+        .animate-sparkle-burst {
+          opacity: 0;
+          animation: sparkleBurst 0.6s ease-out 1.4s forwards;
+        }
+        @keyframes sparkleBurst {
+          0% {
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.4) rotate(180deg);
+          }
+          70% {
+            opacity: 1;
+            transform: scale(1) rotate(270deg);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) rotate(360deg);
+          }
         }
       `}</style>
     </section>
