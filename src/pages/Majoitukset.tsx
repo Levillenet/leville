@@ -18,7 +18,7 @@ import perheasunnotImg from "@/assets/accommodations/perheasunnot.png";
 
 const accommodationIcons: LucideIcon[] = [Home, Users, Mountain];
 const amenityIcons: LucideIcon[] = [Wifi, Car, Snowflake];
-const accommodationImages = [karhupirttiImg, skistarImg, perheasunnotImg];
+const accommodationImages = [skistarImg, perheasunnotImg, karhupirttiImg];
 
 interface MajoituksetProps {
   lang?: Language;
