@@ -60,8 +60,10 @@ const Header = () => {
               <Globe className="w-4 h-4" />
               {langSwitchLabel}
             </Link>
-            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6">
-              {isEnglish ? "Book now" : "Varaa nyt"}
+            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6">
+              <a href="https://app.moder.fi/levillenet" target="_blank" rel="noopener noreferrer">
+                {isEnglish ? "Book now" : "Varaa nyt"}
+              </a>
             </Button>
           </nav>
 
@@ -97,8 +99,10 @@ const Header = () => {
                 <Globe className="w-4 h-4" />
                 {langSwitchLabel}
               </Link>
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium mt-2">
-                {isEnglish ? "Book now" : "Varaa nyt"}
+              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium mt-2">
+                <a href="https://app.moder.fi/levillenet" target="_blank" rel="noopener noreferrer">
+                  {isEnglish ? "Book now" : "Varaa nyt"}
+                </a>
               </Button>
             </div>
           </nav>

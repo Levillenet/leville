@@ -53,7 +53,7 @@ const About = ({ lang = "fi" }: AboutProps) => {
               ))}
             </ul>
 
-            <Link to="/majoitukset">
+            <Link to={lang === "en" ? "/en/accommodations" : "/majoitukset"} onClick={() => window.scrollTo(0, 0)}>
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8">
                 {t.cta}
               </Button>
