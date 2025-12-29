@@ -133,30 +133,31 @@ const Hero = () => {
       <div className="container mx-auto px-4 relative z-10" style={{ overflow: 'visible' }}>
         <div className="max-w-4xl mx-auto text-center" style={{ overflow: 'visible' }}>
           {/* Main heading with animated Leville text */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold text-foreground mb-6 tracking-tight">
-            <span className="animate-slide-up inline-block">Tervetuloa</span>{" "}
-            <span className="inline-block relative">
-              <span 
-                className="font-script text-5xl md:text-6xl lg:text-7xl text-white inline-block animate-text-reveal drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]"
-                style={{ 
-                  transform: 'rotate(-3deg)',
-                  transformOrigin: 'center center',
-                  textShadow: '0 0 30px rgba(255,255,255,0.4), 0 0 60px rgba(160,210,180,0.3)',
-                }}
-              >
-                Leville
-              </span>
-              {/* Sparkle effect */}
-              <span className="absolute -top-4 -right-2 md:-right-4 animate-sparkle-burst">
-                <svg width="32" height="32" viewBox="0 0 24 24" className="text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.9)]">
-                  <path
-                    d="M12 0L13.5 9L22 10.5L13.5 12L12 21L10.5 12L2 10.5L10.5 9L12 0Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </span>
-            </span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold text-foreground mb-8 tracking-tight">
+            <span className="animate-slide-up inline-block">Tervetuloa</span>
           </h1>
+          <div className="relative mb-8 -mt-2">
+            <span 
+              className="font-script text-7xl md:text-8xl lg:text-9xl text-white inline-block animate-text-reveal"
+              style={{ 
+                transform: 'rotate(-6deg)',
+                transformOrigin: 'center center',
+                textShadow: '0 0 40px rgba(255,255,255,0.5), 0 0 80px rgba(160,210,180,0.4), 0 2px 4px rgba(0,0,0,0.3)',
+                background: 'transparent',
+              }}
+            >
+              Leville
+            </span>
+            {/* Sparkle effect */}
+            <span className="absolute -top-6 right-0 md:right-8 lg:right-16 animate-sparkle-burst">
+              <svg width="40" height="40" viewBox="0 0 24 24" className="text-white drop-shadow-[0_0_16px_rgba(255,255,255,1)]">
+                <path
+                  d="M12 0L13.5 9L22 10.5L13.5 12L12 21L10.5 12L2 10.5L10.5 9L12 0Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+          </div>
 
           <p
             className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto animate-slide-up leading-relaxed"
@@ -235,48 +236,48 @@ const Hero = () => {
           100% { transform: scale(1.08); }
         }
         
-        /* Text reveal animation for Leville */
+        /* Text reveal animation for Leville - slow and elegant */
         .animate-text-reveal {
-          animation: textReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+          animation: textReveal 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both;
         }
         @keyframes textReveal {
           0% {
             opacity: 0;
             clip-path: inset(0 100% 0 0);
-            transform: rotate(-2deg) translateX(-20px);
+            transform: rotate(-6deg) translateX(-30px);
           }
-          60% {
+          70% {
             opacity: 1;
             clip-path: inset(0 0 0 0);
-            transform: rotate(-2deg) translateX(0);
+            transform: rotate(-6deg) translateX(0);
           }
-          80% {
-            transform: rotate(-1deg) translateX(2px);
+          85% {
+            transform: rotate(-5.5deg) translateX(3px);
           }
           100% {
             opacity: 1;
             clip-path: inset(0 0 0 0);
-            transform: rotate(-2deg) translateX(0);
+            transform: rotate(-6deg) translateX(0);
           }
         }
         
-        /* Sparkle burst animation */
+        /* Sparkle burst animation - delayed to match slow text */
         .animate-sparkle-burst {
           opacity: 0;
-          animation: sparkleBurst 0.6s ease-out 1.4s forwards;
+          animation: sparkleBurst 0.8s ease-out 3.3s forwards;
         }
         @keyframes sparkleBurst {
           0% {
             opacity: 0;
             transform: scale(0) rotate(0deg);
           }
-          50% {
+          40% {
             opacity: 1;
-            transform: scale(1.4) rotate(180deg);
+            transform: scale(1.6) rotate(180deg);
           }
           70% {
             opacity: 1;
-            transform: scale(1) rotate(270deg);
+            transform: scale(1.1) rotate(300deg);
           }
           100% {
             opacity: 1;
