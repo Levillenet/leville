@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import LeviSeasons from "@/components/LeviSeasons";
+import LeviFacts from "@/components/LeviFacts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video } from "lucide-react";
@@ -80,6 +81,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 {t.subtitle}
               </p>
             </section>
+
+            {/* Levi Facts Section */}
+            <LeviFacts lang={lang} />
 
             {/* Seasons Section */}
             <LeviSeasons lang={lang} />
