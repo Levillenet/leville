@@ -82,23 +82,21 @@ const Hero = () => {
       {/* Moving Aurora overlay effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 
-          className="absolute -top-20 left-1/4 w-[800px] h-[500px] bg-gradient-to-b from-aurora-green/25 via-aurora-blue/15 to-transparent rounded-full blur-3xl mix-blend-screen"
+          className="absolute -top-20 left-0 w-[1000px] h-[600px] bg-gradient-to-b from-aurora-green/35 via-aurora-blue/20 to-transparent rounded-full blur-3xl mix-blend-screen"
           style={{
-            animation: 'aurora 15s ease-in-out infinite, auroraMove 20s ease-in-out infinite',
+            animation: 'auroraMove1 8s ease-in-out infinite',
           }}
         />
         <div
-          className="absolute -top-10 right-1/4 w-[600px] h-[400px] bg-gradient-to-b from-aurora-blue/20 via-aurora-green/12 to-transparent rounded-full blur-3xl mix-blend-screen"
+          className="absolute -top-10 right-0 w-[800px] h-[500px] bg-gradient-to-b from-aurora-blue/30 via-aurora-green/18 to-transparent rounded-full blur-3xl mix-blend-screen"
           style={{
-            animation: 'aurora 12s ease-in-out infinite, auroraMove 25s ease-in-out infinite reverse',
-            animationDelay: '-5s',
+            animation: 'auroraMove2 10s ease-in-out infinite',
           }}
         />
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-aurora-green/15 via-aurora-blue/10 to-transparent rounded-full blur-3xl mix-blend-screen"
+          className="absolute top-10 left-1/3 w-[600px] h-[400px] bg-gradient-to-br from-aurora-green/25 via-transparent to-aurora-blue/15 rounded-full blur-3xl mix-blend-screen"
           style={{
-            animation: 'aurora 18s ease-in-out infinite, auroraMove 30s ease-in-out infinite',
-            animationDelay: '-10s',
+            animation: 'auroraMove3 12s ease-in-out infinite',
           }}
         />
       </div>
@@ -121,7 +119,7 @@ const Hero = () => {
         ))}
       </div>
 
-      {/* Frost sparkle effect */}
+      {/* Frost sparkle/crystal effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {sparkles.map((sparkle) => (
           <div
@@ -134,9 +132,9 @@ const Hero = () => {
               animationDelay: `${sparkle.delay}s`,
             }}
           >
-            <svg width="12" height="12" viewBox="0 0 12 12" className="text-white/60">
+            <svg width="16" height="16" viewBox="0 0 16 16" className="text-white drop-shadow-[0_0_4px_rgba(255,255,255,0.8)]">
               <path
-                d="M6 0L6.5 4.5L11 5L6.5 5.5L6 10L5.5 5.5L1 5L5.5 4.5L6 0Z"
+                d="M8 0L9 6L15 7L9 8L8 14L7 8L1 7L7 6L8 0Z"
                 fill="currentColor"
               />
             </svg>
@@ -194,18 +192,26 @@ const Hero = () => {
       {/* CSS animations */}
       <style>{`
         @keyframes twinkle {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.2); }
+          0%, 100% { opacity: 0.2; transform: scale(0.8); }
+          50% { opacity: 1; transform: scale(1.3); }
         }
         @keyframes sparkle {
-          0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-          50% { opacity: 0.8; transform: scale(1) rotate(180deg); }
+          0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+          25% { opacity: 1; transform: scale(1.2) rotate(90deg); }
+          50% { opacity: 0.3; transform: scale(0.8) rotate(180deg); }
+          75% { opacity: 1; transform: scale(1.1) rotate(270deg); }
         }
-        @keyframes auroraMove {
-          0%, 100% { transform: translateX(0) translateY(0); }
-          25% { transform: translateX(50px) translateY(-20px); }
-          50% { transform: translateX(-30px) translateY(10px); }
-          75% { transform: translateX(20px) translateY(-30px); }
+        @keyframes auroraMove1 {
+          0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+          50% { transform: translateX(150px) translateY(-40px) scale(1.1); }
+        }
+        @keyframes auroraMove2 {
+          0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+          50% { transform: translateX(-120px) translateY(30px) scale(1.15); }
+        }
+        @keyframes auroraMove3 {
+          0%, 100% { transform: translateX(0) translateY(0) scale(1); opacity: 0.7; }
+          50% { transform: translateX(80px) translateY(-50px) scale(1.2); opacity: 1; }
         }
       `}</style>
     </section>
