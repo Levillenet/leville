@@ -20,7 +20,10 @@ interface HeroProps {
 const Hero = ({ lang = "fi" }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [previousImageIndex, setPreviousImageIndex] = useState<number | null>(null);
+  const [previousVisible, setPreviousVisible] = useState(false);
+
   const fadeTimeoutRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
 
   const t = getTranslations(lang).hero;
 
@@ -49,7 +52,18 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
   useEffect(() => {
     const interval = window.setInterval(() => {
       setCurrentImageIndex((prev) => {
+        const next = (prev + 1) % heroImages.length;
+
+        // Keep the outgoing image fully visible on top, then fade it out.
         setPreviousImageIndex(prev);
+        setPreviousVisible(true);
+
+        if (rafRef.current) {
+          window.cancelAnimationFrame(rafRef.current);
+        }
+        rafRef.current = window.requestAnimationFrame(() => {
+          setPreviousVisible(false);
+        });
 
         if (fadeTimeoutRef.current) {
           window.clearTimeout(fadeTimeoutRef.current);
@@ -58,7 +72,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           setPreviousImageIndex(null);
         }, FADE_DURATION_MS);
 
-        return (prev + 1) % heroImages.length;
+        return next;
       });
     }, SLIDE_INTERVAL_MS);
 
@@ -66,6 +80,9 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
       window.clearInterval(interval);
       if (fadeTimeoutRef.current) {
         window.clearTimeout(fadeTimeoutRef.current);
+      }
+      if (rafRef.current) {
+        window.cancelAnimationFrame(rafRef.current);
       }
     };
   }, []);
@@ -83,12 +100,16 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           const isCabin = image === heroCabin;
           const kenBurnsClass = isCabin ? "animate-ken-burns-cabin" : "animate-ken-burns";
 
+          // Only render current + previous for performance and predictable layering.
+          if (!isCurrent && !isPrevious) return null;
+
           return (
             <div
               key={index}
-              className={`absolute inset-0 ${isCurrent || isPrevious ? kenBurnsClass : ""}`}
+              className={`absolute inset-0 ${kenBurnsClass}`}
               style={{
-                zIndex: isPrevious ? 2 : isCurrent ? 1 : 0,
+                zIndex: isPrevious ? 2 : 1,
+                // Freeze outgoing image at its current zoom to prevent "snap back" while fading.
                 animationPlayState: isPrevious ? "paused" : "running",
               }}
             >
@@ -100,7 +121,13 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
                 fetchPriority={index === 0 ? "high" : "auto"}
                 className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[5000ms] ease-in-out ${
                   isCabin ? "hero-cabin-image" : ""
-                } ${isCurrent ? "opacity-100" : "opacity-0"}`}
+                } ${
+                  isCurrent
+                    ? "opacity-100"
+                    : previousVisible
+                      ? "opacity-100"
+                      : "opacity-0"
+                }`}
               />
             </div>
           );
