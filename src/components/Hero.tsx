@@ -95,7 +95,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
       </div>
 
       {/* Twinkling stars - reduced for cleaner look */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
         {stars.map((star) => (
           <div
             key={star.id}
