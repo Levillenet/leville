@@ -115,7 +115,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         <div className="max-w-4xl mx-auto text-center" style={{ overflow: 'visible' }}>
 
           {/* Main heading - clear value proposition */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-serif font-semibold text-foreground mb-4 md:mb-6 animate-slide-up tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-serif font-semibold text-foreground mb-4 md:mb-6 animate-slide-up tracking-tight leading-tight">
             {t.title} <span className="text-gradient">{t.titleHighlight}</span>
           </h1>
 
