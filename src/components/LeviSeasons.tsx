@@ -190,6 +190,8 @@ const LeviSeasons = ({ lang = "fi" }: LeviSeasonsProps) => {
               <img 
                 src={seasonImages[index]} 
                 alt=""
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-2xl"
                 style={{
                   maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',

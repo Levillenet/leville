@@ -57,6 +57,8 @@ const Footer = () => {
               <img 
                 src={levilleLogo} 
                 alt="Leville.net - Apartments & Villas" 
+                loading="lazy"
+                decoding="async"
                 className="h-20 md:h-24 w-auto"
               />
             </Link>
