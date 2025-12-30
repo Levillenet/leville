@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "./ScrollReveal";
-import OptimizedImage from "./OptimizedImage";
 
 // About section images
 import saunaKarhupirtti from "@/assets/about/sauna-karhupirtti.jpg";
@@ -82,6 +81,14 @@ const About = ({ lang = "fi" }: AboutProps) => {
     setIsPaused(false);
   };
 
+  // Preload all images to prevent black flashes
+  useEffect(() => {
+    aboutImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   useEffect(() => {
     if (isPaused) return;
     
@@ -145,17 +152,17 @@ const About = ({ lang = "fi" }: AboutProps) => {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             >
-              <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-elegant border border-border/20 relative">
+              <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-elegant border border-border/20 relative bg-muted">
                 {aboutImages.map((image, index) => (
-                  <OptimizedImage
+                  <img
                     key={index}
                     src={image}
                     alt={`${t.imageAlt} ${index + 1}`}
-                    priority={index < 3}
-                    className="absolute inset-0 w-full h-full transition-opacity duration-[2000ms] ease-in-out"
-                    style={{
-                      opacity: index === currentImageIndex ? 1 : 0,
-                    }}
+                    loading="eager"
+                    decoding="async"
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out ${
+                      index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
                   />
                 ))}
               </div>
