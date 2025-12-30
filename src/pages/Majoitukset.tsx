@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight } from "lucide-react";
+import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
@@ -15,10 +15,11 @@ import { supabase } from "@/integrations/supabase/client";
 import karhupirttiImg from "@/assets/accommodations/karhupirtti.jpg";
 import skistarImg from "@/assets/accommodations/skistar.png";
 import perheasunnotImg from "@/assets/accommodations/perheasunnot.png";
+import glacierImg from "@/assets/accommodations/glacier.png";
 
-const accommodationIcons: LucideIcon[] = [Home, Users, Mountain];
+const accommodationIcons: LucideIcon[] = [Home, Users, Mountain, Building];
 const amenityIcons: LucideIcon[] = [Wifi, Car, Snowflake];
-const accommodationImages = [skistarImg, perheasunnotImg, karhupirttiImg];
+const accommodationImages = [skistarImg, perheasunnotImg, karhupirttiImg, glacierImg];
 
 interface MajoituksetProps {
   lang?: Language;
@@ -96,7 +97,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
             </ScrollReveal>
 
             {/* Accommodations Grid */}
-            <section className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-16 md:mb-20">
+            <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16 md:mb-20">
               {t.accommodations.map((acc, index) => {
                 const Icon = accommodationIcons[index];
                 return (
@@ -104,7 +105,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     <TiltCard className="h-full">
                       <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 flex flex-col h-full relative overflow-hidden group">
                         {/* Background image */}
-                        <div className={`absolute -right-4 sm:-right-8 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 overflow-hidden pointer-events-none z-0 ${index === 2 ? 'bottom-12 sm:bottom-16' : '-bottom-4 sm:-bottom-8'}`}>
+                        <div className={`absolute -right-4 sm:-right-6 w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 overflow-hidden pointer-events-none z-0 ${index === 2 ? 'bottom-12 sm:bottom-16' : '-bottom-4 sm:-bottom-8'}`}>
                           <img 
                             src={accommodationImages[index]} 
                             alt=""

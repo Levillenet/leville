@@ -65,18 +65,23 @@ export const en = {
     accommodations: [
       {
         title: "Modern apartments in Skistar",
-        description: "Fully equipped apartments in Levi center. Perfect location for both slopes and services.",
-        features: ["2-6 persons", "Sauna in Superior apartments", "All apartments have kitchen and full amenities for your comfortable holiday"]
+        description: "Fully equipped apartments in Levi center. Excellent location right next to slopes and services.",
+        features: ["2–6 persons", "Private sauna in Superior apartments", "All apartments have kitchen and full amenities for a comfortable holiday"]
       },
       {
         title: "Spacious family apartments in Levi center",
-        description: "Large alpine apartments in the heart of Levi for families and groups. Plenty of space for relaxed vacation.",
-        features: ["4-10 persons", "3-5 bedrooms", "Fully equipped kitchens", "Balconies in all apartments"]
+        description: "Large modern alpine apartments in the heart of Levi for families and groups. Plenty of space for relaxed and cozy holidays.",
+        features: ["4–10 persons", "3–4 bedrooms", "Fully equipped kitchens", "Balconies in all apartments", "Heated ski maintenance room"]
       },
       {
         title: "Bear Lodge",
-        description: "Atmospheric large log cabin in Levi center. Traditional log cabin with full amenities for large groups.",
-        features: ["Max 14 persons", "7 bedrooms", "Fireplace", "Kitchen", "Outdoor hot tub", "Private yard"]
+        description: "Atmospheric and traditional log cabin in Levi center. Full comfort for a large group.",
+        features: ["Up to 14 persons", "7 bedrooms", "Fireplace", "Kitchen", "Outdoor hot tub", "Private yard"]
+      },
+      {
+        title: "Levi Glacier apartments on front slope",
+        description: "Large family apartments in an excellent location on Levi's front slope. Ideal for sports clubs, corporate groups and larger parties.",
+        features: ["Up to 10 persons per apartment", "10 apartments in the same courtyard", "Fully equipped kitchens", "Private sauna and balcony in each apartment", "Game room for children", "Heated ski maintenance room"]
       }
     ],
     amenities: [
