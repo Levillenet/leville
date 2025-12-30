@@ -66,28 +66,29 @@ export const fi = {
       {
         title: "Modernit huoneistot Skistarissa",
         description: "Täysin varustetut huoneistot Levin keskustassa. Erinomainen sijainti rinteiden ja palveluiden välittömässä läheisyydessä.",
-        features: ["2–6 henkilöä", "Superior-huoneistoissa oma sauna", "Kaikissa huoneistoissa keittiö ja kattava varustelu mukavaa lomaa varten", "Lämmin suksienhuoltotila"]
+        features: ["2–6 henkilöä", "Superior-huoneistoissa oma sauna", "Kaikissa huoneistoissa keittiö ja kattava varustelu mukavaa lomaa varten"]
       },
       {
         title: "Tilavat perheasunnot Levin keskustassa",
         description: "Isot modernit alppihuoneistot Levin ytimessä perheille ja ryhmille. Paljon tilaa rentoon ja viihtyisään lomailuun.",
-        features: ["4–10 henkilöä", "3–4 makuuhuonetta", "Täysin varustellut keittiöt", "Parvekkeet kaikissa huoneistoissa", "Lämmin suksienhuoltotila"]
+        features: ["4–10 henkilöä", "3–4 makuuhuonetta", "Täysin varustellut keittiöt", "Parvekkeet kaikissa huoneistoissa"]
       },
       {
         title: "Karhupirtti",
         description: "Tunnelmallinen ja perinteinen hirsimökki Levin keskustassa. Täysi mukavuus suurelle seurueelle.",
-        features: ["Enintään 14 henkilöä", "7 makuuhuonetta", "Takka", "Keittiö", "Poreallas ulkona", "Oma piha", "Lämmin suksienhuoltotila"]
+        features: ["Enintään 14 henkilöä", "7 makuuhuonetta", "Takka", "Keittiö", "Poreallas ulkona", "Oma piha"]
       },
       {
         title: "Levi Glacier huoneistot eturinteellä",
         description: "Isot perhehuoneistot erinomaisella sijainnilla Levin eturinteessä. Sopii erityisesti urheiluseuroille, yritysryhmille ja isommille seurueille.",
-        features: ["Jopa 10 henkilöä per huoneisto", "Yhteensä 10 huoneistoa samassa pihapiirissä", "Mahdollisuus varata 4–10 huoneistoa yksityiskäyttöön – koko talo seurueellesi", "Täysin varustellut keittiöt", "Oma sauna ja parveke jokaisessa huoneistossa", "Pelihuone lapsille", "Lämmin suksienhuoltotila"]
+        features: ["Jopa 10 henkilöä per huoneisto", "Mahdollisuus varata 4–10 huoneistoa yksityiskäyttöön – koko talo seurueellesi", "Täysin varustellut keittiöt", "Oma sauna ja parveke jokaisessa huoneistossa", "Pelihuone lapsille"]
       }
     ],
     amenities: [
       { label: "Ilmainen WiFi" },
       { label: "Pysäköinti" },
-      { label: "Suksivarasto" }
+      { label: "Suksivarasto" },
+      { label: "Lämmin suksienhuoltotila" }
     ]
   },
   yhteystiedot: {
