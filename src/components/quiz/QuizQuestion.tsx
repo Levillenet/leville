@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
@@ -25,12 +24,6 @@ const QuizQuestion = ({
 }: QuizQuestionProps) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [hasAnswered, setHasAnswered] = useState(false);
-  const onAnswerRef = useRef(onAnswer);
-
-  // Keep the ref updated
-  useEffect(() => {
-    onAnswerRef.current = onAnswer;
-  }, [onAnswer]);
 
   const isEnglish = lang === "en";
   const questionText = isEnglish ? question.questionEn : question.question;
@@ -41,19 +34,10 @@ const QuizQuestion = ({
     if (hasAnswered) return;
     setSelectedAnswer(index);
     setHasAnswered(true);
+
+    // Parent handles the 1.5s delay + advancing to next question
+    onAnswer(index === question.correctAnswer);
   };
-
-  // Auto-advance to next question after delay
-  useEffect(() => {
-    if (hasAnswered && selectedAnswer !== null) {
-      const timer = setTimeout(() => {
-        const isCorrect = selectedAnswer === question.correctAnswer;
-        onAnswerRef.current(isCorrect);
-      }, 1500);
-
-      return () => clearTimeout(timer);
-    }
-  }, [hasAnswered, selectedAnswer, question.correctAnswer]);
 
   const progress = ((currentIndex + 1) / totalQuestions) * 100;
 
