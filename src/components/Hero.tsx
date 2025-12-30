@@ -1,24 +1,14 @@
-import { useState, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { ArrowRight, Tag } from "lucide-react";
 import BookingWidget from "./BookingWidget";
 import { getTranslations, Language } from "@/translations";
 import heroCabin from "@/assets/hero-cabin.jpg";
-import heroChalet from "@/assets/hero-chalet.png";
-import heroVillage from "@/assets/hero-village.png";
-import heroApartment from "@/assets/hero-apartment.png";
-import heroLodge from "@/assets/hero-lodge.png";
-
-const heroImages = [heroChalet, heroVillage, heroApartment, heroLodge, heroCabin];
 
 interface HeroProps {
   lang?: Language;
 }
 
 const Hero = ({ lang = "fi" }: HeroProps) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [previousImageIndex, setPreviousImageIndex] = useState<number | null>(null);
-  const [pendingImageIndex, setPendingImageIndex] = useState<number | null>(null);
-  const [loaded, setLoaded] = useState<Record<number, boolean>>({ 0: true });
   const t = getTranslations(lang).hero;
 
   const stars = useMemo(() => 
@@ -32,85 +22,24 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
     })), []
   );
 
-  useEffect(() => {
-    // Preload hero images to prevent black/empty flashes during transitions
-    heroImages.forEach((src, index) => {
-      const img = new Image();
-      img.decoding = "async";
-      img.onload = () => setLoaded((m) => ({ ...m, [index]: true }));
-      img.onerror = () => setLoaded((m) => ({ ...m, [index]: false }));
-      img.src = src;
-    });
-  }, []);
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setPendingImageIndex((prevPending) => {
-        // If we already have a pending image waiting to load, keep waiting.
-        if (prevPending !== null) return prevPending;
-        return (currentImageIndex + 1) % heroImages.length;
-      });
-    }, 8000);
-
-    return () => window.clearInterval(interval);
-  }, [currentImageIndex]);
-
-  useEffect(() => {
-    if (pendingImageIndex === null) return;
-
-    // Only switch when the next image is confirmed loaded.
-    if (loaded[pendingImageIndex] !== true) return;
-
-    setPreviousImageIndex(currentImageIndex);
-    setCurrentImageIndex(pendingImageIndex);
-    setPendingImageIndex(null);
-
-    const tmr = window.setTimeout(() => setPreviousImageIndex(null), 2000);
-    return () => window.clearTimeout(tmr);
-  }, [pendingImageIndex, loaded, currentImageIndex]);
-
   return (
     <section
       className="relative min-h-screen flex items-center justify-center pt-32 sm:pt-20 pb-24 sm:pb-32"
       style={{ overflow: 'visible' }}
     >
-      {/* Background images slideshow with crossfade and Ken Burns effect */}
+      {/* Static background image */}
       <div className="absolute inset-0 overflow-hidden bg-background">
-        {heroImages.map((image, index) => {
-          const isCurrent = index === currentImageIndex;
-          const isPrevious = index === previousImageIndex;
-          const isVisible = isCurrent || isPrevious;
-          const isCabin = image === heroCabin;
-          const kenBurnsClass = isCabin ? "animate-ken-burns-cabin" : "animate-ken-burns";
-
-          return (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
-                isVisible ? kenBurnsClass : ""
-              }`}
-              style={{
-                opacity: isCurrent ? 1 : isPrevious ? 0 : 0,
-                zIndex: isCurrent ? 2 : isPrevious ? 1 : 0,
-              }}
-            >
-              <img
-                src={image}
-                alt=""
-                loading={index === 0 ? "eager" : "lazy"}
-                decoding="async"
-                fetchPriority={index === 0 ? "high" : "auto"}
-                onLoad={() => setLoaded((m) => ({ ...m, [index]: true }))}
-                onError={() => setLoaded((m) => ({ ...m, [index]: false }))}
-                className={`absolute inset-0 w-full h-full object-cover object-center ${
-                  isCabin ? "hero-cabin-image" : ""
-                }`}
-              />
-            </div>
-          );
-        })}
-
-        {/* Dark overlay for text readability - optimized for commercial clarity */}
+        <div className="absolute inset-0 animate-ken-burns-cabin">
+          <img
+            src={heroCabin}
+            alt=""
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="absolute inset-0 w-full h-full object-cover object-center hero-cabin-image"
+          />
+        </div>
+        {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/90 z-[3]" />
       </div>
 
