@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Check, X, ArrowRight } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { QuizQuestion as QuizQuestionType } from "@/data/quizQuestions";
 import { cn } from "@/lib/utils";
@@ -37,11 +37,18 @@ const QuizQuestion = ({
     setHasAnswered(true);
   };
 
-  const handleNext = () => {
-    onAnswer(selectedAnswer === question.correctAnswer);
-    setSelectedAnswer(null);
-    setHasAnswered(false);
-  };
+  // Auto-advance to next question after delay
+  useEffect(() => {
+    if (hasAnswered && selectedAnswer !== null) {
+      const timer = setTimeout(() => {
+        onAnswer(selectedAnswer === question.correctAnswer);
+        setSelectedAnswer(null);
+        setHasAnswered(false);
+      }, 1500); // 1.5 second delay to show feedback
+
+      return () => clearTimeout(timer);
+    }
+  }, [hasAnswered, selectedAnswer, question.correctAnswer, onAnswer]);
 
   const progress = ((currentIndex + 1) / totalQuestions) * 100;
 
@@ -145,23 +152,14 @@ const QuizQuestion = ({
             )}
           </AnimatePresence>
 
-          {/* Next button */}
+          {/* Auto-advancing indicator */}
           {hasAnswered && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              className="text-center text-muted-foreground text-sm"
             >
-              <Button onClick={handleNext} className="w-full" size="lg">
-                {currentIndex + 1 === totalQuestions
-                  ? isEnglish
-                    ? "See Results"
-                    : "Näytä tulokset"
-                  : isEnglish
-                  ? "Next Question"
-                  : "Seuraava kysymys"}
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+              {isEnglish ? "Moving to next question..." : "Siirrytään seuraavaan..."}
             </motion.div>
           )}
         </CardContent>
