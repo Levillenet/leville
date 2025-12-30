@@ -16,7 +16,6 @@ interface HeroProps {
 
 const Hero = ({ lang = "fi" }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [previousImageIndex, setPreviousImageIndex] = useState<number | null>(null);
   const t = getTranslations(lang).hero;
 
   const stars = useMemo(() => 
@@ -41,10 +40,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setCurrentImageIndex((prev) => {
-        setPreviousImageIndex(prev);
-        return (prev + 1) % heroImages.length;
-      });
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
     }, 10000); // 10 seconds between transitions
 
     return () => window.clearInterval(interval);
@@ -60,20 +56,14 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
       <div className="absolute inset-0 overflow-hidden bg-background">
         {heroImages.map((image, index) => {
           const isCurrent = index === currentImageIndex;
-          const isPrevious = index === previousImageIndex;
           const isCabin = image === heroCabin;
           const kenBurnsClass = isCabin ? "animate-ken-burns-cabin" : "animate-ken-burns";
-          
-          // Only render current and previous images for performance
-          if (!isCurrent && !isPrevious) return null;
 
           return (
             <div
               key={index}
-              className={`absolute inset-0 ${kenBurnsClass}`}
-              style={{
-                zIndex: isCurrent ? 2 : 1,
-              }}
+              className={`absolute inset-0 ${isCurrent ? kenBurnsClass : ""}`}
+              style={{ zIndex: isCurrent ? 2 : 1 }}
             >
               <img
                 src={image}
@@ -84,6 +74,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
                 className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[5000ms] ease-in-out ${
                   isCabin ? "hero-cabin-image" : ""
                 } ${isCurrent ? "opacity-100" : "opacity-0"}`}
+                style={{ transition: "opacity 5000ms ease-in-out" }}
               />
             </div>
           );
