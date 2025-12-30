@@ -31,14 +31,24 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
   );
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setPreviousImageIndex(currentImageIndex);
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    // Preload hero images to prevent black flashes during transitions
+    heroImages.slice(1).forEach((src) => {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = src;
+    });
+  }, []);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setCurrentImageIndex((prev) => {
+        setPreviousImageIndex(prev);
+        return (prev + 1) % heroImages.length;
+      });
     }, 8000);
 
-    return () => clearInterval(interval);
-  }, [currentImageIndex]);
-
+    return () => window.clearInterval(interval);
+  }, []);
 
 
   return (
