@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building } from "lucide-react";
+import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building, Wrench } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
@@ -18,7 +18,7 @@ import perheasunnotImg from "@/assets/accommodations/perheasunnot.png";
 import glacierImg from "@/assets/accommodations/glacier.png";
 
 const accommodationIcons: LucideIcon[] = [Home, Users, Mountain, Building];
-const amenityIcons: LucideIcon[] = [Wifi, Car, Snowflake];
+const amenityIcons: LucideIcon[] = [Wifi, Car, Snowflake, Wrench];
 const accommodationImages = [skistarImg, perheasunnotImg, karhupirttiImg, glacierImg];
 
 interface MajoituksetProps {
