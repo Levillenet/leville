@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trophy, RotateCcw, Share2, Home } from "lucide-react";
+import { Trophy, RotateCcw, Home, Copy } from "lucide-react";
 import { motion } from "framer-motion";
 import { getResultMessage } from "@/data/quizQuestions";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { FacebookIcon } from "@/components/icons/SocialIcons";
 
 interface QuizResultProps {
   score: number;
@@ -19,31 +20,33 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
   const percentage = Math.round((score / totalQuestions) * 100);
   const { toast } = useToast();
 
-  const handleShare = async () => {
-    const shareText = isEnglish
-      ? `I scored ${score}/${totalQuestions} (${percentage}%) on the Levi Quiz! Test your knowledge: `
-      : `Sain ${score}/${totalQuestions} (${percentage}%) Levi-tietovisassa! Testaa oma tietämyksesi: `;
+  const shareUrl = isEnglish 
+    ? "https://www.leville.net/en/quiz" 
+    : "https://www.leville.net/tietovisa";
 
-    const shareUrl = window.location.href;
+  const shareText = isEnglish
+    ? `I scored ${score}/${totalQuestions} (${percentage}%) on the Levi Quiz! Test your knowledge:`
+    : `Sain ${score}/${totalQuestions} (${percentage}%) Levi-tietovisassa! Testaa oma tietämyksesi:`;
 
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: isEnglish ? "Levi Quiz" : "Levi-tietovisa",
-          text: shareText,
-          url: shareUrl,
-        });
-      } catch (err) {
-        // User cancelled or error
-      }
-    } else {
-      // Fallback: copy to clipboard
-      await navigator.clipboard.writeText(shareText + shareUrl);
+  const handleShareFacebook = () => {
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+    window.open(facebookUrl, "_blank", "width=600,height=400");
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareText + " " + shareUrl);
       toast({
         title: isEnglish ? "Link copied!" : "Linkki kopioitu!",
         description: isEnglish
           ? "Share it with your friends"
           : "Jaa se ystävillesi",
+      });
+    } catch (err) {
+      toast({
+        title: isEnglish ? "Error" : "Virhe",
+        description: isEnglish ? "Could not copy link" : "Linkkiä ei voitu kopioida",
+        variant: "destructive",
       });
     }
   };
@@ -113,11 +116,15 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
               <RotateCcw className="w-4 h-4 mr-2" />
               {isEnglish ? "Play Again" : "Pelaa uudelleen"}
             </Button>
-            <Button onClick={handleShare} variant="secondary" size="lg">
-              <Share2 className="w-4 h-4 mr-2" />
-              {isEnglish ? "Share Result" : "Jaa tulos"}
+            <Button onClick={handleShareFacebook} variant="secondary" size="lg" className="bg-[#1877F2] hover:bg-[#1877F2]/90 text-white">
+              <FacebookIcon className="w-4 h-4 mr-2" />
+              {isEnglish ? "Share on Facebook" : "Jaa Facebookissa"}
             </Button>
-            <Button asChild variant="outline" size="lg">
+            <Button onClick={handleCopyLink} variant="outline" size="lg">
+              <Copy className="w-4 h-4 mr-2" />
+              {isEnglish ? "Copy Link" : "Kopioi linkki"}
+            </Button>
+            <Button asChild variant="ghost" size="lg">
               <Link to={isEnglish ? "/en/levi" : "/levi"}>
                 <Home className="w-4 h-4 mr-2" />
                 {isEnglish ? "Explore Levi" : "Tutustu Leviin"}
