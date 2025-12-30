@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.get-download-stats]
 verify_jwt = false
+
+[functions.customer-service-chat]
+verify_jwt = false

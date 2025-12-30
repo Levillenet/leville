@@ -20,6 +20,7 @@ import Yritys from "./pages/Yritys";
 import Sauna from "./pages/Sauna";
 import Tietovisa from "./pages/Tietovisa";
 import Admin from "./pages/Admin";
+import Asiakaspalvelu from "./pages/Asiakaspalvelu";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -57,6 +58,7 @@ const App = () => (
               <Route path="/tietovisa" element={<Tietovisa />} />
               <Route path="/en/quiz" element={<Tietovisa lang="en" />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/asiakaspalvelu" element={<Asiakaspalvelu />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
