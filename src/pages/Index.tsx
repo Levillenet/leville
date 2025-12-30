@@ -5,8 +5,15 @@ import About from "@/components/About";
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import { Language, getTranslations } from "@/translations";
 
-const Index = () => {
+interface IndexProps {
+  lang?: Language;
+}
+
+const Index = ({ lang = "fi" }: IndexProps) => {
+  const t = getTranslations(lang);
+  
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
@@ -39,7 +46,7 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <html lang="fi" />
+        <html lang={lang} />
         <title>Leville.net – Majoitus Levin keskustassa | Huoneistot & Mökit</title>
         <meta 
           name="description" 
@@ -70,11 +77,11 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <main>
-          <Hero />
-          <About />
-          <Features />
+          <Hero lang={lang} />
+          <About lang={lang} />
+          <Features lang={lang} />
         </main>
-        <Footer />
+        <Footer lang={lang} />
         <WhatsAppChat />
       </div>
     </>
