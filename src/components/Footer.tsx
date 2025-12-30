@@ -104,6 +104,25 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       terms: "Términos",
       termsLink: "/varausehdot",
       paymentInfo: "Pagos seguros a través de Paytrail"
+    },
+    fr: {
+      description: "Hébergement de qualité au centre de Levi. Réservez directement chez nous au meilleur prix.",
+      siteTitle: "Site",
+      links: [
+        { label: "Hébergements", href: routeConfig.accommodations.fr },
+        { label: "Actualités", href: routeConfig.news.fr },
+        { label: "Levi", href: routeConfig.levi.fr },
+        { label: "FAQ", href: routeConfig.faq.fr },
+        { label: "Entreprise", href: routeConfig.company.fr },
+        { label: "Contact", href: routeConfig.contact.fr },
+      ],
+      contactTitle: "Contact",
+      location: "Centre de Levi, Kittilä",
+      copyright: `© ${new Date().getFullYear()} Leville.net. Tous droits réservés.`,
+      privacy: "Politique de confidentialité",
+      terms: "Conditions",
+      termsLink: "/varausehdot",
+      paymentInfo: "Paiements sécurisés via Paytrail"
     }
   };
 

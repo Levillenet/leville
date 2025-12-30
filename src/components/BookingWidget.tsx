@@ -19,6 +19,7 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
       sv: "sv",
       de: "en", // German uses English widget
       es: "en", // Spanish uses English widget
+      fr: "en", // French uses English widget
     };
     return langMap[language];
   };
