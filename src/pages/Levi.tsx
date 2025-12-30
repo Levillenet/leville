@@ -7,7 +7,7 @@ import LeviSeasons from "@/components/LeviSeasons";
 import LeviFacts from "@/components/LeviFacts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video, Brain } from "lucide-react";
+import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video, Brain, Star, Gift, Flame } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
@@ -113,11 +113,19 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </Card>
 
               {/* Christmas CTA */}
-              <Card className="glass-card border-primary/30 bg-primary/5 overflow-hidden">
-                <CardContent className="p-4 sm:p-6">
+              <Card className="relative overflow-hidden border-red-500/40 bg-gradient-to-br from-red-950/40 via-red-900/20 to-background">
+                {/* Decorative elements */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                  <Star className="absolute top-3 left-4 w-4 h-4 text-amber-400/40 animate-pulse" style={{ animationDelay: '0s' }} />
+                  <Snowflake className="absolute top-4 right-6 w-5 h-5 text-primary/30 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                  <Flame className="absolute bottom-4 left-6 w-4 h-4 text-amber-500/35 animate-pulse" style={{ animationDelay: '1s' }} />
+                  <Star className="absolute bottom-6 right-4 w-3 h-3 text-amber-400/35 animate-pulse" style={{ animationDelay: '1.5s' }} />
+                  <Flame className="absolute top-1/2 right-8 w-3 h-3 text-amber-500/25 animate-pulse" style={{ animationDelay: '2s' }} />
+                </div>
+                <CardContent className="p-4 sm:p-6 relative z-10">
                   <div className="flex flex-col items-center text-center gap-3 sm:gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                      <Snowflake className="w-6 h-6 text-primary" />
+                    <div className="w-12 h-12 rounded-full bg-red-500/25 flex items-center justify-center flex-shrink-0 border border-red-500/30">
+                      <Gift className="w-6 h-6 text-red-400" />
                     </div>
                     <div>
                       <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
@@ -129,7 +137,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                           : "Koe taianmainen joulu joulupukin kotimaassa."}
                       </p>
                     </div>
-                    <Button asChild size="default" className="text-sm">
+                    <Button asChild size="default" className="text-sm bg-red-600 hover:bg-red-700 text-white border-0">
                       <Link to={lang === "en" ? "/en/levi/christmas-in-lapland" : "/levi/joulu-lapissa"}>
                         {lang === "en" ? "Read more" : "Lue lisää"}
                       </Link>
