@@ -83,9 +83,8 @@ export default function Asiakaspalvelu() {
                 <CardTitle>Sisään- ja uloskirjautuminen</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 text-sm text-muted-foreground">
-                <p><strong>Check-in:</strong> Huoneisto valmis yleensä klo 14-15</p>
+                <p><strong>Check-in:</strong> Viimeistään klo 17, mutta yleensä huoneistot ovat valmiita aiemmin.</p>
                 <p><strong>Check-out:</strong> Viimeistään klo 11</p>
-                <p>Lähetämme avainboksin koodin tekstiviestillä saapumispäivänä.</p>
               </CardContent>
             </Card>
 
@@ -95,8 +94,8 @@ export default function Asiakaspalvelu() {
                 <CardTitle>Avaimet</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 text-sm text-muted-foreground">
-                <p>2 avainta lukollisessa avainboksissa oven läheisyydessä.</p>
-                <p>Koodi lähetetään tekstiviestillä saapumispäivänä.</p>
+                <p>Suurimmassa osassa huoneistoista on koodilukko ja joissakin on avainboksi, jossa on 1 avain.</p>
+                <p>Koodi lähetetään tekstiviestillä saapumispäivänä klo 16.</p>
               </CardContent>
             </Card>
 
@@ -108,7 +107,6 @@ export default function Asiakaspalvelu() {
               <CardContent className="space-y-2 text-sm text-muted-foreground">
                 <p>WiFi on koko talon yhteinen verkko.</p>
                 <p>Verkkonimi ja salasana löytyvät huoneistosta.</p>
-                <p><strong>Ei toimi?</strong> Irrota laite virrasta ja kytke uudelleen.</p>
               </CardContent>
             </Card>
 
@@ -127,26 +125,13 @@ export default function Asiakaspalvelu() {
           {/* Downloadable documents */}
           <h2 className="text-2xl font-display font-semibold mb-6">Ladattavat ohjeet</h2>
           
-          <div className="grid md:grid-cols-2 gap-4 mb-12">
+          <div className="grid md:grid-cols-1 gap-4 mb-12">
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="flex items-center gap-4 p-4">
                 <FileText className="w-10 h-10 text-primary flex-shrink-0" />
                 <div className="flex-1">
-                  <h3 className="font-semibold">Tervetulokirje</h3>
-                  <p className="text-sm text-muted-foreground">Kaikki tärkeät tiedot saapumiseen</p>
-                </div>
-                <Button asChild variant="outline" size="sm">
-                  <a href="/docs/tervetulokirje.pdf" target="_blank">Lataa PDF</a>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="flex items-center gap-4 p-4">
-                <FileText className="w-10 h-10 text-primary flex-shrink-0" />
-                <div className="flex-1">
-                  <h3 className="font-semibold">Saunaohjeet</h3>
-                  <p className="text-sm text-muted-foreground">Saunan käyttö ja ajastin</p>
+                  <h3 className="font-semibold">Saunaohjeet (Skistar-huoneistot)</h3>
+                  <p className="text-sm text-muted-foreground">Saunan käyttö ja ajastin Skistar-huoneistoissa</p>
                 </div>
                 <Button asChild variant="outline" size="sm">
                   <a href="/docs/sauna-ohjeet.pdf" target="_blank">Lataa PDF</a>
