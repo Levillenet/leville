@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Globe, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,8 +34,7 @@ const LanguageSelector = () => {
           size="sm" 
           className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 px-2"
         >
-          <Globe className="w-4 h-4" />
-          <span className="hidden sm:inline">{currentConfig.flag}</span>
+          <span className="text-lg leading-none">{currentConfig.flag}</span>
           <span>{currentLang.toUpperCase()}</span>
           <ChevronDown className="w-3 h-3 opacity-50" />
         </Button>
