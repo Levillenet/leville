@@ -11,6 +11,7 @@ import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Vide
 import { Link } from "react-router-dom";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import OptimizedImage from "@/components/OptimizedImage";
 // Import images
 import leviSunsetSlope from "@/assets/levi-sunset-slope.jpg";
 import leviCampfire from "@/assets/levi-campfire.jpg";
@@ -122,15 +123,14 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Large featured image */}
                 <div className="md:col-span-2 lg:row-span-2 relative group overflow-hidden rounded-2xl">
-                  <img 
+                  <OptimizedImage 
                     src={galleryImages[0].src} 
                     alt={galleryImages[0].alt}
-                    loading="eager"
-                    decoding="async"
-                    className="w-full h-64 md:h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    priority
+                    className="w-full h-64 md:h-full transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10" />
+                  <div className="absolute bottom-4 left-4 right-4 z-10">
                     <p className="text-foreground font-medium text-lg">{galleryImages[0].caption}</p>
                   </div>
                 </div>
@@ -138,15 +138,13 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 {/* Smaller images */}
                 {galleryImages.slice(1, 3).map((image, index) => (
                   <div key={index} className="relative group overflow-hidden rounded-2xl">
-                    <img 
+                    <OptimizedImage 
                       src={image.src} 
                       alt={image.alt}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-48 md:h-56 object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-48 md:h-56 transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+                    <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
                       <p className="text-foreground font-medium">{image.caption}</p>
                     </div>
                   </div>
@@ -180,15 +178,13 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                 {galleryImages.slice(3).map((image, index) => (
                   <div key={index} className="relative group overflow-hidden rounded-2xl aspect-[4/3]">
-                    <img 
+                    <OptimizedImage 
                       src={image.src} 
                       alt={image.alt}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10" />
+                    <div className="absolute bottom-4 left-4 right-4 z-10">
                       <p className="text-foreground font-medium">{image.caption}</p>
                     </div>
                   </div>

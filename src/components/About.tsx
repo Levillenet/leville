@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { getTranslations, Language } from "@/translations";
 import { galleryImages } from "@/data/galleryImages";
 import ScrollReveal from "./ScrollReveal";
+import OptimizedImage from "./OptimizedImage";
 
 interface AboutProps {
   lang?: Language;
@@ -120,15 +121,14 @@ const About = ({ lang = "fi" }: AboutProps) => {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             >
-              <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-elegant border border-border/20">
+              <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-elegant border border-border/20 relative">
                 {galleryImages.map((image, index) => (
-                  <img
+                  <OptimizedImage
                     key={index}
                     src={image}
                     alt={`${t.imageAlt} ${index + 1}`}
-                    loading={index < 3 ? "eager" : "lazy"}
-                    decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out"
+                    priority={index < 3}
+                    className="absolute inset-0 w-full h-full transition-opacity duration-[2000ms] ease-in-out"
                     style={{
                       opacity: index === currentImageIndex ? 1 : 0,
                     }}

@@ -9,6 +9,7 @@ import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import OptimizedImage from "@/components/OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
 
 // Import accommodation background images
@@ -126,12 +127,10 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                       <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 flex flex-col h-full relative overflow-hidden group">
                         {/* Background image */}
                         <div className={`absolute -right-4 sm:-right-6 w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 overflow-hidden pointer-events-none z-0 ${index === 2 ? 'bottom-12 sm:bottom-16' : '-bottom-4 sm:-bottom-8'}`}>
-                          <img 
+                          <OptimizedImage 
                             src={accommodationImages[index]} 
                             alt=""
-                            loading="lazy"
-                            decoding="async"
-                            className={`w-full h-full object-cover opacity-35 sm:opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-xl sm:rounded-2xl ${index === 2 ? 'object-top' : ''}`}
+                            className={`w-full h-full opacity-35 sm:opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-xl sm:rounded-2xl ${index === 2 ? 'object-top' : ''}`}
                             style={{
                               maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
                               WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
