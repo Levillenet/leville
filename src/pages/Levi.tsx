@@ -134,7 +134,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                       <p className="text-sm text-muted-foreground">
                         {lang === "en" 
                           ? "Experience a magical Christmas in the home of Santa Claus."
-                          : "Koe taianmainen joulu joulupukin kotimaassa."}
+                          : "Koe taianomainen joulu joulupukin kotimaassa."}
                       </p>
                     </div>
                     <Button asChild size="default" className="text-sm bg-red-600 hover:bg-red-700 text-white border-0">
