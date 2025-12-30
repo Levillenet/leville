@@ -59,15 +59,15 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
       className="max-w-2xl mx-auto"
     >
       <Card className="glass-card border-border/30 overflow-hidden">
-        <CardContent className="p-8 md:p-12 text-center">
+        <CardContent className="p-6 sm:p-8 md:p-12 text-center">
           {/* Trophy icon with animation */}
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="w-24 h-24 mx-auto mb-6 rounded-full bg-primary/20 flex items-center justify-center"
+            className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4 sm:mb-6 rounded-full bg-primary/20 flex items-center justify-center"
           >
-            <Trophy className="w-12 h-12 text-primary" />
+            <Trophy className="w-10 h-10 sm:w-12 sm:h-12 text-primary" />
           </motion.div>
 
           {/* Result title */}
@@ -75,7 +75,7 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-3xl md:text-4xl font-bold text-foreground mb-2"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2"
           >
             {result.title}
           </motion.h1>
@@ -84,7 +84,7 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-lg text-muted-foreground mb-8"
+            className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8"
           >
             {result.message}
           </motion.p>
@@ -94,13 +94,13 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, type: "spring" }}
-            className="mb-8"
+            className="mb-6 sm:mb-8"
           >
-            <div className="inline-flex items-baseline gap-2 p-6 rounded-2xl bg-primary/10 border border-primary/20">
-              <span className="text-5xl md:text-6xl font-bold text-primary">{score}</span>
-              <span className="text-2xl text-muted-foreground">/ {totalQuestions}</span>
+            <div className="inline-flex items-baseline gap-2 p-4 sm:p-6 rounded-2xl bg-primary/10 border border-primary/20">
+              <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-primary">{score}</span>
+              <span className="text-xl sm:text-2xl text-muted-foreground">/ {totalQuestions}</span>
             </div>
-            <p className="mt-2 text-muted-foreground">
+            <p className="mt-2 text-sm sm:text-base text-muted-foreground">
               ({percentage}% {isEnglish ? "correct" : "oikein"})
             </p>
           </motion.div>
@@ -110,26 +110,30 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
+            className="flex flex-col gap-2 sm:gap-3 justify-center"
           >
-            <Button onClick={onRestart} variant="default" size="lg">
-              <RotateCcw className="w-4 h-4 mr-2" />
-              {isEnglish ? "Play Again" : "Pelaa uudelleen"}
-            </Button>
-            <Button onClick={handleShareFacebook} variant="secondary" size="lg" className="bg-[#1877F2] hover:bg-[#1877F2]/90 text-white">
-              <FacebookIcon className="w-4 h-4 mr-2" />
-              {isEnglish ? "Share on Facebook" : "Jaa Facebookissa"}
-            </Button>
-            <Button onClick={handleCopyLink} variant="outline" size="lg">
-              <Copy className="w-4 h-4 mr-2" />
-              {isEnglish ? "Copy Link" : "Kopioi linkki"}
-            </Button>
-            <Button asChild variant="ghost" size="lg">
-              <Link to={isEnglish ? "/en/levi" : "/levi"}>
-                <Home className="w-4 h-4 mr-2" />
-                {isEnglish ? "Explore Levi" : "Tutustu Leviin"}
-              </Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
+              <Button onClick={onRestart} variant="default" size="lg" className="text-sm sm:text-base">
+                <RotateCcw className="w-4 h-4 mr-2" />
+                {isEnglish ? "Play Again" : "Pelaa uudelleen"}
+              </Button>
+              <Button onClick={handleShareFacebook} variant="secondary" size="lg" className="bg-[#1877F2] hover:bg-[#1877F2]/90 text-white text-sm sm:text-base">
+                <FacebookIcon className="w-4 h-4 mr-2" />
+                {isEnglish ? "Share" : "Jaa"}
+              </Button>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
+              <Button onClick={handleCopyLink} variant="outline" size="lg" className="text-sm sm:text-base">
+                <Copy className="w-4 h-4 mr-2" />
+                {isEnglish ? "Copy Link" : "Kopioi linkki"}
+              </Button>
+              <Button asChild variant="ghost" size="lg" className="text-sm sm:text-base">
+                <Link to={isEnglish ? "/en/levi" : "/levi"}>
+                  <Home className="w-4 h-4 mr-2" />
+                  {isEnglish ? "Explore Levi" : "Tutustu Leviin"}
+                </Link>
+              </Button>
+            </div>
           </motion.div>
         </CardContent>
       </Card>
