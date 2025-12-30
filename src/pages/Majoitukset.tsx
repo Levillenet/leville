@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building, Wrench } from "lucide-react";
+import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
@@ -18,7 +18,27 @@ import perheasunnotImg from "@/assets/accommodations/perheasunnot.png";
 import glacierImg from "@/assets/accommodations/glacier.png";
 
 const accommodationIcons: LucideIcon[] = [Home, Users, Mountain, Building];
-const amenityIcons: LucideIcon[] = [Wifi, Car, Snowflake, Wrench];
+
+// Custom ski icon component
+const SkiIcon = ({ className }: { className?: string }) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+    className={className}
+  >
+    <line x1="5" y1="20" x2="19" y2="4" />
+    <line x1="8" y1="20" x2="22" y2="4" />
+    <circle cx="4" cy="21" r="1" />
+    <circle cx="7" cy="21" r="1" />
+  </svg>
+);
+
+const amenityIcons = [Wifi, Car, Snowflake, SkiIcon];
 const accommodationImages = [skistarImg, perheasunnotImg, karhupirttiImg, glacierImg];
 
 interface MajoituksetProps {
