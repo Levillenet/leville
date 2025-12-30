@@ -1,20 +1,35 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { Language, detectLanguageFromPath } from "@/translations";
 
 interface BookingWidgetProps {
-  lang?: "fi" | "en";
+  lang?: Language;
 }
 
 const BookingWidget = ({ lang }: BookingWidgetProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const isEnglish = lang === "en" || location.pathname.startsWith("/en");
+  const detectedLang = lang || detectLanguageFromPath(location.pathname);
+  
+  // Map language to Moder widget language code
+  const getModerLanguage = (language: Language): string => {
+    const langMap: Record<Language, string> = {
+      fi: "fi",
+      en: "en",
+      sv: "sv",
+      de: "en", // German uses English widget
+      es: "en", // Spanish uses English widget
+    };
+    return langMap[language];
+  };
+  
+  const moderLanguage = getModerLanguage(detectedLang);
 
   useEffect(() => {
     // Set up Moder settings with language based on route
     (window as any).ModerSettings = {
       property: "levillenet",
-      language: isEnglish ? "en" : "fi",
+      language: moderLanguage,
     };
 
     // Remove any existing widget content
@@ -128,7 +143,7 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
       root.removeEventListener("click", onClickCapture, true);
       root.removeEventListener("submit", onSubmitCapture, true);
     };
-  }, [isEnglish, location.pathname]);
+  }, [moderLanguage, location.pathname]);
 
   return (
     <div id="moder-embed" ref={containerRef} />

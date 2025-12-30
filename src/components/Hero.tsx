@@ -139,21 +139,33 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           </p>
 
           {/* Discount code banner - above booking widget */}
-          <a 
-            href={lang === "en" ? "/en/news" : "/ajankohtaista"}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/20 to-aurora-green/20 backdrop-blur-sm border border-primary/40 rounded-full px-4 py-2 mb-4 animate-fade-in hover:border-primary/60 transition-colors group"
-            style={{ animationDelay: '0.35s' }}
-          >
-            <Tag className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-foreground">
-              {lang === "en" ? "Use code" : "Käytä koodia"} <span className="text-primary">winter10</span> {lang === "en" ? "– 10% off spring 2026!" : "– 10% alennus keväälle 2026!"}
-            </span>
-            <ArrowRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-          </a>
+          {(() => {
+            const discountText: Record<Language, { prefix: string; suffix: string; href: string }> = {
+              fi: { prefix: "Käytä koodia", suffix: "– 10% alennus keväälle 2026!", href: "/ajankohtaista" },
+              en: { prefix: "Use code", suffix: "– 10% off spring 2026!", href: "/en/news" },
+              sv: { prefix: "Använd kod", suffix: "– 10% rabatt våren 2026!", href: "/sv/aktuellt" },
+              de: { prefix: "Code verwenden", suffix: "– 10% Rabatt für Frühjahr 2026!", href: "/de/aktuelles" },
+              es: { prefix: "Usa el código", suffix: "– ¡10% de descuento primavera 2026!", href: "/es/noticias" },
+            };
+            const discount = discountText[lang];
+            return (
+              <a 
+                href={discount.href}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/20 to-aurora-green/20 backdrop-blur-sm border border-primary/40 rounded-full px-4 py-2 mb-4 animate-fade-in hover:border-primary/60 transition-colors group"
+                style={{ animationDelay: '0.35s' }}
+              >
+                <Tag className="w-4 h-4 text-primary" />
+                <span className="text-sm font-semibold text-foreground">
+                  {discount.prefix} <span className="text-primary">winter10</span> {discount.suffix}
+                </span>
+                <ArrowRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
+            );
+          })()}
 
           {/* Booking Widget */}
           <div className="animate-slide-up" style={{ animationDelay: '0.4s', overflow: 'visible' }}>
-            <BookingWidget />
+            <BookingWidget lang={lang} />
           </div>
 
           {/* Trust indicators - clear and prominent */}
