@@ -11,6 +11,7 @@ import IndexEN from "./pages/en/Index";
 import Majoitukset from "./pages/Majoitukset";
 import Ajankohtaista from "./pages/Ajankohtaista";
 import Levi from "./pages/Levi";
+import JouluLapissa from "./pages/JouluLapissa";
 import Revontulet from "./pages/Revontulet";
 import Yhteystiedot from "./pages/Yhteystiedot";
 import UKK from "./pages/UKK";
@@ -41,6 +42,8 @@ const App = () => (
               <Route path="/en/news" element={<Ajankohtaista lang="en" />} />
               <Route path="/levi" element={<Levi />} />
               <Route path="/en/levi" element={<Levi lang="en" />} />
+              <Route path="/levi/joulu-lapissa" element={<JouluLapissa />} />
+              <Route path="/en/levi/christmas-in-lapland" element={<JouluLapissa lang="en" />} />
               <Route path="/revontulet" element={<Revontulet />} />
               <Route path="/en/northern-lights" element={<Revontulet lang="en" />} />
               <Route path="/yhteystiedot" element={<Yhteystiedot />} />
