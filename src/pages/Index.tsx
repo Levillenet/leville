@@ -1,10 +1,12 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import HreflangTags from "@/components/HreflangTags";
 import { Language, getTranslations } from "@/translations";
 
 interface IndexProps {
@@ -13,7 +15,7 @@ interface IndexProps {
 
 const Index = ({ lang = "fi" }: IndexProps) => {
   const t = getTranslations(lang);
-  
+  const location = useLocation();
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
@@ -45,6 +47,7 @@ const Index = ({ lang = "fi" }: IndexProps) => {
 
   return (
     <>
+      <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />
         <title>Leville.net – Majoitus Levin keskustassa | Huoneistot & Mökit</title>

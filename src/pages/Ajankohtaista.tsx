@@ -1,8 +1,10 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
+import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Sparkles, Clock } from "lucide-react";
@@ -16,10 +18,12 @@ interface AjankohtaistaProps {
 
 const Ajankohtaista = ({ lang = "fi" }: AjankohtaistaProps) => {
   const t = getTranslations(lang).ajankohtaista;
+  const location = useLocation();
   const isEnglish = lang === "en";
 
   return (
     <>
+      <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={isEnglish ? "en" : "fi"} />
         <title>{t.meta.title}</title>

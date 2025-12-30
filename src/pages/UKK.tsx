@@ -1,8 +1,10 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
+import HreflangTags from "@/components/HreflangTags";
 import {
   Accordion,
   AccordionContent,
@@ -18,6 +20,7 @@ interface UKKProps {
 
 const UKK = ({ lang = "fi" }: UKKProps) => {
   const t = getTranslations(lang).ukk;
+  const location = useLocation();
   const isEnglish = lang === "en";
 
   // FAQ Schema for Google rich results
@@ -36,6 +39,7 @@ const UKK = ({ lang = "fi" }: UKKProps) => {
 
   return (
     <>
+      <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={isEnglish ? "en" : "fi"} />
         <title>{t.meta.title}</title>
