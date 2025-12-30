@@ -58,14 +58,11 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
     const openExternal = (url: string) => {
       try {
         const u = new URL(url, window.location.href);
-        if (u.origin !== window.location.origin || u.hostname.includes('moder')) {
-          window.open(u.toString(), "_blank", "noopener,noreferrer");
-          return true;
-        }
+        window.open(u.toString(), "_blank", "noopener,noreferrer");
+        return true;
       } catch {
-        // ignore
+        return false;
       }
-      return false;
     };
 
     // Force all links inside widget to open in new tab
@@ -73,11 +70,8 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
       const links = root.querySelectorAll('a[href]');
       links.forEach((link) => {
         const anchor = link as HTMLAnchorElement;
-        const href = anchor.getAttribute('href') || '';
-        if (href.includes('moder') || href.includes('app.moder.fi')) {
-          anchor.setAttribute('target', '_blank');
-          anchor.setAttribute('rel', 'noopener noreferrer');
-        }
+        anchor.setAttribute('target', '_blank');
+        anchor.setAttribute('rel', 'noopener noreferrer');
       });
     };
 
@@ -88,27 +82,55 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
     observer.observe(root, { childList: true, subtree: true });
 
     // Initial check with delays for dynamic content
+    setTimeout(forceTargetBlank, 500);
     setTimeout(forceTargetBlank, 1000);
     setTimeout(forceTargetBlank, 2000);
     setTimeout(forceTargetBlank, 3000);
 
+    // Intercept ALL clicks in the widget - handles buttons, links, and any clickable element
     const onClickCapture = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
-      const a = target?.closest?.("a[href]") as HTMLAnchorElement | null;
-      
-      if (!a) return;
+      if (!target) return;
 
-      const href = a.getAttribute("href");
-      if (!href) return;
+      // Check for anchor links first
+      const anchor = target.closest("a[href]") as HTMLAnchorElement | null;
+      if (anchor) {
+        const href = anchor.getAttribute("href");
+        if (href && href.trim() !== "" && href !== "#") {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          openExternal(href);
+          return;
+        }
+      }
 
-      const shouldOpen = /(^https?:)?\/\/.*moder\.fi\//i.test(href) || 
-                         href.includes("app.moder.fi") || 
-                         href.includes("moder");
-      if (!shouldOpen) return;
-
-      e.preventDefault();
-      e.stopPropagation();
-      openExternal(href);
+      // Check for buttons or other clickable elements that might trigger navigation
+      const button = target.closest("button, [role='button'], [type='submit']") as HTMLElement | null;
+      if (button) {
+        // Look for data attributes or nearby forms that indicate external navigation
+        const form = button.closest("form");
+        if (form) {
+          const action = form.getAttribute("action") || "";
+          if (action && action.includes("moder")) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            try {
+              const url = new URL(action, window.location.href);
+              const data = new FormData(form);
+              for (const [k, v] of data.entries()) {
+                url.searchParams.set(k, String(v));
+              }
+              openExternal(url.toString());
+            } catch {
+              // fallback
+            }
+            return;
+          }
+        }
+      }
     };
 
     const onSubmitCapture = (e: Event) => {
@@ -116,23 +138,28 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
       if (!form || form.tagName !== "FORM") return;
 
       const action = form.getAttribute("action") || "";
-      const shouldOpen = /(^https?:)?\/\/.*moder\.fi\//i.test(action) || 
-                         action.includes("app.moder.fi") ||
-                         action.includes("moder");
-      if (!shouldOpen) return;
-
+      
       e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation();
 
       try {
-        const url = new URL(action, window.location.href);
+        const url = new URL(action || window.location.href, window.location.href);
         const data = new FormData(form);
         for (const [k, v] of data.entries()) {
           url.searchParams.set(k, String(v));
         }
-        window.open(url.toString(), "_blank", "noopener,noreferrer");
+        // Always open Moder in new tab
+        if (action.includes("moder") || url.hostname.includes("moder")) {
+          openExternal(url.toString());
+        } else {
+          // For widget's own internal forms, build URL to moder
+          const moderUrl = `https://app.moder.fi/property/levillenet?${url.searchParams.toString()}&lang=${moderLanguage}`;
+          openExternal(moderUrl);
+        }
       } catch {
-        // If building URL fails, let the embed handle it.
+        // Fallback: open Moder main page
+        openExternal(`https://app.moder.fi/property/levillenet?lang=${moderLanguage}`);
       }
     };
 
