@@ -53,7 +53,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
   const location = useLocation();
   const isEnglish = lang === "en";
   
-  // Welcome letter is shown only for English, Swedish, and Spanish
+  // Welcome letter is shown only for English, Swedish, and Spanish (NOT French)
   const showWelcomeLetter = ["en", "sv", "es"].includes(lang);
 
   const trackDownload = async () => {

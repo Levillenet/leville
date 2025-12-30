@@ -97,6 +97,18 @@ const App = () => (
               <Route path="/es/empresa" element={<Yritys lang="es" />} />
               <Route path="/es/quiz" element={<Tietovisa lang="es" />} />
               
+              {/* French routes */}
+              <Route path="/fr" element={<Index lang="fr" />} />
+              <Route path="/fr/hebergements" element={<Majoitukset lang="fr" />} />
+              <Route path="/fr/actualites" element={<Ajankohtaista lang="fr" />} />
+              <Route path="/fr/levi" element={<Levi lang="fr" />} />
+              <Route path="/fr/levi/noel-en-laponie" element={<JouluLapissa lang="fr" />} />
+              <Route path="/fr/aurores-boreales" element={<Revontulet lang="fr" />} />
+              <Route path="/fr/contact" element={<Yhteystiedot lang="fr" />} />
+              <Route path="/fr/faq" element={<UKK lang="fr" />} />
+              <Route path="/fr/entreprise" element={<Yritys lang="fr" />} />
+              <Route path="/fr/quiz" element={<Tietovisa lang="fr" />} />
+              
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
               <Route path="/asiakaspalvelu" element={<Asiakaspalvelu />} />

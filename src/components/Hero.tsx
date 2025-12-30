@@ -189,6 +189,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
               sv: { prefix: "Använd kod", suffix: "– 10% rabatt våren 2026!", href: "/sv/aktuellt" },
               de: { prefix: "Code verwenden", suffix: "– 10% Rabatt für Frühjahr 2026!", href: "/de/aktuelles" },
               es: { prefix: "Usa el código", suffix: "– ¡10% de descuento primavera 2026!", href: "/es/noticias" },
+              fr: { prefix: "Utilisez le code", suffix: "– 10% de réduction printemps 2026 !", href: "/fr/actualites" },
             };
             const discount = discountText[lang];
             return (

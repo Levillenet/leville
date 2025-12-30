@@ -3,15 +3,17 @@ import { en } from "./en";
 import { sv } from "./sv";
 import { de } from "./de";
 import { es } from "./es";
+import { fr } from "./fr";
 
-export type Language = "fi" | "en" | "sv" | "de" | "es";
+export type Language = "fi" | "en" | "sv" | "de" | "es" | "fr";
 
 export const translations = {
   fi,
   en,
   sv,
   de,
-  es
+  es,
+  fr
 } as const;
 
 export type Translations = typeof fi;
@@ -26,21 +28,22 @@ export const languageConfig: Record<Language, { label: string; flag: string; pre
   en: { label: "English", flag: "🇬🇧", prefix: "/en" },
   sv: { label: "Svenska", flag: "🇸🇪", prefix: "/sv" },
   de: { label: "Deutsch", flag: "🇩🇪", prefix: "/de" },
-  es: { label: "Español", flag: "🇪🇸", prefix: "/es" }
+  es: { label: "Español", flag: "🇪🇸", prefix: "/es" },
+  fr: { label: "Français", flag: "🇫🇷", prefix: "/fr" }
 };
 
 // Route mapping between base routes and their translations
 export const routeConfig = {
-  home: { fi: "/", en: "/en", sv: "/sv", de: "/de", es: "/es" },
-  accommodations: { fi: "/majoitukset", en: "/en/accommodations", sv: "/sv/boende", de: "/de/unterkuenfte", es: "/es/alojamientos" },
-  news: { fi: "/ajankohtaista", en: "/en/news", sv: "/sv/nyheter", de: "/de/aktuelles", es: "/es/noticias" },
-  levi: { fi: "/levi", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi" },
-  northernLights: { fi: "/revontulet", en: "/en/northern-lights", sv: "/sv/norrsken", de: "/de/nordlichter", es: "/es/auroras-boreales" },
-  contact: { fi: "/yhteystiedot", en: "/en/contact", sv: "/sv/kontakt", de: "/de/kontakt", es: "/es/contacto" },
-  faq: { fi: "/ukk", en: "/en/faq", sv: "/sv/faq", de: "/de/faq", es: "/es/preguntas-frecuentes" },
-  company: { fi: "/yritys", en: "/en/company", sv: "/sv/foretag", de: "/de/unternehmen", es: "/es/empresa" },
-  christmasInLapland: { fi: "/levi/joulu-lapissa", en: "/en/levi/christmas-in-lapland", sv: "/sv/levi/jul-i-lappland", de: "/de/levi/weihnachten-in-lappland", es: "/es/levi/navidad-en-laponia" },
-  quiz: { fi: "/tietovisa", en: "/en/quiz", sv: "/sv/quiz", de: "/de/quiz", es: "/es/quiz" }
+  home: { fi: "/", en: "/en", sv: "/sv", de: "/de", es: "/es", fr: "/fr" },
+  accommodations: { fi: "/majoitukset", en: "/en/accommodations", sv: "/sv/boende", de: "/de/unterkuenfte", es: "/es/alojamientos", fr: "/fr/hebergements" },
+  news: { fi: "/ajankohtaista", en: "/en/news", sv: "/sv/nyheter", de: "/de/aktuelles", es: "/es/noticias", fr: "/fr/actualites" },
+  levi: { fi: "/levi", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi" },
+  northernLights: { fi: "/revontulet", en: "/en/northern-lights", sv: "/sv/norrsken", de: "/de/nordlichter", es: "/es/auroras-boreales", fr: "/fr/aurores-boreales" },
+  contact: { fi: "/yhteystiedot", en: "/en/contact", sv: "/sv/kontakt", de: "/de/kontakt", es: "/es/contacto", fr: "/fr/contact" },
+  faq: { fi: "/ukk", en: "/en/faq", sv: "/sv/faq", de: "/de/faq", es: "/es/preguntas-frecuentes", fr: "/fr/faq" },
+  company: { fi: "/yritys", en: "/en/company", sv: "/sv/foretag", de: "/de/unternehmen", es: "/es/empresa", fr: "/fr/entreprise" },
+  christmasInLapland: { fi: "/levi/joulu-lapissa", en: "/en/levi/christmas-in-lapland", sv: "/sv/levi/jul-i-lappland", de: "/de/levi/weihnachten-in-lappland", es: "/es/levi/navidad-en-laponia", fr: "/fr/levi/noel-en-laponie" },
+  quiz: { fi: "/tietovisa", en: "/en/quiz", sv: "/sv/quiz", de: "/de/quiz", es: "/es/quiz", fr: "/fr/quiz" }
 };
 
 // Helper to get route for a specific language
@@ -62,6 +65,7 @@ export const detectLanguageFromPath = (path: string): Language => {
   if (path.startsWith("/sv")) return "sv";
   if (path.startsWith("/de")) return "de";
   if (path.startsWith("/es")) return "es";
+  if (path.startsWith("/fr")) return "fr";
   if (path.startsWith("/en")) return "en";
   return "fi";
 };
