@@ -41,7 +41,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center pt-16 sm:pt-20 pb-24 sm:pb-32"
+      className="relative min-h-screen flex items-center justify-center pt-24 sm:pt-20 pb-24 sm:pb-32"
       style={{ overflow: 'visible' }}
     >
       {/* Background images slideshow with crossfade and Ken Burns effect */}
