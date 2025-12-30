@@ -2,14 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Brain, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { Language } from "@/translations";
 
 interface QuizStartProps {
   onStart: () => void;
-  lang?: "fi" | "en";
+  lang?: Language;
 }
 
 const QuizStart = ({ onStart, lang = "fi" }: QuizStartProps) => {
-  const isEnglish = lang === "en";
+  // Fallback to English for unsupported languages
+  const isEnglish = lang !== "fi";
 
   return (
     <motion.div

@@ -20,7 +20,8 @@ interface SeasonData {
   bgGradient: string;
 }
 
-const seasonsData: Record<Language, SeasonData[]> = {
+// Use partial record - fallback to Finnish for untranslated languages
+const seasonsData: Partial<Record<Language, SeasonData[]>> & { fi: SeasonData[]; en: SeasonData[] } = {
   fi: [
     {
       id: "autumn",
@@ -161,7 +162,8 @@ interface LeviSeasonsProps {
 }
 
 const LeviSeasons = ({ lang = "fi" }: LeviSeasonsProps) => {
-  const seasons = seasonsData[lang];
+  // Fallback to Finnish for unsupported languages
+  const seasons = seasonsData[lang] || seasonsData.fi;
   const isEnglish = lang === "en";
 
   return (

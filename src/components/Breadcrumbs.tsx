@@ -12,29 +12,53 @@ interface BreadcrumbsProps {
   items?: BreadcrumbItem[];
 }
 
-const routeLabels: Record<string, { fi: string; en: string }> = {
-  majoitukset: { fi: "Majoitukset", en: "Accommodations" },
-  accommodations: { fi: "Majoitukset", en: "Accommodations" },
-  levi: { fi: "Levi", en: "Levi" },
-  ajankohtaista: { fi: "Ajankohtaista", en: "News" },
-  news: { fi: "Ajankohtaista", en: "News" },
-  yhteystiedot: { fi: "Yhteystiedot", en: "Contact" },
-  contact: { fi: "Yhteystiedot", en: "Contact" },
-  revontulet: { fi: "Revontulet", en: "Northern Lights" },
-  "northern-lights": { fi: "Revontulet", en: "Northern Lights" },
-  ukk: { fi: "UKK", en: "FAQ" },
-  faq: { fi: "UKK", en: "FAQ" },
-  yritys: { fi: "Yritys", en: "Company" },
-  company: { fi: "Yritys", en: "Company" },
-  varausehdot: { fi: "Varausehdot", en: "Terms" },
-  terms: { fi: "Varausehdot", en: "Terms" },
+const routeLabels: Record<string, Record<Language, string>> = {
+  majoitukset: { fi: "Majoitukset", en: "Accommodations", sv: "Boende", de: "Unterkünfte", es: "Alojamientos" },
+  accommodations: { fi: "Majoitukset", en: "Accommodations", sv: "Boende", de: "Unterkünfte", es: "Alojamientos" },
+  boende: { fi: "Majoitukset", en: "Accommodations", sv: "Boende", de: "Unterkünfte", es: "Alojamientos" },
+  unterkuenfte: { fi: "Majoitukset", en: "Accommodations", sv: "Boende", de: "Unterkünfte", es: "Alojamientos" },
+  alojamientos: { fi: "Majoitukset", en: "Accommodations", sv: "Boende", de: "Unterkünfte", es: "Alojamientos" },
+  levi: { fi: "Levi", en: "Levi", sv: "Levi", de: "Levi", es: "Levi" },
+  ajankohtaista: { fi: "Ajankohtaista", en: "News", sv: "Nyheter", de: "Aktuelles", es: "Noticias" },
+  news: { fi: "Ajankohtaista", en: "News", sv: "Nyheter", de: "Aktuelles", es: "Noticias" },
+  nyheter: { fi: "Ajankohtaista", en: "News", sv: "Nyheter", de: "Aktuelles", es: "Noticias" },
+  aktuelles: { fi: "Ajankohtaista", en: "News", sv: "Nyheter", de: "Aktuelles", es: "Noticias" },
+  noticias: { fi: "Ajankohtaista", en: "News", sv: "Nyheter", de: "Aktuelles", es: "Noticias" },
+  yhteystiedot: { fi: "Yhteystiedot", en: "Contact", sv: "Kontakt", de: "Kontakt", es: "Contacto" },
+  contact: { fi: "Yhteystiedot", en: "Contact", sv: "Kontakt", de: "Kontakt", es: "Contacto" },
+  kontakt: { fi: "Yhteystiedot", en: "Contact", sv: "Kontakt", de: "Kontakt", es: "Contacto" },
+  contacto: { fi: "Yhteystiedot", en: "Contact", sv: "Kontakt", de: "Kontakt", es: "Contacto" },
+  revontulet: { fi: "Revontulet", en: "Northern Lights", sv: "Norrsken", de: "Nordlichter", es: "Auroras Boreales" },
+  "northern-lights": { fi: "Revontulet", en: "Northern Lights", sv: "Norrsken", de: "Nordlichter", es: "Auroras Boreales" },
+  norrsken: { fi: "Revontulet", en: "Northern Lights", sv: "Norrsken", de: "Nordlichter", es: "Auroras Boreales" },
+  nordlichter: { fi: "Revontulet", en: "Northern Lights", sv: "Norrsken", de: "Nordlichter", es: "Auroras Boreales" },
+  "auroras-boreales": { fi: "Revontulet", en: "Northern Lights", sv: "Norrsken", de: "Nordlichter", es: "Auroras Boreales" },
+  ukk: { fi: "UKK", en: "FAQ", sv: "FAQ", de: "FAQ", es: "FAQ" },
+  faq: { fi: "UKK", en: "FAQ", sv: "FAQ", de: "FAQ", es: "FAQ" },
+  "preguntas-frecuentes": { fi: "UKK", en: "FAQ", sv: "FAQ", de: "FAQ", es: "FAQ" },
+  yritys: { fi: "Yritys", en: "Company", sv: "Företag", de: "Unternehmen", es: "Empresa" },
+  company: { fi: "Yritys", en: "Company", sv: "Företag", de: "Unternehmen", es: "Empresa" },
+  foretag: { fi: "Yritys", en: "Company", sv: "Företag", de: "Unternehmen", es: "Empresa" },
+  unternehmen: { fi: "Yritys", en: "Company", sv: "Företag", de: "Unternehmen", es: "Empresa" },
+  empresa: { fi: "Yritys", en: "Company", sv: "Företag", de: "Unternehmen", es: "Empresa" },
+  varausehdot: { fi: "Varausehdot", en: "Terms", sv: "Villkor", de: "AGB", es: "Términos" },
+  terms: { fi: "Varausehdot", en: "Terms", sv: "Villkor", de: "AGB", es: "Términos" },
+};
+
+const langPrefixes: Language[] = ["en", "sv", "de", "es"];
+
+const homeLabelMap: Record<Language, string> = {
+  fi: "Etusivu",
+  en: "Home",
+  sv: "Hem",
+  de: "Startseite",
+  es: "Inicio"
 };
 
 const Breadcrumbs = ({ lang = "fi", items }: BreadcrumbsProps) => {
   const location = useLocation();
-  const isEnglish = lang === "en";
-  const homeHref = isEnglish ? "/en" : "/";
-  const homeLabel = isEnglish ? "Home" : "Etusivu";
+  const homeHref = lang === "fi" ? "/" : `/${lang}`;
+  const homeLabel = homeLabelMap[lang];
 
   // Auto-generate breadcrumbs from URL if items not provided
   const generateBreadcrumbs = (): BreadcrumbItem[] => {
@@ -43,9 +67,9 @@ const Breadcrumbs = ({ lang = "fi", items }: BreadcrumbsProps) => {
     let currentPath = "";
 
     pathSegments.forEach((segment) => {
-      // Skip 'en' language prefix
-      if (segment === "en") {
-        currentPath += "/en";
+      // Skip language prefixes
+      if (langPrefixes.includes(segment as Language)) {
+        currentPath += `/${segment}`;
         return;
       }
 
@@ -54,7 +78,7 @@ const Breadcrumbs = ({ lang = "fi", items }: BreadcrumbsProps) => {
       
       if (labelData) {
         breadcrumbs.push({
-          label: isEnglish ? labelData.en : labelData.fi,
+          label: labelData[lang],
           href: currentPath,
         });
       }

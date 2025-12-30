@@ -6,17 +6,19 @@ import { getResultMessage } from "@/data/quizQuestions";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { FacebookIcon } from "@/components/icons/SocialIcons";
+import { Language } from "@/translations";
 
 interface QuizResultProps {
   score: number;
   totalQuestions: number;
   onRestart: () => void;
-  lang?: "fi" | "en";
+  lang?: Language;
 }
 
 const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResultProps) => {
-  const isEnglish = lang === "en";
-  const result = getResultMessage(score, totalQuestions, lang);
+  // Fallback to English for unsupported languages
+  const isEnglish = lang !== "fi";
+  const result = getResultMessage(score, totalQuestions, isEnglish ? "en" : "fi");
   const percentage = Math.round((score / totalQuestions) * 100);
   const { toast } = useToast();
 
@@ -128,7 +130,7 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
                 {isEnglish ? "Copy Link" : "Kopioi linkki"}
               </Button>
               <Button asChild variant="ghost" size="lg" className="text-sm sm:text-base">
-                <Link to={isEnglish ? "/en/levi" : "/levi"}>
+                <Link to={lang === "fi" ? "/levi" : `/${lang}/levi`}>
                   <Home className="w-4 h-4 mr-2" />
                   {isEnglish ? "Explore Levi" : "Tutustu Leviin"}
                 </Link>
