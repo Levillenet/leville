@@ -68,9 +68,21 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
         <Breadcrumbs lang={lang} />
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4">
+            {/* Hero Section */}
+            <ScrollReveal>
+              <section className="text-center mb-6 md:mb-8 px-2">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 md:mb-6">
+                  {t.title}
+                </h1>
+                <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                  {t.subtitle}
+                </p>
+              </section>
+            </ScrollReveal>
+
             {/* Discount code banner */}
             <ScrollReveal>
-              <div className="text-center mb-6">
+              <div className="text-center mb-10 md:mb-16">
                 <a 
                   href={isEnglish ? "/en/news" : "/ajankohtaista"}
                   className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/20 to-aurora-green/20 backdrop-blur-sm border border-primary/40 rounded-full px-4 py-2 hover:border-primary/60 transition-colors group"
@@ -82,18 +94,6 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                   <ArrowRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
               </div>
-            </ScrollReveal>
-
-            {/* Hero Section */}
-            <ScrollReveal>
-              <section className="text-center mb-10 md:mb-16 px-2">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 md:mb-6">
-                  {t.title}
-                </h1>
-                <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                  {t.subtitle}
-                </p>
-              </section>
             </ScrollReveal>
 
             {/* Accommodations Grid */}
