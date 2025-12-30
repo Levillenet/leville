@@ -45,7 +45,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         setPreviousImageIndex(prev);
         return (prev + 1) % heroImages.length;
       });
-    }, 12000); // 12 seconds between transitions for slower pace
+    }, 10000); // 10 seconds between transitions
 
     return () => window.clearInterval(interval);
   }, []);
@@ -68,7 +68,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           return (
             <div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-[3500ms] ease-in-out ${
+              className={`absolute inset-0 transition-opacity duration-[5000ms] ease-in-out ${
                 isVisible ? kenBurnsClass : ""
               }`}
               style={{
