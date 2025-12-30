@@ -1,0 +1,176 @@
+import { useState, useRef, useEffect } from "react";
+import { Send, MessageCircle, X, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
+
+type Message = { role: "user" | "assistant"; content: string };
+
+const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/customer-service-chat`;
+
+export default function CustomerServiceChat() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    { role: "assistant", content: "Hei! Olen Levillen asiakaspalvelubotti. Miten voin auttaa? 🏔️\n\nKerrothan ensin, missä majoituskohteessa olet tai olet varaamassa majoitusta?" }
+  ]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const streamChat = async (userMessages: Message[]) => {
+    const resp = await fetch(CHAT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+      },
+      body: JSON.stringify({ messages: userMessages }),
+    });
+
+    if (!resp.ok || !resp.body) {
+      const errorData = await resp.json().catch(() => ({}));
+      throw new Error(errorData.error || "Virhe yhteydessä");
+    }
+
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    let textBuffer = "";
+    let assistantContent = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      textBuffer += decoder.decode(value, { stream: true });
+
+      let newlineIndex: number;
+      while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
+        let line = textBuffer.slice(0, newlineIndex);
+        textBuffer = textBuffer.slice(newlineIndex + 1);
+
+        if (line.endsWith("\r")) line = line.slice(0, -1);
+        if (line.startsWith(":") || line.trim() === "") continue;
+        if (!line.startsWith("data: ")) continue;
+
+        const jsonStr = line.slice(6).trim();
+        if (jsonStr === "[DONE]") break;
+
+        try {
+          const parsed = JSON.parse(jsonStr);
+          const content = parsed.choices?.[0]?.delta?.content as string | undefined;
+          if (content) {
+            assistantContent += content;
+            setMessages(prev => {
+              const last = prev[prev.length - 1];
+              if (last?.role === "assistant" && prev.length > 1) {
+                return prev.map((m, i) => i === prev.length - 1 ? { ...m, content: assistantContent } : m);
+              }
+              return [...prev, { role: "assistant", content: assistantContent }];
+            });
+          }
+        } catch {
+          textBuffer = line + "\n" + textBuffer;
+          break;
+        }
+      }
+    }
+  };
+
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMsg: Message = { role: "user", content: input.trim() };
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
+    setInput("");
+    setIsLoading(true);
+
+    try {
+      await streamChat(newMessages.slice(1)); // Skip initial greeting
+    } catch (e) {
+      setMessages(prev => [...prev, { 
+        role: "assistant", 
+        content: `Pahoittelut, yhteydessä tapahtui virhe. Ota yhteyttä WhatsAppilla: +358 40 1234567` 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      {/* Chat toggle button */}
+      <motion.button
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:scale-105 transition-transform"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+      </motion.button>
+
+      {/* Chat window */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-3rem)]"
+          >
+            <Card className="flex flex-col h-[500px] max-h-[70vh] overflow-hidden shadow-2xl">
+              {/* Header */}
+              <div className="bg-primary text-primary-foreground p-4">
+                <h3 className="font-semibold">Leville Asiakaspalvelu</h3>
+                <p className="text-xs opacity-80">AI-avustaja • Vastaamme myös WhatsAppissa</p>
+              </div>
+
+              {/* Messages */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-muted/30">
+                {messages.map((msg, i) => (
+                  <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                    <div className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm whitespace-pre-wrap ${
+                      msg.role === "user" 
+                        ? "bg-primary text-primary-foreground rounded-br-md" 
+                        : "bg-card border rounded-bl-md"
+                    }`}>
+                      {msg.content}
+                    </div>
+                  </div>
+                ))}
+                {isLoading && messages[messages.length - 1]?.role === "user" && (
+                  <div className="flex justify-start">
+                    <div className="bg-card border rounded-2xl rounded-bl-md px-4 py-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+
+              {/* Input */}
+              <div className="p-3 border-t bg-background">
+                <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="flex gap-2">
+                  <Input
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Kirjoita viesti..."
+                    disabled={isLoading}
+                    className="flex-1"
+                  />
+                  <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
+                    <Send className="w-4 h-4" />
+                  </Button>
+                </form>
+              </div>
+            </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
