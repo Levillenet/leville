@@ -66,7 +66,7 @@ export const fi = {
       {
         title: "Modernit huoneistot Skistarissa",
         description: "Täysin varustetut huoneistot Levin keskustassa. Erinomainen sijainti rinteiden ja palveluiden välittömässä läheisyydessä.",
-        features: ["2–6 henkilöä", "Superior-huoneistoissa oma sauna", "Kaikissa huoneistoissa keittiö ja kattava varustelu mukavaa lomaa varten"]
+        features: ["2–6 henkilöä", "Superior-huoneistoissa oma sauna", "Kaikissa huoneistoissa keittiö ja kattava varustelu mukavaa lomaa varten", "Lämmin suksienhuoltotila"]
       },
       {
         title: "Tilavat perheasunnot Levin keskustassa",
@@ -76,12 +76,12 @@ export const fi = {
       {
         title: "Karhupirtti",
         description: "Tunnelmallinen ja perinteinen hirsimökki Levin keskustassa. Täysi mukavuus suurelle seurueelle.",
-        features: ["Enintään 14 henkilöä", "7 makuuhuonetta", "Takka", "Keittiö", "Poreallas ulkona", "Oma piha"]
+        features: ["Enintään 14 henkilöä", "7 makuuhuonetta", "Takka", "Keittiö", "Poreallas ulkona", "Oma piha", "Lämmin suksienhuoltotila"]
       },
       {
         title: "Levi Glacier huoneistot eturinteellä",
         description: "Isot perhehuoneistot erinomaisella sijainnilla Levin eturinteessä. Sopii erityisesti urheiluseuroille, yritysryhmille ja isommille seurueille.",
-        features: ["Jopa 10 henkilöä per huoneisto", "Yhteensä 10 huoneistoa samassa pihapiirissä", "Täysin varustellut keittiöt", "Oma sauna ja parveke jokaisessa huoneistossa", "Pelihuone lapsille", "Lämmin suksienhuoltotila"]
+        features: ["Jopa 10 henkilöä per huoneisto", "Yhteensä 10 huoneistoa samassa pihapiirissä", "Mahdollisuus varata 4–10 huoneistoa yksityiskäyttöön – koko talo seurueellesi", "Täysin varustellut keittiöt", "Oma sauna ja parveke jokaisessa huoneistossa", "Pelihuone lapsille", "Lämmin suksienhuoltotila"]
       }
     ],
     amenities: [

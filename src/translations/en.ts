@@ -66,7 +66,7 @@ export const en = {
       {
         title: "Modern apartments in Skistar",
         description: "Fully equipped apartments in Levi center. Excellent location right next to slopes and services.",
-        features: ["2–6 persons", "Private sauna in Superior apartments", "All apartments have kitchen and full amenities for a comfortable holiday"]
+        features: ["2–6 persons", "Private sauna in Superior apartments", "All apartments have kitchen and full amenities for a comfortable holiday", "Heated ski maintenance room"]
       },
       {
         title: "Spacious family apartments in Levi center",
@@ -76,12 +76,12 @@ export const en = {
       {
         title: "Bear Lodge",
         description: "Atmospheric and traditional log cabin in Levi center. Full comfort for a large group.",
-        features: ["Up to 14 persons", "7 bedrooms", "Fireplace", "Kitchen", "Outdoor hot tub", "Private yard"]
+        features: ["Up to 14 persons", "7 bedrooms", "Fireplace", "Kitchen", "Outdoor hot tub", "Private yard", "Heated ski maintenance room"]
       },
       {
         title: "Levi Glacier apartments on front slope",
         description: "Large family apartments in an excellent location on Levi's front slope. Ideal for sports clubs, corporate groups and larger parties.",
-        features: ["Up to 10 persons per apartment", "10 apartments in the same courtyard", "Fully equipped kitchens", "Private sauna and balcony in each apartment", "Game room for children", "Heated ski maintenance room"]
+        features: ["Up to 10 persons per apartment", "10 apartments in the same courtyard", "Option to book 4–10 apartments for private use – the whole building for your group", "Fully equipped kitchens", "Private sauna and balcony in each apartment", "Game room for children", "Heated ski maintenance room"]
       }
     ],
     amenities: [
