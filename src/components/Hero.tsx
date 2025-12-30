@@ -56,7 +56,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           return (
             <div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-[3000ms] ease-in-out ${
+              className={`absolute inset-0 hero-image-transition ${
                 shouldAnimate ? 'animate-ken-burns' : ''
               }`}
               style={{

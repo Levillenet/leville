@@ -233,6 +233,10 @@
     animation: kenBurns 8s ease-out forwards;
   }
 
+  .hero-image-transition {
+    transition: opacity 3000ms ease-in-out;
+  }
+
   /* Aurora curtain animations - wave-like movement */
   @keyframes auroraCurtain1 {
     0%, 100% { 
