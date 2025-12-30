@@ -61,19 +61,18 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         {heroImages.map((image, index) => {
           const isCurrent = index === currentImageIndex;
           const isPrevious = index === previousImageIndex;
-          const isVisible = isCurrent || isPrevious;
           const isCabin = image === heroCabin;
           const kenBurnsClass = isCabin ? "animate-ken-burns-cabin" : "animate-ken-burns";
+          
+          // Only render current and previous images for performance
+          if (!isCurrent && !isPrevious) return null;
 
           return (
             <div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-[5000ms] ease-in-out ${
-                isVisible ? kenBurnsClass : ""
-              }`}
+              className={`absolute inset-0 ${kenBurnsClass}`}
               style={{
-                opacity: isCurrent ? 1 : isPrevious ? 0 : 0,
-                zIndex: isCurrent ? 2 : isPrevious ? 1 : 0,
+                zIndex: isCurrent ? 2 : 1,
               }}
             >
               <img
@@ -82,9 +81,9 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={index === 0 ? "high" : "auto"}
-                className={`absolute inset-0 w-full h-full object-cover object-center ${
+                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[5000ms] ease-in-out ${
                   isCabin ? "hero-cabin-image" : ""
-                }`}
+                } ${isCurrent ? "opacity-100" : "opacity-0"}`}
               />
             </div>
           );
