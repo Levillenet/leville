@@ -74,34 +74,34 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4">
             {/* Hero Section */}
-            <section className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            <section className="text-center mb-10 sm:mb-16 px-2">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6">
                 {t.title}
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 {t.subtitle}
               </p>
             </section>
 
             {/* Quiz CTA Section */}
-            <section className="mb-16">
+            <section className="mb-10 sm:mb-16">
               <Card className="glass-card border-primary/30 bg-primary/5 overflow-hidden">
-                <CardContent className="p-6 md:p-8">
-                  <div className="flex flex-col md:flex-row items-center gap-6">
-                    <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                      <Brain className="w-8 h-8 text-primary" />
+                <CardContent className="p-4 sm:p-6 md:p-8">
+                  <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Brain className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
                     </div>
                     <div className="flex-1 text-center md:text-left">
-                      <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
+                      <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-1 sm:mb-2">
                         {lang === "en" ? "Test Your Levi Knowledge!" : "Testaa Levi-tietämyksesi!"}
                       </h2>
-                      <p className="text-muted-foreground">
+                      <p className="text-sm sm:text-base text-muted-foreground">
                         {lang === "en" 
                           ? "Take our fun quiz and find out how well you know Finland's favorite ski resort."
                           : "Pelaa hauska tietovisa ja selvitä kuinka hyvin tunnet Suomen suosituimman hiihtokeskuksen."}
                       </p>
                     </div>
-                    <Button asChild size="lg" className="flex-shrink-0">
+                    <Button asChild size="lg" className="flex-shrink-0 text-sm sm:text-base">
                       <Link to={lang === "en" ? "/en/quiz" : "/tietovisa"}>
                         {lang === "en" ? "Start Quiz" : "Aloita visa"}
                       </Link>
@@ -151,19 +151,19 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             </section>
 
             {/* Activities */}
-            <section className="grid md:grid-cols-3 gap-8 mb-20">
+            <section className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 mb-12 sm:mb-20">
               {t.activities.map((activity, index) => {
                 const Icon = activityIcons[index];
                 return (
                   <Card key={activity.title} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300">
-                    <CardHeader>
-                      <div className="w-14 h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                        <Icon className="w-7 h-7 text-primary" />
+                    <CardHeader className="p-4 sm:p-6">
+                      <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-3 sm:mb-4">
+                        <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-primary" />
                       </div>
-                      <CardTitle className="text-xl text-foreground">{activity.title}</CardTitle>
+                      <CardTitle className="text-lg sm:text-xl text-foreground">{activity.title}</CardTitle>
                     </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">{activity.description}</p>
+                    <CardContent className="p-4 sm:p-6 pt-0">
+                      <p className="text-sm sm:text-base text-muted-foreground">{activity.description}</p>
                     </CardContent>
                   </Card>
                 );
@@ -171,9 +171,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             </section>
 
             {/* Second Gallery Row */}
-            <section className="mb-20">
-              <h2 className="text-2xl font-semibold text-foreground mb-8 text-center">{t.galleryTitle}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <section className="mb-12 sm:mb-20">
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 sm:mb-8 text-center">{t.galleryTitle}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                 {galleryImages.slice(3).map((image, index) => (
                   <div key={index} className="relative group overflow-hidden rounded-2xl aspect-[4/3]">
                     <img 
@@ -191,15 +191,15 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             </section>
 
             {/* Live Camera Section */}
-            <section className="mb-20">
+            <section className="mb-12 sm:mb-20">
               <Card className="glass-card border-border/30 overflow-hidden">
-                <CardHeader>
-                  <div className="flex items-center gap-3">
+                <CardHeader className="p-4 sm:p-6">
+                  <div className="flex items-center gap-2 sm:gap-3">
                     <div className="relative">
-                      <Video className="w-6 h-6 text-primary" />
-                      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
+                      <Video className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                      <span className="absolute -top-1 -right-1 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-red-500 rounded-full animate-pulse" />
                     </div>
-                    <CardTitle>{lang === "en" ? "Levi Live Camera" : "Levin live-kamera"}</CardTitle>
+                    <CardTitle className="text-base sm:text-lg">{lang === "en" ? "Levi Live Camera" : "Levin live-kamera"}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -212,7 +212,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                       className="w-full h-full"
                     />
                   </div>
-                  <p className="text-sm text-muted-foreground p-4 text-center">
+                  <p className="text-xs sm:text-sm text-muted-foreground p-3 sm:p-4 text-center">
                     {lang === "en" 
                       ? "Live view from Levi ski resort – see the current conditions on the slopes" 
                       : "Suora näkymä Levin hiihtokeskuksesta – näe rinteiden tilanne reaaliajassa"}
@@ -222,19 +222,19 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             </section>
 
             {/* Weather & Map Section */}
-            <section className="grid md:grid-cols-2 gap-8 mb-20">
+            <section className="grid sm:grid-cols-2 gap-4 sm:gap-8 mb-12 sm:mb-20">
               <Card className="glass-card border-border/30">
-                <CardHeader>
-                  <div className="flex items-center gap-3">
-                    <Cloud className="w-6 h-6 text-primary" />
-                    <CardTitle>{t.weatherTitle}</CardTitle>
+                <CardHeader className="p-4 sm:p-6">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <Cloud className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                    <CardTitle className="text-base sm:text-lg">{t.weatherTitle}</CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <p className="text-sm sm:text-base text-muted-foreground mb-4">
                     {t.weatherText}
                   </p>
-                  <Button asChild variant="outline" className="w-full">
+                  <Button asChild variant="outline" className="w-full text-sm sm:text-base">
                     <a href="https://www.foreca.fi/Finland/Levi" target="_blank" rel="noopener noreferrer">
                       {t.weatherCta} <ExternalLink className="w-4 h-4 ml-2" />
                     </a>
@@ -243,17 +243,17 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </Card>
 
               <Card className="glass-card border-border/30">
-                <CardHeader>
-                  <div className="flex items-center gap-3">
-                    <MapPin className="w-6 h-6 text-primary" />
-                    <CardTitle>{t.mapTitle}</CardTitle>
+                <CardHeader className="p-4 sm:p-6">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
+                    <CardTitle className="text-base sm:text-lg">{t.mapTitle}</CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">
+                <CardContent className="p-4 sm:p-6 pt-0">
+                  <p className="text-sm sm:text-base text-muted-foreground mb-4">
                     {t.mapText}
                   </p>
-                  <Button asChild variant="outline" className="w-full">
+                  <Button asChild variant="outline" className="w-full text-sm sm:text-base">
                     <a href="https://www.google.com/maps/place/Levi,+Finland" target="_blank" rel="noopener noreferrer">
                       {t.mapCta} <ExternalLink className="w-4 h-4 ml-2" />
                     </a>
@@ -264,12 +264,12 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
 
             {/* Useful Links */}
             <section className="text-center">
-              <h2 className="text-2xl font-semibold text-foreground mb-8">{t.linksTitle}</h2>
-              <div className="flex flex-wrap justify-center gap-4">
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 sm:mb-8">{t.linksTitle}</h2>
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
                 {t.usefulLinks.map((link) => (
-                  <Button key={link.name} asChild variant="secondary">
+                  <Button key={link.name} asChild variant="secondary" className="text-xs sm:text-sm">
                     <a href={link.url} target="_blank" rel="noopener noreferrer">
-                      {link.name} <ExternalLink className="w-4 h-4 ml-2" />
+                      {link.name} <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1.5 sm:ml-2" />
                     </a>
                   </Button>
                 ))}

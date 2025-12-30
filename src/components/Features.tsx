@@ -42,39 +42,39 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
   };
 
   return (
-    <section id={t.sectionId} className="py-28 bg-card relative overflow-hidden">
+    <section id={t.sectionId} className="py-16 sm:py-28 bg-card relative overflow-hidden">
       {/* Subtle aurora glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-aurora-green/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-aurora-blue/5 rounded-full blur-3xl" />
       
       <div className="container mx-auto px-4 relative z-10">
         <ScrollReveal>
-          <div className="max-w-3xl mx-auto text-center mb-20">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight">
+          <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-20 px-2">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-4 sm:mb-6 tracking-tight">
               {t.title} <span className="text-gradient">{t.titleHighlight}</span>
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
               {t.subtitle}
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-12 sm:mb-20">
           {t.items.map((feature, index) => {
             const Icon = featureIcons[index];
             return (
               <ScrollReveal key={feature.title} delay={index * 0.1} direction="up">
                 <TiltCard className="h-full">
                   <div 
-                    className="group p-8 rounded-xl bg-secondary/40 border border-border/30 hover:border-aurora-green/30 transition-all duration-500 hover:shadow-elegant h-full"
+                    className="group p-4 sm:p-8 rounded-xl bg-secondary/40 border border-border/30 hover:border-aurora-green/30 transition-all duration-500 hover:shadow-elegant h-full"
                   >
-                    <div className="w-12 h-12 rounded-lg bg-aurora-green/10 flex items-center justify-center mb-6 group-hover:bg-aurora-green/20 transition-colors duration-500">
-                      <Icon className="w-6 h-6 text-aurora-green" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-aurora-green/10 flex items-center justify-center mb-3 sm:mb-6 group-hover:bg-aurora-green/20 transition-colors duration-500">
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-aurora-green" />
                     </div>
-                    <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-foreground mb-3 font-serif tracking-tight">
+                    <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-foreground mb-2 sm:mb-3 font-serif tracking-tight">
                       {feature.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -87,7 +87,7 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
         {/* Testimonial Carousel */}
         <ScrollReveal delay={0.3}>
           <div className="max-w-4xl mx-auto">
-            <h3 className="text-2xl md:text-3xl font-serif font-semibold text-foreground text-center mb-12 tracking-tight">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-semibold text-foreground text-center mb-8 sm:mb-12 tracking-tight">
               {t.testimonialTitle}
             </h3>
             
@@ -101,34 +101,34 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
                   {testimonials.map((testimonial, index) => (
                     <div 
                       key={index}
-                      className="w-full flex-shrink-0 px-4"
+                      className="w-full flex-shrink-0 px-2 sm:px-4"
                     >
-                      <div className="glass-card border-border/30 p-8 md:p-12 rounded-2xl relative">
+                      <div className="glass-card border-border/30 p-5 sm:p-8 md:p-12 rounded-2xl relative">
                         {/* Quote Icon */}
-                        <Quote className="absolute top-6 right-6 w-12 h-12 text-primary/10" />
+                        <Quote className="absolute top-4 right-4 sm:top-6 sm:right-6 w-8 h-8 sm:w-12 sm:h-12 text-primary/10" />
                         
                         {/* Stars */}
-                        <div className="flex gap-1 mb-6">
+                        <div className="flex gap-1 mb-4 sm:mb-6">
                           {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
+                            <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-yellow-500 text-yellow-500" />
                           ))}
                         </div>
                         
                         {/* Review Text */}
-                        <blockquote className="text-lg md:text-xl text-foreground leading-relaxed mb-8 font-serif italic">
+                        <blockquote className="text-base sm:text-lg md:text-xl text-foreground leading-relaxed mb-6 sm:mb-8 font-serif italic">
                           "{testimonial.text}"
                         </blockquote>
                         
                         {/* Author */}
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/40 to-aurora-green/40 flex items-center justify-center">
-                            <span className="text-foreground font-bold text-lg">
+                        <div className="flex items-center gap-3 sm:gap-4">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary/40 to-aurora-green/40 flex items-center justify-center">
+                            <span className="text-foreground font-bold text-base sm:text-lg">
                               {testimonial.name.charAt(0)}
                             </span>
                           </div>
                           <div>
-                            <p className="text-foreground font-semibold">{testimonial.name}</p>
-                            <p className="text-muted-foreground text-sm">{testimonial.location}</p>
+                            <p className="text-sm sm:text-base text-foreground font-semibold">{testimonial.name}</p>
+                            <p className="text-xs sm:text-sm text-muted-foreground">{testimonial.location}</p>
                           </div>
                         </div>
                       </div>
@@ -140,29 +140,29 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
               {/* Navigation Arrows */}
               <button
                 onClick={goToPrevious}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-12 h-12 rounded-full glass-card border-border/30 flex items-center justify-center text-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 md:-translate-x-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-card border-border/30 flex items-center justify-center text-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
                 aria-label={t.prevAriaLabel}
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
               <button
                 onClick={goToNext}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-12 h-12 rounded-full glass-card border-border/30 flex items-center justify-center text-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 md:translate-x-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-card border-border/30 flex items-center justify-center text-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
                 aria-label={t.nextAriaLabel}
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
 
             {/* Dots Navigation */}
-            <div className="flex justify-center gap-2 mt-8">
+            <div className="flex justify-center gap-2 mt-6 sm:mt-8">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 ${
                     index === currentIndex 
-                      ? 'bg-primary w-8' 
+                      ? 'bg-primary w-6 sm:w-8' 
                       : 'bg-border/50 hover:bg-border'
                   }`}
                   aria-label={`${t.dotAriaLabel} ${index + 1}`}

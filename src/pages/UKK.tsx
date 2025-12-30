@@ -69,28 +69,28 @@ const UKK = ({ lang = "fi" }: UKKProps) => {
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4">
             {/* Hero Section */}
-            <section className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            <section className="text-center mb-10 sm:mb-16 px-2">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6">
                 {t.title}
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 {t.subtitle}
               </p>
             </section>
 
             {/* FAQ Accordion */}
             <section className="max-w-3xl mx-auto">
-              <Accordion type="single" collapsible className="space-y-4">
+              <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
                 {t.faqs.map((faq, index) => (
                   <AccordionItem 
                     key={index} 
                     value={`item-${index}`}
-                    className="glass-card border-border/30 rounded-lg px-6"
+                    className="glass-card border-border/30 rounded-lg px-4 sm:px-6"
                   >
-                    <AccordionTrigger className="text-left text-foreground hover:text-primary">
+                    <AccordionTrigger className="text-left text-sm sm:text-base text-foreground hover:text-primary py-3 sm:py-4">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
+                    <AccordionContent className="text-sm sm:text-base text-muted-foreground pb-3 sm:pb-4">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>

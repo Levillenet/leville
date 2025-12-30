@@ -169,45 +169,45 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4">
             {/* Hero Section */}
-            <section className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            <section className="text-center mb-10 sm:mb-16 px-2">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6">
                 {t.title}
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                 {t.subtitle}
               </p>
             </section>
 
             {/* Contact Cards */}
-            <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+            <section className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-12 sm:mb-20">
               {contactInfo.map((info) => {
                 const colors = getSocialColor(info.socialType);
                 const isSocial = info.socialType !== null;
                 
                 return (
                   <Card key={info.title} className="glass-card border-border/30 text-center">
-                    <CardHeader>
-                      <div className={`w-14 h-14 rounded-lg flex items-center justify-center mx-auto mb-4 ${colors.bg}`}>
+                    <CardHeader className="p-3 sm:p-6">
+                      <div className={`w-10 h-10 sm:w-14 sm:h-14 rounded-lg flex items-center justify-center mx-auto mb-2 sm:mb-4 ${colors.bg}`}>
                         {isSocial ? (
-                          getSocialIcon(info.socialType, `w-7 h-7 ${colors.text}`)
+                          getSocialIcon(info.socialType, `w-5 h-5 sm:w-7 sm:h-7 ${colors.text}`)
                         ) : (
-                          typeof info.icon !== 'string' && <info.icon className={`w-7 h-7 ${colors.text}`} />
+                          typeof info.icon !== 'string' && <info.icon className={`w-5 h-5 sm:w-7 sm:h-7 ${colors.text}`} />
                         )}
                       </div>
-                      <CardTitle className="text-lg text-foreground">{info.title}</CardTitle>
+                      <CardTitle className="text-sm sm:text-lg text-foreground">{info.title}</CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="p-3 sm:p-6 pt-0">
                       {info.href ? (
                         <a 
                           href={info.href} 
                           target={isSocial ? "_blank" : undefined}
                           rel={isSocial ? "noopener noreferrer" : undefined}
-                          className={`transition-colors whitespace-pre-line ${isSocial ? `${colors.text} ${colors.hover}` : 'text-muted-foreground hover:text-primary'}`}
+                          className={`text-xs sm:text-base transition-colors whitespace-pre-line break-all ${isSocial ? `${colors.text} ${colors.hover}` : 'text-muted-foreground hover:text-primary'}`}
                         >
                           {info.value}
                         </a>
                       ) : (
-                        <p className="text-muted-foreground whitespace-pre-line">{info.value}</p>
+                        <p className="text-xs sm:text-base text-muted-foreground whitespace-pre-line">{info.value}</p>
                       )}
                     </CardContent>
                   </Card>
@@ -217,8 +217,8 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
 
             {/* Map Section */}
             <section>
-              <h2 className="text-2xl font-semibold text-foreground text-center mb-8">{t.locationTitle}</h2>
-              <div className="glass-card border-border/30 rounded-lg overflow-hidden h-96">
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground text-center mb-6 sm:mb-8">{t.locationTitle}</h2>
+              <div className="glass-card border-border/30 rounded-lg overflow-hidden h-64 sm:h-96">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14269.254901538582!2d24.80!3d67.80!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x45d28a3a3a3a3a3a%3A0x0!2sLevi%2C%20Finland!5e0!3m2!1sen!2sfi!4v1234567890"
                   width="100%"
