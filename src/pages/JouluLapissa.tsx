@@ -20,8 +20,9 @@ import { Link } from "react-router-dom";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import OptimizedImage from "@/components/OptimizedImage";
-import santaWalking from "@/assets/santa-walking.png";
-import santaCartoon from "@/assets/santa-cartoon.png";
+import santaSitting from "@/assets/santa-sitting.jpg";
+import santaWaving from "@/assets/santa-waving.png";
+import santaCabin from "@/assets/santa-cabin.webp";
 
 interface JouluLapissakProps {
   lang?: Language;
@@ -282,7 +283,7 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
             <section className="mb-12 sm:mb-16">
               <div className="relative rounded-2xl overflow-hidden max-w-4xl mx-auto">
                 <OptimizedImage 
-                  src={santaWalking}
+                  src={santaSitting}
                   alt={isEnglish ? "Santa Claus in Lapland" : "Joulupukki Lapissa"}
                   className="w-full h-64 sm:h-80 md:h-96"
                   priority
@@ -339,10 +340,34 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                 </div>
                 <div className="relative rounded-2xl overflow-hidden">
                   <OptimizedImage 
-                    src={santaCartoon}
-                    alt={isEnglish ? "Santa Claus cartoon" : "Joulupukki-piirros"}
+                    src={santaWaving}
+                    alt={isEnglish ? "Santa Claus waving" : "Joulupukki vilkuttaa"}
                     className="w-full h-64 sm:h-80"
                   />
+                </div>
+              </div>
+            </section>
+
+            {/* Santa's Cabin Section */}
+            <section className="mb-12 sm:mb-20">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="relative rounded-2xl overflow-hidden">
+                  <OptimizedImage 
+                    src={santaCabin}
+                    alt={isEnglish ? "Santa's Cabin in Levi" : "Joulupukin mökki Levillä"}
+                    className="w-full h-64 sm:h-80"
+                  />
+                </div>
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                    {isEnglish ? "Did you know?" : "Tiesitkö?"}
+                  </h2>
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    {isEnglish 
+                      ? "Santa's cabin is located on the slopes of Levi! You can reach it by the Levi Black gondola lift – it's an exciting adventure for the whole family."
+                      : "Joulupukin mökki löytyy Levin rinteiltä! Pääset sinne Levi Black gondolihissillä ja se on jännittävä retki koko perheelle."
+                    }
+                  </p>
                 </div>
               </div>
             </section>
