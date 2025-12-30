@@ -65,18 +65,23 @@ export const fi = {
     accommodations: [
       {
         title: "Modernit huoneistot Skistarissa",
-        description: "Täysin varustetut huoneistot Levin keskustassa. Täydellinen sijainti sekä rinteille että palveluihin.",
-        features: ["2-6 henkilöä", "Superior huoneistoissa sauna", "Kaikissa huoneistoissa keittiö ja täysi varustelu mukavaa lomaasi ajatellen"]
+        description: "Täysin varustetut huoneistot Levin keskustassa. Erinomainen sijainti rinteiden ja palveluiden välittömässä läheisyydessä.",
+        features: ["2–6 henkilöä", "Superior-huoneistoissa oma sauna", "Kaikissa huoneistoissa keittiö ja kattava varustelu mukavaa lomaa varten"]
       },
       {
         title: "Tilavat perheasunnot Levin keskustassa",
-        description: "Isot alppihuoneistot Levin ytimessä perheille ja ryhmille. Runsaasti tilaa rentoon lomailuun.",
-        features: ["4-10 henkilöä", "3-5 makuuhuonetta", "Täysin varustetut keittiöt", "Parvekkeet kaikissa huoneistoissa"]
+        description: "Isot modernit alppihuoneistot Levin ytimessä perheille ja ryhmille. Paljon tilaa rentoon ja viihtyisään lomailuun.",
+        features: ["4–10 henkilöä", "3–4 makuuhuonetta", "Täysin varustellut keittiöt", "Parvekkeet kaikissa huoneistoissa", "Lämmin suksienhuoltotila"]
       },
       {
         title: "Karhupirtti",
-        description: "Tunnelmallinen iso hirsimökki Levin keskustassa. Perinteinen hirsimökki täysin mukavuuksin isolle ryhmälle.",
-        features: ["Max 14 henkilöä", "7 makuuhuonetta", "Takka", "Keittiö", "Poreallas ulkona", "Oma piha"]
+        description: "Tunnelmallinen ja perinteinen hirsimökki Levin keskustassa. Täysi mukavuus suurelle seurueelle.",
+        features: ["Enintään 14 henkilöä", "7 makuuhuonetta", "Takka", "Keittiö", "Poreallas ulkona", "Oma piha"]
+      },
+      {
+        title: "Levi Glacier huoneistot eturinteellä",
+        description: "Isot perhehuoneistot erinomaisella sijainnilla Levin eturinteessä. Sopii erityisesti urheiluseuroille, yritysryhmille ja isommille seurueille.",
+        features: ["Jopa 10 henkilöä per huoneisto", "Yhteensä 10 huoneistoa samassa pihapiirissä", "Täysin varustellut keittiöt", "Oma sauna ja parveke jokaisessa huoneistossa", "Pelihuone lapsille", "Lämmin suksienhuoltotila"]
       }
     ],
     amenities: [
