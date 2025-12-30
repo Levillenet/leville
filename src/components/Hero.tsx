@@ -17,6 +17,8 @@ interface HeroProps {
 const Hero = ({ lang = "fi" }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [previousImageIndex, setPreviousImageIndex] = useState<number | null>(null);
+  const [pendingImageIndex, setPendingImageIndex] = useState<number | null>(null);
+  const [loaded, setLoaded] = useState<Record<number, boolean>>({ 0: true });
   const t = getTranslations(lang).hero;
 
   const stars = useMemo(() => 
@@ -31,25 +33,41 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
   );
 
   useEffect(() => {
-    // Preload hero images to prevent black flashes during transitions
-    heroImages.slice(1).forEach((src) => {
+    // Preload hero images to prevent black/empty flashes during transitions
+    heroImages.forEach((src, index) => {
       const img = new Image();
       img.decoding = "async";
+      img.onload = () => setLoaded((m) => ({ ...m, [index]: true }));
+      img.onerror = () => setLoaded((m) => ({ ...m, [index]: false }));
       img.src = src;
     });
   }, []);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setCurrentImageIndex((prev) => {
-        setPreviousImageIndex(prev);
-        return (prev + 1) % heroImages.length;
+      setPendingImageIndex((prevPending) => {
+        // If we already have a pending image waiting to load, keep waiting.
+        if (prevPending !== null) return prevPending;
+        return (currentImageIndex + 1) % heroImages.length;
       });
     }, 8000);
 
     return () => window.clearInterval(interval);
-  }, []);
+  }, [currentImageIndex]);
 
+  useEffect(() => {
+    if (pendingImageIndex === null) return;
+
+    // Only switch when the next image is confirmed loaded.
+    if (loaded[pendingImageIndex] !== true) return;
+
+    setPreviousImageIndex(currentImageIndex);
+    setCurrentImageIndex(pendingImageIndex);
+    setPendingImageIndex(null);
+
+    const tmr = window.setTimeout(() => setPreviousImageIndex(null), 2000);
+    return () => window.clearTimeout(tmr);
+  }, [pendingImageIndex, loaded, currentImageIndex]);
 
   return (
     <section
@@ -82,6 +100,8 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={index === 0 ? "high" : "auto"}
+                onLoad={() => setLoaded((m) => ({ ...m, [index]: true }))}
+                onError={() => setLoaded((m) => ({ ...m, [index]: false }))}
                 className={`absolute inset-0 w-full h-full object-cover object-center ${
                   isCabin ? "hero-cabin-image" : ""
                 }`}
@@ -89,7 +109,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             </div>
           );
         })}
-        
+
         {/* Dark overlay for text readability - optimized for commercial clarity */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/90 z-[3]" />
       </div>
