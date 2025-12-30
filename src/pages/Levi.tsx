@@ -250,46 +250,6 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </Card>
             </section>
 
-            {/* Weather & Map Section */}
-            <section className="grid sm:grid-cols-2 gap-4 sm:gap-8 mb-12 sm:mb-20">
-              <Card className="glass-card border-border/30">
-                <CardHeader className="p-4 sm:p-6">
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <Cloud className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-                    <CardTitle className="text-base sm:text-lg">{t.weatherTitle}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-4 sm:p-6 pt-0">
-                  <p className="text-sm sm:text-base text-muted-foreground mb-4">
-                    {t.weatherText}
-                  </p>
-                  <Button asChild variant="outline" className="w-full text-sm sm:text-base">
-                    <a href="https://www.foreca.fi/Finland/Levi" target="_blank" rel="noopener noreferrer">
-                      {t.weatherCta} <ExternalLink className="w-4 h-4 ml-2" />
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="glass-card border-border/30">
-                <CardHeader className="p-4 sm:p-6">
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-                    <CardTitle className="text-base sm:text-lg">{t.mapTitle}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-4 sm:p-6 pt-0">
-                  <p className="text-sm sm:text-base text-muted-foreground mb-4">
-                    {t.mapText}
-                  </p>
-                  <Button asChild variant="outline" className="w-full text-sm sm:text-base">
-                    <a href="https://www.google.com/maps/place/Levi,+Finland" target="_blank" rel="noopener noreferrer">
-                      {t.mapCta} <ExternalLink className="w-4 h-4 ml-2" />
-                    </a>
-                  </Button>
-                </CardContent>
-              </Card>
-            </section>
 
             {/* Useful Links */}
             <section className="text-center">
