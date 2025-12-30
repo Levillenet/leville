@@ -52,6 +52,9 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
   const t = getTranslations(lang).majoitukset;
   const location = useLocation();
   const isEnglish = lang === "en";
+  
+  // Welcome letter is shown only for English, Swedish, and Spanish
+  const showWelcomeLetter = ["en", "sv", "es"].includes(lang);
 
   const trackDownload = async () => {
     try {
@@ -198,38 +201,46 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </section>
             </ScrollReveal>
 
-            {/* Welcome Letter */}
-            <ScrollReveal delay={0.3}>
-              <section>
-                <div className="glass-card border-primary/30 bg-gradient-to-br from-primary/5 to-transparent rounded-xl p-6 md:p-8">
-                  <div className="flex flex-col md:flex-row items-center gap-6">
-                    <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
-                      <span className="text-3xl">🎅</span>
+            {/* Welcome Letter - Only for EN, SV, ES */}
+            {showWelcomeLetter && (
+              <ScrollReveal delay={0.3}>
+                <section>
+                  <div className="glass-card border-primary/30 bg-gradient-to-br from-primary/5 to-transparent rounded-xl p-6 md:p-8">
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                      <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                        <span className="text-3xl">🎅</span>
+                      </div>
+                      <div className="text-center md:text-left flex-grow">
+                        <h2 className="text-xl font-semibold text-foreground mb-2">
+                          {lang === "es" ? "Carta de Bienvenida a Levi" : 
+                           lang === "sv" ? "Välkomstbrev till Levi" : 
+                           "Welcome Letter to Levi"}
+                        </h2>
+                        <p className="text-muted-foreground">
+                          {lang === "es" 
+                            ? "¡Con esta carta, puedes dar a tus hijos una maravillosa bienvenida a Levi de parte de Papá Noel!" 
+                            : lang === "sv"
+                            ? "Med detta brev kan du ge dina barn ett underbart välkomnande till Levi från Tomten själv!"
+                            : "With this letter, you can give your children a wonderful welcome to Levi from Santa himself!"}
+                        </p>
+                      </div>
+                      <a
+                        href={lang === "es" ? "/docs/tervetulokirje-es.pdf" : "/docs/tervetulokirje.pdf"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={trackDownload}
+                        className="inline-flex items-center gap-2 py-3 px-6 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                      >
+                        <Download className="w-5 h-5" />
+                        {lang === "es" ? "Descargar Carta" : 
+                         lang === "sv" ? "Ladda ner Brev" : 
+                         "Download Letter"}
+                      </a>
                     </div>
-                    <div className="text-center md:text-left flex-grow">
-                      <h2 className="text-xl font-semibold text-foreground mb-2">
-                        {isEnglish ? "Welcome Letter to Levi" : "Tervetulokirje Leville"}
-                      </h2>
-                      <p className="text-muted-foreground">
-                        {isEnglish 
-                          ? "With this letter, you can give your children a wonderful welcome to Levi from Santa himself!" 
-                          : "Tällä kirjeellä on mukava toivottaa lapsetkin tervetulleeksi Leville – Joulupukin tervehdyksellä!"}
-                      </p>
-                    </div>
-                    <a
-                      href="/docs/tervetulokirje.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={trackDownload}
-                      className="inline-flex items-center gap-2 py-3 px-6 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
-                    >
-                      <Download className="w-5 h-5" />
-                      {isEnglish ? "Download Letter" : "Lataa kirje"}
-                    </a>
                   </div>
-                </div>
-              </section>
-            </ScrollReveal>
+                </section>
+              </ScrollReveal>
+            )}
           </div>
         </main>
         <Footer lang={lang} />
