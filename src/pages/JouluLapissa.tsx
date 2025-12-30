@@ -91,7 +91,7 @@ const translations = {
       },
       {
         title: "Pakkaa lämpimästi",
-        text: "Joulukuussa lämpötila voi laskea -20°C. Kerrokselliset vaatteet, villa-alusasu ja hyvät talvikengät ovat välttämättömät."
+        text: "Joulukuussa lämpötila voi laskea jopa -35°C. Kerrokselliset vaatteet, villa-alusasu ja hyvät talvikengät ovat välttämättömät."
       },
       {
         title: "Varaudu pimeyteen",
@@ -164,7 +164,7 @@ const translations = {
       },
       {
         title: "Pack Warmly",
-        text: "In December temperatures can drop to -20°C. Layered clothing, wool base layers and good winter boots are essential."
+        text: "In December temperatures can drop to -35°C. Layered clothing, wool base layers and good winter boots are essential."
       },
       {
         title: "Embrace the Darkness",
