@@ -421,14 +421,14 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
               <Card className="glass-card border-primary/30 bg-primary/5 relative overflow-hidden min-h-[320px] sm:min-h-[360px]">
                 {/* Background image with fade effect */}
                 <div 
-                  className="absolute inset-0 opacity-50 pointer-events-none"
+                  className="absolute inset-0 opacity-45 pointer-events-none"
                   style={{
                     backgroundImage: `url(${christmasCozy})`,
-                    backgroundSize: '60%',
+                    backgroundSize: '55%',
                     backgroundPosition: 'right bottom',
                     backgroundRepeat: 'no-repeat',
-                    maskImage: 'radial-gradient(circle at bottom right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 22%, rgba(0,0,0,0.65) 42%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0.22) 70%, rgba(0,0,0,0.12) 80%, rgba(0,0,0,0.05) 88%, transparent 96%)',
-                    WebkitMaskImage: 'radial-gradient(circle at bottom right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 22%, rgba(0,0,0,0.65) 42%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0.22) 70%, rgba(0,0,0,0.12) 80%, rgba(0,0,0,0.05) 88%, transparent 96%)',
+                    maskImage: 'linear-gradient(135deg, transparent 0%, transparent 35%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0.5) 65%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0.85) 85%, rgba(0,0,0,1) 100%)',
+                    WebkitMaskImage: 'linear-gradient(135deg, transparent 0%, transparent 35%, rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0.5) 65%, rgba(0,0,0,0.7) 75%, rgba(0,0,0,0.85) 85%, rgba(0,0,0,1) 100%)',
                   }}
                 />
                 <CardContent className="p-6 sm:p-8 md:p-12 text-center relative z-10">
