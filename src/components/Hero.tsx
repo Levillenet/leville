@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { ArrowRight, Tag } from "lucide-react";
 import BookingWidget from "./BookingWidget";
 import { getTranslations, Language } from "@/translations";
@@ -10,23 +10,31 @@ import heroLodge from "@/assets/hero-lodge.png";
 
 const heroImages = [heroChalet, heroVillage, heroApartment, heroLodge, heroCabin];
 
+const FADE_DURATION_MS = 5000;
+const SLIDE_INTERVAL_MS = 10000;
+
 interface HeroProps {
   lang?: Language;
 }
 
 const Hero = ({ lang = "fi" }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [previousImageIndex, setPreviousImageIndex] = useState<number | null>(null);
+  const fadeTimeoutRef = useRef<number | null>(null);
+
   const t = getTranslations(lang).hero;
 
-  const stars = useMemo(() => 
-    [...Array(40)].map((_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      top: Math.random() * 60,
-      size: Math.random() * 2 + 1,
-      delay: Math.random() * 4,
-      duration: 1.5 + Math.random() * 2,
-    })), []
+  const stars = useMemo(
+    () =>
+      [...Array(40)].map((_, i) => ({
+        id: i,
+        left: Math.random() * 100,
+        top: Math.random() * 60,
+        size: Math.random() * 2 + 1,
+        delay: Math.random() * 4,
+        duration: 1.5 + Math.random() * 2,
+      })),
+    []
   );
 
   useEffect(() => {
@@ -40,30 +48,49 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    }, 10000); // 10 seconds between transitions
+      setCurrentImageIndex((prev) => {
+        setPreviousImageIndex(prev);
 
-    return () => window.clearInterval(interval);
+        if (fadeTimeoutRef.current) {
+          window.clearTimeout(fadeTimeoutRef.current);
+        }
+        fadeTimeoutRef.current = window.setTimeout(() => {
+          setPreviousImageIndex(null);
+        }, FADE_DURATION_MS);
+
+        return (prev + 1) % heroImages.length;
+      });
+    }, SLIDE_INTERVAL_MS);
+
+    return () => {
+      window.clearInterval(interval);
+      if (fadeTimeoutRef.current) {
+        window.clearTimeout(fadeTimeoutRef.current);
+      }
+    };
   }, []);
-
 
   return (
     <section
       className="relative min-h-screen flex items-center justify-center pt-32 sm:pt-20 pb-24 sm:pb-32"
-      style={{ overflow: 'visible' }}
+      style={{ overflow: "visible" }}
     >
       {/* Background images slideshow with crossfade and Ken Burns effect */}
       <div className="absolute inset-0 overflow-hidden bg-background">
         {heroImages.map((image, index) => {
           const isCurrent = index === currentImageIndex;
+          const isPrevious = previousImageIndex !== null && index === previousImageIndex;
           const isCabin = image === heroCabin;
           const kenBurnsClass = isCabin ? "animate-ken-burns-cabin" : "animate-ken-burns";
 
           return (
             <div
               key={index}
-              className={`absolute inset-0 ${isCurrent ? kenBurnsClass : ""}`}
-              style={{ zIndex: isCurrent ? 2 : 1 }}
+              className={`absolute inset-0 ${isCurrent || isPrevious ? kenBurnsClass : ""}`}
+              style={{
+                zIndex: isPrevious ? 2 : isCurrent ? 1 : 0,
+                animationPlayState: isPrevious ? "paused" : "running",
+              }}
             >
               <img
                 src={image}
@@ -74,12 +101,11 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
                 className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[5000ms] ease-in-out ${
                   isCabin ? "hero-cabin-image" : ""
                 } ${isCurrent ? "opacity-100" : "opacity-0"}`}
-                style={{ transition: "opacity 5000ms ease-in-out" }}
               />
             </div>
           );
         })}
-        
+
         {/* Dark overlay for text readability - optimized for commercial clarity */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/90 z-[3]" />
       </div>
