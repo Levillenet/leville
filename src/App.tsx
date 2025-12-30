@@ -19,6 +19,7 @@ import Varausehdot from "./pages/Varausehdot";
 import Yritys from "./pages/Yritys";
 import Sauna from "./pages/Sauna";
 import Tietovisa from "./pages/Tietovisa";
+import Akkilahdot from "./pages/Akkilahdot";
 import Admin from "./pages/Admin";
 import Asiakaspalvelu from "./pages/Asiakaspalvelu";
 import NotFound from "./pages/NotFound";
@@ -48,6 +49,7 @@ const App = () => (
               <Route path="/yritys" element={<Yritys />} />
               <Route path="/sauna" element={<Sauna />} />
               <Route path="/tietovisa" element={<Tietovisa />} />
+              <Route path="/akkilahdot" element={<Akkilahdot />} />
               
               {/* English routes */}
               <Route path="/en" element={<IndexEN />} />
@@ -60,6 +62,7 @@ const App = () => (
               <Route path="/en/faq" element={<UKK lang="en" />} />
               <Route path="/en/company" element={<Yritys lang="en" />} />
               <Route path="/en/quiz" element={<Tietovisa lang="en" />} />
+              <Route path="/en/last-minute" element={<Akkilahdot lang="en" />} />
               
               {/* Swedish routes */}
               <Route path="/sv" element={<Index lang="sv" />} />
@@ -72,6 +75,7 @@ const App = () => (
               <Route path="/sv/faq" element={<UKK lang="sv" />} />
               <Route path="/sv/foretag" element={<Yritys lang="sv" />} />
               <Route path="/sv/quiz" element={<Tietovisa lang="sv" />} />
+              <Route path="/sv/sista-minuten" element={<Akkilahdot lang="sv" />} />
               
               {/* German routes */}
               <Route path="/de" element={<Index lang="de" />} />
@@ -84,6 +88,7 @@ const App = () => (
               <Route path="/de/faq" element={<UKK lang="de" />} />
               <Route path="/de/unternehmen" element={<Yritys lang="de" />} />
               <Route path="/de/quiz" element={<Tietovisa lang="de" />} />
+              <Route path="/de/last-minute" element={<Akkilahdot lang="de" />} />
               
               {/* Spanish routes */}
               <Route path="/es" element={<Index lang="es" />} />
@@ -96,6 +101,7 @@ const App = () => (
               <Route path="/es/preguntas-frecuentes" element={<UKK lang="es" />} />
               <Route path="/es/empresa" element={<Yritys lang="es" />} />
               <Route path="/es/quiz" element={<Tietovisa lang="es" />} />
+              <Route path="/es/ultima-hora" element={<Akkilahdot lang="es" />} />
               
               {/* French routes */}
               <Route path="/fr" element={<Index lang="fr" />} />
@@ -108,6 +114,7 @@ const App = () => (
               <Route path="/fr/faq" element={<UKK lang="fr" />} />
               <Route path="/fr/entreprise" element={<Yritys lang="fr" />} />
               <Route path="/fr/quiz" element={<Tietovisa lang="fr" />} />
+              <Route path="/fr/derniere-minute" element={<Akkilahdot lang="fr" />} />
               
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
