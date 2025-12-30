@@ -9,13 +9,15 @@ import { Sparkles, MapPin, Clock, Eye, Home, ExternalLink, Smartphone, Video } f
 import AuroraForecast from "@/components/AuroraForecast";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import { Language } from "@/translations";
 
 interface RevontuletProps {
-  lang?: "fi" | "en";
+  lang?: Language;
 }
 
 const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
-  const isEnglish = lang === "en";
+  // Fallback to English for unsupported languages
+  const isEnglish = lang !== "fi";
 
   const content = {
     fi: {

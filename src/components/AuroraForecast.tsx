@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Sparkles, Activity } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Language } from "@/translations";
 
 interface AuroraData {
   kpIndex: number;
@@ -9,11 +10,12 @@ interface AuroraData {
 }
 
 interface AuroraForecastProps {
-  lang?: "fi" | "en";
+  lang?: Language;
 }
 
-const getAuroraDescription = (kp: number, lang: "fi" | "en"): { probability: string; description: string } => {
-  if (lang === "en") {
+const getAuroraDescription = (kp: number, lang: Language): { probability: string; description: string } => {
+  const isEnglish = lang !== "fi";
+  if (isEnglish) {
     if (kp >= 7) return { probability: "Very high", description: "Exceptional aurora activity! Best conditions for viewing." };
     if (kp >= 5) return { probability: "High", description: "Strong aurora activity. Great chances to see northern lights!" };
     if (kp >= 4) return { probability: "Moderate", description: "Good aurora activity. Clear skies recommended." };

@@ -3,9 +3,10 @@ import { MessageCircle, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
+import { Language } from "@/translations";
 
 interface WhatsAppChatProps {
-  lang?: "fi" | "en";
+  lang?: Language;
 }
 
 const WhatsAppChat = ({ lang = "fi" }: WhatsAppChatProps) => {
@@ -14,7 +15,7 @@ const WhatsAppChat = ({ lang = "fi" }: WhatsAppChatProps) => {
 
   const phoneNumber = "35844131313"; // Leville.net WhatsApp number
 
-  const content = {
+  const content: Record<Language, { greeting: string; responseTime: string; placeholder: string }> = {
     fi: {
       greeting: "Kysy meiltä mitä vain! 👋",
       responseTime: "Yleensä vastaamme tunnissa",
@@ -25,9 +26,24 @@ const WhatsAppChat = ({ lang = "fi" }: WhatsAppChatProps) => {
       responseTime: "Usually we reply within an hour",
       placeholder: "Type your message...",
     },
+    sv: {
+      greeting: "Fråga oss vad som helst! 👋",
+      responseTime: "Vanligtvis svarar vi inom en timme",
+      placeholder: "Skriv ditt meddelande...",
+    },
+    de: {
+      greeting: "Fragen Sie uns alles! 👋",
+      responseTime: "Normalerweise antworten wir innerhalb einer Stunde",
+      placeholder: "Schreiben Sie Ihre Nachricht...",
+    },
+    es: {
+      greeting: "¡Pregúntanos lo que quieras! 👋",
+      responseTime: "Normalmente respondemos en una hora",
+      placeholder: "Escribe tu mensaje...",
+    },
   };
 
-  const t = lang === "en" ? content.en : content.fi;
+  const t = content[lang];
   
   const handleSend = () => {
     if (!message.trim()) return;

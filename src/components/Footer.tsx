@@ -1,51 +1,114 @@
 import { Mail, Phone, MapPin } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import levilleLogo from "@/assets/leville-logo.png";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
+import { Language, routeConfig } from "@/translations";
 
-const Footer = () => {
-  const location = useLocation();
-  const isEnglish = location.pathname.startsWith("/en");
+interface FooterProps {
+  lang?: Language;
+}
 
-  const contentFi = {
-    description: "Laadukasta majoitusta Levin keskustassa. Varaa suoraan meiltä parhaaseen hintaan.",
-    siteTitle: "Sivusto",
-    links: [
-      { label: "Majoitukset", href: "/majoitukset" },
-      { label: "Ajankohtaista", href: "/ajankohtaista" },
-      { label: "Levi", href: "/levi" },
-      { label: "UKK", href: "/ukk" },
-      { label: "Yritys", href: "/yritys" },
-      { label: "Yhteystiedot", href: "/yhteystiedot" },
-    ],
-    contactTitle: "Yhteystiedot",
-    location: "Levin keskusta, Kittilä",
-    copyright: `© ${new Date().getFullYear()} Leville.net. Kaikki oikeudet pidätetään.`,
-    privacy: "Tietosuojaseloste",
-    terms: "Varausehdot",
-    termsLink: "/varausehdot",
+const Footer = ({ lang = "fi" }: FooterProps) => {
+  const content = {
+    fi: {
+      description: "Laadukasta majoitusta Levin keskustassa. Varaa suoraan meiltä parhaaseen hintaan.",
+      siteTitle: "Sivusto",
+      links: [
+        { label: "Majoitukset", href: routeConfig.accommodations.fi },
+        { label: "Ajankohtaista", href: routeConfig.news.fi },
+        { label: "Levi", href: routeConfig.levi.fi },
+        { label: "UKK", href: routeConfig.faq.fi },
+        { label: "Yritys", href: routeConfig.company.fi },
+        { label: "Yhteystiedot", href: routeConfig.contact.fi },
+      ],
+      contactTitle: "Yhteystiedot",
+      location: "Levin keskusta, Kittilä",
+      copyright: `© ${new Date().getFullYear()} Leville.net. Kaikki oikeudet pidätetään.`,
+      privacy: "Tietosuojaseloste",
+      terms: "Varausehdot",
+      termsLink: "/varausehdot",
+      paymentInfo: "Turvallisen maksamisen takaa Paytrail"
+    },
+    en: {
+      description: "Quality accommodation in Levi center. Book directly from us for the best price.",
+      siteTitle: "Site",
+      links: [
+        { label: "Accommodations", href: routeConfig.accommodations.en },
+        { label: "News", href: routeConfig.news.en },
+        { label: "Levi", href: routeConfig.levi.en },
+        { label: "FAQ", href: routeConfig.faq.en },
+        { label: "Company", href: routeConfig.company.en },
+        { label: "Contact", href: routeConfig.contact.en },
+      ],
+      contactTitle: "Contact",
+      location: "Levi Center, Kittilä",
+      copyright: `© ${new Date().getFullYear()} Leville.net. All rights reserved.`,
+      privacy: "Privacy Policy",
+      terms: "Terms & Conditions",
+      termsLink: "/varausehdot",
+      paymentInfo: "Secure payments powered by Paytrail"
+    },
+    sv: {
+      description: "Kvalitetsboende i Levi centrum. Boka direkt från oss för bästa pris.",
+      siteTitle: "Webbplats",
+      links: [
+        { label: "Boende", href: routeConfig.accommodations.sv },
+        { label: "Nyheter", href: routeConfig.news.sv },
+        { label: "Levi", href: routeConfig.levi.sv },
+        { label: "FAQ", href: routeConfig.faq.sv },
+        { label: "Företag", href: routeConfig.company.sv },
+        { label: "Kontakt", href: routeConfig.contact.sv },
+      ],
+      contactTitle: "Kontakt",
+      location: "Levi Centrum, Kittilä",
+      copyright: `© ${new Date().getFullYear()} Leville.net. Alla rättigheter förbehållna.`,
+      privacy: "Integritetspolicy",
+      terms: "Villkor",
+      termsLink: "/varausehdot",
+      paymentInfo: "Säkra betalningar via Paytrail"
+    },
+    de: {
+      description: "Qualitätsunterkünfte im Zentrum von Levi. Buchen Sie direkt bei uns zum besten Preis.",
+      siteTitle: "Seite",
+      links: [
+        { label: "Unterkünfte", href: routeConfig.accommodations.de },
+        { label: "Aktuelles", href: routeConfig.news.de },
+        { label: "Levi", href: routeConfig.levi.de },
+        { label: "FAQ", href: routeConfig.faq.de },
+        { label: "Unternehmen", href: routeConfig.company.de },
+        { label: "Kontakt", href: routeConfig.contact.de },
+      ],
+      contactTitle: "Kontakt",
+      location: "Levi Zentrum, Kittilä",
+      copyright: `© ${new Date().getFullYear()} Leville.net. Alle Rechte vorbehalten.`,
+      privacy: "Datenschutz",
+      terms: "AGB",
+      termsLink: "/varausehdot",
+      paymentInfo: "Sichere Zahlungen über Paytrail"
+    },
+    es: {
+      description: "Alojamiento de calidad en el centro de Levi. Reserva directamente con nosotros al mejor precio.",
+      siteTitle: "Sitio",
+      links: [
+        { label: "Alojamientos", href: routeConfig.accommodations.es },
+        { label: "Noticias", href: routeConfig.news.es },
+        { label: "Levi", href: routeConfig.levi.es },
+        { label: "FAQ", href: routeConfig.faq.es },
+        { label: "Empresa", href: routeConfig.company.es },
+        { label: "Contacto", href: routeConfig.contact.es },
+      ],
+      contactTitle: "Contacto",
+      location: "Centro de Levi, Kittilä",
+      copyright: `© ${new Date().getFullYear()} Leville.net. Todos los derechos reservados.`,
+      privacy: "Política de privacidad",
+      terms: "Términos",
+      termsLink: "/varausehdot",
+      paymentInfo: "Pagos seguros a través de Paytrail"
+    }
   };
 
-  const contentEn = {
-    description: "Quality accommodation in Levi center. Book directly from us for the best price.",
-    siteTitle: "Site",
-    links: [
-      { label: "Accommodations", href: "/en/accommodations" },
-      { label: "News", href: "/en/news" },
-      { label: "Levi", href: "/en/levi" },
-      { label: "FAQ", href: "/en/faq" },
-      { label: "Company", href: "/en/company" },
-      { label: "Contact", href: "/en/contact" },
-    ],
-    contactTitle: "Contact",
-    location: "Levi Center, Kittilä",
-    copyright: `© ${new Date().getFullYear()} Leville.net. All rights reserved.`,
-    privacy: "Privacy Policy",
-    terms: "Terms & Conditions",
-    termsLink: "/varausehdot",
-  };
-
-  const content = isEnglish ? contentEn : contentFi;
+  const c = content[lang];
+  const homeHref = routeConfig.home[lang];
 
   return (
     <footer id="yhteystiedot" className="bg-card border-t border-border/30 py-12 md:py-20">
@@ -53,7 +116,7 @@ const Footer = () => {
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-16 mb-12 md:mb-16">
           {/* Brand */}
           <div>
-            <Link to={isEnglish ? "/en" : "/"} className="inline-block mb-6">
+            <Link to={homeHref} className="inline-block mb-6">
               <img 
                 src={levilleLogo} 
                 alt="Leville.net - Apartments & Villas" 
@@ -63,15 +126,15 @@ const Footer = () => {
               />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-              {content.description}
+              {c.description}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{content.siteTitle}</h3>
+            <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{c.siteTitle}</h3>
             <ul className="space-y-4">
-              {content.links.map((link) => (
+              {c.links.map((link) => (
                 <li key={link.href}>
                   <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors text-sm tracking-wide">
                     {link.label}
@@ -83,7 +146,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{content.contactTitle}</h3>
+            <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{c.contactTitle}</h3>
             <ul className="space-y-5">
               <li className="flex items-center gap-4">
                 <div className="w-9 h-9 rounded-lg bg-aurora-green/10 flex items-center justify-center flex-shrink-0">
@@ -119,7 +182,7 @@ const Footer = () => {
                   <MapPin className="w-4 h-4 text-aurora-green" />
                 </div>
                 <span className="text-muted-foreground text-sm">
-                  {content.location}
+                  {c.location}
                 </span>
               </li>
             </ul>
@@ -130,14 +193,14 @@ const Footer = () => {
         {/* Bottom */}
         <div className="pt-6 border-t border-border/30 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm">
-            {content.copyright}
+            {c.copyright}
           </p>
           <div className="flex items-center gap-8 text-sm">
             <a href="#" className="text-muted-foreground hover:text-foreground transition-colors tracking-wide">
-              {content.privacy}
+              {c.privacy}
             </a>
-            <Link to={content.termsLink} className="text-muted-foreground hover:text-foreground transition-colors tracking-wide">
-              {content.terms}
+            <Link to={c.termsLink} className="text-muted-foreground hover:text-foreground transition-colors tracking-wide">
+              {c.terms}
             </Link>
           </div>
         </div>
@@ -145,7 +208,7 @@ const Footer = () => {
         {/* Payment info */}
         <div className="pt-4 text-center">
           <p className="text-muted-foreground/70 text-xs">
-            {isEnglish ? "Secure payments powered by Paytrail" : "Turvallisen maksamisen takaa Paytrail"}
+            {c.paymentInfo}
           </p>
         </div>
       </div>

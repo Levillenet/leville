@@ -6,13 +6,14 @@ import { Check, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { QuizQuestion as QuizQuestionType } from "@/data/quizQuestions";
 import { cn } from "@/lib/utils";
+import { Language } from "@/translations";
 
 interface QuizQuestionProps {
   question: QuizQuestionType;
   currentIndex: number;
   totalQuestions: number;
   onAnswer: (isCorrect: boolean) => void;
-  lang?: "fi" | "en";
+  lang?: Language;
 }
 
 const QuizQuestion = ({
@@ -25,7 +26,8 @@ const QuizQuestion = ({
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [hasAnswered, setHasAnswered] = useState(false);
 
-  const isEnglish = lang === "en";
+  // Fallback to English for unsupported languages
+  const isEnglish = lang !== "fi";
   const questionText = isEnglish ? question.questionEn : question.question;
   const options = isEnglish ? question.optionsEn : question.options;
   const category = isEnglish ? question.categoryEn : question.category;
