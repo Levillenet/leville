@@ -1,6 +1,7 @@
 import { Leaf, Snowflake, Sun, TreeDeciduous } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Language } from "@/translations";
+import OptimizedImage from "./OptimizedImage";
 
 // Import season images
 import winterImg from "@/assets/seasons/winter.jpg";
@@ -187,12 +188,10 @@ const LeviSeasons = ({ lang = "fi" }: LeviSeasonsProps) => {
             
             {/* Background season image - visible in bottom right corner */}
             <div className="absolute -bottom-8 -right-8 w-80 h-80 md:w-[28rem] md:h-[28rem] overflow-hidden pointer-events-none z-0">
-              <img 
+              <OptimizedImage 
                 src={seasonImages[index]} 
                 alt=""
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-2xl"
+                className="w-full h-full opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-2xl"
                 style={{
                   maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
                   WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
