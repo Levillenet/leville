@@ -122,7 +122,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
                 alt="Leville.net - Apartments & Villas" 
                 loading="lazy"
                 decoding="async"
-                className="h-20 md:h-24 w-auto"
+                className="h-40 md:h-48 w-auto"
               />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
