@@ -121,6 +121,12 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
             <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16 md:mb-20">
               {t.accommodations.map((acc, index) => {
                 const Icon = accommodationIcons[index];
+                const bookingLinks = [
+                  "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412",
+                  "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=413",
+                  "https://karhupirtti.fi",
+                  "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214"
+                ];
                 return (
                   <ScrollReveal key={acc.title} delay={index * 0.15} direction="up">
                     <TiltCard className="h-full">
@@ -155,7 +161,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                             ))}
                           </ul>
                           <a
-                            href="https://app.moder.fi/levillenet"
+                            href={bookingLinks[index]}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-block w-full text-center py-2.5 sm:py-3 px-3 sm:px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm sm:text-base hover:bg-primary/90 transition-colors mt-auto"
