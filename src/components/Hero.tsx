@@ -8,7 +8,7 @@ import heroVillage from "@/assets/hero-village.png";
 import heroApartment from "@/assets/hero-apartment.png";
 import heroLodge from "@/assets/hero-lodge.png";
 
-const heroImages = [heroCabin, heroChalet, heroVillage, heroApartment, heroLodge];
+const heroImages = [heroChalet, heroVillage, heroApartment, heroLodge, heroCabin];
 
 interface HeroProps {
   lang?: Language;
@@ -52,12 +52,14 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           const isCurrent = index === currentImageIndex;
           const isPrevious = index === previousImageIndex;
           const shouldAnimate = isCurrent || isPrevious;
-          
+          const isCabin = image === heroCabin;
+          const kenBurnsClass = isCabin ? "animate-ken-burns-cabin" : "animate-ken-burns";
+
           return (
             <div
               key={index}
               className={`absolute inset-0 hero-image-transition ${
-                shouldAnimate ? 'animate-ken-burns' : ''
+                shouldAnimate ? kenBurnsClass : ""
               }`}
               style={{
                 opacity: isCurrent ? 1 : 0,
@@ -69,7 +71,9 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={index === 0 ? "high" : "auto"}
-                className="absolute inset-0 w-full h-full object-cover object-center"
+                className={`absolute inset-0 w-full h-full object-cover object-center ${
+                  isCabin ? "hero-cabin-image" : ""
+                }`}
               />
             </div>
           );
