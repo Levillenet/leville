@@ -37,8 +37,8 @@ export default function Asiakaspalvelu() {
                 <CardTitle className="text-lg">Puhelin</CardTitle>
               </CardHeader>
               <CardContent>
-                <a href="tel:+358401234567" className="text-primary hover:underline font-medium">
-                  +358 40 1234567
+                <a href="tel:+35844131313" className="text-primary hover:underline font-medium">
+                  +358 44 131 313
                 </a>
               </CardContent>
             </Card>
@@ -50,12 +50,12 @@ export default function Asiakaspalvelu() {
               </CardHeader>
               <CardContent>
                 <a 
-                  href="https://wa.me/358401234567" 
+                  href="https://wa.me/35844131313" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-green-600 hover:underline font-medium"
                 >
-                  +358 40 1234567
+                  +358 44 131 313
                 </a>
               </CardContent>
             </Card>
