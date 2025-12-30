@@ -228,7 +228,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
             </ScrollReveal>
           </div>
         </main>
-        <Footer />
+        <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
       </div>
     </>

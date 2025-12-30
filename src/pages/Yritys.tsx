@@ -312,7 +312,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
             </ScrollReveal>
           </div>
         </main>
-        <Footer />
+        <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
       </div>
     </>
