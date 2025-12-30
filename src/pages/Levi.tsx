@@ -84,27 +84,54 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </p>
             </section>
 
-            {/* Quiz CTA Section */}
-            <section className="mb-10 sm:mb-16">
+            {/* CTA Cards Section */}
+            <section className="mb-10 sm:mb-16 grid sm:grid-cols-2 gap-4">
+              {/* Quiz CTA */}
               <Card className="glass-card border-primary/30 bg-primary/5 overflow-hidden">
-                <CardContent className="p-4 sm:p-6 md:p-8">
-                  <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                      <Brain className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex flex-col items-center text-center gap-3 sm:gap-4">
+                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Brain className="w-6 h-6 text-primary" />
                     </div>
-                    <div className="flex-1 text-center md:text-left">
-                      <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-1 sm:mb-2">
+                    <div>
+                      <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
                         {lang === "en" ? "Test Your Levi Knowledge!" : "Testaa Levi-tietämyksesi!"}
                       </h2>
-                      <p className="text-sm sm:text-base text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         {lang === "en" 
-                          ? "Take our fun quiz and find out how well you know Finland's favorite ski resort."
-                          : "Pelaa hauska tietovisa ja selvitä kuinka hyvin tunnet Suomen suosituimman hiihtokeskuksen."}
+                          ? "Take our fun quiz about Finland's favorite ski resort."
+                          : "Pelaa hauska tietovisa Suomen suosituimmasta hiihtokeskuksesta."}
                       </p>
                     </div>
-                    <Button asChild size="lg" className="flex-shrink-0 text-sm sm:text-base">
+                    <Button asChild size="default" className="text-sm">
                       <Link to={lang === "en" ? "/en/quiz" : "/tietovisa"}>
                         {lang === "en" ? "Start Quiz" : "Aloita visa"}
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Christmas CTA */}
+              <Card className="glass-card border-primary/30 bg-primary/5 overflow-hidden">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex flex-col items-center text-center gap-3 sm:gap-4">
+                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Snowflake className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
+                        {lang === "en" ? "Christmas in Lapland" : "Joulu Lapissa"}
+                      </h2>
+                      <p className="text-sm text-muted-foreground">
+                        {lang === "en" 
+                          ? "Experience a magical Christmas in the home of Santa Claus."
+                          : "Koe taianmainen joulu joulupukin kotimaassa."}
+                      </p>
+                    </div>
+                    <Button asChild size="default" className="text-sm">
+                      <Link to={lang === "en" ? "/en/levi/christmas-in-lapland" : "/levi/joulu-lapissa"}>
+                        {lang === "en" ? "Read more" : "Lue lisää"}
                       </Link>
                     </Button>
                   </div>
