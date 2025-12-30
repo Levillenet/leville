@@ -7,10 +7,11 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Sparkles, Clock } from "lucide-react";
-import { getTranslations, Language } from "@/translations";
+import { Calendar, Sparkles, Clock, Flame, ArrowRight } from "lucide-react";
+import { getTranslations, Language, routeConfig } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import { Link } from "react-router-dom";
 
 interface AjankohtaistaProps {
   lang?: Language;
@@ -62,6 +63,23 @@ const Ajankohtaista = ({ lang = "fi" }: AjankohtaistaProps) => {
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                   {t.subtitle}
                 </p>
+                
+                {/* Last-minute CTA */}
+                <Link 
+                  to={routeConfig.lastMinute[lang]}
+                  className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 bg-red-500/20 border border-red-500/40 rounded-full text-red-400 hover:bg-red-500/30 hover:border-red-500/60 transition-colors group"
+                >
+                  <Flame className="w-4 h-4" />
+                  <span className="font-semibold">
+                    {lang === "fi" ? "Katso äkkilähdöt" : 
+                     lang === "en" ? "View Last-Minute Deals" :
+                     lang === "sv" ? "Se sista minuten" :
+                     lang === "de" ? "Last-Minute-Angebote" :
+                     lang === "es" ? "Ver ofertas de última hora" :
+                     "Voir les offres de dernière minute"}
+                  </span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </section>
             </ScrollReveal>
 

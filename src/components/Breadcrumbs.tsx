@@ -49,6 +49,11 @@ const routeLabels: Record<string, Record<Language, string>> = {
   terms: { fi: "Varausehdot", en: "Terms", sv: "Villkor", de: "AGB", es: "Términos", fr: "Conditions" },
   tietovisa: { fi: "Tietovisa", en: "Quiz", sv: "Quiz", de: "Quiz", es: "Quiz", fr: "Quiz" },
   quiz: { fi: "Tietovisa", en: "Quiz", sv: "Quiz", de: "Quiz", es: "Quiz", fr: "Quiz" },
+  akkilahdot: { fi: "Äkkilähdöt", en: "Last Minute", sv: "Sista Minuten", de: "Last Minute", es: "Última hora", fr: "Dernière minute" },
+  "last-minute": { fi: "Äkkilähdöt", en: "Last Minute", sv: "Sista Minuten", de: "Last Minute", es: "Última hora", fr: "Dernière minute" },
+  "sista-minuten": { fi: "Äkkilähdöt", en: "Last Minute", sv: "Sista Minuten", de: "Last Minute", es: "Última hora", fr: "Dernière minute" },
+  "ultima-hora": { fi: "Äkkilähdöt", en: "Last Minute", sv: "Sista Minuten", de: "Last Minute", es: "Última hora", fr: "Dernière minute" },
+  "derniere-minute": { fi: "Äkkilähdöt", en: "Last Minute", sv: "Sista Minuten", de: "Last Minute", es: "Última hora", fr: "Dernière minute" },
 };
 
 const langPrefixes: Language[] = ["en", "sv", "de", "es", "fr"];
