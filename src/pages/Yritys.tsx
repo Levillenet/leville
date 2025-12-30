@@ -8,7 +8,7 @@ import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Building, Home, Users, Briefcase, MapPin, Mail, Star, Quote, LucideIcon, Calendar, Award, Heart, Moon, UserCheck, Building2 } from "lucide-react";
-import { testimonials } from "@/data/testimonials";
+import { testimonials, getTestimonialText } from "@/data/testimonials";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
@@ -245,45 +245,48 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
               </ScrollReveal>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {testimonials.map((testimonial, index) => (
-                  <ScrollReveal key={index} delay={index * 0.1} direction="up">
-                    <TiltCard className="h-full">
-                      <Card 
-                        className="glass-card border-border/30 hover:border-primary/30 transition-all duration-300 group relative overflow-hidden h-full"
-                      >
-                        <CardContent className="p-6 relative">
-                          {/* Quote icon */}
-                          <Quote className="absolute top-4 right-4 w-8 h-8 text-primary/10 group-hover:text-primary/20 transition-colors" />
-                          
-                          {/* Stars */}
-                          <div className="flex gap-1 mb-4">
-                            {[...Array(testimonial.rating)].map((_, i) => (
-                              <Star key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500" />
-                            ))}
-                          </div>
-                          
-                          {/* Review text */}
-                          <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-5">
-                            "{testimonial.text}"
-                          </p>
-                          
-                          {/* Author */}
-                          <div className="flex items-center gap-3 pt-4 border-t border-border/30">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-aurora-green/30 flex items-center justify-center">
-                              <span className="text-foreground font-semibold text-sm">
-                                {testimonial.name.charAt(0)}
-                              </span>
+                {testimonials.map((testimonial, index) => {
+                  const translatedTestimonial = getTestimonialText(testimonial, lang);
+                  return (
+                    <ScrollReveal key={index} delay={index * 0.1} direction="up">
+                      <TiltCard className="h-full">
+                        <Card 
+                          className="glass-card border-border/30 hover:border-primary/30 transition-all duration-300 group relative overflow-hidden h-full"
+                        >
+                          <CardContent className="p-6 relative">
+                            {/* Quote icon */}
+                            <Quote className="absolute top-4 right-4 w-8 h-8 text-primary/10 group-hover:text-primary/20 transition-colors" />
+                            
+                            {/* Stars */}
+                            <div className="flex gap-1 mb-4">
+                              {[...Array(translatedTestimonial.rating)].map((_, i) => (
+                                <Star key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500" />
+                              ))}
                             </div>
-                            <div>
-                              <p className="text-foreground font-medium text-sm">{testimonial.name}</p>
-                              <p className="text-muted-foreground text-xs">{testimonial.location}</p>
+                            
+                            {/* Review text */}
+                            <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-5">
+                              "{translatedTestimonial.text}"
+                            </p>
+                            
+                            {/* Author */}
+                            <div className="flex items-center gap-3 pt-4 border-t border-border/30">
+                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/30 to-aurora-green/30 flex items-center justify-center">
+                                <span className="text-foreground font-semibold text-sm">
+                                  {translatedTestimonial.name.charAt(0)}
+                                </span>
+                              </div>
+                              <div>
+                                <p className="text-foreground font-medium text-sm">{translatedTestimonial.name}</p>
+                                <p className="text-muted-foreground text-xs">{translatedTestimonial.location}</p>
+                              </div>
                             </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </TiltCard>
-                  </ScrollReveal>
-                ))}
+                          </CardContent>
+                        </Card>
+                      </TiltCard>
+                    </ScrollReveal>
+                  );
+                })}
               </div>
             </section>
 

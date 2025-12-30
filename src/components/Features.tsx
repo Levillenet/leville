@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { MapPin, Car, MessageCircle, BadgePercent, Star, ChevronLeft, ChevronRight, Quote, LucideIcon } from "lucide-react";
-import { testimonials } from "@/data/testimonials";
+import { testimonials, getTestimonialText } from "@/data/testimonials";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "./ScrollReveal";
 import TiltCard from "./TiltCard";
@@ -15,12 +15,15 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const t = getTranslations(lang).features;
+  
+  // Get translated testimonials
+  const translatedTestimonials = testimonials.map(testimonial => getTestimonialText(testimonial, lang));
 
   useEffect(() => {
     if (!isAutoPlaying) return;
     
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      setCurrentIndex((prev) => (prev + 1) % translatedTestimonials.length);
     }, 5000);
 
     return () => clearInterval(interval);
@@ -28,12 +31,12 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
 
   const goToPrevious = () => {
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentIndex((prev) => (prev - 1 + translatedTestimonials.length) % translatedTestimonials.length);
   };
 
   const goToNext = () => {
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    setCurrentIndex((prev) => (prev + 1) % translatedTestimonials.length);
   };
 
   const goToSlide = (index: number) => {
@@ -98,7 +101,7 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
                   className="flex transition-transform duration-500 ease-out"
                   style={{ transform: `translateX(-${currentIndex * 100}%)` }}
                 >
-                  {testimonials.map((testimonial, index) => (
+                  {translatedTestimonials.map((testimonial, index) => (
                     <div 
                       key={index}
                       className="w-full flex-shrink-0 px-2 sm:px-4"
@@ -156,7 +159,7 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
 
             {/* Dots Navigation */}
             <div className="flex justify-center gap-2 mt-6 sm:mt-8">
-              {testimonials.map((_, index) => (
+              {translatedTestimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}

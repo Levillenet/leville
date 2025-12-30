@@ -47,6 +47,14 @@ const Header = () => {
           { name: "Auroras", href: routeConfig.northernLights.es },
           { name: "Contacto", href: routeConfig.contact.es },
         ];
+      case "fr":
+        return [
+          { name: "Hébergements", href: routeConfig.accommodations.fr },
+          { name: "Actualités", href: routeConfig.news.fr },
+          { name: "Levi", href: routeConfig.levi.fr },
+          { name: "Aurores Boréales", href: routeConfig.northernLights.fr },
+          { name: "Contact", href: routeConfig.contact.fr },
+        ];
       default: // Finnish
         return [
           { name: "Majoitukset", href: routeConfig.accommodations.fi },
@@ -59,13 +67,15 @@ const Header = () => {
   };
 
   const navLinks = getNavLinks();
-  const bookNowText = {
+  const bookNowText: Record<string, string> = {
     fi: "Varaa nyt",
     en: "Book now",
     sv: "Boka nu",
     de: "Jetzt buchen",
-    es: "Reservar"
-  }[currentLang];
+    es: "Reservar",
+    fr: "Réserver"
+  };
+  const bookNowLabel = bookNowText[currentLang] || bookNowText.fi;
 
   // All languages open external Moder booking in new tab
   const bookNowHref = currentLang === "fi" 
@@ -116,7 +126,7 @@ const Header = () => {
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                {bookNowText}
+                {bookNowLabel}
               </a>
             </Button>
           </nav>
@@ -154,7 +164,7 @@ const Header = () => {
                   target="_blank" 
                   rel="noopener noreferrer"
                 >
-                  {bookNowText}
+                  {bookNowLabel}
                 </a>
               </Button>
             </div>
