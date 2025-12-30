@@ -261,20 +261,20 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
         {/* Floating Christmas Decorations */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
           {/* Left side decorations */}
-          <Snowflake className="absolute top-32 left-4 sm:left-8 w-4 h-4 sm:w-6 sm:h-6 text-primary/20 animate-pulse" style={{ animationDelay: '0s' }} />
-          <Bell className="absolute top-52 left-6 sm:left-16 w-3 h-3 sm:w-5 sm:h-5 text-amber-500/15 animate-pulse" style={{ animationDelay: '0.5s' }} />
-          <Star className="absolute top-80 left-3 sm:left-10 w-4 h-4 sm:w-5 sm:h-5 text-amber-400/15 animate-pulse" style={{ animationDelay: '1s' }} />
-          <Snowflake className="absolute top-[28rem] left-8 sm:left-20 w-3 h-3 sm:w-4 sm:h-4 text-primary/15 animate-pulse" style={{ animationDelay: '1.5s' }} />
-          <TreePine className="absolute top-[36rem] left-4 sm:left-12 w-4 h-4 sm:w-6 sm:h-6 text-green-500/10 animate-pulse" style={{ animationDelay: '2s' }} />
-          <Bell className="absolute top-[48rem] left-6 sm:left-8 w-3 h-3 sm:w-4 sm:h-4 text-amber-500/12 animate-pulse" style={{ animationDelay: '2.5s' }} />
+          <Snowflake className="absolute top-32 left-4 sm:left-8 w-6 h-6 sm:w-8 sm:h-8 text-primary/40 animate-pulse" style={{ animationDelay: '0s' }} />
+          <Bell className="absolute top-52 left-6 sm:left-16 w-5 h-5 sm:w-7 sm:h-7 text-amber-500/35 animate-pulse" style={{ animationDelay: '0.5s' }} />
+          <Star className="absolute top-80 left-3 sm:left-10 w-6 h-6 sm:w-8 sm:h-8 text-amber-400/30 animate-pulse" style={{ animationDelay: '1s' }} />
+          <Snowflake className="absolute top-[28rem] left-8 sm:left-20 w-5 h-5 sm:w-6 sm:h-6 text-primary/35 animate-pulse" style={{ animationDelay: '1.5s' }} />
+          <TreePine className="absolute top-[36rem] left-4 sm:left-12 w-6 h-6 sm:w-8 sm:h-8 text-green-500/25 animate-pulse" style={{ animationDelay: '2s' }} />
+          <Bell className="absolute top-[48rem] left-6 sm:left-8 w-5 h-5 sm:w-6 sm:h-6 text-amber-500/30 animate-pulse" style={{ animationDelay: '2.5s' }} />
           
           {/* Right side decorations */}
-          <Star className="absolute top-40 right-4 sm:right-12 w-4 h-4 sm:w-5 sm:h-5 text-amber-400/15 animate-pulse" style={{ animationDelay: '0.3s' }} />
-          <Snowflake className="absolute top-64 right-6 sm:right-8 w-3 h-3 sm:w-5 sm:h-5 text-primary/20 animate-pulse" style={{ animationDelay: '0.8s' }} />
-          <Bell className="absolute top-96 right-4 sm:right-16 w-4 h-4 sm:w-5 sm:h-5 text-amber-500/12 animate-pulse" style={{ animationDelay: '1.3s' }} />
-          <TreePine className="absolute top-[30rem] right-6 sm:right-10 w-4 h-4 sm:w-6 sm:h-6 text-green-500/10 animate-pulse" style={{ animationDelay: '1.8s' }} />
-          <Snowflake className="absolute top-[42rem] right-8 sm:right-20 w-3 h-3 sm:w-4 sm:h-4 text-primary/15 animate-pulse" style={{ animationDelay: '2.3s' }} />
-          <Star className="absolute top-[54rem] right-4 sm:right-8 w-4 h-4 sm:w-5 sm:h-5 text-amber-400/10 animate-pulse" style={{ animationDelay: '2.8s' }} />
+          <Star className="absolute top-40 right-4 sm:right-12 w-6 h-6 sm:w-8 sm:h-8 text-amber-400/35 animate-pulse" style={{ animationDelay: '0.3s' }} />
+          <Snowflake className="absolute top-64 right-6 sm:right-8 w-5 h-5 sm:w-7 sm:h-7 text-primary/40 animate-pulse" style={{ animationDelay: '0.8s' }} />
+          <Bell className="absolute top-96 right-4 sm:right-16 w-6 h-6 sm:w-7 sm:h-7 text-amber-500/30 animate-pulse" style={{ animationDelay: '1.3s' }} />
+          <TreePine className="absolute top-[30rem] right-6 sm:right-10 w-6 h-6 sm:w-8 sm:h-8 text-green-500/25 animate-pulse" style={{ animationDelay: '1.8s' }} />
+          <Snowflake className="absolute top-[42rem] right-8 sm:right-20 w-5 h-5 sm:w-6 sm:h-6 text-primary/35 animate-pulse" style={{ animationDelay: '2.3s' }} />
+          <Star className="absolute top-[54rem] right-4 sm:right-8 w-6 h-6 sm:w-7 sm:h-7 text-amber-400/25 animate-pulse" style={{ animationDelay: '2.8s' }} />
         </div>
         
         <Header />
@@ -418,16 +418,17 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
 
             {/* CTA Section */}
             <section className="mb-12 sm:mb-20">
-              <Card className="glass-card border-primary/30 bg-primary/5 relative overflow-hidden min-h-[280px] sm:min-h-[320px]">
+              <Card className="glass-card border-primary/30 bg-primary/5 relative overflow-hidden min-h-[320px] sm:min-h-[360px]">
                 {/* Background image with fade effect */}
                 <div 
-                  className="absolute inset-0 opacity-40 pointer-events-none"
+                  className="absolute inset-0 opacity-50 pointer-events-none"
                   style={{
                     backgroundImage: `url(${christmasCozy})`,
-                    backgroundSize: '120%',
-                    backgroundPosition: '80% 100%',
-                    maskImage: 'linear-gradient(to top left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.2) 50%, transparent 70%)',
-                    WebkitMaskImage: 'linear-gradient(to top left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.2) 50%, transparent 70%)',
+                    backgroundSize: '60%',
+                    backgroundPosition: 'right bottom',
+                    backgroundRepeat: 'no-repeat',
+                    maskImage: 'linear-gradient(to top left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0.3) 45%, transparent 65%)',
+                    WebkitMaskImage: 'linear-gradient(to top left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0.3) 45%, transparent 65%)',
                   }}
                 />
                 <CardContent className="p-6 sm:p-8 md:p-12 text-center relative z-10">
@@ -445,22 +446,6 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                   </Button>
                 </CardContent>
               </Card>
-            </section>
-
-            {/* Useful Links */}
-            <section className="mb-12">
-              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 text-center">
-                {t.linksTitle}
-              </h2>
-              <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-                {links.map((link) => (
-                  <Button key={link.name} asChild variant="secondary" className="text-xs sm:text-sm">
-                    <a href={link.url} target="_blank" rel="noopener noreferrer">
-                      {link.name} <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1.5 sm:ml-2" />
-                    </a>
-                  </Button>
-                ))}
-              </div>
             </section>
 
             {/* Back to Levi */}
