@@ -427,8 +427,8 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                     backgroundSize: '60%',
                     backgroundPosition: 'right bottom',
                     backgroundRepeat: 'no-repeat',
-                    maskImage: 'linear-gradient(to top left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0.3) 45%, transparent 65%)',
-                    WebkitMaskImage: 'linear-gradient(to top left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 25%, rgba(0,0,0,0.3) 45%, transparent 65%)',
+                    maskImage: 'radial-gradient(circle at bottom right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 22%, rgba(0,0,0,0.65) 42%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0.22) 70%, rgba(0,0,0,0.12) 80%, rgba(0,0,0,0.05) 88%, transparent 96%)',
+                    WebkitMaskImage: 'radial-gradient(circle at bottom right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 22%, rgba(0,0,0,0.65) 42%, rgba(0,0,0,0.4) 58%, rgba(0,0,0,0.22) 70%, rgba(0,0,0,0.12) 80%, rgba(0,0,0,0.05) 88%, transparent 96%)',
                   }}
                 />
                 <CardContent className="p-6 sm:p-8 md:p-12 text-center relative z-10">
