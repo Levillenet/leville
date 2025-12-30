@@ -23,6 +23,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import santaSitting from "@/assets/santa-sitting.jpg";
 import santaWaving from "@/assets/santa-waving.png";
 import santaCabin from "@/assets/santa-cabin.webp";
+import christmasCozy from "@/assets/christmas-cozy.png";
 
 interface JouluLapissakProps {
   lang?: Language;
@@ -396,8 +397,19 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
 
             {/* CTA Section */}
             <section className="mb-12 sm:mb-20">
-              <Card className="glass-card border-primary/30 bg-primary/5">
-                <CardContent className="p-6 sm:p-8 md:p-12 text-center">
+              <Card className="glass-card border-primary/30 bg-primary/5 relative overflow-hidden">
+                {/* Background image with fade effect */}
+                <div 
+                  className="absolute inset-0 opacity-30 pointer-events-none"
+                  style={{
+                    backgroundImage: `url(${christmasCozy})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'bottom right',
+                    maskImage: 'linear-gradient(to top left, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, transparent 70%)',
+                    WebkitMaskImage: 'linear-gradient(to top left, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, transparent 70%)',
+                  }}
+                />
+                <CardContent className="p-6 sm:p-8 md:p-12 text-center relative z-10">
                   <Gift className="w-12 h-12 sm:w-16 sm:h-16 text-primary mx-auto mb-4" />
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4">
                     {t.ctaTitle}
