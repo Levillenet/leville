@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -23,27 +23,51 @@ const Tietovisa = ({ lang = "fi" }: TietovisaProps) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
 
+  const advanceTimerRef = useRef<number | null>(null);
+
+  const clearAdvanceTimer = () => {
+    if (advanceTimerRef.current !== null) {
+      window.clearTimeout(advanceTimerRef.current);
+      advanceTimerRef.current = null;
+    }
+  };
+
+  useEffect(() => {
+    return () => clearAdvanceTimer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const isEnglish = lang === "en";
 
   const handleStart = () => {
+    clearAdvanceTimer();
     setQuizState("playing");
     setCurrentQuestionIndex(0);
     setScore(0);
   };
 
   const handleAnswer = (isCorrect: boolean) => {
+    // Prevent double-triggering while we're waiting to advance
+    if (advanceTimerRef.current !== null) return;
+
     if (isCorrect) {
       setScore((prev) => prev + 1);
     }
 
-    if (currentQuestionIndex + 1 < quizQuestions.length) {
-      setCurrentQuestionIndex((prev) => prev + 1);
-    } else {
-      setQuizState("finished");
-    }
+    const nextIndex = currentQuestionIndex + 1;
+    advanceTimerRef.current = window.setTimeout(() => {
+      advanceTimerRef.current = null;
+
+      if (nextIndex < quizQuestions.length) {
+        setCurrentQuestionIndex(nextIndex);
+      } else {
+        setQuizState("finished");
+      }
+    }, 1500);
   };
 
   const handleRestart = () => {
+    clearAdvanceTimer();
     setQuizState("start");
     setCurrentQuestionIndex(0);
     setScore(0);
