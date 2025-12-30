@@ -1,8 +1,10 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
+import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { WhatsAppIcon, FacebookIcon, InstagramIcon } from "@/components/icons/SocialIcons";
@@ -43,6 +45,7 @@ interface YhteystiedotProps {
 
 const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
   const t = getTranslations(lang).yhteystiedot;
+  const location = useLocation();
 
   const contactInfo = [
     {
@@ -136,6 +139,7 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
 
   return (
     <>
+      <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={isEnglish ? "en" : "fi"} />
         <title>{t.meta.title}</title>

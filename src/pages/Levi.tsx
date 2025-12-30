@@ -1,8 +1,10 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
+import HreflangTags from "@/components/HreflangTags";
 import LeviSeasons from "@/components/LeviSeasons";
 import LeviFacts from "@/components/LeviFacts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -36,6 +38,7 @@ interface LeviProps {
 
 const Levi = ({ lang = "fi" }: LeviProps) => {
   const t = getTranslations(lang).levi;
+  const location = useLocation();
 
   const galleryImages = t.gallery.map((item, index) => ({
     src: galleryImageSources[index],
@@ -47,6 +50,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
 
   return (
     <>
+      <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={isEnglish ? "en" : "fi"} />
         <title>{t.meta.title}</title>

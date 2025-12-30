@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
+import HreflangTags from "@/components/HreflangTags";
 import QuizStart from "@/components/quiz/QuizStart";
 import QuizQuestion from "@/components/quiz/QuizQuestion";
 import QuizResult from "@/components/quiz/QuizResult";
@@ -22,6 +24,7 @@ const Tietovisa = ({ lang = "fi" }: TietovisaProps) => {
   const [quizState, setQuizState] = useState<QuizState>("start");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const location = useLocation();
 
   const advanceTimerRef = useRef<number | null>(null);
 
@@ -83,6 +86,7 @@ const Tietovisa = ({ lang = "fi" }: TietovisaProps) => {
 
   return (
     <>
+      <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={isEnglish ? "en" : "fi"} />
         <title>{metaTitle}</title>

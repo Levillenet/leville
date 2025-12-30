@@ -1,8 +1,10 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
+import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
@@ -48,6 +50,7 @@ interface MajoituksetProps {
 
 const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
   const t = getTranslations(lang).majoitukset;
+  const location = useLocation();
   const isEnglish = lang === "en";
 
   const trackDownload = async () => {
@@ -62,6 +65,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
 
   return (
     <>
+      <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={isEnglish ? "en" : "fi"} />
         <title>{t.meta.title}</title>

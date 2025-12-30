@@ -1,12 +1,13 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
+import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check, Building, Home, Users, Briefcase, MapPin, Mail, Star, Quote, LucideIcon, Calendar, Award, Heart, Moon, UserCheck, Building2 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { testimonials } from "@/data/testimonials";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -22,6 +23,7 @@ interface YritysProps {
 
 const Yritys = ({ lang = "fi" }: YritysProps) => {
   const t = getTranslations(lang).yritys;
+  const location = useLocation();
   const linkPrefix = lang === "en" ? "/en" : "";
 
   const stats = lang === "en" 
@@ -71,6 +73,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
 
   return (
     <>
+      <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={isEnglish ? "en" : "fi"} />
         <title>{t.meta.title}</title>
