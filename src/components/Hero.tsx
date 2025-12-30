@@ -85,7 +85,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
       </div>
 
       {/* Subtle Aurora overlay effects - toned down for commercial focus */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
         <div 
           className="absolute -top-20 left-0 w-[800px] h-[500px] bg-gradient-to-b from-aurora-green/25 via-aurora-blue/15 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-1"
         />
