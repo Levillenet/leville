@@ -67,11 +67,10 @@ const Header = () => {
     es: "Reservar"
   }[currentLang];
 
-  // For non-Finnish languages, redirect to external Moder booking
+  // All languages open external Moder booking in new tab
   const bookNowHref = currentLang === "fi" 
-    ? "/#moder-embed" 
+    ? "https://app.moder.fi/levillenet" 
     : "https://app.moder.fi/levillenet?lang=en";
-  const bookNowExternal = currentLang !== "fi";
 
   const homeHref = routeConfig.home[currentLang];
 
@@ -114,8 +113,8 @@ const Header = () => {
             <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6">
               <a 
                 href={bookNowHref} 
-                target={bookNowExternal ? "_blank" : undefined} 
-                rel={bookNowExternal ? "noopener noreferrer" : undefined}
+                target="_blank" 
+                rel="noopener noreferrer"
               >
                 {bookNowText}
               </a>
@@ -152,8 +151,8 @@ const Header = () => {
               <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium mt-2">
                 <a 
                   href={bookNowHref} 
-                  target={bookNowExternal ? "_blank" : undefined} 
-                  rel={bookNowExternal ? "noopener noreferrer" : undefined}
+                  target="_blank" 
+                  rel="noopener noreferrer"
                 >
                   {bookNowText}
                 </a>
