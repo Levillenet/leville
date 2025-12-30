@@ -14,7 +14,8 @@ import {
   Heart,
   ExternalLink,
   Camera,
-  Moon
+  Moon,
+  Bell
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Language } from "@/translations";
@@ -254,12 +255,32 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
         </script>
       </Helmet>
       
-      <div className="min-h-screen bg-background relative">
+      <div className="min-h-screen bg-background relative overflow-hidden">
         <SubpageBackground />
+        
+        {/* Floating Christmas Decorations */}
+        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+          {/* Left side decorations */}
+          <Snowflake className="absolute top-32 left-4 sm:left-8 w-4 h-4 sm:w-6 sm:h-6 text-primary/20 animate-pulse" style={{ animationDelay: '0s' }} />
+          <Bell className="absolute top-52 left-6 sm:left-16 w-3 h-3 sm:w-5 sm:h-5 text-amber-500/15 animate-pulse" style={{ animationDelay: '0.5s' }} />
+          <Star className="absolute top-80 left-3 sm:left-10 w-4 h-4 sm:w-5 sm:h-5 text-amber-400/15 animate-pulse" style={{ animationDelay: '1s' }} />
+          <Snowflake className="absolute top-[28rem] left-8 sm:left-20 w-3 h-3 sm:w-4 sm:h-4 text-primary/15 animate-pulse" style={{ animationDelay: '1.5s' }} />
+          <TreePine className="absolute top-[36rem] left-4 sm:left-12 w-4 h-4 sm:w-6 sm:h-6 text-green-500/10 animate-pulse" style={{ animationDelay: '2s' }} />
+          <Bell className="absolute top-[48rem] left-6 sm:left-8 w-3 h-3 sm:w-4 sm:h-4 text-amber-500/12 animate-pulse" style={{ animationDelay: '2.5s' }} />
+          
+          {/* Right side decorations */}
+          <Star className="absolute top-40 right-4 sm:right-12 w-4 h-4 sm:w-5 sm:h-5 text-amber-400/15 animate-pulse" style={{ animationDelay: '0.3s' }} />
+          <Snowflake className="absolute top-64 right-6 sm:right-8 w-3 h-3 sm:w-5 sm:h-5 text-primary/20 animate-pulse" style={{ animationDelay: '0.8s' }} />
+          <Bell className="absolute top-96 right-4 sm:right-16 w-4 h-4 sm:w-5 sm:h-5 text-amber-500/12 animate-pulse" style={{ animationDelay: '1.3s' }} />
+          <TreePine className="absolute top-[30rem] right-6 sm:right-10 w-4 h-4 sm:w-6 sm:h-6 text-green-500/10 animate-pulse" style={{ animationDelay: '1.8s' }} />
+          <Snowflake className="absolute top-[42rem] right-8 sm:right-20 w-3 h-3 sm:w-4 sm:h-4 text-primary/15 animate-pulse" style={{ animationDelay: '2.3s' }} />
+          <Star className="absolute top-[54rem] right-4 sm:right-8 w-4 h-4 sm:w-5 sm:h-5 text-amber-400/10 animate-pulse" style={{ animationDelay: '2.8s' }} />
+        </div>
+        
         <Header />
         <Breadcrumbs lang={lang} />
         
-        <main className="pt-8 pb-20">
+        <main className="pt-8 pb-20 relative z-10">
           <div className="container mx-auto px-4">
             {/* Hero Section */}
             <section className="text-center mb-12 sm:mb-16 px-2">
@@ -397,16 +418,16 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
 
             {/* CTA Section */}
             <section className="mb-12 sm:mb-20">
-              <Card className="glass-card border-primary/30 bg-primary/5 relative overflow-hidden">
+              <Card className="glass-card border-primary/30 bg-primary/5 relative overflow-hidden min-h-[280px] sm:min-h-[320px]">
                 {/* Background image with fade effect */}
                 <div 
-                  className="absolute inset-0 opacity-30 pointer-events-none"
+                  className="absolute inset-0 opacity-40 pointer-events-none"
                   style={{
                     backgroundImage: `url(${christmasCozy})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'bottom right',
-                    maskImage: 'linear-gradient(to top left, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, transparent 70%)',
-                    WebkitMaskImage: 'linear-gradient(to top left, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 40%, transparent 70%)',
+                    backgroundSize: '120%',
+                    backgroundPosition: '80% 100%',
+                    maskImage: 'linear-gradient(to top left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.2) 50%, transparent 70%)',
+                    WebkitMaskImage: 'linear-gradient(to top left, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.2) 50%, transparent 70%)',
                   }}
                 />
                 <CardContent className="p-6 sm:p-8 md:p-12 text-center relative z-10">
