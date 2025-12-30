@@ -1,56 +1,73 @@
 import { useState } from "react";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import levilleLogo from "@/assets/leville-logo.png";
 import WeatherWidget from "@/components/WeatherWidget";
+import LanguageSelector from "@/components/LanguageSelector";
+import { detectLanguageFromPath, routeConfig } from "@/translations";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const isEnglish = location.pathname.startsWith("/en");
+  const currentLang = detectLanguageFromPath(location.pathname);
 
-  // Route mapping between languages
-  const routeMap: Record<string, string> = {
-    "/": "/en",
-    "/en": "/",
-    "/majoitukset": "/en/accommodations",
-    "/en/accommodations": "/majoitukset",
-    "/ajankohtaista": "/en/news",
-    "/en/news": "/ajankohtaista",
-    "/levi": "/en/levi",
-    "/en/levi": "/levi",
-    "/revontulet": "/en/northern-lights",
-    "/en/northern-lights": "/revontulet",
-    "/yhteystiedot": "/en/contact",
-    "/en/contact": "/yhteystiedot",
-    "/ukk": "/en/faq",
-    "/en/faq": "/ukk",
-    "/yritys": "/en/company",
-    "/en/company": "/yritys",
+  // Navigation links based on current language
+  const getNavLinks = () => {
+    switch (currentLang) {
+      case "en":
+        return [
+          { name: "Accommodations", href: routeConfig.accommodations.en },
+          { name: "News", href: routeConfig.news.en },
+          { name: "Levi", href: routeConfig.levi.en },
+          { name: "Northern Lights", href: routeConfig.northernLights.en },
+          { name: "Contact", href: routeConfig.contact.en },
+        ];
+      case "sv":
+        return [
+          { name: "Boende", href: routeConfig.accommodations.sv },
+          { name: "Nyheter", href: routeConfig.news.sv },
+          { name: "Levi", href: routeConfig.levi.sv },
+          { name: "Norrsken", href: routeConfig.northernLights.sv },
+          { name: "Kontakt", href: routeConfig.contact.sv },
+        ];
+      case "de":
+        return [
+          { name: "Unterkünfte", href: routeConfig.accommodations.de },
+          { name: "Aktuelles", href: routeConfig.news.de },
+          { name: "Levi", href: routeConfig.levi.de },
+          { name: "Nordlichter", href: routeConfig.northernLights.de },
+          { name: "Kontakt", href: routeConfig.contact.de },
+        ];
+      case "es":
+        return [
+          { name: "Alojamientos", href: routeConfig.accommodations.es },
+          { name: "Noticias", href: routeConfig.news.es },
+          { name: "Levi", href: routeConfig.levi.es },
+          { name: "Auroras", href: routeConfig.northernLights.es },
+          { name: "Contacto", href: routeConfig.contact.es },
+        ];
+      default: // Finnish
+        return [
+          { name: "Majoitukset", href: routeConfig.accommodations.fi },
+          { name: "Ajankohtaista", href: routeConfig.news.fi },
+          { name: "Levi", href: routeConfig.levi.fi },
+          { name: "Revontulet", href: routeConfig.northernLights.fi },
+          { name: "Yhteystiedot", href: routeConfig.contact.fi },
+        ];
+    }
   };
 
-  const navLinksFi = [
-    { name: "Majoitukset", href: "/majoitukset" },
-    { name: "Ajankohtaista", href: "/ajankohtaista" },
-    { name: "Levi", href: "/levi" },
-    { name: "Revontulet", href: "/revontulet" },
-    { name: "Yhteystiedot", href: "/yhteystiedot" },
-  ];
+  const navLinks = getNavLinks();
+  const bookNowText = {
+    fi: "Varaa nyt",
+    en: "Book now",
+    sv: "Boka nu",
+    de: "Jetzt buchen",
+    es: "Reservar"
+  }[currentLang];
 
-  const navLinksEn = [
-    { name: "Accommodations", href: "/en/accommodations" },
-    { name: "News", href: "/en/news" },
-    { name: "Levi", href: "/en/levi" },
-    { name: "Northern Lights", href: "/en/northern-lights" },
-    { name: "Contact", href: "/en/contact" },
-  ];
-
-  const navLinks = isEnglish ? navLinksEn : navLinksFi;
-  
-  // Get the equivalent route in the other language, fallback to home
-  const langSwitchHref = routeMap[location.pathname] || (isEnglish ? "/" : "/en");
-  const langSwitchLabel = isEnglish ? "FI" : "EN";
+  const homeHref = routeConfig.home[currentLang];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/30">
@@ -58,7 +75,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo and Mobile Weather */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <Link to="/" className="flex items-center">
+            <Link to={homeHref} className="flex items-center">
               <img 
                 src={levilleLogo} 
                 alt="Leville.net - Apartments & Villas" 
@@ -87,16 +104,10 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
-            <Link
-              to={langSwitchHref}
-              className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300"
-            >
-              <Globe className="w-4 h-4" />
-              {langSwitchLabel}
-            </Link>
+            <LanguageSelector />
             <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6">
               <a href="https://app.moder.fi/levillenet" target="_blank" rel="noopener noreferrer">
-                {isEnglish ? "Book now" : "Varaa nyt"}
+                {bookNowText}
               </a>
             </Button>
           </nav>
@@ -125,17 +136,12 @@ const Header = () => {
                   {link.name}
                 </Link>
               ))}
-              <Link
-                to={langSwitchHref}
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
-              >
-                <Globe className="w-4 h-4" />
-                {langSwitchLabel}
-              </Link>
+              <div className="py-2">
+                <LanguageSelector />
+              </div>
               <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium mt-2">
                 <a href="https://app.moder.fi/levillenet" target="_blank" rel="noopener noreferrer">
-                  {isEnglish ? "Book now" : "Varaa nyt"}
+                  {bookNowText}
                 </a>
               </Button>
             </div>
