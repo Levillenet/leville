@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { ArrowRight, Star, Tag } from "lucide-react";
+import { ArrowRight, Tag } from "lucide-react";
 import BookingWidget from "./BookingWidget";
 import { getTranslations, Language } from "@/translations";
 import heroCabin from "@/assets/hero-cabin.jpg";
@@ -37,7 +37,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
     return () => clearInterval(interval);
   }, []);
 
-  const ratingText = lang === "en" ? "Excellent reviews" : "Erinomaiset arviot";
+
 
   return (
     <section
@@ -102,18 +102,6 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
       <div className="container mx-auto px-4 relative z-10" style={{ overflow: 'visible' }}>
         <div className="max-w-4xl mx-auto text-center" style={{ overflow: 'visible' }}>
-          
-          {/* Social proof badge */}
-          <div 
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6 animate-fade-in"
-          >
-            <div className="flex items-center gap-0.5">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
-              ))}
-            </div>
-            <span className="text-sm text-foreground/90 font-medium">{ratingText}</span>
-          </div>
 
           {/* Main heading - clear value proposition */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-semibold text-foreground mb-4 md:mb-6 animate-slide-up tracking-tight leading-tight">
