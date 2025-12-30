@@ -145,7 +145,7 @@ const Tietovisa = ({ lang = "fi" }: TietovisaProps) => {
             </AnimatePresence>
           </div>
         </main>
-        <Footer />
+        <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
       </div>
     </>

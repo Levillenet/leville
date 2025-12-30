@@ -68,7 +68,7 @@ const IndexEN = () => {
           <About lang="en" />
           <Features lang="en" />
         </main>
-        <Footer />
+        <Footer lang="en" />
         <WhatsAppChat lang="en" />
       </div>
     </>

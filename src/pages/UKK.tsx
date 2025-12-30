@@ -99,7 +99,7 @@ const UKK = ({ lang = "fi" }: UKKProps) => {
             </section>
           </div>
         </main>
-        <Footer />
+        <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
       </div>
     </>

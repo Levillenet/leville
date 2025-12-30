@@ -274,7 +274,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             </section>
           </div>
         </main>
-        <Footer />
+        <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
       </div>
     </>

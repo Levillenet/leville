@@ -172,7 +172,7 @@ const Sauna = () => {
 
           </div>
         </main>
-        <Footer />
+        <Footer lang="fi" />
       </div>
     </>
   );

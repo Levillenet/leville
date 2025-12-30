@@ -233,7 +233,7 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
             </section>
           </div>
         </main>
-        <Footer />
+        <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
       </div>
     </>

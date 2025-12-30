@@ -157,7 +157,7 @@ export default function Asiakaspalvelu() {
         </div>
       </main>
 
-      <Footer />
+      <Footer lang="fi" />
       <CustomerServiceChat />
     </>
   );

@@ -157,7 +157,7 @@ const Varausehdot = () => {
             </div>
           </div>
         </main>
-        <Footer />
+        <Footer lang="fi" />
         <WhatsAppChat />
       </div>
     </>

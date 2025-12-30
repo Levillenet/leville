@@ -309,7 +309,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
             </ScrollReveal>
           </div>
         </main>
-        <Footer />
+        <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
       </div>
     </>
