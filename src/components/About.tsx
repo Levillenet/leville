@@ -16,6 +16,11 @@ import diningLiving from "@/assets/about/dining-living.jpg";
 import livingStairs from "@/assets/about/living-stairs.jpg";
 import saunaLight from "@/assets/about/sauna-light.jpg";
 import kitchenDining from "@/assets/about/kitchen-dining.jpg";
+import bedroomModern from "@/assets/about/bedroom-modern.jpg";
+import studioKitchen from "@/assets/about/studio-kitchen.jpg";
+import livingBright from "@/assets/about/living-bright.jpg";
+import livingSigns from "@/assets/about/living-signs.jpg";
+import livingCozy from "@/assets/about/living-cozy.jpg";
 
 const aboutImages = [
   saunaKarhupirtti,
@@ -28,6 +33,11 @@ const aboutImages = [
   livingStairs,
   saunaLight,
   kitchenDining,
+  bedroomModern,
+  studioKitchen,
+  livingBright,
+  livingSigns,
+  livingCozy,
 ];
 
 interface AboutProps {
