@@ -47,22 +47,23 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
       style={{ overflow: 'visible' }}
     >
       {/* Background images slideshow with crossfade and Ken Burns effect */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden bg-background">
         {heroImages.map((image, index) => {
           const isCurrent = index === currentImageIndex;
           const isPrevious = index === previousImageIndex;
-          const shouldAnimate = isCurrent || isPrevious;
+          const isVisible = isCurrent || isPrevious;
           const isCabin = image === heroCabin;
           const kenBurnsClass = isCabin ? "animate-ken-burns-cabin" : "animate-ken-burns";
 
           return (
             <div
               key={index}
-              className={`absolute inset-0 hero-image-transition ${
-                shouldAnimate ? kenBurnsClass : ""
+              className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
+                isVisible ? kenBurnsClass : ""
               }`}
               style={{
-                opacity: isCurrent ? 1 : 0,
+                opacity: isCurrent ? 1 : isPrevious ? 0 : 0,
+                zIndex: isCurrent ? 2 : isPrevious ? 1 : 0,
               }}
             >
               <img
@@ -80,7 +81,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         })}
         
         {/* Dark overlay for text readability - optimized for commercial clarity */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/90 z-[3]" />
       </div>
 
       {/* Subtle Aurora overlay effects - toned down for commercial focus */}
