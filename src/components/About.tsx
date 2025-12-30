@@ -44,24 +44,42 @@ interface AboutProps {
   lang?: Language;
 }
 
+const FADE_DURATION = 2000;
+
 const About = ({ lang = "fi" }: AboutProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [previousImageIndex, setPreviousImageIndex] = useState<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
+  const fadeTimeoutRef = useRef<number | null>(null);
   const t = getTranslations(lang).about;
 
+  const transitionToIndex = useCallback((newIndex: number) => {
+    setPreviousImageIndex(currentImageIndex);
+    setCurrentImageIndex(newIndex);
+
+    if (fadeTimeoutRef.current) {
+      window.clearTimeout(fadeTimeoutRef.current);
+    }
+    fadeTimeoutRef.current = window.setTimeout(() => {
+      setPreviousImageIndex(null);
+    }, FADE_DURATION);
+  }, [currentImageIndex]);
+
   const goToNext = useCallback(() => {
-    setCurrentImageIndex((prev) => (prev + 1) % aboutImages.length);
-  }, []);
+    transitionToIndex((currentImageIndex + 1) % aboutImages.length);
+  }, [currentImageIndex, transitionToIndex]);
 
   const goToPrev = useCallback(() => {
-    setCurrentImageIndex((prev) => (prev - 1 + aboutImages.length) % aboutImages.length);
-  }, []);
+    transitionToIndex((currentImageIndex - 1 + aboutImages.length) % aboutImages.length);
+  }, [currentImageIndex, transitionToIndex]);
 
   const goToSlide = useCallback((index: number) => {
-    setCurrentImageIndex(index);
-  }, []);
+    if (index !== currentImageIndex) {
+      transitionToIndex(index);
+    }
+  }, [currentImageIndex, transitionToIndex]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -108,6 +126,15 @@ const About = ({ lang = "fi" }: AboutProps) => {
 
     return () => clearInterval(interval);
   }, [isPaused, goToNext]);
+
+  // Clean up timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (fadeTimeoutRef.current) {
+        window.clearTimeout(fadeTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <section id="majoitukset" className="py-12 md:py-16 bg-background relative overflow-hidden">
@@ -163,18 +190,27 @@ const About = ({ lang = "fi" }: AboutProps) => {
               onTouchEnd={handleTouchEnd}
             >
               <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-elegant border border-border/20 relative bg-muted">
-                {aboutImages.map((image, index) => (
-                  <img
-                    key={index}
-                    src={image}
-                    alt={`${t.imageAlt} ${index + 1}`}
-                    loading="eager"
-                    decoding="async"
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out ${
-                      index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-                    }`}
-                  />
-                ))}
+                {aboutImages.map((image, index) => {
+                  const isCurrent = index === currentImageIndex;
+                  const isPrevious = previousImageIndex !== null && index === previousImageIndex;
+
+                  // Only render current and previous for performance
+                  if (!isCurrent && !isPrevious) return null;
+
+                  return (
+                    <img
+                      key={index}
+                      src={image}
+                      alt={`${t.imageAlt} ${index + 1}`}
+                      loading="eager"
+                      decoding="async"
+                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out ${
+                        isCurrent ? "opacity-100" : "opacity-0"
+                      }`}
+                      style={{ zIndex: isPrevious ? 2 : isCurrent ? 1 : 0 }}
+                    />
+                  );
+                })}
               </div>
               
               {/* Navigation arrows */}
