@@ -17,6 +17,7 @@ import UKK from "./pages/UKK";
 import Varausehdot from "./pages/Varausehdot";
 import Yritys from "./pages/Yritys";
 import Sauna from "./pages/Sauna";
+import Tietovisa from "./pages/Tietovisa";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
@@ -50,6 +51,8 @@ const App = () => (
               <Route path="/yritys" element={<Yritys />} />
               <Route path="/en/company" element={<Yritys lang="en" />} />
               <Route path="/sauna" element={<Sauna />} />
+              <Route path="/tietovisa" element={<Tietovisa />} />
+              <Route path="/en/quiz" element={<Tietovisa lang="en" />} />
               <Route path="/admin" element={<Admin />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

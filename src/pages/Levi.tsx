@@ -7,7 +7,8 @@ import LeviSeasons from "@/components/LeviSeasons";
 import LeviFacts from "@/components/LeviFacts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video } from "lucide-react";
+import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video, Brain } from "lucide-react";
+import { Link } from "react-router-dom";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 // Import images
@@ -80,6 +81,34 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 {t.subtitle}
               </p>
+            </section>
+
+            {/* Quiz CTA Section */}
+            <section className="mb-16">
+              <Card className="glass-card border-primary/30 bg-primary/5 overflow-hidden">
+                <CardContent className="p-6 md:p-8">
+                  <div className="flex flex-col md:flex-row items-center gap-6">
+                    <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Brain className="w-8 h-8 text-primary" />
+                    </div>
+                    <div className="flex-1 text-center md:text-left">
+                      <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">
+                        {lang === "en" ? "Test Your Levi Knowledge!" : "Testaa Levi-tietämyksesi!"}
+                      </h2>
+                      <p className="text-muted-foreground">
+                        {lang === "en" 
+                          ? "Take our fun quiz and find out how well you know Finland's favorite ski resort."
+                          : "Pelaa hauska tietovisa ja selvitä kuinka hyvin tunnet Suomen suosituimman hiihtokeskuksen."}
+                      </p>
+                    </div>
+                    <Button asChild size="lg" className="flex-shrink-0">
+                      <Link to={lang === "en" ? "/en/quiz" : "/tietovisa"}>
+                        {lang === "en" ? "Start Quiz" : "Aloita visa"}
+                      </Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             </section>
 
             {/* Levi Facts Section */}
