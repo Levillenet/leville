@@ -207,6 +207,12 @@
     100% { transform: scale(1.06); }
   }
 
+  /* Cabin image: less zoom so the cabin stays visible */
+  @keyframes kenBurnsCabin {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.035); }
+  }
+
   .animate-twinkle {
     animation: twinkle var(--twinkle-duration, 2s) ease-in-out infinite;
     animation-delay: var(--twinkle-delay, 0s);
@@ -233,8 +239,16 @@
     animation: kenBurns 8s ease-out forwards;
   }
 
+  .animate-ken-burns-cabin {
+    animation: kenBurnsCabin 8s ease-out forwards;
+  }
+
   .hero-image-transition {
     transition: opacity 3000ms ease-in-out;
+  }
+
+  .hero-cabin-image {
+    object-position: 50% 78%;
   }
 
   /* Aurora curtain animations - wave-like movement */
