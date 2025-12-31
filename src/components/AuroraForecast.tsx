@@ -188,13 +188,19 @@ const getKpBarColor = (kp: number): string => {
   return "bg-muted-foreground/50";
 };
 
+// Get hour in Finland timezone (Europe/Helsinki)
+const getHelsinkiHour = (date: Date): number => {
+  const helsinkiTime = new Date(date.toLocaleString('en-US', { timeZone: 'Europe/Helsinki' }));
+  return helsinkiTime.getHours();
+};
+
 const isNightTime = (date: Date): boolean => {
-  const hour = date.getHours();
+  const hour = getHelsinkiHour(date);
   return hour >= 18 || hour < 6;
 };
 
 const formatTime = (date: Date, lang: Language): string => {
-  const hour = date.getHours();
+  const hour = getHelsinkiHour(date);
   if (lang === 'en') {
     const period = hour >= 12 ? 'PM' : 'AM';
     const h = hour % 12 || 12;
@@ -242,16 +248,20 @@ const AuroraForecast = ({ lang = "fi" }: AuroraForecastProps) => {
               isNight: isNightTime(f.time)
             }));
 
-          // Find tonight's peak (18:00 - 06:00)
+          // Find tonight's peak (18:00 - 06:00 Helsinki time)
+          // Create dates in Helsinki timezone for comparison
+          const nowHelsinkiHour = getHelsinkiHour(now);
+          
+          // Create tonight 18:00 in Helsinki
           const tonight = new Date(now);
-          tonight.setHours(18, 0, 0, 0);
-          if (now.getHours() < 6) {
-            // If before 6am, we're in "tonight" already, look back to 18:00 yesterday
+          tonight.setHours(18 - (nowHelsinkiHour - now.getHours()), 0, 0, 0);
+          if (nowHelsinkiHour < 6) {
+            // If before 6am in Helsinki, we're in "tonight" already, look back to 18:00 yesterday
             tonight.setDate(tonight.getDate() - 1);
           }
           const tomorrowMorning = new Date(tonight);
           tomorrowMorning.setDate(tomorrowMorning.getDate() + 1);
-          tomorrowMorning.setHours(6, 0, 0, 0);
+          tomorrowMorning.setHours(6 - (nowHelsinkiHour - now.getHours()), 0, 0, 0);
 
           const nightForecasts = forecasts.filter((f: any) => 
             f.time >= tonight && f.time <= tomorrowMorning
