@@ -13,23 +13,114 @@ interface AuroraForecastProps {
   lang?: Language;
 }
 
+const content: Record<Language, {
+  title: string;
+  kpLabel: string;
+  probabilityLabel: string;
+  kpExplanation: string;
+  levels: {
+    veryHigh: { probability: string; description: string };
+    high: { probability: string; description: string };
+    moderate: { probability: string; description: string };
+    lowModerate: { probability: string; description: string };
+    low: { probability: string; description: string };
+    veryLow: { probability: string; description: string };
+  };
+}> = {
+  fi: {
+    title: "Revontuliennuste tänään",
+    kpLabel: "Kp-indeksi",
+    probabilityLabel: "Todennäköisyys",
+    kpExplanation: "Kp-indeksi (0-9) mittaa geomagneettista aktiivisuutta. Korkeampi arvo tarkoittaa voimakkaampia revontulia. Kp 3+ on hyvä Leville, Kp 5+ tuo upeat näytökset.",
+    levels: {
+      veryHigh: { probability: "Erittäin korkea", description: "Poikkeuksellinen revontuliaktiivisuus! Parhaat olosuhteet." },
+      high: { probability: "Korkea", description: "Voimakas revontuliaktiivisuus. Erinomaiset näkymät!" },
+      moderate: { probability: "Kohtalainen", description: "Hyvä aktiivisuus. Selkeä sää suositeltava." },
+      lowModerate: { probability: "Matala-kohtalainen", description: "Revontulia mahdollisesti horisontissa." },
+      low: { probability: "Matala", description: "Heikko aktiivisuus. Seuraa selkeällä säällä." },
+      veryLow: { probability: "Erittäin matala", description: "Vähäistä revontuliaktiivisuutta odotettavissa." },
+    },
+  },
+  en: {
+    title: "Aurora Forecast Today",
+    kpLabel: "Kp Index",
+    probabilityLabel: "Probability",
+    kpExplanation: "The Kp index (0-9) measures geomagnetic activity. Higher values mean stronger aurora. Kp 3+ is good for Levi, Kp 5+ brings spectacular displays.",
+    levels: {
+      veryHigh: { probability: "Very high", description: "Exceptional aurora activity! Best conditions for viewing." },
+      high: { probability: "High", description: "Strong aurora activity. Great chances to see northern lights!" },
+      moderate: { probability: "Moderate", description: "Good aurora activity. Clear skies recommended." },
+      lowModerate: { probability: "Low-moderate", description: "Some aurora activity possible on the horizon." },
+      low: { probability: "Low", description: "Weak activity. Keep watching if skies are clear." },
+      veryLow: { probability: "Very low", description: "Minimal aurora activity expected tonight." },
+    },
+  },
+  sv: {
+    title: "Norrskensprognos idag",
+    kpLabel: "Kp-index",
+    probabilityLabel: "Sannolikhet",
+    kpExplanation: "Kp-index (0-9) mäter geomagnetisk aktivitet. Högre värden betyder starkare norrsken. Kp 3+ är bra för Levi, Kp 5+ ger spektakulära uppvisningar.",
+    levels: {
+      veryHigh: { probability: "Mycket hög", description: "Exceptionell norrskenaktivitet! Bästa förhållanden." },
+      high: { probability: "Hög", description: "Stark norrskenaktivitet. Utmärkta chanser att se norrsken!" },
+      moderate: { probability: "Måttlig", description: "Bra aktivitet. Klart väder rekommenderas." },
+      lowModerate: { probability: "Låg-måttlig", description: "Norrsken möjligt vid horisonten." },
+      low: { probability: "Låg", description: "Svag aktivitet. Följ med om himlen är klar." },
+      veryLow: { probability: "Mycket låg", description: "Minimal norrskenaktivitet förväntas." },
+    },
+  },
+  de: {
+    title: "Nordlicht-Vorhersage heute",
+    kpLabel: "Kp-Index",
+    probabilityLabel: "Wahrscheinlichkeit",
+    kpExplanation: "Der Kp-Index (0-9) misst die geomagnetische Aktivität. Höhere Werte bedeuten stärkere Nordlichter. Kp 3+ ist gut für Levi, Kp 5+ bringt spektakuläre Displays.",
+    levels: {
+      veryHigh: { probability: "Sehr hoch", description: "Außergewöhnliche Nordlichtaktivität! Beste Bedingungen." },
+      high: { probability: "Hoch", description: "Starke Nordlichtaktivität. Ausgezeichnete Chancen!" },
+      moderate: { probability: "Mäßig", description: "Gute Aktivität. Klarer Himmel empfohlen." },
+      lowModerate: { probability: "Niedrig-mäßig", description: "Nordlichter möglicherweise am Horizont sichtbar." },
+      low: { probability: "Niedrig", description: "Schwache Aktivität. Bei klarem Himmel beobachten." },
+      veryLow: { probability: "Sehr niedrig", description: "Minimale Nordlichtaktivität erwartet." },
+    },
+  },
+  es: {
+    title: "Pronóstico de auroras hoy",
+    kpLabel: "Índice Kp",
+    probabilityLabel: "Probabilidad",
+    kpExplanation: "El índice Kp (0-9) mide la actividad geomagnética. Valores más altos significan auroras más fuertes. Kp 3+ es bueno para Levi, Kp 5+ ofrece espectáculos impresionantes.",
+    levels: {
+      veryHigh: { probability: "Muy alta", description: "¡Actividad de aurora excepcional! Mejores condiciones." },
+      high: { probability: "Alta", description: "Fuerte actividad de aurora. ¡Excelentes oportunidades!" },
+      moderate: { probability: "Moderada", description: "Buena actividad. Se recomienda cielo despejado." },
+      lowModerate: { probability: "Baja-moderada", description: "Posibles auroras en el horizonte." },
+      low: { probability: "Baja", description: "Actividad débil. Observe con cielos despejados." },
+      veryLow: { probability: "Muy baja", description: "Se espera actividad mínima de aurora." },
+    },
+  },
+  fr: {
+    title: "Prévisions aurores aujourd'hui",
+    kpLabel: "Indice Kp",
+    probabilityLabel: "Probabilité",
+    kpExplanation: "L'indice Kp (0-9) mesure l'activité géomagnétique. Des valeurs plus élevées signifient des aurores plus fortes. Kp 3+ est bon pour Levi, Kp 5+ offre des spectacles spectaculaires.",
+    levels: {
+      veryHigh: { probability: "Très élevée", description: "Activité aurorale exceptionnelle ! Meilleures conditions." },
+      high: { probability: "Élevée", description: "Forte activité aurorale. Excellentes chances de voir des aurores !" },
+      moderate: { probability: "Modérée", description: "Bonne activité. Ciel dégagé recommandé." },
+      lowModerate: { probability: "Faible-modérée", description: "Aurores possibles à l'horizon." },
+      low: { probability: "Faible", description: "Activité faible. Surveillez par ciel dégagé." },
+      veryLow: { probability: "Très faible", description: "Activité aurorale minimale attendue." },
+    },
+  },
+};
+
 const getAuroraDescription = (kp: number, lang: Language): { probability: string; description: string } => {
-  const isEnglish = lang !== "fi";
-  if (isEnglish) {
-    if (kp >= 7) return { probability: "Very high", description: "Exceptional aurora activity! Best conditions for viewing." };
-    if (kp >= 5) return { probability: "High", description: "Strong aurora activity. Great chances to see northern lights!" };
-    if (kp >= 4) return { probability: "Moderate", description: "Good aurora activity. Clear skies recommended." };
-    if (kp >= 3) return { probability: "Low-moderate", description: "Some aurora activity possible on the horizon." };
-    if (kp >= 2) return { probability: "Low", description: "Weak activity. Keep watching if skies are clear." };
-    return { probability: "Very low", description: "Minimal aurora activity expected tonight." };
-  } else {
-    if (kp >= 7) return { probability: "Erittäin korkea", description: "Poikkeuksellinen revontuliaktiivisuus! Parhaat olosuhteet." };
-    if (kp >= 5) return { probability: "Korkea", description: "Voimakas revontuliaktiivisuus. Erinomaiset näkymät!" };
-    if (kp >= 4) return { probability: "Kohtalainen", description: "Hyvä aktiivisuus. Selkeä sää suositeltava." };
-    if (kp >= 3) return { probability: "Matala-kohtalainen", description: "Revontulia mahdollisesti horisontissa." };
-    if (kp >= 2) return { probability: "Matala", description: "Heikko aktiivisuus. Seuraa selkeällä säällä." };
-    return { probability: "Erittäin matala", description: "Vähäistä revontuliaktiivisuutta odotettavissa." };
-  }
+  const levels = content[lang].levels;
+  if (kp >= 7) return levels.veryHigh;
+  if (kp >= 5) return levels.high;
+  if (kp >= 4) return levels.moderate;
+  if (kp >= 3) return levels.lowModerate;
+  if (kp >= 2) return levels.low;
+  return levels.veryLow;
 };
 
 const getKpColor = (kp: number): string => {
@@ -43,6 +134,7 @@ const getKpColor = (kp: number): string => {
 const AuroraForecast = ({ lang = "fi" }: AuroraForecastProps) => {
   const [aurora, setAurora] = useState<AuroraData | null>(null);
   const [loading, setLoading] = useState(true);
+  const t = content[lang];
 
   useEffect(() => {
     const fetchAuroraData = async () => {
@@ -100,13 +192,6 @@ const AuroraForecast = ({ lang = "fi" }: AuroraForecastProps) => {
 
   if (!aurora) return null;
 
-  const title = lang === "en" ? "Aurora Forecast Today" : "Revontuliennuste tänään";
-  const kpLabel = lang === "en" ? "Kp Index" : "Kp-indeksi";
-  const probabilityLabel = lang === "en" ? "Probability" : "Todennäköisyys";
-  const kpExplanation = lang === "en" 
-    ? "The Kp index (0-9) measures geomagnetic activity. Higher values mean stronger aurora. Kp 3+ is good for Levi, Kp 5+ brings spectacular displays." 
-    : "Kp-indeksi (0-9) mittaa geomagneettista aktiivisuutta. Korkeampi arvo tarkoittaa voimakkaampia revontulia. Kp 3+ on hyvä Leville, Kp 5+ tuo upeat näytökset.";
-
   return (
     <Card className="glass-card border-border/30 overflow-hidden relative">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-green-500/10 pointer-events-none" />
@@ -115,14 +200,14 @@ const AuroraForecast = ({ lang = "fi" }: AuroraForecastProps) => {
           <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
             <Sparkles className="w-5 h-5 text-purple-400" />
           </div>
-          <CardTitle className="text-lg">{title}</CardTitle>
+          <CardTitle className="text-lg">{t.title}</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Activity className="w-4 h-4 text-muted-foreground" />
-            <span className="text-sm text-muted-foreground">{kpLabel}</span>
+            <span className="text-sm text-muted-foreground">{t.kpLabel}</span>
           </div>
           <span className={`text-2xl font-bold ${getKpColor(aurora.kpIndex)}`}>
             {aurora.kpIndex}
@@ -130,7 +215,7 @@ const AuroraForecast = ({ lang = "fi" }: AuroraForecastProps) => {
         </div>
         
         <div className="flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">{probabilityLabel}</span>
+          <span className="text-sm text-muted-foreground">{t.probabilityLabel}</span>
           <span className={`font-semibold ${getKpColor(aurora.kpIndex)}`}>
             {aurora.probability}
           </span>
@@ -142,7 +227,7 @@ const AuroraForecast = ({ lang = "fi" }: AuroraForecastProps) => {
 
         {/* Kp explanation */}
         <p className="text-xs text-muted-foreground/70 italic">
-          {kpExplanation}
+          {t.kpExplanation}
         </p>
 
         {/* Kp scale visualization */}
