@@ -46,13 +46,103 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     caption: item.caption,
   }));
 
-  const isEnglish = lang === "en";
+  // Multilingual UI content
+  const content: Record<Language, {
+    quizTitle: string;
+    quizDesc: string;
+    quizButton: string;
+    christmasTitle: string;
+    christmasDesc: string;
+    christmasButton: string;
+    liveCamera: string;
+    liveCameraDesc: string;
+  }> = {
+    fi: {
+      quizTitle: "Testaa Levi-tietämyksesi!",
+      quizDesc: "Pelaa hauska tietovisa Suomen suosituimmasta hiihtokeskuksesta.",
+      quizButton: "Aloita visa",
+      christmasTitle: "Joulu Lapissa",
+      christmasDesc: "Koe taianomainen joulu joulupukin kotimaassa.",
+      christmasButton: "Lue lisää",
+      liveCamera: "Levin live-kamera",
+      liveCameraDesc: "Suora näkymä Levin hiihtokeskuksesta – näe rinteiden tilanne reaaliajassa"
+    },
+    en: {
+      quizTitle: "Test Your Levi Knowledge!",
+      quizDesc: "Take our fun quiz about Finland's favorite ski resort.",
+      quizButton: "Start Quiz",
+      christmasTitle: "Christmas in Lapland",
+      christmasDesc: "Experience a magical Christmas in the home of Santa Claus.",
+      christmasButton: "Read more",
+      liveCamera: "Levi Live Camera",
+      liveCameraDesc: "Live view from Levi ski resort – see the current conditions on the slopes"
+    },
+    sv: {
+      quizTitle: "Testa din Levi-kunskap!",
+      quizDesc: "Spela ett roligt quiz om Finlands populäraste skidort.",
+      quizButton: "Starta quiz",
+      christmasTitle: "Jul i Lappland",
+      christmasDesc: "Upplev en magisk jul i jultomtens hemland.",
+      christmasButton: "Läs mer",
+      liveCamera: "Levi livekamera",
+      liveCameraDesc: "Direktsändning från Levi skidort – se aktuella förhållanden på backarna"
+    },
+    de: {
+      quizTitle: "Teste dein Levi-Wissen!",
+      quizDesc: "Spiele unser lustiges Quiz über Finnlands beliebtestes Skigebiet.",
+      quizButton: "Quiz starten",
+      christmasTitle: "Weihnachten in Lappland",
+      christmasDesc: "Erlebe ein magisches Weihnachten in der Heimat des Weihnachtsmanns.",
+      christmasButton: "Mehr lesen",
+      liveCamera: "Levi Live-Kamera",
+      liveCameraDesc: "Live-Blick aus dem Skigebiet Levi – sieh die aktuellen Bedingungen auf den Pisten"
+    },
+    es: {
+      quizTitle: "¡Pon a prueba tus conocimientos sobre Levi!",
+      quizDesc: "Juega nuestro divertido quiz sobre la estación de esquí más popular de Finlandia.",
+      quizButton: "Comenzar quiz",
+      christmasTitle: "Navidad en Laponia",
+      christmasDesc: "Vive una Navidad mágica en el hogar de Papá Noel.",
+      christmasButton: "Leer más",
+      liveCamera: "Cámara en vivo de Levi",
+      liveCameraDesc: "Vista en directo desde la estación de esquí de Levi – ve las condiciones actuales en las pistas"
+    },
+    fr: {
+      quizTitle: "Testez vos connaissances sur Levi !",
+      quizDesc: "Jouez à notre quiz amusant sur la station de ski la plus populaire de Finlande.",
+      quizButton: "Commencer le quiz",
+      christmasTitle: "Noël en Laponie",
+      christmasDesc: "Vivez un Noël magique dans le pays du Père Noël.",
+      christmasButton: "En savoir plus",
+      liveCamera: "Caméra en direct de Levi",
+      liveCameraDesc: "Vue en direct de la station de ski de Levi – voyez les conditions actuelles sur les pistes"
+    }
+  };
+
+  const localeMap: Record<Language, string> = {
+    fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR"
+  };
+
+  const quizLinks: Record<Language, string> = {
+    fi: "/tietovisa", en: "/en/quiz", sv: "/sv/quiz", de: "/de/quiz", es: "/es/quiz", fr: "/fr/quiz"
+  };
+
+  const christmasLinks: Record<Language, string> = {
+    fi: "/levi/joulu-lapissa",
+    en: "/en/levi/christmas-in-lapland",
+    sv: "/sv/levi/jul-i-lappland",
+    de: "/de/levi/weihnachten-in-lappland",
+    es: "/es/levi/navidad-en-laponia",
+    fr: "/fr/levi/noel-en-laponie"
+  };
+
+  const c = content[lang];
 
   return (
     <>
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
-        <html lang={isEnglish ? "en" : "fi"} />
+        <html lang={lang} />
         <title>{t.meta.title}</title>
         <meta name="description" content={t.meta.description} />
         <meta name="keywords" content={t.meta.keywords} />
@@ -63,7 +153,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={isEnglish ? "en_US" : "fi_FI"} />
+        <meta property="og:locale" content={localeMap[lang]} />
         <meta property="og:site_name" content="Leville.net" />
         
         {/* Twitter Card */}
@@ -99,17 +189,15 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                     </div>
                     <div>
                       <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
-                        {lang === "en" ? "Test Your Levi Knowledge!" : "Testaa Levi-tietämyksesi!"}
+                        {c.quizTitle}
                       </h2>
                       <p className="text-sm text-muted-foreground">
-                        {lang === "en" 
-                          ? "Take our fun quiz about Finland's favorite ski resort."
-                          : "Pelaa hauska tietovisa Suomen suosituimmasta hiihtokeskuksesta."}
+                        {c.quizDesc}
                       </p>
                     </div>
                     <Button asChild size="default" className="text-sm">
-                      <Link to={lang === "en" ? "/en/quiz" : "/tietovisa"}>
-                        {lang === "en" ? "Start Quiz" : "Aloita visa"}
+                      <Link to={quizLinks[lang]}>
+                        {c.quizButton}
                       </Link>
                     </Button>
                   </div>
@@ -133,17 +221,15 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                     </div>
                     <div>
                       <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
-                        {lang === "en" ? "Christmas in Lapland" : "Joulu Lapissa"}
+                        {c.christmasTitle}
                       </h2>
                       <p className="text-sm text-muted-foreground">
-                        {lang === "en" 
-                          ? "Experience a magical Christmas in the home of Santa Claus."
-                          : "Koe taianomainen joulu joulupukin kotimaassa."}
+                        {c.christmasDesc}
                       </p>
                     </div>
                     <Button asChild size="default" className="text-sm bg-red-600 hover:bg-red-700 text-white border-0">
-                      <Link to={lang === "en" ? "/en/levi/christmas-in-lapland" : "/levi/joulu-lapissa"}>
-                        {lang === "en" ? "Read more" : "Lue lisää"}
+                      <Link to={christmasLinks[lang]}>
+                        {c.christmasButton}
                       </Link>
                     </Button>
                   </div>
@@ -240,7 +326,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                       <Video className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                       <span className="absolute -top-1 -right-1 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-red-500 rounded-full animate-pulse" />
                     </div>
-                    <CardTitle className="text-base sm:text-lg">{lang === "en" ? "Levi Live Camera" : "Levin live-kamera"}</CardTitle>
+                    <CardTitle className="text-base sm:text-lg">{c.liveCamera}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -254,9 +340,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                     />
                   </div>
                   <p className="text-xs sm:text-sm text-muted-foreground p-3 sm:p-4 text-center">
-                    {lang === "en" 
-                      ? "Live view from Levi ski resort – see the current conditions on the slopes" 
-                      : "Suora näkymä Levin hiihtokeskuksesta – näe rinteiden tilanne reaaliajassa"}
+                    {c.liveCameraDesc}
                   </p>
                 </CardContent>
               </Card>

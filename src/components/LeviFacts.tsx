@@ -6,8 +6,7 @@ interface Fact {
   icon: React.ReactNode;
   value: number;
   suffix: string;
-  labelFi: string;
-  labelEn: string;
+  label: Record<Language, string>;
   isSpecial?: boolean;
 }
 
@@ -16,36 +15,66 @@ const skiResortFacts: Fact[] = [
     icon: <Mountain className="w-6 h-6" />,
     value: 531,
     suffix: " m",
-    labelFi: "Tunturin korkeus",
-    labelEn: "Fell height"
+    label: {
+      fi: "Tunturin korkeus",
+      en: "Fell height",
+      sv: "Fjällets höjd",
+      de: "Fjellhöhe",
+      es: "Altura del monte",
+      fr: "Hauteur du fjell"
+    }
   },
   {
     icon: <Route className="w-6 h-6" />,
     value: 43,
     suffix: "",
-    labelFi: "Laskettelurinnettä",
-    labelEn: "Ski slopes"
+    label: {
+      fi: "Laskettelurinnettä",
+      en: "Ski slopes",
+      sv: "Skidbackar",
+      de: "Skipisten",
+      es: "Pistas de esquí",
+      fr: "Pistes de ski"
+    }
   },
   {
     icon: <Cable className="w-6 h-6" />,
     value: 28,
     suffix: "",
-    labelFi: "Hissiä",
-    labelEn: "Ski lifts"
+    label: {
+      fi: "Hissiä",
+      en: "Ski lifts",
+      sv: "Skidliftar",
+      de: "Skilifte",
+      es: "Remontes",
+      fr: "Remontées"
+    }
   },
   {
     icon: <Snowflake className="w-6 h-6" />,
     value: 230,
     suffix: " km",
-    labelFi: "Hiihtolatuja",
-    labelEn: "Cross-country trails"
+    label: {
+      fi: "Hiihtolatuja",
+      en: "Cross-country trails",
+      sv: "Längdskidspår",
+      de: "Langlaufloipen",
+      es: "Pistas de esquí de fondo",
+      fr: "Pistes de ski de fond"
+    }
   },
   {
     icon: <Timer className="w-6 h-6" />,
     value: 200,
     suffix: "+",
-    labelFi: "Laskettelupäivää/kausi",
-    labelEn: "Skiing days/season"
+    label: {
+      fi: "Laskettelupäivää/kausi",
+      en: "Skiing days/season",
+      sv: "Skiddagar/säsong",
+      de: "Skitage/Saison",
+      es: "Días de esquí/temporada",
+      fr: "Jours de ski/saison"
+    }
   }
 ];
 
@@ -54,46 +83,104 @@ const interestingFacts: Fact[] = [
     icon: <Snowflake className="w-6 h-6" />,
     value: 200,
     suffix: "",
-    labelFi: "Lumipäivää vuodessa",
-    labelEn: "Snow days per year"
+    label: {
+      fi: "Lumipäivää vuodessa",
+      en: "Snow days per year",
+      sv: "Snödagar per år",
+      de: "Schneetage pro Jahr",
+      es: "Días de nieve al año",
+      fr: "Jours de neige par an"
+    }
   },
   {
     icon: <Sparkles className="w-6 h-6" />,
     value: 200,
     suffix: "",
-    labelFi: "Revontuliyötä vuodessa",
-    labelEn: "Northern Lights nights/year"
+    label: {
+      fi: "Revontuliyötä vuodessa",
+      en: "Northern Lights nights/year",
+      sv: "Norrskensnätter/år",
+      de: "Polarlicht-Nächte/Jahr",
+      es: "Noches de aurora boreal/año",
+      fr: "Nuits d'aurores boréales/an"
+    }
   },
   {
     icon: <Sun className="w-6 h-6" />,
     value: 7,
     suffix: "",
-    labelFi: "Viikkoa yötöntä yötä",
-    labelEn: "Weeks of midnight sun"
+    label: {
+      fi: "Viikkoa yötöntä yötä",
+      en: "Weeks of midnight sun",
+      sv: "Veckor av midnattssol",
+      de: "Wochen Mitternachtssonne",
+      es: "Semanas de sol de medianoche",
+      fr: "Semaines de soleil de minuit"
+    }
   },
   {
     icon: <Plane className="w-6 h-6" />,
     value: 15,
     suffix: " min",
-    labelFi: "Lentokentältä",
-    labelEn: "From the airport"
+    label: {
+      fi: "Lentokentältä",
+      en: "From the airport",
+      sv: "Från flygplatsen",
+      de: "Vom Flughafen",
+      es: "Desde el aeropuerto",
+      fr: "De l'aéroport"
+    }
   },
   {
     icon: <Droplets className="w-6 h-6" />,
     value: 1,
     suffix: "",
-    labelFi: "Euroopan puhtain ilma & vesi",
-    labelEn: "Cleanest air & water in Europe",
+    label: {
+      fi: "Euroopan puhtain ilma & vesi",
+      en: "Cleanest air & water in Europe",
+      sv: "Europas renaste luft & vatten",
+      de: "Sauberste Luft & Wasser Europas",
+      es: "El aire y agua más limpios de Europa",
+      fr: "L'air et l'eau les plus purs d'Europe"
+    },
     isSpecial: true
   }
 ];
+
+// Section titles
+const sectionContent: Record<Language, { title: string; description: string }> = {
+  fi: {
+    title: "Mielenkiintoisia Levi-faktoja",
+    description: "Tutustu siihen, mikä tekee Levistä ainutlaatuisen kohteen Suomen Lapissa."
+  },
+  en: {
+    title: "Interesting Levi Facts",
+    description: "Discover what makes Levi a truly unique destination in Finnish Lapland."
+  },
+  sv: {
+    title: "Intressanta Levi-fakta",
+    description: "Upptäck vad som gör Levi till en unik destination i finska Lappland."
+  },
+  de: {
+    title: "Interessante Levi-Fakten",
+    description: "Entdecken Sie, was Levi zu einem einzigartigen Reiseziel in Finnisch-Lappland macht."
+  },
+  es: {
+    title: "Datos interesantes sobre Levi",
+    description: "Descubre qué hace de Levi un destino único en la Laponia finlandesa."
+  },
+  fr: {
+    title: "Faits intéressants sur Levi",
+    description: "Découvrez ce qui fait de Levi une destination unique en Laponie finlandaise."
+  }
+};
 
 interface LeviFactsProps {
   lang?: Language;
 }
 
 const LeviFacts = ({ lang = "fi" }: LeviFactsProps) => {
-  const isEnglish = lang === "en";
+  const section = sectionContent[lang];
 
   const renderFactCard = (fact: Fact, index: number) => (
     <div 
@@ -115,7 +202,7 @@ const LeviFacts = ({ lang = "fi" }: LeviFactsProps) => {
         )}
       </div>
       <p className="text-sm text-muted-foreground">
-        {isEnglish ? fact.labelEn : fact.labelFi}
+        {fact.label[lang]}
       </p>
     </div>
   );
@@ -133,12 +220,10 @@ const LeviFacts = ({ lang = "fi" }: LeviFactsProps) => {
       <section className="mb-20">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            {isEnglish ? "Interesting Levi Facts" : "Mielenkiintoisia Levi-faktoja"}
+            {section.title}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {isEnglish 
-              ? "Discover what makes Levi a truly unique destination in Finnish Lapland."
-              : "Tutustu siihen, mikä tekee Levistä ainutlaatuisen kohteen Suomen Lapissa."}
+            {section.description}
           </p>
         </div>
 
