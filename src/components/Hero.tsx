@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { ArrowRight, Tag } from "lucide-react";
+import { ArrowRight, ArrowDown, Tag } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import BookingWidget from "./BookingWidget";
 import { getTranslations, Language } from "@/translations";
 import heroCabin from "@/assets/hero-cabin.jpg";
@@ -181,6 +182,26 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             {t.subtitle}
           </p>
 
+          {/* Primary CTA - scrolls to booking widget */}
+          <div
+            className="animate-slide-up mb-6"
+            style={{ animationDelay: '0.3s' }}
+          >
+            <Button
+              size="lg"
+              onClick={() => {
+                const widget = document.getElementById("booking-widget");
+                if (widget) {
+                  widget.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+              }}
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold shadow-lg"
+            >
+              {t.bookingCta}
+              <ArrowDown className="w-5 h-5 ml-2" />
+            </Button>
+          </div>
+
           {/* Discount code banner - above booking widget */}
           {(() => {
             const discountText: Record<Language, { prefix: string; suffix: string; href: string }> = {
@@ -195,8 +216,8 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             return (
               <a 
                 href={discount.href}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/20 to-aurora-green/20 backdrop-blur-sm border border-primary/40 rounded-full px-4 py-2 mb-4 animate-fade-in hover:border-primary/60 transition-colors group"
-                style={{ animationDelay: '0.35s' }}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/20 to-aurora-green/20 backdrop-blur-sm border border-primary/40 rounded-full px-4 py-2 mb-6 animate-fade-in hover:border-primary/60 transition-colors group"
+                style={{ animationDelay: '0.4s' }}
               >
                 <Tag className="w-4 h-4 text-primary" />
                 <span className="text-sm font-semibold text-foreground">
@@ -207,10 +228,19 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             );
           })()}
 
+          {/* Instructional text above booking widget */}
+          <p
+            className="text-sm text-foreground/70 mb-4 animate-fade-in"
+            style={{ animationDelay: '0.45s' }}
+          >
+            {t.bookingInstruction}
+          </p>
+
           {/* Booking Widget - high z-index to ensure dropdowns appear on top */}
           <div 
+            id="booking-widget"
             className="animate-slide-up relative z-[9990]" 
-            style={{ animationDelay: '0.4s', overflow: 'visible', isolation: 'isolate' }}
+            style={{ animationDelay: '0.5s', overflow: 'visible', isolation: 'isolate' }}
           >
             <BookingWidget lang={lang} />
           </div>

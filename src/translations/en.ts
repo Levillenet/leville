@@ -3,10 +3,12 @@ export const en = {
     title: "Welcome to",
     titleHighlight: "Levi",
     subtitle: "Stay comfortably in Levi center – modern apartments and cozy cabins in the best locations",
+    bookingCta: "Check availability and prices",
+    bookingInstruction: "Select your travel dates to see available apartments.",
     trustIndicators: [
       "Best locations in center",
       "Book directly from us",
-      "Personal service"
+      "Fully equipped apartments"
     ]
   },
   about: {

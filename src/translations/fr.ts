@@ -3,10 +3,12 @@ export const fr = {
     title: "Bienvenue à",
     titleHighlight: "Levi",
     subtitle: "Séjournez confortablement au centre de Levi – appartements modernes et chalets chaleureux aux meilleurs emplacements",
+    bookingCta: "Voir disponibilité et prix",
+    bookingInstruction: "Sélectionnez vos dates de voyage pour voir les appartements disponibles.",
     trustIndicators: [
       "Meilleurs emplacements au centre",
       "Réservez directement chez nous",
-      "Service personnalisé"
+      "Appartements entièrement équipés"
     ]
   },
   about: {
