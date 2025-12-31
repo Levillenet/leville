@@ -107,10 +107,23 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
       return base.toString();
     };
 
-    // Intercept ALL clicks in the widget - handles links + submit buttons
+    // Intercept clicks for links and submit buttons only - allow widget controls to work
     const onClickCapture = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
+
+      // Allow guest selector, date picker, and other widget controls to work normally
+      const isWidgetControl = target.closest(
+        '[class*="guest"], [class*="person"], [class*="stepper"], ' +
+        '[class*="counter"], [class*="increment"], [class*="decrement"], ' +
+        '[class*="dropdown"], [class*="select"], [class*="picker"], ' +
+        '[class*="calendar"], [class*="date"], [class*="input"]'
+      );
+      
+      // Don't intercept widget control interactions
+      if (isWidgetControl) {
+        return;
+      }
 
       // 1) Anchor links: always open in a new tab
       const anchor = target.closest("a[href]") as HTMLAnchorElement | null;

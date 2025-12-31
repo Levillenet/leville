@@ -388,3 +388,33 @@
 #moder-embed [class*="modal"] {
   z-index: 60;
 }
+
+/* Mobile widget controls - ensure touch targets work */
+@media (max-width: 768px) {
+  #moder-embed [class*="guest"],
+  #moder-embed [class*="person"],
+  #moder-embed [class*="counter"],
+  #moder-embed [class*="stepper"],
+  #moder-embed [class*="dropdown"],
+  #moder-embed [class*="select"] {
+    z-index: 70 !important;
+    position: relative;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+  }
+  
+  /* Larger touch targets for +/- buttons on mobile */
+  #moder-embed button,
+  #moder-embed [role="button"],
+  #moder-embed [class*="increment"],
+  #moder-embed [class*="decrement"] {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+  }
+  
+  /* Prevent any touch interference */
+  #moder-embed * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
