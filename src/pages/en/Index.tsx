@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Features from "@/components/Features";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import MobileBookingCta from "@/components/MobileBookingCta";
 
 const IndexEN = () => {
   const schemaData = {
@@ -70,6 +71,7 @@ const IndexEN = () => {
         </main>
         <Footer lang="en" />
         <WhatsAppChat lang="en" />
+        <MobileBookingCta lang="en" />
       </div>
     </>
   );

@@ -3,10 +3,12 @@ export const sv = {
     title: "Välkommen till",
     titleHighlight: "Levi",
     subtitle: "Bo bekvämt i Levi centrum – moderna lägenheter och mysiga stugor på bästa lägen",
+    bookingCta: "Se tillgänglighet och priser",
+    bookingInstruction: "Välj resedatum för att se lediga lägenheter.",
     trustIndicators: [
       "Bästa lägen i centrum",
       "Boka direkt från oss",
-      "Personlig service"
+      "Fullt utrustade lägenheter"
     ]
   },
   about: {

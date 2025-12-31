@@ -3,10 +3,12 @@ export const fi = {
     title: "Tervetuloa",
     titleHighlight: "Leville",
     subtitle: "Majoitu leppoisasti Levin keskustassa – modernit huoneistot ja tunnelmalliset mökit parhailla paikoilla",
+    bookingCta: "Katso saatavuus ja hinnat",
+    bookingInstruction: "Valitse matkustuspäivät nähdäksesi vapaat huoneistot.",
     trustIndicators: [
       "Keskustan parhaat sijainnit",
       "Suora varaus ilman välikäsiä",
-      "Henkilökohtainen palvelu"
+      "Täysin varustetut huoneistot"
     ]
   },
   about: {
