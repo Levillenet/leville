@@ -375,14 +375,19 @@
   }
 }
 
-/* Moder booking widget - very high z-index to ensure dropdowns appear on top of everything */
+/* Moder booking widget - ensure widget receives all pointer events */
 #moder-embed {
   position: relative;
   z-index: 9990;
   isolation: isolate;
 }
 
-/* Widget dropdowns, calendars, popups - high z-index without breaking layout */
+/* All widget elements receive pointer events normally */
+#moder-embed * {
+  pointer-events: auto;
+}
+
+/* Widget dropdowns, calendars, popups - high z-index */
 #moder-embed iframe,
 #moder-embed [class*="calendar"],
 #moder-embed [class*="dropdown"],
@@ -398,33 +403,38 @@
   z-index: 9999 !important;
 }
 
-/* Mobile widget controls - ensure touch targets work */
+/* Fix persons/guests section - prevent it from blocking other elements */
+#moder-embed [id*="persons-section"],
+#moder-embed [class*="persons-section"] {
+  pointer-events: none;
+}
+
+/* Interactive elements within persons section receive events */
+#moder-embed [id*="persons-section"] button,
+#moder-embed [id*="persons-section"] input,
+#moder-embed [id*="persons-section"] select,
+#moder-embed [id*="persons-section"] [role="button"],
+#moder-embed [class*="persons-section"] button,
+#moder-embed [class*="persons-section"] input,
+#moder-embed [class*="persons-section"] select,
+#moder-embed [class*="persons-section"] [role="button"] {
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
+/* Mobile widget controls */
 @media (max-width: 768px) {
-  #moder-embed [class*="guest"],
-  #moder-embed [class*="person"],
-  #moder-embed [class*="counter"],
-  #moder-embed [class*="stepper"],
-  #moder-embed [class*="dropdown"],
-  #moder-embed [class*="select"],
-  #moder-embed [class*="menu"],
-  #moder-embed [class*="list"] {
-    z-index: 9999 !important;
-    position: relative;
-    pointer-events: auto !important;
-    touch-action: manipulation;
-  }
-  
-  /* Larger touch targets for +/- buttons on mobile */
+  /* Larger touch targets */
   #moder-embed button,
   #moder-embed [role="button"],
-  #moder-embed [class*="increment"],
-  #moder-embed [class*="decrement"] {
+  #moder-embed input,
+  #moder-embed select {
     min-height: 44px;
     min-width: 44px;
     touch-action: manipulation;
   }
   
-  /* Prevent any touch interference */
+  /* Prevent tap highlight interference */
   #moder-embed * {
     -webkit-tap-highlight-color: transparent;
   }

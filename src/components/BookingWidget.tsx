@@ -17,9 +17,9 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
       fi: "fi",
       en: "en",
       sv: "sv",
-      de: "en", // German uses English widget
-      es: "en", // Spanish uses English widget
-      fr: "en", // French uses English widget
+      de: "en",
+      es: "en",
+      fr: "en",
     };
     return langMap[language];
   };
@@ -51,27 +51,19 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
     script.defer = true;
     document.body.appendChild(script);
 
-    // Force external navigation to open in a new tab
     const root = containerRef.current;
     if (!root) return;
-
-    const openExternal = (url: string) => {
-      try {
-        const u = new URL(url, window.location.href);
-        window.open(u.toString(), "_blank", "noopener,noreferrer");
-        return true;
-      } catch {
-        return false;
-      }
-    };
 
     // Force all links inside widget to open in new tab
     const forceTargetBlank = () => {
       const links = root.querySelectorAll('a[href]');
       links.forEach((link) => {
         const anchor = link as HTMLAnchorElement;
-        anchor.setAttribute('target', '_blank');
-        anchor.setAttribute('rel', 'noopener noreferrer');
+        const href = anchor.getAttribute("href");
+        if (href && href.trim() !== "" && href !== "#" && !href.startsWith("javascript:")) {
+          anchor.setAttribute('target', '_blank');
+          anchor.setAttribute('rel', 'noopener noreferrer');
+        }
       });
     };
 
@@ -81,13 +73,11 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
     });
     observer.observe(root, { childList: true, subtree: true });
 
-    // Initial check with delays for dynamic content
-    setTimeout(forceTargetBlank, 500);
+    // Initial check with delay for dynamic content
     setTimeout(forceTargetBlank, 1000);
-    setTimeout(forceTargetBlank, 2000);
-    setTimeout(forceTargetBlank, 3000);
 
-    const buildModerUrlFromForm = (form: HTMLFormElement | null) => {
+    // Build URL from form data
+    const buildModerUrlFromForm = (form: HTMLFormElement | null): string => {
       const base = new URL("https://app.moder.fi/property/levillenet");
       const params = new URLSearchParams();
 
@@ -96,140 +86,44 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
         for (const [k, v] of data.entries()) {
           const key = String(k).trim();
           const value = String(v).trim();
-          if (!key || !value) continue;
-          params.set(key, value);
+          if (key && value) {
+            params.set(key, value);
+          }
         }
       }
 
-      // Ensure widget language is respected
       params.set("lang", moderLanguage);
       base.search = params.toString();
       return base.toString();
     };
 
-    // Intercept ONLY external links and submit buttons - everything else works normally
-    const onClickCapture = (e: MouseEvent | TouchEvent) => {
-      const target = e.target as HTMLElement | null;
-      if (!target) return;
-
-      // DEBUG: Log every click/touch event
-      console.log("[BookingWidget] Event captured:", {
-        type: e.type,
-        target: target.tagName,
-        targetClass: target.className,
-        targetText: target.textContent?.substring(0, 50),
-        targetId: target.id,
-      });
-
-      // 1) Check for external links - open in new tab
-      const anchor = target.closest("a[href]") as HTMLAnchorElement | null;
-      if (anchor) {
-        const href = anchor.getAttribute("href");
-        console.log("[BookingWidget] Anchor found:", { href });
-        // Only intercept real external links, not internal widget navigation
-        if (href && href.trim() !== "" && href !== "#" && !href.startsWith("javascript:")) {
-          e.preventDefault();
-          e.stopPropagation();
-          e.stopImmediatePropagation();
-          console.log("[BookingWidget] Opening link in new tab:", href);
-          openExternal(href);
-          return;
-        }
-      }
-
-      // 2) Check for submit buttons - open search in new tab
-      const submitButton = target.closest(
-        "button[type='submit'], input[type='submit'], [type='submit']"
-      ) as HTMLElement | null;
-
-      // Also check for buttons that look like search buttons by text or class
-      const button = target.closest("button") as HTMLButtonElement | null;
-      
-      // DEBUG: Log button detection
-      console.log("[BookingWidget] Button detection:", {
-        submitButton: !!submitButton,
-        button: !!button,
-        buttonText: button?.textContent?.trim(),
-        buttonClass: button?.className,
-        buttonAriaLabel: button?.getAttribute('aria-label'),
-      });
-
-      const isSearchButton = button && (
-        // Check button text content for search keywords (partial match)
-        /\b(hae|search|sök|suchen|find|etsi|buscar|chercher)\b/i.test(button.textContent?.trim() || '') ||
-        // Check class names for search-related patterns
-        /\b(search|submit|cta|action|primary)\b/i.test(button.className || '') ||
-        // Check aria-label
-        /\b(search|hae|sök|suchen)\b/i.test(button.getAttribute('aria-label') || '')
-      );
-
-      // DEBUG: Log search button detection result
-      console.log("[BookingWidget] isSearchButton:", isSearchButton);
-
-      if (submitButton || isSearchButton) {
-        const targetButton = submitButton || button;
-        const form = (targetButton || button)?.closest("form") as HTMLFormElement | null;
-        const action = form?.getAttribute("action") || "";
-
-        console.log("[BookingWidget] Search/Submit detected:", {
-          submitButton: !!submitButton,
-          isSearchButton,
-          form: !!form,
-          action,
-        });
-
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-
-        // Prefer the form action if it already points to Moder, otherwise construct a direct Moder URL
-        const urlToOpen = action.includes("moder")
-          ? (() => {
-              try {
-                const u = new URL(action, window.location.href);
-                // merge form data into query
-                if (form) {
-                  const data = new FormData(form);
-                  for (const [k, v] of data.entries()) {
-                    u.searchParams.set(String(k), String(v));
-                  }
-                }
-                if (!u.searchParams.get("lang")) u.searchParams.set("lang", moderLanguage);
-                return u.toString();
-              } catch {
-                return buildModerUrlFromForm(form);
-              }
-            })()
-          : buildModerUrlFromForm(form);
-
-        console.debug("[BookingWidget] Opening submit in new tab:", urlToOpen);
-        openExternal(urlToOpen);
+    // Open URL in new tab with fallback
+    const openExternal = (url: string) => {
+      const win = window.open(url, "_blank", "noopener,noreferrer");
+      if (!win) {
+        // Fallback if popup blocked
+        window.location.href = url;
       }
     };
 
+    // Intercept ONLY form submissions - let widget handle all other interactions
     const onSubmitCapture = (e: Event) => {
       const form = e.target as HTMLFormElement | null;
       if (!form || form.tagName !== "FORM") return;
 
       e.preventDefault();
       e.stopPropagation();
-      e.stopImmediatePropagation();
 
       const action = form.getAttribute("action") || "";
-      const urlToOpen = action.includes("moder") ? action : buildModerUrlFromForm(form);
-      console.debug("[BookingWidget] Opening form submit in new tab:", urlToOpen);
-      openExternal(urlToOpen);
+      const url = action.includes("moder") ? action : buildModerUrlFromForm(form);
+      openExternal(url);
     };
 
-    root.addEventListener("click", onClickCapture, true);
-    root.addEventListener("touchend", onClickCapture, true);
-    root.addEventListener("submit", onSubmitCapture, true);
+    root.addEventListener("submit", onSubmitCapture, { capture: true });
 
     return () => {
       observer.disconnect();
-      root.removeEventListener("click", onClickCapture, true);
-      root.removeEventListener("touchend", onClickCapture, true);
-      root.removeEventListener("submit", onSubmitCapture, true);
+      root.removeEventListener("submit", onSubmitCapture, { capture: true } as EventListenerOptions);
     };
   }, [moderLanguage, location.pathname]);
 
