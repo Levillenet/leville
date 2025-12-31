@@ -22,16 +22,18 @@ export default function Unsubscribe() {
 
     const unsubscribe = async () => {
       try {
-        const { error } = await supabase
-          .from("aurora_alerts")
-          .update({ is_active: false })
-          .eq("unsubscribe_token", token);
+        const { data, error } = await supabase.functions.invoke("unsubscribe-aurora", {
+          body: { token }
+        });
 
         if (error) {
           console.error("Unsubscribe error:", error);
           setStatus("error");
-        } else {
+        } else if (data?.success) {
           setStatus("success");
+        } else {
+          console.error("Unsubscribe failed:", data?.error);
+          setStatus("error");
         }
       } catch (err) {
         console.error("Unsubscribe error:", err);
