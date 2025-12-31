@@ -108,20 +108,30 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
     };
 
     // Intercept ONLY external links and submit buttons - everything else works normally
-    const onClickCapture = (e: MouseEvent) => {
+    const onClickCapture = (e: MouseEvent | TouchEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
+
+      // DEBUG: Log every click/touch event
+      console.log("[BookingWidget] Event captured:", {
+        type: e.type,
+        target: target.tagName,
+        targetClass: target.className,
+        targetText: target.textContent?.substring(0, 50),
+        targetId: target.id,
+      });
 
       // 1) Check for external links - open in new tab
       const anchor = target.closest("a[href]") as HTMLAnchorElement | null;
       if (anchor) {
         const href = anchor.getAttribute("href");
+        console.log("[BookingWidget] Anchor found:", { href });
         // Only intercept real external links, not internal widget navigation
         if (href && href.trim() !== "" && href !== "#" && !href.startsWith("javascript:")) {
           e.preventDefault();
           e.stopPropagation();
           e.stopImmediatePropagation();
-          console.debug("[BookingWidget] Opening link in new tab:", href);
+          console.log("[BookingWidget] Opening link in new tab:", href);
           openExternal(href);
           return;
         }
@@ -134,6 +144,16 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
 
       // Also check for buttons that look like search buttons by text or class
       const button = target.closest("button") as HTMLButtonElement | null;
+      
+      // DEBUG: Log button detection
+      console.log("[BookingWidget] Button detection:", {
+        submitButton: !!submitButton,
+        button: !!button,
+        buttonText: button?.textContent?.trim(),
+        buttonClass: button?.className,
+        buttonAriaLabel: button?.getAttribute('aria-label'),
+      });
+
       const isSearchButton = button && (
         // Check button text content for search keywords (partial match)
         /\b(hae|search|sök|suchen|find|etsi|buscar|chercher)\b/i.test(button.textContent?.trim() || '') ||
@@ -143,10 +163,20 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
         /\b(search|hae|sök|suchen)\b/i.test(button.getAttribute('aria-label') || '')
       );
 
+      // DEBUG: Log search button detection result
+      console.log("[BookingWidget] isSearchButton:", isSearchButton);
+
       if (submitButton || isSearchButton) {
         const targetButton = submitButton || button;
         const form = (targetButton || button)?.closest("form") as HTMLFormElement | null;
         const action = form?.getAttribute("action") || "";
+
+        console.log("[BookingWidget] Search/Submit detected:", {
+          submitButton: !!submitButton,
+          isSearchButton,
+          form: !!form,
+          action,
+        });
 
         e.preventDefault();
         e.stopPropagation();
