@@ -135,8 +135,8 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
       // Also check for buttons that look like search buttons by text or class
       const button = target.closest("button") as HTMLButtonElement | null;
       const isSearchButton = button && (
-        // Check button text content for search keywords (case insensitive)
-        /^(hae|search|sök|suchen|find|etsi|buscar|chercher)$/i.test(button.textContent?.trim() || '') ||
+        // Check button text content for search keywords (partial match)
+        /\b(hae|search|sök|suchen|find|etsi|buscar|chercher)\b/i.test(button.textContent?.trim() || '') ||
         // Check class names for search-related patterns
         /\b(search|submit|cta|action|primary)\b/i.test(button.className || '') ||
         // Check aria-label
@@ -145,7 +145,7 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
 
       if (submitButton || isSearchButton) {
         const targetButton = submitButton || button;
-        const form = submitButton.closest("form") as HTMLFormElement | null;
+        const form = (targetButton || button)?.closest("form") as HTMLFormElement | null;
         const action = form?.getAttribute("action") || "";
 
         e.preventDefault();
@@ -192,11 +192,13 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
     };
 
     root.addEventListener("click", onClickCapture, true);
+    root.addEventListener("touchend", onClickCapture, true);
     root.addEventListener("submit", onSubmitCapture, true);
 
     return () => {
       observer.disconnect();
       root.removeEventListener("click", onClickCapture, true);
+      root.removeEventListener("touchend", onClickCapture, true);
       root.removeEventListener("submit", onSubmitCapture, true);
     };
   }, [moderLanguage, location.pathname]);
