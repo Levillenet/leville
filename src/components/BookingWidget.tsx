@@ -132,7 +132,19 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
         "button[type='submit'], input[type='submit'], [type='submit']"
       ) as HTMLElement | null;
 
-      if (submitButton) {
+      // Also check for buttons that look like search buttons by text or class
+      const button = target.closest("button") as HTMLButtonElement | null;
+      const isSearchButton = button && (
+        // Check button text content for search keywords (case insensitive)
+        /^(hae|search|sök|suchen|find|etsi|buscar|chercher)$/i.test(button.textContent?.trim() || '') ||
+        // Check class names for search-related patterns
+        /\b(search|submit|cta|action|primary)\b/i.test(button.className || '') ||
+        // Check aria-label
+        /\b(search|hae|sök|suchen)\b/i.test(button.getAttribute('aria-label') || '')
+      );
+
+      if (submitButton || isSearchButton) {
+        const targetButton = submitButton || button;
         const form = submitButton.closest("form") as HTMLFormElement | null;
         const action = form?.getAttribute("action") || "";
 
