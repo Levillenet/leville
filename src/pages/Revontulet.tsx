@@ -309,18 +309,20 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
               </section>
             </ScrollReveal>
 
-            {/* Intro + Forecast */}
-            <section className="grid md:grid-cols-3 gap-8 mb-16">
-              <ScrollReveal className="md:col-span-2">
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {t.intro}
-                </p>
+            {/* Intro */}
+            <ScrollReveal>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-4xl mx-auto text-center">
+                {t.intro}
+              </p>
+            </ScrollReveal>
+
+            {/* Forecast + Alert side by side */}
+            <section className="grid md:grid-cols-2 gap-6 mb-16">
+              <ScrollReveal>
+                <AuroraForecast lang={lang} />
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
-                <div className="space-y-6">
-                  <AuroraForecast lang={lang} />
-                  <AuroraAlertSubscribe lang={lang} />
-                </div>
+                <AuroraAlertSubscribe lang={lang} />
               </ScrollReveal>
             </section>
 
