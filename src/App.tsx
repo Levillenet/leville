@@ -22,6 +22,7 @@ import Tietovisa from "./pages/Tietovisa";
 import Akkilahdot from "./pages/Akkilahdot";
 import Admin from "./pages/Admin";
 import Asiakaspalvelu from "./pages/Asiakaspalvelu";
+import Unsubscribe from "./pages/Unsubscribe";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -119,6 +120,9 @@ const App = () => (
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
               <Route path="/asiakaspalvelu" element={<Asiakaspalvelu />} />
+              
+              {/* Utility routes */}
+              <Route path="/unsubscribe" element={<Unsubscribe />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

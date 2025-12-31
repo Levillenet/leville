@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      aurora_alerts: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          is_active: boolean | null
+          language: string | null
+          last_alert_sent: string | null
+          unsubscribe_token: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          is_active?: boolean | null
+          language?: string | null
+          last_alert_sent?: string | null
+          unsubscribe_token?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          is_active?: boolean | null
+          language?: string | null
+          last_alert_sent?: string | null
+          unsubscribe_token?: string | null
+        }
+        Relationships: []
+      }
       download_logs: {
         Row: {
           document_type: string

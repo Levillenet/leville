@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Sparkles, MapPin, Clock, Eye, Home, ExternalLink, Smartphone, Video } from "lucide-react";
 import AuroraForecast from "@/components/AuroraForecast";
+import { AuroraAlertSubscribe } from "@/components/AuroraAlertSubscribe";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { Language } from "@/translations";
@@ -316,7 +317,10 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
                 </p>
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
-                <AuroraForecast lang={lang} />
+                <div className="space-y-6">
+                  <AuroraForecast lang={lang} />
+                  <AuroraAlertSubscribe lang={lang} />
+                </div>
               </ScrollReveal>
             </section>
 
