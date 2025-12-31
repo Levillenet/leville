@@ -107,29 +107,17 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
       return base.toString();
     };
 
-    // Intercept clicks for links and submit buttons only - allow widget controls to work
+    // Intercept ONLY external links and submit buttons - everything else works normally
     const onClickCapture = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
 
-      // Allow guest selector, date picker, and other widget controls to work normally
-      const isWidgetControl = target.closest(
-        '[class*="guest"], [class*="person"], [class*="stepper"], ' +
-        '[class*="counter"], [class*="increment"], [class*="decrement"], ' +
-        '[class*="dropdown"], [class*="select"], [class*="picker"], ' +
-        '[class*="calendar"], [class*="date"], [class*="input"]'
-      );
-      
-      // Don't intercept widget control interactions
-      if (isWidgetControl) {
-        return;
-      }
-
-      // 1) Anchor links: always open in a new tab
+      // 1) Check for external links - open in new tab
       const anchor = target.closest("a[href]") as HTMLAnchorElement | null;
       if (anchor) {
         const href = anchor.getAttribute("href");
-        if (href && href.trim() !== "" && href !== "#") {
+        // Only intercept real external links, not internal widget navigation
+        if (href && href.trim() !== "" && href !== "#" && !href.startsWith("javascript:")) {
           e.preventDefault();
           e.stopPropagation();
           e.stopImmediatePropagation();
@@ -139,7 +127,7 @@ const BookingWidget = ({ lang }: BookingWidgetProps) => {
         }
       }
 
-      // 2) Submit buttons: widget search is typically a submit
+      // 2) Check for submit buttons - open search in new tab
       const submitButton = target.closest(
         "button[type='submit'], input[type='submit'], [type='submit']"
       ) as HTMLElement | null;

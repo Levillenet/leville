@@ -382,7 +382,7 @@
   isolation: isolate;
 }
 
-/* Widget dropdowns, calendars, popups - maximum z-index */
+/* Widget dropdowns, calendars, popups - high z-index without breaking layout */
 #moder-embed iframe,
 #moder-embed [class*="calendar"],
 #moder-embed [class*="dropdown"],
@@ -395,7 +395,6 @@
 #moder-embed [class*="list"],
 #moder-embed [class*="options"],
 #moder-embed [class*="select"] {
-  position: relative;
   z-index: 9999 !important;
 }
 
