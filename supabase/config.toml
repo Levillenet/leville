@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.send-aurora-confirmation]
 verify_jwt = false
+
+[functions.unsubscribe-aurora]
+verify_jwt = false
