@@ -312,14 +312,23 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Send emails to all eligible subscribers
+    // Send emails to all eligible subscribers with rate limiting
     let sentCount = 0;
     const errors: string[] = [];
 
-    for (const subscriber of subscribers) {
+    // Helper function to add delay between emails (Resend rate limit: 2/sec)
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    for (let i = 0; i < subscribers.length; i++) {
+      const subscriber = subscribers[i];
       const lang = (subscriber.language as Language) || "fi";
       const content = emailContent[lang] || emailContent.fi;
       
+      // Add delay between emails to avoid rate limiting (600ms between each)
+      if (i > 0) {
+        await delay(600);
+      }
+
       try {
         const emailHtml = createEmailHtml(lang, peakKp, subscriber.unsubscribe_token);
         
