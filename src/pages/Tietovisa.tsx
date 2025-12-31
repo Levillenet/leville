@@ -40,7 +40,51 @@ const Tietovisa = ({ lang = "fi" }: TietovisaProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const isEnglish = lang === "en";
+  // Multilingual meta content
+  const meta: Record<Language, { title: string; description: string; keywords: string; canonical: string }> = {
+    fi: {
+      title: "Levi-tietovisa - Testaa tietämyksesi | Leville.net",
+      description: "Testaa Levi-tietämyksesi hauskalla tietovisalla! 10 kysymystä Suomen suosituimmasta hiihtokeskuksesta.",
+      keywords: "Levi tietovisa, Levi visa, hiihtokeskus tietovisa, Lappi tietovisa",
+      canonical: "https://www.leville.net/tietovisa"
+    },
+    en: {
+      title: "Levi Quiz - Test Your Knowledge | Leville.net",
+      description: "Test your knowledge about Levi ski resort with our fun quiz! 10 questions about Finland's most popular skiing destination.",
+      keywords: "Levi quiz, Levi trivia, Finland ski resort quiz, Lapland quiz",
+      canonical: "https://www.leville.net/en/quiz"
+    },
+    sv: {
+      title: "Levi Quiz - Testa dina kunskaper | Leville.net",
+      description: "Testa dina kunskaper om Levi skidort med vårt roliga quiz! 10 frågor om Finlands mest populära skidort.",
+      keywords: "Levi quiz, Levi frågesport, Finland skidort quiz, Lappland quiz",
+      canonical: "https://www.leville.net/sv/quiz"
+    },
+    de: {
+      title: "Levi Quiz - Teste dein Wissen | Leville.net",
+      description: "Teste dein Wissen über das Skigebiet Levi mit unserem lustigen Quiz! 10 Fragen über Finnlands beliebtestes Skigebiet.",
+      keywords: "Levi Quiz, Levi Trivia, Finnland Skigebiet Quiz, Lappland Quiz",
+      canonical: "https://www.leville.net/de/quiz"
+    },
+    es: {
+      title: "Quiz de Levi - Pon a prueba tus conocimientos | Leville.net",
+      description: "¡Pon a prueba tus conocimientos sobre la estación de esquí de Levi con nuestro divertido quiz! 10 preguntas sobre el destino de esquí más popular de Finlandia.",
+      keywords: "Levi quiz, Levi trivia, Finlandia estación esquí quiz, Laponia quiz",
+      canonical: "https://www.leville.net/es/quiz"
+    },
+    fr: {
+      title: "Quiz Levi - Testez vos connaissances | Leville.net",
+      description: "Testez vos connaissances sur la station de ski de Levi avec notre quiz amusant ! 10 questions sur la destination de ski la plus populaire de Finlande.",
+      keywords: "Levi quiz, Levi trivia, Finlande station ski quiz, Laponie quiz",
+      canonical: "https://www.leville.net/fr/quiz"
+    }
+  };
+
+  const localeMap: Record<Language, string> = {
+    fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR"
+  };
+
+  const m = meta[lang];
 
   const handleStart = () => {
     clearAdvanceTimer();
@@ -76,45 +120,28 @@ const Tietovisa = ({ lang = "fi" }: TietovisaProps) => {
     setScore(0);
   };
 
-  const metaTitle = isEnglish
-    ? "Levi Quiz - Test Your Knowledge | Leville.net"
-    : "Levi-tietovisa - Testaa tietämyksesi | Leville.net";
-
-  const metaDescription = isEnglish
-    ? "Test your knowledge about Levi ski resort with our fun quiz! 10 questions about Finland's most popular skiing destination."
-    : "Testaa Levi-tietämyksesi hauskalla tietovisalla! 10 kysymystä Suomen suosituimmasta hiihtokeskuksesta.";
-
   return (
     <>
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
-        <html lang={isEnglish ? "en" : "fi"} />
-        <title>{metaTitle}</title>
-        <meta name="description" content={metaDescription} />
-        <meta name="keywords" content={isEnglish 
-          ? "Levi quiz, Levi trivia, Finland ski resort quiz, Lapland quiz"
-          : "Levi tietovisa, Levi visa, hiihtokeskus tietovisa, Lappi tietovisa"
-        } />
-        <link rel="canonical" href={isEnglish 
-          ? "https://www.leville.net/en/quiz"
-          : "https://www.leville.net/tietovisa"
-        } />
+        <html lang={lang} />
+        <title>{m.title}</title>
+        <meta name="description" content={m.description} />
+        <meta name="keywords" content={m.keywords} />
+        <link rel="canonical" href={m.canonical} />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={isEnglish 
-          ? "https://www.leville.net/en/quiz"
-          : "https://www.leville.net/tietovisa"
-        } />
-        <meta property="og:title" content={metaTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:locale" content={isEnglish ? "en_US" : "fi_FI"} />
+        <meta property="og:url" content={m.canonical} />
+        <meta property="og:title" content={m.title} />
+        <meta property="og:description" content={m.description} />
+        <meta property="og:locale" content={localeMap[lang]} />
         <meta property="og:site_name" content="Leville.net" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={metaTitle} />
-        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:title" content={m.title} />
+        <meta name="twitter:description" content={m.description} />
       </Helmet>
 
       <div className="min-h-screen bg-background relative">

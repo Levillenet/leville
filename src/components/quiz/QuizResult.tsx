@@ -16,38 +16,136 @@ interface QuizResultProps {
 }
 
 const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResultProps) => {
-  // Fallback to English for unsupported languages
-  const isEnglish = lang !== "fi";
-  const result = getResultMessage(score, totalQuestions, isEnglish ? "en" : "fi");
+  // For result message, we need fi or en (fallback for others)
+  const resultLang = lang === "fi" ? "fi" : "en";
+  const result = getResultMessage(score, totalQuestions, resultLang);
   const percentage = Math.round((score / totalQuestions) * 100);
   const { toast } = useToast();
 
-  const shareUrl = isEnglish 
-    ? "https://www.leville.net/en/quiz" 
-    : "https://www.leville.net/tietovisa";
+  // Multilingual content
+  const content: Record<Language, {
+    correct: string;
+    playAgain: string;
+    share: string;
+    copyLink: string;
+    exploreLevi: string;
+    linkCopied: string;
+    shareWith: string;
+    error: string;
+    couldNotCopy: string;
+    shareText: string;
+  }> = {
+    fi: {
+      correct: "oikein",
+      playAgain: "Pelaa uudelleen",
+      share: "Jaa",
+      copyLink: "Kopioi linkki",
+      exploreLevi: "Tutustu Leviin",
+      linkCopied: "Linkki kopioitu!",
+      shareWith: "Jaa se ystävillesi",
+      error: "Virhe",
+      couldNotCopy: "Linkkiä ei voitu kopioida",
+      shareText: `Sain ${score}/${totalQuestions} (${percentage}%) Levi-tietovisassa! Testaa oma tietämyksesi:`
+    },
+    en: {
+      correct: "correct",
+      playAgain: "Play Again",
+      share: "Share",
+      copyLink: "Copy Link",
+      exploreLevi: "Explore Levi",
+      linkCopied: "Link copied!",
+      shareWith: "Share it with your friends",
+      error: "Error",
+      couldNotCopy: "Could not copy link",
+      shareText: `I scored ${score}/${totalQuestions} (${percentage}%) on the Levi Quiz! Test your knowledge:`
+    },
+    sv: {
+      correct: "rätt",
+      playAgain: "Spela igen",
+      share: "Dela",
+      copyLink: "Kopiera länk",
+      exploreLevi: "Utforska Levi",
+      linkCopied: "Länk kopierad!",
+      shareWith: "Dela med dina vänner",
+      error: "Fel",
+      couldNotCopy: "Kunde inte kopiera länk",
+      shareText: `Jag fick ${score}/${totalQuestions} (${percentage}%) på Levi Quiz! Testa dina kunskaper:`
+    },
+    de: {
+      correct: "richtig",
+      playAgain: "Nochmal spielen",
+      share: "Teilen",
+      copyLink: "Link kopieren",
+      exploreLevi: "Levi entdecken",
+      linkCopied: "Link kopiert!",
+      shareWith: "Teile es mit deinen Freunden",
+      error: "Fehler",
+      couldNotCopy: "Link konnte nicht kopiert werden",
+      shareText: `Ich habe ${score}/${totalQuestions} (${percentage}%) beim Levi Quiz erreicht! Teste dein Wissen:`
+    },
+    es: {
+      correct: "correctas",
+      playAgain: "Jugar de nuevo",
+      share: "Compartir",
+      copyLink: "Copiar enlace",
+      exploreLevi: "Explorar Levi",
+      linkCopied: "¡Enlace copiado!",
+      shareWith: "Compártelo con tus amigos",
+      error: "Error",
+      couldNotCopy: "No se pudo copiar el enlace",
+      shareText: `¡Obtuve ${score}/${totalQuestions} (${percentage}%) en el Quiz de Levi! Pon a prueba tus conocimientos:`
+    },
+    fr: {
+      correct: "correctes",
+      playAgain: "Rejouer",
+      share: "Partager",
+      copyLink: "Copier le lien",
+      exploreLevi: "Explorer Levi",
+      linkCopied: "Lien copié !",
+      shareWith: "Partagez-le avec vos amis",
+      error: "Erreur",
+      couldNotCopy: "Impossible de copier le lien",
+      shareText: `J'ai obtenu ${score}/${totalQuestions} (${percentage}%) au Quiz Levi ! Testez vos connaissances :`
+    }
+  };
 
-  const shareText = isEnglish
-    ? `I scored ${score}/${totalQuestions} (${percentage}%) on the Levi Quiz! Test your knowledge:`
-    : `Sain ${score}/${totalQuestions} (${percentage}%) Levi-tietovisassa! Testaa oma tietämyksesi:`;
+  const quizUrls: Record<Language, string> = {
+    fi: "https://www.leville.net/tietovisa",
+    en: "https://www.leville.net/en/quiz",
+    sv: "https://www.leville.net/sv/quiz",
+    de: "https://www.leville.net/de/quiz",
+    es: "https://www.leville.net/es/quiz",
+    fr: "https://www.leville.net/fr/quiz"
+  };
+
+  const leviLinks: Record<Language, string> = {
+    fi: "/levi",
+    en: "/en/levi",
+    sv: "/sv/levi",
+    de: "/de/levi",
+    es: "/es/levi",
+    fr: "/fr/levi"
+  };
+
+  const c = content[lang];
+  const shareUrl = quizUrls[lang];
 
   const handleShareFacebook = () => {
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(c.shareText)}`;
     window.open(facebookUrl, "_blank", "width=600,height=400");
   };
 
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(shareText + " " + shareUrl);
+      await navigator.clipboard.writeText(c.shareText + " " + shareUrl);
       toast({
-        title: isEnglish ? "Link copied!" : "Linkki kopioitu!",
-        description: isEnglish
-          ? "Share it with your friends"
-          : "Jaa se ystävillesi",
+        title: c.linkCopied,
+        description: c.shareWith,
       });
     } catch (err) {
       toast({
-        title: isEnglish ? "Error" : "Virhe",
-        description: isEnglish ? "Could not copy link" : "Linkkiä ei voitu kopioida",
+        title: c.error,
+        description: c.couldNotCopy,
         variant: "destructive",
       });
     }
@@ -103,7 +201,7 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
               <span className="text-xl sm:text-2xl text-muted-foreground">/ {totalQuestions}</span>
             </div>
             <p className="mt-2 text-sm sm:text-base text-muted-foreground">
-              ({percentage}% {isEnglish ? "correct" : "oikein"})
+              ({percentage}% {c.correct})
             </p>
           </motion.div>
 
@@ -117,22 +215,22 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
               <Button onClick={onRestart} variant="default" size="lg" className="text-sm sm:text-base">
                 <RotateCcw className="w-4 h-4 mr-2" />
-                {isEnglish ? "Play Again" : "Pelaa uudelleen"}
+                {c.playAgain}
               </Button>
               <Button onClick={handleShareFacebook} variant="secondary" size="lg" className="bg-[#1877F2] hover:bg-[#1877F2]/90 text-white text-sm sm:text-base">
                 <FacebookIcon className="w-4 h-4 mr-2" />
-                {isEnglish ? "Share" : "Jaa"}
+                {c.share}
               </Button>
             </div>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center">
               <Button onClick={handleCopyLink} variant="outline" size="lg" className="text-sm sm:text-base">
                 <Copy className="w-4 h-4 mr-2" />
-                {isEnglish ? "Copy Link" : "Kopioi linkki"}
+                {c.copyLink}
               </Button>
               <Button asChild variant="ghost" size="lg" className="text-sm sm:text-base">
-                <Link to={lang === "fi" ? "/levi" : `/${lang}/levi`}>
+                <Link to={leviLinks[lang]}>
                   <Home className="w-4 h-4 mr-2" />
-                  {isEnglish ? "Explore Levi" : "Tutustu Leviin"}
+                  {c.exploreLevi}
                 </Link>
               </Button>
             </div>

@@ -10,8 +10,59 @@ interface QuizStartProps {
 }
 
 const QuizStart = ({ onStart, lang = "fi" }: QuizStartProps) => {
-  // Fallback to English for unsupported languages
-  const isEnglish = lang !== "fi";
+  // Multilingual content
+  const content: Record<Language, {
+    title: string;
+    description: string;
+    questions: string;
+    multipleChoice: string;
+    startButton: string;
+  }> = {
+    fi: {
+      title: "Levi-tietovisa",
+      description: "Testaa Levi-tietämyksesi! Vastaa 10 kysymykseen ja katso kuinka hyvin tunnet Suomen suosituimman hiihtokeskuksen.",
+      questions: "10 kysymystä",
+      multipleChoice: "Monivalinta",
+      startButton: "Aloita visa"
+    },
+    en: {
+      title: "Levi Quiz",
+      description: "Test your knowledge about Levi! Answer 10 questions and see how well you know Finland's most popular ski resort.",
+      questions: "10 questions",
+      multipleChoice: "Multiple choice",
+      startButton: "Start Quiz"
+    },
+    sv: {
+      title: "Levi Quiz",
+      description: "Testa dina kunskaper om Levi! Svara på 10 frågor och se hur väl du känner Finlands mest populära skidort.",
+      questions: "10 frågor",
+      multipleChoice: "Flerval",
+      startButton: "Starta quiz"
+    },
+    de: {
+      title: "Levi Quiz",
+      description: "Teste dein Wissen über Levi! Beantworte 10 Fragen und sieh, wie gut du Finnlands beliebtestes Skigebiet kennst.",
+      questions: "10 Fragen",
+      multipleChoice: "Multiple Choice",
+      startButton: "Quiz starten"
+    },
+    es: {
+      title: "Quiz de Levi",
+      description: "¡Pon a prueba tus conocimientos sobre Levi! Responde 10 preguntas y descubre cuánto sabes sobre la estación de esquí más popular de Finlandia.",
+      questions: "10 preguntas",
+      multipleChoice: "Opción múltiple",
+      startButton: "Comenzar quiz"
+    },
+    fr: {
+      title: "Quiz Levi",
+      description: "Testez vos connaissances sur Levi ! Répondez à 10 questions et découvrez à quel point vous connaissez la station de ski la plus populaire de Finlande.",
+      questions: "10 questions",
+      multipleChoice: "Choix multiple",
+      startButton: "Commencer le quiz"
+    }
+  };
+
+  const c = content[lang];
 
   return (
     <motion.div
@@ -32,22 +83,20 @@ const QuizStart = ({ onStart, lang = "fi" }: QuizStartProps) => {
           </motion.div>
 
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-            {isEnglish ? "Levi Quiz" : "Levi-tietovisa"}
+            {c.title}
           </h1>
 
           <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-md mx-auto leading-relaxed">
-            {isEnglish
-              ? "Test your knowledge about Levi! Answer 10 questions and see how well you know Finland's most popular ski resort."
-              : "Testaa Levi-tietämyksesi! Vastaa 10 kysymykseen ja katso kuinka hyvin tunnet Suomen suosituimman hiihtokeskuksen."}
+            {c.description}
           </p>
 
           <div className="flex items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8 text-xs sm:text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5 sm:gap-2">
               <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
-              <span>{isEnglish ? "10 questions" : "10 kysymystä"}</span>
+              <span>{c.questions}</span>
             </div>
             <div className="w-1 h-1 rounded-full bg-muted-foreground" />
-            <span>{isEnglish ? "Multiple choice" : "Monivalinta"}</span>
+            <span>{c.multipleChoice}</span>
           </div>
 
           <Button
@@ -55,7 +104,7 @@ const QuizStart = ({ onStart, lang = "fi" }: QuizStartProps) => {
             size="lg"
             className="px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg font-semibold"
           >
-            {isEnglish ? "Start Quiz" : "Aloita visa"}
+            {c.startButton}
           </Button>
         </CardContent>
       </Card>
