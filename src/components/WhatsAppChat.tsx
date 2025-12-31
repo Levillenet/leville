@@ -50,23 +50,32 @@ const WhatsAppChat = ({ lang = "fi" }: WhatsAppChatProps) => {
 
   const t = content[lang];
   
+  const openWhatsApp = (text?: string) => {
+    const encodedMessage = text ? encodeURIComponent(text) : "";
+    const whatsappUrl = text 
+      ? `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+      : `https://wa.me/${phoneNumber}`;
+    
+    // Try multiple methods for maximum compatibility
+    const newWindow = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    
+    // Fallback if popup was blocked
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === "undefined") {
+      // Use location change as last resort
+      window.location.href = whatsappUrl;
+    }
+  };
+
   const handleSend = () => {
     if (!message.trim()) return;
-    
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
-    // Use link click instead of window.open to bypass iframe restrictions
-    const link = document.createElement('a');
-    link.href = whatsappUrl;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
+    openWhatsApp(message);
     setMessage("");
     setIsOpen(false);
+  };
+
+  const handleQuickOpen = () => {
+    // Open WhatsApp directly without pre-filled message
+    openWhatsApp();
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -142,12 +151,17 @@ const WhatsAppChat = ({ lang = "fi" }: WhatsAppChatProps) => {
         )}
       </AnimatePresence>
 
-      {/* Toggle button */}
+      {/* Toggle button - Long press or double-click opens WhatsApp directly */}
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
+        onDoubleClick={(e) => {
+          e.preventDefault();
+          handleQuickOpen();
+        }}
         className="w-14 h-14 bg-[#25D366] hover:bg-[#20BD5A] rounded-full flex items-center justify-center shadow-lg transition-colors"
+        aria-label="WhatsApp"
       >
         {isOpen ? (
           <X className="w-6 h-6 text-white" />
