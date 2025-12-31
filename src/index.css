@@ -375,18 +375,28 @@
   }
 }
 
-/* Moder widget layering (avoid clipping without breaking widget logic) */
+/* Moder booking widget - very high z-index to ensure dropdowns appear on top of everything */
 #moder-embed {
   position: relative;
-  z-index: 50;
+  z-index: 9990;
+  isolation: isolate;
 }
 
+/* Widget dropdowns, calendars, popups - maximum z-index */
+#moder-embed iframe,
 #moder-embed [class*="calendar"],
 #moder-embed [class*="dropdown"],
 #moder-embed [class*="picker"],
 #moder-embed [class*="popup"],
-#moder-embed [class*="modal"] {
-  z-index: 60;
+#moder-embed [class*="modal"],
+#moder-embed [class*="overlay"],
+#moder-embed [class*="portal"],
+#moder-embed [class*="menu"],
+#moder-embed [class*="list"],
+#moder-embed [class*="options"],
+#moder-embed [class*="select"] {
+  position: relative;
+  z-index: 9999 !important;
 }
 
 /* Mobile widget controls - ensure touch targets work */
@@ -396,8 +406,10 @@
   #moder-embed [class*="counter"],
   #moder-embed [class*="stepper"],
   #moder-embed [class*="dropdown"],
-  #moder-embed [class*="select"] {
-    z-index: 70 !important;
+  #moder-embed [class*="select"],
+  #moder-embed [class*="menu"],
+  #moder-embed [class*="list"] {
+    z-index: 9999 !important;
     position: relative;
     pointer-events: auto !important;
     touch-action: manipulation;
