@@ -256,7 +256,7 @@ const handler = async (req: Request): Promise<Response> => {
     const emailHtml = createConfirmationEmailHtml(lang, unsubscribe_token);
     
     const { error: emailError } = await resend.emails.send({
-      from: "Leville Revontulet <revontulet@leville.net>",
+      from: "Leville Revontulet <revontulet@m.leville.net>",
       to: [email],
       subject: content.subject,
       html: emailHtml,
