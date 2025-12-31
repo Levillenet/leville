@@ -334,7 +334,7 @@ const AuroraForecast = ({ lang = "fi" }: AuroraForecastProps) => {
             </div>
             <div className="flex items-baseline gap-1">
               <span className={`text-2xl font-bold ${getKpColor(auroraData.current.kpIndex)}`}>
-                {auroraData.current.kpIndex}
+                {auroraData.current.kpIndex.toFixed(1)}
               </span>
               <span className="text-xs text-muted-foreground">Kp</span>
             </div>
@@ -350,11 +350,11 @@ const AuroraForecast = ({ lang = "fi" }: AuroraForecastProps) => {
                 <Moon className="w-3 h-3" />
                 {t.tonightPeak}
               </div>
-              <div className="flex items-baseline gap-1">
-                <span className={`text-2xl font-bold ${getKpColor(auroraData.tonightPeak.kpIndex)}`}>
-                  {auroraData.tonightPeak.kpIndex}
-                </span>
-                <span className="text-xs text-muted-foreground">Kp</span>
+            <div className="flex items-baseline gap-1">
+              <span className={`text-2xl font-bold ${getKpColor(auroraData.tonightPeak.kpIndex)}`}>
+                {auroraData.tonightPeak.kpIndex.toFixed(1)}
+              </span>
+              <span className="text-xs text-muted-foreground">Kp</span>
               </div>
               <div className={`text-xs font-medium ${getKpColor(auroraData.tonightPeak.kpIndex)}`}>
                 {t.atTime} {auroraData.tonightPeak.time}
