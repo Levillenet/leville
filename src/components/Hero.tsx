@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { ArrowRight, ArrowDown, Tag } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, Tag } from "lucide-react";
+
 import BookingWidget from "./BookingWidget";
 import { getTranslations, Language } from "@/translations";
 import heroCabin from "@/assets/hero-cabin.jpg";
@@ -182,27 +182,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             {t.subtitle}
           </p>
 
-          {/* Primary CTA - scrolls to booking widget */}
-          <div
-            className="animate-slide-up mb-6"
-            style={{ animationDelay: '0.3s' }}
-          >
-            <Button
-              size="lg"
-              onClick={() => {
-                const widget = document.getElementById("booking-widget");
-                if (widget) {
-                  widget.scrollIntoView({ behavior: "smooth", block: "center" });
-                }
-              }}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg font-semibold shadow-lg"
-            >
-              {t.bookingCta}
-              <ArrowDown className="w-5 h-5 ml-2" />
-            </Button>
-          </div>
-
-          {/* Discount code banner - above booking widget */}
+          {/* Discount code hint - subtle, supporting element */}
           {(() => {
             const discountText: Record<Language, { prefix: string; suffix: string; href: string }> = {
               fi: { prefix: "Käytä koodia", suffix: "– 10% alennus keväälle 2026!", href: "/ajankohtaista" },
@@ -216,22 +196,21 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             return (
               <a 
                 href={discount.href}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/20 to-aurora-green/20 backdrop-blur-sm border border-primary/40 rounded-full px-4 py-2 mb-6 animate-fade-in hover:border-primary/60 transition-colors group"
-                style={{ animationDelay: '0.4s' }}
+                className="inline-flex items-center gap-1.5 text-xs text-foreground/60 hover:text-foreground/80 transition-colors mb-4 animate-fade-in"
+                style={{ animationDelay: '0.3s' }}
               >
-                <Tag className="w-4 h-4 text-primary" />
-                <span className="text-sm font-semibold text-foreground">
-                  {discount.prefix} <span className="text-primary">winter10</span> {discount.suffix}
+                <Tag className="w-3 h-3" />
+                <span>
+                  {discount.prefix} <span className="text-primary/80 font-medium">winter10</span> {discount.suffix}
                 </span>
-                <ArrowRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
             );
           })()}
 
           {/* Instructional text above booking widget */}
           <p
-            className="text-sm text-foreground/70 mb-4 animate-fade-in"
-            style={{ animationDelay: '0.45s' }}
+            className="text-sm text-foreground/70 mb-5 animate-fade-in"
+            style={{ animationDelay: '0.35s' }}
           >
             {t.bookingInstruction}
           </p>

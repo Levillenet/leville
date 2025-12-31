@@ -4,7 +4,7 @@ export const de = {
     titleHighlight: "Levi",
     subtitle: "Wohnen Sie komfortabel im Zentrum von Levi – moderne Apartments und gemütliche Hütten in bester Lage",
     bookingCta: "Verfügbarkeit und Preise prüfen",
-    bookingInstruction: "Wählen Sie Ihre Reisedaten, um verfügbare Apartments zu sehen.",
+    bookingInstruction: "Wählen Sie Ihre Reisedaten und klicken Sie auf Suchen, um verfügbare Apartments zu sehen.",
     trustIndicators: [
       "Beste Lagen im Zentrum",
       "Direkt bei uns buchen",
