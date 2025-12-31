@@ -207,14 +207,17 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             );
           })()}
 
-          {/* Booking Widget */}
-          <div className="animate-slide-up" style={{ animationDelay: '0.4s', overflow: 'visible' }}>
+          {/* Booking Widget - high z-index to ensure dropdowns appear on top */}
+          <div 
+            className="animate-slide-up relative z-[9990]" 
+            style={{ animationDelay: '0.4s', overflow: 'visible', isolation: 'isolate' }}
+          >
             <BookingWidget lang={lang} />
           </div>
 
-          {/* Trust indicators - clear and prominent */}
+          {/* Trust indicators - lower z-index so widget dropdowns appear on top */}
           <div
-            className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-10 animate-fade-in px-2"
+            className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-10 animate-fade-in px-2 relative z-10"
             style={{ animationDelay: '0.6s' }}
           >
             {t.trustIndicators.map((indicator) => (
