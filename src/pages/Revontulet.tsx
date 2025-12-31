@@ -19,10 +19,27 @@ interface RevontuletProps {
 
 const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
   const location = useLocation();
-  // Fallback to English for unsupported languages
-  const isEnglish = lang !== "fi";
 
-  const content = {
+  const content: Record<Language, {
+    meta: { title: string; description: string; canonical: string };
+    hero: { title: string; subtitle: string };
+    intro: string;
+    whenTitle: string;
+    whenText: string;
+    whenList: string[];
+    whenNote: string;
+    whereTitle: string;
+    whereText: string;
+    whereList: string[];
+    whereNote: string;
+    accommodationTitle: string;
+    accommodationText: string;
+    accommodationNote: string;
+    videoTitle: string;
+    appsTitle: string;
+    appsText: string;
+    browseAccommodations: string;
+  }> = {
     fi: {
       meta: {
         title: "Revontulet Levillä – Aurora Borealis | Leville.net",
@@ -56,6 +73,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
       videoTitle: "Revontulet liikkeessä",
       appsTitle: "Revontulisovellukset",
       appsText: "Lataa revontulihälytyssovellus puhelimeesi, niin et missaa yhtään näytöstä:",
+      browseAccommodations: "Selaa majoituksia",
     },
     en: {
       meta: {
@@ -90,19 +108,168 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
       videoTitle: "Northern Lights in motion",
       appsTitle: "Aurora Apps",
       appsText: "Download an aurora alert app to your phone so you don't miss a single show:",
+      browseAccommodations: "Browse accommodations",
+    },
+    sv: {
+      meta: {
+        title: "Norrsken i Levi – Aurora Borealis | Leville.net",
+        description: "Upplev norrskensmagin i Levi. Bästa platser, tider och tips för att se norrsken i Lappland.",
+        canonical: "https://leville.net/sv/norrsken",
+      },
+      hero: {
+        title: "Norrsken i Levi",
+        subtitle: "Lapplands mest spektakulära upplevelse",
+      },
+      intro: "Norrskenet är ett av Lapplands mest kända och imponerande naturfenomen. Levi är en av Finlands bästa platser för att observera norrsken, tack vare det nordliga läget, den rena luften och minimalt ljusföroreningar.",
+      whenTitle: "När kan man se norrsken i Levi",
+      whenText: "Norrskensäsongen i Levi varar från slutet av september till slutet av mars. De bästa månaderna är vanligtvis september–oktober och februari–mars, då nätterna är mörka och vädret ofta är klart.",
+      whenList: [
+        "Mellan kl. 21 och 01",
+        "Klara och frostiga nätter",
+        "När solaktiviteten är förhöjd",
+      ],
+      whenNote: "Naturen bestämmer alltid den slutliga showen, men i Levi ses norrsken dussintals nätter varje år.",
+      whereTitle: "Bästa platser att se norrsken i Levi",
+      whereText: "De bästa norrskensplatserna är öppna och mörka områden med fri sikt mot himlen. Bra platser inkluderar:",
+      whereList: [
+        "Fjällområden och övre sluttningar",
+        "Stränder vid sjöar och myrar",
+        "Boenden utanför centrum eller borta från ljusföroreningar",
+      ],
+      whereNote: "Många av våra gäster tittar på norrskenet direkt från boendets gård, terrass eller till och med bubbelpoolen, vilket gör upplevelsen särskilt avkopplande och privat.",
+      accommodationTitle: "Norrsken och boende i Levi",
+      accommodationText: "Ett centralt läge betyder inte att du behöver kompromissa med norrskensobservation. Från många av våra boenden kan du snabbt nå lugna områden, och på vissa platser kan norrskenet ses direkt på gården eller i närheten.",
+      accommodationNote: "Norrskenjakt kombinerat med kvalitetsboende, privat bastu och Lapplands lugn är en upplevelse som många av våra gäster minns hela livet.",
+      videoTitle: "Norrsken i rörelse",
+      appsTitle: "Norrskenappar",
+      appsText: "Ladda ner en norrskensvarningsapp till din telefon så missar du ingen show:",
+      browseAccommodations: "Bläddra bland boenden",
+    },
+    de: {
+      meta: {
+        title: "Nordlichter in Levi – Aurora Borealis | Leville.net",
+        description: "Erleben Sie die Magie der Nordlichter in Levi. Beste Orte, Zeiten und Tipps zur Beobachtung der Aurora in Lappland.",
+        canonical: "https://leville.net/de/nordlichter",
+      },
+      hero: {
+        title: "Nordlichter in Levi",
+        subtitle: "Das spektakulärste Erlebnis Lapplands",
+      },
+      intro: "Die Nordlichter gehören zu den bekanntesten und beeindruckendsten Naturphänomenen Lapplands. Levi ist einer der besten Orte Finnlands zur Beobachtung der Aurora Borealis, dank der nördlichen Lage, der sauberen Luft und der minimalen Lichtverschmutzung.",
+      whenTitle: "Wann kann man Nordlichter in Levi sehen",
+      whenText: "Die Nordlichtsaison in Levi dauert von Ende September bis Ende März. Die besten Monate sind normalerweise September–Oktober und Februar–März, wenn die Nächte dunkel sind und das Wetter oft klar ist.",
+      whenList: [
+        "Zwischen 21 und 1 Uhr",
+        "An klaren und frostigen Nächten",
+        "Bei erhöhter Sonnenaktivität",
+      ],
+      whenNote: "Die Natur bestimmt immer die endgültige Show, aber in Levi werden Nordlichter dutzende Nächte pro Jahr gesehen.",
+      whereTitle: "Beste Orte für Nordlichter in Levi",
+      whereText: "Die besten Aurora-Spots sind offene und dunkle Gebiete mit freier Sicht auf den Himmel. Gute Orte sind:",
+      whereList: [
+        "Fjellgebiete und obere Hänge",
+        "Ufer von Seen und Sümpfen",
+        "Unterkünfte außerhalb des Zentrums oder abseits von Lichtverschmutzung",
+      ],
+      whereNote: "Viele unserer Gäste beobachten die Nordlichter direkt vom Unterkunftshof, der Terrasse oder sogar dem Whirlpool aus, was das Erlebnis besonders entspannend und privat macht.",
+      accommodationTitle: "Nordlichter und Unterkunft in Levi",
+      accommodationText: "Eine zentrale Lage bedeutet nicht, dass Sie bei der Aurora-Beobachtung Kompromisse eingehen müssen. Von vielen unserer Unterkünfte erreichen Sie schnell ruhige Gebiete, und an einigen Standorten können die Nordlichter direkt im Hof oder in der Nähe gesehen werden.",
+      accommodationNote: "Nordlichtjagd kombiniert mit Qualitätsunterkunft, privater Sauna und der Ruhe Lapplands ist ein Erlebnis, das viele unserer Gäste ein Leben lang in Erinnerung behalten.",
+      videoTitle: "Nordlichter in Bewegung",
+      appsTitle: "Aurora-Apps",
+      appsText: "Laden Sie eine Nordlicht-Alarm-App auf Ihr Telefon, damit Sie keine Show verpassen:",
+      browseAccommodations: "Unterkünfte durchsuchen",
+    },
+    es: {
+      meta: {
+        title: "Auroras Boreales en Levi – Aurora Boreal | Leville.net",
+        description: "Experimenta la magia de las auroras boreales en Levi. Mejores lugares, horarios y consejos para ver auroras en Laponia.",
+        canonical: "https://leville.net/es/auroras-boreales",
+      },
+      hero: {
+        title: "Auroras Boreales en Levi",
+        subtitle: "La experiencia más espectacular de Laponia",
+      },
+      intro: "Las auroras boreales son uno de los fenómenos naturales más famosos e impresionantes de Laponia. Levi es uno de los mejores lugares de Finlandia para observar la aurora boreal, gracias a su ubicación norteña, aire limpio y mínima contaminación lumínica.",
+      whenTitle: "Cuándo ver auroras boreales en Levi",
+      whenText: "La temporada de auroras en Levi dura desde finales de septiembre hasta finales de marzo. Los mejores meses suelen ser septiembre–octubre y febrero–marzo, cuando las noches son oscuras y el clima suele estar despejado.",
+      whenList: [
+        "Entre las 21:00 y la 1:00",
+        "En noches claras y heladas",
+        "Cuando la actividad solar está elevada",
+      ],
+      whenNote: "La naturaleza siempre determina el espectáculo final, pero en Levi las auroras boreales se ven docenas de noches cada año.",
+      whereTitle: "Mejores lugares para ver auroras en Levi",
+      whereText: "Los mejores lugares para ver auroras son áreas abiertas y oscuras con vista despejada al cielo. Buenos lugares incluyen:",
+      whereList: [
+        "Zonas de montaña y laderas superiores",
+        "Orillas de lagos y pantanos",
+        "Alojamientos fuera del centro o lejos de la contaminación lumínica",
+      ],
+      whereNote: "Muchos de nuestros huéspedes observan las auroras boreales directamente desde el patio del alojamiento, la terraza o incluso el jacuzzi, haciendo la experiencia particularmente relajante y privada.",
+      accommodationTitle: "Auroras boreales y alojamiento en Levi",
+      accommodationText: "Una ubicación central no significa que debas comprometer la observación de auroras. Desde muchos de nuestros alojamientos puedes llegar rápidamente a zonas tranquilas, y en algunas ubicaciones las auroras boreales pueden verse directamente en el patio o cerca.",
+      accommodationNote: "La caza de auroras combinada con alojamiento de calidad, sauna privada y la paz de Laponia es una experiencia que muchos de nuestros huéspedes recuerdan toda la vida.",
+      videoTitle: "Auroras boreales en movimiento",
+      appsTitle: "Apps de Aurora",
+      appsText: "Descarga una app de alerta de auroras en tu teléfono para no perderte ningún espectáculo:",
+      browseAccommodations: "Ver alojamientos",
+    },
+    fr: {
+      meta: {
+        title: "Aurores Boréales à Levi – Aurora Borealis | Leville.net",
+        description: "Vivez la magie des aurores boréales à Levi. Meilleurs endroits, moments et conseils pour observer les aurores en Laponie.",
+        canonical: "https://leville.net/fr/aurores-boreales",
+      },
+      hero: {
+        title: "Aurores Boréales à Levi",
+        subtitle: "L'expérience la plus spectaculaire de Laponie",
+      },
+      intro: "Les aurores boréales sont l'un des phénomènes naturels les plus célèbres et impressionnants de Laponie. Levi est l'un des meilleurs endroits de Finlande pour observer les aurores, grâce à sa situation nordique, son air pur et sa pollution lumineuse minimale.",
+      whenTitle: "Quand voir les aurores boréales à Levi",
+      whenText: "La saison des aurores à Levi dure de fin septembre à fin mars. Les meilleurs mois sont généralement septembre–octobre et février–mars, quand les nuits sont sombres et le temps souvent dégagé.",
+      whenList: [
+        "Entre 21h et 1h",
+        "Par nuits claires et glaciales",
+        "Quand l'activité solaire est élevée",
+      ],
+      whenNote: "La nature détermine toujours le spectacle final, mais à Levi les aurores boréales sont visibles des dizaines de nuits par an.",
+      whereTitle: "Meilleurs endroits pour observer les aurores à Levi",
+      whereText: "Les meilleurs spots d'aurores sont des zones ouvertes et sombres avec une vue dégagée sur le ciel. Les bons endroits incluent :",
+      whereList: [
+        "Zones de tunturi et pentes supérieures",
+        "Rives des lacs et marais",
+        "Hébergements en dehors du centre ou à l'abri de la pollution lumineuse",
+      ],
+      whereNote: "Beaucoup de nos clients observent les aurores boréales directement depuis la cour de l'hébergement, la terrasse ou même le jacuzzi, rendant l'expérience particulièrement relaxante et privée.",
+      accommodationTitle: "Aurores boréales et hébergement à Levi",
+      accommodationText: "Un emplacement central ne signifie pas que vous devez faire des compromis sur l'observation des aurores. Depuis bon nombre de nos hébergements, vous pouvez rapidement rejoindre des zones tranquilles, et à certains endroits les aurores boréales peuvent être vues directement dans la cour ou à proximité.",
+      accommodationNote: "La chasse aux aurores combinée à un hébergement de qualité, un sauna privé et la tranquillité de la Laponie est une expérience dont beaucoup de nos clients se souviennent toute leur vie.",
+      videoTitle: "Aurores boréales en mouvement",
+      appsTitle: "Applications Aurora",
+      appsText: "Téléchargez une application d'alerte aurore sur votre téléphone pour ne manquer aucun spectacle :",
+      browseAccommodations: "Parcourir les hébergements",
     },
   };
 
-  const t = isEnglish ? content.en : content.fi;
+  const t = content[lang];
+  const accommodationLinks: Record<Language, string> = {
+    fi: "/majoitukset",
+    en: "/en/accommodations",
+    sv: "/sv/boenden",
+    de: "/de/unterkuenfte",
+    es: "/es/alojamientos",
+    fr: "/fr/hebergements",
+  };
 
   return (
     <>
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
-        <html lang={isEnglish ? "en" : "fi"} />
+        <html lang={lang} />
         <title>{t.meta.title}</title>
         <meta name="description" content={t.meta.description} />
-        <meta name="keywords" content={isEnglish ? "Northern Lights Levi, Aurora Borealis Lapland, Levi Finland aurora" : "revontulet Levi, aurora borealis Lappi, revontulimatka Levi"} />
+        <meta name="keywords" content={lang === "fi" ? "revontulet Levi, aurora borealis Lappi, revontulimatka Levi" : "Northern Lights Levi, Aurora Borealis Lapland, Levi Finland aurora"} />
         <link rel="canonical" href={t.meta.canonical} />
         
         {/* Open Graph */}
@@ -110,7 +277,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={isEnglish ? "en_US" : "fi_FI"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         
         {/* Twitter Card */}
@@ -258,8 +425,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
                       {t.accommodationNote}
                     </p>
                     <Button asChild className="mt-4">
-                      <a href={isEnglish ? "/en/accommodations" : "/majoitukset"}>
-                        {isEnglish ? "Browse accommodations" : "Selaa majoituksia"}
+                      <a href={accommodationLinks[lang]}>
+                        {t.browseAccommodations}
                       </a>
                     </Button>
                   </CardContent>
