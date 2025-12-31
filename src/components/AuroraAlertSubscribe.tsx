@@ -127,13 +127,15 @@ export function AuroraAlertSubscribe({ lang = "fi" }: AuroraAlertSubscribeProps)
     setIsLoading(true);
 
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("aurora_alerts")
         .insert({
           email: result.data,
           language: lang,
           is_active: true
-        });
+        })
+        .select("unsubscribe_token")
+        .single();
 
       if (error) {
         if (error.code === "23505") { // Unique violation
@@ -143,6 +145,17 @@ export function AuroraAlertSubscribe({ lang = "fi" }: AuroraAlertSubscribeProps)
           toast.error(t.errorGeneric);
         }
         return;
+      }
+
+      // Send confirmation email
+      if (data?.unsubscribe_token) {
+        supabase.functions.invoke("send-aurora-confirmation", {
+          body: {
+            email: result.data,
+            language: lang,
+            unsubscribe_token: data.unsubscribe_token
+          }
+        }).catch(err => console.error("Confirmation email error:", err));
       }
 
       setIsSubscribed(true);
