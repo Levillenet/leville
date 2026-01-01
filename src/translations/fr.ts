@@ -1,14 +1,15 @@
 export const fr = {
   hero: {
-    title: "Bienvenue à",
-    titleHighlight: "Levi",
-    subtitle: "Séjournez confortablement au centre de Levi – appartements modernes et chalets chaleureux aux meilleurs emplacements",
-    bookingCta: "Voir disponibilité et prix",
-    bookingInstruction: "Sélectionnez vos dates de voyage et cliquez sur rechercher pour voir les appartements disponibles.",
+    title: "Appartements aux",
+    titleHighlight: "meilleurs emplacements de Levi",
+    subtitle: "Séjournez paisiblement au centre de Levi et près des pistes. Appartements modernes et chalets chaleureux sans intermédiaires.",
+    discount: "Hébergements printemps 2026 maintenant –10% avec le code winter10",
+    bookingCta: "Réserver un hébergement",
+    bookingInstruction: "Sélectionnez les dates et voyez les hébergements disponibles instantanément",
     trustIndicators: [
-      "Meilleurs emplacements au centre",
-      "Réservez directement chez nous",
-      "Appartements entièrement équipés"
+      "Meilleurs emplacements au centre de Levi",
+      "Réservation directe sans intermédiaires",
+      "Appartements et chalets entièrement équipés"
     ]
   },
   about: {

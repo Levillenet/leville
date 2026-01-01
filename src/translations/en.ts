@@ -1,14 +1,15 @@
 export const en = {
   hero: {
-    title: "Welcome to",
-    titleHighlight: "Levi",
-    subtitle: "Stay comfortably in Levi center – modern apartments and cozy cabins in the best locations",
-    bookingCta: "Check availability and prices",
-    bookingInstruction: "Select your travel dates and press search to see available apartments.",
+    title: "Apartments in Levi's",
+    titleHighlight: "best locations",
+    subtitle: "Stay peacefully in Levi center and near the slopes. Modern apartments and cozy cabins without middlemen.",
+    discount: "Spring 2026 accommodations now –10% off with code winter10",
+    bookingCta: "Book accommodation",
+    bookingInstruction: "Select dates and see available accommodations instantly",
     trustIndicators: [
-      "Best locations in center",
-      "Book directly from us",
-      "Fully equipped apartments"
+      "Best locations in Levi center",
+      "Direct booking without middlemen",
+      "Fully equipped apartments and cabins"
     ]
   },
   about: {
