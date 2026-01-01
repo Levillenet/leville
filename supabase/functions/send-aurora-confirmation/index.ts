@@ -1,5 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "https://esm.sh/resend@2.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.89.0";
+import { z } from "https://esm.sh/zod@3.25.76";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -224,37 +226,94 @@ function createConfirmationEmailHtml(lang: Language, unsubscribeToken: string): 
   `;
 }
 
-interface ConfirmationRequest {
-  email: string;
-  language: Language;
-  unsubscribe_token: string;
+const supabaseUrl = Deno.env.get("SUPABASE_URL");
+const supabaseServiceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+
+if (!supabaseUrl || !supabaseServiceRoleKey) {
+  console.error("Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY secret");
 }
+
+const supabaseAdmin = createClient(supabaseUrl ?? "", supabaseServiceRoleKey ?? "", {
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+  },
+});
+
+const requestSchema = z.object({
+  email: z.string().trim().email().max(255),
+  language: z.enum(["fi", "en", "sv", "de", "es", "fr"]).default("fi"),
+  // Backwards compatible: older clients may send token directly
+  unsubscribe_token: z.string().uuid().optional(),
+});
 
 const handler = async (req: Request): Promise<Response> => {
   console.log("Aurora confirmation email request received");
-  
+
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { email, language, unsubscribe_token }: ConfirmationRequest = await req.json();
-    
-    console.log(`Sending confirmation to ${email} in ${language}`);
-    
-    if (!email || !unsubscribe_token) {
-      return new Response(
-        JSON.stringify({ error: "Missing required fields" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    const json = await req.json().catch(() => null);
+    const parsed = requestSchema.safeParse(json);
+
+    if (!parsed.success) {
+      console.error("Invalid request body", parsed.error.flatten());
+      return new Response(JSON.stringify({ error: "Invalid request" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
+    const { email, language, unsubscribe_token } = parsed.data;
+
+    console.log(`Preparing confirmation for ${email} in ${language}`);
+
+    let token = unsubscribe_token;
+
+    if (!token) {
+      if (!supabaseUrl || !supabaseServiceRoleKey) {
+        return new Response(JSON.stringify({ error: "Server not configured" }), {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const { data, error } = await supabaseAdmin
+        .from("aurora_alerts")
+        .select("unsubscribe_token")
+        .eq("email", email)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (error) {
+        console.error("Failed to lookup unsubscribe_token:", error);
+        return new Response(JSON.stringify({ error: "Lookup failed" }), {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      token = data?.unsubscribe_token ?? undefined;
+
+      if (!token) {
+        return new Response(JSON.stringify({ error: "Subscription not found" }), {
+          status: 404,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+    }
+
+    console.log(`Sending confirmation to ${email}`);
+
     const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
-    const lang = (language as Language) || "fi";
+    const lang = language || "fi";
     const content = confirmationContent[lang] || confirmationContent.fi;
-    
-    const emailHtml = createConfirmationEmailHtml(lang, unsubscribe_token);
-    
+
+    const emailHtml = createConfirmationEmailHtml(lang, token);
+
     const { error: emailError } = await resend.emails.send({
       from: "Leville Revontulet <revontulet@m.leville.net>",
       to: [email],
@@ -264,25 +323,24 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (emailError) {
       console.error("Failed to send confirmation email:", emailError);
-      return new Response(
-        JSON.stringify({ error: emailError.message }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: emailError.message }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     console.log(`Confirmation email sent successfully to ${email}`);
 
-    return new Response(
-      JSON.stringify({ success: true, message: "Confirmation email sent" }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
-
+    return new Response(JSON.stringify({ success: true, message: "Confirmation email sent" }), {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (error: any) {
     console.error("Error in confirmation email function:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 };
 
