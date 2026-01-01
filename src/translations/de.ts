@@ -1,14 +1,15 @@
 export const de = {
   hero: {
-    title: "Willkommen in",
-    titleHighlight: "Levi",
-    subtitle: "Wohnen Sie komfortabel im Zentrum von Levi – moderne Apartments und gemütliche Hütten in bester Lage",
-    bookingCta: "Verfügbarkeit und Preise prüfen",
-    bookingInstruction: "Wählen Sie Ihre Reisedaten und klicken Sie auf Suchen, um verfügbare Apartments zu sehen.",
+    title: "Apartments an Levis",
+    titleHighlight: "besten Standorten",
+    subtitle: "Übernachten Sie entspannt im Zentrum von Levi und nahe den Pisten. Moderne Apartments und gemütliche Hütten ohne Zwischenhändler.",
+    discount: "Frühling 2026 Unterkünfte jetzt –10% mit Code winter10",
+    bookingCta: "Unterkunft buchen",
+    bookingInstruction: "Daten wählen und verfügbare Unterkünfte sofort sehen",
     trustIndicators: [
-      "Beste Lagen im Zentrum",
-      "Direkt bei uns buchen",
-      "Voll ausgestattete Apartments"
+      "Beste Lagen im Zentrum von Levi",
+      "Direktbuchung ohne Zwischenhändler",
+      "Voll ausgestattete Apartments und Hütten"
     ]
   },
   about: {

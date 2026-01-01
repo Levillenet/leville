@@ -176,36 +176,37 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
           {/* Subheading - benefits focused */}
           <p
-            className="text-base sm:text-lg md:text-xl text-foreground/80 mb-6 md:mb-8 max-w-2xl mx-auto animate-slide-up leading-relaxed px-2"
+            className="text-base sm:text-lg md:text-xl text-foreground/80 mb-5 md:mb-6 max-w-2xl mx-auto animate-slide-up leading-relaxed px-2"
             style={{ animationDelay: '0.2s' }}
           >
             {t.subtitle}
           </p>
 
-          {/* Discount code hint - subtle, supporting element */}
-          {(() => {
-            const discountText: Record<Language, { prefix: string; suffix: string; href: string }> = {
-              fi: { prefix: "Käytä koodia", suffix: "– 10% alennus keväälle 2026!", href: "/ajankohtaista" },
-              en: { prefix: "Use code", suffix: "– 10% off spring 2026!", href: "/en/news" },
-              sv: { prefix: "Använd kod", suffix: "– 10% rabatt våren 2026!", href: "/sv/aktuellt" },
-              de: { prefix: "Code verwenden", suffix: "– 10% Rabatt für Frühjahr 2026!", href: "/de/aktuelles" },
-              es: { prefix: "Usa el código", suffix: "– ¡10% de descuento primavera 2026!", href: "/es/noticias" },
-              fr: { prefix: "Utilisez le code", suffix: "– 10% de réduction printemps 2026 !", href: "/fr/actualites" },
-            };
-            const discount = discountText[lang];
-            return (
-              <a 
-                href={discount.href}
-                className="inline-flex items-center gap-1.5 text-xs text-foreground/60 hover:text-foreground/80 transition-colors mb-4 animate-fade-in"
-                style={{ animationDelay: '0.3s' }}
-              >
-                <Tag className="w-3 h-3" />
-                <span>
-                  {discount.prefix} <span className="text-primary/80 font-medium">winter10</span> {discount.suffix}
+          {/* Trust indicators - moved under subtitle as small highlights */}
+          <div
+            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6 mb-5 md:mb-6 animate-fade-in px-2"
+            style={{ animationDelay: '0.25s' }}
+          >
+            {t.trustIndicators.map((indicator) => (
+              <div key={indicator} className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 bg-aurora-green rounded-full" />
+                <span className="text-xs sm:text-sm text-foreground/70">
+                  {indicator}
                 </span>
-              </a>
-            );
-          })()}
+              </div>
+            ))}
+          </div>
+
+          {/* Campaign badge - clear, visible element */}
+          <div 
+            className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-5 animate-fade-in"
+            style={{ animationDelay: '0.3s' }}
+          >
+            <Tag className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-foreground">
+              {t.discount}
+            </span>
+          </div>
 
           {/* Instructional text above booking widget */}
           <p
@@ -222,21 +223,6 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             style={{ animationDelay: '0.5s', overflow: 'visible', isolation: 'isolate' }}
           >
             <BookingWidget lang={lang} />
-          </div>
-
-          {/* Trust indicators - lower z-index so widget dropdowns appear on top */}
-          <div
-            className="mt-8 md:mt-10 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-10 animate-fade-in px-2 relative z-10"
-            style={{ animationDelay: '0.6s' }}
-          >
-            {t.trustIndicators.map((indicator) => (
-              <div key={indicator} className="flex items-center gap-2 sm:gap-3">
-                <span className="w-2.5 h-2.5 bg-aurora-green rounded-full shadow-[0_0_10px_hsl(160_60%_45%/0.7)]" />
-                <span className="text-sm sm:text-base md:text-lg text-foreground font-medium">
-                  {indicator}
-                </span>
-              </div>
-            ))}
           </div>
         </div>
       </div>
