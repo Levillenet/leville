@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,6 +26,9 @@ import {
   getAvailablePassesForDateRange,
   canAllocateSkiPass,
   cleanupExpiredAllocations,
+  getBlockingDays,
+  getActiveAllocations,
+  generatePeriodId,
   SkiPassSettings
 } from "@/data/skiPassAllocations";
 
@@ -59,13 +62,13 @@ const fetchBeds24Availability = async (): Promise<Beds24Deal[]> => {
 
 const SkiPassAdmin = () => {
   const [settings, setSettings] = useState<SkiPassSettings>(getSkiPassSettings());
-  const [allocations, setAllocations] = useState<Record<string, boolean>>({});
+  const [refreshKey, setRefreshKey] = useState(0); // Used to force re-render after toggle
   const [editingSettings, setEditingSettings] = useState(false);
   const [tempCapacity, setTempCapacity] = useState(settings.totalCapacity);
   const { toast } = useToast();
 
   // Fetch Beds24 deals
-  const { data: beds24Deals = [], isLoading, refetch } = useQuery({
+  const { data: beds24Deals = [], isLoading } = useQuery({
     queryKey: ['beds24-availability-admin'],
     queryFn: fetchBeds24Availability,
     staleTime: 5 * 60 * 1000, // 5 min cache for admin
@@ -76,26 +79,28 @@ const SkiPassAdmin = () => {
     cleanupExpiredAllocations();
   }, []);
 
-  // Load allocation status for all periods
-  useEffect(() => {
-    const allocationStatus: Record<string, boolean> = {};
-    beds24Deals.forEach(deal => {
-      const periodKey = `${deal.roomId}_${deal.checkIn}_${deal.checkOut}`;
-      allocationStatus[periodKey] = getPeriodAllocationStatus(deal.roomId, deal.checkIn, deal.checkOut);
-    });
-    setAllocations(allocationStatus);
-  }, [beds24Deals]);
+  // Get allocation status directly from localStorage (single source of truth)
+  const getAllocationStatus = useCallback((roomId: string, checkIn: string, checkOut: string): boolean => {
+    return getPeriodAllocationStatus(roomId, checkIn, checkOut);
+  }, [refreshKey]); // refreshKey dependency forces re-evaluation
 
   const handleToggleAllocation = (deal: Beds24Deal) => {
-    const periodKey = `${deal.roomId}_${deal.checkIn}_${deal.checkOut}`;
-    const currentStatus = allocations[periodKey] || false;
+    const periodKey = generatePeriodId(deal.roomId, deal.checkIn, deal.checkOut);
+    const currentStatus = getAllocationStatus(deal.roomId, deal.checkIn, deal.checkOut);
     
     if (!currentStatus) {
-      // Trying to allocate - check capacity
-      if (!canAllocateSkiPass(deal.checkIn, deal.checkOut)) {
+      // Trying to allocate - check capacity with excludePeriodId
+      if (!canAllocateSkiPass(deal.checkIn, deal.checkOut, periodKey)) {
+        const blockingDays = getBlockingDays(deal.checkIn, deal.checkOut, periodKey);
+        const blockedDatesStr = blockingDays
+          .slice(0, 3) // Show max 3 dates
+          .map(d => `${format(new Date(d.date), "d.M")} (${d.used}/${d.capacity})`)
+          .join(", ");
+        const moreText = blockingDays.length > 3 ? ` (+${blockingDays.length - 3} muuta)` : "";
+        
         toast({
           title: "Kapasiteetti täynnä",
-          description: "Tämän ajanjakson päivät menevät päällekkäin muiden varauksien kanssa. Ei riittävästi vapaita lippuja.",
+          description: `Ei riitä lippuja koko ajalle. Täynnä päivinä: ${blockedDatesStr}${moreText}`,
           variant: "destructive"
         });
         return;
@@ -105,10 +110,8 @@ const SkiPassAdmin = () => {
     const result = toggleSkiPassAllocation(deal.roomId, deal.checkIn, deal.checkOut);
     
     if (result.success) {
-      setAllocations(prev => ({
-        ...prev,
-        [periodKey]: !currentStatus
-      }));
+      // Force re-render by incrementing refreshKey
+      setRefreshKey(prev => prev + 1);
       toast({
         title: currentStatus ? "Hissilippu poistettu" : "Hissilippu annettu",
         description: `${getMarketingName(deal)} ${format(new Date(deal.checkIn), "d.M")} - ${format(new Date(deal.checkOut), "d.M")}`
@@ -126,6 +129,7 @@ const SkiPassAdmin = () => {
     saveSkiPassSettings({ totalCapacity: tempCapacity });
     setSettings({ ...settings, totalCapacity: tempCapacity });
     setEditingSettings(false);
+    setRefreshKey(prev => prev + 1); // Refresh to recalculate availability
     toast({
       title: "Asetukset tallennettu",
       description: `Hissilippukapasiteetti: ${tempCapacity} lippua`
@@ -146,17 +150,42 @@ const SkiPassAdmin = () => {
     return acc;
   }, {} as Record<string, Beds24Deal[]>);
 
-  // Calculate used passes
-  const countUsedPasses = (): number => {
-    let count = 0;
-    Object.entries(allocations).forEach(([_, isAllocated]) => {
-      if (isAllocated) count += settings.passesPerAllocation;
-    });
-    return count;
-  };
+  // Calculate daily usage statistics
+  const getDailyUsageStats = useCallback((): { maxUsed: number; maxDate: string | null } => {
+    const activeAllocs = getActiveAllocations();
+    if (activeAllocs.length === 0) return { maxUsed: 0, maxDate: null };
+    
+    // Build a map of date -> passes used
+    const dateUsage: Record<string, number> = {};
+    const currentSettings = getSkiPassSettings();
+    
+    for (const alloc of activeAllocs) {
+      const startDate = new Date(alloc.checkIn);
+      const endDate = new Date(alloc.checkOut);
+      const current = new Date(startDate);
+      
+      while (current < endDate) {
+        const dateKey = current.toISOString().split('T')[0];
+        dateUsage[dateKey] = (dateUsage[dateKey] || 0) + currentSettings.passesPerAllocation;
+        current.setDate(current.getDate() + 1);
+      }
+    }
+    
+    // Find max
+    let maxUsed = 0;
+    let maxDate: string | null = null;
+    for (const [date, used] of Object.entries(dateUsage)) {
+      if (used > maxUsed) {
+        maxUsed = used;
+        maxDate = date;
+      }
+    }
+    
+    return { maxUsed, maxDate };
+  }, [refreshKey]);
 
-  const usedPasses = countUsedPasses();
-  const availablePasses = settings.totalCapacity - usedPasses;
+  const usageStats = getDailyUsageStats();
+  const availablePasses = settings.totalCapacity - usageStats.maxUsed;
 
   return (
     <div className="space-y-6">
@@ -207,13 +236,18 @@ const SkiPassAdmin = () => {
             
             <div className="flex items-center gap-4 ml-auto">
               <div className="text-sm">
-                <span className="text-muted-foreground">Käytössä:</span>
-                <Badge className={usedPasses > 0 ? "bg-cyan-500/20 text-cyan-400 ml-2" : "ml-2"}>
-                  {usedPasses} / {settings.totalCapacity}
+                <span className="text-muted-foreground">Max käyttö/pv:</span>
+                <Badge className={usageStats.maxUsed > 0 ? "bg-cyan-500/20 text-cyan-400 ml-2" : "ml-2"}>
+                  {usageStats.maxUsed} / {settings.totalCapacity}
                 </Badge>
+                {usageStats.maxDate && (
+                  <span className="text-xs text-muted-foreground ml-1">
+                    ({format(new Date(usageStats.maxDate), "d.M")})
+                  </span>
+                )}
               </div>
               <div className="text-sm">
-                <span className="text-muted-foreground">Vapaana:</span>
+                <span className="text-muted-foreground">Vapaana min:</span>
                 <Badge className={availablePasses > 0 ? "bg-green-500/20 text-green-400 ml-2" : "bg-red-500/20 text-red-400 ml-2"}>
                   {availablePasses}
                 </Badge>
@@ -223,7 +257,7 @@ const SkiPassAdmin = () => {
           
           <div className="mt-3 flex items-start gap-2 text-xs text-muted-foreground bg-muted/30 p-2 rounded">
             <Info className="w-4 h-4 mt-0.5 shrink-0" />
-            <span>Jokainen varaus käyttää 2 lippua (1 setti). Kapasiteetti {settings.totalCapacity} = maksimissaan {settings.totalCapacity / 2} päällekkäistä varausta.</span>
+            <span>Jokainen varaus käyttää 2 lippua (1 setti). Kapasiteetti {settings.totalCapacity}/pv = maksimissaan {settings.totalCapacity / 2} päällekkäistä varausta samana päivänä.</span>
           </div>
         </CardContent>
       </Card>
@@ -262,8 +296,8 @@ const SkiPassAdmin = () => {
                 <CardContent>
                   <div className="space-y-2">
                     {deals.map(deal => {
-                      const periodKey = `${deal.roomId}_${deal.checkIn}_${deal.checkOut}`;
-                      const isAllocated = allocations[periodKey] || false;
+                      const periodKey = generatePeriodId(deal.roomId, deal.checkIn, deal.checkOut);
+                      const isAllocated = getAllocationStatus(deal.roomId, deal.checkIn, deal.checkOut);
                       const availableForPeriod = getAvailablePassesForDateRange(
                         deal.checkIn, 
                         deal.checkOut,
@@ -302,10 +336,15 @@ const SkiPassAdmin = () => {
                             )}
                             
                             {!canAllocate && !isAllocated && (
-                              <Badge variant="outline" className="text-amber-400 border-amber-500/30">
-                                <AlertCircle className="w-3 h-3 mr-1" />
-                                Päällekkäisyys
-                              </Badge>
+                              <div className="flex items-center gap-2">
+                                <Badge variant="outline" className="text-amber-400 border-amber-500/30">
+                                  <AlertCircle className="w-3 h-3 mr-1" />
+                                  Päällekkäisyys
+                                </Badge>
+                                <span className="text-xs text-muted-foreground">
+                                  (vapaana: {availableForPeriod})
+                                </span>
+                              </div>
                             )}
                           </div>
                           

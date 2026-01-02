@@ -119,11 +119,27 @@ export const getAvailablePassesForDateRange = (checkIn: string, checkOut: string
   return settings.totalCapacity - maxUsed;
 };
 
+// Get blocking days info - returns list of days where adding passes would exceed capacity
+export const getBlockingDays = (checkIn: string, checkOut: string, excludePeriodId?: string): { date: string; used: number; capacity: number }[] => {
+  const settings = getSkiPassSettings();
+  const dates = getDatesInRange(checkIn, checkOut);
+  const blockingDays: { date: string; used: number; capacity: number }[] = [];
+  
+  for (const date of dates) {
+    const used = getUsedPassesForDate(date, excludePeriodId);
+    // Would exceed capacity if we add passesPerAllocation
+    if (used + settings.passesPerAllocation > settings.totalCapacity) {
+      blockingDays.push({ date, used, capacity: settings.totalCapacity });
+    }
+  }
+  
+  return blockingDays;
+};
+
 // Check if allocation is possible (enough capacity on every day in the range)
 export const canAllocateSkiPass = (checkIn: string, checkOut: string, excludePeriodId?: string): boolean => {
-  const settings = getSkiPassSettings();
-  const available = getAvailablePassesForDateRange(checkIn, checkOut, excludePeriodId);
-  return available >= settings.passesPerAllocation;
+  const blockingDays = getBlockingDays(checkIn, checkOut, excludePeriodId);
+  return blockingDays.length === 0;
 };
 
 // Toggle ski pass allocation for a period
