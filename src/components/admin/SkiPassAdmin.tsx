@@ -201,13 +201,14 @@ const SkiPassAdmin = () => {
     return Math.round(basePrice + cleaningFee);
   };
 
-  // Get the special offer price (with custom discount from period settings)
+  // Get the special offer price (additional discount on top of PropertyAdmin discount)
   const getSpecialOfferPrice = (deal: Beds24Deal, customDiscount: number | null): number | null => {
     if (!deal.price || !customDiscount) return null;
-    const property = getPropertyDetails(deal.roomId);
-    const cleaningFee = property?.cleaningFee || 0;
-    const discountedPrice = deal.price * (1 - customDiscount / 100);
-    return Math.round(discountedPrice + cleaningFee);
+    // First get the PropertyAdmin discounted price
+    const currentPrice = getCurrentDisplayPrice(deal);
+    if (!currentPrice) return null;
+    // Apply custom discount as additional discount on top of PropertyAdmin price
+    return Math.round(currentPrice * (1 - customDiscount / 100));
   };
 
   // Group deals by property
