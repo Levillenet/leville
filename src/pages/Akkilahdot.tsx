@@ -15,7 +15,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
-import { propertyDetails, getPropertyDetails } from "@/data/propertyDetails";
+import { propertyDetails, getPropertyDetails, getPropertyImage } from "@/data/propertyDetails";
 
 interface AkkilahdotProps {
   lang?: Language;
@@ -429,6 +429,19 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   return (
                     <ScrollReveal key={deal.id} delay={index * 0.1}>
                       <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
+                        {/* Property image */}
+                        {getPropertyImage(deal.roomId) && (
+                          <div className="relative h-40 overflow-hidden">
+                            <img 
+                              src={getPropertyImage(deal.roomId)} 
+                              alt={deal.roomName}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              loading="lazy"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                          </div>
+                        )}
+                        
                         {/* Last minute badge */}
                         <div className="absolute top-4 right-4 z-10">
                           <Badge className="bg-red-500 text-white border-0 animate-pulse">
