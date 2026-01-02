@@ -19,6 +19,10 @@ import { propertyDetails, getPropertyDetails } from "@/data/propertyDetails";
 
 // Property background images
 import glacierImage from "@/assets/deals/glacier.jpg";
+import skistarImage from "@/assets/deals/skistar.jpg";
+
+// Skistar room IDs
+const skistarRoomIds = ['212', '211', '210', '209', '104', '320', '321', '102', '319'];
 
 interface AkkilahdotProps {
   lang?: Language;
@@ -440,6 +444,19 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                               backgroundImage: `url(${glacierImage})`,
                               backgroundSize: 'cover',
                               backgroundPosition: 'center 30%',
+                              opacity: 0.15,
+                              maskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
+                              WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
+                            }}
+                          />
+                        )}
+                        {skistarRoomIds.includes(deal.roomId) && (
+                          <div 
+                            className="absolute inset-0 z-0 pointer-events-none"
+                            style={{
+                              backgroundImage: `url(${skistarImage})`,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center 40%',
                               opacity: 0.15,
                               maskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
                               WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
