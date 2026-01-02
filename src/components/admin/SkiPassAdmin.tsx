@@ -162,11 +162,52 @@ const SkiPassAdmin = () => {
     return property?.name || deal.roomName;
   };
 
-  // Calculate discounted price for a deal
+  // Calculate discounted price for a deal (with custom discount from period settings)
   const calculateDiscountedPrice = (deal: Beds24Deal, customDiscount: number | null): number | null => {
     if (!deal.price) return null;
     if (!customDiscount) return deal.price;
     return Math.round(deal.price * (1 - customDiscount / 100));
+  };
+
+  // Get the original API price + cleaning fee
+  const getOriginalApiPrice = (deal: Beds24Deal): number | null => {
+    if (!deal.price) return null;
+    const property = getPropertyDetails(deal.roomId);
+    const cleaningFee = property?.cleaningFee || 0;
+    return Math.round(deal.price + cleaningFee);
+  };
+
+  // Get the current displayed price (with property-level discounts)
+  const getCurrentDisplayPrice = (deal: Beds24Deal): number | null => {
+    if (!deal.price) return null;
+    const property = getPropertyDetails(deal.roomId);
+    const cleaningFee = property?.cleaningFee || 0;
+    let basePrice = deal.price;
+    
+    // Apply property-level discount based on nights
+    let discount = 0;
+    if (deal.nights === 1 && property?.oneNightDiscount) {
+      discount = property.oneNightDiscount;
+    } else if (deal.nights === 2 && property?.twoNightDiscount) {
+      discount = property.twoNightDiscount;
+    } else if (deal.nights >= 3 && property?.longStayDiscount) {
+      discount = property.longStayDiscount;
+    }
+    
+    if (discount > 0) {
+      basePrice = basePrice * (1 - discount / 100);
+    }
+    
+    return Math.round(basePrice + cleaningFee);
+  };
+
+  // Get the special offer price (with custom discount from period settings)
+  const getSpecialOfferPrice = (deal: Beds24Deal, customDiscount: number | null): number | null => {
+    if (!deal.price || !customDiscount) return null;
+    const property = getPropertyDetails(deal.roomId);
+    const cleaningFee = property?.cleaningFee || 0;
+    const discountedPrice = deal.price * (1 - customDiscount / 100);
+    return Math.round(discountedPrice + cleaningFee);
   };
 
   // Group deals by property
@@ -381,25 +422,25 @@ const SkiPassAdmin = () => {
                               </div>
                             </div>
                             
-                            {/* Price display */}
-                            <div className="text-right">
+                            {/* Price display - show all three prices */}
+                            <div className="text-right space-y-1">
                               {deal.price ? (
-                                <div className="flex items-center gap-2">
-                                  {periodSettings.customDiscount && periodSettings.customDiscount > 0 ? (
-                                    <>
-                                      <span className="text-muted-foreground line-through text-sm">
-                                        {deal.price}€
-                                      </span>
-                                      <span className="font-bold text-green-400 text-lg">
-                                        {discountedPrice}€
-                                      </span>
-                                    </>
-                                  ) : (
-                                    <span className="font-semibold text-foreground">
-                                      {deal.price}€
-                                    </span>
+                                <>
+                                  {/* API price */}
+                                  <div className="text-xs text-muted-foreground">
+                                    API: <span className="font-medium">{getOriginalApiPrice(deal)}€</span>
+                                  </div>
+                                  {/* Current displayed price */}
+                                  <div className="text-sm">
+                                    Nyt: <span className="font-semibold text-foreground">{getCurrentDisplayPrice(deal)}€</span>
+                                  </div>
+                                  {/* Special offer price (if discount is set) */}
+                                  {periodSettings.customDiscount && periodSettings.customDiscount > 0 && (
+                                    <div className="text-sm">
+                                      Erikoistarjous: <span className="font-bold text-green-400">{getSpecialOfferPrice(deal, periodSettings.customDiscount)}€</span>
+                                    </div>
                                   )}
-                                </div>
+                                </>
                               ) : (
                                 <span className="text-muted-foreground text-sm">Hinta ei saatavilla</span>
                               )}
