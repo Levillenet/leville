@@ -10,6 +10,7 @@ export interface SkiPassPeriodAllocation {
   allocatedAt?: string;       // When the allocation was made
   specialOffer: boolean;      // Show "Erikoistarjous" badge for this period
   customDiscount: number | null; // Custom discount percentage (not shown to customer, but affects price)
+  showDiscountBadge: boolean; // Show strikethrough price to customer
 }
 
 export interface SkiPassSettings {
@@ -184,7 +185,8 @@ export const toggleSkiPassAllocation = (
       allocated: true,
       allocatedAt: new Date().toISOString(),
       specialOffer: false,
-      customDiscount: null
+      customDiscount: null,
+      showDiscountBadge: false
     });
   }
   
@@ -192,12 +194,12 @@ export const toggleSkiPassAllocation = (
   return { success: true };
 };
 
-// Update period settings (specialOffer and customDiscount)
+// Update period settings (specialOffer, customDiscount, showDiscountBadge)
 export const updatePeriodSettings = (
   roomId: string,
   checkIn: string,
   checkOut: string,
-  settings: { specialOffer?: boolean; customDiscount?: number | null }
+  settings: { specialOffer?: boolean; customDiscount?: number | null; showDiscountBadge?: boolean }
 ): void => {
   const periodId = generatePeriodId(roomId, checkIn, checkOut);
   const allocations = getSkiPassAllocations();
@@ -211,6 +213,9 @@ export const updatePeriodSettings = (
     if (settings.customDiscount !== undefined) {
       allocations[existingIndex].customDiscount = settings.customDiscount;
     }
+    if (settings.showDiscountBadge !== undefined) {
+      allocations[existingIndex].showDiscountBadge = settings.showDiscountBadge;
+    }
   } else {
     // Create new allocation entry just for settings (not ski pass allocated)
     allocations.push({
@@ -220,7 +225,8 @@ export const updatePeriodSettings = (
       checkOut,
       allocated: false,
       specialOffer: settings.specialOffer || false,
-      customDiscount: settings.customDiscount ?? null
+      customDiscount: settings.customDiscount ?? null,
+      showDiscountBadge: settings.showDiscountBadge || false
     });
   }
   
@@ -228,13 +234,14 @@ export const updatePeriodSettings = (
 };
 
 // Get period settings
-export const getPeriodSettings = (roomId: string, checkIn: string, checkOut: string): { specialOffer: boolean; customDiscount: number | null } => {
+export const getPeriodSettings = (roomId: string, checkIn: string, checkOut: string): { specialOffer: boolean; customDiscount: number | null; showDiscountBadge: boolean } => {
   const periodId = generatePeriodId(roomId, checkIn, checkOut);
   const allocations = getSkiPassAllocations();
   const allocation = allocations.find(a => a.periodId === periodId);
   return {
     specialOffer: allocation?.specialOffer || false,
-    customDiscount: allocation?.customDiscount ?? null
+    customDiscount: allocation?.customDiscount ?? null,
+    showDiscountBadge: allocation?.showDiscountBadge || false
   };
 };
 

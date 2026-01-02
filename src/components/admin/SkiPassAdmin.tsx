@@ -141,6 +141,11 @@ const SkiPassAdmin = () => {
     setRefreshKey(prev => prev + 1);
   };
 
+  const handleToggleShowDiscount = (deal: Beds24Deal, checked: boolean) => {
+    updatePeriodSettings(deal.roomId, deal.checkIn, deal.checkOut, { showDiscountBadge: checked });
+    setRefreshKey(prev => prev + 1);
+  };
+
   const handleSaveSettings = () => {
     saveSkiPassSettings({ totalCapacity: tempCapacity });
     setSettings({ ...settings, totalCapacity: tempCapacity });
@@ -453,6 +458,20 @@ const SkiPassAdmin = () => {
                                 max={100}
                               />
                             </div>
+                            
+                            {/* Show discount toggle - only visible if customDiscount > 0 */}
+                            {periodSettings.customDiscount && periodSettings.customDiscount > 0 && (
+                              <div className="flex items-center gap-2">
+                                <Switch
+                                  id={`showdiscount-${deal.id}`}
+                                  checked={periodSettings.showDiscountBadge}
+                                  onCheckedChange={(checked) => handleToggleShowDiscount(deal, checked)}
+                                />
+                                <Label htmlFor={`showdiscount-${deal.id}`} className="text-sm">
+                                  Näytä alennus
+                                </Label>
+                              </div>
+                            )}
                           </div>
                         </div>
                       );

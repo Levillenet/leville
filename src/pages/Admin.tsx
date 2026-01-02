@@ -203,7 +203,7 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="skipass" className="flex items-center gap-2">
               <Ticket className="w-4 h-4" />
-              Hissilippu
+              Hissiliput ja erikoistarjoukset
             </TabsTrigger>
             <TabsTrigger value="stats" className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4" />
