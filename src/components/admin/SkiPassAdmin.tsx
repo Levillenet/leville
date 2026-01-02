@@ -164,14 +164,14 @@ const SkiPassAdmin = () => {
 
   // Calculate discounted price for a deal (with custom discount from period settings)
   const calculateDiscountedPrice = (deal: Beds24Deal, customDiscount: number | null): number | null => {
-    if (!deal.price) return null;
-    if (!customDiscount) return deal.price;
+    if (deal.price == null) return null;
+    if (customDiscount == null || customDiscount <= 0) return deal.price;
     return Math.round(deal.price * (1 - customDiscount / 100));
   };
 
   // Get the original API price + cleaning fee
   const getOriginalApiPrice = (deal: Beds24Deal): number | null => {
-    if (!deal.price) return null;
+    if (deal.price == null) return null;
     const property = getPropertyDetails(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
     return Math.round(deal.price + cleaningFee);
@@ -179,11 +179,11 @@ const SkiPassAdmin = () => {
 
   // Get the current displayed price (with property-level discounts)
   const getCurrentDisplayPrice = (deal: Beds24Deal): number | null => {
-    if (!deal.price) return null;
+    if (deal.price == null) return null;
     const property = getPropertyDetails(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
     let basePrice = deal.price;
-    
+
     // Apply property-level discount based on nights
     let discount = 0;
     if (deal.nights === 1 && property?.oneNightDiscount) {
@@ -193,20 +193,20 @@ const SkiPassAdmin = () => {
     } else if (deal.nights >= 3 && property?.longStayDiscount) {
       discount = property.longStayDiscount;
     }
-    
+
     if (discount > 0) {
       basePrice = basePrice * (1 - discount / 100);
     }
-    
+
     return Math.round(basePrice + cleaningFee);
   };
 
   // Get the special offer price (additional discount on top of PropertyAdmin discount)
   const getSpecialOfferPrice = (deal: Beds24Deal, customDiscount: number | null): number | null => {
-    if (!deal.price || !customDiscount) return null;
+    if (deal.price == null || customDiscount == null || customDiscount <= 0) return null;
     // First get the PropertyAdmin discounted price
     const currentPrice = getCurrentDisplayPrice(deal);
-    if (!currentPrice) return null;
+    if (currentPrice == null) return null;
     // Apply custom discount as additional discount on top of PropertyAdmin price
     return Math.round(currentPrice * (1 - customDiscount / 100));
   };
@@ -425,7 +425,7 @@ const SkiPassAdmin = () => {
                             
                             {/* Price display - show all three prices */}
                             <div className="text-right space-y-1">
-                              {deal.price ? (
+                              {deal.price != null ? (
                                 <>
                                   {/* API price */}
                                   <div className="text-xs text-muted-foreground">
