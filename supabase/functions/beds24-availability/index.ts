@@ -60,29 +60,56 @@ serve(async (req) => {
 
     console.log(`Fetching Beds24 availability from ${arrivalFrom} to ${arrivalTo}`);
 
-    // First, get the list of rooms/properties
-    const roomsResponse = await fetch('https://beds24.com/api/v2/inventory/rooms', {
+    // First, get the list of properties with rooms
+    const propertiesResponse = await fetch('https://beds24.com/api/v2/properties?includeAllRooms=true', {
       headers: {
         'token': apiToken,
         'accept': 'application/json'
       }
     });
 
-    if (!roomsResponse.ok) {
-      const errorText = await roomsResponse.text();
-      console.error('Beds24 rooms API error:', roomsResponse.status, errorText);
+    if (!propertiesResponse.ok) {
+      const errorText = await propertiesResponse.text();
+      console.error('Beds24 properties API error:', propertiesResponse.status, errorText);
       return new Response(
-        JSON.stringify({ error: 'Failed to fetch rooms', deals: [] }),
+        JSON.stringify({ error: 'Failed to fetch properties', deals: [] }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
       );
     }
 
-    const roomsData = await roomsResponse.json();
-    console.log('Rooms data:', JSON.stringify(roomsData).slice(0, 500));
+    const propertiesData = await propertiesResponse.json();
+    console.log('Properties data:', JSON.stringify(propertiesData).slice(0, 1000));
 
-    // Get availability for all rooms
-    const availabilityResponse = await fetch(
-      `https://beds24.com/api/v2/inventory/rooms/availability?arrivalFrom=${arrivalFrom}&arrivalTo=${arrivalTo}`,
+    // Build a map of rooms from properties
+    const roomsMap = new Map<string, { name: string; maxPeople: number; propertyName: string }>();
+    if (Array.isArray(propertiesData)) {
+      for (const property of propertiesData) {
+        const propertyName = property.name || 'Majoitus';
+        if (property.rooms && Array.isArray(property.rooms)) {
+          for (const room of property.rooms) {
+            roomsMap.set(String(room.id), {
+              name: room.name || propertyName,
+              maxPeople: room.maxPeople || 4,
+              propertyName
+            });
+          }
+        }
+        // Also add property itself if it has an id
+        if (property.id) {
+          roomsMap.set(String(property.id), {
+            name: propertyName,
+            maxPeople: property.maxPeople || 4,
+            propertyName
+          });
+        }
+      }
+    }
+
+    console.log('Found rooms:', roomsMap.size);
+
+    // Get calendar/availability data
+    const calendarResponse = await fetch(
+      `https://beds24.com/api/v2/inventory/calendar?startDate=${arrivalFrom}&endDate=${arrivalTo}`,
       {
         headers: {
           'token': apiToken,
@@ -91,32 +118,30 @@ serve(async (req) => {
       }
     );
 
-    if (!availabilityResponse.ok) {
-      const errorText = await availabilityResponse.text();
-      console.error('Beds24 availability API error:', availabilityResponse.status, errorText);
+    if (!calendarResponse.ok) {
+      const errorText = await calendarResponse.text();
+      console.error('Beds24 calendar API error:', calendarResponse.status, errorText);
       return new Response(
-        JSON.stringify({ error: 'Failed to fetch availability', deals: [] }),
+        JSON.stringify({ error: 'Failed to fetch calendar', deals: [] }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
       );
     }
 
-    const availabilityData = await availabilityResponse.json();
-    console.log('Availability data:', JSON.stringify(availabilityData).slice(0, 500));
+    const calendarData = await calendarResponse.json();
+    console.log('Calendar data:', JSON.stringify(calendarData).slice(0, 1000));
 
-    // Process availability data to find free periods
+    // Process calendar data to find free periods
     const deals: Deal[] = [];
     
-    // The availability response structure may vary, so we handle different formats
-    if (Array.isArray(availabilityData)) {
+    // The calendar response structure may vary, so we handle different formats
+    if (Array.isArray(calendarData)) {
       // Process each room's availability
-      for (const roomAvail of availabilityData) {
+      for (const roomAvail of calendarData) {
         const roomId = roomAvail.roomId || roomAvail.id;
-        const roomInfo = Array.isArray(roomsData) 
-          ? roomsData.find((r: Beds24Room) => r.roomId === roomId || r.roomId === String(roomId))
-          : null;
+        const roomData = roomsMap.get(String(roomId));
         
-        const roomName = roomInfo?.name || roomAvail.name || `Majoitus ${roomId}`;
-        const maxPersons = roomInfo?.maxPeople || roomAvail.maxPeople || 4;
+        const roomName = roomData?.name || roomAvail.name || `Majoitus ${roomId}`;
+        const maxPersons = roomData?.maxPeople || roomAvail.maxPeople || 4;
 
         // Look for available dates
         const availability = roomAvail.availability || roomAvail.dates || [];
