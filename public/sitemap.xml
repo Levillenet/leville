@@ -36,11 +36,15 @@
   </url>
   
   <url>
-    <loc>https://leville.net/ajankohtaista</loc>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/ajankohtaista"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/news"/>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://leville.net/akkilahdot</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/akkilahdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/last-minute"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/sista-minuten"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/last-minute"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/ultima-hora"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/derniere-minute"/>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
   
   <url>
@@ -117,11 +121,15 @@
   </url>
   
   <url>
-    <loc>https://leville.net/en/news</loc>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/ajankohtaista"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/news"/>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://leville.net/en/last-minute</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/akkilahdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/last-minute"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/sista-minuten"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/last-minute"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/ultima-hora"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/derniere-minute"/>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
   </url>
   
   <url>
