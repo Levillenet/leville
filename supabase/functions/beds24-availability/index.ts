@@ -36,6 +36,63 @@ interface Deal {
   available: boolean;
 }
 
+// Fetch price for a specific deal using the offers endpoint
+async function fetchOfferPrice(
+  apiToken: string, 
+  roomId: string, 
+  checkIn: string, 
+  checkOut: string
+): Promise<number | null> {
+  try {
+    // Use the offers endpoint with occupancy parameter for Fixed Prices
+    // API expects 'arrival', 'departure', 'roomId', and 'adults' parameters
+    const offersUrl = `https://beds24.com/api/v2/inventory/rooms/offers?arrival=${checkIn}&departure=${checkOut}&roomId=${roomId}&adults=2`;
+    
+    const response = await fetch(offersUrl, {
+      headers: {
+        token: apiToken,
+        accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.log(`Offers API error for room ${roomId}: ${response.status} - ${errorText.slice(0, 200)}`);
+      return null;
+    }
+
+    const json = await response.json();
+    const offers = unwrapBeds24Array<any>(json);
+    
+    // Find the matching room's offer
+    for (const roomOffer of offers) {
+      const rid = String(roomOffer?.roomId ?? roomOffer?.id ?? "");
+      if (rid === roomId) {
+        // Get the first offer's price
+        const offersList = roomOffer?.offers ?? [roomOffer];
+        if (Array.isArray(offersList) && offersList.length > 0) {
+          const price = offersList[0]?.price ?? offersList[0]?.totalPrice ?? offersList[0]?.total;
+          if (typeof price === "number" && price > 0) {
+            console.log(`Room ${roomId} (${checkIn}-${checkOut}): Price ${price}€`);
+            return price;
+          }
+        }
+        // Also check direct price field
+        const directPrice = roomOffer?.price ?? roomOffer?.totalPrice;
+        if (typeof directPrice === "number" && directPrice > 0) {
+          console.log(`Room ${roomId} (${checkIn}-${checkOut}): Direct price ${directPrice}€`);
+          return directPrice;
+        }
+      }
+    }
+    
+    return null;
+  } catch (error) {
+    console.log(`Error fetching offer price for room ${roomId}:`, error);
+    return null;
+  }
+}
+
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -88,7 +145,6 @@ serve(async (req) => {
 
     const propertiesJson = await propertiesResponse.json();
     const properties = unwrapBeds24Array<any>(propertiesJson);
-    console.log("Properties payload:", JSON.stringify(propertiesJson).slice(0, 800));
 
     const roomsMap = new Map<string, { name: string; maxPeople: number }>();
 
@@ -113,7 +169,6 @@ serve(async (req) => {
 
     // 2) Availability (just true/false)
     const availabilityUrl = `https://beds24.com/api/v2/inventory/rooms/availability?arrivalFrom=${arrivalFrom}&arrivalTo=${arrivalTo}`;
-    console.log("Fetching availability from:", availabilityUrl);
     
     const availabilityResponse = await fetch(
       availabilityUrl,
@@ -136,82 +191,9 @@ serve(async (req) => {
 
     const availabilityJson = await availabilityResponse.json();
     const availabilityRooms = unwrapBeds24Array<any>(availabilityJson);
-    console.log("Availability payload:", JSON.stringify(availabilityJson).slice(0, 800));
 
-    // 3) Calendar with prices - use /inventory/calendar to get daily prices (price1)
-    const priceMap = new Map<string, Map<string, number>>(); // roomId -> date -> price
-    
-    try {
-      // Fetch calendar data which includes price1 field
-      const calendarUrl = `https://beds24.com/api/v2/inventory/calendar?arrivalFrom=${arrivalFrom}&arrivalTo=${arrivalTo}`;
-      console.log("Fetching calendar (prices) from:", calendarUrl);
-      
-      const calendarResponse = await fetch(calendarUrl, {
-        headers: {
-          token: apiToken,
-          accept: "application/json",
-        },
-      });
-
-      if (calendarResponse.ok) {
-        const calendarJson = await calendarResponse.json();
-        console.log("Calendar payload:", JSON.stringify(calendarJson).slice(0, 1500));
-        
-        const calendarRooms = unwrapBeds24Array<any>(calendarJson);
-        
-        for (const room of calendarRooms) {
-          const roomIdRaw = room?.roomId ?? room?.id;
-          if (!roomIdRaw) continue;
-          
-          const roomId = String(roomIdRaw);
-          if (!priceMap.has(roomId)) {
-            priceMap.set(roomId, new Map());
-          }
-          const roomPrices = priceMap.get(roomId)!;
-          
-          // Calendar is an array of date entries with price1
-          const calendar = room?.calendar ?? [];
-          
-          if (Array.isArray(calendar)) {
-            for (const entry of calendar) {
-              const from = entry?.from ?? entry?.date;
-              const to = entry?.to;
-              const price = entry?.price1 ?? entry?.price ?? entry?.rate;
-              
-              if (from && typeof price === "number" && price > 0) {
-                // If there's a date range, fill in all dates
-                if (to && from !== to) {
-                  const startDate = new Date(from);
-                  const endDate = new Date(to);
-                  let currentDate = new Date(startDate);
-                  
-                  while (currentDate <= endDate) {
-                    const dateStr = formatDate(currentDate);
-                    roomPrices.set(dateStr, price);
-                    currentDate.setDate(currentDate.getDate() + 1);
-                  }
-                } else {
-                  roomPrices.set(String(from), price);
-                }
-              }
-            }
-            
-            if (roomPrices.size > 0) {
-              console.log(`Room ${roomId}: Found ${roomPrices.size} date prices`);
-            }
-          }
-        }
-      } else {
-        const errText = await calendarResponse.text();
-        console.log("Calendar API error:", calendarResponse.status, errText);
-      }
-    } catch (calendarError) {
-      console.log("Error fetching calendar prices:", calendarError);
-    }
-    
-    console.log("Price map built for rooms:", priceMap.size, "rooms with prices");
-
-    const deals: Deal[] = [];
+    // Find available periods and create deals (without prices yet)
+    const dealsWithoutPrices: Deal[] = [];
 
     for (const roomAvail of availabilityRooms) {
       const roomIdRaw = roomAvail?.roomId ?? roomAvail?.id;
@@ -219,11 +201,9 @@ serve(async (req) => {
 
       const roomId = String(roomIdRaw);
       const roomMeta = roomsMap.get(roomId);
-      const roomPrices = priceMap.get(roomId);
 
       const roomName = roomMeta?.name ?? roomAvail?.name ?? `Majoitus ${roomId}`;
-      const maxPersons =
-        roomMeta?.maxPeople ?? roomAvail?.maxPeople ?? roomAvail?.maxPersons ?? 4;
+      const maxPersons = roomMeta?.maxPeople ?? roomAvail?.maxPeople ?? roomAvail?.maxPersons ?? 4;
 
       // Beds24 returns availability as object: {"2026-01-02": true, "2026-01-03": false, ...}
       const availabilityData = roomAvail?.availability ?? {};
@@ -232,12 +212,10 @@ serve(async (req) => {
       let dateEntries: [string, boolean][] = [];
       
       if (typeof availabilityData === "object" && !Array.isArray(availabilityData)) {
-        // It's an object with date keys
         dateEntries = Object.entries(availabilityData)
           .map(([date, avail]) => [date, avail === true] as [string, boolean])
           .sort((a, b) => a[0].localeCompare(b[0]));
       } else if (Array.isArray(availabilityData)) {
-        // It's an array (fallback)
         for (const day of availabilityData) {
           const date = day?.date ?? day?.day ?? day?.from;
           if (!date) continue;
@@ -249,7 +227,8 @@ serve(async (req) => {
 
       if (dateEntries.length === 0) continue;
 
-      console.log(`Room ${roomId} (${roomName}): ${dateEntries.length} date entries, available days: ${dateEntries.filter(d => d[1]).length}`);
+      const availableDays = dateEntries.filter(d => d[1]).length;
+      console.log(`Room ${roomId} (${roomName}): ${dateEntries.length} date entries, available days: ${availableDays}`);
 
       let periodStart: string | null = null;
 
@@ -268,37 +247,14 @@ serve(async (req) => {
 
           // Only include if check-in is within 14 days AND at least 2 nights
           if (nights >= 2 && checkIn <= maxCheckInStr) {
-            // Calculate total price for the stay
-            let totalPrice: number | null = null;
-            if (roomPrices && roomPrices.size > 0) {
-              let sum = 0;
-              let hasPrices = true;
-              const checkInDate = new Date(checkIn);
-              for (let n = 0; n < nights; n++) {
-                const stayDate = new Date(checkInDate);
-                stayDate.setDate(stayDate.getDate() + n);
-                const dateStr = formatDate(stayDate);
-                const dayPrice = roomPrices.get(dateStr);
-                if (dayPrice) {
-                  sum += dayPrice;
-                } else {
-                  hasPrices = false;
-                  break;
-                }
-              }
-              if (hasPrices && sum > 0) {
-                totalPrice = sum;
-              }
-            }
-
-            deals.push({
+            dealsWithoutPrices.push({
               id: `${roomId}-${checkIn}`,
               roomId,
               roomName,
               checkIn,
               checkOut,
               nights,
-              price: totalPrice,
+              price: null, // Will be fetched via offers endpoint
               currency: "EUR",
               maxPersons,
               available: true,
@@ -312,7 +268,6 @@ serve(async (req) => {
       // Handle period that extends to end of search range
       if (periodStart && periodStart <= maxCheckInStr) {
         const lastDate = dateEntries[dateEntries.length - 1][0];
-        // Add one day to get checkout date
         const lastDateObj = new Date(lastDate);
         lastDateObj.setDate(lastDateObj.getDate() + 1);
         const checkOut = formatDate(lastDateObj);
@@ -321,37 +276,14 @@ serve(async (req) => {
         const nights = daysBetween(checkIn, checkOut);
 
         if (nights >= 2) {
-          // Calculate total price for the stay
-          let totalPrice: number | null = null;
-          if (roomPrices && roomPrices.size > 0) {
-            let sum = 0;
-            let hasPrices = true;
-            const checkInDate = new Date(checkIn);
-            for (let n = 0; n < nights; n++) {
-              const stayDate = new Date(checkInDate);
-              stayDate.setDate(stayDate.getDate() + n);
-              const dateStr = formatDate(stayDate);
-              const dayPrice = roomPrices.get(dateStr);
-              if (dayPrice) {
-                sum += dayPrice;
-              } else {
-                hasPrices = false;
-                break;
-              }
-            }
-            if (hasPrices && sum > 0) {
-              totalPrice = sum;
-            }
-          }
-
-          deals.push({
+          dealsWithoutPrices.push({
             id: `${roomId}-${checkIn}`,
             roomId,
             roomName,
             checkIn,
             checkOut,
             nights,
-            price: totalPrice,
+            price: null,
             currency: "EUR",
             maxPersons,
             available: true,
@@ -361,12 +293,36 @@ serve(async (req) => {
     }
 
     // Filter to only include deals with check-in within 14 days
-    const filteredDeals = deals.filter(deal => deal.checkIn <= maxCheckInStr);
+    const filteredDeals = dealsWithoutPrices.filter(deal => deal.checkIn <= maxCheckInStr);
     filteredDeals.sort((a, b) => a.checkIn.localeCompare(b.checkIn));
 
-    console.log(`Found ${deals.length} total deals, ${filteredDeals.length} within 14 days (max: ${maxCheckInStr})`);
+    console.log(`Found ${filteredDeals.length} deals within 14 days (max: ${maxCheckInStr})`);
 
-    return new Response(JSON.stringify({ deals: filteredDeals, fetchedAt: new Date().toISOString() }), {
+    // 3) Fetch prices for each deal using the offers endpoint
+    // Process in parallel batches to avoid overwhelming the API
+    const BATCH_SIZE = 5;
+    const dealsWithPrices: Deal[] = [];
+
+    for (let i = 0; i < filteredDeals.length; i += BATCH_SIZE) {
+      const batch = filteredDeals.slice(i, i + BATCH_SIZE);
+      
+      const pricePromises = batch.map(async (deal) => {
+        const price = await fetchOfferPrice(apiToken, deal.roomId, deal.checkIn, deal.checkOut);
+        return { ...deal, price };
+      });
+
+      const batchResults = await Promise.all(pricePromises);
+      dealsWithPrices.push(...batchResults);
+    }
+
+    console.log(`Processed ${dealsWithPrices.length} deals with prices`);
+    
+    // Log which deals got prices
+    const withPrice = dealsWithPrices.filter(d => d.price !== null);
+    const withoutPrice = dealsWithPrices.filter(d => d.price === null);
+    console.log(`Deals with prices: ${withPrice.length}, without: ${withoutPrice.length}`);
+
+    return new Response(JSON.stringify({ deals: dealsWithPrices, fetchedAt: new Date().toISOString() }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
