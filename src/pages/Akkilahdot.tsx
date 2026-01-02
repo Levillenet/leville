@@ -642,7 +642,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                   </div>
                                 )}
                                 <div className="flex items-baseline gap-2">
-                                  <span className="text-3xl font-bold text-foreground">{totalPrice}€</span>
+                                  <span className={`text-3xl font-bold ${hasSpecialOffer(deal.roomId) ? 'italic text-amber-500 tracking-wide' : 'text-foreground'}`}>
+                                    {totalPrice}€
+                                  </span>
                                   <span className="text-muted-foreground text-sm">{t.total}</span>
                                 </div>
                                 <div className="text-xs text-muted-foreground mt-2">
