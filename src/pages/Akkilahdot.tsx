@@ -301,22 +301,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return Math.round(deal.price + cleaningFee);
   };
 
-  // Calculate total price with cleaning fee and discounts
-  const getTotalPrice = (deal: Beds24Deal): number | null => {
+  // Get PropertyAdmin discounted price (before any special offer)
+  const getPropertyAdminPrice = (deal: Beds24Deal): number | null => {
     if (!deal.price) return null;
     const property = getPropertyDetails(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
     let basePrice = deal.price;
     
-    // Check for period-specific custom discount (from admin)
-    const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
-    if (periodSettings.specialOffer && periodSettings.customDiscount && periodSettings.customDiscount > 0) {
-      // Use custom discount from admin, applied to original API price
-      basePrice = deal.price * (1 - periodSettings.customDiscount / 100);
-      return Math.round(basePrice + cleaningFee);
-    }
-    
-    // Fallback to property-level discounts based on number of nights
+    // Apply property-level discounts based on number of nights
     let discount = 0;
     if (deal.nights === 1 && property?.oneNightDiscount) {
       discount = property.oneNightDiscount;
@@ -331,6 +323,24 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     }
     
     return Math.round(basePrice + cleaningFee);
+  };
+
+  // Calculate total price with cleaning fee and discounts
+  const getTotalPrice = (deal: Beds24Deal): number | null => {
+    if (!deal.price) return null;
+    
+    // Get PropertyAdmin discounted price first
+    const propertyAdminPrice = getPropertyAdminPrice(deal);
+    if (!propertyAdminPrice) return null;
+    
+    // Check for period-specific custom discount (from admin) - applied as ADDITIONAL discount
+    const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
+    if (periodSettings.specialOffer && periodSettings.customDiscount && periodSettings.customDiscount > 0 && periodSettings.showDiscountBadge) {
+      // Apply custom discount on top of PropertyAdmin price (additional discount)
+      return Math.round(propertyAdminPrice * (1 - periodSettings.customDiscount / 100));
+    }
+    
+    return propertyAdminPrice;
   };
 
   // Get discount info for display - show if showDiscount toggle is enabled
