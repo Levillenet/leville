@@ -93,12 +93,8 @@ const content = {
     exploreApartment: "Tutustu huoneistoon",
     priceNote: "Hinta sisältää siivouksen. Liinavaatteet 19€/hlö.",
     sameDayNote: "Kysy hintaa nopeasti alkavaan majoitukseen",
+    priceNotAvailable: "Hinta ei saatavilla – varmista WhatsAppissa",
     discountBadge: "Nopean lomailijan etu!",
-    specialOfferBadge: "Erikoistarjous!",
-    skiPassBadge: "Mukaan 2 hissilippua!",
-    noDeals: "Ei tällä hetkellä äkkilähtöjä saatavilla. Tarkista pian uudelleen!",
-    whyTitle: "Miksi äkkilähtö?",
-    whyItems: [
       "Jopa 50% edullisempia hintoja",
       "Samat laadukkaat majoitukset",
       "Nopea varaus WhatsAppilla",
@@ -122,12 +118,8 @@ const content = {
     exploreApartment: "Explore apartment",
     priceNote: "Price includes cleaning. Linens 19€/person.",
     sameDayNote: "Ask for price for quick-start accommodation",
+    priceNotAvailable: "Price not available – confirm via WhatsApp",
     discountBadge: "Quick traveler bonus!",
-    specialOfferBadge: "Special Offer!",
-    skiPassBadge: "Includes 2 ski passes!",
-    noDeals: "No last-minute deals available at the moment. Check back soon!",
-    whyTitle: "Why last-minute?",
-    whyItems: [
       "Up to 50% lower prices",
       "Same quality accommodations",
       "Quick booking via WhatsApp",
@@ -151,12 +143,8 @@ const content = {
     exploreApartment: "Utforska lägenheten",
     priceNote: "Priset inkluderar städning. Sängkläder 19€/person.",
     sameDayNote: "Fråga om pris för snabbstartande boende",
+    priceNotAvailable: "Pris ej tillgängligt – bekräfta via WhatsApp",
     discountBadge: "Snabbresenär-bonus!",
-    specialOfferBadge: "Specialerbjudande!",
-    skiPassBadge: "Inkluderar 2 liftkort!",
-    noDeals: "Inga sista minuten-erbjudanden tillgängliga just nu. Kolla tillbaka snart!",
-    whyTitle: "Varför sista minuten?",
-    whyItems: [
       "Upp till 50% lägre priser",
       "Samma kvalitetsboenden",
       "Snabb bokning via WhatsApp",
@@ -180,12 +168,8 @@ const content = {
     exploreApartment: "Wohnung erkunden",
     priceNote: "Preis inkl. Reinigung. Bettwäsche 19€/Person.",
     sameDayNote: "Preis für schnell beginnende Unterkunft anfragen",
+    priceNotAvailable: "Preis nicht verfügbar – per WhatsApp bestätigen",
     discountBadge: "Schnellreisenden-Bonus!",
-    specialOfferBadge: "Sonderangebot!",
-    skiPassBadge: "Inkl. 2 Skipässe!",
-    noDeals: "Derzeit keine Last-Minute-Angebote verfügbar. Schauen Sie bald wieder vorbei!",
-    whyTitle: "Warum Last-Minute?",
-    whyItems: [
       "Bis zu 50% günstigere Preise",
       "Dieselben Qualitätsunterkünfte",
       "Schnelle Buchung via WhatsApp",
@@ -209,12 +193,8 @@ const content = {
     exploreApartment: "Explorar apartamento",
     priceNote: "Precio incluye limpieza. Ropa de cama 19€/persona.",
     sameDayNote: "Consultar precio para alojamiento de inicio rápido",
+    priceNotAvailable: "Precio no disponible – confirma por WhatsApp",
     discountBadge: "¡Bonus viajero rápido!",
-    specialOfferBadge: "¡Oferta especial!",
-    skiPassBadge: "¡Incluye 2 forfaits!",
-    noDeals: "No hay ofertas de última hora disponibles en este momento. ¡Vuelve pronto!",
-    whyTitle: "¿Por qué última hora?",
-    whyItems: [
       "Hasta 50% de descuento",
       "Los mismos alojamientos de calidad",
       "Reserva rápida vía WhatsApp",
@@ -238,12 +218,8 @@ const content = {
     exploreApartment: "Explorer l'appartement",
     priceNote: "Prix comprend le ménage. Linge 19€/personne.",
     sameDayNote: "Demander le prix pour un hébergement à départ rapide",
+    priceNotAvailable: "Prix indisponible – confirmer via WhatsApp",
     discountBadge: "Bonus voyageur rapide!",
-    specialOfferBadge: "Offre spéciale!",
-    skiPassBadge: "Inclut 2 forfaits de ski!",
-    noDeals: "Pas d'offres de dernière minute disponibles pour le moment. Revenez bientôt !",
-    whyTitle: "Pourquoi dernière minute ?",
-    whyItems: [
       "Jusqu'à 50% de réduction",
       "Les mêmes hébergements de qualité",
       "Réservation rapide via WhatsApp",
@@ -295,7 +271,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   // Get original API price + cleaning fee (no discounts applied)
   const getOriginalApiPrice = (deal: Beds24Deal): number | null => {
-    if (!deal.price) return null;
+    if (deal.price == null) return null;
     const property = getPropertyDetails(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
     return Math.round(deal.price + cleaningFee);
@@ -303,11 +279,11 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   // Get PropertyAdmin discounted price (before any special offer)
   const getPropertyAdminPrice = (deal: Beds24Deal): number | null => {
-    if (!deal.price) return null;
+    if (deal.price == null) return null;
     const property = getPropertyDetails(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
     let basePrice = deal.price;
-    
+
     // Apply property-level discounts based on number of nights
     let discount = 0;
     if (deal.nights === 1 && property?.oneNightDiscount) {
@@ -317,29 +293,29 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     } else if (deal.nights >= 3 && property?.longStayDiscount) {
       discount = property.longStayDiscount;
     }
-    
+
     if (discount > 0) {
       basePrice = basePrice * (1 - discount / 100);
     }
-    
+
     return Math.round(basePrice + cleaningFee);
   };
 
   // Calculate total price with cleaning fee and discounts
   const getTotalPrice = (deal: Beds24Deal): number | null => {
-    if (!deal.price) return null;
-    
+    if (deal.price == null) return null;
+
     // Get PropertyAdmin discounted price first
     const propertyAdminPrice = getPropertyAdminPrice(deal);
-    if (!propertyAdminPrice) return null;
-    
+    if (propertyAdminPrice == null) return null;
+
     // Check for period-specific custom discount (from admin) - applied as ADDITIONAL discount
     const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
     if (periodSettings.specialOffer && periodSettings.customDiscount && periodSettings.customDiscount > 0) {
       // Apply custom discount on top of PropertyAdmin price (additional discount)
       return Math.round(propertyAdminPrice * (1 - periodSettings.customDiscount / 100));
     }
-    
+
     return propertyAdminPrice;
   };
 
@@ -662,7 +638,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                 <Clock className="w-4 h-4" />
                                 {t.sameDayNote}
                               </div>
-                            ) : totalPrice ? (
+                            ) : totalPrice != null ? (
                               <>
                                 {/* Discount badge - only show if 30% or more AND strikethrough is NOT active */}
                                 {discountInfo.showBadge && !showStrikethrough && (
@@ -721,7 +697,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                             ) : (
                               <div className="text-base font-semibold text-amber-500 flex items-center gap-2">
                                 <Clock className="w-4 h-4" />
-                                {t.sameDayNote}
+                                {t.priceNotAvailable ?? t.sameDayNote}
                               </div>
                             )}
                           </div>
