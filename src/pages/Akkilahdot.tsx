@@ -17,6 +17,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { propertyDetails, getPropertyDetails } from "@/data/propertyDetails";
 
+// Property background images
+import glacierImage from "@/assets/deals/glacier.jpg";
+
 interface AkkilahdotProps {
   lang?: Language;
 }
@@ -429,6 +432,21 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   return (
                     <ScrollReveal key={deal.id} delay={index * 0.1}>
                       <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
+                        {/* Background image based on property */}
+                        {deal.roomName.toLowerCase().includes('glacier') && (
+                          <div 
+                            className="absolute inset-0 z-0 pointer-events-none"
+                            style={{
+                              backgroundImage: `url(${glacierImage})`,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center 30%',
+                              opacity: 0.15,
+                              maskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
+                              WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
+                            }}
+                          />
+                        )}
+                        
                         {/* Last minute badge */}
                         <div className="absolute top-4 right-4 z-10">
                           <Badge className="bg-red-500 text-white border-0 animate-pulse">
