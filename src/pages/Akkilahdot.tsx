@@ -293,14 +293,30 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return today.toDateString() === checkDate.toDateString();
   };
 
-  // Calculate total price with cleaning fee and discounts from propertyDetails
+  // Get original API price + cleaning fee (no discounts applied)
+  const getOriginalApiPrice = (deal: Beds24Deal): number | null => {
+    if (!deal.price) return null;
+    const property = getPropertyDetails(deal.roomId);
+    const cleaningFee = property?.cleaningFee || 0;
+    return Math.round(deal.price + cleaningFee);
+  };
+
+  // Calculate total price with cleaning fee and discounts
   const getTotalPrice = (deal: Beds24Deal): number | null => {
     if (!deal.price) return null;
     const property = getPropertyDetails(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
     let basePrice = deal.price;
     
-    // Apply discount based on number of nights
+    // Check for period-specific custom discount (from admin)
+    const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
+    if (periodSettings.specialOffer && periodSettings.customDiscount && periodSettings.customDiscount > 0) {
+      // Use custom discount from admin, applied to original API price
+      basePrice = deal.price * (1 - periodSettings.customDiscount / 100);
+      return Math.round(basePrice + cleaningFee);
+    }
+    
+    // Fallback to property-level discounts based on number of nights
     let discount = 0;
     if (deal.nights === 1 && property?.oneNightDiscount) {
       discount = property.oneNightDiscount;
@@ -494,10 +510,16 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 {beds24Deals.map((deal, index) => {
                   const isSameDay = isToday(deal.checkIn);
                   const totalPrice = getTotalPrice(deal);
+                  const originalPrice = getOriginalApiPrice(deal);
                   const bookingUrl = getBookingUrl(deal.roomId);
                   const marketingName = getMarketingName(deal);
                   const category = getPropertyCategory(deal.roomId);
                   const discountInfo = getDiscountInfo(deal);
+                  const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
+                  const showStrikethrough = periodSettings.specialOffer && 
+                                            periodSettings.customDiscount && 
+                                            periodSettings.customDiscount > 0 && 
+                                            periodSettings.showDiscountBadge === true;
                   
                   return (
                     <ScrollReveal key={deal.id} delay={index * 0.1}>
@@ -633,8 +655,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                               </div>
                             ) : totalPrice ? (
                               <>
-                                {/* Discount badge - only show if 30% or more */}
-                                {discountInfo.showBadge && (
+                                {/* Discount badge - only show if 30% or more AND strikethrough is NOT active */}
+                                {discountInfo.showBadge && !showStrikethrough && (
                                   <div className="mb-2">
                                     <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
                                       -{discountInfo.totalDiscount}% alennus
@@ -642,9 +664,20 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                   </div>
                                 )}
                                 <div className="flex items-baseline gap-2">
-                                  <span className={`font-bold ${hasSpecialOffer(deal) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
-                                    {totalPrice}€
-                                  </span>
+                                  {showStrikethrough && originalPrice ? (
+                                    <>
+                                      <span className="text-lg text-muted-foreground line-through">
+                                        {originalPrice}€
+                                      </span>
+                                      <span className="text-3xl md:text-4xl font-bold italic text-amber-500 tracking-wide">
+                                        {totalPrice}€
+                                      </span>
+                                    </>
+                                  ) : (
+                                    <span className={`font-bold ${hasSpecialOffer(deal) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
+                                      {totalPrice}€
+                                    </span>
+                                  )}
                                   <span className="text-muted-foreground text-sm">{t.total}</span>
                                 </div>
                                 <div className="text-xs text-muted-foreground mt-2">
