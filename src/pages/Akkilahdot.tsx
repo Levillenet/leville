@@ -620,7 +620,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           </div>
                         )}
 
-                        <CardHeader className="pb-3 pt-12">
+                        <CardHeader className="pb-3 pt-12 relative z-10">
                           <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
                             <Calendar className="w-4 h-4" />
                             <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(deal.checkOut)}</span>
@@ -642,7 +642,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           </CardTitle>
                         </CardHeader>
                         
-                        <CardContent>
+                        <CardContent className="relative z-10">
                           {/* Property info */}
                           <ul className="space-y-1.5 mb-4">
                             <li className="text-sm text-muted-foreground flex items-center gap-2">
