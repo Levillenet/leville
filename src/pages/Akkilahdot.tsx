@@ -305,11 +305,20 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return property?.bookingUrl || "";
   };
 
-  // Generate WhatsApp booking URL for Beds24 deal
+  // Generate WhatsApp booking URL for Beds24 deal - localized messages
   const generateWhatsAppUrl = (deal: Beds24Deal): string => {
     const totalPrice = getTotalPrice(deal);
-    const priceText = totalPrice ? ` Hinta: ${totalPrice}€.` : "";
-    const message = `Hei, olen kiinnostunut äkkilähdöstä: ${deal.roomName}, ajalle ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${priceText} Onko kohde vielä vapaana?`;
+    
+    const messages: Record<string, string> = {
+      fi: `Hei, olen kiinnostunut äkkilähdöstä: ${deal.roomName}, ajalle ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Hinta: ${totalPrice}€.` : ""} Onko kohde vielä vapaana?`,
+      en: `Hello, I'm interested in a last-minute deal: ${deal.roomName}, for ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Price: ${totalPrice}€.` : ""} Is the property still available?`,
+      sv: `Hej, jag är intresserad av ett sista minuten-erbjudande: ${deal.roomName}, för ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Pris: ${totalPrice}€.` : ""} Är boendet fortfarande ledigt?`,
+      de: `Hallo, ich interessiere mich für ein Last-Minute-Angebot: ${deal.roomName}, für ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Preis: ${totalPrice}€.` : ""} Ist die Unterkunft noch verfügbar?`,
+      es: `Hola, estoy interesado en una oferta de última hora: ${deal.roomName}, para ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Precio: ${totalPrice}€.` : ""} ¿Está disponible el alojamiento?`,
+      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${deal.roomName}, pour ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Prix : ${totalPrice}€.` : ""} Le logement est-il encore disponible ?`
+    };
+    
+    const message = messages[lang] || messages.fi;
     return `https://wa.me/35844131313?text=${encodeURIComponent(message)}`;
   };
 
