@@ -111,9 +111,12 @@ serve(async (req) => {
 
     console.log("Rooms mapped:", roomsMap.size);
 
-    // 2) Availability
+    // 2) Availability (just true/false)
+    const availabilityUrl = `https://beds24.com/api/v2/inventory/rooms/availability?arrivalFrom=${arrivalFrom}&arrivalTo=${arrivalTo}`;
+    console.log("Fetching availability from:", availabilityUrl);
+    
     const availabilityResponse = await fetch(
-      `https://beds24.com/api/v2/inventory/rooms/availability?arrivalFrom=${arrivalFrom}&arrivalTo=${arrivalTo}`,
+      availabilityUrl,
       {
         headers: {
           token: apiToken,
@@ -135,63 +138,78 @@ serve(async (req) => {
     const availabilityRooms = unwrapBeds24Array<any>(availabilityJson);
     console.log("Availability payload:", JSON.stringify(availabilityJson).slice(0, 800));
 
-    // 3) Rates - fetch pricing information
-    let ratesMap = new Map<string, Map<string, number>>(); // roomId -> date -> price
+    // 3) Calendar with prices - use /inventory/calendar to get daily prices (price1)
+    const priceMap = new Map<string, Map<string, number>>(); // roomId -> date -> price
     
     try {
-      const ratesResponse = await fetch(
-        `https://beds24.com/api/v2/inventory/rooms/rates?arrivalFrom=${arrivalFrom}&arrivalTo=${arrivalTo}`,
-        {
-          headers: {
-            token: apiToken,
-            accept: "application/json",
-          },
-        }
-      );
+      // Fetch calendar data which includes price1 field
+      const calendarUrl = `https://beds24.com/api/v2/inventory/calendar?arrivalFrom=${arrivalFrom}&arrivalTo=${arrivalTo}`;
+      console.log("Fetching calendar (prices) from:", calendarUrl);
+      
+      const calendarResponse = await fetch(calendarUrl, {
+        headers: {
+          token: apiToken,
+          accept: "application/json",
+        },
+      });
 
-      if (ratesResponse.ok) {
-        const ratesJson = await ratesResponse.json();
-        const ratesRooms = unwrapBeds24Array<any>(ratesJson);
-        console.log("Rates payload:", JSON.stringify(ratesJson).slice(0, 800));
-
-        for (const roomRates of ratesRooms) {
-          const roomIdRaw = roomRates?.roomId ?? roomRates?.id;
+      if (calendarResponse.ok) {
+        const calendarJson = await calendarResponse.json();
+        console.log("Calendar payload:", JSON.stringify(calendarJson).slice(0, 1500));
+        
+        const calendarRooms = unwrapBeds24Array<any>(calendarJson);
+        
+        for (const room of calendarRooms) {
+          const roomIdRaw = room?.roomId ?? room?.id;
           if (!roomIdRaw) continue;
-
+          
           const roomId = String(roomIdRaw);
-          const ratesData = roomRates?.rates ?? roomRates?.prices ?? {};
-          
-          if (!ratesMap.has(roomId)) {
-            ratesMap.set(roomId, new Map());
+          if (!priceMap.has(roomId)) {
+            priceMap.set(roomId, new Map());
           }
+          const roomPrices = priceMap.get(roomId)!;
           
-          const roomPrices = ratesMap.get(roomId)!;
+          // Calendar is an array of date entries with price1
+          const calendar = room?.calendar ?? [];
           
-          if (typeof ratesData === "object" && !Array.isArray(ratesData)) {
-            // Object format: {"2026-01-02": 150, ...}
-            for (const [date, price] of Object.entries(ratesData)) {
-              if (typeof price === "number" && price > 0) {
-                roomPrices.set(date, price);
+          if (Array.isArray(calendar)) {
+            for (const entry of calendar) {
+              const from = entry?.from ?? entry?.date;
+              const to = entry?.to;
+              const price = entry?.price1 ?? entry?.price ?? entry?.rate;
+              
+              if (from && typeof price === "number" && price > 0) {
+                // If there's a date range, fill in all dates
+                if (to && from !== to) {
+                  const startDate = new Date(from);
+                  const endDate = new Date(to);
+                  let currentDate = new Date(startDate);
+                  
+                  while (currentDate <= endDate) {
+                    const dateStr = formatDate(currentDate);
+                    roomPrices.set(dateStr, price);
+                    currentDate.setDate(currentDate.getDate() + 1);
+                  }
+                } else {
+                  roomPrices.set(String(from), price);
+                }
               }
             }
-          } else if (Array.isArray(ratesData)) {
-            // Array format
-            for (const rate of ratesData) {
-              const date = rate?.date ?? rate?.day;
-              const price = rate?.price ?? rate?.price1 ?? rate?.rate;
-              if (date && typeof price === "number" && price > 0) {
-                roomPrices.set(String(date), price);
-              }
+            
+            if (roomPrices.size > 0) {
+              console.log(`Room ${roomId}: Found ${roomPrices.size} date prices`);
             }
           }
         }
-        console.log("Rates mapped for rooms:", ratesMap.size);
       } else {
-        console.log("Rates API not available or error, continuing without prices");
+        const errText = await calendarResponse.text();
+        console.log("Calendar API error:", calendarResponse.status, errText);
       }
-    } catch (ratesError) {
-      console.log("Error fetching rates, continuing without prices:", ratesError);
+    } catch (calendarError) {
+      console.log("Error fetching calendar prices:", calendarError);
     }
+    
+    console.log("Price map built for rooms:", priceMap.size, "rooms with prices");
 
     const deals: Deal[] = [];
 
@@ -201,7 +219,7 @@ serve(async (req) => {
 
       const roomId = String(roomIdRaw);
       const roomMeta = roomsMap.get(roomId);
-      const roomPrices = ratesMap.get(roomId);
+      const roomPrices = priceMap.get(roomId);
 
       const roomName = roomMeta?.name ?? roomAvail?.name ?? `Majoitus ${roomId}`;
       const maxPersons =
