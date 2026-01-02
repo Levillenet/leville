@@ -18,7 +18,7 @@ const Header = () => {
       case "en":
         return [
           { name: "Accommodations", href: routeConfig.accommodations.en },
-          { name: "News", href: routeConfig.news.en },
+          { name: "🔥 Last Minute", href: routeConfig.lastMinute.en, highlight: true },
           { name: "Levi", href: routeConfig.levi.en },
           { name: "Northern Lights", href: routeConfig.northernLights.en },
           { name: "Contact", href: routeConfig.contact.en },
@@ -26,7 +26,7 @@ const Header = () => {
       case "sv":
         return [
           { name: "Boende", href: routeConfig.accommodations.sv },
-          { name: "Nyheter", href: routeConfig.news.sv },
+          { name: "🔥 Sista Minuten", href: routeConfig.lastMinute.sv, highlight: true },
           { name: "Levi", href: routeConfig.levi.sv },
           { name: "Norrsken", href: routeConfig.northernLights.sv },
           { name: "Kontakt", href: routeConfig.contact.sv },
@@ -34,7 +34,7 @@ const Header = () => {
       case "de":
         return [
           { name: "Unterkünfte", href: routeConfig.accommodations.de },
-          { name: "Aktuelles", href: routeConfig.news.de },
+          { name: "🔥 Last Minute", href: routeConfig.lastMinute.de, highlight: true },
           { name: "Levi", href: routeConfig.levi.de },
           { name: "Nordlichter", href: routeConfig.northernLights.de },
           { name: "Kontakt", href: routeConfig.contact.de },
@@ -42,7 +42,7 @@ const Header = () => {
       case "es":
         return [
           { name: "Alojamientos", href: routeConfig.accommodations.es },
-          { name: "Noticias", href: routeConfig.news.es },
+          { name: "🔥 Última Hora", href: routeConfig.lastMinute.es, highlight: true },
           { name: "Levi", href: routeConfig.levi.es },
           { name: "Auroras", href: routeConfig.northernLights.es },
           { name: "Contacto", href: routeConfig.contact.es },
@@ -50,7 +50,7 @@ const Header = () => {
       case "fr":
         return [
           { name: "Hébergements", href: routeConfig.accommodations.fr },
-          { name: "Actualités", href: routeConfig.news.fr },
+          { name: "🔥 Dernière Minute", href: routeConfig.lastMinute.fr, highlight: true },
           { name: "Levi", href: routeConfig.levi.fr },
           { name: "Aurores Boréales", href: routeConfig.northernLights.fr },
           { name: "Contact", href: routeConfig.contact.fr },
@@ -58,7 +58,7 @@ const Header = () => {
       default: // Finnish
         return [
           { name: "Majoitukset", href: routeConfig.accommodations.fi },
-          { name: "Ajankohtaista", href: routeConfig.news.fi },
+          { name: "🔥 Äkkilähdöt", href: routeConfig.lastMinute.fi, highlight: true },
           { name: "Levi", href: routeConfig.levi.fi },
           { name: "Revontulet", href: routeConfig.northernLights.fi },
           { name: "Yhteystiedot", href: routeConfig.contact.fi },
@@ -114,7 +114,11 @@ const Header = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 tracking-wide"
+                className={`text-sm font-medium transition-colors duration-300 tracking-wide ${
+                  link.highlight 
+                    ? "text-red-500 hover:text-red-400 font-semibold" 
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
               >
                 {link.name}
               </Link>
@@ -150,7 +154,11 @@ const Header = () => {
                   key={link.name}
                   to={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors py-2 tracking-wide"
+                  className={`text-sm font-medium transition-colors py-2 tracking-wide ${
+                    link.highlight 
+                      ? "text-red-500 hover:text-red-400 font-semibold" 
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
                   {link.name}
                 </Link>
