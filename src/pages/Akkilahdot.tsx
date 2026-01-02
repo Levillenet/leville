@@ -21,8 +21,13 @@ import { propertyDetails, getPropertyDetails } from "@/data/propertyDetails";
 import glacierImage from "@/assets/deals/glacier.jpg";
 import skistarImage from "@/assets/deals/skistar.jpg";
 
-// Skistar room IDs
-const skistarRoomIds = ['212', '211', '210', '209', '104', '320', '321', '102', '319'];
+// Skistar room numbers (to check in room name)
+const skistarRoomNumbers = ['212', '211', '210', '209', '104', '320', '321', '102', '319'];
+
+// Helper to check if room name contains any Skistar room number
+const isSkistarRoom = (roomName: string): boolean => {
+  return skistarRoomNumbers.some(num => roomName.includes(num));
+};
 
 interface AkkilahdotProps {
   lang?: Language;
@@ -450,7 +455,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                             }}
                           />
                         )}
-                        {skistarRoomIds.includes(deal.roomId) && (
+                        {isSkistarRoom(deal.roomName) && (
                           <div 
                             className="absolute inset-0 z-0 pointer-events-none"
                             style={{
