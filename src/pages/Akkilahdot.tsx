@@ -8,12 +8,14 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Users, Home, Clock, Flame, ArrowRight, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Calendar, Clock, Flame, ArrowRight, Loader2, ExternalLink, MessageCircle } from "lucide-react";
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
+import { propertyDetails, getPropertyDetails } from "@/data/propertyDetails";
 
 interface AkkilahdotProps {
   lang?: Language;
@@ -79,8 +81,10 @@ const content = {
     perNight: "/ yö",
     perPerson: "/ hlö",
     total: "yhteensä",
-    bookNow: "Varaa nyt",
-    persons: "henkilöä",
+    bookWhatsApp: "Varaa WhatsAppilla",
+    exploreApartment: "Tutustu huoneistoon",
+    priceNote: "Hinta sisältää 2 henkilön majoittumisen. Lisähenkilöt +10€/hlö.",
+    sameDayNote: "Kysy hintaa tänään alkavaan varaukseen",
     noDeals: "Ei tällä hetkellä äkkilähtöjä saatavilla. Tarkista pian uudelleen!",
     whyTitle: "Miksi äkkilähtö?",
     whyItems: [
@@ -103,8 +107,10 @@ const content = {
     perNight: "/ night",
     perPerson: "/ person",
     total: "total",
-    bookNow: "Book now",
-    persons: "persons",
+    bookWhatsApp: "Book via WhatsApp",
+    exploreApartment: "Explore apartment",
+    priceNote: "Price includes 2 persons. Additional guests +10€/person.",
+    sameDayNote: "Ask for price for booking starting today",
     noDeals: "No last-minute deals available at the moment. Check back soon!",
     whyTitle: "Why last-minute?",
     whyItems: [
@@ -127,8 +133,10 @@ const content = {
     perNight: "/ natt",
     perPerson: "/ person",
     total: "totalt",
-    bookNow: "Boka nu",
-    persons: "personer",
+    bookWhatsApp: "Boka via WhatsApp",
+    exploreApartment: "Utforska lägenheten",
+    priceNote: "Priset inkluderar 2 personer. Extra gäster +10€/person.",
+    sameDayNote: "Fråga om pris för bokning som börjar idag",
     noDeals: "Inga sista minuten-erbjudanden tillgängliga just nu. Kolla tillbaka snart!",
     whyTitle: "Varför sista minuten?",
     whyItems: [
@@ -151,8 +159,10 @@ const content = {
     perNight: "/ Nacht",
     perPerson: "/ Person",
     total: "gesamt",
-    bookNow: "Jetzt buchen",
-    persons: "Personen",
+    bookWhatsApp: "Über WhatsApp buchen",
+    exploreApartment: "Wohnung erkunden",
+    priceNote: "Preis beinhaltet 2 Personen. Zusätzliche Gäste +10€/Person.",
+    sameDayNote: "Preis für heute beginnende Buchung anfragen",
     noDeals: "Derzeit keine Last-Minute-Angebote verfügbar. Schauen Sie bald wieder vorbei!",
     whyTitle: "Warum Last-Minute?",
     whyItems: [
@@ -175,8 +185,10 @@ const content = {
     perNight: "/ noche",
     perPerson: "/ persona",
     total: "total",
-    bookNow: "Reservar ahora",
-    persons: "personas",
+    bookWhatsApp: "Reservar por WhatsApp",
+    exploreApartment: "Explorar apartamento",
+    priceNote: "Precio incluye 2 personas. Huéspedes adicionales +10€/persona.",
+    sameDayNote: "Consultar precio para reserva que comienza hoy",
     noDeals: "No hay ofertas de última hora disponibles en este momento. ¡Vuelve pronto!",
     whyTitle: "¿Por qué última hora?",
     whyItems: [
@@ -199,8 +211,10 @@ const content = {
     perNight: "/ nuit",
     perPerson: "/ personne",
     total: "total",
-    bookNow: "Réserver maintenant",
-    persons: "personnes",
+    bookWhatsApp: "Réserver via WhatsApp",
+    exploreApartment: "Explorer l'appartement",
+    priceNote: "Prix pour 2 personnes. Personnes supplémentaires +10€/personne.",
+    sameDayNote: "Demander le prix pour une réservation commençant aujourd'hui",
     noDeals: "Pas d'offres de dernière minute disponibles pour le moment. Revenez bientôt !",
     whyTitle: "Pourquoi dernière minute ?",
     whyItems: [
@@ -246,27 +260,33 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return `${nights} ${texts[lang]}`;
   };
 
-  // Contact text by language
-  const contactText: Record<Language, string> = {
-    fi: 'Kysy hintaa',
-    en: 'Ask for price',
-    sv: 'Fråga om pris',
-    de: 'Preis anfragen',
-    es: 'Consultar precio',
-    fr: 'Demander le prix'
+  // Check if date is today
+  const isToday = (dateStr: string): boolean => {
+    const today = new Date();
+    const checkDate = new Date(dateStr);
+    return today.toDateString() === checkDate.toDateString();
+  };
+
+  // Calculate total price with cleaning fee
+  const getTotalPrice = (deal: Beds24Deal): number | null => {
+    if (!deal.price) return null;
+    const property = getPropertyDetails(deal.roomId);
+    const cleaningFee = property?.cleaningFee || 0;
+    return Math.round(deal.price + cleaningFee);
+  };
+
+  // Get booking URL for property
+  const getBookingUrl = (roomId: string): string => {
+    const property = getPropertyDetails(roomId);
+    return property?.bookingUrl || "";
   };
 
   // Generate WhatsApp booking URL for Beds24 deal
-  const generateBookingUrl = (deal: Beds24Deal): string => {
-    const messages: Record<Language, string> = {
-      fi: `Hei! Olen kiinnostunut äkkilähdöstä: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} yötä)`,
-      en: `Hi! I'm interested in last-minute deal: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} nights)`,
-      sv: `Hej! Jag är intresserad av sista minuten-erbjudandet: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} nätter)`,
-      de: `Hallo! Ich interessiere mich für das Last-Minute-Angebot: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} Nächte)`,
-      es: `¡Hola! Me interesa la oferta de última hora: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} noches)`,
-      fr: `Bonjour! Je suis intéressé par l'offre de dernière minute: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} nuits)`
-    };
-    return `https://wa.me/35844131313?text=${encodeURIComponent(messages[lang])}`;
+  const generateWhatsAppUrl = (deal: Beds24Deal): string => {
+    const totalPrice = getTotalPrice(deal);
+    const priceText = totalPrice ? ` Hinta: ${totalPrice}€.` : "";
+    const message = `Hei, olen kiinnostunut äkkilähdöstä: ${deal.roomName}, ajalle ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${priceText} Onko kohde vielä vapaana?`;
+    return `https://wa.me/35844131313?text=${encodeURIComponent(message)}`;
   };
 
   // Combine manual and Beds24 deals for schema
@@ -275,7 +295,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     "position": index + 1,
     "name": deal.roomName,
     "description": `${deal.roomName} - ${deal.nights} nights`,
-    "price": deal.price || 0,
+    "price": getTotalPrice(deal) || 0,
     "priceCurrency": "EUR",
     "availability": "https://schema.org/LimitedAvailability",
     "validFrom": deal.checkIn,
@@ -368,75 +388,97 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             {/* Beds24 Deals Grid */}
             {!isLoading && beds24Deals.length > 0 && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                {beds24Deals.map((deal, index) => (
-                  <ScrollReveal key={deal.id} delay={index * 0.1}>
-                    <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
-                      {/* Last minute badge */}
-                      <div className="absolute top-4 right-4 z-10">
-                        <Badge className="bg-red-500 text-white border-0 animate-pulse">
-                          <Flame className="w-3 h-3 mr-1" />
-                          {t.badge}
-                        </Badge>
-                      </div>
-
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
-                          <Calendar className="w-4 h-4" />
-                          <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(deal.checkOut)}</span>
-                        </div>
-                        <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors">
-                          {deal.roomName}
-                        </CardTitle>
-                      </CardHeader>
-                      
-                      <CardContent>
-                        {/* Features */}
-                        <ul className="space-y-1.5 mb-6">
-                          <li className="text-sm text-muted-foreground flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            {nightsText(deal.nights)}
-                          </li>
-                        </ul>
-
-                        {/* Persons */}
-                        <div className="flex items-center gap-2 text-muted-foreground mb-4">
-                          <Users className="w-4 h-4" />
-                          <span className="text-sm">{deal.maxPersons} {t.persons}</span>
+                {beds24Deals.map((deal, index) => {
+                  const isSameDay = isToday(deal.checkIn);
+                  const totalPrice = getTotalPrice(deal);
+                  const bookingUrl = getBookingUrl(deal.roomId);
+                  
+                  return (
+                    <ScrollReveal key={deal.id} delay={index * 0.1}>
+                      <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
+                        {/* Last minute badge */}
+                        <div className="absolute top-4 right-4 z-10">
+                          <Badge className="bg-red-500 text-white border-0 animate-pulse">
+                            <Flame className="w-3 h-3 mr-1" />
+                            {t.badge}
+                          </Badge>
                         </div>
 
-                        {/* Price */}
-                        <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-lg p-4 mb-4">
-                          {deal.price ? (
-                            <>
-                              <div className="flex items-baseline gap-2">
-                                <span className="text-3xl font-bold text-foreground">{deal.price}€</span>
-                                <span className="text-muted-foreground text-sm">{t.total}</span>
+                        <CardHeader className="pb-3">
+                          <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
+                            <Calendar className="w-4 h-4" />
+                            <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(deal.checkOut)}</span>
+                          </div>
+                          <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors">
+                            {deal.roomName}
+                          </CardTitle>
+                        </CardHeader>
+                        
+                        <CardContent>
+                          {/* Nights info */}
+                          <ul className="space-y-1.5 mb-4">
+                            <li className="text-sm text-muted-foreground flex items-center gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                              {nightsText(deal.nights)}
+                            </li>
+                          </ul>
+
+                          {/* Price section */}
+                          <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-lg p-4 mb-4">
+                            {isSameDay ? (
+                              <div className="text-base font-semibold text-amber-500 flex items-center gap-2">
+                                <Clock className="w-4 h-4" />
+                                {t.sameDayNote}
                               </div>
-                              <div className="text-sm text-muted-foreground mt-1">
-                                = {Math.round(deal.price / deal.maxPersons)}€ {t.perPerson}
+                            ) : totalPrice ? (
+                              <>
+                                <div className="flex items-baseline gap-2">
+                                  <span className="text-3xl font-bold text-foreground">{totalPrice}€</span>
+                                  <span className="text-muted-foreground text-sm">{t.total}</span>
+                                </div>
+                                <div className="text-xs text-muted-foreground mt-2">
+                                  {t.priceNote}
+                                </div>
+                              </>
+                            ) : (
+                              <div className="text-base font-semibold text-amber-500 flex items-center gap-2">
+                                <Clock className="w-4 h-4" />
+                                {t.sameDayNote}
                               </div>
-                            </>
-                          ) : (
-                            <div className="text-lg font-semibold text-foreground">
-                              {contactText[lang]}
-                            </div>
-                          )}
-                        </div>
+                            )}
+                          </div>
 
-                        {/* CTA */}
-                        <a
-                          href={generateBookingUrl(deal)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors group"
-                        >
-                          {t.bookNow}
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </a>
-                      </CardContent>
-                    </Card>
-                  </ScrollReveal>
-                ))}
+                          {/* CTA Buttons */}
+                          <div className="space-y-3">
+                            {/* Primary: WhatsApp booking */}
+                            <a
+                              href={generateWhatsAppUrl(deal)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
+                            >
+                              <MessageCircle className="w-4 h-4" />
+                              {t.bookWhatsApp}
+                            </a>
+
+                            {/* Secondary: Explore apartment */}
+                            {bookingUrl && (
+                              <a
+                                href={bookingUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-2 w-full py-2.5 px-4 border border-border/50 hover:border-primary/50 text-muted-foreground hover:text-foreground rounded-lg font-medium transition-colors text-sm"
+                              >
+                                {t.exploreApartment}
+                                <ExternalLink className="w-3.5 h-3.5" />
+                              </a>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </ScrollReveal>
+                  );
+                })}
               </section>
             )}
 
@@ -484,20 +526,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                             ))}
                           </ul>
 
-                          {/* Persons */}
-                          <div className="flex items-center gap-2 text-muted-foreground mb-4">
-                            <Users className="w-4 h-4" />
-                            <span className="text-sm">{deal.persons} {t.persons}</span>
-                          </div>
-
                           {/* Price */}
                           <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-lg p-4 mb-4">
                             <div className="flex items-baseline gap-2">
                               <span className="text-3xl font-bold text-foreground">{deal.price}€</span>
                               <span className="text-muted-foreground text-sm">{t.total}</span>
                             </div>
-                            <div className="text-sm text-muted-foreground mt-1">
-                              = {pricePerPerson}€ {t.perPerson}
+                            <div className="text-xs text-muted-foreground mt-2">
+                              {t.priceNote}
                             </div>
                           </div>
 
@@ -506,10 +542,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                             href={deal.bookingUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors group"
+                            className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
                           >
-                            {t.bookNow}
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            <MessageCircle className="w-4 h-4" />
+                            {t.bookWhatsApp}
                           </a>
                         </CardContent>
                       </Card>
