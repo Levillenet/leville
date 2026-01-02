@@ -44,11 +44,14 @@ async function fetchOfferPrice(
   checkOut: string
 ): Promise<number | null> {
   try {
-    // Use the offers endpoint with occupancy parameter for Fixed Prices
-    // API expects 'arrival', 'departure', 'roomId', and 'adults' parameters
-    const offersUrl = `https://beds24.com/api/v2/inventory/rooms/offers?arrival=${checkIn}&departure=${checkOut}&roomId=${roomId}&adults=2`;
+    // Use GET request to /inventory/rooms/offers
+    // API requires: arrival, departure, numAdults (required params per OpenAPI spec)
+    const offersUrl = `https://api.beds24.com/v2/inventory/rooms/offers?roomId=${roomId}&arrival=${checkIn}&departure=${checkOut}&numAdults=2`;
+    
+    console.log(`Fetching offer for room ${roomId}: ${checkIn} to ${checkOut}`);
     
     const response = await fetch(offersUrl, {
+      method: "GET",
       headers: {
         token: apiToken,
         accept: "application/json",
@@ -62,30 +65,34 @@ async function fetchOfferPrice(
     }
 
     const json = await response.json();
-    const offers = unwrapBeds24Array<any>(json);
     
-    // Find the matching room's offer
-    for (const roomOffer of offers) {
-      const rid = String(roomOffer?.roomId ?? roomOffer?.id ?? "");
-      if (rid === roomId) {
-        // Get the first offer's price
-        const offersList = roomOffer?.offers ?? [roomOffer];
-        if (Array.isArray(offersList) && offersList.length > 0) {
-          const price = offersList[0]?.price ?? offersList[0]?.totalPrice ?? offersList[0]?.total;
-          if (typeof price === "number" && price > 0) {
-            console.log(`Room ${roomId} (${checkIn}-${checkOut}): Price ${price}€`);
-            return price;
-          }
-        }
-        // Also check direct price field
-        const directPrice = roomOffer?.price ?? roomOffer?.totalPrice;
-        if (typeof directPrice === "number" && directPrice > 0) {
-          console.log(`Room ${roomId} (${checkIn}-${checkOut}): Direct price ${directPrice}€`);
-          return directPrice;
+    // Log full response for debugging
+    console.log(`Offers response for room ${roomId}: ${JSON.stringify(json).slice(0, 500)}`);
+    
+    // Response structure per OpenAPI: { data: [{ roomId, propertyId, offers: [...] }] }
+    const dataArray = json?.data ?? [];
+    for (const room of dataArray) {
+      const offers = room?.offers ?? [];
+      if (Array.isArray(offers) && offers.length > 0) {
+        const price = offers[0]?.price ?? offers[0]?.totalPrice;
+        if (typeof price === "number" && price > 0) {
+          console.log(`Room ${roomId} (${checkIn}-${checkOut}): Price ${price}€`);
+          return price;
         }
       }
     }
     
+    // Fallback: check top-level offers array
+    const offers = json?.offers ?? [];
+    if (Array.isArray(offers) && offers.length > 0) {
+      const price = offers[0]?.price;
+      if (typeof price === "number" && price > 0) {
+        console.log(`Room ${roomId} (${checkIn}-${checkOut}): Price ${price}€`);
+        return price;
+      }
+    }
+    
+    console.log(`Room ${roomId} (${checkIn}-${checkOut}): No price in offers response`);
     return null;
   } catch (error) {
     console.log(`Error fetching offer price for room ${roomId}:`, error);
