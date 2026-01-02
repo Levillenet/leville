@@ -4,13 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { format } from "date-fns";
-import { fi } from "date-fns/locale";
-import { cn } from "@/lib/utils";
 import { 
   Table, 
   TableBody, 
@@ -35,7 +29,7 @@ import {
   PropertyDetail,
   PropertyCategory
 } from "@/data/propertyDetails";
-import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, CalendarIcon, Ticket, Sparkles, Percent } from "lucide-react";
+import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, Sparkles, Percent } from "lucide-react";
 
 // Category icons and labels
 const categoryConfig: Record<PropertyCategory, { icon: React.ReactNode; label: string; color: string }> = {
@@ -72,10 +66,7 @@ const PropertyAdmin = () => {
       twoNightDiscount: property.twoNightDiscount,
       longStayDiscount: property.longStayDiscount,
       showDiscount: property.showDiscount,
-      specialOffer: property.specialOffer,
-      skiPassOffer: property.skiPassOffer,
-      skiPassStartDate: property.skiPassStartDate,
-      skiPassEndDate: property.skiPassEndDate
+      specialOffer: property.specialOffer
     });
   };
 
@@ -174,7 +165,6 @@ const PropertyAdmin = () => {
                       <TableHead className="text-right w-[70px]">3+ yötä</TableHead>
                       <TableHead className="text-center w-[60px]">Näytä %</TableHead>
                       <TableHead className="text-center w-[70px]">Erikois</TableHead>
-                      <TableHead className="text-center w-[130px]">Hissilippu</TableHead>
                       <TableHead className="w-[100px]"></TableHead>
                     </TableRow>
                   </TableHeader>
@@ -197,11 +187,6 @@ const PropertyAdmin = () => {
                               {property.specialOffer && (
                                 <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-xs">
                                   <Sparkles className="w-3 h-3 mr-0.5" />
-                                </Badge>
-                              )}
-                              {property.skiPassOffer && (
-                                <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30 text-xs">
-                                  <Ticket className="w-3 h-3 mr-0.5" />
                                 </Badge>
                               )}
                             </div>
@@ -300,27 +285,6 @@ const PropertyAdmin = () => {
                             </span>
                           )}
                         </TableCell>
-                        <TableCell className="text-center">
-                          {editingId === property.id ? (
-                            <div className="flex flex-col items-center gap-1">
-                              <Switch
-                                checked={editForm.skiPassOffer || false}
-                                onCheckedChange={(checked) => setEditForm({ ...editForm, skiPassOffer: checked })}
-                              />
-                            </div>
-                          ) : (
-                            <div className="flex flex-col items-center gap-0.5">
-                              <span className={property.skiPassOffer ? "text-cyan-400" : "text-muted-foreground"}>
-                                {property.skiPassOffer ? "✓" : "-"}
-                              </span>
-                              {property.skiPassOffer && property.skiPassStartDate && property.skiPassEndDate && (
-                                <span className="text-[10px] text-muted-foreground">
-                                  {format(new Date(property.skiPassStartDate), "d.M")} - {format(new Date(property.skiPassEndDate), "d.M")}
-                                </span>
-                              )}
-                            </div>
-                          )}
-                        </TableCell>
                         <TableCell>
                           <div className="flex items-center justify-end gap-1">
                             {editingId === property.id ? (
@@ -369,70 +333,6 @@ const PropertyAdmin = () => {
                   </TableBody>
                 </Table>
               </div>
-              
-              {/* Ski pass date pickers when editing */}
-              {editingId && categoryProperties.some(p => p.id === editingId) && editForm.skiPassOffer && (
-                <div className="mt-4 p-4 bg-cyan-500/10 rounded-lg border border-cyan-500/20">
-                  <h4 className="text-sm font-medium text-cyan-400 mb-3 flex items-center gap-2">
-                    <Ticket className="w-4 h-4" />
-                    Hissilippuedun päivämäärät
-                  </h4>
-                  <div className="flex flex-wrap gap-4">
-                    <div className="space-y-2">
-                      <Label className="text-xs text-muted-foreground">Alkupäivä (check-in)</Label>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              "w-[180px] justify-start text-left font-normal",
-                              !editForm.skiPassStartDate && "text-muted-foreground"
-                            )}
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {editForm.skiPassStartDate ? format(new Date(editForm.skiPassStartDate), "d.M.yyyy", { locale: fi }) : "Valitse päivä"}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={editForm.skiPassStartDate ? new Date(editForm.skiPassStartDate) : undefined}
-                            onSelect={(date) => setEditForm({ ...editForm, skiPassStartDate: date ? date.toISOString().split('T')[0] : null })}
-                            initialFocus
-                            className={cn("p-3 pointer-events-auto")}
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-                    <div className="space-y-2">
-                      <Label className="text-xs text-muted-foreground">Loppupäivä (check-in)</Label>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              "w-[180px] justify-start text-left font-normal",
-                              !editForm.skiPassEndDate && "text-muted-foreground"
-                            )}
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            {editForm.skiPassEndDate ? format(new Date(editForm.skiPassEndDate), "d.M.yyyy", { locale: fi }) : "Valitse päivä"}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={editForm.skiPassEndDate ? new Date(editForm.skiPassEndDate) : undefined}
-                            onSelect={(date) => setEditForm({ ...editForm, skiPassEndDate: date ? date.toISOString().split('T')[0] : null })}
-                            initialFocus
-                            className={cn("p-3 pointer-events-auto")}
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-                  </div>
-                </div>
-              )}
             </CardContent>
           </Card>
         );
