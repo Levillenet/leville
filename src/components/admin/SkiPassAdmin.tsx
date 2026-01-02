@@ -14,7 +14,9 @@ import {
   AlertCircle, 
   Settings, 
   Save,
-  Info
+  Info,
+  Sparkles,
+  Percent
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { getPropertyDetails } from "@/data/propertyDetails";
@@ -29,6 +31,8 @@ import {
   getBlockingDays,
   getActiveAllocations,
   generatePeriodId,
+  updatePeriodSettings,
+  getPeriodSettings,
   SkiPassSettings
 } from "@/data/skiPassAllocations";
 
@@ -62,7 +66,7 @@ const fetchBeds24Availability = async (): Promise<Beds24Deal[]> => {
 
 const SkiPassAdmin = () => {
   const [settings, setSettings] = useState<SkiPassSettings>(getSkiPassSettings());
-  const [refreshKey, setRefreshKey] = useState(0); // Used to force re-render after toggle
+  const [refreshKey, setRefreshKey] = useState(0);
   const [editingSettings, setEditingSettings] = useState(false);
   const [tempCapacity, setTempCapacity] = useState(settings.totalCapacity);
   const { toast } = useToast();
@@ -71,7 +75,7 @@ const SkiPassAdmin = () => {
   const { data: beds24Deals = [], isLoading } = useQuery({
     queryKey: ['beds24-availability-admin'],
     queryFn: fetchBeds24Availability,
-    staleTime: 5 * 60 * 1000, // 5 min cache for admin
+    staleTime: 5 * 60 * 1000,
   });
 
   // Cleanup expired allocations on mount
@@ -79,21 +83,20 @@ const SkiPassAdmin = () => {
     cleanupExpiredAllocations();
   }, []);
 
-  // Get allocation status directly from localStorage (single source of truth)
+  // Get allocation status directly from localStorage
   const getAllocationStatus = useCallback((roomId: string, checkIn: string, checkOut: string): boolean => {
     return getPeriodAllocationStatus(roomId, checkIn, checkOut);
-  }, [refreshKey]); // refreshKey dependency forces re-evaluation
+  }, [refreshKey]);
 
   const handleToggleAllocation = (deal: Beds24Deal) => {
     const periodKey = generatePeriodId(deal.roomId, deal.checkIn, deal.checkOut);
     const currentStatus = getAllocationStatus(deal.roomId, deal.checkIn, deal.checkOut);
     
     if (!currentStatus) {
-      // Trying to allocate - check capacity with excludePeriodId
       if (!canAllocateSkiPass(deal.checkIn, deal.checkOut, periodKey)) {
         const blockingDays = getBlockingDays(deal.checkIn, deal.checkOut, periodKey);
         const blockedDatesStr = blockingDays
-          .slice(0, 3) // Show max 3 dates
+          .slice(0, 3)
           .map(d => `${format(new Date(d.date), "d.M")} (${d.used}/${d.capacity})`)
           .join(", ");
         const moreText = blockingDays.length > 3 ? ` (+${blockingDays.length - 3} muuta)` : "";
@@ -110,7 +113,6 @@ const SkiPassAdmin = () => {
     const result = toggleSkiPassAllocation(deal.roomId, deal.checkIn, deal.checkOut);
     
     if (result.success) {
-      // Force re-render by incrementing refreshKey
       setRefreshKey(prev => prev + 1);
       toast({
         title: currentStatus ? "Hissilippu poistettu" : "Hissilippu annettu",
@@ -125,11 +127,25 @@ const SkiPassAdmin = () => {
     }
   };
 
+  const handleToggleSpecialOffer = (deal: Beds24Deal, checked: boolean) => {
+    updatePeriodSettings(deal.roomId, deal.checkIn, deal.checkOut, { specialOffer: checked });
+    setRefreshKey(prev => prev + 1);
+    toast({
+      title: checked ? "Erikoistarjous lisätty" : "Erikoistarjous poistettu",
+      description: `${getMarketingName(deal)} ${format(new Date(deal.checkIn), "d.M")} - ${format(new Date(deal.checkOut), "d.M")}`
+    });
+  };
+
+  const handleUpdateDiscount = (deal: Beds24Deal, discount: number | null) => {
+    updatePeriodSettings(deal.roomId, deal.checkIn, deal.checkOut, { customDiscount: discount });
+    setRefreshKey(prev => prev + 1);
+  };
+
   const handleSaveSettings = () => {
     saveSkiPassSettings({ totalCapacity: tempCapacity });
     setSettings({ ...settings, totalCapacity: tempCapacity });
     setEditingSettings(false);
-    setRefreshKey(prev => prev + 1); // Refresh to recalculate availability
+    setRefreshKey(prev => prev + 1);
     toast({
       title: "Asetukset tallennettu",
       description: `Hissilippukapasiteetti: ${tempCapacity} lippua`
@@ -139,6 +155,13 @@ const SkiPassAdmin = () => {
   const getMarketingName = (deal: Beds24Deal): string => {
     const property = getPropertyDetails(deal.roomId);
     return property?.name || deal.roomName;
+  };
+
+  // Calculate discounted price for a deal
+  const calculateDiscountedPrice = (deal: Beds24Deal, customDiscount: number | null): number | null => {
+    if (!deal.price) return null;
+    if (!customDiscount) return deal.price;
+    return Math.round(deal.price * (1 - customDiscount / 100));
   };
 
   // Group deals by property
@@ -155,7 +178,6 @@ const SkiPassAdmin = () => {
     const activeAllocs = getActiveAllocations();
     if (activeAllocs.length === 0) return { maxUsed: 0, maxDate: null };
     
-    // Build a map of date -> passes used
     const dateUsage: Record<string, number> = {};
     const currentSettings = getSkiPassSettings();
     
@@ -171,7 +193,6 @@ const SkiPassAdmin = () => {
       }
     }
     
-    // Find max
     let maxUsed = 0;
     let maxDate: string | null = null;
     for (const [date, used] of Object.entries(dateUsage)) {
@@ -279,7 +300,7 @@ const SkiPassAdmin = () => {
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
             <Ticket className="w-5 h-5 text-cyan-400" />
-            Vapaat jaksot ja hissilippujen jako
+            Vapaat jaksot - Hissilippujen, erikoistarjousten ja alennusten hallinta
           </h3>
           
           {Object.entries(dealsByProperty).map(([roomId, deals]) => {
@@ -294,73 +315,144 @@ const SkiPassAdmin = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     {deals.map(deal => {
                       const periodKey = generatePeriodId(deal.roomId, deal.checkIn, deal.checkOut);
                       const isAllocated = getAllocationStatus(deal.roomId, deal.checkIn, deal.checkOut);
+                      const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
                       const availableForPeriod = getAvailablePassesForDateRange(
                         deal.checkIn, 
                         deal.checkOut,
                         isAllocated ? periodKey : undefined
                       );
                       const canAllocate = availableForPeriod >= settings.passesPerAllocation || isAllocated;
+                      const discountedPrice = calculateDiscountedPrice(deal, periodSettings.customDiscount);
                       
                       return (
                         <div 
                           key={deal.id} 
-                          className={`flex items-center justify-between p-3 rounded-lg border ${
-                            isAllocated 
-                              ? 'bg-cyan-500/10 border-cyan-500/30' 
+                          className={`p-4 rounded-lg border ${
+                            isAllocated || periodSettings.specialOffer
+                              ? 'bg-gradient-to-r from-cyan-500/10 to-amber-500/10 border-cyan-500/30' 
                               : 'bg-muted/20 border-border'
                           }`}
                         >
-                          <div className="flex items-center gap-4">
-                            <div className="text-sm">
-                              <span className="font-medium">
-                                {format(new Date(deal.checkIn), "d.M.yyyy", { locale: fi })}
-                              </span>
-                              <span className="text-muted-foreground mx-2">–</span>
-                              <span className="font-medium">
-                                {format(new Date(deal.checkOut), "d.M.yyyy", { locale: fi })}
-                              </span>
-                              <span className="text-muted-foreground ml-2">
-                                ({deal.nights} {deal.nights === 1 ? 'yö' : 'yötä'})
-                              </span>
-                            </div>
-                            
-                            {isAllocated && (
-                              <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30">
-                                <Ticket className="w-3 h-3 mr-1" />
-                                2 hissilippua
-                              </Badge>
-                            )}
-                            
-                            {!canAllocate && !isAllocated && (
-                              <div className="flex items-center gap-2">
-                                <Badge variant="outline" className="text-amber-400 border-amber-500/30">
-                                  <AlertCircle className="w-3 h-3 mr-1" />
-                                  Päällekkäisyys
-                                </Badge>
-                                <span className="text-xs text-muted-foreground">
-                                  (vapaana: {availableForPeriod})
+                          {/* Row 1: Dates and price info */}
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-4">
+                              <div className="text-sm">
+                                <span className="font-medium">
+                                  {format(new Date(deal.checkIn), "d.M.yyyy", { locale: fi })}
+                                </span>
+                                <span className="text-muted-foreground mx-2">–</span>
+                                <span className="font-medium">
+                                  {format(new Date(deal.checkOut), "d.M.yyyy", { locale: fi })}
+                                </span>
+                                <span className="text-muted-foreground ml-2">
+                                  ({deal.nights} {deal.nights === 1 ? 'yö' : 'yötä'})
                                 </span>
                               </div>
-                            )}
+                              
+                              {/* Badges */}
+                              <div className="flex items-center gap-2">
+                                {isAllocated && (
+                                  <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30">
+                                    <Ticket className="w-3 h-3 mr-1" />
+                                    2 hissilippua
+                                  </Badge>
+                                )}
+                                {periodSettings.specialOffer && (
+                                  <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">
+                                    <Sparkles className="w-3 h-3 mr-1" />
+                                    Erikoistarjous
+                                  </Badge>
+                                )}
+                                {periodSettings.customDiscount && periodSettings.customDiscount > 0 && (
+                                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
+                                    <Percent className="w-3 h-3 mr-1" />
+                                    -{periodSettings.customDiscount}%
+                                  </Badge>
+                                )}
+                              </div>
+                            </div>
+                            
+                            {/* Price display */}
+                            <div className="text-right">
+                              {deal.price ? (
+                                <div className="flex items-center gap-2">
+                                  {periodSettings.customDiscount && periodSettings.customDiscount > 0 ? (
+                                    <>
+                                      <span className="text-muted-foreground line-through text-sm">
+                                        {deal.price}€
+                                      </span>
+                                      <span className="font-bold text-green-400 text-lg">
+                                        {discountedPrice}€
+                                      </span>
+                                    </>
+                                  ) : (
+                                    <span className="font-semibold text-foreground">
+                                      {deal.price}€
+                                    </span>
+                                  )}
+                                </div>
+                              ) : (
+                                <span className="text-muted-foreground text-sm">Hinta ei saatavilla</span>
+                              )}
+                            </div>
                           </div>
                           
-                          <div className="flex items-center gap-3">
-                            <Label 
-                              htmlFor={`toggle-${deal.id}`}
-                              className={`text-sm ${!canAllocate && !isAllocated ? 'text-muted-foreground' : ''}`}
-                            >
-                              {isAllocated ? 'Lippu annettu' : 'Anna hissilippu'}
-                            </Label>
-                            <Switch
-                              id={`toggle-${deal.id}`}
-                              checked={isAllocated}
-                              onCheckedChange={() => handleToggleAllocation(deal)}
-                              disabled={!canAllocate && !isAllocated}
-                            />
+                          {/* Row 2: Controls */}
+                          <div className="flex items-center gap-6 pt-2 border-t border-border/50">
+                            {/* Ski pass toggle */}
+                            <div className="flex items-center gap-2">
+                              <Switch
+                                id={`skipass-${deal.id}`}
+                                checked={isAllocated}
+                                onCheckedChange={() => handleToggleAllocation(deal)}
+                                disabled={!canAllocate && !isAllocated}
+                              />
+                              <Label 
+                                htmlFor={`skipass-${deal.id}`}
+                                className={`text-sm ${!canAllocate && !isAllocated ? 'text-muted-foreground' : ''}`}
+                              >
+                                Hissilippu
+                              </Label>
+                              {!canAllocate && !isAllocated && (
+                                <Badge variant="outline" className="text-amber-400 border-amber-500/30 text-xs">
+                                  <AlertCircle className="w-3 h-3 mr-1" />
+                                  Täynnä
+                                </Badge>
+                              )}
+                            </div>
+                            
+                            {/* Special offer toggle */}
+                            <div className="flex items-center gap-2">
+                              <Switch
+                                id={`special-${deal.id}`}
+                                checked={periodSettings.specialOffer}
+                                onCheckedChange={(checked) => handleToggleSpecialOffer(deal, checked)}
+                              />
+                              <Label htmlFor={`special-${deal.id}`} className="text-sm">
+                                Erikoistarjous
+                              </Label>
+                            </div>
+                            
+                            {/* Custom discount input */}
+                            <div className="flex items-center gap-2">
+                              <Label className="text-sm text-muted-foreground">Alennus %:</Label>
+                              <Input
+                                type="number"
+                                value={periodSettings.customDiscount ?? ""}
+                                onChange={(e) => handleUpdateDiscount(
+                                  deal, 
+                                  e.target.value ? Number(e.target.value) : null
+                                )}
+                                placeholder="-"
+                                className="w-16 h-8 text-center"
+                                min={0}
+                                max={100}
+                              />
+                            </div>
                           </div>
                         </div>
                       );

@@ -29,7 +29,7 @@ import {
   PropertyDetail,
   PropertyCategory
 } from "@/data/propertyDetails";
-import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, Sparkles, Percent } from "lucide-react";
+import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, Percent } from "lucide-react";
 
 // Category icons and labels
 const categoryConfig: Record<PropertyCategory, { icon: React.ReactNode; label: string; color: string }> = {
@@ -65,8 +65,7 @@ const PropertyAdmin = () => {
       oneNightDiscount: property.oneNightDiscount,
       twoNightDiscount: property.twoNightDiscount,
       longStayDiscount: property.longStayDiscount,
-      showDiscount: property.showDiscount,
-      specialOffer: property.specialOffer
+      showDiscount: property.showDiscount
     });
   };
 
@@ -123,7 +122,7 @@ const PropertyAdmin = () => {
         <div>
           <h2 className="text-2xl font-bold text-foreground">Huoneistojen hallinta</h2>
           <p className="text-muted-foreground text-sm mt-1">
-            Muokkaa alennuksia, siivousmaksuja ja erikoistarjouksia. Muutokset tulevat voimaan heti.
+            Muokkaa alennuksia ja siivousmaksuja. Erikoistarjoukset hallitaan Hissilippu-välilehdellä jaksokohtaisesti.
           </p>
         </div>
         <Button variant="outline" onClick={() => setShowResetDialog(true)}>
@@ -164,7 +163,6 @@ const PropertyAdmin = () => {
                       <TableHead className="text-right w-[70px]">2 yötä</TableHead>
                       <TableHead className="text-right w-[70px]">3+ yötä</TableHead>
                       <TableHead className="text-center w-[60px]">Näytä %</TableHead>
-                      <TableHead className="text-center w-[70px]">Erikois</TableHead>
                       <TableHead className="w-[100px]"></TableHead>
                     </TableRow>
                   </TableHeader>
@@ -182,14 +180,7 @@ const PropertyAdmin = () => {
                               className="h-8"
                             />
                           ) : (
-                            <div className="flex items-center gap-2">
-                              <span className="font-medium">{property.name}</span>
-                              {property.specialOffer && (
-                                <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-xs">
-                                  <Sparkles className="w-3 h-3 mr-0.5" />
-                                </Badge>
-                              )}
-                            </div>
+                            <span className="font-medium">{property.name}</span>
                           )}
                         </TableCell>
                         <TableCell className="text-right text-muted-foreground">
@@ -270,18 +261,6 @@ const PropertyAdmin = () => {
                           ) : (
                             <span className={property.showDiscount ? "text-green-400" : "text-muted-foreground"}>
                               {property.showDiscount ? <Percent className="w-4 h-4" /> : "-"}
-                            </span>
-                          )}
-                        </TableCell>
-                        <TableCell className="text-center">
-                          {editingId === property.id ? (
-                            <Switch
-                              checked={editForm.specialOffer || false}
-                              onCheckedChange={(checked) => setEditForm({ ...editForm, specialOffer: checked })}
-                            />
-                          ) : (
-                            <span className={property.specialOffer ? "text-amber-400" : "text-muted-foreground"}>
-                              {property.specialOffer ? "✓" : "-"}
                             </span>
                           )}
                         </TableCell>
