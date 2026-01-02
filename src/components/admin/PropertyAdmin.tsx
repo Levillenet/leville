@@ -35,7 +35,7 @@ import {
   PropertyDetail,
   PropertyCategory
 } from "@/data/propertyDetails";
-import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, CalendarIcon, Ticket, Sparkles } from "lucide-react";
+import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, CalendarIcon, Ticket, Sparkles, Percent } from "lucide-react";
 
 // Category icons and labels
 const categoryConfig: Record<PropertyCategory, { icon: React.ReactNode; label: string; color: string }> = {
@@ -71,6 +71,7 @@ const PropertyAdmin = () => {
       oneNightDiscount: property.oneNightDiscount,
       twoNightDiscount: property.twoNightDiscount,
       longStayDiscount: property.longStayDiscount,
+      showDiscount: property.showDiscount,
       specialOffer: property.specialOffer,
       skiPassOffer: property.skiPassOffer,
       skiPassStartDate: property.skiPassStartDate,
@@ -171,6 +172,7 @@ const PropertyAdmin = () => {
                       <TableHead className="text-right w-[70px]">1 yö</TableHead>
                       <TableHead className="text-right w-[70px]">2 yötä</TableHead>
                       <TableHead className="text-right w-[70px]">3+ yötä</TableHead>
+                      <TableHead className="text-center w-[60px]">Näytä %</TableHead>
                       <TableHead className="text-center w-[70px]">Erikois</TableHead>
                       <TableHead className="text-center w-[130px]">Hissilippu</TableHead>
                       <TableHead className="w-[100px]"></TableHead>
@@ -271,6 +273,18 @@ const PropertyAdmin = () => {
                           ) : (
                             <span className={property.longStayDiscount ? "text-blue-500 font-medium" : "text-muted-foreground"}>
                               {property.longStayDiscount ? `-${property.longStayDiscount}%` : "-"}
+                            </span>
+                          )}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {editingId === property.id ? (
+                            <Switch
+                              checked={editForm.showDiscount || false}
+                              onCheckedChange={(checked) => setEditForm({ ...editForm, showDiscount: checked })}
+                            />
+                          ) : (
+                            <span className={property.showDiscount ? "text-green-400" : "text-muted-foreground"}>
+                              {property.showDiscount ? <Percent className="w-4 h-4" /> : "-"}
                             </span>
                           )}
                         </TableCell>
