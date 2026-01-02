@@ -600,11 +600,31 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                   <span className="text-muted-foreground text-sm">{t.total}</span>
                                 </div>
                                 <div className="text-xs text-muted-foreground mt-2">
-                                  {getMaxGuests(deal.roomId) > 6 
-                                    ? t.priceNote 
-                                    : lang === 'fi' 
-                                      ? "Hinta sisältää siivouksen ja 2 henkilön majoittumisen. Liinavaatteet lisäpalveluna 19€/hlö tarvittaessa."
-                                      : t.priceNote.replace(/Lisähenkilöt \+10€\/hlö\.\s?|Additional guests \+10€\/person\.\s?|Extra gäster \+10€\/person\.\s?|Zusätzliche Gäste \+10€\/Person\.\s?|Huéspedes adicionales \+10€\/persona\.\s?|Personnes supplémentaires \+10€\/personne\.\s?/g, '')
+                                  {getMaxGuests(deal.roomId) >= 6 
+                                    ? (lang === 'fi' 
+                                        ? "Hinta sisältää siivouksen. Lisähenkilöt +10€/yö. Liinavaatteet 19€/hlö."
+                                        : lang === 'en' 
+                                          ? "Price includes cleaning. Extra guests +10€/night. Linens 19€/person."
+                                          : lang === 'sv'
+                                            ? "Priset inkluderar städning. Extra gäster +10€/natt. Sängkläder 19€/person."
+                                            : lang === 'de'
+                                              ? "Preis inkl. Reinigung. Zusätzliche Gäste +10€/Nacht. Bettwäsche 19€/Person."
+                                              : lang === 'es'
+                                                ? "Precio incluye limpieza. Huéspedes extra +10€/noche. Ropa de cama 19€/persona."
+                                                : "Prix comprend le ménage. Personnes supp. +10€/nuit. Linge 19€/personne."
+                                      )
+                                    : (lang === 'fi' 
+                                        ? "Hinta sisältää siivouksen. Liinavaatteet 19€/hlö."
+                                        : lang === 'en' 
+                                          ? "Price includes cleaning. Linens 19€/person."
+                                          : lang === 'sv'
+                                            ? "Priset inkluderar städning. Sängkläder 19€/person."
+                                            : lang === 'de'
+                                              ? "Preis inkl. Reinigung. Bettwäsche 19€/Person."
+                                              : lang === 'es'
+                                                ? "Precio incluye limpieza. Ropa de cama 19€/persona."
+                                                : "Prix comprend le ménage. Linge 19€/personne."
+                                      )
                                   }
                                 </div>
                               </>
