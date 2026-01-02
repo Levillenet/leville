@@ -84,7 +84,7 @@ const content = {
       canonical: "https://leville.net/akkilahdot"
     },
     title: "Levin äkkilähdöt",
-    subtitle: "Tartu tilaisuuteen ja lähde Leville!",
+    subtitle: "Tartu tilaisuuteen ja lähde Leville! Varaukset tehdään WhatsApp-viestillä, jotta voimme varmistaa saatavuuden.",
     badge: "🔥 Äkkilähdöt",
     perNight: "/ yö",
     perPerson: "/ hlö",
@@ -113,7 +113,7 @@ const content = {
       canonical: "https://leville.net/en/last-minute"
     },
     title: "Levi Last-Minute Deals",
-    subtitle: "Seize the opportunity! Limited affordable accommodations available.",
+    subtitle: "Seize the opportunity! Bookings are made via WhatsApp so we can confirm availability.",
     badge: "🔥 Last Minute",
     perNight: "/ night",
     perPerson: "/ person",
@@ -142,7 +142,7 @@ const content = {
       canonical: "https://leville.net/sv/sista-minuten"
     },
     title: "Levi Sista Minuten",
-    subtitle: "Ta chansen! Begränsade prisvärda boenden tillgängliga.",
+    subtitle: "Ta chansen! Bokningar görs via WhatsApp så att vi kan bekräfta tillgängligheten.",
     badge: "🔥 Sista Minuten",
     perNight: "/ natt",
     perPerson: "/ person",
@@ -171,7 +171,7 @@ const content = {
       canonical: "https://leville.net/de/last-minute"
     },
     title: "Levi Last-Minute",
-    subtitle: "Nutzen Sie die Gelegenheit! Begrenzte günstige Unterkünfte verfügbar.",
+    subtitle: "Nutzen Sie die Gelegenheit! Buchungen erfolgen per WhatsApp, damit wir die Verfügbarkeit bestätigen können.",
     badge: "🔥 Last Minute",
     perNight: "/ Nacht",
     perPerson: "/ Person",
@@ -200,7 +200,7 @@ const content = {
       canonical: "https://leville.net/es/ultima-hora"
     },
     title: "Ofertas de última hora en Levi",
-    subtitle: "¡Aprovecha la oportunidad! Alojamientos asequibles con disponibilidad limitada.",
+    subtitle: "¡Aprovecha la oportunidad! Las reservas se hacen por WhatsApp para confirmar disponibilidad.",
     badge: "🔥 Última hora",
     perNight: "/ noche",
     perPerson: "/ persona",
@@ -229,7 +229,7 @@ const content = {
       canonical: "https://leville.net/fr/derniere-minute"
     },
     title: "Offres de dernière minute à Levi",
-    subtitle: "Saisissez l'opportunité ! Hébergements abordables en disponibilité limitée.",
+    subtitle: "Saisissez l'opportunité ! Les réservations se font via WhatsApp pour confirmer la disponibilité.",
     badge: "🔥 Dernière minute",
     perNight: "/ nuit",
     perPerson: "/ personne",
