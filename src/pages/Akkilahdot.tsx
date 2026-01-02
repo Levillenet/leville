@@ -9,7 +9,7 @@ import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, ArrowRight, Loader2, ExternalLink, MessageCircle, Sparkles, Ticket, Flame } from "lucide-react";
+import { Calendar, Clock, ArrowRight, Loader2, ExternalLink, MessageCircle, Sparkles, Ticket, Flame, Users } from "lucide-react";
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
@@ -359,6 +359,12 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return property?.bookingUrl || "";
   };
 
+  // Get max guests for property
+  const getMaxGuests = (roomId: string): number => {
+    const property = getPropertyDetails(roomId);
+    return property?.maxGuests || 2;
+  };
+
   // Generate WhatsApp booking URL for Beds24 deal - localized messages
   const generateWhatsAppUrl = (deal: Beds24Deal): string => {
     const totalPrice = getTotalPrice(deal);
@@ -517,27 +523,27 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           />
                         )}
                         
-                        {/* Special Offer Badge - overlapping card */}
+                        {/* Special Offer Badge - moved lower */}
                         {hasSpecialOffer(deal.roomId) && (
-                          <div className="absolute -top-2 -left-2 z-20">
-                            <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1 text-sm font-bold shadow-lg transform -rotate-6">
+                          <div className="absolute top-3 left-3 z-20">
+                            <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Sparkles className="w-3.5 h-3.5 mr-1" />
                               Erikoistarjous!
                             </Badge>
                           </div>
                         )}
                         
-                        {/* Ski Pass Offer Badge - overlapping card */}
+                        {/* Ski Pass Offer Badge - moved lower */}
                         {hasSkiPassOffer(deal) && (
-                          <div className="absolute -top-2 -right-2 z-20">
-                            <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1 text-sm font-bold shadow-lg transform rotate-6">
+                          <div className="absolute top-3 right-3 z-20">
+                            <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Ticket className="w-3.5 h-3.5 mr-1" />
                               2 hissilippua!
                             </Badge>
                           </div>
                         )}
 
-                        <CardHeader className="pb-3 pt-6">
+                        <CardHeader className="pb-3 pt-12">
                           <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
                             <Calendar className="w-4 h-4" />
                             <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(deal.checkOut)}</span>
@@ -560,11 +566,15 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         </CardHeader>
                         
                         <CardContent>
-                          {/* Nights info */}
+                          {/* Property info */}
                           <ul className="space-y-1.5 mb-4">
                             <li className="text-sm text-muted-foreground flex items-center gap-2">
                               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                               {nightsText(deal.nights)}
+                            </li>
+                            <li className="text-sm text-muted-foreground flex items-center gap-2">
+                              <Users className="w-3.5 h-3.5" />
+                              Max {getMaxGuests(deal.roomId)} hlö
                             </li>
                           </ul>
 
@@ -590,7 +600,12 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                   <span className="text-muted-foreground text-sm">{t.total}</span>
                                 </div>
                                 <div className="text-xs text-muted-foreground mt-2">
-                                  {t.priceNote}
+                                  {getMaxGuests(deal.roomId) > 6 
+                                    ? t.priceNote 
+                                    : lang === 'fi' 
+                                      ? "Hinta sisältää siivouksen ja 2 henkilön majoittumisen. Liinavaatteet lisäpalveluna 19€/hlö tarvittaessa."
+                                      : t.priceNote.replace(/Lisähenkilöt \+10€\/hlö\.\s?|Additional guests \+10€\/person\.\s?|Extra gäster \+10€\/person\.\s?|Zusätzliche Gäste \+10€\/Person\.\s?|Huéspedes adicionales \+10€\/persona\.\s?|Personnes supplémentaires \+10€\/personne\.\s?/g, '')
+                                  }
                                 </div>
                               </>
                             ) : (
