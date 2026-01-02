@@ -526,10 +526,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   const category = getPropertyCategory(deal.roomId);
                   const discountInfo = getDiscountInfo(deal);
                   const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
-                  const showStrikethrough = periodSettings.specialOffer && 
-                                            periodSettings.customDiscount && 
-                                            periodSettings.customDiscount > 0 && 
-                                            periodSettings.showDiscountBadge === true;
+                  // Show strikethrough when showDiscountBadge is on AND there's any discount (property-level OR special offer)
+                  const hasAnyDiscount = discountInfo.totalDiscount > 0 || (periodSettings.customDiscount && periodSettings.customDiscount > 0);
+                  const showStrikethrough = periodSettings.showDiscountBadge === true && hasAnyDiscount;
                   
                   return (
                     <ScrollReveal key={deal.id} delay={index * 0.1}>
