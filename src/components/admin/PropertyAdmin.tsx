@@ -166,12 +166,13 @@ const PropertyAdmin = () => {
                     <TableRow>
                       <TableHead className="w-[80px]">ID</TableHead>
                       <TableHead>Markkinointinimi</TableHead>
+                      <TableHead className="text-right w-[60px]">Hlö</TableHead>
                       <TableHead className="text-right w-[80px]">Siivous</TableHead>
                       <TableHead className="text-right w-[70px]">1 yö</TableHead>
                       <TableHead className="text-right w-[70px]">2 yötä</TableHead>
                       <TableHead className="text-right w-[70px]">3+ yötä</TableHead>
                       <TableHead className="text-center w-[70px]">Erikois</TableHead>
-                      <TableHead className="text-center w-[70px]">Hissi</TableHead>
+                      <TableHead className="text-center w-[130px]">Hissilippu</TableHead>
                       <TableHead className="w-[100px]"></TableHead>
                     </TableRow>
                   </TableHeader>
@@ -203,6 +204,9 @@ const PropertyAdmin = () => {
                               )}
                             </div>
                           )}
+                        </TableCell>
+                        <TableCell className="text-right text-muted-foreground">
+                          {property.maxGuests}
                         </TableCell>
                         <TableCell className="text-right">
                           {editingId === property.id ? (
@@ -284,14 +288,23 @@ const PropertyAdmin = () => {
                         </TableCell>
                         <TableCell className="text-center">
                           {editingId === property.id ? (
-                            <Switch
-                              checked={editForm.skiPassOffer || false}
-                              onCheckedChange={(checked) => setEditForm({ ...editForm, skiPassOffer: checked })}
-                            />
+                            <div className="flex flex-col items-center gap-1">
+                              <Switch
+                                checked={editForm.skiPassOffer || false}
+                                onCheckedChange={(checked) => setEditForm({ ...editForm, skiPassOffer: checked })}
+                              />
+                            </div>
                           ) : (
-                            <span className={property.skiPassOffer ? "text-cyan-400" : "text-muted-foreground"}>
-                              {property.skiPassOffer ? "✓" : "-"}
-                            </span>
+                            <div className="flex flex-col items-center gap-0.5">
+                              <span className={property.skiPassOffer ? "text-cyan-400" : "text-muted-foreground"}>
+                                {property.skiPassOffer ? "✓" : "-"}
+                              </span>
+                              {property.skiPassOffer && property.skiPassStartDate && property.skiPassEndDate && (
+                                <span className="text-[10px] text-muted-foreground">
+                                  {format(new Date(property.skiPassStartDate), "d.M")} - {format(new Date(property.skiPassEndDate), "d.M")}
+                                </span>
+                              )}
+                            </div>
                           )}
                         </TableCell>
                         <TableCell>
