@@ -3,7 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
+import { fi } from "date-fns/locale";
+import { cn } from "@/lib/utils";
 import { 
   Table, 
   TableBody, 
@@ -28,7 +35,7 @@ import {
   PropertyDetail,
   PropertyCategory
 } from "@/data/propertyDetails";
-import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine } from "lucide-react";
+import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, CalendarIcon, Ticket, Sparkles } from "lucide-react";
 
 // Category icons and labels
 const categoryConfig: Record<PropertyCategory, { icon: React.ReactNode; label: string; color: string }> = {
@@ -39,10 +46,6 @@ const categoryConfig: Record<PropertyCategory, { icon: React.ReactNode; label: s
   cabin: { icon: <TreePine className="w-4 h-4" />, label: "Mökki", color: "bg-green-500/20 text-green-400 border-green-500/30" },
   other: { icon: <Building className="w-4 h-4" />, label: "Muu", color: "bg-gray-500/20 text-gray-400 border-gray-500/30" }
 };
-
-interface EditingProperty extends PropertyDetail {
-  isEditing: boolean;
-}
 
 const PropertyAdmin = () => {
   const [properties, setProperties] = useState<PropertyDetail[]>([]);
@@ -65,8 +68,13 @@ const PropertyAdmin = () => {
     setEditForm({
       name: property.name,
       cleaningFee: property.cleaningFee,
-      instantDiscount: property.instantDiscount,
-      longStayDiscount: property.longStayDiscount
+      oneNightDiscount: property.oneNightDiscount,
+      twoNightDiscount: property.twoNightDiscount,
+      longStayDiscount: property.longStayDiscount,
+      specialOffer: property.specialOffer,
+      skiPassOffer: property.skiPassOffer,
+      skiPassStartDate: property.skiPassStartDate,
+      skiPassEndDate: property.skiPassEndDate
     });
   };
 
@@ -123,7 +131,7 @@ const PropertyAdmin = () => {
         <div>
           <h2 className="text-2xl font-bold text-foreground">Huoneistojen hallinta</h2>
           <p className="text-muted-foreground text-sm mt-1">
-            Muokkaa alennuksia, siivousmaksuja ja markkinointinimiä. Muutokset tulevat voimaan heti.
+            Muokkaa alennuksia, siivousmaksuja ja erikoistarjouksia. Muutokset tulevat voimaan heti.
           </p>
         </div>
         <Button variant="outline" onClick={() => setShowResetDialog(true)}>
@@ -158,10 +166,13 @@ const PropertyAdmin = () => {
                     <TableRow>
                       <TableHead className="w-[80px]">ID</TableHead>
                       <TableHead>Markkinointinimi</TableHead>
-                      <TableHead className="text-right w-[100px]">Siivous €</TableHead>
-                      <TableHead className="text-right w-[100px]">Alennus %</TableHead>
-                      <TableHead className="text-right w-[100px]">3+ yötä %</TableHead>
-                      <TableHead className="w-[120px]"></TableHead>
+                      <TableHead className="text-right w-[80px]">Siivous</TableHead>
+                      <TableHead className="text-right w-[70px]">1 yö</TableHead>
+                      <TableHead className="text-right w-[70px]">2 yötä</TableHead>
+                      <TableHead className="text-right w-[70px]">3+ yötä</TableHead>
+                      <TableHead className="text-center w-[70px]">Erikois</TableHead>
+                      <TableHead className="text-center w-[70px]">Hissi</TableHead>
+                      <TableHead className="w-[100px]"></TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -178,7 +189,19 @@ const PropertyAdmin = () => {
                               className="h-8"
                             />
                           ) : (
-                            <span className="font-medium">{property.name}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="font-medium">{property.name}</span>
+                              {property.specialOffer && (
+                                <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-xs">
+                                  <Sparkles className="w-3 h-3 mr-0.5" />
+                                </Badge>
+                              )}
+                              {property.skiPassOffer && (
+                                <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30 text-xs">
+                                  <Ticket className="w-3 h-3 mr-0.5" />
+                                </Badge>
+                              )}
+                            </div>
                           )}
                         </TableCell>
                         <TableCell className="text-right">
@@ -187,7 +210,7 @@ const PropertyAdmin = () => {
                               type="number"
                               value={editForm.cleaningFee || 0}
                               onChange={(e) => setEditForm({ ...editForm, cleaningFee: Number(e.target.value) })}
-                              className="h-8 w-20 text-right ml-auto"
+                              className="h-8 w-16 text-right ml-auto"
                             />
                           ) : (
                             <span>{property.cleaningFee}€</span>
@@ -197,17 +220,35 @@ const PropertyAdmin = () => {
                           {editingId === property.id ? (
                             <Input
                               type="number"
-                              value={editForm.instantDiscount ?? ""}
+                              value={editForm.oneNightDiscount ?? ""}
                               onChange={(e) => setEditForm({ 
                                 ...editForm, 
-                                instantDiscount: e.target.value ? Number(e.target.value) : null 
+                                oneNightDiscount: e.target.value ? Number(e.target.value) : null 
                               })}
                               placeholder="-"
-                              className="h-8 w-20 text-right ml-auto"
+                              className="h-8 w-14 text-right ml-auto"
                             />
                           ) : (
-                            <span className={property.instantDiscount ? "text-green-500 font-medium" : "text-muted-foreground"}>
-                              {property.instantDiscount ? `-${property.instantDiscount}%` : "-"}
+                            <span className={property.oneNightDiscount ? "text-green-500 font-medium" : "text-muted-foreground"}>
+                              {property.oneNightDiscount ? `-${property.oneNightDiscount}%` : "-"}
+                            </span>
+                          )}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {editingId === property.id ? (
+                            <Input
+                              type="number"
+                              value={editForm.twoNightDiscount ?? ""}
+                              onChange={(e) => setEditForm({ 
+                                ...editForm, 
+                                twoNightDiscount: e.target.value ? Number(e.target.value) : null 
+                              })}
+                              placeholder="-"
+                              className="h-8 w-14 text-right ml-auto"
+                            />
+                          ) : (
+                            <span className={property.twoNightDiscount ? "text-green-500 font-medium" : "text-muted-foreground"}>
+                              {property.twoNightDiscount ? `-${property.twoNightDiscount}%` : "-"}
                             </span>
                           )}
                         </TableCell>
@@ -221,11 +262,35 @@ const PropertyAdmin = () => {
                                 longStayDiscount: e.target.value ? Number(e.target.value) : null 
                               })}
                               placeholder="-"
-                              className="h-8 w-20 text-right ml-auto"
+                              className="h-8 w-14 text-right ml-auto"
                             />
                           ) : (
                             <span className={property.longStayDiscount ? "text-blue-500 font-medium" : "text-muted-foreground"}>
                               {property.longStayDiscount ? `-${property.longStayDiscount}%` : "-"}
+                            </span>
+                          )}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {editingId === property.id ? (
+                            <Switch
+                              checked={editForm.specialOffer || false}
+                              onCheckedChange={(checked) => setEditForm({ ...editForm, specialOffer: checked })}
+                            />
+                          ) : (
+                            <span className={property.specialOffer ? "text-amber-400" : "text-muted-foreground"}>
+                              {property.specialOffer ? "✓" : "-"}
+                            </span>
+                          )}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {editingId === property.id ? (
+                            <Switch
+                              checked={editForm.skiPassOffer || false}
+                              onCheckedChange={(checked) => setEditForm({ ...editForm, skiPassOffer: checked })}
+                            />
+                          ) : (
+                            <span className={property.skiPassOffer ? "text-cyan-400" : "text-muted-foreground"}>
+                              {property.skiPassOffer ? "✓" : "-"}
                             </span>
                           )}
                         </TableCell>
@@ -277,6 +342,70 @@ const PropertyAdmin = () => {
                   </TableBody>
                 </Table>
               </div>
+              
+              {/* Ski pass date pickers when editing */}
+              {editingId && categoryProperties.some(p => p.id === editingId) && editForm.skiPassOffer && (
+                <div className="mt-4 p-4 bg-cyan-500/10 rounded-lg border border-cyan-500/20">
+                  <h4 className="text-sm font-medium text-cyan-400 mb-3 flex items-center gap-2">
+                    <Ticket className="w-4 h-4" />
+                    Hissilippuedun päivämäärät
+                  </h4>
+                  <div className="flex flex-wrap gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-xs text-muted-foreground">Alkupäivä (check-in)</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-[180px] justify-start text-left font-normal",
+                              !editForm.skiPassStartDate && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {editForm.skiPassStartDate ? format(new Date(editForm.skiPassStartDate), "d.M.yyyy", { locale: fi }) : "Valitse päivä"}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={editForm.skiPassStartDate ? new Date(editForm.skiPassStartDate) : undefined}
+                            onSelect={(date) => setEditForm({ ...editForm, skiPassStartDate: date ? date.toISOString().split('T')[0] : null })}
+                            initialFocus
+                            className={cn("p-3 pointer-events-auto")}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-xs text-muted-foreground">Loppupäivä (check-in)</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className={cn(
+                              "w-[180px] justify-start text-left font-normal",
+                              !editForm.skiPassEndDate && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {editForm.skiPassEndDate ? format(new Date(editForm.skiPassEndDate), "d.M.yyyy", { locale: fi }) : "Valitse päivä"}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={editForm.skiPassEndDate ? new Date(editForm.skiPassEndDate) : undefined}
+                            onSelect={(date) => setEditForm({ ...editForm, skiPassEndDate: date ? date.toISOString().split('T')[0] : null })}
+                            initialFocus
+                            className={cn("p-3 pointer-events-auto")}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         );

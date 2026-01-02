@@ -9,7 +9,7 @@ import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, Flame, ArrowRight, Loader2, ExternalLink, MessageCircle } from "lucide-react";
+import { Calendar, Clock, ArrowRight, Loader2, ExternalLink, MessageCircle, Sparkles, Ticket, Flame } from "lucide-react";
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
@@ -284,27 +284,61 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     const cleaningFee = property?.cleaningFee || 0;
     let basePrice = deal.price;
     
-    // Apply instant discount if defined (always applied)
-    if (property?.instantDiscount) {
-      basePrice = basePrice * (1 - property.instantDiscount / 100);
+    // Apply discount based on number of nights
+    let discount = 0;
+    if (deal.nights === 1 && property?.oneNightDiscount) {
+      discount = property.oneNightDiscount;
+    } else if (deal.nights === 2 && property?.twoNightDiscount) {
+      discount = property.twoNightDiscount;
+    } else if (deal.nights >= 3 && property?.longStayDiscount) {
+      discount = property.longStayDiscount;
     }
     
-    // Apply long stay discount if 3+ nights
-    if (deal.nights >= 3 && property?.longStayDiscount) {
-      basePrice = basePrice * (1 - property.longStayDiscount / 100);
+    if (discount > 0) {
+      basePrice = basePrice * (1 - discount / 100);
     }
     
     return Math.round(basePrice + cleaningFee);
   };
 
-  // Get discount info for display
-  const getDiscountInfo = (deal: Beds24Deal): { instantDiscount: number | null; longStayDiscount: number | null; hasLongStay: boolean } => {
+  // Get discount info for display - only show if 30% or more
+  const getDiscountInfo = (deal: Beds24Deal): { totalDiscount: number; showBadge: boolean } => {
     const property = getPropertyDetails(deal.roomId);
+    let discount = 0;
+    
+    if (deal.nights === 1 && property?.oneNightDiscount) {
+      discount = property.oneNightDiscount;
+    } else if (deal.nights === 2 && property?.twoNightDiscount) {
+      discount = property.twoNightDiscount;
+    } else if (deal.nights >= 3 && property?.longStayDiscount) {
+      discount = property.longStayDiscount;
+    }
+    
     return {
-      instantDiscount: property?.instantDiscount || null,
-      longStayDiscount: property?.longStayDiscount || null,
-      hasLongStay: deal.nights >= 3 && !!property?.longStayDiscount
+      totalDiscount: discount,
+      showBadge: discount >= 30
     };
+  };
+
+  // Check if ski pass offer applies to this deal
+  const hasSkiPassOffer = (deal: Beds24Deal): boolean => {
+    const property = getPropertyDetails(deal.roomId);
+    if (!property?.skiPassOffer) return false;
+    
+    const checkInDate = new Date(deal.checkIn);
+    const startDate = property.skiPassStartDate ? new Date(property.skiPassStartDate) : null;
+    const endDate = property.skiPassEndDate ? new Date(property.skiPassEndDate) : null;
+    
+    if (startDate && checkInDate < startDate) return false;
+    if (endDate && checkInDate > endDate) return false;
+    
+    return true;
+  };
+
+  // Check if special offer is active
+  const hasSpecialOffer = (roomId: string): boolean => {
+    const property = getPropertyDetails(roomId);
+    return property?.specialOffer || false;
   };
 
   // Get marketing name from propertyDetails
@@ -483,15 +517,27 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           />
                         )}
                         
-                        {/* Last minute badge */}
-                        <div className="absolute top-4 right-4 z-10">
-                          <Badge className="bg-red-500 text-white border-0 animate-pulse">
-                            <Flame className="w-3 h-3 mr-1" />
-                            {t.badge}
-                          </Badge>
-                        </div>
+                        {/* Special Offer Badge - overlapping card */}
+                        {hasSpecialOffer(deal.roomId) && (
+                          <div className="absolute -top-2 -left-2 z-20">
+                            <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1 text-sm font-bold shadow-lg transform -rotate-6">
+                              <Sparkles className="w-3.5 h-3.5 mr-1" />
+                              Erikoistarjous!
+                            </Badge>
+                          </div>
+                        )}
+                        
+                        {/* Ski Pass Offer Badge - overlapping card */}
+                        {hasSkiPassOffer(deal) && (
+                          <div className="absolute -top-2 -right-2 z-20">
+                            <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1 text-sm font-bold shadow-lg transform rotate-6">
+                              <Ticket className="w-3.5 h-3.5 mr-1" />
+                              2 hissilippua!
+                            </Badge>
+                          </div>
+                        )}
 
-                        <CardHeader className="pb-3">
+                        <CardHeader className="pb-3 pt-6">
                           <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
                             <Calendar className="w-4 h-4" />
                             <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(deal.checkOut)}</span>
@@ -531,19 +577,12 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                               </div>
                             ) : totalPrice ? (
                               <>
-                                {/* Discount badges */}
-                                {(discountInfo.instantDiscount || discountInfo.hasLongStay) && (
-                                  <div className="mb-2 flex flex-wrap items-center gap-2">
-                                    {discountInfo.instantDiscount && (
-                                      <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                                        -{discountInfo.instantDiscount}% äkkilähtöalennus
-                                      </Badge>
-                                    )}
-                                    {discountInfo.hasLongStay && (
-                                      <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs">
-                                        -{discountInfo.longStayDiscount}% (3+ yötä)
-                                      </Badge>
-                                    )}
+                                {/* Discount badge - only show if 30% or more */}
+                                {discountInfo.showBadge && (
+                                  <div className="mb-2">
+                                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+                                      -{discountInfo.totalDiscount}% alennus
+                                    </Badge>
                                   </div>
                                 )}
                                 <div className="flex items-baseline gap-2">
