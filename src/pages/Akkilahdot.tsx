@@ -21,6 +21,7 @@ import { getPeriodAllocationStatus } from "@/data/skiPassAllocations";
 // Property background images
 import glacierImage from "@/assets/deals/glacier.jpg";
 import skistarImage from "@/assets/deals/skistar.jpg";
+import karhunvartijaImage from "@/assets/deals/karhunvartija.jpg";
 
 interface AkkilahdotProps {
   lang?: Language;
@@ -506,6 +507,19 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                             className="absolute inset-0 z-0 pointer-events-none"
                             style={{
                               backgroundImage: `url(${skistarImage})`,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center 40%',
+                              opacity: 0.15,
+                              maskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
+                              WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
+                            }}
+                          />
+                        )}
+                        {category === 'perheasunnot' && (
+                          <div 
+                            className="absolute inset-0 z-0 pointer-events-none"
+                            style={{
+                              backgroundImage: `url(${karhunvartijaImage})`,
                               backgroundSize: 'cover',
                               backgroundPosition: 'center 40%',
                               opacity: 0.15,
