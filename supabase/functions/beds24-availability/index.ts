@@ -54,10 +54,10 @@ serve(async (req) => {
     }
 
     const today = new Date();
-    const twoWeeksLater = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
+    const fourWeeksLater = new Date(today.getTime() + 28 * 24 * 60 * 60 * 1000);
 
     const arrivalFrom = formatDate(today);
-    const arrivalTo = formatDate(twoWeeksLater);
+    const arrivalTo = formatDate(fourWeeksLater);
 
     console.log(`Fetching Beds24 availability from ${arrivalFrom} to ${arrivalTo}`);
 
@@ -143,46 +143,48 @@ serve(async (req) => {
       const maxPersons =
         roomMeta?.maxPeople ?? roomAvail?.maxPeople ?? roomAvail?.maxPersons ?? 4;
 
-      const days = roomAvail?.availability ?? roomAvail?.dates ?? roomAvail?.days ?? [];
-      if (!Array.isArray(days) || days.length === 0) continue;
+      // Beds24 returns availability as object: {"2026-01-02": true, "2026-01-03": false, ...}
+      const availabilityData = roomAvail?.availability ?? {};
+      
+      // Convert object to sorted array of dates
+      let dateEntries: [string, boolean][] = [];
+      
+      if (typeof availabilityData === "object" && !Array.isArray(availabilityData)) {
+        // It's an object with date keys
+        dateEntries = Object.entries(availabilityData)
+          .map(([date, avail]) => [date, avail === true] as [string, boolean])
+          .sort((a, b) => a[0].localeCompare(b[0]));
+      } else if (Array.isArray(availabilityData)) {
+        // It's an array (fallback)
+        for (const day of availabilityData) {
+          const date = day?.date ?? day?.day ?? day?.from;
+          if (!date) continue;
+          const isAvail = day?.available === true || (day?.numAvail ?? 0) > 0;
+          dateEntries.push([String(date), isAvail]);
+        }
+        dateEntries.sort((a, b) => a[0].localeCompare(b[0]));
+      }
+
+      if (dateEntries.length === 0) continue;
+
+      console.log(`Room ${roomId} (${roomName}): ${dateEntries.length} date entries, available days: ${dateEntries.filter(d => d[1]).length}`);
 
       let periodStart: string | null = null;
-      let periodPrice = 0;
 
-      for (const day of days) {
-        const date = day?.date ?? day?.day ?? day?.from;
-        if (!date) continue;
-
-        const numAvail =
-          typeof day?.numAvail === "number"
-            ? day.numAvail
-            : typeof day?.avail === "number"
-              ? day.avail
-              : 0;
-
-        const isAvailable =
-          (day?.available === true || numAvail > 0) && day?.closed !== true;
-
-        const price =
-          typeof day?.price === "number"
-            ? day.price
-            : typeof day?.price1 === "number"
-              ? day.price1
-              : 0;
+      for (let i = 0; i < dateEntries.length; i++) {
+        const [date, isAvailable] = dateEntries[i];
 
         if (isAvailable) {
           if (!periodStart) {
-            periodStart = String(date);
-            periodPrice = price;
-          } else {
-            periodPrice += price;
+            periodStart = date;
           }
         } else if (periodStart) {
           // End of available period
           const checkIn = periodStart;
-          const checkOut = String(date);
+          const checkOut = date;
           const nights = daysBetween(checkIn, checkOut);
 
+          // Require at least 2 nights for a last-minute deal
           if (nights >= 2) {
             deals.push({
               id: `${roomId}-${checkIn}`,
@@ -191,7 +193,7 @@ serve(async (req) => {
               checkIn,
               checkOut,
               nights,
-              price: periodPrice > 0 ? periodPrice : null,
+              price: null,
               currency: "EUR",
               maxPersons,
               available: true,
@@ -199,14 +201,18 @@ serve(async (req) => {
           }
 
           periodStart = null;
-          periodPrice = 0;
         }
       }
 
       // Handle period that extends to end of search range
       if (periodStart) {
+        const lastDate = dateEntries[dateEntries.length - 1][0];
+        // Add one day to get checkout date
+        const lastDateObj = new Date(lastDate);
+        lastDateObj.setDate(lastDateObj.getDate() + 1);
+        const checkOut = formatDate(lastDateObj);
+        
         const checkIn = periodStart;
-        const checkOut = arrivalTo;
         const nights = daysBetween(checkIn, checkOut);
 
         if (nights >= 2) {
@@ -217,7 +223,7 @@ serve(async (req) => {
             checkIn,
             checkOut,
             nights,
-            price: periodPrice > 0 ? periodPrice : null,
+            price: null,
             currency: "EUR",
             maxPersons,
             available: true,
