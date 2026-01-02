@@ -442,8 +442,20 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                             <Calendar className="w-4 h-4" />
                             <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(deal.checkOut)}</span>
                           </div>
-                          <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors">
-                            {deal.roomName}
+                          <CardTitle className="text-xl">
+                            {bookingUrl ? (
+                              <a
+                                href={bookingUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-foreground hover:text-primary transition-colors inline-flex items-center gap-1.5"
+                              >
+                                {deal.roomName}
+                                <ExternalLink className="w-4 h-4" />
+                              </a>
+                            ) : (
+                              <span className="text-foreground">{deal.roomName}</span>
+                            )}
                           </CardTitle>
                         </CardHeader>
                         
@@ -502,18 +514,6 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                               {t.bookWhatsApp}
                             </a>
 
-                            {/* Secondary: Explore apartment */}
-                            {bookingUrl && (
-                              <a
-                                href={bookingUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center gap-2 w-full py-2.5 px-4 border border-border/50 hover:border-primary/50 text-muted-foreground hover:text-foreground rounded-lg font-medium transition-colors text-sm"
-                              >
-                                {t.exploreApartment}
-                                <ExternalLink className="w-3.5 h-3.5" />
-                              </a>
-                            )}
                           </div>
                         </CardContent>
                       </Card>
