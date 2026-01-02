@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -7,16 +8,18 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Users, Home, Clock, Flame, ArrowRight } from "lucide-react";
+import { Calendar, Users, Home, Clock, Flame, ArrowRight, Loader2 } from "lucide-react";
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface AkkilahdotProps {
   lang?: Language;
 }
 
-interface Deal {
+interface ManualDeal {
   id: string;
   title: Record<Language, string>;
   description: Record<Language, string>;
@@ -29,48 +32,33 @@ interface Deal {
   urgency?: Record<Language, string>;
 }
 
-// Last-minute deals data - easy to update
-const deals: Deal[] = [
-  {
-    id: "new-year-2025",
-    title: {
-      fi: "Uudenvuoden alppitalohuoneisto",
-      en: "New Year's Alpine Apartment",
-      sv: "Nyårs alplägenhet",
-      de: "Silvester Alpenwohnung",
-      es: "Apartamento alpino de Año Nuevo",
-      fr: "Appartement alpin du Nouvel An"
-    },
-    description: {
-      fi: "Vietä uudenvuodenaatto Levin huipulla! Tilava 10 hengen alppitalohuoneisto täydellisellä sijainnilla.",
-      en: "Celebrate New Year's Eve at Levi peak! Spacious 10-person alpine apartment in perfect location.",
-      sv: "Fira nyårsafton på Levis topp! Rymlig alplägenhet för 10 personer på perfekt läge.",
-      de: "Feiern Sie Silvester auf dem Levi-Gipfel! Geräumige Alpenwohnung für 10 Personen in perfekter Lage.",
-      es: "¡Celebra Nochevieja en la cima de Levi! Amplio apartamento alpino para 10 personas en ubicación perfecta.",
-      fr: "Fêtez le Nouvel An au sommet de Levi ! Spacieux appartement alpin pour 10 personnes parfaitement situé."
-    },
-    dates: "31.12.2024 – 4.1.2025",
-    price: 2000,
-    persons: 10,
-    features: {
-      fi: ["4 yötä", "Täysin varusteltu keittiö", "Oma sauna", "Parveke tunturinäkymällä", "Suksivarasto"],
-      en: ["4 nights", "Fully equipped kitchen", "Private sauna", "Balcony with fell view", "Ski storage"],
-      sv: ["4 nätter", "Fullt utrustat kök", "Egen bastu", "Balkong med fjällutsikt", "Skidförvaring"],
-      de: ["4 Nächte", "Voll ausgestattete Küche", "Eigene Sauna", "Balkon mit Fjällblick", "Skiaufbewahrung"],
-      es: ["4 noches", "Cocina totalmente equipada", "Sauna privada", "Balcón con vista a la montaña", "Guardaesquís"],
-      fr: ["4 nuits", "Cuisine entièrement équipée", "Sauna privé", "Balcon avec vue sur les montagnes", "Local à skis"]
-    },
-    bookingUrl: "https://wa.me/35844131313?text=Hei!%20Olen%20kiinnostunut%20äkkilähdöstä%2031.12-4.1%20(10%20hlö%20alppitalohuoneisto%202000€)",
-    urgency: {
-      fi: "Vain 1 vapaa!",
-      en: "Only 1 left!",
-      sv: "Endast 1 kvar!",
-      de: "Nur noch 1 frei!",
-      es: "¡Solo queda 1!",
-      fr: "Plus qu'1 disponible !"
-    }
+interface Beds24Deal {
+  id: string;
+  roomId: string;
+  roomName: string;
+  checkIn: string;
+  checkOut: string;
+  nights: number;
+  price: number | null;
+  currency: string;
+  maxPersons: number;
+  available: boolean;
+}
+
+// Manual special deals - easy to update
+const manualDeals: ManualDeal[] = [];
+
+// Fetch Beds24 availability
+const fetchBeds24Availability = async (): Promise<Beds24Deal[]> => {
+  const { data, error } = await supabase.functions.invoke('beds24-availability');
+  
+  if (error) {
+    console.error('Error fetching Beds24 availability:', error);
+    return [];
   }
-];
+  
+  return data?.deals || [];
+};
 
 const content = {
   fi: {
@@ -223,6 +211,72 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
 
+  // Fetch Beds24 deals
+  const { data: beds24Deals = [], isLoading } = useQuery({
+    queryKey: ['beds24-availability'],
+    queryFn: fetchBeds24Availability,
+    staleTime: 5 * 60 * 1000, // 5 min cache
+  });
+
+  // Format date for display
+  const formatDateDisplay = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString(lang === 'fi' ? 'fi-FI' : lang === 'sv' ? 'sv-SE' : lang === 'de' ? 'de-DE' : lang === 'es' ? 'es-ES' : lang === 'fr' ? 'fr-FR' : 'en-GB', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  // Nights text by language
+  const nightsText = (nights: number): string => {
+    const texts: Record<Language, string> = {
+      fi: nights === 1 ? 'yö' : 'yötä',
+      en: nights === 1 ? 'night' : 'nights',
+      sv: nights === 1 ? 'natt' : 'nätter',
+      de: nights === 1 ? 'Nacht' : 'Nächte',
+      es: nights === 1 ? 'noche' : 'noches',
+      fr: nights === 1 ? 'nuit' : 'nuits'
+    };
+    return `${nights} ${texts[lang]}`;
+  };
+
+  // Contact text by language
+  const contactText: Record<Language, string> = {
+    fi: 'Kysy hintaa',
+    en: 'Ask for price',
+    sv: 'Fråga om pris',
+    de: 'Preis anfragen',
+    es: 'Consultar precio',
+    fr: 'Demander le prix'
+  };
+
+  // Generate WhatsApp booking URL for Beds24 deal
+  const generateBookingUrl = (deal: Beds24Deal): string => {
+    const messages: Record<Language, string> = {
+      fi: `Hei! Olen kiinnostunut äkkilähdöstä: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} yötä)`,
+      en: `Hi! I'm interested in last-minute deal: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} nights)`,
+      sv: `Hej! Jag är intresserad av sista minuten-erbjudandet: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} nätter)`,
+      de: `Hallo! Ich interessiere mich für das Last-Minute-Angebot: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} Nächte)`,
+      es: `¡Hola! Me interesa la oferta de última hora: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} noches)`,
+      fr: `Bonjour! Je suis intéressé par l'offre de dernière minute: ${deal.roomName}, ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)} (${deal.nights} nuits)`
+    };
+    return `https://wa.me/35844131313?text=${encodeURIComponent(messages[lang])}`;
+  };
+
+  // Combine manual and Beds24 deals for schema
+  const allDealsForSchema = beds24Deals.map((deal, index) => ({
+    "@type": "Offer",
+    "position": index + 1,
+    "name": deal.roomName,
+    "description": `${deal.roomName} - ${deal.nights} nights`,
+    "price": deal.price || 0,
+    "priceCurrency": "EUR",
+    "availability": "https://schema.org/LimitedAvailability",
+    "validFrom": deal.checkIn,
+    "validThrough": deal.checkOut
+  }));
+
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
@@ -234,18 +288,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       "name": "Leville.net",
       "url": "https://leville.net"
     },
-    "itemListElement": deals.map((deal, index) => ({
-      "@type": "Offer",
-      "position": index + 1,
-      "name": deal.title[lang],
-      "description": deal.description[lang],
-      "price": deal.price,
-      "priceCurrency": "EUR",
-      "availability": "https://schema.org/LimitedAvailability",
-      "validFrom": "2024-12-29",
-      "validThrough": "2024-12-31"
-    }))
+    "itemListElement": allDealsForSchema
   };
+
+  const hasDeals = beds24Deals.length > 0 || manualDeals.length > 0;
 
   return (
     <>
@@ -294,14 +340,109 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
               </section>
             </ScrollReveal>
 
-            {/* Deals Grid */}
-            {deals.length > 0 ? (
+            {/* Loading state */}
+            {isLoading && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                {deals.map((deal, index) => {
+                {[1, 2, 3].map((i) => (
+                  <Card key={i} className="glass-card border-border/30">
+                    <CardHeader className="pb-3">
+                      <Skeleton className="h-4 w-32 mb-2" />
+                      <Skeleton className="h-6 w-48" />
+                    </CardHeader>
+                    <CardContent>
+                      <Skeleton className="h-4 w-full mb-2" />
+                      <Skeleton className="h-4 w-3/4 mb-6" />
+                      <Skeleton className="h-20 w-full mb-4" />
+                      <Skeleton className="h-12 w-full" />
+                    </CardContent>
+                  </Card>
+                ))}
+              </section>
+            )}
+
+            {/* Beds24 Deals Grid */}
+            {!isLoading && beds24Deals.length > 0 && (
+              <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                {beds24Deals.map((deal, index) => (
+                  <ScrollReveal key={deal.id} delay={index * 0.1}>
+                    <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
+                      {/* Last minute badge */}
+                      <div className="absolute top-4 right-4 z-10">
+                        <Badge className="bg-red-500 text-white border-0 animate-pulse">
+                          <Flame className="w-3 h-3 mr-1" />
+                          {t.badge}
+                        </Badge>
+                      </div>
+
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
+                          <Calendar className="w-4 h-4" />
+                          <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(deal.checkOut)}</span>
+                        </div>
+                        <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors">
+                          {deal.roomName}
+                        </CardTitle>
+                      </CardHeader>
+                      
+                      <CardContent>
+                        {/* Features */}
+                        <ul className="space-y-1.5 mb-6">
+                          <li className="text-sm text-muted-foreground flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                            {nightsText(deal.nights)}
+                          </li>
+                        </ul>
+
+                        {/* Persons */}
+                        <div className="flex items-center gap-2 text-muted-foreground mb-4">
+                          <Users className="w-4 h-4" />
+                          <span className="text-sm">{deal.maxPersons} {t.persons}</span>
+                        </div>
+
+                        {/* Price */}
+                        <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-lg p-4 mb-4">
+                          {deal.price ? (
+                            <>
+                              <div className="flex items-baseline gap-2">
+                                <span className="text-3xl font-bold text-foreground">{deal.price}€</span>
+                                <span className="text-muted-foreground text-sm">{t.total}</span>
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-1">
+                                = {Math.round(deal.price / deal.maxPersons)}€ {t.perPerson}
+                              </div>
+                            </>
+                          ) : (
+                            <div className="text-lg font-semibold text-foreground">
+                              {contactText[lang]}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* CTA */}
+                        <a
+                          href={generateBookingUrl(deal)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors group"
+                        >
+                          {t.bookNow}
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </a>
+                      </CardContent>
+                    </Card>
+                  </ScrollReveal>
+                ))}
+              </section>
+            )}
+
+            {/* Manual Deals Grid (if any) */}
+            {!isLoading && manualDeals.length > 0 && (
+              <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                {manualDeals.map((deal, index) => {
                   const pricePerPerson = Math.round(deal.price / deal.persons);
                   
                   return (
-                    <ScrollReveal key={deal.id} delay={index * 0.1}>
+                    <ScrollReveal key={deal.id} delay={(beds24Deals.length + index) * 0.1}>
                       <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
                         {/* Urgency badge */}
                         {deal.urgency && (
@@ -371,7 +512,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   );
                 })}
               </section>
-            ) : (
+            )}
+
+            {/* No deals available */}
+            {!isLoading && !hasDeals && (
               <ScrollReveal>
                 <div className="text-center py-12 text-muted-foreground">
                   <Clock className="w-12 h-12 mx-auto mb-4 opacity-50" />
