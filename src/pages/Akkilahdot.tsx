@@ -85,6 +85,7 @@ const content = {
     exploreApartment: "Tutustu huoneistoon",
     priceNote: "Hinta sisältää siivouksen ja 2 henkilön majoittumisen. Lisähenkilöt +10€/hlö. Liinavaatteet lisäpalveluna 19€/hlö tarvittaessa.",
     sameDayNote: "Kysy hintaa tänään alkavaan varaukseen",
+    discountBadge: "Nopean lomailijan etu!",
     noDeals: "Ei tällä hetkellä äkkilähtöjä saatavilla. Tarkista pian uudelleen!",
     whyTitle: "Miksi äkkilähtö?",
     whyItems: [
@@ -111,6 +112,7 @@ const content = {
     exploreApartment: "Explore apartment",
     priceNote: "Price includes cleaning and 2 persons. Additional guests +10€/person. Linens available for 19€/person if needed.",
     sameDayNote: "Ask for price for booking starting today",
+    discountBadge: "Quick traveler bonus!",
     noDeals: "No last-minute deals available at the moment. Check back soon!",
     whyTitle: "Why last-minute?",
     whyItems: [
@@ -137,6 +139,7 @@ const content = {
     exploreApartment: "Utforska lägenheten",
     priceNote: "Priset inkluderar städning och 2 personer. Extra gäster +10€/person. Sängkläder tillgängliga för 19€/person vid behov.",
     sameDayNote: "Fråga om pris för bokning som börjar idag",
+    discountBadge: "Snabbresenär-bonus!",
     noDeals: "Inga sista minuten-erbjudanden tillgängliga just nu. Kolla tillbaka snart!",
     whyTitle: "Varför sista minuten?",
     whyItems: [
@@ -163,6 +166,7 @@ const content = {
     exploreApartment: "Wohnung erkunden",
     priceNote: "Preis beinhaltet Reinigung und 2 Personen. Zusätzliche Gäste +10€/Person. Bettwäsche für 19€/Person bei Bedarf.",
     sameDayNote: "Preis für heute beginnende Buchung anfragen",
+    discountBadge: "Schnellreisenden-Bonus!",
     noDeals: "Derzeit keine Last-Minute-Angebote verfügbar. Schauen Sie bald wieder vorbei!",
     whyTitle: "Warum Last-Minute?",
     whyItems: [
@@ -189,6 +193,7 @@ const content = {
     exploreApartment: "Explorar apartamento",
     priceNote: "Precio incluye limpieza y 2 personas. Huéspedes adicionales +10€/persona. Ropa de cama disponible por 19€/persona si es necesario.",
     sameDayNote: "Consultar precio para reserva que comienza hoy",
+    discountBadge: "¡Bonus viajero rápido!",
     noDeals: "No hay ofertas de última hora disponibles en este momento. ¡Vuelve pronto!",
     whyTitle: "¿Por qué última hora?",
     whyItems: [
@@ -215,6 +220,7 @@ const content = {
     exploreApartment: "Explorer l'appartement",
     priceNote: "Prix comprend le ménage et 2 personnes. Personnes supplémentaires +10€/personne. Linge de lit disponible pour 19€/personne si nécessaire.",
     sameDayNote: "Demander le prix pour une réservation commençant aujourd'hui",
+    discountBadge: "Bonus voyageur rapide!",
     noDeals: "Pas d'offres de dernière minute disponibles pour le moment. Revenez bientôt !",
     whyTitle: "Pourquoi dernière minute ?",
     whyItems: [
@@ -234,7 +240,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const { data: beds24Deals = [], isLoading } = useQuery({
     queryKey: ['beds24-availability'],
     queryFn: fetchBeds24Availability,
-    staleTime: 5 * 60 * 1000, // 5 min cache
+    staleTime: 60 * 60 * 1000, // 1 hour cache (Beds24 allows 100 requests/day)
   });
 
   // Format date for display
@@ -450,6 +456,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                               </div>
                             ) : totalPrice ? (
                               <>
+                                {/* 15% discount badge for within 2 days */}
+                                {isWithinTwoDays(deal.checkIn) && (
+                                  <div className="mb-2 flex items-center gap-2">
+                                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+                                      -15% {t.discountBadge}
+                                    </Badge>
+                                  </div>
+                                )}
                                 <div className="flex items-baseline gap-2">
                                   <span className="text-3xl font-bold text-foreground">{totalPrice}€</span>
                                   <span className="text-muted-foreground text-sm">{t.total}</span>
