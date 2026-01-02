@@ -76,7 +76,7 @@ const content = {
       canonical: "https://leville.net/akkilahdot"
     },
     title: "Levin äkkilähdöt",
-    subtitle: "Tarttu tilaisuuteen! Edullisia majoituksia rajoitettu erä.",
+    subtitle: "Tartu tilaisuuteen ja lähde Leville!",
     badge: "🔥 Äkkilähdöt",
     perNight: "/ yö",
     perPerson: "/ hlö",
@@ -267,12 +267,30 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return today.toDateString() === checkDate.toDateString();
   };
 
-  // Calculate total price with cleaning fee
+  // Check if check-in is within 2 days (for 15% discount)
+  const isWithinTwoDays = (dateStr: string): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const checkDate = new Date(dateStr);
+    checkDate.setHours(0, 0, 0, 0);
+    const diffTime = checkDate.getTime() - today.getTime();
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+    return diffDays > 0 && diffDays < 2;
+  };
+
+  // Calculate total price with cleaning fee and possible discount
   const getTotalPrice = (deal: Beds24Deal): number | null => {
     if (!deal.price) return null;
     const property = getPropertyDetails(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
-    return Math.round(deal.price + cleaningFee);
+    let basePrice = deal.price;
+    
+    // Apply 15% discount if check-in is within 2 days
+    if (isWithinTwoDays(deal.checkIn)) {
+      basePrice = basePrice * 0.85;
+    }
+    
+    return Math.round(basePrice + cleaningFee);
   };
 
   // Get booking URL for property
