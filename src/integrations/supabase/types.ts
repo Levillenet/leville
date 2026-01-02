@@ -44,6 +44,24 @@ export type Database = {
         }
         Relationships: []
       }
+      beds24_cache: {
+        Row: {
+          data: Json
+          fetched_at: string
+          id: string
+        }
+        Insert: {
+          data: Json
+          fetched_at?: string
+          id: string
+        }
+        Update: {
+          data?: Json
+          fetched_at?: string
+          id?: string
+        }
+        Relationships: []
+      }
       download_logs: {
         Row: {
           document_type: string
