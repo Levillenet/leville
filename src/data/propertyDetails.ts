@@ -1,5 +1,6 @@
 // Property details with all parameters from Excel
 // This serves as the master data source for all property information
+// Database overrides are fetched via useAdminSettings hook
 
 export type PropertyCategory = 'glacier' | 'skistar' | 'chalet' | 'platinum' | 'cabin' | 'other';
 
@@ -23,7 +24,7 @@ export interface PropertyDetail {
 }
 
 // Default property data from Excel - this is the base data
-// Admin overrides are stored in localStorage
+// Admin overrides are stored in database (property_settings table)
 const defaultPropertyDetails: PropertyDetail[] = [
   // Levi Centre Chalet (Hiihtäjänkuja)
   { id: "350161", name: "Hiihtäjänkuja 5B5 (4MH House)", cleaningFee: 110, bookingUrl: "https://app.moder.fi/levillenet/306?step=1", linenFee: 19, maxGuests: 8, whatsappNumber: "+35844131313", oneNightDiscount: null, twoNightDiscount: null, longStayDiscount: 15, showDiscount: false, category: 'chalet', specialOffer: false, skiPassOffer: false, skiPassStartDate: null, skiPassEndDate: null },
@@ -66,70 +67,72 @@ const defaultPropertyDetails: PropertyDetail[] = [
   { id: "625005", name: "Room 5 (Moonlight 415)", cleaningFee: 0, bookingUrl: "", linenFee: 19, maxGuests: 2, whatsappNumber: "+35844131313", oneNightDiscount: null, twoNightDiscount: null, longStayDiscount: null, showDiscount: false, category: 'other', specialOffer: false, skiPassOffer: false, skiPassStartDate: null, skiPassEndDate: null }
 ];
 
-// LocalStorage key for admin overrides
-const PROPERTY_OVERRIDES_KEY = 'leville_property_overrides';
+// Database property settings interface (from Supabase)
+export interface DbPropertySettings {
+  property_id: string;
+  marketing_name: string | null;
+  cleaning_fee: number;
+  discount_1_night: number;
+  discount_2_nights: number;
+  discount_3_plus_nights: number;
+  show_discount: boolean;
+}
 
-// Get property overrides from localStorage
-export const getPropertyOverrides = (): Record<string, Partial<PropertyDetail>> => {
-  try {
-    const stored = localStorage.getItem(PROPERTY_OVERRIDES_KEY);
-    return stored ? JSON.parse(stored) : {};
-  } catch {
-    return {};
-  }
+// Get default property by ID (no database override)
+export const getDefaultPropertyDetails = (roomId: string): PropertyDetail | undefined => {
+  return defaultPropertyDetails.find(p => p.id === roomId);
 };
 
-// Save property overrides to localStorage
-export const savePropertyOverrides = (overrides: Record<string, Partial<PropertyDetail>>): void => {
-  localStorage.setItem(PROPERTY_OVERRIDES_KEY, JSON.stringify(overrides));
+// Get all default properties
+export const getAllDefaultPropertyDetails = (): PropertyDetail[] => {
+  return [...defaultPropertyDetails];
 };
 
-// Get merged property details (default + overrides)
-export const getPropertyDetails = (roomId: string): PropertyDetail | undefined => {
+// Get property details with database override applied
+export const getPropertyDetailsWithOverride = (
+  roomId: string,
+  dbSettings?: DbPropertySettings[]
+): PropertyDetail | undefined => {
   const defaultProperty = defaultPropertyDetails.find(p => p.id === roomId);
   if (!defaultProperty) return undefined;
   
-  const overrides = getPropertyOverrides();
-  const propertyOverride = overrides[roomId];
+  const dbOverride = dbSettings?.find(s => s.property_id === roomId);
+  if (!dbOverride) return defaultProperty;
   
-  if (propertyOverride) {
-    return { ...defaultProperty, ...propertyOverride };
-  }
-  
-  return defaultProperty;
+  return {
+    ...defaultProperty,
+    name: dbOverride.marketing_name || defaultProperty.name,
+    cleaningFee: dbOverride.cleaning_fee ?? defaultProperty.cleaningFee,
+    oneNightDiscount: dbOverride.discount_1_night || null,
+    twoNightDiscount: dbOverride.discount_2_nights || null,
+    longStayDiscount: dbOverride.discount_3_plus_nights || null,
+    showDiscount: dbOverride.show_discount ?? defaultProperty.showDiscount
+  };
 };
 
-// Get all property details with overrides applied
-export const getAllPropertyDetails = (): PropertyDetail[] => {
-  const overrides = getPropertyOverrides();
-  
+// Get all properties with database overrides applied
+export const getAllPropertyDetailsWithOverride = (
+  dbSettings?: DbPropertySettings[]
+): PropertyDetail[] => {
   return defaultPropertyDetails.map(property => {
-    const propertyOverride = overrides[property.id];
-    if (propertyOverride) {
-      return { ...property, ...propertyOverride };
-    }
-    return property;
+    const dbOverride = dbSettings?.find(s => s.property_id === property.id);
+    if (!dbOverride) return property;
+    
+    return {
+      ...property,
+      name: dbOverride.marketing_name || property.name,
+      cleaningFee: dbOverride.cleaning_fee ?? property.cleaningFee,
+      oneNightDiscount: dbOverride.discount_1_night || null,
+      twoNightDiscount: dbOverride.discount_2_nights || null,
+      longStayDiscount: dbOverride.discount_3_plus_nights || null,
+      showDiscount: dbOverride.show_discount ?? property.showDiscount
+    };
   });
 };
 
-// Update a single property (saves to localStorage)
-export const updatePropertyDetail = (roomId: string, updates: Partial<PropertyDetail>): void => {
-  const overrides = getPropertyOverrides();
-  overrides[roomId] = { ...(overrides[roomId] || {}), ...updates };
-  savePropertyOverrides(overrides);
-};
-
-// Reset a property to default values
-export const resetPropertyToDefault = (roomId: string): void => {
-  const overrides = getPropertyOverrides();
-  delete overrides[roomId];
-  savePropertyOverrides(overrides);
-};
-
-// Reset all properties to default values
-export const resetAllPropertiesToDefault = (): void => {
-  localStorage.removeItem(PROPERTY_OVERRIDES_KEY);
-};
+// Legacy exports for backwards compatibility (uses default data only)
+export const getPropertyDetails = getDefaultPropertyDetails;
+export const getAllPropertyDetails = getAllDefaultPropertyDetails;
 
 // Export for backwards compatibility
-export const propertyDetails = getAllPropertyDetails();
+export const propertyDetails = getAllDefaultPropertyDetails();

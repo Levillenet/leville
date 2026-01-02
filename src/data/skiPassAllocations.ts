@@ -1,5 +1,6 @@
 // Ski pass allocation system
 // Manages ski pass capacity and period-based allocations with special offers
+// Settings are now stored in Supabase database via admin-settings edge function
 
 export interface SkiPassPeriodAllocation {
   periodId: string;           // Unique ID for the period (roomId_checkIn_checkOut)
@@ -18,9 +19,16 @@ export interface SkiPassSettings {
   passesPerAllocation: number; // Passes used per period allocation (default 2)
 }
 
-// LocalStorage keys
-const SETTINGS_KEY = 'leville_skipass_settings';
-const ALLOCATIONS_KEY = 'leville_skipass_allocations';
+// Database period settings interface (from Supabase)
+export interface DbPeriodSettings {
+  property_id: string;
+  check_in: string;
+  check_out: string;
+  has_ski_pass: boolean;
+  has_special_offer: boolean;
+  custom_discount: number;
+  show_discount: boolean;
+}
 
 // Default settings
 const defaultSettings: SkiPassSettings = {
@@ -28,35 +36,9 @@ const defaultSettings: SkiPassSettings = {
   passesPerAllocation: 2
 };
 
-// Get ski pass settings
+// Get ski pass settings (default values - capacity is managed in DB for consistency)
 export const getSkiPassSettings = (): SkiPassSettings => {
-  try {
-    const stored = localStorage.getItem(SETTINGS_KEY);
-    return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
-  } catch {
-    return defaultSettings;
-  }
-};
-
-// Save ski pass settings
-export const saveSkiPassSettings = (settings: Partial<SkiPassSettings>): void => {
-  const current = getSkiPassSettings();
-  localStorage.setItem(SETTINGS_KEY, JSON.stringify({ ...current, ...settings }));
-};
-
-// Get all ski pass allocations
-export const getSkiPassAllocations = (): SkiPassPeriodAllocation[] => {
-  try {
-    const stored = localStorage.getItem(ALLOCATIONS_KEY);
-    return stored ? JSON.parse(stored) : [];
-  } catch {
-    return [];
-  }
-};
-
-// Save all allocations
-const saveAllocations = (allocations: SkiPassPeriodAllocation[]): void => {
-  localStorage.setItem(ALLOCATIONS_KEY, JSON.stringify(allocations));
+  return defaultSettings;
 };
 
 // Generate period ID
@@ -80,19 +62,24 @@ const getDatesInRange = (start: string, end: string): string[] => {
   return dates;
 };
 
-// Get used passes count for a specific date
-const getUsedPassesForDate = (date: string, excludePeriodId?: string): number => {
-  const allocations = getSkiPassAllocations();
+// Get used passes count for a specific date (from database period settings)
+export const getUsedPassesForDate = (
+  date: string, 
+  periodSettings: DbPeriodSettings[],
+  excludePeriodId?: string
+): number => {
   const settings = getSkiPassSettings();
-  
   let usedPasses = 0;
-  for (const allocation of allocations) {
-    if (!allocation.allocated) continue;
-    if (excludePeriodId && allocation.periodId === excludePeriodId) continue;
+  
+  for (const period of periodSettings) {
+    if (!period.has_ski_pass) continue;
     
-    // Check if this date falls within the allocation period
-    const allocDates = getDatesInRange(allocation.checkIn, allocation.checkOut);
-    if (allocDates.includes(date)) {
+    const periodId = generatePeriodId(period.property_id, period.check_in, period.check_out);
+    if (excludePeriodId && periodId === excludePeriodId) continue;
+    
+    // Check if this date falls within the period
+    const periodDates = getDatesInRange(period.check_in, period.check_out);
+    if (periodDates.includes(date)) {
       usedPasses += settings.passesPerAllocation;
     }
   }
@@ -101,12 +88,17 @@ const getUsedPassesForDate = (date: string, excludePeriodId?: string): number =>
 };
 
 // Get maximum used passes for any single day in a date range
-export const getMaxUsedPassesForDateRange = (checkIn: string, checkOut: string, excludePeriodId?: string): number => {
+export const getMaxUsedPassesForDateRange = (
+  checkIn: string, 
+  checkOut: string, 
+  periodSettings: DbPeriodSettings[],
+  excludePeriodId?: string
+): number => {
   const dates = getDatesInRange(checkIn, checkOut);
   let maxUsed = 0;
   
   for (const date of dates) {
-    const used = getUsedPassesForDate(date, excludePeriodId);
+    const used = getUsedPassesForDate(date, periodSettings, excludePeriodId);
     if (used > maxUsed) {
       maxUsed = used;
     }
@@ -116,20 +108,30 @@ export const getMaxUsedPassesForDateRange = (checkIn: string, checkOut: string, 
 };
 
 // Get minimum available passes for any single day in a date range
-export const getAvailablePassesForDateRange = (checkIn: string, checkOut: string, excludePeriodId?: string): number => {
+export const getAvailablePassesForDateRange = (
+  checkIn: string, 
+  checkOut: string, 
+  periodSettings: DbPeriodSettings[],
+  excludePeriodId?: string
+): number => {
   const settings = getSkiPassSettings();
-  const maxUsed = getMaxUsedPassesForDateRange(checkIn, checkOut, excludePeriodId);
+  const maxUsed = getMaxUsedPassesForDateRange(checkIn, checkOut, periodSettings, excludePeriodId);
   return settings.totalCapacity - maxUsed;
 };
 
 // Get blocking days info - returns list of days where adding passes would exceed capacity
-export const getBlockingDays = (checkIn: string, checkOut: string, excludePeriodId?: string): { date: string; used: number; capacity: number }[] => {
+export const getBlockingDays = (
+  checkIn: string, 
+  checkOut: string, 
+  periodSettings: DbPeriodSettings[],
+  excludePeriodId?: string
+): { date: string; used: number; capacity: number }[] => {
   const settings = getSkiPassSettings();
   const dates = getDatesInRange(checkIn, checkOut);
   const blockingDays: { date: string; used: number; capacity: number }[] = [];
   
   for (const date of dates) {
-    const used = getUsedPassesForDate(date, excludePeriodId);
+    const used = getUsedPassesForDate(date, periodSettings, excludePeriodId);
     // Would exceed capacity if we add passesPerAllocation
     if (used + settings.passesPerAllocation > settings.totalCapacity) {
       blockingDays.push({ date, used, capacity: settings.totalCapacity });
@@ -140,135 +142,52 @@ export const getBlockingDays = (checkIn: string, checkOut: string, excludePeriod
 };
 
 // Check if allocation is possible (enough capacity on every day in the range)
-export const canAllocateSkiPass = (checkIn: string, checkOut: string, excludePeriodId?: string): boolean => {
-  const blockingDays = getBlockingDays(checkIn, checkOut, excludePeriodId);
+export const canAllocateSkiPass = (
+  checkIn: string, 
+  checkOut: string, 
+  periodSettings: DbPeriodSettings[],
+  excludePeriodId?: string
+): boolean => {
+  const blockingDays = getBlockingDays(checkIn, checkOut, periodSettings, excludePeriodId);
   return blockingDays.length === 0;
 };
 
-// Toggle ski pass allocation for a period
-export const toggleSkiPassAllocation = (
-  roomId: string,
-  checkIn: string,
-  checkOut: string
-): { success: boolean; error?: string } => {
-  const periodId = generatePeriodId(roomId, checkIn, checkOut);
-  const allocations = getSkiPassAllocations();
-  const existingIndex = allocations.findIndex(a => a.periodId === periodId);
-  
-  if (existingIndex >= 0) {
-    // Toggle off - remove allocation
-    if (allocations[existingIndex].allocated) {
-      allocations[existingIndex].allocated = false;
-      saveAllocations(allocations);
-      return { success: true };
-    }
-  }
-  
-  // Check if we can allocate
-  if (!canAllocateSkiPass(checkIn, checkOut, periodId)) {
-    return { 
-      success: false, 
-      error: 'Ei riittävästi vapaita hissilippuja tälle ajanjaksolle' 
-    };
-  }
-  
-  // Allocate
-  if (existingIndex >= 0) {
-    allocations[existingIndex].allocated = true;
-    allocations[existingIndex].allocatedAt = new Date().toISOString();
-  } else {
-    allocations.push({
-      periodId,
-      roomId,
-      checkIn,
-      checkOut,
-      allocated: true,
-      allocatedAt: new Date().toISOString(),
-      specialOffer: false,
-      customDiscount: null,
-      showDiscountBadge: false
-    });
-  }
-  
-  saveAllocations(allocations);
-  return { success: true };
-};
-
-// Update period settings (specialOffer, customDiscount, showDiscountBadge)
-export const updatePeriodSettings = (
-  roomId: string,
-  checkIn: string,
+// Get period settings from database
+export const getPeriodSettingsFromDb = (
+  roomId: string, 
+  checkIn: string, 
   checkOut: string,
-  settings: { specialOffer?: boolean; customDiscount?: number | null; showDiscountBadge?: boolean }
-): void => {
-  const periodId = generatePeriodId(roomId, checkIn, checkOut);
-  const allocations = getSkiPassAllocations();
-  const existingIndex = allocations.findIndex(a => a.periodId === periodId);
+  periodSettings: DbPeriodSettings[]
+): { specialOffer: boolean; customDiscount: number | null; showDiscountBadge: boolean; hasSkiPass: boolean } => {
+  const period = periodSettings.find(
+    p => p.property_id === roomId && p.check_in === checkIn && p.check_out === checkOut
+  );
   
-  if (existingIndex >= 0) {
-    // Update existing allocation
-    if (settings.specialOffer !== undefined) {
-      allocations[existingIndex].specialOffer = settings.specialOffer;
-    }
-    if (settings.customDiscount !== undefined) {
-      allocations[existingIndex].customDiscount = settings.customDiscount;
-    }
-    if (settings.showDiscountBadge !== undefined) {
-      allocations[existingIndex].showDiscountBadge = settings.showDiscountBadge;
-    }
-  } else {
-    // Create new allocation entry just for settings (not ski pass allocated)
-    allocations.push({
-      periodId,
-      roomId,
-      checkIn,
-      checkOut,
-      allocated: false,
-      specialOffer: settings.specialOffer || false,
-      customDiscount: settings.customDiscount ?? null,
-      showDiscountBadge: settings.showDiscountBadge || false
-    });
-  }
-  
-  saveAllocations(allocations);
-};
-
-// Get period settings
-export const getPeriodSettings = (roomId: string, checkIn: string, checkOut: string): { specialOffer: boolean; customDiscount: number | null; showDiscountBadge: boolean } => {
-  const periodId = generatePeriodId(roomId, checkIn, checkOut);
-  const allocations = getSkiPassAllocations();
-  const allocation = allocations.find(a => a.periodId === periodId);
   return {
-    specialOffer: allocation?.specialOffer || false,
-    customDiscount: allocation?.customDiscount ?? null,
-    showDiscountBadge: allocation?.showDiscountBadge || false
+    specialOffer: period?.has_special_offer || false,
+    customDiscount: period?.custom_discount || null,
+    showDiscountBadge: period?.show_discount || false,
+    hasSkiPass: period?.has_ski_pass || false
   };
 };
 
-// Get allocation status for a period
-export const getPeriodAllocationStatus = (roomId: string, checkIn: string, checkOut: string): boolean => {
-  const periodId = generatePeriodId(roomId, checkIn, checkOut);
-  const allocations = getSkiPassAllocations();
-  const allocation = allocations.find(a => a.periodId === periodId);
-  return allocation?.allocated || false;
-};
-
-// Clear expired allocations (periods that have already ended)
-export const cleanupExpiredAllocations = (): void => {
-  const allocations = getSkiPassAllocations();
+// Get all active ski pass allocations from database
+export const getActiveAllocationsFromDb = (periodSettings: DbPeriodSettings[]): DbPeriodSettings[] => {
   const now = new Date();
-  const activeAllocations = allocations.filter(a => new Date(a.checkOut) >= now);
-  saveAllocations(activeAllocations);
+  return periodSettings.filter(p => p.has_ski_pass && new Date(p.check_out) >= now);
 };
 
-// Get all active allocations (for display)
-export const getActiveAllocations = (): SkiPassPeriodAllocation[] => {
-  const allocations = getSkiPassAllocations();
-  const now = new Date();
-  return allocations.filter(a => a.allocated && new Date(a.checkOut) >= now);
+// Legacy exports for backwards compatibility (empty implementations - data now comes from DB)
+export const getSkiPassAllocations = (): SkiPassPeriodAllocation[] => [];
+export const saveSkiPassSettings = (_settings: Partial<SkiPassSettings>): void => {};
+export const toggleSkiPassAllocation = (_roomId: string, _checkIn: string, _checkOut: string): { success: boolean; error?: string } => {
+  return { success: false, error: 'Use database operations instead' };
 };
-
-// Reset all allocations
-export const resetAllAllocations = (): void => {
-  localStorage.removeItem(ALLOCATIONS_KEY);
+export const updatePeriodSettings = (_roomId: string, _checkIn: string, _checkOut: string, _settings: Record<string, unknown>): void => {};
+export const getPeriodSettings = (_roomId: string, _checkIn: string, _checkOut: string): { specialOffer: boolean; customDiscount: number | null; showDiscountBadge: boolean } => {
+  return { specialOffer: false, customDiscount: null, showDiscountBadge: false };
 };
+export const getPeriodAllocationStatus = (_roomId: string, _checkIn: string, _checkOut: string): boolean => false;
+export const cleanupExpiredAllocations = (): void => {};
+export const getActiveAllocations = (): SkiPassPeriodAllocation[] => [];
+export const resetAllAllocations = (): void => {};

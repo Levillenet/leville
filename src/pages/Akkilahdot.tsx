@@ -15,8 +15,8 @@ import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getPropertyDetails, getAllPropertyDetails } from "@/data/propertyDetails";
-import { getPeriodAllocationStatus, getPeriodSettings } from "@/data/skiPassAllocations";
+import { getDefaultPropertyDetails, getAllDefaultPropertyDetails } from "@/data/propertyDetails";
+import { useAdminSettings, DbPropertySettings, DbPeriodSettings } from "@/hooks/useAdminSettings";
 
 // Property background images
 import glacierImage from "@/assets/deals/glacier.jpg";
@@ -263,11 +263,51 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const t = content[lang];
 
   // Fetch Beds24 deals
-  const { data: beds24Deals = [], isLoading } = useQuery({
+  const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
     queryKey: ['beds24-availability'],
     queryFn: fetchBeds24Availability,
     staleTime: 60 * 60 * 1000, // 1 hour cache (Beds24 allows 100 requests/day)
   });
+
+  // Fetch admin settings from database
+  const { data: adminSettings, isLoading: isLoadingSettings } = useAdminSettings();
+  
+  const propertySettings = adminSettings?.propertySettings || [];
+  const periodSettings = adminSettings?.periodSettings || [];
+  
+  const isLoading = isLoadingDeals || isLoadingSettings;
+
+  // Helper to get property with DB override
+  const getPropertyWithOverride = (roomId: string) => {
+    const defaultProperty = getDefaultPropertyDetails(roomId);
+    if (!defaultProperty) return undefined;
+    
+    const dbOverride = propertySettings.find(s => s.property_id === roomId);
+    if (!dbOverride) return defaultProperty;
+    
+    return {
+      ...defaultProperty,
+      name: dbOverride.marketing_name || defaultProperty.name,
+      cleaningFee: dbOverride.cleaning_fee ?? defaultProperty.cleaningFee,
+      oneNightDiscount: dbOverride.discount_1_night || null,
+      twoNightDiscount: dbOverride.discount_2_nights || null,
+      longStayDiscount: dbOverride.discount_3_plus_nights || null,
+      showDiscount: dbOverride.show_discount ?? defaultProperty.showDiscount
+    };
+  };
+
+  // Helper to get period settings from DB
+  const getPeriodSettingsFromDb = (roomId: string, checkIn: string, checkOut: string) => {
+    const period = periodSettings.find(
+      p => p.property_id === roomId && p.check_in === checkIn && p.check_out === checkOut
+    );
+    return {
+      specialOffer: period?.has_special_offer || false,
+      customDiscount: period?.custom_discount || null,
+      showDiscountBadge: period?.show_discount || false,
+      hasSkiPass: period?.has_ski_pass || false
+    };
+  };
 
   // Format date for display
   const formatDateDisplay = (dateStr: string): string => {
@@ -302,7 +342,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // Get original API price + cleaning fee (no discounts applied)
   const getOriginalApiPrice = (deal: Beds24Deal): number | null => {
     if (deal.price == null) return null;
-    const property = getPropertyDetails(deal.roomId);
+    const property = getPropertyWithOverride(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
     return Math.round(deal.price + cleaningFee);
   };
@@ -310,7 +350,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // Get PropertyAdmin discounted price (before any special offer)
   const getPropertyAdminPrice = (deal: Beds24Deal): number | null => {
     if (deal.price == null) return null;
-    const property = getPropertyDetails(deal.roomId);
+    const property = getPropertyWithOverride(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
     let basePrice = deal.price;
 
@@ -340,10 +380,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     if (propertyAdminPrice == null) return null;
 
     // Check for period-specific custom discount (from admin) - applied as ADDITIONAL discount
-    const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
-    if (periodSettings.specialOffer && periodSettings.customDiscount && periodSettings.customDiscount > 0) {
+    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
+    if (periodS.specialOffer && periodS.customDiscount && periodS.customDiscount > 0) {
       // Apply custom discount on top of PropertyAdmin price (additional discount)
-      return Math.round(propertyAdminPrice * (1 - periodSettings.customDiscount / 100));
+      return Math.round(propertyAdminPrice * (1 - periodS.customDiscount / 100));
     }
 
     return propertyAdminPrice;
@@ -351,7 +391,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   // Get discount info for display - show if showDiscount toggle is enabled
   const getDiscountInfo = (deal: Beds24Deal): { totalDiscount: number; showBadge: boolean } => {
-    const property = getPropertyDetails(deal.roomId);
+    const property = getPropertyWithOverride(deal.roomId);
     let discount = 0;
     
     if (deal.nights === 1 && property?.oneNightDiscount) {
@@ -368,39 +408,39 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     };
   };
 
-  // Check if ski pass offer applies to this deal (using new allocation system)
+  // Check if ski pass offer applies to this deal (using database)
   const hasSkiPassOffer = (deal: Beds24Deal): boolean => {
-    // Check if this specific period has ski passes allocated
-    return getPeriodAllocationStatus(deal.roomId, deal.checkIn, deal.checkOut);
+    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
+    return periodS.hasSkiPass;
   };
 
-  // Check if special offer is active (now period-based from ski pass admin)
+  // Check if special offer is active (from database)
   const hasSpecialOffer = (deal: Beds24Deal): boolean => {
-    const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
-    return periodSettings.specialOffer || false;
+    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
+    return periodS.specialOffer || false;
   };
 
   // Get marketing name from propertyDetails
   const getMarketingName = (deal: Beds24Deal): string => {
-    const property = getPropertyDetails(deal.roomId);
+    const property = getPropertyWithOverride(deal.roomId);
     return property?.name || deal.roomName;
   };
 
   // Get property category for background image selection
   const getPropertyCategory = (roomId: string): string => {
-    const property = getPropertyDetails(roomId);
+    const property = getPropertyWithOverride(roomId);
     return property?.category || 'other';
   };
 
   // Get booking URL for property
   const getBookingUrl = (roomId: string): string => {
-    const property = getPropertyDetails(roomId);
+    const property = getPropertyWithOverride(roomId);
     return property?.bookingUrl || "";
   };
 
   // Get max guests for property
   const getMaxGuests = (roomId: string): number => {
-    const property = getPropertyDetails(roomId);
+    const property = getPropertyWithOverride(roomId);
     return property?.maxGuests || 2;
   };
 
@@ -408,7 +448,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const generateWhatsAppUrl = (deal: Beds24Deal): string => {
     const totalPrice = getTotalPrice(deal);
     const marketingName = getMarketingName(deal);
-    const property = getPropertyDetails(deal.roomId);
+    const property = getPropertyWithOverride(deal.roomId);
     const whatsappNumber = property?.whatsappNumber?.replace('+', '') || '35844131313';
     
     const messages: Record<string, string> = {
@@ -531,10 +571,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   const marketingName = getMarketingName(deal);
                   const category = getPropertyCategory(deal.roomId);
                   const discountInfo = getDiscountInfo(deal);
-                  const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
+                  const dealPeriodSettings = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
                   // Show strikethrough when showDiscountBadge is on AND there's any discount (property-level OR special offer)
-                  const hasAnyDiscount = discountInfo.totalDiscount > 0 || (periodSettings.customDiscount && periodSettings.customDiscount > 0);
-                  const showStrikethrough = periodSettings.showDiscountBadge === true && hasAnyDiscount;
+                  const hasAnyDiscount = discountInfo.totalDiscount > 0 || (dealPeriodSettings.customDiscount && dealPeriodSettings.customDiscount > 0);
+                  const showStrikethrough = dealPeriodSettings.showDiscountBadge === true && hasAnyDiscount;
                   
                   return (
                     <ScrollReveal key={deal.id} delay={index * 0.1}>
