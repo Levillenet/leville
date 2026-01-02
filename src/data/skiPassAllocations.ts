@@ -61,17 +61,24 @@ export const generatePeriodId = (roomId: string, checkIn: string, checkOut: stri
   return `${roomId}_${checkIn}_${checkOut}`;
 };
 
-// Check if dates overlap
-const datesOverlap = (start1: string, end1: string, start2: string, end2: string): boolean => {
-  const s1 = new Date(start1).getTime();
-  const e1 = new Date(end1).getTime();
-  const s2 = new Date(start2).getTime();
-  const e2 = new Date(end2).getTime();
-  return s1 < e2 && s2 < e1;
+// Get all dates in a range (each night)
+const getDatesInRange = (start: string, end: string): string[] => {
+  const dates: string[] = [];
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  
+  // Include each night (from check-in to day before check-out)
+  const current = new Date(startDate);
+  while (current < endDate) {
+    dates.push(current.toISOString().split('T')[0]);
+    current.setDate(current.getDate() + 1);
+  }
+  
+  return dates;
 };
 
-// Get used passes count for a date range
-export const getUsedPassesForDateRange = (checkIn: string, checkOut: string, excludePeriodId?: string): number => {
+// Get used passes count for a specific date
+const getUsedPassesForDate = (date: string, excludePeriodId?: string): number => {
   const allocations = getSkiPassAllocations();
   const settings = getSkiPassSettings();
   
@@ -80,7 +87,9 @@ export const getUsedPassesForDateRange = (checkIn: string, checkOut: string, exc
     if (!allocation.allocated) continue;
     if (excludePeriodId && allocation.periodId === excludePeriodId) continue;
     
-    if (datesOverlap(checkIn, checkOut, allocation.checkIn, allocation.checkOut)) {
+    // Check if this date falls within the allocation period
+    const allocDates = getDatesInRange(allocation.checkIn, allocation.checkOut);
+    if (allocDates.includes(date)) {
       usedPasses += settings.passesPerAllocation;
     }
   }
@@ -88,14 +97,29 @@ export const getUsedPassesForDateRange = (checkIn: string, checkOut: string, exc
   return usedPasses;
 };
 
-// Get available passes for a date range
-export const getAvailablePassesForDateRange = (checkIn: string, checkOut: string, excludePeriodId?: string): number => {
-  const settings = getSkiPassSettings();
-  const usedPasses = getUsedPassesForDateRange(checkIn, checkOut, excludePeriodId);
-  return settings.totalCapacity - usedPasses;
+// Get maximum used passes for any single day in a date range
+export const getMaxUsedPassesForDateRange = (checkIn: string, checkOut: string, excludePeriodId?: string): number => {
+  const dates = getDatesInRange(checkIn, checkOut);
+  let maxUsed = 0;
+  
+  for (const date of dates) {
+    const used = getUsedPassesForDate(date, excludePeriodId);
+    if (used > maxUsed) {
+      maxUsed = used;
+    }
+  }
+  
+  return maxUsed;
 };
 
-// Check if allocation is possible
+// Get minimum available passes for any single day in a date range
+export const getAvailablePassesForDateRange = (checkIn: string, checkOut: string, excludePeriodId?: string): number => {
+  const settings = getSkiPassSettings();
+  const maxUsed = getMaxUsedPassesForDateRange(checkIn, checkOut, excludePeriodId);
+  return settings.totalCapacity - maxUsed;
+};
+
+// Check if allocation is possible (enough capacity on every day in the range)
 export const canAllocateSkiPass = (checkIn: string, checkOut: string, excludePeriodId?: string): boolean => {
   const settings = getSkiPassSettings();
   const available = getAvailablePassesForDateRange(checkIn, checkOut, excludePeriodId);
