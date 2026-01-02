@@ -252,8 +252,8 @@ serve(async (req) => {
           const checkOut = date;
           const nights = daysBetween(checkIn, checkOut);
 
-          // Only include if check-in is within 14 days AND at least 2 nights
-          if (nights >= 2 && checkIn <= maxCheckInStr) {
+          // Only include if check-in is within 14 days AND at least 1 night
+          if (nights >= 1 && checkIn <= maxCheckInStr) {
             dealsWithoutPrices.push({
               id: `${roomId}-${checkIn}`,
               roomId,
@@ -282,7 +282,7 @@ serve(async (req) => {
         const checkIn = periodStart;
         const nights = daysBetween(checkIn, checkOut);
 
-        if (nights >= 2) {
+        if (nights >= 1) {
           dealsWithoutPrices.push({
             id: `${roomId}-${checkIn}`,
             roomId,
