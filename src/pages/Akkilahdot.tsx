@@ -301,7 +301,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return Math.round(basePrice + cleaningFee);
   };
 
-  // Get discount info for display - only show if 30% or more
+  // Get discount info for display - show if showDiscount toggle is enabled
   const getDiscountInfo = (deal: Beds24Deal): { totalDiscount: number; showBadge: boolean } => {
     const property = getPropertyDetails(deal.roomId);
     let discount = 0;
@@ -316,7 +316,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     
     return {
       totalDiscount: discount,
-      showBadge: discount >= 30
+      showBadge: property?.showDiscount === true && discount > 0
     };
   };
 
