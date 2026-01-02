@@ -15,19 +15,11 @@ import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
-import { propertyDetails, getPropertyDetails } from "@/data/propertyDetails";
+import { getPropertyDetails, getAllPropertyDetails } from "@/data/propertyDetails";
 
 // Property background images
 import glacierImage from "@/assets/deals/glacier.jpg";
 import skistarImage from "@/assets/deals/skistar.jpg";
-
-// Skistar room numbers (to check in room name)
-const skistarRoomNumbers = ['212', '211', '210', '209', '104', '320', '321', '102', '319'];
-
-// Helper to check if room name contains any Skistar room number
-const isSkistarRoom = (roomName: string): boolean => {
-  return skistarRoomNumbers.some(num => roomName.includes(num));
-};
 
 interface AkkilahdotProps {
   lang?: Language;
@@ -285,30 +277,46 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return today.toDateString() === checkDate.toDateString();
   };
 
-  // Check if check-in is within 2 days (for 15% discount)
-  const isWithinTwoDays = (dateStr: string): boolean => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const checkDate = new Date(dateStr);
-    checkDate.setHours(0, 0, 0, 0);
-    const diffTime = checkDate.getTime() - today.getTime();
-    const diffDays = diffTime / (1000 * 60 * 60 * 24);
-    return diffDays > 0 && diffDays < 2;
-  };
-
-  // Calculate total price with cleaning fee and possible discount
+  // Calculate total price with cleaning fee and discounts from propertyDetails
   const getTotalPrice = (deal: Beds24Deal): number | null => {
     if (!deal.price) return null;
     const property = getPropertyDetails(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
     let basePrice = deal.price;
     
-    // Apply 15% discount if check-in is within 2 days
-    if (isWithinTwoDays(deal.checkIn)) {
-      basePrice = basePrice * 0.85;
+    // Apply instant discount if defined (always applied)
+    if (property?.instantDiscount) {
+      basePrice = basePrice * (1 - property.instantDiscount / 100);
+    }
+    
+    // Apply long stay discount if 3+ nights
+    if (deal.nights >= 3 && property?.longStayDiscount) {
+      basePrice = basePrice * (1 - property.longStayDiscount / 100);
     }
     
     return Math.round(basePrice + cleaningFee);
+  };
+
+  // Get discount info for display
+  const getDiscountInfo = (deal: Beds24Deal): { instantDiscount: number | null; longStayDiscount: number | null; hasLongStay: boolean } => {
+    const property = getPropertyDetails(deal.roomId);
+    return {
+      instantDiscount: property?.instantDiscount || null,
+      longStayDiscount: property?.longStayDiscount || null,
+      hasLongStay: deal.nights >= 3 && !!property?.longStayDiscount
+    };
+  };
+
+  // Get marketing name from propertyDetails
+  const getMarketingName = (deal: Beds24Deal): string => {
+    const property = getPropertyDetails(deal.roomId);
+    return property?.name || deal.roomName;
+  };
+
+  // Get property category for background image selection
+  const getPropertyCategory = (roomId: string): string => {
+    const property = getPropertyDetails(roomId);
+    return property?.category || 'other';
   };
 
   // Get booking URL for property
@@ -320,18 +328,21 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // Generate WhatsApp booking URL for Beds24 deal - localized messages
   const generateWhatsAppUrl = (deal: Beds24Deal): string => {
     const totalPrice = getTotalPrice(deal);
+    const marketingName = getMarketingName(deal);
+    const property = getPropertyDetails(deal.roomId);
+    const whatsappNumber = property?.whatsappNumber?.replace('+', '') || '35844131313';
     
     const messages: Record<string, string> = {
-      fi: `Hei, olen kiinnostunut äkkilähdöstä: ${deal.roomName}, ajalle ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Hinta: ${totalPrice}€.` : ""} Onko kohde vielä vapaana?`,
-      en: `Hello, I'm interested in a last-minute deal: ${deal.roomName}, for ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Price: ${totalPrice}€.` : ""} Is the property still available?`,
-      sv: `Hej, jag är intresserad av ett sista minuten-erbjudande: ${deal.roomName}, för ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Pris: ${totalPrice}€.` : ""} Är boendet fortfarande ledigt?`,
-      de: `Hallo, ich interessiere mich für ein Last-Minute-Angebot: ${deal.roomName}, für ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Preis: ${totalPrice}€.` : ""} Ist die Unterkunft noch verfügbar?`,
-      es: `Hola, estoy interesado en una oferta de última hora: ${deal.roomName}, para ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Precio: ${totalPrice}€.` : ""} ¿Está disponible el alojamiento?`,
-      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${deal.roomName}, pour ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Prix : ${totalPrice}€.` : ""} Le logement est-il encore disponible ?`
+      fi: `Hei, olen kiinnostunut äkkilähdöstä: ${marketingName}, ajalle ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Hinta: ${totalPrice}€.` : ""} Onko kohde vielä vapaana?`,
+      en: `Hello, I'm interested in a last-minute deal: ${marketingName}, for ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Price: ${totalPrice}€.` : ""} Is the property still available?`,
+      sv: `Hej, jag är intresserad av ett sista minuten-erbjudande: ${marketingName}, för ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Pris: ${totalPrice}€.` : ""} Är boendet fortfarande ledigt?`,
+      de: `Hallo, ich interessiere mich für ein Last-Minute-Angebot: ${marketingName}, für ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Preis: ${totalPrice}€.` : ""} Ist die Unterkunft noch verfügbar?`,
+      es: `Hola, estoy interesado en una oferta de última hora: ${marketingName}, para ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Precio: ${totalPrice}€.` : ""} ¿Está disponible el alojamiento?`,
+      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${marketingName}, pour ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Prix : ${totalPrice}€.` : ""} Le logement est-il encore disponible ?`
     };
     
     const message = messages[lang] || messages.fi;
-    return `https://wa.me/35844131313?text=${encodeURIComponent(message)}`;
+    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
   };
 
   // Combine manual and Beds24 deals for schema
@@ -437,12 +448,15 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   const isSameDay = isToday(deal.checkIn);
                   const totalPrice = getTotalPrice(deal);
                   const bookingUrl = getBookingUrl(deal.roomId);
+                  const marketingName = getMarketingName(deal);
+                  const category = getPropertyCategory(deal.roomId);
+                  const discountInfo = getDiscountInfo(deal);
                   
                   return (
                     <ScrollReveal key={deal.id} delay={index * 0.1}>
                       <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
-                        {/* Background image based on property */}
-                        {deal.roomName.toLowerCase().includes('glacier') && (
+                        {/* Background image based on property category */}
+                        {category === 'glacier' && (
                           <div 
                             className="absolute inset-0 z-0 pointer-events-none"
                             style={{
@@ -455,7 +469,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                             }}
                           />
                         )}
-                        {isSkistarRoom(deal.roomName) && (
+                        {category === 'skistar' && (
                           <div 
                             className="absolute inset-0 z-0 pointer-events-none"
                             style={{
@@ -490,11 +504,11 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                 rel="noopener noreferrer"
                                 className="text-foreground hover:text-primary transition-colors inline-flex items-center gap-1.5"
                               >
-                                {deal.roomName}
+                                {marketingName}
                                 <ExternalLink className="w-4 h-4" />
                               </a>
                             ) : (
-                              <span className="text-foreground">{deal.roomName}</span>
+                              <span className="text-foreground">{marketingName}</span>
                             )}
                           </CardTitle>
                         </CardHeader>
@@ -517,12 +531,19 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                               </div>
                             ) : totalPrice ? (
                               <>
-                                {/* 15% discount badge for within 2 days */}
-                                {isWithinTwoDays(deal.checkIn) && (
-                                  <div className="mb-2 flex items-center gap-2">
-                                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                                      -15% {t.discountBadge}
-                                    </Badge>
+                                {/* Discount badges */}
+                                {(discountInfo.instantDiscount || discountInfo.hasLongStay) && (
+                                  <div className="mb-2 flex flex-wrap items-center gap-2">
+                                    {discountInfo.instantDiscount && (
+                                      <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+                                        -{discountInfo.instantDiscount}% äkkilähtöalennus
+                                      </Badge>
+                                    )}
+                                    {discountInfo.hasLongStay && (
+                                      <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs">
+                                        -{discountInfo.longStayDiscount}% (3+ yötä)
+                                      </Badge>
+                                    )}
                                   </div>
                                 )}
                                 <div className="flex items-baseline gap-2">

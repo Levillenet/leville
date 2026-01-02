@@ -4,8 +4,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3 } from "lucide-react";
+import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import {
   BarChart,
   Bar,
@@ -176,13 +178,13 @@ const Admin = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Lataustilastot - Admin - Leville</title>
+        <title>Admin - Leville</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-foreground">Lataustilastot</h1>
+          <h1 className="text-xl font-semibold text-foreground">Admin</h1>
           <Button variant="outline" size="sm" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-2" />
             Kirjaudu ulos
@@ -191,6 +193,23 @@ const Admin = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
+        <Tabs defaultValue="properties" className="space-y-6">
+          <TabsList>
+            <TabsTrigger value="properties" className="flex items-center gap-2">
+              <Building className="w-4 h-4" />
+              Huoneistot
+            </TabsTrigger>
+            <TabsTrigger value="stats" className="flex items-center gap-2">
+              <BarChart3 className="w-4 h-4" />
+              Lataustilastot
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="properties">
+            <PropertyAdmin />
+          </TabsContent>
+
+          <TabsContent value="stats">
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card>
@@ -394,6 +413,8 @@ const Admin = () => {
             </div>
           </CardContent>
         </Card>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );
