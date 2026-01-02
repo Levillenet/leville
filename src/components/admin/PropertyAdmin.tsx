@@ -22,14 +22,13 @@ import {
   DialogClose
 } from "@/components/ui/dialog";
 import { 
-  getAllPropertyDetails, 
-  updatePropertyDetail, 
-  resetPropertyToDefault,
-  resetAllPropertiesToDefault,
+  getAllDefaultPropertyDetails, 
+  getPropertyDetailsWithOverride,
   PropertyDetail,
   PropertyCategory
 } from "@/data/propertyDetails";
-import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, Percent } from "lucide-react";
+import { useAdminSettingsManager, DbPropertySettings } from "@/hooks/useAdminSettings";
+import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, Percent, Loader2 } from "lucide-react";
 
 // Category icons and labels
 const categoryConfig: Record<PropertyCategory, { icon: React.ReactNode; label: string; color: string }> = {
@@ -41,21 +40,40 @@ const categoryConfig: Record<PropertyCategory, { icon: React.ReactNode; label: s
   other: { icon: <Building className="w-4 h-4" />, label: "Muu", color: "bg-gray-500/20 text-gray-400 border-gray-500/30" }
 };
 
-const PropertyAdmin = () => {
-  const [properties, setProperties] = useState<PropertyDetail[]>([]);
+interface PropertyAdminProps {
+  adminPassword: string;
+}
+
+const PropertyAdmin = ({ adminPassword }: PropertyAdminProps) => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<PropertyDetail>>({});
   const [showResetDialog, setShowResetDialog] = useState(false);
   const { toast } = useToast();
+  
+  const { 
+    settings, 
+    isLoading, 
+    upsertProperty, 
+    resetProperty, 
+    resetAll,
+    isSaving 
+  } = useAdminSettingsManager(adminPassword);
 
-  // Load properties on mount
-  useEffect(() => {
-    loadProperties();
-  }, []);
-
-  const loadProperties = () => {
-    setProperties(getAllPropertyDetails());
-  };
+  // Get properties with database overrides applied
+  const defaultProperties = getAllDefaultPropertyDetails();
+  const properties = defaultProperties.map(prop => {
+    const dbOverride = settings?.propertySettings?.find(s => s.property_id === prop.id);
+    if (!dbOverride) return prop;
+    return {
+      ...prop,
+      name: dbOverride.marketing_name || prop.name,
+      cleaningFee: dbOverride.cleaning_fee ?? prop.cleaningFee,
+      oneNightDiscount: dbOverride.discount_1_night || null,
+      twoNightDiscount: dbOverride.discount_2_nights || null,
+      longStayDiscount: dbOverride.discount_3_plus_nights || null,
+      showDiscount: dbOverride.show_discount ?? prop.showDiscount
+    };
+  });
 
   const handleEdit = (property: PropertyDetail) => {
     setEditingId(property.id);
@@ -75,33 +93,26 @@ const PropertyAdmin = () => {
   };
 
   const handleSave = (propertyId: string) => {
-    updatePropertyDetail(propertyId, editForm);
-    loadProperties();
+    upsertProperty({
+      property_id: propertyId,
+      marketing_name: editForm.name || null,
+      cleaning_fee: editForm.cleaningFee ?? 0,
+      discount_1_night: editForm.oneNightDiscount ?? 0,
+      discount_2_nights: editForm.twoNightDiscount ?? 0,
+      discount_3_plus_nights: editForm.longStayDiscount ?? 0,
+      show_discount: editForm.showDiscount ?? false
+    });
     setEditingId(null);
     setEditForm({});
-    toast({
-      title: "Tallennettu",
-      description: "Huoneiston tiedot päivitetty"
-    });
   };
 
   const handleResetSingle = (propertyId: string, propertyName: string) => {
-    resetPropertyToDefault(propertyId);
-    loadProperties();
-    toast({
-      title: "Palautettu",
-      description: `${propertyName} palautettu oletusarvoihin`
-    });
+    resetProperty(propertyId);
   };
 
   const handleResetAll = () => {
-    resetAllPropertiesToDefault();
-    loadProperties();
+    resetAll();
     setShowResetDialog(false);
-    toast({
-      title: "Kaikki palautettu",
-      description: "Kaikkien huoneistojen tiedot palautettu oletusarvoihin"
-    });
   };
 
   // Group properties by category
@@ -116,13 +127,22 @@ const PropertyAdmin = () => {
 
   const categoryOrder: PropertyCategory[] = ['glacier', 'skistar', 'chalet', 'platinum', 'cabin', 'other'];
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
+        <span className="ml-2 text-muted-foreground">Ladataan asetuksia...</span>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-foreground">Huoneistojen hallinta</h2>
           <p className="text-muted-foreground text-sm mt-1">
-            Muokkaa alennuksia ja siivousmaksuja. Erikoistarjoukset hallitaan Hissilippu-välilehdellä jaksokohtaisesti.
+            Muokkaa alennuksia ja siivousmaksuja. Asetukset synkronoituvat automaattisesti.
           </p>
         </div>
         <Button variant="outline" onClick={() => setShowResetDialog(true)}>
@@ -273,6 +293,7 @@ const PropertyAdmin = () => {
                                   variant="ghost" 
                                   onClick={handleCancel}
                                   className="h-8 w-8 p-0"
+                                  disabled={isSaving}
                                 >
                                   <X className="w-4 h-4" />
                                 </Button>
@@ -280,8 +301,9 @@ const PropertyAdmin = () => {
                                   size="sm" 
                                   onClick={() => handleSave(property.id)}
                                   className="h-8 w-8 p-0"
+                                  disabled={isSaving}
                                 >
-                                  <Save className="w-4 h-4" />
+                                  {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                                 </Button>
                               </>
                             ) : (

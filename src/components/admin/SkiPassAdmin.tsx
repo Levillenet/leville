@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,25 +16,22 @@ import {
   Save,
   Info,
   Sparkles,
-  Percent
+  Percent,
+  Loader2
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { getPropertyDetails } from "@/data/propertyDetails";
-import {
+import { getDefaultPropertyDetails, getAllDefaultPropertyDetails } from "@/data/propertyDetails";
+import { 
   getSkiPassSettings,
-  saveSkiPassSettings,
-  toggleSkiPassAllocation,
-  getPeriodAllocationStatus,
-  getAvailablePassesForDateRange,
   canAllocateSkiPass,
-  cleanupExpiredAllocations,
   getBlockingDays,
-  getActiveAllocations,
+  getAvailablePassesForDateRange,
+  getActiveAllocationsFromDb,
+  getPeriodSettingsFromDb,
   generatePeriodId,
-  updatePeriodSettings,
-  getPeriodSettings,
-  SkiPassSettings
+  DbPeriodSettings
 } from "@/data/skiPassAllocations";
+import { useAdminSettingsManager } from "@/hooks/useAdminSettings";
 
 interface Beds24Deal {
   id: string;
@@ -64,37 +61,57 @@ const fetchBeds24Availability = async (): Promise<Beds24Deal[]> => {
   }
 };
 
-const SkiPassAdmin = () => {
-  const [settings, setSettings] = useState<SkiPassSettings>(getSkiPassSettings());
-  const [refreshKey, setRefreshKey] = useState(0);
+interface SkiPassAdminProps {
+  adminPassword: string;
+}
+
+const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
   const [editingSettings, setEditingSettings] = useState(false);
-  const [tempCapacity, setTempCapacity] = useState(settings.totalCapacity);
+  const [tempCapacity, setTempCapacity] = useState(4);
   const { toast } = useToast();
+  
+  const settings = getSkiPassSettings();
+
+  const { 
+    settings: dbSettings, 
+    isLoading: isLoadingSettings,
+    upsertPeriod,
+    isSaving 
+  } = useAdminSettingsManager(adminPassword);
+
+  const periodSettings = dbSettings?.periodSettings || [];
 
   // Fetch Beds24 deals
-  const { data: beds24Deals = [], isLoading } = useQuery({
+  const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
     queryKey: ['beds24-availability-admin'],
     queryFn: fetchBeds24Availability,
     staleTime: 5 * 60 * 1000,
   });
 
-  // Cleanup expired allocations on mount
-  useEffect(() => {
-    cleanupExpiredAllocations();
-  }, []);
+  const isLoading = isLoadingSettings || isLoadingDeals;
 
-  // Get allocation status directly from localStorage
+  // Get allocation status from database
   const getAllocationStatus = useCallback((roomId: string, checkIn: string, checkOut: string): boolean => {
-    return getPeriodAllocationStatus(roomId, checkIn, checkOut);
-  }, [refreshKey]);
+    const period = periodSettings.find(
+      p => p.property_id === roomId && p.check_in === checkIn && p.check_out === checkOut
+    );
+    return period?.has_ski_pass || false;
+  }, [periodSettings]);
+
+  // Get period settings from database
+  const getLocalPeriodSettings = useCallback((roomId: string, checkIn: string, checkOut: string) => {
+    return getPeriodSettingsFromDb(roomId, checkIn, checkOut, periodSettings);
+  }, [periodSettings]);
 
   const handleToggleAllocation = (deal: Beds24Deal) => {
     const periodKey = generatePeriodId(deal.roomId, deal.checkIn, deal.checkOut);
     const currentStatus = getAllocationStatus(deal.roomId, deal.checkIn, deal.checkOut);
+    const currentSettings = getLocalPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
     
     if (!currentStatus) {
-      if (!canAllocateSkiPass(deal.checkIn, deal.checkOut, periodKey)) {
-        const blockingDays = getBlockingDays(deal.checkIn, deal.checkOut, periodKey);
+      // Check if we can allocate
+      if (!canAllocateSkiPass(deal.checkIn, deal.checkOut, periodSettings, periodKey)) {
+        const blockingDays = getBlockingDays(deal.checkIn, deal.checkOut, periodSettings, periodKey);
         const blockedDatesStr = blockingDays
           .slice(0, 3)
           .map(d => `${format(new Date(d.date), "d.M")} (${d.used}/${d.capacity})`)
@@ -110,89 +127,108 @@ const SkiPassAdmin = () => {
       }
     }
     
-    const result = toggleSkiPassAllocation(deal.roomId, deal.checkIn, deal.checkOut);
+    // Toggle ski pass
+    upsertPeriod({
+      property_id: deal.roomId,
+      check_in: deal.checkIn,
+      check_out: deal.checkOut,
+      has_ski_pass: !currentStatus,
+      has_special_offer: currentSettings.specialOffer,
+      custom_discount: currentSettings.customDiscount || 0,
+      show_discount: currentSettings.showDiscountBadge
+    });
     
-    if (result.success) {
-      setRefreshKey(prev => prev + 1);
-      toast({
-        title: currentStatus ? "Hissilippu poistettu" : "Hissilippu annettu",
-        description: `${getMarketingName(deal)} ${format(new Date(deal.checkIn), "d.M")} - ${format(new Date(deal.checkOut), "d.M")}`
-      });
-    } else {
-      toast({
-        title: "Virhe",
-        description: result.error || "Tuntematon virhe",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const handleToggleSpecialOffer = (deal: Beds24Deal, checked: boolean) => {
-    updatePeriodSettings(deal.roomId, deal.checkIn, deal.checkOut, { specialOffer: checked });
-    setRefreshKey(prev => prev + 1);
     toast({
-      title: checked ? "Erikoistarjous lisätty" : "Erikoistarjous poistettu",
+      title: currentStatus ? "Hissilippu poistettu" : "Hissilippu annettu",
       description: `${getMarketingName(deal)} ${format(new Date(deal.checkIn), "d.M")} - ${format(new Date(deal.checkOut), "d.M")}`
     });
   };
 
+  const handleToggleSpecialOffer = (deal: Beds24Deal, checked: boolean) => {
+    const currentSettings = getLocalPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
+    
+    upsertPeriod({
+      property_id: deal.roomId,
+      check_in: deal.checkIn,
+      check_out: deal.checkOut,
+      has_ski_pass: currentSettings.hasSkiPass,
+      has_special_offer: checked,
+      custom_discount: currentSettings.customDiscount || 0,
+      show_discount: currentSettings.showDiscountBadge
+    });
+  };
+
   const handleUpdateDiscount = (deal: Beds24Deal, discount: number | null) => {
-    updatePeriodSettings(deal.roomId, deal.checkIn, deal.checkOut, { customDiscount: discount });
-    setRefreshKey(prev => prev + 1);
+    const currentSettings = getLocalPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
+    
+    upsertPeriod({
+      property_id: deal.roomId,
+      check_in: deal.checkIn,
+      check_out: deal.checkOut,
+      has_ski_pass: currentSettings.hasSkiPass,
+      has_special_offer: currentSettings.specialOffer,
+      custom_discount: discount || 0,
+      show_discount: currentSettings.showDiscountBadge
+    });
   };
 
   const handleToggleShowDiscount = (deal: Beds24Deal, checked: boolean) => {
-    updatePeriodSettings(deal.roomId, deal.checkIn, deal.checkOut, { showDiscountBadge: checked });
-    setRefreshKey(prev => prev + 1);
-  };
-
-  const handleSaveSettings = () => {
-    saveSkiPassSettings({ totalCapacity: tempCapacity });
-    setSettings({ ...settings, totalCapacity: tempCapacity });
-    setEditingSettings(false);
-    setRefreshKey(prev => prev + 1);
-    toast({
-      title: "Asetukset tallennettu",
-      description: `Hissilippukapasiteetti: ${tempCapacity} lippua`
+    const currentSettings = getLocalPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
+    
+    upsertPeriod({
+      property_id: deal.roomId,
+      check_in: deal.checkIn,
+      check_out: deal.checkOut,
+      has_ski_pass: currentSettings.hasSkiPass,
+      has_special_offer: currentSettings.specialOffer,
+      custom_discount: currentSettings.customDiscount || 0,
+      show_discount: checked
     });
   };
 
   const getMarketingName = (deal: Beds24Deal): string => {
-    const property = getPropertyDetails(deal.roomId);
+    const dbOverride = dbSettings?.propertySettings?.find(s => s.property_id === deal.roomId);
+    if (dbOverride?.marketing_name) return dbOverride.marketing_name;
+    const property = getDefaultPropertyDetails(deal.roomId);
     return property?.name || deal.roomName;
   };
 
-  // Calculate discounted price for a deal (with custom discount from period settings)
-  const calculateDiscountedPrice = (deal: Beds24Deal, customDiscount: number | null): number | null => {
-    if (deal.price == null) return null;
-    if (customDiscount == null || customDiscount <= 0) return deal.price;
-    return Math.round(deal.price * (1 - customDiscount / 100));
+  // Get cleaning fee for a property
+  const getCleaningFee = (roomId: string): number => {
+    const dbOverride = dbSettings?.propertySettings?.find(s => s.property_id === roomId);
+    if (dbOverride) return dbOverride.cleaning_fee;
+    const property = getDefaultPropertyDetails(roomId);
+    return property?.cleaningFee || 0;
+  };
+
+  // Get property-level discount
+  const getPropertyDiscount = (roomId: string, nights: number): number => {
+    const dbOverride = dbSettings?.propertySettings?.find(s => s.property_id === roomId);
+    if (dbOverride) {
+      if (nights === 1) return dbOverride.discount_1_night || 0;
+      if (nights === 2) return dbOverride.discount_2_nights || 0;
+      return dbOverride.discount_3_plus_nights || 0;
+    }
+    const property = getDefaultPropertyDetails(roomId);
+    if (!property) return 0;
+    if (nights === 1) return property.oneNightDiscount || 0;
+    if (nights === 2) return property.twoNightDiscount || 0;
+    return property.longStayDiscount || 0;
   };
 
   // Get the original API price + cleaning fee
   const getOriginalApiPrice = (deal: Beds24Deal): number | null => {
     if (deal.price == null) return null;
-    const property = getPropertyDetails(deal.roomId);
-    const cleaningFee = property?.cleaningFee || 0;
+    const cleaningFee = getCleaningFee(deal.roomId);
     return Math.round(deal.price + cleaningFee);
   };
 
   // Get the current displayed price (with property-level discounts)
   const getCurrentDisplayPrice = (deal: Beds24Deal): number | null => {
     if (deal.price == null) return null;
-    const property = getPropertyDetails(deal.roomId);
-    const cleaningFee = property?.cleaningFee || 0;
+    const cleaningFee = getCleaningFee(deal.roomId);
     let basePrice = deal.price;
-
-    // Apply property-level discount based on nights
-    let discount = 0;
-    if (deal.nights === 1 && property?.oneNightDiscount) {
-      discount = property.oneNightDiscount;
-    } else if (deal.nights === 2 && property?.twoNightDiscount) {
-      discount = property.twoNightDiscount;
-    } else if (deal.nights >= 3 && property?.longStayDiscount) {
-      discount = property.longStayDiscount;
-    }
+    const discount = getPropertyDiscount(deal.roomId, deal.nights);
 
     if (discount > 0) {
       basePrice = basePrice * (1 - discount / 100);
@@ -201,13 +237,11 @@ const SkiPassAdmin = () => {
     return Math.round(basePrice + cleaningFee);
   };
 
-  // Get the special offer price (additional discount on top of PropertyAdmin discount)
+  // Get the special offer price (additional discount)
   const getSpecialOfferPrice = (deal: Beds24Deal, customDiscount: number | null): number | null => {
     if (deal.price == null || customDiscount == null || customDiscount <= 0) return null;
-    // First get the PropertyAdmin discounted price
     const currentPrice = getCurrentDisplayPrice(deal);
     if (currentPrice == null) return null;
-    // Apply custom discount as additional discount on top of PropertyAdmin price
     return Math.round(currentPrice * (1 - customDiscount / 100));
   };
 
@@ -222,15 +256,15 @@ const SkiPassAdmin = () => {
 
   // Calculate daily usage statistics
   const getDailyUsageStats = useCallback((): { maxUsed: number; maxDate: string | null } => {
-    const activeAllocs = getActiveAllocations();
+    const activeAllocs = getActiveAllocationsFromDb(periodSettings);
     if (activeAllocs.length === 0) return { maxUsed: 0, maxDate: null };
     
     const dateUsage: Record<string, number> = {};
     const currentSettings = getSkiPassSettings();
     
     for (const alloc of activeAllocs) {
-      const startDate = new Date(alloc.checkIn);
-      const endDate = new Date(alloc.checkOut);
+      const startDate = new Date(alloc.check_in);
+      const endDate = new Date(alloc.check_out);
       const current = new Date(startDate);
       
       while (current < endDate) {
@@ -250,10 +284,19 @@ const SkiPassAdmin = () => {
     }
     
     return { maxUsed, maxDate };
-  }, [refreshKey]);
+  }, [periodSettings]);
 
   const usageStats = getDailyUsageStats();
   const availablePasses = settings.totalCapacity - usageStats.maxUsed;
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
+        <span className="ml-2 text-muted-foreground">Ladataan tietoja...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -269,37 +312,9 @@ const SkiPassAdmin = () => {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-4">
               <Label className="text-sm text-muted-foreground">Kapasiteetti (lippuja):</Label>
-              {editingSettings ? (
-                <div className="flex items-center gap-2">
-                  <Input
-                    type="number"
-                    value={tempCapacity}
-                    onChange={(e) => setTempCapacity(Number(e.target.value))}
-                    className="w-20 h-8"
-                    min={2}
-                    step={2}
-                  />
-                  <Button size="sm" onClick={handleSaveSettings}>
-                    <Save className="w-4 h-4 mr-1" />
-                    Tallenna
-                  </Button>
-                  <Button size="sm" variant="ghost" onClick={() => {
-                    setTempCapacity(settings.totalCapacity);
-                    setEditingSettings(false);
-                  }}>
-                    Peruuta
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="text-lg px-3 py-1">
-                    {settings.totalCapacity}
-                  </Badge>
-                  <Button size="sm" variant="ghost" onClick={() => setEditingSettings(true)}>
-                    Muokkaa
-                  </Button>
-                </div>
-              )}
+              <Badge variant="outline" className="text-lg px-3 py-1">
+                {settings.totalCapacity}
+              </Badge>
             </div>
             
             <div className="flex items-center gap-4 ml-auto">
@@ -325,19 +340,13 @@ const SkiPassAdmin = () => {
           
           <div className="mt-3 flex items-start gap-2 text-xs text-muted-foreground bg-muted/30 p-2 rounded">
             <Info className="w-4 h-4 mt-0.5 shrink-0" />
-            <span>Jokainen varaus käyttää 2 lippua (1 setti). Kapasiteetti {settings.totalCapacity}/pv = maksimissaan {settings.totalCapacity / 2} päällekkäistä varausta samana päivänä.</span>
+            <span>Jokainen varaus käyttää 2 lippua (1 setti). Kapasiteetti {settings.totalCapacity}/pv = maksimissaan {settings.totalCapacity / 2} päällekkäistä varausta samana päivänä. Asetukset synkronoituvat automaattisesti.</span>
           </div>
         </CardContent>
       </Card>
 
       {/* Periods by Property */}
-      {isLoading ? (
-        <Card>
-          <CardContent className="py-8 text-center text-muted-foreground">
-            Ladataan vapaita jaksoja...
-          </CardContent>
-        </Card>
-      ) : Object.keys(dealsByProperty).length === 0 ? (
+      {Object.keys(dealsByProperty).length === 0 ? (
         <Card>
           <CardContent className="py-8 text-center text-muted-foreground">
             Ei vapaita jaksoja tällä hetkellä.
@@ -351,8 +360,7 @@ const SkiPassAdmin = () => {
           </h3>
           
           {Object.entries(dealsByProperty).map(([roomId, deals]) => {
-            const property = getPropertyDetails(roomId);
-            const propertyName = property?.name || deals[0]?.roomName || roomId;
+            const propertyName = getMarketingName(deals[0]);
             
             return (
               <Card key={roomId}>
@@ -366,20 +374,20 @@ const SkiPassAdmin = () => {
                     {deals.map(deal => {
                       const periodKey = generatePeriodId(deal.roomId, deal.checkIn, deal.checkOut);
                       const isAllocated = getAllocationStatus(deal.roomId, deal.checkIn, deal.checkOut);
-                      const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
+                      const localPeriodSettings = getLocalPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
                       const availableForPeriod = getAvailablePassesForDateRange(
                         deal.checkIn, 
                         deal.checkOut,
+                        periodSettings,
                         isAllocated ? periodKey : undefined
                       );
                       const canAllocate = availableForPeriod >= settings.passesPerAllocation || isAllocated;
-                      const discountedPrice = calculateDiscountedPrice(deal, periodSettings.customDiscount);
                       
                       return (
                         <div 
                           key={deal.id} 
                           className={`p-4 rounded-lg border ${
-                            isAllocated || periodSettings.specialOffer
+                            isAllocated || localPeriodSettings.specialOffer
                               ? 'bg-gradient-to-r from-cyan-500/10 to-amber-500/10 border-cyan-500/30' 
                               : 'bg-muted/20 border-border'
                           }`}
@@ -408,37 +416,34 @@ const SkiPassAdmin = () => {
                                     2 hissilippua
                                   </Badge>
                                 )}
-                                {periodSettings.specialOffer && (
+                                {localPeriodSettings.specialOffer && (
                                   <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">
                                     <Sparkles className="w-3 h-3 mr-1" />
                                     Erikoistarjous
                                   </Badge>
                                 )}
-                                {periodSettings.customDiscount && periodSettings.customDiscount > 0 && (
+                                {localPeriodSettings.customDiscount && localPeriodSettings.customDiscount > 0 && (
                                   <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
                                     <Percent className="w-3 h-3 mr-1" />
-                                    -{periodSettings.customDiscount}%
+                                    -{localPeriodSettings.customDiscount}%
                                   </Badge>
                                 )}
                               </div>
                             </div>
                             
-                            {/* Price display - show all three prices */}
+                            {/* Price display */}
                             <div className="text-right space-y-1">
                               {deal.price != null ? (
                                 <>
-                                  {/* API price */}
                                   <div className="text-xs text-muted-foreground">
                                     API: <span className="font-medium">{getOriginalApiPrice(deal)}€</span>
                                   </div>
-                                  {/* Current displayed price */}
                                   <div className="text-sm">
                                     Nyt: <span className="font-semibold text-foreground">{getCurrentDisplayPrice(deal)}€</span>
                                   </div>
-                                  {/* Special offer price (if discount is set) */}
-                                  {periodSettings.customDiscount && periodSettings.customDiscount > 0 && (
+                                  {localPeriodSettings.customDiscount && localPeriodSettings.customDiscount > 0 && (
                                     <div className="text-sm">
-                                      Erikoistarjous: <span className="font-bold text-green-400">{getSpecialOfferPrice(deal, periodSettings.customDiscount)}€</span>
+                                      Erikoistarjous: <span className="font-bold text-green-400">{getSpecialOfferPrice(deal, localPeriodSettings.customDiscount)}€</span>
                                     </div>
                                   )}
                                 </>
@@ -456,7 +461,7 @@ const SkiPassAdmin = () => {
                                 id={`skipass-${deal.id}`}
                                 checked={isAllocated}
                                 onCheckedChange={() => handleToggleAllocation(deal)}
-                                disabled={!canAllocate && !isAllocated}
+                                disabled={(!canAllocate && !isAllocated) || isSaving}
                               />
                               <Label 
                                 htmlFor={`skipass-${deal.id}`}
@@ -476,8 +481,9 @@ const SkiPassAdmin = () => {
                             <div className="flex items-center gap-2">
                               <Switch
                                 id={`special-${deal.id}`}
-                                checked={periodSettings.specialOffer}
+                                checked={localPeriodSettings.specialOffer}
                                 onCheckedChange={(checked) => handleToggleSpecialOffer(deal, checked)}
+                                disabled={isSaving}
                               />
                               <Label htmlFor={`special-${deal.id}`} className="text-sm">
                                 Erikoistarjous
@@ -489,7 +495,7 @@ const SkiPassAdmin = () => {
                               <Label className="text-sm text-muted-foreground">Alennus %:</Label>
                               <Input
                                 type="number"
-                                value={periodSettings.customDiscount ?? ""}
+                                value={localPeriodSettings.customDiscount ?? ""}
                                 onChange={(e) => handleUpdateDiscount(
                                   deal, 
                                   e.target.value ? Number(e.target.value) : null
@@ -498,15 +504,17 @@ const SkiPassAdmin = () => {
                                 className="w-16 h-8 text-center"
                                 min={0}
                                 max={100}
+                                disabled={isSaving}
                               />
                             </div>
                             
-                            {/* Show discount toggle - always visible */}
+                            {/* Show discount toggle */}
                             <div className="flex items-center gap-2">
                               <Switch
                                 id={`showdiscount-${deal.id}`}
-                                checked={periodSettings.showDiscountBadge}
+                                checked={localPeriodSettings.showDiscountBadge}
                                 onCheckedChange={(checked) => handleToggleShowDiscount(deal, checked)}
+                                disabled={isSaving}
                               />
                               <Label htmlFor={`showdiscount-${deal.id}`} className="text-sm">
                                 Näytä alennus

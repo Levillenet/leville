@@ -216,11 +216,11 @@ const Admin = () => {
           </TabsList>
 
           <TabsContent value="properties">
-            <PropertyAdmin />
+            <PropertyAdmin adminPassword={sessionStorage.getItem("adminAuth") || ""} />
           </TabsContent>
 
           <TabsContent value="skipass">
-            <SkiPassAdmin />
+            <SkiPassAdmin adminPassword={sessionStorage.getItem("adminAuth") || ""} />
           </TabsContent>
 
           <TabsContent value="cache">

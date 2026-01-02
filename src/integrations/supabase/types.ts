@@ -86,6 +86,111 @@ export type Database = {
         }
         Relationships: []
       }
+      period_settings: {
+        Row: {
+          check_in: string
+          check_out: string
+          created_at: string | null
+          custom_discount: number | null
+          has_ski_pass: boolean | null
+          has_special_offer: boolean | null
+          id: string
+          property_id: string
+          show_discount: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          check_in: string
+          check_out: string
+          created_at?: string | null
+          custom_discount?: number | null
+          has_ski_pass?: boolean | null
+          has_special_offer?: boolean | null
+          id?: string
+          property_id: string
+          show_discount?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          check_in?: string
+          check_out?: string
+          created_at?: string | null
+          custom_discount?: number | null
+          has_ski_pass?: boolean | null
+          has_special_offer?: boolean | null
+          id?: string
+          property_id?: string
+          show_discount?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      property_settings: {
+        Row: {
+          cleaning_fee: number | null
+          created_at: string | null
+          discount_1_night: number | null
+          discount_2_nights: number | null
+          discount_3_plus_nights: number | null
+          id: string
+          marketing_name: string | null
+          property_id: string
+          show_discount: boolean | null
+          updated_at: string | null
+        }
+        Insert: {
+          cleaning_fee?: number | null
+          created_at?: string | null
+          discount_1_night?: number | null
+          discount_2_nights?: number | null
+          discount_3_plus_nights?: number | null
+          id?: string
+          marketing_name?: string | null
+          property_id: string
+          show_discount?: boolean | null
+          updated_at?: string | null
+        }
+        Update: {
+          cleaning_fee?: number | null
+          created_at?: string | null
+          discount_1_night?: number | null
+          discount_2_nights?: number | null
+          discount_3_plus_nights?: number | null
+          id?: string
+          marketing_name?: string | null
+          property_id?: string
+          show_discount?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      ski_pass_capacity: {
+        Row: {
+          allocated_passes: number | null
+          created_at: string | null
+          date: string
+          id: string
+          max_passes: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          allocated_passes?: number | null
+          created_at?: string | null
+          date: string
+          id?: string
+          max_passes?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          allocated_passes?: number | null
+          created_at?: string | null
+          date?: string
+          id?: string
+          max_passes?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
