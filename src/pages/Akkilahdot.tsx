@@ -16,7 +16,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPropertyDetails, getAllPropertyDetails } from "@/data/propertyDetails";
-import { getPeriodAllocationStatus } from "@/data/skiPassAllocations";
+import { getPeriodAllocationStatus, getPeriodSettings } from "@/data/skiPassAllocations";
 
 // Property background images
 import glacierImage from "@/assets/deals/glacier.jpg";
@@ -342,10 +342,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return getPeriodAllocationStatus(deal.roomId, deal.checkIn, deal.checkOut);
   };
 
-  // Check if special offer is active
-  const hasSpecialOffer = (roomId: string): boolean => {
-    const property = getPropertyDetails(roomId);
-    return property?.specialOffer || false;
+  // Check if special offer is active (now period-based from ski pass admin)
+  const hasSpecialOffer = (deal: Beds24Deal): boolean => {
+    const periodSettings = getPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
+    return periodSettings.specialOffer || false;
   };
 
   // Get marketing name from propertyDetails
@@ -570,7 +570,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         )}
                         
                         {/* Special Offer Badge - moved lower */}
-                        {hasSpecialOffer(deal.roomId) && (
+                        {hasSpecialOffer(deal) && (
                           <div className="absolute top-3 left-3 z-20">
                             <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Sparkles className="w-3.5 h-3.5 mr-1" />
@@ -642,7 +642,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                   </div>
                                 )}
                                 <div className="flex items-baseline gap-2">
-                                  <span className={`font-bold ${hasSpecialOffer(deal.roomId) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
+                                  <span className={`font-bold ${hasSpecialOffer(deal) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
                                     {totalPrice}€
                                   </span>
                                   <span className="text-muted-foreground text-sm">{t.total}</span>

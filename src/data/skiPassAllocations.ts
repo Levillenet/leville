@@ -1,5 +1,5 @@
 // Ski pass allocation system
-// Manages ski pass capacity and period-based allocations
+// Manages ski pass capacity and period-based allocations with special offers
 
 export interface SkiPassPeriodAllocation {
   periodId: string;           // Unique ID for the period (roomId_checkIn_checkOut)
@@ -8,6 +8,8 @@ export interface SkiPassPeriodAllocation {
   checkOut: string;           // ISO date string
   allocated: boolean;         // Whether ski passes are allocated for this period
   allocatedAt?: string;       // When the allocation was made
+  specialOffer: boolean;      // Show "Erikoistarjous" badge for this period
+  customDiscount: number | null; // Custom discount percentage (not shown to customer, but affects price)
 }
 
 export interface SkiPassSettings {
@@ -180,12 +182,60 @@ export const toggleSkiPassAllocation = (
       checkIn,
       checkOut,
       allocated: true,
-      allocatedAt: new Date().toISOString()
+      allocatedAt: new Date().toISOString(),
+      specialOffer: false,
+      customDiscount: null
     });
   }
   
   saveAllocations(allocations);
   return { success: true };
+};
+
+// Update period settings (specialOffer and customDiscount)
+export const updatePeriodSettings = (
+  roomId: string,
+  checkIn: string,
+  checkOut: string,
+  settings: { specialOffer?: boolean; customDiscount?: number | null }
+): void => {
+  const periodId = generatePeriodId(roomId, checkIn, checkOut);
+  const allocations = getSkiPassAllocations();
+  const existingIndex = allocations.findIndex(a => a.periodId === periodId);
+  
+  if (existingIndex >= 0) {
+    // Update existing allocation
+    if (settings.specialOffer !== undefined) {
+      allocations[existingIndex].specialOffer = settings.specialOffer;
+    }
+    if (settings.customDiscount !== undefined) {
+      allocations[existingIndex].customDiscount = settings.customDiscount;
+    }
+  } else {
+    // Create new allocation entry just for settings (not ski pass allocated)
+    allocations.push({
+      periodId,
+      roomId,
+      checkIn,
+      checkOut,
+      allocated: false,
+      specialOffer: settings.specialOffer || false,
+      customDiscount: settings.customDiscount ?? null
+    });
+  }
+  
+  saveAllocations(allocations);
+};
+
+// Get period settings
+export const getPeriodSettings = (roomId: string, checkIn: string, checkOut: string): { specialOffer: boolean; customDiscount: number | null } => {
+  const periodId = generatePeriodId(roomId, checkIn, checkOut);
+  const allocations = getSkiPassAllocations();
+  const allocation = allocations.find(a => a.periodId === periodId);
+  return {
+    specialOffer: allocation?.specialOffer || false,
+    customDiscount: allocation?.customDiscount ?? null
+  };
 };
 
 // Get allocation status for a period
