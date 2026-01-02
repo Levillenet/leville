@@ -6,9 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, RefreshCw, Database } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
+import CacheAdmin from "@/components/admin/CacheAdmin";
 import {
   BarChart,
   Bar,
@@ -208,6 +209,10 @@ const Admin = () => {
               <BarChart3 className="w-4 h-4" />
               Lataustilastot
             </TabsTrigger>
+            <TabsTrigger value="cache" className="flex items-center gap-2">
+              <Database className="w-4 h-4" />
+              Välimuisti
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="properties">
@@ -216,6 +221,10 @@ const Admin = () => {
 
           <TabsContent value="skipass">
             <SkiPassAdmin />
+          </TabsContent>
+
+          <TabsContent value="cache">
+            <CacheAdmin />
           </TabsContent>
 
           <TabsContent value="stats">
