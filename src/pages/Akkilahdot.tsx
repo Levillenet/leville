@@ -16,6 +16,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPropertyDetails, getAllPropertyDetails } from "@/data/propertyDetails";
+import { getPeriodAllocationStatus } from "@/data/skiPassAllocations";
 
 // Property background images
 import glacierImage from "@/assets/deals/glacier.jpg";
@@ -320,19 +321,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     };
   };
 
-  // Check if ski pass offer applies to this deal
+  // Check if ski pass offer applies to this deal (using new allocation system)
   const hasSkiPassOffer = (deal: Beds24Deal): boolean => {
-    const property = getPropertyDetails(deal.roomId);
-    if (!property?.skiPassOffer) return false;
-    
-    const checkInDate = new Date(deal.checkIn);
-    const startDate = property.skiPassStartDate ? new Date(property.skiPassStartDate) : null;
-    const endDate = property.skiPassEndDate ? new Date(property.skiPassEndDate) : null;
-    
-    if (startDate && checkInDate < startDate) return false;
-    if (endDate && checkInDate > endDate) return false;
-    
-    return true;
+    // Check if this specific period has ski passes allocated
+    return getPeriodAllocationStatus(deal.roomId, deal.checkIn, deal.checkOut);
   };
 
   // Check if special offer is active
@@ -602,16 +594,16 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                 <div className="text-xs text-muted-foreground mt-2">
                                   {getMaxGuests(deal.roomId) >= 6 
                                     ? (lang === 'fi' 
-                                        ? "Hinta sisältää siivouksen. Lisähenkilöt +10€/yö. Liinavaatteet 19€/hlö."
+                                        ? "Hinta sisältää siivouksen ja 5 henkilöä. Lisähenkilöt +10€/yö. Liinavaatteet 19€/hlö."
                                         : lang === 'en' 
-                                          ? "Price includes cleaning. Extra guests +10€/night. Linens 19€/person."
+                                          ? "Price includes cleaning and 5 persons. Extra guests +10€/night. Linens 19€/person."
                                           : lang === 'sv'
-                                            ? "Priset inkluderar städning. Extra gäster +10€/natt. Sängkläder 19€/person."
+                                            ? "Priset inkluderar städning och 5 personer. Extra gäster +10€/natt. Sängkläder 19€/person."
                                             : lang === 'de'
-                                              ? "Preis inkl. Reinigung. Zusätzliche Gäste +10€/Nacht. Bettwäsche 19€/Person."
+                                              ? "Preis inkl. Reinigung und 5 Personen. Zusätzliche Gäste +10€/Nacht. Bettwäsche 19€/Person."
                                               : lang === 'es'
-                                                ? "Precio incluye limpieza. Huéspedes extra +10€/noche. Ropa de cama 19€/persona."
-                                                : "Prix comprend le ménage. Personnes supp. +10€/nuit. Linge 19€/personne."
+                                                ? "Precio incluye limpieza y 5 personas. Huéspedes extra +10€/noche. Ropa de cama 19€/persona."
+                                                : "Prix comprend le ménage et 5 personnes. Personnes supp. +10€/nuit. Linge 19€/personne."
                                       )
                                     : (lang === 'fi' 
                                         ? "Hinta sisältää siivouksen. Liinavaatteet 19€/hlö."
