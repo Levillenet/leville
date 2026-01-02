@@ -94,6 +94,8 @@ const content = {
     priceNote: "Hinta sisältää siivouksen. Liinavaatteet 19€/hlö.",
     sameDayNote: "Kysy hintaa nopeasti alkavaan majoitukseen",
     discountBadge: "Nopean lomailijan etu!",
+    specialOfferBadge: "Erikoistarjous!",
+    skiPassBadge: "Mukaan 2 hissilippua!",
     noDeals: "Ei tällä hetkellä äkkilähtöjä saatavilla. Tarkista pian uudelleen!",
     whyTitle: "Miksi äkkilähtö?",
     whyItems: [
@@ -121,6 +123,8 @@ const content = {
     priceNote: "Price includes cleaning. Linens 19€/person.",
     sameDayNote: "Ask for price for quick-start accommodation",
     discountBadge: "Quick traveler bonus!",
+    specialOfferBadge: "Special Offer!",
+    skiPassBadge: "Includes 2 ski passes!",
     noDeals: "No last-minute deals available at the moment. Check back soon!",
     whyTitle: "Why last-minute?",
     whyItems: [
@@ -148,6 +152,8 @@ const content = {
     priceNote: "Priset inkluderar städning. Sängkläder 19€/person.",
     sameDayNote: "Fråga om pris för snabbstartande boende",
     discountBadge: "Snabbresenär-bonus!",
+    specialOfferBadge: "Specialerbjudande!",
+    skiPassBadge: "Inkluderar 2 liftkort!",
     noDeals: "Inga sista minuten-erbjudanden tillgängliga just nu. Kolla tillbaka snart!",
     whyTitle: "Varför sista minuten?",
     whyItems: [
@@ -175,6 +181,8 @@ const content = {
     priceNote: "Preis inkl. Reinigung. Bettwäsche 19€/Person.",
     sameDayNote: "Preis für schnell beginnende Unterkunft anfragen",
     discountBadge: "Schnellreisenden-Bonus!",
+    specialOfferBadge: "Sonderangebot!",
+    skiPassBadge: "Inkl. 2 Skipässe!",
     noDeals: "Derzeit keine Last-Minute-Angebote verfügbar. Schauen Sie bald wieder vorbei!",
     whyTitle: "Warum Last-Minute?",
     whyItems: [
@@ -202,6 +210,8 @@ const content = {
     priceNote: "Precio incluye limpieza. Ropa de cama 19€/persona.",
     sameDayNote: "Consultar precio para alojamiento de inicio rápido",
     discountBadge: "¡Bonus viajero rápido!",
+    specialOfferBadge: "¡Oferta especial!",
+    skiPassBadge: "¡Incluye 2 forfaits!",
     noDeals: "No hay ofertas de última hora disponibles en este momento. ¡Vuelve pronto!",
     whyTitle: "¿Por qué última hora?",
     whyItems: [
@@ -229,6 +239,8 @@ const content = {
     priceNote: "Prix comprend le ménage. Linge 19€/personne.",
     sameDayNote: "Demander le prix pour un hébergement à départ rapide",
     discountBadge: "Bonus voyageur rapide!",
+    specialOfferBadge: "Offre spéciale!",
+    skiPassBadge: "Inclut 2 forfaits de ski!",
     noDeals: "Pas d'offres de dernière minute disponibles pour le moment. Revenez bientôt !",
     whyTitle: "Pourquoi dernière minute ?",
     whyItems: [
@@ -562,7 +574,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           <div className="absolute top-3 left-3 z-20">
                             <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Sparkles className="w-3.5 h-3.5 mr-1" />
-                              Erikoistarjous!
+                              {t.specialOfferBadge}
                             </Badge>
                           </div>
                         )}
@@ -572,7 +584,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           <div className="absolute top-3 right-3 z-20">
                             <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Ticket className="w-3.5 h-3.5 mr-1" />
-                              2 hissilippua!
+                              {t.skiPassBadge}
                             </Badge>
                           </div>
                         )}
