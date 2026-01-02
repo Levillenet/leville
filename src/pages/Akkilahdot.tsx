@@ -50,14 +50,19 @@ const manualDeals: ManualDeal[] = [];
 
 // Fetch Beds24 availability
 const fetchBeds24Availability = async (): Promise<Beds24Deal[]> => {
-  const { data, error } = await supabase.functions.invoke('beds24-availability');
-  
-  if (error) {
-    console.error('Error fetching Beds24 availability:', error);
+  try {
+    const { data, error } = await supabase.functions.invoke('beds24-availability');
+
+    if (error) {
+      console.error('Error fetching Beds24 availability:', error);
+      return [];
+    }
+
+    return data?.deals || [];
+  } catch (err) {
+    console.error('Error fetching Beds24 availability:', err);
     return [];
   }
-  
-  return data?.deals || [];
 };
 
 const content = {
