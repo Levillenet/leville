@@ -22,6 +22,7 @@ import { getPeriodAllocationStatus } from "@/data/skiPassAllocations";
 import glacierImage from "@/assets/deals/glacier.jpg";
 import skistarImage from "@/assets/deals/skistar.jpg";
 import karhunvartijaImage from "@/assets/deals/karhunvartija.jpg";
+import karhupirttiImage from "@/assets/deals/karhupirtti.jpg";
 
 interface AkkilahdotProps {
   lang?: Language;
@@ -522,6 +523,19 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                               backgroundImage: `url(${karhunvartijaImage})`,
                               backgroundSize: 'cover',
                               backgroundPosition: 'center 40%',
+                              opacity: 0.15,
+                              maskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
+                              WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
+                            }}
+                          />
+                        )}
+                        {deal.roomId === '353045' && (
+                          <div 
+                            className="absolute inset-0 z-0 pointer-events-none"
+                            style={{
+                              backgroundImage: `url(${karhupirttiImage})`,
+                              backgroundSize: '180%',
+                              backgroundPosition: 'center 75%',
                               opacity: 0.15,
                               maskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
                               WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%)',
