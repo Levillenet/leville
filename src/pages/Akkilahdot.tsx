@@ -515,7 +515,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                             }}
                           />
                         )}
-                        {category === 'perheasunnot' && (
+                        {deal.roomId === '620949' && (
                           <div 
                             className="absolute inset-0 z-0 pointer-events-none"
                             style={{
