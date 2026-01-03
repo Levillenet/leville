@@ -219,60 +219,75 @@ const PropertyAdmin = ({ adminPassword }: PropertyAdminProps) => {
                             <span>{property.cleaningFee}€</span>
                           )}
                         </TableCell>
-                        <TableCell className="text-right">
+                        <TableCell>
                           {editingId === property.id ? (
-                            <Input
-                              type="number"
-                              min="0"
-                              max="100"
-                              value={editForm.oneNightDiscount ?? ""}
-                              onChange={(e) => setEditForm({ 
-                                ...editForm, 
-                                oneNightDiscount: e.target.value ? Number(e.target.value) : null 
-                              })}
-                              placeholder="0"
-                              className="h-10 w-20 text-center text-base font-medium"
-                            />
+                            <div className="flex items-center gap-1">
+                              {[10, 20, 30].map(val => (
+                                <Button
+                                  key={val}
+                                  type="button"
+                                  size="sm"
+                                  variant={editForm.oneNightDiscount === val ? "default" : "outline"}
+                                  className="h-8 w-10 p-0 text-xs"
+                                  onClick={() => setEditForm({ 
+                                    ...editForm, 
+                                    oneNightDiscount: editForm.oneNightDiscount === val ? null : val 
+                                  })}
+                                >
+                                  {val}%
+                                </Button>
+                              ))}
+                            </div>
                           ) : (
                             <span className={property.oneNightDiscount ? "text-green-500 font-medium" : "text-muted-foreground"}>
                               {property.oneNightDiscount ? `-${property.oneNightDiscount}%` : "-"}
                             </span>
                           )}
                         </TableCell>
-                        <TableCell className="text-right">
+                        <TableCell>
                           {editingId === property.id ? (
-                            <Input
-                              type="number"
-                              min="0"
-                              max="100"
-                              value={editForm.twoNightDiscount ?? ""}
-                              onChange={(e) => setEditForm({ 
-                                ...editForm, 
-                                twoNightDiscount: e.target.value ? Number(e.target.value) : null 
-                              })}
-                              placeholder="0"
-                              className="h-10 w-20 text-center text-base font-medium"
-                            />
+                            <div className="flex items-center gap-1">
+                              {[10, 20, 30].map(val => (
+                                <Button
+                                  key={val}
+                                  type="button"
+                                  size="sm"
+                                  variant={editForm.twoNightDiscount === val ? "default" : "outline"}
+                                  className="h-8 w-10 p-0 text-xs"
+                                  onClick={() => setEditForm({ 
+                                    ...editForm, 
+                                    twoNightDiscount: editForm.twoNightDiscount === val ? null : val 
+                                  })}
+                                >
+                                  {val}%
+                                </Button>
+                              ))}
+                            </div>
                           ) : (
                             <span className={property.twoNightDiscount ? "text-green-500 font-medium" : "text-muted-foreground"}>
                               {property.twoNightDiscount ? `-${property.twoNightDiscount}%` : "-"}
                             </span>
                           )}
                         </TableCell>
-                        <TableCell className="text-right">
+                        <TableCell>
                           {editingId === property.id ? (
-                            <Input
-                              type="number"
-                              min="0"
-                              max="100"
-                              value={editForm.longStayDiscount ?? ""}
-                              onChange={(e) => setEditForm({ 
-                                ...editForm, 
-                                longStayDiscount: e.target.value ? Number(e.target.value) : null 
-                              })}
-                              placeholder="0"
-                              className="h-10 w-20 text-center text-base font-medium"
-                            />
+                            <div className="flex items-center gap-1">
+                              {[10, 20, 30].map(val => (
+                                <Button
+                                  key={val}
+                                  type="button"
+                                  size="sm"
+                                  variant={editForm.longStayDiscount === val ? "default" : "outline"}
+                                  className="h-8 w-10 p-0 text-xs"
+                                  onClick={() => setEditForm({ 
+                                    ...editForm, 
+                                    longStayDiscount: editForm.longStayDiscount === val ? null : val 
+                                  })}
+                                >
+                                  {val}%
+                                </Button>
+                              ))}
+                            </div>
                           ) : (
                             <span className={property.longStayDiscount ? "text-blue-500 font-medium" : "text-muted-foreground"}>
                               {property.longStayDiscount ? `-${property.longStayDiscount}%` : "-"}
