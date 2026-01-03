@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -9,6 +10,7 @@ import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Calendar, Clock, ArrowRight, Loader2, ExternalLink, MessageCircle, Sparkles, Ticket, Flame, Users } from "lucide-react";
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -104,7 +106,10 @@ const content = {
       "Samat laadukkaat majoitukset",
       "Nopea varaus WhatsAppilla",
       "Rajoitettu saatavuus – toimi nopeasti!"
-    ]
+    ],
+    filterAll: "Kaikki",
+    filterShort: "1-2 yötä",
+    filterLong: "3+ yötä"
   },
   en: {
     meta: {
@@ -134,7 +139,10 @@ const content = {
       "Same quality accommodations",
       "Quick booking via WhatsApp",
       "Limited availability – act fast!"
-    ]
+    ],
+    filterAll: "All",
+    filterShort: "1-2 nights",
+    filterLong: "3+ nights"
   },
   sv: {
     meta: {
@@ -164,7 +172,10 @@ const content = {
       "Samma kvalitetsboenden",
       "Snabb bokning via WhatsApp",
       "Begränsad tillgänglighet – agera snabbt!"
-    ]
+    ],
+    filterAll: "Alla",
+    filterShort: "1-2 nätter",
+    filterLong: "3+ nätter"
   },
   de: {
     meta: {
@@ -194,7 +205,10 @@ const content = {
       "Dieselben Qualitätsunterkünfte",
       "Schnelle Buchung via WhatsApp",
       "Begrenzte Verfügbarkeit – handeln Sie schnell!"
-    ]
+    ],
+    filterAll: "Alle",
+    filterShort: "1-2 Nächte",
+    filterLong: "3+ Nächte"
   },
   es: {
     meta: {
@@ -224,7 +238,10 @@ const content = {
       "Los mismos alojamientos de calidad",
       "Reserva rápida vía WhatsApp",
       "¡Disponibilidad limitada – actúa rápido!"
-    ]
+    ],
+    filterAll: "Todos",
+    filterShort: "1-2 noches",
+    filterLong: "3+ noches"
   },
   fr: {
     meta: {
@@ -254,13 +271,19 @@ const content = {
       "Les mêmes hébergements de qualité",
       "Réservation rapide via WhatsApp",
       "Disponibilité limitée – agissez vite !"
-    ]
+    ],
+    filterAll: "Tous",
+    filterShort: "1-2 nuits",
+    filterLong: "3+ nuits"
   }
 };
+
+type NightFilter = "all" | "short" | "long";
 
 const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
+  const [nightFilter, setNightFilter] = useState<NightFilter>("all");
 
   // Fetch Beds24 deals
   const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
@@ -276,6 +299,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const periodSettings = adminSettings?.periodSettings || [];
   
   const isLoading = isLoadingDeals || isLoadingSettings;
+
+  // Filter deals based on night filter
+  const filteredDeals = beds24Deals.filter((deal) => {
+    if (nightFilter === "all") return true;
+    if (nightFilter === "short") return deal.nights <= 2;
+    if (nightFilter === "long") return deal.nights >= 3;
+    return true;
+  });
 
   // Helper to get property with DB override
   const getPropertyWithOverride = (roomId: string) => {
@@ -491,7 +522,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     "itemListElement": allDealsForSchema
   };
 
-  const hasDeals = beds24Deals.length > 0 || manualDeals.length > 0;
+  const hasDeals = filteredDeals.length > 0 || manualDeals.length > 0;
 
   return (
     <>
@@ -542,6 +573,35 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
                   {t.subtitle}
                 </p>
+                
+                {/* Night filter */}
+                <div className="mt-6 flex justify-center">
+                  <ToggleGroup 
+                    type="single" 
+                    value={nightFilter} 
+                    onValueChange={(value) => value && setNightFilter(value as NightFilter)}
+                    className="bg-background/50 border border-border/30 rounded-lg p-1"
+                  >
+                    <ToggleGroupItem 
+                      value="all" 
+                      className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
+                    >
+                      {t.filterAll}
+                    </ToggleGroupItem>
+                    <ToggleGroupItem 
+                      value="short" 
+                      className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
+                    >
+                      {t.filterShort}
+                    </ToggleGroupItem>
+                    <ToggleGroupItem 
+                      value="long" 
+                      className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
+                    >
+                      {t.filterLong}
+                    </ToggleGroupItem>
+                  </ToggleGroup>
+                </div>
               </section>
             </ScrollReveal>
 
@@ -566,9 +626,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* Beds24 Deals Grid */}
-            {!isLoading && beds24Deals.length > 0 && (
+            {!isLoading && filteredDeals.length > 0 && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                {beds24Deals.map((deal, index) => {
+                {filteredDeals.map((deal, index) => {
                   const isSameDay = isToday(deal.checkIn);
                   const totalPrice = getTotalPrice(deal);
                   const originalPrice = getOriginalApiPrice(deal);
