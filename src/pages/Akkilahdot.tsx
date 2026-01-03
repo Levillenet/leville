@@ -96,7 +96,7 @@ const content = {
     priceNotAvailable: "Hinta ei saatavilla – varmista WhatsAppissa",
     discountBadge: "Nopean lomailijan etu!",
     specialOfferBadge: "Erikoistarjous",
-    skiPassBadge: "Hissilippu",
+    skiPassBadge: "Tähän majoitukseen mukaan 2 hissilippua!",
     noDeals: "Ei äkkilähtöjä saatavilla tällä hetkellä. Tarkista tilanne myöhemmin!",
     whyTitle: "Miksi äkkilähtö?",
     whyItems: [
@@ -126,7 +126,7 @@ const content = {
     priceNotAvailable: "Price not available – confirm via WhatsApp",
     discountBadge: "Quick traveler bonus!",
     specialOfferBadge: "Special offer",
-    skiPassBadge: "Ski pass",
+    skiPassBadge: "2 ski passes included with this accommodation!",
     noDeals: "No last-minute deals available at the moment. Check back later!",
     whyTitle: "Why last-minute?",
     whyItems: [
@@ -156,7 +156,7 @@ const content = {
     priceNotAvailable: "Pris ej tillgängligt – bekräfta via WhatsApp",
     discountBadge: "Snabbresenär-bonus!",
     specialOfferBadge: "Specialerbjudande",
-    skiPassBadge: "Skidpass",
+    skiPassBadge: "2 skidpass ingår i detta boende!",
     noDeals: "Inga sista minuten-erbjudanden tillgängliga just nu. Kolla tillbaka senare!",
     whyTitle: "Varför sista minuten?",
     whyItems: [
@@ -186,7 +186,7 @@ const content = {
     priceNotAvailable: "Preis nicht verfügbar – per WhatsApp bestätigen",
     discountBadge: "Schnellreisenden-Bonus!",
     specialOfferBadge: "Sonderangebot",
-    skiPassBadge: "Skipass",
+    skiPassBadge: "2 Skipässe inklusive bei dieser Unterkunft!",
     noDeals: "Keine Last-Minute-Angebote verfügbar. Schauen Sie später wieder vorbei!",
     whyTitle: "Warum Last Minute?",
     whyItems: [
@@ -216,7 +216,7 @@ const content = {
     priceNotAvailable: "Precio no disponible – confirma por WhatsApp",
     discountBadge: "¡Bonus viajero rápido!",
     specialOfferBadge: "Oferta especial",
-    skiPassBadge: "Forfait de esquí",
+    skiPassBadge: "¡2 forfaits de esquí incluidos con este alojamiento!",
     noDeals: "No hay ofertas de última hora disponibles en este momento. ¡Vuelve más tarde!",
     whyTitle: "¿Por qué última hora?",
     whyItems: [
@@ -246,7 +246,7 @@ const content = {
     priceNotAvailable: "Prix indisponible – confirmer via WhatsApp",
     discountBadge: "Bonus voyageur rapide!",
     specialOfferBadge: "Offre spéciale",
-    skiPassBadge: "Forfait de ski",
+    skiPassBadge: "2 forfaits de ski inclus avec cet hébergement!",
     noDeals: "Aucune offre de dernière minute disponible pour le moment. Revenez plus tard !",
     whyTitle: "Pourquoi dernière minute ?",
     whyItems: [
