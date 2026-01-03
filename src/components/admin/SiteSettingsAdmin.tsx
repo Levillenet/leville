@@ -5,12 +5,8 @@ import { Label } from '@/components/ui/label';
 import { Loader2, CalendarDays, Save } from 'lucide-react';
 import { useAdminSettingsManager } from '@/hooks/useAdminSettings';
 
-interface SiteSettingsAdminProps {
-  adminPassword: string;
-}
-
-const SiteSettingsAdmin = ({ adminPassword }: SiteSettingsAdminProps) => {
-  const { settings, isLoading, updateSiteSetting, isSaving } = useAdminSettingsManager(adminPassword);
+const SiteSettingsAdmin = () => {
+  const { settings, isLoading, updateSiteSetting, isSaving } = useAdminSettingsManager();
   const [dealsDaysAhead, setDealsDaysAhead] = useState<number>(14);
   
   // Load current value from settings

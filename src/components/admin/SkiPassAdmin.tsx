@@ -61,11 +61,7 @@ const fetchBeds24Availability = async (): Promise<Beds24Deal[]> => {
   }
 };
 
-interface SkiPassAdminProps {
-  adminPassword: string;
-}
-
-const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
+const SkiPassAdmin = () => {
   const [editingSettings, setEditingSettings] = useState(false);
   const [tempCapacity, setTempCapacity] = useState(4);
   const { toast } = useToast();
@@ -77,7 +73,7 @@ const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
     isLoading: isLoadingSettings,
     upsertPeriod,
     isSaving 
-  } = useAdminSettingsManager(adminPassword);
+  } = useAdminSettingsManager();
 
   const periodSettings = dbSettings?.periodSettings || [];
 
