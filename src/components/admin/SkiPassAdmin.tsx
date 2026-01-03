@@ -490,22 +490,27 @@ const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
                               </Label>
                             </div>
                             
-                            {/* Custom discount input */}
+                            {/* Custom discount buttons */}
                             <div className="flex items-center gap-2">
-                              <Label className="text-sm text-muted-foreground">Alennus %:</Label>
-                              <Input
-                                type="number"
-                                value={localPeriodSettings.customDiscount ?? ""}
-                                onChange={(e) => handleUpdateDiscount(
-                                  deal, 
-                                  e.target.value ? Number(e.target.value) : null
-                                )}
-                                placeholder="-"
-                                className="w-16 h-8 text-center"
-                                min={0}
-                                max={100}
-                                disabled={isSaving}
-                              />
+                              <Label className="text-sm text-muted-foreground">Alennus:</Label>
+                              <div className="flex items-center gap-1">
+                                {[10, 20, 30].map(val => (
+                                  <Button
+                                    key={val}
+                                    type="button"
+                                    size="sm"
+                                    variant={localPeriodSettings.customDiscount === val ? "default" : "outline"}
+                                    className="h-8 w-12 p-0 text-xs"
+                                    onClick={() => handleUpdateDiscount(
+                                      deal, 
+                                      localPeriodSettings.customDiscount === val ? null : val
+                                    )}
+                                    disabled={isSaving}
+                                  >
+                                    {val}%
+                                  </Button>
+                                ))}
+                              </div>
                             </div>
                             
                             {/* Show discount toggle */}
