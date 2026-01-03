@@ -17,18 +17,30 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     const { action, userId, email, targetUserId, inviterUserId } = await req.json();
-    console.log('admin-auth action:', action, 'userId:', userId, 'email:', email);
+    const normalizedEmail = (email ?? '').toString().trim().toLowerCase();
+    console.log('admin-auth action:', action, 'userId:', userId, 'email:', normalizedEmail);
 
     switch (action) {
       case 'check_and_activate': {
+        if (!userId) {
+          return new Response(
+            JSON.stringify({ success: false, error: 'Puuttuva käyttäjä-ID' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+
         // Check if user has an active role
-        const { data: existingRole } = await supabase
+        const { data: existingRole, error: existingRoleError } = await supabase
           .from('user_roles')
           .select('role')
           .eq('user_id', userId)
-          .single();
+          .maybeSingle();
 
-        if (existingRole) {
+        if (existingRoleError) {
+          console.error('Error checking existing role:', existingRoleError);
+        }
+
+        if (existingRole?.role) {
           console.log('User already has role:', existingRole.role);
           return new Response(
             JSON.stringify({ success: true, role: existingRole.role, isNew: false }),
@@ -37,16 +49,20 @@ serve(async (req) => {
         }
 
         // Check if user was invited
-        const { data: invitation } = await supabase
+        const { data: invitation, error: invitationError } = await supabase
           .from('admin_invitations')
           .select('*')
-          .eq('email', email)
+          .eq('email', normalizedEmail)
           .is('used_at', null)
           .gt('expires_at', new Date().toISOString())
-          .single();
+          .maybeSingle();
+
+        if (invitationError) {
+          console.error('Error checking invitation:', invitationError);
+        }
 
         if (!invitation) {
-          console.log('No valid invitation found for:', email);
+          console.log('No valid invitation found for:', normalizedEmail);
           return new Response(
             JSON.stringify({ success: false, error: 'Ei voimassa olevaa kutsua' }),
             { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -67,12 +83,16 @@ serve(async (req) => {
         }
 
         // Mark invitation as used
-        await supabase
+        const { error: markUsedError } = await supabase
           .from('admin_invitations')
           .update({ used_at: new Date().toISOString() })
           .eq('id', invitation.id);
 
-        console.log('User activated as admin:', email);
+        if (markUsedError) {
+          console.error('Error marking invitation as used:', markUsedError);
+        }
+
+        console.log('User activated as admin:', normalizedEmail);
         return new Response(
           JSON.stringify({ success: true, role: 'admin', isNew: true }),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -80,11 +100,15 @@ serve(async (req) => {
       }
 
       case 'get_role': {
-        const { data: role } = await supabase
+        const { data: role, error } = await supabase
           .from('user_roles')
           .select('role')
           .eq('user_id', userId)
-          .single();
+          .maybeSingle();
+
+        if (error) {
+          console.error('Error getting role:', error);
+        }
 
         return new Response(
           JSON.stringify({ success: true, role: role?.role || null }),
@@ -108,7 +132,6 @@ serve(async (req) => {
         }
 
         // Get user emails from auth.users
-        const userIds = roles?.map(r => r.user_id) || [];
         const adminsWithEmail = [];
 
         for (const role of roles || []) {
@@ -153,7 +176,7 @@ serve(async (req) => {
           .from('user_roles')
           .select('role')
           .eq('user_id', inviterUserId)
-          .single();
+          .maybeSingle();
 
         if (callerRole?.role !== 'super_admin') {
           return new Response(
@@ -162,13 +185,17 @@ serve(async (req) => {
           );
         }
 
-        // Check if email already has an invitation or is already an admin
-        const { data: existingInvitation } = await supabase
+        // Check if email already has an invitation
+        const { data: existingInvitation, error: existingInvitationError } = await supabase
           .from('admin_invitations')
           .select('id')
-          .eq('email', email)
+          .eq('email', normalizedEmail)
           .is('used_at', null)
-          .single();
+          .maybeSingle();
+
+        if (existingInvitationError) {
+          console.error('Error checking existing invitation:', existingInvitationError);
+        }
 
         if (existingInvitation) {
           return new Response(
@@ -180,8 +207,8 @@ serve(async (req) => {
         // Create invitation
         const { data: invitation, error } = await supabase
           .from('admin_invitations')
-          .insert({ 
-            email, 
+          .insert({
+            email: normalizedEmail,
             invited_by: inviterUserId,
             expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
           })
@@ -196,7 +223,7 @@ serve(async (req) => {
           );
         }
 
-        console.log('Invitation created for:', email);
+        console.log('Invitation created for:', normalizedEmail);
         return new Response(
           JSON.stringify({ success: true, invitation }),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -209,7 +236,7 @@ serve(async (req) => {
           .from('user_roles')
           .select('role')
           .eq('user_id', inviterUserId)
-          .single();
+          .maybeSingle();
 
         if (callerRole?.role !== 'super_admin') {
           return new Response(
@@ -253,7 +280,7 @@ serve(async (req) => {
           .from('user_roles')
           .select('role')
           .eq('user_id', inviterUserId)
-          .single();
+          .maybeSingle();
 
         if (callerRole?.role !== 'super_admin') {
           return new Response(
@@ -265,7 +292,7 @@ serve(async (req) => {
         const { error } = await supabase
           .from('admin_invitations')
           .delete()
-          .eq('email', email);
+          .eq('email', normalizedEmail);
 
         if (error) {
           console.error('Error deleting invitation:', error);
@@ -275,7 +302,7 @@ serve(async (req) => {
           );
         }
 
-        console.log('Invitation deleted for:', email);
+        console.log('Invitation deleted for:', normalizedEmail);
         return new Response(
           JSON.stringify({ success: true }),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
