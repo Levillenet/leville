@@ -13,7 +13,8 @@ serve(async (req) => {
 
   try {
     const { email, inviterUserId, siteUrl } = await req.json();
-    console.log('Sending admin invite to:', email);
+    const normalizedEmail = (email ?? '').toString().trim().toLowerCase();
+    console.log('Sending admin invite to:', normalizedEmail);
 
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
@@ -43,7 +44,7 @@ serve(async (req) => {
     const { error: inviteError } = await supabase
       .from('admin_invitations')
       .upsert({ 
-        email, 
+        email: normalizedEmail, 
         invited_by: inviterUserId,
         expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
         used_at: null
@@ -69,7 +70,7 @@ serve(async (req) => {
         },
         body: JSON.stringify({
           from: 'Leville Admin <admin@m.leville.net>',
-          to: [email],
+          to: [normalizedEmail],
           subject: 'Kutsu Leville Admin-paneeliin',
           html: `
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
@@ -85,7 +86,7 @@ serve(async (req) => {
                 </a>
               </p>
               <p style="color: #666; font-size: 14px;">
-                Kutsu on voimassa 7 päivää. Kirjaudu sisään sähköpostiosoitteellasi ${email} 
+                Kutsu on voimassa 7 päivää. Kirjaudu sisään sähköpostiosoitteellasi ${normalizedEmail} 
                 käyttämällä magic link -kirjautumista.
               </p>
             </div>
@@ -107,7 +108,7 @@ serve(async (req) => {
         );
       }
 
-      console.log('Invitation email sent to:', email);
+      console.log('Invitation email sent to:', normalizedEmail);
       return new Response(
         JSON.stringify({ success: true, emailSent: true }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
