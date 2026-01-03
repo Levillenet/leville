@@ -3,14 +3,16 @@ import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, RefreshCw, Database, Settings } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Mail, Loader2 } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
 import SiteSettingsAdmin from "@/components/admin/SiteSettingsAdmin";
+import UserManagementAdmin from "@/components/admin/UserManagementAdmin";
+import { Session, User } from "@supabase/supabase-js";
 import {
   BarChart,
   Bar,
@@ -43,63 +45,152 @@ interface DownloadStats {
 const COLORS = ['hsl(var(--primary))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];
 
 const Admin = () => {
-  const [password, setPassword] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [session, setSession] = useState<Session | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [userRole, setUserRole] = useState<'admin' | 'super_admin' | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSendingMagicLink, setIsSendingMagicLink] = useState(false);
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
   const [stats, setStats] = useState<DownloadStats | null>(null);
   const { toast } = useToast();
 
-  // Check session storage for existing auth
+  // Set up auth state listener
   useEffect(() => {
-    const adminAuth = sessionStorage.getItem("adminAuth");
-    if (adminAuth) {
-      setIsAuthenticated(true);
-      fetchStats(adminAuth);
-    }
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.email);
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        if (session?.user) {
+          // Defer the role check
+          setTimeout(() => {
+            checkAndActivateRole(session.user.id, session.user.email!);
+          }, 0);
+        } else {
+          setUserRole(null);
+          setIsLoading(false);
+        }
+      }
+    );
+
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      
+      if (session?.user) {
+        checkAndActivateRole(session.user.id, session.user.email!);
+      } else {
+        setIsLoading(false);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!password.trim()) return;
-
-    setIsLoading(true);
+  const checkAndActivateRole = async (userId: string, userEmail: string) => {
     try {
-      const { data, error } = await supabase.functions.invoke('verify-admin', {
-        body: { password }
+      const { data, error } = await supabase.functions.invoke('admin-auth', {
+        body: { 
+          action: 'check_and_activate', 
+          userId, 
+          email: userEmail 
+        }
       });
 
       if (error || !data?.success) {
+        console.log('Role check failed:', data?.error);
+        setAuthError(data?.error || 'Ei käyttöoikeutta');
+        setUserRole(null);
+        // Sign out the user if they don't have access
+        await supabase.auth.signOut();
         toast({
-          title: "Virhe",
-          description: data?.error || "Väärä salasana",
+          title: "Ei käyttöoikeutta",
+          description: data?.error || "Sinulla ei ole admin-oikeuksia",
           variant: "destructive"
         });
-        return;
+      } else {
+        console.log('Role activated:', data.role, 'isNew:', data.isNew);
+        setUserRole(data.role);
+        setAuthError(null);
+        
+        if (data.isNew) {
+          toast({
+            title: "Tervetuloa!",
+            description: "Admin-oikeutesi on aktivoitu"
+          });
+        }
+        
+        fetchStats();
       }
-
-      sessionStorage.setItem("adminAuth", password);
-      setIsAuthenticated(true);
-      fetchStats(password);
-      toast({
-        title: "Kirjautuminen onnistui",
-        description: "Tervetuloa admin-näkymään"
-      });
     } catch (error) {
-      console.error('Login error:', error);
-      toast({
-        title: "Virhe",
-        description: "Kirjautuminen epäonnistui",
-        variant: "destructive"
-      });
+      console.error('Error checking role:', error);
+      setAuthError('Virhe tarkistettaessa käyttöoikeutta');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const fetchStats = async (pwd: string) => {
+  const handleSendMagicLink = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      toast({
+        title: "Virheellinen sähköposti",
+        description: "Anna kelvollinen sähköpostiosoite",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSendingMagicLink(true);
+    setAuthError(null);
+
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email: email.trim().toLowerCase(),
+        options: {
+          emailRedirectTo: `${window.location.origin}/admin`
+        }
+      });
+
+      if (error) {
+        console.error('Magic link error:', error);
+        toast({
+          title: "Virhe",
+          description: error.message || "Kirjautumislinkin lähetys epäonnistui",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      setMagicLinkSent(true);
+      toast({
+        title: "Linkki lähetetty",
+        description: `Kirjautumislinkki lähetetty osoitteeseen ${email}`
+      });
+    } catch (error) {
+      console.error('Magic link error:', error);
+      toast({
+        title: "Virhe",
+        description: "Kirjautumislinkin lähetys epäonnistui",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSendingMagicLink(false);
+    }
+  };
+
+  const fetchStats = async () => {
     try {
       const { data, error } = await supabase.functions.invoke('get-download-stats', {
-        body: { password: pwd }
+        body: {}
       });
 
       if (error) {
@@ -113,11 +204,15 @@ const Admin = () => {
     }
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("adminAuth");
-    setIsAuthenticated(false);
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setSession(null);
+    setUser(null);
+    setUserRole(null);
     setStats(null);
-    setPassword("");
+    setEmail("");
+    setMagicLinkSent(false);
+    setAuthError(null);
   };
 
   const documentTypeData = stats ? 
@@ -144,7 +239,24 @@ const Admin = () => {
         downloads: value
       })) : [];
 
-  if (!isAuthenticated) {
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <Helmet>
+          <title>Admin - Leville</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <p className="text-muted-foreground">Ladataan...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Login form
+  if (!user || !userRole) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Helmet>
@@ -155,23 +267,68 @@ const Admin = () => {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Lock className="w-8 h-8 text-primary" />
+              {magicLinkSent ? (
+                <Mail className="w-8 h-8 text-primary" />
+              ) : (
+                <Lock className="w-8 h-8 text-primary" />
+              )}
             </div>
-            <CardTitle>Admin-kirjautuminen</CardTitle>
+            <CardTitle>
+              {magicLinkSent ? "Tarkista sähköpostisi" : "Admin-kirjautuminen"}
+            </CardTitle>
+            <CardDescription>
+              {magicLinkSent 
+                ? `Kirjautumislinkki lähetetty osoitteeseen ${email}. Klikkaa linkkiä kirjautuaksesi.`
+                : "Kirjaudu sisään sähköpostiosoitteellasi. Saat kirjautumislinkin sähköpostiisi."}
+            </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <Input
-                type="password"
-                placeholder="Salasana"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={isLoading}
-              />
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Kirjaudutaan..." : "Kirjaudu"}
-              </Button>
-            </form>
+            {magicLinkSent ? (
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground text-center">
+                  Etkö saanut viestiä? Tarkista roskapostikansio tai yritä uudelleen.
+                </p>
+                <Button 
+                  variant="outline" 
+                  className="w-full" 
+                  onClick={() => {
+                    setMagicLinkSent(false);
+                    setEmail("");
+                  }}
+                >
+                  Yritä uudelleen
+                </Button>
+              </div>
+            ) : (
+              <form onSubmit={handleSendMagicLink} className="space-y-4">
+                <Input
+                  type="email"
+                  placeholder="sähköposti@esimerkki.fi"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isSendingMagicLink}
+                />
+                {authError && (
+                  <p className="text-sm text-destructive">{authError}</p>
+                )}
+                <Button type="submit" className="w-full" disabled={isSendingMagicLink}>
+                  {isSendingMagicLink ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Lähetetään...
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="w-4 h-4 mr-2" />
+                      Lähetä kirjautumislinkki
+                    </>
+                  )}
+                </Button>
+                <p className="text-xs text-center text-muted-foreground">
+                  Vain kutsutut käyttäjät voivat kirjautua sisään.
+                </p>
+              </form>
+            )}
           </CardContent>
         </Card>
       </div>
@@ -187,7 +344,10 @@ const Admin = () => {
 
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-foreground">Admin</h1>
+          <div>
+            <h1 className="text-xl font-semibold text-foreground">Admin</h1>
+            <p className="text-sm text-muted-foreground">{user.email}</p>
+          </div>
           <Button variant="outline" size="sm" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-2" />
             Kirjaudu ulos
@@ -197,7 +357,7 @@ const Admin = () => {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs defaultValue="settings" className="space-y-6">
-          <TabsList>
+          <TabsList className="flex-wrap h-auto gap-1">
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="w-4 h-4" />
               Yleiset asetukset
@@ -210,6 +370,10 @@ const Admin = () => {
               <Ticket className="w-4 h-4" />
               Hissiliput ja erikoistarjoukset
             </TabsTrigger>
+            <TabsTrigger value="users" className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              Käyttäjähallinta
+            </TabsTrigger>
             <TabsTrigger value="stats" className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4" />
               Lataustilastot
@@ -221,15 +385,22 @@ const Admin = () => {
           </TabsList>
 
           <TabsContent value="settings">
-            <SiteSettingsAdmin adminPassword={sessionStorage.getItem("adminAuth") || ""} />
+            <SiteSettingsAdmin />
           </TabsContent>
 
           <TabsContent value="properties">
-            <PropertyAdmin adminPassword={sessionStorage.getItem("adminAuth") || ""} />
+            <PropertyAdmin />
           </TabsContent>
 
           <TabsContent value="skipass">
-            <SkiPassAdmin adminPassword={sessionStorage.getItem("adminAuth") || ""} />
+            <SkiPassAdmin />
+          </TabsContent>
+
+          <TabsContent value="users">
+            <UserManagementAdmin 
+              currentUserId={user.id} 
+              currentUserRole={userRole} 
+            />
           </TabsContent>
 
           <TabsContent value="cache">

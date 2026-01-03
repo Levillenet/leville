@@ -1,4 +1,3 @@
-import { useState, useEffect, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -68,8 +67,8 @@ export const useAdminSettings = () => {
   });
 };
 
-// Hook for admin panel with write operations
-export const useAdminSettingsManager = (adminPassword: string) => {
+// Hook for admin panel with write operations (now uses Supabase Auth instead of password)
+export const useAdminSettingsManager = () => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
   
@@ -81,7 +80,6 @@ export const useAdminSettingsManager = (adminPassword: string) => {
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
           action: 'upsert_property', 
-          password: adminPassword,
           data: propertyData
         }
       });
@@ -110,7 +108,6 @@ export const useAdminSettingsManager = (adminPassword: string) => {
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
           action: 'upsert_period', 
-          password: adminPassword,
           data: periodData
         }
       });
@@ -138,7 +135,6 @@ export const useAdminSettingsManager = (adminPassword: string) => {
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
           action: 'update_capacity', 
-          password: adminPassword,
           data: capacityData
         }
       });
@@ -166,7 +162,6 @@ export const useAdminSettingsManager = (adminPassword: string) => {
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
           action: 'reset_property', 
-          password: adminPassword,
           data: { property_id: propertyId }
         }
       });
@@ -194,8 +189,7 @@ export const useAdminSettingsManager = (adminPassword: string) => {
     mutationFn: async () => {
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
-          action: 'reset_all', 
-          password: adminPassword
+          action: 'reset_all'
         }
       });
       
@@ -223,7 +217,6 @@ export const useAdminSettingsManager = (adminPassword: string) => {
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
           action: 'update_site_setting', 
-          password: adminPassword,
           data: { setting_id: settingId, value }
         }
       });
