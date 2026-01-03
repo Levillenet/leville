@@ -647,22 +647,25 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         )}
                         
                         {/* Special Offer Badge - moved lower */}
-                        {/* Badges container - stacked vertically */}
-                        <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
-                          {hasSpecialOffer(deal) && (
+                        {/* Special Offer Badge - top left */}
+                        {hasSpecialOffer(deal) && (
+                          <div className="absolute top-3 left-3 z-20">
                             <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Sparkles className="w-3.5 h-3.5 mr-1" />
                               {t.specialOfferBadge}
                             </Badge>
-                          )}
-                          
-                          {hasSkiPassOffer(deal) && (
-                            <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
-                              <Ticket className="w-3.5 h-3.5 mr-1" />
-                              {t.skiPassBadge}
+                          </div>
+                        )}
+                        
+                        {/* Ski Pass Badge - top right, 2 lines */}
+                        {hasSkiPassOffer(deal) && (
+                          <div className="absolute top-3 right-3 z-20 max-w-[140px]">
+                            <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg whitespace-normal text-center leading-tight">
+                              <Ticket className="w-3.5 h-3.5 mr-1 flex-shrink-0" />
+                              <span>{t.skiPassBadge}</span>
                             </Badge>
-                          )}
-                        </div>
+                          </div>
+                        )}
 
                         <CardHeader className="pb-3 pt-12 relative z-10">
                           <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
