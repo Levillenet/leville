@@ -507,12 +507,17 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "en" ? "en_US" : lang} />
+        <meta property="og:image" content="https://leville.net/og-akkilahdot.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={lang === "fi" ? "Leville.net mökkimajoitus revontulien alla Levillä" : lang === "en" ? "Leville.net cabin accommodation under the northern lights in Levi" : lang === "sv" ? "Leville.net stugboende under norrskenet i Levi" : lang === "de" ? "Leville.net Hüttenunterkunft unter dem Nordlicht in Levi" : lang === "es" ? "Alojamiento en cabaña Leville.net bajo la aurora boreal en Levi" : "Hébergement en chalet Leville.net sous les aurores boréales à Levi"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "en" ? "en_US" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : "fr_FR"} />
         <meta property="og:site_name" content="Leville.net" />
         
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
+        <meta name="twitter:image" content="https://leville.net/og-akkilahdot.png" />
 
         <script type="application/ld+json">
           {JSON.stringify(schemaData)}
