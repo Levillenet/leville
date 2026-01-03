@@ -175,15 +175,15 @@ const PropertyAdmin = ({ adminPassword }: PropertyAdminProps) => {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-[80px]">ID</TableHead>
-                      <TableHead>Markkinointinimi</TableHead>
-                      <TableHead className="text-right w-[60px]">Hlö</TableHead>
-                      <TableHead className="text-right w-[80px]">Siivous</TableHead>
-                      <TableHead className="text-right w-[70px]">1 yö</TableHead>
-                      <TableHead className="text-right w-[70px]">2 yötä</TableHead>
-                      <TableHead className="text-right w-[70px]">3+ yötä</TableHead>
-                      <TableHead className="text-center w-[60px]">Näytä %</TableHead>
-                      <TableHead className="w-[100px]"></TableHead>
+                      <TableHead className="w-[60px]">ID</TableHead>
+                      <TableHead className="min-w-[120px]">Markkinointinimi</TableHead>
+                      <TableHead className="text-center w-[40px]">Hlö</TableHead>
+                      <TableHead className="text-center w-[70px]">Siivous</TableHead>
+                      <TableHead className="text-center w-[130px]">1 yö</TableHead>
+                      <TableHead className="text-center w-[130px]">2 yötä</TableHead>
+                      <TableHead className="text-center w-[130px]">3+ yötä</TableHead>
+                      <TableHead className="text-center w-[50px]">%</TableHead>
+                      <TableHead className="w-[80px]"></TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
