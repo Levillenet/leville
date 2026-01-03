@@ -6,10 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, RefreshCw, Database } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, RefreshCw, Database, Settings } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
+import SiteSettingsAdmin from "@/components/admin/SiteSettingsAdmin";
 import {
   BarChart,
   Bar,
@@ -195,8 +196,12 @@ const Admin = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="properties" className="space-y-6">
+        <Tabs defaultValue="settings" className="space-y-6">
           <TabsList>
+            <TabsTrigger value="settings" className="flex items-center gap-2">
+              <Settings className="w-4 h-4" />
+              Yleiset asetukset
+            </TabsTrigger>
             <TabsTrigger value="properties" className="flex items-center gap-2">
               <Building className="w-4 h-4" />
               Huoneistot
@@ -214,6 +219,10 @@ const Admin = () => {
               Välimuisti
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="settings">
+            <SiteSettingsAdmin adminPassword={sessionStorage.getItem("adminAuth") || ""} />
+          </TabsContent>
 
           <TabsContent value="properties">
             <PropertyAdmin adminPassword={sessionStorage.getItem("adminAuth") || ""} />

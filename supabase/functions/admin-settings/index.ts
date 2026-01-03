@@ -47,7 +47,7 @@ Deno.serve(async (req) => {
     const { action, password, data } = await req.json();
     
     // Verify admin password for write operations
-    const writeActions = ['upsert_property', 'upsert_period', 'update_capacity', 'reset_property', 'reset_all'];
+    const writeActions = ['upsert_property', 'upsert_period', 'update_capacity', 'reset_property', 'reset_all', 'update_site_setting'];
     if (writeActions.includes(action)) {
       if (password !== adminPassword) {
         console.log('Admin auth failed for action:', action);
@@ -83,17 +83,26 @@ Deno.serve(async (req) => {
         
         if (capError) throw capError;
         
+        // Get site settings
+        const { data: siteSettings, error: siteError } = await supabase
+          .from('site_settings')
+          .select('*');
+        
+        if (siteError) throw siteError;
+        
         console.log('Fetched settings:', {
           properties: propertySettings?.length || 0,
           periods: periodSettings?.length || 0,
-          capacity: skiPassCapacity?.length || 0
+          capacity: skiPassCapacity?.length || 0,
+          site: siteSettings?.length || 0
         });
         
         return new Response(
           JSON.stringify({ 
             propertySettings: propertySettings || [], 
             periodSettings: periodSettings || [],
-            skiPassCapacity: skiPassCapacity || []
+            skiPassCapacity: skiPassCapacity || [],
+            siteSettings: siteSettings || []
           }),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
@@ -213,6 +222,26 @@ Deno.serve(async (req) => {
           .neq('date', '');
         
         if (capError) throw capError;
+        
+        return new Response(
+          JSON.stringify({ success: true }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      
+      case 'update_site_setting': {
+        const { setting_id, value } = data;
+        console.log('Updating site setting:', setting_id, value);
+        
+        const { error } = await supabase
+          .from('site_settings')
+          .upsert({
+            id: setting_id,
+            value: value,
+            updated_at: new Date().toISOString()
+          }, { onConflict: 'id' });
+        
+        if (error) throw error;
         
         return new Response(
           JSON.stringify({ success: true }),

@@ -33,10 +33,16 @@ export interface DbSkiPassCapacity {
   max_passes: number;
 }
 
+export interface DbSiteSetting {
+  id: string;
+  value: any;
+}
+
 interface AdminSettingsResponse {
   propertySettings: DbPropertySettings[];
   periodSettings: DbPeriodSettings[];
   skiPassCapacity: DbSkiPassCapacity[];
+  siteSettings: DbSiteSetting[];
 }
 
 // Fetch all settings from database
@@ -211,6 +217,35 @@ export const useAdminSettingsManager = (adminPassword: string) => {
     }
   });
   
+  // Update site setting
+  const updateSiteSetting = useMutation({
+    mutationFn: async ({ settingId, value }: { settingId: string; value: any }) => {
+      const { data, error } = await supabase.functions.invoke('admin-settings', {
+        body: { 
+          action: 'update_site_setting', 
+          password: adminPassword,
+          data: { setting_id: settingId, value }
+        }
+      });
+      
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-settings'] });
+      toast({ title: 'Tallennettu', description: 'Asetus päivitetty' });
+    },
+    onError: (error) => {
+      console.error('Error updating site setting:', error);
+      toast({ 
+        title: 'Virhe', 
+        description: 'Asetuksen päivitys epäonnistui',
+        variant: 'destructive'
+      });
+    }
+  });
+  
   return {
     settings,
     isLoading,
@@ -220,7 +255,8 @@ export const useAdminSettingsManager = (adminPassword: string) => {
     updateCapacity: updateCapacity.mutate,
     resetProperty: resetProperty.mutate,
     resetAll: resetAll.mutate,
-    isSaving: upsertProperty.isPending || upsertPeriod.isPending || updateCapacity.isPending
+    updateSiteSetting: updateSiteSetting.mutate,
+    isSaving: upsertProperty.isPending || upsertPeriod.isPending || updateCapacity.isPending || updateSiteSetting.isPending
   };
 };
 

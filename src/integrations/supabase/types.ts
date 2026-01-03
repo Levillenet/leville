@@ -164,6 +164,27 @@ export type Database = {
         }
         Relationships: []
       }
+      site_settings: {
+        Row: {
+          created_at: string
+          id: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          updated_at?: string
+          value: Json
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
       ski_pass_capacity: {
         Row: {
           allocated_passes: number | null
