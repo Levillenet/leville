@@ -59,15 +59,21 @@ const Admin = () => {
   // Set up auth state listener
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
         console.log('Auth state changed:', event, session?.user?.email);
         setSession(session);
         setUser(session?.user ?? null);
-        
+
         if (session?.user) {
-          // Defer the role check
+          // Defer the role check so the client has the fresh session available
           setTimeout(() => {
-            checkAndActivateRole(session.user.id, session.user.email!);
+            if (session.user.email) {
+              checkAndActivateRole(session.user.id, session.user.email);
+            } else {
+              setAuthError('Sähköposti puuttuu käyttäjältä');
+              setUserRole(null);
+              setIsLoading(false);
+            }
           }, 0);
         } else {
           setUserRole(null);
@@ -80,9 +86,17 @@ const Admin = () => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      
+
       if (session?.user) {
-        checkAndActivateRole(session.user.id, session.user.email!);
+        setTimeout(() => {
+          if (session.user.email) {
+            checkAndActivateRole(session.user.id, session.user.email);
+          } else {
+            setAuthError('Sähköposti puuttuu käyttäjältä');
+            setUserRole(null);
+            setIsLoading(false);
+          }
+        }, 0);
       } else {
         setIsLoading(false);
       }
