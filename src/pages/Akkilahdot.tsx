@@ -412,7 +412,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
     // Check for period-specific custom discount (from admin) - applied as ADDITIONAL discount
     const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
-    if (periodS.specialOffer && periodS.customDiscount && periodS.customDiscount > 0) {
+    if (periodS.customDiscount && periodS.customDiscount > 0) {
       // Apply custom discount on top of PropertyAdmin price (additional discount)
       return Math.round(propertyAdminPrice * (1 - periodS.customDiscount / 100));
     }
