@@ -647,24 +647,22 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         )}
                         
                         {/* Special Offer Badge - moved lower */}
-                        {hasSpecialOffer(deal) && (
-                          <div className="absolute top-3 left-3 z-20">
+                        {/* Badges container - stacked vertically */}
+                        <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
+                          {hasSpecialOffer(deal) && (
                             <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Sparkles className="w-3.5 h-3.5 mr-1" />
                               {t.specialOfferBadge}
                             </Badge>
-                          </div>
-                        )}
-                        
-                        {/* Ski Pass Offer Badge - moved lower */}
-                        {hasSkiPassOffer(deal) && (
-                          <div className="absolute top-3 right-3 z-20">
+                          )}
+                          
+                          {hasSkiPassOffer(deal) && (
                             <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Ticket className="w-3.5 h-3.5 mr-1" />
                               {t.skiPassBadge}
                             </Badge>
-                          </div>
-                        )}
+                          )}
+                        </div>
 
                         <CardHeader className="pb-3 pt-12 relative z-10">
                           <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
