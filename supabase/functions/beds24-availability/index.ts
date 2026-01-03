@@ -333,11 +333,32 @@ serve(async (req) => {
     const url = new URL(req.url);
     const forceRefresh = url.searchParams.get("force_refresh"); // "all", "prices", "availability"
 
+    // Get deals_days_ahead from site_settings (default 14)
+    let dealsDaysAhead = 14;
+    try {
+      const { data: siteSetting } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("id", "deals_days_ahead")
+        .single();
+      
+      if (siteSetting?.value) {
+        const parsedValue = typeof siteSetting.value === "number" 
+          ? siteSetting.value 
+          : parseInt(String(siteSetting.value), 10);
+        if (!isNaN(parsedValue) && parsedValue > 0) {
+          dealsDaysAhead = parsedValue;
+        }
+      }
+    } catch (e) {
+      console.log("Could not fetch deals_days_ahead, using default 14");
+    }
+
     const today = new Date();
-    const maxCheckInDate = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
+    const maxCheckInDate = new Date(today.getTime() + dealsDaysAhead * 24 * 60 * 60 * 1000);
     const maxCheckInStr = formatDate(maxCheckInDate);
 
-    console.log(`Max check-in date: ${maxCheckInStr}, force_refresh: ${forceRefresh}`);
+    console.log(`Max check-in date: ${maxCheckInStr} (${dealsDaysAhead} days), force_refresh: ${forceRefresh}`);
 
     // Check caches
     const { data: cacheData } = await supabase
@@ -390,7 +411,7 @@ serve(async (req) => {
 
     // Process availability into deals
     const deals = processAvailabilityData(availabilityData.rooms, availabilityData.properties, maxCheckInStr);
-    console.log(`Found ${deals.length} deals within 14 days`);
+    console.log(`Found ${deals.length} deals within ${dealsDaysAhead} days`);
 
     let pricesCachedAt: string;
     let dealsWithPrices: Deal[];
