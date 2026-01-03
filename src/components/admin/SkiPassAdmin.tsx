@@ -300,6 +300,77 @@ const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
 
   return (
     <div className="space-y-6">
+      {/* Comprehensive info box explaining all features */}
+      <Card className="bg-gradient-to-r from-cyan-500/10 to-amber-500/10 border-cyan-500/30">
+        <CardContent className="py-4">
+          <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+            <Info className="w-5 h-5 text-cyan-400" />
+            Jaksokohtaisten asetusten opas
+          </h3>
+          
+          <div className="grid md:grid-cols-2 gap-6 text-sm">
+            {/* Left column - Toggle explanations */}
+            <div className="space-y-4">
+              <div className="bg-background/50 p-3 rounded-lg border border-cyan-500/20">
+                <div className="flex items-center gap-2 mb-2">
+                  <Ticket className="w-4 h-4 text-cyan-400" />
+                  <span className="font-semibold text-foreground">Hissilippu</span>
+                </div>
+                <p className="text-muted-foreground text-xs">
+                  Lisää 2 ilmaista hissilippua majoitukseen. Näyttää sivulla badgen "Tähän majoitukseen mukaan 2 hissilippua!". 
+                  Kapasiteetti on rajattu {settings.totalCapacity} lippuun/päivä.
+                </p>
+              </div>
+              
+              <div className="bg-background/50 p-3 rounded-lg border border-amber-500/20">
+                <div className="flex items-center gap-2 mb-2">
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  <span className="font-semibold text-foreground">Erikoistarjous</span>
+                </div>
+                <p className="text-muted-foreground text-xs">
+                  Lisää kultaisen "Erikoistarjous"-badgen majoituskorttiin ja korostaa hinnan isommalla kursiivilla. 
+                  <strong> Tämä on visuaalinen merkintä</strong> - varsinainen alennus asetetaan Alennus-painikkeilla.
+                </p>
+              </div>
+            </div>
+            
+            {/* Right column - Discount explanations */}
+            <div className="space-y-4">
+              <div className="bg-background/50 p-3 rounded-lg border border-green-500/20">
+                <div className="flex items-center gap-2 mb-2">
+                  <Percent className="w-4 h-4 text-green-400" />
+                  <span className="font-semibold text-foreground">Alennus (10%, 20%, 30%)</span>
+                </div>
+                <p className="text-muted-foreground text-xs">
+                  Jaksokohtainen lisäalennus, joka lasketaan <strong>huoneistohinnan päälle</strong>. 
+                  Esim. jos huoneistolla on jo 15% alennus ja lisäät 10% jaksoalennuksen, lopullinen hinta on: 
+                  (API-hinta × 0.85 + siivous) × 0.90
+                </p>
+              </div>
+              
+              <div className="bg-background/50 p-3 rounded-lg border border-purple-500/20">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-4 h-4 text-purple-400 font-bold text-sm">👁️</span>
+                  <span className="font-semibold text-foreground">Näytä alennus</span>
+                </div>
+                <p className="text-muted-foreground text-xs">
+                  Kun päällä, näyttää asiakkaalle <strong>alkuperäisen hinnan yliviivattuna</strong> (esim. <span className="line-through">309€</span>) 
+                  alennetun hinnan vieressä. Korostaa säästöä visuaalisesti. Piilottaa prosenttibadgen, koska hinnanero näkyy suoraan.
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-4 text-xs text-muted-foreground bg-background/30 p-2 rounded flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
+            <span>
+              <strong>Hinnan prioriteetti:</strong> Jaksokohtainen alennus (tässä välilehdessä) sovelletaan AINA kun se on asetettu, 
+              riippumatta Erikoistarjous-togglesta. Erikoistarjous-toggle vaikuttaa vain ulkoasuun (badge ja korostettu tyyli).
+            </span>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Settings Card */}
       <Card>
         <CardHeader>
@@ -356,7 +427,7 @@ const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
             <Ticket className="w-5 h-5 text-cyan-400" />
-            Vapaat jaksot - Hissilippujen, erikoistarjousten ja alennusten hallinta
+            Vapaat jaksot - Hallitse yksittäisiä jaksoja
           </h3>
           
           {Object.entries(dealsByProperty).map(([roomId, deals]) => {
@@ -454,9 +525,9 @@ const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
                           </div>
                           
                           {/* Row 2: Controls */}
-                          <div className="flex items-center gap-6 pt-2 border-t border-border/50">
+                          <div className="flex flex-wrap items-center gap-4 md:gap-6 pt-2 border-t border-border/50">
                             {/* Ski pass toggle */}
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 bg-cyan-500/5 px-3 py-2 rounded-lg border border-cyan-500/20">
                               <Switch
                                 id={`skipass-${deal.id}`}
                                 checked={isAllocated}
@@ -465,7 +536,7 @@ const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
                               />
                               <Label 
                                 htmlFor={`skipass-${deal.id}`}
-                                className={`text-sm ${!canAllocate && !isAllocated ? 'text-muted-foreground' : ''}`}
+                                className={`text-sm font-medium ${!canAllocate && !isAllocated ? 'text-muted-foreground' : 'text-cyan-400'}`}
                               >
                                 Hissilippu
                               </Label>
@@ -478,21 +549,22 @@ const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
                             </div>
                             
                             {/* Special offer toggle */}
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 bg-amber-500/5 px-3 py-2 rounded-lg border border-amber-500/20">
                               <Switch
                                 id={`special-${deal.id}`}
                                 checked={localPeriodSettings.specialOffer}
                                 onCheckedChange={(checked) => handleToggleSpecialOffer(deal, checked)}
                                 disabled={isSaving}
                               />
-                              <Label htmlFor={`special-${deal.id}`} className="text-sm">
+                              <Label htmlFor={`special-${deal.id}`} className={`text-sm font-medium ${localPeriodSettings.specialOffer ? 'text-amber-400' : ''}`}>
                                 Erikoistarjous
                               </Label>
+                              <span className="text-xs text-muted-foreground hidden md:inline">(badge)</span>
                             </div>
                             
                             {/* Custom discount buttons */}
-                            <div className="flex items-center gap-2">
-                              <Label className="text-sm text-muted-foreground">Alennus:</Label>
+                            <div className="flex items-center gap-2 bg-green-500/5 px-3 py-2 rounded-lg border border-green-500/20">
+                              <Label className="text-sm font-medium text-green-400">Alennus:</Label>
                               <div className="flex items-center gap-1">
                                 {[10, 20, 30].map(val => (
                                   <Button
@@ -500,7 +572,7 @@ const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
                                     type="button"
                                     size="sm"
                                     variant={localPeriodSettings.customDiscount === val ? "default" : "outline"}
-                                    className="h-8 w-12 p-0 text-xs"
+                                    className={`h-8 w-12 p-0 text-xs ${localPeriodSettings.customDiscount === val ? 'bg-green-600 hover:bg-green-700' : ''}`}
                                     onClick={() => handleUpdateDiscount(
                                       deal, 
                                       localPeriodSettings.customDiscount === val ? null : val
@@ -514,16 +586,17 @@ const SkiPassAdmin = ({ adminPassword }: SkiPassAdminProps) => {
                             </div>
                             
                             {/* Show discount toggle */}
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 bg-purple-500/5 px-3 py-2 rounded-lg border border-purple-500/20">
                               <Switch
                                 id={`showdiscount-${deal.id}`}
                                 checked={localPeriodSettings.showDiscountBadge}
                                 onCheckedChange={(checked) => handleToggleShowDiscount(deal, checked)}
                                 disabled={isSaving}
                               />
-                              <Label htmlFor={`showdiscount-${deal.id}`} className="text-sm">
+                              <Label htmlFor={`showdiscount-${deal.id}`} className={`text-sm font-medium ${localPeriodSettings.showDiscountBadge ? 'text-purple-400' : ''}`}>
                                 Näytä alennus
                               </Label>
+                              <span className="text-xs text-muted-foreground hidden md:inline">(yliviivaus)</span>
                             </div>
                           </div>
                         </div>

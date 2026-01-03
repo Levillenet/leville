@@ -28,7 +28,7 @@ import {
   PropertyCategory
 } from "@/data/propertyDetails";
 import { useAdminSettingsManager, DbPropertySettings } from "@/hooks/useAdminSettings";
-import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, Percent, Loader2 } from "lucide-react";
+import { Pencil, RotateCcw, Save, X, Building, Home, Mountain, Star, TreePine, Percent, Loader2, Info } from "lucide-react";
 
 // Category icons and labels
 const categoryConfig: Record<PropertyCategory, { icon: React.ReactNode; label: string; color: string }> = {
@@ -138,11 +138,46 @@ const PropertyAdmin = ({ adminPassword }: PropertyAdminProps) => {
 
   return (
     <div className="space-y-6">
+      {/* Info box explaining the pricing system */}
+      <Card className="bg-blue-500/10 border-blue-500/30">
+        <CardContent className="py-4">
+          <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+            <Info className="w-5 h-5 text-blue-400" />
+            Hinnoittelun periaatteet
+          </h3>
+          <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+            <div className="space-y-2">
+              <p className="font-medium text-foreground">📊 Hinnan laskentakaava:</p>
+              <ol className="list-decimal ml-5 space-y-1">
+                <li><strong>Beds24 API-hinta</strong> = perusyöhinta varausjärjestelmästä</li>
+                <li><strong>+ Siivousmaksu</strong> = lisätään aina API-hinnan päälle</li>
+                <li><strong>× Huoneistoalennus</strong> = vähennetään API-hinnasta (ei siivouksesta)</li>
+                <li><strong>= Lopullinen hinta</strong> = näytetään asiakkaalle</li>
+              </ol>
+              <p className="text-xs mt-2 bg-background/50 p-2 rounded">
+                <strong>Esimerkki:</strong> API 200€ + siivous 80€ = 280€. Jos 15% alennus: (200€ × 0.85) + 80€ = 250€
+              </p>
+            </div>
+            <div className="space-y-2">
+              <p className="font-medium text-foreground">📋 Sarakkeiden selitykset:</p>
+              <ul className="space-y-1">
+                <li><strong>Siivous:</strong> Kiinteä maksu joka lisätään aina hintaan</li>
+                <li><strong>1 yö / 2 yötä / 3+ yötä:</strong> Alennusprosentti API-hinnasta majoituksen pituuden mukaan</li>
+                <li><strong>% (sarake):</strong> "Näytä alennusbadge" - näyttää äkkilähdöt-sivulla alennusprosentin erikseen</li>
+              </ul>
+              <p className="text-xs mt-2 bg-amber-500/10 p-2 rounded border border-amber-500/30">
+                <strong>⚠️ Huom:</strong> Huoneistoalennukset koskevat KAIKKIA tämän huoneiston jaksoja. Jaksokohtaiset alennukset asetetaan "Hissiliput ja erikoistarjoukset" -välilehdellä.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-foreground">Huoneistojen hallinta</h2>
           <p className="text-muted-foreground text-sm mt-1">
-            Muokkaa alennuksia ja siivousmaksuja. Asetukset synkronoituvat automaattisesti.
+            Muokkaa huoneistokohtaisia alennuksia ja siivousmaksuja. Asetukset synkronoituvat automaattisesti.
           </p>
         </div>
         <Button variant="outline" onClick={() => setShowResetDialog(true)}>
