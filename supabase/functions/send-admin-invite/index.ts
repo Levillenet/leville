@@ -68,7 +68,7 @@ serve(async (req) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'Leville Admin <noreply@leville.fi>',
+          from: 'Leville Admin <admin@m.leville.net>',
           to: [email],
           subject: 'Kutsu Leville Admin-paneeliin',
           html: `
