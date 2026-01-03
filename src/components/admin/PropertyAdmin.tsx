@@ -210,9 +210,10 @@ const PropertyAdmin = ({ adminPassword }: PropertyAdminProps) => {
                           {editingId === property.id ? (
                             <Input
                               type="number"
+                              min="0"
                               value={editForm.cleaningFee || 0}
                               onChange={(e) => setEditForm({ ...editForm, cleaningFee: Number(e.target.value) })}
-                              className="h-8 w-16 text-right ml-auto"
+                              className="h-10 w-24 text-center text-base font-medium"
                             />
                           ) : (
                             <span>{property.cleaningFee}€</span>
@@ -222,13 +223,15 @@ const PropertyAdmin = ({ adminPassword }: PropertyAdminProps) => {
                           {editingId === property.id ? (
                             <Input
                               type="number"
+                              min="0"
+                              max="100"
                               value={editForm.oneNightDiscount ?? ""}
                               onChange={(e) => setEditForm({ 
                                 ...editForm, 
                                 oneNightDiscount: e.target.value ? Number(e.target.value) : null 
                               })}
-                              placeholder="-"
-                              className="h-8 w-14 text-right ml-auto"
+                              placeholder="0"
+                              className="h-10 w-20 text-center text-base font-medium"
                             />
                           ) : (
                             <span className={property.oneNightDiscount ? "text-green-500 font-medium" : "text-muted-foreground"}>
@@ -240,13 +243,15 @@ const PropertyAdmin = ({ adminPassword }: PropertyAdminProps) => {
                           {editingId === property.id ? (
                             <Input
                               type="number"
+                              min="0"
+                              max="100"
                               value={editForm.twoNightDiscount ?? ""}
                               onChange={(e) => setEditForm({ 
                                 ...editForm, 
                                 twoNightDiscount: e.target.value ? Number(e.target.value) : null 
                               })}
-                              placeholder="-"
-                              className="h-8 w-14 text-right ml-auto"
+                              placeholder="0"
+                              className="h-10 w-20 text-center text-base font-medium"
                             />
                           ) : (
                             <span className={property.twoNightDiscount ? "text-green-500 font-medium" : "text-muted-foreground"}>
@@ -258,13 +263,15 @@ const PropertyAdmin = ({ adminPassword }: PropertyAdminProps) => {
                           {editingId === property.id ? (
                             <Input
                               type="number"
+                              min="0"
+                              max="100"
                               value={editForm.longStayDiscount ?? ""}
                               onChange={(e) => setEditForm({ 
                                 ...editForm, 
                                 longStayDiscount: e.target.value ? Number(e.target.value) : null 
                               })}
-                              placeholder="-"
-                              className="h-8 w-14 text-right ml-auto"
+                              placeholder="0"
+                              className="h-10 w-20 text-center text-base font-medium"
                             />
                           ) : (
                             <span className={property.longStayDiscount ? "text-blue-500 font-medium" : "text-muted-foreground"}>
