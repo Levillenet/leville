@@ -36,6 +36,9 @@ verify_jwt = false
 [functions.melcloud-api]
 verify_jwt = false
 
+[functions.melcloud-cron]
+verify_jwt = false
+
 [functions.maintenance-bookings]
 verify_jwt = false
 

@@ -158,6 +158,111 @@ export type Database = {
         }
         Relationships: []
       }
+      heat_pump_defrost_log: {
+        Row: {
+          created_at: string | null
+          device_id: number
+          duration_seconds: number | null
+          ended_at: string | null
+          id: string
+          started_at: string
+        }
+        Insert: {
+          created_at?: string | null
+          device_id: number
+          duration_seconds?: number | null
+          ended_at?: string | null
+          id?: string
+          started_at?: string
+        }
+        Update: {
+          created_at?: string | null
+          device_id?: number
+          duration_seconds?: number | null
+          ended_at?: string | null
+          id?: string
+          started_at?: string
+        }
+        Relationships: []
+      }
+      heat_pump_history: {
+        Row: {
+          device_id: number
+          fan_speed: number | null
+          id: string
+          operating_state: string
+          operation_mode: string | null
+          outdoor_temperature: number | null
+          power: boolean | null
+          recorded_at: string | null
+          room_temperature: number | null
+          set_temperature: number | null
+        }
+        Insert: {
+          device_id: number
+          fan_speed?: number | null
+          id?: string
+          operating_state: string
+          operation_mode?: string | null
+          outdoor_temperature?: number | null
+          power?: boolean | null
+          recorded_at?: string | null
+          room_temperature?: number | null
+          set_temperature?: number | null
+        }
+        Update: {
+          device_id?: number
+          fan_speed?: number | null
+          id?: string
+          operating_state?: string
+          operation_mode?: string | null
+          outdoor_temperature?: number | null
+          power?: boolean | null
+          recorded_at?: string | null
+          room_temperature?: number | null
+          set_temperature?: number | null
+        }
+        Relationships: []
+      }
+      heat_pump_settings: {
+        Row: {
+          created_at: string | null
+          device_id: number
+          device_name: string | null
+          fan_auto_recovery: boolean | null
+          fan_recovery_delay_minutes: number | null
+          id: string
+          last_known_state: string | null
+          pending_fan_recovery_at: string | null
+          pending_fan_speed: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          device_id: number
+          device_name?: string | null
+          fan_auto_recovery?: boolean | null
+          fan_recovery_delay_minutes?: number | null
+          id?: string
+          last_known_state?: string | null
+          pending_fan_recovery_at?: string | null
+          pending_fan_speed?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          device_id?: number
+          device_name?: string | null
+          fan_auto_recovery?: boolean | null
+          fan_recovery_delay_minutes?: number | null
+          id?: string
+          last_known_state?: string | null
+          pending_fan_recovery_at?: string | null
+          pending_fan_speed?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       maintenance_settings: {
         Row: {
           created_at: string | null
