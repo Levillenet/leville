@@ -62,6 +62,22 @@ interface DeviceSettings {
   efficiency_status: string;
 }
 
+interface PerformanceBaseline {
+  device_id: number;
+  outdoor_temp_range: string;
+  avg_recovery_speed: number;
+  avg_temp_debt: number;
+  sample_count: number;
+}
+
+interface FleetBaseline {
+  outdoor_temp_range: string;
+  fleet_avg_recovery_speed: number;
+  fleet_avg_temp_debt: number;
+  device_count: number;
+  sample_count: number;
+}
+
 interface DefrostLog {
   device_id: number;
   started_at: string;
@@ -69,7 +85,7 @@ interface DefrostLog {
 }
 
 type OperatingState = 'HEATING' | 'COOLING' | 'DEFROST' | 'IDLE' | 'OFF' | 'ERROR' | 'UNKNOWN';
-type EfficiencyStatus = 'SUFFICIENT' | 'MARGINAL' | 'INSUFFICIENT' | 'UNKNOWN';
+type EfficiencyStatus = 'SUFFICIENT' | 'MARGINAL' | 'INSUFFICIENT' | 'LEARNING' | 'UNKNOWN';
 
 // Operation modes
 const OPERATION_MODES: Record<number, string> = {
@@ -79,6 +95,17 @@ const OPERATION_MODES: Record<number, string> = {
   7: 'fan',
   8: 'auto',
 };
+
+// Minimum samples for reliable baseline
+const MIN_BASELINE_SAMPLES = 10;
+
+// Get outdoor temperature range key (5°C buckets)
+function getOutdoorTempRange(temp: number | null): string {
+  if (temp === null) return 'unknown';
+  const lower = Math.floor(temp / 5) * 5;
+  const upper = lower + 5;
+  return `${lower}_${upper}`;
+}
 
 // Initialize Supabase client
 function getSupabaseClient() {
@@ -156,10 +183,6 @@ function determineOperatingState(
   }
 
   // Heuristic defrost detection for ATA devices:
-  // - Mode = HEAT (1)
-  // - FanSpeed = AUTO (0) or very low (1)
-  // - Room temperature is stable or dropping
-  // - Previous state was HEATING
   if (
     device.operationModeId === 1 && // HEAT mode
     (device.fanSpeed === 0 || device.fanSpeed === 1) && // AUTO or lowest
@@ -167,11 +190,9 @@ function determineOperatingState(
     device.roomTemperature <= previousRoomTemp &&
     (lastKnownState === 'HEATING' || lastKnownState === 'DEFROST')
   ) {
-    // Additional check: if temp dropped more than 0.5°C, likely defrost
     if (previousRoomTemp - device.roomTemperature >= 0.3) {
       return 'DEFROST';
     }
-    // If already in defrost, stay in defrost until temp rises
     if (lastKnownState === 'DEFROST') {
       return 'DEFROST';
     }
@@ -186,10 +207,78 @@ function determineOperatingState(
     case 2: // DRY
     case 7: // FAN
     case 8: // AUTO
-      return device.power ? 'HEATING' : 'IDLE'; // Simplified for AUTO
+      return device.power ? 'HEATING' : 'IDLE';
     default:
       return 'UNKNOWN';
   }
+}
+
+// Calculate comparative efficiency status
+function calculateEfficiencyInfo(
+  tempDebt: number,
+  deviceBaseline: PerformanceBaseline | null,
+  fleetBaseline: FleetBaseline | null
+): { status: EfficiencyStatus; performanceRatio: number | null; reason: string; sampleCount: number } {
+  const sampleCount = deviceBaseline?.sample_count || 0;
+
+  // If not enough baseline data, show learning status
+  if (!deviceBaseline || sampleCount < MIN_BASELINE_SAMPLES) {
+    return {
+      status: 'LEARNING',
+      performanceRatio: null,
+      reason: `Kerää dataa (${sampleCount}/${MIN_BASELINE_SAMPLES})`,
+      sampleCount,
+    };
+  }
+
+  // If no fleet baseline, compare to device's own average
+  if (!fleetBaseline || fleetBaseline.sample_count < MIN_BASELINE_SAMPLES) {
+    const debtRatio = deviceBaseline.avg_temp_debt > 0.1 
+      ? tempDebt / deviceBaseline.avg_temp_debt 
+      : tempDebt < 0.5 ? 1 : 0.5;
+    
+    if (debtRatio <= 1.1) {
+      return { status: 'SUFFICIENT', performanceRatio: 100, reason: 'Normaali suorituskyky', sampleCount };
+    } else if (debtRatio <= 1.5) {
+      return { status: 'MARGINAL', performanceRatio: Math.round(100 / debtRatio), reason: 'Hieman tavallista hitaampi', sampleCount };
+    } else {
+      return { status: 'INSUFFICIENT', performanceRatio: Math.round(100 / debtRatio), reason: 'Selvästi tavallista hitaampi', sampleCount };
+    }
+  }
+
+  // Full comparative analysis
+  let performanceRatio = 100;
+
+  // Compare recovery speed if available
+  if (deviceBaseline.avg_recovery_speed > 0 && fleetBaseline.fleet_avg_recovery_speed > 0) {
+    const speedRatio = deviceBaseline.avg_recovery_speed / fleetBaseline.fleet_avg_recovery_speed;
+    performanceRatio = Math.round(speedRatio * 100);
+  } else {
+    // Use temp debt comparison
+    if (fleetBaseline.fleet_avg_temp_debt > 0.1) {
+      const debtRatio = fleetBaseline.fleet_avg_temp_debt / Math.max(tempDebt, 0.1);
+      performanceRatio = Math.round(Math.min(debtRatio * 100, 150));
+    }
+  }
+
+  // Determine status based on performance ratio
+  let reason: string;
+  let status: EfficiencyStatus;
+
+  if (performanceRatio >= 90) {
+    status = 'SUFFICIENT';
+    reason = performanceRatio >= 100 
+      ? `Pärjää ${performanceRatio - 100}% keskiarvoa paremmin`
+      : `Pärjää yhtä hyvin kuin muut`;
+  } else if (performanceRatio >= 70) {
+    status = 'MARGINAL';
+    reason = `${100 - performanceRatio}% heikompi kuin keskiarvo`;
+  } else {
+    status = 'INSUFFICIENT';
+    reason = `${100 - performanceRatio}% heikompi kuin keskiarvo`;
+  }
+
+  return { status, performanceRatio, reason, sampleCount };
 }
 
 async function getDevices(contextKey: string) {
@@ -267,7 +356,7 @@ async function getDevices(contextKey: string) {
     .from('heat_pump_history')
     .select('device_id, room_temperature, recorded_at')
     .in('device_id', deviceIds)
-    .gte('recorded_at', new Date(Date.now() - 15 * 60 * 1000).toISOString()) // Last 15 min
+    .gte('recorded_at', new Date(Date.now() - 15 * 60 * 1000).toISOString())
     .order('recorded_at', { ascending: false });
 
   const lastTempMap = new Map<number, number>();
@@ -304,6 +393,26 @@ async function getDevices(contextKey: string) {
     openDefrostMap.set(d.device_id, d.started_at);
   });
 
+  // Fetch device performance baselines
+  const { data: deviceBaselines } = await supabase
+    .from('heat_pump_performance_baseline')
+    .select('*')
+    .in('device_id', deviceIds);
+
+  const baselineMap = new Map<string, PerformanceBaseline>();
+  (deviceBaselines || []).forEach((b: PerformanceBaseline) => {
+    baselineMap.set(`${b.device_id}_${b.outdoor_temp_range}`, b);
+  });
+
+  // Fetch fleet baselines
+  const { data: fleetBaselines } = await supabase
+    .from('heat_pump_fleet_baseline')
+    .select('*');
+
+  const fleetBaselineMap = new Map<string, FleetBaseline>(
+    (fleetBaselines || []).map((b: FleetBaseline) => [b.outdoor_temp_range, b])
+  );
+
   const devices = allDevices.map(({ device, building }) => {
     const deviceId = device.Device.DeviceID;
     const fullDevice = deviceDetailsMap.get(deviceId);
@@ -314,13 +423,16 @@ async function getDevices(contextKey: string) {
     // Use full device details if available, fallback to list data
     const fanSpeed = fullDevice?.SetFanSpeed ?? device.Device.SetFanSpeed ?? 0;
     const numberOfFanSpeeds = fullDevice?.NumberOfFanSpeeds ?? device.Device.NumberOfFanSpeeds;
+    const roomTemperature = fullDevice?.RoomTemperature ?? device.Device.RoomTemperature;
+    const setTemperature = fullDevice?.SetTemperature ?? device.Device.SetTemperature;
+    const outdoorTemperature = fullDevice?.OutdoorTemperature ?? device.Device.OutdoorTemperature ?? null;
     
     const operatingState = determineOperatingState(
       {
         power: fullDevice?.Power ?? device.Device.Power,
         operationModeId: fullDevice?.OperationMode ?? device.Device.OperationMode,
         fanSpeed,
-        roomTemperature: fullDevice?.RoomTemperature ?? device.Device.RoomTemperature,
+        roomTemperature,
         lastCommunication: fullDevice?.LastCommunication ?? device.Device.LastCommunication,
       },
       lastKnownState,
@@ -338,25 +450,31 @@ async function getDevices(contextKey: string) {
     // Check if currently in defrost (open cycle)
     const isDefrosting = openDefrostMap.has(deviceId) || operatingState === 'DEFROST';
 
-    // FIXED: Check pending recovery - handle undefined/null correctly
-    // Pending is true only if:
-    // 1. settings row exists
-    // 2. pending_fan_recovery_at is set (not null/undefined)
-    // 3. fan_auto_recovery is enabled
-    // 4. fanSpeed is below 4 (needs recovery)
+    // Check pending recovery
     const hasPendingRecovery = Boolean(
       settings?.pending_fan_recovery_at && 
       settings?.fan_auto_recovery === true &&
       fanSpeed < 4
     );
 
+    // Calculate temperature debt
+    const tempDebt = Math.max(0, setTemperature - roomTemperature);
+
+    // Get baselines for this device's current outdoor temp range
+    const outdoorTempRange = getOutdoorTempRange(outdoorTemperature);
+    const deviceBaseline = baselineMap.get(`${deviceId}_${outdoorTempRange}`) || null;
+    const fleetBaseline = fleetBaselineMap.get(outdoorTempRange) || null;
+
+    // Calculate comparative efficiency
+    const efficiencyInfo = calculateEfficiencyInfo(tempDebt, deviceBaseline, fleetBaseline);
+
     return {
       deviceId,
       deviceName: fullDevice?.DeviceName ?? device.Device.DeviceName ?? device.DeviceName,
       buildingId: fullDevice?.BuildingID ?? device.Device.BuildingID ?? building.ID,
-      roomTemperature: fullDevice?.RoomTemperature ?? device.Device.RoomTemperature,
-      setTemperature: fullDevice?.SetTemperature ?? device.Device.SetTemperature,
-      outdoorTemperature: fullDevice?.OutdoorTemperature ?? device.Device.OutdoorTemperature ?? null,
+      roomTemperature,
+      setTemperature,
+      outdoorTemperature,
       power: fullDevice?.Power ?? device.Device.Power,
       operationMode: OPERATION_MODES[fullDevice?.OperationMode ?? device.Device.OperationMode] || 'unknown',
       operationModeId: fullDevice?.OperationMode ?? device.Device.OperationMode,
@@ -373,14 +491,17 @@ async function getDevices(contextKey: string) {
       pendingFanRecovery: hasPendingRecovery,
       fanAutoRecovery: settings?.fan_auto_recovery ?? false,
       fanRecoveryDelayMinutes: settings?.fan_recovery_delay_minutes ?? 60,
-      // Efficiency fields
+      // Efficiency fields - now comparative
       degreeMinutes: settings?.degree_minutes ?? 0,
-      efficiencyStatus: (settings?.efficiency_status as EfficiencyStatus) ?? 'UNKNOWN',
+      efficiencyStatus: efficiencyInfo.status,
+      performanceRatio: efficiencyInfo.performanceRatio,
+      efficiencyReason: efficiencyInfo.reason,
+      baselineSampleCount: efficiencyInfo.sampleCount,
     };
   });
 
   console.log(`Found ${devices.length} devices`);
-  devices.forEach(d => console.log(`Device ${d.deviceName}: fanSpeed=${d.fanSpeed}, pending=${d.pendingFanRecovery}, autoRecovery=${d.fanAutoRecovery}`));
+  devices.forEach(d => console.log(`Device ${d.deviceName}: efficiency=${d.efficiencyStatus}, ratio=${d.performanceRatio}%, samples=${d.baselineSampleCount}`));
   return devices;
 }
 
@@ -472,7 +593,7 @@ async function updateDeviceSettings(
   if (settings.fanAutoRecovery !== undefined) {
     updateData.fan_auto_recovery = settings.fanAutoRecovery;
     
-    // FIXED: When turning off auto-recovery, clear pending recovery immediately
+    // When turning off auto-recovery, clear pending recovery immediately
     if (settings.fanAutoRecovery === false) {
       updateData.pending_fan_recovery_at = null;
       updateData.pending_fan_speed = 4;
@@ -735,6 +856,17 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d', 
     console.warn('Failed to fetch efficiency metrics:', efficiencyError.message);
   }
 
+  // Fetch performance baseline for this device
+  const { data: performanceBaseline } = await supabase
+    .from('heat_pump_performance_baseline')
+    .select('*')
+    .eq('device_id', deviceId);
+
+  // Fetch fleet baseline
+  const { data: fleetBaseline } = await supabase
+    .from('heat_pump_fleet_baseline')
+    .select('*');
+
   // Calculate defrost statistics
   const completedDefrosts = (defrostLogs || []).filter((d: { ended_at: string | null }) => d.ended_at !== null);
   const defrostCount = completedDefrosts.length;
@@ -751,11 +883,18 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d', 
     ? validRecoveries.reduce((sum: number, r: any) => sum + r.recovery_speed, 0) / validRecoveries.length
     : null;
 
+  // Calculate total baseline samples
+  const totalBaselineSamples = (performanceBaseline || []).reduce(
+    (sum: number, b: PerformanceBaseline) => sum + b.sample_count, 0
+  );
+
   return {
     history: processedHistory,
     defrostLogs: defrostLogs || [],
     recoveryLogs: recoveryLogs || [],
     efficiencyMetrics: efficiencyMetrics || [],
+    performanceBaseline: performanceBaseline || [],
+    fleetBaseline: fleetBaseline || [],
     statistics: {
       defrostCount,
       avgDurationSeconds: avgDuration,
@@ -764,6 +903,7 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d', 
         ? Math.round((history.reduce((sum: number, h: { room_temperature: number }) => sum + h.room_temperature, 0) / history.length) * 10) / 10
         : null,
       avgRecoverySpeed: avgRecoverySpeed !== null ? Math.round(avgRecoverySpeed * 100) / 100 : null,
+      baselineSamples: totalBaselineSamples,
     },
   };
 }

@@ -23,17 +23,17 @@ import {
   PowerOff,
   AlertTriangle,
   Timer,
+  CheckCircle2,
+  GraduationCap,
   TrendingUp,
   TrendingDown,
-  Minus,
-  CheckCircle2,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import HeatPumpHistory from "./HeatPumpHistory";
 
 type OperatingState = 'HEATING' | 'COOLING' | 'DEFROST' | 'IDLE' | 'OFF' | 'ERROR' | 'UNKNOWN';
-type EfficiencyStatus = 'SUFFICIENT' | 'MARGINAL' | 'INSUFFICIENT' | 'UNKNOWN';
+type EfficiencyStatus = 'SUFFICIENT' | 'MARGINAL' | 'INSUFFICIENT' | 'LEARNING' | 'UNKNOWN';
 
 interface HeatPumpDevice {
   deviceId: number;
@@ -58,9 +58,12 @@ interface HeatPumpDevice {
   pendingFanRecovery: boolean;
   fanAutoRecovery: boolean;
   fanRecoveryDelayMinutes: number;
-  // Efficiency fields
+  // Efficiency fields - comparative
   degreeMinutes: number;
   efficiencyStatus: EfficiencyStatus;
+  performanceRatio: number | null;
+  efficiencyReason: string;
+  baselineSampleCount: number;
 }
 
 interface DevicesResponse {
@@ -196,7 +199,6 @@ const HeatPumpAdmin = () => {
       },
     }));
 
-    // Build the mutation params with explicit field values
     const params: {
       deviceId: number;
       deviceName: string;
@@ -275,31 +277,55 @@ const HeatPumpAdmin = () => {
     }
   };
 
-  const getEfficiencyStatusInfo = (status: EfficiencyStatus) => {
+  const getEfficiencyStatusInfo = (status: EfficiencyStatus, performanceRatio: number | null, reason: string) => {
     switch (status) {
       case 'SUFFICIENT':
         return {
           icon: <CheckCircle2 className="w-4 h-4" />,
-          label: 'Teho riittää',
+          label: performanceRatio !== null && performanceRatio >= 100 
+            ? `Pärjää hyvin (+${performanceRatio - 100}%)`
+            : 'Teho riittää',
+          description: reason,
           className: 'text-green-600 bg-green-100 dark:bg-green-900/30',
+          trendIcon: performanceRatio !== null && performanceRatio > 100 
+            ? <TrendingUp className="w-3 h-3" /> 
+            : null,
         };
       case 'MARGINAL':
         return {
-          icon: <Minus className="w-4 h-4" />,
-          label: 'Teho rajamailla',
+          icon: <AlertTriangle className="w-4 h-4" />,
+          label: performanceRatio !== null 
+            ? `Hieman heikompi (${performanceRatio}%)`
+            : 'Teho rajamailla',
+          description: reason,
           className: 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30',
+          trendIcon: <TrendingDown className="w-3 h-3" />,
         };
       case 'INSUFFICIENT':
         return {
           icon: <AlertTriangle className="w-4 h-4" />,
-          label: 'Teho ei riitä',
+          label: performanceRatio !== null 
+            ? `Teho ei riitä (${performanceRatio}%)`
+            : 'Teho ei riitä',
+          description: reason,
           className: 'text-red-600 bg-red-100 dark:bg-red-900/30',
+          trendIcon: <TrendingDown className="w-3 h-3" />,
+        };
+      case 'LEARNING':
+        return {
+          icon: <GraduationCap className="w-4 h-4" />,
+          label: 'Oppii...',
+          description: reason,
+          className: 'text-blue-600 bg-blue-100 dark:bg-blue-900/30',
+          trendIcon: null,
         };
       default:
         return {
           icon: <Thermometer className="w-4 h-4" />,
           label: 'Analysoidaan...',
+          description: reason || 'Ei dataa',
           className: 'text-muted-foreground bg-muted',
+          trendIcon: null,
         };
     }
   };
@@ -414,7 +440,11 @@ const HeatPumpAdmin = () => {
           const modeInfo = getOperationModeInfo(device.operationMode);
           const stateInfo = getOperatingStateInfo(device.operatingState);
           const state = getDeviceState(device);
-          const efficiencyInfo = getEfficiencyStatusInfo(state.efficiencyStatus || 'UNKNOWN');
+          const efficiencyInfo = getEfficiencyStatusInfo(
+            state.efficiencyStatus || 'UNKNOWN',
+            state.performanceRatio ?? null,
+            state.efficiencyReason || ''
+          );
           const isUpdating = (prohibitMutation.isPending && 
             prohibitMutation.variables?.deviceId === device.deviceId) ||
             (settingsMutation.isPending && 
@@ -466,13 +496,21 @@ const HeatPumpAdmin = () => {
                   <span>Puhallin: {getFanSpeedLabel(device.fanSpeed)}</span>
                 </div>
 
-                {/* Efficiency status */}
+                {/* Efficiency status - now with comparative info */}
                 {device.power && device.operatingState !== 'OFF' && (
-                  <div className={`flex items-center justify-center gap-2 text-sm rounded-md py-1.5 px-3 ${efficiencyInfo.className}`}>
-                    {efficiencyInfo.icon}
-                    <span className="font-medium">{efficiencyInfo.label}</span>
-                    {tempDebt > 0 && (
-                      <span className="opacity-75">(-{tempDebt.toFixed(1)}°C)</span>
+                  <div className={`flex flex-col items-center gap-1 text-sm rounded-md py-2 px-3 ${efficiencyInfo.className}`}>
+                    <div className="flex items-center gap-2">
+                      {efficiencyInfo.icon}
+                      <span className="font-medium">{efficiencyInfo.label}</span>
+                      {efficiencyInfo.trendIcon}
+                    </div>
+                    <span className="text-xs opacity-75 text-center">
+                      {efficiencyInfo.description}
+                    </span>
+                    {tempDebt > 0 && state.efficiencyStatus !== 'LEARNING' && (
+                      <span className="text-xs opacity-60">
+                        Tavoitteesta: -{tempDebt.toFixed(1)}°C
+                      </span>
                     )}
                   </div>
                 )}
@@ -491,7 +529,7 @@ const HeatPumpAdmin = () => {
                   ) : null}
                 </div>
 
-                {/* Pending recovery status - FIXED: Use state instead of device */}
+                {/* Pending recovery status */}
                 {state.pendingFanRecovery && !device.isDefrosting && (
                   <div className="text-center text-sm text-amber-600 flex items-center justify-center gap-1">
                     <Timer className="w-4 h-4" />
