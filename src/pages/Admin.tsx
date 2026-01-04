@@ -6,12 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Mail, Loader2 } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Mail, Loader2, Thermometer } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
 import SiteSettingsAdmin from "@/components/admin/SiteSettingsAdmin";
 import UserManagementAdmin from "@/components/admin/UserManagementAdmin";
+import HeatPumpAdmin from "@/components/admin/HeatPumpAdmin";
 import { Session, User } from "@supabase/supabase-js";
 import {
   BarChart,
@@ -388,6 +389,10 @@ const Admin = () => {
               <Users className="w-4 h-4" />
               Käyttäjähallinta
             </TabsTrigger>
+            <TabsTrigger value="heatpumps" className="flex items-center gap-2">
+              <Thermometer className="w-4 h-4" />
+              Lämpöpumput
+            </TabsTrigger>
             <TabsTrigger value="stats" className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4" />
               Lataustilastot
@@ -419,6 +424,10 @@ const Admin = () => {
 
           <TabsContent value="cache">
             <CacheAdmin />
+          </TabsContent>
+
+          <TabsContent value="heatpumps">
+            <HeatPumpAdmin />
           </TabsContent>
 
           <TabsContent value="stats">

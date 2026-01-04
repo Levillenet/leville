@@ -32,3 +32,6 @@ verify_jwt = false
 
 [functions.send-admin-invite]
 verify_jwt = false
+
+[functions.melcloud-api]
+verify_jwt = false
