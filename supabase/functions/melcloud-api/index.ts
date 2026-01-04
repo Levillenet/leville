@@ -58,6 +58,8 @@ interface DeviceSettings {
   pending_fan_recovery_at: string | null;
   pending_fan_speed: number;
   last_known_state: string;
+  degree_minutes: number;
+  efficiency_status: string;
 }
 
 interface DefrostLog {
@@ -67,6 +69,7 @@ interface DefrostLog {
 }
 
 type OperatingState = 'HEATING' | 'COOLING' | 'DEFROST' | 'IDLE' | 'OFF' | 'ERROR' | 'UNKNOWN';
+type EfficiencyStatus = 'SUFFICIENT' | 'MARGINAL' | 'INSUFFICIENT' | 'UNKNOWN';
 
 // Operation modes
 const OPERATION_MODES: Record<number, string> = {
@@ -335,9 +338,17 @@ async function getDevices(contextKey: string) {
     // Check if currently in defrost (open cycle)
     const isDefrosting = openDefrostMap.has(deviceId) || operatingState === 'DEFROST';
 
-    // Check pending recovery
-    const hasPendingRecovery = settings?.pending_fan_recovery_at !== null && 
-      new Date(settings?.pending_fan_recovery_at || 0) <= new Date();
+    // FIXED: Check pending recovery - handle undefined/null correctly
+    // Pending is true only if:
+    // 1. settings row exists
+    // 2. pending_fan_recovery_at is set (not null/undefined)
+    // 3. fan_auto_recovery is enabled
+    // 4. fanSpeed is below 4 (needs recovery)
+    const hasPendingRecovery = Boolean(
+      settings?.pending_fan_recovery_at && 
+      settings?.fan_auto_recovery === true &&
+      fanSpeed < 4
+    );
 
     return {
       deviceId,
@@ -362,11 +373,14 @@ async function getDevices(contextKey: string) {
       pendingFanRecovery: hasPendingRecovery,
       fanAutoRecovery: settings?.fan_auto_recovery ?? false,
       fanRecoveryDelayMinutes: settings?.fan_recovery_delay_minutes ?? 60,
+      // Efficiency fields
+      degreeMinutes: settings?.degree_minutes ?? 0,
+      efficiencyStatus: (settings?.efficiency_status as EfficiencyStatus) ?? 'UNKNOWN',
     };
   });
 
   console.log(`Found ${devices.length} devices`);
-  devices.forEach(d => console.log(`Device ${d.deviceName}: fanSpeed=${d.fanSpeed}, numberOfFanSpeeds=${d.numberOfFanSpeeds}`));
+  devices.forEach(d => console.log(`Device ${d.deviceName}: fanSpeed=${d.fanSpeed}, pending=${d.pendingFanRecovery}, autoRecovery=${d.fanAutoRecovery}`));
   return devices;
 }
 
@@ -454,9 +468,18 @@ async function updateDeviceSettings(
   const supabase = getSupabaseClient();
 
   const updateData: Record<string, unknown> = {};
+  
   if (settings.fanAutoRecovery !== undefined) {
     updateData.fan_auto_recovery = settings.fanAutoRecovery;
+    
+    // FIXED: When turning off auto-recovery, clear pending recovery immediately
+    if (settings.fanAutoRecovery === false) {
+      updateData.pending_fan_recovery_at = null;
+      updateData.pending_fan_speed = 4;
+      console.log(`Clearing pending recovery for device ${deviceId} (auto-recovery disabled)`);
+    }
   }
+  
   if (settings.fanRecoveryDelayMinutes !== undefined) {
     updateData.fan_recovery_delay_minutes = settings.fanRecoveryDelayMinutes;
   }
@@ -608,8 +631,8 @@ async function controlDevice(
   };
 }
 
-async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d') {
-  console.log(`Fetching history for device ${deviceId}, period: ${period}`);
+async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d', aggregation: 'raw' | 'hourly' = 'raw') {
+  console.log(`Fetching history for device ${deviceId}, period: ${period}, aggregation: ${aggregation}`);
   const supabase = getSupabaseClient();
 
   let hoursAgo = 24;
@@ -630,6 +653,52 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d') 
     throw new Error(`Failed to fetch history: ${historyError.message}`);
   }
 
+  // Aggregate to hourly if requested (for 7d and 30d views)
+  let processedHistory = history || [];
+  if (aggregation === 'hourly' && processedHistory.length > 0) {
+    const hourlyMap = new Map<string, {
+      room_temps: number[];
+      set_temps: number[];
+      outdoor_temps: number[];
+      states: string[];
+      recorded_at: string;
+    }>();
+
+    processedHistory.forEach((h: any) => {
+      const date = new Date(h.recorded_at);
+      date.setMinutes(0, 0, 0);
+      const hourKey = date.toISOString();
+
+      if (!hourlyMap.has(hourKey)) {
+        hourlyMap.set(hourKey, {
+          room_temps: [],
+          set_temps: [],
+          outdoor_temps: [],
+          states: [],
+          recorded_at: hourKey,
+        });
+      }
+
+      const bucket = hourlyMap.get(hourKey)!;
+      bucket.room_temps.push(h.room_temperature);
+      bucket.set_temps.push(h.set_temperature);
+      if (h.outdoor_temperature !== null) bucket.outdoor_temps.push(h.outdoor_temperature);
+      bucket.states.push(h.operating_state);
+    });
+
+    processedHistory = Array.from(hourlyMap.values()).map(bucket => ({
+      room_temperature: bucket.room_temps.reduce((a, b) => a + b, 0) / bucket.room_temps.length,
+      set_temperature: bucket.set_temps.reduce((a, b) => a + b, 0) / bucket.set_temps.length,
+      outdoor_temperature: bucket.outdoor_temps.length > 0 
+        ? bucket.outdoor_temps.reduce((a, b) => a + b, 0) / bucket.outdoor_temps.length 
+        : null,
+      operating_state: bucket.states.includes('DEFROST') ? 'DEFROST' : bucket.states[0],
+      recorded_at: bucket.recorded_at,
+      fan_speed: 0,
+      power: true,
+    }));
+  }
+
   // Fetch defrost logs
   const { data: defrostLogs, error: defrostError } = await supabase
     .from('heat_pump_defrost_log')
@@ -642,6 +711,30 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d') 
     throw new Error(`Failed to fetch defrost logs: ${defrostError.message}`);
   }
 
+  // Fetch recovery logs for efficiency analysis
+  const { data: recoveryLogs, error: recoveryError } = await supabase
+    .from('heat_pump_recovery_log')
+    .select('*')
+    .eq('device_id', deviceId)
+    .gte('defrost_ended_at', startDate)
+    .order('defrost_ended_at', { ascending: true });
+
+  if (recoveryError) {
+    console.warn('Failed to fetch recovery logs:', recoveryError.message);
+  }
+
+  // Fetch efficiency metrics
+  const { data: efficiencyMetrics, error: efficiencyError } = await supabase
+    .from('heat_pump_efficiency_metrics')
+    .select('*')
+    .eq('device_id', deviceId)
+    .gte('recorded_at', startDate)
+    .order('recorded_at', { ascending: true });
+
+  if (efficiencyError) {
+    console.warn('Failed to fetch efficiency metrics:', efficiencyError.message);
+  }
+
   // Calculate defrost statistics
   const completedDefrosts = (defrostLogs || []).filter((d: { ended_at: string | null }) => d.ended_at !== null);
   const defrostCount = completedDefrosts.length;
@@ -652,9 +745,17 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d') 
     ? Math.max(...completedDefrosts.map((d: { duration_seconds: number | null }) => d.duration_seconds || 0))
     : 0;
 
+  // Calculate recovery statistics
+  const validRecoveries = (recoveryLogs || []).filter((r: any) => r.recovery_speed !== null);
+  const avgRecoverySpeed = validRecoveries.length > 0
+    ? validRecoveries.reduce((sum: number, r: any) => sum + r.recovery_speed, 0) / validRecoveries.length
+    : null;
+
   return {
-    history: history || [],
+    history: processedHistory,
     defrostLogs: defrostLogs || [],
+    recoveryLogs: recoveryLogs || [],
+    efficiencyMetrics: efficiencyMetrics || [],
     statistics: {
       defrostCount,
       avgDurationSeconds: avgDuration,
@@ -662,6 +763,7 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d') 
       avgRoomTemperature: history && history.length > 0
         ? Math.round((history.reduce((sum: number, h: { room_temperature: number }) => sum + h.room_temperature, 0) / history.length) * 10) / 10
         : null,
+      avgRecoverySpeed: avgRecoverySpeed !== null ? Math.round(avgRecoverySpeed * 100) / 100 : null,
     },
   };
 }
@@ -680,6 +782,7 @@ serve(async (req) => {
     if (action === 'getHistory') {
       const deviceId = parseInt(url.searchParams.get('deviceId') || '0');
       const period = (url.searchParams.get('period') || '24h') as '24h' | '7d' | '30d';
+      const aggregation = (url.searchParams.get('aggregation') || 'raw') as 'raw' | 'hourly';
       
       if (!deviceId) {
         return new Response(
@@ -688,7 +791,7 @@ serve(async (req) => {
         );
       }
 
-      const historyData = await getDeviceHistory(deviceId, period);
+      const historyData = await getDeviceHistory(deviceId, period, aggregation);
       return new Response(JSON.stringify(historyData), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });

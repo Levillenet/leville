@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Loader2, Thermometer, Snowflake, Clock, TrendingUp } from "lucide-react";
+import { Loader2, Thermometer, Snowflake, Clock, TrendingUp, Zap, Activity } from "lucide-react";
 import { useState } from "react";
 import {
   LineChart,
@@ -16,6 +16,9 @@ import {
   ResponsiveContainer,
   ReferenceArea,
   Legend,
+  ScatterChart,
+  Scatter,
+  ZAxis,
 } from "recharts";
 
 interface HeatPumpHistoryProps {
@@ -39,14 +42,25 @@ interface DefrostLog {
   duration_seconds: number | null;
 }
 
+interface RecoveryLog {
+  defrost_ended_at: string;
+  target_reached_at: string | null;
+  recovery_duration_seconds: number | null;
+  recovery_speed: number | null;
+  outdoor_temperature: number | null;
+  temperature_delta: number | null;
+}
+
 interface HistoryResponse {
   history: HistoryPoint[];
   defrostLogs: DefrostLog[];
+  recoveryLogs: RecoveryLog[];
   statistics: {
     defrostCount: number;
     avgDurationSeconds: number;
     maxDurationSeconds: number;
     avgRoomTemperature: number | null;
+    avgRecoverySpeed: number | null;
   };
 }
 
@@ -58,15 +72,13 @@ const HeatPumpHistory = ({ deviceId, deviceName, open, onOpenChange }: HeatPumpH
   const { data, isLoading, error } = useQuery({
     queryKey: ['heat-pump-history', deviceId, period],
     queryFn: async (): Promise<HistoryResponse> => {
-      const { data, error } = await supabase.functions.invoke('melcloud-api', {
-        method: 'GET',
-        body: null,
-      });
+      // Use hourly aggregation for 7d and 30d views
+      const aggregation = period === '24h' ? 'raw' : 'hourly';
       
-      // Use query params for history request
-      const response = await supabase.functions.invoke('melcloud-api?action=getHistory&deviceId=' + deviceId + '&period=' + period, {
-        method: 'GET',
-      });
+      const response = await supabase.functions.invoke(
+        `melcloud-api?action=getHistory&deviceId=${deviceId}&period=${period}&aggregation=${aggregation}`, 
+        { method: 'GET' }
+      );
       
       if (response.error) {
         throw new Error(response.error.message);
@@ -111,13 +123,22 @@ const HeatPumpHistory = ({ deviceId, deviceName, open, onOpenChange }: HeatPumpH
     x2: log.ended_at || new Date().toISOString(),
   })) || [];
 
+  // Recovery speed vs outdoor temperature scatter data
+  const recoveryScatterData = data?.recoveryLogs?.filter(
+    (r) => r.recovery_speed !== null && r.outdoor_temperature !== null
+  ).map((r) => ({
+    outdoorTemp: r.outdoor_temperature,
+    recoverySpeed: r.recovery_speed,
+    duration: r.recovery_duration_seconds,
+  })) || [];
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Thermometer className="w-5 h-5" />
-            {deviceName} - Lämpötila- ja sulatushistoria
+            {deviceName} - Lämpötila- ja tehoanalyysi
           </DialogTitle>
         </DialogHeader>
 
@@ -163,7 +184,7 @@ const HeatPumpHistory = ({ deviceId, deviceName, open, onOpenChange }: HeatPumpH
           {data && !isLoading && (
             <>
               {/* Statistics cards */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 <Card>
                   <CardContent className="pt-4">
                     <div className="flex items-center gap-2 text-muted-foreground mb-1">
@@ -215,97 +236,175 @@ const HeatPumpHistory = ({ deviceId, deviceName, open, onOpenChange }: HeatPumpH
                     </p>
                   </CardContent>
                 </Card>
+
+                <Card>
+                  <CardContent className="pt-4">
+                    <div className="flex items-center gap-2 text-muted-foreground mb-1">
+                      <Zap className="w-4 h-4" />
+                      <span className="text-sm">Palautumisnopeus</span>
+                    </div>
+                    <p className="text-2xl font-bold">
+                      {data.statistics.avgRecoverySpeed !== null 
+                        ? `${data.statistics.avgRecoverySpeed} °C/min`
+                        : '-'}
+                    </p>
+                  </CardContent>
+                </Card>
               </div>
 
               {/* Temperature chart */}
               {chartData.length > 0 ? (
-                <div className="h-80 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                      <XAxis 
-                        dataKey="time" 
-                        tickFormatter={formatXAxis}
-                        className="text-xs"
-                        tick={{ fill: 'hsl(var(--muted-foreground))' }}
-                      />
-                      <YAxis 
-                        domain={['auto', 'auto']}
-                        className="text-xs"
-                        tick={{ fill: 'hsl(var(--muted-foreground))' }}
-                        tickFormatter={(value) => `${value}°C`}
-                      />
-                      <Tooltip 
-                        labelFormatter={(label) => new Date(label).toLocaleString('fi-FI')}
-                        formatter={(value: number, name: string) => {
-                          const labels: Record<string, string> = {
-                            roomTemp: 'Huonelämpötila',
-                            setTemp: 'Tavoite',
-                            outdoorTemp: 'Ulkolämpötila',
-                          };
-                          return [`${value?.toFixed(1)}°C`, labels[name] || name];
-                        }}
-                        contentStyle={{
-                          backgroundColor: 'hsl(var(--background))',
-                          border: '1px solid hsl(var(--border))',
-                          borderRadius: '8px',
-                        }}
-                      />
-                      <Legend 
-                        formatter={(value) => {
-                          const labels: Record<string, string> = {
-                            roomTemp: 'Huonelämpötila',
-                            setTemp: 'Tavoite',
-                            outdoorTemp: 'Ulkolämpötila',
-                          };
-                          return labels[value] || value;
-                        }}
-                      />
-                      
-                      {/* Defrost areas */}
-                      {defrostAreas.map((area, index) => (
-                        <ReferenceArea
-                          key={index}
-                          x1={area.x1}
-                          x2={area.x2}
-                          fill="hsl(var(--primary))"
-                          fillOpacity={0.15}
+                <div className="space-y-2">
+                  <h4 className="font-medium flex items-center gap-2">
+                    <Thermometer className="w-4 h-4" />
+                    Lämpötilahistoria {period === '24h' ? '(5 min välein)' : '(tuntikohtainen)'}
+                  </h4>
+                  <div className="h-80 w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                        <XAxis 
+                          dataKey="time" 
+                          tickFormatter={formatXAxis}
+                          className="text-xs"
+                          tick={{ fill: 'hsl(var(--muted-foreground))' }}
                         />
-                      ))}
+                        <YAxis 
+                          domain={['auto', 'auto']}
+                          className="text-xs"
+                          tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                          tickFormatter={(value) => `${value}°C`}
+                        />
+                        <Tooltip 
+                          labelFormatter={(label) => new Date(label).toLocaleString('fi-FI')}
+                          formatter={(value: number, name: string) => {
+                            const labels: Record<string, string> = {
+                              roomTemp: 'Huonelämpötila',
+                              setTemp: 'Tavoite',
+                              outdoorTemp: 'Ulkolämpötila',
+                            };
+                            return [`${value?.toFixed(1)}°C`, labels[name] || name];
+                          }}
+                          contentStyle={{
+                            backgroundColor: 'hsl(var(--background))',
+                            border: '1px solid hsl(var(--border))',
+                            borderRadius: '8px',
+                          }}
+                        />
+                        <Legend 
+                          formatter={(value) => {
+                            const labels: Record<string, string> = {
+                              roomTemp: 'Huonelämpötila',
+                              setTemp: 'Tavoite',
+                              outdoorTemp: 'Ulkolämpötila',
+                            };
+                            return labels[value] || value;
+                          }}
+                        />
+                        
+                        {/* Defrost areas */}
+                        {defrostAreas.map((area, index) => (
+                          <ReferenceArea
+                            key={index}
+                            x1={area.x1}
+                            x2={area.x2}
+                            fill="hsl(var(--primary))"
+                            fillOpacity={0.15}
+                          />
+                        ))}
 
-                      <Line 
-                        type="monotone" 
-                        dataKey="roomTemp" 
-                        stroke="hsl(var(--primary))" 
-                        strokeWidth={2}
-                        dot={false}
-                        name="roomTemp"
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="setTemp" 
-                        stroke="hsl(var(--muted-foreground))" 
-                        strokeWidth={1}
-                        strokeDasharray="5 5"
-                        dot={false}
-                        name="setTemp"
-                      />
-                      {chartData.some(d => d.outdoorTemp !== null) && (
                         <Line 
                           type="monotone" 
-                          dataKey="outdoorTemp" 
-                          stroke="hsl(142 76% 36%)" 
-                          strokeWidth={1}
+                          dataKey="roomTemp" 
+                          stroke="hsl(var(--primary))" 
+                          strokeWidth={2}
                           dot={false}
-                          name="outdoorTemp"
+                          name="roomTemp"
                         />
-                      )}
-                    </LineChart>
-                  </ResponsiveContainer>
+                        <Line 
+                          type="monotone" 
+                          dataKey="setTemp" 
+                          stroke="hsl(var(--muted-foreground))" 
+                          strokeWidth={1}
+                          strokeDasharray="5 5"
+                          dot={false}
+                          name="setTemp"
+                        />
+                        {chartData.some(d => d.outdoorTemp !== null) && (
+                          <Line 
+                            type="monotone" 
+                            dataKey="outdoorTemp" 
+                            stroke="hsl(142 76% 36%)" 
+                            strokeWidth={1}
+                            dot={false}
+                            name="outdoorTemp"
+                          />
+                        )}
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
                 </div>
               ) : (
                 <div className="text-center py-8 text-muted-foreground">
                   Ei historiadataa valitulle ajanjaksolle
+                </div>
+              )}
+
+              {/* Recovery speed analysis */}
+              {recoveryScatterData.length > 0 && (
+                <div className="space-y-2">
+                  <h4 className="font-medium flex items-center gap-2">
+                    <Activity className="w-4 h-4" />
+                    Palautumisnopeus vs ulkolämpötila
+                    <span className="text-xs text-muted-foreground font-normal">
+                      (Auttaa tunnistamaan kriittisen ulkolämpötilan)
+                    </span>
+                  </h4>
+                  <div className="h-64 w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <ScatterChart margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                        <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                        <XAxis 
+                          type="number" 
+                          dataKey="outdoorTemp" 
+                          name="Ulkolämpötila"
+                          unit="°C"
+                          domain={['auto', 'auto']}
+                          tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                        />
+                        <YAxis 
+                          type="number" 
+                          dataKey="recoverySpeed" 
+                          name="Palautumisnopeus"
+                          unit=" °C/min"
+                          domain={[0, 'auto']}
+                          tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                        />
+                        <ZAxis type="number" dataKey="duration" range={[50, 200]} />
+                        <Tooltip 
+                          cursor={{ strokeDasharray: '3 3' }}
+                          formatter={(value: number, name: string) => {
+                            if (name === 'Ulkolämpötila') return [`${value.toFixed(1)}°C`, name];
+                            if (name === 'Palautumisnopeus') return [`${value.toFixed(3)} °C/min`, name];
+                            return [value, name];
+                          }}
+                          contentStyle={{
+                            backgroundColor: 'hsl(var(--background))',
+                            border: '1px solid hsl(var(--border))',
+                            borderRadius: '8px',
+                          }}
+                        />
+                        <Scatter 
+                          name="Palautuminen" 
+                          data={recoveryScatterData} 
+                          fill="hsl(var(--primary))"
+                        />
+                      </ScatterChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Jos palautumisnopeus laskee selvästi ulkolämpötilan laskiessa, lämpöpumpun teho ei riitä kylmimmissä olosuhteissa.
+                  </p>
                 </div>
               )}
 

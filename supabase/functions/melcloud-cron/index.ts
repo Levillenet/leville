@@ -44,6 +44,7 @@ interface Building {
 }
 
 type OperatingState = 'HEATING' | 'COOLING' | 'DEFROST' | 'IDLE' | 'OFF' | 'ERROR' | 'UNKNOWN';
+type EfficiencyStatus = 'SUFFICIENT' | 'MARGINAL' | 'INSUFFICIENT' | 'UNKNOWN';
 
 // Initialize Supabase client
 function getSupabaseClient() {
@@ -146,6 +147,30 @@ function determineOperatingState(
     default:
       return device.Power ? 'HEATING' : 'IDLE';
   }
+}
+
+// Determine efficiency status based on temperature debt and trends
+function determineEfficiencyStatus(
+  tempDebt: number,
+  degreeMinutesTrend: 'increasing' | 'decreasing' | 'stable',
+  recoverySpeedRatio: number | null // current vs normal
+): EfficiencyStatus {
+  // SUFFICIENT: tempDebt < 0.5, degree minutes decreasing, recovery normal
+  if (tempDebt < 0.5 && degreeMinutesTrend !== 'increasing') {
+    return 'SUFFICIENT';
+  }
+  
+  // INSUFFICIENT: tempDebt > 1.5, degree minutes increasing, recovery failing
+  if (tempDebt > 1.5 || (degreeMinutesTrend === 'increasing' && tempDebt > 1.0)) {
+    return 'INSUFFICIENT';
+  }
+  
+  // MARGINAL: in between
+  if (tempDebt >= 0.5 && tempDebt <= 1.5) {
+    return 'MARGINAL';
+  }
+  
+  return 'UNKNOWN';
 }
 
 async function setFanSpeed(
@@ -269,8 +294,27 @@ serve(async (req) => {
 
     const defrostUpdates: Array<{ id: string; ended_at: string; duration_seconds: number }> = [];
     const defrostInserts: Array<{ device_id: number; started_at: string }> = [];
-    const stateUpdates: Array<{ device_id: number; last_known_state: OperatingState; device_name: string }> = [];
+    const stateUpdates: Array<{ 
+      device_id: number; 
+      last_known_state: OperatingState; 
+      device_name: string;
+      degree_minutes: number;
+      efficiency_status: EfficiencyStatus;
+      recovery_tracking_started_at?: string | null;
+      recovery_tracking_start_temp?: number | null;
+    }> = [];
     const fanRecoveries: Array<{ device_id: number; building_id: number; fan_speed: number }> = [];
+    const recoveryLogInserts: Array<{
+      device_id: number;
+      defrost_ended_at: string;
+      target_reached_at: string;
+      recovery_duration_seconds: number;
+      recovery_speed: number;
+      outdoor_temperature: number | null;
+      temperature_delta: number;
+    }> = [];
+
+    const INTERVAL_MINUTES = 5; // Cron interval
 
     for (const deviceWrapper of devices) {
       const device = deviceWrapper.Device;
@@ -294,12 +338,26 @@ serve(async (req) => {
         operation_mode: ['unknown', 'heating', 'drying', 'cooling', '', '', '', 'fan', 'auto'][device.OperationMode] || 'unknown',
       });
 
-      // Track state for settings
-      stateUpdates.push({
-        device_id: deviceId,
-        last_known_state: operatingState,
-        device_name: device.DeviceName,
-      });
+      // Calculate temperature debt and degree minutes
+      const tempDebt = Math.max(0, device.SetTemperature - device.RoomTemperature);
+      const currentDegreeMinutes = settings?.degree_minutes ?? 0;
+      const newDegreeMinutes = currentDegreeMinutes + (tempDebt * INTERVAL_MINUTES);
+
+      // Determine degree minutes trend (compare to 30 min ago)
+      const previousDegreeMinutes = currentDegreeMinutes;
+      let degreeMinutesTrend: 'increasing' | 'decreasing' | 'stable' = 'stable';
+      if (newDegreeMinutes > previousDegreeMinutes + 5) {
+        degreeMinutesTrend = 'increasing';
+      } else if (newDegreeMinutes < previousDegreeMinutes - 5) {
+        degreeMinutesTrend = 'decreasing';
+      }
+
+      // Determine efficiency status
+      const efficiencyStatus = determineEfficiencyStatus(tempDebt, degreeMinutesTrend, null);
+
+      // Track recovery after defrost
+      let recoveryTrackingStartedAt = settings?.recovery_tracking_started_at;
+      let recoveryTrackingStartTemp = settings?.recovery_tracking_start_temp;
 
       // Handle defrost cycle tracking
       const openDefrost = openDefrostMap.get(deviceId);
@@ -324,8 +382,12 @@ serve(async (req) => {
           duration_seconds: durationSeconds,
         });
 
-        // Check for pending fan recovery
-        if (settings?.pending_fan_recovery_at) {
+        // Start recovery tracking
+        recoveryTrackingStartedAt = endedAt.toISOString();
+        recoveryTrackingStartTemp = device.RoomTemperature;
+
+        // FIXED: Check for pending fan recovery - only if auto-recovery is ENABLED
+        if (settings?.pending_fan_recovery_at && settings?.fan_auto_recovery === true) {
           const pendingAt = new Date(settings.pending_fan_recovery_at);
           if (pendingAt <= new Date()) {
             console.log(`[CRON] Executing pending fan recovery for device ${deviceId}`);
@@ -338,8 +400,49 @@ serve(async (req) => {
         }
       }
 
-      // Check for pending fan recovery (not during defrost)
-      if (operatingState !== 'DEFROST' && settings?.pending_fan_recovery_at && !openDefrost) {
+      // Check if recovery is complete (reached target temp)
+      if (recoveryTrackingStartedAt && recoveryTrackingStartTemp !== null && recoveryTrackingStartTemp !== undefined) {
+        if (device.RoomTemperature >= device.SetTemperature) {
+          // Recovery complete
+          const startTime = new Date(recoveryTrackingStartedAt);
+          const endTime = new Date();
+          const durationSeconds = Math.floor((endTime.getTime() - startTime.getTime()) / 1000);
+          const tempDelta = device.RoomTemperature - recoveryTrackingStartTemp;
+          const recoverySpeed = durationSeconds > 0 ? (tempDelta / (durationSeconds / 60)) : 0; // °C/min
+
+          console.log(`[CRON] Recovery complete for device ${deviceId}: ${tempDelta.toFixed(1)}°C in ${durationSeconds}s (${recoverySpeed.toFixed(3)}°C/min)`);
+
+          if (tempDelta > 0) {
+            recoveryLogInserts.push({
+              device_id: deviceId,
+              defrost_ended_at: recoveryTrackingStartedAt,
+              target_reached_at: endTime.toISOString(),
+              recovery_duration_seconds: durationSeconds,
+              recovery_speed: recoverySpeed,
+              outdoor_temperature: device.OutdoorTemperature ?? null,
+              temperature_delta: tempDelta,
+            });
+          }
+
+          // Clear tracking
+          recoveryTrackingStartedAt = null;
+          recoveryTrackingStartTemp = null;
+        }
+      }
+
+      // Track state for settings
+      stateUpdates.push({
+        device_id: deviceId,
+        last_known_state: operatingState,
+        device_name: device.DeviceName,
+        degree_minutes: newDegreeMinutes,
+        efficiency_status: efficiencyStatus,
+        recovery_tracking_started_at: recoveryTrackingStartedAt,
+        recovery_tracking_start_temp: recoveryTrackingStartTemp,
+      });
+
+      // FIXED: Check for pending fan recovery (not during defrost) - only if auto-recovery is ENABLED
+      if (operatingState !== 'DEFROST' && settings?.pending_fan_recovery_at && settings?.fan_auto_recovery === true && !openDefrost) {
         const pendingAt = new Date(settings.pending_fan_recovery_at);
         if (pendingAt <= new Date()) {
           // Check if not already queued
@@ -393,6 +496,19 @@ serve(async (req) => {
       }
     }
 
+    // Insert recovery logs
+    if (recoveryLogInserts.length > 0) {
+      const { error: recoveryError } = await supabase
+        .from('heat_pump_recovery_log')
+        .insert(recoveryLogInserts);
+      
+      if (recoveryError) {
+        console.error('[CRON] Error inserting recovery logs:', recoveryError);
+      } else {
+        console.log(`[CRON] Inserted ${recoveryLogInserts.length} recovery logs`);
+      }
+    }
+
     // Update state settings
     for (const stateUpdate of stateUpdates) {
       await supabase
@@ -401,6 +517,10 @@ serve(async (req) => {
           device_id: stateUpdate.device_id,
           device_name: stateUpdate.device_name,
           last_known_state: stateUpdate.last_known_state,
+          degree_minutes: stateUpdate.degree_minutes,
+          efficiency_status: stateUpdate.efficiency_status,
+          recovery_tracking_started_at: stateUpdate.recovery_tracking_started_at,
+          recovery_tracking_start_temp: stateUpdate.recovery_tracking_start_temp,
           updated_at: new Date().toISOString(),
         }, {
           onConflict: 'device_id',
@@ -434,6 +554,7 @@ serve(async (req) => {
         defrostStarted: defrostInserts.length,
         defrostEnded: defrostUpdates.length,
         fanRecoveries: fanRecoveries.length,
+        recoveryLogs: recoveryLogInserts.length,
         duration: `${duration}ms`,
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
