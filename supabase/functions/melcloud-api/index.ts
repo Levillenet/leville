@@ -39,6 +39,11 @@ interface Device {
     ProhibitPower: boolean;
     ProhibitOperationMode: boolean;
     OutdoorTemperature?: number;
+    // Energy data (may not be available on all devices)
+    CurrentEnergyConsumed?: number;
+    DailyEnergyConsumed?: number;
+    TotalEnergyConsumed?: number;
+    HasEnergyConsumedMeter?: boolean;
   };
 }
 
@@ -468,6 +473,12 @@ async function getDevices(contextKey: string) {
     // Calculate comparative efficiency
     const efficiencyInfo = calculateEfficiencyInfo(tempDebt, deviceBaseline, fleetBaseline);
 
+    // Energy consumption data
+    const hasEnergyMeter = fullDevice?.HasEnergyConsumedMeter ?? false;
+    const currentEnergy = fullDevice?.CurrentEnergyConsumed ?? null;
+    const dailyEnergy = fullDevice?.DailyEnergyConsumed ?? null;
+    const totalEnergy = fullDevice?.TotalEnergyConsumed ?? null;
+
     return {
       deviceId,
       deviceName: fullDevice?.DeviceName ?? device.Device.DeviceName ?? device.DeviceName,
@@ -497,11 +508,16 @@ async function getDevices(contextKey: string) {
       performanceRatio: efficiencyInfo.performanceRatio,
       efficiencyReason: efficiencyInfo.reason,
       baselineSampleCount: efficiencyInfo.sampleCount,
+      // Energy fields
+      hasEnergyMeter,
+      currentEnergy,
+      dailyEnergy,
+      totalEnergy,
     };
   });
 
   console.log(`Found ${devices.length} devices`);
-  devices.forEach(d => console.log(`Device ${d.deviceName}: efficiency=${d.efficiencyStatus}, ratio=${d.performanceRatio}%, samples=${d.baselineSampleCount}`));
+  devices.forEach(d => console.log(`Device ${d.deviceName}: efficiency=${d.efficiencyStatus}, ratio=${d.performanceRatio}%, samples=${d.baselineSampleCount}, hasEnergyMeter=${d.hasEnergyMeter}, dailyEnergy=${d.dailyEnergy}`));
   return devices;
 }
 

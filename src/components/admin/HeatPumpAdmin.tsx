@@ -27,6 +27,7 @@ import {
   GraduationCap,
   TrendingUp,
   TrendingDown,
+  Zap,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -64,6 +65,11 @@ interface HeatPumpDevice {
   performanceRatio: number | null;
   efficiencyReason: string;
   baselineSampleCount: number;
+  // Energy fields
+  hasEnergyMeter: boolean;
+  currentEnergy: number | null;
+  dailyEnergy: number | null;
+  totalEnergy: number | null;
 }
 
 interface DevicesResponse {
@@ -512,6 +518,25 @@ const HeatPumpAdmin = () => {
                         Tavoitteesta: -{tempDebt.toFixed(1)}°C
                       </span>
                     )}
+                  </div>
+                )}
+
+                {/* Energy consumption - only shown if device has meter */}
+                {device.hasEnergyMeter && (
+                  <div className="flex items-center justify-center gap-3 text-sm bg-muted/50 rounded-md py-2 px-3">
+                    <Zap className="w-4 h-4 text-yellow-500" />
+                    <div className="flex flex-col items-center">
+                      {device.dailyEnergy !== null && (
+                        <span className="font-medium">
+                          Tänään: {device.dailyEnergy.toFixed(1)} kWh
+                        </span>
+                      )}
+                      {device.currentEnergy !== null && (
+                        <span className="text-xs text-muted-foreground">
+                          Nykyinen: {device.currentEnergy.toFixed(2)} kW
+                        </span>
+                      )}
+                    </div>
                   </div>
                 )}
 
