@@ -704,7 +704,10 @@ serve(async (req) => {
       }
 
       for (const [key, updates] of groupedUpdates) {
-        const [deviceIdStr, outdoorTempRange] = key.split('_');
+        // Fix: Parse key correctly - deviceId_outdoorTempRange where outdoorTempRange contains underscore (e.g., "12345678_-15_-10")
+        const firstUnderscore = key.indexOf('_');
+        const deviceIdStr = key.substring(0, firstUnderscore);
+        const outdoorTempRange = key.substring(firstUnderscore + 1);
         const deviceId = parseInt(deviceIdStr);
         
         // Get existing baseline
