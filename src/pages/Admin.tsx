@@ -6,13 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Mail, Loader2, Thermometer } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Mail, Loader2, Thermometer, Wrench, Home } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
 import SiteSettingsAdmin from "@/components/admin/SiteSettingsAdmin";
 import UserManagementAdmin from "@/components/admin/UserManagementAdmin";
 import HeatPumpAdmin from "@/components/admin/HeatPumpAdmin";
+import MaintenanceAdmin from "@/components/admin/MaintenanceAdmin";
+import PropertyMaintenanceAdmin from "@/components/admin/PropertyMaintenanceAdmin";
 import { Session, User } from "@supabase/supabase-js";
 import {
   BarChart,
@@ -371,8 +373,16 @@ const Admin = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="settings" className="space-y-6">
+        <Tabs defaultValue="maintenance" className="space-y-6">
           <TabsList className="flex-wrap h-auto gap-1">
+            <TabsTrigger value="maintenance" className="flex items-center gap-2">
+              <Wrench className="w-4 h-4" />
+              Ylläpito
+            </TabsTrigger>
+            <TabsTrigger value="property-maintenance" className="flex items-center gap-2">
+              <Home className="w-4 h-4" />
+              Huoneistotiedot
+            </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="w-4 h-4" />
               Yleiset asetukset
@@ -402,6 +412,14 @@ const Admin = () => {
               Välimuisti
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="maintenance">
+            <MaintenanceAdmin />
+          </TabsContent>
+
+          <TabsContent value="property-maintenance">
+            <PropertyMaintenanceAdmin />
+          </TabsContent>
 
           <TabsContent value="settings">
             <SiteSettingsAdmin />
