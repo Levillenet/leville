@@ -743,10 +743,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                 href={bookingUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-foreground hover:text-primary transition-colors inline-flex items-center gap-1.5"
+                                className="text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1.5 underline underline-offset-2 decoration-primary/50 hover:decoration-primary font-semibold"
                               >
                                 {marketingName}
-                                <ExternalLink className="w-4 h-4" />
+                                <ExternalLink className="w-4 h-4 opacity-70" />
                               </a>
                             ) : (
                               <span className="text-foreground">{marketingName}</span>
