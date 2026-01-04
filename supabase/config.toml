@@ -44,3 +44,9 @@ verify_jwt = false
 
 [functions.maintenance-settings]
 verify_jwt = false
+
+[functions.mark-cleaned]
+verify_jwt = false
+
+[functions.get-cleaning-status]
+verify_jwt = false
