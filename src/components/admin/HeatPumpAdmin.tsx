@@ -186,11 +186,24 @@ const HeatPumpAdmin = () => {
       },
     }));
 
-    settingsMutation.mutate({
+    // Build the mutation params with explicit field values
+    const params: {
+      deviceId: number;
+      deviceName: string;
+      fanAutoRecovery?: boolean;
+      fanRecoveryDelayMinutes?: number;
+    } = {
       deviceId: device.deviceId,
       deviceName: device.deviceName,
-      [field]: value,
-    });
+    };
+
+    if (field === 'fanAutoRecovery') {
+      params.fanAutoRecovery = value as boolean;
+    } else if (field === 'fanRecoveryDelayMinutes') {
+      params.fanRecoveryDelayMinutes = value as number;
+    }
+
+    settingsMutation.mutate(params);
   };
 
   const getDeviceState = (device: HeatPumpDevice) => ({
