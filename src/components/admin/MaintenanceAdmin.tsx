@@ -10,7 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, RefreshCw, Send, Eye, Clock, Users, Home, LogOut, LogIn, CalendarIcon, Search } from "lucide-react";
+import { Loader2, RefreshCw, Send, Eye, Clock, Users, Home, LogOut, LogIn, CalendarIcon, Search, CheckCircle2, Mail } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
@@ -44,6 +44,13 @@ interface PropertyMaintenance {
   cleaning_email: string | null;
 }
 
+interface CleaningStatus {
+  property_id: string;
+  check_in_date: string;
+  cleaned_at: string | null;
+  notification_sent_at: string | null;
+}
+
 const MaintenanceAdmin = () => {
   const [bookings, setBookings] = useState<DayBookings | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +67,8 @@ const MaintenanceAdmin = () => {
   const [beds24NameMap, setBeds24NameMap] = useState<Map<string, string>>(new Map());
   const [propertyCleaningEmails, setPropertyCleaningEmails] = useState<Map<string, string>>(new Map());
   const [settingsLoaded, setSettingsLoaded] = useState(false);
+  const [cleaningStatuses, setCleaningStatuses] = useState<Map<string, CleaningStatus>>(new Map());
+  const [markingCleaned, setMarkingCleaned] = useState<string | null>(null);
   const { toast } = useToast();
 
   // Build default name map from propertyDetails.ts
@@ -151,18 +160,34 @@ const MaintenanceAdmin = () => {
       const dateStr = format(selectedDate, 'yyyy-MM-dd');
       console.log('Fetching bookings for date:', dateStr);
       
-      const { data: bookingsData, error: bookingsError } = await supabase.functions.invoke('maintenance-bookings', {
-        body: { date: dateStr }
-      });
+      // Fetch bookings and cleaning statuses in parallel
+      const [bookingsResult, cleaningResult] = await Promise.all([
+        supabase.functions.invoke('maintenance-bookings', {
+          body: { date: dateStr }
+        }),
+        supabase.functions.invoke('get-cleaning-status', {
+          body: { date: dateStr }
+        })
+      ]);
 
-      console.log('Bookings response:', bookingsData);
+      console.log('Bookings response:', bookingsResult.data);
+      console.log('Cleaning status response:', cleaningResult.data);
 
-      if (bookingsError) throw bookingsError;
-      setBookings(bookingsData);
+      if (bookingsResult.error) throw bookingsResult.error;
+      setBookings(bookingsResult.data);
+
+      // Set cleaning statuses
+      if (cleaningResult.data?.statusMap) {
+        const statusMap = new Map<string, CleaningStatus>();
+        for (const [propertyId, status] of Object.entries(cleaningResult.data.statusMap)) {
+          statusMap.set(propertyId, status as CleaningStatus);
+        }
+        setCleaningStatuses(statusMap);
+      }
 
       toast({
         title: "Varaukset haettu",
-        description: `${bookingsData?.arrivals?.length || 0} saapuvaa, ${bookingsData?.departures?.length || 0} lähtevää`
+        description: `${bookingsResult.data?.arrivals?.length || 0} saapuvaa, ${bookingsResult.data?.departures?.length || 0} lähtevää`
       });
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -174,6 +199,59 @@ const MaintenanceAdmin = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleMarkCleaned = async (propertyId: string) => {
+    setMarkingCleaned(propertyId);
+    try {
+      const dateStr = format(selectedDate, 'yyyy-MM-dd');
+      
+      const { data, error } = await supabase.functions.invoke('mark-cleaned', {
+        body: {
+          propertyId,
+          checkInDate: dateStr,
+          sendNotification: false // Beds24 doesn't have guest email, disable for now
+        }
+      });
+
+      if (error) throw error;
+
+      // Update local state
+      setCleaningStatuses(prev => {
+        const newMap = new Map(prev);
+        newMap.set(propertyId, {
+          property_id: propertyId,
+          check_in_date: dateStr,
+          cleaned_at: data.cleanedAt,
+          notification_sent_at: null
+        });
+        return newMap;
+      });
+
+      toast({
+        title: "✅ Huoneisto merkitty valmiiksi",
+        description: data.propertyName
+      });
+    } catch (error) {
+      console.error('Error marking cleaned:', error);
+      toast({
+        title: "Virhe",
+        description: "Huoneiston merkitseminen epäonnistui",
+        variant: "destructive"
+      });
+    } finally {
+      setMarkingCleaned(null);
+    }
+  };
+
+  const isPropertyCleaned = (propertyId: string) => {
+    return cleaningStatuses.get(propertyId)?.cleaned_at != null;
+  };
+
+  const getCleanedTime = (propertyId: string) => {
+    const status = cleaningStatuses.get(propertyId);
+    if (!status?.cleaned_at) return null;
+    return new Date(status.cleaned_at).toLocaleTimeString('fi-FI', { hour: '2-digit', minute: '2-digit' });
   };
 
   const handleSaveSettings = async () => {
@@ -332,7 +410,7 @@ const MaintenanceAdmin = () => {
         </CardContent>
       </Card>
 
-      {/* Departures */}
+      {/* Departures - with cleaning status */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-destructive">
@@ -340,7 +418,8 @@ const MaintenanceAdmin = () => {
             Lähtevät (siivottavat)
           </CardTitle>
           <CardDescription>
-            {bookings?.departures.length || 0} huoneistoa siivottavana
+            {bookings?.departures.length || 0} huoneistoa siivottavana • 
+            {bookings?.departures.filter(d => isPropertyCleaned(d.propertyId)).length || 0} valmis
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -348,21 +427,67 @@ const MaintenanceAdmin = () => {
             <p className="text-muted-foreground text-sm">Ei lähteviä varauksia</p>
           ) : (
             <div className="space-y-2">
-              {bookings?.departures.map((dep, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 bg-destructive/5 rounded-lg border border-destructive/10">
-                  <div className="flex items-center gap-3">
-                    <Home className="w-4 h-4 text-destructive" />
-                    <span className="font-medium">{getPropertyName(dep.propertyId)}</span>
+              {bookings?.departures.map((dep, idx) => {
+                const isCleaned = isPropertyCleaned(dep.propertyId);
+                const cleanedTime = getCleanedTime(dep.propertyId);
+                
+                return (
+                  <div 
+                    key={idx} 
+                    className={cn(
+                      "flex items-center justify-between p-3 rounded-lg border transition-all",
+                      isCleaned 
+                        ? "bg-green-500/10 border-green-500/20" 
+                        : "bg-destructive/5 border-destructive/10"
+                    )}
+                  >
+                    <div className="flex items-center gap-3">
+                      {isCleaned ? (
+                        <CheckCircle2 className="w-5 h-5 text-green-600" />
+                      ) : (
+                        <Home className="w-4 h-4 text-destructive" />
+                      )}
+                      <div>
+                        <span className="font-medium">{getPropertyName(dep.propertyId)}</span>
+                        {isCleaned && cleanedTime && (
+                          <span className="text-xs text-green-600 ml-2">
+                            Valmis klo {cleanedTime}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <Users className="w-4 h-4" />
+                        {dep.guestCount} hlö
+                      </span>
+                      {isCleaned ? (
+                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" />
+                          Valmis
+                        </span>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="bg-green-50 hover:bg-green-100 text-green-700 border-green-200"
+                          onClick={() => handleMarkCleaned(dep.propertyId)}
+                          disabled={markingCleaned === dep.propertyId}
+                        >
+                          {markingCleaned === dep.propertyId ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <>
+                              <CheckCircle2 className="w-4 h-4 mr-1" />
+                              Valmis
+                            </>
+                          )}
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Users className="w-4 h-4" />
-                      {dep.guestCount} hlö
-                    </span>
-                    <span className="text-xs">{getCleaningEmail(dep.propertyId)}</span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </CardContent>
