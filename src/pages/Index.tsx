@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
@@ -14,15 +15,69 @@ interface IndexProps {
   lang?: Language;
 }
 
+// SEO content per language
+const seoContent: Record<Language, {
+  title: string;
+  description: string;
+  keywords: string;
+  canonical: string;
+  locale: string;
+}> = {
+  fi: {
+    title: "Leville.net – Majoitus Levin keskustassa | Huoneistot & Mökit",
+    description: "Leville.net tarjoaa laadukasta majoitusta Levin keskustassa. Modernit huoneistot, tilavat perheasunnot ja tunnelmalliset hirsimökit parhailla paikoilla. Varaa suoraan meiltä!",
+    keywords: "Levi majoitus, Levi huoneisto, Levi mökki, Levi keskusta, Levin majoitus, loma Levi",
+    canonical: "https://leville.net",
+    locale: "fi_FI"
+  },
+  en: {
+    title: "Leville.net – Accommodation in Levi Center | Apartments & Cabins",
+    description: "Leville.net offers quality accommodation in Levi center. Modern apartments, spacious family homes and cozy log cabins in the best locations. Book directly from us!",
+    keywords: "Levi accommodation, Levi apartment, Levi cabin, Levi center, Levi holiday, Lapland",
+    canonical: "https://leville.net/en",
+    locale: "en_US"
+  },
+  sv: {
+    title: "Leville.net – Boende i Levi centrum | Lägenheter & Stugor",
+    description: "Leville.net erbjuder kvalitetsboende i Levis centrum. Moderna lägenheter, rymliga familjelägenheter och mysiga timmerstugor på bästa platser. Boka direkt från oss!",
+    keywords: "Levi boende, Levi lägenhet, Levi stuga, Levi centrum, Levi semester, Lappland",
+    canonical: "https://leville.net/sv",
+    locale: "sv_SE"
+  },
+  de: {
+    title: "Leville.net – Unterkunft im Levi Zentrum | Apartments & Hütten",
+    description: "Leville.net bietet hochwertige Unterkünfte im Zentrum von Levi. Moderne Apartments, geräumige Familienwohnungen und gemütliche Blockhütten an besten Standorten. Direkt buchen!",
+    keywords: "Levi Unterkunft, Levi Apartment, Levi Hütte, Levi Zentrum, Levi Urlaub, Lappland",
+    canonical: "https://leville.net/de",
+    locale: "de_DE"
+  },
+  es: {
+    title: "Leville.net – Alojamiento en el centro de Levi | Apartamentos y Cabañas",
+    description: "Leville.net ofrece alojamiento de calidad en el centro de Levi. Apartamentos modernos, amplios pisos familiares y acogedoras cabañas de madera. ¡Reserva directamente!",
+    keywords: "Levi alojamiento, Levi apartamento, Levi cabaña, Levi centro, vacaciones Levi, Laponia",
+    canonical: "https://leville.net/es",
+    locale: "es_ES"
+  },
+  fr: {
+    title: "Leville.net – Hébergement au centre de Levi | Appartements & Chalets",
+    description: "Leville.net propose des hébergements de qualité au centre de Levi. Appartements modernes, logements familiaux spacieux et chalets en bois confortables. Réservez directement!",
+    keywords: "Levi hébergement, Levi appartement, Levi chalet, Levi centre, vacances Levi, Laponie",
+    canonical: "https://leville.net/fr",
+    locale: "fr_FR"
+  }
+};
+
 const Index = ({ lang = "fi" }: IndexProps) => {
   const t = getTranslations(lang);
   const location = useLocation();
-  const schemaData = {
+  const seo = seoContent[lang];
+
+  const schemaData = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
     "name": "Leville.net",
-    "description": "Leville.net tarjoaa laadukasta majoitusta Levin keskustassa. Modernit huoneistot, tilavat perheasunnot ja tunnelmalliset hirsimökit.",
-    "url": "https://leville.net",
+    "description": seo.description,
+    "url": seo.canonical,
     "telephone": "+358 44 131 313",
     "email": "info@leville.net",
     "address": {
@@ -44,33 +99,30 @@ const Index = ({ lang = "fi" }: IndexProps) => {
       "opens": "09:00",
       "closes": "17:00"
     }
-  };
+  }), [seo.description, seo.canonical]);
 
   return (
     <>
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />
-        <title>Leville.net – Majoitus Levin keskustassa | Huoneistot & Mökit</title>
-        <meta 
-          name="description" 
-          content="Leville.net tarjoaa laadukasta majoitusta Levin keskustassa. Modernit huoneistot, tilavat perheasunnot ja tunnelmalliset hirsimökit parhailla paikoilla. Varaa suoraan meiltä!" 
-        />
-        <meta name="keywords" content="Levi majoitus, Levi huoneisto, Levi mökki, Levi keskusta, Levin majoitus, loma Levi" />
-        <link rel="canonical" href="https://leville.net" />
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.description} />
+        <meta name="keywords" content={seo.keywords} />
+        <link rel="canonical" href={seo.canonical} />
         
         {/* Open Graph */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://leville.net" />
-        <meta property="og:title" content="Leville.net – Majoitus Levin keskustassa" />
-        <meta property="og:description" content="Leville.net tarjoaa laadukasta majoitusta Levin keskustassa. Modernit huoneistot ja tunnelmalliset mökit parhailla paikoilla." />
-        <meta property="og:locale" content="fi_FI" />
+        <meta property="og:url" content={seo.canonical} />
+        <meta property="og:title" content={seo.title} />
+        <meta property="og:description" content={seo.description} />
+        <meta property="og:locale" content={seo.locale} />
         <meta property="og:site_name" content="Leville.net" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Leville.net – Majoitus Levin keskustassa" />
-        <meta name="twitter:description" content="Leville.net tarjoaa laadukasta majoitusta Levin keskustassa. Modernit huoneistot ja tunnelmalliset mökit." />
+        <meta name="twitter:title" content={seo.title} />
+        <meta name="twitter:description" content={seo.description} />
         
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
