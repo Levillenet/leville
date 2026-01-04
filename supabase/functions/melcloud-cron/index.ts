@@ -138,10 +138,18 @@ async function getDevices(contextKey: string): Promise<Device[]> {
   return buildings.flatMap(building => building.Structure.Devices);
 }
 
+/**
+ * Determine operating state using outdoor temperature changes for defrost detection.
+ * 
+ * Key insight: During defrost, the outdoor unit's heat exchanger is warmed,
+ * which causes the outdoor temperature sensor to suddenly read 4-7°C higher.
+ * When defrost ends, the temperature drops back down.
+ */
 function determineOperatingState(
   device: Device['Device'],
   lastKnownState: string,
-  previousRoomTemp: number | null
+  previousRoomTemp: number | null,
+  previousOutdoorTemp: number | null
 ): OperatingState {
   const lastComm = new Date(device.LastCommunication);
   const now = new Date();
@@ -155,16 +163,43 @@ function determineOperatingState(
     return 'OFF';
   }
 
-  // Heuristic defrost detection
-  if (
-    device.OperationMode === 1 && // HEAT mode
-    (device.SetFanSpeed === 0 || device.SetFanSpeed === 1) &&
-    previousRoomTemp !== null &&
-    device.RoomTemperature <= previousRoomTemp
-  ) {
-    if (previousRoomTemp - device.RoomTemperature >= 0.3 || lastKnownState === 'DEFROST') {
+  const outdoorTemp = device.OutdoorTemperature ?? null;
+
+  // PRIMARY SIGNAL: Sudden outdoor temperature rise = defrost starting
+  if (previousOutdoorTemp !== null && outdoorTemp !== null) {
+    const outdoorTempChange = outdoorTemp - previousOutdoorTemp;
+    
+    // Outdoor temp rose >= 4°C in ~5 minutes = DEFROST started
+    if (outdoorTempChange >= 4) {
+      console.log(`[DEFROST] Device ${device.DeviceID}: outdoor temp rose ${outdoorTempChange.toFixed(1)}°C (${previousOutdoorTemp}→${outdoorTemp}) - DEFROST DETECTED`);
       return 'DEFROST';
     }
+    
+    // Outdoor temp dropped >= 4°C from DEFROST state = defrost ended
+    if (outdoorTempChange <= -4 && lastKnownState === 'DEFROST') {
+      console.log(`[DEFROST] Device ${device.DeviceID}: outdoor temp dropped ${outdoorTempChange.toFixed(1)}°C - DEFROST ENDED`);
+      return 'HEATING';
+    }
+  }
+
+  // CONTINUATION: If last state was DEFROST and room temp still dropping, continue DEFROST
+  if (lastKnownState === 'DEFROST') {
+    // Continue defrost if room temp is still below or equal to previous
+    if (previousRoomTemp !== null && device.RoomTemperature <= previousRoomTemp) {
+      console.log(`[DEFROST] Device ${device.DeviceID}: continuing defrost (room temp ${previousRoomTemp}→${device.RoomTemperature})`);
+      return 'DEFROST';
+    }
+    // Also continue if outdoor temp is still elevated (hasn't dropped back yet)
+    if (previousOutdoorTemp !== null && outdoorTemp !== null && outdoorTemp > previousOutdoorTemp - 2) {
+      console.log(`[DEFROST] Device ${device.DeviceID}: continuing defrost (outdoor temp still elevated)`);
+      return 'DEFROST';
+    }
+  }
+
+  // IDLE check: if target temperature is reached
+  const tempDebt = (device.SetTemperature ?? 0) - device.RoomTemperature;
+  if (tempDebt <= 0.5) {
+    return 'IDLE';
   }
 
   switch (device.OperationMode) {
@@ -328,18 +363,27 @@ serve(async (req) => {
       (settingsData || []).map(s => [s.device_id, s])
     );
 
-    // Fetch previous temperatures for defrost detection
+// Fetch previous temperatures for defrost detection (including outdoor temp)
     const { data: lastHistory } = await supabase
       .from('heat_pump_history')
-      .select('device_id, room_temperature')
+      .select('device_id, room_temperature, outdoor_temperature, operating_state')
       .in('device_id', deviceIds)
       .gte('recorded_at', new Date(Date.now() - 15 * 60 * 1000).toISOString())
       .order('recorded_at', { ascending: false });
 
-    const lastTempMap = new Map<number, number>();
+    // Build a map with all previous data needed for defrost detection
+    const lastDataMap = new Map<number, { 
+      roomTemp: number; 
+      outdoorTemp: number | null; 
+      operatingState: string;
+    }>();
     (lastHistory || []).forEach(h => {
-      if (!lastTempMap.has(h.device_id)) {
-        lastTempMap.set(h.device_id, h.room_temperature);
+      if (!lastDataMap.has(h.device_id)) {
+        lastDataMap.set(h.device_id, {
+          roomTemp: h.room_temperature,
+          outdoorTemp: h.outdoor_temperature,
+          operatingState: h.operating_state,
+        });
       }
     });
 
@@ -423,10 +467,19 @@ serve(async (req) => {
       const deviceId = device.DeviceID;
       const buildingId = deviceWrapper.BuildingID || device.BuildingID;
       const settings = settingsMap.get(deviceId);
-      const lastTemp = lastTempMap.get(deviceId) ?? null;
-      const lastKnownState = settings?.last_known_state || 'UNKNOWN';
+      const lastData = lastDataMap.get(deviceId);
+      const lastRoomTemp = lastData?.roomTemp ?? null;
+      const lastOutdoorTemp = lastData?.outdoorTemp ?? null;
+      const lastKnownState = settings?.last_known_state || lastData?.operatingState || 'UNKNOWN';
 
-      const operatingState = determineOperatingState(device, lastKnownState, lastTemp);
+      const operatingState = determineOperatingState(device, lastKnownState, lastRoomTemp, lastOutdoorTemp);
+      
+      // Debug logging for temperature changes
+      const outdoorTemp = device.OutdoorTemperature ?? null;
+      const outdoorChange = (lastOutdoorTemp !== null && outdoorTemp !== null) 
+        ? outdoorTemp - lastOutdoorTemp 
+        : 0;
+      console.log(`[CRON] ${device.DeviceName}: outdoor ${lastOutdoorTemp?.toFixed(1) ?? '?'}→${outdoorTemp?.toFixed(1) ?? '?'}°C (${outdoorChange >= 0 ? '+' : ''}${outdoorChange.toFixed(1)}), room ${lastRoomTemp?.toFixed(1) ?? '?'}→${device.RoomTemperature.toFixed(1)}°C, state: ${lastKnownState}→${operatingState}`);
       const outdoorTempRange = getOutdoorTempRange(device.OutdoorTemperature ?? null);
 
       // Store history
