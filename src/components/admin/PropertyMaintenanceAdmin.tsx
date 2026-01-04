@@ -30,7 +30,11 @@ interface PropertySettings {
   marketing_name: string | null;
 }
 
-const PropertyMaintenanceAdmin = () => {
+interface PropertyMaintenanceAdminProps {
+  isViewer?: boolean;
+}
+
+const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdminProps) => {
   const [properties, setProperties] = useState<PropertyMaintenance[]>([]);
   const [propertyNames, setPropertyNames] = useState<Map<string, string>>(new Map());
   const [beds24NameMap, setBeds24NameMap] = useState<Map<string, string>>(new Map());
