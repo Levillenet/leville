@@ -113,6 +113,27 @@ export type Database = {
         }
         Relationships: []
       }
+      maintenance_settings: {
+        Row: {
+          created_at: string | null
+          id: string
+          updated_at: string | null
+          value: Json
+        }
+        Insert: {
+          created_at?: string | null
+          id: string
+          updated_at?: string | null
+          value: Json
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          updated_at?: string | null
+          value?: Json
+        }
+        Relationships: []
+      }
       period_settings: {
         Row: {
           check_in: string
@@ -148,6 +169,45 @@ export type Database = {
           id?: string
           property_id?: string
           show_discount?: boolean | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      property_maintenance: {
+        Row: {
+          cleaning_email: string | null
+          cleaning_fee: number | null
+          created_at: string | null
+          id: string
+          linen_price_per_person: number | null
+          max_guests: number | null
+          notes: string | null
+          owner_email: string | null
+          property_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          cleaning_email?: string | null
+          cleaning_fee?: number | null
+          created_at?: string | null
+          id?: string
+          linen_price_per_person?: number | null
+          max_guests?: number | null
+          notes?: string | null
+          owner_email?: string | null
+          property_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          cleaning_email?: string | null
+          cleaning_fee?: number | null
+          created_at?: string | null
+          id?: string
+          linen_price_per_person?: number | null
+          max_guests?: number | null
+          notes?: string | null
+          owner_email?: string | null
+          property_id?: string
           updated_at?: string | null
         }
         Relationships: []

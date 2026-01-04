@@ -35,3 +35,12 @@ verify_jwt = false
 
 [functions.melcloud-api]
 verify_jwt = false
+
+[functions.maintenance-bookings]
+verify_jwt = false
+
+[functions.send-worklist]
+verify_jwt = false
+
+[functions.maintenance-settings]
+verify_jwt = false
