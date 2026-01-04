@@ -52,59 +52,63 @@ serve(async (req: Request): Promise<Response> => {
     
     console.log(`Processing worklist for date: ${targetDate}, preview: ${preview}`);
 
-    // Fetch bookings for target date from Beds24
-    const arrivalsBody = {
-      authentication: { apiKey: beds24ApiToken },
-      arrivalFrom: targetDate,
-      arrivalTo: targetDate,
-      includeInvoice: false,
-      includePriceDetails: false
+    // Fetch bookings for target date from Beds24 v2 API
+    const apiHeaders = {
+      'Content-Type': 'application/json',
+      'token': beds24ApiToken
     };
 
-    const departuresBody = {
-      authentication: { apiKey: beds24ApiToken },
-      departureFrom: targetDate,
-      departureTo: targetDate,
-      includeInvoice: false,
-      includePriceDetails: false
-    };
+    const arrivalsUrl = `https://beds24.com/api/v2/bookings?arrivalFrom=${targetDate}&arrivalTo=${targetDate}`;
+    const departuresUrl = `https://beds24.com/api/v2/bookings?departureFrom=${targetDate}&departureTo=${targetDate}`;
+
+    console.log('Fetching arrivals from:', arrivalsUrl);
+    console.log('Fetching departures from:', departuresUrl);
 
     const [arrivalsResponse, departuresResponse] = await Promise.all([
-      fetch('https://api.beds24.com/json/getBookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(arrivalsBody)
-      }),
-      fetch('https://api.beds24.com/json/getBookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(departuresBody)
-      })
+      fetch(arrivalsUrl, { method: 'GET', headers: apiHeaders }),
+      fetch(departuresUrl, { method: 'GET', headers: apiHeaders })
     ]);
+
+    if (!arrivalsResponse.ok) {
+      console.error('Arrivals API error:', arrivalsResponse.status, await arrivalsResponse.text());
+      throw new Error(`Beds24 arrivals API error: ${arrivalsResponse.status}`);
+    }
+    if (!departuresResponse.ok) {
+      console.error('Departures API error:', departuresResponse.status, await departuresResponse.text());
+      throw new Error(`Beds24 departures API error: ${departuresResponse.status}`);
+    }
 
     const arrivalsData = await arrivalsResponse.json();
     const departuresData = await departuresResponse.json();
 
-    // Process bookings
+    console.log('Arrivals response:', JSON.stringify(arrivalsData).slice(0, 500));
+    console.log('Departures response:', JSON.stringify(departuresData).slice(0, 500));
+
+    // Process bookings - v2 API returns { data: [...] } or array directly
+    const arrivalsArray = arrivalsData.data || arrivalsData || [];
+    const departuresArray = departuresData.data || departuresData || [];
+
     const arrivals: BookingInfo[] = [];
-    if (Array.isArray(arrivalsData)) {
-      for (const booking of arrivalsData) {
-        if (booking.roomId) {
+    if (Array.isArray(arrivalsArray)) {
+      for (const booking of arrivalsArray) {
+        const propertyId = booking.propertyId || booking.roomId;
+        if (propertyId) {
           arrivals.push({
-            propertyId: String(booking.roomId),
-            guestCount: parseInt(booking.numAdult || '0', 10) + parseInt(booking.numChild || '0', 10)
+            propertyId: String(propertyId),
+            guestCount: (parseInt(booking.numAdult || '0', 10) || 0) + (parseInt(booking.numChild || '0', 10) || 0)
           });
         }
       }
     }
 
     const departures: BookingInfo[] = [];
-    if (Array.isArray(departuresData)) {
-      for (const booking of departuresData) {
-        if (booking.roomId) {
+    if (Array.isArray(departuresArray)) {
+      for (const booking of departuresArray) {
+        const propertyId = booking.propertyId || booking.roomId;
+        if (propertyId) {
           departures.push({
-            propertyId: String(booking.roomId),
-            guestCount: parseInt(booking.numAdult || '0', 10) + parseInt(booking.numChild || '0', 10)
+            propertyId: String(propertyId),
+            guestCount: (parseInt(booking.numAdult || '0', 10) || 0) + (parseInt(booking.numChild || '0', 10) || 0)
           });
         }
       }
