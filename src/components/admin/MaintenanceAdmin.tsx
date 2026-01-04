@@ -57,6 +57,7 @@ const MaintenanceAdmin = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [propertyNames, setPropertyNames] = useState<Map<string, string>>(new Map());
+  const [beds24NameMap, setBeds24NameMap] = useState<Map<string, string>>(new Map());
   const [propertyCleaningEmails, setPropertyCleaningEmails] = useState<Map<string, string>>(new Map());
   const [settingsLoaded, setSettingsLoaded] = useState(false);
   const { toast } = useToast();
@@ -102,6 +103,19 @@ const MaintenanceAdmin = () => {
         }
       }
       setPropertyCleaningEmails(emailMap);
+
+      // Fetch Beds24 room names
+      const { data: roomNamesResult } = await supabase.functions.invoke('maintenance-settings', {
+        body: { action: 'get_room_names' }
+      });
+
+      if (roomNamesResult?.roomNames) {
+        const beds24Map = new Map<string, string>();
+        for (const [id, name] of Object.entries(roomNamesResult.roomNames)) {
+          beds24Map.set(id, name as string);
+        }
+        setBeds24NameMap(beds24Map);
+      }
 
       // Fetch maintenance settings
       const { data: settingsResult, error: settingsError } = await supabase.functions.invoke('maintenance-settings', {
@@ -243,8 +257,11 @@ const MaintenanceAdmin = () => {
   };
 
   const getPropertyName = (propertyId: string) => {
-    // Priority: 1) DB marketing_name, 2) default from propertyDetails, 3) show ID
-    return propertyNames.get(propertyId) || defaultNameMap.get(propertyId) || `ID: ${propertyId}`;
+    // Priority: 1) DB marketing_name, 2) Beds24 API name, 3) default from propertyDetails, 4) show ID
+    return propertyNames.get(propertyId) 
+      || beds24NameMap.get(propertyId) 
+      || defaultNameMap.get(propertyId) 
+      || `ID: ${propertyId}`;
   };
 
   const getCleaningEmail = (propertyId: string) => {

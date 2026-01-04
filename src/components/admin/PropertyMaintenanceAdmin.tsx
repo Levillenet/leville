@@ -33,6 +33,7 @@ interface PropertySettings {
 const PropertyMaintenanceAdmin = () => {
   const [properties, setProperties] = useState<PropertyMaintenance[]>([]);
   const [propertyNames, setPropertyNames] = useState<Map<string, string>>(new Map());
+  const [beds24NameMap, setBeds24NameMap] = useState<Map<string, string>>(new Map());
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -75,7 +76,21 @@ const PropertyMaintenanceAdmin = () => {
 
       if (error) throw error;
 
-      setProperties(maintenanceResult?.properties || []);
+      const loadedProperties = maintenanceResult?.properties || [];
+      setProperties(loadedProperties);
+
+      // Fetch Beds24 room names for properties not in nameMap or defaultNameMap
+      const { data: roomNamesResult } = await supabase.functions.invoke('maintenance-settings', {
+        body: { action: 'get_room_names' }
+      });
+
+      if (roomNamesResult?.roomNames) {
+        const beds24Map = new Map<string, string>();
+        for (const [id, name] of Object.entries(roomNamesResult.roomNames)) {
+          beds24Map.set(id, name as string);
+        }
+        setBeds24NameMap(beds24Map);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
       toast({
@@ -157,8 +172,11 @@ const PropertyMaintenanceAdmin = () => {
   };
 
   const getPropertyName = (propertyId: string) => {
-    // Priority: 1) DB marketing_name, 2) default from propertyDetails, 3) show ID
-    return propertyNames.get(propertyId) || defaultNameMap.get(propertyId) || `ID: ${propertyId}`;
+    // Priority: 1) DB marketing_name, 2) Beds24 API name, 3) default from propertyDetails, 4) show ID
+    return propertyNames.get(propertyId) 
+      || beds24NameMap.get(propertyId) 
+      || defaultNameMap.get(propertyId) 
+      || `ID: ${propertyId}`;
   };
 
   const filteredProperties = properties.filter(p => {
@@ -231,7 +249,10 @@ const PropertyMaintenanceAdmin = () => {
                 {filteredProperties.map((property) => (
                   <TableRow key={property.property_id}>
                     <TableCell className="font-medium">
-                      {getPropertyName(property.property_id)}
+                      <div>
+                        <span>{getPropertyName(property.property_id)}</span>
+                        <span className="ml-2 text-xs text-muted-foreground font-mono">({property.property_id})</span>
+                      </div>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
