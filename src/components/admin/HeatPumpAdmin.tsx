@@ -1,11 +1,8 @@
-import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
 import { 
   RefreshCw, 
   Thermometer, 
@@ -13,8 +10,6 @@ import {
   Snowflake, 
   Wind, 
   Droplets,
-  Minus,
-  Plus,
   Loader2,
   AlertCircle
 } from "lucide-react";
@@ -29,8 +24,6 @@ interface HeatPumpDevice {
   operationMode: string;
   operationModeId: number;
   lastCommunication: string;
-  fanSpeed: number;
-  numberOfFanSpeeds: number;
 }
 
 interface DevicesResponse {
@@ -38,19 +31,7 @@ interface DevicesResponse {
   error?: string;
 }
 
-const OPERATION_MODES = [
-  { id: 1, name: 'Lämmitys', icon: Flame, color: 'text-orange-500' },
-  { id: 3, name: 'Jäähdytys', icon: Snowflake, color: 'text-blue-500' },
-  { id: 8, name: 'Auto', icon: Thermometer, color: 'text-green-500' },
-  { id: 2, name: 'Kuivaus', icon: Droplets, color: 'text-yellow-500' },
-  { id: 7, name: 'Tuuletus', icon: Wind, color: 'text-gray-500' },
-];
-
 const HeatPumpAdmin = () => {
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const [controllingDevice, setControllingDevice] = useState<number | null>(null);
-
   const { data, isLoading, error, refetch, isFetching } = useQuery({
     queryKey: ['melcloud-devices'],
     queryFn: async (): Promise<DevicesResponse> => {
@@ -64,97 +45,24 @@ const HeatPumpAdmin = () => {
       
       return data;
     },
-    staleTime: 60000, // 1 minute
-    refetchInterval: 300000, // 5 minutes
+    staleTime: 60000,
+    refetchInterval: 300000,
   });
 
-  const controlMutation = useMutation({
-    mutationFn: async (params: {
-      deviceId: number;
-      buildingId: number;
-      power?: boolean;
-      setTemperature?: number;
-      operationMode?: number;
-    }) => {
-      const { data, error } = await supabase.functions.invoke('melcloud-api', {
-        method: 'POST',
-        body: params,
-      });
-      
-      if (error) {
-        throw new Error(error.message);
-      }
-      
-      return data;
-    },
-    onSuccess: () => {
-      toast({
-        title: "Muutos tehty",
-        description: "Lämpöpumpun asetukset päivitetty",
-      });
-      // Refetch after a short delay to get updated state
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['melcloud-devices'] });
-      }, 2000);
-    },
-    onError: (error) => {
-      toast({
-        title: "Virhe",
-        description: error instanceof Error ? error.message : "Ohjaus epäonnistui",
-        variant: "destructive",
-      });
-    },
-    onSettled: () => {
-      setControllingDevice(null);
-    },
-  });
-
-  const handlePowerToggle = (device: HeatPumpDevice) => {
-    setControllingDevice(device.deviceId);
-    controlMutation.mutate({
-      deviceId: device.deviceId,
-      buildingId: device.buildingId,
-      power: !device.power,
-    });
-  };
-
-  const handleTemperatureChange = (device: HeatPumpDevice, delta: number) => {
-    const newTemp = Math.max(16, Math.min(31, device.setTemperature + delta));
-    if (newTemp === device.setTemperature) return;
-    
-    setControllingDevice(device.deviceId);
-    controlMutation.mutate({
-      deviceId: device.deviceId,
-      buildingId: device.buildingId,
-      setTemperature: newTemp,
-    });
-  };
-
-  const handleModeChange = (device: HeatPumpDevice, modeId: number) => {
-    if (device.operationModeId === modeId) return;
-    
-    setControllingDevice(device.deviceId);
-    controlMutation.mutate({
-      deviceId: device.deviceId,
-      buildingId: device.buildingId,
-      operationMode: modeId,
-    });
-  };
-
-  const getOperationModeIcon = (mode: string) => {
+  const getOperationModeInfo = (mode: string) => {
     switch (mode) {
       case 'heating':
-        return <Flame className="w-5 h-5 text-orange-500" />;
+        return { icon: <Flame className="w-4 h-4 text-orange-500" />, name: 'Lämmitys' };
       case 'cooling':
-        return <Snowflake className="w-5 h-5 text-blue-500" />;
+        return { icon: <Snowflake className="w-4 h-4 text-blue-500" />, name: 'Jäähdytys' };
       case 'auto':
-        return <Thermometer className="w-5 h-5 text-green-500" />;
+        return { icon: <Thermometer className="w-4 h-4 text-green-500" />, name: 'Auto' };
       case 'drying':
-        return <Droplets className="w-5 h-5 text-yellow-500" />;
+        return { icon: <Droplets className="w-4 h-4 text-yellow-500" />, name: 'Kuivaus' };
       case 'fan':
-        return <Wind className="w-5 h-5 text-gray-500" />;
+        return { icon: <Wind className="w-4 h-4 text-muted-foreground" />, name: 'Tuuletus' };
       default:
-        return <Thermometer className="w-5 h-5 text-muted-foreground" />;
+        return { icon: <Thermometer className="w-4 h-4 text-muted-foreground" />, name: mode };
     }
   };
 
@@ -208,10 +116,10 @@ const HeatPumpAdmin = () => {
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Thermometer className="w-5 h-5" />
-                Ilmalämpöpumput
+                Lämpötilat
               </CardTitle>
               <p className="text-sm text-muted-foreground mt-1">
-                {devices.length} laitetta löydetty
+                {devices.length} laitetta
               </p>
             </div>
             <Button 
@@ -229,97 +137,37 @@ const HeatPumpAdmin = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {devices.map((device) => {
-          const isControlling = controllingDevice === device.deviceId;
+          const modeInfo = getOperationModeInfo(device.operationMode);
           
           return (
-            <Card 
-              key={device.deviceId} 
-              className={`relative transition-all ${isControlling ? 'opacity-70' : ''}`}
-            >
-              {isControlling && (
-                <div className="absolute inset-0 flex items-center justify-center bg-background/50 rounded-lg z-10">
-                  <Loader2 className="w-6 h-6 animate-spin text-primary" />
-                </div>
-              )}
-              
+            <Card key={device.deviceId}>
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    {getOperationModeIcon(device.operationMode)}
+                    {modeInfo.icon}
                     <CardTitle className="text-base">{device.deviceName}</CardTitle>
                   </div>
-                  <Switch
-                    checked={device.power}
-                    onCheckedChange={() => handlePowerToggle(device)}
-                    disabled={isControlling}
-                  />
+                  <Badge variant={device.power ? "default" : "secondary"}>
+                    {device.power ? 'Päällä' : 'Pois'}
+                  </Badge>
                 </div>
-                <Badge 
-                  variant={device.power ? "default" : "secondary"}
-                  className="w-fit"
-                >
-                  {device.power ? 'Päällä' : 'Pois'}
-                </Badge>
               </CardHeader>
 
-              <CardContent className="space-y-4">
-                {/* Current Temperature */}
-                <div className="text-center py-4">
+              <CardContent className="text-center space-y-3">
+                <div className="py-2">
                   <p className="text-4xl font-bold text-foreground">
                     {device.roomTemperature.toFixed(1)}°C
                   </p>
                   <p className="text-sm text-muted-foreground">Huonelämpötila</p>
                 </div>
 
-                {/* Target Temperature Control */}
-                <div className="flex items-center justify-center gap-4">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => handleTemperatureChange(device, -0.5)}
-                    disabled={isControlling || !device.power}
-                  >
-                    <Minus className="w-4 h-4" />
-                  </Button>
-                  <div className="text-center min-w-[80px]">
-                    <p className="text-2xl font-semibold text-primary">
-                      {device.setTemperature.toFixed(1)}°C
-                    </p>
-                    <p className="text-xs text-muted-foreground">Tavoite</p>
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => handleTemperatureChange(device, 0.5)}
-                    disabled={isControlling || !device.power}
-                  >
-                    <Plus className="w-4 h-4" />
-                  </Button>
+                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                  <span>Tavoite: {device.setTemperature.toFixed(1)}°C</span>
+                  <span>•</span>
+                  <span>{modeInfo.name}</span>
                 </div>
 
-                {/* Operation Mode */}
-                <div className="flex flex-wrap justify-center gap-1">
-                  {OPERATION_MODES.map((mode) => {
-                    const Icon = mode.icon;
-                    const isActive = device.operationModeId === mode.id;
-                    return (
-                      <Button
-                        key={mode.id}
-                        variant={isActive ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => handleModeChange(device, mode.id)}
-                        disabled={isControlling || !device.power}
-                        className="flex items-center gap-1 px-2"
-                      >
-                        <Icon className={`w-3 h-3 ${isActive ? '' : mode.color}`} />
-                        <span className="text-xs hidden sm:inline">{mode.name}</span>
-                      </Button>
-                    );
-                  })}
-                </div>
-
-                {/* Last Communication */}
-                <p className="text-xs text-center text-muted-foreground">
+                <p className="text-xs text-muted-foreground">
                   Päivitetty: {formatLastCommunication(device.lastCommunication)}
                 </p>
               </CardContent>
