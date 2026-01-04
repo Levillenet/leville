@@ -87,37 +87,14 @@ serve(async (req: Request): Promise<Response> => {
     console.log(`Arrivals count: ${Array.isArray(arrivalsArray) ? arrivalsArray.length : 0}`);
     console.log(`Departures count: ${Array.isArray(departuresArray) ? departuresArray.length : 0}`);
 
-    // Default property names (fallback when not in database)
-    const defaultPropertyNames: Record<string, string> = {
-      "350161": "Hiihtäjänkuja 5B5 (4MH House)",
-      "350162": "Hiihtäjänkuja 5A2 (2MH Apartment)",
-      "350160": "Hiihtäjänkuja 5B2 (2MH Apartment)",
-      "504843": "Glacier A1 92m2",
-      "504854": "Glacier A2 67m2",
-      "504855": "Glacier A3 92m2",
-      "504856": "Glacier A4 72m2",
-      "504857": "Glacier A5 Penthouse 84m2",
-      "504858": "Glacier A6 72m2",
-      "504859": "Glacier B1 105m2",
-      "504860": "Glacier B2 105m2",
-      "504861": "Glacier B3 Penthouse 87m2",
-      "504862": "Glacier B4 Penthouse 87m2",
-      "625187": "Skistar 319 Superior Studio",
-      "413958": "Skistar 321 Superior Studio",
-      "350158": "Skistar 320 Superior Studio",
-      "350156": "Skistar 104 Superior Studio",
-      "485409": "Skistar 102 Superior Apartment",
-      "350155": "Skistar 210 One-Bedroom Apartment",
-      "350154": "Skistar 211 Two-Bedroom Apartment",
-      "350159": "Skistar 212 Two-Bedroom Apartment",
-      "350157": "Skistar 209 Superior Apartment",
-      "547818": "Levi Platinum Superior 2MH",
-      "414014": "Levi Platinum Superior Studio A2",
-      "353045": "Karhupirtti (7MH Mökki)",
-      "620949": "Karhunvartija 3",
-      "419423": "Levistar Studio with Sauna",
-      "625005": "Room 5 (Moonlight 415)"
-    };
+    // Fetch Beds24 room names from cache
+    const { data: roomNamesCache } = await supabase
+      .from('beds24_cache')
+      .select('data')
+      .eq('id', 'beds24_room_names')
+      .maybeSingle();
+
+    const beds24RoomNames: Record<string, string> = roomNamesCache?.data || {};
 
     // Process bookings - IMPORTANT: Use roomId (our apartment ID) not propertyId (Beds24 internal ID)
     const arrivals: BookingInfo[] = [];
@@ -182,9 +159,9 @@ serve(async (req: Request): Promise<Response> => {
       }
     }
 
-    // Helper to get property name with fallback to defaults
+    // Helper to get property name with fallback to Beds24 API names
     const getPropertyName = (propertyId: string): string => {
-      return nameMap.get(propertyId) || defaultPropertyNames[propertyId] || `ID: ${propertyId}`;
+      return nameMap.get(propertyId) || beds24RoomNames[propertyId] || `ID: ${propertyId}`;
     };
 
     // Group by cleaning email
