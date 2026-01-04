@@ -288,7 +288,8 @@ const HeatPumpAdmin = () => {
     return `${Math.floor(minutes / 1440)} pv sitten`;
   };
 
-  const getFanSpeedLabel = (speed: number): string => {
+  const getFanSpeedLabel = (speed: number | undefined | null): string => {
+    if (speed === undefined || speed === null) return '-';
     if (speed === 0) return 'AUTO';
     return String(speed);
   };
