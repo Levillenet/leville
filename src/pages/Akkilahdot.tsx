@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback, memo } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -9,16 +9,15 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Calendar, Clock, ArrowRight, Loader2, ExternalLink, MessageCircle, Sparkles, Ticket, Flame, Users } from "lucide-react";
+import { Calendar, Clock, ExternalLink, MessageCircle, Sparkles, Ticket, Flame, Users } from "lucide-react";
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getDefaultPropertyDetails, getAllDefaultPropertyDetails } from "@/data/propertyDetails";
-import { useAdminSettings, DbPropertySettings, DbPeriodSettings } from "@/hooks/useAdminSettings";
+import { getDefaultPropertyDetails } from "@/data/propertyDetails";
+import { useAdminSettings } from "@/hooks/useAdminSettings";
 
 // Property background images
 import glacierImage from "@/assets/deals/glacier.jpg";
@@ -300,16 +299,17 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   
   const isLoading = isLoadingDeals || isLoadingSettings;
 
-  // Filter deals based on night filter
-  const filteredDeals = beds24Deals.filter((deal) => {
-    if (nightFilter === "all") return true;
-    if (nightFilter === "short") return deal.nights <= 2;
-    if (nightFilter === "long") return deal.nights >= 3;
-    return true;
-  });
+  // Filter deals based on night filter - memoized
+  const filteredDeals = useMemo(() => 
+    beds24Deals.filter((deal) => {
+      if (nightFilter === "all") return true;
+      if (nightFilter === "short") return deal.nights <= 2;
+      if (nightFilter === "long") return deal.nights >= 3;
+      return true;
+    }), [beds24Deals, nightFilter]);
 
-  // Helper to get property with DB override
-  const getPropertyWithOverride = (roomId: string) => {
+  // Helper to get property with DB override - memoized
+  const getPropertyWithOverride = useCallback((roomId: string) => {
     const defaultProperty = getDefaultPropertyDetails(roomId);
     if (!defaultProperty) return undefined;
     
@@ -325,10 +325,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       longStayDiscount: dbOverride.discount_3_plus_nights || null,
       showDiscount: dbOverride.show_discount ?? defaultProperty.showDiscount
     };
-  };
+  }, [propertySettings]);
 
-  // Helper to get period settings from DB
-  const getPeriodSettingsFromDb = (roomId: string, checkIn: string, checkOut: string) => {
+  // Helper to get period settings from DB - memoized
+  const getPeriodSettingsFromDb = useCallback((roomId: string, checkIn: string, checkOut: string) => {
     const period = periodSettings.find(
       p => p.property_id === roomId && p.check_in === checkIn && p.check_out === checkOut
     );
@@ -338,48 +338,49 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       showDiscountBadge: period?.show_discount || false,
       hasSkiPass: period?.has_ski_pass || false
     };
-  };
+  }, [periodSettings]);
 
-  // Format date for display
-  const formatDateDisplay = (dateStr: string): string => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString(lang === 'fi' ? 'fi-FI' : lang === 'sv' ? 'sv-SE' : lang === 'de' ? 'de-DE' : lang === 'es' ? 'es-ES' : lang === 'fr' ? 'fr-FR' : 'en-GB', {
-      day: 'numeric',
-      month: 'numeric',
-      year: 'numeric'
-    });
-  };
-
-  // Nights text by language
-  const nightsText = (nights: number): string => {
-    const texts: Record<Language, string> = {
-      fi: nights === 1 ? 'yö' : 'yötä',
-      en: nights === 1 ? 'night' : 'nights',
-      sv: nights === 1 ? 'natt' : 'nätter',
-      de: nights === 1 ? 'Nacht' : 'Nächte',
-      es: nights === 1 ? 'noche' : 'noches',
-      fr: nights === 1 ? 'nuit' : 'nuits'
+  // Format date for display - memoized locale
+  const dateLocale = useMemo(() => {
+    const locales: Record<Language, string> = {
+      fi: 'fi-FI', sv: 'sv-SE', de: 'de-DE', es: 'es-ES', fr: 'fr-FR', en: 'en-GB'
     };
-    return `${nights} ${texts[lang]}`;
-  };
+    return locales[lang];
+  }, [lang]);
+
+  const formatDateDisplay = useCallback((dateStr: string): string => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString(dateLocale, { day: 'numeric', month: 'numeric', year: 'numeric' });
+  }, [dateLocale]);
+
+  // Nights text by language - memoized
+  const nightsTextMap = useMemo(() => ({
+    fi: ['yö', 'yötä'], en: ['night', 'nights'], sv: ['natt', 'nätter'],
+    de: ['Nacht', 'Nächte'], es: ['noche', 'noches'], fr: ['nuit', 'nuits']
+  }), []);
+
+  const nightsText = useCallback((nights: number): string => {
+    const [singular, plural] = nightsTextMap[lang];
+    return `${nights} ${nights === 1 ? singular : plural}`;
+  }, [lang, nightsTextMap]);
 
   // Check if date is today
-  const isToday = (dateStr: string): boolean => {
+  const isToday = useCallback((dateStr: string): boolean => {
     const today = new Date();
     const checkDate = new Date(dateStr);
     return today.toDateString() === checkDate.toDateString();
-  };
+  }, []);
 
   // Get original API price + cleaning fee (no discounts applied)
-  const getOriginalApiPrice = (deal: Beds24Deal): number | null => {
+  const getOriginalApiPrice = useCallback((deal: Beds24Deal): number | null => {
     if (deal.price == null) return null;
     const property = getPropertyWithOverride(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
     return Math.round(deal.price + cleaningFee);
-  };
+  }, [getPropertyWithOverride]);
 
   // Get PropertyAdmin discounted price (before any special offer)
-  const getPropertyAdminPrice = (deal: Beds24Deal): number | null => {
+  const getPropertyAdminPrice = useCallback((deal: Beds24Deal): number | null => {
     if (deal.price == null) return null;
     const property = getPropertyWithOverride(deal.roomId);
     const cleaningFee = property?.cleaningFee || 0;
@@ -400,10 +401,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     }
 
     return Math.round(basePrice + cleaningFee);
-  };
+  }, [getPropertyWithOverride]);
 
   // Calculate total price with cleaning fee and discounts
-  const getTotalPrice = (deal: Beds24Deal): number | null => {
+  const getTotalPrice = useCallback((deal: Beds24Deal): number | null => {
     if (deal.price == null) return null;
 
     // Get PropertyAdmin discounted price first
@@ -418,10 +419,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     }
 
     return propertyAdminPrice;
-  };
+  }, [getPropertyAdminPrice, getPeriodSettingsFromDb]);
 
   // Get discount info for display - show if showDiscount toggle is enabled
-  const getDiscountInfo = (deal: Beds24Deal): { totalDiscount: number; showBadge: boolean } => {
+  const getDiscountInfo = useCallback((deal: Beds24Deal): { totalDiscount: number; showBadge: boolean } => {
     const property = getPropertyWithOverride(deal.roomId);
     let discount = 0;
     
@@ -437,46 +438,46 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       totalDiscount: discount,
       showBadge: property?.showDiscount === true && discount > 0
     };
-  };
+  }, [getPropertyWithOverride]);
 
   // Check if ski pass offer applies to this deal (using database)
-  const hasSkiPassOffer = (deal: Beds24Deal): boolean => {
+  const hasSkiPassOffer = useCallback((deal: Beds24Deal): boolean => {
     const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
     return periodS.hasSkiPass;
-  };
+  }, [getPeriodSettingsFromDb]);
 
   // Check if special offer is active (from database)
-  const hasSpecialOffer = (deal: Beds24Deal): boolean => {
+  const hasSpecialOffer = useCallback((deal: Beds24Deal): boolean => {
     const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
     return periodS.specialOffer || false;
-  };
+  }, [getPeriodSettingsFromDb]);
 
   // Get marketing name from propertyDetails
-  const getMarketingName = (deal: Beds24Deal): string => {
+  const getMarketingName = useCallback((deal: Beds24Deal): string => {
     const property = getPropertyWithOverride(deal.roomId);
     return property?.name || deal.roomName;
-  };
+  }, [getPropertyWithOverride]);
 
   // Get property category for background image selection
-  const getPropertyCategory = (roomId: string): string => {
+  const getPropertyCategory = useCallback((roomId: string): string => {
     const property = getPropertyWithOverride(roomId);
     return property?.category || 'other';
-  };
+  }, [getPropertyWithOverride]);
 
   // Get booking URL for property
-  const getBookingUrl = (roomId: string): string => {
+  const getBookingUrl = useCallback((roomId: string): string => {
     const property = getPropertyWithOverride(roomId);
     return property?.bookingUrl || "";
-  };
+  }, [getPropertyWithOverride]);
 
   // Get max guests for property
-  const getMaxGuests = (roomId: string): number => {
+  const getMaxGuests = useCallback((roomId: string): number => {
     const property = getPropertyWithOverride(roomId);
     return property?.maxGuests || 2;
-  };
+  }, [getPropertyWithOverride]);
 
   // Generate WhatsApp booking URL for Beds24 deal - localized messages
-  const generateWhatsAppUrl = (deal: Beds24Deal): string => {
+  const generateWhatsAppUrl = useCallback((deal: Beds24Deal): string => {
     const totalPrice = getTotalPrice(deal);
     const marketingName = getMarketingName(deal);
     const property = getPropertyWithOverride(deal.roomId);
@@ -493,10 +494,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     
     const message = messages[lang] || messages.fi;
     return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-  };
+  }, [getTotalPrice, getMarketingName, getPropertyWithOverride, formatDateDisplay, lang]);
 
-  // Combine manual and Beds24 deals for schema
-  const allDealsForSchema = beds24Deals.map((deal, index) => ({
+  // Combine manual and Beds24 deals for schema - memoized
+  const allDealsForSchema = useMemo(() => beds24Deals.map((deal, index) => ({
     "@type": "Offer",
     "position": index + 1,
     "name": deal.roomName,
@@ -506,9 +507,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     "availability": "https://schema.org/LimitedAvailability",
     "validFrom": deal.checkIn,
     "validThrough": deal.checkOut
-  }));
+  })), [beds24Deals, getTotalPrice]);
 
-  const schemaData = {
+  const schemaData = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
     "name": t.title,
@@ -520,7 +521,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       "url": "https://leville.net"
     },
     "itemListElement": allDealsForSchema
-  };
+  }), [t.title, t.meta.description, t.meta.canonical, allDealsForSchema]);
 
   const hasDeals = filteredDeals.length > 0 || manualDeals.length > 0;
 
