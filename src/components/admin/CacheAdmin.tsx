@@ -14,7 +14,11 @@ interface CacheStatus {
   };
 }
 
-const CacheAdmin = () => {
+interface CacheAdminProps {
+  isViewer?: boolean;
+}
+
+const CacheAdmin = ({ isViewer = false }: CacheAdminProps) => {
   const [isRefreshing, setIsRefreshing] = useState<'all' | 'availability' | 'prices' | null>(null);
   const [cacheStatus, setCacheStatus] = useState<CacheStatus | null>(null);
   const { toast } = useToast();

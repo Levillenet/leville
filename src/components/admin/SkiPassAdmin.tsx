@@ -61,7 +61,11 @@ const fetchBeds24Availability = async (): Promise<Beds24Deal[]> => {
   }
 };
 
-const SkiPassAdmin = () => {
+interface SkiPassAdminProps {
+  isViewer?: boolean;
+}
+
+const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
   const [editingSettings, setEditingSettings] = useState(false);
   const [tempCapacity, setTempCapacity] = useState(4);
   const { toast } = useToast();

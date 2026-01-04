@@ -51,7 +51,11 @@ interface CleaningStatus {
   notification_sent_at: string | null;
 }
 
-const MaintenanceAdmin = () => {
+interface MaintenanceAdminProps {
+  isViewer?: boolean;
+}
+
+const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
   const [bookings, setBookings] = useState<DayBookings | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);

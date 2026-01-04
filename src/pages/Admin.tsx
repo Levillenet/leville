@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Mail, Loader2, Thermometer, Wrench, Home } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
@@ -15,7 +15,6 @@ import UserManagementAdmin from "@/components/admin/UserManagementAdmin";
 import HeatPumpAdmin from "@/components/admin/HeatPumpAdmin";
 import MaintenanceAdmin from "@/components/admin/MaintenanceAdmin";
 import PropertyMaintenanceAdmin from "@/components/admin/PropertyMaintenanceAdmin";
-import { Session, User } from "@supabase/supabase-js";
 import {
   BarChart,
   Bar,
@@ -48,159 +47,74 @@ interface DownloadStats {
 const COLORS = ['hsl(var(--primary))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];
 
 const Admin = () => {
-  const [email, setEmail] = useState("");
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<User | null>(null);
-  const [userRole, setUserRole] = useState<'admin' | 'super_admin' | null>(null);
+  const [password, setPassword] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userRole, setUserRole] = useState<'admin' | 'viewer' | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isSendingMagicLink, setIsSendingMagicLink] = useState(false);
-  const [magicLinkSent, setMagicLinkSent] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [stats, setStats] = useState<DownloadStats | null>(null);
   const { toast } = useToast();
 
-  // Set up auth state listener
+  const isViewer = userRole === 'viewer';
+
+  // Check for existing session on mount
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        console.log('Auth state changed:', event, session?.user?.email);
-        setSession(session);
-        setUser(session?.user ?? null);
-
-        if (session?.user) {
-          // Defer the role check so the client has the fresh session available
-          setTimeout(() => {
-            if (session.user.email) {
-              checkAndActivateRole(session.user.id, session.user.email);
-            } else {
-              setAuthError('Sähköposti puuttuu käyttäjältä');
-              setUserRole(null);
-              setIsLoading(false);
-            }
-          }, 0);
-        } else {
-          setUserRole(null);
-          setIsLoading(false);
-        }
-      }
-    );
-
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-
-      if (session?.user) {
-        setTimeout(() => {
-          if (session.user.email) {
-            checkAndActivateRole(session.user.id, session.user.email);
-          } else {
-            setAuthError('Sähköposti puuttuu käyttäjältä');
-            setUserRole(null);
-            setIsLoading(false);
-          }
-        }, 0);
-      } else {
-        setIsLoading(false);
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    const savedRole = localStorage.getItem('admin_role');
+    if (savedRole === 'admin' || savedRole === 'viewer') {
+      setUserRole(savedRole);
+      setIsAuthenticated(true);
+      fetchStats();
+    }
+    setIsLoading(false);
   }, []);
 
-  const checkAndActivateRole = async (userId: string, userEmail: string) => {
-    try {
-      const { data, error } = await supabase.functions.invoke('admin-auth', {
-        body: { 
-          action: 'check_and_activate', 
-          userId, 
-          email: userEmail 
-        }
-      });
-
-      if (error || !data?.success) {
-        console.log('Role check failed:', data?.error);
-        setAuthError(data?.error || 'Ei käyttöoikeutta');
-        setUserRole(null);
-        // Sign out the user if they don't have access
-        await supabase.auth.signOut();
-        toast({
-          title: "Ei käyttöoikeutta",
-          description: data?.error || "Sinulla ei ole admin-oikeuksia",
-          variant: "destructive"
-        });
-      } else {
-        console.log('Role activated:', data.role, 'isNew:', data.isNew);
-        setUserRole(data.role);
-        setAuthError(null);
-        
-        if (data.isNew) {
-          toast({
-            title: "Tervetuloa!",
-            description: "Admin-oikeutesi on aktivoitu"
-          });
-        }
-        
-        fetchStats();
-      }
-    } catch (error) {
-      console.error('Error checking role:', error);
-      setAuthError('Virhe tarkistettaessa käyttöoikeutta');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSendMagicLink = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    if (!password.trim()) return;
 
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email.trim())) {
-      toast({
-        title: "Virheellinen sähköposti",
-        description: "Anna kelvollinen sähköpostiosoite",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsSendingMagicLink(true);
+    setIsLoggingIn(true);
     setAuthError(null);
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email: email.trim().toLowerCase(),
-        options: {
-          emailRedirectTo: `${window.location.origin}/admin`
-        }
+      const { data, error } = await supabase.functions.invoke('verify-admin', {
+        body: { password: password.trim() }
       });
 
-      if (error) {
-        console.error('Magic link error:', error);
+      if (error || !data?.success) {
+        setAuthError(data?.error || 'Kirjautuminen epäonnistui');
         toast({
           title: "Virhe",
-          description: error.message || "Kirjautumislinkin lähetys epäonnistui",
+          description: data?.error || "Väärä salasana",
           variant: "destructive"
         });
         return;
       }
 
-      setMagicLinkSent(true);
+      // Store role in localStorage
+      localStorage.setItem('admin_role', data.role);
+      setUserRole(data.role);
+      setIsAuthenticated(true);
+      setPassword("");
+      
       toast({
-        title: "Linkki lähetetty",
-        description: `Kirjautumislinkki lähetetty osoitteeseen ${email}`
+        title: data.role === 'admin' ? "Kirjauduttu sisään" : "Katselutila",
+        description: data.role === 'admin' 
+          ? "Tervetuloa admin-paneeliin" 
+          : "Kirjauduttu katselutilassa (vain luku)"
       });
+      
+      fetchStats();
     } catch (error) {
-      console.error('Magic link error:', error);
+      console.error('Login error:', error);
+      setAuthError('Kirjautuminen epäonnistui');
       toast({
         title: "Virhe",
-        description: "Kirjautumislinkin lähetys epäonnistui",
+        description: "Kirjautuminen epäonnistui",
         variant: "destructive"
       });
     } finally {
-      setIsSendingMagicLink(false);
+      setIsLoggingIn(false);
     }
   };
 
@@ -221,14 +135,12 @@ const Admin = () => {
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setSession(null);
-    setUser(null);
+  const handleLogout = () => {
+    localStorage.removeItem('admin_role');
+    setIsAuthenticated(false);
     setUserRole(null);
     setStats(null);
-    setEmail("");
-    setMagicLinkSent(false);
+    setPassword("");
     setAuthError(null);
   };
 
@@ -273,7 +185,7 @@ const Admin = () => {
   }
 
   // Login form
-  if (!user || !userRole) {
+  if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Helmet>
@@ -284,68 +196,40 @@ const Admin = () => {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              {magicLinkSent ? (
-                <Mail className="w-8 h-8 text-primary" />
-              ) : (
-                <Lock className="w-8 h-8 text-primary" />
-              )}
+              <Lock className="w-8 h-8 text-primary" />
             </div>
-            <CardTitle>
-              {magicLinkSent ? "Tarkista sähköpostisi" : "Admin-kirjautuminen"}
-            </CardTitle>
+            <CardTitle>Admin-kirjautuminen</CardTitle>
             <CardDescription>
-              {magicLinkSent 
-                ? `Kirjautumislinkki lähetetty osoitteeseen ${email}. Klikkaa linkkiä kirjautuaksesi.`
-                : "Kirjaudu sisään sähköpostiosoitteellasi. Saat kirjautumislinkin sähköpostiisi."}
+              Anna salasana kirjautuaksesi sisään
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {magicLinkSent ? (
-              <div className="space-y-4">
-                <p className="text-sm text-muted-foreground text-center">
-                  Etkö saanut viestiä? Tarkista roskapostikansio tai yritä uudelleen.
-                </p>
-                <Button 
-                  variant="outline" 
-                  className="w-full" 
-                  onClick={() => {
-                    setMagicLinkSent(false);
-                    setEmail("");
-                  }}
-                >
-                  Yritä uudelleen
-                </Button>
-              </div>
-            ) : (
-              <form onSubmit={handleSendMagicLink} className="space-y-4">
-                <Input
-                  type="email"
-                  placeholder="sähköposti@esimerkki.fi"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={isSendingMagicLink}
-                />
-                {authError && (
-                  <p className="text-sm text-destructive">{authError}</p>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <Input
+                type="password"
+                placeholder="Salasana"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={isLoggingIn}
+                autoFocus
+              />
+              {authError && (
+                <p className="text-sm text-destructive">{authError}</p>
+              )}
+              <Button type="submit" className="w-full" disabled={isLoggingIn}>
+                {isLoggingIn ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Kirjaudutaan...
+                  </>
+                ) : (
+                  <>
+                    <Lock className="w-4 h-4 mr-2" />
+                    Kirjaudu sisään
+                  </>
                 )}
-                <Button type="submit" className="w-full" disabled={isSendingMagicLink}>
-                  {isSendingMagicLink ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Lähetetään...
-                    </>
-                  ) : (
-                    <>
-                      <Mail className="w-4 h-4 mr-2" />
-                      Lähetä kirjautumislinkki
-                    </>
-                  )}
-                </Button>
-                <p className="text-xs text-center text-muted-foreground">
-                  Vain kutsutut käyttäjät voivat kirjautua sisään.
-                </p>
-              </form>
-            )}
+              </Button>
+            </form>
           </CardContent>
         </Card>
       </div>
@@ -361,9 +245,14 @@ const Admin = () => {
 
       <header className="border-b border-border bg-card">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
+          <div className="flex items-center gap-3">
             <h1 className="text-xl font-semibold text-foreground">Admin</h1>
-            <p className="text-sm text-muted-foreground">{user.email}</p>
+            {isViewer && (
+              <span className="inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full bg-muted text-muted-foreground">
+                <Eye className="w-3 h-3" />
+                Katselutila
+              </span>
+            )}
           </div>
           <Button variant="outline" size="sm" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-2" />
@@ -395,10 +284,12 @@ const Admin = () => {
               <Ticket className="w-4 h-4" />
               Hissiliput ja erikoistarjoukset
             </TabsTrigger>
-            <TabsTrigger value="users" className="flex items-center gap-2">
-              <Users className="w-4 h-4" />
-              Käyttäjähallinta
-            </TabsTrigger>
+            {!isViewer && (
+              <TabsTrigger value="users" className="flex items-center gap-2">
+                <Users className="w-4 h-4" />
+                Käyttäjähallinta
+              </TabsTrigger>
+            )}
             <TabsTrigger value="heatpumps" className="flex items-center gap-2">
               <Thermometer className="w-4 h-4" />
               Lämpöpumput
@@ -414,38 +305,40 @@ const Admin = () => {
           </TabsList>
 
           <TabsContent value="maintenance">
-            <MaintenanceAdmin />
+            <MaintenanceAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="property-maintenance">
-            <PropertyMaintenanceAdmin />
+            <PropertyMaintenanceAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="settings">
-            <SiteSettingsAdmin />
+            <SiteSettingsAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="properties">
-            <PropertyAdmin />
+            <PropertyAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="skipass">
-            <SkiPassAdmin />
+            <SkiPassAdmin isViewer={isViewer} />
           </TabsContent>
 
-          <TabsContent value="users">
-            <UserManagementAdmin 
-              currentUserId={user.id} 
-              currentUserRole={userRole} 
-            />
-          </TabsContent>
+          {!isViewer && (
+            <TabsContent value="users">
+              <UserManagementAdmin 
+                currentUserId="" 
+                currentUserRole="super_admin" 
+              />
+            </TabsContent>
+          )}
 
           <TabsContent value="cache">
-            <CacheAdmin />
+            <CacheAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="heatpumps">
-            <HeatPumpAdmin />
+            <HeatPumpAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="stats">
@@ -500,36 +393,65 @@ const Admin = () => {
                   <Calendar className="w-6 h-6 text-chart-4" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Tänään</p>
-                  <p className="text-2xl font-bold">
-                    {stats?.byDate[new Date().toISOString().split('T')[0]] || 0}
-                  </p>
+                  <p className="text-sm text-muted-foreground">Päiviä datassa</p>
+                  <p className="text-2xl font-bold">{Object.keys(stats?.byDate || {}).length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Downloads by Document Type */}
+          {/* Downloads over time */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Dokumenttityypeittäin</CardTitle>
+              <CardTitle className="text-base">Lataukset päivittäin (14 pv)</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-64">
+              <div className="h-[250px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={documentTypeData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
-                    <YAxis tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+                  <LineChart data={dateData}>
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                    <XAxis dataKey="date" tick={{ fontSize: 12 }} className="text-muted-foreground" />
+                    <YAxis tick={{ fontSize: 12 }} className="text-muted-foreground" />
                     <Tooltip 
                       contentStyle={{ 
                         backgroundColor: 'hsl(var(--card))', 
                         border: '1px solid hsl(var(--border))',
                         borderRadius: '8px'
-                      }}
+                      }} 
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="downloads" 
+                      stroke="hsl(var(--primary))" 
+                      strokeWidth={2}
+                      dot={{ fill: 'hsl(var(--primary))' }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* By document type */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Lataukset dokumenttityypeittäin</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[250px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={documentTypeData}>
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} className="text-muted-foreground" />
+                    <YAxis tick={{ fontSize: 12 }} className="text-muted-foreground" />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: 'hsl(var(--card))', 
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px'
+                      }} 
                     />
                     <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                   </BarChart>
@@ -537,116 +459,76 @@ const Admin = () => {
               </div>
             </CardContent>
           </Card>
-
-          {/* Downloads by Language */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Kielittäin</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={languageData}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
-                      outerRadius={80}
-                      fill="hsl(var(--primary))"
-                      dataKey="value"
-                    >
-                      {languageData.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: 'hsl(var(--card))', 
-                        border: '1px solid hsl(var(--border))',
-                        borderRadius: '8px'
-                      }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
         </div>
 
-        {/* Downloads over time */}
+        {/* Language distribution */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-lg">Lataukset viimeisen 14 päivän aikana</CardTitle>
+            <CardTitle className="text-base">Kielijakauma</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64">
+            <div className="h-[250px]">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={dateData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                  <XAxis dataKey="date" tick={{ fill: 'hsl(var(--muted-foreground))' }} />
-                  <YAxis tick={{ fill: 'hsl(var(--muted-foreground))' }} />
+                <PieChart>
+                  <Pie
+                    data={languageData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {languageData.map((_, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
                   <Tooltip 
                     contentStyle={{ 
                       backgroundColor: 'hsl(var(--card))', 
                       border: '1px solid hsl(var(--border))',
                       borderRadius: '8px'
-                    }}
+                    }} 
                   />
-                  <Line 
-                    type="monotone" 
-                    dataKey="downloads" 
-                    stroke="hsl(var(--primary))" 
-                    strokeWidth={2}
-                    dot={{ fill: 'hsl(var(--primary))' }}
-                  />
-                </LineChart>
+                </PieChart>
               </ResponsiveContainer>
             </div>
           </CardContent>
         </Card>
 
-        {/* Recent Downloads Table */}
+        {/* Recent downloads table */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Viimeisimmät lataukset</CardTitle>
+            <CardTitle className="text-base">Viimeisimmät lataukset</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Aika</th>
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Dokumentti</th>
-                    <th className="text-left py-3 px-4 text-muted-foreground font-medium">Kieli</th>
+                    <th className="text-left py-2 px-4 font-medium text-muted-foreground">Dokumentti</th>
+                    <th className="text-left py-2 px-4 font-medium text-muted-foreground">Kieli</th>
+                    <th className="text-left py-2 px-4 font-medium text-muted-foreground">Aika</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {stats?.recentLogs.map((log) => (
-                    <tr key={log.id} className="border-b border-border/50 hover:bg-muted/50">
-                      <td className="py-3 px-4">
-                        {new Date(log.downloaded_at).toLocaleString('fi-FI')}
-                      </td>
-                      <td className="py-3 px-4">
+                  {stats?.recentLogs.slice(0, 10).map((log) => (
+                    <tr key={log.id} className="border-b border-border/50">
+                      <td className="py-2 px-4">
                         {log.document_type === 'welcome_letter' ? 'Tervetulokirje' : 
-                         log.document_type === 'sauna_instructions' ? 'Saunaohjeet' : 
-                         log.document_type}
+                         log.document_type === 'sauna_instructions' ? 'Saunaohjeet' : log.document_type}
                       </td>
-                      <td className="py-3 px-4">
+                      <td className="py-2 px-4">
                         {log.language === 'fi' ? 'Suomi' : 
                          log.language === 'en' ? 'Englanti' : 
-                         log.language || '-'}
+                         log.language || 'Tuntematon'}
+                      </td>
+                      <td className="py-2 px-4 text-muted-foreground">
+                        {new Date(log.downloaded_at).toLocaleString('fi-FI')}
                       </td>
                     </tr>
                   ))}
-                  {(!stats?.recentLogs || stats.recentLogs.length === 0) && (
-                    <tr>
-                      <td colSpan={3} className="py-8 text-center text-muted-foreground">
-                        Ei latauksia vielä
-                      </td>
-                    </tr>
-                  )}
                 </tbody>
               </table>
             </div>

@@ -77,7 +77,11 @@ interface DevicesResponse {
   error?: string;
 }
 
-const HeatPumpAdmin = () => {
+interface HeatPumpAdminProps {
+  isViewer?: boolean;
+}
+
+const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
   const queryClient = useQueryClient();
   const [openLocks, setOpenLocks] = useState<Record<number, boolean>>({});
   const [openSettings, setOpenSettings] = useState<Record<number, boolean>>({});

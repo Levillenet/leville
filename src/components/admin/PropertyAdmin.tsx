@@ -40,7 +40,11 @@ const categoryConfig: Record<PropertyCategory, { icon: React.ReactNode; label: s
   other: { icon: <Building className="w-4 h-4" />, label: "Muu", color: "bg-gray-500/20 text-gray-400 border-gray-500/30" }
 };
 
-const PropertyAdmin = () => {
+interface PropertyAdminProps {
+  isViewer?: boolean;
+}
+
+const PropertyAdmin = ({ isViewer = false }: PropertyAdminProps) => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<PropertyDetail>>({});
   const [showResetDialog, setShowResetDialog] = useState(false);
