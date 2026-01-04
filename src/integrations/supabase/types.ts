@@ -89,6 +89,51 @@ export type Database = {
         }
         Relationships: []
       }
+      cleaning_status: {
+        Row: {
+          booking_id: string | null
+          check_in_date: string
+          cleaned_at: string | null
+          cleaned_by: string | null
+          created_at: string | null
+          guest_email: string | null
+          guest_name: string | null
+          guest_phone: string | null
+          id: string
+          notification_sent_at: string | null
+          property_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          booking_id?: string | null
+          check_in_date: string
+          cleaned_at?: string | null
+          cleaned_by?: string | null
+          created_at?: string | null
+          guest_email?: string | null
+          guest_name?: string | null
+          guest_phone?: string | null
+          id?: string
+          notification_sent_at?: string | null
+          property_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          booking_id?: string | null
+          check_in_date?: string
+          cleaned_at?: string | null
+          cleaned_by?: string | null
+          created_at?: string | null
+          guest_email?: string | null
+          guest_name?: string | null
+          guest_phone?: string | null
+          id?: string
+          notification_sent_at?: string | null
+          property_id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       download_logs: {
         Row: {
           document_type: string
@@ -131,6 +176,42 @@ export type Database = {
           id?: string
           updated_at?: string | null
           value?: Json
+        }
+        Relationships: []
+      }
+      moder_property_mapping: {
+        Row: {
+          beds24_room_id: string
+          cleaning_fee: number | null
+          created_at: string | null
+          id: string
+          linen_price: number | null
+          max_guests: number | null
+          moder_room_type_id: number | null
+          property_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          beds24_room_id: string
+          cleaning_fee?: number | null
+          created_at?: string | null
+          id?: string
+          linen_price?: number | null
+          max_guests?: number | null
+          moder_room_type_id?: number | null
+          property_name: string
+          updated_at?: string | null
+        }
+        Update: {
+          beds24_room_id?: string
+          cleaning_fee?: number | null
+          created_at?: string | null
+          id?: string
+          linen_price?: number | null
+          max_guests?: number | null
+          moder_room_type_id?: number | null
+          property_name?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
