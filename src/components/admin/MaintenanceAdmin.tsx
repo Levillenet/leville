@@ -57,16 +57,13 @@ const MaintenanceAdmin = () => {
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [propertyNames, setPropertyNames] = useState<Map<string, string>>(new Map());
   const [propertyCleaningEmails, setPropertyCleaningEmails] = useState<Map<string, string>>(new Map());
-  const [hasInitialized, setHasInitialized] = useState(false);
+  const [settingsLoaded, setSettingsLoaded] = useState(false);
   const { toast } = useToast();
 
-  // Initial load - just settings, not bookings
+  // Initial load - settings and property names
   useEffect(() => {
-    if (!hasInitialized) {
-      fetchSettings();
-      setHasInitialized(true);
-    }
-  }, [hasInitialized]);
+    fetchSettings();
+  }, []);
 
   const fetchSettings = async () => {
     try {
@@ -117,8 +114,10 @@ const MaintenanceAdmin = () => {
       setSendHour(String(settingsMap.worklist_send_time?.hour || 19));
       setSendMinute(String(settingsMap.worklist_send_time?.minute || 0).padStart(2, '0'));
       setIsEnabled(settingsMap.worklist_enabled?.enabled !== false);
+      setSettingsLoaded(true);
     } catch (error) {
       console.error('Error fetching settings:', error);
+      setSettingsLoaded(true); // Still mark as loaded so UI is usable
     }
   };
 
