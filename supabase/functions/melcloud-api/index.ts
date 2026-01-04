@@ -306,7 +306,7 @@ async function getDevices(contextKey: string) {
         operationMode: OPERATION_MODES[device.Device.OperationMode] || 'unknown',
         operationModeId: device.Device.OperationMode,
         lastCommunication: device.Device.LastCommunication,
-        fanSpeed: device.Device.SetFanSpeed,
+        fanSpeed: device.Device.SetFanSpeed ?? 0,
         numberOfFanSpeeds: device.Device.NumberOfFanSpeeds,
         prohibitSetTemperature: device.Device.ProhibitSetTemperature,
         prohibitPower: device.Device.ProhibitPower,
@@ -316,13 +316,14 @@ async function getDevices(contextKey: string) {
         isDefrosting,
         lastDefrostMinutesAgo,
         pendingFanRecovery: hasPendingRecovery,
-        fanAutoRecovery: settings?.fan_auto_recovery ?? true,
+        fanAutoRecovery: settings?.fan_auto_recovery ?? false,
         fanRecoveryDelayMinutes: settings?.fan_recovery_delay_minutes ?? 60,
       };
     })
   );
 
   console.log(`Found ${devices.length} devices`);
+  devices.forEach(d => console.log(`Device ${d.deviceName}: SetFanSpeed=${d.fanSpeed}, NumberOfFanSpeeds=${d.numberOfFanSpeeds}`));
   return devices;
 }
 
