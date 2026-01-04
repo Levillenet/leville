@@ -23,12 +23,17 @@ import {
   PowerOff,
   AlertTriangle,
   Timer,
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  CheckCircle2,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import HeatPumpHistory from "./HeatPumpHistory";
 
 type OperatingState = 'HEATING' | 'COOLING' | 'DEFROST' | 'IDLE' | 'OFF' | 'ERROR' | 'UNKNOWN';
+type EfficiencyStatus = 'SUFFICIENT' | 'MARGINAL' | 'INSUFFICIENT' | 'UNKNOWN';
 
 interface HeatPumpDevice {
   deviceId: number;
@@ -53,6 +58,9 @@ interface HeatPumpDevice {
   pendingFanRecovery: boolean;
   fanAutoRecovery: boolean;
   fanRecoveryDelayMinutes: number;
+  // Efficiency fields
+  degreeMinutes: number;
+  efficiencyStatus: EfficiencyStatus;
 }
 
 interface DevicesResponse {
@@ -183,6 +191,8 @@ const HeatPumpAdmin = () => {
       [device.deviceId]: {
         ...prev[device.deviceId],
         [field]: value,
+        // Clear pending when turning off auto-recovery
+        ...(field === 'fanAutoRecovery' && value === false ? { pendingFanRecovery: false } : {}),
       },
     }));
 
@@ -265,6 +275,35 @@ const HeatPumpAdmin = () => {
     }
   };
 
+  const getEfficiencyStatusInfo = (status: EfficiencyStatus) => {
+    switch (status) {
+      case 'SUFFICIENT':
+        return {
+          icon: <CheckCircle2 className="w-4 h-4" />,
+          label: 'Teho riittää',
+          className: 'text-green-600 bg-green-100 dark:bg-green-900/30',
+        };
+      case 'MARGINAL':
+        return {
+          icon: <Minus className="w-4 h-4" />,
+          label: 'Teho rajamailla',
+          className: 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30',
+        };
+      case 'INSUFFICIENT':
+        return {
+          icon: <AlertTriangle className="w-4 h-4" />,
+          label: 'Teho ei riitä',
+          className: 'text-red-600 bg-red-100 dark:bg-red-900/30',
+        };
+      default:
+        return {
+          icon: <Thermometer className="w-4 h-4" />,
+          label: 'Analysoidaan...',
+          className: 'text-muted-foreground bg-muted',
+        };
+    }
+  };
+
   const getOperationModeInfo = (mode: string) => {
     switch (mode) {
       case 'heating':
@@ -305,6 +344,12 @@ const HeatPumpAdmin = () => {
     if (speed === undefined || speed === null) return '-';
     if (speed === 0) return 'AUTO';
     return String(speed);
+  };
+
+  const formatDegreeMinutes = (dm: number): string => {
+    if (dm < 60) return `${Math.round(dm)} °C·min`;
+    if (dm < 1440) return `${Math.round(dm / 60)} °C·h`;
+    return `${(dm / 1440).toFixed(1)} °C·pv`;
   };
 
   if (isLoading) {
@@ -369,10 +414,14 @@ const HeatPumpAdmin = () => {
           const modeInfo = getOperationModeInfo(device.operationMode);
           const stateInfo = getOperatingStateInfo(device.operatingState);
           const state = getDeviceState(device);
+          const efficiencyInfo = getEfficiencyStatusInfo(state.efficiencyStatus || 'UNKNOWN');
           const isUpdating = (prohibitMutation.isPending && 
             prohibitMutation.variables?.deviceId === device.deviceId) ||
             (settingsMutation.isPending && 
             settingsMutation.variables?.deviceId === device.deviceId);
+          
+          // Calculate temperature debt for display
+          const tempDebt = Math.max(0, device.setTemperature - device.roomTemperature);
           
           return (
             <Card key={device.deviceId} className={device.isDefrosting ? 'ring-2 ring-cyan-500' : ''}>
@@ -417,6 +466,17 @@ const HeatPumpAdmin = () => {
                   <span>Puhallin: {getFanSpeedLabel(device.fanSpeed)}</span>
                 </div>
 
+                {/* Efficiency status */}
+                {device.power && device.operatingState !== 'OFF' && (
+                  <div className={`flex items-center justify-center gap-2 text-sm rounded-md py-1.5 px-3 ${efficiencyInfo.className}`}>
+                    {efficiencyInfo.icon}
+                    <span className="font-medium">{efficiencyInfo.label}</span>
+                    {tempDebt > 0 && (
+                      <span className="opacity-75">(-{tempDebt.toFixed(1)}°C)</span>
+                    )}
+                  </div>
+                )}
+
                 {/* Defrost status */}
                 <div className="text-center text-sm">
                   {device.isDefrosting ? (
@@ -431,14 +491,14 @@ const HeatPumpAdmin = () => {
                   ) : null}
                 </div>
 
-                {/* Pending recovery status */}
-                {device.pendingFanRecovery && !device.isDefrosting && (
+                {/* Pending recovery status - FIXED: Use state instead of device */}
+                {state.pendingFanRecovery && !device.isDefrosting && (
                   <div className="text-center text-sm text-amber-600 flex items-center justify-center gap-1">
                     <Timer className="w-4 h-4" />
                     Puhallustehon palautus odottaa
                   </div>
                 )}
-                {device.pendingFanRecovery && device.isDefrosting && (
+                {state.pendingFanRecovery && device.isDefrosting && (
                   <div className="text-center text-sm text-amber-600 flex items-center justify-center gap-1">
                     <Timer className="w-4 h-4" />
                     Palautus odottaa sulatuksen päättymistä
@@ -453,7 +513,7 @@ const HeatPumpAdmin = () => {
                   onClick={() => setHistoryDevice({ id: device.deviceId, name: device.deviceName })}
                 >
                   <History className="w-4 h-4 mr-2" />
-                  Näytä lämpö- ja sulatushistoria
+                  Näytä lämpö- ja tehoanalyysi
                 </Button>
 
                 {/* Fan recovery settings */}
@@ -494,14 +554,14 @@ const HeatPumpAdmin = () => {
                           disabled={isUpdating}
                         />
                         <p className="text-xs text-muted-foreground">
-                          Palauttaa puhallustehon arvoon 4, jos asetetaan alle 4
+                          Jos puhallustehoa lasketaan (AUTO, 1, 2, 3), se palautetaan automaattisesti tasolle 4 määritetyn ajan jälkeen.
                         </p>
                       </div>
                     )}
                   </CollapsibleContent>
                 </Collapsible>
 
-                {/* Remote control locks */}
+                {/* Prohibit locks */}
                 <Collapsible 
                   open={openLocks[device.deviceId]} 
                   onOpenChange={(open) => setOpenLocks(prev => ({ ...prev, [device.deviceId]: open }))}
@@ -510,14 +570,14 @@ const HeatPumpAdmin = () => {
                     <Button variant="ghost" size="sm" className="w-full justify-between text-muted-foreground">
                       <span className="flex items-center gap-2">
                         <Lock className="w-4 h-4" />
-                        Kaukosäätimen lukot
+                        Kaukosäätimen lukitukset
                       </span>
                       <ChevronDown className={`w-4 h-4 transition-transform ${openLocks[device.deviceId] ? 'rotate-180' : ''}`} />
                     </Button>
                   </CollapsibleTrigger>
                   <CollapsibleContent className="pt-2 space-y-3">
                     <div className="flex items-center justify-between">
-                      <label className="text-sm">Lukitse virtapainike</label>
+                      <label className="text-sm">Estä virran säätö</label>
                       <Switch
                         checked={state.prohibitPower}
                         onCheckedChange={(checked) => handleProhibitToggle(device, 'prohibitPower', checked)}
@@ -525,7 +585,7 @@ const HeatPumpAdmin = () => {
                       />
                     </div>
                     <div className="flex items-center justify-between">
-                      <label className="text-sm">Lukitse lämpötilan säätö</label>
+                      <label className="text-sm">Estä lämpötilan säätö</label>
                       <Switch
                         checked={state.prohibitSetTemperature}
                         onCheckedChange={(checked) => handleProhibitToggle(device, 'prohibitSetTemperature', checked)}
@@ -533,46 +593,27 @@ const HeatPumpAdmin = () => {
                       />
                     </div>
                     <div className="flex items-center justify-between">
-                      <label className="text-sm">Lukitse tilan valinta</label>
+                      <label className="text-sm">Estä tilan vaihto</label>
                       <Switch
                         checked={state.prohibitOperationMode}
                         onCheckedChange={(checked) => handleProhibitToggle(device, 'prohibitOperationMode', checked)}
                         disabled={isUpdating}
                       />
                     </div>
-                    {isUpdating && (
-                      <p className="text-xs text-muted-foreground text-center">
-                        <Loader2 className="w-3 h-3 inline animate-spin mr-1" />
-                        Päivitetään...
-                      </p>
-                    )}
                   </CollapsibleContent>
                 </Collapsible>
-
-                <p className="text-xs text-muted-foreground text-center">
-                  Päivitetty: {formatLastCommunication(device.lastCommunication)}
-                </p>
               </CardContent>
             </Card>
           );
         })}
       </div>
 
-      {devices.length === 0 && !isLoading && (
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-12 gap-4">
-            <Thermometer className="w-12 h-12 text-muted-foreground" />
-            <p className="text-muted-foreground">Ei lämpöpumppuja löydetty</p>
-          </CardContent>
-        </Card>
-      )}
-
       {/* History modal */}
       {historyDevice && (
         <HeatPumpHistory
           deviceId={historyDevice.id}
           deviceName={historyDevice.name}
-          open={true}
+          open={!!historyDevice}
           onOpenChange={(open) => !open && setHistoryDevice(null)}
         />
       )}

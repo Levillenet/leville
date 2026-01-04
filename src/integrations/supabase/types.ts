@@ -185,6 +185,45 @@ export type Database = {
         }
         Relationships: []
       }
+      heat_pump_efficiency_metrics: {
+        Row: {
+          created_at: string | null
+          degree_minutes: number | null
+          device_id: number
+          efficiency_status: string | null
+          id: string
+          notes: string | null
+          outdoor_temp_at_calculation: number | null
+          recorded_at: string | null
+          recovery_speed: number | null
+          temp_debt: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          degree_minutes?: number | null
+          device_id: number
+          efficiency_status?: string | null
+          id?: string
+          notes?: string | null
+          outdoor_temp_at_calculation?: number | null
+          recorded_at?: string | null
+          recovery_speed?: number | null
+          temp_debt?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          degree_minutes?: number | null
+          device_id?: number
+          efficiency_status?: string | null
+          id?: string
+          notes?: string | null
+          outdoor_temp_at_calculation?: number | null
+          recorded_at?: string | null
+          recovery_speed?: number | null
+          temp_debt?: number | null
+        }
+        Relationships: []
+      }
       heat_pump_history: {
         Row: {
           device_id: number
@@ -224,41 +263,89 @@ export type Database = {
         }
         Relationships: []
       }
+      heat_pump_recovery_log: {
+        Row: {
+          created_at: string | null
+          defrost_ended_at: string
+          device_id: number
+          id: string
+          outdoor_temperature: number | null
+          recovery_duration_seconds: number | null
+          recovery_speed: number | null
+          target_reached_at: string | null
+          temperature_delta: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          defrost_ended_at: string
+          device_id: number
+          id?: string
+          outdoor_temperature?: number | null
+          recovery_duration_seconds?: number | null
+          recovery_speed?: number | null
+          target_reached_at?: string | null
+          temperature_delta?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          defrost_ended_at?: string
+          device_id?: number
+          id?: string
+          outdoor_temperature?: number | null
+          recovery_duration_seconds?: number | null
+          recovery_speed?: number | null
+          target_reached_at?: string | null
+          temperature_delta?: number | null
+        }
+        Relationships: []
+      }
       heat_pump_settings: {
         Row: {
           created_at: string | null
+          degree_minutes: number | null
           device_id: number
           device_name: string | null
+          efficiency_status: string | null
           fan_auto_recovery: boolean | null
           fan_recovery_delay_minutes: number | null
           id: string
           last_known_state: string | null
           pending_fan_recovery_at: string | null
           pending_fan_speed: number | null
+          recovery_tracking_start_temp: number | null
+          recovery_tracking_started_at: string | null
           updated_at: string | null
         }
         Insert: {
           created_at?: string | null
+          degree_minutes?: number | null
           device_id: number
           device_name?: string | null
+          efficiency_status?: string | null
           fan_auto_recovery?: boolean | null
           fan_recovery_delay_minutes?: number | null
           id?: string
           last_known_state?: string | null
           pending_fan_recovery_at?: string | null
           pending_fan_speed?: number | null
+          recovery_tracking_start_temp?: number | null
+          recovery_tracking_started_at?: string | null
           updated_at?: string | null
         }
         Update: {
           created_at?: string | null
+          degree_minutes?: number | null
           device_id?: number
           device_name?: string | null
+          efficiency_status?: string | null
           fan_auto_recovery?: boolean | null
           fan_recovery_delay_minutes?: number | null
           id?: string
           last_known_state?: string | null
           pending_fan_recovery_at?: string | null
           pending_fan_speed?: number | null
+          recovery_tracking_start_temp?: number | null
+          recovery_tracking_started_at?: string | null
           updated_at?: string | null
         }
         Relationships: []
