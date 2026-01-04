@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { format } from "date-fns";
 import { fi } from "date-fns/locale";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, Send, Eye, Clock, Users, Home, LogOut, LogIn, CalendarIcon, Search } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
 
 interface BookingInfo {
   propertyId: string;
@@ -59,6 +60,15 @@ const MaintenanceAdmin = () => {
   const [propertyCleaningEmails, setPropertyCleaningEmails] = useState<Map<string, string>>(new Map());
   const [settingsLoaded, setSettingsLoaded] = useState(false);
   const { toast } = useToast();
+
+  // Build default name map from propertyDetails.ts
+  const defaultNameMap = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const prop of getAllDefaultPropertyDetails()) {
+      map.set(prop.id, prop.name);
+    }
+    return map;
+  }, []);
 
   // Initial load - settings and property names
   useEffect(() => {
@@ -233,7 +243,8 @@ const MaintenanceAdmin = () => {
   };
 
   const getPropertyName = (propertyId: string) => {
-    return propertyNames.get(propertyId) || `ID: ${propertyId}`;
+    // Priority: 1) DB marketing_name, 2) default from propertyDetails, 3) show ID
+    return propertyNames.get(propertyId) || defaultNameMap.get(propertyId) || `ID: ${propertyId}`;
   };
 
   const getCleaningEmail = (propertyId: string) => {

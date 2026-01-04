@@ -53,7 +53,7 @@ serve(async (req: Request): Promise<Response> => {
     }
 
     const arrivalsData = await arrivalsResponse.json();
-    console.log(`Arrivals response: ${JSON.stringify(arrivalsData).substring(0, 500)}`);
+    console.log(`Arrivals count: ${arrivalsData?.data?.length || (Array.isArray(arrivalsData) ? arrivalsData.length : 0)}`);
 
     // Fetch departures for the target date using v2 API
     const departuresUrl = `https://beds24.com/api/v2/bookings?departureFrom=${targetDate}&departureTo=${targetDate}`;
@@ -71,15 +71,17 @@ serve(async (req: Request): Promise<Response> => {
     }
 
     const departuresData = await departuresResponse.json();
-    console.log(`Departures response: ${JSON.stringify(departuresData).substring(0, 500)}`);
+    console.log(`Departures count: ${departuresData?.data?.length || (Array.isArray(departuresData) ? departuresData.length : 0)}`);
 
     // Process arrivals - v2 API returns data in 'data' array
+    // IMPORTANT: Use roomId (our apartment ID) not propertyId (Beds24 internal ID)
     const arrivals: BookingInfo[] = [];
     const arrivalsArray = arrivalsData.data || arrivalsData || [];
     if (Array.isArray(arrivalsArray)) {
       for (const booking of arrivalsArray) {
-        // v2 API uses 'propertyId' or 'roomId'
-        const propertyId = booking.propertyId || booking.roomId;
+        // roomId is our apartment ID, propertyId is Beds24's internal property ID
+        const roomId = booking.roomId ?? booking.roomid;
+        const propertyId = roomId || booking.propertyId;
         if (propertyId) {
           const numAdult = parseInt(booking.numAdult || booking.adults || '0', 10);
           const numChild = parseInt(booking.numChild || booking.children || '0', 10);
@@ -96,7 +98,8 @@ serve(async (req: Request): Promise<Response> => {
     const departuresArray = departuresData.data || departuresData || [];
     if (Array.isArray(departuresArray)) {
       for (const booking of departuresArray) {
-        const propertyId = booking.propertyId || booking.roomId;
+        const roomId = booking.roomId ?? booking.roomid;
+        const propertyId = roomId || booking.propertyId;
         if (propertyId) {
           const numAdult = parseInt(booking.numAdult || booking.adults || '0', 10);
           const numChild = parseInt(booking.numChild || booking.children || '0', 10);

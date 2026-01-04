@@ -81,17 +81,51 @@ serve(async (req: Request): Promise<Response> => {
     const arrivalsData = await arrivalsResponse.json();
     const departuresData = await departuresResponse.json();
 
-    console.log('Arrivals response:', JSON.stringify(arrivalsData).slice(0, 500));
-    console.log('Departures response:', JSON.stringify(departuresData).slice(0, 500));
-
-    // Process bookings - v2 API returns { data: [...] } or array directly
+    // Don't log full response (contains PII), just counts
     const arrivalsArray = arrivalsData.data || arrivalsData || [];
     const departuresArray = departuresData.data || departuresData || [];
+    console.log(`Arrivals count: ${Array.isArray(arrivalsArray) ? arrivalsArray.length : 0}`);
+    console.log(`Departures count: ${Array.isArray(departuresArray) ? departuresArray.length : 0}`);
 
+    // Default property names (fallback when not in database)
+    const defaultPropertyNames: Record<string, string> = {
+      "350161": "Hiihtäjänkuja 5B5 (4MH House)",
+      "350162": "Hiihtäjänkuja 5A2 (2MH Apartment)",
+      "350160": "Hiihtäjänkuja 5B2 (2MH Apartment)",
+      "504843": "Glacier A1 92m2",
+      "504854": "Glacier A2 67m2",
+      "504855": "Glacier A3 92m2",
+      "504856": "Glacier A4 72m2",
+      "504857": "Glacier A5 Penthouse 84m2",
+      "504858": "Glacier A6 72m2",
+      "504859": "Glacier B1 105m2",
+      "504860": "Glacier B2 105m2",
+      "504861": "Glacier B3 Penthouse 87m2",
+      "504862": "Glacier B4 Penthouse 87m2",
+      "625187": "Skistar 319 Superior Studio",
+      "413958": "Skistar 321 Superior Studio",
+      "350158": "Skistar 320 Superior Studio",
+      "350156": "Skistar 104 Superior Studio",
+      "485409": "Skistar 102 Superior Apartment",
+      "350155": "Skistar 210 One-Bedroom Apartment",
+      "350154": "Skistar 211 Two-Bedroom Apartment",
+      "350159": "Skistar 212 Two-Bedroom Apartment",
+      "350157": "Skistar 209 Superior Apartment",
+      "547818": "Levi Platinum Superior 2MH",
+      "414014": "Levi Platinum Superior Studio A2",
+      "353045": "Karhupirtti (7MH Mökki)",
+      "620949": "Karhunvartija 3",
+      "419423": "Levistar Studio with Sauna",
+      "625005": "Room 5 (Moonlight 415)"
+    };
+
+    // Process bookings - IMPORTANT: Use roomId (our apartment ID) not propertyId (Beds24 internal ID)
     const arrivals: BookingInfo[] = [];
     if (Array.isArray(arrivalsArray)) {
       for (const booking of arrivalsArray) {
-        const propertyId = booking.propertyId || booking.roomId;
+        // roomId is our apartment ID, propertyId is Beds24's internal property ID
+        const roomId = booking.roomId ?? booking.roomid;
+        const propertyId = roomId || booking.propertyId;
         if (propertyId) {
           arrivals.push({
             propertyId: String(propertyId),
@@ -104,7 +138,8 @@ serve(async (req: Request): Promise<Response> => {
     const departures: BookingInfo[] = [];
     if (Array.isArray(departuresArray)) {
       for (const booking of departuresArray) {
-        const propertyId = booking.propertyId || booking.roomId;
+        const roomId = booking.roomId ?? booking.roomid;
+        const propertyId = roomId || booking.propertyId;
         if (propertyId) {
           departures.push({
             propertyId: String(propertyId),
@@ -147,19 +182,25 @@ serve(async (req: Request): Promise<Response> => {
       }
     }
 
+    // Helper to get property name with fallback to defaults
+    const getPropertyName = (propertyId: string): string => {
+      return nameMap.get(propertyId) || defaultPropertyNames[propertyId] || `ID: ${propertyId}`;
+    };
+
     // Group by cleaning email
-    const emailGroups = new Map<string, { arrivals: Array<{name: string, guests: number}>, departures: Array<{name: string, guests: number}> }>();
+    const emailGroups = new Map<string, { arrivals: Array<{name: string, id: string, guests: number}>, departures: Array<{name: string, id: string, guests: number}> }>();
 
     for (const arrival of arrivals) {
       const maintenance = maintenanceMap.get(arrival.propertyId);
       const cleaningEmail = maintenance?.cleaning_email || 'info@leville.net';
-      const propertyName = nameMap.get(arrival.propertyId) || `ID: ${arrival.propertyId}`;
+      const propertyName = getPropertyName(arrival.propertyId);
 
       if (!emailGroups.has(cleaningEmail)) {
         emailGroups.set(cleaningEmail, { arrivals: [], departures: [] });
       }
       emailGroups.get(cleaningEmail)!.arrivals.push({
         name: propertyName,
+        id: arrival.propertyId,
         guests: arrival.guestCount
       });
     }
@@ -167,13 +208,14 @@ serve(async (req: Request): Promise<Response> => {
     for (const departure of departures) {
       const maintenance = maintenanceMap.get(departure.propertyId);
       const cleaningEmail = maintenance?.cleaning_email || 'info@leville.net';
-      const propertyName = nameMap.get(departure.propertyId) || `ID: ${departure.propertyId}`;
+      const propertyName = getPropertyName(departure.propertyId);
 
       if (!emailGroups.has(cleaningEmail)) {
         emailGroups.set(cleaningEmail, { arrivals: [], departures: [] });
       }
       emailGroups.get(cleaningEmail)!.departures.push({
         name: propertyName,
+        id: departure.propertyId,
         guests: departure.guestCount
       });
     }
@@ -216,7 +258,7 @@ serve(async (req: Request): Promise<Response> => {
         for (const dep of data.departures) {
           html += `
             <tr>
-              <td style="padding: 8px; border: 1px solid #ddd;">${dep.name}</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${dep.name} <span style="color: #999; font-size: 11px;">(${dep.id})</span></td>
               <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">${dep.guests} hlö</td>
             </tr>
           `;
@@ -240,7 +282,7 @@ serve(async (req: Request): Promise<Response> => {
         for (const arr of data.arrivals) {
           html += `
             <tr>
-              <td style="padding: 8px; border: 1px solid #ddd;">${arr.name}</td>
+              <td style="padding: 8px; border: 1px solid #ddd;">${arr.name} <span style="color: #999; font-size: 11px;">(${arr.id})</span></td>
               <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">${arr.guests} hlö</td>
               <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">${arr.guests} settiä</td>
             </tr>

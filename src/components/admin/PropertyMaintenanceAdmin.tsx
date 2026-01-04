@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
 
 interface PropertyMaintenance {
   property_id: string;
@@ -37,6 +38,15 @@ const PropertyMaintenanceAdmin = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [editedProperties, setEditedProperties] = useState<Map<string, Partial<PropertyMaintenance>>>(new Map());
   const { toast } = useToast();
+
+  // Build default name map from propertyDetails.ts
+  const defaultNameMap = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const prop of getAllDefaultPropertyDetails()) {
+      map.set(prop.id, prop.name);
+    }
+    return map;
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -147,7 +157,8 @@ const PropertyMaintenanceAdmin = () => {
   };
 
   const getPropertyName = (propertyId: string) => {
-    return propertyNames.get(propertyId) || `ID: ${propertyId}`;
+    // Priority: 1) DB marketing_name, 2) default from propertyDetails, 3) show ID
+    return propertyNames.get(propertyId) || defaultNameMap.get(propertyId) || `ID: ${propertyId}`;
   };
 
   const filteredProperties = properties.filter(p => {
