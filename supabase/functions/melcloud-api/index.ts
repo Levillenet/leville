@@ -33,6 +33,9 @@ interface Device {
     VaneVertical: number;
     NumberOfFanSpeeds: number;
     EffectiveFlags: number;
+    ProhibitSetTemperature: boolean;
+    ProhibitPower: boolean;
+    ProhibitOperationMode: boolean;
   };
 }
 
@@ -123,11 +126,91 @@ async function getDevices(contextKey: string) {
       lastCommunication: device.Device.LastCommunication,
       fanSpeed: device.Device.SetFanSpeed,
       numberOfFanSpeeds: device.Device.NumberOfFanSpeeds,
+      prohibitSetTemperature: device.Device.ProhibitSetTemperature,
+      prohibitPower: device.Device.ProhibitPower,
+      prohibitOperationMode: device.Device.ProhibitOperationMode,
     }))
   );
 
   console.log(`Found ${devices.length} devices`);
   return devices;
+}
+
+async function setProhibitFlags(
+  contextKey: string,
+  deviceId: number,
+  buildingId: number,
+  flags: {
+    prohibitPower?: boolean;
+    prohibitSetTemperature?: boolean;
+    prohibitOperationMode?: boolean;
+  }
+) {
+  console.log(`Setting prohibit flags for device ${deviceId}...`, flags);
+
+  // First, get current device state
+  const deviceResponse = await fetch(
+    `${MELCLOUD_BASE_URL}/Device/Get?id=${deviceId}&buildingID=${buildingId}`,
+    {
+      method: 'GET',
+      headers: {
+        'X-MitsContextKey': contextKey,
+      },
+    }
+  );
+
+  if (!deviceResponse.ok) {
+    throw new Error(`Failed to get device: ${deviceResponse.status}`);
+  }
+
+  const currentState = await deviceResponse.json();
+
+  // EffectiveFlags for prohibit settings:
+  // 0x10 = ProhibitSetTemperature
+  // 0x20 = ProhibitPower  
+  // 0x40 = ProhibitOperationMode
+  // Use 0x1F to cover all basic flags plus prohibit flags
+  const effectiveFlags = 0x1F0;
+
+  const updatePayload = {
+    ...currentState,
+    ProhibitSetTemperature: flags.prohibitSetTemperature ?? currentState.ProhibitSetTemperature,
+    ProhibitPower: flags.prohibitPower ?? currentState.ProhibitPower,
+    ProhibitOperationMode: flags.prohibitOperationMode ?? currentState.ProhibitOperationMode,
+    EffectiveFlags: effectiveFlags,
+    HasPendingCommand: true,
+  };
+
+  console.log('Sending prohibit update payload:', {
+    ProhibitSetTemperature: updatePayload.ProhibitSetTemperature,
+    ProhibitPower: updatePayload.ProhibitPower,
+    ProhibitOperationMode: updatePayload.ProhibitOperationMode,
+    EffectiveFlags: effectiveFlags,
+  });
+
+  const response = await fetch(`${MELCLOUD_BASE_URL}/Device/SetAta`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-MitsContextKey': contextKey,
+    },
+    body: JSON.stringify(updatePayload),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to set prohibit flags: ${response.status}`);
+  }
+
+  const result = await response.json();
+  console.log('Prohibit flags update successful');
+
+  return {
+    success: true,
+    deviceId,
+    prohibitPower: result.ProhibitPower,
+    prohibitSetTemperature: result.ProhibitSetTemperature,
+    prohibitOperationMode: result.ProhibitOperationMode,
+  };
 }
 
 async function controlDevice(
@@ -221,9 +304,8 @@ serve(async (req) => {
     }
 
     if (req.method === 'POST') {
-      // Control device
       const body = await req.json();
-      const { deviceId, buildingId, power, setTemperature, operationMode, fanSpeed } = body;
+      const { deviceId, buildingId, action } = body;
 
       if (!deviceId || !buildingId) {
         return new Response(
@@ -232,6 +314,21 @@ serve(async (req) => {
         );
       }
 
+      // Handle prohibit flags update
+      if (action === 'setProhibitFlags') {
+        const { prohibitPower, prohibitSetTemperature, prohibitOperationMode } = body;
+        const result = await setProhibitFlags(contextKey, deviceId, buildingId, {
+          prohibitPower,
+          prohibitSetTemperature,
+          prohibitOperationMode,
+        });
+        return new Response(JSON.stringify(result), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+
+      // Default: control device settings
+      const { power, setTemperature, operationMode, fanSpeed } = body;
       const result = await controlDevice(contextKey, deviceId, buildingId, {
         power,
         setTemperature,

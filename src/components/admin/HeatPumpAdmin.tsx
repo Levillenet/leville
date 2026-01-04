@@ -1,8 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { 
   RefreshCw, 
   Thermometer, 
@@ -11,8 +13,12 @@ import {
   Wind, 
   Droplets,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  Lock,
+  ChevronDown
 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface HeatPumpDevice {
   deviceId: number;
@@ -24,6 +30,9 @@ interface HeatPumpDevice {
   operationMode: string;
   operationModeId: number;
   lastCommunication: string;
+  prohibitPower: boolean;
+  prohibitSetTemperature: boolean;
+  prohibitOperationMode: boolean;
 }
 
 interface DevicesResponse {
@@ -32,6 +41,10 @@ interface DevicesResponse {
 }
 
 const HeatPumpAdmin = () => {
+  const queryClient = useQueryClient();
+  const [openLocks, setOpenLocks] = useState<Record<number, boolean>>({});
+  const [optimisticState, setOptimisticState] = useState<Record<number, Partial<HeatPumpDevice>>>({});
+
   const { data, isLoading, error, refetch, isFetching } = useQuery({
     queryKey: ['melcloud-devices'],
     queryFn: async (): Promise<DevicesResponse> => {
@@ -47,6 +60,71 @@ const HeatPumpAdmin = () => {
     },
     staleTime: 60000,
     refetchInterval: 300000,
+  });
+
+  const prohibitMutation = useMutation({
+    mutationFn: async (params: {
+      deviceId: number;
+      buildingId: number;
+      prohibitPower?: boolean;
+      prohibitSetTemperature?: boolean;
+      prohibitOperationMode?: boolean;
+    }) => {
+      const { data, error } = await supabase.functions.invoke('melcloud-api', {
+        method: 'POST',
+        body: {
+          action: 'setProhibitFlags',
+          ...params,
+        },
+      });
+      
+      if (error) throw new Error(error.message);
+      return data;
+    },
+    onSuccess: (_, variables) => {
+      // Clear optimistic state on success
+      setOptimisticState(prev => {
+        const next = { ...prev };
+        delete next[variables.deviceId];
+        return next;
+      });
+      queryClient.invalidateQueries({ queryKey: ['melcloud-devices'] });
+    },
+    onError: (error, variables) => {
+      // Revert optimistic state on error
+      setOptimisticState(prev => {
+        const next = { ...prev };
+        delete next[variables.deviceId];
+        return next;
+      });
+      toast.error(`Virhe: ${error.message}`);
+    },
+  });
+
+  const handleProhibitToggle = (
+    device: HeatPumpDevice,
+    field: 'prohibitPower' | 'prohibitSetTemperature' | 'prohibitOperationMode',
+    value: boolean
+  ) => {
+    // Optimistic update
+    setOptimisticState(prev => ({
+      ...prev,
+      [device.deviceId]: {
+        ...prev[device.deviceId],
+        [field]: value,
+      },
+    }));
+
+    prohibitMutation.mutate({
+      deviceId: device.deviceId,
+      buildingId: device.buildingId,
+      [field]: value,
+    });
+  };
+
+  const getDeviceState = (device: HeatPumpDevice) => ({
+    ...device,
+    ...optimisticState[device.deviceId],
   });
 
   const getOperationModeInfo = (mode: string) => {
@@ -138,6 +216,9 @@ const HeatPumpAdmin = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {devices.map((device) => {
           const modeInfo = getOperationModeInfo(device.operationMode);
+          const state = getDeviceState(device);
+          const isUpdating = prohibitMutation.isPending && 
+            prohibitMutation.variables?.deviceId === device.deviceId;
           
           return (
             <Card key={device.deviceId}>
@@ -153,8 +234,8 @@ const HeatPumpAdmin = () => {
                 </div>
               </CardHeader>
 
-              <CardContent className="text-center space-y-3">
-                <div className="py-2">
+              <CardContent className="space-y-3">
+                <div className="py-2 text-center">
                   <p className="text-4xl font-bold text-foreground">
                     {device.roomTemperature.toFixed(1)}°C
                   </p>
@@ -167,7 +248,54 @@ const HeatPumpAdmin = () => {
                   <span>{modeInfo.name}</span>
                 </div>
 
-                <p className="text-xs text-muted-foreground">
+                <Collapsible 
+                  open={openLocks[device.deviceId]} 
+                  onOpenChange={(open) => setOpenLocks(prev => ({ ...prev, [device.deviceId]: open }))}
+                >
+                  <CollapsibleTrigger asChild>
+                    <Button variant="ghost" size="sm" className="w-full justify-between text-muted-foreground">
+                      <span className="flex items-center gap-2">
+                        <Lock className="w-4 h-4" />
+                        Kaukosäätimen lukot
+                      </span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${openLocks[device.deviceId] ? 'rotate-180' : ''}`} />
+                    </Button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pt-2 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm">Lukitse virtapainike</label>
+                      <Switch
+                        checked={state.prohibitPower}
+                        onCheckedChange={(checked) => handleProhibitToggle(device, 'prohibitPower', checked)}
+                        disabled={isUpdating}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm">Lukitse lämpötilan säätö</label>
+                      <Switch
+                        checked={state.prohibitSetTemperature}
+                        onCheckedChange={(checked) => handleProhibitToggle(device, 'prohibitSetTemperature', checked)}
+                        disabled={isUpdating}
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm">Lukitse tilan valinta</label>
+                      <Switch
+                        checked={state.prohibitOperationMode}
+                        onCheckedChange={(checked) => handleProhibitToggle(device, 'prohibitOperationMode', checked)}
+                        disabled={isUpdating}
+                      />
+                    </div>
+                    {isUpdating && (
+                      <p className="text-xs text-muted-foreground text-center">
+                        <Loader2 className="w-3 h-3 inline animate-spin mr-1" />
+                        Päivitetään...
+                      </p>
+                    )}
+                  </CollapsibleContent>
+                </Collapsible>
+
+                <p className="text-xs text-muted-foreground text-center">
                   Päivitetty: {formatLastCommunication(device.lastCommunication)}
                 </p>
               </CardContent>
