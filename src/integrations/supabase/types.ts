@@ -224,6 +224,39 @@ export type Database = {
         }
         Relationships: []
       }
+      heat_pump_fleet_baseline: {
+        Row: {
+          created_at: string | null
+          device_count: number | null
+          fleet_avg_recovery_speed: number | null
+          fleet_avg_temp_debt: number | null
+          id: string
+          outdoor_temp_range: string
+          sample_count: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          device_count?: number | null
+          fleet_avg_recovery_speed?: number | null
+          fleet_avg_temp_debt?: number | null
+          id?: string
+          outdoor_temp_range: string
+          sample_count?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          device_count?: number | null
+          fleet_avg_recovery_speed?: number | null
+          fleet_avg_temp_debt?: number | null
+          id?: string
+          outdoor_temp_range?: string
+          sample_count?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       heat_pump_history: {
         Row: {
           device_id: number
@@ -260,6 +293,42 @@ export type Database = {
           recorded_at?: string | null
           room_temperature?: number | null
           set_temperature?: number | null
+        }
+        Relationships: []
+      }
+      heat_pump_performance_baseline: {
+        Row: {
+          avg_recovery_speed: number | null
+          avg_temp_debt: number | null
+          created_at: string | null
+          device_id: number
+          id: string
+          outdoor_temp_range: string
+          sample_count: number | null
+          total_recovery_time_seconds: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          avg_recovery_speed?: number | null
+          avg_temp_debt?: number | null
+          created_at?: string | null
+          device_id: number
+          id?: string
+          outdoor_temp_range: string
+          sample_count?: number | null
+          total_recovery_time_seconds?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          avg_recovery_speed?: number | null
+          avg_temp_debt?: number | null
+          created_at?: string | null
+          device_id?: number
+          id?: string
+          outdoor_temp_range?: string
+          sample_count?: number | null
+          total_recovery_time_seconds?: number | null
+          updated_at?: string | null
         }
         Relationships: []
       }
