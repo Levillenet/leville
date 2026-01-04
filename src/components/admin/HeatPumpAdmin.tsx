@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { 
   RefreshCw, 
@@ -15,10 +16,19 @@ import {
   Loader2,
   AlertCircle,
   Lock,
-  ChevronDown
+  ChevronDown,
+  Settings,
+  History,
+  Power,
+  PowerOff,
+  AlertTriangle,
+  Timer,
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import HeatPumpHistory from "./HeatPumpHistory";
+
+type OperatingState = 'HEATING' | 'COOLING' | 'DEFROST' | 'IDLE' | 'OFF' | 'ERROR' | 'UNKNOWN';
 
 interface HeatPumpDevice {
   deviceId: number;
@@ -26,13 +36,23 @@ interface HeatPumpDevice {
   buildingId: number;
   roomTemperature: number;
   setTemperature: number;
+  outdoorTemperature: number | null;
   power: boolean;
   operationMode: string;
   operationModeId: number;
   lastCommunication: string;
+  fanSpeed: number;
+  numberOfFanSpeeds: number;
   prohibitPower: boolean;
   prohibitSetTemperature: boolean;
   prohibitOperationMode: boolean;
+  // Enhanced fields
+  operatingState: OperatingState;
+  isDefrosting: boolean;
+  lastDefrostMinutesAgo: number | null;
+  pendingFanRecovery: boolean;
+  fanAutoRecovery: boolean;
+  fanRecoveryDelayMinutes: number;
 }
 
 interface DevicesResponse {
@@ -43,7 +63,9 @@ interface DevicesResponse {
 const HeatPumpAdmin = () => {
   const queryClient = useQueryClient();
   const [openLocks, setOpenLocks] = useState<Record<number, boolean>>({});
+  const [openSettings, setOpenSettings] = useState<Record<number, boolean>>({});
   const [optimisticState, setOptimisticState] = useState<Record<number, Partial<HeatPumpDevice>>>({});
+  const [historyDevice, setHistoryDevice] = useState<{ id: number; name: string } | null>(null);
 
   const { data, isLoading, error, refetch, isFetching } = useQuery({
     queryKey: ['melcloud-devices'],
@@ -82,7 +104,6 @@ const HeatPumpAdmin = () => {
       return data;
     },
     onSuccess: (_, variables) => {
-      // Clear optimistic state on success
       setOptimisticState(prev => {
         const next = { ...prev };
         delete next[variables.deviceId];
@@ -91,7 +112,6 @@ const HeatPumpAdmin = () => {
       queryClient.invalidateQueries({ queryKey: ['melcloud-devices'] });
     },
     onError: (error, variables) => {
-      // Revert optimistic state on error
       setOptimisticState(prev => {
         const next = { ...prev };
         delete next[variables.deviceId];
@@ -101,12 +121,43 @@ const HeatPumpAdmin = () => {
     },
   });
 
+  const settingsMutation = useMutation({
+    mutationFn: async (params: {
+      deviceId: number;
+      deviceName: string;
+      fanAutoRecovery?: boolean;
+      fanRecoveryDelayMinutes?: number;
+    }) => {
+      const { data, error } = await supabase.functions.invoke('melcloud-api', {
+        method: 'POST',
+        body: {
+          action: 'updateSettings',
+          ...params,
+        },
+      });
+      
+      if (error) throw new Error(error.message);
+      return data;
+    },
+    onSuccess: (_, variables) => {
+      setOptimisticState(prev => {
+        const next = { ...prev };
+        delete next[variables.deviceId];
+        return next;
+      });
+      toast.success('Asetukset tallennettu');
+      queryClient.invalidateQueries({ queryKey: ['melcloud-devices'] });
+    },
+    onError: (error) => {
+      toast.error(`Virhe: ${error.message}`);
+    },
+  });
+
   const handleProhibitToggle = (
     device: HeatPumpDevice,
     field: 'prohibitPower' | 'prohibitSetTemperature' | 'prohibitOperationMode',
     value: boolean
   ) => {
-    // Optimistic update
     setOptimisticState(prev => ({
       ...prev,
       [device.deviceId]: {
@@ -122,10 +173,84 @@ const HeatPumpAdmin = () => {
     });
   };
 
+  const handleSettingsChange = (
+    device: HeatPumpDevice,
+    field: 'fanAutoRecovery' | 'fanRecoveryDelayMinutes',
+    value: boolean | number
+  ) => {
+    setOptimisticState(prev => ({
+      ...prev,
+      [device.deviceId]: {
+        ...prev[device.deviceId],
+        [field]: value,
+      },
+    }));
+
+    settingsMutation.mutate({
+      deviceId: device.deviceId,
+      deviceName: device.deviceName,
+      [field]: value,
+    });
+  };
+
   const getDeviceState = (device: HeatPumpDevice) => ({
     ...device,
     ...optimisticState[device.deviceId],
   });
+
+  const getOperatingStateInfo = (state: OperatingState) => {
+    switch (state) {
+      case 'HEATING':
+        return { 
+          icon: <Flame className="w-4 h-4" />, 
+          label: 'Lämmitys', 
+          variant: 'default' as const,
+          className: 'bg-orange-500 hover:bg-orange-600'
+        };
+      case 'COOLING':
+        return { 
+          icon: <Snowflake className="w-4 h-4" />, 
+          label: 'Jäähdytys', 
+          variant: 'default' as const,
+          className: 'bg-blue-500 hover:bg-blue-600'
+        };
+      case 'DEFROST':
+        return { 
+          icon: <Snowflake className="w-4 h-4 animate-pulse" />, 
+          label: 'Sulatus', 
+          variant: 'default' as const,
+          className: 'bg-cyan-500 hover:bg-cyan-600 animate-pulse'
+        };
+      case 'IDLE':
+        return { 
+          icon: <Power className="w-4 h-4" />, 
+          label: 'Valmiustila', 
+          variant: 'secondary' as const,
+          className: ''
+        };
+      case 'OFF':
+        return { 
+          icon: <PowerOff className="w-4 h-4" />, 
+          label: 'Pois päältä', 
+          variant: 'outline' as const,
+          className: ''
+        };
+      case 'ERROR':
+        return { 
+          icon: <AlertTriangle className="w-4 h-4" />, 
+          label: 'Virhe / Offline', 
+          variant: 'destructive' as const,
+          className: ''
+        };
+      default:
+        return { 
+          icon: <Thermometer className="w-4 h-4" />, 
+          label: 'Tuntematon', 
+          variant: 'secondary' as const,
+          className: ''
+        };
+    }
+  };
 
   const getOperationModeInfo = (mode: string) => {
     switch (mode) {
@@ -154,6 +279,18 @@ const HeatPumpAdmin = () => {
     if (diffMins < 60) return `${diffMins} min sitten`;
     if (diffMins < 1440) return `${Math.floor(diffMins / 60)} h sitten`;
     return date.toLocaleDateString('fi-FI');
+  };
+
+  const formatDefrostTime = (minutes: number | null): string => {
+    if (minutes === null) return 'Ei sulatushistoriaa';
+    if (minutes < 60) return `${minutes} min sitten`;
+    if (minutes < 1440) return `${Math.floor(minutes / 60)} h sitten`;
+    return `${Math.floor(minutes / 1440)} pv sitten`;
+  };
+
+  const getFanSpeedLabel = (speed: number): string => {
+    if (speed === 0) return 'AUTO';
+    return String(speed);
   };
 
   if (isLoading) {
@@ -194,7 +331,7 @@ const HeatPumpAdmin = () => {
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Thermometer className="w-5 h-5" />
-                Lämpötilat
+                Lämpöpumput
               </CardTitle>
               <p className="text-sm text-muted-foreground mt-1">
                 {devices.length} laitetta
@@ -216,25 +353,33 @@ const HeatPumpAdmin = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {devices.map((device) => {
           const modeInfo = getOperationModeInfo(device.operationMode);
+          const stateInfo = getOperatingStateInfo(device.operatingState);
           const state = getDeviceState(device);
-          const isUpdating = prohibitMutation.isPending && 
-            prohibitMutation.variables?.deviceId === device.deviceId;
+          const isUpdating = (prohibitMutation.isPending && 
+            prohibitMutation.variables?.deviceId === device.deviceId) ||
+            (settingsMutation.isPending && 
+            settingsMutation.variables?.deviceId === device.deviceId);
           
           return (
-            <Card key={device.deviceId}>
+            <Card key={device.deviceId} className={device.isDefrosting ? 'ring-2 ring-cyan-500' : ''}>
               <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
                     {modeInfo.icon}
-                    <CardTitle className="text-base">{device.deviceName}</CardTitle>
+                    <CardTitle className="text-base truncate">{device.deviceName}</CardTitle>
                   </div>
-                  <Badge variant={device.power ? "default" : "secondary"}>
-                    {device.power ? 'Päällä' : 'Pois'}
+                  <Badge 
+                    variant={stateInfo.variant}
+                    className={`flex items-center gap-1 shrink-0 ${stateInfo.className}`}
+                  >
+                    {stateInfo.icon}
+                    {stateInfo.label}
                   </Badge>
                 </div>
               </CardHeader>
 
               <CardContent className="space-y-3">
+                {/* Temperatures */}
                 <div className="py-2 text-center">
                   <p className="text-4xl font-bold text-foreground">
                     {device.roomTemperature.toFixed(1)}°C
@@ -242,12 +387,107 @@ const HeatPumpAdmin = () => {
                   <p className="text-sm text-muted-foreground">Huonelämpötila</p>
                 </div>
 
-                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
                   <span>Tavoite: {device.setTemperature.toFixed(1)}°C</span>
-                  <span>•</span>
-                  <span>{modeInfo.name}</span>
+                  {device.outdoorTemperature !== null && (
+                    <>
+                      <span>•</span>
+                      <span>Ulko: {device.outdoorTemperature.toFixed(1)}°C</span>
+                    </>
+                  )}
                 </div>
 
+                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                  <span>{modeInfo.name}</span>
+                  <span>•</span>
+                  <span>Puhallin: {getFanSpeedLabel(device.fanSpeed)}</span>
+                </div>
+
+                {/* Defrost status */}
+                <div className="text-center text-sm">
+                  {device.isDefrosting ? (
+                    <span className="text-cyan-600 font-medium flex items-center justify-center gap-1">
+                      <Snowflake className="w-4 h-4 animate-pulse" />
+                      Sulatus käynnissä
+                    </span>
+                  ) : device.lastDefrostMinutesAgo !== null ? (
+                    <span className="text-muted-foreground">
+                      Viimeisin sulatus: {formatDefrostTime(device.lastDefrostMinutesAgo)}
+                    </span>
+                  ) : null}
+                </div>
+
+                {/* Pending recovery status */}
+                {device.pendingFanRecovery && !device.isDefrosting && (
+                  <div className="text-center text-sm text-amber-600 flex items-center justify-center gap-1">
+                    <Timer className="w-4 h-4" />
+                    Puhallustehon palautus odottaa
+                  </div>
+                )}
+                {device.pendingFanRecovery && device.isDefrosting && (
+                  <div className="text-center text-sm text-amber-600 flex items-center justify-center gap-1">
+                    <Timer className="w-4 h-4" />
+                    Palautus odottaa sulatuksen päättymistä
+                  </div>
+                )}
+
+                {/* History button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full text-muted-foreground"
+                  onClick={() => setHistoryDevice({ id: device.deviceId, name: device.deviceName })}
+                >
+                  <History className="w-4 h-4 mr-2" />
+                  Näytä lämpö- ja sulatushistoria
+                </Button>
+
+                {/* Fan recovery settings */}
+                <Collapsible 
+                  open={openSettings[device.deviceId]} 
+                  onOpenChange={(open) => setOpenSettings(prev => ({ ...prev, [device.deviceId]: open }))}
+                >
+                  <CollapsibleTrigger asChild>
+                    <Button variant="ghost" size="sm" className="w-full justify-between text-muted-foreground">
+                      <span className="flex items-center gap-2">
+                        <Settings className="w-4 h-4" />
+                        Puhallustehon palautus
+                      </span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${openSettings[device.deviceId] ? 'rotate-180' : ''}`} />
+                    </Button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="pt-2 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm">Automaattinen palautus</label>
+                      <Switch
+                        checked={state.fanAutoRecovery}
+                        onCheckedChange={(checked) => handleSettingsChange(device, 'fanAutoRecovery', checked)}
+                        disabled={isUpdating}
+                      />
+                    </div>
+                    {state.fanAutoRecovery && (
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-sm">
+                          <label>Palautusviive</label>
+                          <span className="font-medium">{state.fanRecoveryDelayMinutes} min</span>
+                        </div>
+                        <Slider
+                          value={[state.fanRecoveryDelayMinutes]}
+                          onValueCommit={([value]) => handleSettingsChange(device, 'fanRecoveryDelayMinutes', value)}
+                          min={15}
+                          max={180}
+                          step={15}
+                          disabled={isUpdating}
+                        />
+                        <p className="text-xs text-muted-foreground">
+                          Palauttaa puhallustehon arvoon 4, jos asetetaan alle 4
+                        </p>
+                      </div>
+                    )}
+                  </CollapsibleContent>
+                </Collapsible>
+
+                {/* Remote control locks */}
                 <Collapsible 
                   open={openLocks[device.deviceId]} 
                   onOpenChange={(open) => setOpenLocks(prev => ({ ...prev, [device.deviceId]: open }))}
@@ -311,6 +551,16 @@ const HeatPumpAdmin = () => {
             <p className="text-muted-foreground">Ei lämpöpumppuja löydetty</p>
           </CardContent>
         </Card>
+      )}
+
+      {/* History modal */}
+      {historyDevice && (
+        <HeatPumpHistory
+          deviceId={historyDevice.id}
+          deviceName={historyDevice.name}
+          open={true}
+          onOpenChange={(open) => !open && setHistoryDevice(null)}
+        />
       )}
     </div>
   );
