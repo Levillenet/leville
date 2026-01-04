@@ -206,10 +206,49 @@ async function getDevices(contextKey: string) {
 
   const buildings: Building[] = await response.json();
   
-  // Get all device IDs
-  const deviceIds = buildings.flatMap(building => 
-    building.Structure.Devices.map(d => d.Device.DeviceID)
+  // Collect all devices with their building info
+  const allDevices = buildings.flatMap(building => 
+    building.Structure.Devices.map(device => ({
+      building,
+      device,
+      deviceId: device.Device.DeviceID,
+      buildingId: building.ID
+    }))
   );
+
+  // Fetch full device details from /Device/Get for each device
+  console.log(`Fetching full details for ${allDevices.length} devices...`);
+  const deviceDetailsPromises = allDevices.map(async ({ deviceId, buildingId }) => {
+    try {
+      const detailResponse = await fetch(
+        `${MELCLOUD_BASE_URL}/Device/Get?id=${deviceId}&buildingID=${buildingId}`,
+        {
+          method: 'GET',
+          headers: { 'X-MitsContextKey': contextKey },
+        }
+      );
+      
+      if (detailResponse.ok) {
+        const fullDevice = await detailResponse.json();
+        console.log(`Device ${deviceId}: SetFanSpeed from /Device/Get = ${fullDevice.SetFanSpeed}`);
+        return { deviceId, fullDevice };
+      }
+      console.warn(`Failed to fetch details for device ${deviceId}: ${detailResponse.status}`);
+      return { deviceId, fullDevice: null };
+    } catch (err) {
+      console.warn(`Error fetching details for device ${deviceId}:`, err);
+      return { deviceId, fullDevice: null };
+    }
+  });
+
+  const deviceDetails = await Promise.all(deviceDetailsPromises);
+  const deviceDetailsMap = new Map<number, any>();
+  deviceDetails.forEach(({ deviceId, fullDevice }) => {
+    if (fullDevice) deviceDetailsMap.set(deviceId, fullDevice);
+  });
+
+  // Get all device IDs
+  const deviceIds = allDevices.map(d => d.deviceId);
 
   // Fetch settings from database
   const { data: settingsData } = await supabase
@@ -262,68 +301,72 @@ async function getDevices(contextKey: string) {
     openDefrostMap.set(d.device_id, d.started_at);
   });
 
-  const devices = buildings.flatMap(building => 
-    building.Structure.Devices.map(device => {
-      const settings = settingsMap.get(device.Device.DeviceID);
-      const lastTemp = lastTempMap.get(device.Device.DeviceID) ?? null;
-      const lastKnownState = settings?.last_known_state || 'UNKNOWN';
-      
-      const operatingState = determineOperatingState(
-        {
-          power: device.Device.Power,
-          operationModeId: device.Device.OperationMode,
-          fanSpeed: device.Device.SetFanSpeed,
-          roomTemperature: device.Device.RoomTemperature,
-          lastCommunication: device.Device.LastCommunication,
-        },
-        lastKnownState,
-        lastTemp
-      );
+  const devices = allDevices.map(({ device, building }) => {
+    const deviceId = device.Device.DeviceID;
+    const fullDevice = deviceDetailsMap.get(deviceId);
+    const settings = settingsMap.get(deviceId);
+    const lastTemp = lastTempMap.get(deviceId) ?? null;
+    const lastKnownState = settings?.last_known_state || 'UNKNOWN';
+    
+    // Use full device details if available, fallback to list data
+    const fanSpeed = fullDevice?.SetFanSpeed ?? device.Device.SetFanSpeed ?? 0;
+    const numberOfFanSpeeds = fullDevice?.NumberOfFanSpeeds ?? device.Device.NumberOfFanSpeeds;
+    
+    const operatingState = determineOperatingState(
+      {
+        power: fullDevice?.Power ?? device.Device.Power,
+        operationModeId: fullDevice?.OperationMode ?? device.Device.OperationMode,
+        fanSpeed,
+        roomTemperature: fullDevice?.RoomTemperature ?? device.Device.RoomTemperature,
+        lastCommunication: fullDevice?.LastCommunication ?? device.Device.LastCommunication,
+      },
+      lastKnownState,
+      lastTemp
+    );
 
-      // Calculate last defrost time
-      const lastDefrostAt = lastDefrostMap.get(device.Device.DeviceID);
-      let lastDefrostMinutesAgo: number | null = null;
-      if (lastDefrostAt) {
-        const diffMs = Date.now() - new Date(lastDefrostAt).getTime();
-        lastDefrostMinutesAgo = Math.floor(diffMs / 60000);
-      }
+    // Calculate last defrost time
+    const lastDefrostAt = lastDefrostMap.get(deviceId);
+    let lastDefrostMinutesAgo: number | null = null;
+    if (lastDefrostAt) {
+      const diffMs = Date.now() - new Date(lastDefrostAt).getTime();
+      lastDefrostMinutesAgo = Math.floor(diffMs / 60000);
+    }
 
-      // Check if currently in defrost (open cycle)
-      const isDefrosting = openDefrostMap.has(device.Device.DeviceID) || operatingState === 'DEFROST';
+    // Check if currently in defrost (open cycle)
+    const isDefrosting = openDefrostMap.has(deviceId) || operatingState === 'DEFROST';
 
-      // Check pending recovery
-      const hasPendingRecovery = settings?.pending_fan_recovery_at !== null && 
-        new Date(settings?.pending_fan_recovery_at || 0) <= new Date();
+    // Check pending recovery
+    const hasPendingRecovery = settings?.pending_fan_recovery_at !== null && 
+      new Date(settings?.pending_fan_recovery_at || 0) <= new Date();
 
-      return {
-        deviceId: device.Device.DeviceID,
-        deviceName: device.Device.DeviceName || device.DeviceName,
-        buildingId: device.Device.BuildingID || building.ID,
-        roomTemperature: device.Device.RoomTemperature,
-        setTemperature: device.Device.SetTemperature,
-        outdoorTemperature: device.Device.OutdoorTemperature ?? null,
-        power: device.Device.Power,
-        operationMode: OPERATION_MODES[device.Device.OperationMode] || 'unknown',
-        operationModeId: device.Device.OperationMode,
-        lastCommunication: device.Device.LastCommunication,
-        fanSpeed: device.Device.SetFanSpeed ?? 0,
-        numberOfFanSpeeds: device.Device.NumberOfFanSpeeds,
-        prohibitSetTemperature: device.Device.ProhibitSetTemperature,
-        prohibitPower: device.Device.ProhibitPower,
-        prohibitOperationMode: device.Device.ProhibitOperationMode,
-        // Enhanced fields
-        operatingState,
-        isDefrosting,
-        lastDefrostMinutesAgo,
-        pendingFanRecovery: hasPendingRecovery,
-        fanAutoRecovery: settings?.fan_auto_recovery ?? false,
-        fanRecoveryDelayMinutes: settings?.fan_recovery_delay_minutes ?? 60,
-      };
-    })
-  );
+    return {
+      deviceId,
+      deviceName: fullDevice?.DeviceName ?? device.Device.DeviceName ?? device.DeviceName,
+      buildingId: fullDevice?.BuildingID ?? device.Device.BuildingID ?? building.ID,
+      roomTemperature: fullDevice?.RoomTemperature ?? device.Device.RoomTemperature,
+      setTemperature: fullDevice?.SetTemperature ?? device.Device.SetTemperature,
+      outdoorTemperature: fullDevice?.OutdoorTemperature ?? device.Device.OutdoorTemperature ?? null,
+      power: fullDevice?.Power ?? device.Device.Power,
+      operationMode: OPERATION_MODES[fullDevice?.OperationMode ?? device.Device.OperationMode] || 'unknown',
+      operationModeId: fullDevice?.OperationMode ?? device.Device.OperationMode,
+      lastCommunication: fullDevice?.LastCommunication ?? device.Device.LastCommunication,
+      fanSpeed,
+      numberOfFanSpeeds,
+      prohibitSetTemperature: fullDevice?.ProhibitSetTemperature ?? device.Device.ProhibitSetTemperature,
+      prohibitPower: fullDevice?.ProhibitPower ?? device.Device.ProhibitPower,
+      prohibitOperationMode: fullDevice?.ProhibitOperationMode ?? device.Device.ProhibitOperationMode,
+      // Enhanced fields
+      operatingState,
+      isDefrosting,
+      lastDefrostMinutesAgo,
+      pendingFanRecovery: hasPendingRecovery,
+      fanAutoRecovery: settings?.fan_auto_recovery ?? false,
+      fanRecoveryDelayMinutes: settings?.fan_recovery_delay_minutes ?? 60,
+    };
+  });
 
   console.log(`Found ${devices.length} devices`);
-  devices.forEach(d => console.log(`Device ${d.deviceName}: SetFanSpeed=${d.fanSpeed}, NumberOfFanSpeeds=${d.numberOfFanSpeeds}`));
+  devices.forEach(d => console.log(`Device ${d.deviceName}: fanSpeed=${d.fanSpeed}, numberOfFanSpeeds=${d.numberOfFanSpeeds}`));
   return devices;
 }
 
