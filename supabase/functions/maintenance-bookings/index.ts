@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -33,62 +32,59 @@ serve(async (req: Request): Promise<Response> => {
     
     console.log(`Fetching bookings for date: ${targetDate}`);
 
-    // Fetch arrivals for the target date
-    const arrivalsUrl = `https://api.beds24.com/json/getBookings`;
-    const arrivalsBody = {
-      authentication: { apiKey: apiToken },
-      arrivalFrom: targetDate,
-      arrivalTo: targetDate,
-      includeInvoice: false,
-      includePriceDetails: false
+    const headers = {
+      'Content-Type': 'application/json',
+      'token': apiToken
     };
 
-    console.log('Fetching arrivals...');
+    // Fetch arrivals for the target date using v2 API
+    const arrivalsUrl = `https://beds24.com/api/v2/bookings?arrivalFrom=${targetDate}&arrivalTo=${targetDate}`;
+    console.log('Fetching arrivals from:', arrivalsUrl);
+    
     const arrivalsResponse = await fetch(arrivalsUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(arrivalsBody)
+      method: 'GET',
+      headers
     });
 
     if (!arrivalsResponse.ok) {
-      throw new Error(`Beds24 arrivals API error: ${arrivalsResponse.status}`);
+      const errorText = await arrivalsResponse.text();
+      console.error('Arrivals API error:', arrivalsResponse.status, errorText);
+      throw new Error(`Beds24 arrivals API error: ${arrivalsResponse.status} - ${errorText}`);
     }
 
     const arrivalsData = await arrivalsResponse.json();
-    console.log(`Arrivals response:`, JSON.stringify(arrivalsData).substring(0, 500));
+    console.log(`Arrivals response: ${JSON.stringify(arrivalsData).substring(0, 500)}`);
 
-    // Fetch departures for the target date
-    const departuresBody = {
-      authentication: { apiKey: apiToken },
-      departureFrom: targetDate,
-      departureTo: targetDate,
-      includeInvoice: false,
-      includePriceDetails: false
-    };
-
-    console.log('Fetching departures...');
-    const departuresResponse = await fetch(arrivalsUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(departuresBody)
+    // Fetch departures for the target date using v2 API
+    const departuresUrl = `https://beds24.com/api/v2/bookings?departureFrom=${targetDate}&departureTo=${targetDate}`;
+    console.log('Fetching departures from:', departuresUrl);
+    
+    const departuresResponse = await fetch(departuresUrl, {
+      method: 'GET',
+      headers
     });
 
     if (!departuresResponse.ok) {
-      throw new Error(`Beds24 departures API error: ${departuresResponse.status}`);
+      const errorText = await departuresResponse.text();
+      console.error('Departures API error:', departuresResponse.status, errorText);
+      throw new Error(`Beds24 departures API error: ${departuresResponse.status} - ${errorText}`);
     }
 
     const departuresData = await departuresResponse.json();
-    console.log(`Departures response:`, JSON.stringify(departuresData).substring(0, 500));
+    console.log(`Departures response: ${JSON.stringify(departuresData).substring(0, 500)}`);
 
-    // Process arrivals - extract only propertyId and guestCount (no personal data)
+    // Process arrivals - v2 API returns data in 'data' array
     const arrivals: BookingInfo[] = [];
-    if (Array.isArray(arrivalsData)) {
-      for (const booking of arrivalsData) {
-        if (booking.roomId) {
-          const numAdult = parseInt(booking.numAdult || '0', 10);
-          const numChild = parseInt(booking.numChild || '0', 10);
+    const arrivalsArray = arrivalsData.data || arrivalsData || [];
+    if (Array.isArray(arrivalsArray)) {
+      for (const booking of arrivalsArray) {
+        // v2 API uses 'propertyId' or 'roomId'
+        const propertyId = booking.propertyId || booking.roomId;
+        if (propertyId) {
+          const numAdult = parseInt(booking.numAdult || booking.adults || '0', 10);
+          const numChild = parseInt(booking.numChild || booking.children || '0', 10);
           arrivals.push({
-            propertyId: String(booking.roomId),
+            propertyId: String(propertyId),
             guestCount: numAdult + numChild
           });
         }
@@ -97,13 +93,15 @@ serve(async (req: Request): Promise<Response> => {
 
     // Process departures
     const departures: BookingInfo[] = [];
-    if (Array.isArray(departuresData)) {
-      for (const booking of departuresData) {
-        if (booking.roomId) {
-          const numAdult = parseInt(booking.numAdult || '0', 10);
-          const numChild = parseInt(booking.numChild || '0', 10);
+    const departuresArray = departuresData.data || departuresData || [];
+    if (Array.isArray(departuresArray)) {
+      for (const booking of departuresArray) {
+        const propertyId = booking.propertyId || booking.roomId;
+        if (propertyId) {
+          const numAdult = parseInt(booking.numAdult || booking.adults || '0', 10);
+          const numChild = parseInt(booking.numChild || booking.children || '0', 10);
           departures.push({
-            propertyId: String(booking.roomId),
+            propertyId: String(propertyId),
             guestCount: numAdult + numChild
           });
         }

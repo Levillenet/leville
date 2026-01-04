@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
+import { fi } from "date-fns/locale";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, RefreshCw, Send, Eye, Clock, Users, Home, LogOut, LogIn, Calendar } from "lucide-react";
+import { Loader2, RefreshCw, Send, Eye, Clock, Users, Home, LogOut, LogIn, CalendarIcon, Search } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 interface BookingInfo {
   propertyId: string;
@@ -40,7 +45,7 @@ interface PropertyMaintenance {
 
 const MaintenanceAdmin = () => {
   const [bookings, setBookings] = useState<DayBookings | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [settings, setSettings] = useState<MaintenanceSettings | null>(null);
   const [sendHour, setSendHour] = useState("19");
@@ -48,17 +53,22 @@ const MaintenanceAdmin = () => {
   const [isEnabled, setIsEnabled] = useState(true);
   const [previewData, setPreviewData] = useState<any>(null);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [calendarOpen, setCalendarOpen] = useState(false);
   const [propertyNames, setPropertyNames] = useState<Map<string, string>>(new Map());
   const [propertyCleaningEmails, setPropertyCleaningEmails] = useState<Map<string, string>>(new Map());
+  const [hasInitialized, setHasInitialized] = useState(false);
   const { toast } = useToast();
 
+  // Initial load - just settings, not bookings
   useEffect(() => {
-    fetchData();
-  }, [selectedDate]);
+    if (!hasInitialized) {
+      fetchSettings();
+      setHasInitialized(true);
+    }
+  }, [hasInitialized]);
 
-  const fetchData = async () => {
-    setIsLoading(true);
+  const fetchSettings = async () => {
     try {
       // Fetch property names from property_settings
       const { data: settingsData } = await supabase
@@ -86,14 +96,6 @@ const MaintenanceAdmin = () => {
       }
       setPropertyCleaningEmails(emailMap);
 
-      // Fetch bookings for selected date
-      const { data: bookingsData, error: bookingsError } = await supabase.functions.invoke('maintenance-bookings', {
-        body: { date: selectedDate }
-      });
-
-      if (bookingsError) throw bookingsError;
-      setBookings(bookingsData);
-
       // Fetch maintenance settings
       const { data: settingsResult, error: settingsError } = await supabase.functions.invoke('maintenance-settings', {
         body: { action: 'get_settings' }
@@ -115,12 +117,35 @@ const MaintenanceAdmin = () => {
       setSendHour(String(settingsMap.worklist_send_time?.hour || 19));
       setSendMinute(String(settingsMap.worklist_send_time?.minute || 0).padStart(2, '0'));
       setIsEnabled(settingsMap.worklist_enabled?.enabled !== false);
-
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching settings:', error);
+    }
+  };
+
+  const fetchBookings = async () => {
+    setIsLoading(true);
+    try {
+      const dateStr = format(selectedDate, 'yyyy-MM-dd');
+      console.log('Fetching bookings for date:', dateStr);
+      
+      const { data: bookingsData, error: bookingsError } = await supabase.functions.invoke('maintenance-bookings', {
+        body: { date: dateStr }
+      });
+
+      console.log('Bookings response:', bookingsData);
+
+      if (bookingsError) throw bookingsError;
+      setBookings(bookingsData);
+
+      toast({
+        title: "Varaukset haettu",
+        description: `${bookingsData?.arrivals?.length || 0} saapuvaa, ${bookingsData?.departures?.length || 0} lähtevää`
+      });
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
       toast({
         title: "Virhe",
-        description: "Tietojen haku epäonnistui",
+        description: "Varausten haku epäonnistui",
         variant: "destructive"
       });
     } finally {
@@ -177,7 +202,7 @@ const MaintenanceAdmin = () => {
         description: `Lähetetty ${data.emailsSent?.length || 0} sähköpostia`
       });
 
-      fetchData(); // Refresh to update last sent time
+      fetchSettings(); // Refresh to update last sent time
     } catch (error) {
       toast({
         title: "Virhe",
@@ -216,13 +241,8 @@ const MaintenanceAdmin = () => {
     return propertyCleaningEmails.get(propertyId) || 'info@leville.net';
   };
 
-  const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('fi-FI', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
+  const formatSelectedDate = () => {
+    return format(selectedDate, "EEEE d. MMMM yyyy", { locale: fi });
   };
 
   const formatLastSent = (timestamp: string | null) => {
@@ -230,39 +250,57 @@ const MaintenanceAdmin = () => {
     return new Date(timestamp).toLocaleString('fi-FI');
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-6">
       {/* Date selector */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Calendar className="w-5 h-5" />
-            Päivämäärä
+            <CalendarIcon className="w-5 h-5" />
+            Valitse päivämäärä
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-4">
-            <Input
-              type="date"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-              className="w-48"
-            />
-            <Button variant="outline" size="sm" onClick={fetchData}>
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Päivitä
+            <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "w-[280px] justify-start text-left font-normal",
+                    !selectedDate && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {format(selectedDate, "d.M.yyyy")}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={(date) => {
+                    if (date) {
+                      setSelectedDate(date);
+                      setCalendarOpen(false);
+                    }
+                  }}
+                  initialFocus
+                  className="pointer-events-auto"
+                />
+              </PopoverContent>
+            </Popover>
+            <Button onClick={fetchBookings} disabled={isLoading}>
+              {isLoading ? (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              ) : (
+                <Search className="w-4 h-4 mr-2" />
+              )}
+              Hae varaukset
             </Button>
           </div>
-          <p className="text-sm text-muted-foreground mt-2">
-            {formatDate(selectedDate)}
+          <p className="text-sm text-muted-foreground mt-2 capitalize">
+            {formatSelectedDate()}
           </p>
         </CardContent>
       </Card>
