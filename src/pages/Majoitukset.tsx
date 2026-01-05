@@ -131,7 +131,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                 const bookingLinks = [
                   "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412",
                   "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=413",
-                  "https://karhupirtti.fi",
+                  "https://app.moder.fi/levillenet/303?step=1",
                   "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214"
                 ];
                 return (
