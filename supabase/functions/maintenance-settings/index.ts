@@ -420,8 +420,12 @@ serve(async (req: Request): Promise<Response> => {
       const dropTime = globalSettings.checkout_drop_time || '10:00';
       const [dropHour, dropMinute] = dropTime.split(':').map(Number);
 
-      // Build mapping from property_id to earliest departure date
-      const propertyDepartures = new Map<string, string>(); // property_id -> departure date
+      const now = new Date();
+
+      // Build mapping from property_id to earliest FUTURE drop date
+      // Key insight: we calculate dropDate immediately and only keep future ones
+      const propertyNextDropDate = new Map<string, Date>(); // property_id -> next future drop Date
+      const propertyDepartureForDrop = new Map<string, string>(); // property_id -> departure date string (for logging)
       
       for (const booking of bookings) {
         const roomId = String(booking.roomId);
@@ -429,74 +433,119 @@ serve(async (req: Request): Promise<Response> => {
         
         if (!roomId || !departure) continue;
         
-        // Store earliest departure per property_id
-        const existing = propertyDepartures.get(roomId);
-        if (!existing || departure < existing) {
-          propertyDepartures.set(roomId, departure);
+        // Calculate drop date for this departure
+        const dropDate = new Date(departure);
+        dropDate.setHours(dropHour, dropMinute, 0, 0);
+        
+        // Only consider if drop time is in the future
+        if (dropDate <= now) {
+          console.log(`Skipping past drop time for roomId ${roomId}: departure ${departure}, dropDate ${dropDate.toISOString()}`);
+          continue;
+        }
+        
+        // Store earliest future drop date per property_id
+        const existing = propertyNextDropDate.get(roomId);
+        if (!existing || dropDate < existing) {
+          propertyNextDropDate.set(roomId, dropDate);
+          propertyDepartureForDrop.set(roomId, departure);
         }
       }
 
+      console.log('Properties with future drop dates:', 
+        Array.from(propertyNextDropDate.entries()).map(([id, d]) => `${id}: ${d.toISOString()}`));
+
       // Now update heat_pump_settings with next_checkout_drop_at
       let synced = 0;
+      const syncResults: Array<{
+        propertyId: string;
+        pumpName: string;
+        deviceId: number | null;
+        departure: string | null;
+        dropDate: string | null;
+        status: string;
+      }> = [];
       
       for (const [propertyId, pumpName] of propertyToPumpMap) {
         // Find device_id for this pump (case-insensitive match)
         const deviceId = deviceNameToIdMap.get(pumpName);
         if (!deviceId) {
           console.log(`No device found for pump name: ${pumpName} (property ${propertyId})`);
+          syncResults.push({
+            propertyId,
+            pumpName,
+            deviceId: null,
+            departure: null,
+            dropDate: null,
+            status: 'no_device_found'
+          });
           continue;
         }
 
-        // Find departure for this property
-        const departureDate = propertyDepartures.get(propertyId);
-        if (!departureDate) {
-          // No upcoming departure, clear any pending checkout drop
-          console.log(`No departure found for property ${propertyId}, clearing next_checkout_drop_at`);
+        // Find next future drop date for this property
+        const nextDropDate = propertyNextDropDate.get(propertyId);
+        const departureDate = propertyDepartureForDrop.get(propertyId);
+        
+        if (!nextDropDate) {
+          // No upcoming future drop, clear any pending checkout drop
+          console.log(`No future drop for property ${propertyId}, clearing next_checkout_drop_at for device ${deviceId}`);
           await supabase
             .from('heat_pump_settings')
             .update({ next_checkout_drop_at: null, updated_at: new Date().toISOString() })
             .eq('device_id', deviceId);
+          syncResults.push({
+            propertyId,
+            pumpName,
+            deviceId,
+            departure: null,
+            dropDate: null,
+            status: 'cleared_no_future_drop'
+          });
           continue;
         }
 
-        // NOTE: Same-day turnaround check removed - always drop temperature on checkout day
+        // Set the checkout drop
+        console.log(`Setting checkout drop for device ${deviceId} (${pumpName}) at ${nextDropDate.toISOString()} (departure: ${departureDate}) for property ${propertyId}`);
+        
+        const { error } = await supabase
+          .from('heat_pump_settings')
+          .update({
+            next_checkout_drop_at: nextDropDate.toISOString(),
+            updated_at: new Date().toISOString()
+          })
+          .eq('device_id', deviceId);
 
-        // Calculate the checkout drop timestamp
-        const dropDate = new Date(departureDate);
-        dropDate.setHours(dropHour, dropMinute, 0, 0);
-
-        // Only set if the drop time is in the future
-        if (dropDate > new Date()) {
-          console.log(`Setting checkout drop for device ${deviceId} (${pumpName}) at ${dropDate.toISOString()} for property ${propertyId}`);
-          
-          const { error } = await supabase
-            .from('heat_pump_settings')
-            .update({
-              next_checkout_drop_at: dropDate.toISOString(),
-              updated_at: new Date().toISOString()
-            })
-            .eq('device_id', deviceId);
-
-          if (!error) {
-            synced++;
-          } else {
-            console.error(`Error updating device ${deviceId}:`, error);
-          }
+        if (!error) {
+          synced++;
+          syncResults.push({
+            propertyId,
+            pumpName,
+            deviceId,
+            departure: departureDate || null,
+            dropDate: nextDropDate.toISOString(),
+            status: 'synced'
+          });
         } else {
-          console.log(`Drop time ${dropDate.toISOString()} for property ${propertyId} is in the past, skipping`);
+          console.error(`Error updating device ${deviceId}:`, error);
+          syncResults.push({
+            propertyId,
+            pumpName,
+            deviceId,
+            departure: departureDate || null,
+            dropDate: nextDropDate.toISOString(),
+            status: `error: ${error.message}`
+          });
         }
       }
 
       // Debug info
-      const departuresFound = Array.from(propertyDepartures.entries());
-      console.log('Departures found:', departuresFound);
+      console.log('Sync results:', syncResults);
 
       return new Response(JSON.stringify({ 
         success: true, 
         synced,
         bookingsChecked: bookings.length,
         propertiesWithPumps: propertyToPumpMap.size,
-        departuresFound: departuresFound.length
+        results: syncResults
       }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
