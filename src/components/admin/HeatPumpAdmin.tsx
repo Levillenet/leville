@@ -28,8 +28,10 @@ import {
   TrendingUp,
   TrendingDown,
   Zap,
+  Clock,
+  ThermometerSun,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import HeatPumpHistory from "./HeatPumpHistory";
 
@@ -59,6 +61,13 @@ interface HeatPumpDevice {
   pendingFanRecovery: boolean;
   fanAutoRecovery: boolean;
   fanRecoveryDelayMinutes: number;
+  pendingFanRecoveryAt: string | null;
+  // Max temp reset fields
+  maxTempResetEnabled: boolean;
+  maxTempLimit: number;
+  maxTempResetDelayMinutes: number;
+  pendingTempResetAt: string | null;
+  originalSetTemperature: number | null;
   // Efficiency fields - comparative
   degreeMinutes: number;
   efficiencyStatus: EfficiencyStatus;
@@ -84,9 +93,19 @@ interface HeatPumpAdminProps {
 const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
   const queryClient = useQueryClient();
   const [openLocks, setOpenLocks] = useState<Record<number, boolean>>({});
-  const [openSettings, setOpenSettings] = useState<Record<number, boolean>>({});
+  const [openResets, setOpenResets] = useState<Record<number, boolean>>({});
   const [optimisticState, setOptimisticState] = useState<Record<number, Partial<HeatPumpDevice>>>({});
   const [historyDevice, setHistoryDevice] = useState<{ id: number; name: string } | null>(null);
+  const [localSliderValues, setLocalSliderValues] = useState<Record<string, number>>({});
+  const [, forceUpdate] = useState(0);
+
+  // Force re-render every second to update countdown timers
+  useEffect(() => {
+    const interval = setInterval(() => {
+      forceUpdate(n => n + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const { data, isLoading, error, refetch, isFetching } = useQuery({
     queryKey: ['melcloud-devices'],
@@ -148,6 +167,9 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
       deviceName: string;
       fanAutoRecovery?: boolean;
       fanRecoveryDelayMinutes?: number;
+      maxTempResetEnabled?: boolean;
+      maxTempLimit?: number;
+      maxTempResetDelayMinutes?: number;
     }) => {
       const { data, error } = await supabase.functions.invoke('melcloud-api', {
         method: 'POST',
@@ -196,7 +218,7 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
 
   const handleSettingsChange = (
     device: HeatPumpDevice,
-    field: 'fanAutoRecovery' | 'fanRecoveryDelayMinutes',
+    field: 'fanAutoRecovery' | 'fanRecoveryDelayMinutes' | 'maxTempResetEnabled' | 'maxTempLimit' | 'maxTempResetDelayMinutes',
     value: boolean | number
   ) => {
     setOptimisticState(prev => ({
@@ -205,7 +227,8 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
         ...prev[device.deviceId],
         [field]: value,
         // Clear pending when turning off auto-recovery
-        ...(field === 'fanAutoRecovery' && value === false ? { pendingFanRecovery: false } : {}),
+        ...(field === 'fanAutoRecovery' && value === false ? { pendingFanRecovery: false, pendingFanRecoveryAt: null } : {}),
+        ...(field === 'maxTempResetEnabled' && value === false ? { pendingTempResetAt: null, originalSetTemperature: null } : {}),
       },
     }));
 
@@ -214,6 +237,9 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
       deviceName: string;
       fanAutoRecovery?: boolean;
       fanRecoveryDelayMinutes?: number;
+      maxTempResetEnabled?: boolean;
+      maxTempLimit?: number;
+      maxTempResetDelayMinutes?: number;
     } = {
       deviceId: device.deviceId,
       deviceName: device.deviceName,
@@ -223,9 +249,36 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
       params.fanAutoRecovery = value as boolean;
     } else if (field === 'fanRecoveryDelayMinutes') {
       params.fanRecoveryDelayMinutes = value as number;
+    } else if (field === 'maxTempResetEnabled') {
+      params.maxTempResetEnabled = value as boolean;
+    } else if (field === 'maxTempLimit') {
+      params.maxTempLimit = value as number;
+    } else if (field === 'maxTempResetDelayMinutes') {
+      params.maxTempResetDelayMinutes = value as number;
     }
 
     settingsMutation.mutate(params);
+  };
+
+  const getSliderValue = (key: string, apiValue: number) => {
+    return localSliderValues[key] ?? apiValue;
+  };
+
+  const formatCountdown = (targetDate: string | null): string | null => {
+    if (!targetDate) return null;
+    const target = new Date(targetDate).getTime();
+    const now = Date.now();
+    const diff = target - now;
+    
+    if (diff <= 0) return 'Palautuu pian...';
+    
+    const minutes = Math.floor(diff / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    
+    if (minutes > 0) {
+      return `${minutes} min ${seconds} s`;
+    }
+    return `${seconds} s`;
   };
 
   const getDeviceState = (device: HeatPumpDevice) => ({
@@ -568,17 +621,20 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
                   ) : null}
                 </div>
 
-                {/* Pending recovery status */}
-                {state.pendingFanRecovery && !device.isDefrosting && (
-                  <div className="text-center text-sm text-amber-600 flex items-center justify-center gap-1">
-                    <Timer className="w-4 h-4" />
-                    Puhallustehon palautus odottaa
+                {/* Pending recovery countdown - shown outside menu for visibility */}
+                {state.pendingFanRecoveryAt && state.fanAutoRecovery && (
+                  <div className="text-center text-sm text-amber-600 bg-amber-50 dark:bg-amber-900/20 rounded-md py-2 px-3 flex items-center justify-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    {device.isDefrosting 
+                      ? 'Puhalluspalautus odottaa sulatuksen päättymistä'
+                      : `Puhallusteho palautuu: ${formatCountdown(state.pendingFanRecoveryAt)}`
+                    }
                   </div>
                 )}
-                {state.pendingFanRecovery && device.isDefrosting && (
-                  <div className="text-center text-sm text-amber-600 flex items-center justify-center gap-1">
-                    <Timer className="w-4 h-4" />
-                    Palautus odottaa sulatuksen päättymistä
+                {state.pendingTempResetAt && state.maxTempResetEnabled && (
+                  <div className="text-center text-sm text-amber-600 bg-amber-50 dark:bg-amber-900/20 rounded-md py-2 px-3 flex items-center justify-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    Lämpötila palautuu {state.originalSetTemperature?.toFixed(0) ?? state.maxTempLimit}°C:een: {formatCountdown(state.pendingTempResetAt)}
                   </div>
                 )}
 
@@ -593,48 +649,149 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
                   Näytä lämpö- ja tehoanalyysi
                 </Button>
 
-                {/* Fan recovery settings */}
+                {/* Value resets - combined menu */}
                 <Collapsible 
-                  open={openSettings[device.deviceId]} 
-                  onOpenChange={(open) => setOpenSettings(prev => ({ ...prev, [device.deviceId]: open }))}
+                  open={openResets[device.deviceId]} 
+                  onOpenChange={(open) => setOpenResets(prev => ({ ...prev, [device.deviceId]: open }))}
                 >
                   <CollapsibleTrigger asChild>
                     <Button variant="ghost" size="sm" className="w-full justify-between text-muted-foreground">
                       <span className="flex items-center gap-2">
                         <Settings className="w-4 h-4" />
-                        Puhallustehon palautus
+                        Arvojen palautukset
                       </span>
-                      <ChevronDown className={`w-4 h-4 transition-transform ${openSettings[device.deviceId] ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-4 h-4 transition-transform ${openResets[device.deviceId] ? 'rotate-180' : ''}`} />
                     </Button>
                   </CollapsibleTrigger>
-                  <CollapsibleContent className="pt-2 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm">Automaattinen palautus</label>
-                      <Switch
-                        checked={state.fanAutoRecovery}
-                        onCheckedChange={(checked) => handleSettingsChange(device, 'fanAutoRecovery', checked)}
-                        disabled={isUpdating}
-                      />
-                    </div>
-                    {state.fanAutoRecovery && (
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between text-sm">
-                          <label>Palautusviive</label>
-                          <span className="font-medium">{state.fanRecoveryDelayMinutes} min</span>
-                        </div>
-                        <Slider
-                          value={[state.fanRecoveryDelayMinutes]}
-                          onValueCommit={([value]) => handleSettingsChange(device, 'fanRecoveryDelayMinutes', value)}
-                          min={15}
-                          max={180}
-                          step={15}
-                          disabled={isUpdating}
-                        />
-                        <p className="text-xs text-muted-foreground">
-                          Jos puhallustehoa lasketaan (AUTO, 1, 2, 3), se palautetaan automaattisesti tasolle 4 määritetyn ajan jälkeen.
-                        </p>
+                  <CollapsibleContent className="pt-2 space-y-6">
+                    {/* Fan speed recovery */}
+                    <div className="space-y-3 p-3 bg-muted/30 rounded-lg">
+                      <div className="flex items-center gap-2 text-sm font-medium">
+                        <Wind className="w-4 h-4" />
+                        Puhallustehon palautus
                       </div>
-                    )}
+                      <div className="flex items-center justify-between">
+                        <label className="text-sm">Automaattinen palautus</label>
+                        <Switch
+                          checked={state.fanAutoRecovery}
+                          onCheckedChange={(checked) => handleSettingsChange(device, 'fanAutoRecovery', checked)}
+                          disabled={isUpdating || isViewer}
+                        />
+                      </div>
+                      {state.fanAutoRecovery && (
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between text-sm">
+                            <label>Palautusviive</label>
+                            <span className="font-medium">{getSliderValue(`fan_${device.deviceId}`, state.fanRecoveryDelayMinutes)} min</span>
+                          </div>
+                          <Slider
+                            value={[getSliderValue(`fan_${device.deviceId}`, state.fanRecoveryDelayMinutes)]}
+                            onValueChange={([value]) => setLocalSliderValues(prev => ({
+                              ...prev,
+                              [`fan_${device.deviceId}`]: value
+                            }))}
+                            onValueCommit={([value]) => {
+                              handleSettingsChange(device, 'fanRecoveryDelayMinutes', value);
+                              setLocalSliderValues(prev => {
+                                const next = { ...prev };
+                                delete next[`fan_${device.deviceId}`];
+                                return next;
+                              });
+                            }}
+                            min={15}
+                            max={180}
+                            step={15}
+                            disabled={isUpdating || isViewer}
+                          />
+                          <p className="text-xs text-muted-foreground">
+                            Jos puhallusteho on AUTO, 1, 2 tai 3, se palautetaan tasolle 4 määritetyn ajan jälkeen.
+                          </p>
+                          {/* Countdown timer for fan recovery */}
+                          {state.pendingFanRecoveryAt && !device.isDefrosting && (
+                            <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 dark:bg-amber-900/20 rounded-md px-3 py-2">
+                              <Clock className="w-4 h-4" />
+                              <span>Palautuu: {formatCountdown(state.pendingFanRecoveryAt)}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Max temperature reset */}
+                    <div className="space-y-3 p-3 bg-muted/30 rounded-lg">
+                      <div className="flex items-center gap-2 text-sm font-medium">
+                        <ThermometerSun className="w-4 h-4" />
+                        Maksimilämpötilan palautus
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <label className="text-sm">Automaattinen palautus</label>
+                        <Switch
+                          checked={state.maxTempResetEnabled}
+                          onCheckedChange={(checked) => handleSettingsChange(device, 'maxTempResetEnabled', checked)}
+                          disabled={isUpdating || isViewer}
+                        />
+                      </div>
+                      {state.maxTempResetEnabled && (
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between text-sm">
+                            <label>Maksimilämpötila</label>
+                            <span className="font-medium">{getSliderValue(`maxTemp_${device.deviceId}`, state.maxTempLimit)}°C</span>
+                          </div>
+                          <Slider
+                            value={[getSliderValue(`maxTemp_${device.deviceId}`, state.maxTempLimit)]}
+                            onValueChange={([value]) => setLocalSliderValues(prev => ({
+                              ...prev,
+                              [`maxTemp_${device.deviceId}`]: value
+                            }))}
+                            onValueCommit={([value]) => {
+                              handleSettingsChange(device, 'maxTempLimit', value);
+                              setLocalSliderValues(prev => {
+                                const next = { ...prev };
+                                delete next[`maxTemp_${device.deviceId}`];
+                                return next;
+                              });
+                            }}
+                            min={18}
+                            max={28}
+                            step={1}
+                            disabled={isUpdating || isViewer}
+                          />
+                          <div className="flex items-center justify-between text-sm">
+                            <label>Palautusviive</label>
+                            <span className="font-medium">{getSliderValue(`maxTempDelay_${device.deviceId}`, state.maxTempResetDelayMinutes)} min</span>
+                          </div>
+                          <Slider
+                            value={[getSliderValue(`maxTempDelay_${device.deviceId}`, state.maxTempResetDelayMinutes)]}
+                            onValueChange={([value]) => setLocalSliderValues(prev => ({
+                              ...prev,
+                              [`maxTempDelay_${device.deviceId}`]: value
+                            }))}
+                            onValueCommit={([value]) => {
+                              handleSettingsChange(device, 'maxTempResetDelayMinutes', value);
+                              setLocalSliderValues(prev => {
+                                const next = { ...prev };
+                                delete next[`maxTempDelay_${device.deviceId}`];
+                                return next;
+                              });
+                            }}
+                            min={15}
+                            max={180}
+                            step={15}
+                            disabled={isUpdating || isViewer}
+                          />
+                          <p className="text-xs text-muted-foreground">
+                            Jos tavoitelämpötila nostetaan yli {state.maxTempLimit}°C, se palautetaan takaisin määritetyn ajan jälkeen.
+                          </p>
+                          {/* Countdown timer for temp reset */}
+                          {state.pendingTempResetAt && (
+                            <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 dark:bg-amber-900/20 rounded-md px-3 py-2">
+                              <Clock className="w-4 h-4" />
+                              <span>Palautetaan {state.originalSetTemperature?.toFixed(0) ?? state.maxTempLimit}°C:een: {formatCountdown(state.pendingTempResetAt)}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </CollapsibleContent>
                 </Collapsible>
 
