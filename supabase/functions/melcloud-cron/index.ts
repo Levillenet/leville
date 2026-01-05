@@ -494,7 +494,7 @@ serve(async (req) => {
       recovery_tracking_started_at?: string | null;
       recovery_tracking_start_temp?: number | null;
     }> = [];
-    const fanRecoveries: Array<{ device_id: number; building_id: number; fan_speed: number }> = [];
+    const fanRecoveries: Array<{ device_id: number; building_id: number; fan_speed: number; original_fan_speed: number }> = [];
     const tempResets: Array<{ device_id: number; building_id: number; temperature: number; original_temperature: number }> = [];
     const recoveryLogInserts: Array<{
       device_id: number;
@@ -605,6 +605,7 @@ serve(async (req) => {
               device_id: deviceId,
               building_id: buildingId,
               fan_speed: settings.pending_fan_speed || 4,
+              original_fan_speed: device.SetFanSpeed,
             });
           }
         }
@@ -675,18 +676,52 @@ serve(async (req) => {
         recovery_tracking_start_temp: recoveryTrackingStartTemp,
       });
 
-      // Check for pending fan recovery (not during defrost) - only if auto-recovery is ENABLED
+      // FAN SPEED RECOVERY LOGIC - Start timer if needed
+      if (settings?.fan_auto_recovery && operatingState !== 'DEFROST') {
+        const currentFanSpeed = device.SetFanSpeed;
+        const targetFanSpeed = settings.pending_fan_speed || 4;
+        
+        // Fan speed 0=AUTO, 1-3 = low speeds that should be recovered
+        // Fan speed 4-5 = acceptable, no recovery needed
+        if (currentFanSpeed !== null && currentFanSpeed < 4 && !settings.pending_fan_recovery_at) {
+          // Start recovery timer
+          const recoveryDelayMinutes = settings.fan_recovery_delay_minutes || 60;
+          const recoveryAt = new Date(Date.now() + recoveryDelayMinutes * 60000);
+          console.log(`[CRON] Device ${deviceId}: fan speed ${currentFanSpeed} < 4, scheduling recovery to ${targetFanSpeed} at ${recoveryAt.toISOString()}`);
+          
+          await supabase.from('heat_pump_settings')
+            .update({
+              pending_fan_recovery_at: recoveryAt.toISOString(),
+              updated_at: new Date().toISOString(),
+            })
+            .eq('device_id', deviceId);
+        }
+        // If fan speed was manually raised to 4 or 5, clear pending recovery
+        else if (currentFanSpeed >= 4 && settings.pending_fan_recovery_at) {
+          console.log(`[CRON] Device ${deviceId}: fan speed ${currentFanSpeed} >= 4, clearing pending recovery`);
+          await supabase.from('heat_pump_settings')
+            .update({
+              pending_fan_recovery_at: null,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('device_id', deviceId);
+        }
+      }
+
+      // Check for pending fan recovery execution (not during defrost) - only if auto-recovery is ENABLED
       if (operatingState !== 'DEFROST' && settings?.pending_fan_recovery_at && settings?.fan_auto_recovery === true && !openDefrost) {
         const pendingAt = new Date(settings.pending_fan_recovery_at);
         if (pendingAt <= new Date()) {
           // Check if not already queued
           const alreadyQueued = fanRecoveries.some(r => r.device_id === deviceId);
           if (!alreadyQueued) {
-            console.log(`[CRON] Executing scheduled fan recovery for device ${deviceId}`);
+            const currentFanSpeed = device.SetFanSpeed;
+            console.log(`[CRON] Executing scheduled fan recovery for device ${deviceId} from ${currentFanSpeed} to ${settings.pending_fan_speed || 4}`);
             fanRecoveries.push({
               device_id: deviceId,
               building_id: buildingId,
               fan_speed: settings.pending_fan_speed || 4,
+              original_fan_speed: currentFanSpeed,
             });
           }
         }
@@ -925,6 +960,15 @@ serve(async (req) => {
       const success = await setFanSpeed(contextKey, recovery.device_id, recovery.building_id, recovery.fan_speed);
       
       if (success) {
+        // Log the fan reset
+        await supabase
+          .from('heat_pump_fan_reset_log')
+          .insert({
+            device_id: recovery.device_id,
+            from_fan_speed: recovery.original_fan_speed,
+            to_fan_speed: recovery.fan_speed,
+          });
+
         // Clear pending recovery
         await supabase
           .from('heat_pump_settings')
@@ -933,6 +977,8 @@ serve(async (req) => {
             updated_at: new Date().toISOString(),
           })
           .eq('device_id', recovery.device_id);
+        
+        console.log(`[CRON] Fan recovery successful for device ${recovery.device_id}: ${recovery.original_fan_speed} -> ${recovery.fan_speed}`);
       }
     }
 

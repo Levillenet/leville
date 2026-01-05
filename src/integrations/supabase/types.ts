@@ -224,6 +224,33 @@ export type Database = {
         }
         Relationships: []
       }
+      heat_pump_fan_reset_log: {
+        Row: {
+          created_at: string
+          device_id: number
+          from_fan_speed: number
+          id: string
+          reset_at: string
+          to_fan_speed: number
+        }
+        Insert: {
+          created_at?: string
+          device_id: number
+          from_fan_speed: number
+          id?: string
+          reset_at?: string
+          to_fan_speed: number
+        }
+        Update: {
+          created_at?: string
+          device_id?: number
+          from_fan_speed?: number
+          id?: string
+          reset_at?: string
+          to_fan_speed?: number
+        }
+        Relationships: []
+      }
       heat_pump_fleet_baseline: {
         Row: {
           created_at: string | null

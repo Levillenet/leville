@@ -437,6 +437,18 @@ async function getDevices(contextKey: string) {
     tempResetCountMap.set(r.device_id, (tempResetCountMap.get(r.device_id) || 0) + 1);
   });
 
+  // Fetch 24h fan reset counts
+  const { data: fanResetData } = await supabase
+    .from('heat_pump_fan_reset_log')
+    .select('device_id')
+    .in('device_id', deviceIds)
+    .gte('reset_at', twentyFourHoursAgo);
+
+  const fanResetCountMap = new Map<number, number>();
+  (fanResetData || []).forEach((r: { device_id: number }) => {
+    fanResetCountMap.set(r.device_id, (fanResetCountMap.get(r.device_id) || 0) + 1);
+  });
+
   const devices = allDevices.map(({ device, building }) => {
     const deviceId = device.Device.DeviceID;
     const fullDevice = deviceDetailsMap.get(deviceId);
@@ -539,8 +551,9 @@ async function getDevices(contextKey: string) {
       currentEnergy,
       dailyEnergy,
       totalEnergy,
-      // 24h reset count
+      // 24h reset counts
       tempResetCount24h: tempResetCountMap.get(deviceId) || 0,
+      fanResetCount24h: fanResetCountMap.get(deviceId) || 0,
     };
   });
 
