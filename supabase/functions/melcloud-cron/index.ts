@@ -603,6 +603,9 @@ serve(async (req) => {
       // Get actual fan speed from full device details (MELCloud ListDevices returns incorrect value)
       const fullDevice = fullDetailsMap.get(deviceId);
       const actualFanSpeed = fullDevice?.SetFanSpeed ?? device.SetFanSpeed;
+      
+      // Get device name from full details or wrapper (Device.Device.DeviceName is often empty)
+      const deviceName = fullDevice?.DeviceName ?? deviceWrapper.DeviceName ?? `Device_${deviceId}`;
 
       const operatingState = determineOperatingState(device, lastKnownState, lastRoomTemp, lastOutdoorTemp);
       
@@ -611,7 +614,7 @@ serve(async (req) => {
       const outdoorChange = (lastOutdoorTemp !== null && outdoorTemp !== null) 
         ? outdoorTemp - lastOutdoorTemp 
         : 0;
-      console.log(`[CRON] ${device.DeviceName}: outdoor ${lastOutdoorTemp?.toFixed(1) ?? '?'}→${outdoorTemp?.toFixed(1) ?? '?'}°C (${outdoorChange >= 0 ? '+' : ''}${outdoorChange.toFixed(1)}), room ${lastRoomTemp?.toFixed(1) ?? '?'}→${device.RoomTemperature.toFixed(1)}°C, state: ${lastKnownState}→${operatingState}`);
+      console.log(`[CRON] ${deviceName}: outdoor ${lastOutdoorTemp?.toFixed(1) ?? '?'}→${outdoorTemp?.toFixed(1) ?? '?'}°C (${outdoorChange >= 0 ? '+' : ''}${outdoorChange.toFixed(1)}), room ${lastRoomTemp?.toFixed(1) ?? '?'}→${device.RoomTemperature.toFixed(1)}°C, state: ${lastKnownState}→${operatingState}`);
       const outdoorTempRange = getOutdoorTempRange(device.OutdoorTemperature ?? null);
 
       // Store history (use actualFanSpeed for accurate logging)
@@ -743,11 +746,11 @@ serve(async (req) => {
         }
       }
 
-      // Track state for settings
+      // Track state for settings (use deviceName which is correctly resolved from fullDevice or wrapper)
       stateUpdates.push({
         device_id: deviceId,
         last_known_state: operatingState,
-        device_name: device.DeviceName,
+        device_name: deviceName,
         degree_minutes: newDegreeMinutes,
         efficiency_status: efficiencyStatus,
         recovery_tracking_started_at: recoveryTrackingStartedAt,
