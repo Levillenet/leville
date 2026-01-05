@@ -250,13 +250,23 @@ function determineOperatingState(
   }
 }
 
-// New: Comparative efficiency analysis
+// Comparative efficiency analysis with stability-first approach
+// Key insight: A pump maintaining stable temperature at target is EFFICIENT,
+// even if it shows low "recovery speed" (because it doesn't need to recover)
+// Also considers: higher setTemperature = harder work = expected lower performance
 function determineEfficiencyStatusComparative(
   tempDebt: number,
   deviceBaseline: PerformanceBaseline | null,
   fleetBaseline: FleetBaseline | null,
-  currentRecoverySpeed: number | null
-): { status: EfficiencyStatus; performanceRatio: number | null; reason: string } {
+  currentRecoverySpeed: number | null,
+  setTemperature: number = 21,
+  roomTemperature: number = 21
+): { status: EfficiencyStatus; performanceRatio: number | null; reason: string; workloadFactor: number } {
+  // Calculate workload factor based on set temperature
+  // Higher target = more work needed (baseline is 21°C)
+  const baselineTemp = 21;
+  const workloadFactor = 1 + (setTemperature - baselineTemp) * 0.05; // 5% harder per degree above 21
+  
   // If not enough baseline data, show learning status
   if (!deviceBaseline || deviceBaseline.sample_count < MIN_BASELINE_SAMPLES) {
     const samples = deviceBaseline?.sample_count || 0;
@@ -264,59 +274,95 @@ function determineEfficiencyStatusComparative(
       status: 'LEARNING',
       performanceRatio: null,
       reason: `Kerää dataa (${samples}/${MIN_BASELINE_SAMPLES})`,
+      workloadFactor,
     };
   }
 
+  // STABILITY-FIRST APPROACH:
+  // If room temp is at/near target, the pump is doing its job well
+  const isAtTarget = tempDebt < 0.5;
+  
+  if (isAtTarget) {
+    // Pump is maintaining target - this is success!
+    // Adjust performance ratio for workload (higher target = give credit)
+    const baseRatio = 100;
+    const workloadBonus = Math.round((workloadFactor - 1) * 100);
+    const adjustedRatio = Math.min(150, baseRatio + workloadBonus);
+    
+    const reason = setTemperature > baselineTemp
+      ? `Pitää ${setTemperature}°C vakaana (korkea tavoite +${workloadBonus}%)`
+      : `Pitää lämpötilan vakaana`;
+    
+    return {
+      status: 'SUFFICIENT',
+      performanceRatio: adjustedRatio,
+      reason,
+      workloadFactor,
+    };
+  }
+
+  // RECOVERY-BASED ASSESSMENT when pump needs to work harder
   // If no fleet baseline, compare to device's own average
   if (!fleetBaseline || fleetBaseline.sample_count < MIN_BASELINE_SAMPLES) {
-    // Compare to own baseline
     const debtRatio = deviceBaseline.avg_temp_debt > 0 
       ? tempDebt / deviceBaseline.avg_temp_debt 
       : tempDebt < 0.5 ? 1 : 0.5;
     
-    if (debtRatio <= 1.1) {
-      return { status: 'SUFFICIENT', performanceRatio: 100, reason: 'Normaali suorituskyky' };
-    } else if (debtRatio <= 1.5) {
-      return { status: 'MARGINAL', performanceRatio: Math.round(100 / debtRatio), reason: 'Hieman tavallista hitaampi' };
+    // Adjust for workload
+    const adjustedDebtRatio = debtRatio / workloadFactor;
+    
+    if (adjustedDebtRatio <= 1.1) {
+      return { status: 'SUFFICIENT', performanceRatio: 100, reason: 'Normaali suorituskyky', workloadFactor };
+    } else if (adjustedDebtRatio <= 1.5) {
+      return { status: 'MARGINAL', performanceRatio: Math.round(100 / adjustedDebtRatio), reason: 'Hieman tavallista hitaampi', workloadFactor };
     } else {
-      return { status: 'INSUFFICIENT', performanceRatio: Math.round(100 / debtRatio), reason: 'Selvästi tavallista hitaampi' };
+      return { status: 'INSUFFICIENT', performanceRatio: Math.round(100 / adjustedDebtRatio), reason: 'Selvästi tavallista hitaampi', workloadFactor };
     }
   }
 
-  // Full comparative analysis
-  // Performance ratio: how well this device performs vs fleet average
-  // Higher is better (100% = average, 120% = 20% better, 80% = 20% worse)
+  // Full comparative analysis with workload adjustment
   let performanceRatio = 100;
   let reason = '';
 
   // Compare recovery speed if available
   if (currentRecoverySpeed !== null && fleetBaseline.fleet_avg_recovery_speed > 0) {
     const speedRatio = currentRecoverySpeed / fleetBaseline.fleet_avg_recovery_speed;
-    performanceRatio = Math.round(speedRatio * 100);
+    // Adjust for workload - higher target gets bonus
+    performanceRatio = Math.round(speedRatio * 100 * workloadFactor);
   } else if (deviceBaseline.avg_recovery_speed > 0 && fleetBaseline.fleet_avg_recovery_speed > 0) {
     // Use historical average
     const speedRatio = deviceBaseline.avg_recovery_speed / fleetBaseline.fleet_avg_recovery_speed;
-    performanceRatio = Math.round(speedRatio * 100);
+    performanceRatio = Math.round(speedRatio * 100 * workloadFactor);
   } else {
     // Use temp debt comparison
     if (fleetBaseline.fleet_avg_temp_debt > 0) {
       const debtRatio = fleetBaseline.fleet_avg_temp_debt / Math.max(tempDebt, 0.1);
-      performanceRatio = Math.round(Math.min(debtRatio * 100, 150)); // Cap at 150%
+      performanceRatio = Math.round(Math.min(debtRatio * 100 * workloadFactor, 150)); // Cap at 150%
     }
   }
 
   // Determine status based on performance ratio
   if (performanceRatio >= 90) {
-    reason = performanceRatio >= 100 
-      ? `Pärjää ${performanceRatio - 100}% keskiarvoa paremmin`
-      : `Pärjää ${100 - performanceRatio}% keskiarvon alle`;
-    return { status: 'SUFFICIENT', performanceRatio, reason };
+    if (setTemperature > baselineTemp) {
+      reason = performanceRatio >= 100 
+        ? `Pärjää hyvin korkealla tavoitteella (${setTemperature}°C)`
+        : `Pärjää yhtä hyvin kuin muut`;
+    } else {
+      reason = performanceRatio >= 100 
+        ? `Pärjää ${performanceRatio - 100}% keskiarvoa paremmin`
+        : `Pärjää ${100 - performanceRatio}% keskiarvon alle`;
+    }
+    return { status: 'SUFFICIENT', performanceRatio, reason, workloadFactor };
   } else if (performanceRatio >= 70) {
-    reason = `${100 - performanceRatio}% heikompi kuin keskiarvo`;
-    return { status: 'MARGINAL', performanceRatio, reason };
+    reason = setTemperature > baselineTemp
+      ? `Korkea tavoite (${setTemperature}°C), suoriutuu kohtalaisesti`
+      : `${100 - performanceRatio}% heikompi kuin keskiarvo`;
+    return { status: 'MARGINAL', performanceRatio, reason, workloadFactor };
   } else {
-    reason = `${100 - performanceRatio}% heikompi kuin keskiarvo`;
-    return { status: 'INSUFFICIENT', performanceRatio, reason };
+    reason = setTemperature > baselineTemp
+      ? `Korkea tavoite (${setTemperature}°C) voi olla liian vaativa`
+      : `${100 - performanceRatio}% heikompi kuin keskiarvo`;
+    return { status: 'INSUFFICIENT', performanceRatio, reason, workloadFactor };
   }
 }
 
@@ -638,12 +684,14 @@ serve(async (req) => {
       const deviceBaseline = baselineMap.get(`${deviceId}_${outdoorTempRange}`) || null;
       const fleetBaseline = fleetBaselineMap.get(outdoorTempRange) || null;
 
-      // Determine efficiency status using comparative analysis
+      // Determine efficiency status using comparative analysis with workload awareness
       const { status: efficiencyStatus } = determineEfficiencyStatusComparative(
         tempDebt,
         deviceBaseline,
         fleetBaseline,
-        null // No current recovery speed during normal operation
+        null, // No current recovery speed during normal operation
+        device.SetTemperature,
+        device.RoomTemperature
       );
 
       // Track recovery after defrost

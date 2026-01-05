@@ -81,6 +81,7 @@ interface HeatPumpDevice {
   performanceRatio: number | null;
   efficiencyReason: string;
   baselineSampleCount: number;
+  workloadFactor: number; // Higher target temp = more work needed
   // Energy fields
   hasEnergyMeter: boolean;
   currentEnergy: number | null;
@@ -374,39 +375,51 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
     }
   };
 
-  const getEfficiencyStatusInfo = (status: EfficiencyStatus, performanceRatio: number | null, reason: string) => {
+  const getEfficiencyStatusInfo = (status: EfficiencyStatus, performanceRatio: number | null, reason: string, workloadFactor: number = 1, setTemperature: number = 21) => {
+    const hasHighTarget = setTemperature > 21;
+    const workloadPercent = Math.round((workloadFactor - 1) * 100);
+    
     switch (status) {
       case 'SUFFICIENT':
         return {
           icon: <CheckCircle2 className="w-4 h-4" />,
           label: performanceRatio !== null && performanceRatio >= 100 
-            ? `Pärjää hyvin (+${performanceRatio - 100}%)`
+            ? hasHighTarget 
+              ? `Teho riittää (${setTemperature}°C tavoite)`
+              : `Pärjää hyvin (+${performanceRatio - 100}%)`
             : 'Teho riittää',
           description: reason,
           className: 'text-green-600 bg-green-100 dark:bg-green-900/30',
           trendIcon: performanceRatio !== null && performanceRatio > 100 
             ? <TrendingUp className="w-3 h-3" /> 
             : null,
+          workloadInfo: hasHighTarget ? `Korkea tavoite +${workloadPercent}% työkuorma` : null,
         };
       case 'MARGINAL':
         return {
           icon: <AlertTriangle className="w-4 h-4" />,
           label: performanceRatio !== null 
-            ? `Hieman heikompi (${performanceRatio}%)`
+            ? hasHighTarget
+              ? `Kohtalainen (${setTemperature}°C tavoite)`
+              : `Hieman heikompi (${performanceRatio}%)`
             : 'Teho rajamailla',
           description: reason,
           className: 'text-yellow-600 bg-yellow-100 dark:bg-yellow-900/30',
           trendIcon: <TrendingDown className="w-3 h-3" />,
+          workloadInfo: hasHighTarget ? `Korkea tavoite lisää kuormaa +${workloadPercent}%` : null,
         };
       case 'INSUFFICIENT':
         return {
           icon: <AlertTriangle className="w-4 h-4" />,
           label: performanceRatio !== null 
-            ? `Teho ei riitä (${performanceRatio}%)`
+            ? hasHighTarget
+              ? `Tavoite ${setTemperature}°C liian korkea?`
+              : `Teho ei riitä (${performanceRatio}%)`
             : 'Teho ei riitä',
           description: reason,
           className: 'text-red-600 bg-red-100 dark:bg-red-900/30',
           trendIcon: <TrendingDown className="w-3 h-3" />,
+          workloadInfo: hasHighTarget ? `Korkea tavoite +${workloadPercent}% työkuorma` : null,
         };
       case 'LEARNING':
         return {
@@ -415,6 +428,7 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
           description: reason,
           className: 'text-blue-600 bg-blue-100 dark:bg-blue-900/30',
           trendIcon: null,
+          workloadInfo: null,
         };
       default:
         return {
@@ -423,6 +437,7 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
           description: reason || 'Ei dataa',
           className: 'text-muted-foreground bg-muted',
           trendIcon: null,
+          workloadInfo: null,
         };
     }
   };
@@ -668,7 +683,9 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
           const efficiencyInfo = getEfficiencyStatusInfo(
             state.efficiencyStatus || 'UNKNOWN',
             state.performanceRatio ?? null,
-            state.efficiencyReason || ''
+            state.efficiencyReason || '',
+            state.workloadFactor ?? 1,
+            device.setTemperature
           );
           const isUpdating = (prohibitMutation.isPending && 
             prohibitMutation.variables?.deviceId === device.deviceId) ||
@@ -742,6 +759,12 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
                     <span className="text-xs opacity-75 text-center">
                       {efficiencyInfo.description}
                     </span>
+                    {efficiencyInfo.workloadInfo && (
+                      <span className="text-xs opacity-60 text-center flex items-center gap-1">
+                        <ThermometerSun className="w-3 h-3" />
+                        {efficiencyInfo.workloadInfo}
+                      </span>
+                    )}
                     {tempDebt > 0 && state.efficiencyStatus !== 'LEARNING' && (
                       <span className="text-xs opacity-60">
                         Tavoitteesta: -{tempDebt.toFixed(1)}°C
