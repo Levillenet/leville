@@ -70,6 +70,7 @@ interface HeatPumpDevice {
   pendingTempResetAt: string | null;
   originalSetTemperature: number | null;
   tempResetCount24h: number;
+  fanResetCount24h: number;
   // Efficiency fields - comparative
   degreeMinutes: number;
   efficiencyStatus: EfficiencyStatus;
@@ -668,9 +669,17 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
                   <CollapsibleContent className="pt-2 space-y-6">
                     {/* Fan speed recovery */}
                     <div className="space-y-3 p-3 bg-muted/30 rounded-lg">
-                      <div className="flex items-center gap-2 text-sm font-medium">
-                        <Wind className="w-4 h-4" />
-                        Puhallustehon palautus
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-sm font-medium">
+                          <Wind className="w-4 h-4" />
+                          Puhallustehon palautus
+                        </div>
+                        {state.fanResetCount24h > 0 && (
+                          <Badge variant="secondary" className="flex items-center gap-1">
+                            <RotateCcw className="w-3 h-3" />
+                            {state.fanResetCount24h}× / 24h
+                          </Badge>
+                        )}
                       </div>
                       <div className="flex items-center justify-between">
                         <label className="text-sm">Automaattinen palautus</label>
