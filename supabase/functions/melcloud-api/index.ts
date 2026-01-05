@@ -65,6 +65,12 @@ interface DeviceSettings {
   last_known_state: string;
   degree_minutes: number;
   efficiency_status: string;
+  // Max temperature reset fields
+  max_temp_reset_enabled: boolean;
+  max_temp_limit: number;
+  max_temp_reset_delay_minutes: number;
+  pending_temp_reset_at: string | null;
+  original_set_temperature: number | null;
 }
 
 interface PerformanceBaseline {
@@ -502,6 +508,13 @@ async function getDevices(contextKey: string) {
       pendingFanRecovery: hasPendingRecovery,
       fanAutoRecovery: settings?.fan_auto_recovery ?? false,
       fanRecoveryDelayMinutes: settings?.fan_recovery_delay_minutes ?? 60,
+      pendingFanRecoveryAt: settings?.pending_fan_recovery_at ?? null,
+      // Max temp reset fields
+      maxTempResetEnabled: settings?.max_temp_reset_enabled ?? false,
+      maxTempLimit: settings?.max_temp_limit ?? 22,
+      maxTempResetDelayMinutes: settings?.max_temp_reset_delay_minutes ?? 60,
+      pendingTempResetAt: settings?.pending_temp_reset_at ?? null,
+      originalSetTemperature: settings?.original_set_temperature ?? null,
       // Efficiency fields - now comparative
       degreeMinutes: settings?.degree_minutes ?? 0,
       efficiencyStatus: efficiencyInfo.status,
@@ -599,6 +612,9 @@ async function updateDeviceSettings(
   settings: {
     fanAutoRecovery?: boolean;
     fanRecoveryDelayMinutes?: number;
+    maxTempResetEnabled?: boolean;
+    maxTempLimit?: number;
+    maxTempResetDelayMinutes?: number;
   }
 ) {
   console.log(`Updating settings for device ${deviceId}...`, settings);
@@ -613,12 +629,32 @@ async function updateDeviceSettings(
     if (settings.fanAutoRecovery === false) {
       updateData.pending_fan_recovery_at = null;
       updateData.pending_fan_speed = 4;
-      console.log(`Clearing pending recovery for device ${deviceId} (auto-recovery disabled)`);
+      console.log(`Clearing pending recovery for device ${deviceId} (fan auto-recovery disabled)`);
     }
   }
   
   if (settings.fanRecoveryDelayMinutes !== undefined) {
     updateData.fan_recovery_delay_minutes = settings.fanRecoveryDelayMinutes;
+  }
+
+  // Max temperature reset settings
+  if (settings.maxTempResetEnabled !== undefined) {
+    updateData.max_temp_reset_enabled = settings.maxTempResetEnabled;
+    
+    // When turning off, clear pending reset
+    if (settings.maxTempResetEnabled === false) {
+      updateData.pending_temp_reset_at = null;
+      updateData.original_set_temperature = null;
+      console.log(`Clearing pending temp reset for device ${deviceId} (max temp reset disabled)`);
+    }
+  }
+
+  if (settings.maxTempLimit !== undefined) {
+    updateData.max_temp_limit = settings.maxTempLimit;
+  }
+
+  if (settings.maxTempResetDelayMinutes !== undefined) {
+    updateData.max_temp_reset_delay_minutes = settings.maxTempResetDelayMinutes;
   }
 
   // Upsert settings
@@ -969,10 +1005,13 @@ serve(async (req) => {
 
       // Handle settings update (no MELCloud API call needed)
       if (bodyAction === 'updateSettings') {
-        const { fanAutoRecovery, fanRecoveryDelayMinutes } = body;
+        const { fanAutoRecovery, fanRecoveryDelayMinutes, maxTempResetEnabled, maxTempLimit, maxTempResetDelayMinutes } = body;
         const result = await updateDeviceSettings(deviceId, deviceName || `Device ${deviceId}`, {
           fanAutoRecovery,
           fanRecoveryDelayMinutes,
+          maxTempResetEnabled,
+          maxTempLimit,
+          maxTempResetDelayMinutes,
         });
         return new Response(JSON.stringify(result), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },

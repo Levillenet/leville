@@ -379,8 +379,13 @@ export type Database = {
           fan_recovery_delay_minutes: number | null
           id: string
           last_known_state: string | null
+          max_temp_limit: number | null
+          max_temp_reset_delay_minutes: number | null
+          max_temp_reset_enabled: boolean | null
+          original_set_temperature: number | null
           pending_fan_recovery_at: string | null
           pending_fan_speed: number | null
+          pending_temp_reset_at: string | null
           recovery_tracking_start_temp: number | null
           recovery_tracking_started_at: string | null
           updated_at: string | null
@@ -395,8 +400,13 @@ export type Database = {
           fan_recovery_delay_minutes?: number | null
           id?: string
           last_known_state?: string | null
+          max_temp_limit?: number | null
+          max_temp_reset_delay_minutes?: number | null
+          max_temp_reset_enabled?: boolean | null
+          original_set_temperature?: number | null
           pending_fan_recovery_at?: string | null
           pending_fan_speed?: number | null
+          pending_temp_reset_at?: string | null
           recovery_tracking_start_temp?: number | null
           recovery_tracking_started_at?: string | null
           updated_at?: string | null
@@ -411,8 +421,13 @@ export type Database = {
           fan_recovery_delay_minutes?: number | null
           id?: string
           last_known_state?: string | null
+          max_temp_limit?: number | null
+          max_temp_reset_delay_minutes?: number | null
+          max_temp_reset_enabled?: boolean | null
+          original_set_temperature?: number | null
           pending_fan_recovery_at?: string | null
           pending_fan_speed?: number | null
+          pending_temp_reset_at?: string | null
           recovery_tracking_start_temp?: number | null
           recovery_tracking_started_at?: string | null
           updated_at?: string | null
