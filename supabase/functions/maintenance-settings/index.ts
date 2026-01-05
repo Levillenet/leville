@@ -68,21 +68,23 @@ serve(async (req: Request): Promise<Response> => {
       const apiData = await response.json();
       const roomNames: Record<string, string> = {};
 
-      // Parse the response - structure may vary, handle both array and object
+      // Parse the response - Beds24 v2 returns { data: properties[] } or just properties[]
       const properties = Array.isArray(apiData) ? apiData : (apiData.data || []);
       
       for (const property of properties) {
-        // Each property may have rooms array
-        const rooms = property.rooms || [];
-        for (const room of rooms) {
-          const roomId = room.roomId || room.id;
-          const roomName = room.name || room.roomName || property.name;
+        // Beds24 v2 API returns roomTypes array (NOT rooms)
+        const roomTypes = property.roomTypes || [];
+        for (const room of roomTypes) {
+          // roomTypes have 'id' and 'name' fields
+          const roomId = room.id || room.roomId;
+          const roomName = room.name || room.roomName;
           if (roomId && roomName) {
             roomNames[String(roomId)] = roomName;
+            console.log(`Room: ${roomId} -> ${roomName}`);
           }
         }
-        // Also add the property itself if it has an ID
-        const propId = property.propertyId || property.id;
+        // Also add the property itself if it has an ID (for backwards compatibility)
+        const propId = property.id || property.propertyId;
         const propName = property.name;
         if (propId && propName) {
           roomNames[String(propId)] = propName;
