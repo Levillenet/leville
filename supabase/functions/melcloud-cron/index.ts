@@ -524,6 +524,26 @@ serve(async (req) => {
       (fleetBaselines || []).map((b: FleetBaseline) => [b.outdoor_temp_range, b])
     );
 
+    // Fetch heat pump global settings for checkout drop
+    const { data: globalSettings } = await supabase
+      .from('heat_pump_global_settings')
+      .select('*')
+      .eq('id', 'global')
+      .single();
+
+    // Fetch property mappings (to find property_id for logging)
+    const { data: propertyMappings } = await supabase
+      .from('property_maintenance')
+      .select('property_id, heat_pump_name')
+      .not('heat_pump_name', 'is', null);
+
+    const pumpNameToPropertyMap = new Map<string, string>();
+    (propertyMappings || []).forEach((p: { property_id: string; heat_pump_name: string }) => {
+      if (p.heat_pump_name) {
+        pumpNameToPropertyMap.set(p.heat_pump_name.toLowerCase().trim(), p.property_id);
+      }
+    });
+
     // Process each device
     const historyInserts: Array<{
       device_id: number;
@@ -549,6 +569,7 @@ serve(async (req) => {
     }> = [];
     const fanRecoveries: Array<{ device_id: number; building_id: number; fan_speed: number; original_fan_speed: number }> = [];
     const tempResets: Array<{ device_id: number; building_id: number; temperature: number; original_temperature: number }> = [];
+    const checkoutDrops: Array<{ device_id: number; building_id: number; temperature: number; property_id: string; from_temperature: number }> = [];
     const recoveryLogInserts: Array<{
       device_id: number;
       defrost_ended_at: string;
@@ -831,6 +852,26 @@ serve(async (req) => {
           });
         }
       }
+
+      // CHECKOUT DROP LOGIC - Drop temperature on guest checkout day
+      if (globalSettings?.checkout_drop_enabled && settings?.next_checkout_drop_at && operatingState !== 'DEFROST') {
+        const dropAt = new Date(settings.next_checkout_drop_at);
+        if (dropAt <= new Date()) {
+          const dropTemperature = globalSettings.checkout_drop_temperature ?? 20;
+          const deviceName = device.DeviceName?.toLowerCase().trim() || '';
+          const propertyId = pumpNameToPropertyMap.get(deviceName) || 'unknown';
+          
+          console.log(`[CRON] Executing checkout temperature drop for device ${deviceId} (${device.DeviceName}) from ${device.SetTemperature}°C to ${dropTemperature}°C`);
+
+          checkoutDrops.push({
+            device_id: deviceId,
+            building_id: buildingId,
+            temperature: dropTemperature,
+            property_id: propertyId,
+            from_temperature: device.SetTemperature,
+          });
+        }
+      }
     }
 
     // Execute database operations
@@ -1065,6 +1106,34 @@ serve(async (req) => {
       }
     }
 
+    // Execute checkout temperature drops
+    for (const drop of checkoutDrops) {
+      const success = await setTemperature(contextKey, drop.device_id, drop.building_id, drop.temperature);
+      
+      if (success) {
+        // Log the checkout drop
+        await supabase
+          .from('heat_pump_checkout_drop_log')
+          .insert({
+            device_id: drop.device_id,
+            property_id: drop.property_id,
+            from_temperature: drop.from_temperature,
+            to_temperature: drop.temperature,
+          });
+
+        // Clear next_checkout_drop_at
+        await supabase
+          .from('heat_pump_settings')
+          .update({
+            next_checkout_drop_at: null,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('device_id', drop.device_id);
+        
+        console.log(`[CRON] Checkout temperature drop successful for device ${drop.device_id}: ${drop.from_temperature}°C -> ${drop.temperature}°C`);
+      }
+    }
+
     const duration = Date.now() - startTime;
     console.log(`[CRON] Job completed in ${duration}ms`);
 
@@ -1077,6 +1146,7 @@ serve(async (req) => {
         defrostEnded: defrostUpdates.length,
         fanRecoveries: fanRecoveries.length,
         tempResets: tempResets.length,
+        checkoutDrops: checkoutDrops.length,
         recoveryLogs: recoveryLogInserts.length,
         baselineUpdates: baselineUpdates.length,
         duration: `${duration}ms`,

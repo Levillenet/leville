@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Save, Home, Mail, Search } from "lucide-react";
+import { Loader2, Save, Home, Mail, Search, Thermometer } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -23,6 +23,7 @@ interface PropertyMaintenance {
   max_guests: number | null;
   linen_price_per_person: number;
   notes: string | null;
+  heat_pump_name: string | null;
 }
 
 interface PropertySettings {
@@ -143,7 +144,8 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
             property_id: propertyId,
             owner_email: changes.owner_email ?? original.owner_email,
             cleaning_email: changes.cleaning_email ?? original.cleaning_email,
-            notes: changes.notes ?? original.notes
+            notes: changes.notes ?? original.notes,
+            heat_pump_name: changes.heat_pump_name ?? original.heat_pump_name
           });
         }
       }
@@ -243,10 +245,11 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[200px]">Huoneisto</TableHead>
+                  <TableHead className="w-[180px]">Huoneisto</TableHead>
                   <TableHead>Omistajan email</TableHead>
                   <TableHead>Siivouksen email</TableHead>
-                  <TableHead className="w-[80px]">Max hlö</TableHead>
+                  <TableHead className="w-[120px]">Lämpöpumppu</TableHead>
+                  <TableHead className="w-[60px]">Max hlö</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -254,13 +257,13 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
                   <TableRow key={property.property_id}>
                     <TableCell className="font-medium">
                       <div>
-                        <span>{getPropertyName(property.property_id)}</span>
-                        <span className="ml-2 text-xs text-muted-foreground font-mono">({property.property_id})</span>
+                        <span className="text-sm">{getPropertyName(property.property_id)}</span>
+                        <span className="ml-1 text-xs text-muted-foreground font-mono">({property.property_id})</span>
                       </div>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-muted-foreground" />
+                        <Mail className="w-4 h-4 text-muted-foreground shrink-0" />
                         <Input
                           type="email"
                           value={getFieldValue(property, 'owner_email')}
@@ -272,13 +275,24 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Mail className="w-4 h-4 text-muted-foreground" />
+                        <Mail className="w-4 h-4 text-muted-foreground shrink-0" />
                         <Input
                           type="email"
                           value={getFieldValue(property, 'cleaning_email')}
                           onChange={(e) => handleFieldChange(property.property_id, 'cleaning_email', e.target.value)}
                           className="h-8"
                           placeholder="siivous@example.com"
+                        />
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Thermometer className="w-4 h-4 text-muted-foreground shrink-0" />
+                        <Input
+                          value={getFieldValue(property, 'heat_pump_name')}
+                          onChange={(e) => handleFieldChange(property.property_id, 'heat_pump_name', e.target.value)}
+                          className="h-8"
+                          placeholder="esim. a1"
                         />
                       </div>
                     </TableCell>
