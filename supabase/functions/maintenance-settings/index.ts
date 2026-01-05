@@ -270,13 +270,16 @@ serve(async (req: Request): Promise<Response> => {
         });
       }
 
-      // Create mapping from property_id to heat_pump_name
+      // Create mapping from property_id (as string) to heat_pump_name
       const propertyToPumpMap = new Map<string, string>();
       for (const p of properties) {
         if (p.heat_pump_name) {
-          propertyToPumpMap.set(p.property_id, p.heat_pump_name.toLowerCase().trim());
+          // Ensure property_id is always a string for consistent Map key matching
+          propertyToPumpMap.set(String(p.property_id), p.heat_pump_name.toLowerCase().trim());
         }
       }
+      
+      console.log('Property to pump mappings:', Array.from(propertyToPumpMap.entries()));
 
       // Get heat pump settings (to get device_id from device_name)
       const { data: pumpSettings } = await supabase
@@ -413,11 +416,16 @@ serve(async (req: Request): Promise<Response> => {
         }
       }
 
+      // Debug info
+      const departuresFound = Array.from(propertyDepartures.entries());
+      console.log('Departures found:', departuresFound);
+
       return new Response(JSON.stringify({ 
         success: true, 
         synced,
         bookingsChecked: bookings.length,
-        propertiesWithPumps: propertyToPumpMap.size
+        propertiesWithPumps: propertyToPumpMap.size,
+        departuresFound: departuresFound.length
       }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
