@@ -51,14 +51,30 @@ serve(async (req: Request): Promise<Response> => {
 
     const cleanedAt = new Date().toISOString();
 
-    // Get property name from mapping
-    const { data: mappingData } = await supabase
-      .from("moder_property_mapping")
-      .select("property_name")
-      .eq("beds24_room_id", propertyId)
-      .single();
-
-    const propertyName = mappingData?.property_name || `Huoneisto ${propertyId}`;
+    // Get property name - priority: property_settings.marketing_name -> moder_property_mapping -> fallback
+    let propertyName = `Huoneisto ${propertyId}`;
+    
+    // First try property_settings (marketing name from admin)
+    const { data: settingsData } = await supabase
+      .from("property_settings")
+      .select("marketing_name")
+      .eq("property_id", propertyId)
+      .maybeSingle();
+    
+    if (settingsData?.marketing_name) {
+      propertyName = settingsData.marketing_name;
+    } else {
+      // Fallback to moder_property_mapping
+      const { data: mappingData } = await supabase
+        .from("moder_property_mapping")
+        .select("property_name")
+        .eq("beds24_room_id", propertyId)
+        .maybeSingle();
+      
+      if (mappingData?.property_name) {
+        propertyName = mappingData.property_name;
+      }
+    }
 
     // Upsert cleaning status
     const { data: cleaningData, error: cleaningError } = await supabase
