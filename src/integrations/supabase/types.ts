@@ -434,6 +434,33 @@ export type Database = {
         }
         Relationships: []
       }
+      heat_pump_temp_reset_log: {
+        Row: {
+          created_at: string
+          device_id: number
+          id: string
+          original_temperature: number
+          reset_at: string
+          reset_to_temperature: number
+        }
+        Insert: {
+          created_at?: string
+          device_id: number
+          id?: string
+          original_temperature: number
+          reset_at?: string
+          reset_to_temperature: number
+        }
+        Update: {
+          created_at?: string
+          device_id?: number
+          id?: string
+          original_temperature?: number
+          reset_at?: string
+          reset_to_temperature?: number
+        }
+        Relationships: []
+      }
       maintenance_settings: {
         Row: {
           created_at: string | null
