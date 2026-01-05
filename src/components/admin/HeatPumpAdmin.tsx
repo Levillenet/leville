@@ -30,6 +30,7 @@ import {
   Zap,
   Clock,
   ThermometerSun,
+  RotateCcw,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -68,6 +69,7 @@ interface HeatPumpDevice {
   maxTempResetDelayMinutes: number;
   pendingTempResetAt: string | null;
   originalSetTemperature: number | null;
+  tempResetCount24h: number;
   // Efficiency fields - comparative
   degreeMinutes: number;
   efficiencyStatus: EfficiencyStatus;
@@ -719,9 +721,17 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
 
                     {/* Max temperature reset */}
                     <div className="space-y-3 p-3 bg-muted/30 rounded-lg">
-                      <div className="flex items-center gap-2 text-sm font-medium">
-                        <ThermometerSun className="w-4 h-4" />
-                        Maksimilämpötilan palautus
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2 text-sm font-medium">
+                          <ThermometerSun className="w-4 h-4" />
+                          Maksimilämpötilan palautus
+                        </div>
+                        {state.tempResetCount24h > 0 && (
+                          <Badge variant="secondary" className="flex items-center gap-1">
+                            <RotateCcw className="w-3 h-3" />
+                            {state.tempResetCount24h}× / 24h
+                          </Badge>
+                        )}
                       </div>
                       <div className="flex items-center justify-between">
                         <label className="text-sm">Automaattinen palautus</label>

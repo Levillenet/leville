@@ -282,6 +282,59 @@ function determineEfficiencyStatusComparative(
   }
 }
 
+async function setTemperature(
+  contextKey: string,
+  deviceId: number,
+  buildingId: number,
+  temperature: number
+): Promise<boolean> {
+  console.log(`[CRON] Setting temperature ${temperature} for device ${deviceId}`);
+
+  try {
+    const deviceResponse = await fetch(
+      `${MELCLOUD_BASE_URL}/Device/Get?id=${deviceId}&buildingID=${buildingId}`,
+      {
+        method: 'GET',
+        headers: { 'X-MitsContextKey': contextKey },
+      }
+    );
+
+    if (!deviceResponse.ok) {
+      console.error(`[CRON] Failed to get device ${deviceId}: ${deviceResponse.status}`);
+      return false;
+    }
+
+    const currentState = await deviceResponse.json();
+
+    const updatePayload = {
+      ...currentState,
+      SetTemperature: temperature,
+      EffectiveFlags: 0x04, // Temperature flag
+      HasPendingCommand: true,
+    };
+
+    const response = await fetch(`${MELCLOUD_BASE_URL}/Device/SetAta`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-MitsContextKey': contextKey,
+      },
+      body: JSON.stringify(updatePayload),
+    });
+
+    if (!response.ok) {
+      console.error(`[CRON] Failed to set temperature for device ${deviceId}: ${response.status}`);
+      return false;
+    }
+
+    console.log(`[CRON] Temperature set successfully for device ${deviceId}`);
+    return true;
+  } catch (error) {
+    console.error(`[CRON] Error setting temperature for device ${deviceId}:`, error);
+    return false;
+  }
+}
+
 async function setFanSpeed(
   contextKey: string,
   deviceId: number,
@@ -442,6 +495,7 @@ serve(async (req) => {
       recovery_tracking_start_temp?: number | null;
     }> = [];
     const fanRecoveries: Array<{ device_id: number; building_id: number; fan_speed: number }> = [];
+    const tempResets: Array<{ device_id: number; building_id: number; temperature: number; original_temperature: number }> = [];
     const recoveryLogInserts: Array<{
       device_id: number;
       defrost_ended_at: string;
@@ -635,6 +689,56 @@ serve(async (req) => {
               fan_speed: settings.pending_fan_speed || 4,
             });
           }
+        }
+      }
+
+      // MAX TEMPERATURE RESET LOGIC
+      if (settings?.max_temp_reset_enabled && operatingState !== 'DEFROST') {
+        const currentSetTemp = device.SetTemperature;
+        const maxTempLimit = settings.max_temp_limit ?? 22;
+
+        // Check if temperature exceeds limit and no pending reset
+        if (currentSetTemp > maxTempLimit && !settings.pending_temp_reset_at) {
+          const resetDelayMinutes = settings.max_temp_reset_delay_minutes || 60;
+          const resetAt = new Date(Date.now() + resetDelayMinutes * 60000);
+          console.log(`[CRON] Device ${deviceId}: temp ${currentSetTemp}°C exceeds limit ${maxTempLimit}°C, scheduling reset at ${resetAt.toISOString()}`);
+
+          // Update settings with pending reset
+          await supabase.from('heat_pump_settings')
+            .update({
+              pending_temp_reset_at: resetAt.toISOString(),
+              original_set_temperature: currentSetTemp,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('device_id', deviceId);
+        }
+        // If temperature was manually lowered below limit, clear pending reset
+        else if (currentSetTemp <= maxTempLimit && settings.pending_temp_reset_at) {
+          console.log(`[CRON] Device ${deviceId}: temp ${currentSetTemp}°C now within limit, clearing pending reset`);
+          await supabase.from('heat_pump_settings')
+            .update({
+              pending_temp_reset_at: null,
+              original_set_temperature: null,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('device_id', deviceId);
+        }
+      }
+
+      // Execute temperature reset if time has passed
+      if (settings?.pending_temp_reset_at && settings?.max_temp_reset_enabled && operatingState !== 'DEFROST') {
+        const resetAt = new Date(settings.pending_temp_reset_at);
+        if (resetAt <= new Date()) {
+          const maxTempLimit = settings.max_temp_limit ?? 22;
+          const originalTemp = settings.original_set_temperature ?? device.SetTemperature;
+          console.log(`[CRON] Executing temperature reset for device ${deviceId} from ${originalTemp}°C to ${maxTempLimit}°C`);
+
+          tempResets.push({
+            device_id: deviceId,
+            building_id: buildingId,
+            temperature: maxTempLimit,
+            original_temperature: originalTemp,
+          });
         }
       }
     }
@@ -832,6 +936,34 @@ serve(async (req) => {
       }
     }
 
+    // Execute temperature resets
+    for (const reset of tempResets) {
+      const success = await setTemperature(contextKey, reset.device_id, reset.building_id, reset.temperature);
+      
+      if (success) {
+        // Log the reset
+        await supabase
+          .from('heat_pump_temp_reset_log')
+          .insert({
+            device_id: reset.device_id,
+            original_temperature: reset.original_temperature,
+            reset_to_temperature: reset.temperature,
+          });
+
+        // Clear pending reset
+        await supabase
+          .from('heat_pump_settings')
+          .update({
+            pending_temp_reset_at: null,
+            original_set_temperature: null,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('device_id', reset.device_id);
+        
+        console.log(`[CRON] Temperature reset successful for device ${reset.device_id}`);
+      }
+    }
+
     const duration = Date.now() - startTime;
     console.log(`[CRON] Job completed in ${duration}ms`);
 
@@ -843,6 +975,7 @@ serve(async (req) => {
         defrostStarted: defrostInserts.length,
         defrostEnded: defrostUpdates.length,
         fanRecoveries: fanRecoveries.length,
+        tempResets: tempResets.length,
         recoveryLogs: recoveryLogInserts.length,
         baselineUpdates: baselineUpdates.length,
         duration: `${duration}ms`,

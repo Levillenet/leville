@@ -424,6 +424,19 @@ async function getDevices(contextKey: string) {
     (fleetBaselines || []).map((b: FleetBaseline) => [b.outdoor_temp_range, b])
   );
 
+  // Fetch 24h temperature reset counts
+  const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+  const { data: tempResetData } = await supabase
+    .from('heat_pump_temp_reset_log')
+    .select('device_id')
+    .in('device_id', deviceIds)
+    .gte('reset_at', twentyFourHoursAgo);
+
+  const tempResetCountMap = new Map<number, number>();
+  (tempResetData || []).forEach((r: { device_id: number }) => {
+    tempResetCountMap.set(r.device_id, (tempResetCountMap.get(r.device_id) || 0) + 1);
+  });
+
   const devices = allDevices.map(({ device, building }) => {
     const deviceId = device.Device.DeviceID;
     const fullDevice = deviceDetailsMap.get(deviceId);
@@ -526,6 +539,8 @@ async function getDevices(contextKey: string) {
       currentEnergy,
       dailyEnergy,
       totalEnergy,
+      // 24h reset count
+      tempResetCount24h: tempResetCountMap.get(deviceId) || 0,
     };
   });
 
