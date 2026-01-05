@@ -158,6 +158,36 @@ export type Database = {
         }
         Relationships: []
       }
+      heat_pump_checkout_drop_log: {
+        Row: {
+          created_at: string
+          device_id: number
+          dropped_at: string
+          from_temperature: number | null
+          id: string
+          property_id: string
+          to_temperature: number
+        }
+        Insert: {
+          created_at?: string
+          device_id: number
+          dropped_at?: string
+          from_temperature?: number | null
+          id?: string
+          property_id: string
+          to_temperature: number
+        }
+        Update: {
+          created_at?: string
+          device_id?: number
+          dropped_at?: string
+          from_temperature?: number | null
+          id?: string
+          property_id?: string
+          to_temperature?: number
+        }
+        Relationships: []
+      }
       heat_pump_defrost_log: {
         Row: {
           created_at: string | null
@@ -281,6 +311,33 @@ export type Database = {
           outdoor_temp_range?: string
           sample_count?: number | null
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      heat_pump_global_settings: {
+        Row: {
+          checkout_drop_enabled: boolean
+          checkout_drop_temperature: number
+          checkout_drop_time: string
+          created_at: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          checkout_drop_enabled?: boolean
+          checkout_drop_temperature?: number
+          checkout_drop_time?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          checkout_drop_enabled?: boolean
+          checkout_drop_temperature?: number
+          checkout_drop_time?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -409,6 +466,7 @@ export type Database = {
           max_temp_limit: number | null
           max_temp_reset_delay_minutes: number | null
           max_temp_reset_enabled: boolean | null
+          next_checkout_drop_at: string | null
           original_set_temperature: number | null
           pending_fan_recovery_at: string | null
           pending_fan_speed: number | null
@@ -430,6 +488,7 @@ export type Database = {
           max_temp_limit?: number | null
           max_temp_reset_delay_minutes?: number | null
           max_temp_reset_enabled?: boolean | null
+          next_checkout_drop_at?: string | null
           original_set_temperature?: number | null
           pending_fan_recovery_at?: string | null
           pending_fan_speed?: number | null
@@ -451,6 +510,7 @@ export type Database = {
           max_temp_limit?: number | null
           max_temp_reset_delay_minutes?: number | null
           max_temp_reset_enabled?: boolean | null
+          next_checkout_drop_at?: string | null
           original_set_temperature?: number | null
           pending_fan_recovery_at?: string | null
           pending_fan_speed?: number | null
@@ -589,6 +649,7 @@ export type Database = {
           cleaning_email: string | null
           cleaning_fee: number | null
           created_at: string | null
+          heat_pump_name: string | null
           id: string
           linen_price_per_person: number | null
           max_guests: number | null
@@ -601,6 +662,7 @@ export type Database = {
           cleaning_email?: string | null
           cleaning_fee?: number | null
           created_at?: string | null
+          heat_pump_name?: string | null
           id?: string
           linen_price_per_person?: number | null
           max_guests?: number | null
@@ -613,6 +675,7 @@ export type Database = {
           cleaning_email?: string | null
           cleaning_fee?: number | null
           created_at?: string | null
+          heat_pump_name?: string | null
           id?: string
           linen_price_per_person?: number | null
           max_guests?: number | null

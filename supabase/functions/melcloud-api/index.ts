@@ -71,6 +71,8 @@ interface DeviceSettings {
   max_temp_reset_delay_minutes: number;
   pending_temp_reset_at: string | null;
   original_set_temperature: number | null;
+  // Checkout drop field
+  next_checkout_drop_at: string | null;
 }
 
 interface PerformanceBaseline {
@@ -540,6 +542,8 @@ async function getDevices(contextKey: string) {
       maxTempResetDelayMinutes: settings?.max_temp_reset_delay_minutes ?? 60,
       pendingTempResetAt: settings?.pending_temp_reset_at ?? null,
       originalSetTemperature: settings?.original_set_temperature ?? null,
+      // Checkout drop fields
+      nextCheckoutDropAt: settings?.next_checkout_drop_at ?? null,
       // Efficiency fields - now comparative
       degreeMinutes: settings?.degree_minutes ?? 0,
       efficiencyStatus: efficiencyInfo.status,

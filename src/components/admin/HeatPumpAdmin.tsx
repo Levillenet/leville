@@ -31,6 +31,8 @@ import {
   Clock,
   ThermometerSun,
   RotateCcw,
+  CalendarCheck,
+  RefreshCcw,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -71,6 +73,8 @@ interface HeatPumpDevice {
   originalSetTemperature: number | null;
   tempResetCount24h: number;
   fanResetCount24h: number;
+  // Checkout drop field
+  nextCheckoutDropAt: string | null;
   // Efficiency fields - comparative
   degreeMinutes: number;
   efficiencyStatus: EfficiencyStatus;
@@ -89,6 +93,12 @@ interface DevicesResponse {
   error?: string;
 }
 
+interface GlobalSettings {
+  checkout_drop_enabled: boolean;
+  checkout_drop_temperature: number;
+  checkout_drop_time: string;
+}
+
 interface HeatPumpAdminProps {
   isViewer?: boolean;
 }
@@ -101,6 +111,13 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
   const [historyDevice, setHistoryDevice] = useState<{ id: number; name: string } | null>(null);
   const [localSliderValues, setLocalSliderValues] = useState<Record<string, number>>({});
   const [, forceUpdate] = useState(0);
+  const [globalSettings, setGlobalSettings] = useState<GlobalSettings>({
+    checkout_drop_enabled: false,
+    checkout_drop_temperature: 20,
+    checkout_drop_time: '10:00',
+  });
+  const [isSyncingDates, setIsSyncingDates] = useState(false);
+  const [isSavingGlobalSettings, setIsSavingGlobalSettings] = useState(false);
 
   // Force re-render every second to update countdown timers
   useEffect(() => {
@@ -108,6 +125,19 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
       forceUpdate(n => n + 1);
     }, 1000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Fetch global settings
+  useEffect(() => {
+    const fetchGlobalSettings = async () => {
+      const { data, error } = await supabase.functions.invoke('maintenance-settings', {
+        body: { action: 'get_heat_pump_global_settings' },
+      });
+      if (!error && data?.settings) {
+        setGlobalSettings(data.settings);
+      }
+    };
+    fetchGlobalSettings();
   }, []);
 
   const { data, isLoading, error, refetch, isFetching } = useQuery({
@@ -474,8 +504,131 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
 
   const devices = data?.devices || [];
 
+  const handleSaveGlobalSettings = async () => {
+    setIsSavingGlobalSettings(true);
+    try {
+      const { error } = await supabase.functions.invoke('maintenance-settings', {
+        body: {
+          action: 'update_heat_pump_global_settings',
+          data: globalSettings,
+        },
+      });
+      if (error) throw error;
+      toast.success('Asetukset tallennettu');
+    } catch (err) {
+      toast.error('Virhe tallennettaessa asetuksia');
+    } finally {
+      setIsSavingGlobalSettings(false);
+    }
+  };
+
+  const handleSyncDates = async () => {
+    setIsSyncingDates(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('maintenance-settings', {
+        body: { action: 'sync_checkout_dates' },
+      });
+      if (error) throw error;
+      toast.success(`Lähtöpäivät synkronoitu: ${data.synced} pumppua päivitetty`);
+      refetch();
+    } catch (err) {
+      toast.error('Virhe synkronoitaessa lähtöpäiviä');
+    } finally {
+      setIsSyncingDates(false);
+    }
+  };
+
+  const formatCheckoutDate = (dateStr: string | null): string | null => {
+    if (!dateStr) return null;
+    const date = new Date(dateStr);
+    const now = new Date();
+    if (date <= now) return null;
+    
+    const weekdays = ['su', 'ma', 'ti', 'ke', 'to', 'pe', 'la'];
+    const day = weekdays[date.getDay()];
+    const dayNum = date.getDate();
+    const month = date.getMonth() + 1;
+    return `${day} ${dayNum}.${month}.`;
+  };
+
   return (
     <div className="space-y-6">
+      {/* Global Settings Card */}
+      {!isViewer && (
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <CalendarCheck className="w-5 h-5" />
+              Lähtöpäivän lämpötilapudotus
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
+              <div className="flex items-center gap-3">
+                <Switch
+                  checked={globalSettings.checkout_drop_enabled}
+                  onCheckedChange={(checked) => setGlobalSettings(prev => ({ ...prev, checkout_drop_enabled: checked }))}
+                />
+                <span className="text-sm">
+                  {globalSettings.checkout_drop_enabled ? 'Käytössä' : 'Pois käytöstä'}
+                </span>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Pudotuslämpötila:</span>
+                <div className="flex items-center gap-2 w-48">
+                  <Slider
+                    value={[globalSettings.checkout_drop_temperature]}
+                    onValueChange={([val]) => setGlobalSettings(prev => ({ ...prev, checkout_drop_temperature: val }))}
+                    min={15}
+                    max={22}
+                    step={1}
+                    disabled={!globalSettings.checkout_drop_enabled}
+                  />
+                  <span className="text-sm font-medium w-12">{globalSettings.checkout_drop_temperature}°C</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Kello:</span>
+                <input
+                  type="time"
+                  value={globalSettings.checkout_drop_time}
+                  onChange={(e) => setGlobalSettings(prev => ({ ...prev, checkout_drop_time: e.target.value }))}
+                  disabled={!globalSettings.checkout_drop_enabled}
+                  className="h-8 px-2 border rounded-md text-sm bg-background"
+                />
+              </div>
+
+              <Button 
+                size="sm" 
+                onClick={handleSaveGlobalSettings}
+                disabled={isSavingGlobalSettings}
+              >
+                {isSavingGlobalSettings ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Tallenna'}
+              </Button>
+            </div>
+
+            {globalSettings.checkout_drop_enabled && (
+              <div className="pt-2 border-t">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={handleSyncDates}
+                  disabled={isSyncingDates}
+                >
+                  <RefreshCcw className={`w-4 h-4 mr-2 ${isSyncingDates ? 'animate-spin' : ''}`} />
+                  Synkronoi lähtöpäivät Beds24:stä
+                </Button>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Synkronointi hakee seuraavan 14 päivän lähtöpäivät ja asettaa lämpötilapudotukset pumpuille, joilla on kiinteistömappaus.
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -623,6 +776,14 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
                     </span>
                   ) : null}
                 </div>
+
+                {/* Checkout drop date - shown if scheduled */}
+                {formatCheckoutDate(state.nextCheckoutDropAt) && (
+                  <div className="text-center text-sm text-blue-600 bg-blue-50 dark:bg-blue-900/20 rounded-md py-2 px-3 flex items-center justify-center gap-2">
+                    <CalendarCheck className="w-4 h-4" />
+                    Lähtöpäivän pudotus: {formatCheckoutDate(state.nextCheckoutDropAt)}
+                  </div>
+                )}
 
                 {/* Pending recovery countdown - shown outside menu for visibility */}
                 {state.pendingFanRecoveryAt && state.fanAutoRecovery && (
