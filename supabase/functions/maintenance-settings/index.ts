@@ -151,6 +151,73 @@ serve(async (req: Request): Promise<Response> => {
       });
     }
 
+    // Ensure property_maintenance rows exist for master list properties
+    if (action === 'ensure_property_maintenance_rows') {
+      const { properties: masterProperties } = data;
+      
+      if (!masterProperties || !Array.isArray(masterProperties)) {
+        return new Response(JSON.stringify({ error: 'properties array required' }), {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      const propertyIds = masterProperties.map((p: { property_id: string }) => p.property_id);
+      
+      // Get existing property_maintenance rows
+      const { data: existingRows } = await supabase
+        .from('property_maintenance')
+        .select('property_id')
+        .in('property_id', propertyIds);
+
+      const existingIds = new Set((existingRows || []).map(r => r.property_id));
+      
+      // Find missing properties
+      const missingProperties = masterProperties.filter(
+        (p: { property_id: string }) => !existingIds.has(p.property_id)
+      );
+
+      console.log(`Found ${existingIds.size} existing, ${missingProperties.length} missing properties`);
+
+      // Insert missing properties with default values
+      if (missingProperties.length > 0) {
+        const rowsToInsert = missingProperties.map((p: { 
+          property_id: string; 
+          max_guests?: number; 
+          cleaning_fee?: number; 
+          linen_price_per_person?: number 
+        }) => ({
+          property_id: p.property_id,
+          max_guests: p.max_guests || null,
+          cleaning_fee: p.cleaning_fee || 0,
+          linen_price_per_person: p.linen_price_per_person || 0,
+          owner_email: null,
+          cleaning_email: null,
+          notes: null,
+          heat_pump_name: null
+        }));
+
+        const { error: insertError } = await supabase
+          .from('property_maintenance')
+          .insert(rowsToInsert);
+
+        if (insertError) {
+          console.error('Error inserting missing properties:', insertError);
+          throw insertError;
+        }
+
+        console.log(`Inserted ${missingProperties.length} new property_maintenance rows`);
+      }
+
+      return new Response(JSON.stringify({ 
+        success: true,
+        inserted: missingProperties.length,
+        missingIds: missingProperties.map((p: { property_id: string }) => p.property_id)
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
     if (action === 'get_properties') {
       const { data: properties, error } = await supabase
         .from('property_maintenance')

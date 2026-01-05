@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Save, Home, Mail, Search, Thermometer } from "lucide-react";
+import { Loader2, Save, Home, Mail, Search, Thermometer, AlertCircle, CheckCircle } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
 
 interface PropertyMaintenance {
   property_id: string;
@@ -41,7 +42,11 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
   const [isSaving, setIsSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [editedProperties, setEditedProperties] = useState<Map<string, Partial<PropertyMaintenance>>>(new Map());
+  const [syncStatus, setSyncStatus] = useState<{ total: number; found: number; inserted: number } | null>(null);
   const { toast } = useToast();
+
+  // Master list from propertyDetails.ts (same source as Huoneistojen hallinta)
+  const masterProperties = getAllDefaultPropertyDetails();
 
   useEffect(() => {
     fetchData();
@@ -50,20 +55,48 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      // Fetch property names from property_settings (marketing names) - this is the source of truth
+      // Build name map from master list (default names) + property_settings overrides
+      const nameMap = new Map<string, string>();
+      
+      // First, add default names from master list
+      for (const p of masterProperties) {
+        nameMap.set(p.id, p.name);
+      }
+
+      // Then fetch marketing name overrides from property_settings
       const { data: settingsData } = await supabase
         .from('property_settings')
         .select('property_id, marketing_name');
       
-      const nameMap = new Map<string, string>();
-      const validPropertyIds = new Set<string>();
       for (const s of (settingsData || [])) {
         if (s.marketing_name) {
           nameMap.set(s.property_id, s.marketing_name);
         }
-        validPropertyIds.add(s.property_id);
       }
       setPropertyNames(nameMap);
+
+      // Ensure all master list properties have property_maintenance rows
+      const masterPropertyData = masterProperties.map(p => ({
+        property_id: p.id,
+        max_guests: p.maxGuests,
+        cleaning_fee: p.cleaningFee,
+        linen_price_per_person: p.linenFee
+      }));
+
+      const { data: ensureResult } = await supabase.functions.invoke('maintenance-settings', {
+        body: { 
+          action: 'ensure_property_maintenance_rows',
+          data: { properties: masterPropertyData }
+        }
+      });
+
+      if (ensureResult) {
+        setSyncStatus({
+          total: masterProperties.length,
+          found: masterProperties.length - (ensureResult.inserted || 0),
+          inserted: ensureResult.inserted || 0
+        });
+      }
 
       // Fetch property maintenance data
       const { data: maintenanceResult, error } = await supabase.functions.invoke('maintenance-settings', {
@@ -74,10 +107,18 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
 
       const loadedProperties = maintenanceResult?.properties || [];
       
-      // Filter to only show properties that exist in property_settings (Huoneistojen hallinta)
+      // Filter to only show master list properties
+      const masterIds = new Set(masterProperties.map(p => p.id));
       const filteredProperties = loadedProperties.filter((p: PropertyMaintenance) => 
-        validPropertyIds.has(p.property_id)
+        masterIds.has(p.property_id)
       );
+      
+      // Sort by master list order
+      const orderMap = new Map(masterProperties.map((p, i) => [p.id, i]));
+      filteredProperties.sort((a: PropertyMaintenance, b: PropertyMaintenance) => 
+        (orderMap.get(a.property_id) ?? 999) - (orderMap.get(b.property_id) ?? 999)
+      );
+      
       setProperties(filteredProperties);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -161,9 +202,9 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
   };
 
   const getPropertyName = (propertyId: string) => {
-    // Use marketing name from property_settings (Huoneistojen hallinta)
-    const marketingName = propertyNames.get(propertyId);
-    if (marketingName) return marketingName;
+    // Use name from nameMap (marketing name override or default from propertyDetails)
+    const name = propertyNames.get(propertyId);
+    if (name) return name;
     return `ID: ${propertyId}`;
   };
 
@@ -211,6 +252,15 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
           </div>
         </CardHeader>
         <CardContent>
+          {syncStatus && syncStatus.inserted > 0 && (
+            <div className="mb-4 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-green-600" />
+              <span className="text-sm text-green-700 dark:text-green-300">
+                Synkronoitu: {syncStatus.inserted} uutta huoneistoa lisätty ylläpitotauluun
+              </span>
+            </div>
+          )}
+
           <div className="mb-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -291,10 +341,15 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
             </Table>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-4 flex items-center justify-between">
             <p className="text-sm text-muted-foreground">
-              Näytetään {filteredProperties.length} / {properties.length} huoneistoa
+              Näytetään {filteredProperties.length} / {properties.length} huoneistoa (master-listalla {masterProperties.length})
             </p>
+            {syncStatus && (
+              <p className="text-xs text-muted-foreground">
+                Taulussa: {syncStatus.found + syncStatus.inserted}, uusia lisätty: {syncStatus.inserted}
+              </p>
+            )}
           </div>
         </CardContent>
       </Card>
