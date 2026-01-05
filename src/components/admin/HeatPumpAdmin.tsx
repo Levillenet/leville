@@ -482,21 +482,31 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
               </CardHeader>
 
               <CardContent className="space-y-3">
-                {/* Temperatures */}
-                <div className="py-2 text-center">
-                  <p className="text-4xl font-bold text-foreground">
-                    {device.roomTemperature.toFixed(1)}°C
-                  </p>
-                  <p className="text-sm text-muted-foreground">Huonelämpötila</p>
+                {/* Temperatures - equal sizing for mobile readability */}
+                <div className="grid grid-cols-3 gap-2 py-3">
+                  <div className="text-center">
+                    <p className="text-2xl sm:text-3xl font-bold text-foreground">
+                      {device.roomTemperature.toFixed(1)}°
+                    </p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Huone</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl sm:text-3xl font-bold text-primary">
+                      {device.setTemperature.toFixed(1)}°
+                    </p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Tavoite</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl sm:text-3xl font-bold text-muted-foreground">
+                      {device.outdoorTemperature !== null ? `${device.outdoorTemperature.toFixed(1)}°` : '–'}
+                    </p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Ulko</p>
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
-                  <span>Tavoite: {device.setTemperature.toFixed(1)}°C</span>
-                  {device.outdoorTemperature !== null && (
-                    <>
-                      <span>•</span>
-                      <span>Ulko: {device.outdoorTemperature.toFixed(1)}°C</span>
-                    </>
+                <div className="flex items-center justify-center gap-4 text-xs sm:text-sm text-muted-foreground">
+                  {tempDebt > 0 && (
+                    <span className="text-orange-500">Velka: {tempDebt.toFixed(1)}°C</span>
                   )}
                 </div>
 
