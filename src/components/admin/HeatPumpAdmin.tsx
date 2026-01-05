@@ -637,7 +637,7 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
                 {state.pendingTempResetAt && state.maxTempResetEnabled && (
                   <div className="text-center text-sm text-amber-600 bg-amber-50 dark:bg-amber-900/20 rounded-md py-2 px-3 flex items-center justify-center gap-2">
                     <Clock className="w-4 h-4" />
-                    Lämpötila palautuu {state.originalSetTemperature?.toFixed(0) ?? state.maxTempLimit}°C:een: {formatCountdown(state.pendingTempResetAt)}
+                    Lämpötila palautuu {state.maxTempLimit}°C:een: {formatCountdown(state.pendingTempResetAt)}
                   </div>
                 )}
 
@@ -805,7 +805,7 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
                           {state.pendingTempResetAt && (
                             <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 dark:bg-amber-900/20 rounded-md px-3 py-2">
                               <Clock className="w-4 h-4" />
-                              <span>Palautetaan {state.originalSetTemperature?.toFixed(0) ?? state.maxTempLimit}°C:een: {formatCountdown(state.pendingTempResetAt)}</span>
+                              <span>Palautetaan {state.maxTempLimit}°C:een: {formatCountdown(state.pendingTempResetAt)}</span>
                             </div>
                           )}
                         </div>
