@@ -376,19 +376,7 @@ serve(async (req: Request): Promise<Response> => {
           continue;
         }
 
-        // Check if there's also an arrival on the same day (someone checking in = don't drop temp)
-        const hasArrivalSameDay = bookings.some((b: { roomId: string; arrival: string }) => 
-          String(b.roomId) === propertyId && b.arrival === departureDate
-        );
-
-        if (hasArrivalSameDay) {
-          console.log(`Property ${propertyId} has same-day turnaround on ${departureDate}, skipping`);
-          await supabase
-            .from('heat_pump_settings')
-            .update({ next_checkout_drop_at: null, updated_at: new Date().toISOString() })
-            .eq('device_id', deviceId);
-          continue;
-        }
+        // NOTE: Same-day turnaround check removed - always drop temperature on checkout day
 
         // Calculate the checkout drop timestamp
         const dropDate = new Date(departureDate);
