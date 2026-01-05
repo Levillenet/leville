@@ -270,11 +270,11 @@ serve(async (req: Request): Promise<Response> => {
         });
       }
 
-      // Create mapping from heat_pump_name to property_id
-      const pumpToPropertyMap = new Map<string, string>();
+      // Create mapping from property_id to heat_pump_name
+      const propertyToPumpMap = new Map<string, string>();
       for (const p of properties) {
         if (p.heat_pump_name) {
-          pumpToPropertyMap.set(p.heat_pump_name.toLowerCase().trim(), p.property_id);
+          propertyToPumpMap.set(p.property_id, p.heat_pump_name.toLowerCase().trim());
         }
       }
 
@@ -293,7 +293,7 @@ serve(async (req: Request): Promise<Response> => {
         });
       }
 
-      // Create mapping from device_name to device_id
+      // Create mapping from device_name (lowercase) to device_id
       const deviceNameToIdMap = new Map<string, number>();
       for (const s of pumpSettings) {
         if (s.device_name) {
@@ -343,24 +343,7 @@ serve(async (req: Request): Promise<Response> => {
         
         if (!roomId || !departure) continue;
         
-        // Check if this property is linked to a heat pump
-        if (!pumpToPropertyMap.has(roomId)) {
-          // Try matching the property via property_id
-          const existing = propertyDepartures.get(roomId);
-          if (!existing || departure < existing) {
-            propertyDepartures.set(roomId, departure);
-          }
-        }
-      }
-
-      // Also map using property mapping
-      for (const booking of bookings) {
-        const roomId = String(booking.roomId);
-        const departure = booking.departure;
-        
-        if (!roomId || !departure) continue;
-        
-        // Store departure per property_id
+        // Store earliest departure per property_id
         const existing = propertyDepartures.get(roomId);
         if (!existing || departure < existing) {
           propertyDepartures.set(roomId, departure);
@@ -370,11 +353,11 @@ serve(async (req: Request): Promise<Response> => {
       // Now update heat_pump_settings with next_checkout_drop_at
       let synced = 0;
       
-      for (const [pumpName, propertyId] of pumpToPropertyMap) {
-        // Find device_id for this pump
+      for (const [propertyId, pumpName] of propertyToPumpMap) {
+        // Find device_id for this pump (case-insensitive match)
         const deviceId = deviceNameToIdMap.get(pumpName);
         if (!deviceId) {
-          console.log(`No device found for pump name: ${pumpName}`);
+          console.log(`No device found for pump name: ${pumpName} (property ${propertyId})`);
           continue;
         }
 
@@ -382,6 +365,7 @@ serve(async (req: Request): Promise<Response> => {
         const departureDate = propertyDepartures.get(propertyId);
         if (!departureDate) {
           // No upcoming departure, clear any pending checkout drop
+          console.log(`No departure found for property ${propertyId}, clearing next_checkout_drop_at`);
           await supabase
             .from('heat_pump_settings')
             .update({ next_checkout_drop_at: null, updated_at: new Date().toISOString() })
@@ -409,7 +393,7 @@ serve(async (req: Request): Promise<Response> => {
 
         // Only set if the drop time is in the future
         if (dropDate > new Date()) {
-          console.log(`Setting checkout drop for device ${deviceId} (${pumpName}) at ${dropDate.toISOString()}`);
+          console.log(`Setting checkout drop for device ${deviceId} (${pumpName}) at ${dropDate.toISOString()} for property ${propertyId}`);
           
           const { error } = await supabase
             .from('heat_pump_settings')
@@ -419,7 +403,13 @@ serve(async (req: Request): Promise<Response> => {
             })
             .eq('device_id', deviceId);
 
-          if (!error) synced++;
+          if (!error) {
+            synced++;
+          } else {
+            console.error(`Error updating device ${deviceId}:`, error);
+          }
+        } else {
+          console.log(`Drop time ${dropDate.toISOString()} for property ${propertyId} is in the past, skipping`);
         }
       }
 
@@ -427,7 +417,7 @@ serve(async (req: Request): Promise<Response> => {
         success: true, 
         synced,
         bookingsChecked: bookings.length,
-        propertiesWithPumps: pumpToPropertyMap.size
+        propertiesWithPumps: propertyToPumpMap.size
       }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });

@@ -314,6 +314,7 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
     return `${seconds} s`;
   };
 
+
   const getDeviceState = (device: HeatPumpDevice) => ({
     ...device,
     ...optimisticState[device.deviceId],
@@ -529,8 +530,13 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
         body: { action: 'sync_checkout_dates' },
       });
       if (error) throw error;
-      toast.success(`Lähtöpäivät synkronoitu: ${data.synced} pumppua päivitetty`);
-      refetch();
+
+      const msg = data?.message
+        ? data.message
+        : `Lähtöpäivät synkronoitu: ${data?.synced ?? 0} pumppua päivitetty`;
+
+      toast.success(msg);
+      queryClient.invalidateQueries({ queryKey: ['melcloud-devices'] });
     } catch (err) {
       toast.error('Virhe synkronoitaessa lähtöpäiviä');
     } finally {
@@ -779,7 +785,7 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
 
                 {/* Checkout drop date - shown if scheduled */}
                 {formatCheckoutDate(state.nextCheckoutDropAt) && (
-                  <div className="text-center text-sm text-blue-600 bg-blue-50 dark:bg-blue-900/20 rounded-md py-2 px-3 flex items-center justify-center gap-2">
+                  <div className="text-center text-sm border border-border rounded-md py-2 px-3 flex items-center justify-center gap-2 bg-accent/40 text-foreground">
                     <CalendarCheck className="w-4 h-4" />
                     Lähtöpäivän pudotus: {formatCheckoutDate(state.nextCheckoutDropAt)}
                   </div>
