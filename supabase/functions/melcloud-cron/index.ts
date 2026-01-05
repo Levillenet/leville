@@ -43,6 +43,20 @@ interface Building {
   };
 }
 
+interface FullDeviceDetails {
+  DeviceID: number;
+  DeviceName: string;
+  BuildingID: number;
+  RoomTemperature: number;
+  SetTemperature: number;
+  Power: boolean;
+  OperationMode: number;
+  LastCommunication: string;
+  SetFanSpeed: number;
+  OutdoorTemperature?: number;
+  NumberOfFanSpeeds?: number;
+}
+
 interface PerformanceBaseline {
   device_id: number;
   outdoor_temp_range: string;
@@ -136,6 +150,30 @@ async function getDevices(contextKey: string): Promise<Device[]> {
 
   const buildings: Building[] = await response.json();
   return buildings.flatMap(building => building.Structure.Devices);
+}
+
+async function getFullDeviceDetails(
+  contextKey: string,
+  deviceId: number,
+  buildingId: number
+): Promise<FullDeviceDetails | null> {
+  try {
+    const response = await fetch(
+      `${MELCLOUD_BASE_URL}/Device/Get?id=${deviceId}&buildingID=${buildingId}`,
+      {
+        method: 'GET',
+        headers: { 'X-MitsContextKey': contextKey },
+      }
+    );
+    
+    if (response.ok) {
+      return await response.json();
+    }
+    console.error(`[CRON] Failed to get full details for device ${deviceId}: ${response.status}`);
+  } catch (error) {
+    console.error(`[CRON] Error getting full details for device ${deviceId}:`, error);
+  }
+  return null;
 }
 
 /**
@@ -403,6 +441,21 @@ serve(async (req) => {
 
     console.log(`[CRON] Processing ${devices.length} devices`);
 
+    // Fetch full device details for accurate fan speed (MELCloud ListDevices returns wrong SetFanSpeed)
+    console.log(`[CRON] Fetching full device details for accurate fan speed...`);
+    const fullDetailsPromises = devices.map(async (d) => {
+      const buildingId = d.BuildingID || d.Device.BuildingID;
+      const fullDetails = await getFullDeviceDetails(contextKey, d.Device.DeviceID, buildingId);
+      return { deviceId: d.Device.DeviceID, fullDetails };
+    });
+    const fullDetailsResults = await Promise.all(fullDetailsPromises);
+    const fullDetailsMap = new Map<number, FullDeviceDetails>(
+      fullDetailsResults
+        .filter(r => r.fullDetails !== null)
+        .map(r => [r.deviceId, r.fullDetails!])
+    );
+    console.log(`[CRON] Retrieved full details for ${fullDetailsMap.size} devices`);
+
     // Get device IDs
     const deviceIds = devices.map(d => d.Device.DeviceID);
 
@@ -525,6 +578,10 @@ serve(async (req) => {
       const lastRoomTemp = lastData?.roomTemp ?? null;
       const lastOutdoorTemp = lastData?.outdoorTemp ?? null;
       const lastKnownState = settings?.last_known_state || lastData?.operatingState || 'UNKNOWN';
+      
+      // Get actual fan speed from full device details (MELCloud ListDevices returns incorrect value)
+      const fullDevice = fullDetailsMap.get(deviceId);
+      const actualFanSpeed = fullDevice?.SetFanSpeed ?? device.SetFanSpeed;
 
       const operatingState = determineOperatingState(device, lastKnownState, lastRoomTemp, lastOutdoorTemp);
       
@@ -536,14 +593,14 @@ serve(async (req) => {
       console.log(`[CRON] ${device.DeviceName}: outdoor ${lastOutdoorTemp?.toFixed(1) ?? '?'}→${outdoorTemp?.toFixed(1) ?? '?'}°C (${outdoorChange >= 0 ? '+' : ''}${outdoorChange.toFixed(1)}), room ${lastRoomTemp?.toFixed(1) ?? '?'}→${device.RoomTemperature.toFixed(1)}°C, state: ${lastKnownState}→${operatingState}`);
       const outdoorTempRange = getOutdoorTempRange(device.OutdoorTemperature ?? null);
 
-      // Store history
+      // Store history (use actualFanSpeed for accurate logging)
       historyInserts.push({
         device_id: deviceId,
         room_temperature: device.RoomTemperature,
         set_temperature: device.SetTemperature,
         outdoor_temperature: device.OutdoorTemperature ?? null,
         operating_state: operatingState,
-        fan_speed: device.SetFanSpeed,
+        fan_speed: actualFanSpeed,
         power: device.Power,
         operation_mode: ['unknown', 'heating', 'drying', 'cooling', '', '', '', 'fan', 'auto'][device.OperationMode] || 'unknown',
       });
@@ -676,18 +733,17 @@ serve(async (req) => {
         recovery_tracking_start_temp: recoveryTrackingStartTemp,
       });
 
-      // FAN SPEED RECOVERY LOGIC - Start timer if needed
+      // FAN SPEED RECOVERY LOGIC - Start timer if needed (use actualFanSpeed for accurate detection)
       if (settings?.fan_auto_recovery && operatingState !== 'DEFROST') {
-        const currentFanSpeed = device.SetFanSpeed;
         const targetFanSpeed = settings.pending_fan_speed || 4;
         
         // Fan speed 0=AUTO, 1-3 = low speeds that should be recovered
         // Fan speed 4-5 = acceptable, no recovery needed
-        if (currentFanSpeed !== null && currentFanSpeed < 4 && !settings.pending_fan_recovery_at) {
+        if (actualFanSpeed !== null && actualFanSpeed < 4 && !settings.pending_fan_recovery_at) {
           // Start recovery timer
           const recoveryDelayMinutes = settings.fan_recovery_delay_minutes || 60;
           const recoveryAt = new Date(Date.now() + recoveryDelayMinutes * 60000);
-          console.log(`[CRON] Device ${deviceId}: fan speed ${currentFanSpeed} < 4, scheduling recovery to ${targetFanSpeed} at ${recoveryAt.toISOString()}`);
+          console.log(`[CRON] Device ${deviceId}: actual fan speed ${actualFanSpeed} < 4, scheduling recovery to ${targetFanSpeed} at ${recoveryAt.toISOString()}`);
           
           await supabase.from('heat_pump_settings')
             .update({
@@ -697,8 +753,8 @@ serve(async (req) => {
             .eq('device_id', deviceId);
         }
         // If fan speed was manually raised to 4 or 5, clear pending recovery
-        else if (currentFanSpeed >= 4 && settings.pending_fan_recovery_at) {
-          console.log(`[CRON] Device ${deviceId}: fan speed ${currentFanSpeed} >= 4, clearing pending recovery`);
+        else if (actualFanSpeed >= 4 && settings.pending_fan_recovery_at) {
+          console.log(`[CRON] Device ${deviceId}: actual fan speed ${actualFanSpeed} >= 4, clearing pending recovery`);
           await supabase.from('heat_pump_settings')
             .update({
               pending_fan_recovery_at: null,
@@ -715,13 +771,12 @@ serve(async (req) => {
           // Check if not already queued
           const alreadyQueued = fanRecoveries.some(r => r.device_id === deviceId);
           if (!alreadyQueued) {
-            const currentFanSpeed = device.SetFanSpeed;
-            console.log(`[CRON] Executing scheduled fan recovery for device ${deviceId} from ${currentFanSpeed} to ${settings.pending_fan_speed || 4}`);
+            console.log(`[CRON] Executing scheduled fan recovery for device ${deviceId} from ${actualFanSpeed} to ${settings.pending_fan_speed || 4}`);
             fanRecoveries.push({
               device_id: deviceId,
               building_id: buildingId,
               fan_speed: settings.pending_fan_speed || 4,
-              original_fan_speed: currentFanSpeed,
+              original_fan_speed: actualFanSpeed,
             });
           }
         }
