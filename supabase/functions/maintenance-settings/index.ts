@@ -72,17 +72,31 @@ serve(async (req: Request): Promise<Response> => {
       const properties = Array.isArray(apiData) ? apiData : (apiData.data || []);
       
       for (const property of properties) {
-        // Beds24 v2 API returns roomTypes array (NOT rooms)
-        const roomTypes = property.roomTypes || [];
-        for (const room of roomTypes) {
-          // roomTypes have 'id' and 'name' fields
-          const roomId = room.id || room.roomId;
-          const roomName = room.name || room.roomName;
+        // Beds24 v2 can include both roomTypes and rooms depending on account/config
+        const roomTypes = Array.isArray(property.roomTypes) ? property.roomTypes : [];
+        const rooms = Array.isArray(property.rooms) ? property.rooms : [];
+
+        // roomTypes (often used for marketing/public names)
+        for (const rt of roomTypes) {
+          const name = rt?.name || rt?.roomName;
+          const ids = [rt?.id, rt?.roomId].filter(Boolean);
+          if (!name) continue;
+          for (const id of ids) {
+            roomNames[String(id)] = name;
+            console.log(`Room: ${id} -> ${name}`);
+          }
+        }
+
+        // rooms (often contain the actual booking roomId)
+        for (const room of rooms) {
+          const roomId = room?.roomId || room?.id;
+          const roomName = room?.name || room?.roomName || property?.name;
           if (roomId && roomName) {
             roomNames[String(roomId)] = roomName;
             console.log(`Room: ${roomId} -> ${roomName}`);
           }
         }
+
         // Also add the property itself if it has an ID (for backwards compatibility)
         const propId = property.id || property.propertyId;
         const propName = property.name;
