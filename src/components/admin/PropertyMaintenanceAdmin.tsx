@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -13,7 +13,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
 
 interface PropertyMaintenance {
   property_id: string;
@@ -38,21 +37,11 @@ interface PropertyMaintenanceAdminProps {
 const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdminProps) => {
   const [properties, setProperties] = useState<PropertyMaintenance[]>([]);
   const [propertyNames, setPropertyNames] = useState<Map<string, string>>(new Map());
-  const [beds24NameMap, setBeds24NameMap] = useState<Map<string, string>>(new Map());
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [editedProperties, setEditedProperties] = useState<Map<string, Partial<PropertyMaintenance>>>(new Map());
   const { toast } = useToast();
-
-  // Build default name map from propertyDetails.ts
-  const defaultNameMap = useMemo(() => {
-    const map = new Map<string, string>();
-    for (const prop of getAllDefaultPropertyDetails()) {
-      map.set(prop.id, prop.name);
-    }
-    return map;
-  }, []);
 
   useEffect(() => {
     fetchData();
@@ -61,16 +50,18 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      // Fetch property names from property_settings (marketing names)
+      // Fetch property names from property_settings (marketing names) - this is the source of truth
       const { data: settingsData } = await supabase
         .from('property_settings')
         .select('property_id, marketing_name');
       
       const nameMap = new Map<string, string>();
+      const validPropertyIds = new Set<string>();
       for (const s of (settingsData || [])) {
         if (s.marketing_name) {
           nameMap.set(s.property_id, s.marketing_name);
         }
+        validPropertyIds.add(s.property_id);
       }
       setPropertyNames(nameMap);
 
@@ -82,20 +73,12 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
       if (error) throw error;
 
       const loadedProperties = maintenanceResult?.properties || [];
-      setProperties(loadedProperties);
-
-      // Fetch Beds24 room names
-      const { data: roomNamesResult } = await supabase.functions.invoke('maintenance-settings', {
-        body: { action: 'get_room_names' }
-      });
-
-      if (roomNamesResult?.roomNames) {
-        const beds24Map = new Map<string, string>();
-        for (const [id, name] of Object.entries(roomNamesResult.roomNames)) {
-          beds24Map.set(id, name as string);
-        }
-        setBeds24NameMap(beds24Map);
-      }
+      
+      // Filter to only show properties that exist in property_settings (Huoneistojen hallinta)
+      const filteredProperties = loadedProperties.filter((p: PropertyMaintenance) => 
+        validPropertyIds.has(p.property_id)
+      );
+      setProperties(filteredProperties);
     } catch (error) {
       console.error('Error fetching data:', error);
       toast({
@@ -178,22 +161,10 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
   };
 
   const getPropertyName = (propertyId: string) => {
-    // Priority: 1) DB marketing_name (from Huoneistot page), 2) Beds24 API name, 3) default from propertyDetails, 4) show ID
+    // Use marketing name from property_settings (Huoneistojen hallinta)
     const marketingName = propertyNames.get(propertyId);
     if (marketingName) return marketingName;
-    
-    const beds24Name = beds24NameMap.get(propertyId);
-    if (beds24Name) return beds24Name;
-    
-    const defaultName = defaultNameMap.get(propertyId);
-    if (defaultName) return defaultName;
-    
     return `ID: ${propertyId}`;
-  };
-
-  // Check if property is missing a marketing name (shows with "ID:" prefix)
-  const isMissingMarketingName = (propertyId: string) => {
-    return !propertyNames.get(propertyId) && !defaultNameMap.get(propertyId);
   };
 
   const filteredProperties = properties.filter(p => {
@@ -265,14 +236,11 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
               </TableHeader>
               <TableBody>
                 {filteredProperties.map((property) => (
-                  <TableRow key={property.property_id} className={isMissingMarketingName(property.property_id) ? "bg-amber-500/5" : ""}>
+                  <TableRow key={property.property_id}>
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
-                        {isMissingMarketingName(property.property_id) && (
-                          <span className="text-amber-500 text-xs" title="Puuttuva markkinointinimi - lisää se Huoneistot-sivulla">⚠️</span>
-                        )}
                         <div>
-                          <span className={`text-sm ${isMissingMarketingName(property.property_id) ? "text-amber-600" : ""}`}>
+                          <span className="text-sm">
                             {getPropertyName(property.property_id)}
                           </span>
                           <span className="ml-1 text-xs text-muted-foreground font-mono">({property.property_id})</span>
@@ -323,15 +291,10 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
             </Table>
           </div>
 
-          <div className="flex items-center justify-between mt-4">
+          <div className="mt-4">
             <p className="text-sm text-muted-foreground">
               Näytetään {filteredProperties.length} / {properties.length} huoneistoa
             </p>
-            {properties.filter(p => isMissingMarketingName(p.property_id)).length > 0 && (
-              <p className="text-sm text-amber-600">
-                ⚠️ {properties.filter(p => isMissingMarketingName(p.property_id)).length} huoneistolta puuttuu markkinointinimi
-              </p>
-            )}
           </div>
         </CardContent>
       </Card>
