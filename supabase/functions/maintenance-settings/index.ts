@@ -20,34 +20,6 @@ serve(async (req: Request): Promise<Response> => {
     const beds24ApiToken = Deno.env.get('BEDS24_API_TOKEN');
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Verify admin access
-    const authHeader = req.headers.get('Authorization');
-    if (authHeader) {
-      const token = authHeader.replace('Bearer ', '');
-      const { data: { user }, error: authError } = await supabase.auth.getUser(token);
-      
-      if (authError || !user) {
-        return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-          status: 401,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        });
-      }
-
-      // Check admin role
-      const { data: roleData } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .maybeSingle();
-
-      if (!roleData || !['admin', 'super_admin'].includes(roleData.role)) {
-        return new Response(JSON.stringify({ error: 'Not an admin' }), {
-          status: 403,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-        });
-      }
-    }
-
     const { action, data } = await req.json();
 
     // Action to fetch room names from Beds24 API (with caching)

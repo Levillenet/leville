@@ -177,17 +177,22 @@ async function getFullDeviceDetails(
 }
 
 /**
- * Determine operating state using outdoor temperature changes for defrost detection.
+ * Determine operating state using ROOM temperature changes for defrost detection.
  * 
- * Key insight: During defrost, the outdoor unit's heat exchanger is warmed,
- * which causes the outdoor temperature sensor to suddenly read 4-7°C higher.
- * When defrost ends, the temperature drops back down.
+ * Algorithm:
+ * - DEFROST START: Room temperature drops >= 2°C from previous reading
+ * - DEFROST END: Room temperature starts rising again
+ * 
+ * This is more reliable than outdoor temperature changes because:
+ * 1. At mild freezing temps (-5 to 0°C), outdoor sensor barely changes during defrost
+ * 2. Room temp always drops during defrost as heating stops
+ * 3. Room temp rise clearly indicates defrost has ended and heating resumed
  */
 function determineOperatingState(
   device: Device['Device'],
   lastKnownState: string,
   previousRoomTemp: number | null,
-  previousOutdoorTemp: number | null
+  _previousOutdoorTemp: number | null // Kept for interface compatibility, not used
 ): OperatingState {
   const lastComm = new Date(device.LastCommunication);
   const now = new Date();
@@ -201,41 +206,36 @@ function determineOperatingState(
     return 'OFF';
   }
 
-  const outdoorTemp = device.OutdoorTemperature ?? null;
+  const currentRoomTemp = device.RoomTemperature;
 
-  // PRIMARY SIGNAL: Sudden outdoor temperature rise = defrost starting
-  if (previousOutdoorTemp !== null && outdoorTemp !== null) {
-    const outdoorTempChange = outdoorTemp - previousOutdoorTemp;
+  // DEFROST DETECTION BASED ON ROOM TEMPERATURE
+  
+  // 1. Room temperature sudden drop = defrost started
+  if (previousRoomTemp !== null && lastKnownState !== 'DEFROST') {
+    const roomTempDrop = previousRoomTemp - currentRoomTemp;
     
-    // Outdoor temp rose >= 4°C in ~5 minutes = DEFROST started
-    if (outdoorTempChange >= 4) {
-      console.log(`[DEFROST] Device ${device.DeviceID}: outdoor temp rose ${outdoorTempChange.toFixed(1)}°C (${previousOutdoorTemp}→${outdoorTemp}) - DEFROST DETECTED`);
+    // Room temp dropped >= 2°C = DEFROST
+    if (roomTempDrop >= 2) {
+      console.log(`[DEFROST] Device ${device.DeviceID}: room temp dropped ${roomTempDrop.toFixed(1)}°C (${previousRoomTemp.toFixed(1)}→${currentRoomTemp.toFixed(1)}) - DEFROST DETECTED`);
       return 'DEFROST';
-    }
-    
-    // Outdoor temp dropped >= 4°C from DEFROST state = defrost ended
-    if (outdoorTempChange <= -4 && lastKnownState === 'DEFROST') {
-      console.log(`[DEFROST] Device ${device.DeviceID}: outdoor temp dropped ${outdoorTempChange.toFixed(1)}°C - DEFROST ENDED`);
-      return 'HEATING';
     }
   }
 
-  // CONTINUATION: If last state was DEFROST and room temp still dropping, continue DEFROST
+  // 2. If previous state was DEFROST, check if defrost has ended
   if (lastKnownState === 'DEFROST') {
-    // Continue defrost if room temp is still below or equal to previous
-    if (previousRoomTemp !== null && device.RoomTemperature <= previousRoomTemp) {
-      console.log(`[DEFROST] Device ${device.DeviceID}: continuing defrost (room temp ${previousRoomTemp}→${device.RoomTemperature})`);
-      return 'DEFROST';
+    // Room temperature is rising = defrost ended, heating resumed
+    if (previousRoomTemp !== null && currentRoomTemp > previousRoomTemp) {
+      console.log(`[DEFROST] Device ${device.DeviceID}: room temp rising (${previousRoomTemp.toFixed(1)}→${currentRoomTemp.toFixed(1)}) - DEFROST ENDED`);
+      return 'HEATING';
     }
-    // Also continue if outdoor temp is still elevated (hasn't dropped back yet)
-    if (previousOutdoorTemp !== null && outdoorTemp !== null && outdoorTemp > previousOutdoorTemp - 2) {
-      console.log(`[DEFROST] Device ${device.DeviceID}: continuing defrost (outdoor temp still elevated)`);
-      return 'DEFROST';
-    }
+    
+    // Room temperature still dropping or stable = defrost continues
+    console.log(`[DEFROST] Device ${device.DeviceID}: continuing defrost (room temp ${previousRoomTemp?.toFixed(1) ?? '?'}→${currentRoomTemp.toFixed(1)})`);
+    return 'DEFROST';
   }
 
   // IDLE check: if target temperature is reached
-  const tempDebt = (device.SetTemperature ?? 0) - device.RoomTemperature;
+  const tempDebt = (device.SetTemperature ?? 0) - currentRoomTemp;
   if (tempDebt <= 0.5) {
     return 'IDLE';
   }
