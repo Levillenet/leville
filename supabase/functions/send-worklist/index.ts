@@ -72,8 +72,12 @@ serve(async (req: Request): Promise<Response> => {
         .eq('id', 'worklist_send_time')
         .maybeSingle();
 
-      const isEnabled = enabledSetting?.value === true || enabledSetting?.value === 'true';
-      const sendTime = timeSetting?.value || '19:00';
+      // Handle both object format { enabled: true } and direct boolean/string
+      const isEnabled = enabledSetting?.value?.enabled === true || 
+                        enabledSetting?.value === true || 
+                        enabledSetting?.value === 'true';
+      
+      console.log('Worklist enabled setting:', JSON.stringify(enabledSetting?.value), '-> isEnabled:', isEnabled);
 
       if (!isEnabled) {
         console.log('Worklist sending is disabled, skipping');
@@ -82,8 +86,25 @@ serve(async (req: Request): Promise<Response> => {
         });
       }
 
-      // Parse configured time
-      const [configHours, configMinutes] = sendTime.split(':').map(Number);
+      // Parse configured time - handle both object { hour: 17, minute: 0 } and string '17:00' formats
+      let configHours = 19;
+      let configMinutes = 0;
+
+      if (timeSetting?.value) {
+        if (typeof timeSetting.value === 'object' && 'hour' in timeSetting.value) {
+          // Object format: { hour: 17, minute: 0 }
+          configHours = timeSetting.value.hour;
+          configMinutes = timeSetting.value.minute ?? 0;
+        } else if (typeof timeSetting.value === 'string') {
+          // String format: '17:00'
+          const parts = timeSetting.value.split(':').map(Number);
+          configHours = parts[0] ?? 19;
+          configMinutes = parts[1] ?? 0;
+        }
+      }
+      
+      console.log('Time setting raw:', JSON.stringify(timeSetting?.value));
+      
       const helsinkiTime = getHelsinkiTime();
 
       console.log(`Cron check: Helsinki time ${helsinkiTime.hours}:${helsinkiTime.minutes}, configured time ${configHours}:${configMinutes}`);
