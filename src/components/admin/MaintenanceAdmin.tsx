@@ -11,6 +11,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, Send, Eye, Clock, Users, Home, LogOut, LogIn, CalendarIcon, Search, CheckCircle2, Mail } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
@@ -20,6 +21,7 @@ interface BookingInfo {
   propertyName?: string;
   guestCount: number;
   cleaningEmail?: string;
+  channel?: string;
 }
 
 interface DayBookings {
@@ -350,6 +352,27 @@ const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
     return propertyCleaningEmails.get(propertyId) || 'info@leville.net';
   };
 
+  // Get channel badge color
+  const getChannelBadge = (channel?: string) => {
+    if (!channel) return null;
+    
+    const variants: Record<string, { bg: string; text: string }> = {
+      'Booking.com': { bg: 'bg-blue-100', text: 'text-blue-800' },
+      'Airbnb': { bg: 'bg-pink-100', text: 'text-pink-800' },
+      'Suora varaus': { bg: 'bg-orange-100', text: 'text-orange-800' },
+      'Expedia': { bg: 'bg-yellow-100', text: 'text-yellow-800' },
+      'VRBO': { bg: 'bg-purple-100', text: 'text-purple-800' },
+    };
+    
+    const variant = variants[channel] || { bg: 'bg-gray-100', text: 'text-gray-800' };
+    
+    return (
+      <Badge variant="outline" className={`${variant.bg} ${variant.text} border-0 text-xs`}>
+        {channel}
+      </Badge>
+    );
+  };
+
   const formatSelectedDate = () => {
     return format(selectedDate, "EEEE d. MMMM yyyy", { locale: fi });
   };
@@ -465,6 +488,10 @@ const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
                         <Users className="w-4 h-4" />
                         {dep.guestCount} hlö
                       </span>
+                      {getChannelBadge(dep.channel)}
+                      {dep.channel === 'Suora varaus' && (
+                        <span className="text-xs text-orange-600">(tarkista hlö Moderista)</span>
+                      )}
                       {isCleaned ? (
                         <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
                           <CheckCircle2 className="w-3 h-3" />
@@ -524,6 +551,10 @@ const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
                       <Users className="w-4 h-4" />
                       {arr.guestCount} hlö
                     </span>
+                    {getChannelBadge(arr.channel)}
+                    {arr.channel === 'Suora varaus' && (
+                      <span className="text-xs text-orange-600">(tarkista hlö Moderista)</span>
+                    )}
                     <span className="bg-green-100 text-green-800 px-2 py-0.5 rounded text-xs">
                       {arr.guestCount} liinavaatesettiä
                     </span>

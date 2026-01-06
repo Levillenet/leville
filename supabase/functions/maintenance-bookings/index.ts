@@ -8,6 +8,7 @@ const corsHeaders = {
 interface BookingInfo {
   propertyId: string;
   guestCount: number;
+  channel: string;
 }
 
 interface DayBookings {
@@ -73,6 +74,18 @@ serve(async (req: Request): Promise<Response> => {
     const departuresData = await departuresResponse.json();
     console.log(`Departures count: ${departuresData?.data?.length || (Array.isArray(departuresData) ? departuresData.length : 0)}`);
 
+    // Helper to get channel name from apiSource
+    const getChannelName = (apiSource: string | undefined): string => {
+      if (!apiSource) return '';
+      const source = apiSource.toLowerCase();
+      if (source === 'booking' || source.includes('booking')) return 'Booking.com';
+      if (source === 'airbnb' || source.includes('airbnb')) return 'Airbnb';
+      if (source === 'direct' || source === 'bookingpage') return 'Suora varaus';
+      if (source === 'expedia' || source.includes('expedia')) return 'Expedia';
+      if (source === 'vrbo' || source.includes('vrbo')) return 'VRBO';
+      return apiSource; // Return as-is if unknown
+    };
+
     // Process arrivals - v2 API returns data in 'data' array
     // IMPORTANT: Use roomId (our apartment ID) not propertyId (Beds24 internal ID)
     const arrivals: BookingInfo[] = [];
@@ -87,7 +100,8 @@ serve(async (req: Request): Promise<Response> => {
           const numChild = parseInt(booking.numChild || booking.children || '0', 10);
           arrivals.push({
             propertyId: String(propertyId),
-            guestCount: numAdult + numChild
+            guestCount: numAdult + numChild,
+            channel: getChannelName(booking.apiSource)
           });
         }
       }
@@ -105,7 +119,8 @@ serve(async (req: Request): Promise<Response> => {
           const numChild = parseInt(booking.numChild || booking.children || '0', 10);
           departures.push({
             propertyId: String(propertyId),
-            guestCount: numAdult + numChild
+            guestCount: numAdult + numChild,
+            channel: getChannelName(booking.apiSource)
           });
         }
       }
