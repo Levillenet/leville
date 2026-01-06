@@ -123,8 +123,15 @@ const Admin = () => {
 
   const fetchStats = async () => {
     try {
+      const storedPassword = localStorage.getItem('admin_password');
+      
+      if (!storedPassword) {
+        console.log('No admin password stored, skipping stats fetch');
+        return;
+      }
+      
       const { data, error } = await supabase.functions.invoke('get-download-stats', {
-        body: {}
+        body: { password: storedPassword }
       });
 
       if (error) {
