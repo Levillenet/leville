@@ -24,6 +24,16 @@ interface PropertySettings {
   marketing_name: string | null;
 }
 
+// Helper to get current time in Helsinki timezone
+function getHelsinkiTime(): { hours: number; minutes: number } {
+  const now = new Date();
+  const helsinkiTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Helsinki' }));
+  return {
+    hours: helsinkiTime.getHours(),
+    minutes: helsinkiTime.getMinutes()
+  };
+}
+
 serve(async (req: Request): Promise<Response> => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -45,7 +55,49 @@ serve(async (req: Request): Promise<Response> => {
     const resend = new Resend(resendApiKey);
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { preview, targetDate: customDate } = await req.json().catch(() => ({}));
+    const { preview, targetDate: customDate, cronCheck } = await req.json().catch(() => ({}));
+
+    // If this is a cron check, verify if it's the right time to send
+    if (cronCheck) {
+      // Fetch worklist settings
+      const { data: enabledSetting } = await supabase
+        .from('maintenance_settings')
+        .select('value')
+        .eq('id', 'worklist_enabled')
+        .maybeSingle();
+      
+      const { data: timeSetting } = await supabase
+        .from('maintenance_settings')
+        .select('value')
+        .eq('id', 'worklist_send_time')
+        .maybeSingle();
+
+      const isEnabled = enabledSetting?.value === true || enabledSetting?.value === 'true';
+      const sendTime = timeSetting?.value || '19:00';
+
+      if (!isEnabled) {
+        console.log('Worklist sending is disabled, skipping');
+        return new Response(JSON.stringify({ skipped: true, reason: 'disabled' }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      // Parse configured time
+      const [configHours, configMinutes] = sendTime.split(':').map(Number);
+      const helsinkiTime = getHelsinkiTime();
+
+      console.log(`Cron check: Helsinki time ${helsinkiTime.hours}:${helsinkiTime.minutes}, configured time ${configHours}:${configMinutes}`);
+
+      // Check if current time matches configured time (exact minute match)
+      if (helsinkiTime.hours !== configHours || helsinkiTime.minutes !== configMinutes) {
+        console.log('Not the right time, skipping');
+        return new Response(JSON.stringify({ skipped: true, reason: 'not_scheduled_time' }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      console.log('Time matches! Proceeding with worklist send');
+    }
 
     // Calculate target date (tomorrow for evening sends, or custom date for preview)
     const now = new Date();
