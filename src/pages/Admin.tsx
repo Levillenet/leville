@@ -91,8 +91,11 @@ const Admin = () => {
         return;
       }
 
-      // Store role in localStorage
+      // Store role and password in localStorage
       localStorage.setItem('admin_role', data.role);
+      if (data.role === 'admin') {
+        localStorage.setItem('admin_password', password.trim());
+      }
       setUserRole(data.role);
       setIsAuthenticated(true);
       setPassword("");
@@ -137,6 +140,7 @@ const Admin = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('admin_role');
+    localStorage.removeItem('admin_password');
     setIsAuthenticated(false);
     setUserRole(null);
     setStats(null);

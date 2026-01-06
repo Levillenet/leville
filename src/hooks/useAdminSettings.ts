@@ -77,10 +77,11 @@ export const useAdminSettingsManager = () => {
   // Upsert property settings
   const upsertProperty = useMutation({
     mutationFn: async (propertyData: Partial<DbPropertySettings> & { property_id: string }) => {
+      const adminPassword = localStorage.getItem('admin_password');
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
           action: 'upsert_property', 
-          data: propertyData
+          data: { ...propertyData, password: adminPassword }
         }
       });
       
@@ -105,10 +106,11 @@ export const useAdminSettingsManager = () => {
   // Upsert period settings
   const upsertPeriod = useMutation({
     mutationFn: async (periodData: DbPeriodSettings) => {
+      const adminPassword = localStorage.getItem('admin_password');
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
           action: 'upsert_period', 
-          data: periodData
+          data: { ...periodData, password: adminPassword }
         }
       });
       
@@ -132,10 +134,11 @@ export const useAdminSettingsManager = () => {
   // Update ski pass capacity
   const updateCapacity = useMutation({
     mutationFn: async (capacityData: DbSkiPassCapacity) => {
+      const adminPassword = localStorage.getItem('admin_password');
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
           action: 'update_capacity', 
-          data: capacityData
+          data: { ...capacityData, password: adminPassword }
         }
       });
       
@@ -159,10 +162,11 @@ export const useAdminSettingsManager = () => {
   // Reset single property
   const resetProperty = useMutation({
     mutationFn: async (propertyId: string) => {
+      const adminPassword = localStorage.getItem('admin_password');
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
           action: 'reset_property', 
-          data: { property_id: propertyId }
+          data: { property_id: propertyId, password: adminPassword }
         }
       });
       
@@ -187,9 +191,11 @@ export const useAdminSettingsManager = () => {
   // Reset all settings
   const resetAll = useMutation({
     mutationFn: async () => {
+      const adminPassword = localStorage.getItem('admin_password');
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
-          action: 'reset_all'
+          action: 'reset_all',
+          data: { password: adminPassword }
         }
       });
       
@@ -214,10 +220,11 @@ export const useAdminSettingsManager = () => {
   // Update site setting
   const updateSiteSetting = useMutation({
     mutationFn: async ({ settingId, value }: { settingId: string; value: any }) => {
+      const adminPassword = localStorage.getItem('admin_password');
       const { data, error } = await supabase.functions.invoke('admin-settings', {
         body: { 
           action: 'update_site_setting', 
-          data: { setting_id: settingId, value }
+          data: { setting_id: settingId, value, password: adminPassword }
         }
       });
       
