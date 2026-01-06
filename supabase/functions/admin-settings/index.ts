@@ -31,45 +31,11 @@ interface SkiPassCapacity {
   max_passes: number;
 }
 
-// Helper function to check if user is admin
-async function isUserAdmin(supabase: any, authHeader: string | null): Promise<{ isAdmin: boolean; userId: string | null }> {
-  if (!authHeader) {
-    return { isAdmin: false, userId: null };
-  }
-
-  try {
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
-    
-    // Create a client with the user's JWT
-    const userClient = createClient(supabaseUrl, supabaseAnonKey, {
-      global: {
-        headers: { Authorization: authHeader }
-      }
-    });
-    
-    const { data: { user }, error: userError } = await userClient.auth.getUser();
-    
-    if (userError || !user) {
-      console.log('Failed to get user from auth header:', userError);
-      return { isAdmin: false, userId: null };
-    }
-    
-    // Check if user has admin role using service role client
-    const { data: role } = await supabase
-      .from('user_roles')
-      .select('role')
-      .eq('user_id', user.id)
-      .single();
-    
-    const isAdmin = role?.role === 'admin' || role?.role === 'super_admin';
-    console.log('User', user.email, 'is admin:', isAdmin);
-    
-    return { isAdmin, userId: user.id };
-  } catch (error) {
-    console.error('Error checking admin status:', error);
-    return { isAdmin: false, userId: null };
-  }
+// Helper function to check if password matches admin password
+function isPasswordAdmin(password: string | null): boolean {
+  if (!password) return false;
+  const adminPassword = Deno.env.get('ADMIN_PASSWORD');
+  return password === adminPassword;
 }
 
 Deno.serve(async (req) => {
@@ -85,14 +51,13 @@ Deno.serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
     
     const { action, data } = await req.json();
-    const authHeader = req.headers.get('Authorization');
     
-    // Verify admin for write operations
+    // Verify admin for write operations using password from data
     const writeActions = ['upsert_property', 'upsert_period', 'update_capacity', 'reset_property', 'reset_all', 'update_site_setting'];
     if (writeActions.includes(action)) {
-      const { isAdmin } = await isUserAdmin(supabase, authHeader);
-      if (!isAdmin) {
-        console.log('Admin auth failed for action:', action);
+      const password = data?.password;
+      if (!isPasswordAdmin(password)) {
+        console.log('Admin auth failed for action:', action, '- invalid password');
         return new Response(
           JSON.stringify({ error: 'Unauthorized - Admin access required' }),
           { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
