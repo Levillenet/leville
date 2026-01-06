@@ -10,6 +10,7 @@ const corsHeaders = {
 interface BookingInfo {
   propertyId: string;
   guestCount: number;
+  channel: string;
 }
 
 interface PropertyMaintenance {
@@ -96,6 +97,18 @@ serve(async (req: Request): Promise<Response> => {
 
     const beds24RoomNames: Record<string, string> = roomNamesCache?.data || {};
 
+    // Helper to get channel name from apiSource
+    const getChannelName = (apiSource: string | undefined): string => {
+      if (!apiSource) return '';
+      const source = apiSource.toLowerCase();
+      if (source === 'booking' || source.includes('booking')) return 'Booking.com';
+      if (source === 'airbnb' || source.includes('airbnb')) return 'Airbnb';
+      if (source === 'direct' || source === 'bookingpage') return 'Suora varaus';
+      if (source === 'expedia' || source.includes('expedia')) return 'Expedia';
+      if (source === 'vrbo' || source.includes('vrbo')) return 'VRBO';
+      return apiSource; // Return as-is if unknown
+    };
+
     // Process bookings - IMPORTANT: Use roomId (our apartment ID) not propertyId (Beds24 internal ID)
     const arrivals: BookingInfo[] = [];
     if (Array.isArray(arrivalsArray)) {
@@ -106,7 +119,8 @@ serve(async (req: Request): Promise<Response> => {
         if (propertyId) {
           arrivals.push({
             propertyId: String(propertyId),
-            guestCount: (parseInt(booking.numAdult || '0', 10) || 0) + (parseInt(booking.numChild || '0', 10) || 0)
+            guestCount: (parseInt(booking.numAdult || '0', 10) || 0) + (parseInt(booking.numChild || '0', 10) || 0),
+            channel: getChannelName(booking.apiSource)
           });
         }
       }
@@ -120,7 +134,8 @@ serve(async (req: Request): Promise<Response> => {
         if (propertyId) {
           departures.push({
             propertyId: String(propertyId),
-            guestCount: (parseInt(booking.numAdult || '0', 10) || 0) + (parseInt(booking.numChild || '0', 10) || 0)
+            guestCount: (parseInt(booking.numAdult || '0', 10) || 0) + (parseInt(booking.numChild || '0', 10) || 0),
+            channel: getChannelName(booking.apiSource)
           });
         }
       }
@@ -165,7 +180,7 @@ serve(async (req: Request): Promise<Response> => {
     };
 
     // Group by cleaning email
-    const emailGroups = new Map<string, { arrivals: Array<{name: string, id: string, guests: number}>, departures: Array<{name: string, id: string, guests: number}> }>();
+    const emailGroups = new Map<string, { arrivals: Array<{name: string, id: string, guests: number, channel: string}>, departures: Array<{name: string, id: string, guests: number, channel: string}> }>();
 
     for (const arrival of arrivals) {
       const maintenance = maintenanceMap.get(arrival.propertyId);
@@ -178,7 +193,8 @@ serve(async (req: Request): Promise<Response> => {
       emailGroups.get(cleaningEmail)!.arrivals.push({
         name: propertyName,
         id: arrival.propertyId,
-        guests: arrival.guestCount
+        guests: arrival.guestCount,
+        channel: arrival.channel
       });
     }
 
@@ -193,7 +209,8 @@ serve(async (req: Request): Promise<Response> => {
       emailGroups.get(cleaningEmail)!.departures.push({
         name: propertyName,
         id: departure.propertyId,
-        guests: departure.guestCount
+        guests: departure.guestCount,
+        channel: departure.channel
       });
     }
 
@@ -227,15 +244,18 @@ serve(async (req: Request): Promise<Response> => {
             <thead>
               <tr style="background: #fee2e2;">
                 <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Huoneisto</th>
+                <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Kanava</th>
                 <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Henkilömäärä</th>
               </tr>
             </thead>
             <tbody>
         `;
         for (const dep of data.departures) {
+          const channelNote = dep.channel === 'Suora varaus' ? `${dep.channel} <span style="color: #ea580c; font-size: 11px;">(tarkista henkilömäärä Moderista)</span>` : dep.channel;
           html += `
             <tr>
               <td style="padding: 8px; border: 1px solid #ddd;">${dep.name} <span style="color: #999; font-size: 11px;">(${dep.id})</span></td>
+              <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">${channelNote}</td>
               <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">${dep.guests} hlö</td>
             </tr>
           `;
@@ -250,6 +270,7 @@ serve(async (req: Request): Promise<Response> => {
             <thead>
               <tr style="background: #dcfce7;">
                 <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Huoneisto</th>
+                <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Kanava</th>
                 <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Henkilömäärä</th>
                 <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Liinavaatteet</th>
               </tr>
@@ -257,9 +278,11 @@ serve(async (req: Request): Promise<Response> => {
             <tbody>
         `;
         for (const arr of data.arrivals) {
+          const channelNote = arr.channel === 'Suora varaus' ? `${arr.channel} <span style="color: #ea580c; font-size: 11px;">(tarkista henkilömäärä Moderista)</span>` : arr.channel;
           html += `
             <tr>
               <td style="padding: 8px; border: 1px solid #ddd;">${arr.name} <span style="color: #999; font-size: 11px;">(${arr.id})</span></td>
+              <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">${channelNote}</td>
               <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">${arr.guests} hlö</td>
               <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">${arr.guests} settiä</td>
             </tr>
