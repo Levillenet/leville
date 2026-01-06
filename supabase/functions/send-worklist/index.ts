@@ -296,19 +296,14 @@ serve(async (req: Request): Promise<Response> => {
             <thead>
               <tr style="background: #fee2e2;">
                 <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Huoneisto</th>
-                <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Kanava</th>
-                <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Henkilömäärä</th>
               </tr>
             </thead>
             <tbody>
         `;
         for (const dep of data.departures) {
-          const channelNote = dep.channel === 'Suora varaus' ? `${dep.channel} <span style="color: #ea580c; font-size: 11px;">(tarkista henkilömäärä Moderista)</span>` : dep.channel;
           html += `
             <tr>
               <td style="padding: 8px; border: 1px solid #ddd;">${dep.name} <span style="color: #999; font-size: 11px;">(${dep.id})</span></td>
-              <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">${channelNote}</td>
-              <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">${dep.guests} hlö</td>
             </tr>
           `;
         }
