@@ -484,14 +484,6 @@ const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="flex items-center gap-1 text-sm text-muted-foreground">
-                        <Users className="w-4 h-4" />
-                        {dep.guestCount} hlö
-                      </span>
-                      {getChannelBadge(dep.channel)}
-                      {dep.channel === 'Suora varaus' && (
-                        <span className="text-xs text-orange-600">(tarkista hlö Moderista)</span>
-                      )}
                       {isCleaned ? (
                         <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
                           <CheckCircle2 className="w-3 h-3" />
