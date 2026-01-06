@@ -128,6 +128,26 @@ function getSupabaseClient() {
   );
 }
 
+// Fetch actual outdoor temperature from Open-Meteo for Levi
+async function fetchOutdoorTemperature(): Promise<number | null> {
+  try {
+    const response = await fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=67.8039&longitude=24.8081&current=temperature_2m'
+    );
+    if (!response.ok) {
+      console.error('Open-Meteo API error:', response.status);
+      return null;
+    }
+    const data = await response.json();
+    const temp = data.current?.temperature_2m ?? null;
+    console.log(`Open-Meteo outdoor temperature: ${temp}°C`);
+    return temp;
+  } catch (error) {
+    console.error('Failed to fetch outdoor temperature:', error);
+    return null;
+  }
+}
+
 async function login(): Promise<string> {
   const email = Deno.env.get('MELCLOUD_EMAIL');
   const password = Deno.env.get('MELCLOUD_PASSWORD');
@@ -351,6 +371,9 @@ function calculateEfficiencyInfo(
 async function getDevices(contextKey: string) {
   console.log('Fetching devices...');
   const supabase = getSupabaseClient();
+  
+  // Fetch actual outdoor temperature from Open-Meteo
+  const actualOutdoorTemperature = await fetchOutdoorTemperature();
 
   const response = await fetch(`${MELCLOUD_BASE_URL}/User/ListDevices`, {
     method: 'GET',
@@ -552,8 +575,8 @@ async function getDevices(contextKey: string) {
     // Calculate temperature debt
     const tempDebt = Math.max(0, setTemperature - roomTemperature);
 
-    // Get baselines for this device's current outdoor temp range
-    const outdoorTempRange = getOutdoorTempRange(outdoorTemperature);
+    // Get baselines for this device's current outdoor temp range (use actual Open-Meteo temp)
+    const outdoorTempRange = getOutdoorTempRange(actualOutdoorTemperature ?? outdoorTemperature);
     const deviceBaseline = baselineMap.get(`${deviceId}_${outdoorTempRange}`) || null;
     const fleetBaseline = fleetBaselineMap.get(outdoorTempRange) || null;
 
@@ -580,6 +603,7 @@ async function getDevices(contextKey: string) {
       roomTemperature,
       setTemperature,
       outdoorTemperature,
+      actualOutdoorTemperature, // Open-Meteo temperature for Levi
       power: fullDevice?.Power ?? device.Device.Power,
       operationMode: OPERATION_MODES[fullDevice?.OperationMode ?? device.Device.OperationMode] || 'unknown',
       operationModeId: fullDevice?.OperationMode ?? device.Device.OperationMode,
@@ -908,10 +932,10 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d', 
 
   const startDate = new Date(Date.now() - hoursAgo * 60 * 60 * 1000).toISOString();
 
-  // Fetch temperature history
+  // Fetch temperature history (include actual_outdoor_temp from Open-Meteo)
   const { data: history, error: historyError } = await supabase
     .from('heat_pump_history')
-    .select('room_temperature, set_temperature, outdoor_temperature, operating_state, fan_speed, power, recorded_at')
+    .select('room_temperature, set_temperature, outdoor_temperature, actual_outdoor_temp, operating_state, fan_speed, power, recorded_at')
     .eq('device_id', deviceId)
     .gte('recorded_at', startDate)
     .order('recorded_at', { ascending: true });
@@ -927,6 +951,7 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d', 
       room_temps: number[];
       set_temps: number[];
       outdoor_temps: number[];
+      actual_outdoor_temps: number[];
       states: string[];
       recorded_at: string;
     }>();
@@ -941,6 +966,7 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d', 
           room_temps: [],
           set_temps: [],
           outdoor_temps: [],
+          actual_outdoor_temps: [],
           states: [],
           recorded_at: hourKey,
         });
@@ -950,6 +976,7 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d', 
       bucket.room_temps.push(h.room_temperature);
       bucket.set_temps.push(h.set_temperature);
       if (h.outdoor_temperature !== null) bucket.outdoor_temps.push(h.outdoor_temperature);
+      if (h.actual_outdoor_temp !== null) bucket.actual_outdoor_temps.push(h.actual_outdoor_temp);
       bucket.states.push(h.operating_state);
     });
 
@@ -958,6 +985,9 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d', 
       set_temperature: bucket.set_temps.reduce((a, b) => a + b, 0) / bucket.set_temps.length,
       outdoor_temperature: bucket.outdoor_temps.length > 0 
         ? bucket.outdoor_temps.reduce((a, b) => a + b, 0) / bucket.outdoor_temps.length 
+        : null,
+      actual_outdoor_temp: bucket.actual_outdoor_temps.length > 0 
+        ? bucket.actual_outdoor_temps.reduce((a, b) => a + b, 0) / bucket.actual_outdoor_temps.length 
         : null,
       operating_state: bucket.states.includes('DEFROST') ? 'DEFROST' : bucket.states[0],
       recorded_at: bucket.recorded_at,

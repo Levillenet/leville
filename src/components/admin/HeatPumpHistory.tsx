@@ -32,6 +32,7 @@ interface HistoryPoint {
   room_temperature: number;
   set_temperature: number;
   outdoor_temperature: number | null;
+  actual_outdoor_temp: number | null; // Open-Meteo temperature
   operating_state: string;
   recorded_at: string;
 }
@@ -108,12 +109,12 @@ const HeatPumpHistory = ({ deviceId, deviceName, open, onOpenChange }: HeatPumpH
     return date.toLocaleDateString('fi-FI', { day: 'numeric', month: 'numeric' });
   };
 
-  // Process chart data
+  // Process chart data - prefer actual_outdoor_temp from Open-Meteo over MELCloud value
   const chartData = data?.history?.map((point) => ({
     time: point.recorded_at,
     roomTemp: point.room_temperature,
     setTemp: point.set_temperature,
-    outdoorTemp: point.outdoor_temperature,
+    outdoorTemp: point.actual_outdoor_temp ?? point.outdoor_temperature,
     isDefrost: point.operating_state === 'DEFROST' ? point.room_temperature : null,
   })) || [];
 
