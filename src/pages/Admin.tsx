@@ -61,10 +61,20 @@ const Admin = () => {
   // Check for existing session on mount
   useEffect(() => {
     const savedRole = localStorage.getItem('admin_role');
-    if (savedRole === 'admin' || savedRole === 'viewer') {
+    const savedPassword = localStorage.getItem('admin_password');
+    
+    // For admin role, require password to be stored as well
+    if (savedRole === 'admin' && savedPassword) {
       setUserRole(savedRole);
       setIsAuthenticated(true);
       fetchStats();
+    } else if (savedRole === 'viewer') {
+      setUserRole(savedRole);
+      setIsAuthenticated(true);
+    } else {
+      // Clear incomplete session
+      localStorage.removeItem('admin_role');
+      localStorage.removeItem('admin_password');
     }
     setIsLoading(false);
   }, []);
