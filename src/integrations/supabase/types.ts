@@ -343,6 +343,7 @@ export type Database = {
       }
       heat_pump_history: {
         Row: {
+          actual_outdoor_temp: number | null
           device_id: number
           fan_speed: number | null
           id: string
@@ -355,6 +356,7 @@ export type Database = {
           set_temperature: number | null
         }
         Insert: {
+          actual_outdoor_temp?: number | null
           device_id: number
           fan_speed?: number | null
           id?: string
@@ -367,6 +369,7 @@ export type Database = {
           set_temperature?: number | null
         }
         Update: {
+          actual_outdoor_temp?: number | null
           device_id?: number
           fan_speed?: number | null
           id?: string

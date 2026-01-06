@@ -472,6 +472,26 @@ async function setFanSpeed(
   }
 }
 
+// Fetch actual outdoor temperature from Open-Meteo for Levi
+async function fetchOutdoorTemperature(): Promise<number | null> {
+  try {
+    const response = await fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=67.8039&longitude=24.8081&current=temperature_2m'
+    );
+    if (!response.ok) {
+      console.error('[CRON] Open-Meteo API error:', response.status);
+      return null;
+    }
+    const data = await response.json();
+    const temp = data.current?.temperature_2m ?? null;
+    console.log(`[CRON] Open-Meteo outdoor temperature: ${temp}°C`);
+    return temp;
+  } catch (error) {
+    console.error('[CRON] Failed to fetch outdoor temperature:', error);
+    return null;
+  }
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -482,6 +502,10 @@ serve(async (req) => {
 
   try {
     const supabase = getSupabaseClient();
+    
+    // Fetch actual outdoor temperature from Open-Meteo (same for all devices in Levi)
+    const actualOutdoorTemp = await fetchOutdoorTemperature();
+    
     const contextKey = await login();
     const devices = await getDevices(contextKey);
 
@@ -596,6 +620,7 @@ serve(async (req) => {
       room_temperature: number;
       set_temperature: number;
       outdoor_temperature: number | null;
+      actual_outdoor_temp: number | null;
       operating_state: OperatingState;
       fan_speed: number;
       power: boolean;
@@ -661,14 +686,16 @@ serve(async (req) => {
         ? outdoorTemp - lastOutdoorTemp 
         : 0;
       console.log(`[CRON] ${deviceName}: outdoor ${lastOutdoorTemp?.toFixed(1) ?? '?'}→${outdoorTemp?.toFixed(1) ?? '?'}°C (${outdoorChange >= 0 ? '+' : ''}${outdoorChange.toFixed(1)}), room ${lastRoomTemp?.toFixed(1) ?? '?'}→${device.RoomTemperature.toFixed(1)}°C, state: ${lastKnownState}→${operatingState}`);
-      const outdoorTempRange = getOutdoorTempRange(device.OutdoorTemperature ?? null);
+      // Use actual outdoor temp from Open-Meteo for baselines instead of MELCloud's unreliable value
+      const outdoorTempRange = getOutdoorTempRange(actualOutdoorTemp ?? device.OutdoorTemperature ?? null);
 
-      // Store history (use actualFanSpeed for accurate logging)
+      // Store history (use actualFanSpeed for accurate logging, actualOutdoorTemp from Open-Meteo)
       historyInserts.push({
         device_id: deviceId,
         room_temperature: device.RoomTemperature,
         set_temperature: device.SetTemperature,
         outdoor_temperature: device.OutdoorTemperature ?? null,
+        actual_outdoor_temp: actualOutdoorTemp,
         operating_state: operatingState,
         fan_speed: actualFanSpeed,
         power: device.Power,

@@ -48,6 +48,7 @@ interface HeatPumpDevice {
   roomTemperature: number;
   setTemperature: number;
   outdoorTemperature: number | null;
+  actualOutdoorTemperature: number | null; // Open-Meteo temperature for Levi
   power: boolean;
   operationMode: string;
   operationModeId: number;
@@ -730,7 +731,11 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
                   </div>
                   <div className="text-center">
                     <p className="text-2xl sm:text-3xl font-bold text-muted-foreground">
-                      {device.outdoorTemperature !== null ? `${device.outdoorTemperature.toFixed(1)}°` : '–'}
+                      {device.actualOutdoorTemperature !== null 
+                        ? `${device.actualOutdoorTemperature.toFixed(1)}°` 
+                        : device.outdoorTemperature !== null 
+                          ? `${device.outdoorTemperature.toFixed(1)}°` 
+                          : '–'}
                     </p>
                     <p className="text-xs sm:text-sm text-muted-foreground">Ulko</p>
                   </div>
