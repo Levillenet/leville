@@ -56,3 +56,6 @@ verify_jwt = false
 
 [functions.homey-callback]
 verify_jwt = false
+
+[functions.homey-api]
+verify_jwt = false
