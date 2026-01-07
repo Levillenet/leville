@@ -274,7 +274,7 @@ async function getHomeySessionToken(homeyBaseUrl: string, delegationToken: strin
 }
 
 async function getDevices(accessToken: string): Promise<Response> {
-  // Step 1: Get Homey info from Athom Cloud
+  // Step 1: Get ALL Homeys from Athom Cloud
   const homeysResponse = await fetch('https://api.athom.com/homey', {
     headers: { 'Authorization': `Bearer ${accessToken}` },
   });
@@ -287,89 +287,122 @@ async function getDevices(accessToken: string): Promise<Response> {
 
   if (!homeys || homeys.length === 0) {
     return new Response(
-      JSON.stringify({ devices: [], message: 'No Homeys found' }),
+      JSON.stringify({ devices: [], homeys: [], message: 'No Homeys found' }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 
-  const homey = homeys[0] as HomeyInfo;
-  const homeyId = homey.id;
-  console.log('Homey info:', JSON.stringify(homey, null, 2));
+  console.log(`Found ${homeys.length} Homey(s):`, homeys.map((h: HomeyInfo & { name?: string }) => h.name || h.id));
 
-  const homeyBaseUrl = getHomeyBaseUrl(homey);
-  console.log('Using Homey base URL:', homeyBaseUrl);
+  // Collect devices from ALL Homeys
+  const allDevices: Record<string, unknown> = {};
+  const homeyInfos: { id: string; name: string }[] = [];
 
-  // Step 2: Get delegation token
-  const delegationToken = await getDelegationToken(accessToken);
+  for (const homey of homeys) {
+    try {
+      const homeyName = (homey as { name?: string }).name || homey.id;
+      console.log(`Fetching devices from ${homeyName}...`);
+      
+      const homeyBaseUrl = getHomeyBaseUrl(homey);
+      console.log('Using Homey base URL:', homeyBaseUrl);
 
-  // Step 3: Login to Homey and get session token
-  const sessionToken = await getHomeySessionToken(homeyBaseUrl, delegationToken);
+      // Get delegation token for this Homey
+      const delegationToken = await getDelegationToken(accessToken);
 
-  // Step 4: Get devices using session token
-  const devicesResponse = await fetch(`${homeyBaseUrl}/api/manager/devices/device`, {
-    headers: { 'Authorization': `Bearer ${sessionToken}` },
-  });
+      // Login to Homey and get session token
+      const sessionToken = await getHomeySessionToken(homeyBaseUrl, delegationToken);
 
-  if (!devicesResponse.ok) {
-    const errorText = await devicesResponse.text();
-    console.error('Failed to get devices:', devicesResponse.status, errorText);
-    throw new Error(`Failed to get devices: ${devicesResponse.status}`);
+      // Get devices using session token
+      const devicesResponse = await fetch(`${homeyBaseUrl}/api/manager/devices/device`, {
+        headers: { 'Authorization': `Bearer ${sessionToken}` },
+      });
+
+      if (!devicesResponse.ok) {
+        const errorText = await devicesResponse.text();
+        console.error(`Failed to get devices from ${homeyName}:`, devicesResponse.status, errorText);
+        continue; // Skip this Homey but continue with others
+      }
+
+      const devices = await devicesResponse.json();
+      const deviceCount = Object.keys(devices).length;
+      console.log(`Found ${deviceCount} devices from ${homeyName}`);
+
+      // Add homey info to each device and merge into allDevices
+      for (const [id, device] of Object.entries(devices)) {
+        allDevices[id] = {
+          ...(device as object),
+          homeyId: homey.id,
+          homeyName: homeyName,
+        };
+      }
+
+      homeyInfos.push({ id: homey.id, name: homeyName });
+    } catch (error) {
+      console.error(`Error fetching devices from Homey ${homey.id}:`, error);
+      // Continue with other Homeys
+    }
   }
 
-  const devices = await devicesResponse.json();
+  console.log(`Total devices from all Homeys: ${Object.keys(allDevices).length}`);
 
   return new Response(
-    JSON.stringify({ devices, homeyId }),
+    JSON.stringify({ devices: allDevices, homeys: homeyInfos }),
     { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
   );
 }
 
 async function getFloorHeatingDevices(accessToken: string): Promise<Response> {
-  // First get all devices
+  // First get all devices from all Homeys
   const devicesResult = await getDevices(accessToken);
   const devicesData = await devicesResult.json();
   
   if (!devicesData.devices) {
     return new Response(
-      JSON.stringify({ devices: [] }),
+      JSON.stringify({ devices: [], homeys: [] }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 
   // Filter for thermostat/floor heating devices
-  // Looking for devices with target_temperature and measure_temperature capabilities
-  const floorHeatingDevices: HomeyDevice[] = [];
+  interface DeviceWithHomey extends HomeyDevice {
+    homeyId?: string;
+    homeyName?: string;
+  }
   
-  for (const [id, device] of Object.entries(devicesData.devices as Record<string, HomeyDevice>)) {
-    const capabilities = (device as HomeyDevice).capabilities || [];
+  const floorHeatingDevices: DeviceWithHomey[] = [];
+  
+  for (const [id, device] of Object.entries(devicesData.devices as Record<string, DeviceWithHomey>)) {
+    const capabilities = device.capabilities || [];
     
     // Check if device has thermostat-like capabilities
     const hasTargetTemp = capabilities.includes('target_temperature');
     const hasMeasureTemp = capabilities.includes('measure_temperature');
     
     // Also check for specific thermostat classes
-    const isThermostat = (device as HomeyDevice).class === 'thermostat' || 
-                         (device as HomeyDevice).class === 'heater' ||
+    const isThermostat = device.class === 'thermostat' || 
+                         device.class === 'heater' ||
                          capabilities.includes('thermostat_mode');
     
     if ((hasTargetTemp || hasMeasureTemp) && (isThermostat || hasTargetTemp)) {
       floorHeatingDevices.push({
         id,
-        name: (device as HomeyDevice).name,
-        zone: (device as HomeyDevice).zone,
-        class: (device as HomeyDevice).class,
+        name: device.name,
+        zone: device.zone,
+        class: device.class,
         capabilities: capabilities,
-        capabilitiesObj: (device as HomeyDevice).capabilitiesObj || {},
+        capabilitiesObj: device.capabilitiesObj || {},
+        homeyId: device.homeyId,
+        homeyName: device.homeyName,
       });
     }
   }
 
-  console.log(`Found ${floorHeatingDevices.length} floor heating/thermostat devices`);
+  console.log(`Found ${floorHeatingDevices.length} floor heating/thermostat devices from ${devicesData.homeys?.length || 1} Homey(s)`);
 
   return new Response(
     JSON.stringify({ 
       devices: floorHeatingDevices,
-      homeyId: devicesData.homeyId 
+      homeys: devicesData.homeys || []
     }),
     { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
   );
@@ -379,9 +412,10 @@ async function setDeviceCapability(
   accessToken: string, 
   deviceId: string, 
   capability: string, 
-  value: unknown
+  value: unknown,
+  targetHomeyId?: string
 ): Promise<Response> {
-  // Step 1: Get Homey info
+  // Step 1: Get all Homeys
   const homeysResponse = await fetch('https://api.athom.com/homey', {
     headers: { 'Authorization': `Bearer ${accessToken}` },
   });
@@ -396,19 +430,49 @@ async function setDeviceCapability(
     throw new Error('No Homeys found');
   }
 
-  const homey = homeys[0] as HomeyInfo;
-  const homeyId = homey.id;
-  const homeyBaseUrl = getHomeyBaseUrl(homey);
+  // Find the correct Homey (by ID if provided, otherwise try first)
+  let homey: HomeyInfo | undefined;
+  
+  if (targetHomeyId) {
+    homey = homeys.find((h: HomeyInfo) => h.id === targetHomeyId);
+  }
+  
+  if (!homey) {
+    // Fallback: try all Homeys to find the device
+    for (const h of homeys) {
+      try {
+        const hInfo = h as HomeyInfo;
+        const baseUrl = getHomeyBaseUrl(hInfo);
+        const delToken = await getDelegationToken(accessToken);
+        const sessToken = await getHomeySessionToken(baseUrl, delToken);
+        
+        // Check if device exists on this Homey
+        const checkResponse = await fetch(`${baseUrl}/api/manager/devices/device/${deviceId}`, {
+          headers: { 'Authorization': `Bearer ${sessToken}` },
+        });
+        
+        if (checkResponse.ok) {
+          homey = hInfo;
+          break;
+        }
+      } catch {
+        continue;
+      }
+    }
+  }
+  
+  if (!homey) {
+    homey = homeys[0] as HomeyInfo;
+  }
 
-  console.log('Using Homey base URL:', homeyBaseUrl);
+  const homeyBaseUrl = getHomeyBaseUrl(homey);
+  console.log(`Setting ${capability} to ${value} on device ${deviceId} via ${homeyBaseUrl}`);
 
   // Step 2: Get delegation token
   const delegationToken = await getDelegationToken(accessToken);
 
   // Step 3: Login to Homey and get session token
   const sessionToken = await getHomeySessionToken(homeyBaseUrl, delegationToken);
-
-  console.log(`Setting ${capability} to ${value} on device ${deviceId} via ${homeyBaseUrl}`);
 
   // Step 4: Set capability using session token
   const setResponse = await fetch(
