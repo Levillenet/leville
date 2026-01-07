@@ -208,7 +208,8 @@ function buildAuthUrl(): string {
   const clientId = Deno.env.get('HOMEY_CLIENT_ID');
   const supabaseUrl = Deno.env.get('SUPABASE_URL');
   const redirectUri = `${supabaseUrl}/functions/v1/homey-callback`;
-  const scopes = 'homey.zone.readonly,homey.device.readonly,homey.device.control';
+  // Added homey.device.control.settings for Z-Wave device settings modification
+  const scopes = 'homey.zone.readonly,homey.device.readonly,homey.device.control,homey.device.control.settings';
   
   return `https://api.athom.com/oauth2/authorise?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scopes=${scopes}`;
 }
