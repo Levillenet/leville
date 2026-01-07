@@ -18,7 +18,8 @@ import {
   AlertTriangle,
   Building,
   TrendingUp,
-  TrendingDown
+  TrendingDown,
+  LogOut
 } from "lucide-react";
 
 interface FloorHeatingDevice {
@@ -438,15 +439,40 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
             {devices.length} laitetta / {groupedDevices.length} huoneistoa
           </p>
         </div>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={handleRefresh}
-          disabled={refreshing}
-        >
-          <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-          Päivitä
-        </Button>
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={handleRefresh}
+            disabled={refreshing}
+          >
+            <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+            Päivitä
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={async () => {
+              try {
+                const { data } = await supabase.functions.invoke('homey-api', {
+                  body: { action: 'logout' }
+                });
+                if (data?.authUrl) {
+                  window.open(data.authUrl, '_blank');
+                  toast({
+                    title: "Kirjaudu uudelleen",
+                    description: "Valitse kaikki Homeyt OAuth-sivulla"
+                  });
+                }
+              } catch (error) {
+                console.error('Logout error:', error);
+              }
+            }}
+            title="Kirjaudu uudelleen Homeyyn"
+          >
+            <LogOut className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
 
       {devices.length === 0 ? (

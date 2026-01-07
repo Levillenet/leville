@@ -94,6 +94,24 @@ serve(async (req) => {
       case 'getHomeys':
         return await getHomeys(tokens.access_token);
       
+      case 'logout':
+        // Delete stored tokens to force re-authentication
+        await supabase
+          .from('site_settings')
+          .delete()
+          .eq('id', 'homey_tokens');
+        
+        console.log('Homey tokens deleted, user needs to re-authenticate');
+        
+        return new Response(
+          JSON.stringify({ 
+            success: true, 
+            message: 'Logged out from Homey',
+            authUrl: buildAuthUrl()
+          }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      
       default:
         return new Response(
           JSON.stringify({ error: 'Unknown action' }),
