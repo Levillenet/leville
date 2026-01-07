@@ -726,11 +726,11 @@ async function setDeviceSettings(
 ): Promise<Response> {
   // Find the token for the target Homey
   let token: HomeyToken | undefined;
-  
+
   if (targetHomeyId) {
     token = tokens.find(t => t.homeyId === targetHomeyId);
   }
-  
+
   if (!token) {
     // Try to find which Homey has this device
     for (const t of tokens) {
@@ -738,22 +738,23 @@ async function setDeviceSettings(
         const homeysResponse = await fetch('https://api.athom.com/homey', {
           headers: { 'Authorization': `Bearer ${t.access_token}` },
         });
-        
+
         if (!homeysResponse.ok) continue;
-        
+
         const homeys = await homeysResponse.json();
         if (!homeys || homeys.length === 0) continue;
-        
-        const homey = homeys[0] as HomeyInfo;
+
+        // Select correct Homey for this token (important for multi-Homey accounts)
+        const homey = (homeys as HomeyInfo[]).find(h => (h._id || h.id) === t.homeyId) || homeys[0] as HomeyInfo;
         const baseUrl = getHomeyBaseUrl(homey);
         const delToken = await getDelegationToken(t.access_token);
         const sessToken = await getHomeySessionToken(baseUrl, delToken);
-        
+
         // Check if device exists on this Homey
         const checkResponse = await fetch(`${baseUrl}/api/manager/devices/device/${deviceId}`, {
           headers: { 'Authorization': `Bearer ${sessToken}` },
         });
-        
+
         if (checkResponse.ok) {
           token = t;
           break;
@@ -763,7 +764,7 @@ async function setDeviceSettings(
       }
     }
   }
-  
+
   if (!token) {
     throw new Error('Could not find Homey for this device');
   }
@@ -782,7 +783,8 @@ async function setDeviceSettings(
     throw new Error('No Homey found');
   }
 
-  const homey = homeys[0] as HomeyInfo;
+  // Select the correct Homey based on token.homeyId (multi-Homey safe)
+  const homey = (homeys as HomeyInfo[]).find(h => (h._id || h.id) === token.homeyId) || homeys[0] as HomeyInfo;
   const homeyBaseUrl = getHomeyBaseUrl(homey);
   console.log(`Setting settings on device ${deviceId} via ${homeyBaseUrl}:`, settings);
 
@@ -808,6 +810,20 @@ async function setDeviceSettings(
   if (!setResponse.ok) {
     const errorText = await setResponse.text();
     console.error('Failed to set device settings:', setResponse.status, errorText);
+
+    // If token is missing the required scope (homey.device.control.settings), ask for re-auth
+    if (setResponse.status === 403 && /Missing Scopes/i.test(errorText)) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          needsAuth: true,
+          authUrl: buildAuthUrl(),
+          error: 'Missing Scopes',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     throw new Error(`Failed to set device settings: ${errorText}`);
   }
 
