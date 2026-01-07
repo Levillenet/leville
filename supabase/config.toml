@@ -53,3 +53,6 @@ verify_jwt = false
 
 [functions.get-cleaning-status]
 verify_jwt = false
+
+[functions.homey-callback]
+verify_jwt = false
