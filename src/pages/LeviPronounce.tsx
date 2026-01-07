@@ -28,11 +28,28 @@ const LeviPronounce = () => {
   return (
     <>
       <Helmet>
+        <html lang="en" />
         <title>How to Pronounce Levi - Finnish Lapland Ski Resort | Leville.net</title>
         <meta 
           name="description" 
           content="Learn how to correctly pronounce Levi, the famous ski resort in Finnish Lapland. Listen to the authentic Finnish pronunciation and learn about Finnish phonetics." 
         />
+        <link rel="canonical" href="https://leville.net/levi-pronounce" />
+        
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://leville.net/levi-pronounce" />
+        <meta property="og:title" content="How to Pronounce Levi - Finnish Lapland" />
+        <meta property="og:description" content="Learn the correct Finnish pronunciation of Levi ski resort. Listen to audio and learn about Finnish phonetics." />
+        <meta property="og:image" content="https://leville.net/og-image.png" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Leville.net" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="How to Pronounce Levi - Finnish Lapland" />
+        <meta name="twitter:description" content="Learn the correct Finnish pronunciation of Levi ski resort." />
+        <meta name="twitter:image" content="https://leville.net/og-image.png" />
       </Helmet>
 
       <Header />
