@@ -549,7 +549,7 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
                                 <Thermometer className="w-4 h-4 mx-auto mb-1 text-blue-500" />
                                 <p className="text-xl font-bold">{airTemp.toFixed(1)}°C</p>
                                 <p className="text-xs text-muted-foreground">Ilma</p>
-                                {stats?.air.min !== null && stats?.air.max !== null && (
+                                {stats?.air?.min != null && stats?.air?.max != null && (
                                   <div className="flex items-center justify-center gap-1 mt-1 text-xs text-muted-foreground">
                                     <TrendingDown className="w-3 h-3 text-blue-400" />
                                     <span>{stats.air.min.toFixed(1)}</span>
@@ -565,7 +565,7 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
                                 <ThermometerSun className="w-4 h-4 mx-auto mb-1 text-orange-500" />
                                 <p className="text-xl font-bold">{floorTemp.toFixed(1)}°C</p>
                                 <p className="text-xs text-muted-foreground">Lattia</p>
-                                {stats?.floor.min !== null && stats?.floor.max !== null && (
+                                {stats?.floor?.min != null && stats?.floor?.max != null && (
                                   <div className="flex items-center justify-center gap-1 mt-1 text-xs text-muted-foreground">
                                     <TrendingDown className="w-3 h-3 text-blue-400" />
                                     <span>{stats.floor.min.toFixed(1)}</span>
