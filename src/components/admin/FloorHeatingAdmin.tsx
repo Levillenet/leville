@@ -482,7 +482,7 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
       
       for (const { deviceId, homeyId } of deviceIds) {
         try {
-          const { error } = await supabase.functions.invoke('homey-api', {
+          const { data, error } = await supabase.functions.invoke('homey-api', {
             body: {
               action: 'setDeviceSettings',
               deviceId,
@@ -493,19 +493,32 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
 
           if (error) {
             failCount++;
-          } else {
-            successCount++;
-            // Update local state
-            setDevices(prev => prev.map(d => {
-              if (d.id === deviceId) {
-                return {
-                  ...d,
-                  settings: { ...d.settings, ...settings }
-                };
-              }
-              return d;
-            }));
+            continue;
           }
+
+          if (data?.needsAuth) {
+            setNeedsAuth(true);
+            setAuthUrl(data.authUrl);
+            toast({
+              title: "Homey-yhteys vaatii uudelleenvaltuutuksen",
+              description: "Puuttuvat käyttöoikeudet (homey.device.control.settings). Yhdistä Homey uudelleen.",
+              variant: "destructive",
+            });
+            // Stop bulk run; user needs to re-auth first.
+            break;
+          }
+
+          successCount++;
+          // Update local state
+          setDevices(prev => prev.map(d => {
+            if (d.id === deviceId) {
+              return {
+                ...d,
+                settings: { ...d.settings, ...settings }
+              };
+            }
+            return d;
+          }));
         } catch {
           failCount++;
         }
