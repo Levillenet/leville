@@ -19,7 +19,8 @@ import {
   Building,
   TrendingUp,
   TrendingDown,
-  LogOut
+  Plus,
+  Trash2
 } from "lucide-react";
 
 interface FloorHeatingDevice {
@@ -66,6 +67,10 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
   const [updatingDevice, setUpdatingDevice] = useState<string | null>(null);
   const [deviceStats, setDeviceStats] = useState<Record<string, DeviceStats>>({});
   
+  // Connected Homeys state
+  const [connectedHomeys, setConnectedHomeys] = useState<{ id: string; name: string; expires_at: string }[]>([]);
+  const [removingHomey, setRemovingHomey] = useState<string | null>(null);
+  
   // Bulk selection state
   const [selectedDevices, setSelectedDevices] = useState<string[]>([]);
   const [bulkTemperature, setBulkTemperature] = useState<number>(22);
@@ -74,9 +79,27 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
   const { toast } = useToast();
 
   useEffect(() => {
+    fetchConnectedHomeys();
     fetchDevices();
     fetchDeviceStats();
   }, []);
+
+  const fetchConnectedHomeys = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('homey-api', {
+        body: { action: 'getConnectedHomeys' }
+      });
+
+      if (error) {
+        console.error('Error fetching connected Homeys:', error);
+        return;
+      }
+
+      setConnectedHomeys(data.homeys || []);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const fetchDevices = async () => {
     try {
@@ -164,12 +187,70 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
 
   const handleRefresh = async () => {
     setRefreshing(true);
-    await Promise.all([fetchDevices(), fetchDeviceStats()]);
+    await Promise.all([fetchConnectedHomeys(), fetchDevices(), fetchDeviceStats()]);
     setRefreshing(false);
     toast({
       title: "Päivitetty",
       description: "Laitteiden tiedot päivitetty"
     });
+  };
+
+  const handleAddHomey = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('homey-api', {
+        body: { action: 'addHomey' }
+      });
+
+      if (error) throw error;
+
+      if (data?.authUrl) {
+        window.open(data.authUrl, '_blank');
+        toast({
+          title: "Lisää Homey",
+          description: "Valitse Homey OAuth-sivulla ja palaa takaisin"
+        });
+      }
+    } catch (error) {
+      console.error('Add Homey error:', error);
+      toast({
+        title: "Virhe",
+        description: "Homeyn lisääminen epäonnistui",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleRemoveHomey = async (homeyId: string, homeyName: string) => {
+    if (!confirm(`Haluatko varmasti poistaa Homeyn "${homeyName}"?`)) return;
+    
+    try {
+      setRemovingHomey(homeyId);
+      const { error } = await supabase.functions.invoke('homey-api', {
+        body: { action: 'removeHomey', homeyIdToRemove: homeyId }
+      });
+
+      if (error) throw error;
+
+      // Update local state
+      setConnectedHomeys(prev => prev.filter(h => h.id !== homeyId));
+      
+      // Refresh devices
+      await fetchDevices();
+      
+      toast({
+        title: "Homey poistettu",
+        description: `${homeyName} poistettu onnistuneesti`
+      });
+    } catch (error) {
+      console.error('Remove Homey error:', error);
+      toast({
+        title: "Virhe",
+        description: "Homeyn poistaminen epäonnistui",
+        variant: "destructive"
+      });
+    } finally {
+      setRemovingHomey(null);
+    }
   };
 
   const handleSetTemperature = async (deviceId: string, temperature: number, homeyId?: string) => {
@@ -432,6 +513,63 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
 
   return (
     <div className="space-y-6">
+      {/* Connected Homeys section */}
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Home className="w-5 h-5" />
+                Yhdistetyt Homeyt ({connectedHomeys.length})
+              </CardTitle>
+              <CardDescription>
+                Hallitse Homey-laitteitasi
+              </CardDescription>
+            </div>
+            <Button size="sm" onClick={handleAddHomey}>
+              <Plus className="w-4 h-4 mr-2" />
+              Lisää Homey
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {connectedHomeys.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center py-4">
+              Ei yhdistettyjä Homeyta. Lisää ensimmäinen Homey aloittaaksesi.
+            </p>
+          ) : (
+            <div className="space-y-2">
+              {connectedHomeys.map(homey => (
+                <div key={homey.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-green-500" />
+                    <span className="font-medium">{homey.name}</span>
+                    <span className="text-xs text-muted-foreground">
+                      ID: {homey.id.slice(0, 8)}...
+                    </span>
+                  </div>
+                  {!isViewer && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleRemoveHomey(homey.id, homey.name)}
+                      disabled={removingHomey === homey.id}
+                    >
+                      {removingHomey === homey.id ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Trash2 className="w-4 h-4 text-destructive" />
+                      )}
+                    </Button>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Devices header */}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold">Lattialämmitys</h2>
@@ -439,40 +577,15 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
             {devices.length} laitetta / {groupedDevices.length} huoneistoa
           </p>
         </div>
-        <div className="flex gap-2">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={handleRefresh}
-            disabled={refreshing}
-          >
-            <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-            Päivitä
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={async () => {
-              try {
-                const { data } = await supabase.functions.invoke('homey-api', {
-                  body: { action: 'logout' }
-                });
-                if (data?.authUrl) {
-                  window.open(data.authUrl, '_blank');
-                  toast({
-                    title: "Kirjaudu uudelleen",
-                    description: "Valitse kaikki Homeyt OAuth-sivulla"
-                  });
-                }
-              } catch (error) {
-                console.error('Logout error:', error);
-              }
-            }}
-            title="Kirjaudu uudelleen Homeyyn"
-          >
-            <LogOut className="w-4 h-4" />
-          </Button>
-        </div>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={handleRefresh}
+          disabled={refreshing}
+        >
+          <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+          Päivitä
+        </Button>
       </div>
 
       {devices.length === 0 ? (

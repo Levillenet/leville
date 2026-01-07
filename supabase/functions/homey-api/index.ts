@@ -6,7 +6,21 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-interface HomeyTokens {
+interface HomeyToken {
+  homeyId: string;
+  homeyName: string;
+  access_token: string;
+  refresh_token: string;
+  expires_at: string;
+  token_type?: string;
+}
+
+interface StoredTokens {
+  tokens: HomeyToken[];
+}
+
+// Legacy format for migration
+interface LegacyTokens {
   access_token: string;
   refresh_token: string;
   expires_at: string;
@@ -41,6 +55,16 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+    const { action, deviceId, capability, value, targetHomeyId, homeyIdToRemove } = await req.json();
+
+    // Handle actions that don't need tokens first
+    if (action === 'addHomey') {
+      return new Response(
+        JSON.stringify({ authUrl: buildAuthUrl() }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     // Get stored tokens
     const { data: tokenData, error: tokenError } = await supabase
       .from('site_settings')
@@ -48,8 +72,74 @@ serve(async (req) => {
       .eq('id', 'homey_tokens')
       .single();
 
-    if (tokenError || !tokenData) {
-      console.error('No Homey tokens found:', tokenError);
+    // Parse tokens - handle both old and new format
+    let tokens: HomeyToken[] = [];
+    
+    if (tokenData?.value) {
+      const value = tokenData.value as Record<string, unknown>;
+      if (value.tokens && Array.isArray(value.tokens)) {
+        tokens = value.tokens as HomeyToken[];
+      } else if (value.access_token) {
+        // Legacy format - can't use without homeyId
+        console.log('Found legacy token format, requires re-authentication');
+      }
+    }
+
+    // Handle getConnectedHomeys - return list even if empty
+    if (action === 'getConnectedHomeys') {
+      return new Response(
+        JSON.stringify({ 
+          homeys: tokens.map(t => ({ id: t.homeyId, name: t.homeyName, expires_at: t.expires_at })),
+          count: tokens.length
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Handle removeHomey
+    if (action === 'removeHomey' && homeyIdToRemove) {
+      const updatedTokens = tokens.filter(t => t.homeyId !== homeyIdToRemove);
+      
+      await supabase
+        .from('site_settings')
+        .upsert({
+          id: 'homey_tokens',
+          value: { tokens: updatedTokens } as StoredTokens,
+          updated_at: new Date().toISOString(),
+        }, { onConflict: 'id' });
+
+      return new Response(
+        JSON.stringify({ 
+          success: true, 
+          message: 'Homey removed',
+          remainingCount: updatedTokens.length
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Handle logout - clear all tokens
+    if (action === 'logout') {
+      await supabase
+        .from('site_settings')
+        .delete()
+        .eq('id', 'homey_tokens');
+      
+      console.log('All Homey tokens deleted');
+      
+      return new Response(
+        JSON.stringify({ 
+          success: true, 
+          message: 'Logged out from all Homeys',
+          authUrl: buildAuthUrl()
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // For other actions, we need at least one token
+    if (tokens.length === 0) {
+      console.error('No Homey tokens found');
       return new Response(
         JSON.stringify({ 
           error: 'Homey ei ole yhdistetty', 
@@ -60,57 +150,31 @@ serve(async (req) => {
       );
     }
 
-    const tokens = tokenData.value as HomeyTokens;
-    
-    // Check if token is expired
-    if (new Date(tokens.expires_at) <= new Date()) {
-      console.log('Token expired, attempting refresh...');
-      const refreshedTokens = await refreshToken(tokens.refresh_token, supabaseUrl, supabaseServiceKey);
-      if (!refreshedTokens) {
-        return new Response(
-          JSON.stringify({ 
-            error: 'Token refresh failed', 
-            needsAuth: true,
-            authUrl: buildAuthUrl()
-          }),
-          { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 401 }
-        );
+    // Refresh expired tokens
+    for (let i = 0; i < tokens.length; i++) {
+      if (new Date(tokens[i].expires_at) <= new Date()) {
+        console.log(`Token expired for ${tokens[i].homeyName}, attempting refresh...`);
+        const refreshed = await refreshToken(tokens[i], supabaseUrl, supabaseServiceKey);
+        if (refreshed) {
+          tokens[i] = refreshed;
+        } else {
+          console.error(`Failed to refresh token for ${tokens[i].homeyName}`);
+        }
       }
-      tokens.access_token = refreshedTokens.access_token;
     }
-
-    const { action, deviceId, capability, value } = await req.json();
 
     switch (action) {
       case 'getDevices':
-        return await getDevices(tokens.access_token);
+        return await getDevices(tokens);
       
       case 'getFloorHeatingDevices':
-        return await getFloorHeatingDevices(tokens.access_token);
+        return await getFloorHeatingDevices(tokens);
       
       case 'setCapability':
-        return await setDeviceCapability(tokens.access_token, deviceId, capability, value);
+        return await setDeviceCapability(tokens, deviceId, capability, value, targetHomeyId);
       
       case 'getHomeys':
-        return await getHomeys(tokens.access_token);
-      
-      case 'logout':
-        // Delete stored tokens to force re-authentication
-        await supabase
-          .from('site_settings')
-          .delete()
-          .eq('id', 'homey_tokens');
-        
-        console.log('Homey tokens deleted, user needs to re-authenticate');
-        
-        return new Response(
-          JSON.stringify({ 
-            success: true, 
-            message: 'Logged out from Homey',
-            authUrl: buildAuthUrl()
-          }),
-          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
+        return await getHomeys(tokens);
       
       default:
         return new Response(
@@ -138,7 +202,7 @@ function buildAuthUrl(): string {
   return `https://api.athom.com/oauth2/authorise?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scopes=${scopes}`;
 }
 
-async function refreshToken(refreshTokenValue: string, supabaseUrl: string, supabaseServiceKey: string): Promise<HomeyTokens | null> {
+async function refreshToken(token: HomeyToken, supabaseUrl: string, supabaseServiceKey: string): Promise<HomeyToken | null> {
   try {
     const clientId = Deno.env.get('HOMEY_CLIENT_ID');
     const clientSecret = Deno.env.get('HOMEY_CLIENT_SECRET');
@@ -148,7 +212,7 @@ async function refreshToken(refreshTokenValue: string, supabaseUrl: string, supa
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({
         grant_type: 'refresh_token',
-        refresh_token: refreshTokenValue,
+        refresh_token: token.refresh_token,
         client_id: clientId!,
         client_secret: clientSecret!,
       }),
@@ -162,57 +226,87 @@ async function refreshToken(refreshTokenValue: string, supabaseUrl: string, supa
     const data = await response.json();
     const expiresAt = new Date(Date.now() + (data.expires_in * 1000)).toISOString();
 
-    const newTokens: HomeyTokens = {
+    const refreshedToken: HomeyToken = {
+      ...token,
       access_token: data.access_token,
-      refresh_token: data.refresh_token || refreshTokenValue,
+      refresh_token: data.refresh_token || token.refresh_token,
       expires_at: expiresAt,
       token_type: data.token_type,
     };
 
     // Update stored tokens
     const supabaseClient = createClient(supabaseUrl, supabaseServiceKey);
-    await supabaseClient
+    
+    const { data: existingData } = await supabaseClient
       .from('site_settings')
-      .upsert({
-        id: 'homey_tokens',
-        value: newTokens,
-        updated_at: new Date().toISOString(),
-      } as Record<string, unknown>, { onConflict: 'id' });
+      .select('value')
+      .eq('id', 'homey_tokens')
+      .single();
 
-    return newTokens;
+    if (existingData?.value) {
+      const stored = existingData.value as StoredTokens;
+      if (stored.tokens) {
+        const updatedTokens = stored.tokens.map(t => 
+          t.homeyId === token.homeyId ? refreshedToken : t
+        );
+        
+        await supabaseClient
+          .from('site_settings')
+          .upsert({
+            id: 'homey_tokens',
+            value: { tokens: updatedTokens },
+            updated_at: new Date().toISOString(),
+          } as Record<string, unknown>, { onConflict: 'id' });
+      }
+    }
+
+    return refreshedToken;
   } catch (error) {
     console.error('Error refreshing token:', error);
     return null;
   }
 }
 
-async function getHomeys(accessToken: string): Promise<Response> {
-  // First get user info to find Homey ID
-  const meResponse = await fetch('https://api.athom.com/user/me', {
-    headers: { 'Authorization': `Bearer ${accessToken}` },
-  });
+async function getHomeys(tokens: HomeyToken[]): Promise<Response> {
+  const allHomeys: { id: string; name: string; fromApi: boolean }[] = [];
 
-  if (!meResponse.ok) {
-    throw new Error('Failed to get user info');
+  for (const token of tokens) {
+    try {
+      // Get list of Homeys from Athom API
+      const homeysResponse = await fetch('https://api.athom.com/homey', {
+        headers: { 'Authorization': `Bearer ${token.access_token}` },
+      });
+
+      if (homeysResponse.ok) {
+        const homeys = await homeysResponse.json();
+        for (const h of homeys) {
+          allHomeys.push({
+            id: h._id || h.id,
+            name: h.name || token.homeyName,
+            fromApi: true
+          });
+        }
+      }
+    } catch (error) {
+      console.error(`Error fetching homeys for ${token.homeyName}:`, error);
+      // Still include from stored token
+      allHomeys.push({
+        id: token.homeyId,
+        name: token.homeyName,
+        fromApi: false
+      });
+    }
   }
 
-  const userData = await meResponse.json();
-  console.log('User data:', JSON.stringify(userData, null, 2));
+  // Deduplicate by ID
+  const uniqueHomeys = Array.from(
+    new Map(allHomeys.map(h => [h.id, h])).values()
+  );
 
-  // Get list of Homeys
-  const homeysResponse = await fetch('https://api.athom.com/homey', {
-    headers: { 'Authorization': `Bearer ${accessToken}` },
-  });
-
-  if (!homeysResponse.ok) {
-    throw new Error('Failed to get Homeys');
-  }
-
-  const homeys = await homeysResponse.json();
-  console.log('Homeys:', JSON.stringify(homeys, null, 2));
+  console.log('Combined Homeys:', JSON.stringify(uniqueHomeys, null, 2));
 
   return new Response(
-    JSON.stringify({ user: userData, homeys }),
+    JSON.stringify({ homeys: uniqueHomeys }),
     { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
   );
 }
@@ -291,41 +385,38 @@ async function getHomeySessionToken(homeyBaseUrl: string, delegationToken: strin
   return cleaned;
 }
 
-async function getDevices(accessToken: string): Promise<Response> {
-  // Step 1: Get ALL Homeys from Athom Cloud
-  const homeysResponse = await fetch('https://api.athom.com/homey', {
-    headers: { 'Authorization': `Bearer ${accessToken}` },
-  });
-
-  if (!homeysResponse.ok) {
-    throw new Error('Failed to get Homeys');
-  }
-
-  const homeys = await homeysResponse.json();
-
-  if (!homeys || homeys.length === 0) {
-    return new Response(
-      JSON.stringify({ devices: [], homeys: [], message: 'No Homeys found' }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
-  }
-
-  console.log(`Found ${homeys.length} Homey(s):`, homeys.map((h: HomeyInfo & { name?: string }) => h.name || h.id));
-
-  // Collect devices from ALL Homeys
+async function getDevices(tokens: HomeyToken[]): Promise<Response> {
   const allDevices: Record<string, unknown> = {};
   const homeyInfos: { id: string; name: string }[] = [];
 
-  for (const homey of homeys) {
+  for (const token of tokens) {
     try {
-      const homeyName = (homey as { name?: string }).name || homey.id;
-      console.log(`Fetching devices from ${homeyName}...`);
+      console.log(`Fetching devices from ${token.homeyName}...`);
       
+      // Get Homey info from API
+      const homeysResponse = await fetch('https://api.athom.com/homey', {
+        headers: { 'Authorization': `Bearer ${token.access_token}` },
+      });
+
+      if (!homeysResponse.ok) {
+        console.error(`Failed to get Homey info for ${token.homeyName}:`, await homeysResponse.text());
+        continue;
+      }
+
+      const homeys = await homeysResponse.json();
+      if (!homeys || homeys.length === 0) {
+        console.log(`No Homeys returned for token ${token.homeyName}`);
+        continue;
+      }
+
+      const homey = homeys[0] as HomeyInfo & { name?: string };
+      const homeyName = homey.name || token.homeyName;
       const homeyBaseUrl = getHomeyBaseUrl(homey);
+      
       console.log('Using Homey base URL:', homeyBaseUrl);
 
       // Get delegation token for this Homey
-      const delegationToken = await getDelegationToken(accessToken);
+      const delegationToken = await getDelegationToken(token.access_token);
 
       // Login to Homey and get session token
       const sessionToken = await getHomeySessionToken(homeyBaseUrl, delegationToken);
@@ -338,7 +429,7 @@ async function getDevices(accessToken: string): Promise<Response> {
       if (!devicesResponse.ok) {
         const errorText = await devicesResponse.text();
         console.error(`Failed to get devices from ${homeyName}:`, devicesResponse.status, errorText);
-        continue; // Skip this Homey but continue with others
+        continue;
       }
 
       const devices = await devicesResponse.json();
@@ -349,15 +440,14 @@ async function getDevices(accessToken: string): Promise<Response> {
       for (const [id, device] of Object.entries(devices)) {
         allDevices[id] = {
           ...(device as object),
-          homeyId: homey.id,
+          homeyId: token.homeyId,
           homeyName: homeyName,
         };
       }
 
-      homeyInfos.push({ id: homey.id, name: homeyName });
+      homeyInfos.push({ id: token.homeyId, name: homeyName });
     } catch (error) {
-      console.error(`Error fetching devices from Homey ${homey.id}:`, error);
-      // Continue with other Homeys
+      console.error(`Error fetching devices from Homey ${token.homeyName}:`, error);
     }
   }
 
@@ -369,9 +459,9 @@ async function getDevices(accessToken: string): Promise<Response> {
   );
 }
 
-async function getFloorHeatingDevices(accessToken: string): Promise<Response> {
+async function getFloorHeatingDevices(tokens: HomeyToken[]): Promise<Response> {
   // First get all devices from all Homeys
-  const devicesResult = await getDevices(accessToken);
+  const devicesResult = await getDevices(tokens);
   const devicesData = await devicesResult.json();
   
   if (!devicesData.devices) {
@@ -415,7 +505,7 @@ async function getFloorHeatingDevices(accessToken: string): Promise<Response> {
     }
   }
 
-  console.log(`Found ${floorHeatingDevices.length} floor heating/thermostat devices from ${devicesData.homeys?.length || 1} Homey(s)`);
+  console.log(`Found ${floorHeatingDevices.length} floor heating/thermostat devices from ${devicesData.homeys?.length || 0} Homey(s)`);
 
   return new Response(
     JSON.stringify({ 
@@ -427,41 +517,35 @@ async function getFloorHeatingDevices(accessToken: string): Promise<Response> {
 }
 
 async function setDeviceCapability(
-  accessToken: string, 
+  tokens: HomeyToken[], 
   deviceId: string, 
   capability: string, 
   value: unknown,
   targetHomeyId?: string
 ): Promise<Response> {
-  // Step 1: Get all Homeys
-  const homeysResponse = await fetch('https://api.athom.com/homey', {
-    headers: { 'Authorization': `Bearer ${accessToken}` },
-  });
-
-  if (!homeysResponse.ok) {
-    throw new Error('Failed to get Homeys');
-  }
-
-  const homeys = await homeysResponse.json();
-  
-  if (!homeys || homeys.length === 0) {
-    throw new Error('No Homeys found');
-  }
-
-  // Find the correct Homey (by ID if provided, otherwise try first)
-  let homey: HomeyInfo | undefined;
+  // Find the token for the target Homey
+  let token: HomeyToken | undefined;
   
   if (targetHomeyId) {
-    homey = homeys.find((h: HomeyInfo) => h.id === targetHomeyId);
+    token = tokens.find(t => t.homeyId === targetHomeyId);
   }
   
-  if (!homey) {
-    // Fallback: try all Homeys to find the device
-    for (const h of homeys) {
+  if (!token) {
+    // Try to find which Homey has this device
+    for (const t of tokens) {
       try {
-        const hInfo = h as HomeyInfo;
-        const baseUrl = getHomeyBaseUrl(hInfo);
-        const delToken = await getDelegationToken(accessToken);
+        const homeysResponse = await fetch('https://api.athom.com/homey', {
+          headers: { 'Authorization': `Bearer ${t.access_token}` },
+        });
+        
+        if (!homeysResponse.ok) continue;
+        
+        const homeys = await homeysResponse.json();
+        if (!homeys || homeys.length === 0) continue;
+        
+        const homey = homeys[0] as HomeyInfo;
+        const baseUrl = getHomeyBaseUrl(homey);
+        const delToken = await getDelegationToken(t.access_token);
         const sessToken = await getHomeySessionToken(baseUrl, delToken);
         
         // Check if device exists on this Homey
@@ -470,7 +554,7 @@ async function setDeviceCapability(
         });
         
         if (checkResponse.ok) {
-          homey = hInfo;
+          token = t;
           break;
         }
       } catch {
@@ -479,20 +563,35 @@ async function setDeviceCapability(
     }
   }
   
-  if (!homey) {
-    homey = homeys[0] as HomeyInfo;
+  if (!token) {
+    throw new Error('Could not find Homey for this device');
   }
 
+  // Get Homey info
+  const homeysResponse = await fetch('https://api.athom.com/homey', {
+    headers: { 'Authorization': `Bearer ${token.access_token}` },
+  });
+
+  if (!homeysResponse.ok) {
+    throw new Error('Failed to get Homey info');
+  }
+
+  const homeys = await homeysResponse.json();
+  if (!homeys || homeys.length === 0) {
+    throw new Error('No Homey found');
+  }
+
+  const homey = homeys[0] as HomeyInfo;
   const homeyBaseUrl = getHomeyBaseUrl(homey);
   console.log(`Setting ${capability} to ${value} on device ${deviceId} via ${homeyBaseUrl}`);
 
-  // Step 2: Get delegation token
-  const delegationToken = await getDelegationToken(accessToken);
+  // Get delegation token
+  const delegationToken = await getDelegationToken(token.access_token);
 
-  // Step 3: Login to Homey and get session token
+  // Login to Homey and get session token
   const sessionToken = await getHomeySessionToken(homeyBaseUrl, delegationToken);
 
-  // Step 4: Set capability using session token
+  // Set capability using session token
   const setResponse = await fetch(
     `${homeyBaseUrl}/api/manager/devices/device/${deviceId}/capability/${capability}`,
     {
