@@ -23,6 +23,7 @@ import Akkilahdot from "./pages/Akkilahdot";
 import Admin from "./pages/Admin";
 import Asiakaspalvelu from "./pages/Asiakaspalvelu";
 import Unsubscribe from "./pages/Unsubscribe";
+import LeviPronounce from "./pages/LeviPronounce";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -123,6 +124,7 @@ const App = () => (
               
               {/* Utility routes */}
               <Route path="/unsubscribe" element={<Unsubscribe />} />
+              <Route path="/levi-pronounce" element={<LeviPronounce />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
