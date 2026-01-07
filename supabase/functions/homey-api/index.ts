@@ -173,18 +173,19 @@ const body = await req.json();
         return await getFloorHeatingDevices(tokens);
       
       case 'setCapability':
+        console.log('setCapability called with:', { deviceId, capability, value, targetHomeyId });
         return await setDeviceCapability(tokens, deviceId, capability, value, targetHomeyId);
       
       case 'getHomeys':
         return await getHomeys(tokens);
       
       case 'setDeviceSettings':
-        const { settings } = await req.json().catch(() => ({}));
+        console.log('setDeviceSettings called with:', { deviceId, settings, targetHomeyId });
         return await setDeviceSettings(tokens, deviceId, settings || {}, targetHomeyId);
       
       case 'bulkSetSettings':
-        const body = await req.json().catch(() => ({}));
-        return await bulkSetDeviceSettings(tokens, body.deviceIds || [], body.settings || {});
+        console.log('bulkSetSettings called with:', { deviceIds, settings });
+        return await bulkSetDeviceSettings(tokens, deviceIds || [], settings || {});
       
       default:
         return new Response(
