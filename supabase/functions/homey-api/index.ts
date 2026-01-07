@@ -199,20 +199,35 @@ async function getHomeys(accessToken: string): Promise<Response> {
   );
 }
 
-// Get delegation token from Athom Cloud
+// Helpers
+
+type HomeyInfo = {
+  id: string;
+  remoteUrl?: string | null;
+};
+
+function getHomeyBaseUrl(homey: HomeyInfo): string {
+  const remote = typeof homey.remoteUrl === 'string' && homey.remoteUrl.length > 0
+    ? homey.remoteUrl
+    : null;
+
+  // In cloud environments, prefer remoteUrl (homeypro.net)
+  if (remote) return remote.replace(/\/$/, '');
+
+  // Fallback: Cloud Relay (may work for some setups)
+  return `https://${homey.id}.connect.athom.com`;
+}
+
+// Step 2 — Obtain a Delegation Token (JWT, audience=homey)
 async function getDelegationToken(accessToken: string): Promise<string> {
-  const clientId = Deno.env.get('HOMEY_CLIENT_ID')!;
-  const clientSecret = Deno.env.get('HOMEY_CLIENT_SECRET')!;
-  
   console.log('Getting delegation token...');
-  
+
   const response = await fetch('https://api.athom.com/delegation/token?audience=homey', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': `Bearer ${accessToken}`,
+      'Accept': 'application/json',
     },
-    body: `client_id=${encodeURIComponent(clientId)}&client_secret=${encodeURIComponent(clientSecret)}`,
   });
 
   if (!response.ok) {
@@ -221,24 +236,27 @@ async function getDelegationToken(accessToken: string): Promise<string> {
     throw new Error(`Failed to get delegation token: ${response.status}`);
   }
 
-  // The delegation token is returned as a raw JWT string
-  const delegationToken = await response.text();
+  // Returns a JSON string, e.g. "abc..."
+  const delegationToken = (await response.json()) as string;
+  const cleaned = delegationToken.trim();
+
   console.log('Got delegation token successfully');
-  return delegationToken;
+  return cleaned;
 }
 
-// Login to Homey using delegation token to get session token
-async function getHomeySessionToken(homeyId: string, delegationToken: string): Promise<string> {
+// Step 3 — Creating a Session on Homey (returns session token string)
+async function getHomeySessionToken(homeyBaseUrl: string, delegationToken: string): Promise<string> {
   console.log('Logging in to Homey...');
-  
-  const loginUrl = `https://${homeyId}.connect.athom.com/api/manager/users/login`;
-  
+
+  const loginUrl = `${homeyBaseUrl}/api/manager/users/login`;
+
   const response = await fetch(loginUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
     },
-    body: JSON.stringify({ token: delegationToken }),
+    body: JSON.stringify({ token: delegationToken.trim() }),
   });
 
   if (!response.ok) {
@@ -247,10 +265,12 @@ async function getHomeySessionToken(homeyId: string, delegationToken: string): P
     throw new Error(`Failed to login to Homey: ${response.status}`);
   }
 
-  // The response is the session token (bearer token)
-  const sessionToken = await response.text();
+  // Returns a JSON string, e.g. "abc..."
+  const sessionToken = (await response.json()) as string;
+  const cleaned = sessionToken.trim();
+
   console.log('Logged in to Homey successfully');
-  return sessionToken.replace(/"/g, ''); // Remove quotes if present
+  return cleaned;
 }
 
 async function getDevices(accessToken: string): Promise<Response> {
@@ -264,7 +284,7 @@ async function getDevices(accessToken: string): Promise<Response> {
   }
 
   const homeys = await homeysResponse.json();
-  
+
   if (!homeys || homeys.length === 0) {
     return new Response(
       JSON.stringify({ devices: [], message: 'No Homeys found' }),
@@ -272,21 +292,21 @@ async function getDevices(accessToken: string): Promise<Response> {
     );
   }
 
-  const homey = homeys[0];
+  const homey = homeys[0] as HomeyInfo;
   const homeyId = homey.id;
   console.log('Homey info:', JSON.stringify(homey, null, 2));
-  
+
+  const homeyBaseUrl = getHomeyBaseUrl(homey);
+  console.log('Using Homey base URL:', homeyBaseUrl);
+
   // Step 2: Get delegation token
   const delegationToken = await getDelegationToken(accessToken);
-  
+
   // Step 3: Login to Homey and get session token
-  const sessionToken = await getHomeySessionToken(homeyId, delegationToken);
-  
-  const homeyApiUrl = `https://${homeyId}.connect.athom.com`;
-  console.log('Using Homey API URL:', homeyApiUrl);
+  const sessionToken = await getHomeySessionToken(homeyBaseUrl, delegationToken);
 
   // Step 4: Get devices using session token
-  const devicesResponse = await fetch(`${homeyApiUrl}/api/manager/devices/device`, {
+  const devicesResponse = await fetch(`${homeyBaseUrl}/api/manager/devices/device`, {
     headers: { 'Authorization': `Bearer ${sessionToken}` },
   });
 
@@ -297,7 +317,7 @@ async function getDevices(accessToken: string): Promise<Response> {
   }
 
   const devices = await devicesResponse.json();
-  
+
   return new Response(
     JSON.stringify({ devices, homeyId }),
     { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -376,21 +396,23 @@ async function setDeviceCapability(
     throw new Error('No Homeys found');
   }
 
-  const homey = homeys[0];
+  const homey = homeys[0] as HomeyInfo;
   const homeyId = homey.id;
-  const homeyApiUrl = `https://${homeyId}.connect.athom.com`;
+  const homeyBaseUrl = getHomeyBaseUrl(homey);
+
+  console.log('Using Homey base URL:', homeyBaseUrl);
 
   // Step 2: Get delegation token
   const delegationToken = await getDelegationToken(accessToken);
-  
-  // Step 3: Login to Homey and get session token
-  const sessionToken = await getHomeySessionToken(homeyId, delegationToken);
 
-  console.log(`Setting ${capability} to ${value} on device ${deviceId} via ${homeyApiUrl}`);
+  // Step 3: Login to Homey and get session token
+  const sessionToken = await getHomeySessionToken(homeyBaseUrl, delegationToken);
+
+  console.log(`Setting ${capability} to ${value} on device ${deviceId} via ${homeyBaseUrl}`);
 
   // Step 4: Set capability using session token
   const setResponse = await fetch(
-    `${homeyApiUrl}/api/manager/devices/device/${deviceId}/capability/${capability}`,
+    `${homeyBaseUrl}/api/manager/devices/device/${deviceId}/capability/${capability}`,
     {
       method: 'PUT',
       headers: {
