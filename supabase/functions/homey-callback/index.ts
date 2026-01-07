@@ -6,6 +6,19 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+interface HomeyToken {
+  homeyId: string;
+  homeyName: string;
+  access_token: string;
+  refresh_token: string;
+  expires_at: string;
+  token_type?: string;
+}
+
+interface StoredTokens {
+  tokens: HomeyToken[];
+}
+
 serve(async (req) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -91,19 +104,85 @@ serve(async (req) => {
     // Calculate expiry time
     const expiresAt = new Date(Date.now() + (tokenData.expires_in * 1000)).toISOString();
 
-    // Store token in database
+    // Fetch the Homey that was authorized with this token
+    const homeyResponse = await fetch('https://api.athom.com/homey', {
+      headers: { 'Authorization': `Bearer ${tokenData.access_token}` },
+    });
+
+    if (!homeyResponse.ok) {
+      const errorText = await homeyResponse.text();
+      console.error('Failed to get Homey info:', homeyResponse.status, errorText);
+      throw new Error('Failed to get Homey information');
+    }
+
+    const homeys = await homeyResponse.json();
+    console.log('Got Homey info:', JSON.stringify(homeys));
+
+    if (!homeys || homeys.length === 0) {
+      throw new Error('No Homey found for this authorization');
+    }
+
+    // Get the first (and only) Homey from this OAuth - Athom only allows one per OAuth
+    const authorizedHomey = homeys[0];
+    const homeyId = authorizedHomey._id || authorizedHomey.id;
+    const homeyName = authorizedHomey.name || homeyId;
+
+    console.log(`Authorized Homey: ${homeyName} (${homeyId})`);
+
+    // Create new token object
+    const newToken: HomeyToken = {
+      homeyId,
+      homeyName,
+      access_token: tokenData.access_token,
+      refresh_token: tokenData.refresh_token,
+      expires_at: expiresAt,
+      token_type: tokenData.token_type,
+    };
+
+    // Store token in database - add to existing tokens array
     const supabase = createClient(supabaseUrl!, supabaseServiceKey!);
+
+    // First, get existing tokens
+    const { data: existingData } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('id', 'homey_tokens')
+      .single();
+
+    let tokens: HomeyToken[] = [];
+    
+    if (existingData?.value) {
+      // Check if it's old format (single token) or new format (tokens array)
+      const value = existingData.value as Record<string, unknown>;
+      if (value.tokens && Array.isArray(value.tokens)) {
+        tokens = value.tokens as HomeyToken[];
+      } else if (value.access_token) {
+        // Old format - migrate but it won't have homeyId, so skip migration
+        console.log('Found old token format, will be replaced');
+      }
+    }
+
+    // Check if this Homey already exists in tokens
+    const existingIndex = tokens.findIndex(t => t.homeyId === homeyId);
+    
+    if (existingIndex >= 0) {
+      // Update existing token
+      tokens[existingIndex] = newToken;
+      console.log(`Updated existing token for ${homeyName}`);
+    } else {
+      // Add new token
+      tokens.push(newToken);
+      console.log(`Added new token for ${homeyName}`);
+    }
+
+    // Save updated tokens
+    const storedValue: StoredTokens = { tokens };
 
     const { error: dbError } = await supabase
       .from('site_settings')
       .upsert({
         id: 'homey_tokens',
-        value: {
-          access_token: tokenData.access_token,
-          refresh_token: tokenData.refresh_token,
-          expires_at: expiresAt,
-          token_type: tokenData.token_type,
-        },
+        value: storedValue,
         updated_at: new Date().toISOString(),
       }, { onConflict: 'id' });
 
@@ -112,14 +191,19 @@ serve(async (req) => {
       throw new Error('Failed to store token in database');
     }
 
-    console.log('Token stored successfully');
+    console.log(`Token stored successfully. Total Homeys: ${tokens.length}`);
+
+    // Build list of connected Homeys for display
+    const connectedList = tokens.map(t => `<li>✅ ${t.homeyName}</li>`).join('');
 
     // Success response
     return new Response(
       `<html><body style="font-family: sans-serif; padding: 40px; text-align: center;">
         <h1 style="color: #22c55e;">✅ Homey yhdistetty onnistuneesti!</h1>
-        <p>Access token tallennettu tietokantaan.</p>
-        <p>Token vanhenee: ${new Date(expiresAt).toLocaleString('fi-FI')}</p>
+        <p><strong>${homeyName}</strong> lisätty.</p>
+        <h3 style="margin-top: 30px;">Yhdistetyt Homeyt (${tokens.length}):</h3>
+        <ul style="list-style: none; padding: 0; text-align: center;">${connectedList}</ul>
+        <p style="color: #666; margin-top: 20px;">Haluatko lisätä toisen Homeyn? Paina "Lisää Homey" -nappia hallintapaneelissa.</p>
         <p style="margin-top: 30px;"><a href="/admin" style="background: #3b82f6; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none;">Takaisin hallintapaneeliin</a></p>
       </body></html>`,
       { 
