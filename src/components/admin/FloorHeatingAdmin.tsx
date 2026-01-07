@@ -25,10 +25,11 @@ import {
 } from "lucide-react";
 
 interface DeviceSettings {
-  FLo?: number;  // Floor Low limit
-  FHi?: number;  // Floor High limit
-  ALo?: number;  // Air Low limit
-  AHi?: number;  // Air High limit
+  // Long API field names from Z-Wave config
+  Floor_minimum_temperature_limit_FLo?: number;
+  Floor_maximum_temperature_limit_FHi?: number;
+  Air_minimum_temperature_limit_ALo?: number;
+  Air_maximum_temperature_limit_AHi?: number;
 }
 
 interface FloorHeatingDevice {
@@ -443,9 +444,10 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
     setApplyingBulkSettings(true);
     
     try {
+      // Use full API field names and multiply by 10 (API expects 270 for 27°C)
       const settings: Record<string, number> = {};
-      settings.AHi = bulkAHi;
-      settings.FHi = bulkFHi;
+      settings['Air_maximum_temperature_limit_AHi'] = bulkAHi * 10;
+      settings['Floor_maximum_temperature_limit_FHi'] = bulkFHi * 10;
       
       const deviceIds = selectedDevices.map(id => {
         const device = devices.find(d => d.id === id);
@@ -837,20 +839,33 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
                           )}
 
                           {/* Settings limits display */}
-                          {device.settings && (device.settings.ALo != null || device.settings.AHi != null || device.settings.FLo != null || device.settings.FHi != null) && (
-                            <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/30 rounded px-2 py-1.5">
-                              <Settings className="w-3 h-3" />
-                              {(device.settings.ALo != null || device.settings.AHi != null) && (
-                                <span>Ilma: {device.settings.ALo ?? '?'}-{device.settings.AHi ?? '?'}°C</span>
-                              )}
-                              {(device.settings.FLo != null || device.settings.FHi != null) && (
-                                <>
-                                  <span className="text-muted-foreground/50">|</span>
-                                  <span>Lattia: {device.settings.FLo ?? '?'}-{device.settings.FHi ?? '?'}°C</span>
-                                </>
-                              )}
-                            </div>
-                          )}
+                          {(() => {
+                            const aLo = device.settings?.Air_minimum_temperature_limit_ALo;
+                            const aHi = device.settings?.Air_maximum_temperature_limit_AHi;
+                            const fLo = device.settings?.Floor_minimum_temperature_limit_FLo;
+                            const fHi = device.settings?.Floor_maximum_temperature_limit_FHi;
+                            const hasAny = aLo != null || aHi != null || fLo != null || fHi != null;
+                            
+                            if (!hasAny) return null;
+                            
+                            // API returns values * 10 (e.g., 270 = 27°C)
+                            const formatLimit = (val: number | undefined) => val != null ? (val / 10).toFixed(0) : '?';
+                            
+                            return (
+                              <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/30 rounded px-2 py-1.5">
+                                <Settings className="w-3 h-3" />
+                                {(aLo != null || aHi != null) && (
+                                  <span>Ilma: {formatLimit(aLo)}-{formatLimit(aHi)}°C</span>
+                                )}
+                                {(fLo != null || fHi != null) && (
+                                  <>
+                                    <span className="text-muted-foreground/50">|</span>
+                                    <span>Lattia: {formatLimit(fLo)}-{formatLimit(fHi)}°C</span>
+                                  </>
+                                )}
+                              </div>
+                            );
+                          })()}
 
                           {/* Device class badge */}
                           <div className="flex gap-2 flex-wrap">
