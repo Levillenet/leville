@@ -46,6 +46,27 @@ interface HomeyDevice {
   settings?: Record<string, unknown>;
 }
 
+// Retry helper with exponential backoff for rate limiting (429)
+async function fetchWithRetry(
+  url: string,
+  options: RequestInit,
+  maxRetries = 3
+): Promise<Response> {
+  let lastError: Error | null = null;
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    const response = await fetch(url, options);
+    if (response.status === 429) {
+      const retryAfter = response.headers.get('Retry-After');
+      const waitMs = retryAfter ? parseInt(retryAfter, 10) * 1000 : Math.pow(2, attempt + 1) * 1000;
+      console.log(`Rate limited (429), waiting ${waitMs}ms before retry ${attempt + 1}/${maxRetries}`);
+      await new Promise(resolve => setTimeout(resolve, waitMs));
+      continue;
+    }
+    return response;
+  }
+  throw lastError || new Error('Max retries exceeded due to rate limiting');
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -285,7 +306,7 @@ async function getHomeys(tokens: HomeyToken[]): Promise<Response> {
   for (const token of tokens) {
     try {
       // Get list of Homeys from Athom API
-      const homeysResponse = await fetch('https://api.athom.com/homey', {
+      const homeysResponse = await fetchWithRetry('https://api.athom.com/homey', {
         headers: { 'Authorization': `Bearer ${token.access_token}` },
       });
 
@@ -348,7 +369,7 @@ function getHomeyBaseUrl(homey: HomeyInfo): string {
 async function getDelegationToken(accessToken: string): Promise<string> {
   console.log('Getting delegation token...');
 
-  const response = await fetch('https://api.athom.com/delegation/token?audience=homey', {
+  const response = await fetchWithRetry('https://api.athom.com/delegation/token?audience=homey', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${accessToken}`,
@@ -408,7 +429,7 @@ async function getDevices(tokens: HomeyToken[]): Promise<Response> {
       console.log(`Fetching devices from ${token.homeyName}...`);
       
       // Get Homey info from API
-      const homeysResponse = await fetch('https://api.athom.com/homey', {
+      const homeysResponse = await fetchWithRetry('https://api.athom.com/homey', {
         headers: { 'Authorization': `Bearer ${token.access_token}` },
       });
 
@@ -484,7 +505,7 @@ async function getFloorHeatingDevices(tokens: HomeyToken[]): Promise<Response> {
     try {
       console.log(`Fetching devices from ${token.homeyName}...`);
       
-      const homeysResponse = await fetch('https://api.athom.com/homey', {
+      const homeysResponse = await fetchWithRetry('https://api.athom.com/homey', {
         headers: { 'Authorization': `Bearer ${token.access_token}` },
       });
 
@@ -635,7 +656,7 @@ async function setDeviceCapability(
     // Try to find which Homey has this device
     for (const t of tokens) {
       try {
-        const homeysResponse = await fetch('https://api.athom.com/homey', {
+        const homeysResponse = await fetchWithRetry('https://api.athom.com/homey', {
           headers: { 'Authorization': `Bearer ${t.access_token}` },
         });
         
@@ -669,7 +690,7 @@ async function setDeviceCapability(
   }
 
   // Get Homey info
-  const homeysResponse = await fetch('https://api.athom.com/homey', {
+  const homeysResponse = await fetchWithRetry('https://api.athom.com/homey', {
     headers: { 'Authorization': `Bearer ${token.access_token}` },
   });
 
@@ -735,7 +756,7 @@ async function setDeviceSettings(
     // Try to find which Homey has this device
     for (const t of tokens) {
       try {
-        const homeysResponse = await fetch('https://api.athom.com/homey', {
+        const homeysResponse = await fetchWithRetry('https://api.athom.com/homey', {
           headers: { 'Authorization': `Bearer ${t.access_token}` },
         });
 
@@ -770,7 +791,7 @@ async function setDeviceSettings(
   }
 
   // Get Homey info
-  const homeysResponse = await fetch('https://api.athom.com/homey', {
+  const homeysResponse = await fetchWithRetry('https://api.athom.com/homey', {
     headers: { 'Authorization': `Bearer ${token.access_token}` },
   });
 
