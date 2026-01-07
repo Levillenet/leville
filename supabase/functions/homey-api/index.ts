@@ -327,6 +327,8 @@ async function getHomeys(tokens: HomeyToken[]): Promise<Response> {
 
 type HomeyInfo = {
   id: string;
+  _id?: string; // API sometimes returns _id
+  name?: string;
   remoteUrl?: string | null;
 };
 
@@ -680,9 +682,10 @@ async function setDeviceCapability(
     throw new Error('No Homey found');
   }
 
-  const homey = homeys[0] as HomeyInfo;
+  // Select the correct Homey based on token.homeyId instead of always using homeys[0]
+  const homey = (homeys as HomeyInfo[]).find(h => (h._id || h.id) === token.homeyId) || homeys[0] as HomeyInfo;
   const homeyBaseUrl = getHomeyBaseUrl(homey);
-  console.log(`Setting ${capability} to ${value} on device ${deviceId} via ${homeyBaseUrl}`);
+  console.log(`Setting ${capability} to ${value} on device ${deviceId} via ${homeyBaseUrl} (Homey: ${homey.name || token.homeyId})`);
 
   // Get delegation token
   const delegationToken = await getDelegationToken(token.access_token);

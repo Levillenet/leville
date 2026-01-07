@@ -91,6 +91,8 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
   const [bulkFHi, setBulkFHi] = useState<number>(28);
   const [applyingBulkSettings, setApplyingBulkSettings] = useState(false);
   
+  // Draft targets for slider responsiveness during drag
+  const [draftTargets, setDraftTargets] = useState<Record<string, number>>({});
   const { toast } = useToast();
 
   useEffect(() => {
@@ -268,11 +270,19 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
     }
   };
 
+  // Handle slider value change (during drag)
+  const handleSliderChange = (deviceId: string, value: number) => {
+    setDraftTargets(prev => ({ ...prev, [deviceId]: value }));
+  };
+
   const handleSetTemperature = async (deviceId: string, temperature: number, homeyId?: string) => {
     if (isViewer) return;
     
     // Round to 0.5 degree precision
     const roundedTemp = Math.round(temperature * 2) / 2;
+    
+    // Update draft to rounded value immediately
+    setDraftTargets(prev => ({ ...prev, [deviceId]: roundedTemp }));
     
     try {
       setUpdatingDevice(deviceId);
@@ -305,6 +315,13 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
         }
         return device;
       }));
+      
+      // Clear draft after successful update
+      setDraftTargets(prev => {
+        const next = { ...prev };
+        delete next[deviceId];
+        return next;
+      });
 
       toast({
         title: "Lämpötila asetettu",
@@ -312,6 +329,12 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
       });
     } catch (error) {
       console.error('Error setting temperature:', error);
+      // Revert draft to original value on error
+      const originalDevice = devices.find(d => d.id === deviceId);
+      const originalTemp = originalDevice?.capabilitiesObj?.target_temperature?.value as number | undefined;
+      if (originalTemp != null) {
+        setDraftTargets(prev => ({ ...prev, [deviceId]: originalTemp }));
+      }
       toast({
         title: "Virhe",
         description: "Lämpötilan asetus epäonnistui",
@@ -818,23 +841,31 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
                           {/* Target temperature slider */}
                           {device.capabilities.includes('target_temperature') && targetTemp !== null && (airTemp !== null || floorTemp !== null) && (
                             <div className="space-y-3">
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm font-medium">Tavoite</span>
-                                <Badge variant="secondary">{targetTemp}°C</Badge>
-                              </div>
-                              <Slider
-                                value={[targetTemp]}
-                                min={device.capabilitiesObj.target_temperature?.min ?? 5}
-                                max={device.capabilitiesObj.target_temperature?.max ?? 35}
-                                step={device.capabilitiesObj.target_temperature?.step ?? 0.5}
-                                disabled={isViewer || isUpdating}
-                                onValueCommit={(values) => handleSetTemperature(device.id, values[0], device.homeyId)}
-                                className="py-2"
-                              />
-                              <div className="flex justify-between text-xs text-muted-foreground">
-                                <span>{device.capabilitiesObj.target_temperature?.min ?? 5}°C</span>
-                                <span>{device.capabilitiesObj.target_temperature?.max ?? 35}°C</span>
-                              </div>
+                              {(() => {
+                                const displayTemp = draftTargets[device.id] ?? targetTemp;
+                                return (
+                                  <>
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-sm font-medium">Tavoite</span>
+                                      <Badge variant="secondary">{displayTemp}°C</Badge>
+                                    </div>
+                                    <Slider
+                                      value={[displayTemp]}
+                                      min={device.capabilitiesObj.target_temperature?.min ?? 5}
+                                      max={device.capabilitiesObj.target_temperature?.max ?? 35}
+                                      step={device.capabilitiesObj.target_temperature?.step ?? 0.5}
+                                      disabled={isViewer || isUpdating}
+                                      onValueChange={(values) => handleSliderChange(device.id, values[0])}
+                                      onValueCommit={(values) => handleSetTemperature(device.id, values[0], device.homeyId)}
+                                      className="py-2"
+                                    />
+                                    <div className="flex justify-between text-xs text-muted-foreground">
+                                      <span>{device.capabilitiesObj.target_temperature?.min ?? 5}°C</span>
+                                      <span>{device.capabilitiesObj.target_temperature?.max ?? 35}°C</span>
+                                    </div>
+                                  </>
+                                );
+                              })()}
                             </div>
                           )}
 
