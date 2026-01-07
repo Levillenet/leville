@@ -471,15 +471,65 @@ async function getDevices(tokens: HomeyToken[]): Promise<Response> {
 }
 
 async function getFloorHeatingDevices(tokens: HomeyToken[]): Promise<Response> {
-  // First get all devices from all Homeys
-  const devicesResult = await getDevices(tokens);
-  const devicesData = await devicesResult.json();
-  
-  if (!devicesData.devices) {
-    return new Response(
-      JSON.stringify({ devices: [], homeys: [] }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
+  // Store session tokens for each Homey to reuse when fetching device details
+  const homeySessionTokens: Map<string, { sessionToken: string; baseUrl: string }> = new Map();
+  const allDevices: Record<string, unknown> = {};
+  const homeyInfos: { id: string; name: string }[] = [];
+
+  // First, get all devices and store session tokens
+  for (const token of tokens) {
+    try {
+      console.log(`Fetching devices from ${token.homeyName}...`);
+      
+      const homeysResponse = await fetch('https://api.athom.com/homey', {
+        headers: { 'Authorization': `Bearer ${token.access_token}` },
+      });
+
+      if (!homeysResponse.ok) {
+        console.error(`Failed to get Homey info for ${token.homeyName}:`, await homeysResponse.text());
+        continue;
+      }
+
+      const homeys = await homeysResponse.json();
+      if (!homeys || homeys.length === 0) {
+        console.log(`No Homeys returned for token ${token.homeyName}`);
+        continue;
+      }
+
+      const homey = homeys[0] as HomeyInfo & { name?: string };
+      const homeyName = homey.name || token.homeyName;
+      const homeyBaseUrl = getHomeyBaseUrl(homey);
+      
+      const delegationToken = await getDelegationToken(token.access_token);
+      const sessionToken = await getHomeySessionToken(homeyBaseUrl, delegationToken);
+      
+      // Store session token for later use
+      homeySessionTokens.set(token.homeyId, { sessionToken, baseUrl: homeyBaseUrl });
+
+      const devicesResponse = await fetch(`${homeyBaseUrl}/api/manager/devices/device`, {
+        headers: { 'Authorization': `Bearer ${sessionToken}` },
+      });
+
+      if (!devicesResponse.ok) {
+        console.error(`Failed to get devices from ${homeyName}:`, devicesResponse.status);
+        continue;
+      }
+
+      const devices = await devicesResponse.json();
+      console.log(`Found ${Object.keys(devices).length} devices from ${homeyName}`);
+
+      for (const [id, device] of Object.entries(devices)) {
+        allDevices[id] = {
+          ...(device as object),
+          homeyId: token.homeyId,
+          homeyName: homeyName,
+        };
+      }
+
+      homeyInfos.push({ id: token.homeyId, name: homeyName });
+    } catch (error) {
+      console.error(`Error fetching devices from Homey ${token.homeyName}:`, error);
+    }
   }
 
   // Filter for thermostat/floor heating devices
@@ -490,14 +540,11 @@ async function getFloorHeatingDevices(tokens: HomeyToken[]): Promise<Response> {
   
   const floorHeatingDevices: DeviceWithHomey[] = [];
   
-  for (const [id, device] of Object.entries(devicesData.devices as Record<string, DeviceWithHomey>)) {
+  for (const [id, device] of Object.entries(allDevices as Record<string, DeviceWithHomey>)) {
     const capabilities = device.capabilities || [];
     
-    // Check if device has thermostat-like capabilities
     const hasTargetTemp = capabilities.includes('target_temperature');
     const hasMeasureTemp = capabilities.includes('measure_temperature');
-    
-    // Also check for specific thermostat classes
     const isThermostat = device.class === 'thermostat' || 
                          device.class === 'heater' ||
                          capabilities.includes('thermostat_mode');
@@ -510,19 +557,58 @@ async function getFloorHeatingDevices(tokens: HomeyToken[]): Promise<Response> {
         class: device.class,
         capabilities: capabilities,
         capabilitiesObj: device.capabilitiesObj || {},
-        settings: device.settings || {},
+        settings: {}, // Will be fetched separately
         homeyId: device.homeyId,
         homeyName: device.homeyName,
       });
     }
   }
 
-  console.log(`Found ${floorHeatingDevices.length} floor heating/thermostat devices from ${devicesData.homeys?.length || 0} Homey(s)`);
+  console.log(`Found ${floorHeatingDevices.length} floor heating/thermostat devices, fetching settings...`);
+
+  // Fetch settings for each device in parallel (max 10 at a time)
+  const chunkSize = 10;
+  let settingsFetched = 0;
+  
+  for (let i = 0; i < floorHeatingDevices.length; i += chunkSize) {
+    const chunk = floorHeatingDevices.slice(i, i + chunkSize);
+    
+    await Promise.all(chunk.map(async (device) => {
+      try {
+        const homeyInfo = homeySessionTokens.get(device.homeyId || '');
+        if (!homeyInfo) {
+          console.log(`No session token for Homey ${device.homeyId}`);
+          return;
+        }
+        
+        const detailsResponse = await fetch(
+          `${homeyInfo.baseUrl}/api/manager/devices/device/${device.id}`,
+          { headers: { 'Authorization': `Bearer ${homeyInfo.sessionToken}` } }
+        );
+        
+        if (detailsResponse.ok) {
+          const details = await detailsResponse.json();
+          device.settings = details.settings || {};
+          settingsFetched++;
+          
+          // Log first device's settings for debugging
+          if (settingsFetched === 1) {
+            console.log('First device settings keys:', Object.keys(details.settings || {}));
+            console.log('First device settings sample:', JSON.stringify(details.settings).substring(0, 500));
+          }
+        }
+      } catch (error) {
+        console.error(`Failed to fetch settings for ${device.name}:`, error);
+      }
+    }));
+  }
+
+  console.log(`Settings fetched for ${settingsFetched}/${floorHeatingDevices.length} devices`);
 
   return new Response(
     JSON.stringify({ 
       devices: floorHeatingDevices,
-      homeys: devicesData.homeys || []
+      homeys: homeyInfos
     }),
     { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
   );
