@@ -158,6 +158,51 @@ export type Database = {
         }
         Relationships: []
       }
+      floor_heating_history: {
+        Row: {
+          air_temperature: number | null
+          apartment_code: string
+          created_at: string | null
+          device_id: string
+          device_name: string
+          floor_temperature: number | null
+          homey_id: string
+          homey_name: string | null
+          id: string
+          power_on: boolean | null
+          recorded_at: string | null
+          target_temperature: number | null
+        }
+        Insert: {
+          air_temperature?: number | null
+          apartment_code: string
+          created_at?: string | null
+          device_id: string
+          device_name: string
+          floor_temperature?: number | null
+          homey_id: string
+          homey_name?: string | null
+          id?: string
+          power_on?: boolean | null
+          recorded_at?: string | null
+          target_temperature?: number | null
+        }
+        Update: {
+          air_temperature?: number | null
+          apartment_code?: string
+          created_at?: string | null
+          device_id?: string
+          device_name?: string
+          floor_temperature?: number | null
+          homey_id?: string
+          homey_name?: string | null
+          id?: string
+          power_on?: boolean | null
+          recorded_at?: string | null
+          target_temperature?: number | null
+        }
+        Relationships: []
+      }
       heat_pump_checkout_drop_log: {
         Row: {
           created_at: string
