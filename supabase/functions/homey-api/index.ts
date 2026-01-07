@@ -218,9 +218,10 @@ async function getDevices(accessToken: string): Promise<Response> {
     );
   }
 
-  // Get the first Homey's local API URL
+  // Get the first Homey - always use Cloud Relay URL (Edge Function can't access local network)
   const homey = homeys[0];
-  const homeyApiUrl = homey.localUrl || `https://${homey.id}.connect.athom.com`;
+  console.log('Homey info:', JSON.stringify(homey, null, 2));
+  const homeyApiUrl = `https://${homey.id}.connect.athom.com`;
 
   console.log('Using Homey API URL:', homeyApiUrl);
 
@@ -316,9 +317,9 @@ async function setDeviceCapability(
   }
 
   const homey = homeys[0];
-  const homeyApiUrl = homey.localUrl || `https://${homey.id}.connect.athom.com`;
+  const homeyApiUrl = `https://${homey.id}.connect.athom.com`;
 
-  console.log(`Setting ${capability} to ${value} on device ${deviceId}`);
+  console.log(`Setting ${capability} to ${value} on device ${deviceId} via ${homeyApiUrl}`);
 
   // Set capability
   const setResponse = await fetch(
