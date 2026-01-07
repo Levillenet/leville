@@ -43,6 +43,7 @@ interface HomeyDevice {
   class: string;
   capabilities: string[];
   capabilitiesObj: Record<string, DeviceCapability>;
+  settings?: Record<string, unknown>;
 }
 
 serve(async (req) => {
@@ -55,7 +56,8 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { action, deviceId, capability, value, targetHomeyId, homeyIdToRemove } = await req.json();
+const body = await req.json();
+    const { action, deviceId, capability, value, targetHomeyId, homeyIdToRemove, settings, deviceIds } = body;
 
     // Handle actions that don't need tokens first
     if (action === 'addHomey') {
@@ -175,6 +177,14 @@ serve(async (req) => {
       
       case 'getHomeys':
         return await getHomeys(tokens);
+      
+      case 'setDeviceSettings':
+        const { settings } = await req.json().catch(() => ({}));
+        return await setDeviceSettings(tokens, deviceId, settings || {}, targetHomeyId);
+      
+      case 'bulkSetSettings':
+        const body = await req.json().catch(() => ({}));
+        return await bulkSetDeviceSettings(tokens, body.deviceIds || [], body.settings || {});
       
       default:
         return new Response(
@@ -499,6 +509,7 @@ async function getFloorHeatingDevices(tokens: HomeyToken[]): Promise<Response> {
         class: device.class,
         capabilities: capabilities,
         capabilitiesObj: device.capabilitiesObj || {},
+        settings: device.settings || {},
         homeyId: device.homeyId,
         homeyName: device.homeyName,
       });
@@ -612,6 +623,140 @@ async function setDeviceCapability(
 
   return new Response(
     JSON.stringify({ success: true, deviceId, capability, value }),
+    { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+  );
+}
+
+async function setDeviceSettings(
+  tokens: HomeyToken[], 
+  deviceId: string, 
+  settings: Record<string, unknown>,
+  targetHomeyId?: string
+): Promise<Response> {
+  // Find the token for the target Homey
+  let token: HomeyToken | undefined;
+  
+  if (targetHomeyId) {
+    token = tokens.find(t => t.homeyId === targetHomeyId);
+  }
+  
+  if (!token) {
+    // Try to find which Homey has this device
+    for (const t of tokens) {
+      try {
+        const homeysResponse = await fetch('https://api.athom.com/homey', {
+          headers: { 'Authorization': `Bearer ${t.access_token}` },
+        });
+        
+        if (!homeysResponse.ok) continue;
+        
+        const homeys = await homeysResponse.json();
+        if (!homeys || homeys.length === 0) continue;
+        
+        const homey = homeys[0] as HomeyInfo;
+        const baseUrl = getHomeyBaseUrl(homey);
+        const delToken = await getDelegationToken(t.access_token);
+        const sessToken = await getHomeySessionToken(baseUrl, delToken);
+        
+        // Check if device exists on this Homey
+        const checkResponse = await fetch(`${baseUrl}/api/manager/devices/device/${deviceId}`, {
+          headers: { 'Authorization': `Bearer ${sessToken}` },
+        });
+        
+        if (checkResponse.ok) {
+          token = t;
+          break;
+        }
+      } catch {
+        continue;
+      }
+    }
+  }
+  
+  if (!token) {
+    throw new Error('Could not find Homey for this device');
+  }
+
+  // Get Homey info
+  const homeysResponse = await fetch('https://api.athom.com/homey', {
+    headers: { 'Authorization': `Bearer ${token.access_token}` },
+  });
+
+  if (!homeysResponse.ok) {
+    throw new Error('Failed to get Homey info');
+  }
+
+  const homeys = await homeysResponse.json();
+  if (!homeys || homeys.length === 0) {
+    throw new Error('No Homey found');
+  }
+
+  const homey = homeys[0] as HomeyInfo;
+  const homeyBaseUrl = getHomeyBaseUrl(homey);
+  console.log(`Setting settings on device ${deviceId} via ${homeyBaseUrl}:`, settings);
+
+  // Get delegation token
+  const delegationToken = await getDelegationToken(token.access_token);
+
+  // Login to Homey and get session token
+  const sessionToken = await getHomeySessionToken(homeyBaseUrl, delegationToken);
+
+  // Set settings using PUT to device endpoint
+  const setResponse = await fetch(
+    `${homeyBaseUrl}/api/manager/devices/device/${deviceId}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${sessionToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ settings }),
+    }
+  );
+
+  if (!setResponse.ok) {
+    const errorText = await setResponse.text();
+    console.error('Failed to set device settings:', setResponse.status, errorText);
+    throw new Error(`Failed to set device settings: ${errorText}`);
+  }
+
+  return new Response(
+    JSON.stringify({ success: true, deviceId, settings }),
+    { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+  );
+}
+
+async function bulkSetDeviceSettings(
+  tokens: HomeyToken[], 
+  deviceIds: string[], 
+  settings: Record<string, unknown>
+): Promise<Response> {
+  console.log(`Bulk setting settings for ${deviceIds.length} devices:`, settings);
+  
+  const results: { deviceId: string; success: boolean; error?: string }[] = [];
+  
+  for (const deviceId of deviceIds) {
+    try {
+      const response = await setDeviceSettings(tokens, deviceId, settings);
+      const data = await response.json();
+      results.push({ deviceId, success: data.success });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error(`Failed to set settings for device ${deviceId}:`, errorMessage);
+      results.push({ deviceId, success: false, error: errorMessage });
+    }
+  }
+  
+  const successCount = results.filter(r => r.success).length;
+  const failCount = results.filter(r => !r.success).length;
+  
+  return new Response(
+    JSON.stringify({ 
+      success: failCount === 0, 
+      successCount, 
+      failCount, 
+      results 
+    }),
     { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
   );
 }

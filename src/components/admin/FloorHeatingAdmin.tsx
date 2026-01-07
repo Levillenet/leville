@@ -20,8 +20,16 @@ import {
   TrendingUp,
   TrendingDown,
   Plus,
-  Trash2
+  Trash2,
+  Settings
 } from "lucide-react";
+
+interface DeviceSettings {
+  FLo?: number;  // Floor Low limit
+  FHi?: number;  // Floor High limit
+  ALo?: number;  // Air Low limit
+  AHi?: number;  // Air High limit
+}
 
 interface FloorHeatingDevice {
   id: string;
@@ -40,6 +48,7 @@ interface FloorHeatingDevice {
     max?: number;
     step?: number;
   }>;
+  settings?: DeviceSettings;
   homeyId?: string;
   homeyName?: string;
 }
@@ -75,6 +84,11 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
   const [selectedDevices, setSelectedDevices] = useState<string[]>([]);
   const [bulkTemperature, setBulkTemperature] = useState<number>(22);
   const [applyingBulk, setApplyingBulk] = useState(false);
+  
+  // Bulk settings state (FHi, AHi limits)
+  const [bulkAHi, setBulkAHi] = useState<number>(27);
+  const [bulkFHi, setBulkFHi] = useState<number>(28);
+  const [applyingBulkSettings, setApplyingBulkSettings] = useState(false);
   
   const { toast } = useToast();
 
@@ -423,6 +437,81 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
     }
   };
 
+  const handleBulkSetSettings = async () => {
+    if (isViewer || selectedDevices.length === 0) return;
+    
+    setApplyingBulkSettings(true);
+    
+    try {
+      const settings: Record<string, number> = {};
+      settings.AHi = bulkAHi;
+      settings.FHi = bulkFHi;
+      
+      const deviceIds = selectedDevices.map(id => {
+        const device = devices.find(d => d.id === id);
+        return { deviceId: id, homeyId: device?.homeyId };
+      });
+      
+      let successCount = 0;
+      let failCount = 0;
+      
+      for (const { deviceId, homeyId } of deviceIds) {
+        try {
+          const { error } = await supabase.functions.invoke('homey-api', {
+            body: {
+              action: 'setDeviceSettings',
+              deviceId,
+              settings,
+              targetHomeyId: homeyId
+            }
+          });
+
+          if (error) {
+            failCount++;
+          } else {
+            successCount++;
+            // Update local state
+            setDevices(prev => prev.map(d => {
+              if (d.id === deviceId) {
+                return {
+                  ...d,
+                  settings: { ...d.settings, ...settings }
+                };
+              }
+              return d;
+            }));
+          }
+        } catch {
+          failCount++;
+        }
+      }
+      
+      setSelectedDevices([]);
+      
+      if (failCount === 0) {
+        toast({
+          title: "Raja-arvot asetettu",
+          description: `${successCount} laitteen raja-arvot päivitetty (AHi: ${bulkAHi}°C, FHi: ${bulkFHi}°C)`
+        });
+      } else {
+        toast({
+          title: "Osittain onnistui",
+          description: `${successCount} onnistui, ${failCount} epäonnistui`,
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      console.error('Error setting bulk settings:', error);
+      toast({
+        title: "Virhe",
+        description: "Raja-arvojen asetus epäonnistui",
+        variant: "destructive"
+      });
+    } finally {
+      setApplyingBulkSettings(false);
+    }
+  };
+
   const toggleDeviceSelection = (deviceId: string) => {
     setSelectedDevices(prev => 
       prev.includes(deviceId) 
@@ -747,6 +836,22 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
                             </div>
                           )}
 
+                          {/* Settings limits display */}
+                          {device.settings && (device.settings.ALo != null || device.settings.AHi != null || device.settings.FLo != null || device.settings.FHi != null) && (
+                            <div className="flex items-center gap-2 text-xs text-muted-foreground bg-muted/30 rounded px-2 py-1.5">
+                              <Settings className="w-3 h-3" />
+                              {(device.settings.ALo != null || device.settings.AHi != null) && (
+                                <span>Ilma: {device.settings.ALo ?? '?'}-{device.settings.AHi ?? '?'}°C</span>
+                              )}
+                              {(device.settings.FLo != null || device.settings.FHi != null) && (
+                                <>
+                                  <span className="text-muted-foreground/50">|</span>
+                                  <span>Lattia: {device.settings.FLo ?? '?'}-{device.settings.FHi ?? '?'}°C</span>
+                                </>
+                              )}
+                            </div>
+                          )}
+
                           {/* Device class badge */}
                           <div className="flex gap-2 flex-wrap">
                             <Badge variant="outline" className="text-xs">
@@ -767,38 +872,85 @@ export default function FloorHeatingAdmin({ isViewer = false }: FloorHeatingAdmi
 
       {/* Bulk action bar */}
       {selectedDevices.length > 0 && !isViewer && (
-        <Card className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-[500px] z-50 border-primary bg-background/95 backdrop-blur shadow-lg">
-          <CardContent className="flex flex-col md:flex-row items-center justify-between gap-4 py-4">
-            <span className="font-medium">{selectedDevices.length} laitetta valittu</span>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <span className="text-sm">Lämpötila:</span>
-                <Input 
-                  type="number" 
-                  value={bulkTemperature}
-                  onChange={(e) => setBulkTemperature(Number(e.target.value))}
-                  className="w-20"
-                  min={5}
-                  max={35}
-                  step={0.5}
-                />
-                <span className="text-sm">°C</span>
-              </div>
-              <Button 
-                onClick={handleBulkSetTemperature}
-                disabled={applyingBulk}
-              >
-                {applyingBulk ? (
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                ) : null}
-                Aseta kaikille
-              </Button>
+        <Card className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-[600px] z-50 border-primary bg-background/95 backdrop-blur shadow-lg">
+          <CardContent className="py-4 space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="font-medium">{selectedDevices.length} laitetta valittu</span>
               <Button 
                 variant="outline" 
+                size="sm"
                 onClick={() => setSelectedDevices([])}
               >
                 Peruuta
               </Button>
+            </div>
+            
+            {/* Target temperature */}
+            <div className="flex items-center gap-3">
+              <span className="text-sm w-24">Tavoite:</span>
+              <Input 
+                type="number" 
+                value={bulkTemperature}
+                onChange={(e) => setBulkTemperature(Number(e.target.value))}
+                className="w-20"
+                min={5}
+                max={35}
+                step={0.5}
+              />
+              <span className="text-sm">°C</span>
+              <Button 
+                onClick={handleBulkSetTemperature}
+                disabled={applyingBulk}
+                size="sm"
+              >
+                {applyingBulk ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+                Aseta tavoite
+              </Button>
+            </div>
+            
+            {/* Settings limits (AHi, FHi) */}
+            <div className="border-t pt-3">
+              <div className="flex items-center gap-2 mb-3">
+                <Settings className="w-4 h-4 text-muted-foreground" />
+                <span className="text-sm font-medium">Raja-arvojen muokkaus</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">AHi (ilma max):</span>
+                  <Input 
+                    type="number" 
+                    value={bulkAHi}
+                    onChange={(e) => setBulkAHi(Number(e.target.value))}
+                    className="w-16 h-8"
+                    min={15}
+                    max={35}
+                    step={1}
+                  />
+                  <span className="text-xs">°C</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">FHi (lattia max):</span>
+                  <Input 
+                    type="number" 
+                    value={bulkFHi}
+                    onChange={(e) => setBulkFHi(Number(e.target.value))}
+                    className="w-16 h-8"
+                    min={20}
+                    max={35}
+                    step={1}
+                  />
+                  <span className="text-xs">°C</span>
+                </div>
+                <Button 
+                  onClick={handleBulkSetSettings}
+                  disabled={applyingBulkSettings}
+                  size="sm"
+                  variant="secondary"
+                >
+                  {applyingBulkSettings ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+                  Aseta raja-arvot
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
