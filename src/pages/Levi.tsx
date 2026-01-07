@@ -9,7 +9,7 @@ import LeviSeasons from "@/components/LeviSeasons";
 import LeviFacts from "@/components/LeviFacts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video, Brain, Star, Gift, Flame } from "lucide-react";
+import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video, Brain, Star, Gift, Flame, Volume2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
@@ -56,6 +56,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     christmasButton: string;
     liveCamera: string;
     liveCameraDesc: string;
+    pronounceLabel: string;
   }> = {
     fi: {
       quizTitle: "Testaa Levi-tietämyksesi!",
@@ -65,7 +66,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Koe taianomainen joulu joulupukin kotimaassa.",
       christmasButton: "Lue lisää",
       liveCamera: "Levin live-kamera",
-      liveCameraDesc: "Suora näkymä Levin hiihtokeskuksesta – näe rinteiden tilanne reaaliajassa"
+      liveCameraDesc: "Suora näkymä Levin hiihtokeskuksesta – näe rinteiden tilanne reaaliajassa",
+      pronounceLabel: "Miten Levi lausutaan?"
     },
     en: {
       quizTitle: "Test Your Levi Knowledge!",
@@ -75,7 +77,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Experience a magical Christmas in the home of Santa Claus.",
       christmasButton: "Read more",
       liveCamera: "Levi Live Camera",
-      liveCameraDesc: "Live view from Levi ski resort – see the current conditions on the slopes"
+      liveCameraDesc: "Live view from Levi ski resort – see the current conditions on the slopes",
+      pronounceLabel: "How to pronounce Levi?"
     },
     sv: {
       quizTitle: "Testa din Levi-kunskap!",
@@ -85,7 +88,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Upplev en magisk jul i jultomtens hemland.",
       christmasButton: "Läs mer",
       liveCamera: "Levi livekamera",
-      liveCameraDesc: "Direktsändning från Levi skidort – se aktuella förhållanden på backarna"
+      liveCameraDesc: "Direktsändning från Levi skidort – se aktuella förhållanden på backarna",
+      pronounceLabel: "Hur uttalas Levi?"
     },
     de: {
       quizTitle: "Teste dein Levi-Wissen!",
@@ -95,7 +99,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Erlebe ein magisches Weihnachten in der Heimat des Weihnachtsmanns.",
       christmasButton: "Mehr lesen",
       liveCamera: "Levi Live-Kamera",
-      liveCameraDesc: "Live-Blick aus dem Skigebiet Levi – sieh die aktuellen Bedingungen auf den Pisten"
+      liveCameraDesc: "Live-Blick aus dem Skigebiet Levi – sieh die aktuellen Bedingungen auf den Pisten",
+      pronounceLabel: "Wie spricht man Levi aus?"
     },
     es: {
       quizTitle: "¡Pon a prueba tus conocimientos sobre Levi!",
@@ -105,7 +110,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Vive una Navidad mágica en el hogar de Papá Noel.",
       christmasButton: "Leer más",
       liveCamera: "Cámara en vivo de Levi",
-      liveCameraDesc: "Vista en directo desde la estación de esquí de Levi – ve las condiciones actuales en las pistas"
+      liveCameraDesc: "Vista en directo desde la estación de esquí de Levi – ve las condiciones actuales en las pistas",
+      pronounceLabel: "¿Cómo se pronuncia Levi?"
     },
     fr: {
       quizTitle: "Testez vos connaissances sur Levi !",
@@ -115,7 +121,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Vivez un Noël magique dans le pays du Père Noël.",
       christmasButton: "En savoir plus",
       liveCamera: "Caméra en direct de Levi",
-      liveCameraDesc: "Vue en direct de la station de ski de Levi – voyez les conditions actuelles sur les pistes"
+      liveCameraDesc: "Vue en direct de la station de ski de Levi – voyez les conditions actuelles sur les pistes",
+      pronounceLabel: "Comment prononcer Levi ?"
     }
   };
 
@@ -346,6 +353,16 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </Card>
             </section>
 
+            {/* Pronunciation Link */}
+            <section className="mb-12 sm:mb-20 text-center">
+              <Link 
+                to="/levi-pronounce" 
+                className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+              >
+                <Volume2 className="w-4 h-4 group-hover:text-primary" />
+                <span className="text-sm underline-offset-4 group-hover:underline">{c.pronounceLabel}</span>
+              </Link>
+            </section>
 
             {/* Useful Links */}
             <section className="text-center">
