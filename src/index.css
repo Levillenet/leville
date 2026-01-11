@@ -378,7 +378,7 @@
 /* Moder booking widget - ensure widget receives all pointer events */
 #moder-embed {
   position: relative;
-  z-index: 9990;
+  z-index: 9999 !important;
   isolation: isolate;
   min-height: 100px;
 }
@@ -391,7 +391,15 @@
 
 /* All widget elements receive pointer events normally */
 #moder-embed * {
-  pointer-events: auto;
+  pointer-events: auto !important;
+}
+
+/* Ensure calendar navigation is fully clickable above header */
+#moder-embed [class*="calendar"],
+#moder-embed [class*="picker"],
+#moder-embed [class*="datepicker"] {
+  position: relative;
+  z-index: 10001 !important;
 }
 
 /* Widget dropdowns, calendars, popups - high z-index */
