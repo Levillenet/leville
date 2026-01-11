@@ -429,7 +429,6 @@
   pointer-events: auto !important;
   z-index: 10002 !important;
   cursor: pointer;
-  position: relative;
 }
 
 /* All buttons inside calendar/picker */
@@ -438,7 +437,6 @@
 #moder-embed [class*="datepicker"] button {
   pointer-events: auto !important;
   cursor: pointer;
-  position: relative;
   z-index: 10002 !important;
 }
 
