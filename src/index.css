@@ -399,6 +399,7 @@
 #moder-embed [class*="calendar"],
 #moder-embed [class*="dropdown"],
 #moder-embed [class*="picker"],
+#moder-embed [class*="datepicker"],
 #moder-embed [class*="popup"],
 #moder-embed [class*="modal"],
 #moder-embed [class*="overlay"],
@@ -407,7 +408,55 @@
 #moder-embed [class*="list"],
 #moder-embed [class*="options"],
 #moder-embed [class*="select"] {
-  z-index: 9999 !important;
+  z-index: 10001 !important;
+}
+
+/* Calendar navigation buttons - ensure clickability */
+#moder-embed [class*="calendar"] [class*="nav"],
+#moder-embed [class*="calendar"] [class*="prev"],
+#moder-embed [class*="calendar"] [class*="next"],
+#moder-embed [class*="calendar"] [class*="arrow"],
+#moder-embed [class*="calendar"] [class*="header"],
+#moder-embed [class*="picker"] [class*="nav"],
+#moder-embed [class*="picker"] [class*="prev"],
+#moder-embed [class*="picker"] [class*="next"],
+#moder-embed [class*="datepicker"] [class*="nav"],
+#moder-embed [class*="datepicker"] [class*="prev"],
+#moder-embed [class*="datepicker"] [class*="next"],
+#moder-embed button[class*="nav"],
+#moder-embed button[class*="prev"],
+#moder-embed button[class*="next"] {
+  pointer-events: auto !important;
+  z-index: 10002 !important;
+  cursor: pointer;
+  position: relative;
+}
+
+/* All buttons inside calendar/picker */
+#moder-embed [class*="calendar"] button,
+#moder-embed [class*="picker"] button,
+#moder-embed [class*="datepicker"] button {
+  pointer-events: auto !important;
+  cursor: pointer;
+  position: relative;
+  z-index: 10002 !important;
+}
+
+/* Moder portals that render outside #moder-embed */
+body > [class*="moder"],
+body > [class*="calendar"],
+body > [id*="moder"],
+body > div[style*="z-index"] [class*="calendar"],
+body > div[style*="z-index"] [class*="picker"] {
+  z-index: 10001 !important;
+  pointer-events: auto !important;
+}
+
+body > [class*="moder"] button,
+body > [class*="calendar"] button,
+body > [id*="moder"] button {
+  pointer-events: auto !important;
+  cursor: pointer;
 }
 
 /* Fix persons/guests section - prevent it from blocking other elements */
