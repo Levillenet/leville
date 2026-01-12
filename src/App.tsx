@@ -26,6 +26,12 @@ import Unsubscribe from "./pages/Unsubscribe";
 import LeviPronounce from "./pages/LeviPronounce";
 import NotFound from "./pages/NotFound";
 
+// SEO Landing Pages
+import WinterClothingGuide from "./pages/guide/WinterClothingGuide";
+import SnowmobileSafariTips from "./pages/activities/SnowmobileSafariTips";
+import HowToGetToLevi from "./pages/travel/HowToGetToLevi";
+import TopWinterActivities from "./pages/activities/TopWinterActivities";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -117,6 +123,18 @@ const App = () => (
               <Route path="/fr/entreprise" element={<Yritys lang="fr" />} />
               <Route path="/fr/quiz" element={<Tietovisa lang="fr" />} />
               <Route path="/fr/derniere-minute" element={<Akkilahdot lang="fr" />} />
+              
+              {/* SEO Landing Pages - Finnish */}
+              <Route path="/opas/talvivarusteet-leville" element={<WinterClothingGuide />} />
+              <Route path="/aktiviteetit/moottorikelkkasafari-vinkit-levi" element={<SnowmobileSafariTips />} />
+              <Route path="/matka/miten-paasee-leville-helsingista" element={<HowToGetToLevi />} />
+              <Route path="/aktiviteetit/parhaat-talviaktiviteetit-levi" element={<TopWinterActivities />} />
+              
+              {/* SEO Landing Pages - English */}
+              <Route path="/guide/how-to-dress-for-winter-in-levi-lapland" element={<WinterClothingGuide lang="en" />} />
+              <Route path="/activities/snowmobile-safari-tips-levi" element={<SnowmobileSafariTips lang="en" />} />
+              <Route path="/travel/how-to-get-to-levi-from-helsinki-and-abroad" element={<HowToGetToLevi lang="en" />} />
+              <Route path="/activities/top-winter-activities-in-levi-lapland" element={<TopWinterActivities lang="en" />} />
               
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
