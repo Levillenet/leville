@@ -207,10 +207,23 @@ const LeviFacts = ({ lang = "fi" }: LeviFactsProps) => {
     </div>
   );
 
+  // Section title for ski resort facts
+  const skiResortTitle: Record<Language, string> = {
+    fi: "Levin hiihtokeskus",
+    en: "Levi Ski Resort",
+    sv: "Levi Skidort",
+    de: "Skigebiet Levi",
+    es: "Estación de esquí de Levi",
+    fr: "Station de ski de Levi"
+  };
+
   return (
     <>
       {/* Ski Resort Facts */}
       <section className="mb-16">
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
+          {skiResortTitle[lang]}
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
           {skiResortFacts.map((fact, index) => renderFactCard(fact, index))}
         </div>
