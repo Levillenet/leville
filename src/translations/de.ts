@@ -210,11 +210,15 @@ export const de = {
     mapText: "Erkunden Sie das Zentrum von Levi und Umgebung mit der Karte.",
     mapCta: "Karte öffnen",
     linksTitle: "Nützliche Links",
+    activitiesTitle: "Aktivitäten in Levi",
+    relatedGuidesTitle: "Entdecke unsere Guides",
+    bookAccommodationCta: "Unterkunft in Levi buchen",
     activities: [
       { title: "Abfahrtsski", description: "Das Skigebiet Levi bietet 43 Pisten und 28 Lifte. Pisten für alle Könnensstufen." },
       { title: "Langlaufen", description: "Über 230 km präparierte Loipen. Lapplands atemberaubende Landschaften entfalten sich im Loipennetz." },
       { title: "Nordlichter", description: "Levi ist einer der besten Orte, um die Nordlichter zu bewundern. Die Saison dauert von September bis März." }
     ],
+    relatedGuides: [],
     gallery: [
       { alt: "Snowboarder auf Levi Pisten bei Sonnenuntergang", caption: "Sonnenuntergang auf den Pisten" },
       { alt: "Levi Skipisten an einem hellen Wintertag", caption: "Levi Pisten" },

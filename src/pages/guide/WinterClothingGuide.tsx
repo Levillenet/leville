@@ -430,7 +430,7 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
       <SubpageBackground />
       
       <main className="container mx-auto px-4 py-8 md:py-12">
-        <Breadcrumbs customItems={t.breadcrumbs} />
+        <Breadcrumbs items={t.breadcrumbs} />
         
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}

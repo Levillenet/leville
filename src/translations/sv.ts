@@ -210,11 +210,15 @@ export const sv = {
     mapText: "Utforska Levi centrum och omgivningar med kartan.",
     mapCta: "Öppna karta",
     linksTitle: "Användbara länkar",
+    activitiesTitle: "Aktiviteter i Levi",
+    relatedGuidesTitle: "Utforska våra guider",
+    bookAccommodationCta: "Boka boende i Levi",
     activities: [
       { title: "Utförsåkning", description: "Levi skidort erbjuder 43 backar och 28 liftar. Backar för alla nivåer." },
       { title: "Längdskidåkning", description: "Över 230 km preparerade spår. Lapplands fantastiska landskap vecklar ut sig på spårnätet." },
       { title: "Norrsken", description: "Levi är en av de bästa platserna att beundra norrskenet. Säsongen varar från september till mars." }
     ],
+    relatedGuides: [],
     gallery: [
       { alt: "Snowboardåkare på Levi backar vid solnedgång", caption: "Solnedgång på backarna" },
       { alt: "Levi skidbackar en ljus vinterdag", caption: "Levi backar" },

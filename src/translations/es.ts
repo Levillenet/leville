@@ -210,11 +210,15 @@ export const es = {
     mapText: "Explora el centro de Levi y alrededores con el mapa.",
     mapCta: "Abrir mapa",
     linksTitle: "Enlaces útiles",
+    activitiesTitle: "Actividades en Levi",
+    relatedGuidesTitle: "Explora nuestras guías",
+    bookAccommodationCta: "Reservar alojamiento en Levi",
     activities: [
       { title: "Esquí alpino", description: "La estación de esquí de Levi ofrece 43 pistas y 28 remontes. Pistas para todos los niveles." },
       { title: "Esquí de fondo", description: "Más de 230 km de senderos preparados. Los impresionantes paisajes de Laponia se despliegan en la red de senderos." },
       { title: "Auroras boreales", description: "Levi es uno de los mejores lugares para admirar las auroras boreales. La temporada dura de septiembre a marzo." }
     ],
+    relatedGuides: [],
     gallery: [
       { alt: "Snowboarder en las pistas de Levi al atardecer", caption: "Atardecer en las pistas" },
       { alt: "Pistas de esquí de Levi en un día de invierno luminoso", caption: "Pistas de Levi" },
