@@ -173,9 +173,11 @@ const translations = {
     ],
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
-      { label: "Aktiviteetit", href: "#" },
+      { label: "Aktiviteetit Levillä", href: "/opas/aktiviteetit-levi" },
       { label: "Moottorikelkkasafari" }
     ],
+    activitiesHubLink: "/opas/aktiviteetit-levi",
+    activitiesHubText: "← Takaisin aktiviteettioppaaseen",
     accommodationsHref: "/majoitukset"
   },
   en: {
@@ -320,9 +322,11 @@ const translations = {
     ],
     breadcrumbs: [
       { label: "Home", href: "/en" },
-      { label: "Activities", href: "#" },
+      { label: "Activities in Levi", href: "/guide/activities-in-levi" },
       { label: "Snowmobile Safari" }
     ],
+    activitiesHubLink: "/guide/activities-in-levi",
+    activitiesHubText: "← Back to Activities Guide",
     accommodationsHref: "/en/accommodations"
   }
 };
@@ -412,6 +416,16 @@ const SnowmobileSafariTips = ({ lang = "fi" }: SnowmobileSafariTipsProps) => {
       <main className="container mx-auto px-4 py-8 md:py-12">
         <Breadcrumbs items={t.breadcrumbs} />
         
+        {/* Back to Activities HUB */}
+        <div className="mb-6">
+          <Link 
+            to={t.activitiesHubLink} 
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
+            {t.activitiesHubText}
+          </Link>
+        </div>
+
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
           <header className="text-center mb-12">

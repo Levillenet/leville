@@ -8,7 +8,7 @@ import HreflangTags from "@/components/HreflangTags";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import GuideHubCard from "@/components/guide/GuideHubCard";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, Mountain, Snowflake, Sun, Sparkles, Dog, TreePine } from "lucide-react";
+import { ArrowRight, ArrowLeft, Mountain, Snowflake, Sun, Sparkles, Dog, TreePine, BookOpen } from "lucide-react";
 import { Language } from "@/translations";
 
 interface ActivitiesHubProps {
@@ -25,12 +25,19 @@ const content: Record<Language, {
   readMore: string;
   bookCta: string;
   accommodationsLink: string;
+  popularGuidesTitle: string;
   activities: {
     id: string;
     title: string;
     description: string;
     href: string;
     iconKey: string;
+  }[];
+  popularGuides: {
+    id: string;
+    title: string;
+    description: string;
+    href: string;
   }[];
 }> = {
   fi: {
@@ -43,6 +50,7 @@ const content: Record<Language, {
     readMore: "Lue opas",
     bookCta: "Varaa majoitus Leviltä",
     accommodationsLink: "/majoitukset",
+    popularGuidesTitle: "Suositut aktiviteettiopaat",
     activities: [
       { id: "skiing", title: "Laskettelu", description: "43 rinnettä ja 28 hissiä – Suomen suosituin hiihtokeskus tarjoaa laskettelua kaikille tasoille.", href: "/opas/laskettelu-levi", iconKey: "mountain" },
       { id: "cross-country", title: "Hiihto", description: "Yli 230 kilometriä huollettuja latuja upeissa Lapin maisemissa.", href: "/opas/hiihto-levi", iconKey: "snowflake" },
@@ -50,6 +58,10 @@ const content: Record<Language, {
       { id: "snowmobile", title: "Moottorikelkkasafari", description: "Koe Lapin erämaiden huima vauhti ja vapaus moottorikelkkasafarilla.", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi", iconKey: "sun" },
       { id: "husky", title: "Koiravaljakkoajelu", description: "Unohtumaton elämys huskyjen kanssa Lapin talvisessa luonnossa.", href: "/levi", iconKey: "dog" },
       { id: "hiking", title: "Vaellus", description: "Tunturireittejä ja luontopolkuja kaikentasoisille vaeltajille.", href: "/levi", iconKey: "treepine" }
+    ],
+    popularGuides: [
+      { id: "snowmobile-tips", title: "Moottorikelkkasafari-vinkit", description: "Käytännön vinkit ensikertalaiselle: mitä pukea, miten ajaa ja mistä varata.", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
+      { id: "top-winter", title: "Parhaat talviaktiviteetit", description: "Kattava opas Levin talviaktiviteetteihin: laskettelu, huskyt, porot ja paljon muuta.", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" }
     ]
   },
   en: {
@@ -62,6 +74,7 @@ const content: Record<Language, {
     readMore: "Read guide",
     bookCta: "Book accommodation in Levi",
     accommodationsLink: "/en/accommodations",
+    popularGuidesTitle: "Popular Activity Guides",
     activities: [
       { id: "skiing", title: "Skiing", description: "43 slopes and 28 lifts – Finland's most popular ski resort offers skiing for all levels.", href: "/guide/skiing-in-levi", iconKey: "mountain" },
       { id: "cross-country", title: "Cross-Country Skiing", description: "Over 230 kilometers of groomed trails in stunning Lapland scenery.", href: "/guide/cross-country-skiing-in-levi", iconKey: "snowflake" },
@@ -69,6 +82,10 @@ const content: Record<Language, {
       { id: "snowmobile", title: "Snowmobile Safari", description: "Experience the thrill and freedom of Lapland wilderness on a snowmobile safari.", href: "/activities/snowmobile-safari-tips-levi", iconKey: "sun" },
       { id: "husky", title: "Husky Safari", description: "An unforgettable experience with huskies in Lapland's winter nature.", href: "/en/levi", iconKey: "dog" },
       { id: "hiking", title: "Hiking", description: "Fell trails and nature paths for hikers of all levels.", href: "/en/levi", iconKey: "treepine" }
+    ],
+    popularGuides: [
+      { id: "snowmobile-tips", title: "Snowmobile Safari Tips", description: "Practical tips for first-timers: what to wear, how to drive and where to book.", href: "/activities/snowmobile-safari-tips-levi" },
+      { id: "top-winter", title: "Top Winter Activities", description: "Complete guide to Levi's winter activities: skiing, huskies, reindeer and more.", href: "/activities/top-winter-activities-in-levi-lapland" }
     ]
   },
   sv: {
@@ -81,6 +98,7 @@ const content: Record<Language, {
     readMore: "Läs guide",
     bookCta: "Boka boende i Levi",
     accommodationsLink: "/sv/boende",
+    popularGuidesTitle: "Populära aktivitetsguider",
     activities: [
       { id: "skiing", title: "Skidåkning", description: "43 backar och 28 liftar – Finlands populäraste skidort erbjuder skidåkning för alla nivåer.", href: "/sv/levi", iconKey: "mountain" },
       { id: "cross-country", title: "Längdskidåkning", description: "Över 230 kilometer preparerade spår i fantastiska Lapplands-landskap.", href: "/sv/levi", iconKey: "snowflake" },
@@ -88,6 +106,10 @@ const content: Record<Language, {
       { id: "snowmobile", title: "Snöskotursafari", description: "Upplev spänningen och friheten i Lapplands vildmark på snöskotersafari.", href: "/sv/levi", iconKey: "sun" },
       { id: "husky", title: "Hundspann", description: "En oförglömlig upplevelse med huskies i Lapplands vinternatur.", href: "/sv/levi", iconKey: "dog" },
       { id: "hiking", title: "Vandring", description: "Fjälleder och naturstigar för vandrare på alla nivåer.", href: "/sv/levi", iconKey: "treepine" }
+    ],
+    popularGuides: [
+      { id: "snowmobile-tips", title: "Snöskotursafari-tips", description: "Praktiska tips för nybörjare: vad du ska ha på dig, hur du kör och var du bokar.", href: "/activities/snowmobile-safari-tips-levi" },
+      { id: "top-winter", title: "Bästa vinteraktiviteterna", description: "Komplett guide till Levis vinteraktiviteter: skidåkning, huskies, renar och mer.", href: "/activities/top-winter-activities-in-levi-lapland" }
     ]
   },
   de: {
@@ -100,6 +122,7 @@ const content: Record<Language, {
     readMore: "Guide lesen",
     bookCta: "Unterkunft in Levi buchen",
     accommodationsLink: "/de/unterkuenfte",
+    popularGuidesTitle: "Beliebte Aktivitätsguides",
     activities: [
       { id: "skiing", title: "Skifahren", description: "43 Pisten und 28 Lifte – Finnlands beliebtestes Skigebiet bietet Skifahren für alle Levels.", href: "/de/levi", iconKey: "mountain" },
       { id: "cross-country", title: "Langlauf", description: "Über 230 Kilometer präparierte Loipen in atemberaubender Lappland-Landschaft.", href: "/de/levi", iconKey: "snowflake" },
@@ -107,6 +130,10 @@ const content: Record<Language, {
       { id: "snowmobile", title: "Schneemobilsafari", description: "Erleben Sie den Nervenkitzel der Lappland-Wildnis auf einer Schneemobilsafari.", href: "/de/levi", iconKey: "sun" },
       { id: "husky", title: "Hundeschlittenfahrt", description: "Ein unvergessliches Erlebnis mit Huskies in Lapplands Winternatur.", href: "/de/levi", iconKey: "dog" },
       { id: "hiking", title: "Wandern", description: "Fjellwege und Naturpfade für Wanderer aller Niveaus.", href: "/de/levi", iconKey: "treepine" }
+    ],
+    popularGuides: [
+      { id: "snowmobile-tips", title: "Schneemobilsafari-Tipps", description: "Praktische Tipps für Anfänger: was anziehen, wie fahren und wo buchen.", href: "/activities/snowmobile-safari-tips-levi" },
+      { id: "top-winter", title: "Top Winteraktivitäten", description: "Kompletter Guide zu Levis Winteraktivitäten: Skifahren, Huskies, Rentiere und mehr.", href: "/activities/top-winter-activities-in-levi-lapland" }
     ]
   },
   es: {
@@ -119,6 +146,7 @@ const content: Record<Language, {
     readMore: "Leer guía",
     bookCta: "Reservar alojamiento en Levi",
     accommodationsLink: "/es/alojamientos",
+    popularGuidesTitle: "Guías de actividades populares",
     activities: [
       { id: "skiing", title: "Esquí", description: "43 pistas y 28 remontes – La estación de esquí más popular de Finlandia ofrece esquí para todos los niveles.", href: "/es/levi", iconKey: "mountain" },
       { id: "cross-country", title: "Esquí de fondo", description: "Más de 230 kilómetros de pistas preparadas en impresionantes paisajes de Laponia.", href: "/es/levi", iconKey: "snowflake" },
@@ -126,6 +154,10 @@ const content: Record<Language, {
       { id: "snowmobile", title: "Safari en moto de nieve", description: "Experimenta la emoción y libertad de la naturaleza de Laponia en un safari en moto de nieve.", href: "/es/levi", iconKey: "sun" },
       { id: "husky", title: "Safari de huskies", description: "Una experiencia inolvidable con huskies en la naturaleza invernal de Laponia.", href: "/es/levi", iconKey: "dog" },
       { id: "hiking", title: "Senderismo", description: "Rutas de montaña y senderos naturales para excursionistas de todos los niveles.", href: "/es/levi", iconKey: "treepine" }
+    ],
+    popularGuides: [
+      { id: "snowmobile-tips", title: "Consejos para safari en moto de nieve", description: "Consejos prácticos para principiantes: qué vestir, cómo conducir y dónde reservar.", href: "/activities/snowmobile-safari-tips-levi" },
+      { id: "top-winter", title: "Mejores actividades de invierno", description: "Guía completa de actividades de invierno en Levi: esquí, huskies, renos y más.", href: "/activities/top-winter-activities-in-levi-lapland" }
     ]
   },
   fr: {
@@ -138,6 +170,7 @@ const content: Record<Language, {
     readMore: "Lire le guide",
     bookCta: "Réserver un hébergement à Levi",
     accommodationsLink: "/fr/hebergements",
+    popularGuidesTitle: "Guides d'activités populaires",
     activities: [
       { id: "skiing", title: "Ski", description: "43 pistes et 28 remontées – La station de ski la plus populaire de Finlande offre du ski pour tous les niveaux.", href: "/fr/levi", iconKey: "mountain" },
       { id: "cross-country", title: "Ski de fond", description: "Plus de 230 kilomètres de pistes damées dans des paysages époustouflants de Laponie.", href: "/fr/levi", iconKey: "snowflake" },
@@ -145,6 +178,10 @@ const content: Record<Language, {
       { id: "snowmobile", title: "Safari motoneige", description: "Vivez le frisson et la liberté de la nature lapone lors d'un safari en motoneige.", href: "/fr/levi", iconKey: "sun" },
       { id: "husky", title: "Safari chiens de traîneau", description: "Une expérience inoubliable avec des huskies dans la nature hivernale de Laponie.", href: "/fr/levi", iconKey: "dog" },
       { id: "hiking", title: "Randonnée", description: "Sentiers de fjell et chemins naturels pour randonneurs de tous niveaux.", href: "/fr/levi", iconKey: "treepine" }
+    ],
+    popularGuides: [
+      { id: "snowmobile-tips", title: "Conseils safari motoneige", description: "Conseils pratiques pour débutants : comment s'habiller, conduire et réserver.", href: "/activities/snowmobile-safari-tips-levi" },
+      { id: "top-winter", title: "Meilleures activités d'hiver", description: "Guide complet des activités d'hiver à Levi : ski, huskies, rennes et plus.", href: "/activities/top-winter-activities-in-levi-lapland" }
     ]
   }
 };
@@ -247,6 +284,25 @@ const ActivitiesHub = ({ lang = "fi" }: ActivitiesHubProps) => {
                     />
                   );
                 })}
+              </div>
+            </section>
+
+            {/* Popular Activity Guides */}
+            <section className="mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 text-center">
+                {c.popularGuidesTitle}
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                {c.popularGuides.map((guide) => (
+                  <GuideHubCard
+                    key={guide.id}
+                    title={guide.title}
+                    description={guide.description}
+                    href={guide.href}
+                    icon={BookOpen}
+                    readMoreText={c.readMore}
+                  />
+                ))}
               </div>
             </section>
 
