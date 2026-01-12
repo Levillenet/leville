@@ -38,6 +38,11 @@ import SpringInLevi from "./pages/guide/SpringInLevi";
 import SummerInLevi from "./pages/guide/SummerInLevi";
 import AutumnRuskaInLevi from "./pages/guide/AutumnRuskaInLevi";
 
+// Guide HUB Pages
+import SeasonsHub from "./pages/guide/SeasonsHub";
+import ActivitiesHub from "./pages/guide/ActivitiesHub";
+import TravelHub from "./pages/guide/TravelHub";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -129,6 +134,16 @@ const App = () => (
               <Route path="/fr/entreprise" element={<Yritys lang="fr" />} />
               <Route path="/fr/quiz" element={<Tietovisa lang="fr" />} />
               <Route path="/fr/derniere-minute" element={<Akkilahdot lang="fr" />} />
+              
+              {/* Guide HUB Pages - Finnish */}
+              <Route path="/opas/vuodenajat-levi" element={<SeasonsHub />} />
+              <Route path="/opas/aktiviteetit-levi" element={<ActivitiesHub />} />
+              <Route path="/opas/matkaopas-levi" element={<TravelHub />} />
+              
+              {/* Guide HUB Pages - English */}
+              <Route path="/guide/seasons-in-levi" element={<SeasonsHub lang="en" />} />
+              <Route path="/guide/activities-in-levi" element={<ActivitiesHub lang="en" />} />
+              <Route path="/guide/travel-to-levi" element={<TravelHub lang="en" />} />
               
               {/* SEO Landing Pages - Finnish */}
               <Route path="/opas/talvivarusteet-leville" element={<WinterClothingGuide />} />
