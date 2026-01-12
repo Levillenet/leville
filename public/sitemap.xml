@@ -901,4 +901,58 @@
     <priority>0.6</priority>
   </url>
 
+  <!-- Guide HUB Pages - Seasons -->
+  <url>
+    <loc>https://leville.net/opas/vuodenajat-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuodenajat-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/seasons-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/vuodenajat-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/seasons-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuodenajat-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/seasons-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/vuodenajat-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Guide HUB Pages - Activities -->
+  <url>
+    <loc>https://leville.net/opas/aktiviteetit-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/aktiviteetit-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/aktiviteetit-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/activities-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/aktiviteetit-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/aktiviteetit-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Guide HUB Pages - Travel -->
+  <url>
+    <loc>https://leville.net/opas/matkaopas-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/matkaopas-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/travel-to-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/matkaopas-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/travel-to-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/matkaopas-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/travel-to-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/matkaopas-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

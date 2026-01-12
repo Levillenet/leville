@@ -1,36 +1,21 @@
 import { Helmet } from "react-helmet-async";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
-import LeviSeasons from "@/components/LeviSeasons";
-import LeviFacts from "@/components/LeviFacts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video, Brain, Star, Gift, Flame, Volume2, BookOpen, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Calendar, Mountain, Plane, ArrowRight, Brain, Gift, Star, Snowflake, Flame, Video, Volume2 } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import OptimizedImage from "@/components/OptimizedImage";
+
 // Import images
 import leviSunsetSlope from "@/assets/levi-sunset-slope.jpg";
-import leviCampfire from "@/assets/levi-campfire.jpg";
-import leviReindeer from "@/assets/levi-reindeer.jpg";
 import leviSlopes from "@/assets/levi-slopes.jpg";
-import leviSkiTracks from "@/assets/levi-ski-tracks.jpg";
-import leviPanorama from "@/assets/levi-panorama.jpg";
-
-const activityIcons: LucideIcon[] = [Mountain, Snowflake, Sun];
-const galleryImageSources = [
-  leviSunsetSlope,
-  leviSlopes,
-  leviCampfire,
-  leviReindeer,
-  leviSkiTracks,
-  leviPanorama,
-];
+import leviCampfire from "@/assets/levi-campfire.jpg";
 
 interface LeviProps {
   lang?: Language;
@@ -40,32 +25,18 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
   const t = getTranslations(lang).levi;
   const location = useLocation();
 
-  const galleryImages = t.gallery.map((item, index) => ({
-    src: galleryImageSources[index],
-    alt: item.alt,
-    caption: item.caption,
-  }));
-
-  // Activity guide URLs - links activities to dedicated guide pages
-  const activityGuideUrls: Record<Language, Record<number, string>> = {
-    fi: {
-      0: "/opas/laskettelu-levi", // Laskettelu
-      1: "/opas/hiihto-levi", // Hiihto
-      2: "/revontulet" // Revontulet - existing page
-    },
-    en: {
-      0: "/guide/skiing-in-levi", // Skiing
-      1: "/guide/cross-country-skiing-in-levi", // Cross-country
-      2: "/en/northern-lights" // Aurora - existing page
-    },
-    sv: { 2: "/sv/norrsken" },
-    de: { 2: "/de/nordlichter" },
-    es: { 2: "/es/auroras-boreales" },
-    fr: { 2: "/fr/aurores-boreales" }
-  };
-
-  // Multilingual UI content
+  // Multilingual content for the simplified HUB
   const content: Record<Language, {
+    intro: string;
+    seasonsHubTitle: string;
+    seasonsHubDesc: string;
+    activitiesHubTitle: string;
+    activitiesHubDesc: string;
+    travelHubTitle: string;
+    travelHubDesc: string;
+    exploreButton: string;
+    bookCta: string;
+    accommodationsLink: string;
     quizTitle: string;
     quizDesc: string;
     quizButton: string;
@@ -75,14 +46,19 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     liveCamera: string;
     liveCameraDesc: string;
     pronounceLabel: string;
-    activitiesTitle: string;
-    relatedGuidesTitle: string;
-    bookAccommodationCta: string;
-    accommodationsLink: string;
-    readGuideText: string;
-    exploreGuidesText: string;
+    atmosphereTitle: string;
   }> = {
     fi: {
+      intro: "Löydä kaikki tarvitsemasi Levi-matkaa varten. Tutustu vuodenaikoihin, aktiviteetteihin ja käytännön matkailuoppaisiin.",
+      seasonsHubTitle: "Vuodenajat Levillä",
+      seasonsHubDesc: "Talven kaamoksesta kesän yöttömään yöhön – jokaisella vuodenajalla on oma erityinen luonteensa.",
+      activitiesHubTitle: "Aktiviteetit Levillä",
+      activitiesHubDesc: "Laskettelua, hiihtoa, revontulia ja moottorikelkkasafareita – elämyksiä kaikille.",
+      travelHubTitle: "Matkaopas Leville",
+      travelHubDesc: "Miten pääset perille, mitä vaatteita tarvitset ja käytännön vinkit matkallesi.",
+      exploreButton: "Tutustu",
+      bookCta: "Varaa majoitus Leviltä",
+      accommodationsLink: "/majoitukset",
       quizTitle: "Testaa Levi-tietämyksesi!",
       quizDesc: "Pelaa hauska tietovisa Suomen suosituimmasta hiihtokeskuksesta.",
       quizButton: "Aloita visa",
@@ -90,16 +66,21 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Koe taianomainen joulu joulupukin kotimaassa.",
       christmasButton: "Lue lisää",
       liveCamera: "Levin live-kamera",
-      liveCameraDesc: "Suora näkymä Levin hiihtokeskuksesta – näe rinteiden tilanne reaaliajassa",
+      liveCameraDesc: "Suora näkymä Levin hiihtokeskuksesta",
       pronounceLabel: "Miten Levi lausutaan?",
-      activitiesTitle: "Aktiviteetit Levillä",
-      relatedGuidesTitle: "Tutustu oppaisiin",
-      bookAccommodationCta: "Varaa majoitus Leviltä",
-      accommodationsLink: "/majoitukset",
-      readGuideText: "Lue opas",
-      exploreGuidesText: "Tutustu yksityiskohtaisiin oppaisiin laskettelusta, hiihdosta ja revontulista."
+      atmosphereTitle: "Levin tunnelmaa"
     },
     en: {
+      intro: "Find everything you need for your Levi trip. Explore seasons, activities and practical travel guides.",
+      seasonsHubTitle: "Seasons in Levi",
+      seasonsHubDesc: "From winter's polar night to summer's midnight sun – each season has its own special character.",
+      activitiesHubTitle: "Activities in Levi",
+      activitiesHubDesc: "Skiing, cross-country, northern lights and snowmobile safaris – experiences for everyone.",
+      travelHubTitle: "Travel Guide to Levi",
+      travelHubDesc: "How to get there, what clothes you need and practical tips for your trip.",
+      exploreButton: "Explore",
+      bookCta: "Book accommodation in Levi",
+      accommodationsLink: "/en/accommodations",
       quizTitle: "Test Your Levi Knowledge!",
       quizDesc: "Take our fun quiz about Finland's favorite ski resort.",
       quizButton: "Start Quiz",
@@ -107,16 +88,21 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Experience a magical Christmas in the home of Santa Claus.",
       christmasButton: "Read more",
       liveCamera: "Levi Live Camera",
-      liveCameraDesc: "Live view from Levi ski resort – see the current conditions on the slopes",
+      liveCameraDesc: "Live view from Levi ski resort",
       pronounceLabel: "How to pronounce Levi?",
-      activitiesTitle: "Activities in Levi",
-      relatedGuidesTitle: "Explore our guides",
-      bookAccommodationCta: "Book accommodation in Levi",
-      accommodationsLink: "/en/accommodations",
-      readGuideText: "Read guide",
-      exploreGuidesText: "Explore detailed guides for skiing, cross-country skiing and northern lights."
+      atmosphereTitle: "Levi Atmosphere"
     },
     sv: {
+      intro: "Hitta allt du behöver för din Levi-resa. Utforska årstider, aktiviteter och praktiska reseguider.",
+      seasonsHubTitle: "Årstider i Levi",
+      seasonsHubDesc: "Från vinterns polarnatt till sommarens midnattssol – varje årstid har sin egen speciella karaktär.",
+      activitiesHubTitle: "Aktiviteter i Levi",
+      activitiesHubDesc: "Skidåkning, längdskidåkning, norrsken och snöskotursafari – upplevelser för alla.",
+      travelHubTitle: "Reseguide till Levi",
+      travelHubDesc: "Hur du tar dig dit, vilka kläder du behöver och praktiska tips för din resa.",
+      exploreButton: "Utforska",
+      bookCta: "Boka boende i Levi",
+      accommodationsLink: "/sv/boende",
       quizTitle: "Testa din Levi-kunskap!",
       quizDesc: "Spela ett roligt quiz om Finlands populäraste skidort.",
       quizButton: "Starta quiz",
@@ -124,16 +110,21 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Upplev en magisk jul i jultomtens hemland.",
       christmasButton: "Läs mer",
       liveCamera: "Levi livekamera",
-      liveCameraDesc: "Direktsändning från Levi skidort – se aktuella förhållanden på backarna",
+      liveCameraDesc: "Direktsändning från Levi skidort",
       pronounceLabel: "Hur uttalas Levi?",
-      activitiesTitle: "Aktiviteter i Levi",
-      relatedGuidesTitle: "Utforska våra guider",
-      bookAccommodationCta: "Boka boende i Levi",
-      accommodationsLink: "/sv/boende",
-      readGuideText: "Läs guide",
-      exploreGuidesText: "Utforska detaljerade guider för skidåkning, längdskidåkning och norrsken."
+      atmosphereTitle: "Levi atmosfär"
     },
     de: {
+      intro: "Finden Sie alles, was Sie für Ihre Levi-Reise brauchen. Entdecken Sie Jahreszeiten, Aktivitäten und praktische Reiseführer.",
+      seasonsHubTitle: "Jahreszeiten in Levi",
+      seasonsHubDesc: "Von der Polarnacht des Winters bis zur Mitternachtssonne des Sommers – jede Jahreszeit hat ihren besonderen Charakter.",
+      activitiesHubTitle: "Aktivitäten in Levi",
+      activitiesHubDesc: "Skifahren, Langlauf, Nordlichter und Schneemobilsafaris – Erlebnisse für jeden.",
+      travelHubTitle: "Reiseführer nach Levi",
+      travelHubDesc: "Wie Sie dorthin kommen, welche Kleidung Sie brauchen und praktische Tipps für Ihre Reise.",
+      exploreButton: "Entdecken",
+      bookCta: "Unterkunft in Levi buchen",
+      accommodationsLink: "/de/unterkuenfte",
       quizTitle: "Teste dein Levi-Wissen!",
       quizDesc: "Spiele unser lustiges Quiz über Finnlands beliebtestes Skigebiet.",
       quizButton: "Quiz starten",
@@ -141,16 +132,21 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Erlebe ein magisches Weihnachten in der Heimat des Weihnachtsmanns.",
       christmasButton: "Mehr lesen",
       liveCamera: "Levi Live-Kamera",
-      liveCameraDesc: "Live-Blick aus dem Skigebiet Levi – sieh die aktuellen Bedingungen auf den Pisten",
+      liveCameraDesc: "Live-Blick aus dem Skigebiet Levi",
       pronounceLabel: "Wie spricht man Levi aus?",
-      activitiesTitle: "Aktivitäten in Levi",
-      relatedGuidesTitle: "Entdecke unsere Guides",
-      bookAccommodationCta: "Unterkunft in Levi buchen",
-      accommodationsLink: "/de/unterkuenfte",
-      readGuideText: "Guide lesen",
-      exploreGuidesText: "Entdecken Sie detaillierte Guides für Skifahren, Langlauf und Nordlichter."
+      atmosphereTitle: "Levi Atmosphäre"
     },
     es: {
+      intro: "Encuentra todo lo que necesitas para tu viaje a Levi. Explora estaciones, actividades y guías de viaje prácticas.",
+      seasonsHubTitle: "Estaciones en Levi",
+      seasonsHubDesc: "Desde la noche polar del invierno hasta el sol de medianoche del verano – cada estación tiene su carácter especial.",
+      activitiesHubTitle: "Actividades en Levi",
+      activitiesHubDesc: "Esquí, esquí de fondo, auroras boreales y safaris en moto de nieve – experiencias para todos.",
+      travelHubTitle: "Guía de viaje a Levi",
+      travelHubDesc: "Cómo llegar, qué ropa necesitas y consejos prácticos para tu viaje.",
+      exploreButton: "Explorar",
+      bookCta: "Reservar alojamiento en Levi",
+      accommodationsLink: "/es/alojamientos",
       quizTitle: "¡Pon a prueba tus conocimientos sobre Levi!",
       quizDesc: "Juega nuestro divertido quiz sobre la estación de esquí más popular de Finlandia.",
       quizButton: "Comenzar quiz",
@@ -158,16 +154,21 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Vive una Navidad mágica en el hogar de Papá Noel.",
       christmasButton: "Leer más",
       liveCamera: "Cámara en vivo de Levi",
-      liveCameraDesc: "Vista en directo desde la estación de esquí de Levi – ve las condiciones actuales en las pistas",
+      liveCameraDesc: "Vista en directo desde la estación de esquí de Levi",
       pronounceLabel: "¿Cómo se pronuncia Levi?",
-      activitiesTitle: "Actividades en Levi",
-      relatedGuidesTitle: "Explora nuestras guías",
-      bookAccommodationCta: "Reservar alojamiento en Levi",
-      accommodationsLink: "/es/alojamientos",
-      readGuideText: "Leer guía",
-      exploreGuidesText: "Explora guías detalladas para esquí, esquí de fondo y auroras boreales."
+      atmosphereTitle: "Ambiente de Levi"
     },
     fr: {
+      intro: "Trouvez tout ce dont vous avez besoin pour votre voyage à Levi. Explorez les saisons, les activités et les guides de voyage pratiques.",
+      seasonsHubTitle: "Saisons à Levi",
+      seasonsHubDesc: "De la nuit polaire de l'hiver au soleil de minuit de l'été – chaque saison a son caractère particulier.",
+      activitiesHubTitle: "Activités à Levi",
+      activitiesHubDesc: "Ski, ski de fond, aurores boréales et safaris en motoneige – des expériences pour tous.",
+      travelHubTitle: "Guide de voyage à Levi",
+      travelHubDesc: "Comment y arriver, quels vêtements vous avez besoin et conseils pratiques pour votre voyage.",
+      exploreButton: "Explorer",
+      bookCta: "Réserver un hébergement à Levi",
+      accommodationsLink: "/fr/hebergements",
       quizTitle: "Testez vos connaissances sur Levi !",
       quizDesc: "Jouez à notre quiz amusant sur la station de ski la plus populaire de Finlande.",
       quizButton: "Commencer le quiz",
@@ -175,19 +176,32 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasDesc: "Vivez un Noël magique dans le pays du Père Noël.",
       christmasButton: "En savoir plus",
       liveCamera: "Caméra en direct de Levi",
-      liveCameraDesc: "Vue en direct de la station de ski de Levi – voyez les conditions actuelles sur les pistes",
+      liveCameraDesc: "Vue en direct de la station de ski de Levi",
       pronounceLabel: "Comment prononcer Levi ?",
-      activitiesTitle: "Activités à Levi",
-      relatedGuidesTitle: "Découvrez nos guides",
-      bookAccommodationCta: "Réserver un hébergement à Levi",
-      accommodationsLink: "/fr/hebergements",
-      readGuideText: "Lire le guide",
-      exploreGuidesText: "Découvrez des guides détaillés pour le ski, le ski de fond et les aurores boréales."
+      atmosphereTitle: "Atmosphère de Levi"
     }
   };
 
   const localeMap: Record<Language, string> = {
     fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR"
+  };
+
+  // HUB links
+  const hubLinks: Record<Language, { seasons: string; activities: string; travel: string }> = {
+    fi: {
+      seasons: "/opas/vuodenajat-levi",
+      activities: "/opas/aktiviteetit-levi",
+      travel: "/opas/matkaopas-levi"
+    },
+    en: {
+      seasons: "/guide/seasons-in-levi",
+      activities: "/guide/activities-in-levi",
+      travel: "/guide/travel-to-levi"
+    },
+    sv: { seasons: "/sv/levi", activities: "/sv/levi", travel: "/sv/levi" },
+    de: { seasons: "/de/levi", activities: "/de/levi", travel: "/de/levi" },
+    es: { seasons: "/es/levi", activities: "/es/levi", travel: "/es/levi" },
+    fr: { seasons: "/fr/levi", activities: "/fr/levi", travel: "/fr/levi" }
   };
 
   const quizLinks: Record<Language, string> = {
@@ -203,28 +217,39 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     fr: "/fr/levi/noel-en-laponie"
   };
 
-  // Related guides - only show for FI and EN where guide pages exist
-  const relatedGuides: Record<Language, { title: string; href: string }[]> = {
-    fi: [
-      { title: "Talvivarusteet Leville", href: "/opas/talvivarusteet-leville" },
-      { title: "Moottorikelkkasafari-vinkit", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
-      { title: "Parhaat talviaktiviteetit", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
-      { title: "Miten pääsee Leville", href: "/matka/miten-paasee-leville-helsingista" }
-    ],
-    en: [
-      { title: "How to Dress for Winter", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
-      { title: "Snowmobile Safari Tips", href: "/activities/snowmobile-safari-tips-levi" },
-      { title: "Top Winter Activities", href: "/activities/top-winter-activities-in-levi-lapland" },
-      { title: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" }
-    ],
-    sv: [],
-    de: [],
-    es: [],
-    fr: []
-  };
-
   const c = content[lang];
-  const guides = relatedGuides[lang];
+  const hubs = hubLinks[lang];
+  const hasDetailedHubs = lang === "fi" || lang === "en";
+
+  const hubCards = [
+    {
+      icon: Calendar,
+      title: c.seasonsHubTitle,
+      description: c.seasonsHubDesc,
+      href: hubs.seasons,
+      gradient: "from-sky-500/10 via-blue-500/5 to-transparent"
+    },
+    {
+      icon: Mountain,
+      title: c.activitiesHubTitle,
+      description: c.activitiesHubDesc,
+      href: hubs.activities,
+      gradient: "from-emerald-500/10 via-green-500/5 to-transparent"
+    },
+    {
+      icon: Plane,
+      title: c.travelHubTitle,
+      description: c.travelHubDesc,
+      href: hubs.travel,
+      gradient: "from-amber-500/10 via-orange-500/5 to-transparent"
+    }
+  ];
+
+  const galleryImages = [
+    { src: leviSunsetSlope, alt: t.gallery[0]?.alt || "Levi sunset" },
+    { src: leviSlopes, alt: t.gallery[1]?.alt || "Levi slopes" },
+    { src: leviCampfire, alt: t.gallery[2]?.alt || "Lapland campfire" }
+  ];
 
   return (
     <>
@@ -236,7 +261,6 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
         <meta name="keywords" content={t.meta.keywords} />
         <link rel="canonical" href={t.meta.canonical} />
         
-        {/* Open Graph */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
@@ -247,7 +271,6 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         
-        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
@@ -261,17 +284,81 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4">
             {/* Hero Section */}
-            <section className="text-center mb-10 sm:mb-16 px-2">
+            <section className="text-center mb-10 sm:mb-14 px-2">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6">
                 {t.title}
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-2">
                 {t.subtitle}
+              </p>
+              <p className="text-sm sm:text-base text-muted-foreground/80 max-w-xl mx-auto">
+                {c.intro}
               </p>
             </section>
 
-            {/* CTA Cards Section */}
-            <section className="mb-10 sm:mb-16 grid sm:grid-cols-2 gap-4">
+            {/* Three HUB Navigation Cards */}
+            <section className="mb-12 sm:mb-16">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {hubCards.map((hub) => {
+                  const Icon = hub.icon;
+                  const isDetailedLink = hasDetailedHubs || hub.href !== hubLinks[lang].seasons;
+                  
+                  return (
+                    <Link 
+                      key={hub.title}
+                      to={hub.href}
+                      className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl"
+                      aria-label={`${c.exploreButton}: ${hub.title}`}
+                    >
+                      <Card className={`glass-card border-border/30 hover:border-primary/50 transition-all duration-300 h-full cursor-pointer group overflow-hidden bg-gradient-to-br ${hub.gradient}`}>
+                        <CardContent className="p-5 sm:p-6">
+                          <div className="flex flex-col items-center text-center gap-4">
+                            <div className="w-14 h-14 rounded-xl bg-primary/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                              <Icon className="w-7 h-7 text-primary" />
+                            </div>
+                            <div>
+                              <h2 className="text-lg sm:text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                                {hub.title}
+                              </h2>
+                              <p className="text-sm text-muted-foreground leading-relaxed">
+                                {hub.description}
+                              </p>
+                            </div>
+                            <span className="inline-flex items-center gap-1.5 text-sm text-primary font-medium">
+                              {c.exploreButton}
+                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </span>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  );
+                })}
+              </div>
+            </section>
+
+            {/* Atmosphere Gallery Section */}
+            <section className="mb-12 sm:mb-16">
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 text-center">
+                {c.atmosphereTitle}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {galleryImages.map((image, index) => (
+                  <div key={index} className="relative group overflow-hidden rounded-2xl aspect-[4/3]">
+                    <OptimizedImage 
+                      src={image.src} 
+                      alt={image.alt}
+                      priority={index === 0}
+                      className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Quiz and Christmas CTAs */}
+            <section className="mb-12 sm:mb-16 grid sm:grid-cols-2 gap-4">
               {/* Quiz CTA */}
               <Card className="glass-card border-primary/30 bg-primary/5 overflow-hidden">
                 <CardContent className="p-4 sm:p-6">
@@ -280,9 +367,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                       <Brain className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
+                      <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">
                         {c.quizTitle}
-                      </h2>
+                      </h3>
                       <p className="text-sm text-muted-foreground">
                         {c.quizDesc}
                       </p>
@@ -298,13 +385,10 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
 
               {/* Christmas CTA */}
               <Card className="relative overflow-hidden border-red-500/40 bg-gradient-to-br from-red-950/40 via-red-900/20 to-background">
-                {/* Decorative elements */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden">
                   <Star className="absolute top-3 left-4 w-4 h-4 text-amber-400/40 animate-pulse" style={{ animationDelay: '0s' }} />
                   <Snowflake className="absolute top-4 right-6 w-5 h-5 text-primary/30 animate-pulse" style={{ animationDelay: '0.5s' }} />
                   <Flame className="absolute bottom-4 left-6 w-4 h-4 text-amber-500/35 animate-pulse" style={{ animationDelay: '1s' }} />
-                  <Star className="absolute bottom-6 right-4 w-3 h-3 text-amber-400/35 animate-pulse" style={{ animationDelay: '1.5s' }} />
-                  <Flame className="absolute top-1/2 right-8 w-3 h-3 text-amber-500/25 animate-pulse" style={{ animationDelay: '2s' }} />
                 </div>
                 <CardContent className="p-4 sm:p-6 relative z-10">
                   <div className="flex flex-col items-center text-center gap-3 sm:gap-4">
@@ -312,9 +396,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                       <Gift className="w-6 h-6 text-red-400" />
                     </div>
                     <div>
-                      <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
+                      <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">
                         {c.christmasTitle}
-                      </h2>
+                      </h3>
                       <p className="text-sm text-muted-foreground">
                         {c.christmasDesc}
                       </p>
@@ -329,172 +413,18 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </Card>
             </section>
 
-            {/* Levi Facts Section */}
-            <LeviFacts lang={lang} />
-
-            {/* Seasons Section */}
-            <LeviSeasons lang={lang} />
-
-            {/* Hero Image Gallery - Masonry-style */}
-            <section className="mb-20">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* Large featured image */}
-                <div className="md:col-span-2 lg:row-span-2 relative group overflow-hidden rounded-2xl">
-                  <OptimizedImage 
-                    src={galleryImages[0].src} 
-                    alt={galleryImages[0].alt}
-                    priority
-                    className="w-full h-64 md:h-full transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10" />
-                  <div className="absolute bottom-4 left-4 right-4 z-10">
-                    <p className="text-foreground font-medium text-lg">{galleryImages[0].caption}</p>
-                  </div>
-                </div>
-
-                {/* Smaller images */}
-                {galleryImages.slice(1, 3).map((image, index) => (
-                  <div key={index} className="relative group overflow-hidden rounded-2xl">
-                    <OptimizedImage 
-                      src={image.src} 
-                      alt={image.alt}
-                      className="w-full h-48 md:h-56 transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
-                    <div className="absolute bottom-4 left-4 right-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 z-10">
-                      <p className="text-foreground font-medium">{image.caption}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Activities */}
-            <section className="mb-12 sm:mb-20">
-              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 sm:mb-8 text-center">
-                {c.activitiesTitle}
-              </h2>
-              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
-                {t.activities.map((activity, index) => {
-                  const Icon = activityIcons[index];
-                  const activityGuideUrl = activityGuideUrls[lang]?.[index];
-                  const hasGuide = !!activityGuideUrl;
-                  
-                  const cardContent = (
-                    <>
-                      <CardHeader className="p-4 sm:p-6">
-                        <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
-                          <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-primary" />
-                        </div>
-                        <CardTitle className="text-lg sm:text-xl text-foreground">{activity.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent className="p-4 sm:p-6 pt-0">
-                        <p className="text-sm sm:text-base text-muted-foreground mb-3">{activity.description}</p>
-                        {hasGuide && (
-                          <span className="inline-flex items-center gap-1 text-sm text-primary font-medium">
-                            {c.readGuideText}
-                            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                          </span>
-                        )}
-                      </CardContent>
-                    </>
-                  );
-                  
-                  if (hasGuide) {
-                    return (
-                      <Link 
-                        key={activity.title} 
-                        to={activityGuideUrl}
-                        aria-label={`${c.readGuideText}: ${activity.title}`}
-                        className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl"
-                      >
-                        <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 h-full cursor-pointer group">
-                          {cardContent}
-                        </Card>
-                      </Link>
-                    );
-                  }
-                  
-                  return (
-                    <Card key={activity.title} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 group">
-                      {cardContent}
-                    </Card>
-                  );
-                })}
-              </div>
-
-              {/* Contextual guide text */}
-              <p className="mt-6 text-center text-sm text-muted-foreground">
-                {c.exploreGuidesText}
-              </p>
-
-              {/* Related Guides Section - Only show if guides exist for this language */}
-              {guides.length > 0 && (
-                <div className="mt-6 p-6 rounded-2xl bg-muted/30 border border-border/30">
-                  <div className="flex items-center gap-2 mb-4">
-                    <BookOpen className="w-5 h-5 text-primary" />
-                    <h3 className="font-semibold text-foreground">{c.relatedGuidesTitle}</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {guides.map((guide) => (
-                      <Link
-                        key={guide.href}
-                        to={guide.href}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 text-sm rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-                      >
-                        {guide.title}
-                        <ArrowRight className="w-3 h-3" />
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Accommodation CTA */}
-              <div className="mt-8 text-center">
-                <Button asChild size="lg" className="text-sm sm:text-base">
-                  <Link to={c.accommodationsLink}>
-                    {c.bookAccommodationCta}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </Button>
-              </div>
-            </section>
-
-            {/* Second Gallery Row */}
-            <section className="mb-12 sm:mb-20">
-              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 sm:mb-8 text-center">{t.galleryTitle}</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-                {galleryImages.slice(3).map((image, index) => (
-                  <div key={index} className="relative group overflow-hidden rounded-2xl aspect-[4/3]">
-                    <OptimizedImage 
-                      src={image.src} 
-                      alt={image.alt}
-                      className="w-full h-full transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent z-10" />
-                    <div className="absolute bottom-4 left-4 right-4 z-10">
-                      <p className="text-foreground font-medium">{image.caption}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
             {/* Live Camera Section */}
-            <section className="mb-12 sm:mb-20">
+            <section className="mb-10 sm:mb-14">
               <Card className="glass-card border-border/30 overflow-hidden">
-                <CardHeader className="p-4 sm:p-6">
-                  <div className="flex items-center gap-2 sm:gap-3">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-4">
                     <div className="relative">
                       <Video className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                       <span className="absolute -top-1 -right-1 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-red-500 rounded-full animate-pulse" />
                     </div>
-                    <CardTitle className="text-base sm:text-lg">{c.liveCamera}</CardTitle>
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground">{c.liveCamera}</h3>
                   </div>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <div className="aspect-video w-full">
+                  <div className="aspect-video w-full rounded-lg overflow-hidden">
                     <iframe
                       src="https://www.youtube.com/embed/Wr9b5aYA4mI?autoplay=0&rel=0"
                       title="Levi Live Camera"
@@ -503,15 +433,25 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                       className="w-full h-full"
                     />
                   </div>
-                  <p className="text-xs sm:text-sm text-muted-foreground p-3 sm:p-4 text-center">
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-3 text-center">
                     {c.liveCameraDesc}
                   </p>
                 </CardContent>
               </Card>
             </section>
 
+            {/* Strong Booking CTA */}
+            <section className="mb-10 text-center">
+              <Button asChild size="lg" className="text-base px-8">
+                <Link to={c.accommodationsLink}>
+                  {c.bookCta}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+            </section>
+
             {/* Pronunciation Link */}
-            <section className="mb-12 sm:mb-20 text-center">
+            <section className="text-center">
               <Link 
                 to="/levi-pronounce" 
                 className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
@@ -519,20 +459,6 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 <Volume2 className="w-4 h-4 group-hover:text-primary" />
                 <span className="text-sm underline-offset-4 group-hover:underline">{c.pronounceLabel}</span>
               </Link>
-            </section>
-
-            {/* Useful Links */}
-            <section className="text-center">
-              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 sm:mb-8">{t.linksTitle}</h2>
-              <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-                {t.usefulLinks.map((link) => (
-                  <Button key={link.name} asChild variant="secondary" className="text-xs sm:text-sm">
-                    <a href={link.url} target="_blank" rel="noopener noreferrer">
-                      {link.name} <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1.5 sm:ml-2" />
-                    </a>
-                  </Button>
-                ))}
-              </div>
             </section>
           </div>
         </main>
