@@ -46,6 +46,24 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     caption: item.caption,
   }));
 
+  // Activity guide URLs - links activities to dedicated guide pages
+  const activityGuideUrls: Record<Language, Record<number, string>> = {
+    fi: {
+      0: "/opas/laskettelu-levi", // Laskettelu
+      1: "/opas/hiihto-levi", // Hiihto
+      2: "/revontulet" // Revontulet - existing page
+    },
+    en: {
+      0: "/guide/skiing-in-levi", // Skiing
+      1: "/guide/cross-country-skiing-in-levi", // Cross-country
+      2: "/en/northern-lights" // Aurora - existing page
+    },
+    sv: { 2: "/sv/norrsken" },
+    de: { 2: "/de/nordlichter" },
+    es: { 2: "/es/auroras-boreales" },
+    fr: { 2: "/fr/aurores-boreales" }
+  };
+
   // Multilingual UI content
   const content: Record<Language, {
     quizTitle: string;
@@ -61,6 +79,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     relatedGuidesTitle: string;
     bookAccommodationCta: string;
     accommodationsLink: string;
+    readGuideText: string;
+    exploreGuidesText: string;
   }> = {
     fi: {
       quizTitle: "Testaa Levi-tietämyksesi!",
@@ -75,7 +95,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       activitiesTitle: "Aktiviteetit Levillä",
       relatedGuidesTitle: "Tutustu oppaisiin",
       bookAccommodationCta: "Varaa majoitus Leviltä",
-      accommodationsLink: "/majoitukset"
+      accommodationsLink: "/majoitukset",
+      readGuideText: "Lue opas",
+      exploreGuidesText: "Tutustu yksityiskohtaisiin oppaisiin laskettelusta, hiihdosta ja revontulista."
     },
     en: {
       quizTitle: "Test Your Levi Knowledge!",
@@ -90,7 +112,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       activitiesTitle: "Activities in Levi",
       relatedGuidesTitle: "Explore our guides",
       bookAccommodationCta: "Book accommodation in Levi",
-      accommodationsLink: "/en/accommodations"
+      accommodationsLink: "/en/accommodations",
+      readGuideText: "Read guide",
+      exploreGuidesText: "Explore detailed guides for skiing, cross-country skiing and northern lights."
     },
     sv: {
       quizTitle: "Testa din Levi-kunskap!",
@@ -105,7 +129,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       activitiesTitle: "Aktiviteter i Levi",
       relatedGuidesTitle: "Utforska våra guider",
       bookAccommodationCta: "Boka boende i Levi",
-      accommodationsLink: "/sv/boende"
+      accommodationsLink: "/sv/boende",
+      readGuideText: "Läs guide",
+      exploreGuidesText: "Utforska detaljerade guider för skidåkning, längdskidåkning och norrsken."
     },
     de: {
       quizTitle: "Teste dein Levi-Wissen!",
@@ -120,7 +146,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       activitiesTitle: "Aktivitäten in Levi",
       relatedGuidesTitle: "Entdecke unsere Guides",
       bookAccommodationCta: "Unterkunft in Levi buchen",
-      accommodationsLink: "/de/unterkuenfte"
+      accommodationsLink: "/de/unterkuenfte",
+      readGuideText: "Guide lesen",
+      exploreGuidesText: "Entdecken Sie detaillierte Guides für Skifahren, Langlauf und Nordlichter."
     },
     es: {
       quizTitle: "¡Pon a prueba tus conocimientos sobre Levi!",
@@ -135,7 +163,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       activitiesTitle: "Actividades en Levi",
       relatedGuidesTitle: "Explora nuestras guías",
       bookAccommodationCta: "Reservar alojamiento en Levi",
-      accommodationsLink: "/es/alojamientos"
+      accommodationsLink: "/es/alojamientos",
+      readGuideText: "Leer guía",
+      exploreGuidesText: "Explora guías detalladas para esquí, esquí de fondo y auroras boreales."
     },
     fr: {
       quizTitle: "Testez vos connaissances sur Levi !",
@@ -150,7 +180,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       activitiesTitle: "Activités à Levi",
       relatedGuidesTitle: "Découvrez nos guides",
       bookAccommodationCta: "Réserver un hébergement à Levi",
-      accommodationsLink: "/fr/hebergements"
+      accommodationsLink: "/fr/hebergements",
+      readGuideText: "Lire le guide",
+      exploreGuidesText: "Découvrez des guides détaillés pour le ski, le ski de fond et les aurores boréales."
     }
   };
 
@@ -345,25 +377,60 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
                 {t.activities.map((activity, index) => {
                   const Icon = activityIcons[index];
-                  return (
-                    <Card key={activity.title} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300">
+                  const activityGuideUrl = activityGuideUrls[lang]?.[index];
+                  const hasGuide = !!activityGuideUrl;
+                  
+                  const cardContent = (
+                    <>
                       <CardHeader className="p-4 sm:p-6">
-                        <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-3 sm:mb-4">
+                        <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
                           <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-primary" />
                         </div>
                         <CardTitle className="text-lg sm:text-xl text-foreground">{activity.title}</CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0">
-                        <p className="text-sm sm:text-base text-muted-foreground">{activity.description}</p>
+                        <p className="text-sm sm:text-base text-muted-foreground mb-3">{activity.description}</p>
+                        {hasGuide && (
+                          <span className="inline-flex items-center gap-1 text-sm text-primary font-medium">
+                            {c.readGuideText}
+                            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                          </span>
+                        )}
                       </CardContent>
+                    </>
+                  );
+                  
+                  if (hasGuide) {
+                    return (
+                      <Link 
+                        key={activity.title} 
+                        to={activityGuideUrl}
+                        aria-label={`${c.readGuideText}: ${activity.title}`}
+                        className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl"
+                      >
+                        <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 h-full cursor-pointer group">
+                          {cardContent}
+                        </Card>
+                      </Link>
+                    );
+                  }
+                  
+                  return (
+                    <Card key={activity.title} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 group">
+                      {cardContent}
                     </Card>
                   );
                 })}
               </div>
 
+              {/* Contextual guide text */}
+              <p className="mt-6 text-center text-sm text-muted-foreground">
+                {c.exploreGuidesText}
+              </p>
+
               {/* Related Guides Section - Only show if guides exist for this language */}
               {guides.length > 0 && (
-                <div className="mt-8 p-6 rounded-2xl bg-muted/30 border border-border/30">
+                <div className="mt-6 p-6 rounded-2xl bg-muted/30 border border-border/30">
                   <div className="flex items-center gap-2 mb-4">
                     <BookOpen className="w-5 h-5 text-primary" />
                     <h3 className="font-semibold text-foreground">{c.relatedGuidesTitle}</h3>

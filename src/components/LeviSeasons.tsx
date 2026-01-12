@@ -1,6 +1,7 @@
-import { Leaf, Snowflake, Sun, TreeDeciduous } from "lucide-react";
+import { Leaf, Snowflake, Sun, TreeDeciduous, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Language } from "@/translations";
+import { Link } from "react-router-dom";
 import OptimizedImage from "./OptimizedImage";
 
 // Import season images
@@ -18,7 +19,38 @@ interface SeasonData {
   snowInfo: string;
   accentColor: string;
   bgGradient: string;
+  guideUrl?: string;
 }
+
+// Guide URLs for each season (FI/EN only initially)
+const seasonGuideUrls: Record<Language, Record<string, string>> = {
+  fi: {
+    autumn: "/opas/syksy-ruska-levi",
+    winter: "/opas/talvi-levi",
+    spring: "/opas/kevat-levi",
+    summer: "/opas/kesa-levi"
+  },
+  en: {
+    autumn: "/guide/autumn-ruska-in-levi",
+    winter: "/guide/winter-in-levi",
+    spring: "/guide/spring-in-levi",
+    summer: "/guide/summer-in-levi"
+  },
+  sv: {},
+  de: {},
+  es: {},
+  fr: {}
+};
+
+// Localized "Read guide" text
+const readGuideText: Record<Language, string> = {
+  fi: "Lue opas",
+  en: "Read guide",
+  sv: "Läs guide",
+  de: "Guide lesen",
+  es: "Leer guía",
+  fr: "Lire le guide"
+};
 
 const seasonsData: Record<Language, SeasonData[]> = {
   fi: [
@@ -458,75 +490,110 @@ const LeviSeasons = ({ lang = "fi" }: LeviSeasonsProps) => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {seasons.map((season, index) => (
-          <Card 
-            key={season.id} 
-            className="glass-card border-border/30 overflow-hidden group hover:border-primary/30 transition-all duration-500 relative"
-          >
-            {/* Color gradient overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${season.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`} />
-            
-            {/* Background season image - visible in bottom right corner */}
-            <div className="absolute -bottom-8 -right-8 w-80 h-80 md:w-[28rem] md:h-[28rem] overflow-hidden pointer-events-none z-0">
-              <OptimizedImage 
-                src={seasonImages[index]} 
-                alt=""
-                className="w-full h-full opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-2xl"
-                style={{
-                  maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
-                  WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
-                }}
-              />
-            </div>
-            
-            <CardContent className="p-6 md:p-8 relative z-20">
-              {/* Header */}
-              <div className="flex items-start gap-4 mb-5">
-                <div className={`p-3 rounded-xl bg-card/80 border border-border/50 ${season.accentColor} group-hover:scale-110 transition-transform duration-300`}>
-                  {icons[index]}
-                </div>
-                <div>
-                  <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-1">
-                    {season.title}
-                  </h3>
-                  <p className={`text-sm font-medium ${season.accentColor}`}>
-                    {season.period}
-                  </p>
-                </div>
+        {seasons.map((season, index) => {
+          const guideUrl = seasonGuideUrls[lang]?.[season.id];
+          const hasGuide = !!guideUrl;
+          
+          const cardContent = (
+            <>
+              {/* Color gradient overlay */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${season.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`} />
+              
+              {/* Background season image - visible in bottom right corner */}
+              <div className="absolute -bottom-8 -right-8 w-80 h-80 md:w-[28rem] md:h-[28rem] overflow-hidden pointer-events-none z-0">
+                <OptimizedImage 
+                  src={seasonImages[index]} 
+                  alt=""
+                  className="w-full h-full opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-2xl"
+                  style={{
+                    maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
+                    WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
+                  }}
+                />
               </div>
-
-              {/* Description */}
-              <p className="text-muted-foreground leading-relaxed mb-5">
-                {season.description}
-              </p>
-
-              {/* Highlights */}
-              <div className="mb-5">
-                <ul className="space-y-2">
-                  {season.highlights.map((highlight, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-foreground/80">
-                      <span className={`mt-1.5 w-1.5 h-1.5 rounded-full ${season.accentColor.replace('text-', 'bg-')} flex-shrink-0`} />
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Snow Info */}
-              <div className="pt-4 border-t border-border/30">
-                <div className="flex items-start gap-2">
-                  <Snowflake className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground/70">
-                      {section.snowConditions}
-                    </span>{" "}
-                    {season.snowInfo}
-                  </p>
+              
+              <CardContent className="p-6 md:p-8 relative z-20">
+                {/* Header */}
+                <div className="flex items-start gap-4 mb-5">
+                  <div className={`p-3 rounded-xl bg-card/80 border border-border/50 ${season.accentColor} group-hover:scale-110 transition-transform duration-300`}>
+                    {icons[index]}
+                  </div>
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-1">
+                      {season.title}
+                    </h3>
+                    <p className={`text-sm font-medium ${season.accentColor}`}>
+                      {season.period}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+
+                {/* Description */}
+                <p className="text-muted-foreground leading-relaxed mb-5">
+                  {season.description}
+                </p>
+
+                {/* Highlights */}
+                <div className="mb-5">
+                  <ul className="space-y-2">
+                    {season.highlights.map((highlight, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-foreground/80">
+                        <span className={`mt-1.5 w-1.5 h-1.5 rounded-full ${season.accentColor.replace('text-', 'bg-')} flex-shrink-0`} />
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Snow Info */}
+                <div className="pt-4 border-t border-border/30">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-2">
+                      <Snowflake className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                      <p className="text-sm text-muted-foreground">
+                        <span className="font-medium text-foreground/70">
+                          {section.snowConditions}
+                        </span>{" "}
+                        {season.snowInfo}
+                      </p>
+                    </div>
+                    {hasGuide && (
+                      <span className="inline-flex items-center gap-1 text-sm text-primary font-medium whitespace-nowrap">
+                        {readGuideText[lang]}
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </>
+          );
+
+          // Wrap in Link if guide exists, otherwise just Card
+          if (hasGuide) {
+            return (
+              <Link 
+                key={season.id} 
+                to={guideUrl}
+                aria-label={`${readGuideText[lang]}: ${season.title}`}
+                className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-2xl"
+              >
+                <Card className="glass-card border-border/30 overflow-hidden group hover:border-primary/30 transition-all duration-500 relative h-full cursor-pointer">
+                  {cardContent}
+                </Card>
+              </Link>
+            );
+          }
+
+          return (
+            <Card 
+              key={season.id} 
+              className="glass-card border-border/30 overflow-hidden group hover:border-primary/30 transition-all duration-500 relative"
+            >
+              {cardContent}
+            </Card>
+          );
+        })}
       </div>
     </section>
   );
