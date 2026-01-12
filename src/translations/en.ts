@@ -195,13 +195,13 @@ export const en = {
   },
   levi: {
     meta: {
-      title: "Levi – Activities & Information | Leville.net",
-      description: "Explore Levi activities: skiing, cross-country skiing, northern lights and much more. Useful links to Levi services and weather info.",
-      keywords: "Levi activities, Levi skiing, Levi cross-country, Levi northern lights, Levi weather",
+      title: "Levi Travel Guide – Activities & Tips | Leville.net",
+      description: "Complete Levi travel guide. Activities, seasons, clothing tips and practical info for your Lapland holiday. Book accommodation now.",
+      keywords: "Levi activities, Levi skiing, Levi travel guide, Levi winter holiday, Levi Lapland",
       canonical: "https://leville.net/en/levi"
     },
-    title: "Levi – The Gem of Lapland",
-    subtitle: "Finland's largest ski resort offers experiences all year round. Explore Levi activities and services.",
+    title: "Levi Travel Guide – Your Complete Guide to Levi",
+    subtitle: "Finland's largest ski resort offers experiences all year round. Explore activities, seasons and practical tips for your Levi holiday.",
     galleryTitle: "Moments from Levi",
     weatherTitle: "Levi Weather",
     weatherText: "Check current weather conditions and forecast in Levi before your trip.",
@@ -210,10 +210,19 @@ export const en = {
     mapText: "Explore Levi center and surroundings with the map.",
     mapCta: "Open map",
     linksTitle: "Useful Links",
+    activitiesTitle: "Activities in Levi",
+    relatedGuidesTitle: "Explore our guides",
+    bookAccommodationCta: "Book accommodation in Levi",
     activities: [
       { title: "Downhill Skiing", description: "Levi ski resort offers 43 slopes and 28 lifts. Slopes for all skill levels." },
       { title: "Cross-country Skiing", description: "Over 230 km of groomed trails. Lapland's stunning landscapes unfold on the trail network." },
       { title: "Northern Lights", description: "Levi is one of the best places to admire the northern lights. Season lasts from September to March." }
+    ],
+    relatedGuides: [
+      { title: "How to Dress for Winter in Levi", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+      { title: "Snowmobile Safari Tips", href: "/activities/snowmobile-safari-tips-levi" },
+      { title: "Top Winter Activities", href: "/activities/top-winter-activities-in-levi-lapland" },
+      { title: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" }
     ],
     gallery: [
       { alt: "Snowboarder on Levi slopes at sunset", caption: "Sunset on the slopes" },

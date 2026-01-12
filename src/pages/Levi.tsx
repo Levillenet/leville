@@ -9,7 +9,7 @@ import LeviSeasons from "@/components/LeviSeasons";
 import LeviFacts from "@/components/LeviFacts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video, Brain, Star, Gift, Flame, Volume2 } from "lucide-react";
+import { Mountain, Snowflake, Sun, MapPin, Cloud, ExternalLink, LucideIcon, Video, Brain, Star, Gift, Flame, Volume2, BookOpen, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
@@ -57,6 +57,10 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     liveCamera: string;
     liveCameraDesc: string;
     pronounceLabel: string;
+    activitiesTitle: string;
+    relatedGuidesTitle: string;
+    bookAccommodationCta: string;
+    accommodationsLink: string;
   }> = {
     fi: {
       quizTitle: "Testaa Levi-tietämyksesi!",
@@ -67,7 +71,11 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasButton: "Lue lisää",
       liveCamera: "Levin live-kamera",
       liveCameraDesc: "Suora näkymä Levin hiihtokeskuksesta – näe rinteiden tilanne reaaliajassa",
-      pronounceLabel: "Miten Levi lausutaan?"
+      pronounceLabel: "Miten Levi lausutaan?",
+      activitiesTitle: "Aktiviteetit Levillä",
+      relatedGuidesTitle: "Tutustu oppaisiin",
+      bookAccommodationCta: "Varaa majoitus Leviltä",
+      accommodationsLink: "/majoitukset"
     },
     en: {
       quizTitle: "Test Your Levi Knowledge!",
@@ -78,7 +86,11 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasButton: "Read more",
       liveCamera: "Levi Live Camera",
       liveCameraDesc: "Live view from Levi ski resort – see the current conditions on the slopes",
-      pronounceLabel: "How to pronounce Levi?"
+      pronounceLabel: "How to pronounce Levi?",
+      activitiesTitle: "Activities in Levi",
+      relatedGuidesTitle: "Explore our guides",
+      bookAccommodationCta: "Book accommodation in Levi",
+      accommodationsLink: "/en/accommodations"
     },
     sv: {
       quizTitle: "Testa din Levi-kunskap!",
@@ -89,7 +101,11 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasButton: "Läs mer",
       liveCamera: "Levi livekamera",
       liveCameraDesc: "Direktsändning från Levi skidort – se aktuella förhållanden på backarna",
-      pronounceLabel: "Hur uttalas Levi?"
+      pronounceLabel: "Hur uttalas Levi?",
+      activitiesTitle: "Aktiviteter i Levi",
+      relatedGuidesTitle: "Utforska våra guider",
+      bookAccommodationCta: "Boka boende i Levi",
+      accommodationsLink: "/sv/boende"
     },
     de: {
       quizTitle: "Teste dein Levi-Wissen!",
@@ -100,7 +116,11 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasButton: "Mehr lesen",
       liveCamera: "Levi Live-Kamera",
       liveCameraDesc: "Live-Blick aus dem Skigebiet Levi – sieh die aktuellen Bedingungen auf den Pisten",
-      pronounceLabel: "Wie spricht man Levi aus?"
+      pronounceLabel: "Wie spricht man Levi aus?",
+      activitiesTitle: "Aktivitäten in Levi",
+      relatedGuidesTitle: "Entdecke unsere Guides",
+      bookAccommodationCta: "Unterkunft in Levi buchen",
+      accommodationsLink: "/de/unterkuenfte"
     },
     es: {
       quizTitle: "¡Pon a prueba tus conocimientos sobre Levi!",
@@ -111,7 +131,11 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasButton: "Leer más",
       liveCamera: "Cámara en vivo de Levi",
       liveCameraDesc: "Vista en directo desde la estación de esquí de Levi – ve las condiciones actuales en las pistas",
-      pronounceLabel: "¿Cómo se pronuncia Levi?"
+      pronounceLabel: "¿Cómo se pronuncia Levi?",
+      activitiesTitle: "Actividades en Levi",
+      relatedGuidesTitle: "Explora nuestras guías",
+      bookAccommodationCta: "Reservar alojamiento en Levi",
+      accommodationsLink: "/es/alojamientos"
     },
     fr: {
       quizTitle: "Testez vos connaissances sur Levi !",
@@ -122,7 +146,11 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasButton: "En savoir plus",
       liveCamera: "Caméra en direct de Levi",
       liveCameraDesc: "Vue en direct de la station de ski de Levi – voyez les conditions actuelles sur les pistes",
-      pronounceLabel: "Comment prononcer Levi ?"
+      pronounceLabel: "Comment prononcer Levi ?",
+      activitiesTitle: "Activités à Levi",
+      relatedGuidesTitle: "Découvrez nos guides",
+      bookAccommodationCta: "Réserver un hébergement à Levi",
+      accommodationsLink: "/fr/hebergements"
     }
   };
 
@@ -143,7 +171,28 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     fr: "/fr/levi/noel-en-laponie"
   };
 
+  // Related guides - only show for FI and EN where guide pages exist
+  const relatedGuides: Record<Language, { title: string; href: string }[]> = {
+    fi: [
+      { title: "Talvivarusteet Leville", href: "/opas/talvivarusteet-leville" },
+      { title: "Moottorikelkkasafari-vinkit", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
+      { title: "Parhaat talviaktiviteetit", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
+      { title: "Miten pääsee Leville", href: "/matka/miten-paasee-leville-helsingista" }
+    ],
+    en: [
+      { title: "How to Dress for Winter", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+      { title: "Snowmobile Safari Tips", href: "/activities/snowmobile-safari-tips-levi" },
+      { title: "Top Winter Activities", href: "/activities/top-winter-activities-in-levi-lapland" },
+      { title: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" }
+    ],
+    sv: [],
+    de: [],
+    es: [],
+    fr: []
+  };
+
   const c = content[lang];
+  const guides = relatedGuides[lang];
 
   return (
     <>
@@ -289,23 +338,60 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             </section>
 
             {/* Activities */}
-            <section className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 mb-12 sm:mb-20">
-              {t.activities.map((activity, index) => {
-                const Icon = activityIcons[index];
-                return (
-                  <Card key={activity.title} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300">
-                    <CardHeader className="p-4 sm:p-6">
-                      <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-3 sm:mb-4">
-                        <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-primary" />
-                      </div>
-                      <CardTitle className="text-lg sm:text-xl text-foreground">{activity.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-4 sm:p-6 pt-0">
-                      <p className="text-sm sm:text-base text-muted-foreground">{activity.description}</p>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+            <section className="mb-12 sm:mb-20">
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 sm:mb-8 text-center">
+                {c.activitiesTitle}
+              </h2>
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
+                {t.activities.map((activity, index) => {
+                  const Icon = activityIcons[index];
+                  return (
+                    <Card key={activity.title} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300">
+                      <CardHeader className="p-4 sm:p-6">
+                        <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-3 sm:mb-4">
+                          <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-primary" />
+                        </div>
+                        <CardTitle className="text-lg sm:text-xl text-foreground">{activity.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-4 sm:p-6 pt-0">
+                        <p className="text-sm sm:text-base text-muted-foreground">{activity.description}</p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+
+              {/* Related Guides Section - Only show if guides exist for this language */}
+              {guides.length > 0 && (
+                <div className="mt-8 p-6 rounded-2xl bg-muted/30 border border-border/30">
+                  <div className="flex items-center gap-2 mb-4">
+                    <BookOpen className="w-5 h-5 text-primary" />
+                    <h3 className="font-semibold text-foreground">{c.relatedGuidesTitle}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {guides.map((guide) => (
+                      <Link
+                        key={guide.href}
+                        to={guide.href}
+                        className="inline-flex items-center gap-1 px-3 py-1.5 text-sm rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                      >
+                        {guide.title}
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Accommodation CTA */}
+              <div className="mt-8 text-center">
+                <Button asChild size="lg" className="text-sm sm:text-base">
+                  <Link to={c.accommodationsLink}>
+                    {c.bookAccommodationCta}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
+              </div>
             </section>
 
             {/* Second Gallery Row */}

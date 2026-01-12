@@ -835,4 +835,70 @@
     <priority>0.4</priority>
   </url>
 
+  <!-- SEO Guide Pages (FI/EN only) -->
+  <url>
+    <loc>https://leville.net/opas/talvivarusteet-leville</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/talvivarusteet-leville"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/how-to-dress-for-winter-in-levi-lapland"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/talvivarusteet-leville"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/how-to-dress-for-winter-in-levi-lapland</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/talvivarusteet-leville"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/how-to-dress-for-winter-in-levi-lapland"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/talvivarusteet-leville"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/aktiviteetit/moottorikelkkasafari-vinkit-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/aktiviteetit/moottorikelkkasafari-vinkit-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/activities/snowmobile-safari-tips-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/aktiviteetit/moottorikelkkasafari-vinkit-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/activities/snowmobile-safari-tips-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/aktiviteetit/moottorikelkkasafari-vinkit-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/activities/snowmobile-safari-tips-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/aktiviteetit/moottorikelkkasafari-vinkit-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/matka/miten-paasee-leville-helsingista</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/matka/miten-paasee-leville-helsingista"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/travel/how-to-get-to-levi-from-helsinki-and-abroad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/matka/miten-paasee-leville-helsingista"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/travel/how-to-get-to-levi-from-helsinki-and-abroad</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/matka/miten-paasee-leville-helsingista"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/travel/how-to-get-to-levi-from-helsinki-and-abroad"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/matka/miten-paasee-leville-helsingista"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/aktiviteetit/parhaat-talviaktiviteetit-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/aktiviteetit/parhaat-talviaktiviteetit-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/activities/top-winter-activities-in-levi-lapland"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/aktiviteetit/parhaat-talviaktiviteetit-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/activities/top-winter-activities-in-levi-lapland</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/aktiviteetit/parhaat-talviaktiviteetit-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/activities/top-winter-activities-in-levi-lapland"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/aktiviteetit/parhaat-talviaktiviteetit-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
 </urlset>

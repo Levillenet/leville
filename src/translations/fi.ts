@@ -195,13 +195,13 @@ export const fi = {
   },
   levi: {
     meta: {
-      title: "Levi – Aktiviteetit ja tietoa | Leville.net",
-      description: "Tutustu Levin aktiviteetteihin: laskettelu, hiihto, revontulet ja paljon muuta. Hyödyllisiä linkkejä Levin palveluihin ja säätietoihin.",
-      keywords: "Levi aktiviteetit, Levi laskettelu, Levi hiihto, Levi revontulet, Levi sää",
+      title: "Levi-matkailuopas – Aktiviteetit & vinkit | Leville.net",
+      description: "Kattava matkailuopas Leville. Aktiviteetit, vuodenajat, pukeutumisvinkit ja käytännön tietoa Lapin lomalle. Varaa majoitus nyt.",
+      keywords: "Levi aktiviteetit, Levi laskettelu, Levi hiihto, Levi matkailuopas, Levi talviloma",
       canonical: "https://leville.net/levi"
     },
-    title: "Levi – Lapin helmi",
-    subtitle: "Suomen suurin hiihtokeskus tarjoaa elämyksiä ympäri vuoden. Tutustu Levin aktiviteetteihin ja palveluihin.",
+    title: "Levi-matkailuopas – Täydellinen opas Leville",
+    subtitle: "Suomen suurin hiihtokeskus tarjoaa elämyksiä ympäri vuoden. Tutustu Levin aktiviteetteihin, vuodenaikoihin ja käytännön vinkkeihin.",
     galleryTitle: "Tunnelmia Leviltä",
     weatherTitle: "Levin sää",
     weatherText: "Tarkista Levin ajankohtainen säätilanne ja ennuste ennen matkaasi.",
@@ -210,10 +210,19 @@ export const fi = {
     mapText: "Tutustu Levin keskustaan ja ympäristöön kartan avulla.",
     mapCta: "Avaa kartta",
     linksTitle: "Hyödyllisiä linkkejä",
+    activitiesTitle: "Aktiviteetit Levillä",
+    relatedGuidesTitle: "Tutustu oppaisiin",
+    bookAccommodationCta: "Varaa majoitus Leviltä",
     activities: [
       { title: "Laskettelu", description: "Levin laskettelukeskus tarjoaa 43 rinnettä ja 28 hissiä. Rinteitä löytyy kaikentasoisille laskijoille." },
       { title: "Hiihto", description: "Yli 230 km huollettuja latuja. Lapin upeat maisemat avautuvat latuverkostolla." },
       { title: "Revontulet", description: "Levi on yksi parhaista paikoista ihailla revontulia. Kausi kestää syyskuusta maaliskuuhun." }
+    ],
+    relatedGuides: [
+      { title: "Talvivarusteet Leville", href: "/opas/talvivarusteet-leville" },
+      { title: "Moottorikelkkasafari-vinkit", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
+      { title: "Parhaat talviaktiviteetit", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
+      { title: "Miten pääsee Leville", href: "/matka/miten-paasee-leville-helsingista" }
     ],
     gallery: [
       { alt: "Lumilautailija Levin rinteillä auringonlaskun aikaan", caption: "Auringonlasku rinteillä" },
