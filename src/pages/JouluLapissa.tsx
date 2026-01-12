@@ -1,8 +1,10 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
+import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { 
@@ -377,9 +379,11 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
   const t = translations[lang];
   const links = usefulLinks[lang];
+  const location = useLocation();
 
   return (
     <>
+      <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />
         <title>{t.meta.title}</title>
@@ -394,11 +398,15 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
         <meta property="og:description" content={t.meta.description} />
         <meta property="og:locale" content={localeMap[lang]} />
         <meta property="og:site_name" content="Leville.net" />
+        <meta property="og:image" content="https://leville.net/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
+        <meta name="twitter:image" content="https://leville.net/og-image.png" />
 
         {/* JSON-LD */}
         <script type="application/ld+json">

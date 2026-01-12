@@ -79,7 +79,7 @@ const fetchBeds24Availability = async (): Promise<Beds24Deal[]> => {
 const content = {
   fi: {
     meta: {
-      title: "Levin äkkilähdöt – Edullisia majoituksia viime hetkellä | Leville.net",
+      title: "Äkkilähdöt Levi – Last-Minute Tarjoukset | Leville.net",
       description: "Löydä parhaat Levi äkkilähdöt! Edullisia huoneistoja ja mökkejä viime hetkellä. Varaa nyt ja säästä – rajoitettu saatavuus.",
       keywords: "Levi äkkilähdöt, Levi last minute, Levi edullinen majoitus, Levi tarjous, Levi viime hetken tarjous",
       canonical: "https://leville.net/akkilahdot"

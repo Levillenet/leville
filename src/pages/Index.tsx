@@ -118,11 +118,15 @@ const Index = ({ lang = "fi" }: IndexProps) => {
         <meta property="og:description" content={seo.description} />
         <meta property="og:locale" content={seo.locale} />
         <meta property="og:site_name" content="Leville.net" />
+        <meta property="og:image" content="https://leville.net/og-image.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={seo.title} />
         <meta name="twitter:description" content={seo.description} />
+        <meta name="twitter:image" content="https://leville.net/og-image.png" />
         
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
