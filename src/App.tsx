@@ -31,6 +31,12 @@ import WinterClothingGuide from "./pages/guide/WinterClothingGuide";
 import SnowmobileSafariTips from "./pages/activities/SnowmobileSafariTips";
 import HowToGetToLevi from "./pages/travel/HowToGetToLevi";
 import TopWinterActivities from "./pages/activities/TopWinterActivities";
+import SkiingInLevi from "./pages/guide/SkiingInLevi";
+import CrossCountrySkiingInLevi from "./pages/guide/CrossCountrySkiingInLevi";
+import WinterInLevi from "./pages/guide/WinterInLevi";
+import SpringInLevi from "./pages/guide/SpringInLevi";
+import SummerInLevi from "./pages/guide/SummerInLevi";
+import AutumnRuskaInLevi from "./pages/guide/AutumnRuskaInLevi";
 
 const queryClient = new QueryClient();
 
@@ -126,12 +132,24 @@ const App = () => (
               
               {/* SEO Landing Pages - Finnish */}
               <Route path="/opas/talvivarusteet-leville" element={<WinterClothingGuide />} />
+              <Route path="/opas/laskettelu-levi" element={<SkiingInLevi />} />
+              <Route path="/opas/hiihto-levi" element={<CrossCountrySkiingInLevi />} />
+              <Route path="/opas/talvi-levi" element={<WinterInLevi />} />
+              <Route path="/opas/kevat-levi" element={<SpringInLevi />} />
+              <Route path="/opas/kesa-levi" element={<SummerInLevi />} />
+              <Route path="/opas/syksy-ruska-levi" element={<AutumnRuskaInLevi />} />
               <Route path="/aktiviteetit/moottorikelkkasafari-vinkit-levi" element={<SnowmobileSafariTips />} />
               <Route path="/matka/miten-paasee-leville-helsingista" element={<HowToGetToLevi />} />
               <Route path="/aktiviteetit/parhaat-talviaktiviteetit-levi" element={<TopWinterActivities />} />
               
               {/* SEO Landing Pages - English */}
               <Route path="/guide/how-to-dress-for-winter-in-levi-lapland" element={<WinterClothingGuide lang="en" />} />
+              <Route path="/guide/skiing-in-levi" element={<SkiingInLevi lang="en" />} />
+              <Route path="/guide/cross-country-skiing-in-levi" element={<CrossCountrySkiingInLevi lang="en" />} />
+              <Route path="/guide/winter-in-levi" element={<WinterInLevi lang="en" />} />
+              <Route path="/guide/spring-in-levi" element={<SpringInLevi lang="en" />} />
+              <Route path="/guide/summer-in-levi" element={<SummerInLevi lang="en" />} />
+              <Route path="/guide/autumn-ruska-in-levi" element={<AutumnRuskaInLevi lang="en" />} />
               <Route path="/activities/snowmobile-safari-tips-levi" element={<SnowmobileSafariTips lang="en" />} />
               <Route path="/travel/how-to-get-to-levi-from-helsinki-and-abroad" element={<HowToGetToLevi lang="en" />} />
               <Route path="/activities/top-winter-activities-in-levi-lapland" element={<TopWinterActivities lang="en" />} />
