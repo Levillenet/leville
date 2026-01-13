@@ -36,7 +36,7 @@ const translations = {
           "Levillä on monipuolinen ravintolatarjonta perinteisestä lappalaisesta ruoasta kansainväliseen keittiöön:",
         categories: [
           {
-            name: "Fine dining ja elämysravintolat",
+            name: "Fine dining & elämysravintolat",
             places: ["Kammi", "Aurora Sky Restaurant", "King Crab House"],
             note: "Varaa pöytä etukäteen, erityisesti viikonloppuisin ja sesonkiaikoina.",
           },
@@ -51,17 +51,17 @@ const translations = {
             note: "Lasten menut saatavilla, syöttötuolit ja lapsiystävällinen palvelu.",
           },
           {
-            name: "Nopea ruoka ja take away",
-            places: ["Levin Grilli", "Pizza Factory Levi", "Burger King"],
-            note: "Helppoa ja nopeaa ruokailua.",
+            name: "Nopea ruoka & take-away",
+            places: ["Levin Grillit", "Pizza Factory Levi", "Burger King"],
+            note: "Helppoa ja nopeaa",
           },
           {
-            name: "Après ski ja baarit",
+            name: "Après-ski & baarit",
             places: ["Hullu Poro Arena", "Tuikku", "Levin Panimo", "Vinkkari"],
-            note: "Rinteen jälkeen rentoutumista, musiikkia ja tunnelmaa.",
+            note: "Rinteen jälkeen rentoutumista, tanssia ja tunnelmaa.",
           },
         ],
-        tip: "Sesonkiaikoina varaa pöytä suosituimpiin ravintoloihin päivää tai kahta etukäteen.",
+        tip: "Sesonkiaikoina (joulu, hiihtoloma) varaa pöytä suosituimpiin ravintoloihin päivää tai kahta etukäteen.",
       },
       groceries: {
         title: "Ruokakaupat ja aukioloajat",
@@ -71,21 +71,21 @@ const translations = {
           {
             name: "K-Market Levi",
             location: "Keskustassa, Levintie",
-            hours: "Ma to La 8 to 21, Su 10 to 21 sesonkina, lyhyemmät ajat hiljaisena kautena",
-            note: "Laaja valikoima, tuoretuotteita ja paikallisia erikoisuuksia.",
+            hours: "Ma–La 8–21, Su 10–21 (sesonki), lyhyemmät ajat off-season",
+            note: "Laaja valikoima, tuoretuotteita, paikallisia erikoisuuksia.",
           },
           {
-            name: "S-Market Levi",
+            name: "S-market Levi",
             location: "Levi Star alue",
-            hours: "Ma to La 8 to 21, Su 10 to 21",
-            note: "Laaja valikoima.",
+            hours: "Ma–La 8–21, Su 10–21",
+            note: "Laaja valikoima",
           },
         ],
         tips: [
-          "Aukioloajat voivat vaihdella hiljaisena kautena, tarkista etukäteen",
-          "Jouluaatto ja juhlapyhät voivat olla lyhyemmät tai suljettu",
-          "Tuoretuotteet kannattaa hakea aikaisin sesonkiviikon alussa",
-          "Alkon myymälä on K Marketin yhteydessä",
+          "Aukioloajat voivat vaihdella off-season – tarkista etukäteen",
+          "Jouluaatto ja juhlapyhät: lyhyemmät aukioloajat tai suljettu",
+          "Tuoretuotteet ja liha kannattaa hakea aikaisin sesonkiviikon alussa",
+          "Alkon myymälä on K-Marketin yhteydessä (alkoholi yli 5.5%)",
         ],
       },
       rental: {
@@ -94,13 +94,13 @@ const translations = {
         intro: "Levillä on useita laadukkaita vuokraamoja lasketteluvälineisiin ja talvivarusteisiin:",
         shops: [
           {
-            name: "Ski resort rental Zero Point & South Point",
+            name: "Ski resort rental Zero point & South point",
             services: ["Sukset", "Lumilaudat", "Monot", "Kypärät", "Lasketteluasut"],
             location: "Hiihtokeskuksen omat vuokraamot",
           },
           {
             name: "Intersport Levi",
-            services: ["Sukset", "Hiihtovälineet", "Talvivaatteet", "Myynti ja vuokraus"],
+            services: ["Sukset", "Hiihtovälineet", "Talvivaatteet", "Myynti + vuokraus"],
             location: "Levin keskusta",
           },
           {
@@ -111,46 +111,46 @@ const translations = {
         ],
         tips: [
           "Varaa välineet etukäteen netistä sesonkiaikaan",
-          "Lasten varusteet löytyvät kaikista vuokraamoista",
-          "Testaa monot kunnolla ennen rinteeseen lähtöä",
-          "Pyydä siteiden säätö taitotasosi mukaan",
+          "Lastensukset ja -varusteet saatavilla kaikissa vuokraamoissa",
+          "Testaa saappaat kunnolla ennen rinnettä",
+          "Pyydä säätö suksiesi taitotasoon sopivaksi",
         ],
       },
       health: {
-        title: "Terveys ja apteekkipalvelut",
+        title: "Terveys- ja apteekkipalvelut",
         icon: "heart",
         intro: "Levillä on peruspalvelut terveydenhoitoon:",
         services: [
           {
             name: "Levin apteekki",
             location: "Keskustassa",
-            hours: "Ma to Pe 10 to 17, La 10 to 14 sesonkina pidempi",
-            note: "Reseptilääkkeet, käsikauppalääkkeet ja ensiaputarvikkeet.",
+            hours: "Ma–Pe 10–17, La 10–14 (sesonkina pidempi)",
+            note: "Reseptilääkkeet, käsikauppalääkkeet, ensiapuvälineet.",
           },
           {
             name: "Kittilän terveyskeskus",
-            location: "Kittilässä noin 20 km",
+            location: "Kittilässä (20 km)",
             hours: "Arkisin päiväaikaan",
-            note: "Laajempi hoito ja päivystys. Päivystysnumero 116 117.",
+            note: "Päivystys ja laajempi hoito. Lääkäripäivystys puh. 116 117.",
           },
           {
             name: "Ensiapu rinteillä",
-            location: "Ski Patrol toimisto etuhissillä",
-            note: "Rinnetapaturmat ja ensiapu. Hätätilanteessa soita 112.",
+            location: "Ski Patrol -toimisto etuhissillä",
+            note: "Rinnetapaturmat ja ensiapu. Soita 112 hätätilanteessa.",
           },
         ],
-        tip: "Pidä mukana matkavakuutus ja tapaturmavakuutus.",
+        tip: "Pidä mukana matka- ja tapaturmavakuutus. Eurooppalainen sairaanhoitokortti (EU-kansalaiset) kelpaa julkisissa palveluissa.",
       },
       family: {
         title: "Perheystävälliset palvelut",
         icon: "baby",
         intro: "Levillä on hyviä palveluita lapsiperheille:",
         items: [
-          "Lastenhoitopalvelut, kysy majoitukselta tai safariyrityksiltä",
-          "Lastenmenut ja syöttötuolit monissa ravintoloissa",
-          "Leikkipaikkoja hotelleissa ja ostoskeskuksissa",
-          "Lastentarvikkeet löytyvät K Marketista ja S Marketista",
-          "Rattaiden vuokraus onnistuu joissain majoituksissa ja hotelleissa",
+          "Lastenhoitopalvelut: kysy majoitukseltasi tai safari-operaattoreilta",
+          "Perheravintoloissa lastenmenut ja syöttötuolit",
+          "Lasten leikkipaikat ostoskeskuksissa ja hotelleissa",
+          "Lastentarvikkeet: vaipat, lastenruoat K-Marketista ja Salesta",
+          "Rattaiden vuokraus: kysy majoitukselta tai hotelleista",
         ],
       },
       faq: {
@@ -158,26 +158,26 @@ const translations = {
         items: [
           {
             q: "Ovatko ravintolat auki jouluna?",
-            a: "Monet ravintolat ovat auki jouluna, mutta pöytä kannattaa varata etukäteen. Ruokakaupoilla voi olla rajoitetut aukioloajat.",
+            a: "Monet ravintolat ovat auki jouluaattona ja joulupäivänä, mutta kannattaa varata pöytä etukäteen. Ruokakaupat voivat olla kiinni tai auki rajoitetusti.",
           },
           {
             q: "Mistä saan vuokrattua lasketteluvarusteita lapsille?",
-            a: "Kaikissa suurimmissa vuokraamoissa on lasten kokovalikoima. Varaa ajoissa vilkkaimpina viikkoina.",
+            a: "Kaikissa suurimmissa vuokraamoissa (Levi Ski Rent, Intersport, Sport Shop) on lasten kokovalikoima. Varaa etukäteen hiihtolomaviikolla.",
           },
           {
-            q: "Onko Levillä gluteenittomia tai vegaanisia vaihtoehtoja?",
-            a: "Useimmissa ravintoloissa on gluteenittomia ja vegaanisia vaihtoehtoja. Kysy henkilökunnalta.",
+            q: "Onko Levillä gluteenittomia tai vegaanisia ravintoloita?",
+            a: "Monet ravintolat tarjoavat gluteenittomia ja vegaanisia vaihtoehtoja. Kysy tarjoilijalta erikoisruokavalioista – palvelu on yleensä joustavaa.",
           },
           {
-            q: "Milloin ruokakaupat ovat ruuhkaisimpia?",
-            a: "Sunnuntai ja maanantai ovat usein vilkkaimpia vaihtopäivien vuoksi.",
+            q: "Milloin ruokakaupat ovat täysimpiä?",
+            a: "Sunnuntai-iltapäivä ja maanantai ovat ruuhkaisimpia kun vieras vaihto tapahtuu. Käy kaupassa arkiaamuisin rauhallisemmin.",
           },
         ],
       },
     },
     cta: {
       title: "Varaa majoitus keskustasta",
-      text: "Keskustan majoituksista liikut helposti ravintoloihin ja palveluihin.",
+      text: "Keskustan majoituksistamme pääset kätevästi ravintoloihin, kauppoihin ja kaikille palveluille.",
       button: "Katso majoitukset",
     },
     relatedTitle: "Lue myös",
@@ -192,176 +192,175 @@ const translations = {
       { label: "Ravintolat ja palvelut" },
     ],
     travelHubLink: "/opas/matkaopas-levi",
-    travelHubText: "Takaisin matkaoppaaseen",
+    travelHubText: "← Takaisin matkaoppaaseen",
     accommodationsHref: "/majoitukset",
   },
-
   en: {
     meta: {
-      title: "Restaurants and Services in Levi | Shops and Rentals | Leville.net",
+      title: "Restaurants and Services in Levi – Shops, Rentals | Leville.net",
       description:
-        "Restaurants, grocery stores, sports equipment rentals and services in Levi. Opening hours, family friendly options and practical tips.",
+        "Levi restaurants, grocery stores, sports equipment rentals and services. Opening hours, family-friendly options and practical tips.",
       canonical: "https://leville.net/guide/restaurants-and-services-in-levi",
     },
     title: "Restaurants and Services in Levi",
     subtitle: "Dining, shops, rentals and practical services",
     intro:
-      "Levi center offers all essential services including restaurants for every taste, grocery stores, sports equipment rentals and health services. This guide covers everything you need to know.",
+      "Levi center has all the services you need: restaurants for every taste, grocery stores, sports equipment rentals and health services. This guide covers everything you need to know.",
     sections: {
       restaurants: {
         title: "Restaurants in Levi",
         icon: "utensils",
-        intro: "Levi has a wide range of restaurants from traditional Lappish cuisine to international food:",
+        intro: "Levi has a diverse restaurant selection from traditional Lappish cuisine to international fare:",
         categories: [
           {
-            name: "Fine dining and experience restaurants",
+            name: "Fine dining & experience restaurants",
             places: ["Kammi", "Aurora Sky Restaurant", "King Crab House"],
-            note: "Book a table in advance especially on weekends and during peak season.",
+            note: "Book a table in advance, especially on weekends and during peak season.",
           },
           {
             name: "Traditional Lappish restaurants",
-            places: ["Kotaravintola Kammi", "Pihvipirtti", "Myllyn Äijä"],
-            note: "Try sautéed reindeer, fish soup and local specialties.",
+            places: ["Kotaravintola Loimu", "Pihvikeisari", "Levin Panimo"],
+            note: "Try sautéed reindeer, fish soup and Lappish specialties.",
           },
           {
-            name: "Family friendly restaurants",
-            places: ["Kotipizza", "Pizza-Kebab Levi", "Colorado Bar & Grill"],
-            note: "Children menus available, high chairs and family friendly service.",
+            name: "Family-friendly restaurants",
+            places: ["Hullu Poro", "Pizza-Kebab Levi", "Colorado Bar & Grill"],
+            note: "Children's menus available, high chairs and family-friendly service.",
           },
           {
-            name: "Fast food and take away",
-            places: ["Levin Grilli", "Pizza Factory Levi", "Burger King"],
-            note: "Easy and quick dining option.",
+            name: "Fast food & take-away",
+            places: ["Levin Grilli", "Pizza-Kebab Levi", "Hesburger"],
+            note: "Take-away near slopes for lunch breaks.",
           },
           {
-            name: "Après ski and bars",
-            places: ["Hullu Poro Arena", "Tuikku", "Levin Panimo", "Vinkkari"],
-            note: "Relaxation, music and atmosphere after skiing.",
+            name: "Après-ski & bars",
+            places: ["Hullu Poro Arena", "Tuikku", "Levin Panimo"],
+            note: "Relaxation and atmosphere after the slopes.",
           },
         ],
-        tip: "During peak season it is recommended to book popular restaurants one or two days in advance.",
+        tip: "During peak season (Christmas, ski holidays) book a table at popular restaurants a day or two in advance.",
       },
       groceries: {
         title: "Grocery Stores and Opening Hours",
         icon: "shopping",
-        intro: "There are two main grocery stores in Levi center:",
+        intro: "Levi center has two main stores for daily groceries:",
         stores: [
           {
             name: "K-Market Levi",
-            location: "In the center on Levintie",
-            hours: "Mon to Sat 8 to 21, Sun 10 to 21 during season, shorter hours off season",
-            note: "Wide selection with fresh products and local specialties.",
+            location: "In center, Levintie",
+            hours: "Mon–Sat 8–21, Sun 10–21 (season), shorter off-season",
+            note: "Wide selection, fresh products, local specialties.",
           },
           {
-            name: "S-Market Levi",
-            location: "Levi Star area",
-            hours: "Mon to Sat 8 to 21, Sun 10 to 21",
-            note: "Wide grocery selection.",
+            name: "Sale Levi",
+            location: "Zero Point area",
+            hours: "Mon–Sat 8–21, Sun 10–21",
+            note: "Basic selection, more affordable option.",
           },
         ],
         tips: [
-          "Opening hours may vary during off season so check in advance",
-          "Christmas and public holidays may have shorter hours or be closed",
-          "Fresh products are best purchased early in the week",
-          "Alko liquor store is located next to K Market",
+          "Opening hours may vary off-season – check in advance",
+          "Christmas Eve and holidays: shorter hours or closed",
+          "Fresh products and meat best to get early in season week",
+          "Alko liquor store next to K-Market (alcohol over 5.5%)",
         ],
       },
       rental: {
         title: "Sports Equipment Rentals",
         icon: "shirt",
-        intro: "Levi offers several high quality rental shops for ski equipment and winter clothing:",
+        intro: "Levi has several quality rental shops for ski equipment and winter gear:",
         shops: [
           {
-            name: "Ski resort rental Zero Point & South Point",
-            services: ["Skis", "Snowboards", "Boots", "Helmets", "Ski clothing"],
-            location: "Resort operated rental shops at the ski area",
+            name: "Levi Ski Rent",
+            services: ["Skis", "Snowboards", "Boots", "Helmets", "Ski suits"],
+            location: "Multiple locations at slopes and center",
           },
           {
             name: "Intersport Levi",
-            services: ["Skis", "Cross country gear", "Winter clothing", "Sales and rental"],
+            services: ["Skis", "Cross-country gear", "Winter clothing", "Sales + rental"],
             location: "Levi center",
           },
           {
-            name: "Elan Shop Levi",
+            name: "Sport Shop Levi",
             services: ["Skis", "Winter equipment", "Repair services"],
             location: "Levi center",
           },
         ],
         tips: [
           "Book equipment online in advance during peak season",
-          "Children equipment is available in all rental shops",
-          "Test boots carefully before going to the slopes",
-          "Ask staff to adjust bindings according to your skill level",
+          "Children's skis and gear available at all rental shops",
+          "Test boots properly before hitting slopes",
+          "Ask for binding adjustment to match your skill level",
         ],
       },
       health: {
         title: "Health and Pharmacy Services",
         icon: "heart",
-        intro: "Levi provides basic health care services:",
+        intro: "Levi has basic health care services:",
         services: [
           {
             name: "Levi Pharmacy",
-            location: "In the center",
-            hours: "Mon to Fri 10 to 17, Sat 10 to 14 during season longer hours",
-            note: "Prescription medicines, over the counter products and first aid supplies.",
+            location: "In center",
+            hours: "Mon–Fri 10–17, Sat 10–14 (longer in season)",
+            note: "Prescription medicines, over-the-counter drugs, first aid supplies.",
           },
           {
             name: "Kittilä Health Center",
-            location: "In Kittilä about 20 km away",
+            location: "In Kittilä (20 km)",
             hours: "Weekdays daytime",
-            note: "Extended care and emergency services. Medical helpline 116 117.",
+            note: "Emergency and extended care. Medical helpline 116 117.",
           },
           {
             name: "First Aid on Slopes",
-            location: "Ski Patrol office at the front lift",
-            note: "Slope accidents and first aid. In emergencies call 112.",
+            location: "Ski Patrol office at front lift",
+            note: "Slope accidents and first aid. Call 112 in emergency.",
           },
         ],
-        tip: "Carry valid travel and accident insurance.",
+        tip: "Carry travel and accident insurance. European Health Insurance Card (EU citizens) is valid in public services.",
       },
       family: {
-        title: "Family Friendly Services",
+        title: "Family-Friendly Services",
         icon: "baby",
-        intro: "Levi offers good services for families with children:",
+        intro: "Levi has good services for families with children:",
         items: [
-          "Childcare services available through some accommodations and safari operators",
-          "Children menus and high chairs in many restaurants",
-          "Play areas in hotels and shopping areas",
-          "Baby supplies available in K Market and S Market",
-          "Stroller rental available in some accommodations and hotels",
+          "Childcare services: ask your accommodation or safari operators",
+          "Children's menus and high chairs at family restaurants",
+          "Play areas in shopping centers and hotels",
+          "Baby supplies: diapers, baby food at K-Market and Sale",
+          "Stroller rental: ask accommodation or hotels",
         ],
       },
       faq: {
         title: "Frequently Asked Questions",
         items: [
           {
-            q: "Are restaurants open during Christmas?",
-            a: "Many restaurants are open during Christmas but advance reservations are recommended. Grocery stores may have limited opening hours.",
+            q: "Are restaurants open on Christmas?",
+            a: "Many restaurants are open on Christmas Eve and Christmas Day, but booking in advance is recommended. Grocery stores may be closed or have limited hours.",
           },
           {
             q: "Where can I rent ski equipment for children?",
-            a: "All major rental shops offer equipment for children. Booking early is recommended during busy weeks.",
+            a: "All major rental shops (Levi Ski Rent, Intersport, Sport Shop) have children's size range. Book in advance during ski holiday week.",
           },
           {
-            q: "Are there gluten free or vegan options available?",
-            a: "Most restaurants offer gluten free and vegan options. Ask the staff for details.",
+            q: "Are there gluten-free or vegan restaurants in Levi?",
+            a: "Many restaurants offer gluten-free and vegan options. Ask your server about special diets – service is usually flexible.",
           },
           {
             q: "When are grocery stores busiest?",
-            a: "Sundays and Mondays are usually the busiest due to guest changeover.",
+            a: "Sunday afternoon and Monday are busiest when guest changeover happens. Shop on weekday mornings for quieter experience.",
           },
         ],
       },
     },
     cta: {
       title: "Book Accommodation in the Center",
-      text: "Staying in the center allows easy access to restaurants and services.",
+      text: "From our center accommodations, you have convenient access to restaurants, shops and all services.",
       button: "View Accommodations",
     },
-    relatedTitle: "Read also",
+    relatedTitle: "Read Also",
     relatedLinks: [
       { text: "Getting Around Levi", href: "/guide/getting-around-in-levi" },
-      { text: "Levi With Children", href: "/guide/levi-with-children" },
+      { text: "Families in Levi", href: "/guide/levi-with-children" },
       { text: "Winter Clothing for Levi", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
     ],
     breadcrumbs: [
@@ -370,7 +369,7 @@ const translations = {
       { label: "Restaurants and Services" },
     ],
     travelHubLink: "/guide/travel-to-levi",
-    travelHubText: "Back to travel guide",
+    travelHubText: "← Back to Travel Guide",
     accommodationsHref: "/en/accommodations",
   },
 };
@@ -447,6 +446,7 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
       <main className="container mx-auto px-4 py-8 md:py-12">
         <Breadcrumbs items={t.breadcrumbs} />
 
+        {/* Back to Travel HUB */}
         <div className="mb-6">
           <Link
             to={t.travelHubLink}
@@ -457,14 +457,186 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
         </div>
 
         <div className="max-w-4xl mx-auto">
+          {/* Hero Section */}
           <header className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">{t.title}</h1>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">{t.title}</h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{t.subtitle}</p>
           </header>
 
-          <p className="text-lg mb-10 leading-relaxed">{t.intro}</p>
+          {/* Introduction */}
+          <p className="text-lg text-foreground/90 mb-10 leading-relaxed">{t.intro}</p>
 
-          {/* Sections rendering stays unchanged */}
+          {/* Restaurants */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <UtensilsCrossed className="w-6 h-6 text-primary" />
+              {t.sections.restaurants.title}
+            </h2>
+            <p className="text-foreground/80 mb-6">{t.sections.restaurants.intro}</p>
+            <div className="space-y-4">
+              {t.sections.restaurants.categories.map((cat, index) => (
+                <Card key={index} className="bg-card/50">
+                  <CardContent className="pt-6">
+                    <h3 className="font-semibold mb-2">{cat.name}</h3>
+                    <p className="text-sm text-primary mb-2">{cat.places.join(" • ")}</p>
+                    <p className="text-sm text-muted-foreground">{cat.note}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="bg-primary/10 p-4 rounded-lg mt-4">
+              <p className="text-sm text-foreground/80">
+                <strong>💡 Vinkki:</strong> {t.sections.restaurants.tip}
+              </p>
+            </div>
+          </section>
+
+          {/* Grocery Stores */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <ShoppingCart className="w-6 h-6 text-primary" />
+              {t.sections.groceries.title}
+            </h2>
+            <p className="text-foreground/80 mb-4">{t.sections.groceries.intro}</p>
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
+              {t.sections.groceries.stores.map((store, index) => (
+                <Card key={index} className="bg-card/50">
+                  <CardContent className="pt-6">
+                    <h3 className="font-semibold mb-2">{store.name}</h3>
+                    <p className="text-sm text-muted-foreground flex items-center gap-1 mb-1">
+                      <MapPin className="w-3 h-3" /> {store.location}
+                    </p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-1 mb-2">
+                      <Clock className="w-3 h-3" /> {store.hours}
+                    </p>
+                    <p className="text-sm text-foreground/80">{store.note}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <ul className="space-y-2">
+              {t.sections.groceries.tips.map((tip, index) => (
+                <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
+                  <span className="text-primary">•</span>
+                  {tip}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Equipment Rentals */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <Shirt className="w-6 h-6 text-primary" />
+              {t.sections.rental.title}
+            </h2>
+            <p className="text-foreground/80 mb-4">{t.sections.rental.intro}</p>
+            <div className="space-y-4 mb-4">
+              {t.sections.rental.shops.map((shop, index) => (
+                <Card key={index} className="bg-card/50">
+                  <CardContent className="pt-6">
+                    <h3 className="font-semibold mb-2">{shop.name}</h3>
+                    <p className="text-sm text-primary mb-1">{shop.services.join(" • ")}</p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-1">
+                      <MapPin className="w-3 h-3" /> {shop.location}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="bg-primary/10 p-4 rounded-lg">
+              <ul className="space-y-1">
+                {t.sections.rental.tips.map((tip, index) => (
+                  <li key={index} className="text-sm text-foreground/80">
+                    ✓ {tip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* Health Services */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <Heart className="w-6 h-6 text-primary" />
+              {t.sections.health.title}
+            </h2>
+            <p className="text-foreground/80 mb-4">{t.sections.health.intro}</p>
+            <div className="space-y-4 mb-4">
+              {t.sections.health.services.map((service, index) => (
+                <Card key={index} className="bg-card/50">
+                  <CardContent className="pt-6">
+                    <h3 className="font-semibold mb-2">{service.name}</h3>
+                    <p className="text-sm text-muted-foreground flex items-center gap-1 mb-1">
+                      <MapPin className="w-3 h-3" /> {service.location}
+                    </p>
+                    {service.hours && (
+                      <p className="text-sm text-muted-foreground flex items-center gap-1 mb-2">
+                        <Clock className="w-3 h-3" /> {service.hours}
+                      </p>
+                    )}
+                    <p className="text-sm text-foreground/80">{service.note}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="bg-amber-500/10 p-4 rounded-lg">
+              <p className="text-sm text-foreground/80">
+                <strong>⚠️</strong> {t.sections.health.tip}
+              </p>
+            </div>
+          </section>
+
+          {/* Family Services */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <Baby className="w-6 h-6 text-primary" />
+              {t.sections.family.title}
+            </h2>
+            <p className="text-foreground/80 mb-4">{t.sections.family.intro}</p>
+            <ul className="space-y-2">
+              {t.sections.family.items.map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="text-primary mt-1">✓</span>
+                  <span className="text-foreground/80">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* FAQ */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold text-foreground mb-6">{t.sections.faq.title}</h2>
+            <Accordion type="single" collapsible className="w-full">
+              {t.sections.faq.items.map((item, index) => (
+                <AccordionItem key={index} value={`faq-${index}`}>
+                  <AccordionTrigger className="text-left">{item.q}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">{item.a}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </section>
+
+          {/* CTA */}
+          <section className="text-center bg-card/50 rounded-2xl p-8 mb-12">
+            <h2 className="text-2xl font-bold text-foreground mb-3">{t.cta.title}</h2>
+            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">{t.cta.text}</p>
+            <Button asChild size="lg">
+              <Link to={t.accommodationsHref}>{t.cta.button}</Link>
+            </Button>
+          </section>
+
+          {/* Related Links */}
+          <section>
+            <h3 className="text-lg font-semibold mb-4">{t.relatedTitle}</h3>
+            <div className="flex flex-wrap gap-3">
+              {t.relatedLinks.map((link, index) => (
+                <Link key={index} to={link.href} className="text-primary hover:underline text-sm">
+                  {link.text} →
+                </Link>
+              ))}
+            </div>
+          </section>
         </div>
       </main>
 
