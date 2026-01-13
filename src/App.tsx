@@ -43,6 +43,11 @@ import SeasonsHub from "./pages/guide/SeasonsHub";
 import ActivitiesHub from "./pages/guide/ActivitiesHub";
 import TravelHub from "./pages/guide/TravelHub";
 
+// Travel HUB Child Pages
+import GettingAroundLevi from "./pages/guide/GettingAroundLevi";
+import RestaurantsAndServices from "./pages/guide/RestaurantsAndServices";
+import LeviWithChildren from "./pages/guide/LeviWithChildren";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -168,6 +173,16 @@ const App = () => (
               <Route path="/activities/snowmobile-safari-tips-levi" element={<SnowmobileSafariTips lang="en" />} />
               <Route path="/travel/how-to-get-to-levi-from-helsinki-and-abroad" element={<HowToGetToLevi lang="en" />} />
               <Route path="/activities/top-winter-activities-in-levi-lapland" element={<TopWinterActivities lang="en" />} />
+              
+              {/* Travel HUB Child Pages - Finnish */}
+              <Route path="/opas/liikkuminen-levilla" element={<GettingAroundLevi />} />
+              <Route path="/opas/ravintolat-ja-palvelut-levilla" element={<RestaurantsAndServices />} />
+              <Route path="/opas/lapsiperheet-levilla" element={<LeviWithChildren />} />
+              
+              {/* Travel HUB Child Pages - English */}
+              <Route path="/guide/getting-around-in-levi" element={<GettingAroundLevi lang="en" />} />
+              <Route path="/guide/restaurants-and-services-in-levi" element={<RestaurantsAndServices lang="en" />} />
+              <Route path="/guide/levi-with-children" element={<LeviWithChildren lang="en" />} />
               
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
