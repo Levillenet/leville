@@ -250,6 +250,13 @@ export const en = {
     bookCta: "Browse availability and book",
     items: [
       {
+        badge: "❄️ Cold Spell",
+        date: "Jan 13, 2026",
+        title: "Exceptional cold spell in Levi – an unforgettable experience for our guests",
+        description: "Last week, Levi experienced a rare cold weather period. Temperatures reached nearly -40°C continuously for about five days, which is extremely exceptional – a similar extended cold spell last occurred almost 30 years ago. The prolonged cold affected building heating, transportation, and activities, but our guests responded very positively. Many said they experienced an authentic Lapland winter and considered the exceptional cold spell an unforgettable experience.",
+        highlight: "Although not everything went exactly as planned, the overall experience in Levi left a lasting impression and the feedback has been extremely positive."
+      },
+      {
         badge: "🎿 Spring 2025",
         date: "Dec 29, 2024",
         title: "Late spring availability in Levi",

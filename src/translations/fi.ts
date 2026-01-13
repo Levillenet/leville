@@ -250,6 +250,13 @@ export const fi = {
     bookCta: "Tutustu vapaisiin ajankohtiin ja varaa",
     items: [
       {
+        badge: "❄️ Pakkasjakso",
+        date: "13.1.2026",
+        title: "Poikkeuksellinen pakkasjakso Levillä – ikimuistoinen kokemus vieraillemme",
+        description: "Viime viikolla Levi koki harvinaisen kylmän sääjakson. Pakkasta oli lähes 40 astetta yhtäjaksoisesti noin viiden päivän ajan, mikä on erittäin poikkeuksellista – vastaavan mittainen pakkasjakso on ollut edellisen kerran lähes 30 vuotta sitten. Pitkä kylmyys vaikutti rakennusten lämmitykseen, liikkumiseen ja aktiviteetteihin, mutta vieraamme suhtautuivat tilanteeseen erittäin positiivisesti. Monet kertoivat kokeneensa aidon Lapin talven ja pitivät poikkeuksellista pakkasjaksoa ikimuistoisena elämyksenä.",
+        highlight: "Vaikka kaikki ei mennyt täysin suunnitelmien mukaan, kokonaiskokemus Levistä jäi vahvasti mieleen ja palaute on ollut erittäin myönteistä."
+      },
+      {
         badge: "🎿 Kevät 2025",
         date: "29.12.2024",
         title: "Loppukeväälle on vielä tilaa Levillä",
