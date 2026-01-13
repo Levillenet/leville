@@ -46,9 +46,9 @@ const content: Record<Language, {
     guides: [
       { id: "getting-there", title: "Miten pääsee Leville", description: "Lentoyhteydet, junayhteydet ja autoilutiedot Leville. Kaikki matkustusvaihtoehdot.", href: "/matka/miten-paasee-leville-helsingista", iconKey: "plane" },
       { id: "clothing", title: "Talvivarusteet", description: "Mitä vaatteita tarvitset Levin talveen? Pukeutumisvinkit -30°C pakkasiin.", href: "/opas/talvivarusteet-leville", iconKey: "shirt" },
-      { id: "transport", title: "Liikkuminen Levillä", description: "Skibussit, taksit ja autonvuokraus. Miten liikut kätevästi Levillä.", href: "/levi", iconKey: "bus" },
-      { id: "services", title: "Ravintolat ja palvelut", description: "Ravintolat, kaupat, vuokraamot ja muut palvelut Levin keskustassa.", href: "/levi", iconKey: "utensils" },
-      { id: "family", title: "Lapsiperheet Levillä", description: "Lasten rinteet, aktiviteetit ja käytännön vinkit perhematkoille.", href: "/levi", iconKey: "baby" }
+      { id: "transport", title: "Liikkuminen Levillä", description: "Skibussit, taksit ja autonvuokraus. Miten liikut kätevästi Levillä.", href: "/opas/liikkuminen-levilla", iconKey: "bus" },
+      { id: "services", title: "Ravintolat ja palvelut", description: "Ravintolat, kaupat, vuokraamot ja muut palvelut Levin keskustassa.", href: "/opas/ravintolat-ja-palvelut-levilla", iconKey: "utensils" },
+      { id: "family", title: "Lapsiperheet Levillä", description: "Lasten rinteet, aktiviteetit ja käytännön vinkit perhematkoille.", href: "/opas/lapsiperheet-levilla", iconKey: "baby" }
     ]
   },
   en: {
@@ -64,9 +64,9 @@ const content: Record<Language, {
     guides: [
       { id: "getting-there", title: "Getting to Levi", description: "Flight connections, train routes and driving directions to Levi. All travel options.", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad", iconKey: "plane" },
       { id: "clothing", title: "Winter Clothing", description: "What clothes do you need for Levi winter? Dressing tips for -30°C frost.", href: "/guide/how-to-dress-for-winter-in-levi-lapland", iconKey: "shirt" },
-      { id: "transport", title: "Getting Around Levi", description: "Ski buses, taxis and car rental. How to get around conveniently in Levi.", href: "/en/levi", iconKey: "bus" },
-      { id: "services", title: "Restaurants and Services", description: "Restaurants, shops, rentals and other services in Levi center.", href: "/en/levi", iconKey: "utensils" },
-      { id: "family", title: "Families in Levi", description: "Kids' slopes, activities and practical tips for family trips.", href: "/en/levi", iconKey: "baby" }
+      { id: "transport", title: "Getting Around Levi", description: "Ski buses, taxis and car rental. How to get around conveniently in Levi.", href: "/guide/getting-around-in-levi", iconKey: "bus" },
+      { id: "services", title: "Restaurants and Services", description: "Restaurants, shops, rentals and other services in Levi center.", href: "/guide/restaurants-and-services-in-levi", iconKey: "utensils" },
+      { id: "family", title: "Families in Levi", description: "Kids' slopes, activities and practical tips for family trips.", href: "/guide/levi-with-children", iconKey: "baby" }
     ]
   },
   sv: {

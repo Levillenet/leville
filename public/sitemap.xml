@@ -955,4 +955,58 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Travel Child Pages - Getting Around -->
+  <url>
+    <loc>https://leville.net/opas/liikkuminen-levilla</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/liikkuminen-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/getting-around-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/liikkuminen-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/getting-around-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/liikkuminen-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/getting-around-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/liikkuminen-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Travel Child Pages - Restaurants and Services -->
+  <url>
+    <loc>https://leville.net/opas/ravintolat-ja-palvelut-levilla</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/ravintolat-ja-palvelut-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/restaurants-and-services-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/ravintolat-ja-palvelut-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/restaurants-and-services-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/ravintolat-ja-palvelut-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/restaurants-and-services-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/ravintolat-ja-palvelut-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Travel Child Pages - Families with Children -->
+  <url>
+    <loc>https://leville.net/opas/lapsiperheet-levilla</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapsiperheet-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-with-children"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/lapsiperheet-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/levi-with-children</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapsiperheet-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-with-children"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/lapsiperheet-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
 </urlset>
