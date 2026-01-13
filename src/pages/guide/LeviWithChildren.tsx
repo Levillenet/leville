@@ -8,23 +8,9 @@ import HreflangTags from "@/components/HreflangTags";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Baby, 
-  Mountain, 
-  Shirt, 
-  Home,
-  UtensilsCrossed,
-  Shield,
-  Snowflake,
-  Heart
-} from "lucide-react";
+import { Baby, Mountain, Shirt, Home, UtensilsCrossed, Shield, Snowflake, Heart } from "lucide-react";
 import { Language } from "@/translations";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface LeviWithChildrenProps {
   lang?: Language;
@@ -34,12 +20,14 @@ const translations = {
   fi: {
     meta: {
       title: "Lapsiperheet Levillä – Lasten rinteet, aktiviteetit | Leville.net",
-      description: "Levi lapsiperheille: lasten rinteet, hiihtokoulu, talvivaatetus, sisäaktiviteetit ja perheystävälliset palvelut. Käytännön vinkit perhematkalle.",
-      canonical: "https://leville.net/opas/lapsiperheet-levilla"
+      description:
+        "Levi lapsiperheille: lasten rinteet, hiihtokoulu, talvivaatetus, sisäaktiviteetit ja perheystävälliset palvelut. Käytännön vinkit perhematkalle.",
+      canonical: "https://leville.net/opas/lapsiperheet-levilla",
     },
     title: "Lapsiperheet Levillä",
     subtitle: "Lasten rinteet, aktiviteetit ja käytännön vinkit perhematkalle",
-    intro: "Levi on erinomainen talvilomakohde lapsiperheille. Turvallisista lastenrinteistä lämpimiin sisätiloihin, hiihtokoulusta huskyajeluihin – tässä oppaassa kaikki mitä tarvitset perhematkasi suunnitteluun.",
+    intro:
+      "Levi on erinomainen talvilomakohde lapsiperheille. Turvallisista lastenrinteistä lämpimiin sisätiloihin, hiihtokoulusta huskyajeluihin – tässä oppaassa kaikki mitä tarvitset perhematkasi suunnitteluun.",
     sections: {
       slopes: {
         title: "Lasten rinteet ja hiihtokoulu",
@@ -47,23 +35,23 @@ const translations = {
         intro: "Levillä on erinomaiset fasiliteetit lapsille oppia laskettelua:",
         items: [
           {
-            title: "Angry Birds Snow Park",
-            desc: "Lasten oma alue helpoilla rinteillä, liukumäillä ja Angry Birds -teemalla. Turvallinen ympäristö ensimmäisille laskuille."
+            title: "Leevilandia Snow Park",
+            desc: "Lasten oma alue helpoilla eteläpuolen rinteillä , liukumäillä ja Leevilandia -teemalla. Turvallinen ympäristö ensimmäisille laskuille.",
           },
           {
             title: "Lasten hiihtokoulu",
-            desc: "Levi Ski School tarjoaa opetusta 3-vuotiaasta alkaen. Ryhmä- ja yksityistunnit saatavilla. Ammattitaitoiset opettajat ja pienet ryhmäkoot."
+            desc: "Levi Ski School tarjoaa opetusta 3-vuotiaasta alkaen. Ryhmä- ja yksityistunnit saatavilla. Ammattitaitoiset opettajat ja pienet ryhmäkoot.",
           },
           {
             title: "Taikamatto-hissit",
-            desc: "Helppokäyttöiset taikamatto-hissit lasten rinteillä – ei isoja hissejä pienille laskijoille."
+            desc: "Helppokäyttöiset taikamatto-hissit lasten rinteillä – ei isoja hissejä pienille laskijoille.",
           },
           {
             title: "Kids' Club -palvelut",
-            desc: "Päivähoito- ja aktiviteettipalvelut lapsille, kun vanhemmat haluavat laskea omia rinteitä."
-          }
+            desc: "Päivähoito- ja aktiviteettipalvelut lapsille, kun vanhemmat haluavat laskea omia rinteitä.",
+          },
         ],
-        tip: "Varaa hiihtokoulupaikka etukäteen sesonkiaikana – suosituimmat ajat täyttyvät nopeasti."
+        tip: "Varaa hiihtokoulupaikka etukäteen sesonkiaikana – suosituimmat ajat täyttyvät nopeasti.",
       },
       clothing: {
         title: "Talvivaatetus lapsille",
@@ -72,35 +60,42 @@ const translations = {
         layers: [
           {
             name: "Aluskerros",
-            items: ["Merinovilla- tai synteettinen alusasu", "Villasukat – ei puuvillaa!", "Ohut pipo kypärän alle"]
+            items: ["Merinovilla- tai synteettinen alusasu", "Villasukat – ei puuvillaa!", "Ohut pipo kypärän alle"],
           },
           {
             name: "Välikerros",
-            items: ["Fleece- tai villatakki", "Fleece-housut tai villa-alusasu"]
+            items: ["Fleece- tai villatakki", "Fleece-housut tai villa-alusasu"],
           },
           {
             name: "Päällyskerros",
-            items: ["Vedenpitävä toppahaalari tai takki + housut", "Lämpöhanskat (sormihansikat vaikeampia pienille)", "Tuubihuivi kasvosuojaksi"]
-          }
+            items: [
+              "Vedenpitävä toppahaalari tai takki + housut",
+              "Lämpöhanskat (sormihansikat vaikeampia pienille)",
+              "Tuubihuivi kasvosuojaksi",
+            ],
+          },
         ],
         tips: [
           "Vältä puuvillaa – se imee kosteutta ja viilentää",
           "Pakkaa varasukat ja käsineet mukaan aina",
           "Lapset jäätyvät helpommin kuin aikuiset – pidä taukoja lämpimässä",
-          "Käytä UV-suojavoitetta aurinkoisena päivänä – lumi heijastaa voimakkaasti"
-        ]
+          "Käytä UV-suojavoitetta aurinkoisena päivänä – lumi heijastaa voimakkaasti",
+        ],
       },
       indoor: {
         title: "Sisäaktiviteetit kylminä päivinä",
         icon: "home",
         intro: "Kun pakkanen paukkuu tai kaipaat taukoa ulkoilusta, Levillä on paljon sisäaktiviteetteja:",
         activities: [
-          { name: "Levin kylpylä & Spa", desc: "Uima-altaat, vesiliukumäet ja lastenallas. Rentouttava myös vanhemmille." },
+          {
+            name: "Levin kylpylä & Spa",
+            desc: "Uima-altaat, vesiliukumäet ja lastenallas. Rentouttava myös vanhemmille.",
+          },
           { name: "Sisäleikkipaikat", desc: "Hullu Poro Arenalla ja hotelleissa leikkipaikkoja lapsille." },
           { name: "Elokuvateatterit", desc: "Levin keskustassa elokuvanäytöksiä – tarkista ohjelma." },
           { name: "Käsityöpajat", desc: "Saamelaisia käsitöitä ja askartelupajoja turistikeskuksessa." },
-          { name: "Leivontakurssit", desc: "Piparkakkujen leipomista ja lappalaisia herkkuja lapsille." }
-        ]
+          { name: "Leivontakurssit", desc: "Piparkakkujen leipomista ja lappalaisia herkkuja lapsille." },
+        ],
       },
       activities: {
         title: "Talviaktiviteetit perheille",
@@ -109,25 +104,25 @@ const translations = {
         items: [
           {
             name: "Porofarmivierailut",
-            desc: "Tapaa poroja läheltä, syötä niitä ja aja lyhyt rekiretki. Sopii kaikenikäisille."
+            desc: "Tapaa poroja läheltä, syötä niitä ja aja lyhyt rekiretki. Sopii kaikenikäisille.",
           },
           {
             name: "Huskysafarit lapsille",
-            desc: "Lyhyet 30–60 min safarit sopivat perheille. Lapset voivat matkustaa aikuisen kyydissä."
+            desc: "Lyhyet 30–60 min safarit sopivat perheille. Lapset voivat matkustaa aikuisen kyydissä.",
           },
           {
             name: "Pulkkamäet",
-            desc: "Ilmaisia pulkkamäkiä ympäri Leviä. Vuokraa pulkka tai tuo oma."
+            desc: "Ilmaisia pulkkamäkiä ympäri Leviä. Vuokraa pulkka tai tuo oma.",
           },
           {
             name: "Lumiveistokset",
-            desc: "Lumilinnan ja jääveistosten rakentaminen – hauskaa koko perheelle."
+            desc: "Lumilinnan ja jääveistosten rakentaminen – hauskaa koko perheelle.",
           },
           {
             name: "Revontulisafarit",
-            desc: "Iltatunneilla lapsetkin voivat osallistua. Valitse lyhyempi retki perheille."
-          }
-        ]
+            desc: "Iltatunneilla lapsetkin voivat osallistua. Valitse lyhyempi retki perheille.",
+          },
+        ],
       },
       stroller: {
         title: "Rattaat ja vauvalogistiikka",
@@ -138,9 +133,9 @@ const translations = {
           "Matkasänky: Kysy majoitukselta – usein saatavilla ilmaiseksi.",
           "Syöttötuolit: Kaikissa perheravintoloissa saatavilla.",
           "Vaipat ja lastenruoat: K-Market ja Sale tarjoavat perustarpeet.",
-          "Lämmitys: Majoituksissamme on lattialämmitys ja hyvä lämmöneristys."
+          "Lämmitys: Majoituksissamme on lattialämmitys ja hyvä lämmöneristys.",
         ],
-        tip: "Varaa riittävästi aikaa pukemiseen ja lämpimiin taukoihin – pienet lapset väsyvät nopeammin kylmässä."
+        tip: "Varaa riittävästi aikaa pukemiseen ja lämpimiin taukoihin – pienet lapset väsyvät nopeammin kylmässä.",
       },
       restaurants: {
         title: "Perheystävälliset ravintolat",
@@ -150,9 +145,9 @@ const translations = {
           { name: "Hullu Poro", note: "Laaja lastenruokalista, syöttötuolit, leikkitila. Tunnelmallinen mutta rento." },
           { name: "Colorado Bar & Grill", note: "Hampurilaiset ja pizzat. Lapsiystävällinen palvelu." },
           { name: "Levin Panimo", note: "Perinteistä suomalaista ruokaa, lasten annokset saatavilla." },
-          { name: "Pizza-Kebab Levi", note: "Edullinen vaihtoehto, noutomyynti majoitukseen." }
+          { name: "Pizza-Kebab Levi", note: "Edullinen vaihtoehto, noutomyynti majoitukseen." },
         ],
-        tip: "Varaa pöytä etukäteen illallisille, erityisesti viikonloppuisin ja sesonkiaikoina."
+        tip: "Varaa pöytä etukäteen illallisille, erityisesti viikonloppuisin ja sesonkiaikoina.",
       },
       safety: {
         title: "Turvallisuus ja käytännön vinkit",
@@ -164,60 +159,62 @@ const translations = {
           "Pidä lapsen henkilötiedot ja majoituksen yhteystiedot mukana",
           "Opeta lapselle, mitä tehdä jos eksyy – mene hissille tai ski patrol -pisteelle",
           "Aurinkolasit tai laskettelulasit suojaavat silmiä lumisokeutumiselta",
-          "Hypotermiavaara: Jos lapsi tärisee tai lakkaa tärisemästä, vie sisälle välittömästi"
-        ]
+          "Hypotermiavaara: Jos lapsi tärisee tai lakkaa tärisemästä, vie sisälle välittömästi",
+        ],
       },
       faq: {
         title: "Usein kysytyt kysymykset",
         items: [
           {
             q: "Minkä ikäisenä lapsi voi aloittaa laskettelun?",
-            a: "Levin hiihtokoulussa opetetaan 3-vuotiaasta alkaen. Nuoremmille sopivat pulkkamäet ja leikkiminen lumessa. Angry Birds Snow Park on turvallinen ympäristö pienimmillekin."
+            a: "Levin hiihtokoulussa opetetaan 3-vuotiaasta alkaen. Nuoremmille sopivat pulkkamäet ja leikkiminen lumessa. Angry Birds Snow Park on turvallinen ympäristö pienimmillekin.",
           },
           {
             q: "Voiko vauvan kanssa osallistua safareille?",
-            a: "Riippuu safarista. Porofarmivierailut sopivat usein vauvoille kantoliinan tai pulkan kanssa. Moottorikelkkasafarit eivät yleensä sovi alle 4-vuotiaille."
+            a: "Riippuu safarista. Porofarmivierailut sopivat usein vauvoille kantoliinan tai pulkan kanssa. Moottorikelkkasafarit eivät yleensä sovi alle 4-vuotiaille.",
           },
           {
             q: "Miten puen lapsen -20°C pakkaseen?",
-            a: "Kerrospukeutuminen: merinovillaiset alusvaatteet, fleece-välikerros, vedenpitävä toppahaalari. Pidä varavaatteita mukana ja tarkkaile lapsen vointia."
+            a: "Kerrospukeutuminen: merinovillaiset alusvaatteet, fleece-välikerros, vedenpitävä toppahaalari. Pidä varavaatteita mukana ja tarkkaile lapsen vointia.",
           },
           {
             q: "Onko Levillä lastenhoitopalveluita?",
-            a: "Kyllä. Levin hiihtokoulun Kids' Club tarjoaa hoitopalveluita. Myös jotkut hotellit ja safari-operaattorit tarjoavat lastenhoitoa. Varaa etukäteen."
-          }
-        ]
-      }
+            a: "Kyllä. Levin hiihtokoulun Kids' Club tarjoaa hoitopalveluita. Myös jotkut hotellit ja safari-operaattorit tarjoavat lastenhoitoa. Varaa etukäteen.",
+          },
+        ],
+      },
     },
     cta: {
       title: "Varaa perheystävällinen majoitus",
       text: "Tilava majoitus keskustan tuntumassa, lattialämmityksellä ja kuivaushuoneella. Täydellinen perheille.",
-      button: "Katso majoitukset"
+      button: "Katso majoitukset",
     },
     relatedTitle: "Lue myös",
     relatedLinks: [
       { text: "Talvivarusteet Leville", href: "/opas/talvivarusteet-leville" },
       { text: "Ravintolat ja palvelut", href: "/opas/ravintolat-ja-palvelut-levilla" },
-      { text: "Parhaat talviaktiviteetit", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" }
+      { text: "Parhaat talviaktiviteetit", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
     ],
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Matkaopas", href: "/opas/matkaopas-levi" },
-      { label: "Lapsiperheet Levillä" }
+      { label: "Lapsiperheet Levillä" },
     ],
     travelHubLink: "/opas/matkaopas-levi",
     travelHubText: "← Takaisin matkaoppaaseen",
-    accommodationsHref: "/majoitukset"
+    accommodationsHref: "/majoitukset",
   },
   en: {
     meta: {
       title: "Levi with Children – Kids' Slopes, Activities | Leville.net",
-      description: "Levi for families: kids' slopes, ski school, winter clothing, indoor activities and family-friendly services. Practical tips for family trips.",
-      canonical: "https://leville.net/guide/levi-with-children"
+      description:
+        "Levi for families: kids' slopes, ski school, winter clothing, indoor activities and family-friendly services. Practical tips for family trips.",
+      canonical: "https://leville.net/guide/levi-with-children",
     },
     title: "Levi with Children",
     subtitle: "Kids' slopes, activities and practical tips for family trips",
-    intro: "Levi is an excellent winter holiday destination for families. From safe children's slopes to warm indoor spaces, ski school to husky rides – this guide covers everything you need for planning your family trip.",
+    intro:
+      "Levi is an excellent winter holiday destination for families. From safe children's slopes to warm indoor spaces, ski school to husky rides – this guide covers everything you need for planning your family trip.",
     sections: {
       slopes: {
         title: "Kids' Slopes and Ski School",
@@ -225,23 +222,23 @@ const translations = {
         intro: "Levi has excellent facilities for children to learn skiing:",
         items: [
           {
-            title: "Angry Birds Snow Park",
-            desc: "Children's own area with easy slopes, slides and Angry Birds theme. Safe environment for first runs."
+            title: "Leevilandia Snow Park",
+            desc: "Children's own area with easy slopes at South point, slides and Leevilandia theme. Safe environment for first runs.",
           },
           {
             title: "Children's Ski School",
-            desc: "Levi Ski School offers lessons from age 3. Group and private lessons available. Professional instructors and small group sizes."
+            desc: "Levi Ski School offers lessons from age 3. Group and private lessons available. Professional instructors and small group sizes.",
           },
           {
             title: "Magic Carpet Lifts",
-            desc: "Easy-to-use magic carpet lifts at children's slopes – no big lifts for small skiers."
+            desc: "Easy-to-use magic carpet lifts at children's slopes – no big lifts for small skiers.",
           },
           {
             title: "Kids' Club Services",
-            desc: "Daycare and activity services for children when parents want to ski their own slopes."
-          }
+            desc: "Daycare and activity services for children when parents want to ski their own slopes.",
+          },
         ],
-        tip: "Book ski school in advance during peak season – popular times fill up quickly."
+        tip: "Book ski school in advance during peak season – popular times fill up quickly.",
       },
       clothing: {
         title: "Winter Clothing for Children",
@@ -250,35 +247,42 @@ const translations = {
         layers: [
           {
             name: "Base Layer",
-            items: ["Merino wool or synthetic base layer", "Wool socks – no cotton!", "Thin beanie under helmet"]
+            items: ["Merino wool or synthetic base layer", "Wool socks – no cotton!", "Thin beanie under helmet"],
           },
           {
             name: "Mid Layer",
-            items: ["Fleece or wool jacket", "Fleece pants or wool base layer"]
+            items: ["Fleece or wool jacket", "Fleece pants or wool base layer"],
           },
           {
             name: "Outer Layer",
-            items: ["Waterproof insulated snowsuit or jacket + pants", "Warm mittens (finger gloves harder for small ones)", "Neck gaiter for face protection"]
-          }
+            items: [
+              "Waterproof insulated snowsuit or jacket + pants",
+              "Warm mittens (finger gloves harder for small ones)",
+              "Neck gaiter for face protection",
+            ],
+          },
         ],
         tips: [
           "Avoid cotton – it absorbs moisture and cools down",
           "Pack extra socks and gloves always",
           "Children freeze easier than adults – take warm-up breaks",
-          "Use UV protection on sunny days – snow reflects strongly"
-        ]
+          "Use UV protection on sunny days – snow reflects strongly",
+        ],
       },
       indoor: {
         title: "Indoor Activities for Cold Days",
         icon: "home",
         intro: "When it's freezing or you need a break from outdoors, Levi has plenty of indoor activities:",
         activities: [
-          { name: "Levi Spa & Pool", desc: "Swimming pools, water slides and children's pool. Relaxing for parents too." },
+          {
+            name: "Levi Spa & Pool",
+            desc: "Swimming pools, water slides and children's pool. Relaxing for parents too.",
+          },
           { name: "Indoor Play Areas", desc: "Play areas for children at Hullu Poro Arena and hotels." },
           { name: "Movie Theaters", desc: "Movie showings in Levi center – check schedule." },
           { name: "Craft Workshops", desc: "Sámi crafts and art workshops at tourist center." },
-          { name: "Baking Classes", desc: "Gingerbread baking and Lappish treats for children." }
-        ]
+          { name: "Baking Classes", desc: "Gingerbread baking and Lappish treats for children." },
+        ],
       },
       activities: {
         title: "Winter Activities for Families",
@@ -287,25 +291,25 @@ const translations = {
         items: [
           {
             name: "Reindeer Farm Visits",
-            desc: "Meet reindeer up close, feed them and take a short sleigh ride. Suitable for all ages."
+            desc: "Meet reindeer up close, feed them and take a short sleigh ride. Suitable for all ages.",
           },
           {
             name: "Husky Safaris for Children",
-            desc: "Short 30–60 min safaris suit families. Children can ride with adult."
+            desc: "Short 30–60 min safaris suit families. Children can ride with adult.",
           },
           {
             name: "Sledding Hills",
-            desc: "Free sledding hills around Levi. Rent a sled or bring your own."
+            desc: "Free sledding hills around Levi. Rent a sled or bring your own.",
           },
           {
             name: "Snow Sculptures",
-            desc: "Building snow castles and ice sculptures – fun for the whole family."
+            desc: "Building snow castles and ice sculptures – fun for the whole family.",
           },
           {
             name: "Northern Lights Safaris",
-            desc: "Evening hours children can participate too. Choose shorter trip for families."
-          }
-        ]
+            desc: "Evening hours children can participate too. Choose shorter trip for families.",
+          },
+        ],
       },
       stroller: {
         title: "Strollers and Baby Logistics",
@@ -316,9 +320,9 @@ const translations = {
           "Travel cot: Ask your accommodation – often available free of charge.",
           "High chairs: Available at all family restaurants.",
           "Diapers and baby food: K-Market and Sale offer basic supplies.",
-          "Heating: Our accommodations have floor heating and good insulation."
+          "Heating: Our accommodations have floor heating and good insulation.",
         ],
-        tip: "Allow extra time for dressing and warm-up breaks – small children tire faster in cold."
+        tip: "Allow extra time for dressing and warm-up breaks – small children tire faster in cold.",
       },
       restaurants: {
         title: "Family-Friendly Restaurants",
@@ -328,9 +332,9 @@ const translations = {
           { name: "Hullu Poro", note: "Extensive children's menu, high chairs, play area. Atmospheric but relaxed." },
           { name: "Colorado Bar & Grill", note: "Burgers and pizzas. Family-friendly service." },
           { name: "Levin Panimo", note: "Traditional Finnish food, children's portions available." },
-          { name: "Pizza-Kebab Levi", note: "Affordable option, take-away to accommodation." }
+          { name: "Pizza-Kebab Levi", note: "Affordable option, take-away to accommodation." },
         ],
-        tip: "Book a table in advance for dinners, especially on weekends and during peak season."
+        tip: "Book a table in advance for dinners, especially on weekends and during peak season.",
       },
       safety: {
         title: "Safety and Practical Tips",
@@ -342,95 +346,95 @@ const translations = {
           "Keep child's personal info and accommodation contacts with you",
           "Teach child what to do if lost – go to lift or ski patrol station",
           "Sunglasses or ski goggles protect eyes from snow blindness",
-          "Hypothermia risk: If child shivers or stops shivering, get indoors immediately"
-        ]
+          "Hypothermia risk: If child shivers or stops shivering, get indoors immediately",
+        ],
       },
       faq: {
         title: "Frequently Asked Questions",
         items: [
           {
             q: "At what age can a child start skiing?",
-            a: "Levi ski school teaches from age 3. Younger children can enjoy sledding hills and playing in snow. Angry Birds Snow Park is a safe environment for the smallest ones."
+            a: "Levi ski school teaches from age 3. Younger children can enjoy sledding hills and playing in snow. Angry Birds Snow Park is a safe environment for the smallest ones.",
           },
           {
             q: "Can you participate in safaris with a baby?",
-            a: "Depends on the safari. Reindeer farm visits often suit babies with carrier or sled. Snowmobile safaris usually don't suit under 4-year-olds."
+            a: "Depends on the safari. Reindeer farm visits often suit babies with carrier or sled. Snowmobile safaris usually don't suit under 4-year-olds.",
           },
           {
             q: "How do I dress a child for -20°C?",
-            a: "Layer dressing: merino wool base layers, fleece mid-layer, waterproof insulated snowsuit. Keep spare clothes and monitor child's condition."
+            a: "Layer dressing: merino wool base layers, fleece mid-layer, waterproof insulated snowsuit. Keep spare clothes and monitor child's condition.",
           },
           {
             q: "Is there childcare in Levi?",
-            a: "Yes. Levi Ski School's Kids' Club offers care services. Some hotels and safari operators also offer childcare. Book in advance."
-          }
-        ]
-      }
+            a: "Yes. Levi Ski School's Kids' Club offers care services. Some hotels and safari operators also offer childcare. Book in advance.",
+          },
+        ],
+      },
     },
     cta: {
       title: "Book Family-Friendly Accommodation",
       text: "Spacious accommodation near center with floor heating and drying room. Perfect for families.",
-      button: "View Accommodations"
+      button: "View Accommodations",
     },
     relatedTitle: "Read Also",
     relatedLinks: [
       { text: "Winter Clothing for Levi", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
       { text: "Restaurants and Services", href: "/guide/restaurants-and-services-in-levi" },
-      { text: "Top Winter Activities", href: "/activities/top-winter-activities-in-levi-lapland" }
+      { text: "Top Winter Activities", href: "/activities/top-winter-activities-in-levi-lapland" },
     ],
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Travel Guide", href: "/guide/travel-to-levi" },
-      { label: "Levi with Children" }
+      { label: "Levi with Children" },
     ],
     travelHubLink: "/guide/travel-to-levi",
     travelHubText: "← Back to Travel Guide",
-    accommodationsHref: "/en/accommodations"
-  }
+    accommodationsHref: "/en/accommodations",
+  },
 };
 
 const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
   const location = useLocation();
   const t = translations[lang] || translations.fi;
-  
+
   const hreflangUrls = {
     fi: "https://leville.net/opas/lapsiperheet-levilla",
-    en: "https://leville.net/guide/levi-with-children"
+    en: "https://leville.net/guide/levi-with-children",
   };
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": t.sections.faq.items.map(item => ({
+    mainEntity: t.sections.faq.items.map((item) => ({
       "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": {
+      name: item.q,
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": item.a
-      }
-    }))
+        text: item.a,
+      },
+    })),
   };
 
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": t.title,
-    "description": t.meta.description,
-    "author": {
+    headline: t.title,
+    description: t.meta.description,
+    author: {
       "@type": "Organization",
-      "name": "Leville.net"
-    }
+      name: "Leville.net",
+    },
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": t.breadcrumbs.map((item, index) => ({
+    itemListElement: t.breadcrumbs.map((item, index) => ({
       "@type": "ListItem",
-      "position": index + 1,
-      "name": item.label,
-      "item": item.href ? `https://leville.net${item.href}` : undefined
-    }))
+      position: index + 1,
+      name: item.label,
+      item: item.href ? `https://leville.net${item.href}` : undefined,
+    })),
   };
 
   return (
@@ -453,21 +457,18 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
-      <HreflangTags 
-        currentPath={location.pathname}
-        customUrls={hreflangUrls}
-      />
+      <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 
       <Header />
       <SubpageBackground />
-      
+
       <main className="container mx-auto px-4 py-8 md:py-12">
         <Breadcrumbs items={t.breadcrumbs} />
-        
+
         {/* Back to Travel HUB */}
         <div className="mb-6">
-          <Link 
-            to={t.travelHubLink} 
+          <Link
+            to={t.travelHubLink}
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             {t.travelHubText}
@@ -477,18 +478,12 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
           <header className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-              {t.title}
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              {t.subtitle}
-            </p>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">{t.title}</h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{t.subtitle}</p>
           </header>
 
           {/* Introduction */}
-          <p className="text-lg text-foreground/90 mb-10 leading-relaxed">
-            {t.intro}
-          </p>
+          <p className="text-lg text-foreground/90 mb-10 leading-relaxed">{t.intro}</p>
 
           {/* Kids' Slopes */}
           <section className="mb-12">
@@ -541,7 +536,9 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
             <div className="bg-amber-500/10 p-4 rounded-lg">
               <ul className="space-y-1">
                 {t.sections.clothing.tips.map((tip, index) => (
-                  <li key={index} className="text-sm text-foreground/80">⚠️ {tip}</li>
+                  <li key={index} className="text-sm text-foreground/80">
+                    ⚠️ {tip}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -648,18 +645,12 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
 
           {/* FAQ */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-foreground mb-6">
-              {t.sections.faq.title}
-            </h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6">{t.sections.faq.title}</h2>
             <Accordion type="single" collapsible className="w-full">
               {t.sections.faq.items.map((item, index) => (
                 <AccordionItem key={index} value={`faq-${index}`}>
-                  <AccordionTrigger className="text-left">
-                    {item.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {item.a}
-                  </AccordionContent>
+                  <AccordionTrigger className="text-left">{item.q}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">{item.a}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
@@ -667,16 +658,10 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
 
           {/* CTA */}
           <section className="text-center bg-card/50 rounded-2xl p-8 mb-12">
-            <h2 className="text-2xl font-bold text-foreground mb-3">
-              {t.cta.title}
-            </h2>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              {t.cta.text}
-            </p>
+            <h2 className="text-2xl font-bold text-foreground mb-3">{t.cta.title}</h2>
+            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">{t.cta.text}</p>
             <Button asChild size="lg">
-              <Link to={t.accommodationsHref}>
-                {t.cta.button}
-              </Link>
+              <Link to={t.accommodationsHref}>{t.cta.button}</Link>
             </Button>
           </section>
 
@@ -685,11 +670,7 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
             <h3 className="text-lg font-semibold mb-4">{t.relatedTitle}</h3>
             <div className="flex flex-wrap gap-3">
               {t.relatedLinks.map((link, index) => (
-                <Link
-                  key={index}
-                  to={link.href}
-                  className="text-primary hover:underline text-sm"
-                >
+                <Link key={index} to={link.href} className="text-primary hover:underline text-sm">
                   {link.text} →
                 </Link>
               ))}
