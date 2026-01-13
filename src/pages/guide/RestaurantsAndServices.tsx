@@ -8,23 +8,9 @@ import HreflangTags from "@/components/HreflangTags";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  UtensilsCrossed,
-  ShoppingCart,
-  Shirt,
-  Heart,
-  Clock,
-  Baby,
-  MapPin,
-  ExternalLink
-} from "lucide-react";
+import { UtensilsCrossed, ShoppingCart, Shirt, Heart, Clock, Baby, MapPin, ExternalLink } from "lucide-react";
 import { Language } from "@/translations";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface RestaurantsAndServicesProps {
   lang?: Language;
@@ -35,15 +21,16 @@ const externalLinks = {
   colorado: "https://www.ravintolacolorado.fi/en/colorado-levi/",
   lostTacos: "https://www.losttacos.fi/",
   kekale: "https://kekale.levihotelspa.fi/",
-  visitLeviFood: "https://www.levi.fi/en/eat-and-drink/"
+  visitLeviFood: "https://www.levi.fi/en/eat-and-drink/",
 };
 
 const translations = {
   fi: {
     meta: {
       title: "Ravintolat ja palvelut Levillä | Leville.net",
-      description: "Levin ravintolat, ruokakaupat, vuokraamot ja palvelut. Aukioloajat, perheystävälliset vaihtoehdot ja käytännön vinkit.",
-      canonical: "https://leville.net/opas/ravintolat-ja-palvelut-levilla"
+      description:
+        "Levin ravintolat, ruokakaupat, vuokraamot ja palvelut. Aukioloajat, perheystävälliset vaihtoehdot ja käytännön vinkit.",
+      canonical: "https://leville.net/opas/ravintolat-ja-palvelut-levilla",
     },
     title: "Ravintolat ja palvelut Levillä",
     subtitle: "Ruokailu, kaupat, vuokraamot ja käytännön palvelut",
@@ -58,29 +45,29 @@ const translations = {
           {
             name: "Fine dining ja elämysravintolat",
             places: ["Kammi", "Aurora Sky Restaurant", "King Crab House"],
-            note: "Varaa pöytä etukäteen erityisesti viikonloppuisin ja sesonkina."
+            note: "Varaa pöytä etukäteen erityisesti viikonloppuisin ja sesonkina.",
           },
           {
             name: "Perinteiset lappalaiset ravintolat",
             places: ["Kotaravintola Kammi", "Pihvipirtti", "Myllyn Äijä"],
-            note: "Kokeile poroa, riistaa ja paikallisia erikoisuuksia."
+            note: "Kokeile poroa, riistaa ja paikallisia erikoisuuksia.",
           },
           {
             name: "Perheystävälliset ravintolat",
             places: ["Kotipizza", "Pizza Kebab Levi", "Colorado Bar & Grill"],
-            note: "Lasten menut ja helppo asiointi perheille."
+            note: "Lasten menut ja helppo asiointi perheille.",
           },
           {
             name: "Nopea ruoka ja take away",
             places: ["Levin Grilli", "Pizza Factory Levi", "Burger King"],
-            note: "Nopea vaihtoehto laskupäivän keskelle."
+            note: "Nopea vaihtoehto laskupäivän keskelle.",
           },
           {
             name: "Après ski ja baarit",
             places: ["Hullu Poro Arena", "Tuikku", "Levin Panimo", "Vinkkari"],
-            note: "Tunnelmaa ja musiikkia rinteen jälkeen."
-          }
-        ]
+            note: "Tunnelmaa ja musiikkia rinteen jälkeen.",
+          },
+        ],
       },
       groceries: {
         title: "Ruokakaupat",
@@ -88,30 +75,26 @@ const translations = {
           {
             name: "K Market Levi",
             location: "Levintie, keskusta",
-            hours: "Ma La 8 21, Su 10 21 sesonkina"
+            hours: "Ma La 8 21, Su 10 21 sesonkina",
           },
           {
             name: "S Market Levi",
             location: "Levi Star alue",
-            hours: "Ma La 8 21, Su 10 21"
-          }
-        ]
+            hours: "Ma La 8 21, Su 10 21",
+          },
+        ],
       },
       rental: {
         title: "Urheiluvälinevuokraamot",
-        shops: [
-          "Ski resort rental Zero Point ja South Point",
-          "Intersport Levi",
-          "Elan Shop Levi"
-        ]
+        shops: ["Ski resort rental Zero Point ja South Point", "Intersport Levi", "Elan Shop Levi"],
       },
       health: {
         title: "Terveys ja apteekkipalvelut",
         items: [
           "Levin apteekki keskustassa",
           "Kittilän terveyskeskus noin 20 km",
-          "Ski Patrol rinteillä tapaturmia varten"
-        ]
+          "Ski Patrol rinteillä tapaturmia varten",
+        ],
       },
       family: {
         title: "Perheystävälliset palvelut",
@@ -119,26 +102,27 @@ const translations = {
           "Lastenhoitopalveluja saatavilla erikseen",
           "Lasten menuja useimmissa ravintoloissa",
           "Vaipat ja lastenruoat ruokakaupoissa",
-          "Rattaiden vuokraus joissakin majoituksissa"
-        ]
-      }
+          "Rattaiden vuokraus joissakin majoituksissa",
+        ],
+      },
     },
     linksTitle: "Suositellut ravintolat ja hyödylliset linkit",
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Matkaopas", href: "/opas/matkaopas-levi" },
-      { label: "Ravintolat ja palvelut" }
+      { label: "Ravintolat ja palvelut" },
     ],
     travelHubLink: "/opas/matkaopas-levi",
     travelHubText: "Takaisin matkaoppaaseen",
-    accommodationsHref: "/majoitukset"
+    accommodationsHref: "/majoitukset",
   },
 
   en: {
     meta: {
       title: "Restaurants and Services in Levi | Leville.net",
-      description: "Levi restaurants, grocery stores, rentals and services. Practical tips, opening hours and family friendly options.",
-      canonical: "https://leville.net/guide/restaurants-and-services-in-levi"
+      description:
+        "Levi restaurants, grocery stores, rentals and services. Practical tips, opening hours and family friendly options.",
+      canonical: "https://leville.net/guide/restaurants-and-services-in-levi",
     },
     title: "Restaurants and Services in Levi",
     subtitle: "Dining, shops, rentals and practical services",
@@ -153,29 +137,29 @@ const translations = {
           {
             name: "Fine dining and experience restaurants",
             places: ["Kammi", "Aurora Sky Restaurant", "King Crab House"],
-            note: "Reserve a table in advance during weekends and peak season."
+            note: "Reserve a table in advance during weekends and peak season.",
           },
           {
             name: "Traditional Lapland restaurants",
             places: ["Kotaravintola Kammi", "Pihvipirtti", "Myllyn Äijä"],
-            note: "Try reindeer, game dishes and local specialties."
+            note: "Try reindeer, game dishes and local specialties.",
           },
           {
             name: "Family friendly restaurants",
             places: ["Kotipizza", "Pizza Kebab Levi", "Colorado Bar & Grill"],
-            note: "Children menus and easy access for families."
+            note: "Children menus and easy access for families.",
           },
           {
             name: "Fast food and take away",
             places: ["Levin Grilli", "Pizza Factory Levi", "Burger King"],
-            note: "Quick option during ski days."
+            note: "Quick option during ski days.",
           },
           {
             name: "Après ski and bars",
             places: ["Hullu Poro Arena", "Tuikku", "Levin Panimo", "Vinkkari"],
-            note: "Atmosphere and live music after skiing."
-          }
-        ]
+            note: "Atmosphere and live music after skiing.",
+          },
+        ],
       },
       groceries: {
         title: "Grocery Stores",
@@ -183,30 +167,22 @@ const translations = {
           {
             name: "K Market Levi",
             location: "Levintie, center",
-            hours: "Mon Sat 8 21, Sun 10 21 during season"
+            hours: "Mon Sat 8 21, Sun 10 21 during season",
           },
           {
             name: "S Market Levi",
             location: "Levi Star area",
-            hours: "Mon Sat 8 21, Sun 10 21"
-          }
-        ]
+            hours: "Mon Sat 8 21, Sun 10 21",
+          },
+        ],
       },
       rental: {
         title: "Equipment Rentals",
-        shops: [
-          "Ski resort rental Zero Point and South Point",
-          "Intersport Levi",
-          "Elan Shop Levi"
-        ]
+        shops: ["Ski resort rental Zero Point and South Point", "Intersport Levi", "Elan Shop Levi"],
       },
       health: {
         title: "Health and Pharmacy Services",
-        items: [
-          "Levi pharmacy in the center",
-          "Kittilä health center about 20 km",
-          "Ski Patrol for slope accidents"
-        ]
+        items: ["Levi pharmacy in the center", "Kittilä health center about 20 km", "Ski Patrol for slope accidents"],
       },
       family: {
         title: "Family Services",
@@ -214,20 +190,20 @@ const translations = {
           "Childcare services available separately",
           "Children menus in many restaurants",
           "Baby supplies available in grocery stores",
-          "Stroller rental in some accommodations"
-        ]
-      }
+          "Stroller rental in some accommodations",
+        ],
+      },
     },
     linksTitle: "Recommended Restaurants and Useful Links",
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Travel Guide", href: "/guide/travel-to-levi" },
-      { label: "Restaurants and Services" }
+      { label: "Restaurants and Services" },
     ],
     travelHubLink: "/guide/travel-to-levi",
     travelHubText: "Back to travel guide",
-    accommodationsHref: "/en/accommodations"
-  }
+    accommodationsHref: "/en/accommodations",
+  },
 };
 
 const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) => {
@@ -236,7 +212,7 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
 
   const hreflangUrls = {
     fi: "https://leville.net/opas/ravintolat-ja-palvelut-levilla",
-    en: "https://leville.net/guide/restaurants-and-services-in-levi"
+    en: "https://leville.net/guide/restaurants-and-services-in-levi",
   };
 
   return (
@@ -292,3 +268,72 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
             <h3 className="text-lg font-semibold mb-4">{t.linksTitle}</h3>
             <ul className="space-y-2 text-sm">
               <li>
+                <a
+                  href={externalLinks.kingCrabHouse}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  King Crab House
+                </a>
+              </li>
+              <li>
+                <a
+                  href={externalLinks.colorado}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Colorado Bar and Grill Levi
+                </a>
+              </li>
+              <li>
+                <a
+                  href={externalLinks.lostTacos}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Lost Tacos Levi
+                </a>
+              </li>
+              <li>
+                <a
+                  href={externalLinks.kekale}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Kekäle Levi Hotel Spa
+                </a>
+              </li>
+              <li>
+                <a
+                  href={externalLinks.visitLeviFood}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Visit Levi Eat and Drink
+                </a>
+              </li>
+            </ul>
+          </section>
+
+          {/* CTA */}
+          <section className="text-center bg-card rounded-xl p-8">
+            <h3 className="text-xl font-semibold mb-3">Varaa majoitus keskustasta</h3>
+            <Button asChild>
+              <Link to={t.accommodationsHref}>Katso majoitukset</Link>
+            </Button>
+          </section>
+        </div>
+      </main>
+
+      <Footer lang={lang} />
+      <WhatsAppChat lang={lang} />
+    </div>
+  );
+};
+
+export default RestaurantsAndServices;
