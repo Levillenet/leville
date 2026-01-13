@@ -8,23 +8,9 @@ import HreflangTags from "@/components/HreflangTags";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Bus, 
-  Car, 
-  Plane, 
-  Footprints,
-  Snowflake,
-  MapPin,
-  Clock,
-  AlertTriangle
-} from "lucide-react";
+import { Bus, Car, Plane, Footprints, Snowflake, MapPin, Clock, AlertTriangle } from "lucide-react";
 import { Language } from "@/translations";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface GettingAroundLeviProps {
   lang?: Language;
@@ -34,36 +20,50 @@ const translations = {
   fi: {
     meta: {
       title: "Liikkuminen Levillä – Skibussit, taksit, autoilu | Leville.net",
-      description: "Miten liikut Levillä? Opas skibusseihin, takseihin, autonvuokraukseen ja kävelyetäisyyksiin. Käytännön vinkit talviajoon Lapissa.",
-      canonical: "https://leville.net/opas/liikkuminen-levilla"
+      description:
+        "Miten liikut Levillä? Opas skibusseihin, takseihin, autonvuokraukseen ja kävelyetäisyyksiin. Käytännön vinkit talviajoon Lapissa.",
+      canonical: "https://leville.net/opas/liikkuminen-levilla",
     },
     title: "Liikkuminen Levillä",
     subtitle: "Skibussit, taksit, autonvuokraus ja kävelyetäisyydet",
-    intro: "Levillä liikkuminen on helppoa ja käytännöllistä. Tässä oppaassa käymme läpi kaikki liikkumisvaihtoehdot lentokenttäkuljetuksista skibusseihin ja talviajoon.",
+    intro:
+      "Levillä liikkuminen on helppoa ja käytännöllistä. Tässä oppaassa käymme läpi kaikki liikkumisvaihtoehdot lentokenttäkuljetuksista skibusseihin ja talviajoon.",
     sections: {
       airport: {
         title: "Lentokenttäkuljetukset Kittilästä",
         icon: "plane",
         intro: "Kittilän lentokenttä sijaitsee vain 15 km Levin keskustasta. Kuljetusvaihtoehtoina:",
         items: [
-          { title: "Lentokenttäbussi", desc: "Ajoitettu lentoaikatauluihin. Hinta noin 10–15€/suunta. Varaa etukäteen tai osta paikan päältä." },
-          { title: "Taksi", desc: "Matka-aika 15–20 min. Hinta noin 40–60€ suunnasta riippuen. Varaa etukäteen sesonkina." },
-          { title: "Vuokra-auto", desc: "Vuokraamot lentokentällä: Hertz, Avis, Europcar, Budget. Varaa ajoissa talvisesonkina." },
-          { title: "Majoituksen noutopalvelu", desc: "Monet majoitukset tarjoavat lentokenttäkuljetusta lisämaksusta tai ilmaiseksi." }
-        ]
+          {
+            title: "Lentokenttäbussi",
+            desc: "Ajoitettu lentoaikatauluihin. Hinta noin 10–15€/suunta. Varaa etukäteen tai osta paikan päältä.",
+          },
+          {
+            title: "Taksi",
+            desc: "Matka-aika 15–20 min. Hinta noin 40–60€ suunnasta riippuen. Varaa etukäteen sesonkina.",
+          },
+          {
+            title: "Vuokra-auto",
+            desc: "Vuokraamot lentokentällä: Hertz, Avis, Europcar, Budget. Varaa ajoissa talvisesonkina.",
+          },
+          {
+            title: "Majoituksen noutopalvelu",
+            desc: "Monet majoitukset tarjoavat lentokenttäkuljetusta lisämaksusta tai ilmaiseksi.",
+          },
+        ],
       },
       skibus: {
         title: "Skibussit Levillä",
         icon: "bus",
-        intro: "Levin ilmaiset skibussit kulkevat säännöllisesti keskustan ja rinteiden välillä:",
+        intro: "Levin skibussit kulkevat säännöllisesti keskustan ja eri rinnealueiden välillä:",
         items: [
-          "Ilmaiset skibussit Levi-lipulla (hissilippu tai kausikortti)",
+          "Skibussit Levi-lipulla (hissilippu tai kausikortti joihin voi liittää lisämaksusta Skibussin vaikka viikoksi)",
           "Reitti kiertää keskustan majoitukset ja rinteiden alaasemat",
           "Lähdöt 15–30 minuutin välein sesonkina",
           "Ensimmäinen bussi noin klo 9, viimeinen klo 17–18",
-          "Iltabussi hiihtolomaviikoilla ja sesonkihuipuissa"
+          "Iltabussi hiihtolomaviikoilla ja sesonkihuipuissa",
         ],
-        tip: "Skibussin aikataulut löydät Visit Levin verkkosivuilta ja Levin hissilippujen mobiilisovelluksesta."
+        tip: "Skibussin aikataulut löydät Visit Levin verkkosivuilta ja Levin hissilippujen mobiilisovelluksesta.",
       },
       taxi: {
         title: "Taksit ja kyytipalvelut",
@@ -72,9 +72,9 @@ const translations = {
         items: [
           { title: "Levi Taxi", desc: "Paikallinen taksipalvelu. Puh: +358 16 641 100" },
           { title: "Kittilän Taksit", desc: "Alueellinen taksipalvelu lentokenttäkuljetuksiin." },
-          { title: "Safari-operaattorit", desc: "Monet safari-yritykset tarjoavat kuljetuspalveluita." }
+          { title: "Safari-operaattorit", desc: "Monet safari-yritykset tarjoavat kuljetuspalveluita." },
         ],
-        tip: "Sesonkiaikoina (joulu, hiihtoloma) takseja on rajoitetusti. Varaa vähintään päivää ennen."
+        tip: "Sesonkiaikoina (joulu, hiihtoloma) takseja on rajoitetusti. Varaa vähintään päivää ennen.",
       },
       rental: {
         title: "Autonvuokraus ja pysäköinti",
@@ -84,14 +84,14 @@ const translations = {
           "Vuokraamot: Kittilän lentokenttä (Hertz, Avis, Europcar, Budget)",
           "Talvirenkaat ja nastarenkaat kuuluvat aina hintaan Lapissa",
           "Neliveto suositeltava mutta ei välttämätön",
-          "Varaa ajoissa – autot loppuvat nopeasti sesonkina"
+          "Varaa ajoissa – autot loppuvat nopeasti sesonkina",
         ],
         parkingInfo: [
           "Ilmainen pysäköinti useimmissa majoituksissa",
-          "Rinteiden parkkipaikat ilmaisia arkisin, viikonloppuisin maksullisia sesonkina",
+          "Rinteiden parkkipaikat ilmaisia",
           "Levin keskustan pysäköinti pääosin ilmaista",
-          "Autolämmityspistokkeet saatavilla useimmissa majoituksissa"
-        ]
+          "Autolämmityspistokkeet saatavilla useimmissa majoituksissa",
+        ],
       },
       walking: {
         title: "Kävelyetäisyydet Levin keskustassa",
@@ -101,84 +101,110 @@ const translations = {
           { from: "Keskusta → Etuhissi", time: "5–10 min" },
           { from: "Keskusta → Gondolihissi", time: "10–15 min" },
           { from: "Keskusta → Hullu Poro", time: "5 min" },
-          { from: "Zero Point → Keskusta", time: "15–20 min" }
+          { from: "Zero Point → Keskusta", time: "1–2 min" },
         ],
-        tip: "Talvella kävelytiet pidetään hyvin aurattuna. Liukuesteet kenkiin ovat hyvä investointi."
+        tip: "Talvella kävelytiet pidetään hyvin aurattuna",
       },
       winterDriving: {
         title: "Talviajo Lapissa – vinkit",
         icon: "snowflake",
         intro: "Talviajaminen Lapissa vaatii varovaisuutta ja valmistautumista:",
         items: [
-          { title: "Tarkista sää ennen lähtöä", desc: "Lumi- ja pakkasvaroitukset ilmatieteenlaitokselta. Näkyvyys voi olla heikko pyryssä." },
-          { title: "Pidä turvaväli", desc: "Jarrutusmatkat voivat olla 5–10-kertaisia kesään verrattuna jäisellä tiellä." },
-          { title: "Porot tiellä", desc: "Porot liikkuvat vapaasti ja ylittävät teitä. Aja varovasti, erityisesti hämärässä." },
+          {
+            title: "Tarkista sää ennen lähtöä",
+            desc: "Lumi- ja pakkasvaroitukset ilmatieteenlaitokselta. Näkyvyys voi olla heikko pyryssä.",
+          },
+          {
+            title: "Pidä turvaväli",
+            desc: "Jarrutusmatkat voivat olla 5–10-kertaisia kesään verrattuna jäisellä tiellä.",
+          },
+          {
+            title: "Porot tiellä",
+            desc: "Porot liikkuvat vapaasti ja ylittävät teitä. Aja varovasti, erityisesti hämärässä.",
+          },
           { title: "Tankki täyteen", desc: "Etäisyydet ovat pitkiä. Pidä tankki vähintään puoliksi täynnä." },
-          { title: "Autolämmitys", desc: "Kytke auto lämmityspistorasiaan yöksi -20°C pakkasissa. 2 tuntia ennen lähtöä riittää." }
-        ]
+          {
+            title: "Autolämmitys",
+            desc: "Kytke auto lämmityspistorasiaan yöksi -20°C pakkasissa. 1 tunti ennen lähtöä riittää.",
+          },
+        ],
       },
       faq: {
         title: "Usein kysytyt kysymykset",
         items: [
           {
             q: "Tarvitsenko autoa Levillä?",
-            a: "Ei välttämättä. Jos majoitut keskustassa ja liikut pääasiassa rinteillä, skibussit ja kävelyetäisyydet riittävät. Auto on hyödyllinen, jos haluat tehdä retkiä ympäristöön."
+            a: "Ei välttämättä. Jos majoitut keskustassa ja liikut pääasiassa rinteillä, skibussit ja kävelyetäisyydet riittävät. Auto on hyödyllinen, jos haluat tehdä retkiä ympäristöön.",
           },
           {
             q: "Ovatko skibussit ilmaisia?",
-            a: "Kyllä, Levin skibussit ovat ilmaisia hissilipun haltijoille. Bussi kiertää keskustan ja rinteiden väliä säännöllisesti."
+            a: "Ei Levin skibussit ovat maksullisia ja sen voi hankkia osaksi hissilippua. Bussi kiertää keskustan ja rinteiden väliä säännöllisesti.",
           },
           {
             q: "Miten pääsen lentokentältä Leville myöhään illalla?",
-            a: "Varaa taksi etukäteen tai tarkista, tarjoaako majoituksesi lentokenttäkuljetusta. Lentokenttäbussit ajoitetaan lentoaikatauluihin."
+            a: "Varaa taksi etukäteen tai tarkista, tarjoaako majoituksesi lentokenttäkuljetusta. Lentokenttäbussit ajoitetaan lentoaikatauluihin.",
           },
           {
             q: "Onko Levillä Uber tai Bolt?",
-            a: "Ei. Levillä ei ole Uberia tai Boltia. Käytä paikallisia takseja ja varaa etukäteen sesonkiaikoina."
-          }
-        ]
-      }
+            a: "Molemmat palvelevat Levillä. Käytä paikallisia takseja ja varaa etukäteen sesonkiaikoina.",
+          },
+        ],
+      },
     },
     cta: {
       title: "Varaa majoitus kävelyetäisyydellä rinteistä",
       text: "Keskustan majoituksistamme pääset kätevästi rinteille ja palveluiden ääreen ilman autoa.",
-      button: "Katso majoitukset"
+      button: "Katso majoitukset",
     },
     relatedTitle: "Lue myös",
     relatedLinks: [
       { text: "Miten pääsee Leville", href: "/matka/miten-paasee-leville-helsingista" },
       { text: "Talvivarusteet Leville", href: "/opas/talvivarusteet-leville" },
-      { text: "Ravintolat ja palvelut", href: "/opas/ravintolat-ja-palvelut-levilla" }
+      { text: "Ravintolat ja palvelut", href: "/opas/ravintolat-ja-palvelut-levilla" },
     ],
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Matkaopas", href: "/opas/matkaopas-levi" },
-      { label: "Liikkuminen Levillä" }
+      { label: "Liikkuminen Levillä" },
     ],
     travelHubLink: "/opas/matkaopas-levi",
     travelHubText: "← Takaisin matkaoppaaseen",
-    accommodationsHref: "/majoitukset"
+    accommodationsHref: "/majoitukset",
   },
   en: {
     meta: {
       title: "Getting Around Levi – Ski Buses, Taxis, Driving | Leville.net",
-      description: "How to get around in Levi? Guide to ski buses, taxis, car rental and walking distances. Practical tips for winter driving in Lapland.",
-      canonical: "https://leville.net/guide/getting-around-in-levi"
+      description:
+        "How to get around in Levi? Guide to ski buses, taxis, car rental and walking distances. Practical tips for winter driving in Lapland.",
+      canonical: "https://leville.net/guide/getting-around-in-levi",
     },
     title: "Getting Around Levi",
     subtitle: "Ski buses, taxis, car rental and walking distances",
-    intro: "Getting around Levi is easy and practical. This guide covers all transportation options from airport transfers to ski buses and winter driving tips.",
+    intro:
+      "Getting around Levi is easy and practical. This guide covers all transportation options from airport transfers to ski buses and winter driving tips.",
     sections: {
       airport: {
         title: "Airport Transfers from Kittilä",
         icon: "plane",
         intro: "Kittilä Airport is only 15 km from Levi center. Transportation options include:",
         items: [
-          { title: "Airport Bus", desc: "Timed to flight schedules. Price around €10–15 one way. Book in advance or buy on site." },
-          { title: "Taxi", desc: "Travel time 15–20 min. Price around €40–60 depending on direction. Book in advance during season." },
-          { title: "Rental Car", desc: "Rental companies at airport: Hertz, Avis, Europcar, Budget. Book early during winter season." },
-          { title: "Accommodation Pickup", desc: "Many accommodations offer airport transfers for additional fee or free of charge." }
-        ]
+          {
+            title: "Airport Bus",
+            desc: "Timed to flight schedules. Price around €10–15 one way. Book in advance or buy on site.",
+          },
+          {
+            title: "Taxi",
+            desc: "Travel time 15–20 min. Price around €40–60 depending on direction. Book in advance during season.",
+          },
+          {
+            title: "Rental Car",
+            desc: "Rental companies at airport: Hertz, Avis, Europcar, Budget. Book early during winter season.",
+          },
+          {
+            title: "Accommodation Pickup",
+            desc: "Many accommodations offer airport transfers for additional fee or free of charge.",
+          },
+        ],
       },
       skibus: {
         title: "Ski Buses in Levi",
@@ -189,9 +215,9 @@ const translations = {
           "Route circles center accommodations and slope base stations",
           "Departures every 15–30 minutes during season",
           "First bus around 9 AM, last at 5–6 PM",
-          "Evening bus during ski holiday weeks and peak season"
+          "Evening bus during ski holiday weeks and peak season",
         ],
-        tip: "Ski bus schedules available on Visit Levi website and Levi lift ticket mobile app."
+        tip: "Ski bus schedules available on Visit Levi website and Levi lift ticket mobile app.",
       },
       taxi: {
         title: "Taxis and Ride Services",
@@ -200,9 +226,9 @@ const translations = {
         items: [
           { title: "Levi Taxi", desc: "Local taxi service. Phone: +358 16 641 100" },
           { title: "Kittilä Taxis", desc: "Regional taxi service for airport transfers." },
-          { title: "Safari Operators", desc: "Many safari companies offer transportation services." }
+          { title: "Safari Operators", desc: "Many safari companies offer transportation services." },
         ],
-        tip: "During peak season (Christmas, ski holidays) taxis are limited. Book at least a day before."
+        tip: "During peak season (Christmas, ski holidays) taxis are limited. Book at least a day before.",
       },
       rental: {
         title: "Car Rental and Parking",
@@ -212,14 +238,14 @@ const translations = {
           "Rental companies: Kittilä Airport (Hertz, Avis, Europcar, Budget)",
           "Winter tires and studded tires always included in Lapland",
           "4WD recommended but not required",
-          "Book early – cars sell out quickly during season"
+          "Book early – cars sell out quickly during season",
         ],
         parkingInfo: [
           "Free parking at most accommodations",
           "Slope parking free on weekdays, paid on weekends during season",
           "Levi center parking mostly free",
-          "Car heating outlets available at most accommodations"
-        ]
+          "Car heating outlets available at most accommodations",
+        ],
       },
       walking: {
         title: "Walking Distances in Levi Center",
@@ -229,108 +255,120 @@ const translations = {
           { from: "Center → Front Lift", time: "5–10 min" },
           { from: "Center → Gondola Lift", time: "10–15 min" },
           { from: "Center → Hullu Poro", time: "5 min" },
-          { from: "Zero Point → Center", time: "15–20 min" }
+          { from: "Zero Point → Center", time: "15–20 min" },
         ],
-        tip: "In winter, walkways are well plowed. Ice cleats for shoes are a good investment."
+        tip: "In winter, walkways are well plowed. Ice cleats for shoes are a good investment.",
       },
       winterDriving: {
         title: "Winter Driving in Lapland – Tips",
         icon: "snowflake",
         intro: "Winter driving in Lapland requires caution and preparation:",
         items: [
-          { title: "Check weather before departure", desc: "Snow and frost warnings from Finnish Meteorological Institute. Visibility can be poor in snowstorms." },
-          { title: "Keep safe distance", desc: "Braking distances can be 5–10 times longer compared to summer on icy roads." },
-          { title: "Reindeer on roads", desc: "Reindeer roam freely and cross roads. Drive carefully, especially in twilight." },
+          {
+            title: "Check weather before departure",
+            desc: "Snow and frost warnings from Finnish Meteorological Institute. Visibility can be poor in snowstorms.",
+          },
+          {
+            title: "Keep safe distance",
+            desc: "Braking distances can be 5–10 times longer compared to summer on icy roads.",
+          },
+          {
+            title: "Reindeer on roads",
+            desc: "Reindeer roam freely and cross roads. Drive carefully, especially in twilight.",
+          },
           { title: "Full tank", desc: "Distances are long. Keep tank at least half full." },
-          { title: "Car heating", desc: "Plug car into heating outlet overnight in -20°C frost. 2 hours before departure is enough." }
-        ]
+          {
+            title: "Car heating",
+            desc: "Plug car into heating outlet overnight in -20°C frost. 2 hours before departure is enough.",
+          },
+        ],
       },
       faq: {
         title: "Frequently Asked Questions",
         items: [
           {
             q: "Do I need a car in Levi?",
-            a: "Not necessarily. If you stay in the center and mainly visit slopes, ski buses and walking distances are sufficient. A car is useful if you want to make trips to the surrounding area."
+            a: "Not necessarily. If you stay in the center and mainly visit slopes, ski buses and walking distances are sufficient. A car is useful if you want to make trips to the surrounding area.",
           },
           {
             q: "Are ski buses free?",
-            a: "Yes, Levi ski buses are free for lift ticket holders. The bus circles between center and slopes regularly."
+            a: "Yes, Levi ski buses are free for lift ticket holders. The bus circles between center and slopes regularly.",
           },
           {
             q: "How do I get from airport to Levi late at night?",
-            a: "Book a taxi in advance or check if your accommodation offers airport transfer. Airport buses are timed to flight schedules."
+            a: "Book a taxi in advance or check if your accommodation offers airport transfer. Airport buses are timed to flight schedules.",
           },
           {
             q: "Is there Uber or Bolt in Levi?",
-            a: "No. Levi doesn't have Uber or Bolt. Use local taxis and book in advance during peak season."
-          }
-        ]
-      }
+            a: "No. Levi doesn't have Uber or Bolt. Use local taxis and book in advance during peak season.",
+          },
+        ],
+      },
     },
     cta: {
       title: "Book Accommodation Walking Distance from Slopes",
       text: "From our center accommodations, you can conveniently reach slopes and services without a car.",
-      button: "View Accommodations"
+      button: "View Accommodations",
     },
     relatedTitle: "Read Also",
     relatedLinks: [
       { text: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
       { text: "Winter Clothing for Levi", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
-      { text: "Restaurants and Services", href: "/guide/restaurants-and-services-in-levi" }
+      { text: "Restaurants and Services", href: "/guide/restaurants-and-services-in-levi" },
     ],
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Travel Guide", href: "/guide/travel-to-levi" },
-      { label: "Getting Around Levi" }
+      { label: "Getting Around Levi" },
     ],
     travelHubLink: "/guide/travel-to-levi",
     travelHubText: "← Back to Travel Guide",
-    accommodationsHref: "/en/accommodations"
-  }
+    accommodationsHref: "/en/accommodations",
+  },
 };
 
 const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
   const location = useLocation();
   const t = translations[lang] || translations.fi;
-  
+
   const hreflangUrls = {
     fi: "https://leville.net/opas/liikkuminen-levilla",
-    en: "https://leville.net/guide/getting-around-in-levi"
+    en: "https://leville.net/guide/getting-around-in-levi",
   };
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": t.sections.faq.items.map(item => ({
+    mainEntity: t.sections.faq.items.map((item) => ({
       "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": {
+      name: item.q,
+      acceptedAnswer: {
         "@type": "Answer",
-        "text": item.a
-      }
-    }))
+        text: item.a,
+      },
+    })),
   };
 
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": t.title,
-    "description": t.meta.description,
-    "author": {
+    headline: t.title,
+    description: t.meta.description,
+    author: {
       "@type": "Organization",
-      "name": "Leville.net"
-    }
+      name: "Leville.net",
+    },
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": t.breadcrumbs.map((item, index) => ({
+    itemListElement: t.breadcrumbs.map((item, index) => ({
       "@type": "ListItem",
-      "position": index + 1,
-      "name": item.label,
-      "item": item.href ? `https://leville.net${item.href}` : undefined
-    }))
+      position: index + 1,
+      name: item.label,
+      item: item.href ? `https://leville.net${item.href}` : undefined,
+    })),
   };
 
   return (
@@ -353,21 +391,18 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
-      <HreflangTags 
-        currentPath={location.pathname}
-        customUrls={hreflangUrls}
-      />
+      <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 
       <Header />
       <SubpageBackground />
-      
+
       <main className="container mx-auto px-4 py-8 md:py-12">
         <Breadcrumbs items={t.breadcrumbs} />
-        
+
         {/* Back to Travel HUB */}
         <div className="mb-6">
-          <Link 
-            to={t.travelHubLink} 
+          <Link
+            to={t.travelHubLink}
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             {t.travelHubText}
@@ -377,18 +412,12 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
           <header className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-              {t.title}
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              {t.subtitle}
-            </p>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">{t.title}</h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{t.subtitle}</p>
           </header>
 
           {/* Introduction */}
-          <p className="text-lg text-foreground/90 mb-10 leading-relaxed">
-            {t.intro}
-          </p>
+          <p className="text-lg text-foreground/90 mb-10 leading-relaxed">{t.intro}</p>
 
           {/* Airport Transfers */}
           <section className="mb-12">
@@ -537,18 +566,12 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
 
           {/* FAQ */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-foreground mb-6">
-              {t.sections.faq.title}
-            </h2>
+            <h2 className="text-2xl font-bold text-foreground mb-6">{t.sections.faq.title}</h2>
             <Accordion type="single" collapsible className="w-full">
               {t.sections.faq.items.map((item, index) => (
                 <AccordionItem key={index} value={`faq-${index}`}>
-                  <AccordionTrigger className="text-left">
-                    {item.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {item.a}
-                  </AccordionContent>
+                  <AccordionTrigger className="text-left">{item.q}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">{item.a}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
@@ -556,16 +579,10 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
 
           {/* CTA */}
           <section className="text-center bg-card/50 rounded-2xl p-8 mb-12">
-            <h2 className="text-2xl font-bold text-foreground mb-3">
-              {t.cta.title}
-            </h2>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              {t.cta.text}
-            </p>
+            <h2 className="text-2xl font-bold text-foreground mb-3">{t.cta.title}</h2>
+            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">{t.cta.text}</p>
             <Button asChild size="lg">
-              <Link to={t.accommodationsHref}>
-                {t.cta.button}
-              </Link>
+              <Link to={t.accommodationsHref}>{t.cta.button}</Link>
             </Button>
           </section>
 
@@ -574,11 +591,7 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
             <h3 className="text-lg font-semibold mb-4">{t.relatedTitle}</h3>
             <div className="flex flex-wrap gap-3">
               {t.relatedLinks.map((link, index) => (
-                <Link
-                  key={index}
-                  to={link.href}
-                  className="text-primary hover:underline text-sm"
-                >
+                <Link key={index} to={link.href} className="text-primary hover:underline text-sm">
                   {link.text} →
                 </Link>
               ))}
