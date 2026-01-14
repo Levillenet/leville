@@ -5,7 +5,7 @@ export const sv = {
     subtitle: "Bo fridfullt i Levis centrum och nära backarna. Moderna lägenheter och mysiga stugor utan mellanhänder.",
     discount: "Vår 2026 boenden nu –10% rabatt med kod winter10",
     bookingCta: "Boka boende",
-    bookingInstruction: "Välj datum och se lediga boenden direkt",
+    bookingInstruction: "Boka din semester här!",
     trustIndicators: [
       "Bästa lägena i Levis centrum",
       "Direktbokning utan mellanhänder",
