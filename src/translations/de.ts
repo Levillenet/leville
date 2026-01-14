@@ -5,7 +5,7 @@ export const de = {
     subtitle: "Übernachten Sie entspannt im Zentrum von Levi und nahe den Pisten. Moderne Apartments und gemütliche Hütten ohne Zwischenhändler.",
     discount: "Frühling 2026 Unterkünfte jetzt –10% mit Code winter10",
     bookingCta: "Unterkunft buchen",
-    bookingInstruction: "Daten wählen und verfügbare Unterkünfte sofort sehen",
+    bookingInstruction: "Buchen Sie Ihren Urlaub hier!",
     trustIndicators: [
       "Beste Lagen im Zentrum von Levi",
       "Direktbuchung ohne Zwischenhändler",

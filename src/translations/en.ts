@@ -5,7 +5,7 @@ export const en = {
     subtitle: "Stay peacefully in Levi center and near the slopes. Modern apartments and cozy cabins without middlemen.",
     discount: "Spring 2026 accommodations now –10% off with code winter10",
     bookingCta: "Book accommodation",
-    bookingInstruction: "Select dates and see available accommodations instantly",
+    bookingInstruction: "Book your holiday here!",
     trustIndicators: [
       "Best locations in Levi center",
       "Direct booking without middlemen",

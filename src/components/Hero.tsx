@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { ArrowRight, Tag } from "lucide-react";
-
-import BookingWidget from "./BookingWidget";
+import { Button } from "@/components/ui/button";
 import { getTranslations, Language } from "@/translations";
 import heroCabin from "@/assets/hero-cabin.jpg";
 import heroChalet from "@/assets/hero-chalet.png";
@@ -208,21 +207,29 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             </span>
           </div>
 
-          {/* Instructional text above booking widget */}
-          <p
-            className="text-sm text-foreground/70 mb-5 animate-fade-in"
-            style={{ animationDelay: '0.35s' }}
-          >
-            {t.bookingInstruction}
-          </p>
-
-          {/* Booking Widget - high z-index to ensure dropdowns appear on top */}
+          {/* Booking CTA section */}
           <div 
             id="booking-widget"
-            className="animate-slide-up relative z-[9990]" 
-            style={{ animationDelay: '0.5s', overflow: 'visible', isolation: 'isolate' }}
+            className="animate-slide-up flex flex-col items-center gap-4" 
+            style={{ animationDelay: '0.4s' }}
           >
-            <BookingWidget lang={lang} />
+            <p className="text-lg sm:text-xl font-semibold text-foreground">
+              {t.bookingInstruction}
+            </p>
+            <Button
+              asChild
+              size="lg"
+              className="text-lg px-8 py-6 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
+            >
+              <a
+                href={`https://app.moder.fi/levillenet${lang === "fi" ? "" : lang === "sv" ? "?lang=sv" : "?lang=en"}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.bookingCta}
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ export const fi = {
     subtitle: "Majoitu levollisesti Levin keskustassa ja rinteiden läheisyydessä. Modernit huoneistot ja tunnelmalliset mökit ilman välikäsiä.",
     discount: "Kevään 2026 majoitukset nyt –10 % koodilla winter10",
     bookingCta: "Varaa majoitus",
-    bookingInstruction: "Valitse päivät ja näe vapaat majoitukset heti",
+    bookingInstruction: "Varaa lomasi tästä!",
     trustIndicators: [
       "Levin keskustan parhaat sijainnit",
       "Suora varaus ilman välikäsiä",

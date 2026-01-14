@@ -5,7 +5,7 @@ export const es = {
     subtitle: "Alójate tranquilamente en el centro de Levi y cerca de las pistas. Apartamentos modernos y cabañas acogedoras sin intermediarios.",
     discount: "Alojamientos primavera 2026 ahora –10% con código winter10",
     bookingCta: "Reservar alojamiento",
-    bookingInstruction: "Selecciona fechas y ve alojamientos disponibles al instante",
+    bookingInstruction: "¡Reserva tus vacaciones aquí!",
     trustIndicators: [
       "Mejores ubicaciones en el centro de Levi",
       "Reserva directa sin intermediarios",

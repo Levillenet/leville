@@ -5,7 +5,7 @@ export const fr = {
     subtitle: "Séjournez paisiblement au centre de Levi et près des pistes. Appartements modernes et chalets chaleureux sans intermédiaires.",
     discount: "Hébergements printemps 2026 maintenant –10% avec le code winter10",
     bookingCta: "Réserver un hébergement",
-    bookingInstruction: "Sélectionnez les dates et voyez les hébergements disponibles instantanément",
+    bookingInstruction: "Réservez vos vacances ici !",
     trustIndicators: [
       "Meilleurs emplacements au centre de Levi",
       "Réservation directe sans intermédiaires",
