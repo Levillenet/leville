@@ -389,9 +389,26 @@
   }
 }
 
-/* All widget elements receive pointer events normally */
-#moder-embed * {
+/* Keep widget interactive, but DON'T force pointer-events on every descendant (can break button clicks) */
+#moder-embed {
   pointer-events: auto !important;
+}
+
+/* Ensure interactive controls receive events */
+#moder-embed button,
+#moder-embed [role="button"],
+#moder-embed a,
+#moder-embed input,
+#moder-embed select,
+#moder-embed textarea {
+  pointer-events: auto !important;
+}
+
+/* Important: let taps on inner spans/icons register on the actual button/cell */
+#moder-embed button *,
+#moder-embed [role="button"] *,
+#moder-embed [role="gridcell"] * {
+  pointer-events: none;
 }
 
 /* Ensure calendar navigation is fully clickable above header */
@@ -585,32 +602,61 @@ body > div[style*="position: absolute"] {
   pointer-events: auto !important;
 }
 
-body > div[class*="moder"] *,
-body > div[id*="moder"] *,
-body > div[class*="calendar"] *,
-body > div[class*="Calendar"] *,
-body > div[class*="datepicker"] *,
-body > div[class*="DatePicker"] * {
+/* Avoid forcing pointer-events on all descendants (breaks button/cell taps). */
+body > div[class*="moder"] button,
+body > div[id*="moder"] button,
+body > div[class*="calendar"] button,
+body > div[class*="Calendar"] button,
+body > div[class*="datepicker"] button,
+body > div[class*="DatePicker"] button,
+body > div[class*="moder"] [role="button"],
+body > div[id*="moder"] [role="button"],
+body > div[class*="calendar"] [role="button"],
+body > div[class*="Calendar"] [role="button"],
+body > div[class*="datepicker"] [role="button"],
+body > div[class*="DatePicker"] [role="button"],
+body > div[class*="moder"] a,
+body > div[id*="moder"] a,
+body > div[class*="moder"] input,
+body > div[id*="moder"] input,
+body > div[class*="moder"] select,
+body > div[id*="moder"] select,
+body > div[class*="moder"] textarea,
+body > div[id*="moder"] textarea {
   pointer-events: auto !important;
   touch-action: manipulation !important;
 }
 
+body > div[class*="moder"] button *,
+body > div[id*="moder"] button *,
+body > div[class*="calendar"] button *,
+body > div[class*="Calendar"] button *,
+body > div[class*="datepicker"] button *,
+body > div[class*="DatePicker"] button *,
+body > div[class*="moder"] [role="button"] *,
+body > div[id*="moder"] [role="button"] *,
+body > div[class*="calendar"] [role="gridcell"] *,
+body > div[class*="Calendar"] [role="gridcell"] *,
+body > div[class*="datepicker"] [role="gridcell"] *,
+body > div[class*="DatePicker"] [role="gridcell"] * {
+  pointer-events: none;
+}
+
 /* Mobile: Ensure header doesn't block widget interactions */
 @media (max-width: 768px) {
-  /* When widget calendar is open, header should not interfere */
+  /* Header stays clickable, but widget interactions should still work */
   header.fixed {
     pointer-events: auto;
   }
-  
+
   /* Widget and its portals must be above everything */
   #moder-embed,
-  #moder-embed *,
   body > div[class*="moder"],
   body > div[class*="calendar"],
   body > div[class*="picker"] {
     touch-action: manipulation !important;
   }
-  
+
   /* Ensure any overlay/backdrop doesn't block touches */
   body > div[class*="overlay"],
   body > div[class*="backdrop"],
