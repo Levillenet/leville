@@ -6,6 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideHubCard from "@/components/guide/GuideHubCard";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft, Plane, Shirt, Bus, UtensilsCrossed, Baby } from "lucide-react";
@@ -256,6 +257,7 @@ const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
         </main>
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );

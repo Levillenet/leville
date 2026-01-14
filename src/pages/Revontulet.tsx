@@ -12,6 +12,7 @@ import AuroraForecast from "@/components/AuroraForecast";
 import { AuroraAlertSubscribe } from "@/components/AuroraAlertSubscribe";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
 import { Language } from "@/translations";
 
 interface RevontuletProps {
@@ -492,6 +493,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
         </main>
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );

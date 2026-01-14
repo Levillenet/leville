@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Snowflake, Clock, Shield, Users, Thermometer, AlertTriangle, CheckCircle, MapPin } from "lucide-react";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface SnowmobileSafariTipsProps {
@@ -606,6 +607,7 @@ const SnowmobileSafariTips = ({ lang = "fi" }: SnowmobileSafariTipsProps) => {
 
       <Footer />
       <WhatsAppChat lang={lang} />
+      <StickyBookingBar lang={lang} />
     </div>
   );
 };

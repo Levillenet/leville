@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Dog, Clock, Heart, Users, Thermometer, Shield, CheckCircle, MapPin, Snowflake } from "lucide-react";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface HuskySafariTipsProps {
@@ -682,6 +683,7 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
 
       <Footer />
       <WhatsAppChat />
+      <StickyBookingBar lang={lang} />
     </div>
   );
 };

@@ -11,6 +11,7 @@ import { Calendar, Sparkles, Clock, Flame, ArrowRight } from "lucide-react";
 import { getTranslations, Language, routeConfig } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
 import { Link } from "react-router-dom";
 
 interface AjankohtaistaProps {
@@ -129,6 +130,7 @@ const Ajankohtaista = ({ lang = "fi" }: AjankohtaistaProps) => {
         </main>
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );
