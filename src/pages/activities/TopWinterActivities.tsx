@@ -179,7 +179,7 @@ const translations = {
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Aktiviteetit Levillä", href: "/opas/aktiviteetit-levi" },
-      { label: "Parhaat talviaktiviteetit" }
+      { label: "Parhaat talviaktiviteetit", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" }
     ],
     activitiesHubLink: "/opas/aktiviteetit-levi",
     activitiesHubText: "← Takaisin aktiviteettioppaaseen",
@@ -333,7 +333,7 @@ const translations = {
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Activities in Levi", href: "/guide/activities-in-levi" },
-      { label: "Top Winter Activities" }
+      { label: "Top Winter Activities", href: "/activities/top-winter-activities-in-levi-lapland" }
     ],
     activitiesHubLink: "/guide/activities-in-levi",
     activitiesHubText: "← Back to Activities Guide",
@@ -394,7 +394,7 @@ const TopWinterActivities = ({ lang = "fi" }: TopWinterActivitiesProps) => {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.label,
-      "item": item.href !== "#" ? `https://leville.net${item.href}` : undefined
+      "item": `https://leville.net${item.href}`
     }))
   };
 

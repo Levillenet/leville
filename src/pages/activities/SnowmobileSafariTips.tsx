@@ -168,7 +168,7 @@ const translations = {
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Aktiviteetit Levillä", href: "/opas/aktiviteetit-levi" },
-      { label: "Moottorikelkkasafari" },
+      { label: "Moottorikelkkasafari", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
     ],
     activitiesHubLink: "/opas/aktiviteetit-levi",
     activitiesHubText: "← Takaisin aktiviteettioppaaseen",
@@ -322,7 +322,7 @@ const translations = {
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Activities in Levi", href: "/guide/activities-in-levi" },
-      { label: "Snowmobile Safari" },
+      { label: "Snowmobile Safari", href: "/activities/snowmobile-safari-tips-levi" },
     ],
     activitiesHubLink: "/guide/activities-in-levi",
     activitiesHubText: "← Back to Activities Guide",
@@ -383,7 +383,7 @@ const SnowmobileSafariTips = ({ lang = "fi" }: SnowmobileSafariTipsProps) => {
       "@type": "ListItem",
       position: index + 1,
       name: item.label,
-      item: item.href !== "#" ? `https://leville.net${item.href}` : undefined,
+      item: `https://leville.net${item.href}`,
     })),
   };
 

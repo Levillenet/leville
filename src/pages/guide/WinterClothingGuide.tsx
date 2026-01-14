@@ -182,8 +182,8 @@ const translations = {
     ],
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
-      { label: "Opas", href: "#" },
-      { label: "Talvivarusteet" }
+      { label: "Matkaopas", href: "/opas/matkaopas-levi" },
+      { label: "Talvivarusteet", href: "/opas/talvivarusteet-leville" }
     ],
     accommodationsHref: "/majoitukset"
   },
@@ -338,8 +338,8 @@ const translations = {
     ],
     breadcrumbs: [
       { label: "Home", href: "/en" },
-      { label: "Guide", href: "#" },
-      { label: "Winter Clothing" }
+      { label: "Travel Guide", href: "/guide/travel-to-levi" },
+      { label: "Winter Clothing", href: "/guide/how-to-dress-for-winter-in-levi-lapland" }
     ],
     accommodationsHref: "/en/accommodations"
   }
@@ -396,7 +396,7 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.label,
-      "item": item.href !== "#" ? `https://leville.net${item.href}` : undefined
+      "item": `https://leville.net${item.href}`
     }))
   };
 
