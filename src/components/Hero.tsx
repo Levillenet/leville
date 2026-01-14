@@ -219,7 +219,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             <Button
               asChild
               size="lg"
-              className="text-lg px-8 py-6 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
+              className="group text-lg px-8 py-6 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all animate-cta-glow"
             >
               <a
                 href={`https://app.moder.fi/levillenet${lang === "fi" ? "" : lang === "sv" ? "?lang=sv" : "?lang=en"}`}
@@ -227,7 +227,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
                 rel="noopener noreferrer"
               >
                 {t.bookingCta}
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </a>
             </Button>
           </div>
