@@ -453,6 +453,7 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
+        <meta name="twitter:image" content="https://leville.net/og-image.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>

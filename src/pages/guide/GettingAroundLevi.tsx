@@ -213,9 +213,24 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
+        <html lang={lang} />
         <title>{t.meta.title}</title>
         <meta name="description" content={t.meta.description} />
         <link rel="canonical" href={t.meta.canonical} />
+        
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={t.meta.canonical} />
+        <meta property="og:title" content={t.meta.title} />
+        <meta property="og:description" content={t.meta.description} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:site_name" content="Leville.net" />
+        <meta property="og:image" content="https://leville.net/og-image.png" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={t.meta.title} />
+        <meta name="twitter:description" content={t.meta.description} />
+        <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
