@@ -110,7 +110,7 @@ const translations = {
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Matkaopas", href: "/opas/matkaopas-levi" },
-      { label: "Ravintolat ja palvelut" },
+      { label: "Ravintolat ja palvelut", href: "/opas/ravintolat-ja-palvelut-levilla" },
     ],
     travelHubLink: "/opas/matkaopas-levi",
     travelHubText: "Takaisin matkaoppaaseen",
@@ -198,7 +198,7 @@ const translations = {
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Travel Guide", href: "/guide/travel-to-levi" },
-      { label: "Restaurants and Services" },
+      { label: "Restaurants and Services", href: "/guide/restaurants-and-services-in-levi" },
     ],
     travelHubLink: "/guide/travel-to-levi",
     travelHubText: "Back to travel guide",
@@ -215,12 +215,24 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
     en: "https://leville.net/guide/restaurants-and-services-in-levi",
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: t.breadcrumbs.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      item: `https://leville.net${item.href}`,
+    })),
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
         <title>{t.meta.title}</title>
         <meta name="description" content={t.meta.description} />
         <link rel="canonical" href={t.meta.canonical} />
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />

@@ -177,8 +177,8 @@ const translations = {
     ],
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
-      { label: "Matka", href: "#" },
-      { label: "Miten pääsee Leville" }
+      { label: "Matkaopas", href: "/opas/matkaopas-levi" },
+      { label: "Miten pääsee Leville", href: "/matka/miten-paasee-leville-helsingista" }
     ],
     accommodationsHref: "/majoitukset"
   },
@@ -329,8 +329,8 @@ const translations = {
     ],
     breadcrumbs: [
       { label: "Home", href: "/en" },
-      { label: "Travel", href: "#" },
-      { label: "How to Get to Levi" }
+      { label: "Travel Guide", href: "/guide/travel-to-levi" },
+      { label: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" }
     ],
     accommodationsHref: "/en/accommodations"
   }
@@ -376,7 +376,7 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.label,
-      "item": item.href !== "#" ? `https://leville.net${item.href}` : undefined
+      "item": `https://leville.net${item.href}`
     }))
   };
 

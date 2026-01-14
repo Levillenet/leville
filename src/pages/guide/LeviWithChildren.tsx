@@ -198,7 +198,7 @@ const translations = {
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Matkaopas", href: "/opas/matkaopas-levi" },
-      { label: "Lapsiperheet Levillä" },
+      { label: "Lapsiperheet Levillä", href: "/opas/lapsiperheet-levilla" },
     ],
     travelHubLink: "/opas/matkaopas-levi",
     travelHubText: "← Takaisin matkaoppaaseen",
@@ -385,7 +385,7 @@ const translations = {
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Travel Guide", href: "/guide/travel-to-levi" },
-      { label: "Levi with Children" },
+      { label: "Levi with Children", href: "/guide/levi-with-children" },
     ],
     travelHubLink: "/guide/travel-to-levi",
     travelHubText: "← Back to Travel Guide",
@@ -433,7 +433,7 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
       "@type": "ListItem",
       position: index + 1,
       name: item.label,
-      item: item.href ? `https://leville.net${item.href}` : undefined,
+      item: `https://leville.net${item.href}`,
     })),
   };
 
