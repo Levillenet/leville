@@ -58,7 +58,7 @@ const content: Record<Language, {
       { id: "aurora", title: "Revontulet", description: "Levillä nähdään revontulia noin 200 yönä vuodessa. Opi parhaat bongauspaikat.", href: "/revontulet", iconKey: "sparkles" },
       { id: "snowmobile", title: "Moottorikelkkasafari", description: "Koe Lapin erämaiden huima vauhti ja vapaus moottorikelkkasafarilla.", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi", iconKey: "sun" },
       { id: "husky", title: "Koiravaljakkoajelu", description: "Unohtumaton elämys huskyjen kanssa Lapin talvisessa luonnossa.", href: "/aktiviteetit/koiravaljakkoajelu-levi", iconKey: "dog" },
-      { id: "hiking", title: "Vaellus", description: "Tunturireittejä ja luontopolkuja kaikentasoisille vaeltajille.", href: "/levi", iconKey: "treepine" }
+      { id: "hiking", title: "Vaellus ja pyöräily", description: "Tunturivaellusta, maastopyöräilyä ja sähköpyöräilyä ympäri vuoden.", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi", iconKey: "treepine" }
     ],
     popularGuides: [
       { id: "snowmobile-tips", title: "Moottorikelkkasafari-vinkit", description: "Käytännön vinkit ensikertalaiselle: mitä pukea, miten ajaa ja mistä varata.", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
@@ -82,7 +82,7 @@ const content: Record<Language, {
       { id: "aurora", title: "Northern Lights", description: "Aurora can be seen on about 200 nights per year in Levi. Learn the best viewing spots.", href: "/en/northern-lights", iconKey: "sparkles" },
       { id: "snowmobile", title: "Snowmobile Safari", description: "Experience the thrill and freedom of Lapland wilderness on a snowmobile safari.", href: "/activities/snowmobile-safari-tips-levi", iconKey: "sun" },
       { id: "husky", title: "Husky Safari", description: "An unforgettable experience with huskies in Lapland's winter nature.", href: "/activities/husky-safari-levi", iconKey: "dog" },
-      { id: "hiking", title: "Hiking", description: "Fell trails and nature paths for hikers of all levels.", href: "/en/levi", iconKey: "treepine" }
+      { id: "hiking", title: "Hiking & Biking", description: "Fell hiking, mountain biking and e-biking year-round.", href: "/activities/hiking-and-biking-levi", iconKey: "treepine" }
     ],
     popularGuides: [
       { id: "snowmobile-tips", title: "Snowmobile Safari Tips", description: "Practical tips for first-timers: what to wear, how to drive and where to book.", href: "/activities/snowmobile-safari-tips-levi" },
