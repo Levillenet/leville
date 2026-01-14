@@ -10,6 +10,7 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { WhatsAppIcon, FacebookIcon, InstagramIcon } from "@/components/icons/SocialIcons";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
 
 type SocialType = "whatsapp" | "facebook" | "instagram" | null;
 
@@ -243,6 +244,7 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
         </main>
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );

@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/accordion";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
 
 interface UKKProps {
   lang?: Language;
@@ -109,6 +110,7 @@ const UKK = ({ lang = "fi" }: UKKProps) => {
         </main>
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );

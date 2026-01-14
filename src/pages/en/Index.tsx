@@ -7,7 +7,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Features from "@/components/Features";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import MobileBookingCta from "@/components/MobileBookingCta";
+import StickyBookingBar from "@/components/StickyBookingBar";
 import HreflangTags from "@/components/HreflangTags";
 
 const IndexEN = () => {
@@ -81,7 +81,7 @@ const IndexEN = () => {
         </main>
         <Footer lang="en" />
         <WhatsAppChat lang="en" />
-        <MobileBookingCta lang="en" />
+        <StickyBookingBar lang="en" />
       </div>
     </>
   );

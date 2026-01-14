@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Mountain, Plane, ArrowRight, Brain, Gift, Star, Snowflake, Flame, Video, Volume2 } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
 import OptimizedImage from "@/components/OptimizedImage";
 
 // Import images
@@ -464,6 +465,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
         </main>
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );

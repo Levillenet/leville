@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Mountain, MapPin, Clock, Euro, Users, ArrowRight, Snowflake, Star, Cable } from "lucide-react";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Accordion,
   AccordionContent,
@@ -332,6 +333,7 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );

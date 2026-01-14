@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Leaf, Sparkles, Mountain, ArrowRight, Star, Camera, TreePine, Thermometer } from "lucide-react";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Accordion,
   AccordionContent,
@@ -387,6 +388,7 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );
