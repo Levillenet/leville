@@ -569,3 +569,84 @@ body > div[data-state] {
   z-index: 10010 !important;
   pointer-events: auto !important;
 }
+
+/* Moder widget specific selectors - calendar and date picker portals */
+body > div[class*="moder"],
+body > div[id*="moder"],
+body > div[class*="calendar"],
+body > div[class*="Calendar"],
+body > div[class*="datepicker"],
+body > div[class*="DatePicker"],
+body > div[class*="picker"],
+body > div[class*="Picker"],
+body > div[style*="position: fixed"],
+body > div[style*="position: absolute"] {
+  z-index: 99999 !important;
+  pointer-events: auto !important;
+}
+
+body > div[class*="moder"] *,
+body > div[id*="moder"] *,
+body > div[class*="calendar"] *,
+body > div[class*="Calendar"] *,
+body > div[class*="datepicker"] *,
+body > div[class*="DatePicker"] * {
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+
+/* Mobile: Ensure header doesn't block widget interactions */
+@media (max-width: 768px) {
+  /* When widget calendar is open, header should not interfere */
+  header.fixed {
+    pointer-events: auto;
+  }
+  
+  /* Widget and its portals must be above everything */
+  #moder-embed,
+  #moder-embed *,
+  body > div[class*="moder"],
+  body > div[class*="calendar"],
+  body > div[class*="picker"] {
+    touch-action: manipulation !important;
+  }
+  
+  /* Ensure any overlay/backdrop doesn't block touches */
+  body > div[class*="overlay"],
+  body > div[class*="backdrop"],
+  body > div[class*="Overlay"],
+  body > div[class*="Backdrop"] {
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+  }
+}
+
+/* Force all Moder widget interactive elements to be touchable */
+#moder-embed button,
+#moder-embed [role="button"],
+#moder-embed [role="combobox"],
+#moder-embed [role="listbox"],
+#moder-embed [role="option"],
+#moder-embed [role="gridcell"],
+#moder-embed [tabindex],
+#moder-embed a,
+#moder-embed label,
+#moder-embed select,
+#moder-embed input {
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Moder widget calendar days - ensure clickability */
+#moder-embed [class*="day"],
+#moder-embed [class*="Day"],
+#moder-embed td,
+#moder-embed [role="gridcell"] {
+  pointer-events: auto !important;
+  cursor: pointer;
+  touch-action: manipulation !important;
+  min-height: 40px;
+  min-width: 40px;
+}
