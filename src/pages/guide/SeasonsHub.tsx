@@ -233,6 +233,7 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={c.metaTitle} />
         <meta name="twitter:description" content={c.metaDescription} />
+        <meta name="twitter:image" content="https://leville.net/og-image.png" />
       </Helmet>
       
       <div className="min-h-screen bg-background relative">
