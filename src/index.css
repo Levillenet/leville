@@ -501,3 +501,71 @@ body > [id*="moder"] button {
     -webkit-tap-highlight-color: transparent;
   }
 }
+
+/* Date input fields - ensure they are always clickable */
+#moder-embed input[type="date"],
+#moder-embed input[type="text"],
+#moder-embed [class*="date"],
+#moder-embed [class*="Date"],
+#moder-embed [class*="check-in"],
+#moder-embed [class*="check-out"],
+#moder-embed [class*="checkIn"],
+#moder-embed [class*="checkOut"],
+#moder-embed [class*="arrival"],
+#moder-embed [class*="departure"],
+#moder-embed [class*="input"],
+#moder-embed [class*="field"] {
+  pointer-events: auto !important;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: text;
+  user-select: text;
+  position: relative;
+  z-index: 10000 !important;
+}
+
+/* Mobile-specific touch fixes for date pickers */
+@media (max-width: 768px) {
+  #moder-embed input,
+  #moder-embed [class*="date"],
+  #moder-embed [class*="Date"],
+  #moder-embed [class*="input"],
+  #moder-embed [class*="field"],
+  #moder-embed [class*="trigger"],
+  #moder-embed [class*="Trigger"] {
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    -webkit-touch-callout: none;
+    min-height: 48px;
+    cursor: pointer;
+  }
+  
+  /* Ensure the widget container doesn't block touches */
+  #moder-embed {
+    touch-action: auto !important;
+  }
+  
+  /* All clickable elements in widget */
+  #moder-embed [onclick],
+  #moder-embed [role="button"],
+  #moder-embed [role="textbox"],
+  #moder-embed [role="combobox"],
+  #moder-embed [tabindex] {
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    cursor: pointer;
+  }
+}
+
+/* Portals that might render outside the widget - include date pickers */
+body > [class*="portal"],
+body > [class*="Portal"],
+body > [class*="popover"],
+body > [class*="Popover"],
+body > [class*="dropdown"],
+body > [class*="Dropdown"],
+body > div[data-radix-portal],
+body > div[data-state] {
+  z-index: 10010 !important;
+  pointer-events: auto !important;
+}
