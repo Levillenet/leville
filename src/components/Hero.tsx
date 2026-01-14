@@ -210,16 +210,13 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           {/* Booking CTA section */}
           <div 
             id="booking-widget"
-            className="animate-slide-up flex flex-col items-center gap-4" 
+            className="animate-slide-up flex items-center justify-center" 
             style={{ animationDelay: '0.4s' }}
           >
-            <p className="text-lg sm:text-xl font-semibold text-foreground">
-              {t.bookingInstruction}
-            </p>
             <Button
               asChild
               size="lg"
-              className="group text-lg px-8 py-6 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all animate-cta-glow"
+              className="group text-xl sm:text-2xl px-10 py-7 rounded-full bg-primary hover:bg-primary/90 shadow-xl hover:shadow-2xl transition-all animate-cta-glow"
             >
               <a
                 href={`https://app.moder.fi/levillenet${lang === "fi" ? "" : lang === "sv" ? "?lang=sv" : "?lang=en"}`}
@@ -227,7 +224,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
                 rel="noopener noreferrer"
               >
                 {t.bookingCta}
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-1" />
               </a>
             </Button>
           </div>

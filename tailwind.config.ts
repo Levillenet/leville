@@ -88,10 +88,10 @@ export default {
         },
         "cta-glow": {
           "0%, 100%": { 
-            boxShadow: "0 0 20px hsl(var(--primary) / 0.4), 0 4px 20px hsl(var(--primary) / 0.2)" 
+            boxShadow: "0 0 20px rgba(56, 178, 206, 0.4), 0 4px 20px rgba(56, 178, 206, 0.2)" 
           },
           "50%": { 
-            boxShadow: "0 0 30px hsl(var(--primary) / 0.6), 0 4px 30px hsl(var(--primary) / 0.3)" 
+            boxShadow: "0 0 35px rgba(56, 178, 206, 0.6), 0 4px 30px rgba(56, 178, 206, 0.35)" 
           },
         },
       },
