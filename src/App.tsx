@@ -29,6 +29,7 @@ import NotFound from "./pages/NotFound";
 // SEO Landing Pages
 import WinterClothingGuide from "./pages/guide/WinterClothingGuide";
 import SnowmobileSafariTips from "./pages/activities/SnowmobileSafariTips";
+import HuskySafariTips from "./pages/activities/HuskySafariTips";
 import HowToGetToLevi from "./pages/travel/HowToGetToLevi";
 import TopWinterActivities from "./pages/activities/TopWinterActivities";
 import SkiingInLevi from "./pages/guide/SkiingInLevi";
@@ -159,6 +160,7 @@ const App = () => (
               <Route path="/opas/kesa-levi" element={<SummerInLevi />} />
               <Route path="/opas/syksy-ruska-levi" element={<AutumnRuskaInLevi />} />
               <Route path="/aktiviteetit/moottorikelkkasafari-vinkit-levi" element={<SnowmobileSafariTips />} />
+              <Route path="/aktiviteetit/koiravaljakkoajelu-levi" element={<HuskySafariTips />} />
               <Route path="/matka/miten-paasee-leville-helsingista" element={<HowToGetToLevi />} />
               <Route path="/aktiviteetit/parhaat-talviaktiviteetit-levi" element={<TopWinterActivities />} />
               
@@ -171,6 +173,7 @@ const App = () => (
               <Route path="/guide/summer-in-levi" element={<SummerInLevi lang="en" />} />
               <Route path="/guide/autumn-ruska-in-levi" element={<AutumnRuskaInLevi lang="en" />} />
               <Route path="/activities/snowmobile-safari-tips-levi" element={<SnowmobileSafariTips lang="en" />} />
+              <Route path="/activities/husky-safari-levi" element={<HuskySafariTips lang="en" />} />
               <Route path="/travel/how-to-get-to-levi-from-helsinki-and-abroad" element={<HowToGetToLevi lang="en" />} />
               <Route path="/activities/top-winter-activities-in-levi-lapland" element={<TopWinterActivities lang="en" />} />
               

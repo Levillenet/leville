@@ -56,7 +56,7 @@ const content: Record<Language, {
       { id: "cross-country", title: "Hiihto", description: "Yli 230 kilometriä huollettuja latuja upeissa Lapin maisemissa.", href: "/opas/hiihto-levi", iconKey: "snowflake" },
       { id: "aurora", title: "Revontulet", description: "Levillä nähdään revontulia noin 200 yönä vuodessa. Opi parhaat bongauspaikat.", href: "/revontulet", iconKey: "sparkles" },
       { id: "snowmobile", title: "Moottorikelkkasafari", description: "Koe Lapin erämaiden huima vauhti ja vapaus moottorikelkkasafarilla.", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi", iconKey: "sun" },
-      { id: "husky", title: "Koiravaljakkoajelu", description: "Unohtumaton elämys huskyjen kanssa Lapin talvisessa luonnossa.", href: "/levi", iconKey: "dog" },
+      { id: "husky", title: "Koiravaljakkoajelu", description: "Unohtumaton elämys huskyjen kanssa Lapin talvisessa luonnossa.", href: "/aktiviteetit/koiravaljakkoajelu-levi", iconKey: "dog" },
       { id: "hiking", title: "Vaellus", description: "Tunturireittejä ja luontopolkuja kaikentasoisille vaeltajille.", href: "/levi", iconKey: "treepine" }
     ],
     popularGuides: [
@@ -80,7 +80,7 @@ const content: Record<Language, {
       { id: "cross-country", title: "Cross-Country Skiing", description: "Over 230 kilometers of groomed trails in stunning Lapland scenery.", href: "/guide/cross-country-skiing-in-levi", iconKey: "snowflake" },
       { id: "aurora", title: "Northern Lights", description: "Aurora can be seen on about 200 nights per year in Levi. Learn the best viewing spots.", href: "/en/northern-lights", iconKey: "sparkles" },
       { id: "snowmobile", title: "Snowmobile Safari", description: "Experience the thrill and freedom of Lapland wilderness on a snowmobile safari.", href: "/activities/snowmobile-safari-tips-levi", iconKey: "sun" },
-      { id: "husky", title: "Husky Safari", description: "An unforgettable experience with huskies in Lapland's winter nature.", href: "/en/levi", iconKey: "dog" },
+      { id: "husky", title: "Husky Safari", description: "An unforgettable experience with huskies in Lapland's winter nature.", href: "/activities/husky-safari-levi", iconKey: "dog" },
       { id: "hiking", title: "Hiking", description: "Fell trails and nature paths for hikers of all levels.", href: "/en/levi", iconKey: "treepine" }
     ],
     popularGuides: [
@@ -104,7 +104,7 @@ const content: Record<Language, {
       { id: "cross-country", title: "Längdskidåkning", description: "Över 230 kilometer preparerade spår i fantastiska Lapplands-landskap.", href: "/sv/levi", iconKey: "snowflake" },
       { id: "aurora", title: "Norrsken", description: "Norrsken kan ses cirka 200 nätter per år i Levi. Lär dig de bästa platserna.", href: "/sv/norrsken", iconKey: "sparkles" },
       { id: "snowmobile", title: "Snöskotursafari", description: "Upplev spänningen och friheten i Lapplands vildmark på snöskotersafari.", href: "/sv/levi", iconKey: "sun" },
-      { id: "husky", title: "Hundspann", description: "En oförglömlig upplevelse med huskies i Lapplands vinternatur.", href: "/sv/levi", iconKey: "dog" },
+      { id: "husky", title: "Hundspann", description: "En oförglömlig upplevelse med huskies i Lapplands vinternatur.", href: "/aktiviteetit/koiravaljakkoajelu-levi", iconKey: "dog" },
       { id: "hiking", title: "Vandring", description: "Fjälleder och naturstigar för vandrare på alla nivåer.", href: "/sv/levi", iconKey: "treepine" }
     ],
     popularGuides: [
@@ -128,7 +128,7 @@ const content: Record<Language, {
       { id: "cross-country", title: "Langlauf", description: "Über 230 Kilometer präparierte Loipen in atemberaubender Lappland-Landschaft.", href: "/de/levi", iconKey: "snowflake" },
       { id: "aurora", title: "Nordlichter", description: "Nordlichter sind an etwa 200 Nächten pro Jahr in Levi sichtbar.", href: "/de/nordlichter", iconKey: "sparkles" },
       { id: "snowmobile", title: "Schneemobilsafari", description: "Erleben Sie den Nervenkitzel der Lappland-Wildnis auf einer Schneemobilsafari.", href: "/de/levi", iconKey: "sun" },
-      { id: "husky", title: "Hundeschlittenfahrt", description: "Ein unvergessliches Erlebnis mit Huskies in Lapplands Winternatur.", href: "/de/levi", iconKey: "dog" },
+      { id: "husky", title: "Hundeschlittenfahrt", description: "Ein unvergessliches Erlebnis mit Huskies in Lapplands Winternatur.", href: "/aktiviteetit/koiravaljakkoajelu-levi", iconKey: "dog" },
       { id: "hiking", title: "Wandern", description: "Fjellwege und Naturpfade für Wanderer aller Niveaus.", href: "/de/levi", iconKey: "treepine" }
     ],
     popularGuides: [
@@ -152,7 +152,7 @@ const content: Record<Language, {
       { id: "cross-country", title: "Esquí de fondo", description: "Más de 230 kilómetros de pistas preparadas en impresionantes paisajes de Laponia.", href: "/es/levi", iconKey: "snowflake" },
       { id: "aurora", title: "Auroras boreales", description: "Las auroras se pueden ver unas 200 noches al año en Levi.", href: "/es/auroras-boreales", iconKey: "sparkles" },
       { id: "snowmobile", title: "Safari en moto de nieve", description: "Experimenta la emoción y libertad de la naturaleza de Laponia en un safari en moto de nieve.", href: "/es/levi", iconKey: "sun" },
-      { id: "husky", title: "Safari de huskies", description: "Una experiencia inolvidable con huskies en la naturaleza invernal de Laponia.", href: "/es/levi", iconKey: "dog" },
+      { id: "husky", title: "Safari de huskies", description: "Una experiencia inolvidable con huskies en la naturaleza invernal de Laponia.", href: "/aktiviteetit/koiravaljakkoajelu-levi", iconKey: "dog" },
       { id: "hiking", title: "Senderismo", description: "Rutas de montaña y senderos naturales para excursionistas de todos los niveles.", href: "/es/levi", iconKey: "treepine" }
     ],
     popularGuides: [
@@ -176,7 +176,7 @@ const content: Record<Language, {
       { id: "cross-country", title: "Ski de fond", description: "Plus de 230 kilomètres de pistes damées dans des paysages époustouflants de Laponie.", href: "/fr/levi", iconKey: "snowflake" },
       { id: "aurora", title: "Aurores boréales", description: "Les aurores sont visibles environ 200 nuits par an à Levi.", href: "/fr/aurores-boreales", iconKey: "sparkles" },
       { id: "snowmobile", title: "Safari motoneige", description: "Vivez le frisson et la liberté de la nature lapone lors d'un safari en motoneige.", href: "/fr/levi", iconKey: "sun" },
-      { id: "husky", title: "Safari chiens de traîneau", description: "Une expérience inoubliable avec des huskies dans la nature hivernale de Laponie.", href: "/fr/levi", iconKey: "dog" },
+      { id: "husky", title: "Safari chiens de traîneau", description: "Une expérience inoubliable avec des huskies dans la nature hivernale de Laponie.", href: "/aktiviteetit/koiravaljakkoajelu-levi", iconKey: "dog" },
       { id: "hiking", title: "Randonnée", description: "Sentiers de fjell et chemins naturels pour randonneurs de tous niveaux.", href: "/fr/levi", iconKey: "treepine" }
     ],
     popularGuides: [
