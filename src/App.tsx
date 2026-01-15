@@ -24,6 +24,7 @@ import Admin from "./pages/Admin";
 import Asiakaspalvelu from "./pages/Asiakaspalvelu";
 import Unsubscribe from "./pages/Unsubscribe";
 import LeviPronounce from "./pages/LeviPronounce";
+import Latuinfo from "./pages/Latuinfo";
 import NotFound from "./pages/NotFound";
 
 // SEO Landing Pages
@@ -197,6 +198,8 @@ const App = () => (
               {/* Utility routes */}
               <Route path="/unsubscribe" element={<Unsubscribe />} />
               <Route path="/levi-pronounce" element={<LeviPronounce />} />
+              <Route path="/latuinfo" element={<Latuinfo />} />
+              
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
