@@ -7,7 +7,7 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, Mountain, Plane, ArrowRight, Brain, Gift, Star, Snowflake, Flame, Video, Volume2 } from "lucide-react";
+import { Calendar, Mountain, Plane, ArrowRight, Brain, Gift, Star, Snowflake, Flame, Video, Volume2, CloudSun } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -48,6 +48,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     liveCameraDesc: string;
     pronounceLabel: string;
     atmosphereTitle: string;
+    quickLinksTitle: string;
+    weatherLinkTitle: string;
+    weatherLinkDesc: string;
   }> = {
     fi: {
       intro: "Löydä kaikki tarvitsemasi Levi-matkaa varten. Tutustu vuodenaikoihin, aktiviteetteihin ja käytännön matkailuoppaisiin.",
@@ -69,7 +72,10 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       liveCamera: "Levin live-kamera",
       liveCameraDesc: "Suora näkymä Levin hiihtokeskuksesta",
       pronounceLabel: "Miten Levi lausutaan?",
-      atmosphereTitle: "Levin tunnelmaa"
+      atmosphereTitle: "Levin tunnelmaa",
+      quickLinksTitle: "Hyödyllistä tietoa",
+      weatherLinkTitle: "Säätietoa Leviltä",
+      weatherLinkDesc: "Lumensyvyys, lämpötilat ja vuodenajat"
     },
     en: {
       intro: "Find everything you need for your Levi trip. Explore seasons, activities and practical travel guides.",
@@ -91,7 +97,10 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       liveCamera: "Levi Live Camera",
       liveCameraDesc: "Live view from Levi ski resort",
       pronounceLabel: "How to pronounce Levi?",
-      atmosphereTitle: "Levi Atmosphere"
+      atmosphereTitle: "Levi Atmosphere",
+      quickLinksTitle: "Useful Information",
+      weatherLinkTitle: "Weather in Levi",
+      weatherLinkDesc: "Snow depth, temperatures and seasons"
     },
     sv: {
       intro: "Hitta allt du behöver för din Levi-resa. Utforska årstider, aktiviteter och praktiska reseguider.",
@@ -113,7 +122,10 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       liveCamera: "Levi livekamera",
       liveCameraDesc: "Direktsändning från Levi skidort",
       pronounceLabel: "Hur uttalas Levi?",
-      atmosphereTitle: "Levi atmosfär"
+      atmosphereTitle: "Levi atmosfär",
+      quickLinksTitle: "Användbar information",
+      weatherLinkTitle: "Väder i Levi",
+      weatherLinkDesc: "Snödjup, temperaturer och årstider"
     },
     de: {
       intro: "Finden Sie alles, was Sie für Ihre Levi-Reise brauchen. Entdecken Sie Jahreszeiten, Aktivitäten und praktische Reiseführer.",
@@ -135,7 +147,10 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       liveCamera: "Levi Live-Kamera",
       liveCameraDesc: "Live-Blick aus dem Skigebiet Levi",
       pronounceLabel: "Wie spricht man Levi aus?",
-      atmosphereTitle: "Levi Atmosphäre"
+      atmosphereTitle: "Levi Atmosphäre",
+      quickLinksTitle: "Nützliche Informationen",
+      weatherLinkTitle: "Wetter in Levi",
+      weatherLinkDesc: "Schneehöhe, Temperaturen und Jahreszeiten"
     },
     es: {
       intro: "Encuentra todo lo que necesitas para tu viaje a Levi. Explora estaciones, actividades y guías de viaje prácticas.",
@@ -157,7 +172,10 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       liveCamera: "Cámara en vivo de Levi",
       liveCameraDesc: "Vista en directo desde la estación de esquí de Levi",
       pronounceLabel: "¿Cómo se pronuncia Levi?",
-      atmosphereTitle: "Ambiente de Levi"
+      atmosphereTitle: "Ambiente de Levi",
+      quickLinksTitle: "Información útil",
+      weatherLinkTitle: "Clima en Levi",
+      weatherLinkDesc: "Profundidad de nieve, temperaturas y estaciones"
     },
     fr: {
       intro: "Trouvez tout ce dont vous avez besoin pour votre voyage à Levi. Explorez les saisons, les activités et les guides de voyage pratiques.",
@@ -179,7 +197,10 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       liveCamera: "Caméra en direct de Levi",
       liveCameraDesc: "Vue en direct de la station de ski de Levi",
       pronounceLabel: "Comment prononcer Levi ?",
-      atmosphereTitle: "Atmosphère de Levi"
+      atmosphereTitle: "Atmosphère de Levi",
+      quickLinksTitle: "Informations utiles",
+      weatherLinkTitle: "Météo à Levi",
+      weatherLinkDesc: "Épaisseur de neige, températures et saisons"
     }
   };
 
@@ -216,6 +237,15 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     de: "/de/levi/weihnachten-in-lappland",
     es: "/es/levi/navidad-en-laponia",
     fr: "/fr/levi/noel-en-laponie"
+  };
+
+  const weatherLinks: Record<Language, string> = {
+    fi: "/levi/saatieto-levilta",
+    en: "/en/levi/weather-in-levi",
+    sv: "/levi/saatieto-levilta",
+    de: "/levi/saatieto-levilta",
+    es: "/levi/saatieto-levilta",
+    fr: "/levi/saatieto-levilta"
   };
 
   const c = content[lang];
@@ -335,6 +365,38 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                     </Link>
                   );
                 })}
+              </div>
+            </section>
+
+            {/* Quick Links Section */}
+            <section className="mb-12 sm:mb-16">
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 text-center">
+                {c.quickLinksTitle}
+              </h2>
+              <div className="max-w-xl mx-auto">
+                <Link 
+                  to={weatherLinks[lang]}
+                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
+                >
+                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group">
+                    <CardContent className="p-4 sm:p-5">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <CloudSun className="w-6 h-6 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                            {c.weatherLinkTitle}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {c.weatherLinkDesc}
+                          </p>
+                        </div>
+                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               </div>
             </section>
 

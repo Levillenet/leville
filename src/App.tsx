@@ -37,6 +37,7 @@ import TopWinterActivities from "./pages/activities/TopWinterActivities";
 import SkiingInLevi from "./pages/guide/SkiingInLevi";
 import CrossCountrySkiingInLevi from "./pages/guide/CrossCountrySkiingInLevi";
 import WinterInLevi from "./pages/guide/WinterInLevi";
+import WeatherInLevi from "./pages/guide/WeatherInLevi";
 import SpringInLevi from "./pages/guide/SpringInLevi";
 import SummerInLevi from "./pages/guide/SummerInLevi";
 import AutumnRuskaInLevi from "./pages/guide/AutumnRuskaInLevi";
@@ -69,6 +70,7 @@ const App = () => (
               <Route path="/ajankohtaista" element={<Ajankohtaista />} />
               <Route path="/levi" element={<Levi />} />
               <Route path="/levi/joulu-lapissa" element={<JouluLapissa />} />
+              <Route path="/levi/saatieto-levilta" element={<WeatherInLevi />} />
               <Route path="/revontulet" element={<Revontulet />} />
               <Route path="/yhteystiedot" element={<Yhteystiedot />} />
               <Route path="/ukk" element={<UKK />} />
@@ -84,6 +86,7 @@ const App = () => (
               <Route path="/en/news" element={<Ajankohtaista lang="en" />} />
               <Route path="/en/levi" element={<Levi lang="en" />} />
               <Route path="/en/levi/christmas-in-lapland" element={<JouluLapissa lang="en" />} />
+              <Route path="/en/levi/weather-in-levi" element={<WeatherInLevi lang="en" />} />
               <Route path="/en/northern-lights" element={<Revontulet lang="en" />} />
               <Route path="/en/contact" element={<Yhteystiedot lang="en" />} />
               <Route path="/en/faq" element={<UKK lang="en" />} />
