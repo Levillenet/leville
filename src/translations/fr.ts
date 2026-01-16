@@ -195,8 +195,8 @@ export const fr = {
   },
   levi: {
     meta: {
-      title: "Levi – Activités & Informations | Leville.net",
-      description: "Découvrez les activités de Levi : ski, ski de fond, aurores boréales et bien plus. Liens utiles vers les services de Levi et infos météo.",
+      title: "Guide Levi: Station de Ski, Aurores Boréales & Safaris 2026",
+      description: "Planifiez votre séjour à Levi: 43 pistes de ski, 230 km de sentiers, aurores boréales et safaris arctiques. La meilleure station de Finlande.",
       keywords: "activités Levi, ski Levi, ski de fond Levi, aurores boréales Levi, météo Levi",
       canonical: "https://leville.net/fr/levi"
     },

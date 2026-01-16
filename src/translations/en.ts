@@ -195,8 +195,8 @@ export const en = {
   },
   levi: {
     meta: {
-      title: "Levi Travel Guide – Activities & Tips | Leville.net",
-      description: "Complete Levi travel guide. Activities, seasons, clothing tips and practical info for your Lapland holiday. Book accommodation now.",
+      title: "Levi Guide: 43 Slopes, Northern Lights & Activities 2026",
+      description: "Plan your Levi trip: ski resort with 43 slopes, 230 km trails, aurora viewing and Arctic safaris. Finland's largest ski destination.",
       keywords: "Levi activities, Levi skiing, Levi travel guide, Levi winter holiday, Levi Lapland",
       canonical: "https://leville.net/en/levi"
     },

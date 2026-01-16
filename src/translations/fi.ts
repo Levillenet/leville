@@ -195,8 +195,8 @@ export const fi = {
   },
   levi: {
     meta: {
-      title: "Levi-matkailuopas – Aktiviteetit & vinkit | Leville.net",
-      description: "Kattava matkailuopas Leville. Aktiviteetit, vuodenajat, pukeutumisvinkit ja käytännön tietoa Lapin lomalle. Varaa majoitus nyt.",
+      title: "Levi-opas: 43 Rinnettä, Revontulet & Aktiviteetit 2026",
+      description: "Kattava Levi-opas matkailijalle: laskettelurinteet, 230 km latuja, revontulien katselu ja safarit. Suomen suurin hiihtokeskus odottaa.",
       keywords: "Levi aktiviteetit, Levi laskettelu, Levi hiihto, Levi matkailuopas, Levi talviloma",
       canonical: "https://leville.net/levi"
     },
