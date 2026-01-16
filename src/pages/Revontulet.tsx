@@ -44,8 +44,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
   }> = {
     fi: {
       meta: {
-        title: "Revontulet Levillä – Aurora Borealis | Leville.net",
-        description: "Koe revontulien taikuus Levillä. Parhaat paikat, ajankohdat ja vinkit revontulien seuraamiseen Lapissa.",
+        title: "Revontulet Levillä: Parhaat Katselupaikat & Ennuste 2026",
+        description: "Näe revontulet Levillä! Paras aika syys–maaliskuu, parhaat katselupaikat ja live-ennuste. Varaa revontulimajoitus nyt.",
         canonical: "https://leville.net/revontulet",
       },
       hero: {
@@ -79,8 +79,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     en: {
       meta: {
-        title: "Northern Lights in Levi – Aurora Borealis | Leville.net",
-        description: "Experience the magic of the Northern Lights in Levi. Best locations, timing and tips for aurora watching in Lapland.",
+        title: "Northern Lights in Levi: Best Viewing Spots & Forecast 2026",
+        description: "See the aurora borealis in Levi, Finland. Best viewing times Sept–March, prime locations and live forecasts. Book aurora-friendly accommodation.",
         canonical: "https://leville.net/en/northern-lights",
       },
       hero: {
@@ -219,8 +219,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     fr: {
       meta: {
-        title: "Aurores Boréales à Levi – Aurora Borealis | Leville.net",
-        description: "Vivez la magie des aurores boréales à Levi. Meilleurs endroits, moments et conseils pour observer les aurores en Laponie.",
+        title: "Aurores Boréales à Levi: Meilleurs Spots & Prévisions 2026",
+        description: "Observez les aurores boréales à Levi en Laponie finlandaise. Meilleure période sept–mars, lieux d'observation et prévisions. Hébergement idéal.",
         canonical: "https://leville.net/fr/aurores-boreales",
       },
       hero: {

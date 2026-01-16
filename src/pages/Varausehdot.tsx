@@ -24,8 +24,15 @@ const Varausehdot = () => {
         <meta property="og:url" content="https://leville.net/varausehdot" />
         <meta property="og:title" content="Varausehdot | Leville.net" />
         <meta property="og:description" content="Leville.net varausehdot - peruutusehdot, majoitusohjeet ja vastuut." />
+        <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta property="og:locale" content="fi_FI" />
         <meta property="og:site_name" content="Leville.net" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Varausehdot | Leville.net" />
+        <meta name="twitter:description" content="Leville.net varausehdot - peruutusehdot, majoitusohjeet ja vastuut." />
+        <meta name="twitter:image" content="https://leville.net/og-image.png" />
       </Helmet>
       
       <div className="min-h-screen bg-background relative">

@@ -142,7 +142,7 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
     <>
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
-        <html lang={isEnglish ? "en" : "fi"} />
+        <html lang={lang} />
         <title>{t.meta.title}</title>
         <meta name="description" content={t.meta.description} />
         <meta name="keywords" content={t.meta.keywords} />
@@ -153,7 +153,7 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={isEnglish ? "en_US" : "fi_FI"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "en" ? "en_US" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : "fr_FR"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta property="og:image:width" content="1200" />
