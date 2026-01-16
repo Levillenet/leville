@@ -11,6 +11,7 @@ import { Snowflake, Sun, CloudRain, Thermometer, ArrowRight, Star, TreeDeciduous
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import SnowDepthChart from "@/components/SnowDepthChart";
 import {
   Accordion,
   AccordionContent,
@@ -440,6 +441,11 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
                 {t.sections.snowDepth.title}
               </h2>
               <p className="text-muted-foreground mb-6">{t.sections.snowDepth.intro}</p>
+              
+              {/* Interactive Snow Depth Chart */}
+              <div className="mb-8">
+                <SnowDepthChart lang={lang} />
+              </div>
               
               <div className="space-y-6">
                 <div>

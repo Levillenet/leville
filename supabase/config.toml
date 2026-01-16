@@ -62,3 +62,6 @@ verify_jwt = false
 
 [functions.floor-heating-cron]
 verify_jwt = false
+
+[functions.fmi-snow-data]
+verify_jwt = false
