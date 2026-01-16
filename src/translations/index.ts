@@ -44,7 +44,8 @@ export const routeConfig = {
   company: { fi: "/yritys", en: "/en/company", sv: "/sv/foretag", de: "/de/unternehmen", es: "/es/empresa", fr: "/fr/entreprise" },
   christmasInLapland: { fi: "/levi/joulu-lapissa", en: "/en/levi/christmas-in-lapland", sv: "/sv/levi/jul-i-lappland", de: "/de/levi/weihnachten-in-lappland", es: "/es/levi/navidad-en-laponia", fr: "/fr/levi/noel-en-laponie" },
   quiz: { fi: "/tietovisa", en: "/en/quiz", sv: "/sv/quiz", de: "/de/quiz", es: "/es/quiz", fr: "/fr/quiz" },
-  lastMinute: { fi: "/akkilahdot", en: "/en/last-minute", sv: "/sv/sista-minuten", de: "/de/last-minute", es: "/es/ultima-hora", fr: "/fr/derniere-minute" }
+  lastMinute: { fi: "/akkilahdot", en: "/en/last-minute", sv: "/sv/sista-minuten", de: "/de/last-minute", es: "/es/ultima-hora", fr: "/fr/derniere-minute" },
+  weatherInLevi: { fi: "/levi/saatieto-levilta", en: "/en/levi/weather-in-levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi" }
 };
 
 // Helper to get route for a specific language
