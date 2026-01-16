@@ -175,91 +175,94 @@ const SnowDepthChart = ({ lang = "fi" }: SnowDepthChartProps) => {
         <CardDescription>{t.description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Controls */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
-          {/* Start date */}
-          <div className="space-y-1">
-            <label className="text-sm font-medium text-muted-foreground">{t.startLabel}</label>
-            <div className="flex gap-1">
-              <Select value={String(startDay)} onValueChange={(v) => setStartDay(Number(v))}>
-                <SelectTrigger className="w-16">
+        {/* Controls - Two rows for better spacing */}
+        <div className="space-y-4">
+          {/* Row 1: Date selectors */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* Start date */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">{t.startLabel}</label>
+              <div className="flex gap-2">
+                <Select value={String(startDay)} onValueChange={(v) => setStartDay(Number(v))}>
+                  <SelectTrigger className="w-20">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {dayOptions.map((d) => (
+                      <SelectItem key={d} value={String(d)}>{d}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select value={String(startMonth)} onValueChange={(v) => setStartMonth(Number(v))}>
+                  <SelectTrigger className="flex-1 min-w-[120px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {t.months.map((m, i) => (
+                      <SelectItem key={i + 1} value={String(i + 1)}>{m}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* End date */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">{t.endLabel}</label>
+              <div className="flex gap-2">
+                <Select value={String(endDay)} onValueChange={(v) => setEndDay(Number(v))}>
+                  <SelectTrigger className="w-20">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {dayOptions.map((d) => (
+                      <SelectItem key={d} value={String(d)}>{d}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select value={String(endMonth)} onValueChange={(v) => setEndMonth(Number(v))}>
+                  <SelectTrigger className="flex-1 min-w-[120px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {t.months.map((m, i) => (
+                      <SelectItem key={i + 1} value={String(i + 1)}>{m}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {/* Years */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-muted-foreground">{t.yearsLabel}</label>
+              <Select value={String(years)} onValueChange={(v) => setYears(Number(v))}>
+                <SelectTrigger className="w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {dayOptions.map((d) => (
-                    <SelectItem key={d} value={String(d)}>{d}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Select value={String(startMonth)} onValueChange={(v) => setStartMonth(Number(v))}>
-                <SelectTrigger className="flex-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {t.months.map((m, i) => (
-                    <SelectItem key={i + 1} value={String(i + 1)}>{m}</SelectItem>
-                  ))}
+                  <SelectItem value="5">{t.yearsOptions[0]}</SelectItem>
+                  <SelectItem value="10">{t.yearsOptions[1]}</SelectItem>
+                  <SelectItem value="15">{t.yearsOptions[2]}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          {/* End date */}
-          <div className="space-y-1">
-            <label className="text-sm font-medium text-muted-foreground">{t.endLabel}</label>
-            <div className="flex gap-1">
-              <Select value={String(endDay)} onValueChange={(v) => setEndDay(Number(v))}>
-                <SelectTrigger className="w-16">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {dayOptions.map((d) => (
-                    <SelectItem key={d} value={String(d)}>{d}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Select value={String(endMonth)} onValueChange={(v) => setEndMonth(Number(v))}>
-                <SelectTrigger className="flex-1">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {t.months.map((m, i) => (
-                    <SelectItem key={i + 1} value={String(i + 1)}>{m}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          {/* Years */}
-          <div className="space-y-1">
-            <label className="text-sm font-medium text-muted-foreground">{t.yearsLabel}</label>
-            <Select value={String(years)} onValueChange={(v) => setYears(Number(v))}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="5">{t.yearsOptions[0]}</SelectItem>
-                <SelectItem value="10">{t.yearsOptions[1]}</SelectItem>
-                <SelectItem value="15">{t.yearsOptions[2]}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Presets */}
-          <div className="space-y-1 col-span-2 sm:col-span-1 lg:col-span-3">
+          {/* Row 2: Presets */}
+          <div className="space-y-2">
             <label className="text-sm font-medium text-muted-foreground">{t.presets.label}</label>
-            <div className="flex flex-wrap gap-1">
-              <Button variant="outline" size="sm" onClick={() => applyPreset("christmas")} className="text-xs">
+            <div className="flex flex-wrap gap-2">
+              <Button variant="outline" size="sm" onClick={() => applyPreset("christmas")} className="text-xs sm:text-sm">
                 {t.presets.christmas}
               </Button>
-              <Button variant="outline" size="sm" onClick={() => applyPreset("newYear")} className="text-xs">
+              <Button variant="outline" size="sm" onClick={() => applyPreset("newYear")} className="text-xs sm:text-sm">
                 {t.presets.newYear}
               </Button>
-              <Button variant="outline" size="sm" onClick={() => applyPreset("skiWeek")} className="text-xs">
+              <Button variant="outline" size="sm" onClick={() => applyPreset("skiWeek")} className="text-xs sm:text-sm">
                 {t.presets.skiWeek}
               </Button>
-              <Button variant="outline" size="sm" onClick={() => applyPreset("easter")} className="text-xs">
+              <Button variant="outline" size="sm" onClick={() => applyPreset("easter")} className="text-xs sm:text-sm">
                 {t.presets.easter}
               </Button>
             </div>
