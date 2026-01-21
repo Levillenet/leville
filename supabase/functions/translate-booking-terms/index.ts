@@ -1,4 +1,4 @@
-import { createClient } from "jsr:@supabase/supabase-js@2";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -43,8 +43,14 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Use Supabase AI Session for translation
-    const session = new Supabase.ai.Session('mistral');
+    // Use Lovable AI Gateway for translation
+    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+    if (!lovableApiKey) {
+      return new Response(
+        JSON.stringify({ error: "LOVABLE_API_KEY not configured" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
     const systemPrompt = `You are a professional translator specializing in legal and commercial texts. Translate the given Finnish accommodation booking terms text into five languages: English (en), Swedish (sv), German (de), Spanish (es), and French (fr).
 
@@ -71,32 +77,47 @@ TITLE: ${titleFi}
 CONTENT:
 ${contentFi}`;
 
-    const output = await session.run(
-      {
+    const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${lovableApiKey}`,
+      },
+      body: JSON.stringify({
+        model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
         ],
-      },
-      {
-        mode: "openaicompatible",
-        stream: false,
-      }
-    );
+        temperature: 0.3,
+      }),
+    });
 
-    let translationsText = "";
-    if (typeof output === "string") {
-      translationsText = output;
-    } else if (output && typeof output === "object") {
-      // Handle different response formats
-      if ("message" in output && output.message?.content) {
-        translationsText = output.message.content;
-      } else if ("choices" in output && output.choices?.[0]?.message?.content) {
-        translationsText = output.choices[0].message.content;
-      } else {
-        translationsText = JSON.stringify(output);
+    if (!aiResponse.ok) {
+      const errorText = await aiResponse.text();
+      console.error("AI API error:", aiResponse.status, errorText);
+      
+      if (aiResponse.status === 429) {
+        return new Response(
+          JSON.stringify({ error: "Rate limit exceeded, please try again later" }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
       }
+      if (aiResponse.status === 402) {
+        return new Response(
+          JSON.stringify({ error: "Payment required, please add credits to your workspace" }),
+          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
+      return new Response(
+        JSON.stringify({ error: "AI translation failed", details: errorText }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
+
+    const aiResult = await aiResponse.json();
+    let translationsText = aiResult.choices?.[0]?.message?.content || "";
 
     if (!translationsText) {
       return new Response(
@@ -167,7 +188,7 @@ ${contentFi}`;
   } catch (error) {
     console.error("Error:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
