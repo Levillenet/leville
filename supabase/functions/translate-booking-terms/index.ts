@@ -43,25 +43,19 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Use Lovable AI for translation
-    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
-    if (!lovableApiKey) {
-      return new Response(
-        JSON.stringify({ error: "LOVABLE_API_KEY not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    // Use Supabase AI Session for translation
+    const session = new Supabase.ai.Session('mistral');
 
-    const systemPrompt = `Olet ammattikääntäjä, joka on erikoistunut juridisiin ja kaupallisiin teksteihin. Käännä annettu suomenkielinen majoituksen varausehdot-teksti viiteen kieleen: englanti (en), ruotsi (sv), saksa (de), espanja (es) ja ranska (fr).
+    const systemPrompt = `You are a professional translator specializing in legal and commercial texts. Translate the given Finnish accommodation booking terms text into five languages: English (en), Swedish (sv), German (de), Spanish (es), and French (fr).
 
-TÄRKEÄT OHJEET:
-- Säilytä juridinen tarkkuus ja ammattimainen tyyli
-- Säilytä numerot, summat (€) ja prosentit sellaisenaan
-- Käytä kohdemaan vakiintuneita juridisia termejä
-- Säilytä luettelomerkit ja kappalejako
-- ÄLÄ käännä yritysnimiä (LeVILLE.NET)
+IMPORTANT INSTRUCTIONS:
+- Maintain legal accuracy and professional style
+- Keep numbers, amounts (€), and percentages as is
+- Use established legal terms for the target country
+- Preserve bullet points and paragraph structure
+- DO NOT translate company names (LeVILLE.NET)
 
-Palauta käännökset JSON-muodossa:
+Return translations in JSON format:
 {
   "en": { "title": "...", "content": "..." },
   "sv": { "title": "...", "content": "..." },
@@ -70,42 +64,40 @@ Palauta käännökset JSON-muodossa:
   "fr": { "title": "...", "content": "..." }
 }`;
 
-    const userPrompt = `Käännä seuraava varausehtojen osio:
+    const userPrompt = `Translate the following booking terms section:
 
-OTSIKKO: ${titleFi}
+TITLE: ${titleFi}
 
-SISÄLTÖ:
+CONTENT:
 ${contentFi}`;
 
-    const aiResponse = await fetch("https://api.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${lovableApiKey}`,
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+    const output = await session.run(
+      {
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
         ],
-        temperature: 0.3,
-        response_format: { type: "json_object" },
-      }),
-    });
+      },
+      {
+        mode: "openaicompatible",
+        stream: false,
+      }
+    );
 
-    if (!aiResponse.ok) {
-      const errorText = await aiResponse.text();
-      console.error("AI API error:", errorText);
-      return new Response(
-        JSON.stringify({ error: "AI translation failed", details: errorText }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    let translationsText = "";
+    if (typeof output === "string") {
+      translationsText = output;
+    } else if (output && typeof output === "object") {
+      // Handle different response formats
+      if ("message" in output && output.message?.content) {
+        translationsText = output.message.content;
+      } else if ("choices" in output && output.choices?.[0]?.message?.content) {
+        translationsText = output.choices[0].message.content;
+      } else {
+        translationsText = JSON.stringify(output);
+      }
     }
 
-    const aiResult = await aiResponse.json();
-    const translationsText = aiResult.choices?.[0]?.message?.content;
-    
     if (!translationsText) {
       return new Response(
         JSON.stringify({ error: "Empty AI response" }),
@@ -113,9 +105,16 @@ ${contentFi}`;
       );
     }
 
+    // Extract JSON from response (may be wrapped in markdown code blocks)
+    let jsonStr = translationsText;
+    const jsonMatch = translationsText.match(/```(?:json)?\s*([\s\S]*?)```/);
+    if (jsonMatch) {
+      jsonStr = jsonMatch[1].trim();
+    }
+
     let translations: AllTranslations;
     try {
-      translations = JSON.parse(translationsText);
+      translations = JSON.parse(jsonStr);
     } catch {
       console.error("Failed to parse AI response:", translationsText);
       return new Response(
