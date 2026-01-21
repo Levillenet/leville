@@ -74,7 +74,7 @@ const App = () => (
               <Route path="/revontulet" element={<Revontulet />} />
               <Route path="/yhteystiedot" element={<Yhteystiedot />} />
               <Route path="/ukk" element={<UKK />} />
-              <Route path="/varausehdot" element={<Varausehdot />} />
+              <Route path="/varausehdot" element={<Varausehdot lang="fi" />} />
               <Route path="/yritys" element={<Yritys />} />
               <Route path="/sauna" element={<Sauna />} />
               <Route path="/tietovisa" element={<Tietovisa />} />
@@ -93,6 +93,7 @@ const App = () => (
               <Route path="/en/company" element={<Yritys lang="en" />} />
               <Route path="/en/quiz" element={<Tietovisa lang="en" />} />
               <Route path="/en/last-minute" element={<Akkilahdot lang="en" />} />
+              <Route path="/en/booking-terms" element={<Varausehdot lang="en" />} />
               
               {/* Swedish routes */}
               <Route path="/sv" element={<Index lang="sv" />} />
@@ -106,6 +107,7 @@ const App = () => (
               <Route path="/sv/foretag" element={<Yritys lang="sv" />} />
               <Route path="/sv/quiz" element={<Tietovisa lang="sv" />} />
               <Route path="/sv/sista-minuten" element={<Akkilahdot lang="sv" />} />
+              <Route path="/sv/bokningsvillkor" element={<Varausehdot lang="sv" />} />
               
               {/* German routes */}
               <Route path="/de" element={<Index lang="de" />} />
@@ -119,6 +121,7 @@ const App = () => (
               <Route path="/de/unternehmen" element={<Yritys lang="de" />} />
               <Route path="/de/quiz" element={<Tietovisa lang="de" />} />
               <Route path="/de/last-minute" element={<Akkilahdot lang="de" />} />
+              <Route path="/de/buchungsbedingungen" element={<Varausehdot lang="de" />} />
               
               {/* Spanish routes */}
               <Route path="/es" element={<Index lang="es" />} />
@@ -132,6 +135,7 @@ const App = () => (
               <Route path="/es/empresa" element={<Yritys lang="es" />} />
               <Route path="/es/quiz" element={<Tietovisa lang="es" />} />
               <Route path="/es/ultima-hora" element={<Akkilahdot lang="es" />} />
+              <Route path="/es/terminos-de-reserva" element={<Varausehdot lang="es" />} />
               
               {/* French routes */}
               <Route path="/fr" element={<Index lang="fr" />} />
@@ -145,6 +149,7 @@ const App = () => (
               <Route path="/fr/entreprise" element={<Yritys lang="fr" />} />
               <Route path="/fr/quiz" element={<Tietovisa lang="fr" />} />
               <Route path="/fr/derniere-minute" element={<Akkilahdot lang="fr" />} />
+              <Route path="/fr/conditions-de-reservation" element={<Varausehdot lang="fr" />} />
               
               {/* Guide HUB Pages - Finnish */}
               <Route path="/opas/vuodenajat-levi" element={<SeasonsHub />} />

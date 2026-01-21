@@ -89,6 +89,69 @@ export type Database = {
         }
         Relationships: []
       }
+      booking_terms: {
+        Row: {
+          content_de: string | null
+          content_en: string | null
+          content_es: string | null
+          content_fi: string
+          content_fr: string | null
+          content_sv: string | null
+          created_at: string
+          id: string
+          section_key: string
+          sort_order: number
+          title_de: string | null
+          title_en: string | null
+          title_es: string | null
+          title_fi: string
+          title_fr: string | null
+          title_sv: string | null
+          translations_updated_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          content_de?: string | null
+          content_en?: string | null
+          content_es?: string | null
+          content_fi: string
+          content_fr?: string | null
+          content_sv?: string | null
+          created_at?: string
+          id?: string
+          section_key: string
+          sort_order?: number
+          title_de?: string | null
+          title_en?: string | null
+          title_es?: string | null
+          title_fi: string
+          title_fr?: string | null
+          title_sv?: string | null
+          translations_updated_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          content_de?: string | null
+          content_en?: string | null
+          content_es?: string | null
+          content_fi?: string
+          content_fr?: string | null
+          content_sv?: string | null
+          created_at?: string
+          id?: string
+          section_key?: string
+          sort_order?: number
+          title_de?: string | null
+          title_en?: string | null
+          title_es?: string | null
+          title_fi?: string
+          title_fr?: string | null
+          title_sv?: string | null
+          translations_updated_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cleaning_status: {
         Row: {
           booking_id: string | null
