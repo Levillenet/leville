@@ -115,7 +115,7 @@ export default function Unsubscribe() {
           </div>
         </main>
         
-        <Footer />
+        <Footer lang="fi" />
       </div>
     </>
   );

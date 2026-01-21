@@ -686,8 +686,8 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
         </div>
       </main>
 
-      <Footer />
-      <WhatsAppChat />
+      <Footer lang={lang} />
+      <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </div>
   );

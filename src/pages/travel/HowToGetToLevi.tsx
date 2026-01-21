@@ -634,7 +634,7 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
         </div>
       </main>
 
-      <Footer />
+      <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </div>
