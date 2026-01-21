@@ -70,21 +70,19 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
           {features.map((feature, index) => {
             const Icon = featureIcons[index] || MapPin;
             return (
-              <ScrollReveal key={index} delay={index * 100}>
-                <TiltCard className="h-full">
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10 feature-card-hover h-full flex flex-col items-center text-center">
-                    <div className="w-16 h-16 rounded-2xl bg-leville-turquoise/15 flex items-center justify-center mb-5">
-                      <Icon className="w-8 h-8 text-leville-turquoise" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-3">
-                      {feature.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {feature.description}
-                    </p>
+              <TiltCard key={index} className="h-full">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10 feature-card-hover h-full flex flex-col items-center text-center">
+                  <div className="w-16 h-16 rounded-2xl bg-leville-turquoise/15 flex items-center justify-center mb-5">
+                    <Icon className="w-8 h-8 text-leville-turquoise" />
                   </div>
-                </TiltCard>
-              </ScrollReveal>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </TiltCard>
             );
           })}
         </div>
