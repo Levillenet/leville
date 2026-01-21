@@ -42,9 +42,15 @@
     --snow-white: 210 40% 98%;
     --forest-dark: 200 25% 18%;
     
-    --hero-gradient: linear-gradient(180deg, hsl(218 30% 6%) 0%, hsl(218 28% 14%) 50%, hsl(200 25% 18%) 100%);
-    --glass-bg: hsl(218 22% 14% / 0.85);
+    /* Leville brand tokens */
+    --leville-dark: 200 40% 15%;
+    --leville-turquoise: 193 100% 40%;
+    --leville-turquoise-light: 193 100% 50%;
+    
+    --hero-gradient: linear-gradient(180deg, hsl(200 40% 10%) 0%, hsl(200 40% 15%) 50%, hsl(200 30% 18%) 100%);
+    --glass-bg: hsl(200 35% 14% / 0.9);
     --glow-aurora: 0 0 60px hsl(160 60% 45% / 0.2);
+    --glow-turquoise: 0 0 40px hsl(193 100% 40% / 0.4);
     --shadow-elegant: 0 25px 50px -12px hsl(218 30% 4% / 0.6);
 
     --sidebar-background: 218 25% 10%;
@@ -117,8 +123,22 @@
     box-shadow: var(--glow-aurora);
   }
 
+  .glow-turquoise {
+    box-shadow: var(--glow-turquoise);
+  }
+
   .shadow-elegant {
     box-shadow: var(--shadow-elegant);
+  }
+
+  /* Feature card hover effect */
+  .feature-card-hover {
+    @apply transition-all duration-300;
+  }
+  
+  .feature-card-hover:hover {
+    @apply bg-white/10 border-leville-turquoise/30;
+    box-shadow: 0 0 20px hsl(193 100% 40% / 0.15);
   }
 
   .animate-fade-in {

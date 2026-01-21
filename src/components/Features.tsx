@@ -1,83 +1,85 @@
 import { useState, useEffect } from "react";
-import { MapPin, Car, MessageCircle, BadgePercent, Star, ChevronLeft, ChevronRight, Quote, LucideIcon } from "lucide-react";
+import { MapPin, Car, Users, Wallet, ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
+import ScrollReveal from "@/components/ScrollReveal";
+import TiltCard from "@/components/TiltCard";
+import { Language, getTranslations } from "@/translations";
 import { testimonials, getTestimonialText } from "@/data/testimonials";
-import { getTranslations, Language } from "@/translations";
-import ScrollReveal from "./ScrollReveal";
-import TiltCard from "./TiltCard";
-
-const featureIcons: LucideIcon[] = [MapPin, Car, MessageCircle, BadgePercent];
 
 interface FeaturesProps {
   lang?: Language;
 }
 
 const Features = ({ lang = "fi" }: FeaturesProps) => {
+  const t = getTranslations(lang);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const t = getTranslations(lang).features;
   
-  // Get translated testimonials
-  const translatedTestimonials = testimonials.map(testimonial => getTestimonialText(testimonial, lang));
+  const featureIcons = [MapPin, Car, Users, Wallet];
+  const features = t.features.items || [];
 
+  // Auto-play carousel
   useEffect(() => {
     if (!isAutoPlaying) return;
     
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % translatedTestimonials.length);
-    }, 5000);
-
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 6000);
+    
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
   const goToPrevious = () => {
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev - 1 + translatedTestimonials.length) % translatedTestimonials.length);
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   const goToNext = () => {
     setIsAutoPlaying(false);
-    setCurrentIndex((prev) => (prev + 1) % translatedTestimonials.length);
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
   const goToSlide = (index: number) => {
     setIsAutoPlaying(false);
     setCurrentIndex(index);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
+  const currentTestimonial = testimonials[currentIndex];
+  const testimonialText = getTestimonialText(currentTestimonial, lang);
+
   return (
-    <section id={t.sectionId} className="py-16 sm:py-28 bg-card relative overflow-hidden">
-      {/* Subtle aurora glow */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-aurora-green/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-aurora-blue/5 rounded-full blur-3xl" />
-      
-      <div className="container mx-auto px-4 relative z-10">
+    <section id={t.features.sectionId} className="py-20 md:py-28 bg-gradient-to-b from-background to-leville-dark/20">
+      <div className="container">
+        {/* Section header */}
         <ScrollReveal>
-          <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-20 px-2">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-4 sm:mb-6 tracking-tight">
-              {t.title} <span className="text-gradient">{t.titleHighlight}</span>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-foreground mb-4">
+              {t.features.title}{" "}
+              <span className="text-gradient">{t.features.titleHighlight}</span>
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed">
-              {t.subtitle}
+            <p className="text-lg text-muted-foreground">
+              {t.features.subtitle}
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-12 sm:mb-20">
-          {t.items.map((feature, index) => {
-            const Icon = featureIcons[index];
+        {/* Feature cards - 4 column grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+          {features.map((feature, index) => {
+            const Icon = featureIcons[index] || MapPin;
             return (
-              <ScrollReveal key={feature.title} delay={index * 0.1} direction="up">
+              <ScrollReveal key={index} delay={index * 100}>
                 <TiltCard className="h-full">
-                  <div 
-                    className="group p-4 sm:p-8 rounded-xl bg-secondary/40 border border-border/30 hover:border-aurora-green/30 transition-all duration-500 hover:shadow-elegant h-full"
-                  >
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-aurora-green/10 flex items-center justify-center mb-3 sm:mb-6 group-hover:bg-aurora-green/20 transition-colors duration-500">
-                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-aurora-green" />
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/10 feature-card-hover h-full flex flex-col items-center text-center">
+                    <div className="w-16 h-16 rounded-2xl bg-leville-turquoise/15 flex items-center justify-center mb-5">
+                      <Icon className="w-8 h-8 text-leville-turquoise" />
                     </div>
-                    <h3 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-foreground mb-2 sm:mb-3 font-serif tracking-tight">
+                    <h3 className="text-xl font-semibold text-foreground mb-3">
                       {feature.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -87,88 +89,73 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
           })}
         </div>
 
-        {/* Testimonial Carousel */}
-        <ScrollReveal delay={0.3}>
+        {/* Testimonials section */}
+        <ScrollReveal>
           <div className="max-w-4xl mx-auto">
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-semibold text-foreground text-center mb-8 sm:mb-12 tracking-tight">
-              {t.testimonialTitle}
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-foreground text-center mb-10">
+              {t.features.testimonialTitle}
             </h3>
-            
+
+            {/* Testimonial carousel */}
             <div className="relative">
-              {/* Carousel Container */}
-              <div className="overflow-hidden rounded-2xl">
-                <div 
-                  className="flex transition-transform duration-500 ease-out"
-                  style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-                >
-                  {translatedTestimonials.map((testimonial, index) => (
-                    <div 
-                      key={index}
-                      className="w-full flex-shrink-0 px-2 sm:px-4"
-                    >
-                      <div className="glass-card border-border/30 p-5 sm:p-8 md:p-12 rounded-2xl relative">
-                        {/* Quote Icon */}
-                        <Quote className="absolute top-4 right-4 sm:top-6 sm:right-6 w-8 h-8 sm:w-12 sm:h-12 text-primary/10" />
-                        
-                        {/* Stars */}
-                        <div className="flex gap-1 mb-4 sm:mb-6">
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-yellow-500 text-yellow-500" />
-                          ))}
-                        </div>
-                        
-                        {/* Review Text */}
-                        <blockquote className="text-base sm:text-lg md:text-xl text-foreground leading-relaxed mb-6 sm:mb-8 font-serif italic">
-                          "{testimonial.text}"
-                        </blockquote>
-                        
-                        {/* Author */}
-                        <div className="flex items-center gap-3 sm:gap-4">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-primary/40 to-aurora-green/40 flex items-center justify-center">
-                            <span className="text-foreground font-bold text-base sm:text-lg">
-                              {testimonial.name.charAt(0)}
-                            </span>
-                          </div>
-                          <div>
-                            <p className="text-sm sm:text-base text-foreground font-semibold">{testimonial.name}</p>
-                            <p className="text-xs sm:text-sm text-muted-foreground">{testimonial.location}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-8 sm:p-10 relative overflow-hidden">
+                {/* Quote icon */}
+                <Quote className="absolute top-6 left-6 w-10 h-10 text-leville-turquoise/20" />
+                
+                {/* Testimonial content */}
+                <div className="relative z-10 text-center">
+                  {/* Stars */}
+                  <div className="flex justify-center gap-1 mb-6">
+                    {[...Array(currentTestimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-leville-turquoise text-leville-turquoise" />
+                    ))}
+                  </div>
+                  
+                  {/* Quote text */}
+                  <blockquote className="text-lg sm:text-xl text-foreground/90 italic mb-6 leading-relaxed min-h-[80px]">
+                    "{testimonialText.text}"
+                  </blockquote>
+                  
+                  {/* Author */}
+                  <div>
+                    <p className="font-semibold text-foreground">{currentTestimonial.name}</p>
+                    <p className="text-sm text-muted-foreground">{testimonialText.location}</p>
+                  </div>
                 </div>
+
+                {/* Decorative glow */}
+                <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-leville-turquoise/10 rounded-full blur-3xl pointer-events-none" />
               </div>
 
-              {/* Navigation Arrows */}
+              {/* Navigation arrows */}
               <button
                 onClick={goToPrevious}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 md:-translate-x-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-card border-border/30 flex items-center justify-center text-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
-                aria-label={t.prevAriaLabel}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-card border border-border hover:border-leville-turquoise/50 flex items-center justify-center text-foreground transition-all shadow-lg"
+                aria-label={t.features.prevAriaLabel}
               >
-                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={goToNext}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 md:translate-x-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-card border-border/30 flex items-center justify-center text-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
-                aria-label={t.nextAriaLabel}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-12 h-12 rounded-full bg-card border border-border hover:border-leville-turquoise/50 flex items-center justify-center text-foreground transition-all shadow-lg"
+                aria-label={t.features.nextAriaLabel}
               >
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                <ChevronRight className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Dots Navigation */}
-            <div className="flex justify-center gap-2 mt-6 sm:mt-8">
-              {translatedTestimonials.map((_, index) => (
+            {/* Dot indicators */}
+            <div className="flex justify-center gap-2 mt-6">
+              {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 ${
+                  className={`w-2.5 h-2.5 rounded-full transition-all ${
                     index === currentIndex 
-                      ? 'bg-primary w-6 sm:w-8' 
-                      : 'bg-border/50 hover:bg-border'
+                      ? 'bg-leville-turquoise w-6' 
+                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
                   }`}
-                  aria-label={`${t.dotAriaLabel} ${index + 1}`}
+                  aria-label={`${t.features.dotAriaLabel} ${index + 1}`}
                 />
               ))}
             </div>

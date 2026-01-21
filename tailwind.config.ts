@@ -71,6 +71,11 @@ export default {
           night: "hsl(218 28% 12%)",
           forest: "hsl(200 25% 18%)",
         },
+        leville: {
+          dark: "hsl(200 40% 15%)",
+          turquoise: "hsl(193 100% 40%)",
+          "turquoise-light": "hsl(193 100% 50%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

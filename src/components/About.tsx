@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { Home, Users, TreePine, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { getTranslations, Language } from "@/translations";
@@ -54,6 +54,8 @@ const About = ({ lang = "fi" }: AboutProps) => {
   const touchEndX = useRef<number | null>(null);
   const fadeTimeoutRef = useRef<number | null>(null);
   const t = getTranslations(lang).about;
+
+  const pointIcons = [Home, Users, TreePine, CheckCircle];
 
   const transitionToIndex = useCallback((newIndex: number) => {
     setPreviousImageIndex(currentImageIndex);
@@ -137,9 +139,10 @@ const About = ({ lang = "fi" }: AboutProps) => {
   }, []);
 
   return (
-    <section id="majoitukset" className="py-12 md:py-16 bg-background relative overflow-hidden">
+    <section id="majoitukset" className="py-16 md:py-24 bg-gradient-to-b from-background via-leville-dark/20 to-background relative overflow-hidden">
       {/* Subtle decorations */}
-      <div className="absolute top-1/2 -left-32 w-64 h-64 bg-aurora-blue/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 -left-32 w-64 h-64 bg-leville-turquoise/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 -right-32 w-48 h-48 bg-aurora-green/5 rounded-full blur-3xl" />
       
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-10 md:gap-16 lg:gap-20 items-center">
@@ -150,29 +153,32 @@ const About = ({ lang = "fi" }: AboutProps) => {
                 {t.title} <br className="hidden sm:block" /><span className="text-gradient">{t.titleHighlight}</span>
               </h2>
               
-              <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
                 {t.intro}
               </p>
 
-              <p className="text-muted-foreground mb-10 leading-relaxed">
-                {t.description}
-              </p>
-
-              <ul className="space-y-4 mb-12">
-                {t.points.map((point, index) => (
-                  <ScrollReveal key={point} delay={0.2 + index * 0.1} direction="left">
-                    <li className="flex items-start gap-4">
-                      <div className="w-5 h-5 rounded-full bg-aurora-green/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Check className="w-3 h-3 text-aurora-green" />
+              {/* Feature list with icons - improved design */}
+              <div className="space-y-4 mb-10">
+                {t.points.map((point, index) => {
+                  const Icon = pointIcons[index] || CheckCircle;
+                  return (
+                    <ScrollReveal key={point} delay={0.2 + index * 0.1} direction="left">
+                      <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-leville-turquoise/30 transition-all duration-300">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-leville-turquoise/15 flex items-center justify-center">
+                          <Icon className="w-5 h-5 text-leville-turquoise" />
+                        </div>
+                        <span className="text-foreground/90 pt-2">{point}</span>
                       </div>
-                      <span className="text-foreground">{point}</span>
-                    </li>
-                  </ScrollReveal>
-                ))}
-              </ul>
+                    </ScrollReveal>
+                  );
+                })}
+              </div>
 
               <Link to={lang === "en" ? "/en/accommodations" : "/majoitukset"}>
-                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8">
+                <Button 
+                  size="lg" 
+                  className="bg-leville-turquoise hover:bg-leville-turquoise-light text-white font-medium px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                >
                   {t.cta}
                 </Button>
               </Link>
@@ -189,7 +195,7 @@ const About = ({ lang = "fi" }: AboutProps) => {
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
             >
-              <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-elegant border border-border/20 relative bg-muted">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-elegant border border-border/20 relative bg-muted">
                 {aboutImages.map((image, index) => {
                   const isCurrent = index === currentImageIndex;
                   const isPrevious = previousImageIndex !== null && index === previousImageIndex;
@@ -216,31 +222,31 @@ const About = ({ lang = "fi" }: AboutProps) => {
               {/* Navigation arrows */}
               <button
                 onClick={goToPrev}
-                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border/30 flex items-center justify-center text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-background"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300"
                 aria-label={lang === "en" ? "Previous image" : "Edellinen kuva"}
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={goToNext}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border/30 flex items-center justify-center text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-background"
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300"
                 aria-label={lang === "en" ? "Next image" : "Seuraava kuva"}
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
               
-              {/* Decorative elements */}
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-aurora-green/10 rounded-xl -z-10" />
-              <div className="absolute -top-4 -left-4 w-16 h-16 bg-aurora-blue/10 rounded-xl -z-10" />
+              {/* Decorative glow */}
+              <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-leville-turquoise/15 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -top-6 -left-6 w-24 h-24 bg-aurora-green/10 rounded-full blur-2xl pointer-events-none" />
 
               {/* Clickable image indicators */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                 {aboutImages.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`h-1.5 rounded-full transition-all duration-500 hover:bg-white/70 ${
-                      index === currentImageIndex ? 'bg-white w-4' : 'bg-white/40 w-1.5'
+                    className={`h-2 rounded-full transition-all duration-500 hover:bg-white/70 ${
+                      index === currentImageIndex ? 'bg-leville-turquoise w-6' : 'bg-white/40 w-2'
                     }`}
                     aria-label={`${lang === "en" ? "Go to image" : "Siirry kuvaan"} ${index + 1}`}
                   />
