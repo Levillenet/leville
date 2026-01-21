@@ -44,7 +44,7 @@ interface AboutProps {
   lang?: Language;
 }
 
-const FADE_DURATION = 2000;
+const FADE_DURATION = 1000;
 
 const About = ({ lang = "fi" }: AboutProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -124,7 +124,7 @@ const About = ({ lang = "fi" }: AboutProps) => {
     
     const interval = setInterval(() => {
       goToNext();
-    }, 5000);
+    }, 3500);
 
     return () => clearInterval(interval);
   }, [isPaused, goToNext]);
@@ -210,7 +210,7 @@ const About = ({ lang = "fi" }: AboutProps) => {
                       alt={`${t.imageAlt} ${index + 1}`}
                       loading="eager"
                       decoding="async"
-                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[2000ms] ease-in-out ${
+                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1000ms] ease-in-out ${
                         isCurrent ? "opacity-100" : "opacity-0"
                       }`}
                       style={{ zIndex: isPrevious ? 2 : isCurrent ? 1 : 0 }}
@@ -222,14 +222,14 @@ const About = ({ lang = "fi" }: AboutProps) => {
               {/* Navigation arrows */}
               <button
                 onClick={goToPrev}
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center text-white opacity-70 hover:opacity-100 transition-all duration-300"
                 aria-label={lang === "en" ? "Previous image" : "Edellinen kuva"}
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={goToNext}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300"
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center text-white opacity-70 hover:opacity-100 transition-all duration-300"
                 aria-label={lang === "en" ? "Next image" : "Seuraava kuva"}
               >
                 <ChevronRight className="w-5 h-5" />
