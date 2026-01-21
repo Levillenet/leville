@@ -26,7 +26,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       copyright: `© ${new Date().getFullYear()} Leville.net. Kaikki oikeudet pidätetään.`,
       privacy: "Tietosuojaseloste",
       terms: "Varausehdot",
-      termsLink: "/varausehdot",
+      termsLink: routeConfig.bookingTerms.fi,
+      privacyLink: routeConfig.privacyPolicy.fi,
       paymentInfo: "Turvallisen maksamisen takaa Paytrail"
     },
     en: {
@@ -45,7 +46,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       copyright: `© ${new Date().getFullYear()} Leville.net. All rights reserved.`,
       privacy: "Privacy Policy",
       terms: "Terms & Conditions",
-      termsLink: "/varausehdot",
+      termsLink: routeConfig.bookingTerms.en,
+      privacyLink: routeConfig.privacyPolicy.en,
       paymentInfo: "Secure payments powered by Paytrail"
     },
     sv: {
@@ -64,7 +66,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       copyright: `© ${new Date().getFullYear()} Leville.net. Alla rättigheter förbehållna.`,
       privacy: "Integritetspolicy",
       terms: "Villkor",
-      termsLink: "/varausehdot",
+      termsLink: routeConfig.bookingTerms.sv,
+      privacyLink: routeConfig.privacyPolicy.sv,
       paymentInfo: "Säkra betalningar via Paytrail"
     },
     de: {
@@ -83,7 +86,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       copyright: `© ${new Date().getFullYear()} Leville.net. Alle Rechte vorbehalten.`,
       privacy: "Datenschutz",
       terms: "AGB",
-      termsLink: "/varausehdot",
+      termsLink: routeConfig.bookingTerms.de,
+      privacyLink: routeConfig.privacyPolicy.de,
       paymentInfo: "Sichere Zahlungen über Paytrail"
     },
     es: {
@@ -102,7 +106,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       copyright: `© ${new Date().getFullYear()} Leville.net. Todos los derechos reservados.`,
       privacy: "Política de privacidad",
       terms: "Términos",
-      termsLink: "/varausehdot",
+      termsLink: routeConfig.bookingTerms.es,
+      privacyLink: routeConfig.privacyPolicy.es,
       paymentInfo: "Pagos seguros a través de Paytrail"
     },
     fr: {
@@ -121,7 +126,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       copyright: `© ${new Date().getFullYear()} Leville.net. Tous droits réservés.`,
       privacy: "Politique de confidentialité",
       terms: "Conditions",
-      termsLink: "/varausehdot",
+      termsLink: routeConfig.bookingTerms.fr,
+      privacyLink: routeConfig.privacyPolicy.fr,
       paymentInfo: "Paiements sécurisés via Paytrail"
     }
   };
@@ -215,9 +221,9 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
             {c.copyright}
           </p>
           <div className="flex items-center gap-8 text-sm">
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors tracking-wide">
+            <Link to={c.privacyLink} className="text-muted-foreground hover:text-foreground transition-colors tracking-wide">
               {c.privacy}
-            </a>
+            </Link>
             <Link to={c.termsLink} className="text-muted-foreground hover:text-foreground transition-colors tracking-wide">
               {c.terms}
             </Link>
