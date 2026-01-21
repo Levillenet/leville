@@ -16,6 +16,7 @@ import Revontulet from "./pages/Revontulet";
 import Yhteystiedot from "./pages/Yhteystiedot";
 import UKK from "./pages/UKK";
 import Varausehdot from "./pages/Varausehdot";
+import Tietosuoja from "./pages/Tietosuoja";
 import Yritys from "./pages/Yritys";
 import Sauna from "./pages/Sauna";
 import Tietovisa from "./pages/Tietovisa";
@@ -75,6 +76,7 @@ const App = () => (
               <Route path="/yhteystiedot" element={<Yhteystiedot />} />
               <Route path="/ukk" element={<UKK />} />
               <Route path="/varausehdot" element={<Varausehdot lang="fi" />} />
+              <Route path="/tietosuoja" element={<Tietosuoja lang="fi" />} />
               <Route path="/yritys" element={<Yritys />} />
               <Route path="/sauna" element={<Sauna />} />
               <Route path="/tietovisa" element={<Tietovisa />} />
@@ -94,6 +96,7 @@ const App = () => (
               <Route path="/en/quiz" element={<Tietovisa lang="en" />} />
               <Route path="/en/last-minute" element={<Akkilahdot lang="en" />} />
               <Route path="/en/booking-terms" element={<Varausehdot lang="en" />} />
+              <Route path="/en/privacy" element={<Tietosuoja lang="en" />} />
               
               {/* Swedish routes */}
               <Route path="/sv" element={<Index lang="sv" />} />
@@ -108,6 +111,7 @@ const App = () => (
               <Route path="/sv/quiz" element={<Tietovisa lang="sv" />} />
               <Route path="/sv/sista-minuten" element={<Akkilahdot lang="sv" />} />
               <Route path="/sv/bokningsvillkor" element={<Varausehdot lang="sv" />} />
+              <Route path="/sv/integritetspolicy" element={<Tietosuoja lang="sv" />} />
               
               {/* German routes */}
               <Route path="/de" element={<Index lang="de" />} />
@@ -122,6 +126,7 @@ const App = () => (
               <Route path="/de/quiz" element={<Tietovisa lang="de" />} />
               <Route path="/de/last-minute" element={<Akkilahdot lang="de" />} />
               <Route path="/de/buchungsbedingungen" element={<Varausehdot lang="de" />} />
+              <Route path="/de/datenschutz" element={<Tietosuoja lang="de" />} />
               
               {/* Spanish routes */}
               <Route path="/es" element={<Index lang="es" />} />
@@ -136,6 +141,7 @@ const App = () => (
               <Route path="/es/quiz" element={<Tietovisa lang="es" />} />
               <Route path="/es/ultima-hora" element={<Akkilahdot lang="es" />} />
               <Route path="/es/terminos-de-reserva" element={<Varausehdot lang="es" />} />
+              <Route path="/es/privacidad" element={<Tietosuoja lang="es" />} />
               
               {/* French routes */}
               <Route path="/fr" element={<Index lang="fr" />} />
@@ -150,6 +156,7 @@ const App = () => (
               <Route path="/fr/quiz" element={<Tietovisa lang="fr" />} />
               <Route path="/fr/derniere-minute" element={<Akkilahdot lang="fr" />} />
               <Route path="/fr/conditions-de-reservation" element={<Varausehdot lang="fr" />} />
+              <Route path="/fr/confidentialite" element={<Tietosuoja lang="fr" />} />
               
               {/* Guide HUB Pages - Finnish */}
               <Route path="/opas/vuodenajat-levi" element={<SeasonsHub />} />
