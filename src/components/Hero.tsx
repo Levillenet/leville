@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { ArrowRight, Tag } from "lucide-react";
+import { ArrowRight, Tag, MapPin, CreditCard, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getTranslations, Language } from "@/translations";
 import heroCabin from "@/assets/hero-cabin.jpg";
@@ -29,16 +29,18 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
   const stars = useMemo(
     () =>
-      [...Array(40)].map((_, i) => ({
+      [...Array(50)].map((_, i) => ({
         id: i,
         left: Math.random() * 100,
-        top: Math.random() * 60,
-        size: Math.random() * 2 + 1,
+        top: Math.random() * 55,
+        size: Math.random() * 2.5 + 1,
         delay: Math.random() * 4,
         duration: 1.5 + Math.random() * 2,
       })),
     []
   );
+
+  const trustIcons = [MapPin, CreditCard, Home];
 
   useEffect(() => {
     // Preload hero images to prevent black flashes during transitions
@@ -93,7 +95,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
       style={{ overflow: "visible" }}
     >
       {/* Background images slideshow with crossfade and Ken Burns effect */}
-      <div className="absolute inset-0 overflow-hidden bg-background">
+      <div className="absolute inset-0 overflow-hidden bg-leville-dark">
         {heroImages.map((image, index) => {
           const isCurrent = index === currentImageIndex;
           const isPrevious = previousImageIndex !== null && index === previousImageIndex;
@@ -133,21 +135,21 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           );
         })}
 
-        {/* Dark overlay for text readability - optimized for commercial clarity */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background/90 z-[3]" />
+        {/* Dark overlay for text readability - optimized with Leville brand colors */}
+        <div className="absolute inset-0 bg-gradient-to-b from-leville-dark/75 via-leville-dark/50 to-leville-dark/85 z-[3]" />
       </div>
 
-      {/* Subtle Aurora overlay effects - toned down for commercial focus */}
+      {/* Subtle Aurora overlay effects - with turquoise accent */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
         <div 
-          className="absolute -top-20 left-0 w-[800px] h-[500px] bg-gradient-to-b from-aurora-green/25 via-aurora-blue/15 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-1"
+          className="absolute -top-20 left-0 w-[800px] h-[500px] bg-gradient-to-b from-aurora-green/25 via-leville-turquoise/15 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-1"
         />
         <div
-          className="absolute -top-10 right-0 w-[700px] h-[400px] bg-gradient-to-b from-aurora-blue/20 via-aurora-green/12 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-2"
+          className="absolute -top-10 right-0 w-[700px] h-[400px] bg-gradient-to-b from-leville-turquoise/20 via-aurora-green/12 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-2"
         />
       </div>
 
-      {/* Twinkling stars - reduced for cleaner look */}
+      {/* Twinkling stars */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
         {stars.map((star) => (
           <div
@@ -175,39 +177,44 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
           {/* Subheading - benefits focused */}
           <p
-            className="text-base sm:text-lg md:text-xl text-foreground/80 mb-5 md:mb-6 max-w-2xl mx-auto animate-slide-up leading-relaxed px-2"
+            className="text-base sm:text-lg md:text-xl text-foreground/85 mb-6 md:mb-8 max-w-2xl mx-auto animate-slide-up leading-relaxed px-2"
             style={{ animationDelay: '0.2s' }}
           >
             {t.subtitle}
           </p>
 
-          {/* Trust indicators - moved under subtitle as small highlights */}
+          {/* Trust indicators with icons - improved visibility */}
           <div
-            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6 mb-5 md:mb-6 animate-fade-in px-2"
+            className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3 sm:gap-x-8 mb-6 md:mb-8 animate-fade-in px-2"
             style={{ animationDelay: '0.25s' }}
           >
-            {t.trustIndicators.map((indicator) => (
-              <div key={indicator} className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-aurora-green rounded-full" />
-                <span className="text-xs sm:text-sm text-foreground/70">
-                  {indicator}
-                </span>
-              </div>
-            ))}
+            {t.trustIndicators.map((indicator, index) => {
+              const Icon = trustIcons[index] || MapPin;
+              return (
+                <div key={indicator} className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-full bg-leville-turquoise/20 flex items-center justify-center">
+                    <Icon className="w-4 h-4 text-leville-turquoise" />
+                  </div>
+                  <span className="text-sm sm:text-base text-foreground/80">
+                    {indicator}
+                  </span>
+                </div>
+              );
+            })}
           </div>
 
-          {/* Campaign badge - clear, visible element */}
+          {/* Campaign badge - Leville turquoise accent */}
           <div 
-            className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-5 animate-fade-in"
+            className="inline-flex items-center gap-2.5 bg-leville-turquoise/15 border border-leville-turquoise/30 rounded-full px-5 py-2.5 mb-6 animate-fade-in backdrop-blur-sm"
             style={{ animationDelay: '0.3s' }}
           >
-            <Tag className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-foreground">
+            <span className="text-xl">🎿</span>
+            <span className="text-sm sm:text-base font-medium text-foreground">
               {t.discount}
             </span>
           </div>
 
-          {/* Booking CTA section */}
+          {/* Booking CTA section - prominent turquoise button */}
           <div 
             id="booking-widget"
             className="animate-slide-up flex items-center justify-center" 
@@ -216,7 +223,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             <Button
               asChild
               size="lg"
-              className="group text-xl sm:text-2xl px-10 py-7 rounded-full bg-primary hover:bg-primary/90 shadow-xl hover:shadow-2xl transition-all animate-cta-glow"
+              className="group text-xl sm:text-2xl px-10 py-7 rounded-full bg-leville-turquoise hover:bg-leville-turquoise-light text-white shadow-xl hover:shadow-2xl transition-all animate-cta-glow"
             >
               <a
                 href={`https://app.moder.fi/levillenet${lang === "fi" ? "" : lang === "sv" ? "?lang=sv" : "?lang=en"}`}
