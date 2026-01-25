@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Check, Phone, Mail, Home, Building2, TreePine, Send, Loader2, CheckCircle2 } from "lucide-react";
+import { Check, Phone, Home, Building2, TreePine, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
@@ -28,6 +28,10 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const MyyLomaAsuntosi = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
@@ -411,35 +415,6 @@ const MyyLomaAsuntosi = () => {
               </ScrollReveal>
             </div>
 
-            {/* Contact Info */}
-            <ScrollReveal delay={0.4}>
-              <section className="mt-20 text-center">
-                <div className="glass-card p-8 rounded-2xl max-w-2xl mx-auto">
-                  <h2 className="text-2xl font-serif font-bold mb-4 text-foreground">
-                    Yhteystiedot
-                  </h2>
-                  <p className="text-muted-foreground mb-6">
-                    Vastaamme yhteydenottoihin arkisin klo 9-17
-                  </p>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                    <a 
-                      href="mailto:info@leville.net"
-                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
-                    >
-                      <Mail className="w-5 h-5" />
-                      info@leville.net
-                    </a>
-                    <a 
-                      href="tel:+35844131313"
-                      className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
-                    >
-                      <Phone className="w-5 h-5" />
-                      +358 44 131 313
-                    </a>
-                  </div>
-                </div>
-              </section>
-            </ScrollReveal>
           </div>
         </main>
 

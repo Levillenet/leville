@@ -20,6 +20,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
         { label: "UKK", href: routeConfig.faq.fi },
         { label: "Yritys", href: routeConfig.company.fi },
         { label: "Yhteystiedot", href: routeConfig.contact.fi },
+        { label: "Myy loma-asuntosi", href: routeConfig.sellProperty.fi },
       ],
       contactTitle: "Yhteystiedot",
       location: "Levin keskusta, Kittilä",
