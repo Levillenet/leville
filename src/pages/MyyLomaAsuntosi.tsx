@@ -9,7 +9,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Check, Phone, Home, Building2, TreePine, Send, Loader2, CheckCircle2 } from "lucide-react";
+import { Check, Phone, Home, Building2, TreePine, Send, Loader2, CheckCircle2, Scale, Handshake } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
@@ -151,7 +157,7 @@ const MyyLomaAsuntosi = () => {
         <title>Myy loma-asuntosi Levillä | Leville.net</title>
         <meta 
           name="description" 
-          content="Myy loma-asunto tai mökki Levillä suoraan meille. Ostamme käypään hintaan ilman välityspalkkioita. Nopea arvio ja kauppa." 
+          content="Myy loma-asunto tai mökki Levillä suoraan meille – vaihtoehto välittäjälle. Käypä hinta, ei välityspalkkioita. Nopea arvio." 
         />
         <link rel="canonical" href="https://leville.net/myy-loma-asuntosi" />
         <meta name="robots" content="index, follow" />
@@ -416,6 +422,120 @@ const MyyLomaAsuntosi = () => {
                 </section>
               </ScrollReveal>
             </div>
+
+            {/* Comparison Section */}
+            <ScrollReveal delay={0.4}>
+              <section className="mt-20 mb-16 max-w-5xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12 text-foreground">
+                  Myynti välittäjän kautta vai suoraan ostajalle?
+                </h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Broker Option */}
+                  <div className="glass-card p-6 rounded-2xl">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
+                        <Scale className="w-6 h-6 text-muted-foreground" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-foreground">Välittäjän kautta</h3>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Perinteinen tapa myydä loma-asunto. Välittäjä hoitaa markkinoinnin, näytöt ja neuvottelut. 
+                      Prosessi voi kestää useita kuukausia riippuen markkinatilanteesta ja kohteen kysynnästä.
+                    </p>
+                  </div>
+
+                  {/* Direct Sale Option */}
+                  <div className="glass-card p-6 rounded-2xl border-2 border-amber-500/30">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 bg-amber-500/20 rounded-full flex items-center justify-center">
+                        <Handshake className="w-6 h-6 text-amber-400" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-foreground">Suora myynti ostajalle</h3>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Myyt suoraan kiinnostuneelle ostajalle ilman välikäsiä. Prosessi on usein nopeampi 
+                      ja säästyt välityspalkkiolta. Sopii erityisesti, kun haluat varmuuden kaupasta.
+                    </p>
+                  </div>
+                </div>
+                <p className="text-center text-muted-foreground mt-8 max-w-3xl mx-auto">
+                  Molemmat vaihtoehdot toimivat – valinta riippuu tilanteestasi ja aikataulustasi. 
+                  Suora myynti sopii erityisesti silloin, kun haluat varmistaa nopean ja selkeän kaupan ilman ylimääräisiä kuluja.
+                </p>
+              </section>
+            </ScrollReveal>
+
+            {/* FAQ Section */}
+            <ScrollReveal delay={0.5}>
+              <section className="mb-16 max-w-3xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-center mb-12 text-foreground">
+                  Usein kysytyt kysymykset loma-asunnon myynnistä Levillä
+                </h2>
+                <Accordion type="single" collapsible className="space-y-4">
+                  <AccordionItem value="faq-1" className="glass-card border-white/10 px-6 rounded-xl">
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline">
+                      Tarvitaanko välittäjää loma-asunnon myyntiin Levillä?
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
+                      Ei välttämättä. Voit myydä loma-asuntosi myös suoraan ostajalle. Välittäjä voi auttaa 
+                      markkinoinnissa ja näytöissä, mutta suora myynti on usein nopeampi ja edullisempi vaihtoehto. 
+                      Valinta riippuu omista toiveistasi ja aikataulustasi.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="faq-2" className="glass-card border-white/10 px-6 rounded-xl">
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline">
+                      Kannattaako loma-asunto myydä välittäjän kautta vai suoraan ostajalle?
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
+                      Molemmissa vaihtoehdoissa on puolensa. Välittäjä voi tavoittaa laajan ostajajoukon, 
+                      mutta veloittaa palkkion. Suorassa myynnissä säästät välityspalkkion ja prosessi on 
+                      usein nopeampi, kun ostaja on jo valmiina.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="faq-3" className="glass-card border-white/10 px-6 rounded-xl">
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline">
+                      Onko yhteydenotto teihin sitova?
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
+                      Ei. Yhteydenotto ja arvio ovat täysin maksuttomia ja sitoumuksettomia. 
+                      Saat rauhassa harkita tarjousta ennen päätöstä.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="faq-4" className="glass-card border-white/10 px-6 rounded-xl">
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline">
+                      Miten loma-asunnon hinta määritellään?
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
+                      Arvioimme kohteen käyvän markkinahinnan perustuen sijaintiin, kuntoon, kokoon ja 
+                      Levin alueen hintatasoon. Käytämme vertailuaineistona toteutuneita kauppahintoja.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="faq-5" className="glass-card border-white/10 px-6 rounded-xl">
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline">
+                      Kuinka nopeasti kaupat voidaan tehdä?
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
+                      Parhaimmillaan kauppa voidaan tehdä muutamassa viikossa. Aikataulu riippuu kohteen 
+                      tiedoista ja mahdollisista katseluista. Pyrimme aina joustavuuteen sinun aikataulusi mukaan.
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="faq-6" className="glass-card border-white/10 px-6 rounded-xl">
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline">
+                      Voinko myydä kohteen, vaikka se olisi vuokrakäytössä?
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
+                      Kyllä. Vuokrakäytössä oleva loma-asunto voidaan myydä. Käymme tilanteen läpi ja 
+                      sovimme yhdessä siirtymäaikataulun, joka sopii kaikille osapuolille.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </section>
+            </ScrollReveal>
 
           </div>
         </main>
