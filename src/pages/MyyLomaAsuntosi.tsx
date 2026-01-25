@@ -10,12 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Check, Phone, Home, Building2, TreePine, Send, Loader2, CheckCircle2, Scale, Handshake } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
@@ -64,7 +59,8 @@ const MyyLomaAsuntosi = () => {
     {
       number: 2,
       title: "Arviointi",
-      description: "Tutustumme kohteen tietoihin ja sovimme tarvittaessa katselun. Arviointi on maksuton ja sitoumukseton.",
+      description:
+        "Tutustumme kohteen tietoihin ja sovimme tarvittaessa katselun. Arviointi on maksuton ja sitoumukseton.",
     },
     {
       number: 3,
@@ -87,9 +83,9 @@ const MyyLomaAsuntosi = () => {
   ];
 
   const handleInputChange = (field: keyof FormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
     }
   };
 
@@ -100,7 +96,7 @@ const MyyLomaAsuntosi = () => {
     const result = formSchema.safeParse(formData);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof FormData, string>> = {};
-      result.error.errors.forEach(err => {
+      result.error.errors.forEach((err) => {
         if (err.path[0]) {
           fieldErrors[err.path[0] as keyof FormData] = err.message;
         }
@@ -155,30 +151,34 @@ const MyyLomaAsuntosi = () => {
     <>
       <Helmet>
         <title>Myy loma-asuntosi Levillä | Leville.net</title>
-        <meta 
-          name="description" 
-          content="Myy loma-asunto tai mökki Levillä suoraan meille – vaihtoehto välittäjälle. Käypä hinta, ei välityspalkkioita. Nopea arvio." 
+        <meta
+          name="description"
+          content="Myy loma-asunto tai mökki Levillä suoraan meille – vaihtoehto välittäjälle. Käypä hinta, ei välityspalkkioita. Nopea arvio."
         />
         <link rel="canonical" href="https://leville.net/myy-loma-asuntosi" />
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content="Myy loma-asuntosi Levillä | Leville.net" />
-        <meta property="og:description" content="Myy loma-asunto tai mökki Levillä suoraan meille. Ostamme käypään hintaan ilman välityspalkkioita." />
+        <meta
+          property="og:description"
+          content="Myy loma-asunto tai mökki Levillä suoraan meille. Ostamme käypään hintaan ilman välityspalkkioita."
+        />
         <meta property="og:url" content="https://leville.net/myy-loma-asuntosi" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="fi_FI" />
         <meta property="og:site_name" content="Leville.net" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Myy loma-asuntosi Levillä | Leville.net" />
-        <meta name="twitter:description" content="Myy loma-asunto tai mökki Levillä suoraan meille. Nopea prosessi, ei välityspalkkioita." />
-        <script type="application/ld+json">
-          {JSON.stringify(organizationSchema)}
-        </script>
+        <meta
+          name="twitter:description"
+          content="Myy loma-asunto tai mökki Levillä suoraan meille. Nopea prosessi, ei välityspalkkioita."
+        />
+        <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
       </Helmet>
 
       <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
         <SubpageBackground />
         <Header />
-        
+
         <main className="pt-32 pb-20 relative z-10">
           <div className="container mx-auto px-4">
             <Breadcrumbs items={breadcrumbItems} />
@@ -193,10 +193,10 @@ const MyyLomaAsuntosi = () => {
                   Myy loma-asuntosi suoraan meille
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
-                  Ostamme loma-asuntoja ja kokonaisia taloja Levin keskustasta käypään markkinahintaan. 
-                  Prosessimme on nopea, vaivaton ja läpinäkyvä – ilman välityspalkkioita.
+                  Ostamme loma-asuntoja ja kokonaisia taloja Levin keskustasta käypään markkinahintaan. Prosessimme on
+                  nopea, vaivaton ja läpinäkyvä – ilman välityspalkkioita.
                 </p>
-                
+
                 {/* Trust Badges */}
                 <div className="flex flex-wrap justify-center gap-6 mt-8">
                   {["Nopea prosessi", "Ei välityspalkkioita", "Reilu hinta"].map((badge) => (
@@ -217,10 +217,7 @@ const MyyLomaAsuntosi = () => {
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {processSteps.map((step, index) => (
-                    <div 
-                      key={step.number}
-                      className="glass-card p-6 rounded-2xl text-center relative"
-                    >
+                    <div key={step.number} className="glass-card p-6 rounded-2xl text-center relative">
                       <div className="w-14 h-14 bg-amber-500 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                         {step.number}
                       </div>
@@ -262,14 +259,14 @@ const MyyLomaAsuntosi = () => {
                       Tavoitat meidät myös suoraan puhelimitse tai WhatsAppilla.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3">
-                      <a 
+                      <a
                         href="tel:+35844131313"
                         className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
                       >
                         <Phone className="w-4 h-4" />
                         +358 44 131 313
                       </a>
-                      <a 
+                      <a
                         href="https://wa.me/35844131313?text=Hei!%20Haluaisin%20myydä%20loma-asuntoni%20Levillä."
                         target="_blank"
                         rel="noopener noreferrer"
@@ -286,9 +283,7 @@ const MyyLomaAsuntosi = () => {
               {/* Contact Form */}
               <ScrollReveal delay={0.3}>
                 <section className="glass-card p-8 rounded-2xl">
-                  <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-foreground">
-                    Ota yhteyttä
-                  </h2>
+                  <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-foreground">Ota yhteyttä</h2>
                   <p className="text-muted-foreground mb-8">
                     Kerro meille kohteestasi, niin otamme sinuun yhteyttä mahdollisimman pian.
                   </p>
@@ -298,9 +293,7 @@ const MyyLomaAsuntosi = () => {
                       <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                         <CheckCircle2 className="w-8 h-8 text-green-400" />
                       </div>
-                      <h3 className="text-2xl font-semibold mb-3 text-foreground">
-                        Kiitos yhteydenotostasi!
-                      </h3>
+                      <h3 className="text-2xl font-semibold mb-3 text-foreground">Kiitos yhteydenotostasi!</h3>
                       <p className="text-muted-foreground">
                         Olemme vastaanottaneet tietosi ja otamme sinuun yhteyttä pian.
                       </p>
@@ -309,7 +302,9 @@ const MyyLomaAsuntosi = () => {
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="name" className="text-foreground">Nimi *</Label>
+                          <Label htmlFor="name" className="text-foreground">
+                            Nimi *
+                          </Label>
                           <Input
                             id="name"
                             value={formData.name}
@@ -320,7 +315,9 @@ const MyyLomaAsuntosi = () => {
                           {errors.name && <p className="text-destructive text-sm">{errors.name}</p>}
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="email" className="text-foreground">Sähköposti *</Label>
+                          <Label htmlFor="email" className="text-foreground">
+                            Sähköposti *
+                          </Label>
                           <Input
                             id="email"
                             type="email"
@@ -335,7 +332,9 @@ const MyyLomaAsuntosi = () => {
 
                       <div className="grid sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="phone" className="text-foreground">Puhelinnumero</Label>
+                          <Label htmlFor="phone" className="text-foreground">
+                            Puhelinnumero
+                          </Label>
                           <Input
                             id="phone"
                             type="tel"
@@ -345,7 +344,9 @@ const MyyLomaAsuntosi = () => {
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="address" className="text-foreground">Kohteen osoite/sijainti *</Label>
+                          <Label htmlFor="address" className="text-foreground">
+                            Kohteen osoite/sijainti *
+                          </Label>
                           <Input
                             id="address"
                             value={formData.address}
@@ -389,7 +390,9 @@ const MyyLomaAsuntosi = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="message" className="text-foreground">Lisätiedot kohteesta</Label>
+                        <Label htmlFor="message" className="text-foreground">
+                          Lisätiedot kohteesta
+                        </Label>
                         <Textarea
                           id="message"
                           value={formData.message}
@@ -399,12 +402,7 @@ const MyyLomaAsuntosi = () => {
                         />
                       </div>
 
-                      <Button 
-                        type="submit" 
-                        size="lg" 
-                        className="w-full"
-                        disabled={isSubmitting}
-                      >
+                      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
                         {isSubmitting ? (
                           <>
                             <Loader2 className="w-5 h-5 mr-2 animate-spin" />
@@ -439,7 +437,7 @@ const MyyLomaAsuntosi = () => {
                       <h3 className="text-xl font-semibold text-foreground">Välittäjän kautta</h3>
                     </div>
                     <p className="text-muted-foreground leading-relaxed">
-                      Perinteinen tapa myydä loma-asunto. Välittäjä hoitaa markkinoinnin, näytöt ja neuvottelut. 
+                      Perinteinen tapa myydä loma-asunto. Välittäjä hoitaa markkinoinnin, näytöt ja neuvottelut.
                       Prosessi voi kestää useita kuukausia riippuen markkinatilanteesta ja kohteen kysynnästä.
                     </p>
                   </div>
@@ -453,14 +451,15 @@ const MyyLomaAsuntosi = () => {
                       <h3 className="text-xl font-semibold text-foreground">Suora myynti ostajalle</h3>
                     </div>
                     <p className="text-muted-foreground leading-relaxed">
-                      Myyt suoraan kiinnostuneelle ostajalle ilman välikäsiä. Prosessi on usein nopeampi 
-                      ja säästyt välityspalkkiolta. Sopii erityisesti, kun haluat varmuuden kaupasta.
+                      Myyt suoraan kiinnostuneelle ostajalle ilman välikäsiä. Prosessi on usein nopeampi ja säästyt
+                      välityspalkkiolta. Sopii erityisesti, kun haluat varmuuden kaupasta.
                     </p>
                   </div>
                 </div>
                 <p className="text-center text-muted-foreground mt-8 max-w-3xl mx-auto">
-                  Molemmat vaihtoehdot toimivat – valinta riippuu tilanteestasi ja aikataulustasi. 
-                  Suora myynti sopii erityisesti silloin, kun haluat varmistaa nopean ja selkeän kaupan ilman ylimääräisiä kuluja.
+                  Molemmat vaihtoehdot toimivat – valinta riippuu tilanteestasi ja aikataulustasi. Suora myynti sopii
+                  erityisesti silloin, kun haluat varmistaa nopean ja selkeän kaupan ilman kuluja. Saat kauppahinnan
+                  tilillesi parhaimmillaan päivissä.
                 </p>
               </section>
             </ScrollReveal>
@@ -477,9 +476,9 @@ const MyyLomaAsuntosi = () => {
                       Tarvitaanko välittäjää loma-asunnon myyntiin Levillä?
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
-                      Ei välttämättä. Voit myydä loma-asuntosi myös suoraan ostajalle. Välittäjä voi auttaa 
-                      markkinoinnissa ja näytöissä, mutta suora myynti on usein nopeampi ja edullisempi vaihtoehto. 
-                      Valinta riippuu omista toiveistasi ja aikataulustasi.
+                      Ei välttämättä. Voit myydä loma-asuntosi myös suoraan ostajalle. Välittäjä auttaa markkinoinnissa
+                      ja näytöissä, mutta suora myynti on usein nopeampi ja edullisempi vaihtoehto. Valinta riippuu
+                      omista toiveistasi, tavoitteistasi ja aikataulustasi.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -488,9 +487,9 @@ const MyyLomaAsuntosi = () => {
                       Kannattaako loma-asunto myydä välittäjän kautta vai suoraan ostajalle?
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
-                      Molemmissa vaihtoehdoissa on puolensa. Välittäjä voi tavoittaa laajan ostajajoukon, 
-                      mutta veloittaa palkkion. Suorassa myynnissä säästät välityspalkkion ja prosessi on 
-                      usein nopeampi, kun ostaja on jo valmiina.
+                      Molemmissa vaihtoehdoissa on puolensa. Välittäjä voi tavoittaa laajan ostajajoukon, mutta
+                      veloittaa palkkion. Suorassa myynnissä säästät välityspalkkion ja prosessi on usein nopea, kun
+                      ostaja on jo valmiina.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -499,8 +498,8 @@ const MyyLomaAsuntosi = () => {
                       Onko yhteydenotto teihin sitova?
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
-                      Ei. Yhteydenotto ja arvio ovat täysin maksuttomia ja sitoumuksettomia. 
-                      Saat rauhassa harkita tarjousta ennen päätöstä.
+                      Ei. Yhteydenotto ja arvio ovat täysin maksuttomia ja sitoumuksettomia. Saat rauhassa harkita
+                      tarjousta ennen päätöstä.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -509,8 +508,8 @@ const MyyLomaAsuntosi = () => {
                       Miten loma-asunnon hinta määritellään?
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
-                      Arvioimme kohteen käyvän markkinahinnan perustuen sijaintiin, kuntoon, kokoon ja 
-                      Levin alueen hintatasoon. Käytämme vertailuaineistona toteutuneita kauppahintoja.
+                      Arvioimme kohteen käyvän markkinahinnan perustuen sijaintiin, kuntoon, kokoon ja Levin alueen
+                      hintatasoon. Käytämme vertailuaineistona myös toteutuneita kauppahintoja.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -519,8 +518,7 @@ const MyyLomaAsuntosi = () => {
                       Kuinka nopeasti kaupat voidaan tehdä?
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
-                      Parhaimmillaan kauppa voidaan tehdä muutamassa viikossa. Aikataulu riippuu kohteen 
-                      tiedoista ja mahdollisista katseluista. Pyrimme aina joustavuuteen sinun aikataulusi mukaan.
+                      Parhaimmillaan kauppa voidaan tehdä päivissä. Pyrimme aina joustavuuteen sinun aikataulusi mukaan.
                     </AccordionContent>
                   </AccordionItem>
 
@@ -529,14 +527,14 @@ const MyyLomaAsuntosi = () => {
                       Voinko myydä kohteen, vaikka se olisi vuokrakäytössä?
                     </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground leading-relaxed pb-4">
-                      Kyllä. Vuokrakäytössä oleva loma-asunto voidaan myydä. Käymme tilanteen läpi ja 
-                      sovimme yhdessä siirtymäaikataulun, joka sopii kaikille osapuolille.
+                      Kyllä. Vuokrakäytössä oleva loma-asunto voidaan myydä. Käymme tilanteen läpi ja sovimme yhdessä
+                      siirtymäaikataulun, joka sopii kaikille osapuolille. Tulevaisuuden vuokraukset voidaan jättää
+                      huoneistoon, samoin pitkäaikainen vuokralainen
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
               </section>
             </ScrollReveal>
-
           </div>
         </main>
 
