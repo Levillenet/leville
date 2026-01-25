@@ -65,3 +65,6 @@ verify_jwt = false
 
 [functions.fmi-snow-data]
 verify_jwt = false
+
+[functions.send-property-inquiry]
+verify_jwt = false
