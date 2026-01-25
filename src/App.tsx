@@ -26,6 +26,7 @@ import Asiakaspalvelu from "./pages/Asiakaspalvelu";
 import Unsubscribe from "./pages/Unsubscribe";
 import LeviPronounce from "./pages/LeviPronounce";
 import Latuinfo from "./pages/Latuinfo";
+import MyyLomaAsuntosi from "./pages/MyyLomaAsuntosi";
 import NotFound from "./pages/NotFound";
 
 // SEO Landing Pages
@@ -214,6 +215,7 @@ const App = () => (
               <Route path="/unsubscribe" element={<Unsubscribe />} />
               <Route path="/levi-pronounce" element={<LeviPronounce />} />
               <Route path="/latuinfo" element={<Latuinfo />} />
+              <Route path="/myy-loma-asuntosi" element={<MyyLomaAsuntosi />} />
               
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
