@@ -148,20 +148,22 @@ const MyyLomaAsuntosi = () => {
   return (
     <>
       <Helmet>
-        <title>Myy loma-asuntosi Levillä | Leville.net – Ostamme loma-asuntoja</title>
+        <title>Myy loma-asuntosi Levillä | Leville.net</title>
         <meta 
           name="description" 
-          content="Ostamme loma-asuntoja ja taloja Levin keskustasta käypään markkinahintaan. Nopea prosessi, ei välityspalkkioita. Ota yhteyttä!" 
+          content="Myy loma-asunto tai mökki Levillä suoraan meille. Ostamme käypään hintaan ilman välityspalkkioita. Nopea arvio ja kauppa." 
         />
         <link rel="canonical" href="https://leville.net/myy-loma-asuntosi" />
+        <meta name="robots" content="index, follow" />
         <meta property="og:title" content="Myy loma-asuntosi Levillä | Leville.net" />
-        <meta property="og:description" content="Ostamme loma-asuntoja ja taloja Levin keskustasta käypään markkinahintaan. Nopea prosessi, ei välityspalkkioita." />
+        <meta property="og:description" content="Myy loma-asunto tai mökki Levillä suoraan meille. Ostamme käypään hintaan ilman välityspalkkioita." />
         <meta property="og:url" content="https://leville.net/myy-loma-asuntosi" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="fi_FI" />
+        <meta property="og:site_name" content="Leville.net" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Myy loma-asuntosi Levillä | Leville.net" />
-        <meta name="twitter:description" content="Ostamme loma-asuntoja ja taloja Levin keskustasta käypään markkinahintaan." />
+        <meta name="twitter:description" content="Myy loma-asunto tai mökki Levillä suoraan meille. Nopea prosessi, ei välityspalkkioita." />
         <script type="application/ld+json">
           {JSON.stringify(organizationSchema)}
         </script>
