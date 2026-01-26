@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -24,6 +24,8 @@ interface AddActivityDialogProps {
   onClose: () => void;
   plan: PlanDay[];
   onAdd: (dayIndex: number, slotIndex: number, activity: PlannerActivity) => void;
+  initialDayIndex?: number;
+  initialSlotIndex?: number;
 }
 
 const translations = {
@@ -61,12 +63,32 @@ const translations = {
 
 const generateId = () => Math.random().toString(36).substring(2, 9);
 
-const AddActivityDialog = ({ lang, isOpen, onClose, plan, onAdd }: AddActivityDialogProps) => {
+const AddActivityDialog = ({ 
+  lang, 
+  isOpen, 
+  onClose, 
+  plan, 
+  onAdd,
+  initialDayIndex,
+  initialSlotIndex 
+}: AddActivityDialogProps) => {
   const t = translations[lang];
   const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
   const [selectedDay, setSelectedDay] = useState<string>('');
   const [selectedSlot, setSelectedSlot] = useState<string>('');
+
+  // Pre-select day and slot when provided
+  useEffect(() => {
+    if (isOpen) {
+      if (initialDayIndex !== undefined) {
+        setSelectedDay(initialDayIndex.toString());
+      }
+      if (initialSlotIndex !== undefined) {
+        setSelectedSlot(initialSlotIndex.toString());
+      }
+    }
+  }, [isOpen, initialDayIndex, initialSlotIndex]);
 
   const handleAdd = () => {
     if (!title || !selectedDay || !selectedSlot) return;
