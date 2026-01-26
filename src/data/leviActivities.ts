@@ -159,12 +159,12 @@ export const leviActivities: LeviActivity[] = [
     physicalDemand: 'low',
     minAge: 0,
     requiresCar: false,
-    timeOfDay: ['morning', 'afternoon'],
+    timeOfDay: ['evening'],
     seasonAvailable: ['winter', 'spring'],
     icon: 'ArrowDown',
     description: {
-      fi: 'Ilmaisia pulkkamäkiä ympäri Leviä.',
-      en: 'Free sledding hills around Levi.'
+      fi: 'Ilmainen pulkkamäki Levin eturinteellä. Pulkkia saa lainata rinteen alaasemalta.',
+      en: 'Free sledding hill at Levi front slopes. Sleds can be borrowed from the base station.'
     }
   },
   {
