@@ -29,13 +29,17 @@ const getAvailableActivities = (
   timeOfDay: 'morning' | 'afternoon' | 'evening',
   minChildAge: number,
   hasCar: boolean,
-  usedActivityIds: Set<string>
+  usedActivityIds: Set<string>,
+  excludeIds: string[] = []
 ): LeviActivity[] => {
   return leviActivities.filter(activity => {
     if (!isActivitySuitable(activity, minChildAge, hasCar)) return false;
     if (!activity.timeOfDay.includes(timeOfDay)) return false;
-    // Don't suggest the same activity twice (except free-time)
-    if (activity.id !== 'free-time' && usedActivityIds.has(activity.id)) return false;
+    // Don't suggest the same activity twice (except free-time and sauna-evening which can repeat)
+    const repeatableActivities = ['free-time', 'sauna-evening'];
+    if (!repeatableActivities.includes(activity.id) && usedActivityIds.has(activity.id)) return false;
+    // Also exclude explicitly excluded IDs
+    if (excludeIds.includes(activity.id)) return false;
     return true;
   });
 };
@@ -201,11 +205,20 @@ export const generatePlan = (
         targetActivities--;
       }
 
-      // Ensure every day has at least some free time for relaxed/balanced
+      // If no activities in afternoon slot for relaxed/balanced, add something
       if (style !== 'active' && slot.activities.length === 0 && slotIndex === 1) {
-        const freeTime = getActivityById('free-time');
-        if (freeTime) {
-          slot.activities.push(createPlannerActivity(freeTime, lang));
+        // Try to find any suitable relaxation activity that hasn't been used
+        const relaxAvailable = available.filter(a => a.category === 'relaxation' || a.physicalDemand === 'low');
+        if (relaxAvailable.length > 0) {
+          const randomRelax = relaxAvailable[Math.floor(Math.random() * relaxAvailable.length)];
+          slot.activities.push(createPlannerActivity(randomRelax, lang));
+          usedActivityIds.add(randomRelax.id);
+        } else {
+          // Only use free-time as last resort
+          const freeTime = getActivityById('free-time');
+          if (freeTime) {
+            slot.activities.push(createPlannerActivity(freeTime, lang));
+          }
         }
       }
     });
