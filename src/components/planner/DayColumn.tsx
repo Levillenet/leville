@@ -11,6 +11,7 @@ interface DayColumnProps {
   onRemoveActivity: (dayIndex: number, slotIndex: number, activityIndex: number) => void;
   onMoveActivity: (fromDay: number, fromSlot: number, fromIndex: number, toDay: number, toSlot: number) => void;
   onUpdateNote: (dayIndex: number, note: string) => void;
+  onAddActivity?: (dayIndex: number, slotIndex: number) => void;
 }
 
 const translations = {
@@ -30,6 +31,7 @@ const DayColumn = ({
   onRemoveActivity,
   onMoveActivity,
   onUpdateNote,
+  onAddActivity,
 }: DayColumnProps) => {
   const t = translations[lang];
 
@@ -60,6 +62,7 @@ const DayColumn = ({
             onDropActivity={(fromDay, fromSlot, fromIndex) => 
               onMoveActivity(fromDay, fromSlot, fromIndex, dayIndex, slotIndex)
             }
+            onAddActivity={onAddActivity ? () => onAddActivity(dayIndex, slotIndex) : undefined}
           />
         ))}
       </div>

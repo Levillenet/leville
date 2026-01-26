@@ -29,8 +29,8 @@ export const leviActivities: LeviActivity[] = [
     seasonAvailable: ['winter', 'spring'],
     icon: 'Mountain',
     description: {
-      fi: 'Levin 43 rinnettä tarjoavat laskettelijoille kaikentasoisia haasteita.',
-      en: "Levi's 43 slopes offer challenges for all skill levels."
+      fi: 'Levin 43 rinnettä tarjoavat haastetta kaikentasoisille. Tutustu myös rinneravintoloihin kuten Tuikku ja Gondoli – taukopaikkoihin upeiden maisemien keskellä.',
+      en: "Levi's 43 slopes offer challenges for all skill levels. Check out slope restaurants like Tuikku and Gondoli – perfect spots for breaks with stunning views."
     }
   },
   {
@@ -45,8 +45,8 @@ export const leviActivities: LeviActivity[] = [
     seasonAvailable: ['winter', 'spring'],
     icon: 'TreePine',
     description: {
-      fi: '230 km huollettuja latuja tunturimaisemissa.',
-      en: '230 km of groomed trails in fell landscapes.'
+      fi: '230 km huollettuja latuja tunturimaisemissa. Voit lähteä suoraan keskustasta. Latuinfon saat Levin sivulta.',
+      en: '230 km of groomed trails in fell landscapes. Start directly from the center. Check trail info from Levi website.'
     }
   },
 
@@ -63,8 +63,8 @@ export const leviActivities: LeviActivity[] = [
     seasonAvailable: ['winter', 'spring'],
     icon: 'Dog',
     description: {
-      fi: 'Unohtumaton kokemus koiravaljakon kyydissä lumisessa erämaassa.',
-      en: 'Unforgettable experience riding a dog sled through snowy wilderness.'
+      fi: 'Koiravaljakkoajelu lumisessa erämaassa on unohtumaton kokemus. Safarit kestävät 1–4 tuntia ja sisältävät kuljetuksen.',
+      en: 'Dog sled ride through snowy wilderness is an unforgettable experience. Safaris last 1–4 hours and include transport.'
     }
   },
   {
@@ -79,8 +79,8 @@ export const leviActivities: LeviActivity[] = [
     seasonAvailable: ['winter', 'spring', 'summer', 'autumn'],
     icon: 'Heart',
     description: {
-      fi: 'Tapaa poroja läheltä ja opi poronhoitajan elämästä.',
-      en: 'Meet reindeer up close and learn about herder life.'
+      fi: 'Porofarmilla tapaat poroja, kuulet tarinoita poronhoitajien elämästä ja voit nauttia kupposen kuumaa mehua kodassa. Sopii kaikenikäisille.',
+      en: 'At the reindeer farm you meet reindeer, hear stories about herder life and enjoy hot drinks in a traditional kota. Suitable for all ages.'
     }
   },
   {
@@ -111,8 +111,8 @@ export const leviActivities: LeviActivity[] = [
     seasonAvailable: ['winter', 'autumn'],
     icon: 'Sparkles',
     description: {
-      fi: 'Opastettu retki parhaille revontulipaikoille.',
-      en: 'Guided tour to the best aurora viewing spots.'
+      fi: 'Revontuliretki vie sinut parhaalle katselupaikalle pois valosaasteen keskeltä. Retki sisältää kuljetuksen.',
+      en: 'Northern lights tour takes you to the best viewing spots away from light pollution. Tour includes transport.'
     }
   },
 
@@ -129,8 +129,8 @@ export const leviActivities: LeviActivity[] = [
     seasonAvailable: ['winter', 'spring', 'summer', 'autumn'],
     icon: 'Droplets',
     description: {
-      fi: 'Rentoudu kylpylässä uima-altailla ja saunassa.',
-      en: 'Relax in spa with pools and sauna.'
+      fi: 'Kylpylä & Spa -vierailun voit tehdä esim. Levi Hotel Spassa. Altaat, saunat ja hemmotteluhoidot rentouttavat aktiviteettipäivän jälkeen.',
+      en: 'Visit Levi Hotel Spa for pools, saunas and spa treatments. Perfect way to relax after an active day.'
     }
   },
   {
@@ -263,8 +263,8 @@ export const leviActivities: LeviActivity[] = [
     seasonAvailable: ['winter', 'spring', 'summer', 'autumn'],
     icon: 'MapPin',
     description: {
-      fi: 'Tutustu Levin keskustaan, kauppoihin ja ravintoloihin.',
-      en: 'Explore Levi center, shops and restaurants.'
+      fi: 'Tutustu Levin keskustan pieniin putiikkeihin, matkamuistomyymälöihin ja kahviloihin. Zero Point -alue ja kävelykatu tarjoavat monipuolista shoppailua ja rentoa tunnelmaa.',
+      en: 'Explore small boutiques, souvenir shops and cafés in Levi center. Zero Point area and the pedestrian street offer diverse shopping and relaxed atmosphere.'
     }
   },
   {
@@ -279,8 +279,8 @@ export const leviActivities: LeviActivity[] = [
     seasonAvailable: ['winter', 'spring', 'summer', 'autumn'],
     icon: 'Utensils',
     description: {
-      fi: 'Nauti paikallisesta ruokakulttuurista Levin ravintoloissa.',
-      en: 'Enjoy local cuisine at Levi restaurants.'
+      fi: 'Levillä on ravintoloita jokaiseen makuun: lappilaista ruokaa Hullu Porossa, fine diningtiä King Crabissa tai rentoa tunnelmaa Coloradossa.',
+      en: 'Levi has restaurants for every taste: Lappish cuisine at Hullu Poro, fine dining at King Crab or relaxed atmosphere at Colorado.'
     }
   }
 ];

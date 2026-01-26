@@ -41,6 +41,8 @@ const PlannerView = ({ lang, wizardData, initialPlan, onReset }: PlannerViewProp
   const [plan, setPlan] = useState<PlanDay[]>(initialPlan);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isPrintMode, setIsPrintMode] = useState(false);
+  const [preselectedDay, setPreselectedDay] = useState<number | undefined>(undefined);
+  const [preselectedSlot, setPreselectedSlot] = useState<number | undefined>(undefined);
 
   // Update an activity in the plan
   const updateActivity = (
@@ -136,6 +138,29 @@ const PlannerView = ({ lang, wizardData, initialPlan, onReset }: PlannerViewProp
       return newPlan;
     });
     setIsAddDialogOpen(false);
+    setPreselectedDay(undefined);
+    setPreselectedSlot(undefined);
+  };
+
+  // Open dialog with preselected day and slot
+  const handleAddActivityFromSlot = (dayIndex: number, slotIndex: number) => {
+    setPreselectedDay(dayIndex);
+    setPreselectedSlot(slotIndex);
+    setIsAddDialogOpen(true);
+  };
+
+  // Open dialog without preselection
+  const handleOpenAddDialog = () => {
+    setPreselectedDay(undefined);
+    setPreselectedSlot(undefined);
+    setIsAddDialogOpen(true);
+  };
+
+  // Close dialog and reset preselection
+  const handleCloseDialog = () => {
+    setIsAddDialogOpen(false);
+    setPreselectedDay(undefined);
+    setPreselectedSlot(undefined);
   };
 
   // Regenerate plan
@@ -202,6 +227,7 @@ const PlannerView = ({ lang, wizardData, initialPlan, onReset }: PlannerViewProp
               onRemoveActivity={removeActivity}
               onMoveActivity={moveActivity}
               onUpdateNote={updateDayNote}
+              onAddActivity={handleAddActivityFromSlot}
             />
           </motion.div>
         ))}
@@ -211,7 +237,7 @@ const PlannerView = ({ lang, wizardData, initialPlan, onReset }: PlannerViewProp
       <div className="mt-6 flex justify-center">
         <Button
           variant="outline"
-          onClick={() => setIsAddDialogOpen(true)}
+          onClick={handleOpenAddDialog}
           className="flex items-center gap-2"
         >
           <Plus className="h-4 w-4" />
@@ -223,9 +249,11 @@ const PlannerView = ({ lang, wizardData, initialPlan, onReset }: PlannerViewProp
       <AddActivityDialog
         lang={lang}
         isOpen={isAddDialogOpen}
-        onClose={() => setIsAddDialogOpen(false)}
+        onClose={handleCloseDialog}
         plan={plan}
         onAdd={addActivity}
+        initialDayIndex={preselectedDay}
+        initialSlotIndex={preselectedSlot}
       />
     </div>
   );

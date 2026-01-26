@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { TimeSlot as TimeSlotType, PlannerActivity } from '@/types/planner';
 import ActivityCard from './ActivityCard';
 import { cn } from '@/lib/utils';
+import { Plus } from 'lucide-react';
 
 interface TimeSlotProps {
   lang: 'fi' | 'en';
@@ -11,7 +12,19 @@ interface TimeSlotProps {
   onUpdateActivity: (activityIndex: number, updates: Partial<PlannerActivity>) => void;
   onRemoveActivity: (activityIndex: number) => void;
   onDropActivity: (fromDay: number, fromSlot: number, fromIndex: number) => void;
+  onAddActivity?: () => void;
 }
+
+const translations = {
+  fi: {
+    addActivity: 'Lisää aktiviteetti',
+    free: 'Vapaa',
+  },
+  en: {
+    addActivity: 'Add activity',
+    free: 'Free',
+  }
+};
 
 const TimeSlot = ({
   lang,
@@ -21,7 +34,9 @@ const TimeSlot = ({
   onUpdateActivity,
   onRemoveActivity,
   onDropActivity,
+  onAddActivity,
 }: TimeSlotProps) => {
+  const t = translations[lang];
   const [isDropTarget, setIsDropTarget] = useState(false);
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -81,9 +96,13 @@ const TimeSlot = ({
             />
           ))
         ) : (
-          <div className="text-xs text-muted-foreground/50 text-center py-2">
-            {lang === 'fi' ? 'Vapaa' : 'Free'}
-          </div>
+          <button
+            onClick={onAddActivity}
+            className="w-full text-xs text-muted-foreground/70 hover:text-primary hover:bg-primary/5 rounded-md py-3 flex items-center justify-center gap-1.5 transition-colors"
+          >
+            <Plus className="h-3 w-3" />
+            {t.addActivity}
+          </button>
         )}
       </div>
     </div>
