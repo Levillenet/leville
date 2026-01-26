@@ -7,8 +7,7 @@ import { X, GripVertical, Edit2, Car, Mountain, Dog, Heart, Sparkles, Zap, Dropl
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 interface ActivityCardProps {
   lang: 'fi' | 'en';
   activity: PlannerActivity;
@@ -148,99 +147,96 @@ const ActivityCard = ({
   }
 
   return (
-    <Popover>
-      <motion.div
-        className={cn(
-          "group relative bg-background rounded-lg p-3 cursor-grab active:cursor-grabbing",
-          "border-2 transition-all",
-          isSuggested 
-            ? "border-primary/30 hover:border-primary/50" 
-            : "border-accent hover:border-accent/80",
-          isDragging && "opacity-50"
-        )}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        {/* Native drag wrapper */}
-        <div
-          draggable
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-          className="absolute inset-0"
-        />
-
-        {/* Drag handle */}
-        <div className="absolute left-1 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-50 transition-opacity pointer-events-none">
-          <GripVertical className="h-4 w-4 text-muted-foreground" />
-        </div>
-
-        {/* Remove button */}
-        <button
-          onClick={onRemove}
-          className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-10"
+    <Tooltip delayDuration={200}>
+      <TooltipTrigger asChild>
+        <motion.div
+          className={cn(
+            "group relative bg-background rounded-lg p-3 cursor-grab active:cursor-grabbing",
+            "border-2 transition-all",
+            isSuggested 
+              ? "border-primary/30 hover:border-primary/50" 
+              : "border-accent hover:border-accent/80",
+            isDragging && "opacity-50"
+          )}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
         >
-          <X className="h-3 w-3" />
-        </button>
+          {/* Native drag wrapper */}
+          <div
+            draggable
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            className="absolute inset-0"
+          />
 
-        {/* Info button - only for suggested activities with descriptions */}
-        {leviActivity && (
-          <PopoverTrigger asChild>
-            <button
-              className="absolute top-1 right-12 opacity-0 group-hover:opacity-100 transition-opacity z-10 p-1 hover:bg-muted rounded"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Info className="h-3 w-3 text-muted-foreground hover:text-foreground" />
-            </button>
-          </PopoverTrigger>
-        )}
-
-        {/* Edit button */}
-        <button
-          onClick={() => setIsEditing(true)}
-          className="absolute top-1 right-6 opacity-0 group-hover:opacity-100 transition-opacity z-10"
-        >
-          <Edit2 className="h-3 w-3 text-muted-foreground hover:text-foreground" />
-        </button>
-
-        {/* Content */}
-        <div className="flex items-start gap-2 pl-4 relative z-0 pointer-events-none">
-          <div className={cn(
-            "p-1.5 rounded",
-            isSuggested ? "bg-primary/10 text-primary" : "bg-accent text-accent-foreground"
-          )}>
-            <IconComponent className="h-4 w-4" />
+          {/* Drag handle */}
+          <div className="absolute left-1 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-50 transition-opacity pointer-events-none">
+            <GripVertical className="h-4 w-4 text-muted-foreground" />
           </div>
-          <div className="flex-1 min-w-0">
-            <div className="font-medium text-sm text-foreground truncate">
-              {activity.title}
+
+          {/* Remove button */}
+          <button
+            onClick={onRemove}
+            className="absolute -top-1 -right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-10"
+          >
+            <X className="h-3 w-3" />
+          </button>
+
+          {/* Info icon - visible indicator */}
+          {leviActivity && (
+            <div className="absolute top-1 right-12 z-10 p-1.5 text-muted-foreground">
+              <Info className="h-4 w-4" />
             </div>
-            {activity.note && (
-              <div className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
-                {activity.note}
+          )}
+
+          {/* Edit button */}
+          <button
+            onClick={() => setIsEditing(true)}
+            className="absolute top-1 right-6 opacity-0 group-hover:opacity-100 transition-opacity z-10"
+          >
+            <Edit2 className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+          </button>
+
+          {/* Content */}
+          <div className="flex items-start gap-2 pl-4 relative z-0 pointer-events-none">
+            <div className={cn(
+              "p-1.5 rounded",
+              isSuggested ? "bg-primary/10 text-primary" : "bg-accent text-accent-foreground"
+            )}>
+              <IconComponent className="h-4 w-4" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-medium text-sm text-foreground truncate">
+                {activity.title}
               </div>
-            )}
-            <div className="flex items-center gap-2 mt-1">
-              <span className={cn(
-                "text-[10px] font-medium px-1.5 py-0.5 rounded",
-                isSuggested 
-                  ? "bg-primary/10 text-primary" 
-                  : "bg-accent text-accent-foreground"
-              )}>
-                {isSuggested ? `⭐ ${t.suggested}` : `🧑 ${t.userAdded}`}
-              </span>
-              {requiresCar && (
-                <span className="text-[10px] text-muted-foreground flex items-center gap-0.5">
-                  <Car className="h-3 w-3" />
-                </span>
+              {activity.note && (
+                <div className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
+                  {activity.note}
+                </div>
               )}
+              <div className="flex items-center gap-2 mt-1">
+                <span className={cn(
+                  "text-[10px] font-medium px-1.5 py-0.5 rounded",
+                  isSuggested 
+                    ? "bg-primary/10 text-primary" 
+                    : "bg-accent text-accent-foreground"
+                )}>
+                  {isSuggested ? `⭐ ${t.suggested}` : `🧑 ${t.userAdded}`}
+                </span>
+                {requiresCar && (
+                  <span className="text-[10px] text-muted-foreground flex items-center gap-0.5">
+                    <Car className="h-3 w-3" />
+                  </span>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </TooltipTrigger>
 
-      {/* Popover content */}
+      {/* Tooltip content - opens on hover */}
       {leviActivity && (
-        <PopoverContent className="w-72 p-4" align="start">
+        <TooltipContent side="top" className="w-72 p-4 bg-popover border border-border shadow-lg">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="p-1.5 rounded bg-primary/10 text-primary">
@@ -256,16 +252,16 @@ const ActivityCard = ({
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground px-3 py-2 rounded-md text-sm font-medium transition-colors pointer-events-auto"
               >
                 <MessageCircle className="h-4 w-4" />
                 {t.askQuote}
               </a>
             )}
           </div>
-        </PopoverContent>
+        </TooltipContent>
       )}
-    </Popover>
+    </Tooltip>
   );
 };
 
