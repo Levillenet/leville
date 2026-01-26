@@ -54,6 +54,7 @@ import GettingAroundLevi from "./pages/guide/GettingAroundLevi";
 import RestaurantsAndServices from "./pages/guide/RestaurantsAndServices";
 import LeviWithChildren from "./pages/guide/LeviWithChildren";
 import LeviWithoutCar from "./pages/guide/LeviWithoutCar";
+import HolidayPlanner from "./pages/HolidayPlanner";
 
 const queryClient = new QueryClient();
 
@@ -209,6 +210,10 @@ const App = () => (
               <Route path="/guide/restaurants-and-services-in-levi" element={<RestaurantsAndServices lang="en" />} />
               <Route path="/guide/levi-with-children" element={<LeviWithChildren lang="en" />} />
               <Route path="/guide/levi-without-a-car" element={<LeviWithoutCar lang="en" />} />
+              
+              {/* Holiday Planner */}
+              <Route path="/lomasuunnittelija" element={<HolidayPlanner />} />
+              <Route path="/en/holiday-planner" element={<HolidayPlanner lang="en" />} />
               
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
