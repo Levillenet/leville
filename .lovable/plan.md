@@ -1,104 +1,110 @@
 
-## Suunnitelma: Aktiviteettikorttien info ja tyhjien slottien klikattavuus
 
-### Tavoite
-1. Lisätä **info-popover/-tooltip** jokaiseen ehdotettuun aktiviteettiin (näyttää kuvauksen)
-2. Laajentaa aktiviteettikuvauksia (esim. laskettelussa rinneravintolat, kylän tutkimisessa kaupat/kahvilat)
-3. Revontuliretken kohdalla **erikois-CTA**: WhatsApp-linkki tarjouspyyntöön (+358 440 666 766)
-4. Tyhjät slotit ("Vapaa") **klikattavaksi** → avaa lisäysdialogi suoraan kyseiselle päivälle ja slotille
+## Suunnitelma: Mobiilin yläpalkin optimointi
 
----
+### Ongelma
+Mobiilissa yläpalkki on ahdas:
+- Logo kutistuu liian pieneksi
+- Säätiedot (lämpötila + kylmin 24h + lumensyvyys) vievät liikaa tilaa
+- Kaikki elementit eivät mahdu siististi samalle riville
 
-### Muutokset
+### Ratkaisu
 
-#### 1. `src/data/leviActivities.ts` – Laajennetut kuvaukset
+#### 1. `src/components/WeatherWidget.tsx` – Mobiiliversio yksinkertaisemmaksi
 
-| Aktiviteetti | Uusi kuvaus (FI) |
-|-------------|------------------|
-| skiing | "Levin 43 rinnettä tarjoavat haastetta kaikentasoisille. Tutustu myös rinneravintoloihin kuten Tuikku ja Gondoli – taukopaikkoihin upeiden maisemien keskellä." |
-| village-walk | "Tutustu Levin keskustan pieniin putiikkeihin, matkamuistomyymälöihin ja kahviloihin. Zero Point -alue ja kävelykatu tarjoavat monipuolista shoppailua ja rentoa tunnelmaa." |
-| cross-country | "230 km huollettuja latuja tunturimaisemissa. Voit lähteä suoraan keskustasta. Latuinfon saat Levin sivulta." |
-| restaurant-dinner | "Levillä on ravintoloita jokaiseen makuun: lappilaista ruokaa Hullu Porossa, fine diningtiä King Crabissa tai rentoa tunnelmaa Coloradossa." |
-| spa | "Kylpylä & Spa -vierailun voit tehdä esim. Levi Hotel Spassa. Altaat, saunat ja hemmotteluhoidot rentouttavat aktiviteettipäivän jälkeen." |
-| husky-safari | "Koiravaljakkoajelu lumisessa erämaassa on unohtumaton kokemus. Safarit kestävät 1–4 tuntia ja sisältävät kuljetuksen" |
-| reindeer-farm | "Porofarmilla tapaat poroja, kuulet tarinoita poronhoitajien elämästä ja voit nauttia kupposen kuumaa mehua kodassa. Sopii kaikenikäisille." |
-| northern-lights | "Revontuliretki vie sinut parhaalle katselupaikalle pois valosaasteen keskeltä. Retki sisältää kuljetuksen" |
+Lisätään `compact` prop, joka piilottaa "kylmin 24h" -tiedon mobiilissa:
 
----
-
-#### 2. `src/components/planner/ActivityCard.tsx` – Info-popover
-
-Lisätään:
-- **Info-ikoni** (lucide `Info`) joka avaa **Popover**-komponentin
-- Popover näyttää:
-  - Aktiviteetin kuvauksen (`leviActivity.description`)
-  - Revontuliretken kohdalla myös **WhatsApp-CTA** (+358 440 666 766)
+| Näyttö | Näytetään |
+|--------|-----------|
+| Desktop | Lämpötila + kylmin 24h + lumensyvyys |
+| Mobiili | Lämpötila + lumensyvyys (ei "kylmin 24h") |
 
 ```tsx
-// Uudet importit
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Info, MessageCircle } from 'lucide-react';
+interface WeatherWidgetProps {
+  compact?: boolean; // true mobiilissa
+}
 
-// Info-nappi kortin sisällä
-<PopoverTrigger asChild>
-  <button className="absolute top-1 right-12 opacity-0 group-hover:opacity-100 ...">
-    <Info className="h-3 w-3" />
-  </button>
-</PopoverTrigger>
-<PopoverContent>
-  <p className="text-sm">{leviActivity?.description[lang]}</p>
-  {activity.activityId === 'northern-lights' && (
-    <a href="https://wa.me/358440666766?text=...">
-      <MessageCircle /> Kysy tarjous WhatsAppissa
-    </a>
-  )}
-</PopoverContent>
+const WeatherWidget = ({ compact = false }: WeatherWidgetProps) => {
+  // ...
+  return (
+    <div className="flex items-center gap-1.5 sm:gap-2 text-foreground">
+      {getWeatherIcon(weather.weatherCode)}
+      <span className="font-semibold text-sm sm:text-base">{weather.temperature}°C</span>
+      
+      {/* Kylmin 24h - piilossa mobiilissa */}
+      {!compact && weather.minTemp24h !== null && (
+        <>
+          <span className="text-muted-foreground">|</span>
+          <ThermometerSnowflake className="w-3.5 h-3.5 text-cyan-400" />
+          <span className="font-semibold text-base text-cyan-400">{weather.minTemp24h}°C</span>
+          <span className="text-xs opacity-70">{coldestLabel}</span>
+        </>
+      )}
+      
+      {/* Lumensyvyys - näkyy molemmissa, mutta pienempi mobiilissa */}
+      {weather.snowDepth !== null && weather.snowDepth > 0 && (
+        <>
+          <span className="text-muted-foreground">|</span>
+          <Snowflake className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-300" />
+          <span className="font-semibold text-sm sm:text-base">{weather.snowDepth} cm</span>
+          {!compact && <span className="text-xs opacity-70">{snowLabel}</span>}
+        </>
+      )}
+    </div>
+  );
+};
 ```
 
 ---
 
-#### 3. `src/components/planner/TimeSlot.tsx` – Tyhjän slotin klikattavuus
+#### 2. `src/components/Header.tsx` – Mobiili-layout parannus
 
-Lisätään:
-- `onAddActivity` callback propseihin
-- Kun slot on tyhjä, "Vapaa"-teksti muutetaan **klikattavaksi napiksi** joka kutsuu `onAddActivity(dayIndex, slotIndex)`
+| Muutos | Kuvaus |
+|--------|--------|
+| Logo | Käytetään `min-w-0 flex-shrink` + `max-h-12` mobiilissa (skaalautuu paremmin) |
+| WeatherWidget | Välitetään `compact={true}` mobiiliversiossa |
+| Flex-layout | Käytetään `flex-shrink-0` hamburger-napille, jotta se ei kutistu |
 
 ```tsx
-// Tyhjän slotin nappi
-{slot.activities.length === 0 && (
-  <button 
-    onClick={() => onAddActivity(dayIndex, slotIndex)}
-    className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1"
-  >
-    <Plus className="h-3 w-3" /> 
-    {lang === 'fi' ? 'Lisää aktiviteetti' : 'Add activity'}
-  </button>
-)}
+{/* Logo and Mobile Weather */}
+<div className="flex items-center gap-1.5 sm:gap-3 min-w-0 flex-1">
+  <Link to={homeHref} className="flex items-center flex-shrink-0">
+    <img 
+      src={levilleLogo} 
+      alt="Leville.net" 
+      className="h-10 sm:h-16 md:h-20 lg:h-24 w-auto"
+    />
+  </Link>
+  {/* Mobile Weather Widget - compact */}
+  <div className="md:hidden min-w-0">
+    <WeatherWidget compact />
+  </div>
+</div>
+
+{/* Mobile Menu Button - ei kutistu */}
+<button className="md:hidden p-2 text-foreground flex-shrink-0">
+  ...
+</button>
 ```
 
 ---
 
-#### 4. `src/components/planner/DayColumn.tsx` – Propsien välitys
+### Visuaalinen muutos
 
-Lisätään `onAddActivity` propsi ja välitetään TimeSlotille.
+**Ennen (mobiili):**
+```
+[pieni logo] [-10°C | -22°C kylmin 24h | 68cm lunta] [☰]
+```
 
----
+**Jälkeen (mobiili):**
+```
+[logo h-10] [-10°C | 68cm] [☰]
+```
 
-#### 5. `src/components/planner/PlannerView.tsx` – Dialogin avaaminen esitäytettynä
-
-Lisätään:
-- `preselectedDay` ja `preselectedSlot` -tilat
-- Kun tyhjää slotia klikataan → asetetaan nämä ja avataan dialogi
-
----
-
-#### 6. `src/components/planner/AddActivityDialog.tsx` – Esitäytetyt valinnat
-
-Lisätään propseihin:
-- `initialDayIndex?: number`
-- `initialSlotIndex?: number`
-
-Kun dialogi avataan näillä arvoilla → päivä ja slotti on valmiiksi valittu.
+**Desktop pysyy ennallaan:**
+```
+[logo h-20+] [-10°C | -22°C kylmin 24h | 68cm lunta] [Navigaatio...] [Varaa nyt]
+```
 
 ---
 
@@ -106,36 +112,15 @@ Kun dialogi avataan näillä arvoilla → päivä ja slotti on valmiiksi valittu
 
 | Tiedosto | Muutos |
 |----------|--------|
-| `src/data/leviActivities.ts` | Laajennetut kuvaukset |
-| `src/components/planner/ActivityCard.tsx` | Info-popover + WhatsApp-CTA revontuliretkelle |
-| `src/components/planner/TimeSlot.tsx` | Tyhjän slotin klikattavuus |
-| `src/components/planner/DayColumn.tsx` | onAddActivity propsin välitys |
-| `src/components/planner/PlannerView.tsx` | Esitäytetty dialogi |
-| `src/components/planner/AddActivityDialog.tsx` | initialDayIndex/initialSlotIndex propsit |
+| `src/components/WeatherWidget.tsx` | Lisää `compact` prop, piilota "kylmin 24h" kun compact=true |
+| `src/components/Header.tsx` | Välitä `compact` mobiilissa, paranna flex-layout ja logon koko |
 
 ---
 
-### Käännökset
+### Tulos
 
-| Avain | FI | EN |
-|-------|----|----|
-| addActivityToSlot | Lisää aktiviteetti | Add activity |
-| askQuote | Kysy tarjous Leville.net-hintaan | Ask for a quote at Leville.net price |
-| whatsappCta | Lähetä viesti WhatsAppissa | Send a message on WhatsApp |
+1. Mobiilissa näkyy vain oleellisimmat säätiedot (lämpötila + lumensyvyys)
+2. Logo pysyy näkyvänä ja sopivan kokoisena
+3. Hamburger-menu ei putoa seuraavalle riville
+4. Desktop-näkymä säilyy entisellään täydellä säädatalla
 
----
-
-### Revontuliretken WhatsApp-linkki
-
-```
-https://wa.me/358440666766?text=Hei!%20Haluaisin%20kysyä%20revontuliretkeä%20Leville.net-hintaan.
-```
-
----
-
-### Lopputulos
-
-1. Jokaisessa aktiviteettikortissa **info-ikoni** → popover näyttää kuvauksen
-2. Kuvaukset ovat **laajennetut** ja sisältävät käytännön tietoa (ravintolat, kaupat, jne.)
-3. **Revontuliretki** sisältää WhatsApp-CTA tarjouspyyntöön
-4. Tyhjää slottia klikkaamalla **avautuu dialogi** suoraan oikeaan päivään ja slotiin
