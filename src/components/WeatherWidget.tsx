@@ -9,6 +9,10 @@ interface WeatherData {
   minTemp24h: number | null;
 }
 
+interface WeatherWidgetProps {
+  compact?: boolean;
+}
+
 const getWeatherIcon = (code: number) => {
   // WMO Weather interpretation codes
   if (code === 0) return <Sun className="w-4 h-4 text-yellow-400" />;
@@ -22,7 +26,7 @@ const getWeatherIcon = (code: number) => {
   return <Cloud className="w-4 h-4 text-muted-foreground" />;
 };
 
-const WeatherWidget = () => {
+const WeatherWidget = ({ compact = false }: WeatherWidgetProps) => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
@@ -74,10 +78,10 @@ const WeatherWidget = () => {
   const coldestLabel = isEnglish ? "coldest in 24h" : "kylmin 24h:ssa";
 
   return (
-    <div className="flex items-center gap-2 text-foreground">
+    <div className="flex items-center gap-1.5 sm:gap-2 text-foreground">
       {getWeatherIcon(weather.weatherCode)}
-      <span className="font-semibold text-base">{weather.temperature}°C</span>
-      {weather.minTemp24h !== null && (
+      <span className="font-semibold text-sm sm:text-base">{weather.temperature}°C</span>
+      {!compact && weather.minTemp24h !== null && (
         <>
           <span className="text-muted-foreground">|</span>
           <ThermometerSnowflake className="w-3.5 h-3.5 text-cyan-400" />
@@ -88,9 +92,9 @@ const WeatherWidget = () => {
       {weather.snowDepth !== null && weather.snowDepth > 0 && (
         <>
           <span className="text-muted-foreground">|</span>
-          <Snowflake className="w-3.5 h-3.5 text-blue-300" />
-          <span className="font-semibold text-base">{weather.snowDepth} cm</span>
-          <span className="text-xs opacity-70">{snowLabel}</span>
+          <Snowflake className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-300" />
+          <span className="font-semibold text-sm sm:text-base">{weather.snowDepth} cm</span>
+          {!compact && <span className="text-xs opacity-70">{snowLabel}</span>}
         </>
       )}
     </div>
