@@ -89,20 +89,20 @@ const Header = () => {
       <div className="container mx-auto px-3 sm:px-4">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo and Mobile Weather */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link to={homeHref} className="flex items-center">
+          <div className="flex items-center gap-1.5 sm:gap-3 min-w-0 flex-1">
+            <Link to={homeHref} className="flex items-center flex-shrink-0">
               <img 
                 src={levilleLogo} 
                 alt="Leville.net - Apartments & Villas" 
                 loading="eager"
                 decoding="async"
                 fetchPriority="high"
-                className="h-16 sm:h-20 md:h-24 w-auto"
+                className="h-10 sm:h-16 md:h-20 lg:h-24 w-auto"
               />
             </Link>
-            {/* Mobile Weather Widget */}
-            <div className="md:hidden">
-              <WeatherWidget />
+            {/* Mobile Weather Widget - compact */}
+            <div className="md:hidden min-w-0">
+              <WeatherWidget compact />
             </div>
           </div>
 
@@ -138,7 +138,7 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-foreground"
+            className="md:hidden p-2 text-foreground flex-shrink-0"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
