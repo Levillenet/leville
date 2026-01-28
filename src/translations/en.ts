@@ -191,7 +191,16 @@ export const en = {
       "Personal service – no intermediaries",
       "Excellent location – Our properties in Levi center",
       "Quality, responsible and flexible accommodation in Levi"
-    ]
+    ],
+    companyInfoTitle: "Company Information",
+    officialName: "Official name",
+    businessId: "Business ID",
+    marketingName: "Trading name",
+    companyAddress: "Address",
+    companyNameValue: "Leville Oy",
+    businessIdValue: "3178413-5",
+    marketingNameValue: "Leville.net",
+    companyAddressValue: "Ratsastajankuja 2, 99130 Levi"
   },
   levi: {
     meta: {

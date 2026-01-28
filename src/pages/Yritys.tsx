@@ -7,7 +7,7 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, Building, Home, Users, Briefcase, MapPin, Mail, Star, Quote, LucideIcon, Calendar, Award, Heart, Moon, UserCheck, Building2 } from "lucide-react";
+import { Check, Building, Home, Users, Briefcase, MapPin, Mail, Star, Quote, LucideIcon, Award, Moon, UserCheck, Building2, FileText } from "lucide-react";
 import { testimonials, getTestimonialText } from "@/data/testimonials";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -54,9 +54,12 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
     "description": isEnglish 
       ? "Leville.net offers quality accommodation in Levi since 2011."
       : "Leville.net tarjoaa laadukasta majoitusta Levillä vuodesta 2011.",
+    "legalName": "Leville Oy",
+    "taxID": "3178413-5",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Sirkka",
+      "streetAddress": "Ratsastajankuja 2",
+      "addressLocality": "Levi",
       "postalCode": "99130",
       "addressCountry": "FI"
     },
@@ -294,6 +297,42 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
                 })}
               </div>
             </section>
+
+            {/* Company Information */}
+            <ScrollReveal>
+              <section className="max-w-2xl mx-auto mb-20">
+                <Card className="glass-card border-border/30 p-8">
+                  <CardContent className="p-0">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                        <FileText className="w-5 h-5 text-primary" />
+                      </div>
+                      <h2 className="text-xl font-semibold text-foreground">
+                        {t.companyInfoTitle}
+                      </h2>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center py-2 border-b border-border/30">
+                        <span className="text-muted-foreground">{t.officialName}</span>
+                        <span className="text-foreground font-medium">{t.companyNameValue}</span>
+                      </div>
+                      <div className="flex justify-between items-center py-2 border-b border-border/30">
+                        <span className="text-muted-foreground">{t.businessId}</span>
+                        <span className="text-foreground font-medium">{t.businessIdValue}</span>
+                      </div>
+                      <div className="flex justify-between items-center py-2 border-b border-border/30">
+                        <span className="text-muted-foreground">{t.marketingName}</span>
+                        <span className="text-foreground font-medium">{t.marketingNameValue}</span>
+                      </div>
+                      <div className="flex justify-between items-center py-2">
+                        <span className="text-muted-foreground">{t.companyAddress}</span>
+                        <span className="text-foreground font-medium text-right">{t.companyAddressValue}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+            </ScrollReveal>
 
             {/* Call to Action */}
             <ScrollReveal>

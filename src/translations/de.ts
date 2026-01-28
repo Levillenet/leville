@@ -191,7 +191,16 @@ export const de = {
       "Persönlicher Service – keine Zwischenhändler",
       "Ausgezeichnete Lage – Unsere Unterkünfte im Zentrum von Levi",
       "Qualität, verantwortungsvolle und flexible Unterkunft in Levi"
-    ]
+    ],
+    companyInfoTitle: "Unternehmensinformationen",
+    officialName: "Offizieller Name",
+    businessId: "Handelsregisternummer",
+    marketingName: "Markenname",
+    companyAddress: "Adresse",
+    companyNameValue: "Leville Oy",
+    businessIdValue: "3178413-5",
+    marketingNameValue: "Leville.net",
+    companyAddressValue: "Ratsastajankuja 2, 99130 Levi"
   },
   levi: {
     meta: {

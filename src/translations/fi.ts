@@ -191,7 +191,16 @@ export const fi = {
       "Henkilökohtainen palvelu – ei välikäsiä",
       "Erinomainen sijainti – Kohteemme Levin keskustassa",
       "Laadukas, vastuullinen ja joustava majoitus Levillä"
-    ]
+    ],
+    companyInfoTitle: "Yritystiedot",
+    officialName: "Virallinen nimi",
+    businessId: "Y-tunnus",
+    marketingName: "Markkinointinimi",
+    companyAddress: "Osoite",
+    companyNameValue: "Leville Oy",
+    businessIdValue: "3178413-5",
+    marketingNameValue: "Leville.net",
+    companyAddressValue: "Ratsastajankuja 2, 99130 Levi"
   },
   levi: {
     meta: {
