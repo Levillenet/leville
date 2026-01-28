@@ -191,7 +191,16 @@ export const sv = {
       "Personlig service – inga mellanhänder",
       "Utmärkt läge – Våra boenden i Levi centrum",
       "Kvalitet, ansvarsfull och flexibel boende i Levi"
-    ]
+    ],
+    companyInfoTitle: "Företagsinformation",
+    officialName: "Officiellt namn",
+    businessId: "Organisationsnummer",
+    marketingName: "Varumärke",
+    companyAddress: "Adress",
+    companyNameValue: "Leville Oy",
+    businessIdValue: "3178413-5",
+    marketingNameValue: "Leville.net",
+    companyAddressValue: "Ratsastajankuja 2, 99130 Levi"
   },
   levi: {
     meta: {
