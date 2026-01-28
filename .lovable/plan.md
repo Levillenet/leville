@@ -1,109 +1,123 @@
 
+## Suunnitelma: Lisää yrityksen viralliset tiedot Yritys-sivulle
 
-## Suunnitelma: Mobiilin yläpalkin optimointi
+### Tavoite
+Lisätä Leville Oy:n viralliset tiedot selkeästi Yritys-sivulle.
 
-### Ongelma
-Mobiilissa yläpalkki on ahdas:
-- Logo kutistuu liian pieneksi
-- Säätiedot (lämpötila + kylmin 24h + lumensyvyys) vievät liikaa tilaa
-- Kaikki elementit eivät mahdu siististi samalle riville
+---
 
-### Ratkaisu
+### Lisättävät tiedot
 
-#### 1. `src/components/WeatherWidget.tsx` – Mobiiliversio yksinkertaisemmaksi
+| Tieto | Arvo |
+|-------|------|
+| Virallinen yritysnimi | Leville Oy |
+| Y-tunnus | 3178413-5 |
+| Markkinointinimi | Leville.net |
+| Osoite | Ratsastajankuja 2, 99130 Levi |
 
-Lisätään `compact` prop, joka piilottaa "kylmin 24h" -tiedon mobiilissa:
+---
 
-| Näyttö | Näytetään |
-|--------|-----------|
-| Desktop | Lämpötila + kylmin 24h + lumensyvyys |
-| Mobiili | Lämpötila + lumensyvyys (ei "kylmin 24h") |
+### Toteutus
 
-```tsx
-interface WeatherWidgetProps {
-  compact?: boolean; // true mobiilissa
-}
+#### 1. Käännöstiedostot – Uusi `companyInfo` osio
 
-const WeatherWidget = ({ compact = false }: WeatherWidgetProps) => {
-  // ...
-  return (
-    <div className="flex items-center gap-1.5 sm:gap-2 text-foreground">
-      {getWeatherIcon(weather.weatherCode)}
-      <span className="font-semibold text-sm sm:text-base">{weather.temperature}°C</span>
-      
-      {/* Kylmin 24h - piilossa mobiilissa */}
-      {!compact && weather.minTemp24h !== null && (
-        <>
-          <span className="text-muted-foreground">|</span>
-          <ThermometerSnowflake className="w-3.5 h-3.5 text-cyan-400" />
-          <span className="font-semibold text-base text-cyan-400">{weather.minTemp24h}°C</span>
-          <span className="text-xs opacity-70">{coldestLabel}</span>
-        </>
-      )}
-      
-      {/* Lumensyvyys - näkyy molemmissa, mutta pienempi mobiilissa */}
-      {weather.snowDepth !== null && weather.snowDepth > 0 && (
-        <>
-          <span className="text-muted-foreground">|</span>
-          <Snowflake className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-300" />
-          <span className="font-semibold text-sm sm:text-base">{weather.snowDepth} cm</span>
-          {!compact && <span className="text-xs opacity-70">{snowLabel}</span>}
-        </>
-      )}
-    </div>
-  );
-};
+Lisätään `yritys`-osioon uudet avaimet kaikille kielille:
+
+**Suomi (`fi.ts`):**
+```typescript
+companyInfoTitle: "Yritystiedot",
+officialName: "Virallinen nimi",
+businessId: "Y-tunnus",
+marketingName: "Markkinointinimi",
+companyAddress: "Osoite",
+companyNameValue: "Leville Oy",
+businessIdValue: "3178413-5",
+marketingNameValue: "Leville.net",
+companyAddressValue: "Ratsastajankuja 2, 99130 Levi",
+```
+
+**Englanti (`en.ts`):**
+```typescript
+companyInfoTitle: "Company Information",
+officialName: "Official name",
+businessId: "Business ID",
+marketingName: "Trading name",
+companyAddress: "Address",
+// Arvot samat kuin suomeksi
+```
+
+**Ruotsi (`sv.ts`):**
+```typescript
+companyInfoTitle: "Företagsinformation",
+officialName: "Officiellt namn",
+businessId: "Organisationsnummer",
+marketingName: "Varumärke",
+companyAddress: "Adress",
+```
+
+**Saksa (`de.ts`):**
+```typescript
+companyInfoTitle: "Unternehmensinformationen",
+officialName: "Offizieller Name",
+businessId: "Handelsregisternummer",
+marketingName: "Markenname",
+companyAddress: "Adresse",
+```
+
+**Espanja (`es.ts`):**
+```typescript
+companyInfoTitle: "Información de la empresa",
+officialName: "Nombre oficial",
+businessId: "CIF",
+marketingName: "Nombre comercial",
+companyAddress: "Dirección",
+```
+
+**Ranska (`fr.ts`):**
+```typescript
+companyInfoTitle: "Informations sur l'entreprise",
+officialName: "Nom officiel",
+businessId: "Numéro d'entreprise",
+marketingName: "Nom commercial",
+companyAddress: "Adresse",
 ```
 
 ---
 
-#### 2. `src/components/Header.tsx` – Mobiili-layout parannus
+#### 2. `src/pages/Yritys.tsx` – Uusi tietokortti
 
-| Muutos | Kuvaus |
-|--------|--------|
-| Logo | Käytetään `min-w-0 flex-shrink` + `max-h-12` mobiilissa (skaalautuu paremmin) |
-| WeatherWidget | Välitetään `compact={true}` mobiiliversiossa |
-| Flex-layout | Käytetään `flex-shrink-0` hamburger-napille, jotta se ei kutistu |
+Lisätään uusi osio "Miksi valita Leville.net?" -osion ja CTA-osion väliin:
 
-```tsx
-{/* Logo and Mobile Weather */}
-<div className="flex items-center gap-1.5 sm:gap-3 min-w-0 flex-1">
-  <Link to={homeHref} className="flex items-center flex-shrink-0">
-    <img 
-      src={levilleLogo} 
-      alt="Leville.net" 
-      className="h-10 sm:h-16 md:h-20 lg:h-24 w-auto"
-    />
-  </Link>
-  {/* Mobile Weather Widget - compact */}
-  <div className="md:hidden min-w-0">
-    <WeatherWidget compact />
-  </div>
-</div>
-
-{/* Mobile Menu Button - ei kutistu */}
-<button className="md:hidden p-2 text-foreground flex-shrink-0">
-  ...
-</button>
 ```
+┌───────────────────────────────────────────────────────────────┐
+│ 🏢 Yritystiedot                                               │
+├───────────────────────────────────────────────────────────────┤
+│                                                               │
+│   Virallinen nimi    Leville Oy                               │
+│   Y-tunnus           3178413-5                                │
+│   Markkinointinimi   Leville.net                              │
+│   Osoite             Ratsastajankuja 2, 99130 Levi            │
+│                                                               │
+└───────────────────────────────────────────────────────────────┘
+```
+
+Käytetään samaa `glass-card` tyyliä kuin muissa osioissa.
 
 ---
 
-### Visuaalinen muutos
+#### 3. Organization Schema päivitys
 
-**Ennen (mobiili):**
-```
-[pieni logo] [-10°C | -22°C kylmin 24h | 68cm lunta] [☰]
-```
+Päivitetään myös `organizationSchema` -objekti tarkalla osoitteella:
 
-**Jälkeen (mobiili):**
-```
-[logo h-10] [-10°C | 68cm] [☰]
-```
-
-**Desktop pysyy ennallaan:**
-```
-[logo h-20+] [-10°C | -22°C kylmin 24h | 68cm lunta] [Navigaatio...] [Varaa nyt]
+```typescript
+"address": {
+  "@type": "PostalAddress",
+  "streetAddress": "Ratsastajankuja 2",
+  "addressLocality": "Levi",
+  "postalCode": "99130",
+  "addressCountry": "FI"
+},
+"legalName": "Leville Oy",
 ```
 
 ---
@@ -112,15 +126,34 @@ const WeatherWidget = ({ compact = false }: WeatherWidgetProps) => {
 
 | Tiedosto | Muutos |
 |----------|--------|
-| `src/components/WeatherWidget.tsx` | Lisää `compact` prop, piilota "kylmin 24h" kun compact=true |
-| `src/components/Header.tsx` | Välitä `compact` mobiilissa, paranna flex-layout ja logon koko |
+| `src/translations/fi.ts` | Lisää yritystiedot-käännökset |
+| `src/translations/en.ts` | Lisää yritystiedot-käännökset |
+| `src/translations/sv.ts` | Lisää yritystiedot-käännökset |
+| `src/translations/de.ts` | Lisää yritystiedot-käännökset |
+| `src/translations/es.ts` | Lisää yritystiedot-käännökset |
+| `src/translations/fr.ts` | Lisää yritystiedot-käännökset |
+| `src/pages/Yritys.tsx` | Lisää yritystiedot-kortti + päivitä schema |
+
+---
+
+### Visuaalinen sijoittelu sivulla
+
+```
+[Animoidut tilastot]
+[Esittely]
+[Meiltä saat -palvelut]
+[Räätälöidyt ratkaisut]
+[Miksi valita Leville.net?]
+[Asiakkaiden kokemuksia]
+[Yritystiedot]        ← UUSI
+[CTA: Tutustu kohteisiimme / Ota yhteyttä]
+```
 
 ---
 
 ### Tulos
 
-1. Mobiilissa näkyy vain oleellisimmat säätiedot (lämpötila + lumensyvyys)
-2. Logo pysyy näkyvänä ja sopivan kokoisena
-3. Hamburger-menu ei putoa seuraavalle riville
-4. Desktop-näkymä säilyy entisellään täydellä säädatalla
-
+1. Viralliset yritystiedot näkyvät selkeästi sivulla
+2. SEO-schema sisältää oikean osoitteen ja y-tunnuksen
+3. Käännökset toimivat kaikilla kuudella kielellä
+4. Tyyli on yhtenäinen muun sivun kanssa
