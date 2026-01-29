@@ -25,6 +25,9 @@ import electricRadiatorImg from "@/assets/heating/electric-radiator.jpg";
 import waterRadiatorImg from "@/assets/heating/water-radiator.jpg";
 import thermostatWaterFloorImg from "@/assets/heating/thermostat-water-floor.jpg";
 import thermostatElectricFloorImg from "@/assets/heating/thermostat-electric-floor.jpg";
+import openFireplaceImg from "@/assets/heating/open-fireplace.jpg";
+import heatStoringFireplaceImg from "@/assets/heating/heat-storing-fireplace.jpg";
+import heatPumpImg from "@/assets/heating/heat-pump.jpg";
 
 interface HeatingSystemsInLeviProps {
   lang?: Language;
@@ -102,17 +105,21 @@ const translations = {
           "Varaava takka: Lämpö varastoituu takan rakenteisiin ja vapautuu hitaasti huoneeseen. Erittäin tehokas lämmityskeino.",
         ],
         note: "Lue aina mökkikohtaiset ohjeet ennen takan käyttöä. Varaavan takan oikea käyttö voi lämmittää mökin useiksi tunneiksi yhden lämmityksen jälkeen.",
+        openFireplaceImageAlt: "Avotakka mökkissä – liekki menee suoraan piippuun",
+        heatStoringFireplaceImageAlt: "Varaavia takkoja – lämpö varastoituu rakenteisiin",
       },
       heatPump: {
         title: "Ilmalämpöpumppu mökissä",
         description: "Edullinen ja ekologinen lämmitys- ja viilennysjärjestelmä.",
         items: [
-          "Näyttää ilmastointilaitteelta seinällä",
+          "Näyttää ilmastointilaitteelta seinällä – mutta se ON lämmityslaite!",
+          "Monet luulevat virheellisesti, että ilmalämpöpumppu on vain viilennyslaite, mutta se on ensisijaisesti tehokas lämmityslaite",
           "Ohjataan kaukosäätimellä – lämpötila, puhallusnopeus ja suunta säädettävissä",
           "Nostaa tai laskee lämpötilaa nopeasti",
           "Erittäin energiatehokas normaaleissa olosuhteissa",
         ],
-        note: "Ilmalämpöpumpun teho heikkenee merkittävästi noin –20 asteen pakkasessa. Tällöin sitä kannattaa käyttää muun lämmityksen tukena, ei ainoana lämmönlähteenä. Kaukosäädin on yleensä pöydällä tai seinätelineessä.",
+        note: "TÄRKEÄÄ: Ilmalämpöpumppua EI SAA sammuttaa pakkasella – se voi rikkoutua! Teho heikkenee merkittävästi noin –20 asteen pakkasessa, mutta laite pitää silti jättää päälle. Käytä sitä muun lämmityksen tukena kovilla pakkasilla. Kaukosäädin on yleensä pöydällä tai seinätelineessä.",
+        imageAlt: "Ilmalämpöpumppu seinällä – tehokas lämmityslaite",
       },
       coldCabin: {
         title: "Mitä tehdä, jos mökki tuntuu kylmältä?",
@@ -213,17 +220,21 @@ const translations = {
           "Heat-storing fireplace: Heat is stored in the fireplace structure and released slowly. Very effective heating method.",
         ],
         note: "Always read cabin-specific instructions before using a fireplace. Proper use of a heat-storing fireplace can warm the cabin for many hours after a single heating.",
+        openFireplaceImageAlt: "Open fireplace in cabin – flames go directly to chimney",
+        heatStoringFireplaceImageAlt: "Heat-storing fireplaces – heat is stored in the structure",
       },
       heatPump: {
         title: "Air-Source Heat Pump in Cabin",
         description: "Affordable and ecological heating and cooling system.",
         items: [
-          "Looks like an air conditioning unit on the wall",
+          "Looks like an air conditioning unit on the wall – but it IS a heating device!",
+          "Many people mistakenly think heat pumps are only for cooling, but they are primarily efficient heating devices",
           "Controlled by remote – temperature, fan speed and direction adjustable",
           "Raises or lowers temperature quickly",
           "Very energy-efficient in normal conditions",
         ],
-        note: "Heat pump efficiency drops significantly below approximately –20°C. In such conditions, use it to support other heating, not as the only heat source. The remote is usually on a table or wall holder.",
+        note: "IMPORTANT: The heat pump must NEVER be turned off in freezing temperatures – it can break! Efficiency drops significantly below approximately –20°C, but the device must still be left on. Use it to support other heating in very cold weather. The remote is usually on a table or wall holder.",
+        imageAlt: "Air-source heat pump on wall – efficient heating device",
       },
       coldCabin: {
         title: "What to Do If the Cabin Feels Cold?",
@@ -268,6 +279,7 @@ interface SectionImages {
   electricFloor: string;
   waterFloor: string;
   waterRadiators: string;
+  heatPump: string;
 }
 
 const sectionImages: SectionImages = {
@@ -275,6 +287,7 @@ const sectionImages: SectionImages = {
   electricFloor: thermostatElectricFloorImg,
   waterFloor: thermostatWaterFloorImg,
   waterRadiators: waterRadiatorImg,
+  heatPump: heatPumpImg,
 };
 
 const sectionIcons: Record<SectionKey, React.ReactNode> = {
@@ -407,6 +420,9 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
             const hasImage = key in sectionImages;
             const image = hasImage ? sectionImages[key as keyof SectionImages] : null;
             const imageAlt = "imageAlt" in section ? section.imageAlt : "";
+            const isFireplaces = key === "fireplaces";
+            const openFireplaceAlt = "openFireplaceImageAlt" in section ? section.openFireplaceImageAlt : "";
+            const heatStoringAlt = "heatStoringFireplaceImageAlt" in section ? section.heatStoringFireplaceImageAlt : "";
             
             return (
               <section key={key} className="mb-10">
@@ -418,8 +434,32 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
                 
                 <Card>
                   <CardContent className="pt-5">
-                    {/* Image if available */}
-                    {image && (
+                    {/* Fireplace section with two images */}
+                    {isFireplaces && (
+                      <div className="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                          <img 
+                            src={openFireplaceImg} 
+                            alt={openFireplaceAlt}
+                            className="w-full rounded-lg shadow-md"
+                            loading="lazy"
+                          />
+                          <p className="text-xs text-muted-foreground text-center mt-2">{openFireplaceAlt}</p>
+                        </div>
+                        <div>
+                          <img 
+                            src={heatStoringFireplaceImg} 
+                            alt={heatStoringAlt}
+                            className="w-full rounded-lg shadow-md bg-white"
+                            loading="lazy"
+                          />
+                          <p className="text-xs text-muted-foreground text-center mt-2">{heatStoringAlt}</p>
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Single image for other sections */}
+                    {image && !isFireplaces && (
                       <div className="mb-6">
                         <img 
                           src={image} 
