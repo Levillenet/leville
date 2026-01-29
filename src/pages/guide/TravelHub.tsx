@@ -9,7 +9,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideHubCard from "@/components/guide/GuideHubCard";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, Plane, Shirt, Bus, UtensilsCrossed, Baby, Footprints } from "lucide-react";
+import { ArrowRight, ArrowLeft, Plane, Shirt, Bus, UtensilsCrossed, Baby, Footprints, Thermometer } from "lucide-react";
 import { Language } from "@/translations";
 
 interface TravelHubProps {
@@ -50,7 +50,8 @@ const content: Record<Language, {
       { id: "transport", title: "Liikkuminen Levillä", description: "Skibussit, taksit ja autonvuokraus. Miten liikut kätevästi Levillä.", href: "/opas/liikkuminen-levilla", iconKey: "bus" },
       { id: "services", title: "Ravintolat ja palvelut", description: "Ravintolat, kaupat, vuokraamot ja muut palvelut Levin keskustassa.", href: "/opas/ravintolat-ja-palvelut-levilla", iconKey: "utensils" },
       { id: "family", title: "Lapsiperheet Levillä", description: "Lasten rinteet, aktiviteetit ja käytännön vinkit perhematkoille.", href: "/opas/lapsiperheet-levilla", iconKey: "baby" },
-      { id: "car-free", title: "Levi ilman autoa", description: "Miten saavut ja liikut Levillä ilman omaa autoa. Skibussit, kävelyetäisyydet ja keskustamajoitus.", href: "/opas/levi-ilman-autoa", iconKey: "footprints" }
+      { id: "car-free", title: "Levi ilman autoa", description: "Miten saavut ja liikut Levillä ilman omaa autoa. Skibussit, kävelyetäisyydet ja keskustamajoitus.", href: "/opas/levi-ilman-autoa", iconKey: "footprints" },
+      { id: "heating", title: "Lämmitys mökeissä ja huoneistoissa", description: "Näin toimivat lämmitysjärjestelmät Levillä. Sähköpatterit, lattialämmitys, takat ja ilmalämpöpumput.", href: "/opas/lammitysjarjestelmat-levi", iconKey: "thermometer" }
     ]
   },
   en: {
@@ -69,7 +70,8 @@ const content: Record<Language, {
       { id: "transport", title: "Getting Around Levi", description: "Ski buses, taxis and car rental. How to get around conveniently in Levi.", href: "/guide/getting-around-in-levi", iconKey: "bus" },
       { id: "services", title: "Restaurants and Services", description: "Restaurants, shops, rentals and other services in Levi center.", href: "/guide/restaurants-and-services-in-levi", iconKey: "utensils" },
       { id: "family", title: "Families in Levi", description: "Kids' slopes, activities and practical tips for family trips.", href: "/guide/levi-with-children", iconKey: "baby" },
-      { id: "car-free", title: "Levi Without a Car", description: "How to arrive and get around in Levi without your own car. Ski buses, walking distances and central accommodation.", href: "/guide/levi-without-a-car", iconKey: "footprints" }
+      { id: "car-free", title: "Levi Without a Car", description: "How to arrive and get around in Levi without your own car. Ski buses, walking distances and central accommodation.", href: "/guide/levi-without-a-car", iconKey: "footprints" },
+      { id: "heating", title: "Heating Systems in Cabins", description: "How heating systems work in Levi. Electric radiators, floor heating, fireplaces and heat pumps.", href: "/guide/heating-systems-in-levi", iconKey: "thermometer" }
     ]
   },
   sv: {
@@ -152,7 +154,8 @@ const iconMap: Record<string, typeof Plane> = {
   bus: Bus,
   utensils: UtensilsCrossed,
   baby: Baby,
-  footprints: Footprints
+  footprints: Footprints,
+  thermometer: Thermometer
 };
 
 const localeMap: Record<Language, string> = {
