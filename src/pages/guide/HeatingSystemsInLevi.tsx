@@ -14,11 +14,17 @@ import {
   Flame, 
   Waves, 
   AirVent, 
-  Gauge, 
   Phone,
-  ArrowLeft
+  ArrowLeft,
+  Info
 } from "lucide-react";
 import { Language } from "@/translations";
+
+// Import images
+import electricRadiatorImg from "@/assets/heating/electric-radiator.jpg";
+import waterRadiatorImg from "@/assets/heating/water-radiator.jpg";
+import thermostatWaterFloorImg from "@/assets/heating/thermostat-water-floor.jpg";
+import thermostatElectricFloorImg from "@/assets/heating/thermostat-electric-floor.jpg";
 
 interface HeatingSystemsInLeviProps {
   lang?: Language;
@@ -27,92 +33,102 @@ interface HeatingSystemsInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Lämmitysjärjestelmät Levin mökeissä ja huoneistoissa | Leville.net",
+      title: "Mökin lämmitys Levillä – Lämmitysjärjestelmät mökeissä | Leville.net",
       description:
-        "Lämmitysjärjestelmät Levin mökeissä ja huoneistoissa: sähköpatterit, lattialämmitys, vesikiertoinen lämmitys, ilmalämpöpumput ja takat. Käytännön vinkit lämpimään talvilomaan.",
+        "Levin mökkien lämmitysjärjestelmät: sähköpatterit, lattialämmitys, vesikiertoinen lämmitys, ilmalämpöpumput ja takat. Miten mökin lämmitys toimii Lapissa.",
       canonical: "https://leville.net/opas/lammitysjarjestelmat-levi",
     },
-    title: "Mökkien ja huoneistojen lämmitysjärjestelmät Levillä",
-    subtitle: "Näin pysyt lämpimänä arktisessa talvilomassa",
-    intro:
-      "Levin mökit ja huoneistot käyttävät erilaisia lämmitysjärjestelmiä. Niiden ymmärtäminen auttaa viettämään mukavan loman, erityisesti talvella. Arktisissa olosuhteissa kaikki järjestelmät eivät reagoi yhtä nopeasti, joten pieni kärsivällisyys on valttia.",
+    title: "Mökin lämmitys Levillä",
+    subtitle: "Lämmitysjärjestelmät mökeissä ja huoneistoissa",
+    intro: {
+      title: "Yleistä mökkien lämmityksestä Levillä",
+      text: "Levin mökeissä ja huoneistoissa on useita erilaisia lämmitysjärjestelmiä, joilla kaikilla on omat ominaisuutensa. Normaali sisälämpötila on tyypillisesti noin 20–22 astetta. Kovilla pakkasilla vanhemmissa kohteissa maksimilämpötila voi jäädä noin 20 asteeseen, mikä on arktisissa olosuhteissa täysin normaalia. Tällä sivulla esittelemme yleisimmät lämmitystavat, jotta voit tunnistaa oman majoituksesi järjestelmän ja ymmärtää sen toimintaperiaatteet.",
+    },
     sections: {
       electricRadiators: {
-        title: "Suora sähkölämmitys (sähköpatterit)",
+        title: "Suora sähkölämmitys pattereilla",
+        description: "Yleisin lämmitysmuoto Levin mökeissä ja huoneistoissa.",
         items: [
-          "Yleisin lämmitysjärjestelmä Levillä",
-          "Seinään kiinnitetyt patterit, joissa oma termostaatti",
-          "Reagoi melko nopeasti säätöihin",
-          "Toimii tehokkaasti, kun patterit ovat riittävän suuret ja eristys kunnossa",
+          "Seinille sijoitetut sähköpatterit, joissa on oma termostaatti",
+          "Reagoi nopeasti lämpötilan muutoksiin – lämpö tuntuu minuuteissa",
+          "Tehokas ja luotettava järjestelmä",
+          "Termostaatti on yleensä patterin kyljessä tai seinällä",
         ],
-        note: "Vanhemmissa hirsimökeissä eristys voi olla heikompi. Nurkista tai hirsien välistä voi tulla vetoa. Kovalla pakkasella sisälämpötila saattaa jäädä noin 20 asteeseen, vaikka lämmitys toimii täysillä.",
+        note: "Vanhemmissa hirsimökeissä eristyksen puutteet ja hirsien eläminen voivat aiheuttaa vetoa, erityisesti nurkissa. Tämä on normaalia ja johtuu rakennuksen luonteesta. Kovalla pakkasella sisälämpötila saattaa jäädä noin 20 asteeseen, vaikka lämmitys toimii täysillä.",
+        imageAlt: "Tyypillinen sähköpatteri termostaatilla",
       },
       electricFloor: {
         title: "Sähköinen lattialämmitys",
+        description: "Miellyttävä ja tasainen lämpö suoraan lattiasta.",
         items: [
-          "Lämmityskaapelit lattian pinnan alla",
-          "Mukava ja tasainen lämpö",
-          "Hitaampi reagoimaan kuin sähköpatterit",
-          "Termostaatit yleensä seinällä",
+          "Lattian alla oleva sähkölämmitysverkko tuo tasaista lämpöä",
+          "Erityisen mukava kylpyhuoneissa ja eteisessä",
+          "Toimintavarma järjestelmä vähäisellä huoltotarpeella",
+          "Hitaampi reagoimaan kuin sähköpatterit – muutokset näkyvät tuntien kuluessa",
         ],
+        note: "Säätö tapahtuu seinässä olevasta termostaatista. Termostaatissa on usein numeroasteikko (esim. 1–6), joka ei vastaa suoraan lämpötila-asteita. Säädä maltillisesti ja odota tuloksia.",
+        imageAlt: "Sähköisen lattialämmityksen termostaatti",
       },
       waterFloor: {
         title: "Vesikiertoinen lattialämmitys",
+        description: "Uudemmissa mökeissä yleinen, erittäin energiatehokas järjestelmä.",
         items: [
-          "Erittäin yleinen uudemmissa mökeissä ja huoneistoissa",
-          "Lämpö jakautuu tasaisesti lattian kautta",
-          "Lämpötila säätää usein automaattisesti ulkolämpötilan mukaan",
-          "Erittäin mukava ja energiatehokas",
+          "Lämpimän veden kierrättämä lattialämmitys tuottaa tasaisen ja miellyttävän lämmön",
+          "Lämpötila säätyy usein automaattisesti ulkolämpötilan mukaan",
+          "Erittäin energiatehokas ja ympäristöystävällinen",
+          "Lämpö jakautuu tasaisesti koko lattiapinta-alalle",
         ],
-        note: "Reagoi hyvin hitaasti – lämpötilamuutokset voivat kestää 1–2 päivää. Järjestelmä on suunniteltu tasaiseen lämpötilaan, ei nopeisiin säätöihin. Jos edelliset vieraat ovat pitäneet viileämpää, lämpeneminen vie aikaa.",
+        note: "Tämä järjestelmä reagoi hyvin hitaasti. Lämpötilan nostaminen tai laskeminen voi kestää 1–2 vuorokautta. Esimerkiksi jos edellinen asiakas on pitänyt 20 astetta ja sinä haluat 23 astetta, lämpötilan nousu vie aikaa. Järjestelmä on suunniteltu tasaiseen lämpötilaan, ei nopeisiin muutoksiin.",
+        imageAlt: "Vesikiertoisen lattialämmityksen termostaatti",
       },
       waterRadiators: {
         title: "Vesikiertoiset patterit",
+        description: "Perinteinen ja tehokas lämmitystapa.",
         items: [
-          "Patterit, joissa kiertää kuuma vesi",
-          "Nopeampi reagointi kuin lattialämmityksessä",
-          "Termostaatti patterin kyljessä",
-          "Usein käytetään muiden järjestelmien rinnalla",
+          "Patterit, joissa kiertää lämmitysjärjestelmän kuuma vesi",
+          "Tunnistettavissa tasaisesta pinnoitteesta ilman ilma-aukkoja",
+          "Patterikohtainen termostaatti patterin kyljessä",
+          "Reagoi melko nopeasti lämpötilan muutoksiin",
+          "Usein käytetään vesikiertoisen lattialämmityksen rinnalla",
         ],
+        note: "Vesikiertoisen patterin termostaatti on yleensä valkoinen nuppi patterin kyljessä. Numeroasteikko (esim. 1–5) säätelee läpikulkevan veden määrää, ei suoraan lämpötilaa.",
+        imageAlt: "Vesikiertoinen patteri",
       },
       fireplaces: {
-        title: "Takat ja tulisijat",
+        title: "Takat mökeissä",
+        description: "Tunnelmallinen lisälämmitys – kaksi eri tyyppiä.",
         items: [
-          "Koristetakka: liekki menee suoraan savupiippuun, matala lämmitysteho, voi jopa viilentää tilaa",
-          "Varaava takka: lämpö kiertää rakenteen sisällä, erittäin tehokas, vapauttaa lämpöä hitaasti",
+          "Avotakka (koristetakka): Liekki menee suoraan savupiippuun. Matala lämmitysteho – voi jopa viilentää tilaa vetämällä lämmintä ilmaa ulos.",
+          "Varaava takka: Lämpö varastoituu takan rakenteisiin ja vapautuu hitaasti huoneeseen. Erittäin tehokas lämmityskeino.",
         ],
-        note: "Lue aina mökkikohtaiset ohjeet ennen takan käyttöä.",
+        note: "Lue aina mökkikohtaiset ohjeet ennen takan käyttöä. Varaavan takan oikea käyttö voi lämmittää mökin useiksi tunneiksi yhden lämmityksen jälkeen.",
       },
       heatPump: {
-        title: "Ilmalämpöpumppu",
+        title: "Ilmalämpöpumppu mökissä",
+        description: "Edullinen ja ekologinen lämmitys- ja viilennysjärjestelmä.",
         items: [
-          "Erittäin yleinen ja energiatehokas",
-          "Ohjataan kaukosäätimellä",
-          "Lämmittää nopeasti ja tasaisesti",
-          "Erinomainen mukavan lämpötilan ylläpitämiseen",
+          "Näyttää ilmastointilaitteelta seinällä",
+          "Ohjataan kaukosäätimellä – lämpötila, puhallusnopeus ja suunta säädettävissä",
+          "Nostaa tai laskee lämpötilaa nopeasti",
+          "Erittäin energiatehokas normaaleissa olosuhteissa",
         ],
-        note: "Lämmitysteho heikkenee merkittävästi noin –20°C alapuolella. Toimii silti hyvin tukilämmityksenä.",
+        note: "Ilmalämpöpumpun teho heikkenee merkittävästi noin –20 asteen pakkasessa. Tällöin sitä kannattaa käyttää muun lämmityksen tukena, ei ainoana lämmönlähteenä. Kaukosäädin on yleensä pöydällä tai seinätelineessä.",
       },
-      thermostats: {
-        title: "Termostaattien käyttö – miksi pienet säädöt toimivat parhaiten",
+      coldCabin: {
+        title: "Mitä tehdä, jos mökki tuntuu kylmältä?",
+        description: "Käytännön ohjeita epämukavan tilanteen varalle.",
         items: [
-          "Monet termostaatit eivät näytä lämpötilaa asteina",
-          "Asteikon sijaan voi olla symboleita tai numeroita ilman yksikköä",
-          "Säädä lämpötilaa aina vähitellen",
-          "Vältä äärimmäisiä säätöjä – liian alas kääntäminen viilentää mökkiä merkittävästi",
-          "Mökki ei lämpene nopeasti takaisin",
+          "Tarkista, että kaikki termostaatit ovat päällä ja säädetty riittävän korkealle",
+          "Anna lämmitysjärjestelmälle aikaa reagoida (erityisesti lattialämmitys)",
+          "Käytä ilmalämpöpumppua tukena, jos sellainen on",
+          "Kovilla pakkasilla noin 20 astetta voi olla normaali maksimilämpötila",
         ],
-        note: "Monissa termostaateissa on merkkivalo (vihreä tai punainen), joka kertoo onko lämmitys päällä. Jos valo ei pala, järjestelmä ei lämmitä sillä hetkellä. Pienet säädöt ja kärsivällisyys tuottavat parhaan tuloksen.",
+        note: "Jos lämpötila on selvästi alle 15–17 astetta, kyseessä voi olla vikatilanne. Ota tällöin yhteyttä majoituksen omistajaan tai huoltoyhtiöön.",
       },
-      contact: {
-        title: "Milloin ottaa yhteyttä omistajaan tai huoltoon",
-        items: [
-          "Normaali sisälämpötila on noin 20–22°C",
-          "Kovalla pakkasella korkeampi lämpötila ei aina ole mahdollinen",
-          "Jos lämpötila pysyy selvästi alle 15–17°C, kyseessä voi olla vika",
-          "Ota tällöin yhteyttä omistajaan tai huoltopalveluun",
-        ],
-      },
+    },
+    summary: {
+      title: "Yhteenveto",
+      text: "Levin mökeissä lämmitys on suunniteltu tasaiseen ja miellyttävään asumiseen. Jokainen järjestelmä toimii omalla tavallaan, ja reagointinopeus vaihtelee merkittävästi. Luonnonolosuhteet ja rakennuksen ikä vaikuttavat aina lopputulokseen. Pienellä kärsivällisyydellä ja oikeilla odotuksilla talviloma Levillä on lämmin ja mukava kokemus.",
     },
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
@@ -128,92 +144,102 @@ const translations = {
 
   en: {
     meta: {
-      title: "Heating Systems in Levi Cabins and Apartments | Leville.net",
+      title: "Cabin Heating in Levi – Heating Systems in Finnish Cabins | Leville.net",
       description:
-        "Heating systems in Levi cabins and apartments: electric radiators, floor heating, water-based heating, heat pumps and fireplaces. Practical tips for a warm winter holiday.",
+        "Heating systems in Levi cabins and apartments: electric radiators, underfloor heating, water-based heating, heat pumps and fireplaces. How cabin heating works in Lapland.",
       canonical: "https://leville.net/guide/heating-systems-in-levi",
     },
-    title: "Heating Systems in Cabins and Apartments in Levi",
-    subtitle: "How to stay warm during your Arctic holiday",
-    intro:
-      "Cabins and apartments in Levi use different heating systems. Understanding how they work helps you stay comfortable, especially in winter. In Arctic conditions, not all systems react instantly, so a little patience goes a long way.",
+    title: "Cabin Heating in Levi",
+    subtitle: "Heating systems in cabins and apartments",
+    intro: {
+      title: "General Information About Cabin Heating in Levi",
+      text: "Cabins and apartments in Levi use various heating systems, each with its own characteristics. Normal indoor temperature is typically around 20–22°C. During extreme cold, older properties may only reach around 20°C, which is completely normal in Arctic conditions. This page introduces the most common heating methods so you can identify your accommodation's system and understand how it works.",
+    },
     sections: {
       electricRadiators: {
-        title: "Direct Electric Heating (Radiators)",
+        title: "Direct Electric Heating with Radiators",
+        description: "The most common heating type in Levi cabins and apartments.",
         items: [
-          "Most common heating system in Levi",
-          "Wall-mounted radiators with built-in thermostats",
-          "Reacts fairly quickly to adjustments",
-          "Effective when radiators are sufficient and insulation is good",
+          "Wall-mounted electric radiators with built-in thermostats",
+          "Reacts quickly to temperature changes – heat felt within minutes",
+          "Efficient and reliable system",
+          "Thermostat usually on the radiator side or wall-mounted",
         ],
-        note: "In older log cabins, insulation may be weaker. Drafts from corners or between logs may occur. During very cold weather, indoor temperature may stay around 20°C despite maximum heating.",
+        note: "In older log cabins, insulation gaps and natural log movement may cause drafts, especially in corners. This is normal and due to the building's nature. During severe cold, indoor temperature may stay around 20°C even at maximum heating.",
+        imageAlt: "Typical electric radiator with thermostat",
       },
       electricFloor: {
         title: "Electric Underfloor Heating",
+        description: "Pleasant and even heat directly from the floor.",
         items: [
-          "Heating cables under floor surface",
-          "Comfortable and even heat",
-          "Slower to react than radiators",
-          "Thermostats usually located on walls",
+          "Electric heating cables under the floor provide even warmth",
+          "Especially comfortable in bathrooms and entrance areas",
+          "Reliable system with minimal maintenance needs",
+          "Slower to react than radiators – changes take hours to feel",
         ],
+        note: "Adjustment is done via wall thermostat. The thermostat often has a numbered scale (e.g., 1–6) that doesn't directly correspond to temperature degrees. Adjust moderately and wait for results.",
+        imageAlt: "Electric underfloor heating thermostat",
       },
       waterFloor: {
         title: "Water-Based Underfloor Heating",
+        description: "Common in newer cabins, highly energy-efficient system.",
         items: [
-          "Very common in newer cabins and apartments",
-          "Heat distributed evenly through floors",
+          "Hot water circulation provides even and pleasant warmth",
           "Temperature often adjusts automatically based on outdoor temperature",
-          "Very comfortable and energy efficient",
+          "Very energy-efficient and environmentally friendly",
+          "Heat distributes evenly across the entire floor area",
         ],
-        note: "Reacts very slowly – temperature changes may take 1–2 days. Designed for stable temperature, not quick adjustments. If previous guests preferred lower temperature, warming up takes time.",
+        note: "This system reacts very slowly. Raising or lowering temperature can take 1–2 days. For example, if the previous guest kept it at 20°C and you want 23°C, warming up takes time. The system is designed for stable temperature, not quick changes.",
+        imageAlt: "Water-based underfloor heating thermostat",
       },
       waterRadiators: {
         title: "Water-Filled Radiators",
+        description: "Traditional and effective heating method.",
         items: [
-          "Radiators with hot water circulation",
-          "Faster response than floor heating",
-          "Thermostat located on radiator",
-          "Often used alongside other systems",
+          "Radiators circulating hot water from the heating system",
+          "Recognizable by smooth surface without air vents",
+          "Individual thermostat on each radiator",
+          "Responds fairly quickly to temperature changes",
+          "Often used alongside water-based underfloor heating",
         ],
+        note: "Water radiator thermostat is usually a white knob on the radiator side. The numbered scale (e.g., 1–5) regulates water flow, not temperature directly.",
+        imageAlt: "Water-filled radiator",
       },
       fireplaces: {
-        title: "Fireplaces and Stoves",
+        title: "Fireplaces in Cabins",
+        description: "Atmospheric supplementary heating – two different types.",
         items: [
-          "Decorative fireplace: flame goes directly to chimney, low heating efficiency, may even cool the space",
-          "Heat-storing fireplace: heat circulates inside structure, very efficient, releases heat slowly",
+          "Open fireplace (decorative): Flames go directly to chimney. Low heating efficiency – may even cool the space by drawing warm air out.",
+          "Heat-storing fireplace: Heat is stored in the fireplace structure and released slowly. Very effective heating method.",
         ],
-        note: "Always read cabin-specific instructions before using a fireplace.",
+        note: "Always read cabin-specific instructions before using a fireplace. Proper use of a heat-storing fireplace can warm the cabin for many hours after a single heating.",
       },
       heatPump: {
-        title: "Air-Source Heat Pump",
+        title: "Air-Source Heat Pump in Cabin",
+        description: "Affordable and ecological heating and cooling system.",
         items: [
-          "Very common and energy efficient",
-          "Controlled with remote control",
-          "Heats quickly and evenly",
-          "Excellent for maintaining comfortable temperature",
+          "Looks like an air conditioning unit on the wall",
+          "Controlled by remote – temperature, fan speed and direction adjustable",
+          "Raises or lowers temperature quickly",
+          "Very energy-efficient in normal conditions",
         ],
-        note: "Heating efficiency drops significantly below approx. –20°C. Still useful as supporting heating.",
+        note: "Heat pump efficiency drops significantly below approximately –20°C. In such conditions, use it to support other heating, not as the only heat source. The remote is usually on a table or wall holder.",
       },
-      thermostats: {
-        title: "Using Thermostats – Why Small Adjustments Work Best",
+      coldCabin: {
+        title: "What to Do If the Cabin Feels Cold?",
+        description: "Practical advice for uncomfortable situations.",
         items: [
-          "Many thermostats do not show temperature in degrees",
-          "May have symbols or numbers without units instead of scale",
-          "Always adjust temperature gradually",
-          "Avoid extreme adjustments – turning too low cools cabin significantly",
-          "Cabin will not warm up quickly afterwards",
+          "Check that all thermostats are on and set high enough",
+          "Give the heating system time to react (especially floor heating)",
+          "Use heat pump for support if available",
+          "During extreme cold, around 20°C may be the normal maximum temperature",
         ],
-        note: "Many thermostats have indicator lights (green or red) showing whether heating is active. If the light is off, the system is not heating at that moment. Small adjustments and patience give the best result.",
+        note: "If temperature stays clearly below 15–17°C, there may be a malfunction. In such cases, contact the accommodation owner or maintenance service.",
       },
-      contact: {
-        title: "When to Contact the Owner or Maintenance",
-        items: [
-          "Normal indoor temperature is approx. 20–22°C",
-          "During extreme cold, higher temperatures may not be achievable",
-          "If temperature stays clearly below 15–17°C, there may be a fault",
-          "In such cases, contact the owner or maintenance service",
-        ],
-      },
+    },
+    summary: {
+      title: "Summary",
+      text: "Heating in Levi cabins is designed for even and comfortable living. Each system works in its own way, and response times vary significantly. Natural conditions and building age always affect the outcome. With a little patience and the right expectations, your winter holiday in Levi will be a warm and comfortable experience.",
     },
     breadcrumbs: [
       { label: "Home", href: "/en" },
@@ -235,8 +261,21 @@ type SectionKey =
   | "waterRadiators" 
   | "fireplaces" 
   | "heatPump" 
-  | "thermostats" 
-  | "contact";
+  | "coldCabin";
+
+interface SectionImages {
+  electricRadiators: string;
+  electricFloor: string;
+  waterFloor: string;
+  waterRadiators: string;
+}
+
+const sectionImages: SectionImages = {
+  electricRadiators: electricRadiatorImg,
+  electricFloor: thermostatElectricFloorImg,
+  waterFloor: thermostatWaterFloorImg,
+  waterRadiators: waterRadiatorImg,
+};
 
 const sectionIcons: Record<SectionKey, React.ReactNode> = {
   electricRadiators: <Thermometer className="w-6 h-6 text-primary" />,
@@ -245,8 +284,7 @@ const sectionIcons: Record<SectionKey, React.ReactNode> = {
   waterRadiators: <Thermometer className="w-6 h-6 text-primary" />,
   fireplaces: <Flame className="w-6 h-6 text-primary" />,
   heatPump: <AirVent className="w-6 h-6 text-primary" />,
-  thermostats: <Gauge className="w-6 h-6 text-primary" />,
-  contact: <Phone className="w-6 h-6 text-primary" />,
+  coldCabin: <Phone className="w-6 h-6 text-primary" />,
 };
 
 const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
@@ -269,6 +307,26 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
     })),
   };
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": t.title,
+    "description": t.meta.description,
+    "author": {
+      "@type": "Organization",
+      "name": "Leville.net"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Leville.net",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://leville.net/leville-logo.png"
+      }
+    },
+    "mainEntityOfPage": t.meta.canonical
+  };
+
   const sectionKeys: SectionKey[] = [
     "electricRadiators",
     "electricFloor",
@@ -276,8 +334,7 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
     "waterRadiators",
     "fireplaces",
     "heatPump",
-    "thermostats",
-    "contact",
+    "coldCabin",
   ];
 
   return (
@@ -302,6 +359,7 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
         
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
@@ -328,30 +386,66 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
             <p className="text-lg text-primary font-medium">{t.subtitle}</p>
           </header>
 
-          <p className="mb-10 text-lg text-muted-foreground">{t.intro}</p>
+          {/* Intro Section */}
+          <section className="mb-12">
+            <Card className="bg-card/80">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <Info className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
+                  <div>
+                    <h2 className="text-xl font-semibold mb-3">{t.intro.title}</h2>
+                    <p className="text-muted-foreground leading-relaxed">{t.intro.text}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
 
+          {/* Heating System Sections */}
           {sectionKeys.map((key) => {
             const section = t.sections[key];
+            const hasImage = key in sectionImages;
+            const image = hasImage ? sectionImages[key as keyof SectionImages] : null;
+            const imageAlt = "imageAlt" in section ? section.imageAlt : "";
+            
             return (
               <section key={key} className="mb-10">
-                <h2 className="text-2xl font-bold flex items-center gap-3 mb-4">
+                <h2 className="text-2xl font-bold flex items-center gap-3 mb-2">
                   {sectionIcons[key]}
                   {section.title}
                 </h2>
+                <p className="text-muted-foreground mb-4">{section.description}</p>
+                
                 <Card>
                   <CardContent className="pt-5">
-                    <ul className="space-y-2 mb-4">
+                    {/* Image if available */}
+                    {image && (
+                      <div className="mb-6">
+                        <img 
+                          src={image} 
+                          alt={imageAlt}
+                          className="w-full max-w-md mx-auto rounded-lg shadow-md bg-white"
+                          loading="lazy"
+                        />
+                        <p className="text-xs text-muted-foreground text-center mt-2">{imageAlt}</p>
+                      </div>
+                    )}
+                    
+                    <ul className="space-y-3 mb-4">
                       {section.items.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="text-primary mt-1">•</span>
-                          <span>{item}</span>
+                        <li key={idx} className="flex items-start gap-3">
+                          <span className="text-primary mt-1 font-bold">•</span>
+                          <span className="leading-relaxed">{item}</span>
                         </li>
                       ))}
                     </ul>
-                    {"note" in section && section.note && (
-                      <p className="text-sm text-muted-foreground bg-muted/50 rounded-lg p-4 mt-4">
-                        {section.note}
-                      </p>
+                    
+                    {section.note && (
+                      <div className="bg-muted/50 rounded-lg p-4 mt-4 border-l-4 border-primary/30">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {section.note}
+                        </p>
+                      </div>
                     )}
                   </CardContent>
                 </Card>
@@ -359,8 +453,18 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
             );
           })}
 
+          {/* Summary Section */}
+          <section className="mb-12">
+            <Card className="bg-primary/5 border-primary/20">
+              <CardContent className="pt-6">
+                <h2 className="text-xl font-semibold mb-3">{t.summary.title}</h2>
+                <p className="text-muted-foreground leading-relaxed">{t.summary.text}</p>
+              </CardContent>
+            </Card>
+          </section>
+
           {/* CTA */}
-          <section className="text-center bg-card rounded-xl p-8 mt-12">
+          <section className="text-center bg-card rounded-xl p-8">
             <h3 className="text-xl font-semibold mb-3">{t.ctaTitle}</h3>
             <Button asChild>
               <Link to={t.accommodationsHref}>{t.ctaButton}</Link>
