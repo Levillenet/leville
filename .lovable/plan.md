@@ -1,159 +1,156 @@
 
-## Suunnitelma: Lisää yrityksen viralliset tiedot Yritys-sivulle
+## Suunnitelma: Lämmitysjärjestelmät-opassivu (FI/EN)
 
-### Tavoite
-Lisätä Leville Oy:n viralliset tiedot selkeästi Yritys-sivulle.
-
----
-
-### Lisättävät tiedot
-
-| Tieto | Arvo |
-|-------|------|
-| Virallinen yritysnimi | Leville Oy |
-| Y-tunnus | 3178413-5 |
-| Markkinointinimi | Leville.net |
-| Osoite | Ratsastajankuja 2, 99130 Levi |
+Luodaan uusi pitkä SEO-informaatiosivu "Hyvä tietää majoittumisesta" -kategoriaan Travel Hub:n alle. Sivu kattaa lämmitysjärjestelmät Levin mökeissä ja huoneistoissa.
 
 ---
 
-### Toteutus
+### Uuden sivun tiedot
 
-#### 1. Käännöstiedostot – Uusi `companyInfo` osio
+| Kieli | URL | Otsikko |
+|-------|-----|---------|
+| FI | `/opas/lammitysjarjestelmat-levi` | Mökkien ja huoneistojen lämmitysjärjestelmät Levillä |
+| EN | `/guide/heating-systems-in-levi` | Heating systems in cabins and apartments in Levi |
 
-Lisätään `yritys`-osioon uudet avaimet kaikille kielille:
+---
 
-**Suomi (`fi.ts`):**
+### Toteutettavat muutokset
+
+#### 1. Uusi sivukomponentti
+**Tiedosto:** `src/pages/guide/HeatingSystemsInLevi.tsx`
+
+Sivu sisältää:
+- **Meta/SEO**: Helmet-tagit, hreflang, canonical URL
+- **BreadcrumbList schema**: Structured data hakukoneille
+- **Sisältöosiot** (H2-tasolla):
+  1. Intro (arktinen ympäristö, lämmitysjärjestelmien erot)
+  2. Suora sähkölämmitys (sähköpatterit)
+  3. Sähköinen lattialämmitys
+  4. Vesikiertoinen lattialämmitys (hitain reagointi)
+  5. Vesikiertoiset patterit
+  6. Takat ja tulisijat (koriste- vs. varaava takka)
+  7. Ilmalämpöpumppu
+  8. Termostaattien käyttö (pienet säädöt)
+  9. Milloin ottaa yhteyttä omistajaan
+
+Visuaalinen tyyli:
+- Käytetään samaa `Card`-pohjaista layoutia kuin GettingAroundLevi-sivulla
+- Osioikoniksi Lucide-ikonit (Thermometer, Flame, AirVent, Gauge, Phone jne.)
+- Kuvapaikat merkitään placeholder-teksteillä myöhempää lisäystä varten
+
+---
+
+#### 2. Reitit App.tsx:ään
+
 ```typescript
-companyInfoTitle: "Yritystiedot",
-officialName: "Virallinen nimi",
-businessId: "Y-tunnus",
-marketingName: "Markkinointinimi",
-companyAddress: "Osoite",
-companyNameValue: "Leville Oy",
-businessIdValue: "3178413-5",
-marketingNameValue: "Leville.net",
-companyAddressValue: "Ratsastajankuja 2, 99130 Levi",
-```
+// Travel HUB Child Pages - Finnish
+<Route path="/opas/lammitysjarjestelmat-levi" element={<HeatingSystemsInLevi />} />
 
-**Englanti (`en.ts`):**
-```typescript
-companyInfoTitle: "Company Information",
-officialName: "Official name",
-businessId: "Business ID",
-marketingName: "Trading name",
-companyAddress: "Address",
-// Arvot samat kuin suomeksi
-```
-
-**Ruotsi (`sv.ts`):**
-```typescript
-companyInfoTitle: "Företagsinformation",
-officialName: "Officiellt namn",
-businessId: "Organisationsnummer",
-marketingName: "Varumärke",
-companyAddress: "Adress",
-```
-
-**Saksa (`de.ts`):**
-```typescript
-companyInfoTitle: "Unternehmensinformationen",
-officialName: "Offizieller Name",
-businessId: "Handelsregisternummer",
-marketingName: "Markenname",
-companyAddress: "Adresse",
-```
-
-**Espanja (`es.ts`):**
-```typescript
-companyInfoTitle: "Información de la empresa",
-officialName: "Nombre oficial",
-businessId: "CIF",
-marketingName: "Nombre comercial",
-companyAddress: "Dirección",
-```
-
-**Ranska (`fr.ts`):**
-```typescript
-companyInfoTitle: "Informations sur l'entreprise",
-officialName: "Nom officiel",
-businessId: "Numéro d'entreprise",
-marketingName: "Nom commercial",
-companyAddress: "Adresse",
+// Travel HUB Child Pages - English
+<Route path="/guide/heating-systems-in-levi" element={<HeatingSystemsInLevi lang="en" />} />
 ```
 
 ---
 
-#### 2. `src/pages/Yritys.tsx` – Uusi tietokortti
+#### 3. Travel Hub -päivitys
 
-Lisätään uusi osio "Miksi valita Leville.net?" -osion ja CTA-osion väliin:
+Lisätään uusi kortti TravelHub.tsx:n guide-listaukseen:
 
-```
-┌───────────────────────────────────────────────────────────────┐
-│ 🏢 Yritystiedot                                               │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│   Virallinen nimi    Leville Oy                               │
-│   Y-tunnus           3178413-5                                │
-│   Markkinointinimi   Leville.net                              │
-│   Osoite             Ratsastajankuja 2, 99130 Levi            │
-│                                                               │
-└───────────────────────────────────────────────────────────────┘
-```
-
-Käytetään samaa `glass-card` tyyliä kuin muissa osioissa.
-
----
-
-#### 3. Organization Schema päivitys
-
-Päivitetään myös `organizationSchema` -objekti tarkalla osoitteella:
-
+**Suomi:**
 ```typescript
-"address": {
-  "@type": "PostalAddress",
-  "streetAddress": "Ratsastajankuja 2",
-  "addressLocality": "Levi",
-  "postalCode": "99130",
-  "addressCountry": "FI"
-},
-"legalName": "Leville Oy",
+{ 
+  id: "heating", 
+  title: "Lämmitys mökeissä ja huoneistoissa", 
+  description: "Näin toimivat lämmitysjärjestelmät Levillä. Sähköpatterit, lattialämmitys, takat ja ilmalämpöpumput.", 
+  href: "/opas/lammitysjarjestelmat-levi", 
+  iconKey: "thermometer" 
+}
+```
+
+**Englanti:**
+```typescript
+{ 
+  id: "heating", 
+  title: "Heating Systems in Cabins", 
+  description: "How heating systems work in Levi. Electric radiators, floor heating, fireplaces and heat pumps.", 
+  href: "/guide/heating-systems-in-levi", 
+  iconKey: "thermometer" 
+}
 ```
 
 ---
 
-### Muokattavat tiedostot
+### Sivun sisältörakenne
+
+```
+[Back to Travel Guide]
+
+H1: Mökkien ja huoneistojen lämmitysjärjestelmät Levillä
+
+Intro: Lyhyt selitys arktisista olosuhteista ja eri lämmitysjärjestelmistä
+
+┌─────────────────────────────────────────────┐
+│ 🌡️ Suora sähkölämmitys                      │
+├─────────────────────────────────────────────┤
+│ • Yleisin järjestelmä Levillä               │
+│ • Seinään kiinnitetyt patterit termostaat.  │
+│ • Reagoi nopeasti säätöihin                 │
+│ • Rajoitus: vanhemmissa mökeissä eristys... │
+│ [Kuva: sähköpatteri termostaatilla]         │
+└─────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────┐
+│ 🔥 Sähköinen lattialämmitys                 │
+├─────────────────────────────────────────────┤
+│ • Lämmityskaapelit lattian alla             │
+│ • Mukava ja luotettava                      │
+│ • Hitaampi kuin patterit                    │
+│ [Kuva: seinätermostaatti]                   │
+└─────────────────────────────────────────────┘
+
+... (muut osiot samalla mallilla)
+
+┌─────────────────────────────────────────────┐
+│ 📞 Milloin ottaa yhteyttä                   │
+├─────────────────────────────────────────────┤
+│ • Normaali sisälämpötila 20–22°C            │
+│ • Kovalla pakkasella korkeampi ei aina mah. │
+│ • Jos alle 15–17°C → ota yhteyttä           │
+└─────────────────────────────────────────────┘
+
+[CTA: Varaa majoitus Leviltä]
+```
+
+---
+
+### SEO-optimointi
+
+**Meta description (FI):**
+"Lämmitysjärjestelmät Levin mökeissä ja huoneistoissa: sähköpatterit, lattialämmitys, vesikiertoinen lämmitys, ilmalämpöpumput ja takat. Käytännön vinkit lämpimään talvilomaan."
+
+**Meta description (EN):**
+"Heating systems in Levi cabins and apartments: electric radiators, floor heating, water-based heating, heat pumps and fireplaces. Practical tips for a warm winter holiday."
+
+**Target keywords:**
+- FI: Levi mökki lämmitys, huoneisto lämmitys Levi, talviloma Lappi lämpötila
+- EN: Levi cabin heating, apartment heating Levi, how heating works in Finnish cabins
+
+---
+
+### Muokattavat/luotavat tiedostot
 
 | Tiedosto | Muutos |
 |----------|--------|
-| `src/translations/fi.ts` | Lisää yritystiedot-käännökset |
-| `src/translations/en.ts` | Lisää yritystiedot-käännökset |
-| `src/translations/sv.ts` | Lisää yritystiedot-käännökset |
-| `src/translations/de.ts` | Lisää yritystiedot-käännökset |
-| `src/translations/es.ts` | Lisää yritystiedot-käännökset |
-| `src/translations/fr.ts` | Lisää yritystiedot-käännökset |
-| `src/pages/Yritys.tsx` | Lisää yritystiedot-kortti + päivitä schema |
+| `src/pages/guide/HeatingSystemsInLevi.tsx` | **UUSI** - Lämmitysopas-sivu (FI/EN) |
+| `src/App.tsx` | Lisää reitit uudelle sivulle |
+| `src/pages/guide/TravelHub.tsx` | Lisää uusi kortti guide-listaukseen + Thermometer-ikoni |
 
 ---
 
-### Visuaalinen sijoittelu sivulla
+### Sivun sävy
 
-```
-[Animoidut tilastot]
-[Esittely]
-[Meiltä saat -palvelut]
-[Räätälöidyt ratkaisut]
-[Miksi valita Leville.net?]
-[Asiakkaiden kokemuksia]
-[Yritystiedot]        ← UUSI
-[CTA: Tutustu kohteisiimme / Ota yhteyttä]
-```
+- Rauhallinen ja informatiivinen
+- Käytännönläheinen, ei tekninen manuaali
+- Ei turvallisuusvaroituksia tai teknisiä ohjeita
+- Vierasystävällinen lähestymistapa
 
----
-
-### Tulos
-
-1. Viralliset yritystiedot näkyvät selkeästi sivulla
-2. SEO-schema sisältää oikean osoitteen ja y-tunnuksen
-3. Käännökset toimivat kaikilla kuudella kielellä
-4. Tyyli on yhtenäinen muun sivun kanssa
