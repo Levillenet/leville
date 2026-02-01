@@ -1,89 +1,91 @@
 
 
-## Suunnitelma: Korjaa vieraiden hakusuodatus
+## Suunnitelma: Asiakastietojen automaattinen tyhjennys
 
-### Ongelma
+### Nykytilanne
 
-Edge function `get-current-guests` ei palauta yhtään vierasta, koska suodatuslogiikka on liian tiukka.
+| Data | Tallennus | Riski |
+|------|-----------|-------|
+| Vieraat (nimet, puhelimet) | React state | ✅ Ei riskiä - tyhjenee automaattisesti |
+| Viestiloki (`message_logs`) | Tietokanta | ⚠️ Sisältää nimet ja puhelimet |
 
-**Lokeista havaitut ongelmat:**
+### Toteutettavat muutokset
 
-| Syy | Määrä |
-|-----|-------|
-| Status "new" (ei hyväksytä) | 14 varausta |
-| Lähtee tänään | 8 varausta |
-| Saapuu tänään ennen klo 17 | 8 varausta |
-| Ei puhelinnumeroa | 6 varausta |
-| **Yhteensä suodatettu pois** | **33/33** |
+#### 1. React-komponentin automaattinen tyhjennys (5 min timeout)
 
-### Juurisyy
+**Tiedosto:** `src/components/admin/MessagingAdmin.tsx`
 
-Beds24 API:n `status`-kenttä ei vastaa oletettua:
-- Koodi hyväksyy: `confirmed` tai `1`
-- API palauttaa: `new`, joka voi tarkoittaa uutta mutta vahvistettua varausta
-
-### Korjaus
-
-**Tiedosto:** `supabase/functions/get-current-guests/index.ts`
-
-**Muutos rivit 82-86:**
+Lisätään:
+- **5 minuutin ajastin**: Kun vieraat haetaan, käynnistetään ajastin
+- **Automaattinen tyhjennys**: 5 min jälkeen guests-state tyhjenee
+- **Komponentin unmount**: Kun välilehti vaihdetaan tai sivu suljetaan, tiedot poistetaan välittömästi
+- **Käyttäjälle ilmoitus**: Näytetään jäljellä oleva aika
 
 ```typescript
-// ENNEN (liian tiukka):
-if (booking.status && booking.status !== 'confirmed' && booking.status !== '1') {
-  console.log(`Booking ${booking.id}: Status ${booking.status}, skipping`);
-  return false;
-}
+// Lisätään useEffect joka tyhjentää datan
+useEffect(() => {
+  if (guests.length === 0) return;
+  
+  const timer = setTimeout(() => {
+    setGuests([]);
+    toast({
+      title: "Tiedot tyhjennetty",
+      description: "Vierastiedot poistettu 5 min kuluttua tietosuojasyistä"
+    });
+  }, 5 * 60 * 1000); // 5 minuuttia
+  
+  return () => clearTimeout(timer);
+}, [guests.length > 0]);
 
-// JÄLKEEN (hyväksy myös new ja 0):
-const rejectedStatuses = ['cancelled', 'canceled', 'no-show', 'declined'];
-if (booking.status && rejectedStatuses.includes(booking.status.toLowerCase())) {
-  console.log(`Booking ${booking.id}: Status ${booking.status}, skipping`);
-  return false;
-}
+// Komponentin unmount tyhjentää datan
+useEffect(() => {
+  return () => setGuests([]);
+}, []);
 ```
 
-### Logiikan muutos
+#### 2. Viestilokin automaattinen siivous
 
-**Vanha lähestymistapa:** Whitelist - hyväksy vain tietyt statukset
-**Uusi lähestymistapa:** Blacklist - hylkää vain peruutetut/no-show varaukset
+**Vaihtoehto A: Älä tallenna puhelinnumeroa lokiin**
 
-Tämä on turvallisempaa koska:
-- Beds24 voi käyttää eri status-arvoja eri tilanteissa
-- Uudet varaukset (`new`) ovat yleensä valideja
-- Näytetään mieluummin liikaa kuin liian vähän (admin voi itse arvioida)
+Muokataan `log-message` edge functionia niin, että puhelinnumero korvataan osittaisella numerolla (esim. `+358*****567`).
 
-### Lisäparannus: Näytä suodatuksen syyt käyttöliittymässä
+**Vaihtoehto B: Automaattinen poisto 24h jälkeen**
 
-Lisätään API-vastaukseen debug-tietoa:
+Luodaan cron-job joka poistaa vanhat lokit:
 
-```typescript
-return new Response(
-  JSON.stringify({ 
-    success: true, 
-    guests: filteredGuests,
-    fetchedAt: new Date().toISOString(),
-    currentHour,
-    today,
-    debug: {
-      totalBookings: bookings.length,
-      filteredOut: {
-        noPhone: noPhoneCount,
-        departingToday: departingCount,
-        arrivingBeforeFive: arrivingCount,
-        rejectedStatus: rejectedCount
-      }
-    }
-  }),
-  { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-);
+```sql
+-- Poista yli 24h vanhat lokit
+DELETE FROM message_logs WHERE sent_at < NOW() - INTERVAL '24 hours';
 ```
 
-### Yhteenveto
+#### 3. Käyttöliittymän indikaattori
+
+Näytetään käyttäjälle:
+- Jäljellä oleva aika ennen datan tyhjennystä
+- Varoitus tietosuojasta
+- "Tyhjennä nyt" -nappi manuaaliseen tyhjennykseen
+
+```
+┌────────────────────────────────────────────┐
+│ 🔒 Vierastiedot poistetaan: 4:32 jäljellä  │
+│    [Tyhjennä nyt]                          │
+└────────────────────────────────────────────┘
+```
+
+---
+
+### Yhteenveto muutoksista
 
 | Tiedosto | Muutos |
 |----------|--------|
-| `supabase/functions/get-current-guests/index.ts` | Muuta status-suodatus blacklist-pohjaiseksi |
+| `src/components/admin/MessagingAdmin.tsx` | Lisää 5 min timeout, unmount-tyhjennys, countdown-näyttö |
+| `supabase/functions/log-message/index.ts` | Maskaa puhelinnumero lokissa |
+| Tietokantamigraatio (valinnainen) | Luo cron-job vanhojen lokien poistoon |
 
-Korjauksen jälkeen ne 14 varausta joiden status on "new" tulevat näkyviin (jos niillä on puhelinnumero ja ne eivät ole tänään lähteviä/saapuvia ennen klo 17).
+### Tietosuojahyödyt
+
+- ✅ Vierastiedot eivät jää roikkumaan selaimeen
+- ✅ Puhelinnumerot eivät tallennu selkokielisinä lokiin
+- ✅ Vanhat lokit poistetaan automaattisesti
+- ✅ Käyttäjä näkee selkeästi milloin tiedot poistetaan
 
