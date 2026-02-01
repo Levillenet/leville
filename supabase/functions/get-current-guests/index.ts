@@ -99,11 +99,12 @@ serve(async (req) => {
       }
 
       return true;
-    }).map((booking: any) => ({
+}).map((booking: any) => ({
       bookingId: booking.id,
       firstName: booking.firstName || '',
       lastName: booking.lastName || '',
       phone: booking.mobile || booking.phone || '',
+      email: booking.email || '',
       apartmentId: String(booking.roomId || booking.propertyId || ''),
       arrival: booking.arrival,
       departure: booking.departure,
