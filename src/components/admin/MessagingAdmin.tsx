@@ -9,14 +9,17 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, MessageSquare, RefreshCw, Send, Plus, Pencil, Trash2, Users, CheckSquare, Shield, Clock } from "lucide-react";
+import { Loader2, MessageSquare, RefreshCw, Send, Plus, Pencil, Trash2, Users, CheckSquare, Shield, Clock, Mail } from "lucide-react";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
+
+type SendMethod = 'whatsapp' | 'email';
 
 interface GuestForMessaging {
   bookingId: number;
   firstName: string;
   lastName: string;
   phone: string;
+  email: string;
   apartmentName: string;
   apartmentId: string;
   arrival: string;
@@ -51,6 +54,7 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
   const [propertyNames, setPropertyNames] = useState<Map<string, string>>(new Map());
   const [dataFetchedAt, setDataFetchedAt] = useState<number | null>(null);
   const [remainingSeconds, setRemainingSeconds] = useState<number>(0);
+  const [sendMethod, setSendMethod] = useState<SendMethod>('whatsapp');
   const { toast } = useToast();
 
   // Auto-clear guest data after 5 minutes for privacy
@@ -291,6 +295,87 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
     });
   };
 
+  // Create Gmail compose URL with BCC
+  const createGmailLink = (): string => {
+    const selectedGuests = guests.filter(g => g.selected && g.email);
+    
+    if (selectedGuests.length === 0) return '';
+    
+    // BCC: all selected emails separated by comma
+    const bccEmails = selectedGuests
+      .map(g => g.email)
+      .filter(Boolean)
+      .join(',');
+    
+    // Get message content without personalization variables
+    const messageContent = getMessageContent()
+      .replace(/\[NIMI\]/g, '')
+      .replace(/\[HUONEISTO\]/g, '')
+      .replace(/\[SAAPUMINEN\]/g, '')
+      .replace(/\[LÄHTÖ\]/g, '')
+      .replace(/\[VIESTI\]/g, freeMessage)
+      .trim();
+    
+    // Get template name for subject
+    const templateName = selectedTemplateId === "free" 
+      ? "Viesti Levilleltä" 
+      : templates.find(t => t.id === selectedTemplateId)?.name || "Viesti Levilleltä";
+    
+    // Gmail compose URL
+    const params = new URLSearchParams({
+      to: 'info@leville.net',
+      bcc: bccEmails,
+      su: templateName,
+      body: messageContent,
+      tf: 'cm'
+    });
+    
+    return `https://mail.google.com/mail/u/0/?${params.toString()}`;
+  };
+
+  const openGmail = async () => {
+    if (isViewer) {
+      toast({
+        title: "Katselutila",
+        description: "Et voi lähettää viestejä katselutilassa",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const selectedWithEmail = guests.filter(g => g.selected && g.email);
+    
+    if (selectedWithEmail.length === 0) {
+      toast({
+        title: "Ei sähköpostiosoitteita",
+        description: "Valituilla vierailla ei ole sähköpostiosoitetta",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const link = createGmailLink();
+    
+    // Log the message
+    try {
+      await supabase.functions.invoke('log-message', {
+        body: {
+          password: getAdminPassword(),
+          guestName: `${selectedWithEmail.length} vierasta (sähköposti)`,
+          phone: '-',
+          apartmentName: '-',
+          templateName: selectedTemplateId === "free" ? "Vapaa viesti" : 
+            templates.find(t => t.id === selectedTemplateId)?.name,
+          messageContent: `Email BCC: ${selectedWithEmail.length} vastaanottajaa`
+        }
+      });
+    } catch (error) {
+      console.error('Error logging message:', error);
+    }
+
+    window.open(link, '_blank');
+  };
+
   const saveTemplate = async () => {
     if (!newTemplateName.trim() || !newTemplateMessage.trim()) {
       toast({
@@ -389,7 +474,7 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
   };
 
   const selectedCount = guests.filter(g => g.selected).length;
-
+  const selectedEmailCount = guests.filter(g => g.selected && g.email).length;
   const formatDateRange = (arrival: string, departure: string) => {
     const a = new Date(arrival);
     const d = new Date(departure);
@@ -403,13 +488,13 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <MessageSquare className="w-5 h-5" />
-            WhatsApp-viestintä
+            Vierasviestintä
           </CardTitle>
           <CardDescription>
-            Lähetä WhatsApp-viestejä tällä hetkellä majoittuville vieraille
+            Lähetä viestejä tällä hetkellä majoittuville vieraille
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           <Button onClick={fetchGuests} disabled={isLoadingGuests}>
             {isLoadingGuests ? (
               <>
@@ -424,7 +509,7 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
             )}
           </Button>
           {guests.length > 0 && (
-            <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
+            <div className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
                   <Shield className="w-4 h-4" />
@@ -456,6 +541,44 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
         </CardContent>
       </Card>
 
+      {/* Send Method Toggle */}
+      {guests.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <Send className="w-5 h-5" />
+              Lähetystapa
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex gap-3">
+              <Button
+                variant={sendMethod === 'whatsapp' ? 'default' : 'outline'}
+                onClick={() => setSendMethod('whatsapp')}
+                className={sendMethod === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#128C7E] text-white' : ''}
+              >
+                <MessageSquare className="w-4 h-4 mr-2" />
+                WhatsApp
+              </Button>
+              <Button
+                variant={sendMethod === 'email' ? 'default' : 'outline'}
+                onClick={() => setSendMethod('email')}
+                className={sendMethod === 'email' ? 'bg-blue-600 hover:bg-blue-700 text-white' : ''}
+              >
+                <Mail className="w-4 h-4 mr-2" />
+                Sähköposti
+              </Button>
+            </div>
+            {sendMethod === 'email' && (
+              <p className="mt-3 text-sm text-muted-foreground">
+                Avaa Gmail valittujen vieraiden sähköpostiosoitteilla piilokopiona (BCC). 
+                Vastaanottaja: info@leville.net
+              </p>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
       {/* Guest List */}
       {guests.length > 0 && (
         <Card>
@@ -485,18 +608,29 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
                       {guest.apartmentName}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {formatDateRange(guest.arrival, guest.departure)} • {guest.phone}
+                      {formatDateRange(guest.arrival, guest.departure)}
+                      {sendMethod === 'whatsapp' && guest.phone && ` • ${guest.phone}`}
+                      {sendMethod === 'email' && guest.email && ` • ${guest.email}`}
+                      {sendMethod === 'email' && !guest.email && (
+                        <span className="text-destructive"> • Ei sähköpostia</span>
+                      )}
                     </p>
                   </div>
                 </div>
-                <Button
-                  onClick={() => openWhatsApp(guest)}
-                  disabled={isViewer || !getMessageContent()}
-                  className="bg-[#25D366] hover:bg-[#128C7E] text-white"
-                >
-                  <Send className="w-4 h-4 mr-2" />
-                  WhatsApp
-                </Button>
+                {sendMethod === 'whatsapp' ? (
+                  <Button
+                    onClick={() => openWhatsApp(guest)}
+                    disabled={isViewer || !getMessageContent() || !guest.phone}
+                    className="bg-[#25D366] hover:bg-[#128C7E] text-white"
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    WhatsApp
+                  </Button>
+                ) : (
+                  <div className="text-xs text-muted-foreground">
+                    {guest.email ? '✓ Sähköposti' : '—'}
+                  </div>
+                )}
               </div>
             ))}
           </CardContent>
@@ -629,14 +763,25 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
 
           {/* Send to selected button */}
           {guests.length > 0 && selectedCount > 0 && (
-            <Button
-              onClick={openSelectedWhatsApps}
-              disabled={isViewer || !getMessageContent()}
-              className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white"
-            >
-              <Send className="w-4 h-4 mr-2" />
-              Lähetä valituille ({selectedCount})
-            </Button>
+            sendMethod === 'whatsapp' ? (
+              <Button
+                onClick={openSelectedWhatsApps}
+                disabled={isViewer || !getMessageContent()}
+                className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white"
+              >
+                <Send className="w-4 h-4 mr-2" />
+                Lähetä WhatsApp valituille ({selectedCount})
+              </Button>
+            ) : (
+              <Button
+                onClick={openGmail}
+                disabled={isViewer || !getMessageContent() || selectedEmailCount === 0}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                <Mail className="w-4 h-4 mr-2" />
+                Avaa Gmail ({selectedEmailCount} vastaanottajaa)
+              </Button>
+            )
           )}
         </CardContent>
       </Card>
