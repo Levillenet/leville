@@ -58,30 +58,43 @@ serve(async (req) => {
     
     console.log(`Found ${bookings.length} total bookings`);
 
+    // Track filtering stats for debug
+    let noPhoneCount = 0;
+    let departingCount = 0;
+    let arrivingCount = 0;
+    let rejectedStatusCount = 0;
+
+    // Rejected statuses - blacklist approach (more inclusive)
+    const rejectedStatuses = ['cancelled', 'canceled', 'no-show', 'declined', 'rejected'];
+
     // Filter bookings based on criteria
     const filteredGuests = bookings.filter((booking: any) => {
       // Must have phone or mobile
       const phone = booking.mobile || booking.phone;
       if (!phone) {
         console.log(`Booking ${booking.id}: No phone, skipping`);
+        noPhoneCount++;
         return false;
       }
 
       // Don't show guests departing today
       if (booking.departure === today) {
         console.log(`Booking ${booking.id}: Departing today, skipping`);
+        departingCount++;
         return false;
       }
 
       // Don't show guests arriving today before 17:00
       if (booking.arrival === today && currentHour < 17) {
         console.log(`Booking ${booking.id}: Arriving today but before 17:00, skipping`);
+        arrivingCount++;
         return false;
       }
 
-      // Only show confirmed bookings
-      if (booking.status && booking.status !== 'confirmed' && booking.status !== '1') {
+      // Only reject cancelled/no-show bookings (blacklist approach)
+      if (booking.status && rejectedStatuses.includes(booking.status.toLowerCase())) {
         console.log(`Booking ${booking.id}: Status ${booking.status}, skipping`);
+        rejectedStatusCount++;
         return false;
       }
 
@@ -105,6 +118,15 @@ serve(async (req) => {
         fetchedAt: new Date().toISOString(),
         currentHour,
         today,
+        debug: {
+          totalBookings: bookings.length,
+          filteredOut: {
+            noPhone: noPhoneCount,
+            departingToday: departingCount,
+            arrivingBeforeFive: arrivingCount,
+            rejectedStatus: rejectedStatusCount
+          }
+        }
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
