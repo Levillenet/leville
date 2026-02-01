@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, MessageSquare, RefreshCw, Send, Plus, Pencil, Trash2, Users, CheckSquare } from "lucide-react";
+import { Loader2, MessageSquare, RefreshCw, Send, Plus, Pencil, Trash2, Users, CheckSquare, Shield, Clock } from "lucide-react";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
 
 interface GuestForMessaging {
@@ -35,6 +35,8 @@ interface MessagingAdminProps {
   isViewer: boolean;
 }
 
+const DATA_EXPIRY_MS = 5 * 60 * 1000; // 5 minutes
+
 const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
   const [guests, setGuests] = useState<GuestForMessaging[]>([]);
   const [templates, setTemplates] = useState<MessageTemplate[]>([]);
@@ -47,7 +49,59 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
   const [newTemplateName, setNewTemplateName] = useState("");
   const [newTemplateMessage, setNewTemplateMessage] = useState("");
   const [propertyNames, setPropertyNames] = useState<Map<string, string>>(new Map());
+  const [dataFetchedAt, setDataFetchedAt] = useState<number | null>(null);
+  const [remainingSeconds, setRemainingSeconds] = useState<number>(0);
   const { toast } = useToast();
+
+  // Auto-clear guest data after 5 minutes for privacy
+  useEffect(() => {
+    if (guests.length === 0 || !dataFetchedAt) {
+      setRemainingSeconds(0);
+      return;
+    }
+
+    const expiryTime = dataFetchedAt + DATA_EXPIRY_MS;
+    
+    // Update countdown every second
+    const countdownInterval = setInterval(() => {
+      const remaining = Math.max(0, Math.ceil((expiryTime - Date.now()) / 1000));
+      setRemainingSeconds(remaining);
+      
+      if (remaining <= 0) {
+        setGuests([]);
+        setDataFetchedAt(null);
+        toast({
+          title: "Tiedot tyhjennetty",
+          description: "Vierastiedot poistettu automaattisesti tietosuojasyistä",
+        });
+      }
+    }, 1000);
+
+    return () => clearInterval(countdownInterval);
+  }, [guests.length, dataFetchedAt, toast]);
+
+  // Clear data on component unmount
+  useEffect(() => {
+    return () => {
+      setGuests([]);
+      setDataFetchedAt(null);
+    };
+  }, []);
+
+  const clearGuestsNow = () => {
+    setGuests([]);
+    setDataFetchedAt(null);
+    toast({
+      title: "Tiedot tyhjennetty",
+      description: "Vierastiedot poistettu manuaalisesti",
+    });
+  };
+
+  const formatRemainingTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   // Build property name lookup map
   useEffect(() => {
@@ -109,10 +163,11 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
           selected: false,
         }));
         setGuests(guestsWithNames);
+        setDataFetchedAt(Date.now()); // Start the countdown timer
         
         toast({
           title: "Vieraat haettu",
-          description: `${guestsWithNames.length} vierasta löytyi`
+          description: `${guestsWithNames.length} vierasta löytyi. Tiedot poistetaan automaattisesti 5 min kuluttua.`
         });
       }
     } catch (error) {
@@ -369,10 +424,34 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
             )}
           </Button>
           {guests.length > 0 && (
-            <p className="mt-2 text-sm text-muted-foreground">
-              <Users className="w-4 h-4 inline mr-1" />
-              {guests.length} vierasta löytyi
-            </p>
+            <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
+                  <Shield className="w-4 h-4" />
+                  <span className="text-sm font-medium">
+                    Tietosuoja: tiedot poistetaan automaattisesti
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-1 text-amber-700 dark:text-amber-300">
+                    <Clock className="w-4 h-4" />
+                    <span className="text-sm font-mono">{formatRemainingTime(remainingSeconds)}</span>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={clearGuestsNow}
+                    className="text-amber-700 border-amber-300 hover:bg-amber-100 dark:text-amber-300 dark:border-amber-700 dark:hover:bg-amber-900"
+                  >
+                    Tyhjennä nyt
+                  </Button>
+                </div>
+              </div>
+              <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">
+                <Users className="w-3 h-3 inline mr-1" />
+                {guests.length} vierasta • Tiedot eivät tallennu tietokantaan
+              </p>
+            </div>
           )}
         </CardContent>
       </Card>

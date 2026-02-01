@@ -68,3 +68,6 @@ verify_jwt = false
 
 [functions.send-property-inquiry]
 verify_jwt = false
+
+[functions.log-message]
+verify_jwt = false
