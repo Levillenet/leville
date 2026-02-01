@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
@@ -17,6 +17,7 @@ import MaintenanceAdmin from "@/components/admin/MaintenanceAdmin";
 import PropertyMaintenanceAdmin from "@/components/admin/PropertyMaintenanceAdmin";
 import FloorHeatingAdmin from "@/components/admin/FloorHeatingAdmin";
 import { BookingTermsAdmin } from "@/components/admin/BookingTermsAdmin";
+import MessagingAdmin from "@/components/admin/MessagingAdmin";
 import {
   BarChart,
   Bar,
@@ -335,6 +336,10 @@ const Admin = () => {
                 Varausehdot
               </TabsTrigger>
             )}
+            <TabsTrigger value="messaging" className="flex items-center gap-2">
+              <MessageSquare className="w-4 h-4" />
+              Viestintä
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="maintenance">
@@ -383,6 +388,10 @@ const Admin = () => {
               <BookingTermsAdmin adminPassword={localStorage.getItem('admin_password') || ''} />
             </TabsContent>
           )}
+
+          <TabsContent value="messaging">
+            <MessagingAdmin isViewer={isViewer} />
+          </TabsContent>
 
           <TabsContent value="stats">
         {/* Summary Cards */}

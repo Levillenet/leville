@@ -680,6 +680,66 @@ export type Database = {
         }
         Relationships: []
       }
+      message_logs: {
+        Row: {
+          apartment_name: string | null
+          guest_name: string
+          id: string
+          message_content: string
+          phone: string
+          sent_at: string | null
+          sent_by: string | null
+          template_name: string | null
+        }
+        Insert: {
+          apartment_name?: string | null
+          guest_name: string
+          id?: string
+          message_content: string
+          phone: string
+          sent_at?: string | null
+          sent_by?: string | null
+          template_name?: string | null
+        }
+        Update: {
+          apartment_name?: string | null
+          guest_name?: string
+          id?: string
+          message_content?: string
+          phone?: string
+          sent_at?: string | null
+          sent_by?: string | null
+          template_name?: string | null
+        }
+        Relationships: []
+      }
+      message_templates: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_default: boolean | null
+          message: string
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_default?: boolean | null
+          message: string
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_default?: boolean | null
+          message?: string
+          name?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       moder_property_mapping: {
         Row: {
           beds24_room_id: string

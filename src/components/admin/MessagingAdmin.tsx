@@ -1,0 +1,568 @@
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
+import { Loader2, MessageSquare, RefreshCw, Send, Plus, Pencil, Trash2, Users, CheckSquare } from "lucide-react";
+import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
+
+interface GuestForMessaging {
+  bookingId: number;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  apartmentName: string;
+  apartmentId: string;
+  arrival: string;
+  departure: string;
+  selected: boolean;
+}
+
+interface MessageTemplate {
+  id: string;
+  name: string;
+  message: string;
+  is_default: boolean;
+}
+
+interface MessagingAdminProps {
+  isViewer: boolean;
+}
+
+const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
+  const [guests, setGuests] = useState<GuestForMessaging[]>([]);
+  const [templates, setTemplates] = useState<MessageTemplate[]>([]);
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>("free");
+  const [freeMessage, setFreeMessage] = useState("");
+  const [isLoadingGuests, setIsLoadingGuests] = useState(false);
+  const [isLoadingTemplates, setIsLoadingTemplates] = useState(false);
+  const [templateDialogOpen, setTemplateDialogOpen] = useState(false);
+  const [editingTemplate, setEditingTemplate] = useState<MessageTemplate | null>(null);
+  const [newTemplateName, setNewTemplateName] = useState("");
+  const [newTemplateMessage, setNewTemplateMessage] = useState("");
+  const [propertyNames, setPropertyNames] = useState<Map<string, string>>(new Map());
+  const { toast } = useToast();
+
+  // Build property name lookup map
+  useEffect(() => {
+    const defaultProperties = getAllDefaultPropertyDetails();
+    const nameMap = new Map<string, string>();
+    defaultProperties.forEach(p => {
+      nameMap.set(p.id, p.name);
+    });
+    setPropertyNames(nameMap);
+  }, []);
+
+  // Load templates on mount
+  useEffect(() => {
+    fetchTemplates();
+  }, []);
+
+  const getAdminPassword = () => localStorage.getItem('admin_password') || '';
+
+  const fetchTemplates = async () => {
+    setIsLoadingTemplates(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('manage-message-templates', {
+        body: { action: 'list', password: getAdminPassword() }
+      });
+
+      if (error) throw error;
+      if (data?.templates) {
+        setTemplates(data.templates);
+        // Select first template by default
+        if (data.templates.length > 0 && selectedTemplateId === "free") {
+          setSelectedTemplateId(data.templates[0].id);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching templates:', error);
+      toast({
+        title: "Virhe",
+        description: "Templatejen haku epäonnistui",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoadingTemplates(false);
+    }
+  };
+
+  const fetchGuests = async () => {
+    setIsLoadingGuests(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('get-current-guests', {
+        body: { password: getAdminPassword() }
+      });
+
+      if (error) throw error;
+      
+      if (data?.guests) {
+        const guestsWithNames = data.guests.map((g: any) => ({
+          ...g,
+          apartmentName: propertyNames.get(g.apartmentId) || `ID: ${g.apartmentId}`,
+          selected: false,
+        }));
+        setGuests(guestsWithNames);
+        
+        toast({
+          title: "Vieraat haettu",
+          description: `${guestsWithNames.length} vierasta löytyi`
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching guests:', error);
+      toast({
+        title: "Virhe",
+        description: "Vieraiden haku epäonnistui",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoadingGuests(false);
+    }
+  };
+
+  const toggleGuestSelection = (bookingId: number) => {
+    setGuests(prev => prev.map(g => 
+      g.bookingId === bookingId ? { ...g, selected: !g.selected } : g
+    ));
+  };
+
+  const selectAllGuests = () => {
+    const allSelected = guests.every(g => g.selected);
+    setGuests(prev => prev.map(g => ({ ...g, selected: !allSelected })));
+  };
+
+  const getMessageContent = (): string => {
+    if (selectedTemplateId === "free") {
+      return freeMessage;
+    }
+    const template = templates.find(t => t.id === selectedTemplateId);
+    return template?.message || "";
+  };
+
+  const formatMessage = (template: string, guest: GuestForMessaging): string => {
+    const formatDate = (dateStr: string) => {
+      const date = new Date(dateStr);
+      return `${date.getDate()}.${date.getMonth() + 1}.`;
+    };
+    
+    return template
+      .replace(/\[NIMI\]/g, `${guest.firstName} ${guest.lastName}`.trim() || 'Vieras')
+      .replace(/\[HUONEISTO\]/g, guest.apartmentName)
+      .replace(/\[SAAPUMINEN\]/g, formatDate(guest.arrival))
+      .replace(/\[LÄHTÖ\]/g, formatDate(guest.departure))
+      .replace(/\[VIESTI\]/g, freeMessage);
+  };
+
+  const cleanPhoneNumber = (phone: string): string => {
+    let cleaned = phone.replace(/[\s\-\(\)]/g, '');
+    
+    // Handle Finnish numbers
+    if (cleaned.startsWith('0')) {
+      cleaned = '358' + cleaned.substring(1);
+    } else if (cleaned.startsWith('+')) {
+      cleaned = cleaned.substring(1);
+    } else if (!cleaned.startsWith('358') && !cleaned.startsWith('44') && !cleaned.startsWith('46')) {
+      // Assume Finnish if no country code detected
+      cleaned = '358' + cleaned;
+    }
+    
+    return cleaned;
+  };
+
+  const createWhatsAppLink = (guest: GuestForMessaging): string => {
+    const messageContent = getMessageContent();
+    const formattedMessage = formatMessage(messageContent, guest);
+    const cleanedPhone = cleanPhoneNumber(guest.phone);
+    const encodedMessage = encodeURIComponent(formattedMessage);
+    return `https://wa.me/${cleanedPhone}?text=${encodedMessage}`;
+  };
+
+  const openWhatsApp = async (guest: GuestForMessaging) => {
+    if (isViewer) {
+      toast({
+        title: "Katselutila",
+        description: "Et voi lähettää viestejä katselutilassa",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const link = createWhatsAppLink(guest);
+    const messageContent = getMessageContent();
+    const formattedMessage = formatMessage(messageContent, guest);
+
+    // Log the message
+    try {
+      await supabase.functions.invoke('log-message', {
+        body: {
+          password: getAdminPassword(),
+          guestName: `${guest.firstName} ${guest.lastName}`,
+          phone: guest.phone,
+          apartmentName: guest.apartmentName,
+          templateName: selectedTemplateId === "free" ? "Vapaa viesti" : 
+            templates.find(t => t.id === selectedTemplateId)?.name,
+          messageContent: formattedMessage
+        }
+      });
+    } catch (error) {
+      console.error('Error logging message:', error);
+    }
+
+    // Open WhatsApp
+    window.open(link, '_blank');
+  };
+
+  const openSelectedWhatsApps = () => {
+    const selectedGuests = guests.filter(g => g.selected);
+    if (selectedGuests.length === 0) {
+      toast({
+        title: "Valitse vieraita",
+        description: "Valitse ensin vieraat joille haluat lähettää viestin",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    selectedGuests.forEach((guest, index) => {
+      // Stagger opening to avoid popup blockers
+      setTimeout(() => openWhatsApp(guest), index * 500);
+    });
+  };
+
+  const saveTemplate = async () => {
+    if (!newTemplateName.trim() || !newTemplateMessage.trim()) {
+      toast({
+        title: "Virhe",
+        description: "Nimi ja viesti ovat pakollisia",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const action = editingTemplate ? 'update' : 'create';
+      const { error } = await supabase.functions.invoke('manage-message-templates', {
+        body: {
+          action,
+          password: getAdminPassword(),
+          template: {
+            id: editingTemplate?.id,
+            name: newTemplateName,
+            message: newTemplateMessage
+          }
+        }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: editingTemplate ? "Template päivitetty" : "Template luotu",
+        description: `"${newTemplateName}" tallennettu`
+      });
+
+      setTemplateDialogOpen(false);
+      setEditingTemplate(null);
+      setNewTemplateName("");
+      setNewTemplateMessage("");
+      fetchTemplates();
+    } catch (error) {
+      console.error('Error saving template:', error);
+      toast({
+        title: "Virhe",
+        description: "Templaten tallennus epäonnistui",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const deleteTemplate = async (template: MessageTemplate) => {
+    if (template.is_default) {
+      toast({
+        title: "Virhe",
+        description: "Oletustemplateja ei voi poistaa",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const { error } = await supabase.functions.invoke('manage-message-templates', {
+        body: {
+          action: 'delete',
+          password: getAdminPassword(),
+          template: { id: template.id }
+        }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Template poistettu",
+        description: `"${template.name}" poistettu`
+      });
+
+      fetchTemplates();
+    } catch (error) {
+      console.error('Error deleting template:', error);
+      toast({
+        title: "Virhe",
+        description: "Templaten poisto epäonnistui",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const openEditDialog = (template: MessageTemplate) => {
+    setEditingTemplate(template);
+    setNewTemplateName(template.name);
+    setNewTemplateMessage(template.message);
+    setTemplateDialogOpen(true);
+  };
+
+  const openNewDialog = () => {
+    setEditingTemplate(null);
+    setNewTemplateName("");
+    setNewTemplateMessage("");
+    setTemplateDialogOpen(true);
+  };
+
+  const selectedCount = guests.filter(g => g.selected).length;
+
+  const formatDateRange = (arrival: string, departure: string) => {
+    const a = new Date(arrival);
+    const d = new Date(departure);
+    return `${a.getDate()}.${a.getMonth() + 1}. - ${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <MessageSquare className="w-5 h-5" />
+            WhatsApp-viestintä
+          </CardTitle>
+          <CardDescription>
+            Lähetä WhatsApp-viestejä tällä hetkellä majoittuville vieraille
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Button onClick={fetchGuests} disabled={isLoadingGuests}>
+            {isLoadingGuests ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Haetaan...
+              </>
+            ) : (
+              <>
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Hae majoittuvat vieraat
+              </>
+            )}
+          </Button>
+          {guests.length > 0 && (
+            <p className="mt-2 text-sm text-muted-foreground">
+              <Users className="w-4 h-4 inline mr-1" />
+              {guests.length} vierasta löytyi
+            </p>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Guest List */}
+      {guests.length > 0 && (
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="text-base">Vieraslista</CardTitle>
+            <Button variant="outline" size="sm" onClick={selectAllGuests}>
+              <CheckSquare className="w-4 h-4 mr-2" />
+              {guests.every(g => g.selected) ? 'Poista valinnat' : 'Valitse kaikki'}
+            </Button>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {guests.map((guest) => (
+              <div
+                key={guest.bookingId}
+                className="flex items-center justify-between p-4 border rounded-lg bg-card hover:bg-muted/50 transition-colors"
+              >
+                <div className="flex items-center gap-4">
+                  <Checkbox
+                    checked={guest.selected}
+                    onCheckedChange={() => toggleGuestSelection(guest.bookingId)}
+                  />
+                  <div className="space-y-1">
+                    <p className="font-medium">
+                      {guest.firstName} {guest.lastName}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {guest.apartmentName}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatDateRange(guest.arrival, guest.departure)} • {guest.phone}
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  onClick={() => openWhatsApp(guest)}
+                  disabled={isViewer || !getMessageContent()}
+                  className="bg-[#25D366] hover:bg-[#128C7E] text-white"
+                >
+                  <Send className="w-4 h-4 mr-2" />
+                  WhatsApp
+                </Button>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Message Templates */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle className="text-base">Viestitemplate</CardTitle>
+            <CardDescription>
+              Valitse valmis template tai kirjoita vapaa viesti
+            </CardDescription>
+          </div>
+          {!isViewer && (
+            <Dialog open={templateDialogOpen} onOpenChange={setTemplateDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm" onClick={openNewDialog}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  Lisää template
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>
+                    {editingTemplate ? 'Muokkaa templateä' : 'Uusi template'}
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="template-name">Nimi</Label>
+                    <Input
+                      id="template-name"
+                      value={newTemplateName}
+                      onChange={(e) => setNewTemplateName(e.target.value)}
+                      placeholder="Esim. Tervetuloa"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="template-message">Viesti</Label>
+                    <Textarea
+                      id="template-message"
+                      value={newTemplateMessage}
+                      onChange={(e) => setNewTemplateMessage(e.target.value)}
+                      placeholder="Hei [NIMI]! Tervetuloa majoittumaan..."
+                      rows={4}
+                    />
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Muuttujat: [NIMI], [HUONEISTO], [SAAPUMINEN], [LÄHTÖ], [VIESTI]
+                    </p>
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setTemplateDialogOpen(false)}>
+                    Peruuta
+                  </Button>
+                  <Button onClick={saveTemplate}>
+                    Tallenna
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          )}
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {isLoadingTemplates ? (
+            <div className="flex items-center justify-center py-4">
+              <Loader2 className="w-6 h-6 animate-spin" />
+            </div>
+          ) : (
+            <RadioGroup value={selectedTemplateId} onValueChange={setSelectedTemplateId}>
+              {templates.map((template) => (
+                <div key={template.id} className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <RadioGroupItem value={template.id} id={template.id} />
+                    <Label htmlFor={template.id} className="cursor-pointer">
+                      <span className="font-medium">{template.name}</span>
+                      {template.is_default && (
+                        <span className="ml-2 text-xs text-muted-foreground">(oletus)</span>
+                      )}
+                    </Label>
+                  </div>
+                  {!isViewer && (
+                    <div className="flex gap-1">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => openEditDialog(template)}
+                      >
+                        <Pencil className="w-4 h-4" />
+                      </Button>
+                      {!template.is_default && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => deleteTemplate(template)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+              <div className="flex items-center space-x-3">
+                <RadioGroupItem value="free" id="free" />
+                <Label htmlFor="free" className="cursor-pointer font-medium">
+                  Vapaa viesti
+                </Label>
+              </div>
+            </RadioGroup>
+          )}
+
+          {/* Free message textarea or template preview */}
+          {selectedTemplateId === "free" ? (
+            <Textarea
+              value={freeMessage}
+              onChange={(e) => setFreeMessage(e.target.value)}
+              placeholder="Kirjoita vapaa viesti vieraille..."
+              rows={4}
+            />
+          ) : (
+            <div className="p-3 bg-muted rounded-lg">
+              <p className="text-sm">
+                {templates.find(t => t.id === selectedTemplateId)?.message}
+              </p>
+            </div>
+          )}
+
+          {/* Send to selected button */}
+          {guests.length > 0 && selectedCount > 0 && (
+            <Button
+              onClick={openSelectedWhatsApps}
+              disabled={isViewer || !getMessageContent()}
+              className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white"
+            >
+              <Send className="w-4 h-4 mr-2" />
+              Lähetä valituille ({selectedCount})
+            </Button>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default MessagingAdmin;
