@@ -296,7 +296,12 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
   };
 
   // Create Gmail compose URL with BCC
-  const createGmailLink = (): string => {
+  // Check if user is on mobile device
+  const isMobileDevice = (): boolean => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  };
+
+  const createEmailLink = (): string => {
     const selectedGuests = guests.filter(g => g.selected && g.email);
     
     if (selectedGuests.length === 0) return '';
@@ -321,7 +326,17 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
       ? "Viesti Levilleltä" 
       : templates.find(t => t.id === selectedTemplateId)?.name || "Viesti Levilleltä";
     
-    // Gmail compose URL
+    // On mobile, use mailto: which opens native email app (Gmail on Android)
+    if (isMobileDevice()) {
+      const mailtoParams = new URLSearchParams({
+        bcc: bccEmails,
+        subject: templateName,
+        body: messageContent
+      });
+      return `mailto:info@leville.net?${mailtoParams.toString()}`;
+    }
+    
+    // On desktop, use Gmail web compose URL
     const params = new URLSearchParams({
       to: 'info@leville.net',
       bcc: bccEmails,
@@ -354,7 +369,7 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
       return;
     }
 
-    const link = createGmailLink();
+    const link = createEmailLink();
     
     // Log the message
     try {
