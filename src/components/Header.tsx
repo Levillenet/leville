@@ -19,48 +19,42 @@ const Header = () => {
         return [
           { name: "Accommodations", href: routeConfig.accommodations.en },
           { name: "Last Minute", href: routeConfig.lastMinute.en, highlight: true },
-          { name: "Levi", href: routeConfig.levi.en },
-          { name: "Northern Lights", href: routeConfig.northernLights.en },
+          { name: "Levi Guide", href: routeConfig.levi.en },
           { name: "Contact", href: routeConfig.contact.en },
         ];
       case "sv":
         return [
           { name: "Boende", href: routeConfig.accommodations.sv },
           { name: "Sista Minuten", href: routeConfig.lastMinute.sv, highlight: true },
-          { name: "Levi", href: routeConfig.levi.sv },
-          { name: "Norrsken", href: routeConfig.northernLights.sv },
+          { name: "Levi-guide", href: routeConfig.levi.sv },
           { name: "Kontakt", href: routeConfig.contact.sv },
         ];
       case "de":
         return [
           { name: "Unterkünfte", href: routeConfig.accommodations.de },
           { name: "Last Minute", href: routeConfig.lastMinute.de, highlight: true },
-          { name: "Levi", href: routeConfig.levi.de },
-          { name: "Nordlichter", href: routeConfig.northernLights.de },
+          { name: "Levi-Reiseführer", href: routeConfig.levi.de },
           { name: "Kontakt", href: routeConfig.contact.de },
         ];
       case "es":
         return [
           { name: "Alojamientos", href: routeConfig.accommodations.es },
           { name: "Última Hora", href: routeConfig.lastMinute.es, highlight: true },
-          { name: "Levi", href: routeConfig.levi.es },
-          { name: "Auroras", href: routeConfig.northernLights.es },
+          { name: "Guía de Levi", href: routeConfig.levi.es },
           { name: "Contacto", href: routeConfig.contact.es },
         ];
       case "fr":
         return [
           { name: "Hébergements", href: routeConfig.accommodations.fr },
           { name: "Dernière Minute", href: routeConfig.lastMinute.fr, highlight: true },
-          { name: "Levi", href: routeConfig.levi.fr },
-          { name: "Aurores Boréales", href: routeConfig.northernLights.fr },
+          { name: "Guide de Levi", href: routeConfig.levi.fr },
           { name: "Contact", href: routeConfig.contact.fr },
         ];
       default: // Finnish
         return [
           { name: "Majoitukset", href: routeConfig.accommodations.fi },
           { name: "Äkkilähdöt", href: routeConfig.lastMinute.fi, highlight: true },
-          { name: "Levi", href: routeConfig.levi.fi },
-          { name: "Revontulet", href: routeConfig.northernLights.fi },
+          { name: "Levi-opas", href: routeConfig.levi.fi },
           { name: "Yhteystiedot", href: routeConfig.contact.fi },
         ];
     }
