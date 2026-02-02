@@ -1,265 +1,129 @@
 
 
-## Suunnitelma: Lisää sähköpostivaihtoehto WhatsAppin rinnalle
+## Suunnitelma: Päivitä navigaatio ja siirrä Revontulet Levi-hubin alle
 
-Lisätään viestintävälilehteen valinta, jolla voi valita lähetetäänkö viesti WhatsAppilla vai sähköpostilla. Sähköposti lähetetään Gmail web -sovelluksessa, jossa kaikki valitut vieraat ovat BCC-kentässä ja vastaanottajana on info@leville.net.
+### Muutokset
 
----
-
-### Yleiskatsaus
-
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│  LÄHETYSTAPA                                                             │
-│  ┌────────────────────┐    ┌────────────────────┐                        │
-│  │ 📱 WhatsApp        │    │ 📧 Sähköposti      │   ← Toggle-valinta     │
-│  │    (valittu)       │    │                    │                        │
-│  └────────────────────┘    └────────────────────┘                        │
-│                                                                          │
-│  WhatsApp: Yksittäiset wa.me-linkit jokaiselle vieraalle                │
-│  Sähköposti: Yksi Gmail-linkki, vieraat BCC:ssä, info@leville.net TO:ssa│
-└──────────────────────────────────────────────────────────────────────────┘
-```
+| Kohde | Muutos |
+|-------|--------|
+| **Header** | "Levi" → "Levi-opas" (kaikilla kielillä vastaava) + poistetaan Revontulet-linkki |
+| **Levi.tsx** | Lisätään Revontulet-linkki "Hyödyllistä tietoa" -osioon säätietojen viereen |
 
 ---
 
-### Toteutettavat muutokset
+### 1. Header-navigaation muutokset
 
-#### 1. Edge Function: Lisää sähköpostiosoite vierashakuun
+**Tiedosto:** `src/components/Header.tsx`
 
-**Tiedosto:** `supabase/functions/get-current-guests/index.ts`
+Muutetaan navigation links kaikilla kielillä:
 
-Beds24 API palauttaa varauksissa myös `email`-kentän. Lisätään se palautettaviin tietoihin:
-
-```typescript
-// Muutetaan map-funktio (rivit 102-110)
-}).map((booking: any) => ({
-  bookingId: booking.id,
-  firstName: booking.firstName || '',
-  lastName: booking.lastName || '',
-  phone: booking.mobile || booking.phone || '',
-  email: booking.email || '',  // <-- LISÄTÄÄN
-  apartmentId: String(booking.roomId || booking.propertyId || ''),
-  arrival: booking.arrival,
-  departure: booking.departure,
-}));
-```
-
----
-
-#### 2. Frontend: Lisää lähetystavan valinta
-
-**Tiedosto:** `src/components/admin/MessagingAdmin.tsx`
-
-##### A) Uusi state lähetystavalle
+| Kieli | Vanha | Uusi |
+|-------|-------|------|
+| FI | Levi, Revontulet | Levi-opas |
+| EN | Levi, Northern Lights | Levi Guide |
+| SV | Levi, Norrsken | Levi-guide |
+| DE | Levi, Nordlichter | Levi-Reiseführer |
+| ES | Levi, Auroras | Guía de Levi |
+| FR | Levi, Aurores Boréales | Guide de Levi |
 
 ```typescript
-type SendMethod = 'whatsapp' | 'email';
-const [sendMethod, setSendMethod] = useState<SendMethod>('whatsapp');
-```
+// ENNEN (FI esimerkki):
+return [
+  { name: "Majoitukset", href: routeConfig.accommodations.fi },
+  { name: "Äkkilähdöt", href: routeConfig.lastMinute.fi, highlight: true },
+  { name: "Levi", href: routeConfig.levi.fi },
+  { name: "Revontulet", href: routeConfig.northernLights.fi },
+  { name: "Yhteystiedot", href: routeConfig.contact.fi },
+];
 
-##### B) Päivitä GuestForMessaging-interface
-
-```typescript
-interface GuestForMessaging {
-  bookingId: number;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;  // <-- LISÄTÄÄN
-  apartmentName: string;
-  apartmentId: string;
-  arrival: string;
-  departure: string;
-  selected: boolean;
-}
-```
-
-##### C) Lisää Toggle-valitsin UI:hin
-
-Lisätään viestitemplate-kortin yläpuolelle lähetystavan valinta:
-
-```typescript
-<Card>
-  <CardHeader>
-    <CardTitle className="text-base flex items-center gap-2">
-      <Mail className="w-5 h-5" />
-      Lähetystapa
-    </CardTitle>
-  </CardHeader>
-  <CardContent>
-    <div className="flex gap-3">
-      <Button
-        variant={sendMethod === 'whatsapp' ? 'default' : 'outline'}
-        onClick={() => setSendMethod('whatsapp')}
-        className={sendMethod === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#128C7E]' : ''}
-      >
-        <MessageSquare className="w-4 h-4 mr-2" />
-        WhatsApp
-      </Button>
-      <Button
-        variant={sendMethod === 'email' ? 'default' : 'outline'}
-        onClick={() => setSendMethod('email')}
-        className={sendMethod === 'email' ? 'bg-blue-600 hover:bg-blue-700' : ''}
-      >
-        <Mail className="w-4 h-4 mr-2" />
-        Sähköposti
-      </Button>
-    </div>
-    {sendMethod === 'email' && (
-      <p className="mt-3 text-sm text-muted-foreground">
-        Avaa Gmail valittujen vieraiden sähköpostiosoitteilla BCC:ssä. 
-        Vastaanottaja: info@leville.net
-      </p>
-    )}
-  </CardContent>
-</Card>
-```
-
-##### D) Gmail-linkin luontifunktio
-
-```typescript
-const createGmailLink = (): string => {
-  const selectedGuests = guests.filter(g => g.selected && g.email);
-  
-  if (selectedGuests.length === 0) return '';
-  
-  // BCC: kaikki valitut sähköpostit pilkulla erotettuina
-  const bccEmails = selectedGuests
-    .map(g => g.email)
-    .filter(Boolean)
-    .join(',');
-  
-  // Viestin sisältö (ei personointia koska massamaili)
-  const messageContent = getMessageContent()
-    .replace(/\[NIMI\]/g, '')  // Poista henkilökohtaiset muuttujat
-    .replace(/\[HUONEISTO\]/g, '')
-    .replace(/\[SAAPUMINEN\]/g, '')
-    .replace(/\[LÄHTÖ\]/g, '')
-    .trim();
-  
-  // Hae templaten nimi subjectiksi
-  const templateName = selectedTemplateId === "free" 
-    ? "Viesti Levilleltä" 
-    : templates.find(t => t.id === selectedTemplateId)?.name || "Viesti Levilleltä";
-  
-  // Gmail compose URL
-  const params = new URLSearchParams({
-    to: 'info@leville.net',
-    bcc: bccEmails,
-    su: templateName,  // Subject
-    body: messageContent,
-    tf: 'cm'  // Compose mode
-  });
-  
-  return `https://mail.google.com/mail/u/0/?${params.toString()}`;
-};
-```
-
-##### E) Sähköpostin lähetysnappi
-
-Päivitetään "Lähetä valituille" -nappi ottamaan huomioon lähetystapa:
-
-```typescript
-{guests.length > 0 && selectedCount > 0 && (
-  sendMethod === 'whatsapp' ? (
-    <Button
-      onClick={openSelectedWhatsApps}
-      disabled={isViewer || !getMessageContent()}
-      className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white"
-    >
-      <Send className="w-4 h-4 mr-2" />
-      Lähetä WhatsApp valituille ({selectedCount})
-    </Button>
-  ) : (
-    <Button
-      onClick={openGmail}
-      disabled={isViewer || !getMessageContent() || selectedEmailCount === 0}
-      className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-    >
-      <Mail className="w-4 h-4 mr-2" />
-      Avaa Gmail ({selectedEmailCount} vastaanottajaa)
-    </Button>
-  )
-)}
-```
-
-##### F) Gmail-avausfunktio
-
-```typescript
-const openGmail = async () => {
-  if (isViewer) {
-    toast({
-      title: "Katselutila",
-      description: "Et voi lähettää viestejä katselutilassa",
-      variant: "destructive"
-    });
-    return;
-  }
-
-  const selectedWithEmail = guests.filter(g => g.selected && g.email);
-  
-  if (selectedWithEmail.length === 0) {
-    toast({
-      title: "Ei sähköpostiosoitteita",
-      description: "Valituilla vierailla ei ole sähköpostiosoitetta",
-      variant: "destructive"
-    });
-    return;
-  }
-
-  const link = createGmailLink();
-  
-  // Kirjaa viesti lokiin
-  try {
-    await supabase.functions.invoke('log-message', {
-      body: {
-        password: getAdminPassword(),
-        guestName: `${selectedWithEmail.length} vierasta (sähköposti)`,
-        phone: '-',
-        apartmentName: '-',
-        templateName: selectedTemplateId === "free" ? "Vapaa viesti" : 
-          templates.find(t => t.id === selectedTemplateId)?.name,
-        messageContent: `Email BCC: ${selectedWithEmail.length} vastaanottajaa`
-      }
-    });
-  } catch (error) {
-    console.error('Error logging message:', error);
-  }
-
-  window.open(link, '_blank');
-};
-```
-
-##### G) Näytä sähköpostiosoite vieraslistassa
-
-Päivitetään vieraslistan tietorivillä näyttämään myös sähköposti (jos olemassa):
-
-```typescript
-<p className="text-xs text-muted-foreground">
-  {formatDateRange(guest.arrival, guest.departure)} 
-  {sendMethod === 'whatsapp' && guest.phone && ` • ${guest.phone}`}
-  {sendMethod === 'email' && guest.email && ` • ${guest.email}`}
-  {sendMethod === 'email' && !guest.email && (
-    <span className="text-red-500"> • Ei sähköpostia</span>
-  )}
-</p>
+// JÄLKEEN:
+return [
+  { name: "Majoitukset", href: routeConfig.accommodations.fi },
+  { name: "Äkkilähdöt", href: routeConfig.lastMinute.fi, highlight: true },
+  { name: "Levi-opas", href: routeConfig.levi.fi },
+  { name: "Yhteystiedot", href: routeConfig.contact.fi },
+];
 ```
 
 ---
 
-### Käyttöliittymän flow
+### 2. Levi-hubin "Hyödyllistä tietoa" -osion laajentaminen
 
-| Lähetystapa | Toiminto |
-|-------------|----------|
-| **WhatsApp** | Yksittäiset wa.me-linkit avautuvat viiveellä (nykyinen toiminta) |
-| **Sähköposti** | Yksi Gmail-linkki, kaikki valitut BCC:ssä, TO: info@leville.net |
+**Tiedosto:** `src/pages/Levi.tsx`
 
-**Sähköpostin erityispiirteet:**
-- Vastaanottajana (`to`) on aina `info@leville.net`
-- Kaikki vieraiden sähköpostit menevät piilokopiona (`bcc`)
-- Viestin personointimuuttujat ([NIMI] jne.) poistetaan koska massamaili
-- Subjectiksi tulee templaten nimi
+Muutetaan Quick Links -osio näyttämään kaksi linkkiä rinnakkain (grid):
+1. **Säätietoa Leviltä** (nykyinen)
+2. **Revontulet** (uusi)
+
+#### A) Lisää monikielinen sisältö revontulille
+
+```typescript
+// Lisätään content-objektiin:
+northernLightsTitle: string;
+northernLightsDesc: string;
+
+// FI:
+northernLightsTitle: "Revontulet Levillä",
+northernLightsDesc: "Opas revontulien katseluun ja ennusteet"
+
+// EN:
+northernLightsTitle: "Northern Lights in Levi",
+northernLightsDesc: "Guide to aurora viewing and forecasts"
+
+// jne. kaikille kielille
+```
+
+#### B) Päivitä Quick Links -layout
+
+```
+ENNEN:
+┌──────────────────────────────────────────────┐
+│  Hyödyllistä tietoa                          │
+│  ┌──────────────────────────────────┐        │
+│  │ ☀️ Säätietoa Leviltä              │        │
+│  │    Lumensyvyys, lämpötilat...     │        │
+│  └──────────────────────────────────┘        │
+└──────────────────────────────────────────────┘
+
+JÄLKEEN:
+┌──────────────────────────────────────────────┐
+│  Hyödyllistä tietoa                          │
+│  ┌─────────────────┐  ┌─────────────────┐    │
+│  │ ☀️ Säätietoa    │  │ ✨ Revontulet   │    │
+│  │   Leviltä       │  │   Levillä       │    │
+│  └─────────────────┘  └─────────────────┘    │
+└──────────────────────────────────────────────┘
+```
+
+---
+
+### Tekninen toteutus (Levi.tsx)
+
+Muutetaan Quick Links -osio gridiksi:
+
+```typescript
+{/* Quick Links Section */}
+<section className="mb-12 sm:mb-16">
+  <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 text-center">
+    {c.quickLinksTitle}
+  </h2>
+  <div className="max-w-2xl mx-auto grid sm:grid-cols-2 gap-4">
+    {/* Weather Link */}
+    <Link to={weatherLinks[lang]} className="...">
+      <Card>...Säätietoa...</Card>
+    </Link>
+    
+    {/* Northern Lights Link - UUSI */}
+    <Link to={routeConfig.northernLights[lang]} className="...">
+      <Card>
+        <Sparkles className="w-6 h-6 text-emerald-400" />
+        <h3>{c.northernLightsTitle}</h3>
+        <p>{c.northernLightsDesc}</p>
+      </Card>
+    </Link>
+  </div>
+</section>
+```
 
 ---
 
@@ -267,16 +131,12 @@ Päivitetään vieraslistan tietorivillä näyttämään myös sähköposti (jos
 
 | Tiedosto | Muutos |
 |----------|--------|
-| `supabase/functions/get-current-guests/index.ts` | Lisää `email`-kenttä palautettaviin tietoihin |
-| `src/components/admin/MessagingAdmin.tsx` | Lisää lähetystavan valinta, Gmail-linkin luonti, UI-muutokset |
+| `src/components/Header.tsx` | "Levi" → "Levi-opas" ja poista Revontulet headerista |
+| `src/pages/Levi.tsx` | Lisää revontulet-linkki Quick Links -osioon säätietojen viereen |
 
----
+### SEO-vaikutukset
 
-### Tietosuoja
-
-- Sähköpostiosoitteet käsitellään samalla tavalla kuin puhelinnumerot:
-  - Eivät tallennu tietokantaan
-  - Poistetaan automaattisesti 5 min kuluttua
-  - Tyhjennetään komponentin unmountissa
-- Viestilokiin ei tallenneta sähköpostiosoitteita, vain vastaanottajien lukumäärä
+- Revontulet-sivu säilyttää kaikki olemassa olevat reitit ja sisällön
+- Header-linkin poistaminen ei vaikuta sivun löydettävyyteen (linkitetään nyt hubista)
+- "Levi-opas" on SEO-ystävällisempi ja kuvailevampi kuin pelkkä "Levi"
 
