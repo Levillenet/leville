@@ -220,7 +220,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           >
             <div 
               id="moder-embed"
-              className="relative mx-auto max-w-3xl rounded-2xl shadow-2xl"
+              className="mx-auto max-w-3xl"
             />
           </div>
         </div>
