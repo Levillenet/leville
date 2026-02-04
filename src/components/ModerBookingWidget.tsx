@@ -20,7 +20,7 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
   useEffect(() => {
     (window as any).ModerSettings = {
       property: 'levillenet',
-      lang: lang === 'fi' ? undefined : (lang === 'sv' ? 'sv' : 'en')
+      ...(lang !== 'fi' && { lang: lang === 'sv' ? 'sv' : 'en' })
     };
 
     if (!scriptLoadedRef.current) {
