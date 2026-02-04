@@ -20,6 +20,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [previousImageIndex, setPreviousImageIndex] = useState<number | null>(null);
   const [previousVisible, setPreviousVisible] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const fadeTimeoutRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -41,16 +42,37 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
   const trustIcons = [MapPin, CreditCard, Home];
 
+  // Preload ALL hero images before starting slideshow
   useEffect(() => {
-    // Preload hero images to prevent black flashes during transitions
-    heroImages.slice(1).forEach((src) => {
-      const img = new Image();
-      img.decoding = "async";
-      img.src = src;
-    });
+    let isMounted = true;
+    
+    const preloadImages = async () => {
+      const promises = heroImages.map((src) => {
+        return new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve();
+          img.onerror = () => resolve(); // Don't block on error
+          img.src = src;
+        });
+      });
+      
+      await Promise.all(promises);
+      if (isMounted) {
+        setImagesLoaded(true);
+      }
+    };
+    
+    preloadImages();
+    
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
+  // Only start slideshow after all images are loaded
   useEffect(() => {
+    if (!imagesLoaded) return;
+
     const interval = window.setInterval(() => {
       setCurrentImageIndex((prev) => {
         const next = (prev + 1) % heroImages.length;
@@ -86,7 +108,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         window.cancelAnimationFrame(rafRef.current);
       }
     };
-  }, []);
+  }, [imagesLoaded]);
 
   return (
     <section
