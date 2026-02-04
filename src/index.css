@@ -395,3 +395,20 @@
   }
 }
 
+/* Moder Booking Widget - ensure it stays on top of all elements */
+#moder-embed {
+  position: relative;
+  z-index: 9999 !important;
+}
+
+#moder-embed * {
+  pointer-events: auto !important;
+}
+
+/* Prevent other elements from covering the widget */
+#moder-embed iframe,
+#moder-embed [class*="moder"] {
+  position: relative;
+  z-index: 9999 !important;
+}
+

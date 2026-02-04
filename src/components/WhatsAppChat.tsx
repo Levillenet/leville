@@ -86,7 +86,7 @@ const WhatsAppChat = ({ lang = "fi" }: WhatsAppChatProps) => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-24 md:bottom-20 right-4 z-[9990]">
       <AnimatePresence>
         {isOpen && (
           <motion.div
