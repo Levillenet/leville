@@ -91,7 +91,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
   return (
     <section
       className="relative min-h-screen flex items-center justify-center pt-32 sm:pt-20 pb-24 sm:pb-32"
-      style={{ overflow: "visible" }}
+      style={{ overflow: "visible", isolation: "isolate" }}
     >
       {/* Background images slideshow with crossfade and Ken Burns effect */}
       <div className="absolute inset-0 overflow-hidden bg-leville-dark">
@@ -166,7 +166,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         ))}
       </div>
 
-      <div className="container mx-auto px-4 relative z-10" style={{ overflow: 'visible' }}>
+      <div className="container mx-auto px-4 relative z-[100]" style={{ overflow: 'visible' }}>
         <div className="max-w-4xl mx-auto text-center" style={{ overflow: 'visible' }}>
 
           {/* Main heading - clear value proposition */}
@@ -224,7 +224,8 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
               style={{
                 overflow: 'visible',
                 zIndex: 9999,
-                position: 'relative'
+                position: 'relative',
+                isolation: 'isolate'
               }}
             />
           </div>
@@ -232,7 +233,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce pointer-events-none">
         <div className="w-5 h-9 rounded-full border-2 border-foreground/30 flex items-start justify-center p-2">
           <div className="w-1 h-2.5 bg-foreground/50 rounded-full" />
         </div>
