@@ -27,66 +27,66 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
 
   // Intercept all navigation from the Moder widget
   useEffect(() => {
-    // Store original location methods
-    const originalAssign = window.location.assign.bind(window.location);
-    const originalReplace = window.location.replace.bind(window.location);
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    let observer: MutationObserver | null = null;
+    let embedContainer: HTMLElement | null = null;
 
-    // Wait for widget to load
-    const setupInterceptor = (): (() => void) | undefined => {
-      const embedContainer = document.getElementById('moder-embed');
-      if (!embedContainer) {
-        const timeoutId = setTimeout(setupInterceptor, 500);
-        return () => clearTimeout(timeoutId);
-      }
-
-      // Method 1: Intercept all link clicks
-      const handleClick = (e: MouseEvent) => {
-        const target = e.target as HTMLElement;
-        const link = target.closest('a[href]') as HTMLAnchorElement;
-        const button = target.closest('button[type="submit"], button:not([type]), [role="button"]');
-        
-        if (link && link.href && !link.href.startsWith('javascript:')) {
-          e.preventDefault();
-          e.stopPropagation();
-          window.open(link.href, '_blank', 'noopener,noreferrer');
-          return;
-        }
-        
-        // If it's a search/submit button, find the form or build URL
-        if (button) {
-          const form = button.closest('form');
-          if (form) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const formData = new FormData(form);
-            const params = new URLSearchParams();
-            formData.forEach((value, key) => params.append(key, value.toString()));
-            
-            const actionUrl = form.action || window.location.href;
-            const fullUrl = actionUrl + (actionUrl.includes('?') ? '&' : '?') + params.toString();
-            window.open(fullUrl, '_blank', 'noopener,noreferrer');
-          }
-        }
-      };
-
-      // Method 2: Intercept form submissions
-      const handleSubmit = (e: SubmitEvent) => {
-        const form = e.target as HTMLFormElement;
+    // Handler references for cleanup
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const link = target.closest('a[href]') as HTMLAnchorElement;
+      const button = target.closest('button[type="submit"], button:not([type]), [role="button"]');
+      
+      if (link && link.href && !link.href.startsWith('javascript:')) {
         e.preventDefault();
         e.stopPropagation();
-        
-        const formData = new FormData(form);
-        const params = new URLSearchParams();
-        formData.forEach((value, key) => params.append(key, value.toString()));
-        
-        const actionUrl = form.action || window.location.href;
-        const fullUrl = actionUrl + (actionUrl.includes('?') ? '&' : '?') + params.toString();
-        window.open(fullUrl, '_blank', 'noopener,noreferrer');
-      };
+        window.open(link.href, '_blank', 'noopener,noreferrer');
+        return;
+      }
+      
+      // If it's a search/submit button, find the form or build URL
+      if (button) {
+        const form = button.closest('form');
+        if (form) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          const formData = new FormData(form);
+          const params = new URLSearchParams();
+          formData.forEach((value, key) => params.append(key, value.toString()));
+          
+          const actionUrl = form.action || window.location.href;
+          const fullUrl = actionUrl + (actionUrl.includes('?') ? '&' : '?') + params.toString();
+          window.open(fullUrl, '_blank', 'noopener,noreferrer');
+        }
+      }
+    };
 
-      // Method 3: Watch for dynamically added links/forms
-      const observer = new MutationObserver(() => {
+    const handleSubmit = (e: SubmitEvent) => {
+      const form = e.target as HTMLFormElement;
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const formData = new FormData(form);
+      const params = new URLSearchParams();
+      formData.forEach((value, key) => params.append(key, value.toString()));
+      
+      const actionUrl = form.action || window.location.href;
+      const fullUrl = actionUrl + (actionUrl.includes('?') ? '&' : '?') + params.toString();
+      window.open(fullUrl, '_blank', 'noopener,noreferrer');
+    };
+
+    // Wait for widget to load
+    const setupInterceptor = () => {
+      embedContainer = document.getElementById('moder-embed');
+      if (!embedContainer) {
+        timeoutId = setTimeout(setupInterceptor, 500);
+        return;
+      }
+
+      // Watch for dynamically added links/forms and set target="_blank"
+      observer = new MutationObserver(() => {
+        if (!embedContainer) return;
         embedContainer.querySelectorAll('a[href]').forEach(link => {
           link.setAttribute('target', '_blank');
           link.setAttribute('rel', 'noopener noreferrer');
@@ -98,48 +98,32 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
 
       observer.observe(embedContainer, { childList: true, subtree: true });
 
+      // Initial pass to set target="_blank" on existing elements
+      embedContainer.querySelectorAll('a[href]').forEach(link => {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+      });
+      embedContainer.querySelectorAll('form').forEach(form => {
+        form.setAttribute('target', '_blank');
+      });
+
       // Add listeners with capture to intercept before widget handles them
       embedContainer.addEventListener('click', handleClick, true);
       embedContainer.addEventListener('submit', handleSubmit as EventListener, true);
-
-      // Method 4: Intercept window.location changes (last resort)
-      (window.location as any).assign = (url: string) => {
-        if (url.includes('moder') || url.includes('booking') || url.includes('reservation')) {
-          window.open(url, '_blank', 'noopener,noreferrer');
-        } else {
-          originalAssign(url);
-        }
-      };
-
-      (window.location as any).replace = (url: string) => {
-        if (url.includes('moder') || url.includes('booking') || url.includes('reservation')) {
-          window.open(url, '_blank', 'noopener,noreferrer');
-        } else {
-          originalReplace(url);
-        }
-      };
-
-      // Cleanup function
-      return () => {
-        observer.disconnect();
-        embedContainer.removeEventListener('click', handleClick, true);
-        embedContainer.removeEventListener('submit', handleSubmit as EventListener, true);
-        
-        // Restore original location methods
-        try {
-          (window.location as any).assign = originalAssign;
-          (window.location as any).replace = originalReplace;
-        } catch {
-          // Some browsers may not allow this
-        }
-      };
     };
 
-    cleanupRef.current = setupInterceptor() || null;
+    setupInterceptor();
     
     return () => {
-      if (cleanupRef.current) {
-        cleanupRef.current();
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      if (observer) {
+        observer.disconnect();
+      }
+      if (embedContainer) {
+        embedContainer.removeEventListener('click', handleClick, true);
+        embedContainer.removeEventListener('submit', handleSubmit as EventListener, true);
       }
     };
   }, []);
