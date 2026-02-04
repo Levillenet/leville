@@ -15,29 +15,64 @@ const loadingTexts: Record<string, string> = {
 };
 
 const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
+  // NOTE: Moder widget language switching is unreliable in SPA navigation.
+  // As requested, we force the widget to always initialize in English.
   const scriptLoadedRef = useRef(false);
 
   useEffect(() => {
-    // Set Moder settings - widget reads these at initialization
-    const moderLang = lang === 'fi' ? undefined : (lang === 'sv' ? 'sv' : 'en');
+    const scriptId = 'moder-embed-script';
+    const scriptBaseSrc = 'https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js';
+
+    // Force English always
     (window as any).ModerSettings = {
       property: 'levillenet',
-      ...(moderLang && { lang: moderLang })
+      lang: 'en',
     };
 
-    // Only load script once per page load
-    if (!scriptLoadedRef.current) {
-      const script = document.createElement('script');
-      script.src = 'https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js';
-      script.defer = true;
-      script.async = true;
-      document.body.appendChild(script);
+    let setupTimeoutId: ReturnType<typeof setTimeout> | null = null;
+    let attempts = 0;
+
+    const ensureScriptLoaded = () => {
+      const embed = document.getElementById('moder-embed');
+
+      // Wait until the embed container exists (Hero mounts it)
+      if (!embed) {
+        attempts += 1;
+        if (attempts < 40) setupTimeoutId = setTimeout(ensureScriptLoaded, 250);
+        return;
+      }
+
+      const existingScript = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+      // If script exists but embed is empty (common after SPA navigation), reload once with cache-bust.
+      const embedLooksEmpty = embed.childElementCount === 0 && embed.innerHTML.trim() === '';
+      const needsReload = Boolean(existingScript) && embedLooksEmpty;
+
+      if (!existingScript || needsReload) {
+        if (existingScript) existingScript.remove();
+        embed.innerHTML = '';
+
+        const script = document.createElement('script');
+        script.id = scriptId;
+        script.src = needsReload ? `${scriptBaseSrc}?v=${Date.now()}` : scriptBaseSrc;
+        script.defer = true;
+        script.async = true;
+        document.body.appendChild(script);
+      }
+
       scriptLoadedRef.current = true;
-    }
-  }, [lang]);
+    };
+
+    ensureScriptLoaded();
+
+    return () => {
+      if (setupTimeoutId) clearTimeout(setupTimeoutId);
+    };
+    // Intentionally not depending on `lang` since widget is forced to EN
+  }, []);
 
   useEffect(() => {
-    const loadingText = loadingTexts[lang] || loadingTexts.en;
+    const loadingText = loadingTexts.en;
     let observer: MutationObserver | null = null;
     let setupTimeoutId: ReturnType<typeof setTimeout> | null = null;
     
@@ -154,7 +189,7 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
       if (overlay) overlay.remove();
       document.body.style.cursor = '';
     };
-  }, [lang]);
+  }, []);
 
   return null;
 };
