@@ -1,86 +1,111 @@
 
-Tavoite: palauttaa Moder-widgetin toiminnallisuus (päivämäärien valinta) ja varmistaa, että avautuva kalenteri/overlay näkyy aina kaiken päällä, rikkomatta muuta sivuston UI:ta.
 
-## Mitä on mennyt pieleen (todennäköinen juurisyy)
-Nykyinen `src/index.css` sisältää hyvin aggressiivisia sääntöjä:
+## Suunnitelma: Moder-widgetin kalenteri-dropdown z-index korjaus
 
-- `#moder-embed * { pointer-events: auto !important; }` pakottaa pointer-eventit kaikille widgetin sisäisille elementeille.
-  - Moni kalenteri toteutetaan niin, että “päivän numero” on sisäelementti jolla on normaalisti `pointer-events: none`, ja klikkaus osuu parent-“day cell” -elementtiin (tai event-delegaatio odottaa tiettyä targettia).
-  - Kun me pakotetaan `pointer-events: auto`, klikkaus kohdistuu eri elementtiin kuin widget odottaa -> valinta ei rekisteröidy, vaikka overlay näkyy.
-- Lisäksi globaalit säännöt kuten `body > div[style*="position: fixed"] { z-index: 999999 !important; }` voivat nostaa aivan vääriä portaaleja/kerroksia ja “sekoittaa” koko sivun (käyttäjän “meni aivan pilalle” -kokemus).
+### Ongelma
+Moder-varauswidgetin kalenteri/datepicker-dropdown näkyy muiden sivuelementtien takana eikä sitä voi klikata. Nykyinen ratkaisu (MutationObserver + `.moder-portal-layer`) ei tunnista kaikkia Moder-elementtejä riittävän hyvin.
 
-Kuvassa overlay näkyy kyllä “päällä”, mutta klikkaukset päiviin eivät muuta Tulopäivä-kenttää -> tämä sopii erittäin hyvin juuri pointer-events -ylikirjoitukseen.
+### Juurisyy
+1. **Moder-elementit voivat renderöityä `#moder-embed`:n sisälle** eivätkä pelkästään body-tasolle portaaleina
+2. **Nykyinen z-index (100)** on liian matala suhteessa muihin sivuelementteihin
+3. **Overflow-säännöt** eivät kata kaikkia sisäkkäisiä elementtejä
 
-## Suunniteltu korjaus (minimoidaan CSS-hakkerointi, tehdään z-index oikein)
-### 1) Siivotaan Moder-CSS “minimaaliseen, turvalliseen” muotoon
-Tiedosto: `src/index.css`
+### Ratkaisu
 
-Poistetaan / perutaan nämä nykyiset “liian laajat” säännöt:
-- `#moder-embed *, #moder-embed *::before, #moder-embed *::after { pointer-events: auto !important; }`
-- kaikki yleiset “calendar/datepicker/dropdown” -targetoinnit
-- `body > div[style*="position: absolute|fixed"] { pointer-events: auto !important; z-index ... }`
-- `[role="gridcell"] { pointer-events ... }` jne.
+Lisätään kattavat CSS-säännöt `src/index.css` -tiedostoon, jotka:
+1. Nostavat `#moder-embed` containerin z-indexin arvoon 9999
+2. Pakottavat kaikki Moder-dropdownit, kalenterit ja popupit näkymään kaiken päällä (z-index: 99999)
+3. Varmistavat, ettei mikään parent-elementti leikkaa dropdowneja
+4. Kattavat myös body-tasolle suoraan renderöityvät Moder-elementit
 
-Jätetään vain:
-- `#moder-embed` containerille: `overflow: visible` ja tarvittaessa kohtuullinen `z-index` (esim. 50–200) Hero-alueen sisällä.
-  - Ei pakoteta widgetin sisäisiin elementteihin pointer-eventsejä.
-  - Ei muuteta widgetin sisäisten portaali-elementtien `position`-arvoja.
+---
 
-Lisätään uusi “kohdistettu” luokka vain Moder-portaaleille:
-- Esim. `.moder-portal-layer { z-index: 2147483647 !important; }` (maksimi-int tyyppinen varma kerros)
-- Ei aseteta pointer-events, ei position, pelkkä z-index.
+### Toteutettavat muutokset
 
-### 2) Nostetaan Moderin portaalit/overlayt päälle JS:llä (MutationObserver)
-Tiedosto: `src/components/ModerBookingWidget.tsx`
+#### Tiedosto: `src/index.css`
 
-Lisätään scriptin latauksen jälkeen “observer”, joka etsii Moderin lisäämiä body-tason overlay/portaali-elementtejä ja merkitsee ne luokalla `.moder-portal-layer`.
+Korvataan nykyinen Moder-osio (rivit 398-408) laajemmalla CSS-säännöstöllä:
 
-Periaate:
-- Kun käyttäjä avaa kalenterin, Moder todennäköisesti lisää DOM:iin uuden elementin (usein suoraan `document.body`-tason lapseksi).
-- Käytetään `MutationObserver`ia seuraamaan `document.body`-muutoksia.
-- Kun uusi node lisätään:
-  - Jos node (tai sen alipuusta) löytyy tunnisteita kuten:
-    - elementti, jonka tekstisisältö sisältää “Specific days” / “Tarkat päivämäärät” / “± 1 day” / “Tulopäivä” / “Lähtöpäivä”
-    - tai node sisältää iframe/script-elementtejä joiden src viittaa moder/app.moder
-    - tai className sisältää “moder”
-  - Lisätään luokka `moder-portal-layer` ja/tai asetetaan `node.style.zIndex = "2147483647"` jos se on järkevää.
-- Observer disconnect unmountissa, jotta ei jää “roikkumaan”.
+```css
+/* ================================================
+   Moder Booking Widget - Complete z-index fix
+   ================================================ */
 
-Tällä saadaan:
-- Kalenteri varmasti aina päällimmäiseksi.
-- Ei rikota widgetin omaa event-handlingia (koska emme koske sen sisäisiin pointer-eventseihin).
-- Ei rikota Radix-dropdownpeja yms, koska emme enää pakota koko sivun portaaleja älyttömiin z-indexeihin.
+/* 1. Base container - high z-index and overflow visible */
+#moder-embed {
+  position: relative;
+  z-index: 9999;
+}
 
-### 3) Puhdistetaan Hero-widgetin animaatiokerros (varmistus)
-Tiedosto: `src/components/Hero.tsx`
+/* 2. Force all Moder dropdowns, calendars, and popups to appear on top */
+#moder-embed [class*="dropdown"],
+#moder-embed [class*="calendar"],
+#moder-embed [class*="picker"],
+#moder-embed [class*="popup"],
+#moder-embed [class*="modal"],
+#moder-embed [class*="menu"],
+#moder-embed [class*="popover"],
+#moder-embed [role="listbox"],
+#moder-embed [role="dialog"] {
+  z-index: 99999 !important;
+  position: relative !important;
+}
 
-Varmistetaan, ettei Moder-widgetin wrapperissa ole transform-animaatiota, joka voi joskus tehdä oudosti overlayiden/positionoinnin kanssa.
+/* 3. Ensure no parent clips the dropdown */
+#moder-embed,
+#moder-embed > *,
+#moder-embed > * > * {
+  overflow: visible !important;
+}
 
-Muutos:
-- Poistetaan widgetin ympäriltä `animate-slide-up` (koska se käyttää `transform`-keyframeja).
-- Vaihdetaan se esim. `animate-fade-in` (opacity-only), tai jätetään animaatio pois.
-- Pidetään layout/tyylit muutoin samana.
+/* 4. Catch any Moder elements that render outside the embed container (body-level portals) */
+body > [class*="moder"],
+body > [id*="moder"],
+[data-moder],
+.moder-calendar,
+.moder-dropdown,
+.moder-datepicker {
+  z-index: 99999 !important;
+}
 
-### 4) (Bonus) Siivotaan ref-varoitus (jos edelleen näkyy)
-Console-logissa näkyi: “Function components cannot be given refs… Check render method of Index… ModerBookingWidget…”
-Vaikka nykykoodissa ei näy refiä, tarkistan toteutusvaiheessa:
-- ettei `ModerBookingWidget`ille anneta refiä missään (myös mahdolliset wrapperit/anim-komponentit)
-- ettei `ModerBookingWidget` yritä itse käyttää refiä väärin (nyt se ei käytä).
+/* 5. Nuclear option: ensure any fixed/absolute positioned element from Moder is on top */
+[class*="moder"][style*="position: fixed"],
+[class*="moder"][style*="position: absolute"],
+[id*="moder"] [style*="position: fixed"],
+[id*="moder"] [style*="position: absolute"] {
+  z-index: 99999 !important;
+}
 
-## Testaus (mitä sinun kannattaa kokeilla heti korjauksen jälkeen)
-1) Avaa etusivu → klikkaa Tulopäivä → kalenterin pitäisi avautua ja olla kaiken päällä (header/hero/taustat eivät peitä sitä).
-2) Klikkaa päivä, joka varmasti on “vapaa” (esim. API-datan perusteella 2026-02-05 oli vapaa) ja varmista että Tulopäivä muuttuu “Lisää päivämäärä” -> konkreettiseksi päiväksi.
-3) Testaa myös Lähtöpäivä ja vieraat (plus-nappi), jotta nähdään ettei tapahtumankäsittely rikkoudu.
-4) Varmista että sivuston muut dropdownit/dialogit eivät ole sekaisin (koska poistamme globaalit CSS-yliampumiset).
+/* 6. Moder portal layers - applied dynamically via JS MutationObserver (backup) */
+.moder-portal-layer {
+  z-index: 2147483647 !important;
+}
+```
 
-## Jos tämä ei vieläkään korjaa päivämääräklikkejä
-Silloin ongelma ei ole enää “päällekkäiset kerrokset”, vaan Moder-embed ei hyväksy valintaa (esim. kaikki päivät disabled saatavuuden perusteella, tai embedin konfiguraatio tarvitsee lisäparametreja).
-Seuraava askel olisi:
-- tarkentaa, miltä “valittava” päivä näyttää (onko aktiiviset päivät erivärisiä / hoverilla muuttuvia)
-- lisätä diagnostiikka: logittaa klikkauksen jälkeen muuttuuko DOM:ssa valintatila (esim. “selected” class) vai ei.
+---
 
-## Toteutettavat tiedostomuutokset
-- `src/index.css` (siivous, vain minimi + `.moder-portal-layer` z-index)
-- `src/components/ModerBookingWidget.tsx` (MutationObserver + luokan lisäys)
-- `src/components/Hero.tsx` (poistetaan transform-animaatio widgetin wrapperista)
+### Hero.tsx tarkistus
+
+Nykyinen `Hero.tsx` on jo kunnossa:
+- `<section>` - `overflow: visible` ✅
+- Container div (rivi 169) - `overflow: visible` ✅  
+- Max-w-4xl div (rivi 170) - `overflow: visible` ✅
+- Animate wrapper (rivi 217-220) - ei overflow-rajoitusta ✅
+
+**Ei muutoksia tarvita Hero.tsx:ään.**
+
+---
+
+### Yhteenveto
+
+| Tiedosto | Muutos |
+|----------|--------|
+| `src/index.css` | Korvataan minimaalinen Moder-CSS laajalla säännöstöllä (6 eri sääntöryhmää) |
+
+### Testaus
+
+1. Avaa etusivu ja klikkaa "Tulopäivä"-kenttää
+2. Kalenterin pitäisi avautua kaiken päällä (myös Headerin yläpuolelle)
+3. Klikkaa päivämäärää - valinnan pitäisi rekisteröityä
+4. Testaa myös "Lähtöpäivä" ja vierasmäärä-valitsin
 
