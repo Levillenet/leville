@@ -29,6 +29,14 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
       lang: 'en',
     };
 
+    // Some embeds read document language during initialization.
+    // We force it here *before* loading the script.
+    try {
+      document.documentElement.lang = 'en';
+    } catch {
+      // ignore
+    }
+
     let setupTimeoutId: ReturnType<typeof setTimeout> | null = null;
     let attempts = 0;
 
@@ -42,23 +50,20 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
         return;
       }
 
+      // Always (re)initialize the embed in EN when this component mounts.
+      // This prevents old FI init from sticking around when navigating inside the SPA.
       const existingScript = document.getElementById(scriptId) as HTMLScriptElement | null;
+      if (existingScript) existingScript.remove();
 
-      // If script exists but embed is empty (common after SPA navigation), reload once with cache-bust.
-      const embedLooksEmpty = embed.childElementCount === 0 && embed.innerHTML.trim() === '';
-      const needsReload = Boolean(existingScript) && embedLooksEmpty;
+      // Clear previous markup injected by the embed
+      embed.innerHTML = '';
 
-      if (!existingScript || needsReload) {
-        if (existingScript) existingScript.remove();
-        embed.innerHTML = '';
-
-        const script = document.createElement('script');
-        script.id = scriptId;
-        script.src = needsReload ? `${scriptBaseSrc}?v=${Date.now()}` : scriptBaseSrc;
-        script.defer = true;
-        script.async = true;
-        document.body.appendChild(script);
-      }
+      const script = document.createElement('script');
+      script.id = scriptId;
+      script.src = `${scriptBaseSrc}?v=${Date.now()}`;
+      script.defer = true;
+      script.async = true;
+      document.body.appendChild(script);
 
       scriptLoadedRef.current = true;
     };
