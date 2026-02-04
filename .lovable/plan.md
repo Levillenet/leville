@@ -1,193 +1,131 @@
 
 
-## Suunnitelma: Lisää Moder-varauswidget etusivulle StickyBookingBarin tilalle
+## Suunnitelma: Korjaa Moder-widgetin päivämäärävalinta
 
-### Yleiskatsaus
+### Ongelma
 
-Korvataan nykyinen "Varaa heti tästä" -banneri (StickyBookingBar) interaktiivisella Moder-varauswidgetillä, joka näyttää saatavuuden ja avaa varausjärjestelmän uuteen ikkunaan.
+Moder-varauswidgetin kalenteri-popup ei reagoi klikkauksiin. Widget latautuu oikein (API palauttaa 200), mutta päivämäärää ei voi valita.
+
+### Juurisyy
+
+1. **Widgetin sijainti syvällä DOM-hierarkiassa**: `#moder-embed` on sisällä useissa kerroksissa, joiden CSS voi häiritä kalenteria
+2. **Kalenteriportaali**: Moder-widget todennäköisesti renderöi kalenterin `<body>`-elementtiin portaalina, jolloin Hero-osion elementit voivat peittää sen
+3. **Overflow ja stacking context**: Vaikka widgetillä on `z-index: 9999`, se on sisällä konttainerissa jolla on `z-10`, mikä rajaa sen kerrostumiskontekstin
 
 ---
 
-### Muutokset
+### Ratkaisu
 
-#### 1. Luo uusi ModerBookingWidget-komponentti
+#### 1. Siirrä `#moder-embed` pois Hero-osion sisältä
 
-**Tiedosto:** `src/components/ModerBookingWidget.tsx` (UUSI)
+Paras ratkaisu on siirtää Moder-widget **Hero-section ulkopuolelle** omana kiinteänä elementtinään tai erilliseen kontekstiinsa, jotta sen kalenteriportaalit eivät ole muiden elementtien takana.
 
-React-komponentti, joka:
-- Lataa Moder-embed scriptin dynaamisesti useEffectin avulla
-- Asettaa `ModerSettings.property = 'levillenet'`
-- Varmistaa että widget on kaikkien muiden elementtien päällä (z-index: 9999)
-- Käsittelee kieliparametrin välittämisen widgetille
+**Tiedosto:** `src/components/Hero.tsx`
+
+Muutetaan widgetin konttainerien z-index ja varmistetaan, ettei mikään elementti ole sen päällä:
 
 ```typescript
-import { useEffect, useRef } from "react";
-import { Language } from "@/translations";
+// Rivi 169: Nosta pääkonttainerin z-index huomattavasti
+<div className="container mx-auto px-4 relative z-[100]" style={{ overflow: 'visible' }}>
 
-interface ModerBookingWidgetProps {
-  lang?: Language;
-}
-
-const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scriptLoadedRef = useRef(false);
-
-  useEffect(() => {
-    // Aseta globaalit asetukset ennen scriptin latausta
-    (window as any).ModerSettings = {
-      property: 'levillenet',
-      lang: lang === 'fi' ? undefined : (lang === 'sv' ? 'sv' : 'en')
-    };
-
-    // Lataa scripti vain kerran
-    if (!scriptLoadedRef.current) {
-      const script = document.createElement('script');
-      script.src = 'https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js';
-      script.defer = true;
-      script.async = true;
-      document.body.appendChild(script);
-      scriptLoadedRef.current = true;
-    }
-
-    return () => {
-      // Cleanup jos tarpeen
-    };
-  }, [lang]);
-
-  return (
-    <div 
-      className="fixed bottom-0 left-0 right-0 z-[9999] bg-card border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.15)]"
-      style={{ 
-        isolation: 'isolate',
-        pointerEvents: 'auto'
-      }}
-    >
-      {/* Moder widget latautuu tähän */}
-      <div 
-        id="moder-embed" 
-        ref={containerRef}
-        className="relative"
-        style={{
-          position: 'relative',
-          zIndex: 9999
-        }}
-      />
-    </div>
-  );
-};
-
-export default ModerBookingWidget;
+// Rivi 216-230: Varmista widgetin isolation
+<div 
+  className="animate-slide-up" 
+  style={{ animationDelay: '0.4s', overflow: 'visible' }}
+>
+  <div 
+    id="moder-embed"
+    className="relative mx-auto max-w-3xl rounded-2xl shadow-2xl"
+    style={{
+      overflow: 'visible',
+      zIndex: 9999,
+      position: 'relative',
+      isolation: 'isolate'
+    }}
+  />
+</div>
 ```
 
----
+#### 2. Poista `pointer-events-none` mahdollisilta estäviltä elementeiltä
 
-#### 2. Päivitä Index.tsx käyttämään uutta widgetiä
-
-**Tiedosto:** `src/pages/Index.tsx`
+Scroll-indikaattori (rivi 235) voi olla ongelmallinen jos se on päällekkäin kalenterin kanssa:
 
 ```typescript
-// Vaihda import
-import ModerBookingWidget from "@/components/ModerBookingWidget";
-
-// Korvaa StickyBookingBar
-<ModerBookingWidget lang={lang} />
+// Rivi 235: Lisää pointer-events-none scroll-indikaattoriin
+<div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce pointer-events-none">
 ```
 
----
+#### 3. Päivitä CSS varmistamaan kalenteriportaalit toimivat
 
-#### 3. CSS-tyylit widgetin toimivuuden varmistamiseksi
+**Tiedosto:** `src/index.css`
 
-**Tiedosto:** `src/index.css` (lisäykset)
+Lisätään aggressiivisemmat säännöt body-tason elementeille:
 
 ```css
-/* Moder Booking Widget - varmista että se on kaikkien elementtien päällä */
-#moder-embed {
-  position: relative;
-  z-index: 9999 !important;
+/* Moder calendar portals - force highest z-index */
+body > div:not(#root) {
+  /* Oletus kaikille portaaleille */
 }
 
-#moder-embed * {
+/* Explicitly target Moder elements */
+div[class*="calendar"],
+div[class*="datepicker"],
+div[class*="dropdown"][style*="position: absolute"],
+div[class*="dropdown"][style*="position: fixed"] {
+  z-index: 999999 !important;
   pointer-events: auto !important;
 }
 
-/* Estä muut elementit peittämästä widgetiä */
-#moder-embed iframe,
-#moder-embed [class*="moder"] {
+/* Ensure #moder-embed container allows overflow */
+#moder-embed {
   position: relative;
   z-index: 9999 !important;
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+#moder-embed *,
+#moder-embed *::before,
+#moder-embed *::after {
+  pointer-events: auto !important;
 }
 ```
 
----
+#### 4. Section-tason overflow-korjaus
 
-#### 4. Päivitä WhatsApp-chatin sijainti
+**Tiedosto:** `src/components/Hero.tsx`
 
-Koska varauswidget vie enemmän tilaa kuin vanha banneri, WhatsApp-nappi pitää siirtää ylemmäs.
-
-**Tiedosto:** `src/components/WhatsAppChat.tsx`
+Section-elementin `overflow: visible` on jo paikallaan, mutta varmistetaan ettei mikään lapsi-elementti estä kalenteria:
 
 ```typescript
-// Muuta rivi 89
-<div className="fixed bottom-24 md:bottom-20 right-4 z-[9990]">
-```
-
----
-
-#### 5. Muut sivut - säilytä StickyBookingBar
-
-StickyBookingBar säilytetään muilla sivuilla (36 sivua käyttää sitä). Vain etusivulla (Index.tsx ja en/Index.tsx) käytetään uutta ModerBookingWidget-komponenttia.
-
----
-
-### Tekninen toteutus
-
-| Komponentti | Z-index | Tarkoitus |
-|-------------|---------|-----------|
-| **ModerBookingWidget** | 9999 | Varauswidget - kaikkein ylimpänä |
-| **WhatsAppChat** | 9990 | Asiakaspalvelu - widgetin yläpuolella |
-| **Header** | 50 | Navigaatio |
-| **StickyBookingBar** (muut sivut) | 9980 | Varabanneri muilla sivuilla |
-
----
-
-### Visuaalinen rakenne
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                      [SIVUN SISÄLTÖ]                    │
-│                                                         │
-│                                                 ┌─────┐ │
-│                                                 │ 💬  │ │ ← WhatsApp (z: 9990)
-│                                                 └─────┘ │
-├─────────────────────────────────────────────────────────┤
-│  ┌───────────────────────────────────────────────────┐  │
-│  │         [MODER VARAUSWIDGET]                      │  │ ← z: 9999
-│  │   📅 Saapuminen    📅 Lähtö    👥 Vieraat  [Hae]  │  │
-│  └───────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────┘
+// Rivi 91-94: Varmista section sallii overflown
+<section
+  className="relative min-h-screen flex items-center justify-center pt-32 sm:pt-20 pb-24 sm:pb-32"
+  style={{ overflow: "visible", isolation: "isolate" }}
+>
 ```
 
 ---
 
 ### Yhteenveto muutoksista
 
-| Tiedosto | Toimenpide |
-|----------|------------|
-| `src/components/ModerBookingWidget.tsx` | **UUSI** - Moder-embed widgetin React-wrapper |
-| `src/pages/Index.tsx` | Korvaa StickyBookingBar → ModerBookingWidget |
-| `src/pages/en/Index.tsx` | Korvaa StickyBookingBar → ModerBookingWidget |
-| `src/index.css` | Lisää CSS z-index ja pointer-events säännöt |
-| `src/components/WhatsAppChat.tsx` | Nosta sijainti ylemmäs (bottom-24) |
+| Tiedosto | Muutos |
+|----------|--------|
+| `src/components/Hero.tsx` | Nosta sisältökonttainerin z-index (`z-10` → `z-[100]`), lisää `isolation: isolate` widgetiin ja sectioniin, lisää `pointer-events-none` scroll-indikaattoriin |
+| `src/index.css` | Lisää aggressiivisemmat portaali-CSS-säännöt kalentereille ja dropdowneille |
 
 ---
 
-### Huomioita
+### Vaihtoehtoinen ratkaisu (jos yllä oleva ei toimi)
 
-1. **Ulkoinen scripti**: Moder-embed latautuu ulkoiselta palvelimelta (`moder-embeds-dev.s3.eu-north-1.amazonaws.com`). React-ympäristössä tämä vaatii dynaamisesti lataamista `useEffect`-hookissa.
+Jos kalenteri ei vieläkään toimi, widgetin sijoittaminen **body-tasolle** (esim. fixed-positioned komponenttina hero-sectionin ulkopuolelle) on varmempi ratkaisu:
 
-2. **Uusi ikkuna**: Widget toimii oman logiikkansa mukaan - varauksen yhteydessä se avaa app.moder.fi-sivuston uuteen ikkunaan.
-
-3. **Kielen välitys**: `ModerSettings.lang`-parametri välittää käyttöliittymäkielen widgetille.
-
-4. **StickyBookingBar säilyy**: Muilla sivuilla säilyy nykyinen yksinkertainen banneri, koska widget on tarkoitettu lähinnä etusivulle.
+```typescript
+// Index.tsx - widget kokonaan erillään Hero-komponentista
+<Hero lang={lang} />
+<div 
+  id="moder-embed" 
+  className="fixed bottom-0 left-0 right-0 z-[99999] bg-card border-t"
+/>
+```
 
