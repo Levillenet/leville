@@ -8,7 +8,7 @@ import Features from "@/components/Features";
 import Footer from "@/components/Footer";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import HreflangTags from "@/components/HreflangTags";
-import StickyBookingBar from "@/components/StickyBookingBar";
+import ModerBookingWidget from "@/components/ModerBookingWidget";
 import { Language, getTranslations } from "@/translations";
 
 interface IndexProps {
@@ -143,7 +143,7 @@ const Index = ({ lang = "fi" }: IndexProps) => {
         </main>
         <Footer lang={lang} />
         <WhatsAppChat />
-        <StickyBookingBar lang={lang} />
+        <ModerBookingWidget lang={lang} />
       </div>
     </>
   );
