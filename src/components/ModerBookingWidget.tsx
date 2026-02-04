@@ -13,7 +13,8 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     // Set global settings before loading the script
     (window as any).ModerSettings = {
       property: 'levillenet',
-      lang: lang === 'fi' ? undefined : (lang === 'sv' ? 'sv' : 'en')
+      lang: lang === 'fi' ? undefined : (lang === 'sv' ? 'sv' : 'en'),
+      target: '_blank' // Open search results in new window/tab
     };
 
     // Load script only once
