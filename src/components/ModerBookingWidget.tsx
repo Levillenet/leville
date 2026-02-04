@@ -5,9 +5,17 @@ interface ModerBookingWidgetProps {
   lang?: Language;
 }
 
+const loadingTexts: Record<string, string> = {
+  fi: 'Haetaan majoituksia...',
+  en: 'Searching accommodations...',
+  sv: 'Söker boenden...',
+  de: 'Unterkünfte werden gesucht...',
+  es: 'Buscando alojamientos...',
+  fr: 'Recherche d\'hébergements...',
+};
+
 const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
   const scriptLoadedRef = useRef(false);
-  const cleanupRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     (window as any).ModerSettings = {
@@ -25,31 +33,110 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     }
   }, [lang]);
 
-  // Intercept all navigation from the Moder widget
+  // Intercept navigation and add loading indicator
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
     let observer: MutationObserver | null = null;
     let embedContainer: HTMLElement | null = null;
 
-    // Handler references for cleanup
+    const showLoadingOverlay = () => {
+      const loadingText = loadingTexts[lang] || loadingTexts.en;
+      
+      document.body.style.cursor = 'progress';
+      
+      const overlay = document.createElement('div');
+      overlay.id = 'moder-loading-overlay';
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+      `;
+      overlay.innerHTML = `
+        <div style="
+          background: white;
+          padding: 2rem 3rem;
+          border-radius: 12px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        ">
+          <div style="
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e5e7eb;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: moder-spin 1s linear infinite;
+          "></div>
+          <p style="
+            margin: 0;
+            font-size: 1rem;
+            color: #374151;
+            font-weight: 500;
+          ">${loadingText}</p>
+        </div>
+      `;
+      
+      if (!document.getElementById('moder-spinner-styles')) {
+        const style = document.createElement('style');
+        style.id = 'moder-spinner-styles';
+        style.textContent = `
+          @keyframes moder-spin {
+            to { transform: rotate(360deg); }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      
+      document.body.appendChild(overlay);
+      
+      window.addEventListener('beforeunload', () => {
+        overlay.remove();
+        document.body.style.cursor = '';
+      }, { once: true });
+      
+      setTimeout(() => {
+        overlay.remove();
+        document.body.style.cursor = '';
+      }, 10000);
+    };
+
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const link = target.closest('a[href]') as HTMLAnchorElement;
       const button = target.closest('button[type="submit"], button:not([type]), [role="button"]');
       
+      // Check if it's a search/submit button
+      const isSearchButton = 
+        target.closest('button[type="submit"]') ||
+        target.closest('[class*="search"]') ||
+        target.closest('[class*="submit"]') ||
+        (target.tagName === 'BUTTON') ||
+        (target.closest('button'));
+
       if (link && link.href && !link.href.startsWith('javascript:')) {
         e.preventDefault();
         e.stopPropagation();
+        showLoadingOverlay();
         window.open(link.href, '_blank', 'noopener,noreferrer');
         return;
       }
       
-      // If it's a search/submit button, find the form or build URL
       if (button) {
         const form = button.closest('form');
         if (form) {
           e.preventDefault();
           e.stopPropagation();
+          showLoadingOverlay();
           
           const formData = new FormData(form);
           const params = new URLSearchParams();
@@ -58,6 +145,8 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
           const actionUrl = form.action || window.location.href;
           const fullUrl = actionUrl + (actionUrl.includes('?') ? '&' : '?') + params.toString();
           window.open(fullUrl, '_blank', 'noopener,noreferrer');
+        } else if (isSearchButton) {
+          showLoadingOverlay();
         }
       }
     };
@@ -66,6 +155,7 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
       const form = e.target as HTMLFormElement;
       e.preventDefault();
       e.stopPropagation();
+      showLoadingOverlay();
       
       const formData = new FormData(form);
       const params = new URLSearchParams();
@@ -76,7 +166,6 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
       window.open(fullUrl, '_blank', 'noopener,noreferrer');
     };
 
-    // Wait for widget to load
     const setupInterceptor = () => {
       embedContainer = document.getElementById('moder-embed');
       if (!embedContainer) {
@@ -84,7 +173,6 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
         return;
       }
 
-      // Watch for dynamically added links/forms and set target="_blank"
       observer = new MutationObserver(() => {
         if (!embedContainer) return;
         embedContainer.querySelectorAll('a[href]').forEach(link => {
@@ -98,7 +186,6 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
 
       observer.observe(embedContainer, { childList: true, subtree: true });
 
-      // Initial pass to set target="_blank" on existing elements
       embedContainer.querySelectorAll('a[href]').forEach(link => {
         link.setAttribute('target', '_blank');
         link.setAttribute('rel', 'noopener noreferrer');
@@ -107,7 +194,6 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
         form.setAttribute('target', '_blank');
       });
 
-      // Add listeners with capture to intercept before widget handles them
       embedContainer.addEventListener('click', handleClick, true);
       embedContainer.addEventListener('submit', handleSubmit as EventListener, true);
     };
@@ -115,18 +201,17 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     setupInterceptor();
     
     return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      if (observer) {
-        observer.disconnect();
-      }
+      if (timeoutId) clearTimeout(timeoutId);
+      if (observer) observer.disconnect();
       if (embedContainer) {
         embedContainer.removeEventListener('click', handleClick, true);
         embedContainer.removeEventListener('submit', handleSubmit as EventListener, true);
       }
+      const overlay = document.getElementById('moder-loading-overlay');
+      if (overlay) overlay.remove();
+      document.body.style.cursor = '';
     };
-  }, []);
+  }, [lang]);
 
   return null;
 };
