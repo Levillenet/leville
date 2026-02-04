@@ -90,8 +90,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center pt-32 sm:pt-20 pb-24 sm:pb-32"
-      style={{ overflow: "visible", isolation: "isolate" }}
+      className="relative z-40 min-h-screen flex items-center justify-center pt-32 sm:pt-20 pb-24 sm:pb-32 overflow-visible"
     >
       {/* Background images slideshow with crossfade and Ken Burns effect */}
       <div className="absolute inset-0 overflow-hidden bg-leville-dark">
@@ -218,10 +217,10 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             className="animate-fade-in" 
             style={{ animationDelay: '0.4s' }}
           >
-            <div 
-              id="moder-embed"
-              className="mx-auto max-w-3xl"
-            />
+           <div 
+             id="moder-embed"
+             className="relative mx-auto max-w-3xl rounded-2xl shadow-2xl"
+           />
           </div>
         </div>
       </div>
