@@ -1,142 +1,193 @@
 
 
-## Suunnitelma: Päivitä navigaatio ja siirrä Revontulet Levi-hubin alle
+## Suunnitelma: Lisää Moder-varauswidget etusivulle StickyBookingBarin tilalle
+
+### Yleiskatsaus
+
+Korvataan nykyinen "Varaa heti tästä" -banneri (StickyBookingBar) interaktiivisella Moder-varauswidgetillä, joka näyttää saatavuuden ja avaa varausjärjestelmän uuteen ikkunaan.
+
+---
 
 ### Muutokset
 
-| Kohde | Muutos |
-|-------|--------|
-| **Header** | "Levi" → "Levi-opas" (kaikilla kielillä vastaava) + poistetaan Revontulet-linkki |
-| **Levi.tsx** | Lisätään Revontulet-linkki "Hyödyllistä tietoa" -osioon säätietojen viereen |
+#### 1. Luo uusi ModerBookingWidget-komponentti
 
----
+**Tiedosto:** `src/components/ModerBookingWidget.tsx` (UUSI)
 
-### 1. Header-navigaation muutokset
-
-**Tiedosto:** `src/components/Header.tsx`
-
-Muutetaan navigation links kaikilla kielillä:
-
-| Kieli | Vanha | Uusi |
-|-------|-------|------|
-| FI | Levi, Revontulet | Levi-opas |
-| EN | Levi, Northern Lights | Levi Guide |
-| SV | Levi, Norrsken | Levi-guide |
-| DE | Levi, Nordlichter | Levi-Reiseführer |
-| ES | Levi, Auroras | Guía de Levi |
-| FR | Levi, Aurores Boréales | Guide de Levi |
+React-komponentti, joka:
+- Lataa Moder-embed scriptin dynaamisesti useEffectin avulla
+- Asettaa `ModerSettings.property = 'levillenet'`
+- Varmistaa että widget on kaikkien muiden elementtien päällä (z-index: 9999)
+- Käsittelee kieliparametrin välittämisen widgetille
 
 ```typescript
-// ENNEN (FI esimerkki):
-return [
-  { name: "Majoitukset", href: routeConfig.accommodations.fi },
-  { name: "Äkkilähdöt", href: routeConfig.lastMinute.fi, highlight: true },
-  { name: "Levi", href: routeConfig.levi.fi },
-  { name: "Revontulet", href: routeConfig.northernLights.fi },
-  { name: "Yhteystiedot", href: routeConfig.contact.fi },
-];
+import { useEffect, useRef } from "react";
+import { Language } from "@/translations";
 
-// JÄLKEEN:
-return [
-  { name: "Majoitukset", href: routeConfig.accommodations.fi },
-  { name: "Äkkilähdöt", href: routeConfig.lastMinute.fi, highlight: true },
-  { name: "Levi-opas", href: routeConfig.levi.fi },
-  { name: "Yhteystiedot", href: routeConfig.contact.fi },
-];
-```
+interface ModerBookingWidgetProps {
+  lang?: Language;
+}
 
----
+const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scriptLoadedRef = useRef(false);
 
-### 2. Levi-hubin "Hyödyllistä tietoa" -osion laajentaminen
+  useEffect(() => {
+    // Aseta globaalit asetukset ennen scriptin latausta
+    (window as any).ModerSettings = {
+      property: 'levillenet',
+      lang: lang === 'fi' ? undefined : (lang === 'sv' ? 'sv' : 'en')
+    };
 
-**Tiedosto:** `src/pages/Levi.tsx`
+    // Lataa scripti vain kerran
+    if (!scriptLoadedRef.current) {
+      const script = document.createElement('script');
+      script.src = 'https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js';
+      script.defer = true;
+      script.async = true;
+      document.body.appendChild(script);
+      scriptLoadedRef.current = true;
+    }
 
-Muutetaan Quick Links -osio näyttämään kaksi linkkiä rinnakkain (grid):
-1. **Säätietoa Leviltä** (nykyinen)
-2. **Revontulet** (uusi)
+    return () => {
+      // Cleanup jos tarpeen
+    };
+  }, [lang]);
 
-#### A) Lisää monikielinen sisältö revontulille
+  return (
+    <div 
+      className="fixed bottom-0 left-0 right-0 z-[9999] bg-card border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.15)]"
+      style={{ 
+        isolation: 'isolate',
+        pointerEvents: 'auto'
+      }}
+    >
+      {/* Moder widget latautuu tähän */}
+      <div 
+        id="moder-embed" 
+        ref={containerRef}
+        className="relative"
+        style={{
+          position: 'relative',
+          zIndex: 9999
+        }}
+      />
+    </div>
+  );
+};
 
-```typescript
-// Lisätään content-objektiin:
-northernLightsTitle: string;
-northernLightsDesc: string;
-
-// FI:
-northernLightsTitle: "Revontulet Levillä",
-northernLightsDesc: "Opas revontulien katseluun ja ennusteet"
-
-// EN:
-northernLightsTitle: "Northern Lights in Levi",
-northernLightsDesc: "Guide to aurora viewing and forecasts"
-
-// jne. kaikille kielille
-```
-
-#### B) Päivitä Quick Links -layout
-
-```
-ENNEN:
-┌──────────────────────────────────────────────┐
-│  Hyödyllistä tietoa                          │
-│  ┌──────────────────────────────────┐        │
-│  │ ☀️ Säätietoa Leviltä              │        │
-│  │    Lumensyvyys, lämpötilat...     │        │
-│  └──────────────────────────────────┘        │
-└──────────────────────────────────────────────┘
-
-JÄLKEEN:
-┌──────────────────────────────────────────────┐
-│  Hyödyllistä tietoa                          │
-│  ┌─────────────────┐  ┌─────────────────┐    │
-│  │ ☀️ Säätietoa    │  │ ✨ Revontulet   │    │
-│  │   Leviltä       │  │   Levillä       │    │
-│  └─────────────────┘  └─────────────────┘    │
-└──────────────────────────────────────────────┘
+export default ModerBookingWidget;
 ```
 
 ---
 
-### Tekninen toteutus (Levi.tsx)
+#### 2. Päivitä Index.tsx käyttämään uutta widgetiä
 
-Muutetaan Quick Links -osio gridiksi:
+**Tiedosto:** `src/pages/Index.tsx`
 
 ```typescript
-{/* Quick Links Section */}
-<section className="mb-12 sm:mb-16">
-  <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 text-center">
-    {c.quickLinksTitle}
-  </h2>
-  <div className="max-w-2xl mx-auto grid sm:grid-cols-2 gap-4">
-    {/* Weather Link */}
-    <Link to={weatherLinks[lang]} className="...">
-      <Card>...Säätietoa...</Card>
-    </Link>
-    
-    {/* Northern Lights Link - UUSI */}
-    <Link to={routeConfig.northernLights[lang]} className="...">
-      <Card>
-        <Sparkles className="w-6 h-6 text-emerald-400" />
-        <h3>{c.northernLightsTitle}</h3>
-        <p>{c.northernLightsDesc}</p>
-      </Card>
-    </Link>
-  </div>
-</section>
+// Vaihda import
+import ModerBookingWidget from "@/components/ModerBookingWidget";
+
+// Korvaa StickyBookingBar
+<ModerBookingWidget lang={lang} />
+```
+
+---
+
+#### 3. CSS-tyylit widgetin toimivuuden varmistamiseksi
+
+**Tiedosto:** `src/index.css` (lisäykset)
+
+```css
+/* Moder Booking Widget - varmista että se on kaikkien elementtien päällä */
+#moder-embed {
+  position: relative;
+  z-index: 9999 !important;
+}
+
+#moder-embed * {
+  pointer-events: auto !important;
+}
+
+/* Estä muut elementit peittämästä widgetiä */
+#moder-embed iframe,
+#moder-embed [class*="moder"] {
+  position: relative;
+  z-index: 9999 !important;
+}
+```
+
+---
+
+#### 4. Päivitä WhatsApp-chatin sijainti
+
+Koska varauswidget vie enemmän tilaa kuin vanha banneri, WhatsApp-nappi pitää siirtää ylemmäs.
+
+**Tiedosto:** `src/components/WhatsAppChat.tsx`
+
+```typescript
+// Muuta rivi 89
+<div className="fixed bottom-24 md:bottom-20 right-4 z-[9990]">
+```
+
+---
+
+#### 5. Muut sivut - säilytä StickyBookingBar
+
+StickyBookingBar säilytetään muilla sivuilla (36 sivua käyttää sitä). Vain etusivulla (Index.tsx ja en/Index.tsx) käytetään uutta ModerBookingWidget-komponenttia.
+
+---
+
+### Tekninen toteutus
+
+| Komponentti | Z-index | Tarkoitus |
+|-------------|---------|-----------|
+| **ModerBookingWidget** | 9999 | Varauswidget - kaikkein ylimpänä |
+| **WhatsAppChat** | 9990 | Asiakaspalvelu - widgetin yläpuolella |
+| **Header** | 50 | Navigaatio |
+| **StickyBookingBar** (muut sivut) | 9980 | Varabanneri muilla sivuilla |
+
+---
+
+### Visuaalinen rakenne
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                      [SIVUN SISÄLTÖ]                    │
+│                                                         │
+│                                                 ┌─────┐ │
+│                                                 │ 💬  │ │ ← WhatsApp (z: 9990)
+│                                                 └─────┘ │
+├─────────────────────────────────────────────────────────┤
+│  ┌───────────────────────────────────────────────────┐  │
+│  │         [MODER VARAUSWIDGET]                      │  │ ← z: 9999
+│  │   📅 Saapuminen    📅 Lähtö    👥 Vieraat  [Hae]  │  │
+│  └───────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
 ```
 
 ---
 
 ### Yhteenveto muutoksista
 
-| Tiedosto | Muutos |
-|----------|--------|
-| `src/components/Header.tsx` | "Levi" → "Levi-opas" ja poista Revontulet headerista |
-| `src/pages/Levi.tsx` | Lisää revontulet-linkki Quick Links -osioon säätietojen viereen |
+| Tiedosto | Toimenpide |
+|----------|------------|
+| `src/components/ModerBookingWidget.tsx` | **UUSI** - Moder-embed widgetin React-wrapper |
+| `src/pages/Index.tsx` | Korvaa StickyBookingBar → ModerBookingWidget |
+| `src/pages/en/Index.tsx` | Korvaa StickyBookingBar → ModerBookingWidget |
+| `src/index.css` | Lisää CSS z-index ja pointer-events säännöt |
+| `src/components/WhatsAppChat.tsx` | Nosta sijainti ylemmäs (bottom-24) |
 
-### SEO-vaikutukset
+---
 
-- Revontulet-sivu säilyttää kaikki olemassa olevat reitit ja sisällön
-- Header-linkin poistaminen ei vaikuta sivun löydettävyyteen (linkitetään nyt hubista)
-- "Levi-opas" on SEO-ystävällisempi ja kuvailevampi kuin pelkkä "Levi"
+### Huomioita
+
+1. **Ulkoinen scripti**: Moder-embed latautuu ulkoiselta palvelimelta (`moder-embeds-dev.s3.eu-north-1.amazonaws.com`). React-ympäristössä tämä vaatii dynaamisesti lataamista `useEffect`-hookissa.
+
+2. **Uusi ikkuna**: Widget toimii oman logiikkansa mukaan - varauksen yhteydessä se avaa app.moder.fi-sivuston uuteen ikkunaan.
+
+3. **Kielen välitys**: `ModerSettings.lang`-parametri välittää käyttöliittymäkielen widgetille.
+
+4. **StickyBookingBar säilyy**: Muilla sivuilla säilyy nykyinen yksinkertainen banneri, koska widget on tarkoitettu lähinnä etusivulle.
 
