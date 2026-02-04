@@ -18,12 +18,13 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
   // NOTE: Moder widget language switching is unreliable in SPA navigation.
   // As requested, we force the widget to always initialize in English.
   const scriptLoadedRef = useRef(false);
+  const clickHandlerRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     const scriptId = 'moder-embed-script';
     const scriptBaseSrc = 'https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js';
 
-    // Force English always
+    // Force English always for the Moder widget itself
     (window as any).ModerSettings = {
       property: 'levillenet',
       lang: 'en',
@@ -77,7 +78,9 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
   }, []);
 
   useEffect(() => {
-    const loadingText = loadingTexts.en;
+    // Get the correct loading text for current language
+    const loadingText = loadingTexts[lang] || loadingTexts.en;
+    
     let observer: MutationObserver | null = null;
     let setupTimeoutId: ReturnType<typeof setTimeout> | null = null;
     
@@ -173,6 +176,11 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
         observer = new MutationObserver(() => {
           const btn = moderEmbed.querySelector('.moder-bar__search-button');
           if (btn) {
+            // Remove old handler if exists
+            if (clickHandlerRef.current) {
+              btn.removeEventListener('click', clickHandlerRef.current);
+            }
+            clickHandlerRef.current = showLoadingOverlay;
             btn.addEventListener('click', showLoadingOverlay);
             observer?.disconnect();
           }
@@ -181,20 +189,30 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
         return;
       }
 
+      // Remove old handler if exists
+      if (clickHandlerRef.current) {
+        searchButton.removeEventListener('click', clickHandlerRef.current);
+      }
+      clickHandlerRef.current = showLoadingOverlay;
       searchButton.addEventListener('click', showLoadingOverlay);
     };
 
     setupClickHandler();
 
     return () => {
-      // Cleanup
+      // Cleanup old handler when lang changes
+      const moderEmbed = document.getElementById('moder-embed');
+      const searchButton = moderEmbed?.querySelector('.moder-bar__search-button');
+      if (searchButton && clickHandlerRef.current) {
+        searchButton.removeEventListener('click', clickHandlerRef.current);
+      }
       if (setupTimeoutId) clearTimeout(setupTimeoutId);
       if (observer) observer.disconnect();
       const overlay = document.getElementById('moder-loading-overlay');
       if (overlay) overlay.remove();
       document.body.style.cursor = '';
     };
-  }, []);
+  }, [lang]); // Re-run when lang changes
 
   return null;
 };
