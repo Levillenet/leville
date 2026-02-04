@@ -8,12 +8,22 @@ interface ModerBookingWidgetProps {
 const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
   const scriptLoadedRef = useRef(false);
   const observerRef = useRef<MutationObserver | null>(null);
+  const currentLangRef = useRef<string | undefined>(undefined);
+
+  // Determine widget language: fi = undefined (default), sv = sv, all others = en
+  const getWidgetLang = (language: Language): string | undefined => {
+    if (language === 'fi') return undefined;
+    if (language === 'sv') return 'sv';
+    return 'en';
+  };
 
   useEffect(() => {
+    const widgetLang = getWidgetLang(lang);
+    
     // Set global settings before loading the script
     (window as any).ModerSettings = {
       property: 'levillenet',
-      lang: lang === 'fi' ? undefined : (lang === 'sv' ? 'sv' : 'en'),
+      lang: widgetLang,
       target: '_blank' // Open search results in new window/tab
     };
 
@@ -25,6 +35,30 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
       script.async = true;
       document.body.appendChild(script);
       scriptLoadedRef.current = true;
+      currentLangRef.current = widgetLang;
+    } else if (currentLangRef.current !== widgetLang) {
+      // Language changed - reinitialize widget by clearing and reloading
+      currentLangRef.current = widgetLang;
+      
+      // Clear the embed container
+      const embedContainer = document.getElementById('moder-embed');
+      if (embedContainer) {
+        embedContainer.innerHTML = '';
+      }
+      
+      // Trigger Moder to reinitialize if it has an init function
+      if ((window as any).Moder?.init) {
+        (window as any).Moder.init();
+      } else if ((window as any).initModerWidget) {
+        (window as any).initModerWidget();
+      } else {
+        // Force reload by adding script again with cache bust
+        const newScript = document.createElement('script');
+        newScript.src = 'https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js?t=' + Date.now();
+        newScript.defer = true;
+        newScript.async = true;
+        document.body.appendChild(newScript);
+      }
     }
 
     // MutationObserver to detect and elevate Moder portal elements
