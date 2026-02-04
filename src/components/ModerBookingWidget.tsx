@@ -6,7 +6,6 @@ interface ModerBookingWidgetProps {
 }
 
 const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const scriptLoadedRef = useRef(false);
 
   useEffect(() => {
@@ -27,26 +26,8 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     }
   }, [lang]);
 
-  return (
-    <div 
-      className="fixed bottom-0 left-0 right-0 z-[9999] bg-card border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.15)]"
-      style={{ 
-        isolation: 'isolate',
-        pointerEvents: 'auto'
-      }}
-    >
-      {/* Moder widget loads here */}
-      <div 
-        id="moder-embed" 
-        ref={containerRef}
-        className="relative"
-        style={{
-          position: 'relative',
-          zIndex: 9999
-        }}
-      />
-    </div>
-  );
+  // This component only loads the script - the actual widget renders into #moder-embed in Hero
+  return null;
 };
 
 export default ModerBookingWidget;

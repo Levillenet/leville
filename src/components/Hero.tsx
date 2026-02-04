@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { ArrowRight, Tag, MapPin, CreditCard, Home } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { MapPin, CreditCard, Home } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import heroCabin from "@/assets/hero-cabin.jpg";
 import heroChalet from "@/assets/hero-chalet.png";
@@ -214,26 +213,19 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             </span>
           </div>
 
-          {/* Booking CTA section - prominent turquoise button */}
+          {/* Moder Booking Widget - embedded in hero */}
           <div 
-            id="booking-widget"
-            className="animate-slide-up flex items-center justify-center" 
+            className="animate-slide-up" 
             style={{ animationDelay: '0.4s' }}
           >
-            <Button
-              asChild
-              size="lg"
-              className="group text-xl sm:text-2xl px-10 py-7 rounded-full bg-leville-turquoise hover:bg-leville-turquoise-light text-white shadow-xl hover:shadow-2xl transition-all animate-cta-glow"
-            >
-              <a
-                href={`https://app.moder.fi/levillenet${lang === "fi" ? "" : lang === "sv" ? "?lang=sv" : "?lang=en"}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t.bookingCta}
-                <ArrowRight className="ml-3 h-6 w-6 transition-transform group-hover:translate-x-1" />
-              </a>
-            </Button>
+            <div 
+              id="moder-embed"
+              className="relative mx-auto max-w-3xl rounded-2xl overflow-hidden shadow-2xl"
+              style={{
+                isolation: 'isolate',
+                zIndex: 50
+              }}
+            />
           </div>
         </div>
       </div>
