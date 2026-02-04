@@ -27,7 +27,7 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     // Force English always for the Moder widget itself
     (window as any).ModerSettings = {
       property: 'levillenet',
-      lang: 'en',
+      language: 'en',
     };
 
     // Some embeds read document language during initialization.
