@@ -215,18 +215,12 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
 
           {/* Moder Booking Widget - embedded in hero */}
           <div 
-            className="animate-slide-up" 
-            style={{ animationDelay: '0.4s', overflow: 'visible' }}
+            className="animate-fade-in" 
+            style={{ animationDelay: '0.4s' }}
           >
             <div 
               id="moder-embed"
               className="relative mx-auto max-w-3xl rounded-2xl shadow-2xl"
-              style={{
-                overflow: 'visible',
-                zIndex: 9999,
-                position: 'relative',
-                isolation: 'isolate'
-              }}
             />
           </div>
         </div>
