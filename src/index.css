@@ -395,14 +395,56 @@
   }
 }
 
-/* Moder Booking Widget - minimal safe styling */
+/* ================================================
+   Moder Booking Widget - Complete z-index fix
+   ================================================ */
+
+/* 1. Base container - high z-index and overflow visible */
 #moder-embed {
   position: relative;
-  z-index: 100;
+  z-index: 9999;
+}
+
+/* 2. Force all Moder dropdowns, calendars, and popups to appear on top */
+#moder-embed [class*="dropdown"],
+#moder-embed [class*="calendar"],
+#moder-embed [class*="picker"],
+#moder-embed [class*="popup"],
+#moder-embed [class*="modal"],
+#moder-embed [class*="menu"],
+#moder-embed [class*="popover"],
+#moder-embed [role="listbox"],
+#moder-embed [role="dialog"] {
+  z-index: 99999 !important;
+  position: relative !important;
+}
+
+/* 3. Ensure no parent clips the dropdown */
+#moder-embed,
+#moder-embed > *,
+#moder-embed > * > * {
   overflow: visible !important;
 }
 
-/* Moder portal layers - applied dynamically via JS MutationObserver */
+/* 4. Catch any Moder elements that render outside the embed container (body-level portals) */
+body > [class*="moder"],
+body > [id*="moder"],
+[data-moder],
+.moder-calendar,
+.moder-dropdown,
+.moder-datepicker {
+  z-index: 99999 !important;
+}
+
+/* 5. Nuclear option: ensure any fixed/absolute positioned element from Moder is on top */
+[class*="moder"][style*="position: fixed"],
+[class*="moder"][style*="position: absolute"],
+[id*="moder"] [style*="position: fixed"],
+[id*="moder"] [style*="position: absolute"] {
+  z-index: 99999 !important;
+}
+
+/* 6. Moder portal layers - applied dynamically via JS MutationObserver (backup) */
 .moder-portal-layer {
   z-index: 2147483647 !important;
 }
