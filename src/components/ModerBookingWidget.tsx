@@ -11,7 +11,7 @@ const loadingTexts: Record<string, string> = {
   sv: 'Söker boenden...',
   de: 'Unterkünfte werden gesucht...',
   es: 'Buscando alojamientos...',
-  fr: 'Recherche d\'hébergements...',
+  fr: "Recherche d'hébergements...",
 };
 
 const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
@@ -33,17 +33,30 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     }
   }, [lang]);
 
-  // Intercept navigation and add loading indicator
   useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    const loadingText = loadingTexts[lang] || loadingTexts.en;
     let observer: MutationObserver | null = null;
-    let embedContainer: HTMLElement | null = null;
+    let setupTimeoutId: ReturnType<typeof setTimeout> | null = null;
+    
+    // Add spinner keyframes once
+    if (!document.getElementById('moder-spinner-styles')) {
+      const style = document.createElement('style');
+      style.id = 'moder-spinner-styles';
+      style.textContent = `
+        @keyframes moder-spin {
+          to { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
 
     const showLoadingOverlay = () => {
-      const loadingText = loadingTexts[lang] || loadingTexts.en;
-      
+      // Remove any existing overlay
+      const existing = document.getElementById('moder-loading-overlay');
+      if (existing) existing.remove();
+
       document.body.style.cursor = 'progress';
-      
+
       const overlay = document.createElement('div');
       overlay.id = 'moder-loading-overlay';
       overlay.style.cssText = `
@@ -85,133 +98,55 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
           ">${loadingText}</p>
         </div>
       `;
-      
-      if (!document.getElementById('moder-spinner-styles')) {
-        const style = document.createElement('style');
-        style.id = 'moder-spinner-styles';
-        style.textContent = `
-          @keyframes moder-spin {
-            to { transform: rotate(360deg); }
-          }
-        `;
-        document.head.appendChild(style);
-      }
-      
+
       document.body.appendChild(overlay);
-      
+
+      // Remove on page unload (when navigation happens)
       window.addEventListener('beforeunload', () => {
         overlay.remove();
         document.body.style.cursor = '';
       }, { once: true });
-      
+
+      // Fallback: remove after 10 seconds
       setTimeout(() => {
         overlay.remove();
         document.body.style.cursor = '';
       }, 10000);
     };
 
-    const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const link = target.closest('a[href]') as HTMLAnchorElement;
-      
-      // Detect any clickable element that could trigger search
-      const isClickableElement = 
-        target.closest('button') ||
-        target.closest('[role="button"]') ||
-        target.closest('[class*="search"]') ||
-        target.closest('[class*="submit"]') ||
-        target.closest('[class*="btn"]') ||
-        target.closest('[class*="button"]') ||
-        target.closest('div[tabindex]') ||
-        target.tagName === 'BUTTON' ||
-        (target.closest('div') && window.getComputedStyle(target).cursor === 'pointer');
-
-      if (link && link.href && !link.href.startsWith('javascript:')) {
-        e.preventDefault();
-        e.stopPropagation();
-        showLoadingOverlay();
-        window.open(link.href, '_blank', 'noopener,noreferrer');
-        return;
-      }
-      
-      // Show loading for any button-like click inside the widget
-      if (isClickableElement) {
-        const form = target.closest('form');
-        if (form) {
-          e.preventDefault();
-          e.stopPropagation();
-          showLoadingOverlay();
-          
-          const formData = new FormData(form);
-          const params = new URLSearchParams();
-          formData.forEach((value, key) => params.append(key, value.toString()));
-          
-          const actionUrl = form.action || window.location.href;
-          const fullUrl = actionUrl + (actionUrl.includes('?') ? '&' : '?') + params.toString();
-          window.open(fullUrl, '_blank', 'noopener,noreferrer');
-        } else {
-          // Just show loading for search button clicks
-          showLoadingOverlay();
-        }
-      }
-    };
-
-    const handleSubmit = (e: SubmitEvent) => {
-      const form = e.target as HTMLFormElement;
-      e.preventDefault();
-      e.stopPropagation();
-      showLoadingOverlay();
-      
-      const formData = new FormData(form);
-      const params = new URLSearchParams();
-      formData.forEach((value, key) => params.append(key, value.toString()));
-      
-      const actionUrl = form.action || window.location.href;
-      const fullUrl = actionUrl + (actionUrl.includes('?') ? '&' : '?') + params.toString();
-      window.open(fullUrl, '_blank', 'noopener,noreferrer');
-    };
-
-    const setupInterceptor = () => {
-      embedContainer = document.getElementById('moder-embed');
-      if (!embedContainer) {
-        timeoutId = setTimeout(setupInterceptor, 500);
+    const setupClickHandler = () => {
+      const moderEmbed = document.getElementById('moder-embed');
+      if (!moderEmbed) {
+        // Widget not loaded yet, retry
+        setupTimeoutId = setTimeout(setupClickHandler, 500);
         return;
       }
 
-      observer = new MutationObserver(() => {
-        if (!embedContainer) return;
-        embedContainer.querySelectorAll('a[href]').forEach(link => {
-          link.setAttribute('target', '_blank');
-          link.setAttribute('rel', 'noopener noreferrer');
+      // IMPORTANT: The Moder search button is a DIV with class .moder-bar__search-button
+      const searchButton = moderEmbed.querySelector('.moder-bar__search-button');
+      
+      if (!searchButton) {
+        // Button not rendered yet, watch for it
+        observer = new MutationObserver(() => {
+          const btn = moderEmbed.querySelector('.moder-bar__search-button');
+          if (btn) {
+            btn.addEventListener('click', showLoadingOverlay);
+            observer?.disconnect();
+          }
         });
-        embedContainer.querySelectorAll('form').forEach(form => {
-          form.setAttribute('target', '_blank');
-        });
-      });
+        observer.observe(moderEmbed, { childList: true, subtree: true });
+        return;
+      }
 
-      observer.observe(embedContainer, { childList: true, subtree: true });
-
-      embedContainer.querySelectorAll('a[href]').forEach(link => {
-        link.setAttribute('target', '_blank');
-        link.setAttribute('rel', 'noopener noreferrer');
-      });
-      embedContainer.querySelectorAll('form').forEach(form => {
-        form.setAttribute('target', '_blank');
-      });
-
-      embedContainer.addEventListener('click', handleClick, true);
-      embedContainer.addEventListener('submit', handleSubmit as EventListener, true);
+      searchButton.addEventListener('click', showLoadingOverlay);
     };
 
-    setupInterceptor();
-    
+    setupClickHandler();
+
     return () => {
-      if (timeoutId) clearTimeout(timeoutId);
+      // Cleanup
+      if (setupTimeoutId) clearTimeout(setupTimeoutId);
       if (observer) observer.disconnect();
-      if (embedContainer) {
-        embedContainer.removeEventListener('click', handleClick, true);
-        embedContainer.removeEventListener('submit', handleSubmit as EventListener, true);
-      }
       const overlay = document.getElementById('moder-loading-overlay');
       if (overlay) overlay.remove();
       document.body.style.cursor = '';
