@@ -113,15 +113,18 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const link = target.closest('a[href]') as HTMLAnchorElement;
-      const button = target.closest('button[type="submit"], button:not([type]), [role="button"]');
       
-      // Check if it's a search/submit button
-      const isSearchButton = 
-        target.closest('button[type="submit"]') ||
+      // Detect any clickable element that could trigger search
+      const isClickableElement = 
+        target.closest('button') ||
+        target.closest('[role="button"]') ||
         target.closest('[class*="search"]') ||
         target.closest('[class*="submit"]') ||
-        (target.tagName === 'BUTTON') ||
-        (target.closest('button'));
+        target.closest('[class*="btn"]') ||
+        target.closest('[class*="button"]') ||
+        target.closest('div[tabindex]') ||
+        target.tagName === 'BUTTON' ||
+        (target.closest('div') && window.getComputedStyle(target).cursor === 'pointer');
 
       if (link && link.href && !link.href.startsWith('javascript:')) {
         e.preventDefault();
@@ -131,8 +134,9 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
         return;
       }
       
-      if (button) {
-        const form = button.closest('form');
+      // Show loading for any button-like click inside the widget
+      if (isClickableElement) {
+        const form = target.closest('form');
         if (form) {
           e.preventDefault();
           e.stopPropagation();
@@ -145,7 +149,8 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
           const actionUrl = form.action || window.location.href;
           const fullUrl = actionUrl + (actionUrl.includes('?') ? '&' : '?') + params.toString();
           window.open(fullUrl, '_blank', 'noopener,noreferrer');
-        } else if (isSearchButton) {
+        } else {
+          // Just show loading for search button clicks
           showLoadingOverlay();
         }
       }
