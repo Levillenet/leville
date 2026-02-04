@@ -395,62 +395,14 @@
   }
 }
 
-/* Moder Booking Widget - ensure it stays on top and is fully interactive */
+/* Moder Booking Widget - minimal safe styling */
 #moder-embed {
   position: relative;
-  z-index: 9999 !important;
+  z-index: 100;
   overflow: visible !important;
-  isolation: isolate;
 }
 
-#moder-embed *,
-#moder-embed *::before,
-#moder-embed *::after {
-  pointer-events: auto !important;
-}
-
-/* Moder widget portals/dropdowns that render to body */
-body > [class*="moder"],
-body > div[style*="position: absolute"],
-body > div[style*="position: fixed"] {
-  z-index: 999999 !important;
-  pointer-events: auto !important;
-}
-
-/* Generic calendar/datepicker/dropdown targeting */
-div[class*="calendar"],
-div[class*="datepicker"],
-div[class*="dropdown"][style*="position: absolute"],
-div[class*="dropdown"][style*="position: fixed"],
-div[class*="Calendar"],
-div[class*="DatePicker"],
-div[class*="Dropdown"] {
-  z-index: 999999 !important;
-  pointer-events: auto !important;
-}
-
-/* Prevent other elements from covering the widget and its dropdowns */
-#moder-embed iframe,
-#moder-embed [class*="moder"],
-[class*="moder-calendar"],
-[class*="moder-dropdown"],
-[class*="moder-popup"],
-[class*="moder-datepicker"] {
-  position: relative;
-  z-index: 999999 !important;
-  pointer-events: auto !important;
-}
-
-/* Ensure React portals from Moder are clickable */
-[data-radix-popper-content-wrapper],
-[role="dialog"],
-[role="listbox"],
-[role="grid"],
-[role="gridcell"] {
-  pointer-events: auto !important;
-}
-
-/* Force all body-level portals to be interactive */
-body > div:not(#root):not([class*="sonner"]) {
-  pointer-events: auto;
+/* Moder portal layers - applied dynamically via JS MutationObserver */
+.moder-portal-layer {
+  z-index: 2147483647 !important;
 }
