@@ -400,9 +400,12 @@
   position: relative;
   z-index: 9999 !important;
   overflow: visible !important;
+  isolation: isolate;
 }
 
-#moder-embed * {
+#moder-embed *,
+#moder-embed *::before,
+#moder-embed *::after {
   pointer-events: auto !important;
 }
 
@@ -410,7 +413,19 @@
 body > [class*="moder"],
 body > div[style*="position: absolute"],
 body > div[style*="position: fixed"] {
-  z-index: 99999 !important;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+}
+
+/* Generic calendar/datepicker/dropdown targeting */
+div[class*="calendar"],
+div[class*="datepicker"],
+div[class*="dropdown"][style*="position: absolute"],
+div[class*="dropdown"][style*="position: fixed"],
+div[class*="Calendar"],
+div[class*="DatePicker"],
+div[class*="Dropdown"] {
+  z-index: 999999 !important;
   pointer-events: auto !important;
 }
 
@@ -422,13 +437,20 @@ body > div[style*="position: fixed"] {
 [class*="moder-popup"],
 [class*="moder-datepicker"] {
   position: relative;
-  z-index: 99999 !important;
+  z-index: 999999 !important;
   pointer-events: auto !important;
 }
 
 /* Ensure React portals from Moder are clickable */
 [data-radix-popper-content-wrapper],
 [role="dialog"],
-[role="listbox"] {
+[role="listbox"],
+[role="grid"],
+[role="gridcell"] {
   pointer-events: auto !important;
+}
+
+/* Force all body-level portals to be interactive */
+body > div:not(#root):not([class*="sonner"]) {
+  pointer-events: auto;
 }
