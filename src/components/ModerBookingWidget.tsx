@@ -6,60 +6,118 @@ interface ModerBookingWidgetProps {
 }
 
 const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
-  const scriptLoadedRef = useRef(false);
   const observerRef = useRef<MutationObserver | null>(null);
-  const currentLangRef = useRef<string | undefined>(undefined);
+  const originalWindowOpenRef = useRef<typeof window.open | null>(null);
+  const originalLocationAssignRef = useRef<typeof window.location.assign | null>(null);
+  const originalLocationReplaceRef = useRef<typeof window.location.replace | null>(null);
 
-  // Determine widget language: fi = undefined (default), sv = sv, all others = en
+  const MODER_SCRIPT_BASE_URL =
+    "https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js";
+
+  // Determine widget language: fi = fi, sv = sv, all others = en
   const getWidgetLang = (language: Language): string | undefined => {
-    if (language === 'fi') return undefined;
-    if (language === 'sv') return 'sv';
-    return 'en';
+    if (language === "fi") return "fi";
+    if (language === "sv") return "sv";
+    return "en";
   };
 
   useEffect(() => {
     const widgetLang = getWidgetLang(lang);
+
+    const isModerUrl = (url: unknown): boolean => {
+      if (!url) return false;
+      const href = typeof url === "string" ? url : String(url);
+      return href.includes("moder.fi");
+    };
+
+    // Persist originals once
+    if (!originalWindowOpenRef.current) {
+      originalWindowOpenRef.current = window.open.bind(window);
+    }
+    if (!originalLocationAssignRef.current) {
+      originalLocationAssignRef.current = window.location.assign.bind(window.location);
+    }
+    if (!originalLocationReplaceRef.current) {
+      originalLocationReplaceRef.current = window.location.replace.bind(window.location);
+    }
+
+    const originalOpen = originalWindowOpenRef.current;
+
+    // Force Moder navigations to open in a new tab even if embed ignores settings
+    window.open = ((url?: string | URL, target?: string, features?: string) => {
+      const href = url ? (typeof url === "string" ? url : url.toString()) : "";
+      if (href && isModerUrl(href)) {
+        return originalOpen?.(href, "_blank", features);
+      }
+      return originalOpen?.(url as any, target as any, features as any);
+    }) as any;
+
+    try {
+      (window.location as any).assign = (url: string | URL) => {
+        const href = typeof url === "string" ? url : url.toString();
+        if (isModerUrl(href)) {
+          originalOpen?.(href, "_blank");
+          return;
+        }
+        return originalLocationAssignRef.current?.(href);
+      };
+      (window.location as any).replace = (url: string | URL) => {
+        const href = typeof url === "string" ? url : url.toString();
+        if (isModerUrl(href)) {
+          originalOpen?.(href, "_blank");
+          return;
+        }
+        return originalLocationReplaceRef.current?.(href);
+      };
+    } catch {
+      // Some browsers may not allow overriding location methods; best-effort only.
+    }
     
     // Set global settings before loading the script
     (window as any).ModerSettings = {
       property: 'levillenet',
       lang: widgetLang,
-      target: '_blank' // Open search results in new window/tab
+      // Try a few common keys since the embed's config API isn't documented here
+      language: widgetLang,
+      locale: widgetLang,
+      target: '_blank', // Open search results in new window/tab
+      linkTarget: '_blank',
+      openInNewTab: true,
+      newTab: true
     };
 
-    // Load script only once
-    if (!scriptLoadedRef.current) {
-      const script = document.createElement('script');
-      script.src = 'https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js';
-      script.defer = true;
-      script.async = true;
-      document.body.appendChild(script);
-      scriptLoadedRef.current = true;
-      currentLangRef.current = widgetLang;
-    } else if (currentLangRef.current !== widgetLang) {
-      // Language changed - reinitialize widget by clearing and reloading
-      currentLangRef.current = widgetLang;
-      
-      // Clear the embed container
-      const embedContainer = document.getElementById('moder-embed');
-      if (embedContainer) {
-        embedContainer.innerHTML = '';
-      }
-      
-      // Trigger Moder to reinitialize if it has an init function
+    // Clear existing embed container
+    const embedContainer = document.getElementById("moder-embed");
+    if (embedContainer) {
+      embedContainer.innerHTML = "";
+    }
+
+    // Remove any existing Moder scripts to ensure fresh init on language change
+    document
+      .querySelectorAll<HTMLScriptElement>('script[src*="moder-embeds-dev"]')
+      .forEach((el) => el.remove());
+
+    // Best-effort clear of global API so the new script reads updated settings
+    try {
+      delete (window as any).Moder;
+      delete (window as any).initModerWidget;
+    } catch {
+      // ignore
+    }
+
+    const script = document.createElement("script");
+    script.src = `${MODER_SCRIPT_BASE_URL}?t=${Date.now()}`;
+    script.defer = true;
+    script.async = true;
+    script.onload = () => {
+      // Some builds expose an explicit init hook
       if ((window as any).Moder?.init) {
         (window as any).Moder.init();
       } else if ((window as any).initModerWidget) {
         (window as any).initModerWidget();
-      } else {
-        // Force reload by adding script again with cache bust
-        const newScript = document.createElement('script');
-        newScript.src = 'https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js?t=' + Date.now();
-        newScript.defer = true;
-        newScript.async = true;
-        document.body.appendChild(newScript);
       }
-    }
+    };
+    document.body.appendChild(script);
 
     // MutationObserver to detect and elevate Moder portal elements
     const isModerPortal = (node: Node): boolean => {
@@ -123,6 +181,24 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
       if (observerRef.current) {
         observerRef.current.disconnect();
       }
+
+      // Restore navigation methods
+      if (originalWindowOpenRef.current) {
+        window.open = originalWindowOpenRef.current;
+      }
+      try {
+        if (originalLocationAssignRef.current) {
+          (window.location as any).assign = originalLocationAssignRef.current;
+        }
+        if (originalLocationReplaceRef.current) {
+          (window.location as any).replace = originalLocationReplaceRef.current;
+        }
+      } catch {
+        // ignore
+      }
+
+      // Remove the script we added
+      script.remove();
     };
   }, [lang]);
 
