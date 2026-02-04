@@ -16,39 +16,24 @@ const loadingTexts: Record<string, string> = {
 
 const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
   const scriptLoadedRef = useRef(false);
-  const lastModerLangRef = useRef<string | undefined>(undefined);
 
   useEffect(() => {
-    const scriptId = "moder-embed-script";
-    const moderLang = lang === "fi" ? undefined : lang === "sv" ? "sv" : "en";
-
-    // Moder reads settings at init-time; ensure we set them before (re)loading.
+    // Set Moder settings - widget reads these at initialization
+    const moderLang = lang === 'fi' ? undefined : (lang === 'sv' ? 'sv' : 'en');
     (window as any).ModerSettings = {
-      property: "levillenet",
-      ...(moderLang ? { lang: moderLang } : {}),
+      property: 'levillenet',
+      ...(moderLang && { lang: moderLang })
     };
 
-    const existingScript = document.getElementById(scriptId) as HTMLScriptElement | null;
-    const shouldReload = Boolean(existingScript) && lastModerLangRef.current !== moderLang;
-
-    if (!existingScript || shouldReload) {
-      if (existingScript) existingScript.remove();
-
-      // Clear previous embed markup so a re-init renders fresh in the new language.
-      const embed = document.getElementById("moder-embed");
-      if (embed) embed.innerHTML = "";
-
-      const script = document.createElement("script");
-      script.id = scriptId;
-      // Cache-bust to force re-execution when language changes.
-      script.src = `https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js?v=${Date.now()}`;
+    // Only load script once per page load
+    if (!scriptLoadedRef.current) {
+      const script = document.createElement('script');
+      script.src = 'https://moder-embeds-dev.s3.eu-north-1.amazonaws.com/bundle.js';
       script.defer = true;
       script.async = true;
       document.body.appendChild(script);
       scriptLoadedRef.current = true;
     }
-
-    lastModerLangRef.current = moderLang;
   }, [lang]);
 
   useEffect(() => {
