@@ -56,6 +56,7 @@ import LeviWithChildren from "./pages/guide/LeviWithChildren";
 import LeviWithoutCar from "./pages/guide/LeviWithoutCar";
 import HeatingSystemsInLevi from "./pages/guide/HeatingSystemsInLevi";
 import HolidayPlanner from "./pages/HolidayPlanner";
+import FireplaceInstructions from "./pages/FireplaceInstructions";
 
 const queryClient = new QueryClient();
 
@@ -228,6 +229,9 @@ const App = () => (
               <Route path="/latuinfo" element={<Latuinfo />} />
               <Route path="/myy-loma-asuntosi" element={<MyyLomaAsuntosi />} />
               
+              {/* Fireplace instructions (hidden subpage) */}
+              <Route path="/takka-ohje" element={<FireplaceInstructions />} />
+              <Route path="/en/fireplace" element={<FireplaceInstructions lang="en" />} />
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
