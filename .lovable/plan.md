@@ -1,94 +1,87 @@
 
+# Korjaus: Breadcrumbs structured data -virheet (Google Search Console)
 
-## Suunnitelma: Korjaa kalenterin tausta poistamalla overflow-säännöt
+## Havaitut ongelmat
 
-### Ongelma
-Äsken lisätty `overflow: visible !important` -sääntö rikkoi kalenterin sisäisen taustan - taustan sisältö näkyy läpi kalenteririvien välillä.
+Sivustolta loytyi **kolme erillist ongelmaa**, jotka aiheuttavat Googlen "Missing field 'item'" -virheen:
 
-### Juurisyy
-Moder-kalenterin sisäinen CSS käyttää normaaleja overflow-sääntöjä taustan hallintaan. Kun pakotimme `overflow: visible` kaikkiin lapsi-elementteihin, kalenterin oma taustaväri ei enää kata koko aluetta.
+### Ongelma 1: Tyhjä `href` viimeisessa murupolkuelementissa (7 sivua)
 
-### Ratkaisu
-Poistetaan ongelmalliset overflow-säännöt ja pidetään vain yksinkertaiset z-index-korjaukset.
+Seitsemalla sivulla viimeisen breadcrumb-elementin `href` on tyhjä merkkijono `""`. Breadcrumbs-komponentti muuntaa taman osoitteeksi `https://leville.net`, joka on etusivun URL eika nykyisen sivun URL. Google tulkitsee taman puuttuvaksi tai virheelliseksi.
 
----
+Sivut: SkiingInLevi, SpringInLevi, WinterInLevi, SummerInLevi, AutumnRuskaInLevi, WeatherInLevi, CrossCountrySkiingInLevi.
 
-### Muutokset
+### Ongelma 2: Tuplaschema -- kaksi BreadcrumbList-schemaa samalla sivulla (11 sivua)
 
-#### 1. Tiedosto: `src/index.css`
+Nama sivut generoivat oman `breadcrumbSchema`-JSON-LD:n Helmetissa JA kayttavat `<Breadcrumbs items={...} />` -komponenttia, joka luo toisen JSON-LD-scheman. Kaksi ristiriitaista schemaa samalla sivulla hammentaa Googlen crawleria.
 
-**Poistetaan** nämä säännöt (rivit 421-426):
-```css
-/* POISTA - rikkoo kalenterin sisäisen layoutin */
-#moder-embed,
-#moder-embed > *,
-#moder-embed > * > * {
-  overflow: visible !important;
-}
-```
+Sivut: HeatingSystemsInLevi, GettingAroundLevi, RestaurantsAndServices, LeviWithoutCar, LeviWithChildren, HowToGetToLevi, TopWinterActivities, HuskySafariTips, HikingAndBikingLevi, SnowmobileSafariTips, WinterClothingGuide.
 
-**Poistetaan** myös nämä liian aggressiiviset säännöt (rivit 410-419 ja 428-445):
-- Kaikki `[class*="dropdown"]`, `[class*="calendar"]` jne. sisäiset z-index-pakotukset
-- "Nuclear option" -säännöt
+### Ongelma 3: Koti-elementti tuplataan (kaikki `items`-propsilla kutsutut sivut)
 
-**Pidetään** yksinkertaistettu versio:
-```css
-/* Fix Moder booking widget z-index - SIMPLE VERSION */
-#moder-embed {
-  position: relative;
-  z-index: 9999;
-}
+Breadcrumbs-komponentti lisaa aina automaattisesti "Etusivu/Home"-elementin, mutta monet sivut sisallyttavat sen myos `items`-taulukossa. Tama tuottaa schemaan:
+- Position 1: Etusivu -> `https://leville.net`
+- Position 2: Etusivu -> `https://leville.net/`
+- Position 3: varsinainen sisalto...
 
-/* The calendar dropdown itself needs high z-index but NOT overflow changes */
-body > [class*="moder"],
-body > [id*="moder"]:not(#moder-embed),
-[data-moder] {
-  z-index: 99999 !important;
-}
-
-/* Moder portal layers - applied dynamically via JS MutationObserver (backup) */
-.moder-portal-layer {
-  z-index: 2147483647 !important;
-}
-```
-
-#### 2. Tiedosto: `src/components/Hero.tsx`
-
-**Muutetaan** `#moder-embed` div yksinkertaisemmaksi (noin rivi 221-225):
-
-Nykyinen:
-```tsx
-<div 
-  id="moder-embed"
-  className="relative mx-auto max-w-3xl rounded-2xl shadow-2xl"
-  style={{
-    overflow: 'visible',
-    zIndex: 9999,
-    position: 'relative',
-    isolation: 'isolate'
-  }}
-/>
-```
-
-Uusi:
-```tsx
-<div 
-  id="moder-embed"
-  className="relative mx-auto max-w-3xl rounded-2xl shadow-2xl"
-/>
-```
-
-Poistetaan inline style kokonaan - CSS hoitaa z-indexin.
+Tuplakoti-elementin hinta on ristiriitainen schema JA virheellinen visuaalinen esitys.
 
 ---
 
-### Yhteenveto
+## Korjaussuunnitelma
 
-| Tiedosto | Muutos |
-|----------|--------|
-| `src/index.css` | Poistetaan overflow-pakotukset ja ylimääräiset z-index-säännöt, jätetään vain yksinkertainen z-index-korjaus |
-| `src/components/Hero.tsx` | Poistetaan inline styles `#moder-embed` divistä |
+### Vaihe 1: Korjaa Breadcrumbs.tsx-komponentti
 
-### Periaate
-**Vain z-index, ei overflow** - kalenterin sisäinen tyylitys hoitaa itse taustat ja layoutin, meidän tarvitsee vain varmistaa että se näkyy muiden elementtien päällä.
+Kaksi muutosta:
+1. **Suodata pois koti-duplikaatti**: Jos `items[0].href` vastaa etusivua (`/`, `/en`, `/sv` jne.), ohita se, koska komponentti lisaa kodin automaattisesti.
+2. **Korjaa tyhja `href`**: Jos viimeisen elementin `href` on tyhja `""`, kayta `location.pathname` arvoa tilalla, jotta schema saa oikean sivun URL:n.
 
+### Vaihe 2: Poista tuplaschemat 11 sivulta
+
+Poista sivukohtainen `breadcrumbSchema`-muuttuja ja siihen liittyva `<script type="application/ld+json">` 11 sivulta. Breadcrumbs-komponentti hoitaa scheman automaattisesti.
+
+Tiedostot:
+- `src/pages/guide/HeatingSystemsInLevi.tsx`
+- `src/pages/guide/GettingAroundLevi.tsx`
+- `src/pages/guide/RestaurantsAndServices.tsx`
+- `src/pages/guide/LeviWithoutCar.tsx`
+- `src/pages/guide/LeviWithChildren.tsx`
+- `src/pages/guide/WinterClothingGuide.tsx`
+- `src/pages/travel/HowToGetToLevi.tsx`
+- `src/pages/activities/TopWinterActivities.tsx`
+- `src/pages/activities/HuskySafariTips.tsx`
+- `src/pages/activities/HikingAndBikingLevi.tsx`
+- `src/pages/activities/SnowmobileSafariTips.tsx`
+
+### Vaihe 3: Varmistus
+
+Jokaisen sivun breadcrumb-schema tuottaa tarkalleen yhden BreadcrumbList-JSON-LD:n, jossa:
+- Kaikilla `itemListElement`-elementeilla on `item`-kentta absoluuttisella URL:lla
+- Ei duplikaatteja
+- Viimeinen elementti osoittaa oikeaan sivun URL:iin
+
+---
+
+## Tekninen yksityiskohta
+
+### Breadcrumbs.tsx -- korjattu logiikka
+
+Komponenttiin lisataan kaksi suodatusoperaatiota:
+
+```text
+1. Suodata items-taulukosta pois elementit joiden href
+   vastaa etusivun polkua (/, /en, /sv, /de, /es, /fr)
+
+2. Jos viimeisen elementin href === "",
+   korvaa se arvolla location.pathname
+```
+
+Scheman generointiin ei tule muita muutoksia -- `item`-kentta tuotetaan jokaiselle elementille kuten ennenkin, mutta nyt arvot ovat oikein.
+
+### Sivukohtaiset muutokset (11 sivua)
+
+Jokaisesta poistetaan:
+- `const breadcrumbSchema = { ... }` -muuttuja
+- `<script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>` Helmetista
+
+Muu sisalto (articleSchema, faqSchema jne.) sailyy ennallaan.
