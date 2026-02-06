@@ -38,6 +38,8 @@ function extractVideoId(url: string): string {
   return match?.[1] ?? "";
 }
 
+const PLAYER_ID = "fireplace-yt-player";
+
 const FireplaceVideoPhase = ({
   lang,
   videoUrl,
@@ -45,8 +47,8 @@ const FireplaceVideoPhase = ({
   onComplete,
 }: FireplaceVideoPhaseProps) => {
   const [videoEnded, setVideoEnded] = useState(false);
+  const [apiReady, setApiReady] = useState(false);
   const playerRef = useRef<any>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const fallbackRef = useRef<ReturnType<typeof setTimeout>>();
   const strings = t[lang];
   const videoId = extractVideoId(videoUrl);
@@ -56,50 +58,64 @@ const FireplaceVideoPhase = ({
     if (fallbackRef.current) clearTimeout(fallbackRef.current);
   }, []);
 
+  // Load the YouTube IFrame API script
   useEffect(() => {
-    if (!videoId) return;
-
-    // Start fallback timer
-    fallbackRef.current = setTimeout(() => {
-      setVideoEnded(true);
-    }, fallbackTimer * 1000);
-
-    const initPlayer = () => {
-      if (!containerRef.current) return;
-      playerRef.current = new window.YT.Player(containerRef.current, {
-        videoId,
-        width: "100%",
-        height: "100%",
-        playerVars: {
-          rel: 0,
-          modestbranding: 1,
-        },
-        events: {
-          onStateChange: (event: any) => {
-            if (event.data === window.YT.PlayerState.ENDED) {
-              handleVideoEnd();
-            }
-          },
-        },
-      });
-    };
-
     if (window.YT && window.YT.Player) {
-      initPlayer();
-    } else {
-      const existingScript = document.querySelector(
-        'script[src="https://www.youtube.com/iframe_api"]'
-      );
-      if (!existingScript) {
-        const tag = document.createElement("script");
-        tag.src = "https://www.youtube.com/iframe_api";
-        document.head.appendChild(tag);
-      }
-      window.onYouTubeIframeAPIReady = initPlayer;
+      setApiReady(true);
+      return;
     }
 
+    const existingScript = document.querySelector(
+      'script[src="https://www.youtube.com/iframe_api"]'
+    );
+
+    const previousCallback = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      previousCallback?.();
+      setApiReady(true);
+    };
+
+    if (!existingScript) {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(tag);
+    }
+  }, []);
+
+  // Create player once API is ready
+  useEffect(() => {
+    if (!apiReady || !videoId) return;
+
+    // Small delay to ensure DOM element exists
+    const initTimeout = setTimeout(() => {
+      const container = document.getElementById(PLAYER_ID);
+      if (!container || playerRef.current) return;
+
+      try {
+        playerRef.current = new window.YT.Player(PLAYER_ID, {
+          videoId,
+          width: "100%",
+          height: "100%",
+          playerVars: {
+            rel: 0,
+            modestbranding: 1,
+            origin: window.location.origin,
+          },
+          events: {
+            onStateChange: (event: any) => {
+              if (event.data === window.YT.PlayerState.ENDED) {
+                handleVideoEnd();
+              }
+            },
+          },
+        });
+      } catch (e) {
+        console.error("YT Player init error:", e);
+      }
+    }, 100);
+
     return () => {
-      if (fallbackRef.current) clearTimeout(fallbackRef.current);
+      clearTimeout(initTimeout);
       if (playerRef.current?.destroy) {
         try {
           playerRef.current.destroy();
@@ -107,7 +123,18 @@ const FireplaceVideoPhase = ({
       }
       playerRef.current = null;
     };
-  }, [videoId, fallbackTimer, handleVideoEnd]);
+  }, [apiReady, videoId, handleVideoEnd]);
+
+  // Fallback timer
+  useEffect(() => {
+    fallbackRef.current = setTimeout(() => {
+      setVideoEnded(true);
+    }, fallbackTimer * 1000);
+
+    return () => {
+      if (fallbackRef.current) clearTimeout(fallbackRef.current);
+    };
+  }, [fallbackTimer]);
 
   return (
     <div className="space-y-6">
@@ -118,7 +145,7 @@ const FireplaceVideoPhase = ({
       {/* Video container */}
       <div className="glass-card border-border/30 rounded-xl overflow-hidden">
         <div className="aspect-video w-full">
-          <div ref={containerRef} className="w-full h-full" />
+          <div id={PLAYER_ID} className="w-full h-full" />
         </div>
       </div>
 
