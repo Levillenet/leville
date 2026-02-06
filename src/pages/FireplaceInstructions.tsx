@@ -11,7 +11,7 @@ import FireplaceCodePhase from "@/components/fireplace/FireplaceCodePhase";
 import FireplaceAdminPanel from "@/components/fireplace/FireplaceAdminPanel";
 
 // Default constants
-const DEFAULT_VIDEO_URL = "https://www.youtube.com/watch?v=PJw83xq5pPE";
+const DEFAULT_VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 const DEFAULT_UNLOCK_CODE = "1234";
 const DEFAULT_FALLBACK_TIMER = 60;
 
