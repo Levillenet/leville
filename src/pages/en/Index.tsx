@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Features from "@/components/Features";
+import NewsHighlight from "@/components/NewsHighlight";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
 import HreflangTags from "@/components/HreflangTags";
@@ -77,6 +78,7 @@ const IndexEN = () => {
         <main>
           <Hero lang="en" />
           <About lang="en" />
+          <NewsHighlight lang="en" />
           <Features lang="en" />
         </main>
         <Footer lang="en" />

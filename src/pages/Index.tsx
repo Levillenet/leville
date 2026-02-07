@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Features from "@/components/Features";
+import NewsHighlight from "@/components/NewsHighlight";
 import Footer from "@/components/Footer";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import HreflangTags from "@/components/HreflangTags";
@@ -139,6 +140,7 @@ const Index = ({ lang = "fi" }: IndexProps) => {
         <main>
           <Hero lang={lang} />
           <About lang={lang} />
+          <NewsHighlight lang={lang} />
           <Features lang={lang} />
         </main>
         <Footer lang={lang} />

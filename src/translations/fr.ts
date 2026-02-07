@@ -254,6 +254,13 @@ export const fr = {
     bookCta: "Voir les disponibilités et réserver",
     items: [
       {
+        badge: "☀️ Fin d'hiver",
+        date: "7 fév. 2026",
+        title: "L'hiver à son meilleur à Levi – le soleil de printemps approche",
+        description: "Février est toujours un moment spécial à Levi. L'hiver est à son apogée et les conditions sont les meilleures à bien des égards. La neige est abondante, le gel maintient le paysage magnifiquement frais, et les jours plus lumineux du printemps arrivent bientôt. Les vacances scolaires finlandaises commencent le 14 février, lançant trois semaines de pistes pleines et une belle ambiance de vacances d'hiver.",
+        highlight: "Astuce : Emportez un thermos de chocolat chaud ou de café et des encas pour le feu de camp – Levi a de nombreux emplacements de feu magnifiques pour votre journée de ski ! ❄️☀️"
+      },
+      {
         badge: "🎿 Printemps 2025",
         date: "29 déc. 2024",
         title: "Disponibilités fin de printemps à Levi",

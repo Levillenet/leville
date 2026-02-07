@@ -259,6 +259,13 @@ export const en = {
     bookCta: "Browse availability and book",
     items: [
       {
+        badge: "☀️ Late Winter",
+        date: "Feb 7, 2026",
+        title: "Winter at its best in Levi – spring sunshine just around the corner",
+        description: "February is always a special time in Levi. Winter is at its peak and conditions are at their best in many ways. There's plenty of snow, the frost keeps the scenery beautifully crisp, and the brighter spring days are just ahead. Finnish school holidays start on February 14th, kicking off three weeks of full slopes and great winter holiday atmosphere.",
+        highlight: "Tip: Bring a thermos of hot cocoa or coffee and snacks for the campfire – Levi has many wonderful campfire spots to enjoy during your ski day or cross-country trek! ❄️☀️"
+      },
+      {
         badge: "❄️ Cold Spell",
         date: "Jan 13, 2026",
         title: "Exceptional cold spell in Levi – an unforgettable experience for our guests",

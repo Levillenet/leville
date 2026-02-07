@@ -254,6 +254,13 @@ export const de = {
     bookCta: "Verfügbarkeit durchsuchen und buchen",
     items: [
       {
+        badge: "☀️ Spätwinter",
+        date: "7. Feb 2026",
+        title: "Winter in Bestform in Levi – Frühlingssonne steht vor der Tür",
+        description: "Februar ist immer eine besondere Zeit in Levi. Der Winter ist auf seinem Höhepunkt und die Bedingungen sind in vielerlei Hinsicht am besten. Es gibt reichlich Schnee, der Frost hält die Landschaft wunderschön frisch, und die helleren Frühlingstage stehen vor der Tür. Die finnischen Schulferien beginnen am 14. Februar – drei Wochen voller Pisten und toller Winterurlaubsstimmung.",
+        highlight: "Tipp: Nehmen Sie eine Thermoskanne mit heißem Kakao oder Kaffee und Proviant zum Grillen mit – Levi hat viele wunderbare Feuerstellen für Ihren Skitag! ❄️☀️"
+      },
+      {
         badge: "🎿 Frühling 2025",
         date: "29. Dez 2024",
         title: "Spätfrühling Verfügbarkeit in Levi",
