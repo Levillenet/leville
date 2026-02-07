@@ -254,6 +254,13 @@ export const sv = {
     bookCta: "Bläddra tillgänglighet och boka",
     items: [
       {
+        badge: "☀️ Senvinter",
+        date: "7 feb 2026",
+        title: "Vintern på sitt bästa i Levi – vårsolen runt hörnet",
+        description: "Februari är alltid en speciell tid i Levi. Vintern är på sin topp och förhållandena är som bäst. Det finns gott om snö, kylan håller landskapet vackert fräscht, och de ljusare vårdagarna väntar runt hörnet. Finska skollov börjar den 14 februari, och därefter följer tre veckor med fulla pister och härlig vinterlovsstämning.",
+        highlight: "Tips: Ta med en termos med varm choklad eller kaffe och fika till elden – Levi har många fina grillplatser att njuta av under skiddagen! ❄️☀️"
+      },
+      {
         badge: "🎿 Vår 2025",
         date: "29 dec 2024",
         title: "Senvår tillgänglighet i Levi",

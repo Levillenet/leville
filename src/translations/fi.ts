@@ -259,6 +259,13 @@ export const fi = {
     bookCta: "Tutustu vapaisiin ajankohtiin ja varaa",
     items: [
       {
+        badge: "☀️ Kevättalvi",
+        date: "7.2.2026",
+        title: "Talvi parhaimmillaan Levillä – kevätaurinko jo nurkan takana",
+        description: "Helmikuu on Levillä aina erityistä aikaa. Talven selkä alkaa taittua ja olosuhteet ovat nyt monessa mielessä parhaimmillaan. Lunta riittää, pakkanen pitää maiseman kauniin raikkaana ja samalla jo odotellaan kevään kirkkaampia aurinkoisia päiviä. Suomalaisten hiihtolomat ovat aivan nurkan takana – ensimmäinen lomaviikko alkaa 14. helmikuuta, ja siitä käynnistyy kolmen viikon mittainen jakso täysiä rinteitä ja hyvää talviloman tunnelmaa.",
+        highlight: "Vinkki: Ota mukaan termospullo kaakaota tai kahvia ja eväät nuotiolle – Levin alueella on paljon hienoja nuotiopaikkoja rinnepäivän tai hiihtolenkin lomassa! ❄️☀️"
+      },
+      {
         badge: "❄️ Pakkasjakso",
         date: "13.1.2026",
         title: "Poikkeuksellinen pakkasjakso Levillä – ikimuistoinen kokemus vieraillemme",
