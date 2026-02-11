@@ -12,6 +12,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -248,6 +249,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
             )}
           </div>
         </main>
+        <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

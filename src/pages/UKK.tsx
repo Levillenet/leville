@@ -14,6 +14,7 @@ import {
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import PageCTA from "@/components/PageCTA";
 
 interface UKKProps {
   lang?: Language;
@@ -108,6 +109,7 @@ const UKK = ({ lang = "fi" }: UKKProps) => {
             </section>
           </div>
         </main>
+        <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

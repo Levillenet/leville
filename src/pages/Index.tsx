@@ -1,12 +1,13 @@
-import { useMemo } from "react";
+import { useMemo, lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Features from "@/components/Features";
-import NewsHighlight from "@/components/NewsHighlight";
 import Footer from "@/components/Footer";
+
+const About = lazy(() => import("@/components/About"));
+const Features = lazy(() => import("@/components/Features"));
+const NewsHighlight = lazy(() => import("@/components/NewsHighlight"));
 import WhatsAppChat from "@/components/WhatsAppChat";
 import HreflangTags from "@/components/HreflangTags";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
@@ -69,7 +70,6 @@ const seoContent: Record<Language, {
 };
 
 const Index = ({ lang = "fi" }: IndexProps) => {
-  const t = getTranslations(lang);
   const location = useLocation();
   const seo = seoContent[lang];
 
@@ -139,9 +139,11 @@ const Index = ({ lang = "fi" }: IndexProps) => {
         <Header />
         <main>
           <Hero lang={lang} />
-          <About lang={lang} />
-          <NewsHighlight lang={lang} />
-          <Features lang={lang} />
+          <Suspense fallback={<div className="min-h-[200px]" />}>
+            <About lang={lang} />
+            <NewsHighlight lang={lang} />
+            <Features lang={lang} />
+          </Suspense>
         </main>
         <Footer lang={lang} />
         <WhatsAppChat />
