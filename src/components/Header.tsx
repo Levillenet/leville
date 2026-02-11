@@ -148,7 +148,7 @@ const Header = () => {
                   key={link.name}
                   to={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`text-sm font-medium transition-colors py-2 tracking-wide ${
+                  className={`text-sm font-medium transition-colors py-3 tracking-wide ${
                     link.highlight 
                       ? "text-red-500 hover:text-red-400 font-semibold" 
                       : "text-muted-foreground hover:text-foreground"

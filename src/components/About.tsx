@@ -111,13 +111,17 @@ const About = ({ lang = "fi" }: AboutProps) => {
     setIsPaused(false);
   };
 
-  // Preload all images to prevent black flashes
+  // Preload nearby images on-demand (current + next 2) instead of all 15
   useEffect(() => {
-    aboutImages.forEach((src) => {
+    const toPreload = [
+      (currentImageIndex + 1) % aboutImages.length,
+      (currentImageIndex + 2) % aboutImages.length,
+    ];
+    toPreload.forEach((idx) => {
       const img = new Image();
-      img.src = src;
+      img.src = aboutImages[idx];
     });
-  }, []);
+  }, [currentImageIndex]);
 
   useEffect(() => {
     if (isPaused) return;

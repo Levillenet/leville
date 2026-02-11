@@ -12,6 +12,7 @@ import { routeConfig } from "@/translations";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
 
 // Import images
@@ -566,6 +567,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             </section>
           </div>
         </main>
+        <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
