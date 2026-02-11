@@ -2,16 +2,7 @@ import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import {
-  Wrench,
-  Wind,
-  TreePine,
-  DoorOpen,
-  Flame,
-  AlertTriangle,
-  Ban,
-  ShieldCheck,
-} from "lucide-react";
+import { Wrench, Wind, TreePine, DoorOpen, Flame, AlertTriangle, Ban, ShieldCheck } from "lucide-react";
 
 interface FireplaceInstructionsPhaseProps {
   lang: "fi" | "en";
@@ -59,7 +50,7 @@ const instructions = {
     {
       icon: Ban,
       title: "Älä poista kuumaa tuhkaa",
-      text: "Älä koskaan poista kuumaa tai hehkuvaa tuhkaa takasta. Kuuma tuhka aiheuttaa palovaaran. Anna tuhkan jäähtyä täysin ennen käsittelyä.",
+      text: "Älä koskaan poista kuumaa tai hehkuvaa tuhkaa tai puita takasta. Kuuma tuhka aiheuttaa palovaaran. Anna tuhkan jäähtyä täysin ennen käsittelyä.",
       warning: true,
     },
     {
@@ -109,7 +100,7 @@ const instructions = {
     {
       icon: Ban,
       title: "Never remove hot ash",
-      text: "Never remove hot or glowing ash from the fireplace. Hot ash is a fire hazard. Allow ash to cool completely before handling.",
+      text: "Never remove hot or glowing ash or logs from the fireplace. Hot ash is a fire hazard. Allow ash to cool completely before handling.",
       warning: true,
     },
     {
@@ -124,29 +115,22 @@ const instructions = {
 const labels = {
   fi: {
     stepTitle: "Vaihe 2: Lue takan käyttöohjeet",
-    intro:
-      "Käy alla olevat ohjeet läpi vaihe vaiheelta. Kuittaa jokainen kohta luetuksi ennen kuin voit jatkaa.",
+    intro: "Käy alla olevat ohjeet läpi vaihe vaiheelta. Kuittaa jokainen kohta luetuksi ennen kuin voit jatkaa.",
     checkbox: "Olen lukenut ja ymmärtänyt tämän kohdan",
     progress: "kohtaa luettu",
     continueBtn: "Näytä takan avauskoodi →",
   },
   en: {
     stepTitle: "Step 2: Read the fireplace instructions",
-    intro:
-      "Go through the instructions step by step. Confirm each point before you can continue.",
+    intro: "Go through the instructions step by step. Confirm each point before you can continue.",
     checkbox: "I have read and understood this point",
     progress: "points confirmed",
     continueBtn: "Show fireplace unlock code →",
   },
 };
 
-const FireplaceInstructionsPhase = ({
-  lang,
-  onComplete,
-}: FireplaceInstructionsPhaseProps) => {
-  const [checked, setChecked] = useState<boolean[]>(
-    new Array(8).fill(false)
-  );
+const FireplaceInstructionsPhase = ({ lang, onComplete }: FireplaceInstructionsPhaseProps) => {
+  const [checked, setChecked] = useState<boolean[]>(new Array(8).fill(false));
   const items = instructions[lang];
   const strings = labels[lang];
   const checkedCount = checked.filter(Boolean).length;
@@ -162,12 +146,8 @@ const FireplaceInstructionsPhase = ({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-foreground text-center">
-        {strings.stepTitle}
-      </h2>
-      <p className="text-muted-foreground text-center max-w-2xl mx-auto">
-        {strings.intro}
-      </p>
+      <h2 className="text-2xl font-bold text-foreground text-center">{strings.stepTitle}</h2>
+      <p className="text-muted-foreground text-center max-w-2xl mx-auto">{strings.intro}</p>
 
       {/* Progress bar */}
       <div className="space-y-2">
@@ -192,8 +172,8 @@ const FireplaceInstructionsPhase = ({
                 checked[index]
                   ? "border-green-500/40 bg-green-500/5"
                   : isWarning
-                  ? "border-orange-500/40"
-                  : "border-border/30"
+                    ? "border-orange-500/40"
+                    : "border-border/30"
               }`}
             >
               <div className="flex gap-4">
@@ -201,16 +181,10 @@ const FireplaceInstructionsPhase = ({
                 <div className="flex-shrink-0">
                   <div
                     className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                      isWarning
-                        ? "bg-orange-500/20"
-                        : "bg-primary/20"
+                      isWarning ? "bg-orange-500/20" : "bg-primary/20"
                     }`}
                   >
-                    <Icon
-                      className={`w-6 h-6 ${
-                        isWarning ? "text-orange-500" : "text-primary"
-                      }`}
-                    />
+                    <Icon className={`w-6 h-6 ${isWarning ? "text-orange-500" : "text-primary"}`} />
                   </div>
                   <div className="text-center mt-1">
                     <span className="text-xs font-bold text-muted-foreground">
@@ -221,20 +195,12 @@ const FireplaceInstructionsPhase = ({
 
                 {/* Content */}
                 <div className="flex-1 space-y-3">
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {item.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {item.text}
-                  </p>
+                  <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{item.text}</p>
 
                   {/* Checkbox */}
                   <label className="flex items-center gap-3 cursor-pointer group">
-                    <Checkbox
-                      checked={checked[index]}
-                      onCheckedChange={() => toggleCheck(index)}
-                      className="h-5 w-5"
-                    />
+                    <Checkbox checked={checked[index]} onCheckedChange={() => toggleCheck(index)} className="h-5 w-5" />
                     <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                       {strings.checkbox}
                     </span>
@@ -252,11 +218,7 @@ const FireplaceInstructionsPhase = ({
           size="lg"
           onClick={onComplete}
           disabled={!allChecked}
-          className={
-            allChecked
-              ? "bg-green-600 hover:bg-green-700 text-white"
-              : "opacity-50 cursor-not-allowed"
-          }
+          className={allChecked ? "bg-green-600 hover:bg-green-700 text-white" : "opacity-50 cursor-not-allowed"}
         >
           {strings.continueBtn}
         </Button>
