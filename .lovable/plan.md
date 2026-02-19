@@ -1,43 +1,68 @@
 
-# Moonlight 415 (roomId 645946) puuttuu kohdelistasta
+# Hollanninkielisten sivujen lisääminen (nl)
 
-## Ongelma
+## Tausta
 
-Beds24-jarjestelmassa Moonlight 415 -huoneisto on kahdella eri roomId:lla:
-- `625005` (Room 5) -- taalta loytyy property_settings-taulusta siivousmaksu 59 EUR, mutta talla roomId:lla ei ole vapaita jaksoja
-- `645946` (Moonlight 415) -- tama nakkyy akkilahdoissa vapaana, mutta sita EI ole lisatty propertyDetails.ts-tiedostoon eika property_settings-tauluun
+Hollantilaiset ovat merkittava kohderyhmä Leville -- he matkustavat paljon Lappiin laskettelemaan ja kokemaan revontulia. Hollanninkielinen sisalto auttaa Google-nakyvyydessa hollantilaisille kayttajille.
 
-Koska roomId 645946 puuttuu kokonaan, siivousmaksu on 0 EUR ja hinta naytetaan pelkkana API-hintana (130 EUR).
+## Priorisoitavat sivut
 
-## Ratkaisu
+Googlen nakokulmasta tarkeimmat sivut hollantilaisille:
 
-### 1. Lisataan roomId 645946 propertyDetails.ts-tiedostoon
+**Tier 1 -- Varauspolku (kriittinen)**
+1. **Etusivu** `/nl` -- ensivaikutelma, varauswidget
+2. **Majoitukset** `/nl/accommodaties` -- varauspaatoksen sivu
+3. **Akkilahdot** `/nl/last-minute` -- impulssiostosivu
 
-Lisataan uusi rivi `defaultPropertyDetails`-taulukkoon:
+**Tier 2 -- Tietosivut (nakyvyys Googlessa)**
+4. **Levi-info** `/nl/levi` -- yleistieto kohteesta
+5. **Laskettelu** `/nl/gids/skieen-in-levi` -- hollantilaisten paaaktiviteetti
+6. **Revontulet** `/nl/noorderlicht` -- toinen vetonaula
+7. **Joulu Lapissa** `/nl/levi/kerst-in-lapland` -- sesonkisivu
 
-```
-{ id: "645946", name: "Moonlight 415", cleaningFee: 59, bookingUrl: "", linenFee: 19, maxGuests: 2, whatsappNumber: "+35844131313", ... }
-```
+**Tier 3 -- Tukisivut**
+8. **Yhteystiedot** `/nl/contact`
+9. **UKK** `/nl/faq`
+10. **Varausehdot** `/nl/boekingsvoorwaarden`
+11. **Tietosuoja** `/nl/privacy`
+12. **Yritys** `/nl/bedrijf`
 
-Siivousmaksu asetetaan 59 EUR (sama kuin kayttaja on halunnut). Muu data (maxGuests, bookingUrl jne.) periytyy Room 5 -kohteen tiedoista.
+## Tekninen toteutus
 
-### 2. Lisataan roomId 645946 property_settings-tauluun
+### 1. Kaannostiedosto
+- Luodaan `src/translations/nl.ts` -- kaannetaan kaikki avaimet hollanniksi (n. 300 rivia)
 
-Lisataan tietokantaan rivi `property_id = '645946'` siivousmaksulla 59 EUR ja marketing_name "Moonlight 415", jotta admin-asetukset toimivat myos talle roomId:lle.
+### 2. Kielisysteemi paivitetaan
+- `src/translations/index.ts`: lisataan `"nl"` Language-tyyppiin, translations-objektiin, languageConfig, routeConfig
+- Kielivalitsimen lippu: Hollannin lippu
 
-### 3. Tarkistetaan myos vanha 625005
+### 3. Reitit App.tsx:ssa
+- Lisataan kaikki `/nl/...` reitit (12 reittia)
 
-Room 5 (625005) nayttaa olevan samaa kohdetta -- sen available days on 0, eli silla ei ole vapaita jaksoja. Se voi jaada ennalleen.
+### 4. Sivukomponentit
+- Paivitetaan jokainen sivu tukemaan `lang="nl"` (og:locale `nl_NL`, hreflang jne.)
+- Laskettelu-opas vaatii erillisen hollanninkielisen version tai `lang`-propin lisayksen
 
-## Vaikutus
+### 5. SEO
+- `HreflangTags`-komponentti paivitetaan tukemaan `nl`
+- `sitemap.xml` paivitetaan hollanninkielisilla URLilla ja hreflang-viitteilla
+- Kaikki olemassa olevat sivut saavat myos nl-hreflang-viittauksen
 
-Korjauksen jalkeen Moonlight 415:n hinta akkilahdoissa olisi:
-- API-hinta (130 EUR) + siivousmaksu (59 EUR) = **189 EUR**
-- Jos alennuksia on asetettu, ne lasketaan API-hinnan paalle ennen siivouksen lisaamista
+### 6. GuideTeaser
+- Lisataan hollanninkieliset kaannokset GuideTeaser-komponenttiin
 
-## Muutettavat tiedostot
+### 7. Muut komponentit
+- Header, Footer, LanguageSelector -- nl-tuki
+- WhatsApp-chat -- hollanninkielinen viestiohje
+- ModerBookingWidget -- varauswidget (kaytetaan EN-fallbackia kuten DE/ES/FR)
 
-| Tiedosto | Muutos |
-|---|---|
-| `src/data/propertyDetails.ts` | Lisataan roomId 645946 uutena rivina |
-| Tietokanta (property_settings) | Lisataan rivi property_id 645946, cleaning_fee 59 |
+## Laajuus ja suositus
+
+Tama on laaja tyokokonaisuus (arviolta 15-20 viestia). Suosittelen toteuttamista vaiheittain:
+
+**Vaihe 1**: Kielisysteemi + kaannostiedosto + etusivu + majoitukset + akkilahdot
+**Vaihe 2**: Levi-info + laskettelu + revontulet + joulu
+**Vaihe 3**: Tukisivut (UKK, yhteystiedot, varausehdot, tietosuoja, yritys)
+**Vaihe 4**: Sitemap + hreflang-paivitykset kaikille sivuille
+
+Haluatko aloittaa vaiheesta 1?
