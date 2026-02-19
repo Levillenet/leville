@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
@@ -10,6 +10,7 @@ import NewsHighlight from "@/components/NewsHighlight";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
 import HreflangTags from "@/components/HreflangTags";
+const GuideTeaser = lazy(() => import("@/components/GuideTeaser"));
 
 const IndexEN = () => {
   const location = useLocation();
@@ -77,9 +78,12 @@ const IndexEN = () => {
         <Header />
         <main>
           <Hero lang="en" />
-          <About lang="en" />
-          <NewsHighlight lang="en" />
-          <Features lang="en" />
+          <Suspense fallback={<div className="min-h-[200px]" />}>
+            <GuideTeaser lang="en" />
+            <About lang="en" />
+            <NewsHighlight lang="en" />
+            <Features lang="en" />
+          </Suspense>
         </main>
         <Footer lang="en" />
         <WhatsAppChat lang="en" />
