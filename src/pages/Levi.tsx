@@ -59,6 +59,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     comparisonDesc: string;
     comparisonRovTitle: string;
     comparisonRovDesc: string;
+    saunaTitle: string;
+    saunaDesc: string;
   }> = {
     fi: {
       intro: "Löydä kaikki tarvitsemasi Levi-matkaa varten. Tutustu vuodenaikoihin, aktiviteetteihin ja käytännön matkailuoppaisiin.",
@@ -89,7 +91,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonTitle: "Levi vs Ylläs vs Ruka",
       comparisonDesc: "Vertaile Lapin suosituimpia hiihtokeskuksia",
       comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Tunturikylä vai Lapin pääkaupunki?"
+      comparisonRovDesc: "Tunturikylä vai Lapin pääkaupunki?",
+      saunaTitle: "Saunaopas",
+      saunaDesc: "Saunakulttuuri, ohjeet ja elämykset Levillä"
     },
     en: {
       intro: "Find everything you need for your Levi trip. Explore seasons, activities and practical travel guides.",
@@ -120,7 +124,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonTitle: "Levi vs Ylläs vs Ruka",
       comparisonDesc: "Compare Lapland's most popular ski resorts",
       comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Fell village or the capital of Lapland?"
+      comparisonRovDesc: "Fell village or the capital of Lapland?",
+      saunaTitle: "Sauna Guide",
+      saunaDesc: "Sauna culture, tips and experiences in Levi"
     },
     sv: {
       intro: "Hitta allt du behöver för din Levi-resa. Utforska årstider, aktiviteter och praktiska reseguider.",
@@ -151,7 +157,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonTitle: "Levi vs Ylläs vs Ruka",
       comparisonDesc: "Jämför Lapplands populäraste skidorter",
       comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Fjällby eller Lapplands huvudstad?"
+      comparisonRovDesc: "Fjällby eller Lapplands huvudstad?",
+      saunaTitle: "Bastuguide",
+      saunaDesc: "Bastukultur, tips och upplevelser i Levi"
     },
     de: {
       intro: "Finden Sie alles, was Sie für Ihre Levi-Reise brauchen. Entdecken Sie Jahreszeiten, Aktivitäten und praktische Reiseführer.",
@@ -182,7 +190,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonTitle: "Levi vs Ylläs vs Ruka",
       comparisonDesc: "Vergleiche Lapplands beliebteste Skigebiete",
       comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Fjälldorf oder Hauptstadt Lapplands?"
+      comparisonRovDesc: "Fjälldorf oder Hauptstadt Lapplands?",
+      saunaTitle: "Sauna-Guide",
+      saunaDesc: "Saunakultur, Tipps und Erlebnisse in Levi"
     },
     es: {
       intro: "Encuentra todo lo que necesitas para tu viaje a Levi. Explora estaciones, actividades y guías de viaje prácticas.",
@@ -213,7 +223,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonTitle: "Levi vs Ylläs vs Ruka",
       comparisonDesc: "Compara las estaciones de esquí más populares de Laponia",
       comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "¿Pueblo de montaña o capital de Laponia?"
+      comparisonRovDesc: "¿Pueblo de montaña o capital de Laponia?",
+      saunaTitle: "Guía de sauna",
+      saunaDesc: "Cultura de sauna, consejos y experiencias en Levi"
     },
     fr: {
       intro: "Trouvez tout ce dont vous avez besoin pour votre voyage à Levi. Explorez les saisons, les activités et les guides de voyage pratiques.",
@@ -244,7 +256,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonTitle: "Levi vs Ylläs vs Ruka",
       comparisonDesc: "Comparez les stations de ski les plus populaires de Laponie",
       comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Village de montagne ou capitale de la Laponie ?"
+      comparisonRovDesc: "Village de montagne ou capitale de la Laponie ?",
+      saunaTitle: "Guide du sauna",
+      saunaDesc: "Culture du sauna, conseils et expériences à Levi"
     }
   };
 
@@ -417,7 +431,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 text-center">
                 {c.quickLinksTitle}
               </h2>
-              <div className="max-w-4xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                 {/* Weather Link */}
                 <Link 
                   to={weatherLinks[lang]}
@@ -510,6 +524,31 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {c.comparisonRovDesc}
+                          </p>
+                        </div>
+                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+
+                {/* Sauna Guide Link */}
+                <Link 
+                  to={lang === "en" ? "/guide/finnish-sauna-in-levi" : "/opas/sauna-levilla"}
+                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
+                >
+                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
+                    <CardContent className="p-4 sm:p-5">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-orange-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Flame className="w-6 h-6 text-orange-400" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                            {c.saunaTitle}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {c.saunaDesc}
                           </p>
                         </div>
                         <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
