@@ -344,7 +344,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // Format date for display - memoized locale
   const dateLocale = useMemo(() => {
     const locales: Record<Language, string> = {
-      fi: 'fi-FI', sv: 'sv-SE', de: 'de-DE', es: 'es-ES', fr: 'fr-FR', en: 'en-GB'
+      fi: 'fi-FI', sv: 'sv-SE', de: 'de-DE', es: 'es-ES', fr: 'fr-FR', en: 'en-GB', nl: 'nl-NL'
     };
     return locales[lang];
   }, [lang]);

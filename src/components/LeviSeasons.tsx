@@ -39,7 +39,8 @@ const seasonGuideUrls: Record<Language, Record<string, string>> = {
   sv: {},
   de: {},
   es: {},
-  fr: {}
+  fr: {},
+  nl: {}
 };
 
 // Localized "Read guide" text
@@ -49,7 +50,8 @@ const readGuideText: Record<Language, string> = {
   sv: "Läs guide",
   de: "Guide lesen",
   es: "Leer guía",
-  fr: "Lire le guide"
+  fr: "Lire le guide",
+  nl: "Lees gids"
 };
 
 const seasonsData: Record<Language, SeasonData[]> = {
@@ -424,6 +426,68 @@ const seasonsData: Record<Language, SeasonData[]> = {
       accentColor: "text-emerald-400",
       bgGradient: "from-emerald-500/10 via-green-500/5 to-transparent"
     }
+  ],
+  nl: [
+    {
+      id: "autumn",
+      title: "Herfst en Ruska",
+      period: "September – begin oktober",
+      description: "De herfst in Levi is de natuur op haar kleurrijkst. Ruska schildert de fjelllandschappen in heldere rode, oranje en gele tinten van begin september tot begin oktober. De lucht is fris en schoon, en een vredige stilte heerst in de natuur. De nachten worden weer donkerder, waardoor het mogelijk is om noorderlicht te zien op heldere avonden.",
+      highlights: [
+        "Ruska-kleuren over het fjelllandschap",
+        "Frisse herfstlucht en vredige natuur",
+        "Noorderlichtseizoen begint met donkerdere nachten",
+        "Bessen- en paddenstoelenseizoen"
+      ],
+      snowInfo: "Meestal nog geen permanente sneeuw. Eerste sneeuwval kan in oktober komen.",
+      accentColor: "text-orange-400",
+      bgGradient: "from-orange-500/10 via-amber-500/5 to-transparent"
+    },
+    {
+      id: "winter",
+      title: "Winter en poolnacht",
+      period: "November – maart",
+      description: "De winter in Levi is sneeuwwitte magie en arctische rust. De poolnacht brengt een mystiek blauw licht terwijl de zon onder de horizon blijft. Besneeuwde bossen en fjells bieden een uitstekend decor voor skiën, langlaufen en sneeuwscooteren. Het noorderlicht danst aan de hemel tijdens heldere, ijzige nachten.",
+      highlights: [
+        "Magisch blauw licht van de poolnacht",
+        "Noorderlicht aan heldere hemel",
+        "Skiën, langlaufen en sneeuwscooter",
+        "Besneeuwd fjelllandschap"
+      ],
+      snowInfo: "November: 10–30 cm • December: 30–60 cm • Januari: 60–90 cm • Februari: 80–120 cm",
+      accentColor: "text-sky-400",
+      bgGradient: "from-sky-500/10 via-blue-500/5 to-transparent"
+    },
+    {
+      id: "spring",
+      title: "Lente en lentezon",
+      period: "Maart – april",
+      description: "De lente in Levi is licht en energie. De dagen worden snel langer en de zon schijnt vanaf een heldere hemel op de besneeuwde pistes. Skiën in de lentezon is een unieke ervaring – de pistes glinsteren en après-ski terrassen vullen zich met mensen die van de zon genieten. De sneeuwdiepte bereikt meestal zijn maximum in de late winter.",
+      highlights: [
+        "Heldere en lange zonnige dagen",
+        "Lenteskiën en langlaufen",
+        "Buitenterrassen en buitenleven",
+        "Maximale sneeuwdiepte"
+      ],
+      snowInfo: "Maart: 90–120 cm • April: 70–100 cm",
+      accentColor: "text-yellow-400",
+      bgGradient: "from-yellow-500/10 via-amber-500/5 to-transparent"
+    },
+    {
+      id: "summer",
+      title: "Zomer en middernachtzon",
+      period: "Juni – juli",
+      description: "De zomer in Levi is de tijd van de middernachtzon. De zon gaat helemaal niet onder in juni en juli, wat een heel bijzondere sfeer creëert. De natuur wordt groen en de fjells bieden uitstekende wandelpaden en mountainbikemogelijkheden. In de zomer is Levi rustig en dicht bij de natuur – een perfecte plek om te ontspannen.",
+      highlights: [
+        "Middernachtzon en nachten zonder duisternis",
+        "Wandelen op fjellpaden",
+        "Mountainbiken en vissen",
+        "Rustige en natuurlijke sfeer"
+      ],
+      snowInfo: "Geen sneeuw in de zomermaanden.",
+      accentColor: "text-emerald-400",
+      bgGradient: "from-emerald-500/10 via-green-500/5 to-transparent"
+    }
   ]
 };
 
@@ -467,6 +531,11 @@ const sectionContent: Record<Language, { title: string; description: string; sno
     title: "Saisons à Levi",
     description: "Chaque saison a son propre charme en Laponie. Découvrez les quatre saisons à Levi et planifiez votre voyage au moment idéal.",
     snowConditions: "Conditions de neige:"
+  },
+  nl: {
+    title: "Seizoenen in Levi",
+    description: "Elk seizoen heeft zijn eigen charme in Lapland. Ontdek de vier seizoenen in Levi en plan je reis voor het perfecte moment.",
+    snowConditions: "Sneeuwcondities:"
   }
 };
 

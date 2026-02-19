@@ -259,11 +259,44 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovDesc: "Village de montagne ou capitale de la Laponie ?",
       saunaTitle: "Guide du sauna",
       saunaDesc: "Culture du sauna, conseils et expériences à Levi"
+    },
+    nl: {
+      intro: "Vind alles wat je nodig hebt voor je Levi-reis. Ontdek seizoenen, activiteiten en praktische reisgidsen.",
+      seasonsHubTitle: "Seizoenen in Levi",
+      seasonsHubDesc: "Van de poolnacht in de winter tot de middernachtzon in de zomer – elk seizoen heeft zijn eigen bijzondere karakter.",
+      activitiesHubTitle: "Activiteiten in Levi",
+      activitiesHubDesc: "Skiën, langlaufen, noorderlicht en sneeuwscootersafari's – ervaringen voor iedereen.",
+      travelHubTitle: "Reisgids naar Levi",
+      travelHubDesc: "Hoe je er komt, welke kleding je nodig hebt en praktische tips voor je reis.",
+      exploreButton: "Ontdekken",
+      bookCta: "Boek accommodatie in Levi",
+      accommodationsLink: "/nl/accommodaties",
+      quizTitle: "Test je Levi-kennis!",
+      quizDesc: "Speel onze leuke quiz over het populairste skigebied van Finland.",
+      quizButton: "Start quiz",
+      christmasTitle: "Kerst in Lapland",
+      christmasDesc: "Beleef een magische kerst in het thuisland van de Kerstman.",
+      christmasButton: "Lees meer",
+      liveCamera: "Levi live camera",
+      liveCameraDesc: "Live beeld van het skigebied Levi",
+      pronounceLabel: "Hoe spreek je Levi uit?",
+      atmosphereTitle: "Levi sfeer",
+      quickLinksTitle: "Nuttige informatie",
+      weatherLinkTitle: "Weer in Levi",
+      weatherLinkDesc: "Sneeuwdiepte, temperaturen en seizoenen",
+      northernLightsTitle: "Noorderlicht in Levi",
+      northernLightsDesc: "Gids voor het bekijken van noorderlicht en voorspellingen",
+      comparisonTitle: "Levi vs Ylläs vs Ruka",
+      comparisonDesc: "Vergelijk de populairste skigebieden van Lapland",
+      comparisonRovTitle: "Levi vs Rovaniemi",
+      comparisonRovDesc: "Fjeldorp of hoofdstad van Lapland?",
+      saunaTitle: "Saunagids",
+      saunaDesc: "Saunacultuur, tips en ervaringen in Levi"
     }
   };
 
   const localeMap: Record<Language, string> = {
-    fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR"
+    fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR", nl: "nl_NL"
   };
 
   // HUB links
@@ -281,11 +314,12 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     sv: { seasons: "/sv/levi", activities: "/sv/levi", travel: "/sv/levi" },
     de: { seasons: "/de/levi", activities: "/de/levi", travel: "/de/levi" },
     es: { seasons: "/es/levi", activities: "/es/levi", travel: "/es/levi" },
-    fr: { seasons: "/fr/levi", activities: "/fr/levi", travel: "/fr/levi" }
+    fr: { seasons: "/fr/levi", activities: "/fr/levi", travel: "/fr/levi" },
+    nl: { seasons: "/nl/levi", activities: "/nl/levi", travel: "/nl/levi" }
   };
 
   const quizLinks: Record<Language, string> = {
-    fi: "/tietovisa", en: "/en/quiz", sv: "/sv/quiz", de: "/de/quiz", es: "/es/quiz", fr: "/fr/quiz"
+    fi: "/tietovisa", en: "/en/quiz", sv: "/sv/quiz", de: "/de/quiz", es: "/es/quiz", fr: "/fr/quiz", nl: "/nl/quiz"
   };
 
   const christmasLinks: Record<Language, string> = {
@@ -294,7 +328,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     sv: "/sv/levi/jul-i-lappland",
     de: "/de/levi/weihnachten-in-lappland",
     es: "/es/levi/navidad-en-laponia",
-    fr: "/fr/levi/noel-en-laponie"
+    fr: "/fr/levi/noel-en-laponie",
+    nl: "/nl/levi/kerst-in-lapland"
   };
 
   const weatherLinks: Record<Language, string> = {
@@ -303,7 +338,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     sv: "/levi/saatieto-levilta",
     de: "/levi/saatieto-levilta",
     es: "/levi/saatieto-levilta",
-    fr: "/levi/saatieto-levilta"
+    fr: "/levi/saatieto-levilta",
+    nl: "/levi/saatieto-levilta"
   };
 
   const c = content[lang];

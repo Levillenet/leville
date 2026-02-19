@@ -189,15 +189,32 @@ const content: Record<Language, {
       { id: "summer", title: "Été et soleil de minuit", description: "Vivez le soleil de minuit et l'éveil de la nature. Juin à juillet.", href: "/fr/levi", image: summerImg },
       { id: "autumn", title: "Automne et Ruska", description: "Admirez les couleurs d'automne et la nature paisible. Septembre à octobre.", href: "/fr/levi", image: autumnImg }
     ]
+  },
+  nl: {
+    title: "Seizoenen in Levi",
+    subtitle: "Ervaar Lapland het hele jaar door",
+    intro: "Levi biedt unieke ervaringen in elk seizoen. Van besneeuwde winterlandschappen tot de middernachtzon in de zomer – elk seizoen heeft zijn eigen bijzondere karakter.",
+    metaTitle: "Seizoenen in Levi – Winter, lente, zomer, herfst | Leville.net",
+    metaDescription: "Ontdek de vier seizoenen van Levi: van de poolnacht in de winter tot de middernachtzon in de zomer.",
+    backToHub: "Terug naar Levi-gids",
+    readMore: "Lees meer",
+    bookCta: "Boek accommodatie in Levi",
+    accommodationsLink: "/nl/accommodaties",
+    seasons: [
+      { id: "winter", title: "Winter en poolnacht", description: "Ervaar de arctische winter, noorderlicht en besneeuwde fjelllandschappen. November tot maart.", href: "/nl/levi", image: winterImg },
+      { id: "spring", title: "Lente en lentezon", description: "Geniet van heldere lentezon en de beste sneeuwcondities. Maart tot april.", href: "/nl/levi", image: springImg },
+      { id: "summer", title: "Zomer en middernachtzon", description: "Ervaar de middernachtzon en het ontwaken van de natuur. Juni tot juli.", href: "/nl/levi", image: summerImg },
+      { id: "autumn", title: "Herfst en Ruska", description: "Bewonder de herfstkleuren en vredige natuur. September tot oktober.", href: "/nl/levi", image: autumnImg }
+    ]
   }
 };
 
 const localeMap: Record<Language, string> = {
-  fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR"
+  fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR", nl: "nl_NL"
 };
 
 const hubLinks: Record<Language, string> = {
-  fi: "/levi", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi"
+  fi: "/levi", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi", nl: "/nl/levi"
 };
 
 const canonicalUrls: Record<Language, string> = {
@@ -206,7 +223,8 @@ const canonicalUrls: Record<Language, string> = {
   sv: "https://leville.net/sv/guide/seasons-in-levi",
   de: "https://leville.net/de/guide/seasons-in-levi",
   es: "https://leville.net/es/guide/seasons-in-levi",
-  fr: "https://leville.net/fr/guide/seasons-in-levi"
+  fr: "https://leville.net/fr/guide/seasons-in-levi",
+  nl: "https://leville.net/nl/guide/seasons-in-levi"
 };
 
 const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {

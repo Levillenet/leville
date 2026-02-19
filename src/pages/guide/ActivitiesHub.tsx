@@ -184,6 +184,30 @@ const content: Record<Language, {
       { id: "snowmobile-tips", title: "Conseils safari motoneige", description: "Conseils pratiques pour débutants : comment s'habiller, conduire et réserver.", href: "/activities/snowmobile-safari-tips-levi" },
       { id: "top-winter", title: "Meilleures activités d'hiver", description: "Guide complet des activités d'hiver à Levi : ski, huskies, rennes et plus.", href: "/activities/top-winter-activities-in-levi-lapland" }
     ]
+  },
+  nl: {
+    title: "Activiteiten in Levi",
+    subtitle: "Ervaringen voor iedereen",
+    intro: "Levi biedt diverse activiteiten het hele jaar door. Van skiën tot noorderlicht-safari's, langlaufen tot hondesleetochten – vind je perfecte Lapland-ervaring.",
+    metaTitle: "Activiteiten in Levi – Skiën, langlaufen, noorderlicht | Leville.net",
+    metaDescription: "Ontdek de beste activiteiten in Levi: skiën, langlaufen, noorderlicht, sneeuwscootersafari's en meer.",
+    backToHub: "Terug naar Levi-gids",
+    readMore: "Lees gids",
+    bookCta: "Boek accommodatie in Levi",
+    accommodationsLink: "/nl/accommodaties",
+    popularGuidesTitle: "Populaire activiteitengidsen",
+    activities: [
+      { id: "skiing", title: "Skiën", description: "43 pistes en 28 liften – het populairste skigebied van Finland biedt skiën voor alle niveaus.", href: "/nl/levi", iconKey: "mountain" },
+      { id: "cross-country", title: "Langlaufen", description: "Meer dan 230 kilometer geprepareerde loipes in adembenemend Laplands landschap.", href: "/nl/levi", iconKey: "snowflake" },
+      { id: "aurora", title: "Noorderlicht", description: "Aurora is te zien op ongeveer 200 nachten per jaar in Levi.", href: "/nl/noorderlicht", iconKey: "sparkles" },
+      { id: "snowmobile", title: "Sneeuwscootersafari", description: "Ervaar de sensatie en vrijheid van de Laplandse wildernis op een sneeuwscootersafari.", href: "/nl/levi", iconKey: "sun" },
+      { id: "husky", title: "Huskysafari", description: "Een onvergetelijke ervaring met husky's in de winterse natuur van Lapland.", href: "/nl/levi", iconKey: "dog" },
+      { id: "hiking", title: "Wandelen", description: "Fjellpaden en natuurwandelpaden voor wandelaars van alle niveaus.", href: "/nl/levi", iconKey: "treepine" }
+    ],
+    popularGuides: [
+      { id: "snowmobile-tips", title: "Sneeuwscootersafari-tips", description: "Praktische tips voor beginners: wat te dragen, hoe te rijden en waar te boeken.", href: "/activities/snowmobile-safari-tips-levi" },
+      { id: "top-winter", title: "Beste winteractiviteiten", description: "Complete gids voor winteractiviteiten in Levi: skiën, husky's, rendieren en meer.", href: "/activities/top-winter-activities-in-levi-lapland" }
+    ]
   }
 };
 
@@ -197,11 +221,11 @@ const iconMap: Record<string, typeof Mountain> = {
 };
 
 const localeMap: Record<Language, string> = {
-  fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR"
+  fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR", nl: "nl_NL"
 };
 
 const hubLinks: Record<Language, string> = {
-  fi: "/levi", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi"
+  fi: "/levi", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi", nl: "/nl/levi"
 };
 
 const canonicalUrls: Record<Language, string> = {
@@ -210,7 +234,8 @@ const canonicalUrls: Record<Language, string> = {
   sv: "https://leville.net/sv/guide/activities-in-levi",
   de: "https://leville.net/de/guide/activities-in-levi",
   es: "https://leville.net/es/guide/activities-in-levi",
-  fr: "https://leville.net/fr/guide/activities-in-levi"
+  fr: "https://leville.net/fr/guide/activities-in-levi",
+  nl: "https://leville.net/nl/guide/activities-in-levi"
 };
 
 const ActivitiesHub = ({ lang = "fi" }: ActivitiesHubProps) => {
