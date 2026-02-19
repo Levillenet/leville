@@ -15,7 +15,7 @@ const WhatsAppChat = ({ lang = "fi" }: WhatsAppChatProps) => {
 
   const phoneNumber = "35844131313"; // Leville.net WhatsApp number
 
-  const content: Record<Language, { greeting: string; responseTime: string; placeholder: string }> = {
+  const content: Partial<Record<Language, { greeting: string; responseTime: string; placeholder: string }>> & Record<'fi' | 'en', { greeting: string; responseTime: string; placeholder: string }> = {
     fi: {
       greeting: "Kysy meiltä mitä vain! 👋",
       responseTime: "Yleensä vastaamme tunnissa",

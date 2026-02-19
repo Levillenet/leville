@@ -14,6 +14,7 @@ const PageCTA = ({ lang = "fi" }: PageCTAProps) => {
     de: { heading: "Finden Sie Ihre Traumunterkunft in Levi", bookLabel: "Verfügbare Unterkünfte ansehen", contactLabel: "Kontaktieren Sie uns" },
     es: { heading: "Encuentra tu alojamiento ideal en Levi", bookLabel: "Ver alojamientos disponibles", contactLabel: "Contáctanos" },
     fr: { heading: "Trouvez votre hébergement idéal à Levi", bookLabel: "Voir les hébergements disponibles", contactLabel: "Contactez-nous" },
+    nl: { heading: "Vind uw droomaccommodatie in Levi", bookLabel: "Bekijk beschikbare accommodaties", contactLabel: "Neem contact op" },
   };
 
   const c = content[lang];

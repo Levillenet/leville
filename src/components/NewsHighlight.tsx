@@ -16,6 +16,7 @@ const sectionLabels: Record<Language, { title: string; subtitle: string; cta: st
   de: { title: "Aktuelles", subtitle: "Die neuesten Nachrichten aus Levi", cta: "Alle Neuigkeiten" },
   es: { title: "Noticias", subtitle: "Las últimas novedades de Levi", cta: "Todas las noticias" },
   fr: { title: "Actualités", subtitle: "Les dernières nouvelles de Levi", cta: "Toutes les actualités" },
+  nl: { title: "Nieuws", subtitle: "Het laatste nieuws uit Levi", cta: "Alle nieuws" },
 };
 
 const NewsHighlight = ({ lang = "fi" }: NewsHighlightProps) => {
