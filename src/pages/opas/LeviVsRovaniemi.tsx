@@ -135,6 +135,7 @@ const LeviVsRovaniemi = () => {
                       {[
                         "Aito hiihtokeskus Levitunturin juurella",
                         "43 rinnettä, 28 hissiä, 230 km latuja",
+                        "Erinomainen lumivarmuus – lunta lokakuusta toukokuulle",
                         "Kompakti keskusta, kaikki kävelymatkan päässä",
                         "Tunturiluonto, hiljaisuus, revontulet",
                         "Kelkkasafarit, huskyt, porot, spa – kaikki paikan päällä",
@@ -220,6 +221,25 @@ const LeviVsRovaniemi = () => {
               <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
                 Laskettelussa tämä ei ole edes vertailu. Levi on Suomen suurin hiihtokeskus 43 rinteellä, kahdella gondolihissillä ja yli 64 miljoonan euron tuoreilla hissi-investoinneilla. Ounasvaara Rovaniemellä on mukava pieni lähikeskus, jossa on 10 rinnettä ja 140 metrin korkeusero – se sopii erinomaisesti aloittelijoille ja paikallisille harrastajille, mutta ei ole varsinainen hiihtolomakohde. Jos laskettelu tai murtomaahiihto on lomasi pääasia, valinta on selvä: Levi.
               </p>
+            </section>
+
+            {/* Lumensyvyys ja lumivarmuus */}
+            <section className="mb-12">
+              <h2 className="text-2xl font-bold text-foreground mb-6">Lumensyvyys ja lumivarmuus</h2>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                Levin sijainti 170 km napapiirin pohjoispuolella tarkoittaa pidempää ja lumivarmaempaa talvea kuin Rovaniemellä. Levillä ensilumi sataa tyypillisesti jo lokakuussa ja lumi pysyy toukokuulle asti. Lumensyvyys nousee parhaimmillaan 80–100 senttimetriin, mikä takaa erinomaiset olosuhteet laskettelulle, hiihtoladuille ja kaikille talviaktiviteeteille koko kauden ajan.
+              </p>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                Rovaniemi sijaitsee napapiirin tuntumassa, noin 170 km etelämpänä. Tämä näkyy selvästi lyhyempänä lumikautena ja ohuempana lumipeitteenä – erityisesti alkutalvesta ja keväällä ero voi olla merkittävä. Joulusesonkiin ei aina ole taattua paksua lumipeitettä Rovaniemellä, kun taas Levillä lunta on käytännössä aina reilusti joulukuussa.
+              </p>
+              <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 mt-4">
+                <p className="text-sm text-muted-foreground">
+                  📊 <strong className="text-foreground">Vertaile itse:</strong> Katso Levin alueen historialliset lumensyvyystiedot interaktiivisesta graafikastamme ja vertaile eri vuosien lumitilannetta haluamaltasi aikaväliltä.{" "}
+                  <Link to="/levi/saatieto-levilta" className="text-primary font-medium hover:underline inline-flex items-center gap-1">
+                    Katso lumensyvyysgraafi <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </p>
+              </div>
             </section>
 
             {/* Joulupukki */}
