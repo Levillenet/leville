@@ -57,6 +57,7 @@ import LeviWithoutCar from "./pages/guide/LeviWithoutCar";
 import HeatingSystemsInLevi from "./pages/guide/HeatingSystemsInLevi";
 import HolidayPlanner from "./pages/HolidayPlanner";
 import FireplaceInstructions from "./pages/FireplaceInstructions";
+import SnowmobileSafariLevi from "./pages/guide/SnowmobileSafariLevi";
 
 const queryClient = new QueryClient();
 
@@ -186,6 +187,7 @@ const App = () => (
               <Route path="/aktiviteetit/vaellus-ja-maastopyoraily-levi" element={<HikingAndBikingLevi />} />
               <Route path="/matka/miten-paasee-leville-helsingista" element={<HowToGetToLevi />} />
               <Route path="/aktiviteetit/parhaat-talviaktiviteetit-levi" element={<TopWinterActivities />} />
+              <Route path="/opas/moottorikelkkailu-levilla" element={<SnowmobileSafariLevi />} />
               
               {/* SEO Landing Pages - English */}
               <Route path="/guide/how-to-dress-for-winter-in-levi-lapland" element={<WinterClothingGuide lang="en" />} />
@@ -200,6 +202,7 @@ const App = () => (
               <Route path="/activities/hiking-and-biking-levi" element={<HikingAndBikingLevi lang="en" />} />
               <Route path="/travel/how-to-get-to-levi-from-helsinki-and-abroad" element={<HowToGetToLevi lang="en" />} />
               <Route path="/activities/top-winter-activities-in-levi-lapland" element={<TopWinterActivities lang="en" />} />
+              <Route path="/en/guide/snowmobile-safari-levi" element={<SnowmobileSafariLevi lang="en" />} />
               
               {/* Travel HUB Child Pages - Finnish */}
               <Route path="/opas/liikkuminen-levilla" element={<GettingAroundLevi />} />
