@@ -310,6 +310,49 @@ const translations: Record<Language, {
     santaHome: "Le pays du Père Noël",
     didYouKnow: "Le saviez-vous ?",
     didYouKnowText: "La cabane du Père Noël se trouve sur les pentes de Levi ! Vous pouvez y accéder par le téléphérique Levi Black – c'est une aventure passionnante pour toute la famille."
+  },
+  nl: {
+    meta: {
+      title: "Kerst in Lapland – Magische kerstervaring in Levi | Leville.net",
+      description: "Beleef een unieke kerst in Lapland! Kerstman, noorderlicht, rendieren en besneeuwde winterlandschappen. Boek je kerstaccommodatie in Levi op tijd.",
+      keywords: "Kerst in Lapland, Kerst Levi, Levi Kerstman, Lapland kerstvakantie, Kerst Finland",
+      canonical: "https://leville.net/nl/levi/kerst-in-lapland"
+    },
+    title: "Kerst in Lapland",
+    subtitle: "Beleef een magische kerst in het besneeuwde Lapland – het thuisland van de Kerstman",
+    intro: "Lapland is de geboorteplaats van Kerstmis, en Levi biedt het perfecte decor voor een onvergetelijke kerstervaring. Besneeuwde landschappen, noorderlicht, rendieren en de nabijheid van de Kerstman maken kerst in Levi werkelijk uniek.",
+    experiencesTitle: "Kerstervaringen in Levi",
+    experiences: [
+      { title: "De Kerstman ontmoeten", description: "Ontmoet de echte Kerstman in het Levi-gebied. Kinderen en volwassenen kunnen met de Kerstman praten en foto's maken met zijn elfjes.", icon: "gift" },
+      { title: "Rendiersafari", description: "Een traditionele rendierrit door besneeuwde landschappen is een onvergetelijke ervaring. Rendieren brengen je naar de vredige Laplandse natuur.", icon: "star" },
+      { title: "Noorderlicht", description: "De donkere decembernachten zijn uitstekend voor het bekijken van noorderlicht. Aurora Borealis voegt een magisch tintje toe aan Kerstmis.", icon: "moon" },
+      { title: "Huskysafari", description: "Hondesleeritjes bieden snelheid en avontuur in de bossen van Lapland. De honden trekken je door het besneeuwde landschap.", icon: "sparkles" },
+      { title: "Kerstsauna", description: "De Finse sauna hoort bij de kersttraditie. Onze accommodaties hebben privésauna's waar je kunt ontspannen tijdens de feestdagen.", icon: "heart" },
+      { title: "Winteractiviteiten", description: "Skiën, langlaufen, sneeuwschoenwandelen en sneeuwscooteren – Levi heeft activiteiten voor het hele gezin, ook met Kerst.", icon: "snowflake" }
+    ],
+    whyTitle: "Waarom Kerst vieren in Levi?",
+    whyPoints: [
+      "Gegarandeerde sneeuw – Levi heeft altijd een witte kerst",
+      "Thuisland van de Kerstman – authentieke kerttradities",
+      "Noorderlicht – magisch lichtspel aan de hemel",
+      "Vredige sfeer – ontsnappen aan de dagelijkse stress",
+      "Activiteiten voor alle leeftijden – skiën, rendiersafari, sneeuwscooter",
+      "Kwaliteitsaccommodaties – gezellig kerstappartement in het centrum van Levi"
+    ],
+    tipsTitle: "Tips voor je kerstbezoek",
+    tips: [
+      { title: "Boek op tijd", text: "Het kerstseizoen is enorm populair. Boek accommodatie minstens 6–12 maanden van tevoren." },
+      { title: "Kleed je warm", text: "In december kunnen temperaturen dalen tot -35°C. Laagjeskleding, wollen ondergoed en goede winterlaarzen zijn essentieel." },
+      { title: "Omarm de duisternis", text: "Tijdens Kerst is het daglicht kort, maar de duisternis onthult het noorderlicht en prachtige kerstversieringen." }
+    ],
+    ctaTitle: "Boek je kerstaccommodatie",
+    ctaText: "December 2026 is nu geopend voor boekingen. Boek vroeg en verzeker je droomkerstbestemming in Levi!",
+    ctaButton: "Bekijk accommodaties",
+    backToLevi: "Terug naar Levi-pagina",
+    linksTitle: "Nuttige links",
+    santaHome: "Het thuisland van de Kerstman",
+    didYouKnow: "Wist je dat?",
+    didYouKnowText: "De hut van de Kerstman bevindt zich op de hellingen van Levi! Je kunt er komen met de Levi Black gondellift – het is een spannend avontuur voor het hele gezin."
   }
 };
 
@@ -343,6 +386,11 @@ const usefulLinks: Record<Language, { name: string; url: string }[]> = {
     { name: "Village du Père Noël", url: "https://santaclausvillage.info/" },
     { name: "Levi.fi – Événements de Noël", url: "https://www.levi.fi/en" },
     { name: "Visit Finland – Noël", url: "https://www.visitfinland.com/" }
+  ],
+  nl: [
+    { name: "Dorp van de Kerstman", url: "https://santaclausvillage.info/" },
+    { name: "Levi.fi – Kerstevenementen", url: "https://www.levi.fi/en" },
+    { name: "Visit Finland – Kerst", url: "https://www.visitfinland.com/" }
   ]
 };
 
@@ -352,7 +400,8 @@ const accommodationLinks: Record<Language, string> = {
   sv: "/sv/boenden",
   de: "/de/unterkuenfte",
   es: "/es/alojamientos",
-  fr: "/fr/hebergements"
+  fr: "/fr/hebergements",
+  nl: "/nl/accommodaties"
 };
 
 const leviLinks: Record<Language, string> = {
@@ -361,11 +410,12 @@ const leviLinks: Record<Language, string> = {
   sv: "/sv/levi",
   de: "/de/levi",
   es: "/es/levi",
-  fr: "/fr/levi"
+  fr: "/fr/levi",
+  nl: "/nl/levi"
 };
 
 const localeMap: Record<Language, string> = {
-  fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR"
+  fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR", nl: "nl_NL"
 };
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {

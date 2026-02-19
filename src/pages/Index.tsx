@@ -67,6 +67,13 @@ const seoContent: Record<Language, {
     keywords: "Levi hébergement, Levi appartement, Levi chalet, Levi centre, vacances Levi, Laponie",
     canonical: "https://leville.net/fr",
     locale: "fr_FR"
+  },
+  nl: {
+    title: "Leville.net – Accommodatie in Levi centrum | Appartementen & Chalets",
+    description: "Leville.net biedt kwaliteitsaccommodatie in het centrum van Levi. Moderne appartementen, ruime familiewoningen en gezellige houten chalets op de beste locaties. Boek direct bij ons!",
+    keywords: "Levi accommodatie, Levi appartement, Levi chalet, Levi centrum, Levi vakantie, Lapland",
+    canonical: "https://leville.net/nl",
+    locale: "nl_NL"
   }
 };
 

@@ -169,6 +169,21 @@ const App = () => (
               <Route path="/fr/conditions-de-reservation" element={<Varausehdot lang="fr" />} />
               <Route path="/fr/confidentialite" element={<Tietosuoja lang="fr" />} />
               
+              {/* Dutch routes */}
+              <Route path="/nl" element={<Index lang="nl" />} />
+              <Route path="/nl/accommodaties" element={<Majoitukset lang="nl" />} />
+              <Route path="/nl/nieuws" element={<Ajankohtaista lang="nl" />} />
+              <Route path="/nl/levi" element={<Levi lang="nl" />} />
+              <Route path="/nl/levi/kerst-in-lapland" element={<JouluLapissa lang="nl" />} />
+              <Route path="/nl/noorderlicht" element={<Revontulet lang="nl" />} />
+              <Route path="/nl/contact" element={<Yhteystiedot lang="nl" />} />
+              <Route path="/nl/faq" element={<UKK lang="nl" />} />
+              <Route path="/nl/bedrijf" element={<Yritys lang="nl" />} />
+              <Route path="/nl/quiz" element={<Tietovisa lang="nl" />} />
+              <Route path="/nl/last-minute" element={<Akkilahdot lang="nl" />} />
+              <Route path="/nl/boekingsvoorwaarden" element={<Varausehdot lang="nl" />} />
+              <Route path="/nl/privacy" element={<Tietosuoja lang="nl" />} />
+              
               {/* Guide HUB Pages - Finnish */}
               <Route path="/opas/vuodenajat-levi" element={<SeasonsHub />} />
               <Route path="/opas/aktiviteetit-levi" element={<ActivitiesHub />} />

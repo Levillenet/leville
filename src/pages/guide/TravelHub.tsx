@@ -147,6 +147,24 @@ const content: Record<Language, {
       { id: "services", title: "Restaurants et services", description: "Restaurants, boutiques, locations et autres services au centre de Levi.", href: "/fr/levi", iconKey: "utensils" },
       { id: "family", title: "Familles à Levi", description: "Pistes pour enfants, activités et conseils pratiques pour les voyages en famille.", href: "/fr/levi", iconKey: "baby" }
     ]
+  },
+  nl: {
+    title: "Reisgids naar Levi",
+    subtitle: "Alles wat je nodig hebt voor je reis",
+    intro: "Plan je een reis naar Levi? Vind praktische gidsen voor reizen, kleding en diensten bij skigebied Levi.",
+    metaTitle: "Reisgids naar Levi – Hoe er te komen, kleding, diensten | Leville.net",
+    metaDescription: "Plan je perfecte Levi-reis: hoe je er komt, welke kleding je nodig hebt, lokale diensten en tips voor gezinnen.",
+    backToHub: "Terug naar Levi-gids",
+    readMore: "Lees gids",
+    bookCta: "Boek accommodatie in Levi",
+    accommodationsLink: "/nl/accommodaties",
+    guides: [
+      { id: "getting-there", title: "Naar Levi reizen", description: "Vliegverbindingen, treinverbindingen en routebeschrijvingen naar Levi.", href: "/nl/levi", iconKey: "plane" },
+      { id: "clothing", title: "Winterkleding", description: "Welke kleding heb je nodig voor de winter in Levi? Kledingstips voor -30°C vorst.", href: "/nl/levi", iconKey: "shirt" },
+      { id: "transport", title: "Vervoer in Levi", description: "Skibussen, taxi's en autoverhuur. Hoe je je gemakkelijk verplaatst in Levi.", href: "/nl/levi", iconKey: "bus" },
+      { id: "services", title: "Restaurants en diensten", description: "Restaurants, winkels, verhuur en andere diensten in het centrum van Levi.", href: "/nl/levi", iconKey: "utensils" },
+      { id: "family", title: "Gezinnen in Levi", description: "Kinderpistes, activiteiten en praktische tips voor gezinsvakanties.", href: "/nl/levi", iconKey: "baby" }
+    ]
   }
 };
 
@@ -162,11 +180,11 @@ const iconMap: Record<string, typeof Plane> = {
 };
 
 const localeMap: Record<Language, string> = {
-  fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR"
+  fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR", nl: "nl_NL"
 };
 
 const hubLinks: Record<Language, string> = {
-  fi: "/levi", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi"
+  fi: "/levi", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi", nl: "/nl/levi"
 };
 
 const canonicalUrls: Record<Language, string> = {
@@ -175,7 +193,8 @@ const canonicalUrls: Record<Language, string> = {
   sv: "https://leville.net/sv/guide/travel-to-levi",
   de: "https://leville.net/de/guide/travel-to-levi",
   es: "https://leville.net/es/guide/travel-to-levi",
-  fr: "https://leville.net/fr/guide/travel-to-levi"
+  fr: "https://leville.net/fr/guide/travel-to-levi",
+  nl: "https://leville.net/nl/guide/travel-to-levi"
 };
 
 const TravelHub = ({ lang = "fi" }: TravelHubProps) => {

@@ -16,12 +16,9 @@ const skiResortFacts: Fact[] = [
     value: 531,
     suffix: " m",
     label: {
-      fi: "Tunturin korkeus",
-      en: "Fell height",
-      sv: "Fjällets höjd",
-      de: "Fjellhöhe",
-      es: "Altura del monte",
-      fr: "Hauteur du fjell"
+      fi: "Tunturin korkeus", en: "Fell height", sv: "Fjällets höjd",
+      de: "Fjellhöhe", es: "Altura del monte", fr: "Hauteur du fjell",
+      nl: "Fjellhoogte"
     }
   },
   {
@@ -29,12 +26,9 @@ const skiResortFacts: Fact[] = [
     value: 43,
     suffix: "",
     label: {
-      fi: "Laskettelurinnettä",
-      en: "Ski slopes",
-      sv: "Skidbackar",
-      de: "Skipisten",
-      es: "Pistas de esquí",
-      fr: "Pistes de ski"
+      fi: "Laskettelurinnettä", en: "Ski slopes", sv: "Skidbackar",
+      de: "Skipisten", es: "Pistas de esquí", fr: "Pistes de ski",
+      nl: "Skipistes"
     }
   },
   {
@@ -42,12 +36,9 @@ const skiResortFacts: Fact[] = [
     value: 28,
     suffix: "",
     label: {
-      fi: "Hissiä",
-      en: "Ski lifts",
-      sv: "Skidliftar",
-      de: "Skilifte",
-      es: "Remontes",
-      fr: "Remontées"
+      fi: "Hissiä", en: "Ski lifts", sv: "Skidliftar",
+      de: "Skilifte", es: "Remontes", fr: "Remontées",
+      nl: "Skiliften"
     }
   },
   {
@@ -55,12 +46,9 @@ const skiResortFacts: Fact[] = [
     value: 230,
     suffix: " km",
     label: {
-      fi: "Hiihtolatuja",
-      en: "Cross-country trails",
-      sv: "Längdskidspår",
-      de: "Langlaufloipen",
-      es: "Pistas de esquí de fondo",
-      fr: "Pistes de ski de fond"
+      fi: "Hiihtolatuja", en: "Cross-country trails", sv: "Längdskidspår",
+      de: "Langlaufloipen", es: "Pistas de esquí de fondo", fr: "Pistes de ski de fond",
+      nl: "Langlaufloipes"
     }
   },
   {
@@ -68,12 +56,9 @@ const skiResortFacts: Fact[] = [
     value: 200,
     suffix: "+",
     label: {
-      fi: "Laskettelupäivää/kausi",
-      en: "Skiing days/season",
-      sv: "Skiddagar/säsong",
-      de: "Skitage/Saison",
-      es: "Días de esquí/temporada",
-      fr: "Jours de ski/saison"
+      fi: "Laskettelupäivää/kausi", en: "Skiing days/season", sv: "Skiddagar/säsong",
+      de: "Skitage/Saison", es: "Días de esquí/temporada", fr: "Jours de ski/saison",
+      nl: "Skidagen/seizoen"
     }
   }
 ];
@@ -84,12 +69,9 @@ const interestingFacts: Fact[] = [
     value: 200,
     suffix: "",
     label: {
-      fi: "Lumipäivää vuodessa",
-      en: "Snow days per year",
-      sv: "Snödagar per år",
-      de: "Schneetage pro Jahr",
-      es: "Días de nieve al año",
-      fr: "Jours de neige par an"
+      fi: "Lumipäivää vuodessa", en: "Snow days per year", sv: "Snödagar per år",
+      de: "Schneetage pro Jahr", es: "Días de nieve al año", fr: "Jours de neige par an",
+      nl: "Sneeuwdagen per jaar"
     }
   },
   {
@@ -97,12 +79,9 @@ const interestingFacts: Fact[] = [
     value: 200,
     suffix: "",
     label: {
-      fi: "Revontuliyötä vuodessa",
-      en: "Northern Lights nights/year",
-      sv: "Norrskensnätter/år",
-      de: "Polarlicht-Nächte/Jahr",
-      es: "Noches de aurora boreal/año",
-      fr: "Nuits d'aurores boréales/an"
+      fi: "Revontuliyötä vuodessa", en: "Northern Lights nights/year", sv: "Norrskensnätter/år",
+      de: "Polarlicht-Nächte/Jahr", es: "Noches de aurora boreal/año", fr: "Nuits d'aurores boréales/an",
+      nl: "Noorderlicht nachten/jaar"
     }
   },
   {
@@ -110,12 +89,9 @@ const interestingFacts: Fact[] = [
     value: 7,
     suffix: "",
     label: {
-      fi: "Viikkoa yötöntä yötä",
-      en: "Weeks of midnight sun",
-      sv: "Veckor av midnattssol",
-      de: "Wochen Mitternachtssonne",
-      es: "Semanas de sol de medianoche",
-      fr: "Semaines de soleil de minuit"
+      fi: "Viikkoa yötöntä yötä", en: "Weeks of midnight sun", sv: "Veckor av midnattssol",
+      de: "Wochen Mitternachtssonne", es: "Semanas de sol de medianoche", fr: "Semaines de soleil de minuit",
+      nl: "Weken middernachtzon"
     }
   },
   {
@@ -123,12 +99,9 @@ const interestingFacts: Fact[] = [
     value: 15,
     suffix: " min",
     label: {
-      fi: "Lentokentältä",
-      en: "From the airport",
-      sv: "Från flygplatsen",
-      de: "Vom Flughafen",
-      es: "Desde el aeropuerto",
-      fr: "De l'aéroport"
+      fi: "Lentokentältä", en: "From the airport", sv: "Från flygplatsen",
+      de: "Vom Flughafen", es: "Desde el aeropuerto", fr: "De l'aéroport",
+      nl: "Vanaf de luchthaven"
     }
   },
   {
@@ -136,18 +109,14 @@ const interestingFacts: Fact[] = [
     value: 1,
     suffix: "",
     label: {
-      fi: "Euroopan puhtain ilma & vesi",
-      en: "Cleanest air & water in Europe",
-      sv: "Europas renaste luft & vatten",
-      de: "Sauberste Luft & Wasser Europas",
-      es: "El aire y agua más limpios de Europa",
-      fr: "L'air et l'eau les plus purs d'Europe"
+      fi: "Euroopan puhtain ilma & vesi", en: "Cleanest air & water in Europe", sv: "Europas renaste luft & vatten",
+      de: "Sauberste Luft & Wasser Europas", es: "El aire y agua más limpios de Europa", fr: "L'air et l'eau les plus purs d'Europe",
+      nl: "Schoonste lucht & water van Europa"
     },
     isSpecial: true
   }
 ];
 
-// Section titles
 const sectionContent: Record<Language, { title: string; description: string }> = {
   fi: {
     title: "Mielenkiintoisia Levi-faktoja",
@@ -172,6 +141,10 @@ const sectionContent: Record<Language, { title: string; description: string }> =
   fr: {
     title: "Faits intéressants sur Levi",
     description: "Découvrez ce qui fait de Levi une destination unique en Laponie finlandaise."
+  },
+  nl: {
+    title: "Interessante Levi-feiten",
+    description: "Ontdek wat Levi tot een unieke bestemming in Fins Lapland maakt."
   }
 };
 
@@ -207,14 +180,14 @@ const LeviFacts = ({ lang = "fi" }: LeviFactsProps) => {
     </div>
   );
 
-  // Section title for ski resort facts
   const skiResortTitle: Record<Language, string> = {
     fi: "Levin hiihtokeskus",
     en: "Levi Ski Resort",
     sv: "Levi Skidort",
     de: "Skigebiet Levi",
     es: "Estación de esquí de Levi",
-    fr: "Station de ski de Levi"
+    fr: "Station de ski de Levi",
+    nl: "Skigebied Levi"
   };
 
   return (

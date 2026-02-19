@@ -105,6 +105,19 @@ const content: Record<Language, {
     errorAlreadySubscribed: "Vous êtes déjà abonné",
     errorGeneric: "L'abonnement a échoué, veuillez réessayer",
     privacyNote: "Vous pouvez vous désabonner à tout moment via le lien dans l'email."
+  },
+  nl: {
+    title: "Abonneer op noorderlicht-meldingen",
+    description: "Ontvang een e-mail wanneer noorderlicht wordt verwacht in Levi (Kp ≥ 4).",
+    placeholder: "Je e-mailadres",
+    subscribe: "Abonneer op meldingen",
+    subscribing: "Bezig met abonneren...",
+    success: "Abonnement geslaagd!",
+    successDescription: "Je ontvangt een e-mail wanneer noorderlicht wordt verwacht.",
+    errorInvalidEmail: "Voer een geldig e-mailadres in",
+    errorAlreadySubscribed: "Je bent al geabonneerd",
+    errorGeneric: "Abonnement mislukt, probeer het opnieuw",
+    privacyNote: "Je kunt je op elk moment afmelden via de link in de e-mail."
   }
 };
 

@@ -252,6 +252,41 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
       appsText: "Téléchargez une application d'alerte aurore sur votre téléphone pour ne manquer aucun spectacle :",
       browseAccommodations: "Parcourir les hébergements",
     },
+    nl: {
+      meta: {
+        title: "Noorderlicht in Levi – Aurora Borealis | Leville.net",
+        description: "Ervaar de magie van het noorderlicht in Levi. Beste locaties, tijden en tips voor het bekijken van aurora in Lapland.",
+        canonical: "https://leville.net/nl/noorderlicht",
+      },
+      hero: {
+        title: "Noorderlicht in Levi",
+        subtitle: "De meest spectaculaire ervaring van Lapland",
+      },
+      intro: "Het noorderlicht is een van de beroemdste en indrukwekkendste natuurverschijnselen van Lapland. Levi is een van de beste plekken in Finland om de aurora borealis te observeren, dankzij de noordelijke ligging, schone lucht en minimale lichtvervuiling.",
+      whenTitle: "Wanneer kun je noorderlicht zien in Levi",
+      whenText: "Het noorderlichtseizoen in Levi duurt van eind september tot eind maart. De beste maanden zijn meestal september–oktober en februari–maart, wanneer de nachten donker zijn en het weer vaak helder is.",
+      whenList: [
+        "Tussen 21:00 en 01:00 uur",
+        "Bij heldere en ijzige nachten",
+        "Wanneer de zonneactiviteit verhoogd is",
+      ],
+      whenNote: "De natuur bepaalt altijd de uiteindelijke show, maar in Levi is het noorderlicht tientallen nachten per jaar te zien.",
+      whereTitle: "Beste plekken voor noorderlicht in Levi",
+      whereText: "De beste noorderlichtlocaties zijn open en donkere gebieden met onbelemmerd uitzicht op de hemel. Goede locaties zijn:",
+      whereList: [
+        "Fjellgebieden en bovenste hellingen",
+        "Oevers van meren en moerassen",
+        "Accommodaties buiten het centrum of weg van lichtvervuiling",
+      ],
+      whereNote: "Veel van onze gasten bekijken het noorderlicht rechtstreeks vanuit de tuin van de accommodatie, het terras of zelfs de hottub, wat de ervaring bijzonder ontspannend en privé maakt.",
+      accommodationTitle: "Noorderlicht en accommodatie in Levi",
+      accommodationText: "Een centrale locatie betekent niet dat je concessies moet doen aan het bekijken van aurora. Vanuit veel van onze accommodaties kun je snel rustige gebieden bereiken, en op sommige locaties kan het noorderlicht direct in de tuin of in de buurt worden gezien.",
+      accommodationNote: "Noorderlichtjacht gecombineerd met kwaliteitsaccommodatie, privésauna en de rust van Lapland is een ervaring die veel van onze gasten een leven lang onthouden.",
+      videoTitle: "Noorderlicht in beweging",
+      appsTitle: "Aurora-apps",
+      appsText: "Download een noorderlicht-waarschuwingsapp op je telefoon zodat je geen enkele show mist:",
+      browseAccommodations: "Bekijk accommodaties",
+    },
   };
 
   const t = content[lang];
@@ -262,6 +297,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     de: "/de/unterkuenfte",
     es: "/es/alojamientos",
     fr: "/fr/hebergements",
+    nl: "/nl/accommodaties",
   };
 
   return (

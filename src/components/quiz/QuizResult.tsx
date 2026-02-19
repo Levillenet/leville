@@ -106,6 +106,18 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
       error: "Erreur",
       couldNotCopy: "Impossible de copier le lien",
       shareText: `J'ai obtenu ${score}/${totalQuestions} (${percentage}%) au Quiz Levi ! Testez vos connaissances :`
+    },
+    nl: {
+      correct: "correct",
+      playAgain: "Opnieuw spelen",
+      share: "Delen",
+      copyLink: "Link kopiëren",
+      exploreLevi: "Ontdek Levi",
+      linkCopied: "Link gekopieerd!",
+      shareWith: "Deel het met je vrienden",
+      error: "Fout",
+      couldNotCopy: "Kon link niet kopiëren",
+      shareText: `Ik scoorde ${score}/${totalQuestions} (${percentage}%) op de Levi Quiz! Test je kennis:`
     }
   };
 
@@ -115,7 +127,8 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
     sv: "https://www.leville.net/sv/quiz",
     de: "https://www.leville.net/de/quiz",
     es: "https://www.leville.net/es/quiz",
-    fr: "https://www.leville.net/fr/quiz"
+    fr: "https://www.leville.net/fr/quiz",
+    nl: "https://www.leville.net/nl/quiz"
   };
 
   const leviLinks: Record<Language, string> = {
@@ -124,7 +137,8 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
     sv: "/sv/levi",
     de: "/de/levi",
     es: "/es/levi",
-    fr: "/fr/levi"
+    fr: "/fr/levi",
+    nl: "/nl/levi"
   };
 
   const c = content[lang];

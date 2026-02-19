@@ -78,11 +78,17 @@ const Tietovisa = ({ lang = "fi" }: TietovisaProps) => {
       description: "Testez vos connaissances sur la station de ski de Levi avec notre quiz amusant ! 10 questions sur la destination de ski la plus populaire de Finlande.",
       keywords: "Levi quiz, Levi trivia, Finlande station ski quiz, Laponie quiz",
       canonical: "https://www.leville.net/fr/quiz"
+    },
+    nl: {
+      title: "Levi Quiz - Test je kennis | Leville.net",
+      description: "Test je kennis over skigebied Levi met onze leuke quiz! 10 vragen over de populairste skibestemming van Finland.",
+      keywords: "Levi quiz, Levi trivia, Finland skigebied quiz, Lapland quiz",
+      canonical: "https://www.leville.net/nl/quiz"
     }
   };
 
   const localeMap: Record<Language, string> = {
-    fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR"
+    fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR", nl: "nl_NL"
   };
 
   const m = meta[lang];
