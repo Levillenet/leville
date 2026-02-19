@@ -274,7 +274,7 @@ const LeviVsYllasVsRuka = () => {
                       ["Poroajelut", "Kyllä", "Kyllä", "Kyllä"],
                       ["Kylpylä", "Levi Hotel Spa (rinteiden juurella)", "Ei", "Kuusamon Tropiikki (8 km)"],
                       ["Revontuliretket", "Kyllä, laaja tarjonta", "Kyllä", "Kyllä"],
-                      ["Kesäaktiviteetit", "Bike park, golf, vaellus, kalastus", "Vaellus, pyöräily", "Bike park, kesäkelkkarata, Ruka Coaster, koskenlaskua"],
+                      ["Kesäaktiviteetit", "Bike park, kesäkelkkarata, golf, vaellus, kalastus", "Vaellus, pyöräily", "Bike park, kesäkelkkarata, Ruka Coaster, koskenlaskua"],
                       ["Kansallispuistot", "Pallas-Yllästunturi NP (autolla)", "Pallas-Yllästunturi NP (vieressä)", "Oulangan NP ja Karhunkierros (vieressä)"],
                       ["Aktiviteettivalikoiman laajuus", "Lapin laajin", "Hyvä, mutta suppeampi", "Hyvä, erityisesti luontomatkailu"],
                     ].map((row, idx) => (

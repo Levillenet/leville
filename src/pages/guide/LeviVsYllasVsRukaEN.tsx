@@ -274,7 +274,7 @@ const LeviVsYllasVsRukaEN = () => {
                       ["Reindeer rides", "Yes", "Yes", "Yes"],
                       ["Spa", "Levi Hotel Spa (at the slopes)", "No", "Kuusamo Tropiikki (8 km)"],
                       ["Northern lights tours", "Yes, wide selection", "Yes", "Yes"],
-                      ["Summer activities", "Bike park, golf, hiking, fishing", "Hiking, cycling", "Bike park, summer sled, Ruka Coaster, white water rafting"],
+                      ["Summer activities", "Bike park, summer sled track, golf, hiking, fishing", "Hiking, cycling", "Bike park, summer sled, Ruka Coaster, white water rafting"],
                       ["Nearby national parks", "Pallas-Yllästunturi NP (by car)", "Pallas-Yllästunturi NP (adjacent)", "Oulanka NP & Karhunkierros (adjacent)"],
                       ["Activity range", "Widest in Lapland", "Good but narrower", "Good, especially nature tourism"],
                     ].map((row, idx) => (
