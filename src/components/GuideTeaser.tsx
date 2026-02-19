@@ -69,6 +69,15 @@ const content: Record<Language, {
     cta: "Découvrir le guide de Levi",
     href: "/fr/levi",
     features: ["Activités & pistes", "Saisons & météo", "Conseils voyage & services"]
+  },
+  nl: {
+    badge: "🏔️ De meest uitgebreide Levi-gids online",
+    title: "Plan uw perfecte",
+    highlight: "Levi-vakantie",
+    description: "43 pistes, noorderlicht, husky-safari's, sauna-ervaringen en nog veel meer. Alles wat u nodig heeft voor een onvergetelijke Lapland-vakantie – op één plek.",
+    cta: "Ontdek de Levi-gids",
+    href: "/nl/levi",
+    features: ["Activiteiten & pistes", "Seizoenen & weer", "Reistips & voorzieningen"]
   }
 };
 

@@ -59,6 +59,13 @@ const QuizStart = ({ onStart, lang = "fi" }: QuizStartProps) => {
       questions: "10 questions",
       multipleChoice: "Choix multiple",
       startButton: "Commencer le quiz"
+    },
+    nl: {
+      title: "Levi Quiz",
+      description: "Test uw kennis over Levi! Beantwoord 10 vragen en ontdek hoe goed u het populairste skigebied van Finland kent.",
+      questions: "10 vragen",
+      multipleChoice: "Meerkeuze",
+      startButton: "Start quiz"
     }
   };
 

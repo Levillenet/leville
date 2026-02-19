@@ -9,7 +9,7 @@ interface HreflangTagsProps {
 
 const HreflangTags = ({ currentPath, currentLang = "fi", customUrls }: HreflangTagsProps) => {
   const baseUrl = "https://leville.net";
-  const allLanguages: Language[] = ["fi", "en", "sv", "de", "es", "fr"];
+  const allLanguages: Language[] = ["fi", "en", "sv", "de", "es", "fr", "nl"];
 
   // Map language codes to hreflang codes
   const hreflangCodes: Record<Language, string> = {
@@ -19,6 +19,7 @@ const HreflangTags = ({ currentPath, currentLang = "fi", customUrls }: HreflangT
     de: "de",
     es: "es",
     fr: "fr",
+    nl: "nl",
   };
 
   // If customUrls provided, only output hreflang for those languages

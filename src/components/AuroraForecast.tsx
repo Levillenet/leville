@@ -152,6 +152,25 @@ const content: Record<Language, {
       veryLow: { probability: "Très faible", description: "Activité aurorale minimale." },
     },
   },
+  nl: {
+    title: "Noorderlichtvoorspelling",
+    kpLabel: "Kp-index",
+    probabilityLabel: "Waarschijnlijkheid",
+    tonightPeak: "Piek vanavond",
+    next24h: "Komende 24u",
+    nightTime: "Nacht (beste tijd)",
+    now: "Nu",
+    atTime: "om",
+    kpExplanation: "De Kp-index (0-9) meet geomagnetische activiteit. Hogere waarden betekenen sterker noorderlicht. Kp 3+ is goed voor Levi.",
+    levels: {
+      veryHigh: { probability: "Zeer hoog", description: "Uitzonderlijke noorderlichtactiviteit!" },
+      high: { probability: "Hoog", description: "Sterke noorderlichtactiviteit." },
+      moderate: { probability: "Matig", description: "Goede activiteit." },
+      lowModerate: { probability: "Laag-matig", description: "Noorderlicht mogelijk aan de horizon." },
+      low: { probability: "Laag", description: "Zwakke activiteit." },
+      veryLow: { probability: "Zeer laag", description: "Minimale noorderlichtactiviteit." },
+    },
+  },
 };
 
 const getAuroraDescription = (kp: number, lang: Language): { probability: string; description: string } => {

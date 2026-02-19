@@ -20,6 +20,7 @@ const StickyBookingBar = ({ lang = "fi" }: StickyBookingBarProps) => {
     de: "Jetzt buchen",
     es: "Reservar ahora",
     fr: "Réserver maintenant",
+    nl: "Nu boeken",
   };
 
   return (
