@@ -59,6 +59,8 @@ import HolidayPlanner from "./pages/HolidayPlanner";
 import FireplaceInstructions from "./pages/FireplaceInstructions";
 import LeviVsYllasVsRuka from "./pages/guide/LeviVsYllasVsRuka";
 import LeviVsYllasVsRukaEN from "./pages/guide/LeviVsYllasVsRukaEN";
+import LeviVsRovaniemi from "./pages/opas/LeviVsRovaniemi";
+import LeviVsRovaniemiComparison from "./pages/guide/LeviVsRovaniemiComparison";
 
 const queryClient = new QueryClient();
 
@@ -210,6 +212,7 @@ const App = () => (
               <Route path="/opas/levi-ilman-autoa" element={<LeviWithoutCar />} />
               <Route path="/opas/lammitysjarjestelmat-levi" element={<HeatingSystemsInLevi />} />
               <Route path="/opas/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRuka />} />
+              <Route path="/opas/levi-vs-rovaniemi" element={<LeviVsRovaniemi />} />
               {/* Travel HUB Child Pages - English */}
               <Route path="/guide/getting-around-in-levi" element={<GettingAroundLevi lang="en" />} />
               <Route path="/guide/restaurants-and-services-in-levi" element={<RestaurantsAndServices lang="en" />} />
@@ -217,6 +220,7 @@ const App = () => (
               <Route path="/guide/levi-without-a-car" element={<LeviWithoutCar lang="en" />} />
               <Route path="/guide/heating-systems-in-levi" element={<HeatingSystemsInLevi lang="en" />} />
               <Route path="/guide/levi-vs-yllas-vs-ruka-comparison" element={<LeviVsYllasVsRukaEN />} />
+              <Route path="/guide/levi-vs-rovaniemi-comparison" element={<LeviVsRovaniemiComparison />} />
               {/* Holiday Planner */}
               <Route path="/lomasuunnittelija" element={<HolidayPlanner />} />
               <Route path="/en/holiday-planner" element={<HolidayPlanner lang="en" />} />
