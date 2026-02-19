@@ -57,6 +57,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     northernLightsDesc: string;
     comparisonTitle: string;
     comparisonDesc: string;
+    comparisonRovTitle: string;
+    comparisonRovDesc: string;
   }> = {
     fi: {
       intro: "Löydä kaikki tarvitsemasi Levi-matkaa varten. Tutustu vuodenaikoihin, aktiviteetteihin ja käytännön matkailuoppaisiin.",
@@ -85,7 +87,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       northernLightsTitle: "Revontulet Levillä",
       northernLightsDesc: "Opas revontulien katseluun ja ennusteet",
       comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Vertaile Lapin suosituimpia hiihtokeskuksia"
+      comparisonDesc: "Vertaile Lapin suosituimpia hiihtokeskuksia",
+      comparisonRovTitle: "Levi vs Rovaniemi",
+      comparisonRovDesc: "Tunturikylä vai Lapin pääkaupunki?"
     },
     en: {
       intro: "Find everything you need for your Levi trip. Explore seasons, activities and practical travel guides.",
@@ -114,7 +118,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       northernLightsTitle: "Northern Lights in Levi",
       northernLightsDesc: "Guide to aurora viewing and forecasts",
       comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Compare Lapland's most popular ski resorts"
+      comparisonDesc: "Compare Lapland's most popular ski resorts",
+      comparisonRovTitle: "Levi vs Rovaniemi",
+      comparisonRovDesc: "Fell village or the capital of Lapland?"
     },
     sv: {
       intro: "Hitta allt du behöver för din Levi-resa. Utforska årstider, aktiviteter och praktiska reseguider.",
@@ -143,7 +149,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       northernLightsTitle: "Norrsken i Levi",
       northernLightsDesc: "Guide till norrskensskådning och prognoser",
       comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Jämför Lapplands populäraste skidorter"
+      comparisonDesc: "Jämför Lapplands populäraste skidorter",
+      comparisonRovTitle: "Levi vs Rovaniemi",
+      comparisonRovDesc: "Fjällby eller Lapplands huvudstad?"
     },
     de: {
       intro: "Finden Sie alles, was Sie für Ihre Levi-Reise brauchen. Entdecken Sie Jahreszeiten, Aktivitäten und praktische Reiseführer.",
@@ -172,7 +180,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       northernLightsTitle: "Nordlichter in Levi",
       northernLightsDesc: "Leitfaden zur Polarlichtbeobachtung und Vorhersagen",
       comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Vergleiche Lapplands beliebteste Skigebiete"
+      comparisonDesc: "Vergleiche Lapplands beliebteste Skigebiete",
+      comparisonRovTitle: "Levi vs Rovaniemi",
+      comparisonRovDesc: "Fjälldorf oder Hauptstadt Lapplands?"
     },
     es: {
       intro: "Encuentra todo lo que necesitas para tu viaje a Levi. Explora estaciones, actividades y guías de viaje prácticas.",
@@ -201,7 +211,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       northernLightsTitle: "Auroras Boreales en Levi",
       northernLightsDesc: "Guía para ver auroras y pronósticos",
       comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Compara las estaciones de esquí más populares de Laponia"
+      comparisonDesc: "Compara las estaciones de esquí más populares de Laponia",
+      comparisonRovTitle: "Levi vs Rovaniemi",
+      comparisonRovDesc: "¿Pueblo de montaña o capital de Laponia?"
     },
     fr: {
       intro: "Trouvez tout ce dont vous avez besoin pour votre voyage à Levi. Explorez les saisons, les activités et les guides de voyage pratiques.",
@@ -230,7 +242,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       northernLightsTitle: "Aurores Boréales à Levi",
       northernLightsDesc: "Guide d'observation des aurores et prévisions",
       comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Comparez les stations de ski les plus populaires de Laponie"
+      comparisonDesc: "Comparez les stations de ski les plus populaires de Laponie",
+      comparisonRovTitle: "Levi vs Rovaniemi",
+      comparisonRovDesc: "Village de montagne ou capitale de la Laponie ?"
     }
   };
 
@@ -403,7 +417,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 text-center">
                 {c.quickLinksTitle}
               </h2>
-              <div className="max-w-4xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="max-w-4xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Weather Link */}
                 <Link 
                   to={weatherLinks[lang]}
@@ -471,6 +485,31 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {c.comparisonDesc}
+                          </p>
+                        </div>
+                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+
+                {/* Levi vs Rovaniemi Link */}
+                <Link 
+                  to={lang === "en" ? "/guide/levi-vs-rovaniemi-comparison" : "/opas/levi-vs-rovaniemi"}
+                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
+                >
+                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
+                    <CardContent className="p-4 sm:p-5">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-rose-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Scale className="w-6 h-6 text-rose-400" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                            {c.comparisonRovTitle}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {c.comparisonRovDesc}
                           </p>
                         </div>
                         <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
