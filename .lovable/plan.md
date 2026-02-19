@@ -1,43 +1,39 @@
 
-# Moonlight 415 (roomId 645946) puuttuu kohdelistasta
+# Moottorikelkkailuopas – kaksi uutta sivua
 
-## Ongelma
+Luodaan uusi moottorikelkkailuopas-sivu (FI + EN) ja lisataan reitit App.tsx:iin. Mitaan olemassa olevia sivuja ei muuteta.
 
-Beds24-jarjestelmassa Moonlight 415 -huoneisto on kahdella eri roomId:lla:
-- `625005` (Room 5) -- taalta loytyy property_settings-taulusta siivousmaksu 59 EUR, mutta talla roomId:lla ei ole vapaita jaksoja
-- `645946` (Moonlight 415) -- tama nakkyy akkilahdoissa vapaana, mutta sita EI ole lisatty propertyDetails.ts-tiedostoon eika property_settings-tauluun
+## Luotavat tiedostot
 
-Koska roomId 645946 puuttuu kokonaan, siivousmaksu on 0 EUR ja hinta naytetaan pelkkana API-hintana (130 EUR).
+### 1. `src/pages/guide/SnowmobileSafariLevi.tsx`
 
-## Ratkaisu
+Uusi komponentti, joka sisaltaa molemmat kieliversiot (FI/EN) samassa tiedostossa `lang`-propilla, samalla tavalla kuin `SkiingInLevi.tsx` ja `SummerInLevi.tsx`.
 
-### 1. Lisataan roomId 645946 propertyDetails.ts-tiedostoon
+Sivun rakenne noudattaa tarkalleen muiden opas-sivujen layoutia:
+- `SubpageBackground`, `Header`, `Breadcrumbs` (Etusivu > Levi > Moottorikelkkailu Levilla)
+- `HreflangTags` customUrls-propilla (FI/EN-pari)
+- `Helmet` SEO-metatiedoilla, OG-tageilla ja JSON-LD-skeemoilla (Article, FAQPage, BreadcrumbList)
+- Sisalto-osiot: Hero, Opastetut safarit (korttien gridi hintoineen), Vapaat reitit (lista), Kaytannon tietoa (korttien gridi), Vinkit (lista), Tokka Safaris -suositus (korostettu kortti), FAQ (Accordion, 4 kysymysta), Lue myos -linkitysosio, CTA-painikkeet
+- `Footer`, `WhatsAppChat`, `StickyBookingBar`
 
-Lisataan uusi rivi `defaultPropertyDetails`-taulukkoon:
+Komponentit ja tyylit ovat samoja kuin muissa opas-sivuissa: `glass-card`, `border-border/30`, `text-primary`, Lucide-ikonit.
 
-```
-{ id: "645946", name: "Moonlight 415", cleaningFee: 59, bookingUrl: "", linenFee: 19, maxGuests: 2, whatsappNumber: "+35844131313", ... }
-```
+### 2. Muutokset tiedostoon `src/App.tsx`
 
-Siivousmaksu asetetaan 59 EUR (sama kuin kayttaja on halunnut). Muu data (maxGuests, bookingUrl jne.) periytyy Room 5 -kohteen tiedoista.
+Lisataan kaksi uutta Route-maarittelya:
+- FI: `<Route path="/opas/moottorikelkkailu-levilla" element={<SnowmobileSafariLevi />} />`
+- EN: `<Route path="/en/guide/snowmobile-safari-levi" element={<SnowmobileSafariLevi lang="en" />} />`
 
-### 2. Lisataan roomId 645946 property_settings-tauluun
+Nayma lisataan olemassa olevien SEO Landing Pages -lohkojen jalkeen (FI-reitit FI-lohkoon, EN-reitit EN-lohkoon). Lisataan myos import-rivi tiedoston alkuun.
 
-Lisataan tietokantaan rivi `property_id = '645946'` siivousmaksulla 59 EUR ja marketing_name "Moonlight 415", jotta admin-asetukset toimivat myos talle roomId:lle.
+## Sisaltotiivistys
 
-### 3. Tarkistetaan myos vanha 625005
+**FI-sivu** sisaltaa: opastetut safarit (4 tyyppia hintoineen), vapaat reitit, kaytannon tietoa (ajokortti, ikaraja, pukeutuminen, vakuutus, turvallisuus), vinkit kelkkailijalle, Tokka Safaris -suositus, FAQ (4 kysymysta) ja "Lue myos" -linkit.
 
-Room 5 (625005) nayttaa olevan samaa kohdetta -- sen available days on 0, eli silla ei ole vapaita jaksoja. Se voi jaada ennalleen.
+**EN-sivu** sisaltaa saman sisallon englanniksi.
 
-## Vaikutus
+Molemmat versiot linkittavat toisiinsa hreflang-tageilla. Sivuja ei lisata navigaatiovalikkoon (muutkaan opas-alasivut eivat nay siella).
 
-Korjauksen jalkeen Moonlight 415:n hinta akkilahdoissa olisi:
-- API-hinta (130 EUR) + siivousmaksu (59 EUR) = **189 EUR**
-- Jos alennuksia on asetettu, ne lasketaan API-hinnan paalle ennen siivouksen lisaamista
+## Muita tiedostoja EI muuteta
 
-## Muutettavat tiedostot
-
-| Tiedosto | Muutos |
-|---|---|
-| `src/data/propertyDetails.ts` | Lisataan roomId 645946 uutena rivina |
-| Tietokanta (property_settings) | Lisataan rivi property_id 645946, cleaning_fee 59 |
+Ei muutoksia Header-, Footer-, tai muihin komponentteihin.
