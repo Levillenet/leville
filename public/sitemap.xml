@@ -1045,4 +1045,40 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Snowmobile Safari Guide (FI/EN) -->
+  <url>
+    <loc>https://leville.net/opas/moottorikelkkailu-levilla</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/moottorikelkkailu-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/guide/snowmobile-safari-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/moottorikelkkailu-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/en/guide/snowmobile-safari-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/moottorikelkkailu-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/guide/snowmobile-safari-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/moottorikelkkailu-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Dog Sledding & Reindeer Guide (FI/EN) -->
+  <url>
+    <loc>https://leville.net/opas/husky-safari-poroajelu-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/husky-safari-poroajelu-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/guide/dog-sledding-reindeer-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/husky-safari-poroajelu-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/en/guide/dog-sledding-reindeer-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/husky-safari-poroajelu-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/guide/dog-sledding-reindeer-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/husky-safari-poroajelu-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
