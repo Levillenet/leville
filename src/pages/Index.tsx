@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 const About = lazy(() => import("@/components/About"));
 const Features = lazy(() => import("@/components/Features"));
 const NewsHighlight = lazy(() => import("@/components/NewsHighlight"));
+const GuideTeaser = lazy(() => import("@/components/GuideTeaser"));
 import WhatsAppChat from "@/components/WhatsAppChat";
 import HreflangTags from "@/components/HreflangTags";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
@@ -140,6 +141,7 @@ const Index = ({ lang = "fi" }: IndexProps) => {
         <main>
           <Hero lang={lang} />
           <Suspense fallback={<div className="min-h-[200px]" />}>
+            <GuideTeaser lang={lang} />
             <About lang={lang} />
             <NewsHighlight lang={lang} />
             <Features lang={lang} />
