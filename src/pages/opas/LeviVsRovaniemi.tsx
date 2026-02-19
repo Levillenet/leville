@@ -397,7 +397,7 @@ const LeviVsRovaniemi = () => {
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">Hintataso</h2>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Hintataso on molemmissa kohteissa tyypillistä Lappia – eli ei halpaa, mutta vastinetta saa. Rovaniemellä kaupunkihotellit voivat olla edullisempia kuin Levin tunturimajoitukset sesonkiaikaan, mutta Joulupukin kylän läheisyydessä hinnat nousevat nopeasti. Levillä laaja majoitusvalikoima (studiot, huoneistot, mökit) pitää hintakilpailun kohtuullisena. Ravintolahinnat ovat samankaltaisia. Käytännön ero syntyy aktiviteeteissa: Levillä laskettelu ja monet luontoaktiviteetit ovat helposti saavutettavissa ilman erillisiä kuljetuksia, kun taas Rovaniemellä safarit ja retket sisältävät usein kuljetuksen kaupungin ulkopuolelle, mikä nostaa hintaa.
+                Hintataso on molemmissa kohteissa tyypillistä Lappia – eli ei halpaa, mutta vastinetta saa. Huomionarvoista on, että Rovaniemellä majoituksen hintataso on joulu–helmikuussa melko selvästi Leviä kalliimpi – erityisesti Joulupukin kylän lähellä ja suosituimmissa hotelleissa hinnat nousevat nopeasti. Levillä laaja majoitusvalikoima (studiot, huoneistot, mökit) pitää hintakilpailun kohtuullisena, ja suoraan majoittajalta varaamalla saa usein parhaan hinnan. Ravintolahinnat ovat samankaltaisia. Käytännön ero syntyy myös aktiviteeteissa: Levillä laskettelu ja monet luontoaktiviteetit ovat helposti saavutettavissa ilman erillisiä kuljetuksia, kun taas Rovaniemellä safarit ja retket sisältävät usein kuljetuksen kaupungin ulkopuolelle, mikä nostaa hintaa.
               </p>
             </section>
 
