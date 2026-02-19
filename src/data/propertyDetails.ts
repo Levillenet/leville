@@ -64,7 +64,8 @@ const defaultPropertyDetails: PropertyDetail[] = [
   
   // Other
   { id: "419423", name: "Levistar Studio with Sauna", cleaningFee: 0, bookingUrl: "", linenFee: 19, maxGuests: 2, whatsappNumber: "+35844131313", oneNightDiscount: null, twoNightDiscount: null, longStayDiscount: null, showDiscount: false, category: 'other', specialOffer: false, skiPassOffer: false, skiPassStartDate: null, skiPassEndDate: null },
-  { id: "625005", name: "Room 5 (Moonlight 415)", cleaningFee: 0, bookingUrl: "", linenFee: 19, maxGuests: 2, whatsappNumber: "+35844131313", oneNightDiscount: null, twoNightDiscount: null, longStayDiscount: null, showDiscount: false, category: 'other', specialOffer: false, skiPassOffer: false, skiPassStartDate: null, skiPassEndDate: null }
+  { id: "625005", name: "Room 5 (Moonlight 415)", cleaningFee: 0, bookingUrl: "", linenFee: 19, maxGuests: 2, whatsappNumber: "+35844131313", oneNightDiscount: null, twoNightDiscount: null, longStayDiscount: null, showDiscount: false, category: 'other', specialOffer: false, skiPassOffer: false, skiPassStartDate: null, skiPassEndDate: null },
+  { id: "645946", name: "Moonlight 415", cleaningFee: 59, bookingUrl: "", linenFee: 19, maxGuests: 2, whatsappNumber: "+35844131313", oneNightDiscount: null, twoNightDiscount: null, longStayDiscount: null, showDiscount: false, category: 'other', specialOffer: false, skiPassOffer: false, skiPassStartDate: null, skiPassEndDate: null }
 ];
 
 // Database property settings interface (from Supabase)
