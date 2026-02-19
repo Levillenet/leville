@@ -1045,4 +1045,22 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Sauna Guide FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/sauna-levilla</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/sauna-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/finnish-sauna-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/sauna-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/finnish-sauna-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/sauna-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/finnish-sauna-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/sauna-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
