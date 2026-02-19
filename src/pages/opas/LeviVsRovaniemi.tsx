@@ -135,7 +135,7 @@ const LeviVsRovaniemi = () => {
                       {[
                         "Aito hiihtokeskus Levitunturin juurella",
                         "43 rinnettä, 28 hissiä, 230 km latuja",
-                        "Erinomainen lumivarmuus – lunta lokakuusta toukokuulle",
+                        "Erinomainen lumivarmuus – laskettelukausi lokakuusta toukokuulle, luonnonlunta viimeistään joulukuussa",
                         "Kompakti keskusta, kaikki kävelymatkan päässä",
                         "Tunturiluonto, hiljaisuus, revontulet",
                         "Kelkkasafarit, huskyt, porot, spa – kaikki paikan päällä",
@@ -203,7 +203,7 @@ const LeviVsRovaniemi = () => {
                       ["Snow park", "South Park, Junior South Park, Fun Park", "Snow Park (pieni)"],
                       ["World Cup -kisat", "FIS-alppihiihdon maailmancup vuosittain", "Ei"],
                       ["Murtomaahiihtoladut", "230 km", "~80 km"],
-                      ["Laskukausi", "Lokakuu–toukokuu", "Marraskuu–huhtikuu"],
+                      ["Laskukausi", "Lokakuu–toukokuu (tykkilumi lokakuusta, luonnonlumi joulukuusta)", "Marraskuu–huhtikuu"],
                     ].map((row, idx) => (
                       <TableRow key={idx} className={`${idx % 2 === 0 ? "bg-background" : "bg-muted/20"} hover:bg-muted/40 transition-colors`}>
                         <TableCell className="font-medium text-foreground">{row[0]}</TableCell>
@@ -227,7 +227,7 @@ const LeviVsRovaniemi = () => {
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">Lumensyvyys ja lumivarmuus</h2>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                Levin sijainti 170 km napapiirin pohjoispuolella tarkoittaa pidempää ja lumivarmaempaa talvea kuin Rovaniemellä. Levillä ensilumi sataa tyypillisesti jo lokakuussa ja lumi pysyy toukokuulle asti. Lumensyvyys nousee parhaimmillaan 80–100 senttimetriin, mikä takaa erinomaiset olosuhteet laskettelulle, hiihtoladuille ja kaikille talviaktiviteeteille koko kauden ajan.
+                Levin sijainti 170 km napapiirin pohjoispuolella tarkoittaa pidempää ja lumivarmaempaa talvea kuin Rovaniemellä. Laskettelukausi ja hiihtoladut aukeavat Levillä jo lokakuussa tykkilumen avulla, ja luonnonlunta on tyypillisesti viimeistään joulukuun alussa. Lumi pysyy toukokuulle asti. Lumensyvyys nousee parhaimmillaan 80–100 senttimetriin, mikä takaa erinomaiset olosuhteet koko pitkän kauden ajan.
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                 Rovaniemi sijaitsee napapiirin tuntumassa, noin 170 km etelämpänä. Tämä näkyy selvästi lyhyempänä lumikautena ja ohuempana lumipeitteenä – erityisesti alkutalvesta ja keväällä ero voi olla merkittävä. Joulusesonkiin ei aina ole taattua paksua lumipeitettä Rovaniemellä, kun taas Levillä lunta on käytännössä aina reilusti joulukuussa.

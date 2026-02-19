@@ -135,7 +135,7 @@ const LeviVsRovaniemiComparison = () => {
                       {[
                         "A real ski resort at the base of Levi Fell",
                         "43 slopes, 28 lifts, 230 km of cross-country trails",
-                        "Excellent snow reliability – snow from October to May",
+                        "Excellent snow reliability – ski season from October to May, natural snow by December",
                         "Compact centre, everything within walking distance",
                         "Fell nature, silence, northern lights",
                         "Snowmobile safaris, huskies, reindeer, spa – all on site",
@@ -203,7 +203,7 @@ const LeviVsRovaniemiComparison = () => {
                       ["Snow park", "South Park, Junior South Park, Fun Park", "Snow Park (small)"],
                       ["World Cup venue", "FIS Alpine Ski World Cup annually", "No"],
                       ["Cross-country trails", "230 km", "~80 km"],
-                      ["Season", "October–May", "November–April"],
+                      ["Season", "October–May (machine-made snow from Oct, natural snow from Dec)", "November–April"],
                     ].map((row, idx) => (
                       <TableRow key={idx} className={`${idx % 2 === 0 ? "bg-background" : "bg-muted/20"} hover:bg-muted/40 transition-colors`}>
                         <TableCell className="font-medium text-foreground">{row[0]}</TableCell>
@@ -227,7 +227,7 @@ const LeviVsRovaniemiComparison = () => {
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">Snow Depth & Snow Reliability</h2>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                Levi's location 170 km north of the Arctic Circle means a longer and more snow-reliable winter than Rovaniemi. In Levi, the first snow typically falls in October and stays until May. Snow depth peaks at 80–100 centimetres, ensuring excellent conditions for skiing, cross-country trails and all winter activities throughout the entire season.
+                Levi's location 170 km north of the Arctic Circle means a longer and more snow-reliable winter than Rovaniemi. The ski season and cross-country trails open in Levi as early as October with machine-made snow, and natural snow typically arrives by early December. Snow stays until May. Snow depth peaks at 80–100 centimetres, ensuring excellent conditions throughout the long season.
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                 Rovaniemi sits near the Arctic Circle, about 170 km further south. This translates to a noticeably shorter snow season and thinner snow cover – especially in early winter and spring, the difference can be significant. A thick blanket of snow is not always guaranteed in Rovaniemi for the Christmas season, while Levi virtually always has plenty of snow in December.
