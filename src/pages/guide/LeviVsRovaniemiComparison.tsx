@@ -396,7 +396,7 @@ const LeviVsRovaniemiComparison = () => {
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">Price Level</h2>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Price levels at both destinations are typical Lapland – not cheap, but good value. City hotels in Rovaniemi can be more affordable than Levi's fell accommodation during peak season, but prices near Santa Claus Village rise quickly. Levi's wide accommodation selection (studios, apartments, cabins) keeps competition and prices reasonable. Restaurant prices are similar. The practical difference comes with activities: in Levi, skiing and many nature activities are easily accessible without separate transport, while in Rovaniemi safaris and excursions often include transport outside the city, which adds to the cost.
+                Price levels at both destinations are typical Lapland – not cheap, but good value. Notably, accommodation prices in Rovaniemi are noticeably higher than in Levi during December–February – especially near Santa Claus Village and in the most popular hotels, prices rise quickly. Levi's wide accommodation selection (studios, apartments, cabins) keeps competition and prices reasonable, and booking directly from the host often gets you the best price. Restaurant prices are similar. The practical difference also comes with activities: in Levi, skiing and many nature activities are easily accessible without separate transport, while in Rovaniemi safaris and excursions often include transport outside the city, which adds to the cost.
               </p>
             </section>
 
