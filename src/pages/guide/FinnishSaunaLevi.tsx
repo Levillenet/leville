@@ -328,6 +328,22 @@ const FinnishSaunaLevi = () => {
                 <h4 className="font-semibold text-foreground">Switching off</h4>
                 <p className="text-sm text-muted-foreground">Turn the timer switch counterclockwise to the 0 position.</p>
               </div>
+
+              {/* Heater variations and visual guide */}
+              <div className="bg-background/60 rounded-lg p-4 border border-border/30 space-y-2">
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Heaters vary slightly between accommodations, but most electric sauna heaters work as described above.
+                </p>
+                <a
+                  href="/docs/sahkosauna-ohje-en.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-primary font-medium hover:underline"
+                >
+                  📄 Detailed visual guide to the most common sauna heater
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
 
             {/* Tips */}

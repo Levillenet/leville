@@ -328,6 +328,22 @@ const SaunaLevilla = () => {
                 <h4 className="font-semibold text-foreground">Kiukaan sammutus</h4>
                 <p className="text-sm text-muted-foreground">Väännä ajastinkytkimestä vastapäivään 0-asentoon.</p>
               </div>
+
+              {/* Kiukaiden erot ja kuvaohje */}
+              <div className="bg-background/60 rounded-lg p-4 border border-border/30 space-y-2">
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Kiukaita on hieman erilaisia, mutta yleisimmin sähkökiuas toimii yllä esitetyllä tavalla.
+                </p>
+                <a
+                  href="/docs/sahkosauna-ohje-fi.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-primary font-medium hover:underline"
+                >
+                  📄 Yksityiskohtainen kuvaohje yleisimpään saunan kiukaaseen
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
 
             {/* Vinkkejä */}
