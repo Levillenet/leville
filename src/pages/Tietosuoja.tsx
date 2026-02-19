@@ -204,6 +204,37 @@ const content: Record<Language, {
         text: "Vous avez le droit d'accéder, de rectifier ou de demander la suppression de vos données. Contactez info@leville.net."
       }
     ]
+  },
+  nl: {
+    title: "Privacybeleid",
+    metaTitle: "Privacybeleid | Leville.net",
+    metaDescription: "Privacybeleid van Leville.net. Lees hoe wij uw persoonsgegevens verwerken.",
+    sections: [
+      {
+        heading: "Verwerkingsverantwoordelijke",
+        text: "Leville.net (KvK-nummer: 2965553-7)\nLevi Centrum, 99130 Sirkka, Finland\ninfo@leville.net\n+358 44 131 313"
+      },
+      {
+        heading: "Verzamelde gegevens",
+        text: "Wij verzamelen alleen gegevens die nodig zijn voor het verwerken van boekingen: naam, e-mail, telefoonnummer en boekingsgegevens. Voor noorderlichtmeldingen slaan wij uw e-mailadres op."
+      },
+      {
+        heading: "Doel van de verwerking",
+        text: "Gegevens worden uitsluitend gebruikt voor het verwerken van boekingen, klantenservice en het verzenden van gevraagde meldingen. Wij gebruiken gegevens niet voor marketing zonder aparte toestemming."
+      },
+      {
+        heading: "Opslag en beveiliging",
+        text: "Gegevens worden opgeslagen op beveiligde servers binnen de EU/EER. Boekingsinformatie wordt bewaard volgens de boekhoudwetgeving. Toegang is beperkt tot noodzakelijk personeel."
+      },
+      {
+        heading: "Cookies",
+        text: "Wij gebruiken analytische cookies (Google Analytics, Microsoft Clarity) om de website te verbeteren. U kunt cookies blokkeren in uw browserinstellingen."
+      },
+      {
+        heading: "Uw rechten",
+        text: "U hebt het recht om uw gegevens in te zien, te corrigeren of te laten verwijderen. Neem contact op via info@leville.net."
+      }
+    ]
   }
 };
 

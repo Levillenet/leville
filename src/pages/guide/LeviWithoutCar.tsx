@@ -239,7 +239,7 @@ const translations = {
 };
 
 const localeMap: Record<Language, string> = {
-  fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR"
+  fi: "fi_FI", en: "en_US", sv: "sv_SE", de: "de_DE", es: "es_ES", fr: "fr_FR", nl: "nl_NL"
 };
 
 const LeviWithoutCar = ({ lang = "fi" }: LeviWithoutCarProps) => {
