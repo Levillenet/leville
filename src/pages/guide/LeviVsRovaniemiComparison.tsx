@@ -135,6 +135,7 @@ const LeviVsRovaniemiComparison = () => {
                       {[
                         "A real ski resort at the base of Levi Fell",
                         "43 slopes, 28 lifts, 230 km of cross-country trails",
+                        "Excellent snow reliability – snow from October to May",
                         "Compact centre, everything within walking distance",
                         "Fell nature, silence, northern lights",
                         "Snowmobile safaris, huskies, reindeer, spa – all on site",
@@ -220,6 +221,25 @@ const LeviVsRovaniemiComparison = () => {
               <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
                 In skiing, this is not even a comparison. Levi is Finland's largest ski resort with 43 slopes, two gondolas and over €64 million in recent lift investments. Ounasvaara in Rovaniemi is a pleasant small local hill with 10 slopes and a 140-metre vertical drop – great for beginners and locals, but not a ski holiday destination. If skiing or cross-country skiing is part of your holiday, the choice is clear: Levi.
               </p>
+            </section>
+
+            {/* Snow Depth & Reliability */}
+            <section className="mb-12">
+              <h2 className="text-2xl font-bold text-foreground mb-6">Snow Depth & Snow Reliability</h2>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                Levi's location 170 km north of the Arctic Circle means a longer and more snow-reliable winter than Rovaniemi. In Levi, the first snow typically falls in October and stays until May. Snow depth peaks at 80–100 centimetres, ensuring excellent conditions for skiing, cross-country trails and all winter activities throughout the entire season.
+              </p>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                Rovaniemi sits near the Arctic Circle, about 170 km further south. This translates to a noticeably shorter snow season and thinner snow cover – especially in early winter and spring, the difference can be significant. A thick blanket of snow is not always guaranteed in Rovaniemi for the Christmas season, while Levi virtually always has plenty of snow in December.
+              </p>
+              <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 mt-4">
+                <p className="text-sm text-muted-foreground">
+                  📊 <strong className="text-foreground">Compare for yourself:</strong> See historical snow depth data for the Levi area in our interactive chart and compare snow conditions across different years for any date range.{" "}
+                  <Link to="/en/levi/weather-in-levi" className="text-primary font-medium hover:underline inline-flex items-center gap-1">
+                    View snow depth chart <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </p>
+              </div>
             </section>
 
             {/* Santa Claus */}
