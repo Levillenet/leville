@@ -431,7 +431,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 text-center">
                 {c.quickLinksTitle}
               </h2>
-              <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+              <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-4">
                 {/* Weather Link */}
                 <Link 
                   to={weatherLinks[lang]}
@@ -439,19 +439,18 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 >
                   <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
                     <CardContent className="p-4 sm:p-5">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                          <CloudSun className="w-6 h-6 text-primary" />
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <CloudSun className="w-5 h-5 text-primary" />
                         </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
                             {c.weatherLinkTitle}
                           </h3>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-muted-foreground mt-0.5">
                             {c.weatherLinkDesc}
                           </p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
                       </div>
                     </CardContent>
                   </Card>
@@ -464,19 +463,18 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 >
                   <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
                     <CardContent className="p-4 sm:p-5">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-emerald-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                          <Sparkles className="w-6 h-6 text-emerald-400" />
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Sparkles className="w-5 h-5 text-emerald-400" />
                         </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
                             {c.northernLightsTitle}
                           </h3>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-muted-foreground mt-0.5">
                             {c.northernLightsDesc}
                           </p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
                       </div>
                     </CardContent>
                   </Card>
@@ -489,19 +487,18 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 >
                   <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
                     <CardContent className="p-4 sm:p-5">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-amber-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                          <Scale className="w-6 h-6 text-amber-400" />
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Scale className="w-5 h-5 text-amber-400" />
                         </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
                             {c.comparisonTitle}
                           </h3>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-muted-foreground mt-0.5">
                             {c.comparisonDesc}
                           </p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
                       </div>
                     </CardContent>
                   </Card>
@@ -514,44 +511,18 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 >
                   <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
                     <CardContent className="p-4 sm:p-5">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-rose-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                          <Scale className="w-6 h-6 text-rose-400" />
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-rose-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Scale className="w-5 h-5 text-rose-400" />
                         </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
                             {c.comparisonRovTitle}
                           </h3>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-muted-foreground mt-0.5">
                             {c.comparisonRovDesc}
                           </p>
                         </div>
-                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-
-                {/* Sauna Guide Link */}
-                <Link 
-                  to={lang === "en" ? "/guide/finnish-sauna-in-levi" : "/opas/sauna-levilla"}
-                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
-                >
-                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
-                    <CardContent className="p-4 sm:p-5">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-orange-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                          <Flame className="w-6 h-6 text-orange-400" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                            {c.saunaTitle}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {c.saunaDesc}
-                          </p>
-                        </div>
-                        <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all flex-shrink-0" />
                       </div>
                     </CardContent>
                   </Card>
