@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import saunaTimerDial from "@/assets/sauna-timer-dial.png";
+// Timer dial image served from /public for better caching
 import { useLocation, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -301,9 +301,13 @@ const FinnishSaunaLevi = () => {
                   {/* Timer dial image card */}
                   <div className="bg-background/60 rounded-lg p-4 border border-border/30 flex flex-col items-center justify-center">
                     <img 
-                      src={saunaTimerDial} 
+                      src="/images/sauna-timer-dial.png" 
                       alt="Sauna timer dial showing Range A (1-4 hours, immediate heating) and Range B (1-8 hours, delayed heating)" 
                       className="w-full max-w-[180px] object-contain"
+                      loading="lazy"
+                      width={180}
+                      height={180}
+                      decoding="async"
                     />
                     <p className="text-xs text-muted-foreground text-center mt-2">Timer switch with ranges A & B</p>
                   </div>
