@@ -293,31 +293,31 @@ const FinnishSaunaLevi = () => {
                 </h4>
                 <p className="text-sm text-muted-foreground">The timer switch has two ranges:</p>
 
-                <div className="flex flex-col md:flex-row gap-6 items-start">
-                  {/* Timer dial image */}
-                  <div className="mx-auto md:mx-0 flex-shrink-0">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-stretch">
+                  {/* Timer dial image card */}
+                  <div className="bg-background/60 rounded-lg p-4 border border-border/30 flex flex-col items-center justify-center">
                     <img 
                       src={saunaTimerDial} 
                       alt="Sauna timer dial showing Range A (1-4 hours, immediate heating) and Range B (1-8 hours, delayed heating)" 
-                      className="w-56 h-56 object-contain"
+                      className="w-full max-w-[180px] object-contain"
                     />
-                    <p className="text-xs text-muted-foreground text-center mt-1">Timer switch with ranges A & B</p>
+                    <p className="text-xs text-muted-foreground text-center mt-2">Timer switch with ranges A & B</p>
                   </div>
 
-                  {/* Range descriptions */}
-                  <div className="grid sm:grid-cols-2 gap-4 flex-1">
-                    <div className="bg-background/60 rounded-lg p-4 border border-border/30">
-                      <div className="font-semibold text-foreground mb-1 text-sm">Range A (1–4 hours) – Immediate heating</div>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        The heating elements switch on immediately and the heater stays warm for the selected number of hours (h).
-                      </p>
-                    </div>
-                    <div className="bg-background/60 rounded-lg p-4 border border-border/30">
-                      <div className="font-semibold text-foreground mb-1 text-sm">Range B (1–8 hours) – Delayed heating</div>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        A preselected time after which the heater will switch on. For example, if you select 4, the heater will turn on after four hours and stay warm for four hours unless it is manually switched off earlier.
-                      </p>
-                    </div>
+                  {/* Range A */}
+                  <div className="bg-background/60 rounded-lg p-4 border border-border/30">
+                    <div className="font-semibold text-foreground mb-1 text-sm">Range A (1–4 hours) – Immediate heating</div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      The heating elements switch on immediately and the heater stays warm for the selected number of hours (h).
+                    </p>
+                  </div>
+
+                  {/* Range B */}
+                  <div className="bg-background/60 rounded-lg p-4 border border-border/30">
+                    <div className="font-semibold text-foreground mb-1 text-sm">Range B (1–8 hours) – Delayed heating</div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      A preselected time after which the heater will switch on. For example, if you select 4, the heater will turn on after four hours and stay warm for four hours unless it is manually switched off earlier.
+                    </p>
                   </div>
                 </div>
               </div>
