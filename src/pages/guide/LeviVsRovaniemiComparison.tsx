@@ -20,17 +20,32 @@ import { Badge } from "@/components/ui/badge";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 
-const LeviVsRovaniemiComparison = () => {
+import type { Language } from "@/translations";
+import { routeConfig } from "@/translations";
+
+interface LeviVsRovaniemiComparisonProps {
+  lang?: Language;
+}
+
+const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonProps) => {
   const location = useLocation();
 
-  const customUrls = {
-    fi: "/opas/levi-vs-rovaniemi" as const,
-    en: "/guide/levi-vs-rovaniemi-comparison" as const,
+  const localeMap: Record<string, string> = {
+    en: "en_US", nl: "nl_NL", de: "de_DE", fr: "fr_FR", es: "es_ES", sv: "sv_SE"
+  };
+
+  const customUrls: Record<string, string> = {
+    fi: "/opas/levi-vs-rovaniemi",
+    en: "/guide/levi-vs-rovaniemi-comparison",
+    nl: "/nl/gids/levi-vs-rovaniemi",
+    de: "/de/guide/levi-vs-rovaniemi",
+    fr: "/fr/guide/levi-vs-rovaniemi",
+    es: "/es/guia/levi-vs-rovaniemi",
   };
 
   const breadcrumbItems = [
-    { label: "Home", href: "/en" },
-    { label: "Levi", href: "/en/levi" },
+    { label: lang === "nl" ? "Home" : lang === "de" ? "Startseite" : lang === "fr" ? "Accueil" : lang === "es" ? "Inicio" : "Home", href: routeConfig.home[lang] || "/en" },
+    { label: "Levi", href: routeConfig.levi[lang] || "/en/levi" },
     { label: "Levi vs. Rovaniemi", href: "" },
   ];
 
@@ -61,17 +76,17 @@ const LeviVsRovaniemiComparison = () => {
 
   return (
     <>
-      <HreflangTags currentPath={location.pathname} currentLang="en" customUrls={customUrls} />
+      <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={customUrls} />
       <Helmet>
-        <html lang="en" />
+        <html lang={lang} />
         <title>Levi vs. Rovaniemi – Which Lapland Destination Is Right for You? | Leville.net</title>
         <meta name="description" content="Levi or Rovaniemi? An honest comparison of a Lapland fell village and the capital of Lapland. Skiing, activities, Santa Claus, northern lights, services and prices." />
         <link rel="canonical" href="https://leville.net/guide/levi-vs-rovaniemi-comparison" />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://leville.net/guide/levi-vs-rovaniemi-comparison" />
+        <meta property="og:url" content={`https://leville.net${customUrls[lang] || customUrls.en}`} />
         <meta property="og:title" content="Levi vs. Rovaniemi – Which Lapland Destination Is Right for You? | Leville.net" />
         <meta property="og:description" content="Levi or Rovaniemi? An honest comparison of a Lapland fell village and the capital of Lapland." />
-        <meta property="og:locale" content="en_US" />
+        <meta property="og:locale" content={localeMap[lang] || "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -104,7 +119,7 @@ const LeviVsRovaniemiComparison = () => {
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />
         <Header />
-        <Breadcrumbs items={breadcrumbItems} />
+        <Breadcrumbs lang={lang} items={breadcrumbItems} />
 
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4 max-w-5xl">
@@ -517,13 +532,13 @@ const LeviVsRovaniemiComparison = () => {
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild variant="outline">
-                <Link to="/en/levi">
+                <Link to={routeConfig.levi[lang] || "/en/levi"}>
                   <ArrowRight className="w-4 h-4 mr-2 rotate-180" />
                   Back to Levi Guide
                 </Link>
               </Button>
               <Button asChild>
-                <Link to="/en/accommodations">
+                <Link to={routeConfig.accommodations[lang] || "/en/accommodations"}>
                   Book accommodation
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
@@ -532,9 +547,9 @@ const LeviVsRovaniemiComparison = () => {
           </div>
         </main>
 
-        <Footer lang="en" />
-        <WhatsAppChat lang="en" />
-        <StickyBookingBar lang="en" />
+        <Footer lang={lang} />
+        <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );

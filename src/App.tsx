@@ -240,6 +240,15 @@ const App = () => (
               <Route path="/guide/heating-systems-in-levi" element={<HeatingSystemsInLevi lang="en" />} />
               <Route path="/guide/levi-vs-yllas-vs-ruka-comparison" element={<LeviVsYllasVsRukaEN />} />
               <Route path="/guide/levi-vs-rovaniemi-comparison" element={<LeviVsRovaniemiComparison />} />
+              {/* Comparison pages - NL/DE/FR/ES */}
+              <Route path="/nl/gids/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="nl" />} />
+              <Route path="/nl/gids/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="nl" />} />
+              <Route path="/de/guide/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="de" />} />
+              <Route path="/de/guide/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="de" />} />
+              <Route path="/fr/guide/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="fr" />} />
+              <Route path="/fr/guide/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="fr" />} />
+              <Route path="/es/guia/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="es" />} />
+              <Route path="/es/guia/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="es" />} />
               <Route path="/guide/finnish-sauna-in-levi" element={<FinnishSaunaLevi />} />
               {/* Holiday Planner */}
               <Route path="/lomasuunnittelija" element={<HolidayPlanner />} />
