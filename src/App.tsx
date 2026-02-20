@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "./components/ScrollToTop";
 import PageTransition from "./components/PageTransition";
@@ -89,7 +89,7 @@ const App = () => (
               <Route path="/varausehdot" element={<Varausehdot lang="fi" />} />
               <Route path="/tietosuoja" element={<Tietosuoja lang="fi" />} />
               <Route path="/yritys" element={<Yritys />} />
-              <Route path="/sauna" element={<Sauna />} />
+              <Route path="/sauna" element={<Navigate to="/guide/finnish-sauna-in-levi" replace />} />
               <Route path="/tietovisa" element={<Tietovisa />} />
               <Route path="/akkilahdot" element={<Akkilahdot />} />
               
