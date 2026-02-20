@@ -274,6 +274,10 @@ const FinnishSaunaLevi = () => {
                 <h3 className="text-xl font-bold text-foreground">🔥 How to Heat an Electric Sauna in Your Accommodation</h3>
               </div>
 
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                This guide covers the most common type of electric sauna heater – one with a <strong>manual timer dial</strong>. Some newer saunas may have a <strong>digital control panel</strong>, which is usually simpler to operate: just press the power button to turn it on and off. The instructions below apply to the traditional manual timer switch.
+              </p>
+
               {/* Before heating */}
               <div className="space-y-2">
                 <h4 className="font-semibold text-foreground flex items-center gap-2">
