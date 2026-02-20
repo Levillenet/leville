@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import saunaTimerDial from "@/assets/sauna-timer-dial.png";
 import { useLocation, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -292,18 +293,31 @@ const FinnishSaunaLevi = () => {
                 </h4>
                 <p className="text-sm text-muted-foreground">The timer switch has two ranges:</p>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="bg-background/60 rounded-lg p-4 border border-border/30">
-                    <div className="font-semibold text-foreground mb-1 text-sm">Range A (1–4 hours) – Immediate heating</div>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      The heating elements switch on immediately and the heater stays warm for the selected number of hours (h).
-                    </p>
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                  {/* Timer dial image */}
+                  <div className="mx-auto md:mx-0 flex-shrink-0">
+                    <img 
+                      src={saunaTimerDial} 
+                      alt="Sauna timer dial showing Range A (1-4 hours, immediate heating) and Range B (1-8 hours, delayed heating)" 
+                      className="w-48 h-48 object-contain rounded-lg bg-white/90 p-2"
+                    />
+                    <p className="text-xs text-muted-foreground text-center mt-1">Timer switch with ranges A & B</p>
                   </div>
-                  <div className="bg-background/60 rounded-lg p-4 border border-border/30">
-                    <div className="font-semibold text-foreground mb-1 text-sm">Range B (1–8 hours) – Delayed heating</div>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      A preselected time after which the heater will switch on. For example, if you select 4, the heater will turn on after four hours and stay warm for four hours unless it is manually switched off earlier.
-                    </p>
+
+                  {/* Range descriptions */}
+                  <div className="grid sm:grid-cols-2 gap-4 flex-1">
+                    <div className="bg-background/60 rounded-lg p-4 border border-border/30">
+                      <div className="font-semibold text-foreground mb-1 text-sm">Range A (1–4 hours) – Immediate heating</div>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        The heating elements switch on immediately and the heater stays warm for the selected number of hours (h).
+                      </p>
+                    </div>
+                    <div className="bg-background/60 rounded-lg p-4 border border-border/30">
+                      <div className="font-semibold text-foreground mb-1 text-sm">Range B (1–8 hours) – Delayed heating</div>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        A preselected time after which the heater will switch on. For example, if you select 4, the heater will turn on after four hours and stay warm for four hours unless it is manually switched off earlier.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -338,10 +352,10 @@ const FinnishSaunaLevi = () => {
                   href="/docs/sahkosauna-ohje-en.jpg"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-primary font-medium hover:underline"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-primary bg-primary/10 border border-primary/30 rounded-lg px-4 py-2.5 hover:bg-primary/20 transition-colors"
                 >
                   📄 Detailed visual guide to the most common sauna heater
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
             </div>
