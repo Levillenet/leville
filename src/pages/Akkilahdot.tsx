@@ -275,6 +275,39 @@ const content = {
     filterAll: "Tous",
     filterShort: "1-2 nuits",
     filterLong: "3+ nuits"
+  },
+  nl: {
+    meta: {
+      title: "Levi Last-Minute Aanbiedingen – Betaalbare Accommodatie | Leville.net",
+      description: "Vind de beste Levi last-minute aanbiedingen! Betaalbare appartementen en chalets op het laatste moment. Boek nu en bespaar – beperkte beschikbaarheid.",
+      keywords: "Levi last minute, Levi aanbiedingen, Levi betaalbare accommodatie",
+      canonical: "https://leville.net/nl/last-minute"
+    },
+    title: "Levi Last-Minute Aanbiedingen",
+    subtitle: "Grijp uw kans! Boekingen worden via WhatsApp gedaan zodat wij de beschikbaarheid kunnen bevestigen.",
+    badge: "🔥 Last Minute",
+    perNight: "/ nacht",
+    perPerson: "/ persoon",
+    total: "totaal",
+    bookWhatsApp: "Boek via WhatsApp",
+    exploreApartment: "Bekijk appartement",
+    priceNote: "Prijs inclusief schoonmaak. Linnengoed 19€/persoon.",
+    sameDayNote: "Vraag de prijs voor snel beschikbare accommodatie",
+    priceNotAvailable: "Prijs niet beschikbaar – bevestig via WhatsApp",
+    discountBadge: "Snelle reiziger bonus!",
+    specialOfferBadge: "Speciale aanbieding",
+    skiPassBadge: "2 skipassen inbegrepen bij deze accommodatie!",
+    noDeals: "Geen last-minute aanbiedingen beschikbaar op dit moment. Kom later terug!",
+    whyTitle: "Waarom last-minute?",
+    whyItems: [
+      "Tot 50% lagere prijzen",
+      "Dezelfde kwaliteitsaccommodaties",
+      "Snel boeken via WhatsApp",
+      "Beperkte beschikbaarheid – wees er snel bij!"
+    ],
+    filterAll: "Alle",
+    filterShort: "1-2 nachten",
+    filterLong: "3+ nachten"
   }
 };
 
@@ -357,7 +390,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // Nights text by language - memoized
   const nightsTextMap = useMemo(() => ({
     fi: ['yö', 'yötä'], en: ['night', 'nights'], sv: ['natt', 'nätter'],
-    de: ['Nacht', 'Nächte'], es: ['noche', 'noches'], fr: ['nuit', 'nuits']
+    de: ['Nacht', 'Nächte'], es: ['noche', 'noches'], fr: ['nuit', 'nuits'], nl: ['nacht', 'nachten']
   }), []);
 
   const nightsText = useCallback((nights: number): string => {
@@ -490,7 +523,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       sv: `Hej, jag är intresserad av ett sista minuten-erbjudande: ${marketingName}, för ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Pris: ${totalPrice}€.` : ""} Är boendet fortfarande ledigt?`,
       de: `Hallo, ich interessiere mich für ein Last-Minute-Angebot: ${marketingName}, für ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Preis: ${totalPrice}€.` : ""} Ist die Unterkunft noch verfügbar?`,
       es: `Hola, estoy interesado en una oferta de última hora: ${marketingName}, para ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Precio: ${totalPrice}€.` : ""} ¿Está disponible el alojamiento?`,
-      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${marketingName}, pour ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Prix : ${totalPrice}€.` : ""} Le logement est-il encore disponible ?`
+      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${marketingName}, pour ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Prix : ${totalPrice}€.` : ""} Le logement est-il encore disponible ?`,
+      nl: `Hallo, ik ben geïnteresseerd in een last-minute aanbieding: ${marketingName}, voor ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Prijs: ${totalPrice}€.` : ""} Is de accommodatie nog beschikbaar?`
     };
     
     const message = messages[lang] || messages.fi;
@@ -543,8 +577,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
         <meta property="og:image" content="https://leville.net/og-akkilahdot.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content={lang === "fi" ? "Leville.net mökkimajoitus revontulien alla Levillä" : lang === "en" ? "Leville.net cabin accommodation under the northern lights in Levi" : lang === "sv" ? "Leville.net stugboende under norrskenet i Levi" : lang === "de" ? "Leville.net Hüttenunterkunft unter dem Nordlicht in Levi" : lang === "es" ? "Alojamiento en cabaña Leville.net bajo la aurora boreal en Levi" : "Hébergement en chalet Leville.net sous les aurores boréales à Levi"} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "en" ? "en_US" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : "fr_FR"} />
+        <meta property="og:image:alt" content={lang === "fi" ? "Leville.net mökkimajoitus revontulien alla Levillä" : lang === "en" ? "Leville.net cabin accommodation under the northern lights in Levi" : lang === "sv" ? "Leville.net stugboende under norrskenet i Levi" : lang === "de" ? "Leville.net Hüttenunterkunft unter dem Nordlicht in Levi" : lang === "es" ? "Alojamiento en cabaña Leville.net bajo la aurora boreal en Levi" : lang === "nl" ? "Leville.net accommodatie onder het noorderlicht in Levi" : "Hébergement en chalet Leville.net sous les aurores boréales à Levi"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "en" ? "en_US" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : lang === "nl" ? "nl_NL" : "fr_FR"} />
         <meta property="og:site_name" content="Leville.net" />
         
         <meta name="twitter:card" content="summary_large_image" />
