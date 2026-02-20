@@ -311,11 +311,11 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       activities: "/guide/activities-in-levi",
       travel: "/guide/travel-to-levi"
     },
-    sv: { seasons: "/sv/levi", activities: "/sv/levi", travel: "/sv/levi" },
-    de: { seasons: "/de/levi", activities: "/de/levi", travel: "/de/levi" },
-    es: { seasons: "/es/levi", activities: "/es/levi", travel: "/es/levi" },
-    fr: { seasons: "/fr/levi", activities: "/fr/levi", travel: "/fr/levi" },
-    nl: { seasons: "/nl/levi", activities: "/nl/levi", travel: "/nl/levi" }
+    sv: { seasons: "/guide/seasons-in-levi", activities: "/guide/activities-in-levi", travel: "/guide/travel-to-levi" },
+    de: { seasons: "/guide/seasons-in-levi", activities: "/guide/activities-in-levi", travel: "/guide/travel-to-levi" },
+    es: { seasons: "/guide/seasons-in-levi", activities: "/guide/activities-in-levi", travel: "/guide/travel-to-levi" },
+    fr: { seasons: "/guide/seasons-in-levi", activities: "/guide/activities-in-levi", travel: "/guide/travel-to-levi" },
+    nl: { seasons: "/guide/seasons-in-levi", activities: "/guide/activities-in-levi", travel: "/guide/travel-to-levi" }
   };
 
   const quizLinks: Record<Language, string> = {
@@ -339,7 +339,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     de: "/levi/saatieto-levilta",
     es: "/levi/saatieto-levilta",
     fr: "/levi/saatieto-levilta",
-    nl: "/levi/saatieto-levilta"
+    nl: "/en/levi/weather-in-levi"
   };
 
   const c = content[lang];
@@ -518,7 +518,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
 
                 {/* Comparison Link */}
                 <Link 
-                  to={lang === "en" ? "/guide/levi-vs-yllas-vs-ruka-comparison" : "/opas/levi-vs-yllas-vs-ruka"}
+                  to={lang === "fi" ? "/opas/levi-vs-yllas-vs-ruka" : "/guide/levi-vs-yllas-vs-ruka-comparison"}
                   className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
                 >
                   <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
@@ -542,7 +542,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
 
                 {/* Levi vs Rovaniemi Link */}
                 <Link 
-                  to={lang === "en" ? "/guide/levi-vs-rovaniemi-comparison" : "/opas/levi-vs-rovaniemi"}
+                  to={lang === "fi" ? "/opas/levi-vs-rovaniemi" : "/guide/levi-vs-rovaniemi-comparison"}
                   className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
                 >
                   <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
