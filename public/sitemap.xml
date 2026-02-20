@@ -11,6 +11,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -23,6 +24,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -35,6 +37,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -47,6 +50,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -59,6 +63,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -71,6 +76,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -85,6 +104,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unterkuenfte"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/alojamientos"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/hebergements"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/accommodaties"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/majoitukset"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -97,6 +117,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unterkuenfte"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/alojamientos"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/hebergements"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/accommodaties"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/majoitukset"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -109,6 +130,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unterkuenfte"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/alojamientos"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/hebergements"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/accommodaties"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/majoitukset"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -121,6 +143,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unterkuenfte"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/alojamientos"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/hebergements"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/accommodaties"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/majoitukset"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -133,6 +156,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unterkuenfte"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/alojamientos"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/hebergements"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/accommodaties"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/majoitukset"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -145,6 +169,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unterkuenfte"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/alojamientos"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/hebergements"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/accommodaties"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/majoitukset"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/accommodaties</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/majoitukset"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/accommodations"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/boende"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unterkuenfte"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/alojamientos"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/hebergements"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/accommodaties"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/majoitukset"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -159,6 +197,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/last-minute"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/ultima-hora"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/derniere-minute"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/last-minute"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/akkilahdot"/>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -171,6 +210,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/last-minute"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/ultima-hora"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/derniere-minute"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/last-minute"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/akkilahdot"/>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -183,6 +223,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/last-minute"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/ultima-hora"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/derniere-minute"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/last-minute"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/akkilahdot"/>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -195,6 +236,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/last-minute"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/ultima-hora"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/derniere-minute"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/last-minute"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/akkilahdot"/>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -207,6 +249,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/last-minute"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/ultima-hora"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/derniere-minute"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/last-minute"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/akkilahdot"/>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -219,6 +262,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/last-minute"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/ultima-hora"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/derniere-minute"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/last-minute"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/akkilahdot"/>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/last-minute</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/akkilahdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/last-minute"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/sista-minuten"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/last-minute"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/ultima-hora"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/derniere-minute"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/last-minute"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/akkilahdot"/>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -233,6 +290,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/aktuelles"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/noticias"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/actualites"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/nieuws"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ajankohtaista"/>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -245,6 +303,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/aktuelles"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/noticias"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/actualites"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/nieuws"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ajankohtaista"/>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -257,6 +316,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/aktuelles"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/noticias"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/actualites"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/nieuws"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ajankohtaista"/>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -269,6 +329,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/aktuelles"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/noticias"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/actualites"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/nieuws"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ajankohtaista"/>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -281,6 +342,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/aktuelles"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/noticias"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/actualites"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/nieuws"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ajankohtaista"/>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -293,6 +355,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/aktuelles"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/noticias"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/actualites"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/nieuws"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ajankohtaista"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/nieuws</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/ajankohtaista"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/news"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/nyheter"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/aktuelles"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/noticias"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/actualites"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/nieuws"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ajankohtaista"/>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -307,6 +383,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -319,6 +396,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -331,6 +409,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -343,6 +422,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -355,6 +435,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -367,6 +448,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -381,6 +476,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi/weihnachten-in-lappland"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi/navidad-en-laponia"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi/noel-en-laponie"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi/kerst-in-lapland"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi/joulu-lapissa"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -393,6 +489,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi/weihnachten-in-lappland"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi/navidad-en-laponia"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi/noel-en-laponie"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi/kerst-in-lapland"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi/joulu-lapissa"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -405,6 +502,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi/weihnachten-in-lappland"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi/navidad-en-laponia"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi/noel-en-laponie"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi/kerst-in-lapland"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi/joulu-lapissa"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -417,6 +515,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi/weihnachten-in-lappland"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi/navidad-en-laponia"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi/noel-en-laponie"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi/kerst-in-lapland"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi/joulu-lapissa"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -429,6 +528,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi/weihnachten-in-lappland"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi/navidad-en-laponia"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi/noel-en-laponie"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi/kerst-in-lapland"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi/joulu-lapissa"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -441,6 +541,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi/weihnachten-in-lappland"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi/navidad-en-laponia"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi/noel-en-laponie"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi/kerst-in-lapland"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi/joulu-lapissa"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/levi/kerst-in-lapland</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/levi/joulu-lapissa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/levi/christmas-in-lapland"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/levi/jul-i-lappland"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/levi/weihnachten-in-lappland"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/levi/navidad-en-laponia"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/levi/noel-en-laponie"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/levi/kerst-in-lapland"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi/joulu-lapissa"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -455,6 +569,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/nordlichter"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/auroras-boreales"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/aurores-boreales"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/noorderlicht"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/revontulet"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -467,6 +582,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/nordlichter"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/auroras-boreales"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/aurores-boreales"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/noorderlicht"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/revontulet"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -479,6 +595,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/nordlichter"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/auroras-boreales"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/aurores-boreales"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/noorderlicht"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/revontulet"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -491,6 +608,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/nordlichter"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/auroras-boreales"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/aurores-boreales"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/noorderlicht"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/revontulet"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -503,6 +621,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/nordlichter"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/auroras-boreales"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/aurores-boreales"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/noorderlicht"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/revontulet"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -515,6 +634,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/nordlichter"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/auroras-boreales"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/aurores-boreales"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/noorderlicht"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/revontulet"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/noorderlicht</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/revontulet"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/northern-lights"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/norrsken"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/nordlichter"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/auroras-boreales"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/aurores-boreales"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/noorderlicht"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/revontulet"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -529,6 +662,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/kontakt"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/contacto"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/contact"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yhteystiedot"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -541,6 +675,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/kontakt"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/contacto"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/contact"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yhteystiedot"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -553,6 +688,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/kontakt"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/contacto"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/contact"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yhteystiedot"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -565,6 +701,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/kontakt"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/contacto"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/contact"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yhteystiedot"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -577,6 +714,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/kontakt"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/contacto"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/contact"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yhteystiedot"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -589,6 +727,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/kontakt"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/contacto"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/contact"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yhteystiedot"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/contact</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/yhteystiedot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/kontakt"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/contacto"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/contact"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/contact"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yhteystiedot"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -603,6 +755,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/faq"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/preguntas-frecuentes"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/faq"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/faq"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ukk"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -615,6 +768,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/faq"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/preguntas-frecuentes"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/faq"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/faq"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ukk"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -627,6 +781,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/faq"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/preguntas-frecuentes"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/faq"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/faq"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ukk"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -639,6 +794,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/faq"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/preguntas-frecuentes"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/faq"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/faq"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ukk"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -651,6 +807,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/faq"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/preguntas-frecuentes"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/faq"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/faq"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ukk"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -663,6 +820,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/faq"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/preguntas-frecuentes"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/faq"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ukk"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/faq</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/ukk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/faq"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/faq"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/faq"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/preguntas-frecuentes"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/faq"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/faq"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/ukk"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -677,6 +848,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unternehmen"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/empresa"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/entreprise"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/bedrijf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yritys"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -689,6 +861,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unternehmen"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/empresa"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/entreprise"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/bedrijf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yritys"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -701,6 +874,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unternehmen"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/empresa"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/entreprise"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/bedrijf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yritys"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -713,6 +887,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unternehmen"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/empresa"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/entreprise"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/bedrijf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yritys"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -725,6 +900,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unternehmen"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/empresa"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/entreprise"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/bedrijf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yritys"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -737,6 +913,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unternehmen"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/empresa"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/entreprise"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/bedrijf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yritys"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/bedrijf</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/yritys"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/company"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/foretag"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/unternehmen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/empresa"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/entreprise"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/bedrijf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/yritys"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -751,6 +941,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/quiz"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/quiz"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/quiz"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/quiz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietovisa"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -763,6 +954,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/quiz"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/quiz"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/quiz"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/quiz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietovisa"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -775,6 +967,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/quiz"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/quiz"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/quiz"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/quiz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietovisa"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -787,6 +980,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/quiz"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/quiz"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/quiz"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/quiz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietovisa"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -799,6 +993,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/quiz"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/quiz"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/quiz"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/quiz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietovisa"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -811,6 +1006,20 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/quiz"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/quiz"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/quiz"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/quiz"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietovisa"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/quiz</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/tietovisa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/quiz"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/quiz"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/quiz"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/quiz"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/quiz"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/quiz"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietovisa"/>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -1059,6 +1268,17 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/sauna-levilla"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/finnish-sauna-in-levi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/sauna-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Skiing Guide - FI/EN/NL -->
+  <url>
+    <loc>https://leville.net/nl/gids/skieen-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/laskettelu-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/skiing-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skieen-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/laskettelu-levilla"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
