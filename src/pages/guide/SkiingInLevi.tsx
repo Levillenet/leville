@@ -176,20 +176,103 @@ const translations = {
       accommodationLink: "/en/accommodations"
     },
     breadcrumbLabel: "Skiing in Levi"
+  },
+  nl: {
+    meta: {
+      title: "Skiën in Levi – Pistes, Liften & Tips | Leville.net",
+      description: "Complete gids voor skiën in Levi. 43 pistes, 28 liften, moeilijkheidsgraden en tips voor skiërs. Plan uw skivakantie in Levi, Fins Lapland.",
+      canonical: "https://leville.net/nl/gids/skieen-in-levi"
+    },
+    title: "Skiën in Levi",
+    subtitle: "Het populairste skigebied van Finland – 43 pistes en 28 liften",
+    intro: "Levi is het grootste en populairste skigebied van Finland. Een modern liftensysteem, gevarieerde pistes voor alle niveaus en meer dan 200 skidagen per seizoen maken Levi de perfecte bestemming voor een skivakantie. Het seizoen loopt doorgaans van november tot mei.",
+    sections: {
+      overview: {
+        title: "Skigebied Levi",
+        stats: [
+          { label: "Pistes", value: "43", icon: "mountain" },
+          { label: "Liften", value: "28", icon: "cable" },
+          { label: "Hoogteverschil", value: "325 m", icon: "arrow" },
+          { label: "Langste afdaling", value: "2.500 m", icon: "route" }
+        ]
+      },
+      slopes: {
+        title: "Pistes en Moeilijkheidsgraden",
+        intro: "De pistes van Levi bieden uitdaging voor skiërs van alle niveaus:",
+        levels: [
+          { name: "Groen (beginners)", count: "9 pistes", desc: "Zachte en brede pistes om te leren" },
+          { name: "Blauw (gemiddeld)", count: "17 pistes", desc: "Geschikte uitdaging voor recreatieve skiërs" },
+          { name: "Rood (gevorderd)", count: "10 pistes", desc: "Steilere en technischere pistes" },
+          { name: "Zwart (experts)", count: "7 pistes", desc: "De meest veeleisende pistes voor ervaren skiërs" }
+        ]
+      },
+      tips: {
+        title: "Tips voor Skiërs",
+        items: [
+          "Koop uw skipas online van tevoren – bespaar tijd en geld",
+          "Vermijd drukte: ski 's ochtends of laat in de middag",
+          "Huur uitrusting ter plaatse – ruime keuze beschikbaar",
+          "Controleer de pistecondities via LiveCam voor vertrek",
+          "Bereid u voor op de kou – neem pauze in bergcafés"
+        ]
+      },
+      lifts: {
+        title: "Liftensysteem",
+        content: "Het moderne liftensysteem van Levi omvat een gondel, verschillende stoeltjesliften en sleepliften. De gondel brengt u in slechts enkele minuten naar de top. De liftcapaciteit bedraagt meer dan 30.000 personen per uur."
+      },
+      passes: {
+        title: "Skipassen",
+        content: "Skipassen zijn beschikbaar van uurpassen tot seizoenpassen. Dag- en weekpassen zijn het populairst. Gezinnen kunnen voordelige pakketdeals vinden."
+      }
+    },
+    faq: {
+      title: "Veelgestelde Vragen",
+      items: [
+        {
+          q: "Wanneer begint het skiseizoen in Levi?",
+          a: "Het seizoen in Levi begint doorgaans begin november en eindigt begin mei. Controleer de openingstijden op de officiële website van Levi."
+        },
+        {
+          q: "Kan ik ski-uitrusting huren in Levi?",
+          a: "Ja, Levi heeft verschillende verhuurwinkels. Boek van tevoren tijdens het hoogseizoen."
+        },
+        {
+          q: "Is Levi geschikt voor beginners?",
+          a: "Absoluut! Levi heeft 9 groene pistes voor beginners en skischolen voor alle leeftijdsgroepen."
+        },
+        {
+          q: "Hoe kom ik in Levi?",
+          a: "De luchthaven van Kittilä ligt op slechts 15 minuten van Levi. Er zijn dagelijks meerdere vluchten van Helsinki naar Kittilä."
+        }
+      ]
+    },
+    cta: {
+      hub: "Terug naar Levi-gids",
+      hubLink: "/nl/levi",
+      accommodation: "Boek accommodatie in Levi",
+      accommodationLink: "/nl/accommodaties"
+    },
+    breadcrumbLabel: "Skiën in Levi"
   }
 };
 
 const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
-  const t = translations[lang] || translations.fi;
+  const t = translations[lang as keyof typeof translations] || translations.fi;
   const location = useLocation();
 
-  const customUrls = lang === "fi" 
-    ? { fi: "/opas/laskettelu-levi", en: "/guide/skiing-in-levi" }
-    : { en: "/guide/skiing-in-levi", fi: "/opas/laskettelu-levi" };
+  const customUrls: Record<string, string> = {
+    fi: "/opas/laskettelu-levi",
+    en: "/guide/skiing-in-levi",
+    nl: "/nl/gids/skieen-in-levi"
+  };
+
+  const homeLabels: Record<string, string> = { fi: "Etusivu", en: "Home", nl: "Home" };
+  const homeLinks: Record<string, string> = { fi: "/", en: "/en", nl: "/nl" };
+  const leviLinks: Record<string, string> = { fi: "/levi", en: "/en/levi", nl: "/nl/levi" };
 
   const breadcrumbItems = [
-    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : "/en" },
-    { label: lang === "fi" ? "Levi" : "Levi", href: lang === "fi" ? "/levi" : "/en/levi" },
+    { label: homeLabels[lang] || "Etusivu", href: homeLinks[lang] || "/" },
+    { label: "Levi", href: leviLinks[lang] || "/levi" },
     { label: t.breadcrumbLabel, href: "" }
   ];
 
@@ -206,7 +289,7 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         

@@ -183,6 +183,7 @@ const App = () => (
               <Route path="/nl/last-minute" element={<Akkilahdot lang="nl" />} />
               <Route path="/nl/boekingsvoorwaarden" element={<Varausehdot lang="nl" />} />
               <Route path="/nl/privacy" element={<Tietosuoja lang="nl" />} />
+              <Route path="/nl/gids/skieen-in-levi" element={<SkiingInLevi lang="nl" />} />
               
               {/* Guide HUB Pages - Finnish */}
               <Route path="/opas/vuodenajat-levi" element={<SeasonsHub />} />

@@ -83,7 +83,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "en" ? "en_US" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : "fr_FR"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "en" ? "en_US" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : lang === "nl" ? "nl_NL" : "fr_FR"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta property="og:image:width" content="1200" />
@@ -118,12 +118,12 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
             <ScrollReveal>
               <div className="text-center mb-10 md:mb-16">
                 <a 
-                  href={isEnglish ? "/en/news" : "/ajankohtaista"}
+                  href={lang === "fi" ? "/ajankohtaista" : lang === "en" ? "/en/news" : lang === "nl" ? "/nl/nieuws" : `/${lang}/news`}
                   className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/20 to-aurora-green/20 backdrop-blur-sm border border-primary/40 rounded-full px-4 py-2 hover:border-primary/60 transition-colors group"
                 >
                   <Tag className="w-4 h-4 text-primary" />
                   <span className="text-sm font-semibold text-foreground">
-                    {isEnglish ? "Use code" : "Käytä koodia"} <span className="text-primary">winter10</span> {isEnglish ? "– 10% off spring 2026!" : "– 10% alennus keväälle 2026!"}
+                    {lang === "nl" ? "Gebruik code" : isEnglish ? "Use code" : "Käytä koodia"} <span className="text-primary">winter10</span> {lang === "nl" ? "– 10% korting op voorjaar 2026!" : isEnglish ? "– 10% off spring 2026!" : "– 10% alennus keväälle 2026!"}
                   </span>
                   <ArrowRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>

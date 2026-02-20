@@ -25,21 +25,30 @@ interface YritysProps {
 const Yritys = ({ lang = "fi" }: YritysProps) => {
   const t = getTranslations(lang).yritys;
   const location = useLocation();
-  const linkPrefix = lang === "en" ? "/en" : "";
 
-  const stats = lang === "en" 
-    ? [
-        { value: 20000, label: "Nights annually", prefix: "", suffix: "+", icon: Moon },
-        { value: 5000, label: "Guests annually", prefix: "", suffix: "+", icon: UserCheck },
-        { value: 30, label: "Properties", prefix: "", suffix: "", icon: Building2 },
-        { value: 14, label: "Years of experience", prefix: "", suffix: "+", icon: Award },
-      ]
-    : [
-        { value: 20000, label: "Yöpymistä vuodessa", prefix: "", suffix: "+", icon: Moon },
-        { value: 5000, label: "Asiakasta vuodessa", prefix: "", suffix: "+", icon: UserCheck },
-        { value: 30, label: "Majoituskohdetta", prefix: "", suffix: "", icon: Building2 },
-        { value: 14, label: "Vuotta kokemusta", prefix: "", suffix: "+", icon: Award },
-      ];
+  const defaultStats = [
+    { value: 20000, label: "Yöpymistä vuodessa", prefix: "", suffix: "+", icon: Moon },
+    { value: 5000, label: "Asiakasta vuodessa", prefix: "", suffix: "+", icon: UserCheck },
+    { value: 30, label: "Majoituskohdetta", prefix: "", suffix: "", icon: Building2 },
+    { value: 14, label: "Vuotta kokemusta", prefix: "", suffix: "+", icon: Award },
+  ];
+
+  const statsMap: Record<string, typeof defaultStats> = {
+    en: [
+      { value: 20000, label: "Nights annually", prefix: "", suffix: "+", icon: Moon },
+      { value: 5000, label: "Guests annually", prefix: "", suffix: "+", icon: UserCheck },
+      { value: 30, label: "Properties", prefix: "", suffix: "", icon: Building2 },
+      { value: 14, label: "Years of experience", prefix: "", suffix: "+", icon: Award },
+    ],
+    nl: [
+      { value: 20000, label: "Overnachtingen per jaar", prefix: "", suffix: "+", icon: Moon },
+      { value: 5000, label: "Gasten per jaar", prefix: "", suffix: "+", icon: UserCheck },
+      { value: 30, label: "Accommodaties", prefix: "", suffix: "", icon: Building2 },
+      { value: 14, label: "Jaar ervaring", prefix: "", suffix: "+", icon: Award },
+    ],
+  };
+
+  const stats = statsMap[lang] || defaultStats;
 
   const isEnglish = lang === "en";
 
@@ -90,7 +99,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "en" ? "en_US" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : "fr_FR"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "en" ? "en_US" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : lang === "nl" ? "nl_NL" : "fr_FR"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta property="og:image:width" content="1200" />
@@ -345,12 +354,12 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
                     />
                     <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                       <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                        <Link to={`${linkPrefix}/majoitukset`}>
+                        <Link to={lang === "nl" ? "/nl/accommodaties" : lang === "en" ? "/en/accommodations" : "/majoitukset"}>
                           {t.exploreCta}
                         </Link>
                       </Button>
                       <Button asChild variant="outline" size="lg">
-                        <Link to={`${linkPrefix}/yhteystiedot`}>
+                        <Link to={lang === "nl" ? "/nl/contact" : lang === "en" ? "/en/contact" : "/yhteystiedot"}>
                           <Mail className="w-4 h-4 mr-2" />
                           {t.contactCta}
                         </Link>
