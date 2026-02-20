@@ -20,17 +20,32 @@ import { Badge } from "@/components/ui/badge";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 
-const LeviVsYllasVsRukaEN = () => {
+import type { Language } from "@/translations";
+import { routeConfig } from "@/translations";
+
+interface LeviVsYllasVsRukaENProps {
+  lang?: Language;
+}
+
+const LeviVsYllasVsRukaEN = ({ lang = "en" }: LeviVsYllasVsRukaENProps) => {
   const location = useLocation();
 
-  const customUrls = {
+  const localeMap: Record<string, string> = {
+    en: "en_US", nl: "nl_NL", de: "de_DE", fr: "fr_FR", es: "es_ES", sv: "sv_SE"
+  };
+
+  const customUrls: Record<string, string> = {
     fi: "/opas/levi-vs-yllas-vs-ruka",
     en: "/guide/levi-vs-yllas-vs-ruka-comparison",
+    nl: "/nl/gids/levi-vs-yllas-vs-ruka",
+    de: "/de/guide/levi-vs-yllas-vs-ruka",
+    fr: "/fr/guide/levi-vs-yllas-vs-ruka",
+    es: "/es/guia/levi-vs-yllas-vs-ruka",
   };
 
   const breadcrumbItems = [
-    { label: "Home", href: "/en" },
-    { label: "Levi", href: "/en/levi" },
+    { label: lang === "nl" ? "Home" : lang === "de" ? "Startseite" : lang === "fr" ? "Accueil" : lang === "es" ? "Inicio" : "Home", href: routeConfig.home[lang] || "/en" },
+    { label: "Levi", href: routeConfig.levi[lang] || "/en/levi" },
     { label: "Levi vs. Ylläs vs. Ruka", href: "" },
   ];
 
@@ -61,17 +76,17 @@ const LeviVsYllasVsRukaEN = () => {
 
   return (
     <>
-      <HreflangTags currentPath={location.pathname} currentLang="en" customUrls={customUrls} />
+      <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={customUrls} />
       <Helmet>
-        <html lang="en" />
+        <html lang={lang} />
         <title>Levi vs. Ylläs vs. Ruka – Honest Comparison 2026 | Slopes, Lifts & Services | Leville.net</title>
         <meta name="description" content="Levi, Ylläs or Ruka? An honest local comparison of Finland's three biggest ski resorts – slopes, lifts, cross-country trails, services, atmosphere and prices." />
         <link rel="canonical" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison" />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison" />
+        <meta property="og:url" content={`https://leville.net${customUrls[lang] || customUrls.en}`} />
         <meta property="og:title" content="Levi vs. Ylläs vs. Ruka – Honest Comparison 2026 | Leville.net" />
         <meta property="og:description" content="Levi, Ylläs or Ruka? An honest local comparison of Finland's three biggest ski resorts – slopes, lifts, cross-country trails, services, atmosphere and prices." />
-        <meta property="og:locale" content="en_US" />
+        <meta property="og:locale" content={localeMap[lang] || "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -104,7 +119,7 @@ const LeviVsYllasVsRukaEN = () => {
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />
         <Header />
-        <Breadcrumbs lang="en" items={breadcrumbItems} />
+        <Breadcrumbs lang={lang} items={breadcrumbItems} />
 
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4 max-w-5xl">
@@ -454,13 +469,13 @@ const LeviVsYllasVsRukaEN = () => {
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild variant="outline">
-                <Link to="/en/levi">
+                <Link to={routeConfig.levi[lang] || "/en/levi"}>
                   <ArrowRight className="w-4 h-4 mr-2 rotate-180" />
                   Back to Levi Travel Guide
                 </Link>
               </Button>
               <Button asChild>
-                <Link to="/en/accommodations">
+                <Link to={routeConfig.accommodations[lang] || "/en/accommodations"}>
                   Book accommodation
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
@@ -469,9 +484,9 @@ const LeviVsYllasVsRukaEN = () => {
           </div>
         </main>
 
-        <Footer lang="en" />
-        <WhatsAppChat lang="en" />
-        <StickyBookingBar lang="en" />
+        <Footer lang={lang} />
+        <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );

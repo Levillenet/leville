@@ -342,6 +342,16 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     nl: "/en/levi/weather-in-levi"
   };
 
+  const comparisonLinks: Record<Language, { yllas: string; rovaniemi: string }> = {
+    fi: { yllas: "/opas/levi-vs-yllas-vs-ruka", rovaniemi: "/opas/levi-vs-rovaniemi" },
+    en: { yllas: "/guide/levi-vs-yllas-vs-ruka-comparison", rovaniemi: "/guide/levi-vs-rovaniemi-comparison" },
+    sv: { yllas: "/guide/levi-vs-yllas-vs-ruka-comparison", rovaniemi: "/guide/levi-vs-rovaniemi-comparison" },
+    de: { yllas: "/de/guide/levi-vs-yllas-vs-ruka", rovaniemi: "/de/guide/levi-vs-rovaniemi" },
+    es: { yllas: "/es/guia/levi-vs-yllas-vs-ruka", rovaniemi: "/es/guia/levi-vs-rovaniemi" },
+    fr: { yllas: "/fr/guide/levi-vs-yllas-vs-ruka", rovaniemi: "/fr/guide/levi-vs-rovaniemi" },
+    nl: { yllas: "/nl/gids/levi-vs-yllas-vs-ruka", rovaniemi: "/nl/gids/levi-vs-rovaniemi" },
+  };
+
   const c = content[lang];
   const hubs = hubLinks[lang];
   const hasDetailedHubs = lang === "fi" || lang === "en";
@@ -518,7 +528,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
 
                 {/* Comparison Link */}
                 <Link 
-                  to={lang === "fi" ? "/opas/levi-vs-yllas-vs-ruka" : "/guide/levi-vs-yllas-vs-ruka-comparison"}
+                  to={comparisonLinks[lang]?.yllas || "/guide/levi-vs-yllas-vs-ruka-comparison"}
                   className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
                 >
                   <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
@@ -542,7 +552,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
 
                 {/* Levi vs Rovaniemi Link */}
                 <Link 
-                  to={lang === "fi" ? "/opas/levi-vs-rovaniemi" : "/guide/levi-vs-rovaniemi-comparison"}
+                  to={comparisonLinks[lang]?.rovaniemi || "/guide/levi-vs-rovaniemi-comparison"}
                   className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
                 >
                   <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
