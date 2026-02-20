@@ -299,7 +299,7 @@ const FinnishSaunaLevi = () => {
                     <img 
                       src={saunaTimerDial} 
                       alt="Sauna timer dial showing Range A (1-4 hours, immediate heating) and Range B (1-8 hours, delayed heating)" 
-                      className="w-48 h-48 object-contain rounded-lg bg-white/90 p-2"
+                      className="w-56 h-56 object-contain"
                     />
                     <p className="text-xs text-muted-foreground text-center mt-1">Timer switch with ranges A & B</p>
                   </div>
