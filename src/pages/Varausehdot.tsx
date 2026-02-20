@@ -62,6 +62,14 @@ const getMetaContent = (lang: Language) => {
       locale: "fr_FR",
       heading: "Conditions de Réservation",
     },
+    nl: {
+      title: "Boekingsvoorwaarden | Leville.net",
+      description: "Boekingsvoorwaarden van Leville.net - annuleringsbeleid, accommodatierichtlijnen en verantwoordelijkheden. Lees de huurvoorwaarden voor het boeken.",
+      keywords: "Leville boekingsvoorwaarden, Levi accommodatie voorwaarden, annuleringsbeleid Levi, huurvoorwaarden",
+      canonical: "https://leville.net/nl/boekingsvoorwaarden",
+      locale: "nl_NL",
+      heading: "Boekingsvoorwaarden",
+    },
   };
   return meta[lang];
 };
