@@ -50,6 +50,13 @@ const Header = () => {
           { name: "Guide de Levi", href: routeConfig.levi.fr },
           { name: "Contact", href: routeConfig.contact.fr },
         ];
+      case "nl":
+        return [
+          { name: "Accommodaties", href: routeConfig.accommodations.nl },
+          { name: "Last Minute", href: routeConfig.lastMinute.nl, highlight: true },
+          { name: "Levi-gids", href: routeConfig.levi.nl },
+          { name: "Contact", href: routeConfig.contact.nl },
+        ];
       default: // Finnish
         return [
           { name: "Majoitukset", href: routeConfig.accommodations.fi },
@@ -67,7 +74,8 @@ const Header = () => {
     sv: "Boka nu",
     de: "Jetzt buchen",
     es: "Reservar",
-    fr: "Réserver"
+    fr: "Réserver",
+    nl: "Boeken"
   };
   const bookNowLabel = bookNowText[currentLang] || bookNowText.fi;
 

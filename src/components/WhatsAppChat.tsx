@@ -46,6 +46,11 @@ const WhatsAppChat = ({ lang = "fi" }: WhatsAppChatProps) => {
       responseTime: "Nous répondons généralement en une heure",
       placeholder: "Écrivez votre message...",
     },
+    nl: {
+      greeting: "Stel ons gerust een vraag! 👋",
+      responseTime: "Meestal reageren we binnen een uur",
+      placeholder: "Typ uw bericht...",
+    },
   };
 
   const t = content[lang];

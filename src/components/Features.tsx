@@ -166,7 +166,7 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 py-3 rounded-xl transition-colors"
               >
-                {lang === "fi" ? "Varaa majoitus" : lang === "en" ? "Book accommodation" : lang === "sv" ? "Boka boende" : lang === "de" ? "Unterkunft buchen" : lang === "es" ? "Reservar alojamiento" : "Réserver un hébergement"}
+                {lang === "fi" ? "Varaa majoitus" : lang === "en" ? "Book accommodation" : lang === "sv" ? "Boka boende" : lang === "de" ? "Unterkunft buchen" : lang === "es" ? "Reservar alojamiento" : lang === "nl" ? "Boek accommodatie" : "Réserver un hébergement"}
               </a>
             </div>
           </div>

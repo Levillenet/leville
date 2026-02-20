@@ -12,6 +12,7 @@ const loadingTexts: Record<string, string> = {
   de: 'Unterkünfte werden gesucht...',
   es: 'Buscando alojamientos...',
   fr: "Recherche d'hébergements...",
+  nl: "Accommodaties zoeken...",
 };
 
 const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
