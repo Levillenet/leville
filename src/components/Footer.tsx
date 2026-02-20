@@ -130,6 +130,26 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       termsLink: routeConfig.bookingTerms.fr,
       privacyLink: routeConfig.privacyPolicy.fr,
       paymentInfo: "Paiements sécurisés via Paytrail"
+    },
+    nl: {
+      description: "Kwaliteitsaccommodatie in het centrum van Levi. Boek direct bij ons voor de beste prijs.",
+      siteTitle: "Website",
+      links: [
+        { label: "Accommodaties", href: routeConfig.accommodations.nl },
+        { label: "Nieuws", href: routeConfig.news.nl },
+        { label: "Levi", href: routeConfig.levi.nl },
+        { label: "FAQ", href: routeConfig.faq.nl },
+        { label: "Bedrijf", href: routeConfig.company.nl },
+        { label: "Contact", href: routeConfig.contact.nl },
+      ],
+      contactTitle: "Contact",
+      location: "Centrum van Levi, Kittilä",
+      copyright: `© ${new Date().getFullYear()} Leville.net. Alle rechten voorbehouden.`,
+      privacy: "Privacybeleid",
+      terms: "Voorwaarden",
+      termsLink: routeConfig.bookingTerms.nl,
+      privacyLink: routeConfig.privacyPolicy.nl,
+      paymentInfo: "Veilige betalingen via Paytrail"
     }
   };
 

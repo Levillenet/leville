@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { Home, Users, TreePine, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { getTranslations, Language } from "@/translations";
+import { getTranslations, Language, routeConfig } from "@/translations";
 import ScrollReveal from "./ScrollReveal";
 
 // About section images
@@ -178,7 +178,7 @@ const About = ({ lang = "fi" }: AboutProps) => {
                 })}
               </div>
 
-              <Link to={lang === "en" ? "/en/accommodations" : "/majoitukset"}>
+              <Link to={routeConfig.accommodations[lang]}>
                 <Button 
                   size="lg" 
                   className="bg-leville-turquoise hover:bg-leville-turquoise-light text-white font-medium px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
@@ -227,14 +227,14 @@ const About = ({ lang = "fi" }: AboutProps) => {
               <button
                 onClick={goToPrev}
                 className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center text-white opacity-70 hover:opacity-100 transition-all duration-300"
-                aria-label={lang === "en" ? "Previous image" : "Edellinen kuva"}
+                aria-label={lang === "en" || lang === "nl" ? "Previous image" : lang === "sv" ? "Föregående bild" : lang === "de" ? "Vorheriges Bild" : lang === "es" ? "Imagen anterior" : lang === "fr" ? "Image précédente" : "Edellinen kuva"}
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={goToNext}
                 className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm flex items-center justify-center text-white opacity-70 hover:opacity-100 transition-all duration-300"
-                aria-label={lang === "en" ? "Next image" : "Seuraava kuva"}
+                aria-label={lang === "en" || lang === "nl" ? "Next image" : lang === "sv" ? "Nästa bild" : lang === "de" ? "Nächstes Bild" : lang === "es" ? "Siguiente imagen" : lang === "fr" ? "Image suivante" : "Seuraava kuva"}
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -252,7 +252,7 @@ const About = ({ lang = "fi" }: AboutProps) => {
                     className={`h-2 rounded-full transition-all duration-500 hover:bg-white/70 ${
                       index === currentImageIndex ? 'bg-leville-turquoise w-6' : 'bg-white/40 w-2'
                     }`}
-                    aria-label={`${lang === "en" ? "Go to image" : "Siirry kuvaan"} ${index + 1}`}
+                    aria-label={`${lang === "en" || lang === "nl" ? "Go to image" : lang === "sv" ? "Gå till bild" : "Siirry kuvaan"} ${index + 1}`}
                   />
                 ))}
               </div>
