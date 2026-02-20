@@ -181,12 +181,12 @@ const SaunaLevilla = () => {
         <meta property="og:description" content="Kaikki saunomisesta Levillä: suomalainen saunakulttuuri, sähkökiukaan käyttöohje, saunan terveyshyödyt ja Levin parhaat saunaelämykset savusaunasta avantouintiin." />
         <meta property="og:url" content="https://leville.net/opas/sauna-levilla" />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content="https://leville.net/og-image.png" />
+        <meta property="og:image" content="https://leville.net/og-sauna.png" />
         <meta property="og:locale" content="fi_FI" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Sauna Levillä – Saunakulttuuri, ohjeet ja elämykset | Leville.net" />
         <meta name="twitter:description" content="Kaikki saunomisesta Levillä: suomalainen saunakulttuuri, sähkökiukaan käyttöohje, saunan terveyshyödyt ja Levin parhaat saunaelämykset savusaunasta avantouintiin." />
-        <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image" content="https://leville.net/og-sauna.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
