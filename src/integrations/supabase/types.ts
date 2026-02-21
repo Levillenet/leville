@@ -266,6 +266,160 @@ export type Database = {
         }
         Relationships: []
       }
+      guide_images: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          image_url: string
+          property_id: string
+          section_key: string | null
+          sort_order: number
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          property_id: string
+          section_key?: string | null
+          sort_order?: number
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          property_id?: string
+          section_key?: string | null
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "guide_images_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "guide_properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      guide_properties: {
+        Row: {
+          address: string | null
+          bathrooms: string | null
+          bedrooms: string | null
+          check_in_time: string | null
+          check_out_time: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          contact_whatsapp: string | null
+          created_at: string
+          hero_image_url: string | null
+          id: string
+          is_published: boolean | null
+          latitude: number | null
+          longitude: number | null
+          max_guests: number | null
+          name: string
+          slug: string
+          updated_at: string
+          wifi_name: string | null
+          wifi_password: string | null
+        }
+        Insert: {
+          address?: string | null
+          bathrooms?: string | null
+          bedrooms?: string | null
+          check_in_time?: string | null
+          check_out_time?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          contact_whatsapp?: string | null
+          created_at?: string
+          hero_image_url?: string | null
+          id?: string
+          is_published?: boolean | null
+          latitude?: number | null
+          longitude?: number | null
+          max_guests?: number | null
+          name: string
+          slug: string
+          updated_at?: string
+          wifi_name?: string | null
+          wifi_password?: string | null
+        }
+        Update: {
+          address?: string | null
+          bathrooms?: string | null
+          bedrooms?: string | null
+          check_in_time?: string | null
+          check_out_time?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          contact_whatsapp?: string | null
+          created_at?: string
+          hero_image_url?: string | null
+          id?: string
+          is_published?: boolean | null
+          latitude?: number | null
+          longitude?: number | null
+          max_guests?: number | null
+          name?: string
+          slug?: string
+          updated_at?: string
+          wifi_name?: string | null
+          wifi_password?: string | null
+        }
+        Relationships: []
+      }
+      guide_sections: {
+        Row: {
+          content: string | null
+          created_at: string
+          icon: string | null
+          id: string
+          is_visible: boolean | null
+          property_id: string
+          section_key: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_visible?: boolean | null
+          property_id: string
+          section_key: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_visible?: boolean | null
+          property_id?: string
+          section_key?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "guide_sections_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "guide_properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       heat_pump_checkout_drop_log: {
         Row: {
           created_at: string

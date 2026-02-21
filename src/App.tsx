@@ -63,6 +63,7 @@ import LeviVsRovaniemi from "./pages/opas/LeviVsRovaniemi";
 import LeviVsRovaniemiComparison from "./pages/guide/LeviVsRovaniemiComparison";
 import SaunaLevilla from "./pages/opas/SaunaLevillä";
 import FinnishSaunaLevi from "./pages/guide/FinnishSaunaLevi";
+import PropertyGuide from "./pages/PropertyGuide";
 
 const queryClient = new QueryClient();
 
@@ -263,6 +264,9 @@ const App = () => (
               <Route path="/levi-pronounce" element={<LeviPronounce />} />
               <Route path="/latuinfo" element={<Latuinfo />} />
               <Route path="/myy-loma-asuntosi" element={<MyyLomaAsuntosi />} />
+              
+              {/* Property Guides (unlisted) */}
+              <Route path="/guide/:slug" element={<PropertyGuide />} />
               
               {/* Fireplace instructions (hidden subpage) */}
               <Route path="/takka-ohje" element={<FireplaceInstructions />} />

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare, BookOpen } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
@@ -18,6 +18,7 @@ import PropertyMaintenanceAdmin from "@/components/admin/PropertyMaintenanceAdmi
 import FloorHeatingAdmin from "@/components/admin/FloorHeatingAdmin";
 import { BookingTermsAdmin } from "@/components/admin/BookingTermsAdmin";
 import MessagingAdmin from "@/components/admin/MessagingAdmin";
+import GuideAdmin from "@/components/admin/GuideAdmin";
 import {
   BarChart,
   Bar,
@@ -340,6 +341,10 @@ const Admin = () => {
               <MessageSquare className="w-4 h-4" />
               Viestintä
             </TabsTrigger>
+            <TabsTrigger value="guides" className="flex items-center gap-2">
+              <BookOpen className="w-4 h-4" />
+              Oppaat
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="maintenance">
@@ -391,6 +396,10 @@ const Admin = () => {
 
           <TabsContent value="messaging">
             <MessagingAdmin isViewer={isViewer} />
+          </TabsContent>
+
+          <TabsContent value="guides">
+            <GuideAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="stats">
