@@ -273,7 +273,7 @@ const PropertyGuide = () => {
                     {/* Section content */}
                     <div className="p-5">
                       {section.content && (
-                        <div className="prose prose-slate prose-sm max-w-none whitespace-pre-line">
+                        <div className="prose prose-slate prose-sm max-w-none whitespace-pre-line text-slate-700">
                           {section.content}
                         </div>
                       )}
