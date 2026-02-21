@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Trash2, Save, ExternalLink, Loader2, GripVertical, Image, Upload } from "lucide-react";
+import { Plus, Trash2, Save, ExternalLink, Loader2, GripVertical, Image, Upload, Copy } from "lucide-react";
 
 interface GuideProperty {
   id: string;
@@ -84,6 +84,7 @@ const GuideAdmin = ({ isViewer }: GuideAdminProps) => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [duplicating, setDuplicating] = useState<string | null>(null);
   const { toast } = useToast();
 
   const getPassword = () => localStorage.getItem("admin_password") || "";
@@ -250,6 +251,21 @@ const GuideAdmin = ({ isViewer }: GuideAdminProps) => {
     }
   };
 
+  const duplicateProperty = async (e: React.MouseEvent, propId: string) => {
+    e.stopPropagation();
+    setDuplicating(propId);
+    try {
+      const newProp = await apiCall("duplicate_property", { property_id: propId });
+      toast({ title: "Copied!", description: `"${newProp.name}" created as draft` });
+      await loadProperties();
+      selectProperty(newProp);
+    } catch (err: any) {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    } finally {
+      setDuplicating(null);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -292,6 +308,21 @@ const GuideAdmin = ({ isViewer }: GuideAdminProps) => {
                     <p className="text-sm text-muted-foreground">/guide/{prop.slug}</p>
                   </div>
                   <div className="flex items-center gap-2">
+                    {!isViewer && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={(e) => duplicateProperty(e, prop.id)}
+                        disabled={duplicating === prop.id}
+                        title="Kopioi kohde"
+                      >
+                        {duplicating === prop.id ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <Copy className="w-4 h-4" />
+                        )}
+                      </Button>
+                    )}
                     <span
                       className={`text-xs px-2 py-1 rounded-full ${
                         prop.is_published
