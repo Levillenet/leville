@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Trash2, Save, ExternalLink, Loader2, GripVertical, Image, Upload, Copy } from "lucide-react";
+import { Plus, Trash2, Save, ExternalLink, Loader2, GripVertical, Image, Upload, Copy, Link, Sparkles } from "lucide-react";
 
 interface GuideProperty {
   id: string;
@@ -85,6 +85,9 @@ const GuideAdmin = ({ isViewer }: GuideAdminProps) => {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [duplicating, setDuplicating] = useState<string | null>(null);
+  const [showNewPropertyForm, setShowNewPropertyForm] = useState(false);
+  const [bookingUrl, setBookingUrl] = useState("");
+  const [scraping, setScraping] = useState(false);
   const { toast } = useToast();
 
   const getPassword = () => localStorage.getItem("admin_password") || "";
@@ -233,21 +236,148 @@ const GuideAdmin = ({ isViewer }: GuideAdminProps) => {
     }
   };
 
-  const createNewProperty = async () => {
+  const createNewProperty = async (prefill?: Record<string, any>) => {
     const slug = `property-${Date.now()}`;
     try {
       const newProp = await apiCall("upsert_property", {
         property: {
           id: crypto.randomUUID(),
-          slug,
-          name: "New Property",
+          slug: prefill?.name ? prefill.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-+$/, "") : slug,
+          name: prefill?.name || "New Property",
+          address: prefill?.address || null,
+          max_guests: prefill?.max_guests || null,
+          bedrooms: prefill?.bedrooms || null,
+          bathrooms: prefill?.bathrooms || null,
+          check_in_time: prefill?.check_in_time || "17:00",
+          check_out_time: prefill?.check_out_time || "11:00",
           is_published: false,
         },
       });
       setProperties([...properties, newProp]);
+      setShowNewPropertyForm(false);
+      setBookingUrl("");
+
+      // If we have scraped data with amenities/description, create initial sections
+      if (prefill?.description || prefill?.amenities || prefill?.parking_info || prefill?.nearby) {
+        const sectionsToCreate = [];
+        let order = 0;
+
+        if (prefill.description) {
+          sectionsToCreate.push({
+            id: crypto.randomUUID(),
+            property_id: newProp.id,
+            section_key: "welcome",
+            title: "Welcome",
+            content: prefill.description,
+            icon: "hand",
+            sort_order: order++,
+            is_visible: true,
+          });
+        }
+
+        sectionsToCreate.push({
+          id: crypto.randomUUID(),
+          property_id: newProp.id,
+          section_key: "arrival",
+          title: "Arrival & Keys",
+          content: prefill.address ? `Your accommodation is located at ${prefill.address}.` : "",
+          icon: "key",
+          sort_order: order++,
+          is_visible: true,
+        });
+
+        if (prefill.amenities?.length > 0) {
+          sectionsToCreate.push({
+            id: crypto.randomUUID(),
+            property_id: newProp.id,
+            section_key: "property_info",
+            title: "Property Info",
+            content: `AMENITIES:\n${prefill.amenities.map((a: string) => `• ${a}`).join("\n")}`,
+            icon: "home",
+            sort_order: order++,
+            is_visible: true,
+          });
+        }
+
+        if (prefill.parking_info) {
+          sectionsToCreate.push({
+            id: crypto.randomUUID(),
+            property_id: newProp.id,
+            section_key: "parking",
+            title: "Parking",
+            content: prefill.parking_info,
+            icon: "car",
+            sort_order: order++,
+            is_visible: true,
+          });
+        }
+
+        if (prefill.wifi_available) {
+          sectionsToCreate.push({
+            id: crypto.randomUUID(),
+            property_id: newProp.id,
+            section_key: "wifi",
+            title: "WiFi & Internet",
+            content: "Free WiFi is available.",
+            icon: "wifi",
+            sort_order: order++,
+            is_visible: true,
+          });
+        }
+
+        if (prefill.nearby?.length > 0) {
+          sectionsToCreate.push({
+            id: crypto.randomUUID(),
+            property_id: newProp.id,
+            section_key: "local_guide",
+            title: "Local Guide",
+            content: `YOUR NEIGHBOURHOOD:\n${prefill.nearby.map((n: string) => `• ${n}`).join("\n")}`,
+            icon: "map",
+            sort_order: order++,
+            is_visible: true,
+          });
+        }
+
+        // Add standard sections
+        sectionsToCreate.push(
+          { id: crypto.randomUUID(), property_id: newProp.id, section_key: "checkout", title: "Check-out", content: `Check-out by ${prefill.check_out_time || "11:00"}.`, icon: "logout", sort_order: order++, is_visible: true },
+          { id: crypto.randomUUID(), property_id: newProp.id, section_key: "house_rules", title: "House Rules", content: "", icon: "trash", sort_order: order++, is_visible: true }
+        );
+
+        for (const sec of sectionsToCreate) {
+          await apiCall("upsert_section", { section: sec });
+        }
+      }
+
       selectProperty(newProp);
+      toast({ title: "Created!", description: prefill?.name ? `"${prefill.name}" created with ${prefill ? "scraped data" : "defaults"}` : "New property created" });
     } catch (err: any) {
       toast({ title: "Error", description: err.message, variant: "destructive" });
+    }
+  };
+
+  const scrapeBookingUrl = async () => {
+    if (!bookingUrl.trim()) return;
+    setScraping(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("scrape-booking", {
+        body: { password: getPassword(), url: bookingUrl.trim() },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+
+      if (data?.property) {
+        toast({ title: "Data fetched!", description: `Found: ${data.property.name || "property"}` });
+        await createNewProperty(data.property);
+      } else {
+        toast({ title: "No data found", description: "Creating empty property", variant: "destructive" });
+        await createNewProperty();
+      }
+    } catch (err: any) {
+      toast({ title: "Scrape failed", description: err.message + " – creating empty property", variant: "destructive" });
+      await createNewProperty();
+    } finally {
+      setScraping(false);
     }
   };
 
@@ -281,12 +411,63 @@ const GuideAdmin = ({ isViewer }: GuideAdminProps) => {
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold">Digital Guides</h2>
           {!isViewer && (
-            <Button onClick={createNewProperty} size="sm">
+            <Button onClick={() => setShowNewPropertyForm(!showNewPropertyForm)} size="sm">
               <Plus className="w-4 h-4 mr-2" />
               Add Property
             </Button>
           )}
         </div>
+
+        {/* New property form */}
+        {showNewPropertyForm && !isViewer && (
+          <Card>
+            <CardContent className="p-4 space-y-4">
+              <div>
+                <Label className="text-sm font-medium">Import from Booking.com (optional)</Label>
+                <p className="text-xs text-muted-foreground mb-2">
+                  Paste a Booking.com link to auto-fill property details
+                </p>
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Link className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Input
+                      value={bookingUrl}
+                      onChange={(e) => setBookingUrl(e.target.value)}
+                      placeholder="https://www.booking.com/hotel/..."
+                      className="pl-9"
+                      disabled={scraping}
+                    />
+                  </div>
+                  <Button
+                    onClick={scrapeBookingUrl}
+                    disabled={scraping || !bookingUrl.trim()}
+                    size="sm"
+                  >
+                    {scraping ? (
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    ) : (
+                      <Sparkles className="w-4 h-4 mr-2" />
+                    )}
+                    {scraping ? "Fetching..." : "Fetch"}
+                  </Button>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 border-t border-border" />
+                <span className="text-xs text-muted-foreground">or</span>
+                <div className="flex-1 border-t border-border" />
+              </div>
+              <Button
+                variant="outline"
+                onClick={() => createNewProperty()}
+                size="sm"
+                className="w-full"
+              >
+                Create empty property
+              </Button>
+            </CardContent>
+          </Card>
+        )}
 
         {properties.length === 0 ? (
           <Card>
