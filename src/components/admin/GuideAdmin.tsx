@@ -680,15 +680,23 @@ const GuideAdmin = ({ isViewer }: GuideAdminProps) => {
                         </div>
                       ))}
                     {!isViewer && (
-                      <label className="h-20 w-20 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-primary/50 transition-colors">
-                        <Plus className="w-5 h-5 text-muted-foreground" />
+                      <label className={`h-20 w-20 border-2 border-dashed rounded-lg flex items-center justify-center cursor-pointer transition-colors ${uploading ? 'border-primary bg-primary/5' : 'border-slate-300 hover:border-primary/50'}`}>
+                        {uploading ? (
+                          <Loader2 className="w-5 h-5 text-primary animate-spin" />
+                        ) : (
+                          <Plus className="w-5 h-5 text-muted-foreground" />
+                        )}
                         <input
                           type="file"
                           accept="image/*"
                           className="hidden"
+                          disabled={uploading}
                           onChange={(e) => {
                             const file = e.target.files?.[0];
-                            if (file) handleImageUpload(file, section.section_key);
+                            if (file) {
+                              handleImageUpload(file, section.section_key);
+                              e.target.value = '';
+                            }
                           }}
                         />
                       </label>
