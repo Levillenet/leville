@@ -72,6 +72,72 @@ Deno.serve(async (req) => {
         break;
       }
 
+      case "duplicate_property": {
+        // Get source property
+        const { data: source, error: srcErr } = await supabase
+          .from("guide_properties")
+          .select("*")
+          .eq("id", params.property_id)
+          .single();
+        if (srcErr) throw srcErr;
+
+        // Create new property with new id and slug
+        const newId = crypto.randomUUID();
+        const newSlug = `${source.slug}-copy-${Date.now()}`;
+        const { id: _id, created_at: _ca, updated_at: _ua, ...sourceFields } = source;
+        const { data: newProp, error: propErr } = await supabase
+          .from("guide_properties")
+          .insert({
+            ...sourceFields,
+            id: newId,
+            slug: newSlug,
+            name: `${source.name} (Copy)`,
+            is_published: false,
+          })
+          .select()
+          .single();
+        if (propErr) throw propErr;
+
+        // Copy sections
+        const { data: sections } = await supabase
+          .from("guide_sections")
+          .select("*")
+          .eq("property_id", params.property_id)
+          .order("sort_order");
+
+        if (sections && sections.length > 0) {
+          const newSections = sections.map((s: any) => {
+            const { id: _sid, created_at: _sca, updated_at: _sua, ...sFields } = s;
+            return { ...sFields, id: crypto.randomUUID(), property_id: newId };
+          });
+          const { error: secErr } = await supabase
+            .from("guide_sections")
+            .insert(newSections);
+          if (secErr) throw secErr;
+        }
+
+        // Copy images
+        const { data: images } = await supabase
+          .from("guide_images")
+          .select("*")
+          .eq("property_id", params.property_id)
+          .order("sort_order");
+
+        if (images && images.length > 0) {
+          const newImages = images.map((img: any) => {
+            const { id: _iid, created_at: _ica, ...iFields } = img;
+            return { ...iFields, id: crypto.randomUUID(), property_id: newId };
+          });
+          const { error: imgErr } = await supabase
+            .from("guide_images")
+            .insert(newImages);
+          if (imgErr) throw imgErr;
+        }
+
+        result = newProp;
+        break;
+      }
+
       case "list_sections": {
         const { data, error } = await supabase
           .from("guide_sections")
