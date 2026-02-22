@@ -571,6 +571,30 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
               </div>
             </section>
 
+            {/* Christmas Dinner Guide Link */}
+            <section className="mb-12 sm:mb-20">
+              <Link to="/en/guide/christmas-dinner-in-levi" className="block">
+                <Card className="glass-card border-primary/30 hover:border-primary/60 transition-all duration-300 group cursor-pointer">
+                  <CardContent className="p-5 sm:p-7 flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <UtensilsCrossed className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">
+                        {lang === "fi" ? "Jouluillallinen Levillä – Ravintolat, menut ja mökkiin tilattavat ateriat" : lang === "sv" ? "Julmiddag i Levi – Restauranger, menyer och catering till stugan" : lang === "de" ? "Weihnachtsessen in Levi – Restaurants, Menüs & Lieferung zur Hütte" : lang === "es" ? "Cena de Navidad en Levi – Restaurantes, menús y catering" : lang === "fr" ? "Dîner de Noël à Levi – Restaurants, menus et livraison au chalet" : lang === "nl" ? "Kerstdiner in Levi – Restaurants, menu's en bezorging" : "Christmas Dinner in Levi – Restaurants, Menus & Cabin Delivery"}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {lang === "fi" ? "Kattava opas jouluaaton illallisvaihtoehtoihin Levillä. Ravintoloiden joulumenut, mökkiin tilattavat catering-ateriat ja käytännön vinkit varaamiseen." : lang === "sv" ? "Komplett guide till julaftonens middagsalternativ i Levi. Restaurangmenyer, catering och bokningstips." : lang === "de" ? "Kompletter Guide für das Weihnachtsessen in Levi. Restaurantmenüs, Catering und Buchungstipps." : lang === "es" ? "Guía completa de opciones de cena de Nochebuena en Levi. Menús, catering y consejos." : lang === "fr" ? "Guide complet des options de dîner du réveillon à Levi. Menus, traiteur et conseils." : lang === "nl" ? "Complete gids voor kerstdineropties in Levi. Restaurantmenu's, catering en boekingstips." : "Complete guide to Christmas Eve dining in Levi. Restaurant menus, cabin catering options, traditional Finnish Christmas food, and practical booking tips."}
+                      </p>
+                      <span className="inline-flex items-center gap-1 text-sm text-primary font-medium mt-2">
+                        {readMoreLabels[lang]} →
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </section>
+
             {/* Christmas Experiences */}
             <section className="mb-12 sm:mb-20">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-8 text-center">
@@ -607,30 +631,6 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                   );
                 })}
               </div>
-            </section>
-
-            {/* Christmas Dinner Guide Link */}
-            <section className="mb-12 sm:mb-20">
-              <Link to="/en/guide/christmas-dinner-in-levi" className="block">
-                <Card className="glass-card border-primary/30 hover:border-primary/60 transition-all duration-300 group cursor-pointer">
-                  <CardContent className="p-5 sm:p-7 flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                      <UtensilsCrossed className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">
-                        {lang === "fi" ? "Jouluillallinen Levillä – Ravintolat, menut ja mökkiin tilattavat ateriat" : lang === "sv" ? "Julmiddag i Levi – Restauranger, menyer och catering till stugan" : lang === "de" ? "Weihnachtsessen in Levi – Restaurants, Menüs & Lieferung zur Hütte" : lang === "es" ? "Cena de Navidad en Levi – Restaurantes, menús y catering" : lang === "fr" ? "Dîner de Noël à Levi – Restaurants, menus et livraison au chalet" : lang === "nl" ? "Kerstdiner in Levi – Restaurants, menu's en bezorging" : "Christmas Dinner in Levi – Restaurants, Menus & Cabin Delivery"}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {lang === "fi" ? "Kattava opas jouluaaton illallisvaihtoehtoihin Levillä. Ravintoloiden joulumenut, mökkiin tilattavat catering-ateriat ja käytännön vinkit varaamiseen." : lang === "sv" ? "Komplett guide till julaftonens middagsalternativ i Levi. Restaurangmenyer, catering och bokningstips." : lang === "de" ? "Kompletter Guide für das Weihnachtsessen in Levi. Restaurantmenüs, Catering und Buchungstipps." : lang === "es" ? "Guía completa de opciones de cena de Nochebuena en Levi. Menús, catering y consejos." : lang === "fr" ? "Guide complet des options de dîner du réveillon à Levi. Menus, traiteur et conseils." : lang === "nl" ? "Complete gids voor kerstdineropties in Levi. Restaurantmenu's, catering en boekingstips." : "Complete guide to Christmas Eve dining in Levi. Restaurant menus, cabin catering options, traditional Finnish Christmas food, and practical booking tips."}
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-sm text-primary font-medium mt-2">
-                        {readMoreLabels[lang]} →
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
             </section>
 
             {/* Why Levi Section */}
