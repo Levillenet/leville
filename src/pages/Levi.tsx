@@ -576,26 +576,6 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </div>
             </section>
 
-            {/* Atmosphere Gallery Section */}
-            <section className="mb-12 sm:mb-16">
-              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 text-center">
-                {c.atmosphereTitle}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {galleryImages.map((image, index) => (
-                  <div key={index} className="relative group overflow-hidden rounded-2xl aspect-[4/3]">
-                    <OptimizedImage 
-                      src={image.src} 
-                      alt={image.alt}
-                      priority={index === 0}
-                      className="w-full h-full transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-                  </div>
-                ))}
-              </div>
-            </section>
-
             {/* Quiz and Christmas CTAs */}
             <section className="mb-12 sm:mb-16 grid sm:grid-cols-2 gap-4">
               {/* Quiz CTA */}
@@ -650,6 +630,26 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                   </div>
                 </CardContent>
               </Card>
+            </section>
+
+            {/* Atmosphere Gallery Section */}
+            <section className="mb-12 sm:mb-16">
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 text-center">
+                {c.atmosphereTitle}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {galleryImages.map((image, index) => (
+                  <div key={index} className="relative group overflow-hidden rounded-2xl aspect-[4/3]">
+                    <OptimizedImage 
+                      src={image.src} 
+                      alt={image.alt}
+                      priority={index === 0}
+                      className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                  </div>
+                ))}
+              </div>
             </section>
 
             {/* Live Camera Section */}
