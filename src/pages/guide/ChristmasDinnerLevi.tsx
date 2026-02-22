@@ -101,19 +101,20 @@ const restaurants = [
 
 const cateringOptions = [
   {
+    name: "Levi Black Catering",
+    icon: Truck,
+    recommended: true,
+    description: "Levi Black offers a curated Christmas catering menu delivered directly to your accommodation. This is an extremely popular option among Levi visitors. The menu has included traditional items like mustard-glazed Christmas ham, gravlax, fish roe mousse, casseroles (carrot, swede, potato), rosolli salad, forest mushroom salad, gingerbread mousse, and Christmas spice cake. A hassle-free way to enjoy a full traditional Finnish Christmas table in the comfort of your own cabin.",
+    how: "Request the order form via sales@leviblack.fi",
+    tip: "This is one of the most popular cabin catering options in Levi – order early to secure your spot.",
+  },
+  {
     name: "LeviDeli Catering",
     icon: ChefHat,
     description: "Professional catering service operating in Levi since 2006. They prepare complete Christmas meals and deliver them straight to your cabin door. All meals are lactose-free and gluten-free (except bread items). Minimum order typically for 4 people.",
     how: "Contact directly via their website or inquiry form",
     website: "levideli.fi",
     tip: "Order well in advance – LeviDeli is popular and Christmas slots fill up fast.",
-  },
-  {
-    name: "Levi Black Catering",
-    icon: Truck,
-    description: "Levi Black offers a curated Christmas catering menu delivered directly to your accommodation. This is an extremely popular option among Levi visitors. The menu has included traditional items like mustard-glazed Christmas ham, gravlax, fish roe mousse, casseroles (carrot, swede, potato), rosolli salad, forest mushroom salad, gingerbread mousse, and Christmas spice cake. A hassle-free way to enjoy a full traditional Finnish Christmas table in the comfort of your own cabin.",
-    how: "Request the order form via sales@leviblack.fi",
-    tip: "This is one of the most popular cabin catering options in Levi – order early to secure your spot.",
   },
   {
     name: "Cook It Yourself",
@@ -341,11 +342,16 @@ const ChristmasDinnerLevi = () => {
                 {cateringOptions.map((c, i) => {
                   const Icon = c.icon;
                   return (
-                    <Card key={i} className="bg-white border-l-4 border-l-emerald-600 shadow-md rounded-xl">
+                    <Card key={i} className={`bg-white border-l-4 shadow-md rounded-xl ${("recommended" in c && c.recommended) ? "border-l-emerald-700 ring-2 ring-emerald-200 shadow-lg" : "border-l-emerald-600"}`}>
                       <CardHeader className="p-4 sm:p-5 pb-2">
                         <CardTitle className="text-base sm:text-lg text-emerald-800 flex items-center gap-2">
                           <Icon className="w-5 h-5 text-emerald-600" />
                           {c.name}
+                          {"recommended" in c && c.recommended && (
+                            <span className="ml-2 inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border border-emerald-300">
+                              <Star className="w-3 h-3 fill-emerald-600 text-emerald-600" /> We recommend
+                            </span>
+                          )}
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 sm:p-5 pt-0 space-y-3">
