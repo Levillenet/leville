@@ -189,7 +189,7 @@ const ChristmasDinnerLevi = () => {
   const breadcrumbItems = [
     { label: "Home", href: "/en" },
     { label: "Christmas in Lapland", href: "/en/levi/christmas-in-lapland" },
-    { label: "Christmas Dinner in Levi", href: "/guide/christmas-dinner-in-levi" },
+    { label: "Christmas Dinner in Levi", href: "/en/guide/christmas-dinner-in-levi" },
   ];
 
   return (
@@ -197,11 +197,11 @@ const ChristmasDinnerLevi = () => {
       <Helmet>
         <title>Christmas Dinner in Levi – Restaurant Menus, Cabin Delivery & Booking Tips | Leville.net</title>
         <meta name="description" content="Complete guide to Christmas Eve dinner in Levi, Lapland. Restaurant options, traditional Finnish Christmas menus, cabin delivery services, and practical booking tips for your holiday." />
-        <link rel="canonical" href="https://leville.net/guide/christmas-dinner-in-levi" />
+        <link rel="canonical" href="https://leville.net/en/guide/christmas-dinner-in-levi" />
         <meta property="og:title" content="Christmas Dinner in Levi – Restaurant Menus, Cabin Delivery & Booking Tips" />
         <meta property="og:description" content="Complete guide to Christmas Eve dinner in Levi, Lapland. Restaurant options, traditional Finnish Christmas menus, cabin delivery services, and practical booking tips." />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="https://leville.net/guide/christmas-dinner-in-levi" />
+        <meta property="og:url" content="https://leville.net/en/guide/christmas-dinner-in-levi" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Christmas Dinner in Levi – Restaurants, Menus & Cabin Delivery" />
         <meta name="twitter:description" content="Complete guide to Christmas Eve dining in Levi, Lapland." />
@@ -210,7 +210,7 @@ const ChristmasDinnerLevi = () => {
       <HreflangTags
         currentPath={location.pathname}
         currentLang="en"
-        customUrls={{ en: "/guide/christmas-dinner-in-levi", fi: "/levi/joulu-lapissa" }}
+        customUrls={{ en: "/en/guide/christmas-dinner-in-levi", fi: "/levi/joulu-lapissa" }}
       />
 
       <div className="min-h-screen bg-background">
