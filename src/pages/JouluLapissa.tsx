@@ -394,6 +394,37 @@ const usefulLinks: Record<Language, { name: string; url: string }[]> = {
   ]
 };
 
+// Internal link targets for experience cards (by icon key)
+const experienceLinks: Record<Language, Record<string, string>> = {
+  fi: {
+    moon: "/revontulet",
+    sparkles: "/aktiviteetit/koiravaljakkoajelu-levi",
+    heart: "/opas/sauna-levilla",
+    snowflake: "/aktiviteetit/parhaat-talviaktiviteetit-levi",
+  },
+  en: {
+    moon: "/en/northern-lights",
+    sparkles: "/activities/husky-safari-levi",
+    heart: "/guide/finnish-sauna-in-levi",
+    snowflake: "/activities/top-winter-activities-in-levi-lapland",
+  },
+  sv: { moon: "/sv/norrsken", sparkles: "/activities/husky-safari-levi", heart: "/guide/finnish-sauna-in-levi", snowflake: "/activities/top-winter-activities-in-levi-lapland" },
+  de: { moon: "/de/nordlichter", sparkles: "/activities/husky-safari-levi", heart: "/guide/finnish-sauna-in-levi", snowflake: "/activities/top-winter-activities-in-levi-lapland" },
+  es: { moon: "/es/auroras-boreales", sparkles: "/activities/husky-safari-levi", heart: "/guide/finnish-sauna-in-levi", snowflake: "/activities/top-winter-activities-in-levi-lapland" },
+  fr: { moon: "/fr/aurores-boreales", sparkles: "/activities/husky-safari-levi", heart: "/guide/finnish-sauna-in-levi", snowflake: "/activities/top-winter-activities-in-levi-lapland" },
+  nl: { moon: "/nl/noorderlicht", sparkles: "/activities/husky-safari-levi", heart: "/guide/finnish-sauna-in-levi", snowflake: "/activities/top-winter-activities-in-levi-lapland" },
+};
+
+const readMoreLabels: Record<Language, string> = {
+  fi: "Lue lisää",
+  en: "Read more",
+  sv: "Läs mer",
+  de: "Mehr erfahren",
+  es: "Leer más",
+  fr: "En savoir plus",
+  nl: "Lees meer",
+};
+
 const accommodationLinks: Record<Language, string> = {
   fi: "/majoitukset",
   en: "/en/accommodations",
@@ -547,8 +578,9 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {t.experiences.map((exp, index) => {
                   const IconComponent = iconMap[exp.icon];
-                  return (
-                    <Card key={index} className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300">
+                  const linkTarget = experienceLinks[lang]?.[exp.icon];
+                  const cardContent = (
+                    <Card className={`glass-card border-border/30 hover:border-primary/50 transition-all duration-300 h-full ${linkTarget ? 'cursor-pointer group' : ''}`}>
                       <CardHeader className="p-4 sm:p-6">
                         <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
                           <IconComponent className="w-6 h-6 text-primary" />
@@ -557,8 +589,20 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                       </CardHeader>
                       <CardContent className="p-4 sm:p-6 pt-0">
                         <p className="text-sm sm:text-base text-muted-foreground">{exp.description}</p>
+                        {linkTarget && (
+                          <span className="inline-flex items-center gap-1 text-sm text-primary font-medium mt-3">
+                            {readMoreLabels[lang]} →
+                          </span>
+                        )}
                       </CardContent>
                     </Card>
+                  );
+                  return linkTarget ? (
+                    <Link key={index} to={linkTarget} className="block focus:outline-none focus:ring-2 focus:ring-primary rounded-2xl">
+                      {cardContent}
+                    </Link>
+                  ) : (
+                    <div key={index}>{cardContent}</div>
                   );
                 })}
               </div>
