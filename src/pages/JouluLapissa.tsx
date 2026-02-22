@@ -611,7 +611,7 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
 
             {/* Christmas Dinner Guide Link */}
             <section className="mb-12 sm:mb-20">
-              <Link to="/guide/christmas-dinner-in-levi" className="block">
+              <Link to="/en/guide/christmas-dinner-in-levi" className="block">
                 <Card className="glass-card border-primary/30 hover:border-primary/60 transition-all duration-300 group cursor-pointer">
                   <CardContent className="p-5 sm:p-7 flex items-start gap-4">
                     <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">

@@ -252,7 +252,7 @@ const App = () => (
               <Route path="/es/guia/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="es" />} />
               <Route path="/es/guia/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="es" />} />
               <Route path="/guide/finnish-sauna-in-levi" element={<FinnishSaunaLevi />} />
-              <Route path="/guide/christmas-dinner-in-levi" element={<ChristmasDinnerLevi />} />
+              <Route path="/en/guide/christmas-dinner-in-levi" element={<ChristmasDinnerLevi />} />
               {/* Holiday Planner */}
               <Route path="/lomasuunnittelija" element={<HolidayPlanner />} />
               <Route path="/en/holiday-planner" element={<HolidayPlanner lang="en" />} />
