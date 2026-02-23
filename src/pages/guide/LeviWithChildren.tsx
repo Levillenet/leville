@@ -411,6 +411,182 @@ const translations = {
       ],
     },
   },
+  nl: {
+    meta: {
+      title: "Levi met kinderen – Gezinstips voor Lapland vakantie | Leville.net",
+      description: "Praktische tips voor een gezinsvakantie in Levi. Kinderpistes, Leevilandia, gezinsactiviteiten, restaurants en accommodatietips voor families.",
+      canonical: "https://leville.net/nl/gids/levi-met-kinderen",
+    },
+    title: "Levi met kinderen",
+    subtitle: "Kinderpistes, activiteiten en praktische tips voor je gezinsvakantie",
+    intro: "Levi is een uitstekende wintervakantiebestemming voor gezinnen. Van veilige kinderpistes tot warme binnenruimtes, skischool tot huskysafari's – deze gids behandelt alles wat je nodig hebt voor het plannen van je gezinsvakantie. Let op: tijdens de krokusvakantie is het piekseizoen, dus boek op tijd. Maar februari heeft meer daglicht dan december!",
+    sections: {
+      slopes: {
+        title: "Kinderpistes en skischool",
+        icon: "mountain",
+        intro: "Levi heeft uitstekende faciliteiten voor kinderen om te leren skiën:",
+        items: [
+          {
+            title: "Kids' Land bij frontpistes",
+            desc: "Veilige sleeheuvel, overdekte magic carpet-lift en kota met open haard. Ideaal voor de kleinsten.",
+          },
+          {
+            title: "Leevilandia bij Zuid-pistes",
+            desc: "Sneeuwspeelgebied met overdekte carpet-liften en kampvuurplek voor marshmallows roosteren.",
+          },
+          {
+            title: "Kinderskischool",
+            desc: "Levi Ski School biedt lessen vanaf 3 jaar. Groeps- en privélessen beschikbaar. Professionele instructeurs en kleine groepen.",
+          },
+          {
+            title: "Leevi's Playground",
+            desc: "Overdekt speelgebied voor als het te koud is buiten. Leuk alternatief op extreem koude dagen.",
+          },
+        ],
+        tip: "Boek skischoollessen op tijd tijdens piekseizoen – populaire tijden raken snel vol.",
+      },
+      clothing: {
+        title: "Winterkleding voor kinderen",
+        icon: "shirt",
+        intro: "Kinderen aankleden voor de Laplandse winter vereist extra aandacht. Een extra laag meer dan volwassenen!",
+        layers: [
+          {
+            name: "Basislaag",
+            items: ["Merinowollen of thermische onderkleding", "Wollen sokken – geen katoen!", "Dun mutsje onder helm"],
+          },
+          {
+            name: "Tussenlaag",
+            items: ["Fleece- of wollen vest", "Fleece broek of wollen onderlaag"],
+          },
+          {
+            name: "Buitenlaag",
+            items: [
+              "Waterdicht skipak of jas + broek",
+              "Warme wanten (vingerhandschoenen zijn lastig voor kleintjes)",
+              "Nekwarmer/buff voor gezichtsbescherming bij wind",
+            ],
+          },
+        ],
+        tips: [
+          "Vermijd katoen – het absorbeert vocht en koelt af",
+          "Neem altijd extra sokken en handschoenen mee",
+          "Kinderen worden sneller koud dan volwassenen – neem opwarmpauzes",
+          "Gebruik UV-bescherming op zonnige dagen – sneeuw reflecteert sterk",
+        ],
+      },
+      indoor: {
+        title: "Binnenactiviteiten voor koude dagen",
+        icon: "home",
+        intro: "Als het te koud is of je een pauze wilt van buiten, heeft Levi genoeg binnenactiviteiten:",
+        activities: [
+          { name: "Levi Spa & Zwembad", desc: "Zwembaden, waterglijbanen en kinderbad. Ontspannend voor ouders ook." },
+          { name: "Binnenspeelplaatsen", desc: "Speelruimtes voor kinderen bij Hullu Poro Arena (bowling + restaurant) en hotels." },
+          { name: "Bioscoop", desc: "Filmvertoningen in het centrum van Levi – check het programma." },
+          { name: "Workshoppen", desc: "Samische ambachten en knutselworkshops bij het toeristencentrum." },
+          { name: "Bakcursussen", desc: "Koekjes bakken en Laplandse lekkernijen voor kinderen." },
+        ],
+      },
+      activities: {
+        title: "Winteractiviteiten voor gezinnen",
+        icon: "snowflake",
+        intro: "Activiteiten waar het hele gezin samen van kan genieten:",
+        items: [
+          { name: "Rendierfarmbezoek", desc: "Ontmoet rendieren van dichtbij, voer ze en maak een korte sledetocht. Geschikt voor alle leeftijden." },
+          { name: "Huskysafari's voor kinderen", desc: "Korte 30-60 min safari's geschikt voor gezinnen. Kinderen rijden mee met een volwassene." },
+          { name: "Sleeheuvels", desc: "Gratis sleeheuvels door heel Levi. Huur een slee of neem je eigen mee." },
+          { name: "Sneeuwsculpturen", desc: "Sneeuwkastelen en ijssculpturen bouwen – leuk voor het hele gezin." },
+          { name: "Noorderlicht-safari's", desc: "In de avonduren kunnen kinderen ook meedoen. Kies een kortere tocht voor gezinnen." },
+        ],
+      },
+      stroller: {
+        title: "Kinderwagens en babylogistiek",
+        icon: "baby",
+        intro: "Reizen met baby's en peuters vereist voorbereiding:",
+        items: [
+          "Kinderwagens werken niet in de sneeuw! Gebruik een pulka (slee) – sommige accommodaties lenen ze uit.",
+          "Reiswieg: Vraag je accommodatie – vaak gratis beschikbaar.",
+          "Kinderstoelen: Beschikbaar bij alle gezinsrestaurants.",
+          "Luiers en babyvoeding: K-Market en Sale bieden basisbenodigdheden.",
+          "Verwarming: Onze accommodaties hebben vloerverwarming en goede isolatie – ideaal om kinderen op te warmen na buitenactiviteiten.",
+        ],
+        tip: "Neem extra tijd voor het aankleden en opwarmpauzes – kleine kinderen worden sneller moe in de kou.",
+      },
+      restaurants: {
+        title: "Gezinsvriendelijke restaurants",
+        icon: "utensils",
+        intro: "Levi heeft meerdere restaurants die gezinnen goed bedienen:",
+        items: [
+          { name: "Café Kiisa", note: "Gezellig café met kindermenu. Lekkere taarten en warme dranken." },
+          { name: "Hullu Poro Arena", note: "Bowling + restaurant. Uitgebreid kindermenu, kinderstoelen, speelruimte." },
+          { name: "Colorado Bar & Grill", note: "Hamburgers en pizza's. Kindvriendelijke bediening." },
+          { name: "Pizza-Kebab Levi", note: "Betaalbare optie, afhalen naar de accommodatie mogelijk." },
+        ],
+        tip: "Reserveer een tafel voor het avondeten, vooral in het weekend en tijdens piekseizoen.",
+      },
+      safety: {
+        title: "Veiligheid en praktische tips",
+        icon: "shield",
+        intro: "Veiligheidstips voor gezinnen met kinderen:",
+        items: [
+          "Helmen verplicht voor kinderen op de piste – ook aanbevolen voor volwassenen",
+          "Ken de grenzen van je kind – neem pauzes voordat ze moe worden",
+          "Houd contactgegevens van de accommodatie bij je kind",
+          "Leer je kind wat te doen als het verdwaalt – ga naar de lift of ski patrol-punt",
+          "Zonnebril of skibril beschermt ogen tegen sneeuwblindheid",
+          "Onderkoelingsrisico: Als je kind rilt of stopt met rillen, ga onmiddellijk naar binnen",
+        ],
+      },
+      faq: {
+        title: "Veelgestelde vragen",
+        items: [
+          {
+            q: "Vanaf welke leeftijd kan een kind beginnen met skiën?",
+            a: "De skischool van Levi geeft les vanaf 3 jaar. Jongere kinderen kunnen genieten van sleeheuvels en spelen in de sneeuw. Leevilandia is een veilige omgeving voor de allerkleinsten.",
+          },
+          {
+            q: "Kun je met een baby op safari?",
+            a: "Dat hangt af van de safari. Rendierfarmbezoeken zijn vaak geschikt voor baby's met draagzak of slee. Sneeuwscootersafari's zijn meestal niet geschikt voor kinderen onder de 4 jaar.",
+          },
+          {
+            q: "Hoe kleed ik mijn kind aan voor -20°C?",
+            a: "Lagenprincipe: merinowollen onderkleding, fleece tussenlaag, waterdicht skipak. Neem reservekleding mee en houd de conditie van je kind in de gaten.",
+          },
+          {
+            q: "Is er kinderopvang in Levi?",
+            a: "Ja. De Kids' Club van Levi Ski School biedt opvangdiensten. Sommige hotels en safari-operators bieden ook kinderopvang. Boek van tevoren.",
+          },
+        ],
+      },
+    },
+    cta: {
+      title: "Boek gezinsvriendelijke accommodatie",
+      text: "Ruime accommodatie dichtbij het centrum met vloerverwarming en droogruimte. Perfect voor gezinnen.",
+      button: "Bekijk accommodaties",
+    },
+    relatedTitle: "Lees ook",
+    relatedLinks: [
+      { text: "Winterkleding voor Levi", href: "/nl/gids/winterkleding-levi-lapland" },
+      { text: "Winteractiviteiten in Levi", href: "/nl/activiteiten/winteractiviteiten-levi" },
+      { text: "Huskysafari in Levi", href: "/nl/activiteiten/husky-safari-levi" },
+    ],
+    breadcrumbs: [
+      { label: "Home", href: "/nl" },
+      { label: "Reisgids", href: "/nl/gids/reisgids-levi" },
+      { label: "Levi met kinderen", href: "/nl/gids/levi-met-kinderen" },
+    ],
+    travelHubLink: "/nl/gids/reisgids-levi",
+    travelHubText: "← Terug naar reisgids",
+    accommodationsHref: "/nl/accommodaties",
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Huskysafari", desc: "Een avontuur voor het hele gezin", href: "/nl/activiteiten/husky-safari-levi" },
+        { title: "Winteractiviteiten", desc: "Alle activiteiten in Levi", href: "/nl/activiteiten/winteractiviteiten-levi" },
+        { title: "Winterkleding", desc: "Kinderen aankleden voor de kou", href: "/nl/gids/winterkleding-levi-lapland" },
+        { title: "Accommodaties", desc: "Chalets en appartementen in Levi", href: "/nl/accommodaties" },
+      ],
+    },
+  },
 };
 
 const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
@@ -420,6 +596,7 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
   const hreflangUrls = {
     fi: "https://leville.net/opas/lapsiperheet-levilla",
     en: "https://leville.net/guide/levi-with-children",
+    nl: "https://leville.net/nl/gids/levi-met-kinderen",
   };
 
   const faqSchema = {
@@ -468,7 +645,7 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_GB"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_GB"} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />

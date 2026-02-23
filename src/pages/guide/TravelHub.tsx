@@ -164,7 +164,7 @@ const content: Record<Language, {
       { id: "clothing", title: "Winterkleding", description: "Welke kleding heb je nodig voor de winter in Levi? Kledingstips voor -30°C vorst.", href: "/nl/gids/winterkleding-levi-lapland", iconKey: "shirt" },
       { id: "transport", title: "Vervoer in Levi", description: "Skibussen, taxi's en autoverhuur. Hoe je je gemakkelijk verplaatst in Levi.", href: "/nl/levi", iconKey: "bus" },
       { id: "services", title: "Restaurants en diensten", description: "Restaurants, winkels, verhuur en andere diensten in het centrum van Levi.", href: "/nl/levi", iconKey: "utensils" },
-      { id: "family", title: "Gezinnen in Levi", description: "Kinderpistes, activiteiten en praktische tips voor gezinsvakanties.", href: "/nl/levi", iconKey: "baby" }
+      { id: "family", title: "Gezinnen in Levi", description: "Kinderpistes, activiteiten en praktische tips voor gezinsvakanties.", href: "/nl/gids/levi-met-kinderen", iconKey: "baby" }
     ]
   }
 };
