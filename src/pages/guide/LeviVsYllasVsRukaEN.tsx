@@ -14,11 +14,12 @@ import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-  Mountain, ArrowRight, Check, Snowflake, Plane, Heart,
+  ArrowRight, Check, Heart,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 
 import type { Language } from "@/translations";
 import { routeConfig } from "@/translations";
@@ -444,27 +445,58 @@ const LeviVsYllasVsRukaEN = ({ lang = "en" }: LeviVsYllasVsRukaENProps) => {
               </Accordion>
             </section>
 
-            {/* Read also */}
-            <section className="mb-12">
-              <h2 className="text-2xl font-bold text-foreground mb-6">Read also</h2>
-              <div className="grid sm:grid-cols-3 gap-4">
-                {[
-                  { title: "Skiing in Levi", href: "/guide/skiing-in-levi", icon: Mountain },
-                  { title: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad", icon: Plane },
-                  { title: "Winter Clothing Guide", href: "/guide/how-to-dress-for-winter-in-levi-lapland", icon: Snowflake },
-                ].map((link, idx) => (
-                  <Link key={idx} to={link.href}>
-                    <Card className="glass-card border-border/30 hover:border-primary/50 transition-colors h-full">
-                      <CardContent className="p-4 flex items-center gap-3">
-                        <link.icon className="w-5 h-5 text-primary flex-shrink-0" />
-                        <span className="text-sm font-medium text-foreground">{link.title}</span>
-                        <ArrowRight className="w-4 h-4 text-muted-foreground ml-auto" />
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </section>
+            {/* Read Next */}
+            {(() => {
+              const readNextTranslations: Record<string, { title: string; links: { title: string; desc: string; href: string }[] }> = {
+                en: {
+                  title: "Read Next",
+                  links: [
+                    { title: "Levi vs Rovaniemi", desc: "How Levi compares to Rovaniemi", href: "/guide/levi-vs-rovaniemi-comparison" },
+                    { title: "Skiing in Levi", desc: "43 slopes and 28 lifts", href: "/guide/skiing-in-levi" },
+                    { title: "How to Get to Levi", desc: "Flights, trains and driving", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                    { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
+                  ],
+                },
+                nl: {
+                  title: "Lees ook",
+                  links: [
+                    { title: "Levi vs Rovaniemi", desc: "Hoe Levi zich verhoudt tot Rovaniemi", href: "/nl/gids/levi-vs-rovaniemi" },
+                    { title: "Skiën in Levi", desc: "43 pistes en 28 liften", href: "/guide/skiing-in-levi" },
+                    { title: "Hoe kom je in Levi", desc: "Vluchten, treinen en autorijden", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                    { title: "Accommodaties", desc: "Boek je verblijf in Levi", href: "/nl/accommodaties" },
+                  ],
+                },
+                de: {
+                  title: "Weiterlesen",
+                  links: [
+                    { title: "Levi vs Rovaniemi", desc: "Wie sich Levi mit Rovaniemi vergleicht", href: "/de/guide/levi-vs-rovaniemi" },
+                    { title: "Skifahren in Levi", desc: "43 Pisten und 28 Lifte", href: "/guide/skiing-in-levi" },
+                    { title: "Anreise nach Levi", desc: "Flüge, Züge und Autofahrt", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                    { title: "Unterkünfte", desc: "Buchen Sie Ihren Aufenthalt in Levi", href: "/de/unterkuenfte" },
+                  ],
+                },
+                fr: {
+                  title: "À lire aussi",
+                  links: [
+                    { title: "Levi vs Rovaniemi", desc: "Comment Levi se compare à Rovaniemi", href: "/fr/guide/levi-vs-rovaniemi" },
+                    { title: "Ski à Levi", desc: "43 pistes et 28 remontées", href: "/guide/skiing-in-levi" },
+                    { title: "Comment aller à Levi", desc: "Vols, trains et conduite", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                    { title: "Hébergements", desc: "Réservez votre séjour à Levi", href: "/fr/hebergements" },
+                  ],
+                },
+                es: {
+                  title: "Lee también",
+                  links: [
+                    { title: "Levi vs Rovaniemi", desc: "Cómo se compara Levi con Rovaniemi", href: "/es/guia/levi-vs-rovaniemi" },
+                    { title: "Esquí en Levi", desc: "43 pistas y 28 remontes", href: "/guide/skiing-in-levi" },
+                    { title: "Cómo llegar a Levi", desc: "Vuelos, trenes y conducción", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                    { title: "Alojamientos", desc: "Reserva tu estancia en Levi", href: "/es/alojamientos" },
+                  ],
+                },
+              };
+              const rn = readNextTranslations[lang] || readNextTranslations.en;
+              return <ReadNextSection title={rn.title} links={rn.links} />;
+            })()}
 
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">
