@@ -391,6 +391,190 @@ const translations = {
     activitiesHubText: "← Back to Activities Guide",
     accommodationsHref: "/en/accommodations",
   },
+  nl: {
+    meta: {
+      title: "Huskysafari in Levi – Tips en wat je moet weten | Leville.net",
+      description: "Alles over de huskysafari in Levi, Lapland. Praktische tips: wat trek je aan, hoelang duurt het, voor wie geschikt, en wat kost het?",
+      canonical: "https://leville.net/nl/activiteiten/husky-safari-levi",
+    },
+    title: "Huskysafari in Levi",
+    subtitle: "Een avontuur met sledehonden – gids voor beginners",
+    intro: "Een huskysafari is een van de meest magische ervaringen in Lapland. Enthousiaste huskys trekken de slee door besneeuwde landschappen – een authentiek Arctisch avontuur. Je zit in de slee, de gids bestuurt de honden – er is geen ervaring nodig. Deze gids helpt je om je voor te bereiden op een onvergetelijke huskysafari.",
+    sections: {
+      expect: {
+        title: "Wat kun je verwachten van een huskysafari",
+        intro: "Een typische huskysafari omvat:",
+        items: [
+          "Kennismaken met de husky's en instructies voor het sleebesturen vóór vertrek",
+          "Rit door besneeuwde bossen of het fjelllandschap",
+          "Mogelijkheid om zelf de slee te besturen of als passagier mee te rijden",
+          "Pauze bij een kampvuur met warme dranken en snacks",
+          "Dicht contact met de vriendelijke sledehonden",
+        ],
+      },
+      tours: {
+        title: "Soorten huskytochten in Levi",
+        items: [
+          {
+            type: "Korte ritten (1 uur)",
+            desc: "Perfecte kennismaking met sledehonden. Geschikt voor gezinnen en beginners. Prijs ca. €100-150 per persoon.",
+            duration: "ca. 1 uur",
+            icon: "clock",
+          },
+          {
+            type: "Halvedagsafari's (2-3 uur)",
+            desc: "Langere tocht dieper de wildernis in. Inclusief lunchpauze bij kampvuur. Prijs €150-200 per persoon.",
+            duration: "2–3 uur",
+            icon: "mappin",
+          },
+          {
+            type: "Overnachtingsexpedities",
+            desc: "Een ongelooflijk avontuur met overnachting in een wildernishut. Sterrenhemel, noorderlicht en stilte. Prijs vanaf €400/nacht.",
+            duration: "1–3 nachten",
+            icon: "snowflake",
+          },
+        ],
+      },
+      dogs: {
+        title: "Husky's en dierenwelzijn",
+        intro: "Huskyboerderijen in Levi zorgen uitstekend voor hun dieren:",
+        items: [
+          "Honden houden van rennen en zijn getraind voor dit werk",
+          "Elke hond krijgt individuele verzorging en aandacht",
+          "Regelmatige dierenartsencontroles",
+          "Gebalanceerde werk- en rustperiodes",
+          "Gepensioneerde honden worden in liefdevolle huizen geplaatst",
+        ],
+        tip: "Je mag de honden aaien voor en na de rit – ze vinden het heerlijk!",
+      },
+      clothing: {
+        title: "Wat trek je aan voor een huskysafari",
+        intro: "De meeste operators leveren warme overalls. Neem zelf ook mee:",
+        items: [
+          "Wollen of thermische basislaag (geen katoen)",
+          "Dikke wollen sokken",
+          "Dun mutsje onder helm of capuchon",
+          "Gezichtsbescherming of nekwarmer/buff",
+          "Eigen warme wanten als back-up (warmer dan de verstrekte)",
+        ],
+        tip: "Je zit vrij stil in de slee, dus kleed je extra warm! De gids beweegt meer en blijft warmer. Tip: bewaar je telefoon binnenin je jas, anders bevriest de batterij.",
+      },
+      driving: {
+        title: "De slee besturen – praktische tips",
+        items: [
+          {
+            title: "Geen rijbewijs nodig",
+            text: "Voor een huskysafari heb je geen rijbewijs nodig. De gids legt voor vertrek uit hoe je de slee bestuurt en remt.",
+          },
+          {
+            title: "Remmen en sturen",
+            text: "De slee heeft een rem die je met je voet bedient. De honden trekken – jouw taak is remmen en sturen door je gewicht te verplaatsen.",
+          },
+          {
+            title: "Als passagier",
+            text: "Je kunt ook in de slee zitten als passagier. Dit is ideaal voor kinderen of wie gewoon wil genieten van het landschap.",
+          },
+          {
+            title: "Omgang met de honden",
+            text: "Behandel de honden voorzichtig. Aai ze, maar voer ze niet zonder toestemming. De honden zijn vriendelijk en enthousiast.",
+          },
+        ],
+      },
+      bestTime: {
+        title: "Beste tijd voor een huskysafari",
+        intro: "Huskysafari's worden georganiseerd van november tot april. De beste periodes:",
+        times: [
+          {
+            period: "Kerstvakantie (dec-jan)",
+            desc: "Poolnacht creëert een magische sfeer. Mogelijkheid om noorderlicht te zien.",
+          },
+          {
+            period: "Krokusvakantie (feb-mrt)",
+            desc: "Beste omstandigheden: veel sneeuw, meer daglicht, zonnig weer.",
+          },
+          {
+            period: "Maart–april",
+            desc: "Lentezon verwarmt, maar nog genoeg sneeuw. Bijzonder mooie periode.",
+          },
+        ],
+      },
+      booking: {
+        title: "Je safari boeken",
+        providers: {
+          title: "Waar boeken",
+          list: [
+            "Via je pakketreis-operator (Voigt Travel, Nordic, TUI)",
+            "Rechtstreeks bij lokale huskyboerderijen",
+            "Online via de websites van operators",
+            "Levi Tourist Information servicepunt",
+          ],
+        },
+        prices: {
+          title: "Typische prijzen (2025–2026)",
+          list: [
+            "1 uur rit: €100–150 / persoon",
+            "2-3 uur safari: €150–200 / persoon",
+            "Halvedagsafari: €150–250 / persoon",
+            "Overnachtingsexpeditie: €400+ / persoon",
+          ],
+        },
+        tip: "Boek op tijd, vooral tijdens de Nederlandse en Belgische schoolvakanties! Huskysafari's zijn erg populair.",
+      },
+      faq: {
+        title: "Veelgestelde vragen",
+        items: [
+          {
+            q: "Heb ik een rijbewijs nodig voor een huskysafari?",
+            a: "Nee, voor een huskysafari heb je geen rijbewijs nodig. De gids geeft instructies over het besturen van de slee voor vertrek. Elke volwassene kan de slee besturen.",
+          },
+          {
+            q: "Kunnen kinderen meedoen aan een huskysafari?",
+            a: "Ja! Kinderen kunnen in de slee zitten of met een ouder meerijden. Meestal is de minimumleeftijd ongeveer 4 jaar. Warme overalls en uitrusting worden voor kinderen verstrekt.",
+          },
+          {
+            q: "Is het koud op een huskysafari?",
+            a: "Je zit vrij stil in de slee, dus kleed je warm. Operators bieden overalls en dekens. Tijdens pauzes kun je opwarmen bij het kampvuur.",
+          },
+          {
+            q: "Zijn husky's vriendelijk?",
+            a: "Ja! Sledehonden zijn getraind en gewend aan mensen. Ze houden van aandacht en aaitjes. Je mag de honden vaak ontmoeten voor en na de rit.",
+          },
+          {
+            q: "Hoeveel honden trekken een slee?",
+            a: "Meestal 4-6 honden trekken één slee. Bij langere safari's kunnen er meer honden zijn. De honden zijn enthousiast en houden van hun werk!",
+          },
+        ],
+      },
+    },
+    cta: {
+      title: "Boek accommodatie en beleef een huskysafari",
+      text: "Vanuit onze accommodaties in het centrum van Levi bereik je gemakkelijk de huskyboerderijen. Veel operators halen gasten op bij de accommodatie.",
+      button: "Bekijk accommodaties",
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Winteractiviteiten in Levi", desc: "Alle activiteiten op een rij", href: "/nl/activiteiten/winteractiviteiten-levi" },
+        { title: "Levi met kinderen", desc: "Huskysafari geschikt voor het hele gezin", href: "/nl/levi" },
+        { title: "Winterkleding", desc: "Wat trek je aan voor een huskysafari", href: "/nl/gids/winterkleding-levi-lapland" },
+        { title: "Accommodaties", desc: "Chalets en appartementen in Levi", href: "/nl/accommodaties" }
+      ]
+    },
+    relatedTitle: "Lees ook",
+    relatedLinks: [
+      { text: "Winterkleding voor Levi", href: "/nl/gids/winterkleding-levi-lapland" },
+      { text: "Winteractiviteiten in Levi", href: "/nl/activiteiten/winteractiviteiten-levi" },
+      { text: "Hoe kom je in Levi", href: "/nl/gids/hoe-kom-je-in-levi" },
+    ],
+    breadcrumbs: [
+      { label: "Home", href: "/nl" },
+      { label: "Activiteiten in Levi", href: "/nl/gids/activiteiten-in-levi" },
+      { label: "Huskysafari", href: "/nl/activiteiten/husky-safari-levi" },
+    ],
+    activitiesHubLink: "/nl/gids/activiteiten-in-levi",
+    activitiesHubText: "← Terug naar activiteitengids",
+    accommodationsHref: "/nl/accommodaties",
+  },
 };
 
 const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
@@ -400,6 +584,7 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
   const hreflangUrls = {
     fi: "https://leville.net/aktiviteetit/koiravaljakkoajelu-levi",
     en: "https://leville.net/activities/husky-safari-levi",
+    nl: "https://leville.net/nl/activiteiten/husky-safari-levi",
   };
 
   const getIcon = (iconName: string) => {
@@ -463,7 +648,7 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         
         <meta name="twitter:card" content="summary_large_image" />

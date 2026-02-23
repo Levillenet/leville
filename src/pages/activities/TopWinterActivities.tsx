@@ -358,6 +358,169 @@ const translations = {
     activitiesHubLink: "/guide/activities-in-levi",
     activitiesHubText: "← Back to Activities Guide",
     accommodationsHref: "/en/accommodations"
+  },
+  nl: {
+    meta: {
+      title: "Winteractiviteiten in Levi – Wat te doen in Lapland | Leville.net",
+      description: "De beste winteractiviteiten in Levi: skiën, huskysafari, sneeuwscootertocht, rendierrit, noorderlicht en meer. Praktische tips en prijsindicaties.",
+      canonical: "https://leville.net/nl/activiteiten/winteractiviteiten-levi"
+    },
+    title: "Winteractiviteiten in Levi, Lapland",
+    subtitle: "Alles wat je kunt doen in het winterwonderland van Lapland",
+    intro: "Levi is de populairste winterbestemming van Finland – en dat is niet zonder reden. Hier kun je alles beleven: van skiën tot huskysafari's, van rendierritten tot ijsvissen. De meeste pakketreizen (Voigt Travel, Nordic) bevatten al 3-4 activiteiten in de prijs. Zelfstandige reizigers kunnen activiteiten boeken via lokale operators of bij Levi Tourist Information. Deze gids presenteert de beste winteractiviteiten met praktische tips en prijsindicaties.",
+    sections: {
+      skiing: {
+        title: "Skiën en snowboarden",
+        icon: "mountain",
+        intro: "Levi is het grootste skigebied van Finland met 43 pistes en 27 liften.",
+        subsections: [
+          {
+            title: "Pistes en liften",
+            items: [
+              "43 pistes voor alle niveaus",
+              "27 liften inclusief moderne gondellift",
+              "Langste piste 2,5 km",
+              "Hoogteverschil 325 meter",
+              "Gegarandeerd sneeuw van november tot mei"
+            ]
+          },
+          {
+            title: "Skischool voor alle leeftijden",
+            items: [
+              "Levi Ski School biedt lessen voor beginners tot gevorderden",
+              "Kinderskischool (Angry Birds Park)",
+              "Privélessen beschikbaar",
+              "Verhuurservice bij de pistes"
+            ]
+          }
+        ]
+      },
+      crossCountry: {
+        title: "Langlaufen",
+        icon: "treepine",
+        intro: "Levi is een paradijs voor langlaufers met meer dan 230 kilometer verzorgde loipes.",
+        items: [
+          "230 km verzorgde loipes",
+          "Verlichte loipes voor avondlanglaufen",
+          "Wildernisroutes in het fjelllandschap",
+          "Verhuur en service bij het skicentrum",
+          "Oefenheuvel voor beginners"
+        ]
+      },
+      husky: {
+        title: "Huskysafari's",
+        icon: "dog",
+        intro: "Een huskysafari is een onvergetelijke ervaring – enthousiaste sledehonden trekken je door het besneeuwde landschap.",
+        options: [
+          { name: "Korte safari's (2–3 uur)", desc: "Perfect voor beginners, prijzen vanaf €140" },
+          { name: "Halvedagtochten", desc: "Dieper de wildernis in, ca. €200" },
+          { name: "Meerdaagse expedities", desc: "Voor ervaren deelnemers, overnachting op de huskyfarm" }
+        ],
+        tip: "Huskysafari's zijn populair – boek op tijd, vooral tijdens de Nederlandse/Belgische schoolvakanties (krokusvakantie, kerstvakantie)."
+      },
+      reindeer: {
+        title: "Rendier-ervaringen",
+        icon: "heart",
+        intro: "Rendieren zijn het symbool van Lapland. In Levi kun je ze op verschillende manieren beleven.",
+        options: [
+          { name: "Bezoek aan rendierfarm", desc: "Ontmoet rendieren van dichtbij, leer over hun leven en maak foto's. Prijs ca. €60-80." },
+          { name: "Traditionele rendiersledetocht", desc: "Rustige sledetocht getrokken door een rendier door het besneeuwde landschap." },
+          { name: "Dag als rendierherder", desc: "Beleef het dagelijks leven van een rendierherder – voer rendieren en rijd mee op de slee." }
+        ]
+      },
+      iceFishing: {
+        title: "IJsvissen op bevroren meren",
+        icon: "fish",
+        intro: "IJsvissen is een rustige manier om van de Laplandse winter te genieten. Zitten op het ijs onder een sterrenhemel is een meditatieve ervaring.",
+        items: [
+          "Begeleide ijsvistochten naar meren",
+          "Uitrusting (hengel, aas, warmtekussen) inbegrepen",
+          "Kans op witvis, baars of snoek",
+          "Vaak gecombineerd met kampvuurlunch in het fjelllandschap"
+        ]
+      },
+      snowshoeing: {
+        title: "Sneeuwschoenwandelen in de wildernis",
+        icon: "footprints",
+        intro: "Sneeuwschoenwandelen is een makkelijke manier om de Laplandse natuur te verkennen zonder ski-ervaring.",
+        items: [
+          "Begeleide tochten in nationale parken",
+          "Zelfgeleide routes op gemarkeerde paden",
+          "Vaak gecombineerd met koffiepauze en kampvuur",
+          "Geschikt voor alle fitnessniveaus"
+        ]
+      },
+      fatBiking: {
+        title: "Fatbiken in de sneeuw",
+        icon: "bike",
+        intro: "Fatbiken is een leuke manier om de routes van Levi in de winter te verkennen.",
+        items: [
+          "Te huur in het centrum van Levi",
+          "Gemarkeerde fatbike-routes",
+          "Begeleide tochten beschikbaar",
+          "Geschikt voor alle niveaus"
+        ]
+      },
+      connecting: {
+        title: "Activiteiten en accommodatie combineren",
+        intro: "Combineer activiteiten met comfortabele accommodatie voor de beste Lapland-ervaring.",
+        tips: [
+          "Onze accommodaties liggen dichtbij de pistes en safari-vertrekpunten",
+          "Eigen sauna om te ontspannen na een actieve dag",
+          "Droogruimte voor natte kleding",
+          "Vanuit het centrum bereik je alle activiteiten gemakkelijk"
+        ]
+      },
+      faq: {
+        title: "Veelgestelde vragen",
+        items: [
+          {
+            q: "Welke activiteiten zijn geschikt voor gezinnen met kinderen?",
+            a: "Bijna alles! Rendierfarmbezoeken, korte huskysafari's, kinderskischool en sneeuwschoenwandelen zijn uitstekend voor gezinnen. Veel operators bieden kinderzitjes en speciale maten."
+          },
+          {
+            q: "Moet ik activiteiten van tevoren boeken?",
+            a: "Ja, vooral tijdens piekperiodes (kerstvakantie, krokusvakantie, Pasen). Populaire safari's en skischolen raken snel vol. We raden aan minstens een week van tevoren te boeken."
+          },
+          {
+            q: "Zijn er activiteiten in de donkere decembermaand?",
+            a: "Ja! Veel activiteiten zijn juist extra sfeervol tijdens de poolnacht. Lantaarns, vuur en noorderlicht creëren een unieke sfeer. Het skigebied is verlicht."
+          },
+          {
+            q: "Wat is inbegrepen bij safari-prijzen?",
+            a: "Meestal thermische kleding (overall, helm, handschoenen), begeleiding en vaak warme dranken/snacks. Controleer altijd bij de operator vóór boeking."
+          }
+        ]
+      }
+    },
+    cta: {
+      title: "Boek accommodatie dichtbij de activiteiten",
+      text: "Onze accommodaties liggen dichtbij alle activiteiten. Geniet van de perfecte Lapland-vakantie in een comfortabel appartement.",
+      button: "Bekijk accommodaties"
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Huskysafari in Levi", desc: "Tips en wat je moet weten", href: "/nl/activiteiten/husky-safari-levi" },
+        { title: "Skiën in Levi", desc: "43 pistes en 28 liften", href: "/nl/gids/skieen-in-levi" },
+        { title: "Winterkleding", desc: "Wat trek je aan bij -30°C?", href: "/nl/gids/winterkleding-levi-lapland" },
+        { title: "Accommodaties", desc: "Chalets en appartementen in Levi", href: "/nl/accommodaties" }
+      ]
+    },
+    relatedTitle: "Lees ook",
+    relatedLinks: [
+      { text: "Winterkleding voor Levi", href: "/nl/gids/winterkleding-levi-lapland" },
+      { text: "Huskysafari in Levi", href: "/nl/activiteiten/husky-safari-levi" },
+      { text: "Hoe kom je in Levi", href: "/nl/gids/hoe-kom-je-in-levi" }
+    ],
+    breadcrumbs: [
+      { label: "Home", href: "/nl" },
+      { label: "Activiteiten in Levi", href: "/nl/gids/activiteiten-in-levi" },
+      { label: "Winteractiviteiten", href: "/nl/activiteiten/winteractiviteiten-levi" }
+    ],
+    activitiesHubLink: "/nl/gids/activiteiten-in-levi",
+    activitiesHubText: "← Terug naar activiteitengids",
+    accommodationsHref: "/nl/accommodaties"
   }
 };
 
@@ -367,7 +530,8 @@ const TopWinterActivities = ({ lang = "fi" }: TopWinterActivitiesProps) => {
   
   const hreflangUrls = {
     fi: "https://leville.net/aktiviteetit/parhaat-talviaktiviteetit-levi",
-    en: "https://leville.net/activities/top-winter-activities-in-levi-lapland"
+    en: "https://leville.net/activities/top-winter-activities-in-levi-lapland",
+    nl: "https://leville.net/nl/activiteiten/winteractiviteiten-levi"
   };
 
   const getIcon = (iconName: string) => {
@@ -431,7 +595,7 @@ const TopWinterActivities = ({ lang = "fi" }: TopWinterActivitiesProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         
         <meta name="twitter:card" content="summary_large_image" />
