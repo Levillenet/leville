@@ -9,9 +9,9 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { UtensilsCrossed, ShoppingCart, Shirt, Heart, Clock, Baby, MapPin, ExternalLink } from "lucide-react";
+import { UtensilsCrossed } from "lucide-react";
 import { Language } from "@/translations";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 
 interface RestaurantsAndServicesProps {
   lang?: Language;
@@ -116,6 +116,15 @@ const translations = {
     travelHubLink: "/opas/matkaopas-levi",
     travelHubText: "Takaisin matkaoppaaseen",
     accommodationsHref: "/majoitukset",
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Liikkuminen Levillä", desc: "Miten pääset ravintoloihin", href: "/opas/liikkuminen-levilla" },
+        { title: "Lapsiperheet Levillä", desc: "Perheystävälliset ravintolat", href: "/opas/lapsiperheet-levilla" },
+        { title: "Sauna Levillä", desc: "Rentoudu ruokailun jälkeen", href: "/opas/sauna-levilla" },
+        { title: "Levi ilman autoa", desc: "Ravintolat kävelyetäisyydellä", href: "/opas/levi-ilman-autoa" },
+      ],
+    },
   },
 
   en: {
@@ -204,6 +213,15 @@ const translations = {
     travelHubLink: "/guide/travel-to-levi",
     travelHubText: "Back to travel guide",
     accommodationsHref: "/en/accommodations",
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Getting Around Levi", desc: "How to reach restaurants", href: "/guide/getting-around-in-levi" },
+        { title: "Levi With Children", desc: "Family-friendly restaurants", href: "/guide/levi-with-children" },
+        { title: "Finnish Sauna", desc: "Relax after dinner", href: "/guide/finnish-sauna-in-levi" },
+        { title: "Levi Without a Car", desc: "Restaurants within walking distance", href: "/guide/levi-without-a-car" },
+      ],
+    },
   },
 };
 
@@ -347,6 +365,9 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
               </li>
             </ul>
           </section>
+
+          {/* Read Next */}
+          <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
           {/* CTA */}
           <section className="text-center bg-card rounded-xl p-8">

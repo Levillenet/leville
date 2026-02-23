@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plane, Train, Bus, MapPin, AlertTriangle, ArrowLeft, ArrowRight, Check, X } from "lucide-react";
 import { Language } from "@/translations";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 
 interface LeviWithoutCarProps {
   lang?: Language;
@@ -126,6 +127,15 @@ const translations = {
     ],
     travelHubLink: "/opas/matkaopas-levi",
     accommodationsHref: "/majoitukset",
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Miten pääsee Leville", desc: "Lennot ja junat Leville", href: "/matka/miten-paasee-leville-helsingista" },
+        { title: "Liikkuminen Levillä", desc: "Skibussit ja taksit", href: "/opas/liikkuminen-levilla" },
+        { title: "Laskettelu Levillä", desc: "Rinteet kävelymatkan päässä", href: "/opas/laskettelu-levi" },
+        { title: "Ravintolat ja palvelut", desc: "Kaikki keskustassa", href: "/opas/ravintolat-ja-palvelut-levilla" },
+      ],
+    },
   },
   en: {
     meta: {
@@ -235,6 +245,15 @@ const translations = {
     ],
     travelHubLink: "/guide/travel-to-levi",
     accommodationsHref: "/en/accommodations",
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "How to Get to Levi", desc: "Flights and trains to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+        { title: "Getting Around Levi", desc: "Ski buses and taxis", href: "/guide/getting-around-in-levi" },
+        { title: "Skiing in Levi", desc: "Slopes within walking distance", href: "/guide/skiing-in-levi" },
+        { title: "Restaurants & Services", desc: "Everything in the center", href: "/guide/restaurants-and-services-in-levi" },
+      ],
+    },
   },
 };
 
@@ -499,6 +518,9 @@ const LeviWithoutCar = ({ lang = "fi" }: LeviWithoutCarProps) => {
                 </Card>
               </section>
             </ScrollReveal>
+
+            {/* Read Next */}
+            <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
             {/* Summary + CTA */}
             <ScrollReveal>
