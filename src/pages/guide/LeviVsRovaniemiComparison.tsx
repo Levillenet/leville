@@ -14,11 +14,12 @@ import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-  Mountain, ArrowRight, Check, Plane, Heart, Lightbulb, MapPin, TreePine,
+  Mountain, ArrowRight, Check, Heart, Lightbulb, MapPin,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 
 import type { Language } from "@/translations";
 import { routeConfig } from "@/translations";
@@ -507,27 +508,58 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
               </Accordion>
             </section>
 
-            {/* Read also */}
-            <section className="mb-12">
-              <h2 className="text-2xl font-bold text-foreground mb-6">Read also</h2>
-              <div className="grid sm:grid-cols-3 gap-4">
-                {[
-                  { title: "Levi vs. Ylläs vs. Ruka", href: "/guide/levi-vs-yllas-vs-ruka-comparison", icon: Mountain },
-                  { title: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad", icon: Plane },
-                  { title: "Christmas in Lapland", href: "/en/levi/christmas-in-lapland", icon: TreePine },
-                ].map((link, idx) => (
-                  <Link key={idx} to={link.href}>
-                    <Card className="glass-card border-border/30 hover:border-primary/50 transition-colors h-full">
-                      <CardContent className="p-4 flex items-center gap-3">
-                        <link.icon className="w-5 h-5 text-primary flex-shrink-0" />
-                        <span className="text-sm font-medium text-foreground">{link.title}</span>
-                        <ArrowRight className="w-4 h-4 text-muted-foreground ml-auto" />
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </section>
+            {/* Read Next */}
+            {(() => {
+              const readNextTranslations: Record<string, { title: string; links: { title: string; desc: string; href: string }[] }> = {
+                en: {
+                  title: "Read Next",
+                  links: [
+                    { title: "Levi vs Ylläs vs Ruka", desc: "Compare Finland's top 3 ski resorts", href: "/guide/levi-vs-yllas-vs-ruka-comparison" },
+                    { title: "How to Get to Levi", desc: "Flights, trains and driving", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                    { title: "Top Winter Activities", desc: "What to do in Levi", href: "/activities/top-winter-activities-in-levi-lapland" },
+                    { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
+                  ],
+                },
+                nl: {
+                  title: "Lees ook",
+                  links: [
+                    { title: "Levi vs Ylläs vs Ruka", desc: "Vergelijk Finlands top 3 skigebieden", href: "/nl/gids/levi-vs-yllas-vs-ruka" },
+                    { title: "Hoe kom je in Levi", desc: "Vluchten, treinen en autorijden", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                    { title: "Beste winteractiviteiten", desc: "Wat te doen in Levi", href: "/activities/top-winter-activities-in-levi-lapland" },
+                    { title: "Accommodaties", desc: "Boek je verblijf in Levi", href: "/nl/accommodaties" },
+                  ],
+                },
+                de: {
+                  title: "Weiterlesen",
+                  links: [
+                    { title: "Levi vs Ylläs vs Ruka", desc: "Vergleich der 3 größten Skigebiete Finnlands", href: "/de/guide/levi-vs-yllas-vs-ruka" },
+                    { title: "Anreise nach Levi", desc: "Flüge, Züge und Autofahrt", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                    { title: "Beste Winteraktivitäten", desc: "Was man in Levi unternehmen kann", href: "/activities/top-winter-activities-in-levi-lapland" },
+                    { title: "Unterkünfte", desc: "Buchen Sie Ihren Aufenthalt in Levi", href: "/de/unterkuenfte" },
+                  ],
+                },
+                fr: {
+                  title: "À lire aussi",
+                  links: [
+                    { title: "Levi vs Ylläs vs Ruka", desc: "Comparez les 3 meilleures stations de Finlande", href: "/fr/guide/levi-vs-yllas-vs-ruka" },
+                    { title: "Comment aller à Levi", desc: "Vols, trains et conduite", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                    { title: "Meilleures activités d'hiver", desc: "Que faire à Levi", href: "/activities/top-winter-activities-in-levi-lapland" },
+                    { title: "Hébergements", desc: "Réservez votre séjour à Levi", href: "/fr/hebergements" },
+                  ],
+                },
+                es: {
+                  title: "Lee también",
+                  links: [
+                    { title: "Levi vs Ylläs vs Ruka", desc: "Compara las 3 mejores estaciones de Finlandia", href: "/es/guia/levi-vs-yllas-vs-ruka" },
+                    { title: "Cómo llegar a Levi", desc: "Vuelos, trenes y conducción", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                    { title: "Mejores actividades de invierno", desc: "Qué hacer en Levi", href: "/activities/top-winter-activities-in-levi-lapland" },
+                    { title: "Alojamientos", desc: "Reserva tu estancia en Levi", href: "/es/alojamientos" },
+                  ],
+                },
+              };
+              const rn = readNextTranslations[lang] || readNextTranslations.en;
+              return <ReadNextSection title={rn.title} links={rn.links} />;
+            })()}
 
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">
