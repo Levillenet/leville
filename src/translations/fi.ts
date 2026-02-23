@@ -98,9 +98,9 @@ export const fi = {
     cancellationNote: "Peruutusaikamme on 60 päivää ennen saapumista – varaat siis aina riskittömästi.",
     infoCards: [
       { icon: "ShieldCheck", title: "Turvallinen maksu", description: "Maksu Paytrailin kautta luottokortilla tai verkkopankissa. Suomen suurin maksuvälittäjä." },
-      { icon: "KeyRound", title: "Sisäänkirjautuminen", description: "Tyypillisesti klo 16:00. Avaintiedot ja ohjeet lähetetään sähköpostiin varauspäivänä." },
-      { icon: "LogOut", title: "Uloskirjautuminen", description: "Tyypillisesti klo 10:00. Loppusiivous kuuluu useimpiin kohteisiin." },
-      { icon: "Bed", title: "Liinavaatteet", description: "Petivaatteet ja pyyhkeet sisältyvät yleensä hintaan. Tarkista kohdekohtaisesti." },
+      { icon: "KeyRound", title: "Sisäänkirjautuminen", description: "Viimeistään klo 17:00. Avaintiedot ja ohjeet lähetetään sähköpostiin varauspäivänä." },
+      { icon: "LogOut", title: "Uloskirjautuminen", description: "Klo 11:00 mennessä. Loppusiivous kuuluu useimpiin kohteisiin." },
+      { icon: "Bed", title: "Liinavaatteet", description: "Liinavaatteet voi varata tarpeen mukaan varausprosessissa. Tarkista kohdekohtaisesti." },
       { icon: "Car", title: "Pysäköinti", description: "Kaikissa kohteissamme ilmainen pysäköintipaikka. Useimmissa lämmitystolppa." }
     ],
     faqTitle: "Usein kysytyt kysymykset majoituksesta Levillä",
@@ -145,7 +145,7 @@ export const fi = {
     faqs: [
       {
         question: "Mihin aikaan voin saapua majoitukseen?",
-        answer: "Sisäänkirjautuminen on klo 17:00 alkaen ja uloskirjautuminen viimeistään klo 11:00. Mikäli tarvitset joustoa aikoihin, ota meihin yhteyttä etukäteen."
+        answer: "Sisäänkirjautuminen on viimeistään klo 17:00 ja uloskirjautuminen klo 11:00. Mikäli tarvitset joustoa aikoihin, ota meihin yhteyttä etukäteen."
       },
       {
         question: "Onko majoituksissa WiFi?",

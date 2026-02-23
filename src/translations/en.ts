@@ -98,9 +98,9 @@ export const en = {
     cancellationNote: "Our cancellation policy allows free cancellation up to 60 days before arrival – so you always book risk-free.",
     infoCards: [
       { icon: "ShieldCheck", title: "Secure Payment", description: "Payment via Paytrail by credit card or online banking. Finland's largest payment provider." },
-      { icon: "KeyRound", title: "Check-in", description: "Typically at 4:00 PM. Key info and instructions sent to your email on booking day." },
-      { icon: "LogOut", title: "Check-out", description: "Typically at 10:00 AM. Final cleaning included in most properties." },
-      { icon: "Bed", title: "Bed Linen", description: "Bed linen and towels are usually included. Check property details." },
+      { icon: "KeyRound", title: "Check-in", description: "By 5:00 PM at the latest. Key info and instructions sent to your email on booking day." },
+      { icon: "LogOut", title: "Check-out", description: "At 11:00 AM. Final cleaning included in most properties." },
+      { icon: "Bed", title: "Bed Linen", description: "Bed linen can be booked as needed during the booking process. Check property details." },
       { icon: "Car", title: "Parking", description: "Free parking at all our properties. Most have engine block heaters." }
     ],
     faqTitle: "Frequently Asked Questions About Accommodation in Levi",
@@ -145,7 +145,7 @@ export const en = {
     faqs: [
       {
         question: "What time can I check in?",
-        answer: "Check-in is from 5:00 PM and check-out by 11:00 AM. If you need flexibility with times, please contact us in advance."
+        answer: "Check-in is by 5:00 PM at the latest and check-out at 11:00 AM. If you need flexibility with times, please contact us in advance."
       },
       {
         question: "Is there WiFi in the accommodations?",

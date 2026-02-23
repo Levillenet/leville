@@ -98,9 +98,9 @@ export const nl = {
     cancellationNote: "Ons annuleringsbeleid staat gratis annulering toe tot 60 dagen voor aankomst – je boekt dus altijd risicovrij.",
     infoCards: [
       { icon: "ShieldCheck", title: "Veilig betalen", description: "Betaling via Paytrail met creditcard of internetbankieren. Finland's grootste betaaldienst." },
-      { icon: "KeyRound", title: "Inchecken", description: "Doorgaans om 16:00 uur. Sleutelinformatie wordt per e-mail verstuurd op de boekingsdag." },
-      { icon: "LogOut", title: "Uitchecken", description: "Doorgaans om 10:00 uur. Eindschoonmaak inbegrepen bij de meeste accommodaties." },
-      { icon: "Bed", title: "Beddengoed", description: "Beddengoed en handdoeken zijn meestal inbegrepen. Controleer de accommodatiegegevens." },
+      { icon: "KeyRound", title: "Inchecken", description: "Uiterlijk om 17:00 uur. Sleutelinformatie wordt per e-mail verstuurd op de boekingsdag." },
+      { icon: "LogOut", title: "Uitchecken", description: "Om 11:00 uur. Eindschoonmaak inbegrepen bij de meeste accommodaties." },
+      { icon: "Bed", title: "Beddengoed", description: "Beddengoed kan naar behoefte worden geboekt tijdens het boekingsproces. Controleer de accommodatiegegevens." },
       { icon: "Car", title: "Parkeren", description: "Gratis parkeren bij al onze accommodaties. De meeste hebben een motorverwarmer." }
     ],
     faqTitle: "Veelgestelde vragen over accommodatie in Levi",
@@ -145,7 +145,7 @@ export const nl = {
     faqs: [
       {
         question: "Hoe laat kan ik inchecken?",
-        answer: "Inchecken is vanaf 17:00 uur en uitchecken uiterlijk om 11:00 uur. Als u flexibiliteit nodig heeft met de tijden, neem dan van tevoren contact met ons op."
+        answer: "Inchecken is uiterlijk om 17:00 uur en uitchecken uiterlijk om 11:00 uur. Als u flexibiliteit nodig heeft met de tijden, neem dan van tevoren contact met ons op."
       },
       {
         question: "Is er WiFi in de accommodaties?",
