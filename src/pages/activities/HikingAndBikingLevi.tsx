@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mountain, MapPin, Bike, Battery, TreePine, Sun, Snowflake, CheckCircle, Clock, AlertTriangle } from "lucide-react";
 import { Language } from "@/translations";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -191,6 +192,15 @@ const translations = {
       title: "Varaa majoitus ja koe Levin luonto",
       text: "Keskustan majoituksistamme pääset helposti vaellusreittien alkupisteisiin ja pyörävuokraamoihin.",
       button: "Katso majoitukset",
+    },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Kesä Levillä", desc: "Kesäkauden opas ja vinkit", href: "/opas/kesa-levi" },
+        { title: "Syksy ja ruska", desc: "Parhaat vaellusajat ruskan aikaan", href: "/opas/syksy-ruska-levi" },
+        { title: "Ravintolat ja palvelut", desc: "Missä syödä vaelluksen jälkeen", href: "/opas/ravintolat-ja-palvelut-levilla" },
+        { title: "Liikkuminen Levillä", desc: "Miten pääset reittien alkuun", href: "/opas/liikkuminen-levilla" }
+      ]
     },
     relatedTitle: "Lue myös",
     relatedLinks: [
@@ -380,6 +390,15 @@ const translations = {
       title: "Book Accommodation and Experience Levi Nature",
       text: "From our center accommodations, you can easily reach trail heads and bike rental shops.",
       button: "View Accommodations",
+    },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Summer in Levi", desc: "Summer season guide and tips", href: "/guide/summer-in-levi" },
+        { title: "Autumn Ruska", desc: "Best hiking during fall colours", href: "/guide/autumn-ruska-in-levi" },
+        { title: "Restaurants & Services", desc: "Where to eat after your hike", href: "/guide/restaurants-and-services-in-levi" },
+        { title: "Getting Around Levi", desc: "How to reach the trailheads", href: "/guide/getting-around-in-levi" }
+      ]
     },
     relatedTitle: "Read Also",
     relatedLinks: [
@@ -751,6 +770,9 @@ const HikingAndBikingLevi = ({ lang = "fi" }: HikingAndBikingLeviProps) => {
                 ))}
               </Accordion>
             </section>
+
+            {/* Read Next */}
+            <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
             {/* CTA Section */}
             <section className="mb-12">

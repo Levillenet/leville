@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Snowflake, Clock, Shield, Users, Thermometer, AlertTriangle, CheckCircle, MapPin } from "lucide-react";
 import { Language } from "@/translations";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -160,6 +161,15 @@ const translations = {
       title: "Varaa majoituksesi lähelle safari-lähtöpaikkoja",
       text: "Levin keskustan majoituksistamme pääset kätevästi safari-operaattoreiden lähtöpaikoille. Monet safarit noutavat asiakkaat suoraan majoituksesta!",
       button: "Katso majoitukset",
+    },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Koiravaljakkoajelu", desc: "Toinen suosittu talvielämys", href: "/aktiviteetit/koiravaljakkoajelu-levi" },
+        { title: "Parhaat talviaktiviteetit", desc: "Kaikki Levin aktiviteetit", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
+        { title: "Talvivarusteet", desc: "Mitä pukea safarille", href: "/opas/talvivarusteet-leville" },
+        { title: "Talvi Levillä", desc: "Levin talven opas", href: "/opas/talvi-levi" }
+      ]
     },
     relatedTitle: "Lue myös",
     relatedLinks: [
@@ -314,6 +324,15 @@ const translations = {
       title: "Book Your Accommodation Near Safari Departure Points",
       text: "Our Levi center accommodations provide easy access to safari operators' departure points. Many safaris pick up guests directly from accommodation!",
       button: "View Accommodations",
+    },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Husky Safari", desc: "Another must-do winter experience", href: "/activities/husky-safari-levi" },
+        { title: "Top Winter Activities", desc: "All Levi winter activities", href: "/activities/top-winter-activities-in-levi-lapland" },
+        { title: "Winter Clothing", desc: "What to wear on safari", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Winter in Levi", desc: "Guide to Levi winter", href: "/guide/winter-in-levi" }
+      ]
     },
     relatedTitle: "Read Also",
     relatedLinks: [
@@ -586,6 +605,9 @@ const SnowmobileSafariTips = ({ lang = "fi" }: SnowmobileSafariTipsProps) => {
               ))}
             </Accordion>
           </section>
+
+          {/* Read Next */}
+          <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
           {/* CTA Section */}
           <section className="bg-primary/10 rounded-2xl p-8 text-center mb-12">
