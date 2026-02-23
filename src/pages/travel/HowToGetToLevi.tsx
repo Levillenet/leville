@@ -353,6 +353,169 @@ const translations = {
         { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
       ],
     },
+  },
+  nl: {
+    meta: {
+      title: "Hoe kom je in Levi? Vliegen, trein en auto naar Lapland | Leville.net",
+      description: "Alle reisopties naar Levi in Fins Lapland. Directe vluchten naar Kittilä, treinverbindingen via Rovaniemi en Kolari, en autoroutes vanuit Helsinki.",
+      canonical: "https://leville.net/nl/gids/hoe-kom-je-in-levi"
+    },
+    title: "Hoe kom je in Levi, Fins Lapland?",
+    subtitle: "Alle reisopties: vliegen, trein en auto naar Lapland",
+    intro: "Levi ligt in de gemeente Kittilä, in het hart van Fins Lapland. Vanuit Nederland zijn er in het winterseizoen directe chartervluchten via Voigt Travel en TUI naar Kittilä (KTT) – slechts 15 minuten rijden van Levi centrum. Ook op eigen houtje is Levi goed bereikbaar via Helsinki.",
+    sections: {
+      flying: {
+        title: "Vliegen naar Levi – Kittilä Airport (KTT)",
+        intro: "Vliegen is de snelste manier om Levi te bereiken. Kittilä Airport ligt op slechts 15 minuten rijden van het centrum van Levi.",
+        domestic: {
+          title: "Chartervluchten vanuit Nederland",
+          items: [
+            "Voigt Travel en TUI bieden directe chartervluchten Amsterdam → Kittilä in het winterseizoen",
+            "Vliegtijd circa 3 uur direct",
+            "Inclusief transfer naar je accommodatie bij de meeste pakketreizen",
+            "Boek vroeg – wintervluchten zijn snel uitverkocht!"
+          ]
+        },
+        international: {
+          title: "Zelf boeken via Helsinki",
+          items: [
+            "Finnair vliegt Amsterdam → Helsinki → Kittilä (overstap)",
+            "Norwegian/SAS hebben soms routes via Stockholm",
+            "Totale reistijd met overstap: 5–7 uur",
+            "Vergelijk prijzen op Skyscanner of Google Flights"
+          ]
+        },
+        transfer: {
+          title: "Luchthaventransfer naar Levi",
+          text: "Van Kittilä Airport naar Levi centrum is slechts 15 km. Transferopties:",
+          options: [
+            "Pakketreizen (Voigt/TUI) – shuttle inbegrepen",
+            "Taxi – circa €30, vooraf reserveren aanbevolen",
+            "Vooraf geboekte shuttle – diverse aanbieders",
+            "Huurauto – beschikbaar op Kittilä Airport voor meer vrijheid"
+          ]
+        }
+      },
+      train: {
+        title: "Trein + bus – Route via Kolari",
+        intro: "De nachttrein is een belevenis op zich en een ecologische keuze. De VR-nachttrein rijdt van Helsinki naar Kolari.",
+        route: {
+          title: "Route",
+          items: [
+            "Nachttrein Helsinki → Kolari (vertrekt 's avonds, aankomst 's ochtends)",
+            "Reistijd circa 12 uur",
+            "Slaap- en autocoupé beschikbaar",
+            "Busverbinding Kolari → Levi (circa 1 uur)"
+          ]
+        },
+        tips: {
+          title: "Tips voor de treinreis",
+          items: [
+            "Boek slaapplaatsen vroeg – ze zijn snel vol",
+            "Met de autocoupé kun je je eigen auto meenemen",
+            "De bus wacht op de trein in Kolari",
+            "Prijzen vanaf €80 zitplaats, €150+ slaapplaats"
+          ]
+        }
+      },
+      driving: {
+        title: "Met de auto naar Levi",
+        intro: "Vanuit Nederland is autorijden naar Levi niet aan te raden (2.500+ km). Maar als je al in Finland bent, is het een prachtige rit door het Finse landschap.",
+        routes: [
+          {
+            from: "Vanuit Helsinki",
+            distance: "circa 1.100 km",
+            time: "12–14 uur",
+            desc: "Route via de E75 langs Oulu. We raden een overnachting onderweg aan, bijvoorbeeld in Oulu."
+          },
+          {
+            from: "Vanuit Rovaniemi",
+            distance: "circa 170 km",
+            time: "2 uur",
+            desc: "Makkelijke rit over goede wegen. Onderweg kun je stoppen bij de Poolcirkel."
+          },
+          {
+            from: "Vanuit Oulu",
+            distance: "circa 380 km",
+            time: "4,5 uur",
+            desc: "Populaire tussenstop als je vanuit het zuiden komt."
+          }
+        ],
+        winterTips: {
+          title: "Winterrijden in Finland",
+          items: [
+            "Winterbanden verplicht van 1 december tot 31 maart",
+            "Spijkerbanden aanbevolen in Lapland",
+            "Wees voorbereid op sneeuwval en strenge kou (tot -30°C)",
+            "Tank op tijd – tankstations kunnen ver uit elkaar liggen",
+            "Houd warme kleding in de auto voor noodgevallen"
+          ]
+        }
+      },
+      gettingAround: {
+        title: "Vervoer in Levi",
+        options: [
+          {
+            name: "Skibus",
+            desc: "Gratis skibus rijdt door het centrum, langs hotels en naar de pistes. Rijdt circa elke 15 minuten in het seizoen."
+          },
+          {
+            name: "Taxi",
+            desc: "Taxi's beschikbaar in het centrum. Reserveer vooraf in het hoogseizoen."
+          },
+          {
+            name: "Huurauto",
+            desc: "Autoverhuur op Kittilä Airport (Avis, Hertz, Europcar). Handig om de omgeving te verkennen, maar niet noodzakelijk in het centrum."
+          }
+        ]
+      },
+      faq: {
+        title: "Veelgestelde vragen",
+        items: [
+          {
+            q: "Zijn er directe vluchten vanuit Nederland naar Levi?",
+            a: "Ja! In het winterseizoen bieden Voigt Travel en TUI directe chartervluchten van Amsterdam naar Kittilä Airport, op slechts 15 minuten van Levi."
+          },
+          {
+            q: "Hoe ver is Kittilä Airport van Levi?",
+            a: "Slechts 15 km, circa 15 minuten rijden. Bij pakketreizen is de transfer inbegrepen. Zelfstandige reizigers kunnen een taxi (~€30) of shuttle boeken."
+          },
+          {
+            q: "Heb ik een huurauto nodig in Levi?",
+            a: "Niet per se. De gratis skibus rijdt regelmatig en het centrum is compact. Een huurauto is wel handig als je de omgeving wilt verkennen."
+          },
+          {
+            q: "Hoe koud wordt het echt in Levi?",
+            a: "December tot februari: typisch -10 tot -25°C, kan oplopen tot -35°C. Maar droge kou voelt warmer aan dan Nederlandse natte kou!"
+          }
+        ]
+      }
+    },
+    cta: {
+      title: "Boek je accommodatie in Levi",
+      text: "Nu je weet hoe je in Levi komt, boek een comfortabele accommodatie en plan je droomvakantie in Lapland!",
+      button: "Bekijk accommodaties"
+    },
+    relatedTitle: "Handige gidsen",
+    relatedLinks: [
+      { text: "Winterkleding voor Levi", href: "/nl/gids/winterkleding-levi-lapland" },
+      { text: "Beste winteractiviteiten", href: "/activities/top-winter-activities-in-levi-lapland" }
+    ],
+    breadcrumbs: [
+      { label: "Home", href: "/nl" },
+      { label: "Reisgids", href: "/nl/gids/reisgids-levi" },
+      { label: "Hoe kom je in Levi", href: "/nl/gids/hoe-kom-je-in-levi" }
+    ],
+    accommodationsHref: "/nl/accommodaties",
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Levi zonder auto", desc: "Tips voor een vakantie zonder auto", href: "/nl/levi" },
+        { title: "Winterkleding", desc: "Wat moet je meenemen", href: "/nl/gids/winterkleding-levi-lapland" },
+        { title: "Reisgids Levi", desc: "Praktische tips voor je reis", href: "/nl/gids/reisgids-levi" },
+        { title: "Accommodaties", desc: "Boek je verblijf in Levi", href: "/nl/accommodaties" },
+      ],
+    },
   }
 };
 
@@ -362,7 +525,8 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
   
   const hreflangUrls = {
     fi: "https://leville.net/matka/miten-paasee-leville-helsingista",
-    en: "https://leville.net/travel/how-to-get-to-levi-from-helsinki-and-abroad"
+    en: "https://leville.net/travel/how-to-get-to-levi-from-helsinki-and-abroad",
+    nl: "https://leville.net/nl/gids/hoe-kom-je-in-levi"
   };
 
   const faqSchema = {
@@ -411,7 +575,7 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_GB"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_GB"} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
