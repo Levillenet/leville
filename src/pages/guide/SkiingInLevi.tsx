@@ -8,6 +8,7 @@ import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mountain, MapPin, Clock, Euro, Users, ArrowRight, Snowflake, Star, Cable } from "lucide-react";
+import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -98,6 +99,15 @@ const translations = {
       accommodation: "Varaa majoitus Leviltä",
       accommodationLink: "/majoitukset"
     },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Hiihto Levillä", desc: "Yli 230 km huollettuja latuja", href: "/opas/hiihto-levi" },
+        { title: "Talvivarusteet", desc: "Pukeutumisvinkit Levin pakkasiin", href: "/opas/talvivarusteet-leville" },
+        { title: "Parhaat talviaktiviteetit", desc: "Kattava opas Levin talveen", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
+        { title: "Liikkuminen Levillä", desc: "Skibussit, taksit ja autonvuokraus", href: "/opas/liikkuminen-levilla" }
+      ]
+    },
     breadcrumbLabel: "Laskettelu Levillä"
   },
   en: {
@@ -175,6 +185,15 @@ const translations = {
       accommodation: "Book accommodation in Levi",
       accommodationLink: "/en/accommodations"
     },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Cross-Country Skiing", desc: "Over 230 km of groomed trails", href: "/guide/cross-country-skiing-in-levi" },
+        { title: "Winter Clothing Guide", desc: "How to dress for Levi's frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Top Winter Activities", desc: "Complete guide to Levi winter", href: "/activities/top-winter-activities-in-levi-lapland" },
+        { title: "Getting Around Levi", desc: "Ski buses, taxis and car rental", href: "/guide/getting-around-in-levi" }
+      ]
+    },
     breadcrumbLabel: "Skiing in Levi"
   },
   nl: {
@@ -251,6 +270,15 @@ const translations = {
       hubLink: "/nl/levi",
       accommodation: "Boek accommodatie in Levi",
       accommodationLink: "/nl/accommodaties"
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Cross-Country Skiing", desc: "Over 230 km of groomed trails", href: "/guide/cross-country-skiing-in-levi" },
+        { title: "Winter Clothing Guide", desc: "How to dress for Levi's frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Top Winter Activities", desc: "Complete guide to Levi winter", href: "/activities/top-winter-activities-in-levi-lapland" },
+        { title: "Getting Around Levi", desc: "Ski buses, taxis and car rental", href: "/guide/getting-around-in-levi" }
+      ]
     },
     breadcrumbLabel: "Skiën in Levi"
   }
@@ -403,6 +431,9 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
                 ))}
               </Accordion>
             </section>
+
+            {/* Read Next */}
+            <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">
