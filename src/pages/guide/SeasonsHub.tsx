@@ -195,8 +195,8 @@ const content: Record<Language, {
     title: "Seizoenen in Levi",
     subtitle: "Ervaar Lapland het hele jaar door",
     intro: "Levi biedt unieke ervaringen in elk seizoen. Van besneeuwde winterlandschappen tot de middernachtzon in de zomer – elk seizoen heeft zijn eigen bijzondere karakter.",
-    metaTitle: "Seizoenen in Levi – Winter, lente, zomer, herfst | Leville.net",
-    metaDescription: "Ontdek de vier seizoenen van Levi: van de poolnacht in de winter tot de middernachtzon in de zomer.",
+    metaTitle: "Seizoenen in Levi – Wanneer naar Lapland? | Leville.net",
+    metaDescription: "Ontdek het beste seizoen voor jouw reis naar Levi in Fins Lapland. Winter, lente, zomer en herfst – elk seizoen heeft zijn eigen magie.",
     backToHub: "Terug naar Levi-gids",
     readMore: "Lees meer",
     bookCta: "Boek accommodatie in Levi",
@@ -225,7 +225,7 @@ const canonicalUrls: Record<Language, string> = {
   de: "https://leville.net/de/guide/seasons-in-levi",
   es: "https://leville.net/es/guide/seasons-in-levi",
   fr: "https://leville.net/fr/guide/seasons-in-levi",
-  nl: "https://leville.net/nl/guide/seasons-in-levi"
+  nl: "https://leville.net/nl/gids/seizoenen-in-levi"
 };
 
 const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
@@ -339,6 +339,14 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
                     { title: "Activities in Levi", desc: "All Levi activities", href: "/guide/activities-in-levi" },
                     { title: "Travel Guide", desc: "Practical tips for your Levi trip", href: "/guide/travel-to-levi" },
                     { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
+                  ],
+                },
+                nl: {
+                  title: "Lees ook",
+                  links: [
+                    { title: "Activiteiten in Levi", desc: "Alle activiteiten in Levi", href: "/nl/gids/activiteiten-in-levi" },
+                    { title: "Reisgids", desc: "Praktische tips voor je Levi-reis", href: "/nl/gids/reisgids-levi" },
+                    { title: "Accommodaties", desc: "Boek je verblijf in Levi", href: "/nl/accommodaties" },
                   ],
                 },
               };

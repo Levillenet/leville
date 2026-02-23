@@ -153,8 +153,8 @@ const content: Record<Language, {
     title: "Reisgids naar Levi",
     subtitle: "Alles wat je nodig hebt voor je reis",
     intro: "Plan je een reis naar Levi? Vind praktische gidsen voor reizen, kleding en diensten bij skigebied Levi.",
-    metaTitle: "Reisgids naar Levi – Hoe er te komen, kleding, diensten | Leville.net",
-    metaDescription: "Plan je perfecte Levi-reis: hoe je er komt, welke kleding je nodig hebt, lokale diensten en tips voor gezinnen.",
+    metaTitle: "Reisgids Levi – Praktische tips voor je Lapland vakantie | Leville.net",
+    metaDescription: "Alles wat je moet weten voor je reis naar Levi. Vervoer, winterkleding, restaurants, gezinstips en meer.",
     backToHub: "Terug naar Levi-gids",
     readMore: "Lees gids",
     bookCta: "Boek accommodatie in Levi",
@@ -195,7 +195,7 @@ const canonicalUrls: Record<Language, string> = {
   de: "https://leville.net/de/guide/travel-to-levi",
   es: "https://leville.net/es/guide/travel-to-levi",
   fr: "https://leville.net/fr/guide/travel-to-levi",
-  nl: "https://leville.net/nl/guide/travel-to-levi"
+  nl: "https://leville.net/nl/gids/reisgids-levi"
 };
 
 const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
@@ -311,6 +311,14 @@ const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
                     { title: "Seasons in Levi", desc: "Choose the best time to visit", href: "/guide/seasons-in-levi" },
                     { title: "Activities in Levi", desc: "What to do when you arrive", href: "/guide/activities-in-levi" },
                     { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
+                  ],
+                },
+                nl: {
+                  title: "Lees ook",
+                  links: [
+                    { title: "Seizoenen in Levi", desc: "Kies de beste tijd om te bezoeken", href: "/nl/gids/seizoenen-in-levi" },
+                    { title: "Activiteiten in Levi", desc: "Wat te doen als je er bent", href: "/nl/gids/activiteiten-in-levi" },
+                    { title: "Accommodaties", desc: "Boek je verblijf in Levi", href: "/nl/accommodaties" },
                   ],
                 },
               };
