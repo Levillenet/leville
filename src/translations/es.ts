@@ -92,6 +92,25 @@ export const es = {
       { label: "Aparcamiento" },
       { label: "Almacenamiento de esquís" },
       { label: "Sala de mantenimiento de esquís calefactada" }
+    ],
+    bookingTitle: "Reserva y Pago – Cómo funciona",
+    bookingText: "Reservar a través de Leville.net es fácil y seguro. Selecciona tus fechas y tamaño del grupo en la barra de búsqueda en la parte superior de la página, y verás instantáneamente los alojamientos disponibles con precios.\n\nEl pago se procesa de forma segura a través de Paytrail – el mayor proveedor de pagos de Finlandia. Puedes pagar con las principales tarjetas de crédito (Visa, Mastercard) o banca online finlandesa.",
+    cancellationNote: "Nuestra política de cancelación permite cancelación gratuita hasta 60 días antes de la llegada.",
+    infoCards: [
+      { icon: "ShieldCheck", title: "Pago seguro", description: "Pago vía Paytrail con tarjeta de crédito o banca online. El mayor proveedor de pagos de Finlandia." },
+      { icon: "KeyRound", title: "Check-in", description: "Normalmente a las 16:00. La información de la llave se envía por correo electrónico el día de la reserva." },
+      { icon: "LogOut", title: "Check-out", description: "Normalmente a las 10:00. La limpieza final está incluida en la mayoría de los alojamientos." },
+      { icon: "Bed", title: "Ropa de cama", description: "La ropa de cama y las toallas suelen estar incluidas. Consulta los detalles del alojamiento." },
+      { icon: "Car", title: "Aparcamiento", description: "Aparcamiento gratuito en todos nuestros alojamientos. La mayoría tienen calentador de motor." }
+    ],
+    faqTitle: "Preguntas frecuentes sobre alojamiento en Levi",
+    faqs: [
+      { question: "¿Cuánto cuesta el alojamiento en Levi?", answer: "Los precios dependen de la temporada, tamaño y ubicación. Un estudio para dos cuesta aproximadamente 70–150 €/noche, un apartamento familiar para 4–6 personas alrededor de 120–250 €/noche." },
+      { question: "¿Necesito coche en Levi?", answer: "Si te alojas en el centro de Levi, no necesitas coche. Las pistas, restaurantes y tiendas están a poca distancia a pie. En invierno, el Ski Bus gratuito circula regularmente." },
+      { question: "¿Los alojamientos tienen sauna?", answer: "Sí – todos los alojamientos de Leville.net tienen su propia sauna. Esto es estándar en Finlandia." },
+      { question: "¿Cómo llego a Levi?", answer: "Puedes volar al aeropuerto de Kittilä (15 min en autobús) o tomar el tren a Kolari (1 h en autobús).", link: "/en/travel/how-to-get-to-levi", linkText: "Lee más en nuestra guía de viaje" },
+      { question: "¿Es Levi adecuado para familias?", answer: "Absolutamente. Levi tiene pistas para niños, escuela de esquí, restaurantes familiares y muchas actividades para niños.", link: "/en/guide/levi-with-children", linkText: "Lee nuestra guía para familias" },
+      { question: "¿Es seguro el pago?", answer: "Sí. Todos los pagos se procesan a través de Paytrail, el mayor proveedor de pagos de Finlandia. Nunca almacenamos tus datos de tarjeta." }
     ]
   },
   yhteystiedot: {

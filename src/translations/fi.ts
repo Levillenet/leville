@@ -92,6 +92,25 @@ export const fi = {
       { label: "Pysäköinti" },
       { label: "Suksivarasto" },
       { label: "Lämmin suksienhuoltotila" }
+    ],
+    bookingTitle: "Varaaminen ja maksaminen – näin se toimii",
+    bookingText: "Leville.netin kautta varaaminen on helppoa ja turvallista. Valitse päivämäärät ja henkilömäärä sivun yläosan hakukentästä, ja näet välittömästi saatavilla olevat kohteet hintoineen.\n\nMaksaminen tapahtuu turvallisesti Paytrailin kautta – Paytrail on Suomen suurin ja tunnetuin maksuvälittäjä. Voit maksaa kaikilla yleisimmillä luottokorteilla (Visa, Mastercard) sekä verkkopankkimaksuna. Varaus vahvistuu heti maksun jälkeen, ja saat varausvahvistuksen sähköpostiisi.",
+    cancellationNote: "Peruutusaikamme on 60 päivää ennen saapumista – varaat siis aina riskittömästi.",
+    infoCards: [
+      { icon: "ShieldCheck", title: "Turvallinen maksu", description: "Maksu Paytrailin kautta luottokortilla tai verkkopankissa. Suomen suurin maksuvälittäjä." },
+      { icon: "KeyRound", title: "Sisäänkirjautuminen", description: "Tyypillisesti klo 16:00. Avaintiedot ja ohjeet lähetetään sähköpostiin varauspäivänä." },
+      { icon: "LogOut", title: "Uloskirjautuminen", description: "Tyypillisesti klo 10:00. Loppusiivous kuuluu useimpiin kohteisiin." },
+      { icon: "Bed", title: "Liinavaatteet", description: "Petivaatteet ja pyyhkeet sisältyvät yleensä hintaan. Tarkista kohdekohtaisesti." },
+      { icon: "Car", title: "Pysäköinti", description: "Kaikissa kohteissamme ilmainen pysäköintipaikka. Useimmissa lämmitystolppa." }
+    ],
+    faqTitle: "Usein kysytyt kysymykset majoituksesta Levillä",
+    faqs: [
+      { question: "Paljonko majoitus Levillä maksaa?", answer: "Majoituksen hinta Levillä riippuu sesongista, kohteen koosta ja sijainnista. Studiohuoneisto kahdelle hengelle maksaa noin 70–150 €/yö, perheasunto 4–6 hengelle noin 120–250 €/yö ja tilava mökki 8–14 hengelle noin 200–500 €/yö. Joulusesonki ja hiihtolomaviikot ovat kalleimpia." },
+      { question: "Tarvitsenko auton Levillä?", answer: "Jos majoitut Levin keskustassa, et tarvitse autoa. Rinteet, ladut, ravintolat ja kaupat ovat kävelyetäisyydellä. Talvella Ski Bus liikennöi ilmaiseksi. Jos mökki sijaitsee kauempana keskustasta (yli 2 km), auto on käytännössä välttämätön." },
+      { question: "Onko majoituksissa sauna?", answer: "Kyllä – kaikissa Leville.netin kohteissa on oma sauna. Tämä on Suomessa normaalia mutta usein yllätys ulkomaalaisille vierailijoille. Suurimmassa osassa huoneistoja on sähkösauna." },
+      { question: "Miten pääsen Leville?", answer: "Leville pääsee lentämällä Kittilän lentokentälle (15 min bussilla) tai junalla Kolariin (1 h bussilla). Omalla autolla Helsinki–Levi on noin 1 100 km.", link: "/matka/miten-paasee-leville-helsingista", linkText: "Lue lisää Miten pääsee Leville -sivultamme" },
+      { question: "Sopiiko Levi lapsiperheille?", answer: "Ehdottomasti. Levillä on omat lastenrinteet, hiihtokoulu, perheravintolat ja runsaasti lapsiystävällisiä aktiviteetteja.", link: "/opas/lapsiperheet-levilla", linkText: "Lue lisää Lapsiperheet Levillä -oppaastamme" },
+      { question: "Onko maksaminen turvallista?", answer: "Kyllä. Kaikki maksut käsitellään Paytrailin kautta, joka on Suomen suurin maksuvälittäjä. Voit maksaa Visa- ja Mastercard-luottokortilla tai suomalaisella verkkopankkimaksulla. Emme käsittele tai tallenna korttitietojasi." }
     ]
   },
   yhteystiedot: {

@@ -1,12 +1,14 @@
+import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building, ShieldCheck, KeyRound, LogOut, Bed } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
@@ -46,6 +48,14 @@ const SkiIcon = ({ className }: { className?: string }) => (
 const amenityIcons = [Wifi, Car, Snowflake, SkiIcon];
 const accommodationImages = [skistarImg, perheasunnotImg, karhupirttiImg, glacierImg];
 
+const iconMap: Record<string, LucideIcon> = {
+  ShieldCheck,
+  KeyRound,
+  LogOut,
+  Bed,
+  Car,
+};
+
 interface MajoituksetProps {
   lang?: Language;
 }
@@ -67,6 +77,27 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
       console.error('Failed to log download:', error);
     }
   };
+
+  const bookingLinks = [
+    "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412",
+    "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=413",
+    "https://app.moder.fi/levillenet/303?step=1",
+    "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214"
+  ];
+
+  // FAQ schema for JSON-LD
+  const faqSchema = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": t.faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  }), [t.faqs]);
 
   return (
     <>
@@ -94,6 +125,11 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+
+        {/* FAQ JSON-LD */}
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
+        </script>
       </Helmet>
       
       <div className="min-h-screen bg-background relative">
@@ -134,12 +170,6 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
             <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16 md:mb-20">
               {t.accommodations.map((acc, index) => {
                 const Icon = accommodationIcons[index];
-                const bookingLinks = [
-                  "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412",
-                  "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=413",
-                  "https://app.moder.fi/levillenet/303?step=1",
-                  "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214"
-                ];
                 return (
                   <ScrollReveal key={acc.title} delay={index * 0.15} direction="up">
                     <TiltCard className="h-full">
@@ -204,6 +234,77 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     );
                   })}
                 </div>
+              </section>
+            </ScrollReveal>
+
+            {/* Booking & Payment Section */}
+            <ScrollReveal delay={0.2}>
+              <section className="mb-16 md:mb-20">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
+                  {t.bookingTitle}
+                </h2>
+                <div className="max-w-3xl mx-auto mb-8">
+                  {t.bookingText.split('\n\n').map((paragraph, i) => (
+                    <p key={i} className="text-muted-foreground leading-relaxed mb-4">
+                      {paragraph}
+                    </p>
+                  ))}
+                  <p className="text-primary font-semibold mt-4">
+                    {t.cancellationNote}
+                  </p>
+                </div>
+
+                {/* Info Cards Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+                  {t.infoCards.map((card) => {
+                    const CardIcon = iconMap[card.icon] || ShieldCheck;
+                    return (
+                      <div
+                        key={card.title}
+                        className="glass-card border-border/30 rounded-xl p-4 sm:p-5 text-center"
+                      >
+                        <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mx-auto mb-3">
+                          <CardIcon className="w-5 h-5 text-primary" />
+                        </div>
+                        <h3 className="text-sm font-semibold text-foreground mb-1.5">{card.title}</h3>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{card.description}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            </ScrollReveal>
+
+            {/* FAQ Section */}
+            <ScrollReveal delay={0.2}>
+              <section className="mb-16 md:mb-20 max-w-3xl mx-auto">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
+                  {t.faqTitle}
+                </h2>
+                <Accordion type="single" collapsible className="space-y-3">
+                  {t.faqs.map((faq, index) => (
+                    <AccordionItem
+                      key={index}
+                      value={`faq-${index}`}
+                      className="glass-card border-border/30 rounded-xl px-5 overflow-hidden"
+                    >
+                      <AccordionTrigger className="text-foreground text-left font-medium hover:no-underline py-5">
+                        {faq.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                        {faq.answer}
+                        {faq.link && (
+                          <>
+                            {" "}
+                            <Link to={faq.link} className="text-primary hover:underline font-medium">
+                              {faq.linkText}
+                            </Link>
+                          </>
+                        )}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </section>
             </ScrollReveal>
 
