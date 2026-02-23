@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plane, Bus, Car, Footprints, Snowflake, MapPin } from "lucide-react";
 import { Language } from "@/translations";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 
 interface GettingAroundLeviProps {
   lang?: Language;
@@ -95,6 +96,15 @@ const translations = {
     accommodationsHref: "/majoitukset",
     ctaTitle: "Varaa majoitus Levin keskustasta",
     ctaButton: "Katso majoitukset",
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Miten pääsee Leville", desc: "Lennot, junat ja autoilu", href: "/matka/miten-paasee-leville-helsingista" },
+        { title: "Levi ilman autoa", desc: "Kattava opas autottomaan lomaan", href: "/opas/levi-ilman-autoa" },
+        { title: "Ravintolat ja palvelut", desc: "Levin keskustan palvelut", href: "/opas/ravintolat-ja-palvelut-levilla" },
+        { title: "Lapsiperheet Levillä", desc: "Liikkuminen lasten kanssa", href: "/opas/lapsiperheet-levilla" },
+      ],
+    },
   },
 
   en: {
@@ -175,6 +185,15 @@ const translations = {
     accommodationsHref: "/en/accommodations",
     ctaTitle: "Book accommodation in Levi center",
     ctaButton: "View accommodations",
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "How to Get to Levi", desc: "Flights, trains and driving", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+        { title: "Levi Without a Car", desc: "Complete car-free guide", href: "/guide/levi-without-a-car" },
+        { title: "Restaurants & Services", desc: "Levi center services", href: "/guide/restaurants-and-services-in-levi" },
+        { title: "Levi With Children", desc: "Getting around with kids", href: "/guide/levi-with-children" },
+      ],
+    },
   },
 };
 
@@ -279,6 +298,9 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
               </section>
             );
           })}
+
+          {/* Read Next */}
+          <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
           {/* CTA */}
           <section className="text-center bg-card rounded-xl p-8">

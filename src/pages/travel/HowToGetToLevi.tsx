@@ -19,6 +19,7 @@ import {
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import {
   Accordion,
   AccordionContent,
@@ -181,7 +182,16 @@ const translations = {
       { label: "Matkaopas", href: "/opas/matkaopas-levi" },
       { label: "Miten pääsee Leville", href: "/matka/miten-paasee-leville-helsingista" }
     ],
-    accommodationsHref: "/majoitukset"
+    accommodationsHref: "/majoitukset",
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Liikkuminen Levillä", desc: "Skibussit, taksit ja vuokra-autot", href: "/opas/liikkuminen-levilla" },
+        { title: "Levi ilman autoa", desc: "Vinkit autoiluttomaan lomaan", href: "/opas/levi-ilman-autoa" },
+        { title: "Talvivarusteet", desc: "Mitä pakata mukaan Leville", href: "/opas/talvivarusteet-leville" },
+        { title: "Majoitukset", desc: "Varaa majoitus Leviltä", href: "/majoitukset" },
+      ],
+    },
   },
   en: {
     meta: {
@@ -333,7 +343,16 @@ const translations = {
       { label: "Travel Guide", href: "/guide/travel-to-levi" },
       { label: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" }
     ],
-    accommodationsHref: "/en/accommodations"
+    accommodationsHref: "/en/accommodations",
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Getting Around Levi", desc: "Ski buses, taxis and car rental", href: "/guide/getting-around-in-levi" },
+        { title: "Levi Without a Car", desc: "Tips for a car-free holiday", href: "/guide/levi-without-a-car" },
+        { title: "Winter Clothing", desc: "What to pack for Levi", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
+      ],
+    },
   }
 };
 
@@ -606,6 +625,9 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
               ))}
             </Accordion>
           </section>
+
+          {/* Read Next */}
+          <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
           {/* CTA Section */}
           <section className="bg-primary/10 rounded-2xl p-8 text-center mb-12">
