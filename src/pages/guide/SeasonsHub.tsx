@@ -8,6 +8,7 @@ import HreflangTags from "@/components/HreflangTags";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideHubCard from "@/components/guide/GuideHubCard";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Language } from "@/translations";
@@ -252,6 +253,26 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
         <meta name="twitter:title" content={c.metaTitle} />
         <meta name="twitter:description" content={c.metaDescription} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: c.title,
+            description: c.metaDescription,
+            url: canonicalUrls[lang],
+            isPartOf: { "@type": "WebSite", name: "Leville.net", url: "https://leville.net" },
+            mainEntity: {
+              "@type": "ItemList",
+              itemListElement: c.seasons.map((s, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                url: `https://leville.net${s.href}`,
+                name: s.title,
+              })),
+            },
+          })}
+        </script>
       </Helmet>
       
       <div className="min-h-screen bg-background relative">
@@ -300,6 +321,30 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
                 ))}
               </div>
             </section>
+
+            {/* Read Next */}
+            {(() => {
+              const readNextData: Record<string, { title: string; links: { title: string; desc: string; href: string }[] }> = {
+                fi: {
+                  title: "Lue myös",
+                  links: [
+                    { title: "Aktiviteetit Levillä", desc: "Kaikki Levin aktiviteetit", href: "/opas/aktiviteetit-levi" },
+                    { title: "Matkaopas", desc: "Käytännön vinkit Levin lomaan", href: "/opas/matkaopas-levi" },
+                    { title: "Majoitukset", desc: "Varaa majoitus Leviltä", href: "/majoitukset" },
+                  ],
+                },
+                en: {
+                  title: "Read Next",
+                  links: [
+                    { title: "Activities in Levi", desc: "All Levi activities", href: "/guide/activities-in-levi" },
+                    { title: "Travel Guide", desc: "Practical tips for your Levi trip", href: "/guide/travel-to-levi" },
+                    { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
+                  ],
+                },
+              };
+              const rn = readNextData[lang] || readNextData.en;
+              return <ReadNextSection title={rn.title} links={rn.links} />;
+            })()}
 
             {/* Booking CTA */}
             <section className="text-center">
