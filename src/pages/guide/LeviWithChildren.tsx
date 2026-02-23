@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Baby, Mountain, Shirt, Home, UtensilsCrossed, Shield, Snowflake, Heart } from "lucide-react";
 import { Language } from "@/translations";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface LeviWithChildrenProps {
@@ -204,6 +205,15 @@ const translations = {
     travelHubLink: "/opas/matkaopas-levi",
     travelHubText: "← Takaisin matkaoppaaseen",
     accommodationsHref: "/majoitukset",
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Laskettelu Levillä", desc: "Lasten rinteet ja hissit", href: "/opas/laskettelu-levi" },
+        { title: "Koiravaljakkoajelu", desc: "Elämys koko perheelle", href: "/aktiviteetit/koiravaljakkoajelu-levi" },
+        { title: "Talvivarusteet", desc: "Lasten pukeutuminen pakkaseen", href: "/opas/talvivarusteet-leville" },
+        { title: "Ravintolat ja palvelut", desc: "Perheystävälliset ravintolat", href: "/opas/ravintolat-ja-palvelut-levilla" },
+      ],
+    },
   },
   en: {
     meta: {
@@ -391,6 +401,15 @@ const translations = {
     travelHubLink: "/guide/travel-to-levi",
     travelHubText: "← Back to Travel Guide",
     accommodationsHref: "/en/accommodations",
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Skiing in Levi", desc: "Kids' slopes and lifts", href: "/guide/skiing-in-levi" },
+        { title: "Husky Safari", desc: "An experience for the whole family", href: "/activities/husky-safari-levi" },
+        { title: "Winter Clothing", desc: "Dressing kids for the cold", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Restaurants & Services", desc: "Family-friendly dining", href: "/guide/restaurants-and-services-in-levi" },
+      ],
+    },
   },
 };
 
@@ -657,6 +676,9 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
               ))}
             </Accordion>
           </section>
+
+          {/* Read Next */}
+          <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
           {/* CTA */}
           <section className="text-center bg-card/50 rounded-2xl p-8 mb-12">

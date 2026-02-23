@@ -11,6 +11,7 @@ import { Snowflake, Sun, CloudRain, Thermometer, ArrowRight, Star, TreeDeciduous
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import SnowDepthChart from "@/components/SnowDepthChart";
 import {
   Accordion,
@@ -178,7 +179,16 @@ const translations = {
       accommodation: "Varaa majoitus Leviltä",
       accommodationLink: "/majoitukset"
     },
-    breadcrumbLabel: "Säätietoa Leviltä"
+    breadcrumbLabel: "Säätietoa Leviltä",
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Talvivarusteet", desc: "Pukeudu sään mukaan oikein", href: "/opas/talvivarusteet-leville" },
+        { title: "Vuodenajat Levillä", desc: "Mikä kausi sopii sinulle", href: "/opas/vuodenajat-levi" },
+        { title: "Miten pääsee Leville", desc: "Tarkista yhteydet", href: "/matka/miten-paasee-leville-helsingista" },
+        { title: "Laskettelu Levillä", desc: "Rinteiden olosuhteet", href: "/opas/laskettelu-levi" },
+      ],
+    },
   },
   en: {
     meta: {
@@ -334,7 +344,16 @@ const translations = {
       accommodation: "Book Accommodation in Levi",
       accommodationLink: "/en/accommodations"
     },
-    breadcrumbLabel: "Weather in Levi"
+    breadcrumbLabel: "Weather in Levi",
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Winter Clothing", desc: "Dress right for the weather", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Seasons in Levi", desc: "Which season suits you", href: "/guide/seasons-in-levi" },
+        { title: "How to Get to Levi", desc: "Check travel connections", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+        { title: "Skiing in Levi", desc: "Slope conditions", href: "/guide/skiing-in-levi" },
+      ],
+    },
   }
 };
 
@@ -558,6 +577,9 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
                 ))}
               </Accordion>
             </section>
+
+            {/* Read Next */}
+            <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">

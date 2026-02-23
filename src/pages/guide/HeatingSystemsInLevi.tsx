@@ -19,6 +19,7 @@ import {
   Info
 } from "lucide-react";
 import { Language } from "@/translations";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 
 // Import images
 import electricRadiatorImg from "@/assets/heating/electric-radiator.jpg";
@@ -147,6 +148,15 @@ const translations = {
     accommodationsHref: "/majoitukset",
     ctaTitle: "Varaa lämmin majoitus Leviltä",
     ctaButton: "Katso majoitukset",
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Majoitukset", desc: "Varaa lämmin mökki tai huoneisto", href: "/majoitukset" },
+        { title: "Sauna Levillä", desc: "Saunan käyttöohjeet ja vinkit", href: "/opas/sauna-levilla" },
+        { title: "Talvivarusteet", desc: "Pukeutuminen myös sisätiloissa", href: "/opas/talvivarusteet-leville" },
+        { title: "Talvi Levillä", desc: "Mitä odottaa pakkaskaudelta", href: "/opas/talvi-levi" },
+      ],
+    },
   },
 
   en: {
@@ -262,6 +272,15 @@ const translations = {
     accommodationsHref: "/en/accommodations",
     ctaTitle: "Book a warm accommodation in Levi",
     ctaButton: "View accommodations",
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Accommodations", desc: "Book a warm cabin or apartment", href: "/en/accommodations" },
+        { title: "Finnish Sauna", desc: "Sauna instructions and tips", href: "/guide/finnish-sauna-in-levi" },
+        { title: "Winter Clothing", desc: "Dressing for indoors and out", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Winter in Levi", desc: "What to expect in the cold season", href: "/guide/winter-in-levi" },
+      ],
+    },
   },
 };
 
@@ -502,6 +521,9 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
               </CardContent>
             </Card>
           </section>
+
+          {/* Read Next */}
+          <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
           {/* CTA */}
           <section className="text-center bg-card rounded-xl p-8">
