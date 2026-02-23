@@ -190,15 +190,15 @@ const content: Record<Language, {
     title: "Activiteiten in Levi",
     subtitle: "Ervaringen voor iedereen",
     intro: "Levi biedt diverse activiteiten het hele jaar door. Van skiën tot noorderlicht-safari's, langlaufen tot hondesleetochten – vind je perfecte Lapland-ervaring.",
-    metaTitle: "Activiteiten in Levi – Skiën, langlaufen, noorderlicht | Leville.net",
-    metaDescription: "Ontdek de beste activiteiten in Levi: skiën, langlaufen, noorderlicht, sneeuwscootersafari's en meer.",
+    metaTitle: "Activiteiten in Levi – Wat te doen in Lapland | Leville.net",
+    metaDescription: "Skiën, langlaufen, huskysafari, sneeuwscooter en meer. Ontdek alle activiteiten in Levi, het populairste skigebied van Finland.",
     backToHub: "Terug naar Levi-gids",
     readMore: "Lees gids",
     bookCta: "Boek accommodatie in Levi",
     accommodationsLink: "/nl/accommodaties",
     popularGuidesTitle: "Populaire activiteitengidsen",
     activities: [
-      { id: "skiing", title: "Skiën", description: "43 pistes en 28 liften – het populairste skigebied van Finland biedt skiën voor alle niveaus.", href: "/nl/levi", iconKey: "mountain" },
+      { id: "skiing", title: "Skiën", description: "43 pistes en 28 liften – het populairste skigebied van Finland biedt skiën voor alle niveaus.", href: "/nl/gids/skieen-in-levi", iconKey: "mountain" },
       { id: "cross-country", title: "Langlaufen", description: "Meer dan 230 kilometer geprepareerde loipes in adembenemend Laplands landschap.", href: "/nl/levi", iconKey: "snowflake" },
       { id: "aurora", title: "Noorderlicht", description: "Aurora is te zien op ongeveer 200 nachten per jaar in Levi.", href: "/nl/noorderlicht", iconKey: "sparkles" },
       { id: "snowmobile", title: "Sneeuwscootersafari", description: "Ervaar de sensatie en vrijheid van de Laplandse wildernis op een sneeuwscootersafari.", href: "/nl/levi", iconKey: "sun" },
@@ -236,7 +236,7 @@ const canonicalUrls: Record<Language, string> = {
   de: "https://leville.net/de/guide/activities-in-levi",
   es: "https://leville.net/es/guide/activities-in-levi",
   fr: "https://leville.net/fr/guide/activities-in-levi",
-  nl: "https://leville.net/nl/guide/activities-in-levi"
+  nl: "https://leville.net/nl/gids/activiteiten-in-levi"
 };
 
 const ActivitiesHub = ({ lang = "fi" }: ActivitiesHubProps) => {
@@ -371,6 +371,14 @@ const ActivitiesHub = ({ lang = "fi" }: ActivitiesHubProps) => {
                     { title: "Seasons in Levi", desc: "Which season suits you", href: "/guide/seasons-in-levi" },
                     { title: "Travel Guide", desc: "Practical tips for your trip", href: "/guide/travel-to-levi" },
                     { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
+                  ],
+                },
+                nl: {
+                  title: "Lees ook",
+                  links: [
+                    { title: "Seizoenen in Levi", desc: "Welk seizoen past bij jou", href: "/nl/gids/seizoenen-in-levi" },
+                    { title: "Reisgids", desc: "Praktische tips voor je reis", href: "/nl/gids/reisgids-levi" },
+                    { title: "Accommodaties", desc: "Boek je verblijf in Levi", href: "/nl/accommodaties" },
                   ],
                 },
               };
