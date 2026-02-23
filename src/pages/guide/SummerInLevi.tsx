@@ -8,6 +8,7 @@ import HreflangTags from "@/components/HreflangTags";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Sun, TreePine, Mountain, ArrowRight, Star, Bike, Fish, Thermometer } from "lucide-react";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -104,6 +105,15 @@ const translations = {
       accommodation: "Varaa kesämajoitus",
       accommodationLink: "/majoitukset"
     },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Vaellus ja pyöräily", desc: "Tunturivaelluksia ja maastopyöräilyä", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi" },
+        { title: "Syksy ja ruska Levillä", desc: "Upeimmat ruska-ajat ja -reitit", href: "/opas/syksy-ruska-levi" },
+        { title: "Ravintolat ja palvelut", desc: "Kesän ravintolat ja kaupat", href: "/opas/ravintolat-ja-palvelut-levilla" },
+        { title: "Miten pääsee Leville", desc: "Kesän matkustusyhteydet", href: "/matka/miten-paasee-leville-helsingista" }
+      ]
+    },
     breadcrumbLabel: "Kesä Levillä"
   },
   en: {
@@ -186,6 +196,15 @@ const translations = {
       hubLink: "/en/levi",
       accommodation: "Book summer accommodation",
       accommodationLink: "/en/accommodations"
+    },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Hiking & Biking", desc: "Fell hikes and mountain biking trails", href: "/activities/hiking-and-biking-levi" },
+        { title: "Autumn Ruska in Levi", desc: "Stunning fall colours and best routes", href: "/guide/autumn-ruska-in-levi" },
+        { title: "Restaurants & Services", desc: "Summer dining and shops", href: "/guide/restaurants-and-services-in-levi" },
+        { title: "How to Get to Levi", desc: "Summer travel connections", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" }
+      ]
     },
     breadcrumbLabel: "Summer in Levi"
   }
@@ -342,6 +361,9 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
                 ))}
               </Accordion>
             </section>
+
+            {/* Read Next */}
+            <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">

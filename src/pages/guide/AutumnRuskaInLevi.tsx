@@ -8,6 +8,7 @@ import HreflangTags from "@/components/HreflangTags";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Leaf, Sparkles, Mountain, ArrowRight, Star, Camera, TreePine, Thermometer } from "lucide-react";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -204,8 +205,17 @@ const translations = {
     cta: {
       hub: "Back to Levi Travel Guide",
       hubLink: "/en/levi",
-      accommodation: "Book ruska accommodation",
+      accommodation: "Book autumn accommodation",
       accommodationLink: "/en/accommodations"
+    },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Hiking & Biking", desc: "Best trails during ruska season", href: "/activities/hiking-and-biking-levi" },
+        { title: "Summer in Levi", desc: "What to do before autumn", href: "/guide/summer-in-levi" },
+        { title: "Winter in Levi", desc: "What to expect after ruska", href: "/guide/winter-in-levi" },
+        { title: "Restaurants & Services", desc: "Autumn dining in Levi", href: "/guide/restaurants-and-services-in-levi" }
+      ]
     },
     breadcrumbLabel: "Autumn Ruska in Levi"
   }
@@ -375,6 +385,9 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
                 ))}
               </Accordion>
             </section>
+
+            {/* Read Next */}
+            <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">
