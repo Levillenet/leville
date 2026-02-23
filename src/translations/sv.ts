@@ -98,9 +98,9 @@ export const sv = {
     cancellationNote: "Vår avbokningspolicy tillåter gratis avbokning upp till 60 dagar före ankomst – du bokar alltid riskfritt.",
     infoCards: [
       { icon: "ShieldCheck", title: "Säker betalning", description: "Betalning via Paytrail med kreditkort eller nätbank. Finlands största betalningsleverantör." },
-      { icon: "KeyRound", title: "Incheckning", description: "Vanligtvis kl. 16:00. Nyckelinformation skickas till din e-post på bokningsdagen." },
-      { icon: "LogOut", title: "Utcheckning", description: "Vanligtvis kl. 10:00. Slutstädning ingår i de flesta boenden." },
-      { icon: "Bed", title: "Sängkläder", description: "Sängkläder och handdukar ingår vanligtvis. Kontrollera boendets detaljer." },
+      { icon: "KeyRound", title: "Incheckning", description: "Senast kl. 17:00. Nyckelinformation skickas till din e-post på bokningsdagen." },
+      { icon: "LogOut", title: "Utcheckning", description: "Kl. 11:00. Slutstädning ingår i de flesta boenden." },
+      { icon: "Bed", title: "Sängkläder", description: "Sängkläder kan bokas vid behov under bokningsprocessen. Kontrollera boendets detaljer." },
       { icon: "Car", title: "Parkering", description: "Gratis parkering vid alla våra boenden. De flesta har motorvärmare." }
     ],
     faqTitle: "Vanliga frågor om boende i Levi",
@@ -145,7 +145,7 @@ export const sv = {
     faqs: [
       {
         question: "Vilken tid kan jag checka in?",
-        answer: "Incheckning är från kl. 17:00 och utcheckning senast kl. 11:00. Om du behöver flexibilitet med tiderna, kontakta oss i förväg."
+        answer: "Incheckning är senast kl. 17:00 och utcheckning kl. 11:00. Om du behöver flexibilitet med tiderna, kontakta oss i förväg."
       },
       {
         question: "Finns det WiFi i boendena?",

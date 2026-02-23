@@ -98,9 +98,9 @@ export const de = {
     cancellationNote: "Unsere Stornierungsrichtlinie erlaubt kostenlose Stornierung bis 60 Tage vor Anreise.",
     infoCards: [
       { icon: "ShieldCheck", title: "Sichere Zahlung", description: "Zahlung über Paytrail per Kreditkarte oder Online-Banking. Finnlands größter Zahlungsanbieter." },
-      { icon: "KeyRound", title: "Check-in", description: "Normalerweise um 16:00 Uhr. Schlüsselinformationen werden am Buchungstag per E-Mail gesendet." },
-      { icon: "LogOut", title: "Check-out", description: "Normalerweise um 10:00 Uhr. Endreinigung ist bei den meisten Unterkünften enthalten." },
-      { icon: "Bed", title: "Bettwäsche", description: "Bettwäsche und Handtücher sind normalerweise inklusive. Prüfen Sie die Unterkunftsdetails." },
+      { icon: "KeyRound", title: "Check-in", description: "Spätestens um 17:00 Uhr. Schlüsselinformationen werden am Buchungstag per E-Mail gesendet." },
+      { icon: "LogOut", title: "Check-out", description: "Um 11:00 Uhr. Endreinigung ist bei den meisten Unterkünften enthalten." },
+      { icon: "Bed", title: "Bettwäsche", description: "Bettwäsche kann bei Bedarf während des Buchungsvorgangs gebucht werden. Prüfen Sie die Unterkunftsdetails." },
       { icon: "Car", title: "Parkplatz", description: "Kostenloser Parkplatz bei allen Unterkünften. Die meisten haben eine Motorvorwärmung." }
     ],
     faqTitle: "Häufig gestellte Fragen zur Unterkunft in Levi",
@@ -145,7 +145,7 @@ export const de = {
     faqs: [
       {
         question: "Um wie viel Uhr kann ich einchecken?",
-        answer: "Check-in ist ab 17:00 Uhr und Check-out bis 11:00 Uhr. Wenn Sie Flexibilität bei den Zeiten benötigen, kontaktieren Sie uns im Voraus."
+        answer: "Check-in ist spätestens um 17:00 Uhr und Check-out bis 11:00 Uhr. Wenn Sie Flexibilität bei den Zeiten benötigen, kontaktieren Sie uns im Voraus."
       },
       {
         question: "Gibt es WLAN in den Unterkünften?",

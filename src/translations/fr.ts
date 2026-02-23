@@ -98,9 +98,9 @@ export const fr = {
     cancellationNote: "Notre politique d'annulation permet une annulation gratuite jusqu'à 60 jours avant l'arrivée.",
     infoCards: [
       { icon: "ShieldCheck", title: "Paiement sécurisé", description: "Paiement via Paytrail par carte de crédit ou banque en ligne. Le plus grand prestataire de paiement de Finlande." },
-      { icon: "KeyRound", title: "Arrivée", description: "Généralement à 16h00. Les informations de clé sont envoyées par e-mail le jour de la réservation." },
-      { icon: "LogOut", title: "Départ", description: "Généralement à 10h00. Le nettoyage final est inclus dans la plupart des hébergements." },
-      { icon: "Bed", title: "Linge de lit", description: "Le linge de lit et les serviettes sont généralement inclus. Vérifiez les détails de l'hébergement." },
+      { icon: "KeyRound", title: "Arrivée", description: "À 17h00 au plus tard. Les informations de clé sont envoyées par e-mail le jour de la réservation." },
+      { icon: "LogOut", title: "Départ", description: "À 11h00. Le nettoyage final est inclus dans la plupart des hébergements." },
+      { icon: "Bed", title: "Linge de lit", description: "Le linge de lit peut être réservé au besoin pendant le processus de réservation. Vérifiez les détails de l'hébergement." },
       { icon: "Car", title: "Stationnement", description: "Parking gratuit dans tous nos hébergements. La plupart disposent d'un réchauffeur de moteur." }
     ],
     faqTitle: "Questions fréquentes sur l'hébergement à Levi",
@@ -145,7 +145,7 @@ export const fr = {
     faqs: [
       {
         question: "À quelle heure puis-je m'enregistrer ?",
-        answer: "L'enregistrement est à partir de 17h00 et le départ avant 11h00. Si vous avez besoin de flexibilité avec les horaires, veuillez nous contacter à l'avance."
+        answer: "L'enregistrement s'effectue à 17h00 au plus tard et le départ avant 11h00. Si vous avez besoin de flexibilité avec les horaires, veuillez nous contacter à l'avance."
       },
       {
         question: "Y a-t-il le WiFi dans les hébergements ?",

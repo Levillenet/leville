@@ -98,9 +98,9 @@ export const es = {
     cancellationNote: "Nuestra política de cancelación permite cancelación gratuita hasta 60 días antes de la llegada.",
     infoCards: [
       { icon: "ShieldCheck", title: "Pago seguro", description: "Pago vía Paytrail con tarjeta de crédito o banca online. El mayor proveedor de pagos de Finlandia." },
-      { icon: "KeyRound", title: "Check-in", description: "Normalmente a las 16:00. La información de la llave se envía por correo electrónico el día de la reserva." },
-      { icon: "LogOut", title: "Check-out", description: "Normalmente a las 10:00. La limpieza final está incluida en la mayoría de los alojamientos." },
-      { icon: "Bed", title: "Ropa de cama", description: "La ropa de cama y las toallas suelen estar incluidas. Consulta los detalles del alojamiento." },
+      { icon: "KeyRound", title: "Check-in", description: "A las 17:00 a más tardar. La información de la llave se envía por correo electrónico el día de la reserva." },
+      { icon: "LogOut", title: "Check-out", description: "A las 11:00. La limpieza final está incluida en la mayoría de los alojamientos." },
+      { icon: "Bed", title: "Ropa de cama", description: "La ropa de cama se puede reservar según sea necesario durante el proceso de reserva. Consulta los detalles del alojamiento." },
       { icon: "Car", title: "Aparcamiento", description: "Aparcamiento gratuito en todos nuestros alojamientos. La mayoría tienen calentador de motor." }
     ],
     faqTitle: "Preguntas frecuentes sobre alojamiento en Levi",
@@ -145,7 +145,7 @@ export const es = {
     faqs: [
       {
         question: "¿A qué hora puedo hacer el check-in?",
-        answer: "El check-in es a partir de las 17:00 y el check-out antes de las 11:00. Si necesitas flexibilidad con los horarios, contáctanos con antelación."
+        answer: "El check-in es a las 17:00 a más tardar y el check-out antes de las 11:00. Si necesitas flexibilidad con los horarios, contáctanos con antelación."
       },
       {
         question: "¿Hay WiFi en los alojamientos?",
