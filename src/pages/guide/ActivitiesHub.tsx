@@ -199,7 +199,7 @@ const content: Record<Language, {
     popularGuidesTitle: "Populaire activiteitengidsen",
     activities: [
       { id: "skiing", title: "Skiën", description: "43 pistes en 28 liften – het populairste skigebied van Finland biedt skiën voor alle niveaus.", href: "/nl/gids/skieen-in-levi", iconKey: "mountain" },
-      { id: "cross-country", title: "Langlaufen", description: "Meer dan 230 kilometer geprepareerde loipes in adembenemend Laplands landschap.", href: "/nl/levi", iconKey: "snowflake" },
+      { id: "cross-country", title: "Langlaufen", description: "Meer dan 230 kilometer geprepareerde loipes in adembenemend Laplands landschap.", href: "/nl/gids/langlaufen-in-levi", iconKey: "snowflake" },
       { id: "aurora", title: "Noorderlicht", description: "Aurora is te zien op ongeveer 200 nachten per jaar in Levi.", href: "/nl/noorderlicht", iconKey: "sparkles" },
       { id: "snowmobile", title: "Sneeuwscootersafari", description: "Ervaar de sensatie en vrijheid van de Laplandse wildernis op een sneeuwscootersafari.", href: "/nl/levi", iconKey: "sun" },
       { id: "husky", title: "Huskysafari", description: "Een onvergetelijke ervaring met husky's in de winterse natuur van Lapland.", href: "/nl/levi", iconKey: "dog" },

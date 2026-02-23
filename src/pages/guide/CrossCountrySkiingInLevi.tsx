@@ -147,26 +147,10 @@ const translations = {
       trails: {
         title: "Most Popular Trails",
         items: [
-          {
-            name: "Immeljärvi loops",
-            length: "5–15 km",
-            desc: "Easy trails for beginners, beautiful lake views"
-          },
-          {
-            name: "Fell trail",
-            length: "10–25 km",
-            desc: "Varied climbs and descents, stunning scenery"
-          },
-          {
-            name: "Kätkätunturi trail",
-            length: "20 km",
-            desc: "Challenging route for experienced skiers"
-          },
-          {
-            name: "Illuminated center trail",
-            length: "7 km",
-            desc: "Perfect for evening skiing in dark months"
-          }
+          { name: "Immeljärvi loops", length: "5–15 km", desc: "Easy trails for beginners, beautiful lake views" },
+          { name: "Fell trail", length: "10–25 km", desc: "Varied climbs and descents, stunning scenery" },
+          { name: "Kätkätunturi trail", length: "20 km", desc: "Challenging route for experienced skiers" },
+          { name: "Illuminated center trail", length: "7 km", desc: "Perfect for evening skiing in dark months" }
         ]
       },
       tips: {
@@ -191,22 +175,10 @@ const translations = {
     faq: {
       title: "Frequently Asked Questions",
       items: [
-        {
-          q: "When do Levi's trails open?",
-          a: "The trail season typically starts in early November on the snow-making trail. The full trail network opens after sufficient snowfall."
-        },
-        {
-          q: "Is there ski instruction in Levi?",
-          a: "Yes, Levi's ski schools offer lessons for all skill levels, in both classic and skating techniques."
-        },
-        {
-          q: "Can I ski in the evening?",
-          a: "Yes, Levi has 28 km of illuminated trails that are open during dark hours."
-        },
-        {
-          q: "Is there a trail fee?",
-          a: "Levi's trails are free of charge. Equipment can be rented on site."
-        }
+        { q: "When do Levi's trails open?", a: "The trail season typically starts in early November on the snow-making trail. The full trail network opens after sufficient snowfall." },
+        { q: "Is there ski instruction in Levi?", a: "Yes, Levi's ski schools offer lessons for all skill levels, in both classic and skating techniques." },
+        { q: "Can I ski in the evening?", a: "Yes, Levi has 28 km of illuminated trails that are open during dark hours." },
+        { q: "Is there a trail fee?", a: "Levi's trails are free of charge. Equipment can be rented on site." }
       ]
     },
     cta: {
@@ -225,6 +197,80 @@ const translations = {
       ]
     },
     breadcrumbLabel: "Cross-Country Skiing in Levi"
+  },
+  nl: {
+    meta: {
+      title: "Langlaufen in Levi – 230 km loipes in Fins Lapland | Leville.net",
+      description: "Ontdek 230+ km geprepareerde langlaufloipes in Levi. Routes voor beginners en gevorderden, verhuur, lessen en de beste seizoenen voor langlaufen.",
+      canonical: "https://leville.net/nl/gids/langlaufen-in-levi"
+    },
+    title: "Langlaufen in Levi",
+    subtitle: "230 km geprepareerde loipes in het fjelllandschap van Lapland",
+    intro: "Langlaufen is enorm populair onder Nederlandse bezoekers die meer willen dan alleen alpineskiën. Het loipenetwerk van Levi is een van de meest uitgebreide en mooiste in Finland. 230 kilometer aan geprepareerde loipes voeren je door besneeuwde bossen en open fjelllandschappen. De loipes zijn geschikt voor zowel klassiek als skating, en verlichte loipes zijn beschikbaar voor langlaufen in het donkere seizoen.",
+    sections: {
+      network: {
+        title: "Loipenetwerk",
+        stats: [
+          { label: "Totaal loipes", value: "230 km", icon: "route" },
+          { label: "Verlichte loipes", value: "28 km", icon: "moon" },
+          { label: "Fjellloipes", value: "Meerdere", icon: "mountain" },
+          { label: "Kunstsneeuwloipe", value: "Altijd open", icon: "snowflake" }
+        ]
+      },
+      trails: {
+        title: "Populairste loipes",
+        items: [
+          { name: "Immeljärvi-rondjes", length: "5–15 km", desc: "Makkelijke loipes voor beginners, prachtig uitzicht op het meer" },
+          { name: "Fjellloipe", length: "10–25 km", desc: "Afwisselende klimmen en dalen, schitterend landschap" },
+          { name: "Kätkätunturi-loipe", length: "20 km", desc: "Uitdagende route voor ervaren langlaufers" },
+          { name: "Verlichte centrumloipe", length: "7 km", desc: "Perfect voor avondlanglaufen in de donkere maanden" }
+        ]
+      },
+      tips: {
+        title: "Langlauftips",
+        items: [
+          "Controleer de loipecondities op de website van Levi Ski Resort voor vertrek",
+          "Neem genoeg tijd – de uren vliegen voorbij op de fjellloipes",
+          "Neem een warme drank en snacks mee voor langere routes",
+          "Huur uitrusting bij verhuurwinkels in Levi (~€25-35/dag) als je geen eigen ski's hebt",
+          "Probeer beide stijlen: klassiek en skating",
+          "Gratis loipekaart beschikbaar bij Tourist Information of online op levi.fi"
+        ]
+      },
+      services: {
+        title: "Loipeservice",
+        content: "De loipes van Levi worden dagelijks geprepareerd. Loipekaarten zijn verkrijgbaar bij de toeristinformatie en bij loipecafés. De Levi Ski School biedt langlauflessen voor alle niveaus. Bij verhuurwinkels in de buurt van de pistes kun je zowel klassieke als skating-ski's huren."
+      },
+      conditions: {
+        title: "Seizoen en omstandigheden",
+        content: "Het loipeseizoen begint meestal in november en loopt door tot eind april. De kunstsneeuwloipe garandeert vroeg in het seizoen langlaufmogelijkheden. Op de fjellloipes ligt vaak sneeuw tot mei. Het beste seizoen voor langlaufen is maart-april: lentezon met uitstekende sneeuw."
+      }
+    },
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Wanneer gaan de loipes in Levi open?", a: "Het loipeseizoen begint meestal begin november op de kunstsneeuwloipe. Het volledige loipenetwerk opent na voldoende sneeuwval." },
+        { q: "Zijn er langlauflessen in Levi?", a: "Ja, de skischolen van Levi bieden lessen voor alle niveaus, zowel klassiek als skating." },
+        { q: "Kan ik 's avonds langlaufen?", a: "Ja, Levi heeft 28 km verlichte loipes die ook in het donker open zijn." },
+        { q: "Moet ik betalen voor de loipes?", a: "Nee, de loipes van Levi zijn gratis. Uitrusting kun je ter plaatse huren." }
+      ]
+    },
+    cta: {
+      hub: "Terug naar Levi-gids",
+      hubLink: "/nl/levi",
+      accommodation: "Boek accommodatie in Levi",
+      accommodationLink: "/nl/accommodaties"
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Skiën in Levi", desc: "43 pistes en 28 liften", href: "/nl/gids/skieen-in-levi" },
+        { title: "Winterkleding", desc: "Kledingstips voor Levi", href: "/nl/gids/winterkleding-levi-lapland" },
+        { title: "Seizoenen in Levi", desc: "Wanneer is het beste seizoen?", href: "/nl/gids/seizoenen-in-levi" },
+        { title: "Accommodaties", desc: "Chalets en appartementen in Levi", href: "/nl/accommodaties" }
+      ]
+    },
+    breadcrumbLabel: "Langlaufen in Levi"
   }
 };
 
@@ -232,13 +278,18 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
   const t = translations[lang] || translations.fi;
   const location = useLocation();
 
-  const customUrls = lang === "fi" 
-    ? { fi: "/opas/hiihto-levi", en: "/guide/cross-country-skiing-in-levi" }
-    : { en: "/guide/cross-country-skiing-in-levi", fi: "/opas/hiihto-levi" };
+  const customUrls: Record<string, string> = {
+    fi: "/opas/hiihto-levi",
+    en: "/guide/cross-country-skiing-in-levi",
+    nl: "/nl/gids/langlaufen-in-levi"
+  };
 
+  const homeLabelMap: Record<string, string> = { fi: "Etusivu", en: "Home", nl: "Home" };
+  const homeHrefMap: Record<string, string> = { fi: "/", en: "/en", nl: "/nl" };
+  const leviHrefMap: Record<string, string> = { fi: "/levi", en: "/en/levi", nl: "/nl/levi" };
   const breadcrumbItems = [
-    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : "/en" },
-    { label: lang === "fi" ? "Levi" : "Levi", href: lang === "fi" ? "/levi" : "/en/levi" },
+    { label: homeLabelMap[lang] || "Home", href: homeHrefMap[lang] || "/en" },
+    { label: "Levi", href: leviHrefMap[lang] || "/en/levi" },
     { label: t.breadcrumbLabel, href: "" }
   ];
 
@@ -262,7 +313,7 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         
