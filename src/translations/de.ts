@@ -107,7 +107,7 @@ export const de = {
     faqs: [
       { question: "Was kostet eine Unterkunft in Levi?", answer: "Die Preise hängen von der Saison, Größe und Lage ab. Ein Studio für zwei kostet ca. 70–150 €/Nacht, eine Familienwohnung für 4–6 Personen ca. 120–250 €/Nacht." },
       { question: "Brauche ich ein Auto in Levi?", answer: "Wenn Sie im Zentrum von Levi übernachten, brauchen Sie kein Auto. Pisten, Loipen, Restaurants und Geschäfte sind zu Fuß erreichbar. Im Winter fährt der kostenlose Ski Bus." },
-      { question: "Haben die Unterkünfte eine Sauna?", answer: "Ja – alle Leville.net Unterkünfte haben eine eigene Sauna. Das ist in Finnland Standard." },
+      { question: "Haben die Unterkünfte eine Sauna?", answer: "Fast alle Leville.net Unterkünfte haben eine eigene Sauna. Das ist in Finnland Standard, aber oft eine angenehme Überraschung für internationale Besucher. Alle Unterkünfte mit Sauna haben eine elektrisch beheizte Sauna.", link: "/sauna", linkText: "Lesen Sie unseren Sauna-Guide" },
       { question: "Wie komme ich nach Levi?", answer: "Sie können zum Flughafen Kittilä fliegen (15 Min. mit dem Bus) oder den Zug nach Kolari nehmen (1 Std. mit dem Bus).", link: "/en/travel/how-to-get-to-levi", linkText: "Mehr auf unserer Reiseseite" },
       { question: "Ist Levi für Familien geeignet?", answer: "Absolut. Levi hat eigene Kinderpisten, Skischule, Familienrestaurants und viele kinderfreundliche Aktivitäten.", link: "/en/guide/levi-with-children", linkText: "Lesen Sie unseren Familienguide" },
       { question: "Ist die Bezahlung sicher?", answer: "Ja. Alle Zahlungen werden über Paytrail abgewickelt, Finnlands größten Zahlungsanbieter. Wir speichern niemals Ihre Kartendaten." }
