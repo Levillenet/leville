@@ -190,6 +190,7 @@ const App = () => (
               <Route path="/nl/gids/activiteiten-in-levi" element={<ActivitiesHub lang="nl" />} />
               <Route path="/nl/gids/reisgids-levi" element={<TravelHub lang="nl" />} />
               <Route path="/nl/gids/winterkleding-levi-lapland" element={<WinterClothingGuide lang="nl" />} />
+              <Route path="/nl/gids/hoe-kom-je-in-levi" element={<HowToGetToLevi lang="nl" />} />
               
               {/* Guide HUB Pages - Finnish */}
               <Route path="/opas/vuodenajat-levi" element={<SeasonsHub />} />
