@@ -92,6 +92,25 @@ export const sv = {
       { label: "Parkering" },
       { label: "Skidförvaring" },
       { label: "Uppvärmd skidservicerum" }
+    ],
+    bookingTitle: "Bokning & Betalning – Så fungerar det",
+    bookingText: "Att boka via Leville.net är enkelt och säkert. Välj datum och gruppstorlek i sökfältet högst upp på sidan, så ser du direkt tillgängliga boenden med priser.\n\nBetalningen sker säkert via Paytrail – Finlands största och mest betrodda betalningsleverantör. Du kan betala med alla vanliga kreditkort (Visa, Mastercard) eller finsk nätbank. Din bokning bekräftas direkt efter betalningen och du får en bekräftelse via e-post.",
+    cancellationNote: "Vår avbokningspolicy tillåter gratis avbokning upp till 60 dagar före ankomst – du bokar alltid riskfritt.",
+    infoCards: [
+      { icon: "ShieldCheck", title: "Säker betalning", description: "Betalning via Paytrail med kreditkort eller nätbank. Finlands största betalningsleverantör." },
+      { icon: "KeyRound", title: "Incheckning", description: "Vanligtvis kl. 16:00. Nyckelinformation skickas till din e-post på bokningsdagen." },
+      { icon: "LogOut", title: "Utcheckning", description: "Vanligtvis kl. 10:00. Slutstädning ingår i de flesta boenden." },
+      { icon: "Bed", title: "Sängkläder", description: "Sängkläder och handdukar ingår vanligtvis. Kontrollera boendets detaljer." },
+      { icon: "Car", title: "Parkering", description: "Gratis parkering vid alla våra boenden. De flesta har motorvärmare." }
+    ],
+    faqTitle: "Vanliga frågor om boende i Levi",
+    faqs: [
+      { question: "Hur mycket kostar boende i Levi?", answer: "Priserna beror på säsong, storlek och läge. En studiolägenhet för två kostar ca 70–150 €/natt, familjelägenhet för 4–6 personer ca 120–250 €/natt och rymlig stuga för 8–14 personer ca 200–500 €/natt." },
+      { question: "Behöver jag bil i Levi?", answer: "Om du bor i Levi centrum behöver du ingen bil. Backar, spår, restauranger och butiker är inom gångavstånd. På vintern går gratis Ski Bus." },
+      { question: "Har boendena bastu?", answer: "Ja – alla Leville.net boenden har egen bastu. Detta är standard i Finland. De flesta lägenheter har elektrisk bastu." },
+      { question: "Hur tar jag mig till Levi?", answer: "Du kan flyga till Kittilä flygplats (15 min med buss) eller ta tåg till Kolari (1 h med buss). Med bil är Helsinki–Levi ca 1 100 km.", link: "/en/travel/how-to-get-to-levi", linkText: "Läs mer på vår reseguide" },
+      { question: "Passar Levi för barnfamiljer?", answer: "Absolut. Levi har egna barnbackar, skidskola, familjerestauranger och massor av barnvänliga aktiviteter.", link: "/en/guide/levi-with-children", linkText: "Läs vår guide för familjer" },
+      { question: "Är betalningen säker?", answer: "Ja. Alla betalningar hanteras via Paytrail, Finlands största betalningsleverantör. Du kan betala med Visa och Mastercard eller finsk nätbank. Vi lagrar aldrig dina kortuppgifter." }
     ]
   },
   yhteystiedot: {
