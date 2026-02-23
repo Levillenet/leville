@@ -202,12 +202,12 @@ const content: Record<Language, {
       { id: "cross-country", title: "Langlaufen", description: "Meer dan 230 kilometer geprepareerde loipes in adembenemend Laplands landschap.", href: "/nl/gids/langlaufen-in-levi", iconKey: "snowflake" },
       { id: "aurora", title: "Noorderlicht", description: "Aurora is te zien op ongeveer 200 nachten per jaar in Levi.", href: "/nl/noorderlicht", iconKey: "sparkles" },
       { id: "snowmobile", title: "Sneeuwscootersafari", description: "Ervaar de sensatie en vrijheid van de Laplandse wildernis op een sneeuwscootersafari.", href: "/nl/levi", iconKey: "sun" },
-      { id: "husky", title: "Huskysafari", description: "Een onvergetelijke ervaring met husky's in de winterse natuur van Lapland.", href: "/nl/levi", iconKey: "dog" },
+      { id: "husky", title: "Huskysafari", description: "Een onvergetelijke ervaring met husky's in de winterse natuur van Lapland.", href: "/nl/activiteiten/husky-safari-levi", iconKey: "dog" },
       { id: "hiking", title: "Wandelen", description: "Fjellpaden en natuurwandelpaden voor wandelaars van alle niveaus.", href: "/nl/levi", iconKey: "treepine" }
     ],
     popularGuides: [
       { id: "snowmobile-tips", title: "Sneeuwscootersafari-tips", description: "Praktische tips voor beginners: wat te dragen, hoe te rijden en waar te boeken.", href: "/activities/snowmobile-safari-tips-levi" },
-      { id: "top-winter", title: "Beste winteractiviteiten", description: "Complete gids voor winteractiviteiten in Levi: skiën, husky's, rendieren en meer.", href: "/activities/top-winter-activities-in-levi-lapland" }
+      { id: "top-winter", title: "Beste winteractiviteiten", description: "Complete gids voor winteractiviteiten in Levi: skiën, husky's, rendieren en meer.", href: "/nl/activiteiten/winteractiviteiten-levi" }
     ]
   }
 };
