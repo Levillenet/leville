@@ -8,6 +8,7 @@ import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, ArrowRight, Snowflake, Star, Route, TreePine, Moon } from "lucide-react";
+import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -113,6 +114,15 @@ const translations = {
       accommodation: "Varaa majoitus Leviltä",
       accommodationLink: "/majoitukset"
     },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Laskettelu Levillä", desc: "43 rinnettä ja 28 hissiä", href: "/opas/laskettelu-levi" },
+        { title: "Talvivarusteet", desc: "Pukeutumisvinkit Levin pakkasiin", href: "/opas/talvivarusteet-leville" },
+        { title: "Kevät Levillä", desc: "Parhaat hiihtokelit kevätauringossa", href: "/opas/kevat-levi" },
+        { title: "Levi ilman autoa", desc: "Miten pääset laduille ilman autoa", href: "/opas/levi-ilman-autoa" }
+      ]
+    },
     breadcrumbLabel: "Hiihto Levillä"
   },
   en: {
@@ -204,6 +214,15 @@ const translations = {
       hubLink: "/en/levi",
       accommodation: "Book accommodation in Levi",
       accommodationLink: "/en/accommodations"
+    },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Skiing in Levi", desc: "43 slopes and 28 lifts", href: "/guide/skiing-in-levi" },
+        { title: "Winter Clothing Guide", desc: "How to dress for Levi's frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Spring in Levi", desc: "Best skiing in spring sunshine", href: "/guide/spring-in-levi" },
+        { title: "Levi Without a Car", desc: "How to reach the trails car-free", href: "/guide/levi-without-a-car" }
+      ]
     },
     breadcrumbLabel: "Cross-Country Skiing in Levi"
   }
@@ -352,6 +371,9 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
                 ))}
               </Accordion>
             </section>
+
+            {/* Read Next */}
+            <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">

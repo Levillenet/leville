@@ -8,6 +8,7 @@ import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Snowflake, Moon, Thermometer, Mountain, ArrowRight, Star, Sparkles } from "lucide-react";
+import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -105,6 +106,15 @@ const translations = {
       accommodation: "Varaa talvimajoitus",
       accommodationLink: "/majoitukset"
     },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Laskettelu Levillä", desc: "43 rinnettä ja 28 hissiä", href: "/opas/laskettelu-levi" },
+        { title: "Talvivarusteet", desc: "Pukeutumisvinkit pakkaseen", href: "/opas/talvivarusteet-leville" },
+        { title: "Revontulet", desc: "Revontulien bongausopas", href: "/revontulet" },
+        { title: "Moottorikelkkasafari", desc: "Vinkit ensikertalaiselle", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" }
+      ]
+    },
     breadcrumbLabel: "Talvi Levillä"
   },
   en: {
@@ -188,6 +198,15 @@ const translations = {
       hubLink: "/en/levi",
       accommodation: "Book winter accommodation",
       accommodationLink: "/en/accommodations"
+    },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Skiing in Levi", desc: "43 slopes and 28 lifts", href: "/guide/skiing-in-levi" },
+        { title: "Winter Clothing Guide", desc: "How to dress for the frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Northern Lights", desc: "Aurora viewing guide", href: "/en/northern-lights" },
+        { title: "Snowmobile Safari", desc: "Tips for first-timers", href: "/activities/snowmobile-safari-tips-levi" }
+      ]
     },
     breadcrumbLabel: "Winter in Levi"
   }
@@ -344,6 +363,9 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
                 ))}
               </Accordion>
             </section>
+
+            {/* Read Next */}
+            <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">

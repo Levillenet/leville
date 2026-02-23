@@ -17,6 +17,7 @@ import {
   Wind,
   Shield
 } from "lucide-react";
+import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -176,6 +177,15 @@ const translations = {
       text: "Tutustu mukaviin majoitusvaihtoehtoihimme ja suunnittele unelmiesi talviloma Levillä.",
       button: "Katso majoitukset"
     },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Talvi Levillä", desc: "Mitä odottaa Levin talvelta", href: "/opas/talvi-levi" },
+        { title: "Miten pääsee Leville", desc: "Lento-, juna- ja autoyhteydet", href: "/matka/miten-paasee-leville-helsingista" },
+        { title: "Parhaat talviaktiviteetit", desc: "Kattava opas aktiviteetteihin", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
+        { title: "Lapsiperheet Levillä", desc: "Vinkit perheen pukeutumiseen", href: "/opas/lapsiperheet-levilla" }
+      ]
+    },
     relatedTitle: "Hyödyllisiä oppaita",
     relatedLinks: [
       { text: "Talviaktiviteetit Levillä", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
@@ -331,6 +341,15 @@ const translations = {
       title: "Book Your Accommodation in Levi",
       text: "Explore our comfortable accommodation options and plan your dream winter holiday in Levi.",
       button: "View Accommodations"
+    },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Winter in Levi", desc: "What to expect from Levi winter", href: "/guide/winter-in-levi" },
+        { title: "How to Get to Levi", desc: "Flights, trains and driving", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+        { title: "Top Winter Activities", desc: "Complete guide to activities", href: "/activities/top-winter-activities-in-levi-lapland" },
+        { title: "Levi With Children", desc: "Tips for dressing kids warm", href: "/guide/levi-with-children" }
+      ]
     },
     relatedTitle: "Useful Guides",
     relatedLinks: [
@@ -581,6 +600,9 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
               ))}
             </Accordion>
           </section>
+
+          {/* Read Next */}
+          <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
           {/* CTA Section */}
           <section className="bg-primary/10 rounded-2xl p-8 text-center mb-12">
