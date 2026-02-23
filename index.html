@@ -18,6 +18,32 @@
       gtag('js', new Date());
       gtag('config', 'G-6BR1JFF2Q8');
     </script>
+    <!-- Track outbound clicks to Moder booking system -->
+    <script>
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest ? e.target.closest('a') : null;
+        if (link && link.href && link.href.indexOf('app.moder.fi') !== -1) {
+          if (typeof gtag === 'function') {
+            gtag('event', 'accommodation_search', {
+              event_category: 'booking',
+              event_label: link.href,
+              page_location: window.location.pathname,
+              transport_type: 'beacon'
+            });
+          }
+        }
+      }, true);
+      // Also track via beforeunload for iframe-triggered navigations to Moder
+      window.addEventListener('beforeunload', function() {
+        if (document.getElementById('moder-embed') && typeof gtag === 'function') {
+          navigator.sendBeacon && navigator.sendBeacon(
+            'https://www.google-analytics.com/g/collect?v=2&tid=G-6BR1JFF2Q8&en=accommodation_search&ep.event_category=booking&ep.page_location=' +
+            encodeURIComponent(window.location.pathname) + '&cid=' +
+            ((document.cookie.match(/_ga=GA\\d+\\.\\d+\\.(\\d+\\.\\d+)/) || [])[1] || Math.random())
+          );
+        }
+      });
+    </script>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
