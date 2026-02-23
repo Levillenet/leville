@@ -99,12 +99,23 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
 
     const showLoadingOverlay = () => {
       // Track search in Google Analytics
+      console.log('[Leville] Search button clicked, gtag available:', !!(window as any).gtag);
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', 'accommodation_search', {
           event_category: 'booking',
           event_label: lang,
           page_location: window.location.pathname,
         });
+        console.log('[Leville] accommodation_search event sent to GA4');
+      }
+
+      // Also send via direct Measurement Protocol beacon as fallback
+      try {
+        navigator.sendBeacon(
+          `https://www.google-analytics.com/g/collect?v=2&tid=G-6BR1JFF2Q8&en=accommodation_search&ep.event_category=booking&ep.event_label=${lang}&ep.page_location=${encodeURIComponent(window.location.pathname)}&cid=${document.cookie.match(/_ga=GA\d+\.\d+\.(\d+\.\d+)/)?.[1] || Math.random()}`
+        );
+      } catch (e) {
+        // ignore beacon errors
       }
 
       // Remove any existing overlay
