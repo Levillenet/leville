@@ -32,7 +32,26 @@ interface WinterClothingGuideProps {
   lang?: Language;
 }
 
-const translations = {
+const translations: Record<string, {
+  meta: { title: string; description: string; canonical: string };
+  title: string;
+  subtitle: string;
+  intro: string;
+  sections: {
+    temperatures: { title: string; intro: string; ranges: { range: string; temp: string; desc: string }[] };
+    layering: { title: string; intro: string; layers: { name: string; icon: string; items: string[] }[] };
+    accessories: { title: string; items: { name: string; tips: string[] }[] };
+    activities: { title: string; items: { activity: string; tips: string }[] };
+    gear: { title: string; intro: string; options: string[]; tip: string };
+    faq: { title: string; items: { q: string; a: string }[] };
+  };
+  cta: { title: string; text: string; button: string };
+  readNext: { title: string; links: ReadNextLink[] };
+  relatedTitle: string;
+  relatedLinks: { text: string; href: string }[];
+  breadcrumbs: { label: string; href: string }[];
+  accommodationsHref: string;
+}> = {
   fi: {
     meta: {
       title: "Talvivarusteet Leville – Näin pukeutuu pakkasella | Leville.net",
@@ -362,6 +381,172 @@ const translations = {
       { label: "Winter Clothing", href: "/guide/how-to-dress-for-winter-in-levi-lapland" }
     ],
     accommodationsHref: "/en/accommodations"
+  },
+  nl: {
+    meta: {
+      title: "Winterkleding voor Levi Lapland – Wat moet je meenemen? | Leville.net",
+      description: "Praktische kledingstips van een local voor je wintervakantie in Levi, Fins Lapland. Het lagenprincipe, wat je ter plaatse kunt huren en wat je zelf mee moet nemen.",
+      canonical: "https://leville.net/nl/gids/winterkleding-levi-lapland"
+    },
+    title: "Winterkleding voor Levi – Wat trek je aan bij -30°C?",
+    subtitle: "Praktische kledingstips voor je wintervakantie in Fins Lapland",
+    intro: "Veel Nederlandse reizigers komen via Voigt Travel of Nordic naar Levi en krijgen ter plaatse thermo-overalls. Maar wat trek je eronder aan? En wat heb je nodig voor vrije tijd buiten de georganiseerde activiteiten? Deze gids helpt je met het lagenprincipe en praktische tips.",
+    sections: {
+      temperatures: {
+        title: "Wintertemperaturen in Levi",
+        intro: "Het winterseizoen in Levi loopt van november tot april. Typische temperaturen:",
+        ranges: [
+          { range: "November–december", temp: "-5°C – -20°C", desc: "Poolnacht, weinig daglicht" },
+          { range: "Januari–februari", temp: "-15°C – -35°C", desc: "Koudste maanden" },
+          { range: "Maart–april", temp: "-10°C – +5°C", desc: "Lentezon verwarmt" }
+        ]
+      },
+      layering: {
+        title: "Het lagenprincipe",
+        intro: "Lagen dragen is de beste manier om warm te blijven. Drie lagen houden je droog en warm:",
+        layers: [
+          {
+            name: "Basislaag (op de huid)",
+            icon: "shirt",
+            items: [
+              "Merinowol is de beste keuze – verwarmt zelfs als het vochtig is",
+              "Synthetische thermokleding werkt ook goed",
+              "Vermijd katoen – het blijft vochtig en koelt je af"
+            ]
+          },
+          {
+            name: "Tussenlaag (isolatie)",
+            icon: "layers",
+            items: [
+              "Fleecevest of -trui",
+              "Donsjas of -vest voor extreme kou",
+              "Wollen trui als traditioneel alternatief"
+            ]
+          },
+          {
+            name: "Buitenlaag (bescherming)",
+            icon: "shield",
+            items: [
+              "Wind- en waterdichte jas",
+              "Ademend materiaal voorkomt zweten",
+              "Skipakken en ski-kleding werken uitstekend"
+            ]
+          }
+        ]
+      },
+      accessories: {
+        title: "Onmisbare winteraccessoires",
+        items: [
+          {
+            name: "Hoofdbedekking en gezichtsbescherming",
+            tips: [
+              "Warme muts die je oren bedekt",
+              "Nekwarmer of buff voor je gezicht",
+              "Skibril beschermt tegen wind en zon"
+            ]
+          },
+          {
+            name: "Wanten (niet handschoenen!)",
+            tips: [
+              "Wanten zijn warmer dan handschoenen",
+              "Twee lagen: dunne binnenhandschoenen + dikke wanten",
+              "Verwarmde wanten voor -25°C en kouder"
+            ]
+          },
+          {
+            name: "Schoeisel",
+            tips: [
+              "Waterdichte winterlaarzen (geschikt tot -30°C)",
+              "TIP: In Levi kun je snowboots huren bij Levi Ski Resort verhuurwinkels",
+              "Dikke wollen sokken",
+              "Vermijd te strakke schoenen – lucht rond je voeten isoleert"
+            ]
+          }
+        ]
+      },
+      activities: {
+        title: "Kleding per activiteit",
+        items: [
+          {
+            activity: "Skiën en snowboarden",
+            tips: "Technische ski-kleding, helm, skibril, warme handschoenen. De tussenlaag mag niet te dik zijn, want zweten koelt je af."
+          },
+          {
+            activity: "Sneeuwscootersafari",
+            tips: "Safari-aanbieders leveren meestal warme overalls en helmen. Breng toch je eigen wollen sokken en thermokleding mee."
+          },
+          {
+            activity: "Noorderlicht kijken",
+            tips: "Als je stilstaat heb je maximale warmte nodig. Dikke donsjas, thermobroek, hand- en voetenwarmers."
+          },
+          {
+            activity: "Langlaufen en wandelen",
+            tips: "Lichtere kleding omdat beweging warmte genereert. Ademende materialen zijn essentieel."
+          }
+        ]
+      },
+      gear: {
+        title: "Wat kun je huren in Levi?",
+        intro: "Je hoeft niet alles mee te nemen. In Levi kun je veel huren:",
+        options: [
+          "Thermo-overalls bij verhuurwinkels bij de pistes",
+          "Ski-uitrusting bij Levi Ski Resort (voor- en zuidpistes)",
+          "Snowboots bij verhuurwinkels in het centrum",
+          "Safari-aanbieders leveren warme kleding bij activiteiten"
+        ],
+        tip: "Onze tip: Huur zware uitrusting ter plaatse, maar breng zelf mee: thermokleding, fleece, je eigen winterjas, wollen sokken, muts en wanten."
+      },
+      faq: {
+        title: "Veelgestelde vragen",
+        items: [
+          {
+            q: "Moet ik winterkleding kopen voor Lapland?",
+            a: "De meeste verhuurpakketten bevatten thermo-overalls en laarzen. Breng wel je eigen basislagen mee: thermokleding, fleece en wollen sokken."
+          },
+          {
+            q: "Wat trek ik aan onder de thermo-overall?",
+            a: "Thermokleding (merinowol of synthetisch) als basislaag en een fleecevest of -trui als tussenlaag. Geen jeans of katoen!"
+          },
+          {
+            q: "Kan ik ski-uitrusting huren in Levi?",
+            a: "Ja, er zijn meerdere verhuurwinkels bij de voorpistes en zuidpistes. Je kunt ook snowboots en winterkleding huren."
+          },
+          {
+            q: "Hoe koud wordt het echt in Levi?",
+            a: "December tot februari: typisch -10 tot -25°C, kan oplopen tot -35°C. Maar droge kou voelt warmer aan dan Nederlandse natte kou. Met goede kleding is het prima te doen!"
+          },
+          {
+            q: "Speciale tips voor kinderen?",
+            a: "Kinderen hebben een extra laag nodig. Zorg voor goede gezichtsbescherming bij wind, warme wanten en waterdichte laarzen. Kinderen koelen sneller af dan volwassenen."
+          }
+        ]
+      }
+    },
+    cta: {
+      title: "Boek je accommodatie in Levi",
+      text: "Bekijk onze comfortabele accommodaties en plan je droomvakantie in Fins Lapland.",
+      button: "Bekijk accommodaties"
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Skiën in Levi", desc: "43 pistes en 28 liften", href: "/nl/gids/skieen-in-levi" },
+        { title: "Activiteiten in Levi", desc: "Alle activiteiten in Levi", href: "/nl/gids/activiteiten-in-levi" },
+        { title: "Reisgids Levi", desc: "Praktische tips voor je reis", href: "/nl/gids/reisgids-levi" },
+        { title: "Accommodaties", desc: "Boek je verblijf in Levi", href: "/nl/accommodaties" }
+      ]
+    },
+    relatedTitle: "Handige gidsen",
+    relatedLinks: [
+      { text: "Beste winteractiviteiten in Levi", href: "/activities/top-winter-activities-in-levi-lapland" },
+      { text: "Sneeuwscootersafari-tips", href: "/activities/snowmobile-safari-tips-levi" }
+    ],
+    breadcrumbs: [
+      { label: "Home", href: "/nl" },
+      { label: "Reisgids", href: "/nl/gids/reisgids-levi" },
+      { label: "Winterkleding", href: "/nl/gids/winterkleding-levi-lapland" }
+    ],
+    accommodationsHref: "/nl/accommodaties"
   }
 };
 
@@ -371,7 +556,8 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
   
   const hreflangUrls = {
     fi: "https://leville.net/opas/talvivarusteet-leville",
-    en: "https://leville.net/guide/how-to-dress-for-winter-in-levi-lapland"
+    en: "https://leville.net/guide/how-to-dress-for-winter-in-levi-lapland",
+    nl: "https://leville.net/nl/gids/winterkleding-levi-lapland"
   };
 
   const getIcon = (iconName: string) => {
@@ -431,7 +617,7 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_GB"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_GB"} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
