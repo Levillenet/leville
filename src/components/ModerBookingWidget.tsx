@@ -98,6 +98,15 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     }
 
     const showLoadingOverlay = () => {
+      // Track search in Google Analytics
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'accommodation_search', {
+          event_category: 'booking',
+          event_label: lang,
+          page_location: window.location.pathname,
+        });
+      }
+
       // Remove any existing overlay
       const existing = document.getElementById('moder-loading-overlay');
       if (existing) existing.remove();
