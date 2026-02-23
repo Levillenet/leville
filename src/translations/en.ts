@@ -110,7 +110,8 @@ export const en = {
       { question: "Do the accommodations have a sauna?", answer: "Nearly all Leville.net properties have their own sauna. This is standard in Finland but often a pleasant surprise for international visitors. All properties with a sauna have an electrically heated sauna.", link: "/sauna", linkText: "Read our sauna guide" },
       { question: "How do I get to Levi?", answer: "You can fly to Kittilä Airport (15 min by bus) or take a train to Kolari (1 h by bus). By car, Helsinki–Levi is about 1,100 km.", link: "/en/travel/how-to-get-to-levi", linkText: "Read more on our How to Get to Levi page" },
       { question: "Is Levi suitable for families with children?", answer: "Absolutely. Levi has dedicated children's slopes, ski school, family restaurants and plenty of child-friendly activities.", link: "/en/guide/levi-with-children", linkText: "Read our Levi with Children guide" },
-      { question: "Is the payment secure?", answer: "Yes. All payments are processed through Paytrail, Finland's largest payment provider. You can pay with Visa and Mastercard credit cards or Finnish online banking. We never process or store your card details." }
+      { question: "Is the payment secure?", answer: "Yes. All payments are processed through Paytrail, Finland's largest payment provider. You can pay with Visa and Mastercard credit cards or Finnish online banking. We never process or store your card details." },
+      { question: "What are your booking terms?", answer: "Our booking terms are flexible and customer-friendly. Free cancellation up to 60 days before arrival. Your booking is confirmed after payment and you'll receive a confirmation email. Payments are processed securely through Paytrail. Final cleaning is included in the price. Check-in by 17:00 and check-out by 11:00.", link: "/en/booking-terms", linkText: "Read full booking terms here" }
     ]
   },
   yhteystiedot: {
