@@ -181,62 +181,29 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
       }, 10000);
     };
 
-    const setupClickHandler = () => {
+    // The Moder widget likely renders an iframe, so click events inside it
+    // don't bubble to the parent page. Instead, detect when the user navigates
+    // away (which happens when they click "Search" in the Moder widget).
+    const beforeUnloadHandler = () => {
+      // Only fire if the moder embed is on the page (i.e. user is on the booking page)
       const moderEmbed = document.getElementById('moder-embed');
-      if (!moderEmbed) {
-        setupTimeoutId = setTimeout(setupClickHandler, 500);
-        return;
+      if (moderEmbed) {
+        showLoadingOverlay();
       }
-
-      // The Moder widget may use different class names across versions.
-      // Listen for clicks on the entire embed and detect the search button
-      // by checking if the click target (or ancestor) contains an SVG/image
-      // that looks like a search icon, or is positioned as the last action element.
-      if (clickHandlerRef.current) {
-        moderEmbed.removeEventListener('click', clickHandlerRef.current);
-      }
-
-      const handler = (e: Event) => {
-        const target = e.target as HTMLElement;
-        // Detect search button click: the button is typically the last interactive
-        // div in the bar, contains an SVG/img with search icon, or has "Search" text
-        const isSearchButton =
-          target.closest('[class*="search"]') ||
-          target.closest('[class*="Search"]') ||
-          target.textContent?.trim() === 'Search' ||
-          target.closest('svg')?.parentElement?.textContent?.trim() === '' ||
-          // Fallback: any click that triggers page navigation (beforeunload)
-          false;
-
-        // More reliable: check if the Moder widget is about to navigate away
-        // by detecting if the click happened near the search area (rightmost element)
-        const rect = moderEmbed.getBoundingClientRect();
-        const clickX = (e as MouseEvent).clientX;
-        const isRightArea = clickX > rect.right - 80;
-
-        if (isSearchButton || isRightArea) {
-          showLoadingOverlay();
-        }
-      };
-
-      clickHandlerRef.current = handler;
-      moderEmbed.addEventListener('click', handler);
     };
 
-    setupClickHandler();
+    window.addEventListener('beforeunload', beforeUnloadHandler);
+    clickHandlerRef.current = beforeUnloadHandler as any;
 
     return () => {
-      // Cleanup old handler when lang changes
-      const moderEmbed = document.getElementById('moder-embed');
-      if (moderEmbed && clickHandlerRef.current) {
-        moderEmbed.removeEventListener('click', clickHandlerRef.current);
+      if (clickHandlerRef.current) {
+        window.removeEventListener('beforeunload', clickHandlerRef.current);
       }
-      if (setupTimeoutId) clearTimeout(setupTimeoutId);
       const overlay = document.getElementById('moder-loading-overlay');
       if (overlay) overlay.remove();
       document.body.style.cursor = '';
     };
-  }, [lang]); // Re-run when lang changes
+  }, [lang]);
 
   return null;
 };
