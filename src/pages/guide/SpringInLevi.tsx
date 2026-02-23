@@ -8,6 +8,7 @@ import HreflangTags from "@/components/HreflangTags";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Sun, Snowflake, Mountain, ArrowRight, Star, Coffee, Thermometer } from "lucide-react";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -104,6 +105,15 @@ const translations = {
       accommodation: "Varaa kevätmajoitus",
       accommodationLink: "/majoitukset"
     },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Hiihto Levillä", desc: "Yli 230 km latuja – kevät on parasta hiihtoaikaa", href: "/opas/hiihto-levi" },
+        { title: "Laskettelu Levillä", desc: "Rinteet auki toukokuulle asti", href: "/opas/laskettelu-levi" },
+        { title: "Kesä Levillä", desc: "Mitä tehdä Levillä kesällä", href: "/opas/kesa-levi" },
+        { title: "Talvivarusteet", desc: "Pukeutuminen keväthangille", href: "/opas/talvivarusteet-leville" }
+      ]
+    },
     breadcrumbLabel: "Kevät Levillä"
   },
   en: {
@@ -186,6 +196,15 @@ const translations = {
       hubLink: "/en/levi",
       accommodation: "Book spring accommodation",
       accommodationLink: "/en/accommodations"
+    },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Cross-Country Skiing", desc: "230+ km of trails – spring is prime time", href: "/guide/cross-country-skiing-in-levi" },
+        { title: "Skiing in Levi", desc: "Slopes open until May", href: "/guide/skiing-in-levi" },
+        { title: "Summer in Levi", desc: "What to do in Levi in summer", href: "/guide/summer-in-levi" },
+        { title: "Winter Clothing", desc: "What to wear for spring skiing", href: "/guide/how-to-dress-for-winter-in-levi-lapland" }
+      ]
     },
     breadcrumbLabel: "Spring in Levi"
   }
@@ -342,6 +361,9 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
                 ))}
               </Accordion>
             </section>
+
+            {/* Read Next */}
+            <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
             {/* CTA */}
             <section className="flex flex-col sm:flex-row gap-4 justify-center">
