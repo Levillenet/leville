@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dog, Clock, Heart, Users, Thermometer, Shield, CheckCircle, MapPin, Snowflake } from "lucide-react";
 import { Language } from "@/translations";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -179,6 +180,15 @@ const translations = {
       title: "Varaa majoitus ja koe koiravaljakkoajelu",
       text: "Levin keskustan majoituksistamme pääset helposti koiratarhoille. Monet operaattorit noutavat asiakkaat majoituksesta.",
       button: "Katso majoitukset",
+    },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Moottorikelkkasafari", desc: "Toinen suosittu talvielämys", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
+        { title: "Parhaat talviaktiviteetit", desc: "Kaikki Levin aktiviteetit", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
+        { title: "Lapsiperheet Levillä", desc: "Huskyajelu sopii koko perheelle", href: "/opas/lapsiperheet-levilla" },
+        { title: "Talvivarusteet", desc: "Mitä pukea huskyajelulle", href: "/opas/talvivarusteet-leville" }
+      ]
     },
     relatedTitle: "Lue myös",
     relatedLinks: [
@@ -356,6 +366,15 @@ const translations = {
       title: "Book Accommodation and Experience Husky Safari",
       text: "From our Levi center accommodations, you can easily reach husky farms. Many operators pick up guests from accommodation.",
       button: "View Accommodations",
+    },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Snowmobile Safari", desc: "Another must-do winter experience", href: "/activities/snowmobile-safari-tips-levi" },
+        { title: "Top Winter Activities", desc: "All Levi winter activities", href: "/activities/top-winter-activities-in-levi-lapland" },
+        { title: "Levi With Children", desc: "Husky rides for the whole family", href: "/guide/levi-with-children" },
+        { title: "Winter Clothing", desc: "What to wear for husky ride", href: "/guide/how-to-dress-for-winter-in-levi-lapland" }
+      ]
     },
     relatedTitle: "Read Also",
     relatedLinks: [
@@ -654,6 +673,9 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
               ))}
             </Accordion>
           </section>
+
+          {/* Read Next */}
+          <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
           {/* CTA */}
           <section className="mb-12">

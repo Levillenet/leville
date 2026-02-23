@@ -18,6 +18,7 @@ import {
   Heart
 } from "lucide-react";
 import { Language } from "@/translations";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -170,6 +171,15 @@ const translations = {
       title: "Varaa majoitus aktiviteettien läheisyydestä",
       text: "Majoituksemme sijaitsevat lähellä kaikkia aktiviteetteja. Nauti täydellisestä Lapin lomasta mukavassa huoneistossa.",
       button: "Katso majoitukset"
+    },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Laskettelu Levillä", desc: "43 rinnettä ja 28 hissiä", href: "/opas/laskettelu-levi" },
+        { title: "Moottorikelkkasafari", desc: "Vinkit ensikertalaiselle", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
+        { title: "Koiravaljakkoajelu", desc: "Unohtumaton huskyelämys", href: "/aktiviteetit/koiravaljakkoajelu-levi" },
+        { title: "Talvivarusteet", desc: "Pukeutuminen aktiviteetteihin", href: "/opas/talvivarusteet-leville" }
+      ]
     },
     relatedTitle: "Lue myös",
     relatedLinks: [
@@ -324,6 +334,15 @@ const translations = {
       title: "Book Accommodation Near Activities",
       text: "Our accommodations are located near all activities. Enjoy the perfect Lapland holiday in a comfortable apartment.",
       button: "View Accommodations"
+    },
+    readNext: {
+      title: "Read Next",
+      links: [
+        { title: "Skiing in Levi", desc: "43 slopes and 28 lifts", href: "/guide/skiing-in-levi" },
+        { title: "Snowmobile Safari", desc: "Tips for first-timers", href: "/activities/snowmobile-safari-tips-levi" },
+        { title: "Husky Safari", desc: "Unforgettable husky experience", href: "/activities/husky-safari-levi" },
+        { title: "Winter Clothing", desc: "How to dress for activities", href: "/guide/how-to-dress-for-winter-in-levi-lapland" }
+      ]
     },
     relatedTitle: "Read Also",
     relatedLinks: [
@@ -631,6 +650,9 @@ const TopWinterActivities = ({ lang = "fi" }: TopWinterActivitiesProps) => {
               ))}
             </Accordion>
           </section>
+
+          {/* Read Next */}
+          <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
           {/* CTA Section */}
           <section className="bg-primary/10 rounded-2xl p-8 text-center mb-12">
