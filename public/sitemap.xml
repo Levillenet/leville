@@ -1283,4 +1283,127 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Lapland Glossary - FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/lapin-sanasto</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapin-sanasto"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/lapland-glossary"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/lapin-sanasto"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/lapland-glossary</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapin-sanasto"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/lapland-glossary"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/lapin-sanasto"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- NL Hub Pages -->
+  <url>
+    <loc>https://leville.net/nl/gids/seizoenen-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuodenajat-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/seasons-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/seizoenen-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/vuodenajat-levi"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/activiteiten-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/aktiviteetit-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/activiteiten-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/aktiviteetit-levi"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/reisgids-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/matkaopas-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/travel-to-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/reisgids-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/matkaopas-levi"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- NL Guide Pages -->
+  <url>
+    <loc>https://leville.net/nl/gids/langlaufen-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihto-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cross-country-skiing-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/langlaufen-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/hiihto-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/winterkleding-levi-lapland</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/talvivarusteet-leville"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/how-to-dress-for-winter-in-levi-lapland"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/winterkleding-levi-lapland"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/talvivarusteet-leville"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/hoe-kom-je-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/matka/miten-paasee-leville-helsingista"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/travel/how-to-get-to-levi-from-helsinki-and-abroad"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/hoe-kom-je-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/matka/miten-paasee-leville-helsingista"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/levi-met-kinderen</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapsiperheet-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-with-children"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-met-kinderen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/lapsiperheet-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/levi-vs-yllas-vs-ruka</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/levi-vs-rovaniemi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- NL Activity Pages -->
+  <url>
+    <loc>https://leville.net/nl/activiteiten/husky-safari-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/aktiviteetit/koiravaljakkoajelu-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/activities/husky-safari-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/activiteiten/husky-safari-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/aktiviteetit/koiravaljakkoajelu-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/activiteiten/winteractiviteiten-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/aktiviteetit/parhaat-talviaktiviteetit-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/activities/top-winter-activities-in-levi-lapland"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/activiteiten/winteractiviteiten-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/aktiviteetit/parhaat-talviaktiviteetit-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
