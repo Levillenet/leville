@@ -10,7 +10,7 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideHubCard from "@/components/guide/GuideHubCard";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, Plane, Shirt, Bus, UtensilsCrossed, Baby, Footprints, Thermometer, Flame } from "lucide-react";
+import { ArrowRight, ArrowLeft, Plane, Shirt, Bus, UtensilsCrossed, Baby, Footprints, Thermometer, Flame, BookOpen } from "lucide-react";
 import { Language } from "@/translations";
 
 interface TravelHubProps {
@@ -53,7 +53,8 @@ const content: Record<Language, {
       { id: "family", title: "Lapsiperheet Levillä", description: "Lasten rinteet, aktiviteetit ja käytännön vinkit perhematkoille.", href: "/opas/lapsiperheet-levilla", iconKey: "baby" },
       { id: "car-free", title: "Levi ilman autoa", description: "Miten saavut ja liikut Levillä ilman omaa autoa. Skibussit, kävelyetäisyydet ja keskustamajoitus.", href: "/opas/levi-ilman-autoa", iconKey: "footprints" },
       { id: "heating", title: "Lämmitys mökeissä ja huoneistoissa", description: "Näin toimivat lämmitysjärjestelmät Levillä. Sähköpatterit, lattialämmitys, takat ja ilmalämpöpumput.", href: "/opas/lammitysjarjestelmat-levi", iconKey: "thermometer" },
-      { id: "sauna", title: "Saunaopas", description: "Saunakulttuuri, sähkökiukaan käyttöohje ja ainutlaatuiset saunaelämykset Levillä.", href: "/opas/sauna-levilla", iconKey: "flame" }
+      { id: "sauna", title: "Saunaopas", description: "Saunakulttuuri, sähkökiukaan käyttöohje ja ainutlaatuiset saunaelämykset Levillä.", href: "/opas/sauna-levilla", iconKey: "flame" },
+      { id: "glossary", title: "Lapin sanasto", description: "40+ suomalaista sanaa selityksineen – tykkylumi, kuksa, poronkäristys ja muut.", href: "/opas/lapin-sanasto", iconKey: "book" }
     ]
   },
   en: {
@@ -74,7 +75,8 @@ const content: Record<Language, {
       { id: "family", title: "Families in Levi", description: "Kids' slopes, activities and practical tips for family trips.", href: "/guide/levi-with-children", iconKey: "baby" },
       { id: "car-free", title: "Levi Without a Car", description: "How to arrive and get around in Levi without your own car. Ski buses, walking distances and central accommodation.", href: "/guide/levi-without-a-car", iconKey: "footprints" },
       { id: "heating", title: "Heating Systems in Cabins", description: "How heating systems work in Levi. Electric radiators, floor heating, fireplaces and heat pumps.", href: "/guide/heating-systems-in-levi", iconKey: "thermometer" },
-      { id: "sauna", title: "Finnish Sauna Guide", description: "Sauna culture, how to use an electric heater and unique sauna experiences in Levi.", href: "/guide/finnish-sauna-in-levi", iconKey: "flame" }
+      { id: "sauna", title: "Finnish Sauna Guide", description: "Sauna culture, how to use an electric heater and unique sauna experiences in Levi.", href: "/guide/finnish-sauna-in-levi", iconKey: "flame" },
+      { id: "glossary", title: "Lapland Glossary", description: "40+ Finnish words with pronunciations and explanations for visitors.", href: "/guide/lapland-glossary", iconKey: "book" }
     ]
   },
   sv: {
@@ -167,7 +169,8 @@ const content: Record<Language, {
       { id: "family", title: "Gezinnen in Levi", description: "Kinderpistes, activiteiten en praktische tips voor gezinsvakanties.", href: "/nl/gids/levi-met-kinderen", iconKey: "baby" },
       { id: "car-free", title: "Levi zonder auto", description: "Hoe je in Levi komt en je verplaatst zonder eigen auto.", href: "/nl/levi", iconKey: "footprints" },
       { id: "heating", title: "Verwarming in huisjes", description: "Hoe verwarmingssystemen werken in Levi.", href: "/nl/levi", iconKey: "thermometer" },
-      { id: "sauna", title: "Finse sauna gids", description: "Saunacultuur en unieke sauna-ervaringen in Levi.", href: "/nl/levi", iconKey: "flame" }
+      { id: "sauna", title: "Finse sauna gids", description: "Saunacultuur en unieke sauna-ervaringen in Levi.", href: "/nl/levi", iconKey: "flame" },
+      { id: "glossary", title: "Lapland woordenlijst", description: "40+ Finse woorden met uitspraak en uitleg voor bezoekers.", href: "/guide/lapland-glossary", iconKey: "book" }
     ]
   }
 };
@@ -180,7 +183,8 @@ const iconMap: Record<string, typeof Plane> = {
   baby: Baby,
   footprints: Footprints,
   thermometer: Thermometer,
-  flame: Flame
+  flame: Flame,
+  book: BookOpen
 };
 
 const localeMap: Record<Language, string> = {
