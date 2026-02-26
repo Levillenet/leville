@@ -155,6 +155,7 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
                         "Compact centre, everything within walking distance",
                         "Fell nature, silence, northern lights",
                         "Snowmobile safaris, huskies, reindeer, spa – all on site",
+                        "Santa Claus experiences, elf village and Christmas activities for the whole family",
                         "15 min from Kittilä Airport",
                       ].map((item, idx) => (
                         <li key={idx} className="flex items-start gap-2">
@@ -264,8 +265,11 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                 Rovaniemi is the official hometown of Santa Claus, and Santa Claus Village on the Arctic Circle is a unique experience – especially for children. You can meet Santa every day of the year, cross the Arctic Circle, send a postcard from Santa's Post Office and enjoy the Christmas atmosphere. This is one of Finland's most famous tourist attractions and a true bucket list experience for many international travellers.
               </p>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                But here's the good news: you can meet Santa in Levi too! The Levi area offers a variety of Santa Claus experiences during the Christmas season, including Santa meet-and-greets, an elf experience village, and a wide range of Christmas activities for the whole family. The festive atmosphere in a snowy fell village is considered by many to be even more authentic and magical than in the busy tourist village at the Arctic Circle.
+              </p>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                But here's the good news: you can meet Santa in Levi too! The Levi area offers several Santa Claus experiences during the Christmas season, and the festive atmosphere in a snowy fell village is considered by many to be even more authentic than in the busy tourist village at the Arctic Circle. In Levi, the Christmas experience naturally combines with skiing, fell nature and other winter activities. Rovaniemi's Santa Claus Village is above all a place to visit – Levi is a place to spend your entire Christmas holiday.
+                In Levi, the Christmas experience naturally combines with skiing, fell nature and other winter activities – a Christmas holiday in Levi is a complete experience, not just a day visit. Many travellers go to Rovaniemi specifically to meet Santa, but you can do the same in Levi while also enjoying everything else the fell village has to offer. Rovaniemi's Santa Claus Village is above all a day-trip destination – Levi is a place to spend your entire Christmas holiday.
               </p>
             </section>
 
