@@ -139,6 +139,7 @@ const LeviVsRovaniemi = () => {
                         "Kompakti keskusta, kaikki kävelymatkan päässä",
                         "Tunturiluonto, hiljaisuus, revontulet",
                         "Kelkkasafarit, huskyt, porot, spa – kaikki paikan päällä",
+                        "Joulupukki-elämyksiä, tonttujen elämyskylä ja jouluaktiviteetteja koko perheelle",
                         "15 min Kittilän lentokentältä",
                       ].map((item, idx) => (
                         <li key={idx} className="flex items-start gap-2">
@@ -248,8 +249,11 @@ const LeviVsRovaniemi = () => {
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                 Rovaniemi on Joulupukin virallinen kotikaupunki, ja Joulupukin kylä (Santa Claus Village) napapiirillä on ainutlaatuinen kokemus – erityisesti lapsille. Kylässä voi tavata Joulupukin joka päivä ympäri vuoden, ylittää napapiirin, lähettää postikortin Joulupukin postitoimistosta ja nauttia jouluisesta tunnelmasta. Tämä on yksi Suomen tunnetuimmista matkailunähtävyyksistä ja todellinen bucket list -kokemus monelle kansainväliselle matkailijalle.
               </p>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                Mutta hyvä uutinen: Joulupukin tapaa myös Levillä! Levin alueella toimii useita erilaisia Joulupukki-elämyksiä joululomakaudella. Tarjolla on muun muassa Joulupukin tapaamisia, tonttujen elämyskylä sekä monenlaisia jouluisia aktiviteetteja koko perheelle. Jouluinen tunnelma lumisessa tunturikylässä on monien mielestä jopa aidompi ja tunnelmallisempi kuin vilkkaassa turistikylässä napapiirillä.
+              </p>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Mutta hyvä uutinen: Joulupukin tapaa myös Levillä! Levin alueella toimii useita Joulupukki-elämyksiä joululoman aikaan, ja jouluinen tunnelma lumisessa tunturikylässä on monien mielestä jopa aidompi kuin vilkkaassa turistikylässä napapiirillä. Levillä joulukokemus yhdistyy luontevasti lasketteluun, tunturiluontoon ja muihin talviaktiviteetteihin. Rovaniemen Joulupukin kylä on ennen kaikkea vierailukohde – Levi on paikka, jossa vietetään koko joululoma.
+                Levillä joulukokemus yhdistyy luontevasti lasketteluun, tunturiluontoon ja muihin talviaktiviteetteihin – joululoma Levillä on kokonaisvaltainen elämys, ei pelkkä vierailukohde. Rovaniemelle moni matkustaa nimenomaan tapaamaan Joulupukkia, mutta saman voi tehdä myös Levillä ja nauttia samalla kaikesta muusta mitä tunturikylä tarjoaa. Rovaniemen Joulupukin kylä on ennen kaikkea päiväkäyntikohde – Levi on paikka, jossa vietetään koko joululoma.
               </p>
             </section>
 
