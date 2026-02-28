@@ -1,4 +1,4 @@
-import { useMemo, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
@@ -10,36 +10,17 @@ import NewsHighlight from "@/components/NewsHighlight";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
 import HreflangTags from "@/components/HreflangTags";
+import JsonLd from "@/components/JsonLd";
+import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredData";
 const GuideTeaser = lazy(() => import("@/components/GuideTeaser"));
 
 const IndexEN = () => {
   const location = useLocation();
   
-  const schemaData = useMemo(() => ({
-    "@context": "https://schema.org",
-    "@type": "LodgingBusiness",
-    "name": "Leville.net",
-    "description": "Leville.net offers quality accommodation in Levi center. Modern apartments, spacious family homes and cozy log cabins.",
-    "url": "https://leville.net/en",
-    "telephone": "+358 44 131 313",
-    "email": "info@leville.net",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Levi Center",
-      "addressLocality": "Sirkka",
-      "postalCode": "99130",
-      "addressCountry": "FI"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "67.80",
-      "longitude": "24.80"
-    },
-    "priceRange": "€€"
-  }), []);
-
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getLodgingBusinessSchema("en")} />
       <HreflangTags currentPath={location.pathname} currentLang="en" />
       <Helmet>
         <html lang="en" />
@@ -67,11 +48,6 @@ const IndexEN = () => {
         <meta name="twitter:title" content="Leville.net – Accommodation in Levi Center" />
         <meta name="twitter:description" content="Quality accommodation in Levi center. Modern apartments and cozy log cabins." />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
-        
-        {/* JSON-LD */}
-        <script type="application/ld+json">
-          {JSON.stringify(schemaData)}
-        </script>
       </Helmet>
       
       <div className="min-h-screen bg-background">

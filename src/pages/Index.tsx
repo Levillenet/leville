@@ -1,9 +1,11 @@
-import { useMemo, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredData";
 
 const About = lazy(() => import("@/components/About"));
 const Features = lazy(() => import("@/components/Features"));
@@ -81,37 +83,10 @@ const Index = ({ lang = "fi" }: IndexProps) => {
   const location = useLocation();
   const seo = seoContent[lang];
 
-  const schemaData = useMemo(() => ({
-    "@context": "https://schema.org",
-    "@type": "LodgingBusiness",
-    "name": "Leville.net",
-    "description": seo.description,
-    "url": seo.canonical,
-    "telephone": "+358 44 131 313",
-    "email": "info@leville.net",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Levin keskusta",
-      "addressLocality": "Sirkka",
-      "postalCode": "99130",
-      "addressCountry": "FI"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "67.80",
-      "longitude": "24.80"
-    },
-    "priceRange": "€€",
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "09:00",
-      "closes": "17:00"
-    }
-  }), [seo.description, seo.canonical]);
-
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getLodgingBusinessSchema(lang)} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />
@@ -136,11 +111,6 @@ const Index = ({ lang = "fi" }: IndexProps) => {
         <meta name="twitter:title" content={seo.title} />
         <meta name="twitter:description" content={seo.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
-        
-        {/* JSON-LD Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify(schemaData)}
-        </script>
       </Helmet>
       
       <div className="min-h-screen bg-background">
