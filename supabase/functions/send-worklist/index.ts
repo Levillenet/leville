@@ -117,7 +117,31 @@ serve(async (req: Request): Promise<Response> => {
         });
       }
 
-      console.log('Time matches! Proceeding with worklist send');
+      console.log('Time matches! Checking if already sent today...');
+
+      // Deduplication: check if worklist was already sent today
+      const { data: lastSentData } = await supabase
+        .from('maintenance_settings')
+        .select('value')
+        .eq('id', 'last_worklist_sent')
+        .maybeSingle();
+
+      if (lastSentData?.value?.timestamp) {
+        const lastSentDate = new Date(lastSentData.value.timestamp);
+        const todayHelsinki = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Helsinki' }));
+        const lastSentHelsinki = new Date(lastSentDate.toLocaleString('en-US', { timeZone: 'Europe/Helsinki' }));
+        
+        if (lastSentHelsinki.getFullYear() === todayHelsinki.getFullYear() &&
+            lastSentHelsinki.getMonth() === todayHelsinki.getMonth() &&
+            lastSentHelsinki.getDate() === todayHelsinki.getDate()) {
+          console.log('Worklist already sent today, skipping duplicate');
+          return new Response(JSON.stringify({ skipped: true, reason: 'already_sent_today' }), {
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+          });
+        }
+      }
+
+      console.log('Proceeding with worklist send');
     }
 
     // Calculate target date (tomorrow for evening sends, or custom date for preview)
