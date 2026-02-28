@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
-import { getWebsiteSchema, getArticleSchema } from "@/utils/structuredData";
+import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
@@ -254,6 +254,8 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
         
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 

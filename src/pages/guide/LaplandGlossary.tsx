@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
-import { getWebsiteSchema, getArticleSchema } from "@/utils/structuredData";
+import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -304,6 +304,13 @@ const LaplandGlossary = ({ lang = "fi" }: { lang?: Language }) => {
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getBreadcrumbSchema([
+        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
+        { name: lang === "fi" ? "Opas" : "Guide", url: `https://leville.net${lang === "fi" ? "/levi" : "/en/levi"}` },
+        { name: m.title, url: m.canonical }
+      ])} />
+      <JsonLd data={getArticleSchema({ title: m.title, description: m.description, url: m.canonical, lang })} />
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 

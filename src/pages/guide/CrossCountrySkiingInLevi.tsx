@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
-import { getWebsiteSchema, getArticleSchema } from "@/utils/structuredData";
+import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, ArrowRight, Snowflake, Star, Route, TreePine, Moon } from "lucide-react";
@@ -334,6 +334,14 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
           })}
         </script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
+      <JsonLd data={getBreadcrumbSchema([
+        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
+        { name: lang === "fi" ? "Aktiviteetit" : "Activities", url: `https://leville.net${lang === "fi" ? "/opas/aktiviteetit-levi" : "/guide/activities-in-levi"}` },
+        { name: t.title, url: t.meta.canonical }
+      ])} />
+      <JsonLd data={getFAQSchema(t.faq.items.map(i => ({ question: i.q, answer: i.a })))} />
 
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />

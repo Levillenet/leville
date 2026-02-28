@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
-import { getWebsiteSchema, getArticleSchema } from "@/utils/structuredData";
+import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
@@ -656,6 +656,14 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
+      <JsonLd data={getBreadcrumbSchema([
+        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
+        { name: lang === "fi" ? "Matkaopas" : "Travel Guide", url: `https://leville.net${lang === "fi" ? "/opas/matkaopas-levi" : "/guide/travel-to-levi"}` },
+        { name: t.title, url: t.meta.canonical }
+      ])} />
+      <JsonLd data={getFAQSchema(t.sections.faq.items.map(i => ({ question: i.q, answer: i.a })))} />
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 

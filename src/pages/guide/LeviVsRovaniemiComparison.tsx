@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
+import JsonLd from "@/components/JsonLd";
+import { getWebsiteSchema } from "@/utils/structuredData";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -116,6 +118,7 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
           })}
         </script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
 
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />

@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
+import JsonLd from "@/components/JsonLd";
+import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema } from "@/utils/structuredData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import WhatsAppChat from "@/components/WhatsAppChat";
@@ -208,6 +210,13 @@ const ChristmasDinnerLevi = () => {
         <meta name="twitter:description" content="Complete guide to Christmas Eve dining in Levi, Lapland." />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: "Christmas Dinner in Levi", description: "Complete guide to Christmas Eve dinner in Levi, Lapland.", url: "https://leville.net/guide/christmas-dinner-in-levi", lang: "en" })} />
+      <JsonLd data={getBreadcrumbSchema([
+        { name: "Home", url: "https://leville.net/en" },
+        { name: "Events", url: "https://leville.net/en/levi" },
+        { name: "Christmas Dinner", url: "https://leville.net/guide/christmas-dinner-in-levi" }
+      ])} />
       <HreflangTags
         currentPath={location.pathname}
         currentLang="en"
