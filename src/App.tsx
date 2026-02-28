@@ -257,6 +257,7 @@ const App = () => (
               <Route path="/guide/levi-vs-yllas-vs-ruka-comparison" element={<LeviVsYllasVsRukaEN />} />
               <Route path="/guide/levi-vs-rovaniemi-comparison" element={<LeviVsRovaniemiComparison />} />
               <Route path="/guide/lapland-glossary" element={<LaplandGlossary lang="en" />} />
+              <Route path="/guide/prices-in-levi" element={<PricesInLeviPage />} />
               {/* Comparison pages - NL/DE/FR/ES */}
               <Route path="/nl/gids/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="nl" />} />
               <Route path="/nl/gids/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="nl" />} />
