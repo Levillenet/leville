@@ -67,6 +67,7 @@ import ChristmasDinnerLevi from "./pages/guide/ChristmasDinnerLevi";
 import LaplandGlossary from "./pages/guide/LaplandGlossary";
 import LevinHinnatPage from "./pages/guide/LevinHinnatPage";
 import PricesInLeviPage from "./pages/guide/PricesInLeviPage";
+import PrijzenInLeviPage from "./pages/guide/PrijzenInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
 
 const queryClient = new QueryClient();
