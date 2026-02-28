@@ -657,6 +657,13 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
       <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
+      <JsonLd data={getBreadcrumbSchema([
+        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
+        { name: lang === "fi" ? "Matkaopas" : "Travel Guide", url: `https://leville.net${lang === "fi" ? "/opas/matkaopas-levi" : "/guide/travel-to-levi"}` },
+        { name: t.title, url: t.meta.canonical }
+      ])} />
+      <JsonLd data={getFAQSchema(t.sections.faq.items.map(i => ({ question: i.q, answer: i.a })))} />
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 
