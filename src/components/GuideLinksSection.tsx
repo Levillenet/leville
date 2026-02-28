@@ -42,10 +42,10 @@ const content: Record<Language, GuideContent> = {
     cards: [
       { icon: Mountain, title: "Skiing in Levi", desc: "43 slopes, 27 lifts and Finland's largest ski resort. A guide for all levels.", href: "/guide/skiing-in-levi" },
       { icon: TreePine, title: "Cross-Country Trails", desc: "Over 230 km of groomed trails in fell landscapes. Routes, services and tips.", href: "/guide/cross-country-skiing-in-levi" },
-      { icon: Flame, title: "Finnish Sauna", desc: "Smoke saunas, ice swimming and electric sauna guide – Finnish sauna culture explained.", href: "/guide/finnish-sauna-guide-levi" },
+      { icon: Flame, title: "Finnish Sauna", desc: "Smoke saunas, ice swimming and electric sauna guide – Finnish sauna culture explained.", href: "/guide/finnish-sauna-in-levi" },
       { icon: UtensilsCrossed, title: "Restaurants & Services", desc: "The best restaurants, shops and practical services in Levi centre.", href: "/guide/restaurants-and-services-in-levi" },
-      { icon: Plane, title: "How to Get to Levi", desc: "Flights, trains, buses and driving. A practical guide to reaching Levi.", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
-      { icon: Thermometer, title: "Winter Clothing Guide", desc: "How to dress for –25 °C? Layering guide and essential gear for Lapland.", href: "/guide/winter-clothing-guide-levi" },
+      { icon: Plane, title: "How to Get to Levi", desc: "Flights, trains, buses and driving. A practical guide to reaching Levi.", href: "/guide/travel-to-levi" },
+      { icon: Thermometer, title: "Winter Clothing Guide", desc: "How to dress for –25 °C? Layering guide and essential gear for Lapland.", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
     ],
     allGuidesText: "View all guides",
     allGuidesHref: "/en/levi",
