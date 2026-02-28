@@ -185,6 +185,9 @@ const FinnishSaunaLevi = () => {
         <meta property="og:url" content="https://leville.net/guide/finnish-sauna-in-levi" />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://leville.net/og-sauna.png" />
+        <meta property="og:image:alt" content="Finnish sauna experience in Levi, Lapland" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="en_GB" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Finnish Sauna in Levi – Culture, Tips & Experiences | Leville.net" />
