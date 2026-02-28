@@ -390,6 +390,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
 
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getTouristDestinationSchema(lang)} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />

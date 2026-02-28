@@ -308,6 +308,9 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
 
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: t.title, description: t.meta.description, url: t.meta.canonical, lang })} />
+      <JsonLd data={getFAQSchema(t.faq.items.map(item => ({ question: item.q, answer: item.a })))} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={customUrls} />
       <Helmet>
         <html lang={lang} />
@@ -327,17 +330,6 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": t.title,
-            "description": t.meta.description,
-            "author": { "@type": "Organization", "name": "Leville.net" },
-            "publisher": { "@type": "Organization", "name": "Leville.net" }
-          })}
-        </script>
       </Helmet>
 
       <div className="min-h-screen bg-background relative">

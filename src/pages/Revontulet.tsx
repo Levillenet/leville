@@ -304,6 +304,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
 
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: t.hero.title, description: t.meta.description, url: t.meta.canonical, lang })} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />
