@@ -124,7 +124,7 @@ const PricesInLeviPage = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Header lang="en" />
+      <Header />
       <SeoMeta
         title="Prices in Levi 2025–2026 – Ski Passes, Dining & Activities | Leville.net"
         description="Complete price guide for a Levi holiday. Ski pass prices, restaurant costs, activity rates and grocery prices all in one place. Plan your budget before you go."
