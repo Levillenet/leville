@@ -1,9 +1,11 @@
-import { useMemo, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredData";
 
 const About = lazy(() => import("@/components/About"));
 const Features = lazy(() => import("@/components/Features"));
