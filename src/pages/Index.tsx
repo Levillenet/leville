@@ -122,15 +122,12 @@ const Index = ({ lang = "fi" }: IndexProps) => {
         <main>
           <Hero lang={lang} />
           <Suspense fallback={<div className="min-h-[200px]" />}>
-            {lang !== "fi" && <GuideTeaser lang={lang} />}
             <About lang={lang} />
           </Suspense>
-          {lang === "fi" && (
-            <Suspense fallback={<div className="min-h-[200px]" />}>
-              <GuideLinksSection />
-              <ActivitiesLinksSection />
-            </Suspense>
-          )}
+          <Suspense fallback={<div className="min-h-[200px]" />}>
+            <GuideLinksSection lang={lang} />
+            <ActivitiesLinksSection lang={lang} />
+          </Suspense>
           <Suspense fallback={<div className="min-h-[200px]" />}>
             <NewsHighlight lang={lang} />
             <Features lang={lang} />

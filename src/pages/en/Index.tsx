@@ -12,7 +12,8 @@ import ModerBookingWidget from "@/components/ModerBookingWidget";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredData";
-const GuideTeaser = lazy(() => import("@/components/GuideTeaser"));
+const GuideLinksSection = lazy(() => import("@/components/GuideLinksSection"));
+const ActivitiesLinksSection = lazy(() => import("@/components/ActivitiesLinksSection"));
 
 const IndexEN = () => {
   const location = useLocation();
@@ -56,12 +57,13 @@ const IndexEN = () => {
         <Header />
         <main>
           <Hero lang="en" />
+          <About lang="en" />
           <Suspense fallback={<div className="min-h-[200px]" />}>
-            <GuideTeaser lang="en" />
-            <About lang="en" />
-            <NewsHighlight lang="en" />
-            <Features lang="en" />
+            <GuideLinksSection lang="en" />
+            <ActivitiesLinksSection lang="en" />
           </Suspense>
+          <NewsHighlight lang="en" />
+          <Features lang="en" />
         </main>
         <Footer lang="en" />
         <WhatsAppChat lang="en" />
