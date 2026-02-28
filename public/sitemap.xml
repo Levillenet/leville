@@ -1278,7 +1278,7 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/laskettelu-levi"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/skiing-in-levi"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skieen-in-levi"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/laskettelu-levilla"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/laskettelu-levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1372,6 +1372,9 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1381,6 +1384,9 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-rovaniemi"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-rovaniemi"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1914,6 +1920,8 @@
   <!-- Christmas Dinner in Levi - EN only -->
   <url>
     <loc>https://leville.net/en/guide/christmas-dinner-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/guide/christmas-dinner-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/guide/christmas-dinner-in-levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
