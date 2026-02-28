@@ -188,7 +188,8 @@ const iconMap: Record<string, typeof Plane> = {
   footprints: Footprints,
   thermometer: Thermometer,
   flame: Flame,
-  book: BookOpen
+  book: BookOpen,
+  euro: Euro
 };
 
 const localeMap: Record<Language, string> = {
