@@ -1275,7 +1275,7 @@
   <!-- Skiing Guide - FI/EN/NL -->
   <url>
     <loc>https://leville.net/nl/gids/skieen-in-levi</loc>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/laskettelu-levilla"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/laskettelu-levi"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/skiing-in-levi"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skieen-in-levi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/laskettelu-levilla"/>
@@ -1433,6 +1433,531 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/prices-in-levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <!-- Booking Terms - all languages -->
+  <url>
+    <loc>https://leville.net/varausehdot</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/booking-terms"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/bokningsvillkor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/buchungsbedingungen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/terminos-de-reserva"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/conditions-de-reservation"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/boekingsvoorwaarden"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/varausehdot"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/en/booking-terms</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/booking-terms"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/bokningsvillkor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/buchungsbedingungen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/terminos-de-reserva"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/conditions-de-reservation"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/boekingsvoorwaarden"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/varausehdot"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/sv/bokningsvillkor</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/booking-terms"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/bokningsvillkor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/buchungsbedingungen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/terminos-de-reserva"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/conditions-de-reservation"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/boekingsvoorwaarden"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/varausehdot"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/de/buchungsbedingungen</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/booking-terms"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/bokningsvillkor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/buchungsbedingungen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/terminos-de-reserva"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/conditions-de-reservation"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/boekingsvoorwaarden"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/varausehdot"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/es/terminos-de-reserva</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/booking-terms"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/bokningsvillkor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/buchungsbedingungen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/terminos-de-reserva"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/conditions-de-reservation"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/boekingsvoorwaarden"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/varausehdot"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/fr/conditions-de-reservation</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/booking-terms"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/bokningsvillkor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/buchungsbedingungen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/terminos-de-reserva"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/conditions-de-reservation"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/boekingsvoorwaarden"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/varausehdot"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/boekingsvoorwaarden</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/booking-terms"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/bokningsvillkor"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/buchungsbedingungen"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/terminos-de-reserva"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/conditions-de-reservation"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/boekingsvoorwaarden"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/varausehdot"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Privacy Policy - all languages -->
+  <url>
+    <loc>https://leville.net/tietosuoja</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/tietosuoja"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/integritetspolicy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/confidentialite"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietosuoja"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/tietosuoja"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/integritetspolicy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/confidentialite"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietosuoja"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/sv/integritetspolicy</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/tietosuoja"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/integritetspolicy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/confidentialite"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietosuoja"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/de/datenschutz</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/tietosuoja"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/integritetspolicy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/confidentialite"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietosuoja"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/es/privacidad</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/tietosuoja"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/integritetspolicy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/confidentialite"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietosuoja"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/fr/confidentialite</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/tietosuoja"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/integritetspolicy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/confidentialite"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietosuoja"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/tietosuoja"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/integritetspolicy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/datenschutz"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/privacidad"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/confidentialite"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/tietosuoja"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Skiing Guide - FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/laskettelu-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/laskettelu-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/skiing-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skieen-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/laskettelu-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/skiing-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/laskettelu-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/skiing-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skieen-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/laskettelu-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Cross-Country Skiing - FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/hiihto-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihto-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cross-country-skiing-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/langlaufen-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/hiihto-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/cross-country-skiing-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihto-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cross-country-skiing-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/langlaufen-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/hiihto-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Winter in Levi - FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/talvi-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/talvi-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/winter-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/talvi-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/winter-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/talvi-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/winter-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/talvi-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Spring in Levi - FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/kevat-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/kevat-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/spring-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/kevat-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/spring-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/kevat-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/spring-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/kevat-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Summer in Levi - FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/kesa-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/kesa-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/summer-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/kesa-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/summer-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/kesa-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/summer-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/kesa-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Autumn Ruska in Levi - FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/syksy-ruska-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/syksy-ruska-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/autumn-ruska-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/syksy-ruska-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/autumn-ruska-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/syksy-ruska-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/autumn-ruska-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/syksy-ruska-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Weather in Levi - FI/EN -->
+  <url>
+    <loc>https://leville.net/levi/saatieto-levilta</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/levi/saatieto-levilta"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/levi/weather-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi/saatieto-levilta"/>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/en/levi/weather-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/levi/saatieto-levilta"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/levi/weather-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/levi/saatieto-levilta"/>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Hiking and Biking - FI/EN -->
+  <url>
+    <loc>https://leville.net/aktiviteetit/vaellus-ja-maastopyoraily-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/aktiviteetit/vaellus-ja-maastopyoraily-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/activities/hiking-and-biking-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/aktiviteetit/vaellus-ja-maastopyoraily-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/activities/hiking-and-biking-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/aktiviteetit/vaellus-ja-maastopyoraily-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/activities/hiking-and-biking-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/aktiviteetit/vaellus-ja-maastopyoraily-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Heating Systems - FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/lammitysjarjestelmat-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lammitysjarjestelmat-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/heating-systems-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/lammitysjarjestelmat-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/heating-systems-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lammitysjarjestelmat-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/heating-systems-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/lammitysjarjestelmat-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Levi vs Ylläs vs Ruka - FI/EN/NL/DE/FR/ES -->
+  <url>
+    <loc>https://leville.net/opas/levi-vs-yllas-vs-ruka</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/de/guide/levi-vs-yllas-vs-ruka</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/fr/guide/levi-vs-yllas-vs-ruka</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/es/guia/levi-vs-yllas-vs-ruka</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Levi vs Rovaniemi - FI/EN/NL/DE/FR/ES -->
+  <url>
+    <loc>https://leville.net/opas/levi-vs-rovaniemi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/levi-vs-rovaniemi-comparison</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/de/guide/levi-vs-rovaniemi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/fr/guide/levi-vs-rovaniemi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/es/guia/levi-vs-rovaniemi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-rovaniemi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Christmas Dinner in Levi - EN only -->
+  <url>
+    <loc>https://leville.net/en/guide/christmas-dinner-in-levi</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Finnish Sauna Guide - EN standalone -->
+  <url>
+    <loc>https://leville.net/guide/finnish-sauna-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/sauna-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/finnish-sauna-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/sauna-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Holiday Planner - FI/EN -->
+  <url>
+    <loc>https://leville.net/lomasuunnittelija</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/lomasuunnittelija"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/holiday-planner"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/lomasuunnittelija"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/en/holiday-planner</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/lomasuunnittelija"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/holiday-planner"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/lomasuunnittelija"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Latuinfo - FI only -->
+  <url>
+    <loc>https://leville.net/latuinfo</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Sell Your Holiday Home - FI only -->
+  <url>
+    <loc>https://leville.net/myy-loma-asuntosi</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 
 </urlset>
