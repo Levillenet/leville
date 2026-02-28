@@ -254,6 +254,8 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
         
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 

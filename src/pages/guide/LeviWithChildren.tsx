@@ -656,6 +656,7 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 

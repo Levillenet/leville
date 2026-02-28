@@ -265,18 +265,15 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": t.title,
-            "description": t.meta.description,
-            "author": { "@type": "Organization", "name": "Leville.net" },
-            "publisher": { "@type": "Organization", "name": "Leville.net" }
-          })}
-        </script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
+      <JsonLd data={getBreadcrumbSchema([
+        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
+        { name: lang === "fi" ? "Vuodenajat" : "Seasons", url: `https://leville.net${lang === "fi" ? "/opas/vuodenajat-levi" : "/guide/seasons-in-levi"}` },
+        { name: t.title, url: t.meta.canonical }
+      ])} />
+      <JsonLd data={getFAQSchema(t.faq.items.map(i => ({ question: i.q, answer: i.a })))} />
 
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />

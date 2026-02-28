@@ -628,6 +628,7 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
 
       <HreflangTags 
         currentPath={location.pathname}

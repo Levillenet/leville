@@ -192,6 +192,8 @@ const FinnishSaunaLevi = () => {
         <meta name="twitter:image" content="https://leville.net/og-sauna.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: "Finnish Sauna in Levi – Culture, Tips & Experiences", description: "Everything about Finnish sauna in Levi: sauna culture, how to use an electric heater, health benefits and the best sauna experiences from smoke sauna to ice swimming.", url: "https://leville.net/guide/finnish-sauna-in-levi", lang: "en" })} />
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 

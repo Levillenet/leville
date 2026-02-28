@@ -334,6 +334,7 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
           })}
         </script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
 
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />

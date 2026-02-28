@@ -118,6 +118,7 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
           })}
         </script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
 
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />

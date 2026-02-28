@@ -210,6 +210,13 @@ const ChristmasDinnerLevi = () => {
         <meta name="twitter:description" content="Complete guide to Christmas Eve dining in Levi, Lapland." />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: "Christmas Dinner in Levi", description: "Complete guide to Christmas Eve dinner in Levi, Lapland.", url: "https://leville.net/guide/christmas-dinner-in-levi", lang: "en" })} />
+      <JsonLd data={getBreadcrumbSchema([
+        { name: "Home", url: "https://leville.net/en" },
+        { name: "Events", url: "https://leville.net/en/levi" },
+        { name: "Christmas Dinner", url: "https://leville.net/guide/christmas-dinner-in-levi" }
+      ])} />
       <HreflangTags
         currentPath={location.pathname}
         currentLang="en"

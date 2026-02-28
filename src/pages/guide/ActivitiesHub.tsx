@@ -287,6 +287,11 @@ const ActivitiesHub = ({ lang = "fi" }: ActivitiesHubProps) => {
           })}
         </script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getBreadcrumbSchema([
+        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
+        { name: c.title, url: canonicalUrls[lang] }
+      ])} />
       
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />

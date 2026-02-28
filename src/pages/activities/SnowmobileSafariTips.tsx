@@ -434,6 +434,7 @@ const SnowmobileSafariTips = ({ lang = "fi" }: SnowmobileSafariTipsProps) => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 

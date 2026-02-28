@@ -395,6 +395,7 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 

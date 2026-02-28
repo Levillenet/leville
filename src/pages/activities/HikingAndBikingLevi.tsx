@@ -508,6 +508,7 @@ const HikingAndBikingLevi = ({ lang = "fi" }: HikingAndBikingLeviProps) => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
 
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />

@@ -304,6 +304,8 @@ const LaplandGlossary = ({ lang = "fi" }: { lang?: Language }) => {
         <meta name="robots" content="index, follow" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getArticleSchema({ title: m.title, description: m.description, url: m.canonical, lang })} />
 
       <HreflangTags currentPath={location.pathname} customUrls={hreflangUrls} />
 

@@ -309,6 +309,7 @@ const LeviWithoutCar = ({ lang = "fi" }: LeviWithoutCarProps) => {
           {JSON.stringify(breadcrumbSchema)}
         </script>
       </Helmet>
+      <JsonLd data={getWebsiteSchema()} />
       
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />
