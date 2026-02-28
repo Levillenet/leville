@@ -83,6 +83,7 @@ export const routeConfig = {
   christmasDinner: { fi: "/en/guide/christmas-dinner-in-levi", en: "/en/guide/christmas-dinner-in-levi", sv: "/en/guide/christmas-dinner-in-levi", de: "/en/guide/christmas-dinner-in-levi", es: "/en/guide/christmas-dinner-in-levi", fr: "/en/guide/christmas-dinner-in-levi", nl: "/en/guide/christmas-dinner-in-levi" },
   latuinfo: { fi: "/latuinfo", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi", nl: "/nl/levi" },
   laplandGlossary: { fi: "/opas/lapin-sanasto", en: "/guide/lapland-glossary", sv: "/guide/lapland-glossary", de: "/guide/lapland-glossary", es: "/guide/lapland-glossary", fr: "/guide/lapland-glossary", nl: "/guide/lapland-glossary" },
+  pricesInLevi: { fi: "/opas/hinnat-levilla", en: "/guide/prices-in-levi", sv: "/opas/hinnat-levilla", de: "/opas/hinnat-levilla", es: "/opas/hinnat-levilla", fr: "/opas/hinnat-levilla", nl: "/opas/hinnat-levilla" },
 };
 
 // Helper to get route for a specific language
