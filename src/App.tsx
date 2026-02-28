@@ -65,6 +65,8 @@ import SaunaLevilla from "./pages/opas/SaunaLevillä";
 import FinnishSaunaLevi from "./pages/guide/FinnishSaunaLevi";
 import ChristmasDinnerLevi from "./pages/guide/ChristmasDinnerLevi";
 import LaplandGlossary from "./pages/guide/LaplandGlossary";
+import LevinHinnatPage from "./pages/guide/LevinHinnatPage";
+import PricesInLeviPage from "./pages/guide/PricesInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
 
 const queryClient = new QueryClient();
@@ -245,6 +247,7 @@ const App = () => (
               <Route path="/opas/levi-vs-rovaniemi" element={<LeviVsRovaniemi />} />
               <Route path="/opas/sauna-levilla" element={<SaunaLevilla />} />
               <Route path="/opas/lapin-sanasto" element={<LaplandGlossary />} />
+              <Route path="/opas/hinnat-levilla" element={<LevinHinnatPage />} />
               {/* Travel HUB Child Pages - English */}
               <Route path="/guide/getting-around-in-levi" element={<GettingAroundLevi lang="en" />} />
               <Route path="/guide/restaurants-and-services-in-levi" element={<RestaurantsAndServices lang="en" />} />
@@ -254,6 +257,7 @@ const App = () => (
               <Route path="/guide/levi-vs-yllas-vs-ruka-comparison" element={<LeviVsYllasVsRukaEN />} />
               <Route path="/guide/levi-vs-rovaniemi-comparison" element={<LeviVsRovaniemiComparison />} />
               <Route path="/guide/lapland-glossary" element={<LaplandGlossary lang="en" />} />
+              <Route path="/guide/prices-in-levi" element={<PricesInLeviPage />} />
               {/* Comparison pages - NL/DE/FR/ES */}
               <Route path="/nl/gids/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="nl" />} />
               <Route path="/nl/gids/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="nl" />} />
