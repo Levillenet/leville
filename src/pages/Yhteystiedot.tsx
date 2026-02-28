@@ -142,6 +142,7 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
 
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />

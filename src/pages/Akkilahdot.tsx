@@ -564,6 +564,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />

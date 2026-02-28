@@ -28,6 +28,7 @@ const Ajankohtaista = ({ lang = "fi" }: AjankohtaistaProps) => {
 
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />
