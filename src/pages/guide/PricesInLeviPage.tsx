@@ -79,7 +79,7 @@ const PricesInLeviPage = () => {
   const breadcrumbItems = [
     { label: "Home", href: "/en" },
     { label: "Levi Guide", href: "/en/levi" },
-    { label: "Prices in Levi" },
+    { label: "Prices in Levi", href: "/guide/prices-in-levi" },
   ];
 
   const faqItems = [
