@@ -65,6 +65,8 @@ import SaunaLevilla from "./pages/opas/SaunaLevillä";
 import FinnishSaunaLevi from "./pages/guide/FinnishSaunaLevi";
 import ChristmasDinnerLevi from "./pages/guide/ChristmasDinnerLevi";
 import LaplandGlossary from "./pages/guide/LaplandGlossary";
+import LevinHinnatPage from "./pages/guide/LevinHinnatPage";
+import PricesInLeviPage from "./pages/guide/PricesInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
 
 const queryClient = new QueryClient();
