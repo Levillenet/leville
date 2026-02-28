@@ -1406,4 +1406,22 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Prices in Levi / Hinnat Levillä -->
+  <url>
+    <loc>https://leville.net/opas/hinnat-levilla</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hinnat-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/prices-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/prices-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/prices-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hinnat-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/prices-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/prices-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
