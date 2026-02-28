@@ -534,7 +534,6 @@ const TopWinterActivities = ({ lang = "fi" }: TopWinterActivitiesProps) => {
     fi: "https://leville.net/aktiviteetit/parhaat-talviaktiviteetit-levi",
     en: "https://leville.net/activities/top-winter-activities-in-levi-lapland",
     nl: "https://leville.net/nl/activiteiten/winteractiviteiten-levi",
-    nl: "https://leville.net/nl/activiteiten/winteractiviteiten-levi"
   };
 
   const getIcon = (iconName: string) => {
