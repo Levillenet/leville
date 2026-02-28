@@ -1275,7 +1275,7 @@
   <!-- Skiing Guide - FI/EN/NL -->
   <url>
     <loc>https://leville.net/nl/gids/skieen-in-levi</loc>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/laskettelu-levilla"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/laskettelu-levi"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/skiing-in-levi"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skieen-in-levi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/laskettelu-levilla"/>
