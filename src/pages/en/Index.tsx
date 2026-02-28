@@ -49,6 +49,7 @@ const IndexEN = () => {
         <meta name="twitter:title" content="Leville.net – Accommodation in Levi Center" />
         <meta name="twitter:description" content="Quality accommodation in Levi center. Modern apartments and cozy log cabins." />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image:alt" content="Levi ski resort in Finnish Lapland" />
       </Helmet>
       
       <div className="min-h-screen bg-background">

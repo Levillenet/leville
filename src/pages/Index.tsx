@@ -112,6 +112,7 @@ const Index = ({ lang = "fi" }: IndexProps) => {
         <meta name="twitter:title" content={seo.title} />
         <meta name="twitter:description" content={seo.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
       </Helmet>
       
       <div className="min-h-screen bg-background">

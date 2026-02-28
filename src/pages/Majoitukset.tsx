@@ -122,6 +122,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image:alt" content={lang === "fi" ? "Mökit ja loma-asunnot Levin hiihtokeskuksessa" : "Cabins and holiday homes in Levi ski resort"} />
       </Helmet>
       
       <div className="min-h-screen bg-background relative">

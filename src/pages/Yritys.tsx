@@ -114,6 +114,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
         
         {/* Organization Schema */}
         <script type="application/ld+json">

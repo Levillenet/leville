@@ -331,6 +331,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image:alt" content={lang === "fi" ? "Revontulet Levin taivaalla" : "Northern Lights over Levi, Finnish Lapland"} />
       </Helmet>
       
       <div className="min-h-screen bg-background relative">
