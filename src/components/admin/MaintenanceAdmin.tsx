@@ -299,7 +299,7 @@ const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
     setIsSending(true);
     try {
       const { data, error } = await supabase.functions.invoke('send-worklist', {
-        body: { preview: false }
+        body: { preview: false, force: true }
       });
 
       if (error) throw error;
