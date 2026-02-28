@@ -12,7 +12,7 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideHubCard from "@/components/guide/GuideHubCard";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, Plane, Shirt, Bus, UtensilsCrossed, Baby, Footprints, Thermometer, Flame, BookOpen } from "lucide-react";
+import { ArrowRight, ArrowLeft, Plane, Shirt, Bus, UtensilsCrossed, Baby, Footprints, Thermometer, Flame, BookOpen, Euro } from "lucide-react";
 import { Language } from "@/translations";
 
 interface TravelHubProps {
@@ -56,7 +56,8 @@ const content: Record<Language, {
       { id: "car-free", title: "Levi ilman autoa", description: "Miten saavut ja liikut Levillä ilman omaa autoa. Skibussit, kävelyetäisyydet ja keskustamajoitus.", href: "/opas/levi-ilman-autoa", iconKey: "footprints" },
       { id: "heating", title: "Lämmitys mökeissä ja huoneistoissa", description: "Näin toimivat lämmitysjärjestelmät Levillä. Sähköpatterit, lattialämmitys, takat ja ilmalämpöpumput.", href: "/opas/lammitysjarjestelmat-levi", iconKey: "thermometer" },
       { id: "sauna", title: "Saunaopas", description: "Saunakulttuuri, sähkökiukaan käyttöohje ja ainutlaatuiset saunaelämykset Levillä.", href: "/opas/sauna-levilla", iconKey: "flame" },
-      { id: "glossary", title: "Lapin sanasto", description: "40+ suomalaista sanaa selityksineen – tykkylumi, kuksa, poronkäristys ja muut.", href: "/opas/lapin-sanasto", iconKey: "book" }
+      { id: "glossary", title: "Lapin sanasto", description: "40+ suomalaista sanaa selityksineen – tykkylumi, kuksa, poronkäristys ja muut.", href: "/opas/lapin-sanasto", iconKey: "book" },
+      { id: "prices", title: "Hinnat Levillä", description: "Hissilippujen, ravintoloiden, aktiviteettien ja ruokakauppojen hinnat. Suunnittele budjettisi etukäteen.", href: "/opas/hinnat-levilla", iconKey: "euro" }
     ]
   },
   en: {
@@ -78,7 +79,8 @@ const content: Record<Language, {
       { id: "car-free", title: "Levi Without a Car", description: "How to arrive and get around in Levi without your own car. Ski buses, walking distances and central accommodation.", href: "/guide/levi-without-a-car", iconKey: "footprints" },
       { id: "heating", title: "Heating Systems in Cabins", description: "How heating systems work in Levi. Electric radiators, floor heating, fireplaces and heat pumps.", href: "/guide/heating-systems-in-levi", iconKey: "thermometer" },
       { id: "sauna", title: "Finnish Sauna Guide", description: "Sauna culture, how to use an electric heater and unique sauna experiences in Levi.", href: "/guide/finnish-sauna-in-levi", iconKey: "flame" },
-      { id: "glossary", title: "Lapland Glossary", description: "40+ Finnish words with pronunciations and explanations for visitors.", href: "/guide/lapland-glossary", iconKey: "book" }
+      { id: "glossary", title: "Lapland Glossary", description: "40+ Finnish words with pronunciations and explanations for visitors.", href: "/guide/lapland-glossary", iconKey: "book" },
+      { id: "prices", title: "Prices in Levi", description: "Ski passes, dining, activities and grocery prices. Plan your budget before you go.", href: "/guide/prices-in-levi", iconKey: "euro" }
     ]
   },
   sv: {
@@ -186,7 +188,8 @@ const iconMap: Record<string, typeof Plane> = {
   footprints: Footprints,
   thermometer: Thermometer,
   flame: Flame,
-  book: BookOpen
+  book: BookOpen,
+  euro: Euro
 };
 
 const localeMap: Record<Language, string> = {
