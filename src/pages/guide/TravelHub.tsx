@@ -174,7 +174,8 @@ const content: Record<Language, {
       { id: "car-free", title: "Levi zonder auto", description: "Hoe je in Levi komt en je verplaatst zonder eigen auto.", href: "/nl/levi", iconKey: "footprints" },
       { id: "heating", title: "Verwarming in huisjes", description: "Hoe verwarmingssystemen werken in Levi.", href: "/nl/levi", iconKey: "thermometer" },
       { id: "sauna", title: "Finse sauna gids", description: "Saunacultuur en unieke sauna-ervaringen in Levi.", href: "/nl/levi", iconKey: "flame" },
-      { id: "glossary", title: "Lapland woordenlijst", description: "40+ Finse woorden met uitspraak en uitleg voor bezoekers.", href: "/guide/lapland-glossary", iconKey: "book" }
+      { id: "glossary", title: "Lapland woordenlijst", description: "40+ Finse woorden met uitspraak en uitleg voor bezoekers.", href: "/guide/lapland-glossary", iconKey: "book" },
+      { id: "prices", title: "Prijzen in Levi", description: "Skipassen, restaurants, activiteiten en boodschappenprijzen. Plan je budget vooraf.", href: "/nl/gids/prijzen-in-levi", iconKey: "euro" }
     ]
   }
 };
