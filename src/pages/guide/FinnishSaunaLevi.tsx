@@ -193,6 +193,7 @@ const FinnishSaunaLevi = () => {
         <meta name="twitter:title" content="Finnish Sauna in Levi – Culture, Tips & Experiences | Leville.net" />
         <meta name="twitter:description" content="Everything about Finnish sauna in Levi: sauna culture, how to use an electric heater, health benefits and the best sauna experiences from smoke sauna to ice swimming." />
         <meta name="twitter:image" content="https://leville.net/og-sauna.png" />
+        <meta name="twitter:image:alt" content="Finnish sauna experience in Levi, Lapland" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <JsonLd data={getWebsiteSchema()} />

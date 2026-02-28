@@ -99,6 +99,7 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
         <meta name="twitter:title" content="Levi vs. Rovaniemi – Which Lapland Destination Is Right for You? | Leville.net" />
         <meta name="twitter:description" content="Levi or Rovaniemi? An honest comparison of a Lapland fell village and the capital of Lapland." />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image:alt" content="Levi ski resort in Finnish Lapland" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",

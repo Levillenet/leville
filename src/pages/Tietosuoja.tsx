@@ -250,6 +250,21 @@ const Tietosuoja = ({ lang = "fi" }: TietosuojaProps) => {
         <title>{c.metaTitle}</title>
         <meta name="description" content={c.metaDescription} />
         <link rel="canonical" href={`https://leville.net${routeConfig.privacyPolicy[lang]}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://leville.net${routeConfig.privacyPolicy[lang]}`} />
+        <meta property="og:title" content={c.metaTitle} />
+        <meta property="og:description" content={c.metaDescription} />
+        <meta property="og:image" content="https://leville.net/og-image.png" />
+        <meta property="og:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Leville.net" />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "en" ? "en_US" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : lang === "nl" ? "nl_NL" : "fr_FR"} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={c.metaTitle} />
+        <meta name="twitter:description" content={c.metaDescription} />
+        <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
       </Helmet>
 
       <SubpageBackground />
