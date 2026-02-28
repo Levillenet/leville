@@ -129,6 +129,7 @@ const LevinHinnatPage = () => {
         customUrls={{
           fi: "/opas/hinnat-levilla",
           en: "/guide/prices-in-levi",
+          nl: "/nl/gids/prijzen-in-levi",
         }}
       />
       <JsonLd data={getWebsiteSchema()} />
