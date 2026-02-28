@@ -1,4 +1,4 @@
-import { useMemo, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
@@ -10,6 +10,8 @@ import NewsHighlight from "@/components/NewsHighlight";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
 import HreflangTags from "@/components/HreflangTags";
+import JsonLd from "@/components/JsonLd";
+import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredData";
 const GuideTeaser = lazy(() => import("@/components/GuideTeaser"));
 
 const IndexEN = () => {
