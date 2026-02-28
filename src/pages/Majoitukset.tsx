@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation, Link } from "react-router-dom";
 import Header from "@/components/Header";
+import JsonLd from "@/components/JsonLd";
+import { getWebsiteSchema, getLodgingBusinessSchema, getFAQSchema } from "@/utils/structuredData";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
