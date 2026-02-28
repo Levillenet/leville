@@ -87,22 +87,16 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
     "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214"
   ];
 
-  // FAQ schema for JSON-LD
-  const faqSchema = useMemo(() => ({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": t.faqs.map((faq) => ({
-      "@type": "Question",
-      "name": faq.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": faq.answer
-      }
-    }))
-  }), [t.faqs]);
+  const faqItems = useMemo(() => t.faqs.map((faq) => ({
+    question: faq.question,
+    answer: faq.answer,
+  })), [t.faqs]);
 
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
+      <JsonLd data={getLodgingBusinessSchema(lang)} />
+      <JsonLd data={getFAQSchema(faqItems)} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />
@@ -127,11 +121,6 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
-
-        {/* FAQ JSON-LD */}
-        <script type="application/ld+json">
-          {JSON.stringify(faqSchema)}
-        </script>
       </Helmet>
       
       <div className="min-h-screen bg-background relative">
