@@ -56,7 +56,7 @@ export const routeConfig = {
   // Guide HUB pages
   seasonsHub: { fi: "/opas/vuodenajat-levi", en: "/guide/seasons-in-levi", sv: "/guide/seasons-in-levi", de: "/guide/seasons-in-levi", es: "/guide/seasons-in-levi", fr: "/guide/seasons-in-levi", nl: "/nl/gids/seizoenen-in-levi" },
   activitiesHub: { fi: "/opas/aktiviteetit-levi", en: "/guide/activities-in-levi", sv: "/guide/activities-in-levi", de: "/guide/activities-in-levi", es: "/guide/activities-in-levi", fr: "/guide/activities-in-levi", nl: "/nl/gids/activiteiten-in-levi" },
-  travelHub: { fi: "/opas/matkaopas-levi", en: "/guide/travel-to-levi", sv: "/guide/travel-to-levi", de: "/guide/travel-to-levi", es: "/guide/travel-to-levi", fr: "/guide/travel-to-levi", nl: "/nl/gids/reisgids-levi" },
+  travelHub: { fi: "/opas/matkaopas-levi", en: "/guide/travel-to-levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi", nl: "/nl/gids/reisgids-levi" },
   // Guide pages
   skiing: { fi: "/opas/laskettelu-levi", en: "/guide/skiing-in-levi", sv: "/guide/skiing-in-levi", de: "/guide/skiing-in-levi", es: "/guide/skiing-in-levi", fr: "/guide/skiing-in-levi", nl: "/nl/gids/skieen-in-levi" },
   crossCountrySkiing: { fi: "/opas/hiihto-levi", en: "/guide/cross-country-skiing-in-levi", sv: "/guide/cross-country-skiing-in-levi", de: "/guide/cross-country-skiing-in-levi", es: "/guide/cross-country-skiing-in-levi", fr: "/guide/cross-country-skiing-in-levi", nl: "/nl/gids/langlaufen-in-levi" },
