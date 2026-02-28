@@ -132,13 +132,14 @@ const LevinHinnatPage = () => {
         }}
       />
       <JsonLd data={getWebsiteSchema()} />
-      <JsonLd data={getArticleSchema(
-        "Hinnat Levillä – mitä Lapin loma maksaa?",
-        "Kattava hintaopas Levin lomalle. Hissilippujen, ravintoloiden, aktiviteettien ja ruokakauppojen hinnat.",
-        "https://leville.net/opas/hinnat-levilla",
-        "2025-11-01",
-        "2026-02-28"
-      )} />
+      <JsonLd data={getArticleSchema({
+        title: "Hinnat Levillä – mitä Lapin loma maksaa?",
+        description: "Kattava hintaopas Levin lomalle. Hissilippujen, ravintoloiden, aktiviteettien ja ruokakauppojen hinnat.",
+        url: "https://leville.net/opas/hinnat-levilla",
+        lang: "fi",
+        datePublished: "2025-11-01",
+        dateModified: "2026-02-28",
+      })} />
       <JsonLd data={getBreadcrumbSchema([
         { name: "Etusivu", url: "https://leville.net" },
         { name: "Levi-opas", url: "https://leville.net/levi" },
