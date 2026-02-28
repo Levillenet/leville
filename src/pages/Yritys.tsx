@@ -88,6 +88,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
 
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />

@@ -43,6 +43,7 @@ const UKK = ({ lang = "fi" }: UKKProps) => {
 
   return (
     <>
+      <JsonLd data={getWebsiteSchema()} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />
