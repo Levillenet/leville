@@ -199,6 +199,7 @@ const App = () => (
               <Route path="/nl/activiteiten/husky-safari-levi" element={<HuskySafariTips lang="nl" />} />
               <Route path="/nl/gids/langlaufen-in-levi" element={<CrossCountrySkiingInLevi lang="nl" />} />
               <Route path="/nl/gids/levi-met-kinderen" element={<LeviWithChildren lang="nl" />} />
+              <Route path="/nl/gids/prijzen-in-levi" element={<PrijzenInLeviPage />} />
               
               {/* Guide HUB Pages - Finnish */}
               <Route path="/opas/vuodenajat-levi" element={<SeasonsHub />} />
