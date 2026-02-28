@@ -1372,6 +1372,9 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-yllas-vs-ruka"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
