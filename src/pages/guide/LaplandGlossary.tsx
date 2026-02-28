@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
+import JsonLd from "@/components/JsonLd";
+import { getWebsiteSchema, getArticleSchema } from "@/utils/structuredData";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
