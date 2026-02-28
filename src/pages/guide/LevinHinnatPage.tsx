@@ -79,7 +79,7 @@ const LevinHinnatPage = () => {
   const breadcrumbItems = [
     { label: "Etusivu", href: "/" },
     { label: "Levi-opas", href: "/levi" },
-    { label: "Hinnat Levillä" },
+    { label: "Hinnat Levillä", href: "/opas/hinnat-levilla" },
   ];
 
   const faqItems = [
