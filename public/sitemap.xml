@@ -1920,6 +1920,8 @@
   <!-- Christmas Dinner in Levi - EN only -->
   <url>
     <loc>https://leville.net/en/guide/christmas-dinner-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/guide/christmas-dinner-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/guide/christmas-dinner-in-levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
