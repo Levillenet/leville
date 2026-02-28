@@ -619,6 +619,9 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
+        <meta property="og:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_GB"} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t.meta.title} />
