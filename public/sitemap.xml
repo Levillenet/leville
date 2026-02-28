@@ -1384,6 +1384,9 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-rovaniemi"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/levi-vs-rovaniemi"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
