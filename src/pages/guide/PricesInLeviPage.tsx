@@ -478,10 +478,11 @@ const PricesInLeviPage = () => {
 
         {/* Read Next */}
         <ReadNextSection
+          title="Read Next"
           links={[
-            { title: "Accommodations in Levi", description: "Book an apartment or cabin in central Levi.", href: "/en/accommodations" },
-            { title: "Restaurants & Services", description: "Local recommendations for dining.", href: "/guide/restaurants-and-services-in-levi" },
-            { title: "How to Get to Levi", description: "Flights, trains and buses from Helsinki.", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+            { title: "Accommodations in Levi", desc: "Book an apartment or cabin in central Levi.", href: "/en/accommodations" },
+            { title: "Restaurants & Services", desc: "Local recommendations for dining.", href: "/guide/restaurants-and-services-in-levi" },
+            { title: "How to Get to Levi", desc: "Flights, trains and buses from Helsinki.", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
           ]}
         />
       </main>

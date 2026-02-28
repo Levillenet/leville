@@ -470,10 +470,11 @@ const LevinHinnatPage = () => {
 
         {/* Lue lisää */}
         <ReadNextSection
+          title="Lue lisää"
           links={[
-            { title: "Majoitukset Levillä", description: "Varaa huoneisto tai mökki Levin keskustasta.", href: "/majoitukset" },
-            { title: "Ravintolat ja palvelut", description: "Paikalliset suositukset ruokailuun.", href: "/opas/ravintolat-ja-palvelut-levilla" },
-            { title: "Miten Leville pääsee?", description: "Lennot, junat ja bussi Helsingistä.", href: "/matka/miten-paasee-leville-helsingista" },
+            { title: "Majoitukset Levillä", desc: "Varaa huoneisto tai mökki Levin keskustasta.", href: "/majoitukset" },
+            { title: "Ravintolat ja palvelut", desc: "Paikalliset suositukset ruokailuun.", href: "/opas/ravintolat-ja-palvelut-levilla" },
+            { title: "Miten Leville pääsee?", desc: "Lennot, junat ja bussi Helsingistä.", href: "/matka/miten-paasee-leville-helsingista" },
           ]}
         />
       </main>
