@@ -1,37 +1,25 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+## Analysis
 
-## Muutos
+After thorough comparison, **almost all 27 pages already exist** in sitemap.xml (added in previous session). The actual remaining work is minimal:
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+### Bug fix
+- **Line 1281**: NL skiing entry `x-default` points to `/opas/laskettelu-levilla` instead of `/opas/laskettelu-levi`
 
-## Toteutus
+### Missing hreflang updates on existing NL entries
+- **NL vs Ylläs** (lines 1370-1378): Missing `de`, `fr`, `es` hreflang links
+- **NL vs Rovaniemi** (lines 1379-1386): Missing `de`, `fr`, `es` hreflang links
 
-Tiedosto: `src/components/ModerBookingWidget.tsx`
+### Christmas Dinner missing hreflang
+- **Lines 1914-1919**: Missing `hreflang="en"` and `hreflang="x-default"` links
 
-`showLoadingOverlay`-funktion alkuun lisataan:
+### Implementation steps
 
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
-```
+1. Fix line 1281: change `laskettelu-levilla` to `laskettelu-levi`
+2. Add `de`, `fr`, `es` hreflang links to NL vs-yllas entry (lines 1370-1378)
+3. Add `de`, `fr`, `es` hreflang links to NL vs-rovaniemi entry (lines 1379-1386)
+4. Add `hreflang="en"` and `hreflang="x-default"` to Christmas Dinner entry (lines 1914-1919)
 
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
-
-## Missa naet tulokset
-
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
-
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+Only 1 file modified: `public/sitemap.xml` with 4 small edits.
 
