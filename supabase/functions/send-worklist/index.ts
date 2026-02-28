@@ -55,48 +55,71 @@ serve(async (req: Request): Promise<Response> => {
     const resend = new Resend(resendApiKey);
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { preview, targetDate: customDate, cronCheck } = await req.json().catch(() => ({}));
+    const { preview, targetDate: customDate, cronCheck, force } = await req.json().catch(() => ({}));
 
-    // If this is a cron check, verify if it's the right time to send
-    if (cronCheck) {
-      // Fetch worklist settings
+    // === GLOBAL GUARDS (apply to ALL non-preview calls) ===
+    if (!preview) {
+      // Check if worklist sending is enabled
       const { data: enabledSetting } = await supabase
         .from('maintenance_settings')
         .select('value')
         .eq('id', 'worklist_enabled')
         .maybeSingle();
-      
-      const { data: timeSetting } = await supabase
-        .from('maintenance_settings')
-        .select('value')
-        .eq('id', 'worklist_send_time')
-        .maybeSingle();
 
-      // Handle both object format { enabled: true } and direct boolean/string
       const isEnabled = enabledSetting?.value?.enabled === true || 
                         enabledSetting?.value === true || 
                         enabledSetting?.value === 'true';
-      
-      console.log('Worklist enabled setting:', JSON.stringify(enabledSetting?.value), '-> isEnabled:', isEnabled);
 
-      if (!isEnabled) {
+      if (!isEnabled && !force) {
         console.log('Worklist sending is disabled, skipping');
         return new Response(JSON.stringify({ skipped: true, reason: 'disabled' }), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         });
       }
 
-      // Parse configured time - handle both object { hour: 17, minute: 0 } and string '17:00' formats
+      // Deduplication: check if worklist was already sent today (skip for forced manual sends)
+      if (!force) {
+        const { data: lastSentData } = await supabase
+          .from('maintenance_settings')
+          .select('value')
+          .eq('id', 'last_worklist_sent')
+          .maybeSingle();
+
+        if (lastSentData?.value?.timestamp) {
+          const lastSentDate = new Date(lastSentData.value.timestamp);
+          const nowForCheck = new Date();
+          const todayHelsinki = new Date(nowForCheck.toLocaleString('en-US', { timeZone: 'Europe/Helsinki' }));
+          const lastSentHelsinki = new Date(lastSentDate.toLocaleString('en-US', { timeZone: 'Europe/Helsinki' }));
+          
+          if (lastSentHelsinki.getFullYear() === todayHelsinki.getFullYear() &&
+              lastSentHelsinki.getMonth() === todayHelsinki.getMonth() &&
+              lastSentHelsinki.getDate() === todayHelsinki.getDate()) {
+            console.log('Worklist already sent today, skipping duplicate');
+            return new Response(JSON.stringify({ skipped: true, reason: 'already_sent_today' }), {
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            });
+          }
+        }
+      }
+    }
+
+    // If this is a cron check, also verify scheduled time
+    if (cronCheck) {
+      const { data: timeSetting } = await supabase
+        .from('maintenance_settings')
+        .select('value')
+        .eq('id', 'worklist_send_time')
+        .maybeSingle();
+
+      // Parse configured time
       let configHours = 19;
       let configMinutes = 0;
 
       if (timeSetting?.value) {
         if (typeof timeSetting.value === 'object' && 'hour' in timeSetting.value) {
-          // Object format: { hour: 17, minute: 0 }
           configHours = timeSetting.value.hour;
           configMinutes = timeSetting.value.minute ?? 0;
         } else if (typeof timeSetting.value === 'string') {
-          // String format: '17:00'
           const parts = timeSetting.value.split(':').map(Number);
           configHours = parts[0] ?? 19;
           configMinutes = parts[1] ?? 0;
@@ -117,31 +140,7 @@ serve(async (req: Request): Promise<Response> => {
         });
       }
 
-      console.log('Time matches! Checking if already sent today...');
-
-      // Deduplication: check if worklist was already sent today
-      const { data: lastSentData } = await supabase
-        .from('maintenance_settings')
-        .select('value')
-        .eq('id', 'last_worklist_sent')
-        .maybeSingle();
-
-      if (lastSentData?.value?.timestamp) {
-        const lastSentDate = new Date(lastSentData.value.timestamp);
-        const todayHelsinki = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Helsinki' }));
-        const lastSentHelsinki = new Date(lastSentDate.toLocaleString('en-US', { timeZone: 'Europe/Helsinki' }));
-        
-        if (lastSentHelsinki.getFullYear() === todayHelsinki.getFullYear() &&
-            lastSentHelsinki.getMonth() === todayHelsinki.getMonth() &&
-            lastSentHelsinki.getDate() === todayHelsinki.getDate()) {
-          console.log('Worklist already sent today, skipping duplicate');
-          return new Response(JSON.stringify({ skipped: true, reason: 'already_sent_today' }), {
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-          });
-        }
-      }
-
-      console.log('Proceeding with worklist send');
+      console.log('Time matches! Proceeding with worklist send');
     }
 
     // Calculate target date (tomorrow for evening sends, or custom date for preview)
