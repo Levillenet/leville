@@ -44,7 +44,7 @@ const content: Record<Language, GuideContent> = {
       { icon: TreePine, title: "Cross-Country Trails", desc: "Over 230 km of groomed trails in fell landscapes. Routes, services and tips.", href: "/guide/cross-country-skiing-in-levi" },
       { icon: Flame, title: "Finnish Sauna", desc: "Smoke saunas, ice swimming and electric sauna guide – Finnish sauna culture explained.", href: "/guide/finnish-sauna-guide-levi" },
       { icon: UtensilsCrossed, title: "Restaurants & Services", desc: "The best restaurants, shops and practical services in Levi centre.", href: "/guide/restaurants-and-services-in-levi" },
-      { icon: Plane, title: "How to Get to Levi", desc: "Flights, trains, buses and driving. A practical guide to reaching Levi.", href: "/guide/how-to-get-to-levi" },
+      { icon: Plane, title: "How to Get to Levi", desc: "Flights, trains, buses and driving. A practical guide to reaching Levi.", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
       { icon: Thermometer, title: "Winter Clothing Guide", desc: "How to dress for –25 °C? Layering guide and essential gear for Lapland.", href: "/guide/winter-clothing-guide-levi" },
     ],
     allGuidesText: "View all guides",
