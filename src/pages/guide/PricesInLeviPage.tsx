@@ -140,13 +140,14 @@ const PricesInLeviPage = () => {
         }}
       />
       <JsonLd data={getWebsiteSchema()} />
-      <JsonLd data={getArticleSchema(
-        "Prices in Levi – What Does a Lapland Holiday Cost?",
-        "Complete price guide for a Levi holiday. Ski pass prices, restaurant costs, activity rates and grocery prices.",
-        "https://leville.net/guide/prices-in-levi",
-        "2025-11-01",
-        "2026-02-28"
-      )} />
+      <JsonLd data={getArticleSchema({
+        title: "Prices in Levi – What Does a Lapland Holiday Cost?",
+        description: "Complete price guide for a Levi holiday. Ski pass prices, restaurant costs, activity rates and grocery prices.",
+        url: "https://leville.net/guide/prices-in-levi",
+        lang: "en",
+        datePublished: "2025-11-01",
+        dateModified: "2026-02-28",
+      })} />
       <JsonLd data={getBreadcrumbSchema([
         { name: "Home", url: "https://leville.net/en" },
         { name: "Levi Guide", url: "https://leville.net/en/levi" },
