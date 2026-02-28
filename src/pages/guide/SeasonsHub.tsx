@@ -236,7 +236,7 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
 
   return (
     <>
-      <HreflangTags currentPath={location.pathname} currentLang={lang} />
+      <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={{ fi: "/opas/vuodenajat-levi", en: "/guide/seasons-in-levi", nl: "/nl/gids/seizoenen-in-levi" }} />
       <Helmet>
         <html lang={lang} />
         <title>{c.metaTitle}</title>

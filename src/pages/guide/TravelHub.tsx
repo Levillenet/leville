@@ -213,7 +213,7 @@ const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
 
   return (
     <>
-      <HreflangTags currentPath={location.pathname} currentLang={lang} />
+      <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={{ fi: "/opas/matkaopas-levi", en: "/guide/travel-to-levi", nl: "/nl/gids/reisgids-levi" }} />
       <Helmet>
         <html lang={lang} />
         <title>{c.metaTitle}</title>
