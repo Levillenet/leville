@@ -11,6 +11,8 @@ const About = lazy(() => import("@/components/About"));
 const Features = lazy(() => import("@/components/Features"));
 const NewsHighlight = lazy(() => import("@/components/NewsHighlight"));
 const GuideTeaser = lazy(() => import("@/components/GuideTeaser"));
+const GuideLinksSection = lazy(() => import("@/components/GuideLinksSection"));
+const ActivitiesLinksSection = lazy(() => import("@/components/ActivitiesLinksSection"));
 import WhatsAppChat from "@/components/WhatsAppChat";
 import HreflangTags from "@/components/HreflangTags";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
