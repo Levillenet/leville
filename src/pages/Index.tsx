@@ -10,7 +10,7 @@ import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredDa
 const About = lazy(() => import("@/components/About"));
 const Features = lazy(() => import("@/components/Features"));
 const NewsHighlight = lazy(() => import("@/components/NewsHighlight"));
-const GuideTeaser = lazy(() => import("@/components/GuideTeaser"));
+// GuideTeaser replaced by GuideLinksSection + ActivitiesLinksSection for all languages
 const GuideLinksSection = lazy(() => import("@/components/GuideLinksSection"));
 const ActivitiesLinksSection = lazy(() => import("@/components/ActivitiesLinksSection"));
 import WhatsAppChat from "@/components/WhatsAppChat";
