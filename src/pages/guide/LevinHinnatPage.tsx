@@ -20,14 +20,11 @@ import {
   Snowflake,
   Dog,
   Bus,
-  Flame,
   Info,
   ExternalLink,
-  Calendar,
   Lightbulb,
   AlertTriangle,
   Home,
-  ChevronDown,
 } from "lucide-react";
 import {
   Accordion,
