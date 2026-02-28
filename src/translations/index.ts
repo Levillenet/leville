@@ -108,5 +108,7 @@ export const detectLanguageFromPath = (path: string): Language => {
   if (path.startsWith("/es")) return "es";
   if (path.startsWith("/fr")) return "fr";
   if (path.startsWith("/en")) return "en";
+  // English guide/travel/activity pages without /en prefix
+  if (path.startsWith("/guide/") || path.startsWith("/travel/") || path.startsWith("/activities/")) return "en";
   return "fi";
 };
