@@ -235,6 +235,7 @@ const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
         <meta name="twitter:title" content={c.metaTitle} />
         <meta name="twitter:description" content={c.metaDescription} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
 
         <script type="application/ld+json">
           {JSON.stringify({
