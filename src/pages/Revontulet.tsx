@@ -322,6 +322,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
         <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "sv" ? "sv_SE" : lang === "de" ? "de_DE" : lang === "es" ? "es_ES" : lang === "fr" ? "fr_FR" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
+        <meta property="og:image:alt" content={lang === "fi" ? "Revontulet Levin taivaalla" : "Northern Lights over Levi, Finnish Lapland"} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         
@@ -330,6 +331,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image:alt" content={lang === "fi" ? "Revontulet Levin taivaalla" : "Northern Lights over Levi, Finnish Lapland"} />
       </Helmet>
       
       <div className="min-h-screen bg-background relative">

@@ -185,11 +185,15 @@ const FinnishSaunaLevi = () => {
         <meta property="og:url" content="https://leville.net/guide/finnish-sauna-in-levi" />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://leville.net/og-sauna.png" />
+        <meta property="og:image:alt" content="Finnish sauna experience in Levi, Lapland" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="en_GB" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Finnish Sauna in Levi – Culture, Tips & Experiences | Leville.net" />
         <meta name="twitter:description" content="Everything about Finnish sauna in Levi: sauna culture, how to use an electric heater, health benefits and the best sauna experiences from smoke sauna to ice swimming." />
         <meta name="twitter:image" content="https://leville.net/og-sauna.png" />
+        <meta name="twitter:image:alt" content="Finnish sauna experience in Levi, Lapland" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <JsonLd data={getWebsiteSchema()} />

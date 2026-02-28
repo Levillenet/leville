@@ -92,6 +92,9 @@ const Varausehdot = ({ lang = "fi" }: VarausehdotProps) => {
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content="https://leville.net/og-image.png" />
+        <meta property="og:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:locale" content={meta.locale} />
         <meta property="og:site_name" content="Leville.net" />
 
@@ -100,6 +103,7 @@ const Varausehdot = ({ lang = "fi" }: VarausehdotProps) => {
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
+        <meta name="twitter:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
       </Helmet>
 
       <div className="min-h-screen bg-background relative">
