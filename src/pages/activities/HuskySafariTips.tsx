@@ -587,6 +587,7 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
     fi: "https://leville.net/aktiviteetit/koiravaljakkoajelu-levi",
     en: "https://leville.net/activities/husky-safari-levi",
     nl: "https://leville.net/nl/activiteiten/husky-safari-levi",
+    nl: "https://leville.net/nl/activiteiten/husky-safari-levi",
   };
 
   const getIcon = (iconName: string) => {

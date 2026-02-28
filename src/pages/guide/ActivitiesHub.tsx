@@ -247,7 +247,7 @@ const ActivitiesHub = ({ lang = "fi" }: ActivitiesHubProps) => {
 
   return (
     <>
-      <HreflangTags currentPath={location.pathname} currentLang={lang} />
+      <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={{ fi: "/opas/aktiviteetit-levi", en: "/guide/activities-in-levi", nl: "/nl/gids/activiteiten-in-levi" }} />
       <Helmet>
         <html lang={lang} />
         <title>{c.metaTitle}</title>
