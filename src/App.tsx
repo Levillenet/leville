@@ -73,6 +73,9 @@ import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
 import StudioApartments from "./pages/en/apartments/StudioApartments";
 import ApartmentsFor4 from "./pages/en/apartments/ApartmentsFor4";
 import ApartmentsFor6 from "./pages/en/apartments/ApartmentsFor6";
+import ApartmentsFor8 from "./pages/en/apartments/ApartmentsFor8";
+import LargeGroupAccommodation from "./pages/en/apartments/LargeGroupAccommodation";
+import PenthouseApartments from "./pages/en/apartments/PenthouseApartments";
 
 const queryClient = new QueryClient();
 
@@ -284,6 +287,9 @@ const App = () => (
               <Route path="/en/apartments/studio" element={<StudioApartments />} />
               <Route path="/en/apartments/for-4" element={<ApartmentsFor4 />} />
               <Route path="/en/apartments/for-6" element={<ApartmentsFor6 />} />
+              <Route path="/en/apartments/for-8" element={<ApartmentsFor8 />} />
+              <Route path="/en/apartments/large-group" element={<LargeGroupAccommodation />} />
+              <Route path="/en/apartments/penthouse" element={<PenthouseApartments />} />
               
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
