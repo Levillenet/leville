@@ -176,10 +176,10 @@ const ApartmentsHub = () => {
         lang="en"
       />
       <HreflangTags
+        currentPath="/en/apartments"
         currentLang="en"
         customUrls={{
           en: `${BASE}/en/apartments`,
-          "x-default": `${BASE}/en/apartments`,
         }}
       />
       <JsonLd data={websiteSchema} />
