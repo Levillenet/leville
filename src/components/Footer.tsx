@@ -195,6 +195,20 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
                 </li>
               ))}
             </ul>
+            {'apartmentLinks' in c && (
+              <div className="mt-6">
+                <h4 className="text-foreground font-serif font-semibold mb-3 text-sm tracking-tight">Popular apartment searches</h4>
+                <ul className="space-y-3">
+                  {((c as any).apartmentLinks as { label: string; href: string }[]).map((link: { label: string; href: string }) => (
+                    <li key={link.href}>
+                      <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors text-xs tracking-wide">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           {/* Contact */}
