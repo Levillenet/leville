@@ -69,6 +69,7 @@ import LevinHinnatPage from "./pages/guide/LevinHinnatPage";
 import PricesInLeviPage from "./pages/guide/PricesInLeviPage";
 import PrijzenInLeviPage from "./pages/guide/PrijzenInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
+import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
 
 const queryClient = new QueryClient();
 

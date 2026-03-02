@@ -61,7 +61,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
         {/* Feature badges */}
         <div className="flex flex-wrap gap-1.5">
           {property.sauna && (
-            <Badge variant="secondary" className="gap-1 bg-emerald-500/15 text-emerald-400 border-emerald-500/30 text-xs">
+            <Badge variant="secondary" className="gap-1 bg-primary/15 text-primary border-primary/30 text-xs">
               <Droplets className="w-3 h-3" /> Sauna
             </Badge>
           )}
