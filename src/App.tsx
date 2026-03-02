@@ -70,6 +70,9 @@ import PricesInLeviPage from "./pages/guide/PricesInLeviPage";
 import PrijzenInLeviPage from "./pages/guide/PrijzenInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
 import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
+import StudioApartments from "./pages/en/apartments/StudioApartments";
+import ApartmentsFor4 from "./pages/en/apartments/ApartmentsFor4";
+import ApartmentsFor6 from "./pages/en/apartments/ApartmentsFor6";
 
 const queryClient = new QueryClient();
 
@@ -278,6 +281,9 @@ const App = () => (
               
               {/* Apartments programmatic SEO pages */}
               <Route path="/en/apartments" element={<ApartmentsHub />} />
+              <Route path="/en/apartments/studio" element={<StudioApartments />} />
+              <Route path="/en/apartments/for-4" element={<ApartmentsFor4 />} />
+              <Route path="/en/apartments/for-6" element={<ApartmentsFor6 />} />
               
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
