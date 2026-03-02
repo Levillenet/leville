@@ -281,6 +281,9 @@ const App = () => (
               
               {/* Apartments programmatic SEO pages */}
               <Route path="/en/apartments" element={<ApartmentsHub />} />
+              <Route path="/en/apartments/studio" element={<StudioApartments />} />
+              <Route path="/en/apartments/for-4" element={<ApartmentsFor4 />} />
+              <Route path="/en/apartments/for-6" element={<ApartmentsFor6 />} />
               
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
