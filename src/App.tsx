@@ -76,6 +76,9 @@ import ApartmentsFor6 from "./pages/en/apartments/ApartmentsFor6";
 import ApartmentsFor8 from "./pages/en/apartments/ApartmentsFor8";
 import LargeGroupAccommodation from "./pages/en/apartments/LargeGroupAccommodation";
 import PenthouseApartments from "./pages/en/apartments/PenthouseApartments";
+import TwoBedroomApartments from "./pages/en/apartments/TwoBedroomApartments";
+import ThreeBedroomApartments from "./pages/en/apartments/ThreeBedroomApartments";
+import LeviCenterApartments from "./pages/en/apartments/LeviCenterApartments";
 
 const queryClient = new QueryClient();
 
