@@ -311,6 +311,9 @@ const App = () => (
               {/* Property Guides (unlisted) */}
               <Route path="/guide/:slug" element={<PropertyGuide />} />
               
+              {/* Bearlodge Guide */}
+              <Route path="/accommodations/bearlodge/guide" element={<BearlodgeGuide />} />
+              
               {/* Fireplace instructions (hidden subpage) */}
               <Route path="/takka-ohje" element={<FireplaceInstructions />} />
               <Route path="/en/fireplace" element={<FireplaceInstructions lang="en" />} />

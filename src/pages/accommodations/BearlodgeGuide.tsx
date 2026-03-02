@@ -71,7 +71,7 @@ const BearlodgeGuide = () => {
         <meta name="twitter:description" content="Everything you need to know about your stay at Bearlodge (Karhupirtti), a 220m² luxury log cabin with 7 bedrooms, outdoor jacuzzi and sauna in Levi, Finnish Lapland. Check-in info, amenities, house rules and more." />
       </Helmet>
 
-      <Header lang="en" />
+      <Header />
 
       {/* Sticky jump-nav */}
       <nav
