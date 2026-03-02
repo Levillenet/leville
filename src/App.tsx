@@ -70,6 +70,9 @@ import PricesInLeviPage from "./pages/guide/PricesInLeviPage";
 import PrijzenInLeviPage from "./pages/guide/PrijzenInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
 import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
+import StudioApartments from "./pages/en/apartments/StudioApartments";
+import ApartmentsFor4 from "./pages/en/apartments/ApartmentsFor4";
+import ApartmentsFor6 from "./pages/en/apartments/ApartmentsFor6";
 
 const queryClient = new QueryClient();
 
