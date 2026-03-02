@@ -4,11 +4,10 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import {
-  Clock, Phone, Mail, Wifi, Flame, Droplets, Car, ShieldCheck,
+  Clock, Wifi, Flame, ShieldCheck,
   ChefHat, WashingMachine, Thermometer, Download, ArrowRight,
-  Home, Users, Bath, Mountain, CheckCircle2, AlertTriangle,
-  Volume2, Cigarette, Dog, Ruler, BedDouble, Baby,
-  UtensilsCrossed, Snowflake
+  Users, Bath, Mountain,
+  Dog, Ruler, BedDouble, Baby, Snowflake
 } from "lucide-react";
 import livingFireplace from "@/assets/bearlodge/living-fireplace.jpg";
 
