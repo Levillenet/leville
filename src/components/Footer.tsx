@@ -36,11 +36,18 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Site",
       links: [
         { label: "Accommodations", href: routeConfig.accommodations.en },
+        { label: "Apartments", href: "/en/apartments" },
         { label: "News", href: routeConfig.news.en },
         { label: "Levi", href: routeConfig.levi.en },
         { label: "FAQ", href: routeConfig.faq.en },
         { label: "Company", href: routeConfig.company.en },
         { label: "Contact", href: routeConfig.contact.en },
+      ],
+      apartmentLinks: [
+        { label: "Studio apartments", href: "/en/apartments/studio" },
+        { label: "Apartments for 6", href: "/en/apartments/for-6" },
+        { label: "Apartments for 8+", href: "/en/apartments/for-8" },
+        { label: "Penthouses", href: "/en/apartments/penthouse" },
       ],
       contactTitle: "Contact",
       location: "Levi Center, Kittilä",
