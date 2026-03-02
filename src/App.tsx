@@ -69,6 +69,7 @@ import LevinHinnatPage from "./pages/guide/LevinHinnatPage";
 import PricesInLeviPage from "./pages/guide/PricesInLeviPage";
 import PrijzenInLeviPage from "./pages/guide/PrijzenInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
+import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
 
 const queryClient = new QueryClient();
 
@@ -274,6 +275,9 @@ const App = () => (
               {/* Holiday Planner */}
               <Route path="/lomasuunnittelija" element={<HolidayPlanner />} />
               <Route path="/en/holiday-planner" element={<HolidayPlanner lang="en" />} />
+              
+              {/* Apartments programmatic SEO pages */}
+              <Route path="/en/apartments" element={<ApartmentsHub />} />
               
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
