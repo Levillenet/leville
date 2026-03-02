@@ -276,6 +276,9 @@ const App = () => (
               <Route path="/lomasuunnittelija" element={<HolidayPlanner />} />
               <Route path="/en/holiday-planner" element={<HolidayPlanner lang="en" />} />
               
+              {/* Apartments programmatic SEO pages */}
+              <Route path="/en/apartments" element={<ApartmentsHub />} />
+              
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
               <Route path="/asiakaspalvelu" element={<Asiakaspalvelu />} />
