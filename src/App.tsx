@@ -69,6 +69,7 @@ import LevinHinnatPage from "./pages/guide/LevinHinnatPage";
 import PricesInLeviPage from "./pages/guide/PricesInLeviPage";
 import PrijzenInLeviPage from "./pages/guide/PrijzenInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
+import BearlodgeGuide from "./pages/accommodations/BearlodgeGuide";
 import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
 import StudioApartments from "./pages/en/apartments/StudioApartments";
 import ApartmentsFor4 from "./pages/en/apartments/ApartmentsFor4";
@@ -309,6 +310,9 @@ const App = () => (
               
               {/* Property Guides (unlisted) */}
               <Route path="/guide/:slug" element={<PropertyGuide />} />
+              
+              {/* Bearlodge Guide */}
+              <Route path="/accommodations/bearlodge/guide" element={<BearlodgeGuide />} />
               
               {/* Fireplace instructions (hidden subpage) */}
               <Route path="/takka-ohje" element={<FireplaceInstructions />} />
