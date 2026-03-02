@@ -36,11 +36,18 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Site",
       links: [
         { label: "Accommodations", href: routeConfig.accommodations.en },
+        { label: "Apartments", href: "/en/apartments" },
         { label: "News", href: routeConfig.news.en },
         { label: "Levi", href: routeConfig.levi.en },
         { label: "FAQ", href: routeConfig.faq.en },
         { label: "Company", href: routeConfig.company.en },
         { label: "Contact", href: routeConfig.contact.en },
+      ],
+      apartmentLinks: [
+        { label: "Studio apartments", href: "/en/apartments/studio" },
+        { label: "Apartments for 6", href: "/en/apartments/for-6" },
+        { label: "Apartments for 8+", href: "/en/apartments/for-8" },
+        { label: "Penthouses", href: "/en/apartments/penthouse" },
       ],
       contactTitle: "Contact",
       location: "Levi Center, Kittilä",
@@ -188,6 +195,20 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
                 </li>
               ))}
             </ul>
+            {'apartmentLinks' in c && (
+              <div className="mt-6">
+                <h4 className="text-foreground font-serif font-semibold mb-3 text-sm tracking-tight">Popular apartment searches</h4>
+                <ul className="space-y-3">
+                  {((c as any).apartmentLinks as { label: string; href: string }[]).map((link: { label: string; href: string }) => (
+                    <li key={link.href}>
+                      <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors text-xs tracking-wide">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           {/* Contact */}

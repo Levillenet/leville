@@ -76,6 +76,9 @@ import ApartmentsFor6 from "./pages/en/apartments/ApartmentsFor6";
 import ApartmentsFor8 from "./pages/en/apartments/ApartmentsFor8";
 import LargeGroupAccommodation from "./pages/en/apartments/LargeGroupAccommodation";
 import PenthouseApartments from "./pages/en/apartments/PenthouseApartments";
+import TwoBedroomApartments from "./pages/en/apartments/TwoBedroomApartments";
+import ThreeBedroomApartments from "./pages/en/apartments/ThreeBedroomApartments";
+import LeviCenterApartments from "./pages/en/apartments/LeviCenterApartments";
 
 const queryClient = new QueryClient();
 
@@ -290,6 +293,9 @@ const App = () => (
               <Route path="/en/apartments/for-8" element={<ApartmentsFor8 />} />
               <Route path="/en/apartments/large-group" element={<LargeGroupAccommodation />} />
               <Route path="/en/apartments/penthouse" element={<PenthouseApartments />} />
+              <Route path="/en/apartments/2-bedroom" element={<TwoBedroomApartments />} />
+              <Route path="/en/apartments/3-bedroom" element={<ThreeBedroomApartments />} />
+              <Route path="/en/apartments/levi-center" element={<LeviCenterApartments />} />
               
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
