@@ -73,6 +73,9 @@ import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
 import StudioApartments from "./pages/en/apartments/StudioApartments";
 import ApartmentsFor4 from "./pages/en/apartments/ApartmentsFor4";
 import ApartmentsFor6 from "./pages/en/apartments/ApartmentsFor6";
+import ApartmentsFor8 from "./pages/en/apartments/ApartmentsFor8";
+import LargeGroupAccommodation from "./pages/en/apartments/LargeGroupAccommodation";
+import PenthouseApartments from "./pages/en/apartments/PenthouseApartments";
 
 const queryClient = new QueryClient();
 
