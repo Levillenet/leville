@@ -287,6 +287,9 @@ const App = () => (
               <Route path="/en/apartments/studio" element={<StudioApartments />} />
               <Route path="/en/apartments/for-4" element={<ApartmentsFor4 />} />
               <Route path="/en/apartments/for-6" element={<ApartmentsFor6 />} />
+              <Route path="/en/apartments/for-8" element={<ApartmentsFor8 />} />
+              <Route path="/en/apartments/large-group" element={<LargeGroupAccommodation />} />
+              <Route path="/en/apartments/penthouse" element={<PenthouseApartments />} />
               
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
