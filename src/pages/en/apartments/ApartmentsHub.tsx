@@ -114,16 +114,7 @@ const faqs = [
   },
 ];
 
-const faqSchemaData = faqs.map(f => ({
-  "@type": "Question",
-  name: f.q,
-  acceptedAnswer: {
-    "@type": "Answer",
-    text: typeof f.a === "string" ? f.a : (f.a as any).props?.children
-      ? "See our website for the detailed answer."
-      : String(f.a),
-  },
-}));
+// FAQ schema data is embedded in faqSchema below
 
 const guideLinks = [
   { label: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
