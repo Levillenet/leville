@@ -564,6 +564,11 @@ const BearlodgeGuide = ({ lang = "en" }: BearlodgeGuideProps) => {
                     <h3 className="font-semibold text-sm" style={{ color: "#2D2D2D" }}>{a.title}</h3>
                   </div>
                   <p className="text-sm leading-relaxed" style={{ color: "#555" }}>{a.desc}</p>
+                  {(a as any).link && (
+                    <Link to={(a as any).link.to} className="inline-block mt-2 text-sm font-medium hover:underline" style={{ color: "#B8860B" }}>
+                      {(a as any).link.text}
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>
