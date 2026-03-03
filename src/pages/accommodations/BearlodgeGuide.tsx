@@ -140,7 +140,9 @@ const i18n = {
     ],
     accLink: "/en/accommodations",
     guideLink: "/guide/travel-to-levi",
-    bookLink: "/en/accommodations",
+    bookLink: "https://app.moder.fi/levillenet/303?step=1",
+    welcomeLetterBtn: "Welcome Letter for Kids",
+    welcomeLetterUrl: "/docs/tervetulokirje.pdf",
   },
   fi: {
     metaTitle: "Bearlodge vierasopas – Karhupirtti hirsimökki Levillä | Leville.net",
@@ -265,7 +267,9 @@ const i18n = {
     ],
     accLink: "/majoitukset",
     guideLink: "/opas/matkaopas-levi",
-    bookLink: "/majoitukset",
+    bookLink: "https://app.moder.fi/levillenet/303?step=1",
+    welcomeLetterBtn: "Tervetulokirje lapsille",
+    welcomeLetterUrl: "/docs/tervetulokirje.pdf",
   },
 };
 
@@ -408,14 +412,28 @@ const BearlodgeGuide = ({ lang = "en" }: BearlodgeGuideProps) => {
             <p className="text-base md:text-lg max-w-2xl mb-8 leading-relaxed" style={{ color: "rgba(249,246,241,0.85)" }}>
               {t.heroSubtitle}
             </p>
-            <Link
-              to={t.bookLink}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all hover:brightness-110"
-              style={{ backgroundColor: "#B8860B", color: "#F9F6F1" }}
-            >
-              {t.bookBtn}
-              <ArrowRight size={16} />
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href={t.bookLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all hover:brightness-110"
+                style={{ backgroundColor: "#B8860B", color: "#F9F6F1" }}
+              >
+                {t.bookBtn}
+                <ArrowRight size={16} />
+              </a>
+              <a
+                href={t.welcomeLetterUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all border hover:bg-white/10"
+                style={{ borderColor: "rgba(249,246,241,0.5)", color: "#F9F6F1" }}
+              >
+                {t.welcomeLetterBtn}
+                <ArrowRight size={16} />
+              </a>
+            </div>
           </div>
         </section>
 
