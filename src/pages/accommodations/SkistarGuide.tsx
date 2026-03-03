@@ -8,8 +8,8 @@ import JsonLd from "@/components/JsonLd";
 import {
   Clock, Phone, Mail, Wifi, Droplets, Car, ShieldCheck,
   WashingMachine, Thermometer, Download, ArrowRight, Home, Users,
-  Bath, Mountain, CheckCircle2, AlertTriangle, Volume2, Cigarette,
-  Ruler, BedDouble, Lock, UtensilsCrossed, Snowflake, Bike, Package,
+  Mountain, CheckCircle2, Volume2, Cigarette,
+  Ruler, BedDouble, Lock, UtensilsCrossed, Snowflake, Package,
   Baby, DoorOpen, Trash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
