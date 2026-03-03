@@ -401,9 +401,9 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
                   <p className="text-sm leading-relaxed mb-3" style={{ color: "#555" }}>{apt.desc}</p>
                   <p className="text-xs font-medium mb-4" style={{ color: "#B8860B" }}>{apt.apts}</p>
                   <Button asChild variant="outline" size="sm" className="w-full" style={{ borderColor: "#B8860B", color: "#B8860B" }}>
-                    <Link to={accomLink}>
+                    <a href="https://app.moder.fi/levillenet" target="_blank" rel="noopener noreferrer">
                       {apt.btn} <ArrowRight className="ml-2 w-3 h-3" />
-                    </Link>
+                    </a>
                   </Button>
                 </div>
               </div>
