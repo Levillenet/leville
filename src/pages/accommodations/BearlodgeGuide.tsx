@@ -69,7 +69,7 @@ const i18n = {
     checkinDesc: "We prepare the cabin so that everything is ready for your arrival from 5:00 PM onwards. You can arrive anytime during the evening. You will receive the door lock code via text message on the day of arrival.",
     checkoutLabel: "Check-out",
     checkoutTime: "By 11:00 AM",
-    checkoutDesc: "Please follow the checkout checklist posted in the lobby. We keep it simple — just a few things to help us prepare for the next guests.",
+    checkoutDesc: "Please follow the checkout checklist at the bottom of this guide. We keep it simple — just a few things to help us prepare for the next guests.",
     smartLock: "No need to pick up keys — we use a smart lock system. Your personal code arrives by SMS on your arrival day.",
     locationNote: "Bearlodge is located right in Levi centre. It's a 3-minute walk to the supermarket, souvenir shops, restaurants, front slopes, and kids' land. You can easily walk everywhere in the centre and to the pickup points for safari activities. The closest snowmobile track is approximately 150 metres away.",
     kitchenTitle: "The Kitchen",
