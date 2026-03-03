@@ -658,9 +658,9 @@ const BearlodgeGuide = ({ lang = "en" }: BearlodgeGuideProps) => {
             <h2 className="text-2xl md:text-3xl font-bold mb-8" style={{ color: "#2D2D2D" }}>{t.contactTitle}</h2>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
-              <a href="tel:+358441313131" className="flex items-center gap-2 text-base font-medium hover:underline" style={{ color: "#2D2D2D" }}>
+              <a href="tel:+35844131313" className="flex items-center gap-2 text-base font-medium hover:underline" style={{ color: "#2D2D2D" }}>
                 <Phone size={18} style={{ color: "#B8860B" }} />
-                +358 44 131 3131
+                +358 44 131 313
               </a>
               <a href="mailto:info@leville.net" className="flex items-center gap-2 text-base font-medium hover:underline" style={{ color: "#2D2D2D" }}>
                 <Mail size={18} style={{ color: "#B8860B" }} />
