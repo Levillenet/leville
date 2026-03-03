@@ -194,7 +194,7 @@ const i18n = {
     checkinDesc: "Valmistelemme mökin niin, että kaikki on valmiina saapumiseesi klo 17:00 alkaen. Voit saapua milloin tahansa illan aikana. Saat oven lukituskoodin tekstiviestillä saapumispäivänä.",
     checkoutLabel: "Uloskirjautuminen",
     checkoutTime: "Klo 11:00 mennessä",
-    checkoutDesc: "Noudata eteisessä olevaa uloskirjautumislistaa. Pidämme sen yksinkertaisena — vain muutama asia, jotka auttavat meitä valmistelemaan mökin seuraaville vieraille.",
+    checkoutDesc: "Noudata tämän oppaan lopussa olevaa lähtömuistilistaa. Pidämme sen yksinkertaisena — vain muutama asia, jotka auttavat meitä valmistelemaan mökin seuraaville vieraille.",
     smartLock: "Ei tarvetta noutaa avaimia — käytämme älylukitusjärjestelmää. Henkilökohtainen koodisi saapuu tekstiviestillä saapumispäivänä.",
     locationNote: "Bearlodge sijaitsee aivan Levin keskustassa. Supermarkettiin, matkamuistomyymälöihin, ravintoloihin, eturinteille ja lasten maahan on 3 minuutin kävelymatka. Keskustassa ja safareiden noutopaikoille pääsee helposti kävellen. Lähin moottorikelkkaura on noin 150 metrin päässä.",
     kitchenTitle: "Keittiö",
