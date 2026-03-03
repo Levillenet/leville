@@ -18,10 +18,7 @@ import buildingExterior from "@/assets/skistar/building-exterior.jpg";
 import livingKitchen from "@/assets/skistar/living-kitchen.jpg";
 import studioKitchen from "@/assets/skistar/studio-kitchen.jpg";
 import studioBedroom from "@/assets/skistar/studio-bedroom.jpg";
-import saunaBathroom from "@/assets/skistar/sauna-bathroom.jpg";
-import bedroomBathroom from "@/assets/skistar/bedroom-bathroom.jpg";
 import bedroomDetail from "@/assets/skistar/bedroom-detail.jpg";
-import bedroomPillows from "@/assets/skistar/bedroom-pillows.jpg";
 import bedroomPillows2br from "@/assets/skistar/bedroom-pillows-2br.jpg";
 
 interface SkistarGuideProps {
