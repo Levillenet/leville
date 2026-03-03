@@ -1,35 +1,37 @@
 
 
-## Plan: Bearlodge Guide Refactoring
+# GA4-tapahtumaseuranta majoitushauille
 
-### Changes needed
+## Muutos
 
-**1. Route restructuring** (`src/App.tsx`)
-- Change route from `/accommodations/bearlodge/guide` to `/accommodations/guides/bearlodge`
-- Add redirect from old path to new path for SEO continuity
-- Add Finnish route: `/majoitukset/oppaat/bearlodge` rendering `<BearlodgeGuide lang="fi" />`
+Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
 
-**2. Content fixes in `BearlodgeGuide.tsx`**
-- Add `lang` prop support (fi/en) — this is a larger structural change since all text content needs translation
-- Update canonical URL and all schema URLs to `/accommodations/guides/bearlodge`
-- Remove the "Download PDF Guide" button from the hero section
-- Fix "Extras" card text: change "outdoor BBQ area" → "charcoal grill in the yard available for use"
-- Fix highlights: change "Geothermal heating + heat pump" → "Water-circulated radiator heating + heat pump"
-- Fix amenities Heating card: change "geothermal heating" → "water-circulated radiator heating"
-- Fix lodgingSchema amenityFeature: change "BBQ Grill" → "Charcoal Grill"
-- Add hreflang tags for both `/accommodations/guides/bearlodge` (en) and `/majoitukset/oppaat/bearlodge` (fi)
+## Toteutus
 
-**3. Sitemap** (`public/sitemap.xml`)
-- Update the existing bearlodge URL from `/accommodations/bearlodge/guide` to `/accommodations/guides/bearlodge`
-- Add Finnish version `/majoitukset/oppaat/bearlodge`
+Tiedosto: `src/components/ModerBookingWidget.tsx`
 
-### Language support approach
+`showLoadingOverlay`-funktion alkuun lisataan:
 
-The component will accept `lang?: "fi" | "en"` prop (default "en"). All text strings will be organized in an `i18n` object at the top of the file with `fi` and `en` keys, following the project's existing pattern. This prepares the structure for future property guides that will follow the same template.
+```typescript
+if (typeof window !== 'undefined' && (window as any).gtag) {
+  (window as any).gtag('event', 'accommodation_search', {
+    event_category: 'booking',
+    event_label: lang,
+    page_location: window.location.pathname,
+  });
+}
+```
 
-### Technical details
+Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
 
-- Route pattern `/accommodations/guides/:slug` is forward-compatible for future property guides
-- Old route `/accommodations/bearlodge/guide` gets a `<Navigate>` redirect to preserve any existing links
-- Finnish content will be a full translation of all sections
+## Missa naet tulokset
+
+Google Analytics 4 -hallintapaneelissa (analytics.google.com):
+- **Reaaliaikainen testaus:** Reports > Realtime
+- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+
+## Ei muita muutoksia
+- Ei uusia riippuvuuksia
+- GA4-skripti on jo ladattu index.html:ssa
+- Yksi tiedosto muuttuu, yksi rivi lisataan
 
