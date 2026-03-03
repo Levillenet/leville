@@ -71,6 +71,7 @@ import PrijzenInLeviPage from "./pages/guide/PrijzenInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
 import BearlodgeGuide from "./pages/accommodations/BearlodgeGuide";
 import SkistarGuide from "./pages/accommodations/SkistarGuide";
+import FrontslopeGuide from "./pages/accommodations/FrontslopeGuide";
 import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
 import StudioApartments from "./pages/en/apartments/StudioApartments";
 import ApartmentsFor4 from "./pages/en/apartments/ApartmentsFor4";
@@ -320,6 +321,9 @@ const App = () => (
                {/* Skistar Guide */}
                <Route path="/accommodations/guides/skistar-apartments" element={<SkistarGuide lang="en" />} />
                <Route path="/majoitukset/oppaat/skistar-huoneistot" element={<SkistarGuide lang="fi" />} />
+               
+               {/* Front Slope Guide */}
+               <Route path="/accommodations/guides/frontslope-apartments" element={<FrontslopeGuide />} />
                
               {/* Fireplace instructions (hidden subpage) */}
               <Route path="/takka-ohje" element={<FireplaceInstructions />} />
