@@ -6,18 +6,27 @@ import Footer from "@/components/Footer";
 import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
 import {
-  Clock, Car, Download, ArrowRight, Home, Users,
-  Mountain, BedDouble, Snowflake, Flame, Dog,
+  Clock, Phone, Mail, Wifi, Droplets, Car, ShieldCheck,
+  WashingMachine, Thermometer, Download, ArrowRight, Home, Users,
+  Mountain, CheckCircle2, Volume2, Cigarette,
+  BedDouble, Snowflake, Flame, Dog, Package, Baby, Tv,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import buildingExterior from "@/assets/frontslope/building-exterior.png";
 import livingFireplace from "@/assets/frontslope/living-fireplace.jpg";
+import sauna5a2 from "@/assets/frontslope/sauna-5a2.jpg";
 
 const sections = [
   { id: "about", label: "About" },
   { id: "apartments", label: "Apartments" },
   { id: "check-in", label: "Check-in" },
+  { id: "kitchen", label: "Kitchen" },
+  { id: "amenities", label: "Amenities" },
+  { id: "sauna", label: "Sauna" },
+  { id: "rules", label: "Rules" },
+  { id: "checkout", label: "Checkout" },
+  { id: "contact", label: "Contact" },
 ];
 
 const FrontslopeGuide = () => {
@@ -88,8 +97,10 @@ const FrontslopeGuide = () => {
     geo: { "@type": "GeoCoordinates", latitude: 67.8039, longitude: 24.8141 },
     petsAllowed: true,
     amenityFeature: [
-      "Private Sauna", "Fireplace", "Free WiFi", "Free Parking",
-      "Full Kitchen", "Balcony", "Ski Storage", "Pets Allowed",
+      "Private Sauna", "Heat-Storing Fireplace", "Free WiFi", "Free Parking with Power Outlet",
+      "Full Kitchen", "Dishwasher", "Air Source Heat Pump", "Drying Room", "Ski Storage",
+      "Balcony", "Washing Machine", "Drying Cabinet", "Smart TV", "High Chair",
+      "Baby Safety Gates", "Fire Extinguisher", "Smoke Alarm",
     ].map((f) => ({ "@type": "LocationFeatureSpecification", name: f, value: true })),
   };
 
@@ -101,6 +112,48 @@ const FrontslopeGuide = () => {
     { icon: Snowflake, label: "Private Sauna" },
     { icon: Flame, label: "Fireplace" },
     { icon: Dog, label: "Pets Allowed" },
+  ];
+
+  const kitchenItems = [
+    "Refrigerator", "Oven & Stove", "Dishwasher", "Coffee Maker", "Blender",
+    "Microwave", "Hand Mixer", "Electric Kettle", "Ice Maker (select apartments)",
+    "Pots / Pans / Bakeware", "Dinnerware for 6–12 guests", "Variety of Glassware",
+  ];
+
+  const amenities = [
+    { icon: Flame, title: "Fireplace", desc: "All apartments have a fireplace — 5A2 features a heat-storing fireplace that radiates warmth for hours after the fire dies down. Firewood is provided. In 5B5, you'll find firewood on the balcony. In 5A2 and 5B2, firewood is in the basement storage. Open the chimney valve before lighting and close it only when the fire is completely out. Add wood a maximum of 2 times per session. Open the balcony door briefly during ignition to ensure good airflow." },
+    { icon: Thermometer, title: "Heating", desc: "The apartments are primarily heated by an air source heat pump, controlled via remote. You can also adjust the radiators in the bedrooms if needed — but please set them back to approximately 19°C before you leave. The fireplace provides additional cosy warmth on cold evenings." },
+    { icon: Snowflake, title: "Private Sauna", desc: "Every apartment has a private electric sauna. In 5B5, the sauna has a window overlooking the front slope — perfect for enjoying the evening slope lighting. For tips on Finnish sauna culture, check out our guide.", link: { text: "Read our Sauna Guide →", to: "/sauna" } },
+    { icon: WashingMachine, title: "Washer & Dryer", desc: "Each apartment has a washing machine and a drying cabinet for outdoor clothes (40°C, about one hour works best). Some apartments also have a tumble dryer. A drying rack is available for regular laundry." },
+    { icon: Package, title: "Drying Room & Ski Storage", desc: "The ground-floor apartments (5A2, 5B2) have a separate drying room — you can enter from outside, leave your skis and wet gear to dry, and head straight to the sauna without tracking snow through the apartment. The building's basement has additional storage space for skis, luggage, and equipment." },
+    { icon: Droplets, title: "Tap Water", desc: "Lapland tap water comes straight from the fells. It's exceptionally clean, cold and fresh — drink it straight from the tap." },
+    { icon: Car, title: "Free Parking", desc: "Each apartment has a designated parking spot marked with the apartment number. The parking spaces include a power outlet for engine block heaters — essential in Lapland winter temperatures." },
+    { icon: Wifi, title: "Free WiFi", desc: "High-speed WiFi is available in all apartments. Network name: Hiihtajankuja. You'll find the password inside your apartment." },
+    { icon: Dog, title: "Pets Welcome", desc: "Pets are allowed in all our Front Slope apartments. Please keep the apartment clean and let us know in advance if you're bringing a pet." },
+    { icon: Baby, title: "Family Friendly", desc: "High chairs and baby safety gates are available in all apartments. 5B5 also has a crib and children's books and toys. Let us know in advance what you need." },
+    { icon: Tv, title: "Entertainment", desc: "All apartments have a large smart flat-screen TV. 5B2 includes a PlayStation. 5B5 features a sound system for the full après-ski experience." },
+  ];
+
+  const houseRules = [
+    { icon: Cigarette, title: "No Smoking", desc: "No smoking or vaping inside the apartments. Please smoke outside and use the ashtray provided." },
+    { icon: Volume2, title: "Quiet Time from 11 PM", desc: "Quiet hours begin at 11:00 PM. Please — no excessive noise, loud music or rowdy behaviour. Disturbances to neighbours will not be tolerated." },
+    { icon: ShieldCheck, title: "Damage", desc: "Please report any damage or malfunction to us right away so we can repair or replace items quickly." },
+    { icon: Phone, title: "Emergencies", desc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers are located in the hallway. For non-urgent issues, contact us at +358 44 131 3131 or info@leville.net." },
+  ];
+
+  const checkoutItems = [
+    "Linens: Leave beds unmade. Place used towels and linens in the hallway.",
+    "Dishes: Rinse dishes and load the dishwasher. Please start the dishwasher before you leave.",
+    "Food: Empty the fridge of all open and perishable food. Dry ingredients and unopened items can stay.",
+    "Heating: If you adjusted the bedroom radiators, please set them back to approximately 19°C.",
+    "Lights & Electronics: Make sure all lights, appliances and electronics are switched off.",
+    "Windows & Doors: Check that all windows and doors are properly closed and locked.",
+  ];
+
+  const readNextLinks = [
+    { to: "/sauna", label: "Finnish Sauna Guide" },
+    { to: "/guide/restaurants-and-dining", label: "Restaurants & Dining in Levi" },
+    { to: "/travel/how-to-get-to-levi", label: "How to Get to Levi" },
   ];
 
   return (
@@ -262,7 +315,6 @@ const FrontslopeGuide = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl font-bold mb-10 text-center" style={{ color: "#2D2D2D" }}>Arrival &amp; Check-in</h2>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
-            {/* Check-in card */}
             <div className="rounded-xl p-6 shadow-md border" style={{ backgroundColor: "#FFFDF9", borderColor: "#E8E0D4" }}>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: "#B8860B" }}>
@@ -278,7 +330,6 @@ const FrontslopeGuide = () => {
               </p>
             </div>
 
-            {/* Check-out card */}
             <div className="rounded-xl p-6 shadow-md border" style={{ backgroundColor: "#FFFDF9", borderColor: "#E8E0D4" }}>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: "#B8860B" }}>
@@ -295,7 +346,6 @@ const FrontslopeGuide = () => {
             </div>
           </div>
 
-          {/* Parking info box */}
           <div className="max-w-4xl mx-auto rounded-xl p-5 border flex items-start gap-4" style={{ backgroundColor: "#FFFDF9", borderColor: "#E8E0D4" }}>
             <Car className="w-5 h-5 mt-0.5 flex-shrink-0" style={{ color: "#B8860B" }} />
             <p className="text-sm leading-relaxed" style={{ color: "#555" }}>
@@ -305,8 +355,146 @@ const FrontslopeGuide = () => {
         </div>
       </section>
 
-      {/* Spacer before footer */}
-      <div className="py-12" />
+      {/* KITCHEN */}
+      <section id="kitchen" className="py-16 sm:py-20 scroll-mt-32" style={{ backgroundColor: "#F3EDE4" }}>
+        <div className="container mx-auto px-4 max-w-6xl">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center" style={{ color: "#2D2D2D" }}>The Kitchen</h2>
+          <p className="text-center max-w-3xl mx-auto mb-10 leading-relaxed" style={{ color: "#555" }}>
+            Every apartment has a fully equipped kitchen for preparing meals for up to 6–10 guests. You'll find basic spices, and often coffee, tea, cocoa, sugar and other dry ingredients left by previous guests — feel free to use everything. Dish soap and dishcloths are provided. If you have leftover dry ingredients when you leave, you're welcome to leave them for the next guests.
+          </p>
+          <div className="grid md:grid-cols-2 gap-10 items-start">
+            <div className="rounded-xl p-6 border" style={{ backgroundColor: "#FFFDF9", borderColor: "#E8E0D4" }}>
+              <div className="flex items-center gap-2 mb-4">
+                <CheckCircle2 className="w-5 h-5" style={{ color: "#B8860B" }} />
+                <h3 className="text-lg font-bold" style={{ color: "#2D2D2D" }}>Appliances &amp; Cookware</h3>
+              </div>
+              <ul className="space-y-2.5">
+                {kitchenItems.map((item) => (
+                  <li key={item} className="flex items-center gap-2.5 text-sm" style={{ color: "#555" }}>
+                    <CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: "#B8860B" }} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              {/* Replace with Hiihtäjänkuja kitchen photo */}
+              <img src={sauna5a2} alt="Front Slope apartment kitchen" className="w-full h-80 object-cover" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AMENITIES */}
+      <section id="amenities" className="py-16 sm:py-20 scroll-mt-32">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-10 text-center" style={{ color: "#2D2D2D" }}>Amenities &amp; Equipment</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {amenities.map((a) => (
+              <div key={a.title} className="rounded-xl p-6 border" style={{ backgroundColor: "#FFFDF9", borderColor: "#E8E0D4" }}>
+                <a.icon className="w-6 h-6 mb-3" style={{ color: "#B8860B" }} />
+                <h3 className="font-bold mb-2" style={{ color: "#2D2D2D" }}>{a.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "#555" }}>{a.desc}</p>
+                {a.link && (
+                  <Link to={a.link.to} className="inline-block mt-2 text-sm font-medium hover:underline" style={{ color: "#B8860B" }}>
+                    {a.link.text}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SAUNA CALLOUT */}
+      <section id="sauna" className="py-16 sm:py-20 scroll-mt-32" style={{ backgroundColor: "#F3EDE4" }}>
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <Snowflake className="w-10 h-10 mx-auto mb-4" style={{ color: "#B8860B" }} />
+          <h2 className="text-2xl sm:text-3xl font-bold mb-6" style={{ color: "#2D2D2D" }}>The Finnish Sauna Experience</h2>
+          <p className="leading-relaxed mb-8" style={{ color: "#555" }}>
+            A private sauna is one of the highlights of staying in our apartments. In 5B5, you can even enjoy the view of the illuminated front slope from the sauna window. Whether you're a first-timer or experienced, our guide covers everything from etiquette to the perfect temperature.
+          </p>
+          <Button asChild size="lg" className="text-white font-semibold px-8" style={{ backgroundColor: "#B8860B" }}>
+            <Link to="/sauna">Read Our Sauna Guide <ArrowRight className="ml-2 w-4 h-4" /></Link>
+          </Button>
+        </div>
+      </section>
+
+      {/* HOUSE RULES */}
+      <section id="rules" className="py-16 sm:py-20 scroll-mt-32">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-10 text-center" style={{ color: "#2D2D2D" }}>House Rules</h2>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {houseRules.map((r) => (
+              <div key={r.title} className="rounded-xl p-6 border" style={{ backgroundColor: "#FFFDF9", borderColor: "#E8E0D4" }}>
+                <r.icon className="w-6 h-6 mb-3" style={{ color: "#B8860B" }} />
+                <h3 className="font-bold mb-2" style={{ color: "#2D2D2D" }}>{r.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "#555" }}>{r.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CHECKOUT CHECKLIST */}
+      <section id="checkout" className="py-16 sm:py-20 scroll-mt-32" style={{ backgroundColor: "#F3EDE4" }}>
+        <div className="container mx-auto px-4 max-w-3xl">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-center" style={{ color: "#2D2D2D" }}>Before You Go – Checkout Checklist</h2>
+          <p className="text-center mb-10 leading-relaxed" style={{ color: "#555" }}>
+            Please complete these simple steps before leaving by 11:00 AM. Checkout instructions are also posted on the hallway wall.
+          </p>
+          <div className="space-y-4">
+            {checkoutItems.map((item, i) => (
+              <div key={i} className="flex items-start gap-3 rounded-lg p-4" style={{ backgroundColor: "#FFFDF9" }}>
+                <CheckCircle2 className="w-5 h-5 mt-0.5 flex-shrink-0 text-green-600" />
+                <p className="text-sm leading-relaxed" style={{ color: "#2D2D2D" }}>{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT & CTA */}
+      <section id="contact" className="py-16 sm:py-20 scroll-mt-32">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8" style={{ color: "#2D2D2D" }}>Need Anything During Your Stay?</h2>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
+            <a href="tel:+358441313131" className="flex items-center gap-2 text-lg font-medium hover:underline" style={{ color: "#B8860B" }}>
+              <Phone className="w-5 h-5" /> +358 44 131 3131
+            </a>
+            <a href="mailto:info@leville.net" className="flex items-center gap-2 text-lg font-medium hover:underline" style={{ color: "#B8860B" }}>
+              <Mail className="w-5 h-5" /> info@leville.net
+            </a>
+          </div>
+          <p className="leading-relaxed mb-10" style={{ color: "#555" }}>
+            Whether it's a maintenance issue, a question about Levi, or you need extra supplies — just send us a message and we'll take care of it.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Button asChild size="lg" className="text-white font-semibold px-8" style={{ backgroundColor: "#B8860B" }}>
+              <Link to="/en/accommodations">Browse All Our Accommodations <ArrowRight className="ml-2 w-4 h-4" /></Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="px-8" style={{ borderColor: "#B8860B", color: "#B8860B" }}>
+              <Link to="/en/levi">Explore Levi Travel Guide <ArrowRight className="ml-2 w-4 h-4" /></Link>
+            </Button>
+          </div>
+
+          {/* Read Next */}
+          <h3 className="text-lg font-bold mb-6" style={{ color: "#2D2D2D" }}>Read Next</h3>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {readNextLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="rounded-xl p-5 border text-center font-medium text-sm hover:shadow-md transition-shadow"
+                style={{ backgroundColor: "#FFFDF9", borderColor: "#E8E0D4", color: "#B8860B" }}
+              >
+                {link.label}
+                <ArrowRight className="w-4 h-4 mx-auto mt-2" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>
