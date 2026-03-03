@@ -241,7 +241,7 @@ const i18n = {
       { icon: Cigarette, title: "Tupakointi kielletty", desc: "Tupakointi tai sähkötupakointi sisätiloissa on kielletty. Tupakoi ulkona ja käytä tuhkakuppia." },
       { icon: Volume2, title: "Melu ja hiljaisuus", desc: "Mökin sisällä äänentaso on täysin teidän päätettävissänne — mökki on teidän. Jos käytätte ulkoporeallasta yöllä, pidä melu minimissä naapureiden vuoksi." },
       { icon: ShieldCheck, title: "Vahingot", desc: "Ilmoita kaikista vahingoista tai toimintahäiriöistä meille heti, jotta voimme korjata tai vaihtaa nopeasti." },
-      { icon: Phone, title: "Hätätilanteet", desc: "Hätätilanteessa soita 112. Sammuttimet ja sammutuspeite ovat eteisessä. Ei-kiireellisissä asioissa tavoitat meidät numerosta +358 44 131 3131 tai info@leville.net." },
+      { icon: Phone, title: "Hätätilanteet", desc: "Hätätilanteessa soita 112. Sammuttimet ja sammutuspeite ovat eteisessä. Ei-kiireellisissä asioissa tavoitat meidät numerosta +358 44 131 313 tai info@leville.net." },
     ],
     checkoutTitle: "Ennen lähtöä – lähtömuistilista",
     checkoutIntro: "Auttaaksesi meitä valmistelemaan mökin seuraaville vieraille, arvostamme apuasi näissä yksinkertaisissa asioissa ennen klo 11:00 lähtöä.",
