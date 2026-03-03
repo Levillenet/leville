@@ -315,8 +315,12 @@ const App = () => (
               {/* Bearlodge Guide */}
               <Route path="/accommodations/guides/bearlodge" element={<BearlodgeGuide lang="en" />} />
               <Route path="/majoitukset/oppaat/bearlodge" element={<BearlodgeGuide lang="fi" />} />
-              <Route path="/accommodations/bearlodge/guide" element={<Navigate to="/accommodations/guides/bearlodge" replace />} />
-              
+               <Route path="/accommodations/bearlodge/guide" element={<Navigate to="/accommodations/guides/bearlodge" replace />} />
+               
+               {/* Skistar Guide */}
+               <Route path="/accommodations/guides/skistar-apartments" element={<SkistarGuide lang="en" />} />
+               <Route path="/majoitukset/oppaat/skistar-huoneistot" element={<SkistarGuide lang="fi" />} />
+               
               {/* Fireplace instructions (hidden subpage) */}
               <Route path="/takka-ohje" element={<FireplaceInstructions />} />
               <Route path="/en/fireplace" element={<FireplaceInstructions lang="en" />} />
