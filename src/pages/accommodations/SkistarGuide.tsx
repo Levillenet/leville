@@ -22,6 +22,7 @@ import saunaBathroom from "@/assets/skistar/sauna-bathroom.jpg";
 import bedroomBathroom from "@/assets/skistar/bedroom-bathroom.jpg";
 import bedroomDetail from "@/assets/skistar/bedroom-detail.jpg";
 import bedroomPillows from "@/assets/skistar/bedroom-pillows.jpg";
+import bedroomPillows2br from "@/assets/skistar/bedroom-pillows-2br.jpg";
 
 interface SkistarGuideProps {
   lang?: "fi" | "en";
@@ -61,15 +62,15 @@ const i18n = {
     studioTitle: "Studio (24–28 m²)",
     studioDesc: "Cosy studios for 1–3 guests. Open-plan layout with kitchen, sleeping area, bathroom, and most with a private sauna. Sofa bed for an extra guest. Perfect for couples or solo travellers.",
     studioApts: "Apartments: 102, 104, 319, 320, 321",
-    studioBtn: "Browse Studios",
+    studioBtn: "Book Now",
     oneBrTitle: "1-Bedroom Suite (43–44 m²)",
     oneBrDesc: "Comfortable apartments with a separate bedroom, living room with kitchen, sauna and bathroom. Sleeps 2 in the bedroom plus 1–2 on the sofa bed. Ideal for small families or couples who want more space.",
     oneBrApts: "Apartments: 209, 210",
-    oneBrBtn: "Browse 1BR Suites",
+    oneBrBtn: "Book Now",
     twoBrTitle: "2-Bedroom Suite (54 m²)",
     twoBrDesc: "Spacious apartments with 2 bedrooms, living room-kitchen, sauna, bathroom and balcony. Sleeps up to 6 guests. End apartments offer forest views and extra privacy. Great for families or groups of friends.",
     twoBrApts: "Apartments: 211, 212",
-    twoBrBtn: "Browse 2BR Suites",
+    twoBrBtn: "Book Now",
     apartmentsNote: "All apartments feature underfloor heating, fully equipped kitchen, private sauna (most apartments), free WiFi, and free parking. The interiors have been carefully designed with attention to comfort and Lappish atmosphere.",
     // Check-in
     checkinTitle: "Arrival & Check-in",
@@ -117,15 +118,15 @@ const i18n = {
     studioTitle: "Studio (24–28 m²)",
     studioDesc: "Viihtyisät studiot 1–3 hengelle. Avoin pohjaratkaisu keittiöllä, nukkuma-alueella, kylpyhuoneella ja useimmissa oma sauna. Vuodesohva lisävieraalle. Täydellinen pareille tai yksinmatkaaville.",
     studioApts: "Huoneistot: 102, 104, 319, 320, 321",
-    studioBtn: "Selaa studioita",
+    studioBtn: "Varaa nyt",
     oneBrTitle: "1 makuuhuone (43–44 m²)",
     oneBrDesc: "Mukavat huoneistot erillisellä makuuhuoneella, olohuone-keittiöllä, saunalla ja kylpyhuoneella. Makuuhuoneessa nukkuu 2 + vuodesohvalla 1–2. Ihanteellinen pienille perheille tai pareille, jotka haluavat enemmän tilaa.",
     oneBrApts: "Huoneistot: 209, 210",
-    oneBrBtn: "Selaa 1MH-huoneistoja",
+    oneBrBtn: "Varaa nyt",
     twoBrTitle: "2 makuuhuonetta (54 m²)",
     twoBrDesc: "Tilavat huoneistot kahdella makuuhuoneella, olohuone-keittiöllä, saunalla, kylpyhuoneella ja parvekkeella. Nukkuu jopa 6 vierasta. Päätyhuoneistoissa metsänäkymät ja enemmän yksityisyyttä. Loistava perheille tai ystäväporukoille.",
     twoBrApts: "Huoneistot: 211, 212",
-    twoBrBtn: "Selaa 2MH-huoneistoja",
+    twoBrBtn: "Varaa nyt",
     apartmentsNote: "Kaikissa huoneistoissa on lattialämmitys, täysin varustettu keittiö, oma sauna (useimmissa), ilmainen WiFi ja ilmainen pysäköinti. Sisustus on suunniteltu huolella mukavuutta ja lappilaista tunnelmaa ajatellen.",
     checkinTitle: "Saapuminen & Check-in",
     checkinLabel: "SAAPUMINEN",
@@ -262,7 +263,7 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
       apts: t.twoBrApts,
       btn: t.twoBrBtn,
       icon: Users,
-      img: bedroomBathroom,
+      img: bedroomPillows2br,
     },
   ];
 
@@ -400,9 +401,9 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
                   <p className="text-sm leading-relaxed mb-3" style={{ color: "#555" }}>{apt.desc}</p>
                   <p className="text-xs font-medium mb-4" style={{ color: "#B8860B" }}>{apt.apts}</p>
                   <Button asChild variant="outline" size="sm" className="w-full" style={{ borderColor: "#B8860B", color: "#B8860B" }}>
-                    <Link to={accomLink}>
+                    <a href="https://app.moder.fi/levillenet" target="_blank" rel="noopener noreferrer">
                       {apt.btn} <ArrowRight className="ml-2 w-3 h-3" />
-                    </Link>
+                    </a>
                   </Button>
                 </div>
               </div>
