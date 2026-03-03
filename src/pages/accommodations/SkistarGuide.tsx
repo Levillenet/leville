@@ -263,7 +263,7 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
       apts: t.twoBrApts,
       btn: t.twoBrBtn,
       icon: Users,
-      img: bedroomBathroom,
+      img: bedroomPillows2br,
     },
   ];
 
