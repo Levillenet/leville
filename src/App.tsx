@@ -322,6 +322,9 @@ const App = () => (
                <Route path="/accommodations/guides/skistar-apartments" element={<SkistarGuide lang="en" />} />
                <Route path="/majoitukset/oppaat/skistar-huoneistot" element={<SkistarGuide lang="fi" />} />
                
+               {/* Front Slope Guide */}
+               <Route path="/accommodations/guides/frontslope-apartments" element={<FrontslopeGuide />} />
+               
               {/* Fireplace instructions (hidden subpage) */}
               <Route path="/takka-ohje" element={<FireplaceInstructions />} />
               <Route path="/en/fireplace" element={<FireplaceInstructions lang="en" />} />
