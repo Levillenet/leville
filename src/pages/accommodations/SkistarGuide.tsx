@@ -225,7 +225,7 @@ const i18n = {
     ruleDamageTitle: "Vahingot",
     ruleDamageDesc: "Ilmoita mahdollisista vahingoista tai toimintahäiriöistä meille välittömästi, jotta voimme korjata tai korvata nopeasti. Vahinkotakuu on enintään 300 €.",
     ruleEmergencyTitle: "Hätätilanteet",
-    ruleEmergencyDesc: "Hätätapauksessa soita 112. Sammuttimet ja sammutuspeitto löytyvät käytävän kaapista. Ei-kiireellisissä asioissa ota yhteyttä numeroon +358 44 131 3131 tai info@leville.net.",
+    ruleEmergencyDesc: "Hätätapauksessa soita 112. Sammuttimet ja sammutuspeitto löytyvät käytävän kaapista. Ei-kiireellisissä asioissa ota yhteyttä numeroon +358 44 131 313 tai info@leville.net.",
     checkoutTitle: "Ennen lähtöä – Lähtömuistilista",
     checkoutIntro: "Tee nämä yksinkertaiset toimenpiteet ennen lähtöä klo 11:00 mennessä. Lähtöohjeet ovat myös huoneiston ovessa.",
     checkoutItems: [
