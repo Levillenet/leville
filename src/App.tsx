@@ -312,7 +312,9 @@ const App = () => (
               <Route path="/guide/:slug" element={<PropertyGuide />} />
               
               {/* Bearlodge Guide */}
-              <Route path="/accommodations/bearlodge/guide" element={<BearlodgeGuide />} />
+              <Route path="/accommodations/guides/bearlodge" element={<BearlodgeGuide lang="en" />} />
+              <Route path="/majoitukset/oppaat/bearlodge" element={<BearlodgeGuide lang="fi" />} />
+              <Route path="/accommodations/bearlodge/guide" element={<Navigate to="/accommodations/guides/bearlodge" replace />} />
               
               {/* Fireplace instructions (hidden subpage) */}
               <Route path="/takka-ohje" element={<FireplaceInstructions />} />
