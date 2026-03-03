@@ -2035,5 +2035,21 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://leville.net/accommodations/guides/skistar-apartments</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/accommodations/guides/skistar-apartments"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/majoitukset/oppaat/skistar-huoneistot"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/accommodations/guides/skistar-apartments"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/majoitukset/oppaat/skistar-huoneistot</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/accommodations/guides/skistar-apartments"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/majoitukset/oppaat/skistar-huoneistot"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/accommodations/guides/skistar-apartments"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
 </urlset>

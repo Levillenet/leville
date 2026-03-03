@@ -70,6 +70,7 @@ import PricesInLeviPage from "./pages/guide/PricesInLeviPage";
 import PrijzenInLeviPage from "./pages/guide/PrijzenInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
 import BearlodgeGuide from "./pages/accommodations/BearlodgeGuide";
+import SkistarGuide from "./pages/accommodations/SkistarGuide";
 import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
 import StudioApartments from "./pages/en/apartments/StudioApartments";
 import ApartmentsFor4 from "./pages/en/apartments/ApartmentsFor4";
@@ -314,8 +315,12 @@ const App = () => (
               {/* Bearlodge Guide */}
               <Route path="/accommodations/guides/bearlodge" element={<BearlodgeGuide lang="en" />} />
               <Route path="/majoitukset/oppaat/bearlodge" element={<BearlodgeGuide lang="fi" />} />
-              <Route path="/accommodations/bearlodge/guide" element={<Navigate to="/accommodations/guides/bearlodge" replace />} />
-              
+               <Route path="/accommodations/bearlodge/guide" element={<Navigate to="/accommodations/guides/bearlodge" replace />} />
+               
+               {/* Skistar Guide */}
+               <Route path="/accommodations/guides/skistar-apartments" element={<SkistarGuide lang="en" />} />
+               <Route path="/majoitukset/oppaat/skistar-huoneistot" element={<SkistarGuide lang="fi" />} />
+               
               {/* Fireplace instructions (hidden subpage) */}
               <Route path="/takka-ohje" element={<FireplaceInstructions />} />
               <Route path="/en/fireplace" element={<FireplaceInstructions lang="en" />} />
