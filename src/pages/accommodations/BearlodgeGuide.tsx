@@ -116,7 +116,7 @@ const i18n = {
       { icon: Cigarette, title: "No Smoking", desc: "No smoking or vaping inside the cabin. Please smoke outside and use the ashtray provided." },
       { icon: Volume2, title: "Noise & Quiet Time", desc: "Inside the cabin, the sound level is entirely up to you — the cabin is yours. If you use the outdoor jacuzzi at night, please keep noise to a minimum for the neighbors." },
       { icon: ShieldCheck, title: "Damage", desc: "Please report any damage or malfunction to us right away so we can repair or replace items quickly." },
-      { icon: Phone, title: "Emergencies", desc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers and a fire blanket are in the hallway. For non-urgent issues, reach us at +358 44 131 3131 or info@leville.net." },
+      { icon: Phone, title: "Emergencies", desc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers and a fire blanket are in the hallway. For non-urgent issues, reach us at +358 44 131 313 or info@leville.net." },
     ],
     checkoutTitle: "Before You Go – Checkout Checklist",
     checkoutIntro: "To help us prepare for the next guests, we appreciate your help with these simple things before you leave by 11:00 AM.",
