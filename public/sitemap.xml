@@ -2020,7 +2020,18 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://leville.net/accommodations/bearlodge/guide</loc>
+    <loc>https://leville.net/accommodations/guides/bearlodge</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/accommodations/guides/bearlodge"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/majoitukset/oppaat/bearlodge"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/accommodations/guides/bearlodge"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/majoitukset/oppaat/bearlodge</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/accommodations/guides/bearlodge"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/majoitukset/oppaat/bearlodge"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/accommodations/guides/bearlodge"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

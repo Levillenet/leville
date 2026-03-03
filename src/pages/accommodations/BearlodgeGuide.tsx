@@ -361,7 +361,7 @@ const BearlodgeGuide = ({ lang = "en" }: BearlodgeGuideProps) => {
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={lodgingSchema} />
 
-      <Header lang={lang} />
+      <Header />
 
       {/* Sticky jump-nav */}
       <nav
