@@ -140,7 +140,9 @@ const i18n = {
     ],
     accLink: "/en/accommodations",
     guideLink: "/guide/travel-to-levi",
-    bookLink: "/en/accommodations",
+    bookLink: "https://app.moder.fi/levillenet/303?step=1",
+    welcomeLetterBtn: "Welcome Letter for Kids",
+    welcomeLetterUrl: "/docs/tervetulokirje.pdf",
   },
   fi: {
     metaTitle: "Bearlodge vierasopas – Karhupirtti hirsimökki Levillä | Leville.net",
