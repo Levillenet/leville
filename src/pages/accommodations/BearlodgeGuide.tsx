@@ -267,7 +267,9 @@ const i18n = {
     ],
     accLink: "/majoitukset",
     guideLink: "/opas/matkaopas-levi",
-    bookLink: "/majoitukset",
+    bookLink: "https://app.moder.fi/levillenet/303?step=1",
+    welcomeLetterBtn: "Tervetulokirje lapsille",
+    welcomeLetterUrl: "/docs/tervetulokirje.pdf",
   },
 };
 
