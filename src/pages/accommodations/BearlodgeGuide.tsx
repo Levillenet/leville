@@ -85,9 +85,9 @@ const i18n = {
     amenities: [
       { icon: Flame, title: "Fireplace", desc: "Firewood is provided. Open the chimney valve before lighting. Add wood a maximum of two times per session — the fireplace gets very hot with more. Close the valve only when the fire is completely extinguished. Open the front door briefly during ignition to get fresh air flowing." },
       { icon: Droplets, title: "Outdoor Jacuzzi", desc: "Heated to 37.5°C year-round. Lights and bubbles controlled from switches on the jacuzzi. Maximum 5 people at a time. Swimwear required. Always close the cover after use to prevent freezing." },
-      { icon: Snowflake, title: "Electric Sauna", desc: "The cabin has an electric sauna for your use. A perfect way to warm up after a day on the slopes." },
+      { icon: Snowflake, title: "Electric Sauna", desc: "The cabin has an electric sauna for your use. A perfect way to warm up after a day on the slopes. If you're new to Finnish sauna or want tips for the best experience, check out our guide.", link: { text: "Read our Sauna Guide →", to: "/sauna" } },
       { icon: WashingMachine, title: "Washer & Dryer", desc: "Washing machine and a drying cabinet for outdoor clothes. The drying cabinet works best at 40°C for about one hour. A drying rack is also available for regular laundry." },
-      { icon: Thermometer, title: "Heating", desc: "The cabin uses water-circulated radiator heating as its base, complemented by an air heat pump controlled via remote. You can also adjust bedroom radiators individually." },
+      { icon: Thermometer, title: "Heating", desc: "The common areas (living room, kitchen) are heated by an air heat pump — adjust the temperature using the white Mitsubishi remote control. The bedrooms have water-circulated radiator heating — adjust the temperature from the thermostat on each radiator. The fireplace also provides excellent warmth for the living area." },
       { icon: Droplets, title: "Tap Water", desc: "Lapland tap water comes straight from the fells. It's exceptionally clean, cold and fresh — drink it straight from the tap." },
       { icon: Car, title: "Parking", desc: "Free parking in the cabin's yard with plenty of space for multiple vehicles." },
       { icon: Dog, title: "Pets Welcome", desc: "Pets are allowed at Bearlodge. Please keep the cabin clean and report any pet-related issues." },
@@ -210,9 +210,9 @@ const i18n = {
     amenities: [
       { icon: Flame, title: "Takka", desc: "Polttopuut ovat valmiina. Avaa savupelti ennen sytyttämistä. Lisää puita enintään kaksi kertaa — takka kuumenee erittäin kuumaksi. Sulje pelti vasta kun tuli on täysin sammunut. Avaa ulko-ovi hetkeksi sytytyksen aikana ilmanvaihdon varmistamiseksi." },
       { icon: Droplets, title: "Ulkoporeallas", desc: "Lämmitetty 37,5°C:een ympäri vuoden. Valot ja poresuihkut ohjataan porealtaan kytkimistä. Enintään 5 henkilöä kerrallaan. Uima-asu pakollinen. Sulje kansi aina käytön jälkeen jäätymisen estämiseksi." },
-      { icon: Snowflake, title: "Sähkösauna", desc: "Mökissä on sähkösauna käyttöösi. Täydellinen tapa lämmetä rinteiden jälkeen." },
+      { icon: Snowflake, title: "Sähkösauna", desc: "Mökissä on sähkösauna käyttöösi. Täydellinen tapa lämmetä rinteiden jälkeen. Jos olet ensikertalainen tai haluat vinkkejä parhaaseen saunakokemukseen, tutustu oppaaseemme.", link: { text: "Lue saunaopas →", to: "/sauna" } },
       { icon: WashingMachine, title: "Pesukone ja kuivaus", desc: "Pesukone ja kuivauskaappi ulkovaatteille. Kuivauskaappi toimii parhaiten 40°C:ssa noin tunnin. Kuivausteline on myös käytettävissä tavallisille pyykeille." },
-      { icon: Thermometer, title: "Lämmitys", desc: "Mökin peruslämmitys on vesikiertoinen patterilämmitys, täydennettynä ilmalämpöpumpulla kaukosäätimellä. Makuuhuoneiden pattereita voi säätää erikseen." },
+      { icon: Thermometer, title: "Lämmitys", desc: "Yleiset tilat (olohuone, keittiö) lämpeävät ilmalämpöpumpulla — säädä lämpötilaa vaalealla Mitsubishi-kaukosäätimellä. Makuuhuoneissa on vesikiertoinen patterilämmitys — säädä lämpötilaa kunkin patterin termostaatista. Takka lämmittää myös tehokkaasti oleskelutilaa." },
       { icon: Droplets, title: "Hanavesi", desc: "Lapin hanavesi tulee suoraan tuntureilta. Se on poikkeuksellisen puhdasta, kylmää ja raikasta — juo suoraan hanasta." },
       { icon: Car, title: "Pysäköinti", desc: "Ilmainen pysäköinti mökin pihalla, tilaa useille autoille." },
       { icon: Dog, title: "Lemmikit tervetulleita", desc: "Lemmikit ovat sallittuja Bearlodgessa. Pidä mökki siistinä ja ilmoita mahdollisista lemmikkeihin liittyvistä ongelmista." },
@@ -564,6 +564,11 @@ const BearlodgeGuide = ({ lang = "en" }: BearlodgeGuideProps) => {
                     <h3 className="font-semibold text-sm" style={{ color: "#2D2D2D" }}>{a.title}</h3>
                   </div>
                   <p className="text-sm leading-relaxed" style={{ color: "#555" }}>{a.desc}</p>
+                  {(a as any).link && (
+                    <Link to={(a as any).link.to} className="inline-block mt-2 text-sm font-medium hover:underline" style={{ color: "#B8860B" }}>
+                      {(a as any).link.text}
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>
