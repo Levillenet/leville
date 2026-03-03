@@ -106,7 +106,7 @@ const i18n = {
     jacuzziRules: [
       "Maximum 5 people at the same time — more lowers the water level and risks freezing.",
       "Water level must reach the LED light line when no one is in the pool.",
-      "If water spills over, use the hose in the technical room (next to the main door) to refill. Collect the hose immediately — it will freeze and break if left out.",
+      "If the water level drops, send us a message and we'll top it up or give you instructions for refilling.",
       "Swimwear is required at all times.",
       "Keep noise to a minimum when using the jacuzzi at night out of respect for neighbors.",
       "Freezing and breakage due to failure to maintain water level or close the cover is the guest's responsibility.",
@@ -231,7 +231,7 @@ const i18n = {
     jacuzziRules: [
       "Enintään 5 henkilöä samanaikaisesti — enemmän laskee vedenpintaa ja riskeeraa jäätymisen.",
       "Vedenpinnan tulee yltää LED-valoriville kun kukaan ei ole altaassa.",
-      "Jos vettä läikkyy yli, käytä letkua teknisessä tilassa (pääoven vieressä) täyttöön. Kerää letku heti pois — se jäätyy ja hajoaa jos jätetään ulos.",
+      "Jos vedenpinta laskee, laita meille viestiä niin lisäämme vettä tai annamme ohjeet sen lisäämiseksi.",
       "Uima-asu pakollinen koko ajan.",
       "Pidä äänentaso minimissä käyttäessäsi poreallasta yöllä naapureiden kunnioittamiseksi.",
       "Jäätyminen ja rikkoutuminen vedenpinnan ylläpidon tai kannen sulkemisen laiminlyönnistä johtuen on vieraan vastuulla.",
