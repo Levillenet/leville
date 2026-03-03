@@ -210,9 +210,9 @@ const i18n = {
     amenities: [
       { icon: Flame, title: "Takka", desc: "Polttopuut ovat valmiina. Avaa savupelti ennen sytyttämistä. Lisää puita enintään kaksi kertaa — takka kuumenee erittäin kuumaksi. Sulje pelti vasta kun tuli on täysin sammunut. Avaa ulko-ovi hetkeksi sytytyksen aikana ilmanvaihdon varmistamiseksi." },
       { icon: Droplets, title: "Ulkoporeallas", desc: "Lämmitetty 37,5°C:een ympäri vuoden. Valot ja poresuihkut ohjataan porealtaan kytkimistä. Enintään 5 henkilöä kerrallaan. Uima-asu pakollinen. Sulje kansi aina käytön jälkeen jäätymisen estämiseksi." },
-      { icon: Snowflake, title: "Sähkösauna", desc: "Mökissä on sähkösauna käyttöösi. Täydellinen tapa lämmetä rinteiden jälkeen." },
+      { icon: Snowflake, title: "Sähkösauna", desc: "Mökissä on sähkösauna käyttöösi. Täydellinen tapa lämmetä rinteiden jälkeen. Jos olet ensikertalainen tai haluat vinkkejä parhaaseen saunakokemukseen, tutustu oppaaseemme.", link: { text: "Lue saunaopas →", to: "/sauna" } },
       { icon: WashingMachine, title: "Pesukone ja kuivaus", desc: "Pesukone ja kuivauskaappi ulkovaatteille. Kuivauskaappi toimii parhaiten 40°C:ssa noin tunnin. Kuivausteline on myös käytettävissä tavallisille pyykeille." },
-      { icon: Thermometer, title: "Lämmitys", desc: "Mökin peruslämmitys on vesikiertoinen patterilämmitys, täydennettynä ilmalämpöpumpulla kaukosäätimellä. Makuuhuoneiden pattereita voi säätää erikseen." },
+      { icon: Thermometer, title: "Lämmitys", desc: "Yleiset tilat (olohuone, keittiö) lämpeävät ilmalämpöpumpulla — säädä lämpötilaa vaalealla Mitsubishi-kaukosäätimellä. Makuuhuoneissa on vesikiertoinen patterilämmitys — säädä lämpötilaa kunkin patterin termostaatista. Takka lämmittää myös tehokkaasti oleskelutilaa." },
       { icon: Droplets, title: "Hanavesi", desc: "Lapin hanavesi tulee suoraan tuntureilta. Se on poikkeuksellisen puhdasta, kylmää ja raikasta — juo suoraan hanasta." },
       { icon: Car, title: "Pysäköinti", desc: "Ilmainen pysäköinti mökin pihalla, tilaa useille autoille." },
       { icon: Dog, title: "Lemmikit tervetulleita", desc: "Lemmikit ovat sallittuja Bearlodgessa. Pidä mökki siistinä ja ilmoita mahdollisista lemmikkeihin liittyvistä ongelmista." },
