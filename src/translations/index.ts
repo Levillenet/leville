@@ -84,6 +84,9 @@ export const routeConfig = {
   latuinfo: { fi: "/latuinfo", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi", nl: "/nl/levi" },
   laplandGlossary: { fi: "/opas/lapin-sanasto", en: "/guide/lapland-glossary", sv: "/guide/lapland-glossary", de: "/guide/lapland-glossary", es: "/guide/lapland-glossary", fr: "/guide/lapland-glossary", nl: "/guide/lapland-glossary" },
   pricesInLevi: { fi: "/opas/hinnat-levilla", en: "/guide/prices-in-levi", sv: "/opas/hinnat-levilla", de: "/opas/hinnat-levilla", es: "/opas/hinnat-levilla", fr: "/opas/hinnat-levilla", nl: "/nl/gids/prijzen-in-levi" },
+  // Accommodation guides
+  guideBearlodge: { fi: "/majoitukset/oppaat/bearlodge", en: "/accommodations/guides/bearlodge", sv: "/accommodations/guides/bearlodge", de: "/accommodations/guides/bearlodge", es: "/accommodations/guides/bearlodge", fr: "/accommodations/guides/bearlodge", nl: "/accommodations/guides/bearlodge" },
+  guideSkistar: { fi: "/majoitukset/oppaat/skistar-huoneistot", en: "/accommodations/guides/skistar-apartments", sv: "/accommodations/guides/skistar-apartments", de: "/accommodations/guides/skistar-apartments", es: "/accommodations/guides/skistar-apartments", fr: "/accommodations/guides/skistar-apartments", nl: "/accommodations/guides/skistar-apartments" },
 };
 
 // Helper to get route for a specific language
