@@ -231,7 +231,7 @@ const i18n = {
     jacuzziRules: [
       "Enintään 5 henkilöä samanaikaisesti — enemmän laskee vedenpintaa ja riskeeraa jäätymisen.",
       "Vedenpinnan tulee yltää LED-valoriville kun kukaan ei ole altaassa.",
-      "Jos vettä läikkyy yli, käytä letkua teknisessä tilassa (pääoven vieressä) täyttöön. Kerää letku heti pois — se jäätyy ja hajoaa jos jätetään ulos.",
+      "Jos vedenpinta laskee, laita meille viestiä niin lisäämme vettä tai annamme ohjeet sen lisäämiseksi.",
       "Uima-asu pakollinen koko ajan.",
       "Pidä äänentaso minimissä käyttäessäsi poreallasta yöllä naapureiden kunnioittamiseksi.",
       "Jäätyminen ja rikkoutuminen vedenpinnan ylläpidon tai kannen sulkemisen laiminlyönnistä johtuen on vieraan vastuulla.",
