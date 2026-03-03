@@ -71,6 +71,7 @@ import PrijzenInLeviPage from "./pages/guide/PrijzenInLeviPage";
 import PropertyGuide from "./pages/PropertyGuide";
 import BearlodgeGuide from "./pages/accommodations/BearlodgeGuide";
 import SkistarGuide from "./pages/accommodations/SkistarGuide";
+import FrontslopeGuide from "./pages/accommodations/FrontslopeGuide";
 import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
 import StudioApartments from "./pages/en/apartments/StudioApartments";
 import ApartmentsFor4 from "./pages/en/apartments/ApartmentsFor4";
