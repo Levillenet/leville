@@ -115,7 +115,7 @@ const i18n = {
     ruleDamageTitle: "Damage",
     ruleDamageDesc: "Please report any damage or malfunction to us immediately so we can repair or replace items quickly. A damage deposit of up to €300 may apply.",
     ruleEmergencyTitle: "Emergencies",
-    ruleEmergencyDesc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers and a fire blanket are located in the hallway cabinet. For non-urgent issues, contact us at +358 44 131 3131 or info@leville.net.",
+    ruleEmergencyDesc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers and a fire blanket are located in the hallway cabinet. For non-urgent issues, contact us at +358 44 131 313 or info@leville.net.",
     // Checkout checklist
     checkoutTitle: "Before You Go – Checkout Checklist",
     checkoutIntro: "Please complete these simple steps before leaving by 11:00 AM. The checkout instructions are also posted on the apartment door.",
