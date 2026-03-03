@@ -2051,5 +2051,12 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://leville.net/accommodations/guides/frontslope-apartments</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/accommodations/guides/frontslope-apartments"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/accommodations/guides/frontslope-apartments"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
 </urlset>
