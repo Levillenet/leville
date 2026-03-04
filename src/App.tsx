@@ -303,6 +303,7 @@ const App = () => (
               {/* Admin routes */}
               <Route path="/admin" element={<Admin />} />
               <Route path="/asiakaspalvelu" element={<Asiakaspalvelu />} />
+              <Route path="/en/support" element={<Asiakaspalvelu lang="en" />} />
               
               {/* Utility routes */}
               <Route path="/unsubscribe" element={<Unsubscribe />} />
