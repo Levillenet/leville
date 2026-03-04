@@ -1,0 +1,44 @@
+# Leville.net
+
+> Holiday accommodation rental service in Levi, Finnish Lapland. We offer apartments, chalets and cabins for 1–14 guests in the heart of Levi ski resort.
+
+## Basic Info
+
+- Website: https://leville.net
+- Primary language: Finnish (fi)
+- Supported languages: en, sv, de, es, fr, nl
+- Contact email: info@leville.net
+- Contact phone / WhatsApp: +358 44 131 3131
+- Location: Levi, Kittilä, Finnish Lapland
+- Booking platform: https://app.moder.fi/levillenet
+
+## Main Sections
+
+- [Accommodations](https://leville.net/majoitukset): All rental properties with availability search
+- [Levi Guide](https://leville.net/levi): Destination info, activities and seasonal highlights
+- [Northern Lights](https://leville.net/revontulet): Aurora borealis forecasts and tips
+- [FAQ](https://leville.net/ukk): Frequently asked questions about stays
+- [Booking Terms](https://leville.net/varausehdot): Terms and conditions
+- [Contact](https://leville.net/yhteystiedot): Contact information
+
+## Accommodation Categories
+
+- **Skistar Apartments** — Modern studios & suites in Levi center (2–6 guests)
+- **Front Slope Chalets** (Hiihtäjänkuja) — Spacious apartments with fireplace and slope-view sauna (4–8 guests)
+- **Levi Glacier Apartments** — Alpine apartments at the foot of the slopes (6–10 guests)
+- **Bear Lodge / Karhupirtti** — Traditional log cabin for large groups (up to 14 guests)
+- **Other** — Platinum studios, Moonlight, Karhunvartija
+
+## Guides & Articles
+
+- Seasons: Winter, Spring, Summer, Autumn/Ruska
+- Activities: Skiing, Cross-Country, Husky Safari, Snowmobile, Ice Fishing, Snowshoeing
+- Travel: How to get to Levi, Getting around, Levi without a car, Restaurants & services
+- Practical: Winter clothing, Heating systems, Finnish sauna, Fireplace instructions
+- Comparisons: Levi vs Ylläs vs Ruka, Levi vs Rovaniemi
+- Prices, Lapland Glossary, Christmas in Lapland
+
+## Full Knowledge Base
+
+For comprehensive information including appliance instructions, FAQ answers, activity details, and complete route map, see:
+- [llms-full.txt](https://leville.net/llms-full.txt)

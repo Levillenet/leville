@@ -15,3 +15,6 @@ Allow: /
 
 # Sitemap
 Sitemap: https://leville.net/sitemap.xml
+
+# AI Crawlers
+Sitemap: https://leville.net/llms.txt
