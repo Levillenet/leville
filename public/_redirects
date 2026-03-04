@@ -1,0 +1,53 @@
+# 301 Redirects — vanhat WordPress-URL:t uusiin React-osoitteisiin
+# Korjaa Google Search Consolen Soft 404 -ongelmat
+
+# Vanhat suomenkieliset sivut
+/home/                        /                          301
+/home                         /                          301
+/majoituksemme/               /majoitukset               301
+/majoituksemme                /majoitukset               301
+/kysymykset/                  /ukk                       301
+/kysymykset                   /ukk                       301
+/yrityksemme/                 /yritys                    301
+/yrityksemme                  /yritys                    301
+/yritysasiakkaille/           /yritys                    301
+/yritysasiakkaille            /yritys                    301
+/faq/                         /ukk                       301
+/faq                          /ukk                       301
+
+# Vanhat englanninkieliset sivut
+/our-accommodations/          /en/accommodations         301
+/our-accommodations           /en/accommodations         301
+/latest-news/                 /en/news                   301
+/latest-news                  /en/news                   301
+/about-us/                    /en/company                301
+/about-us                     /en/company                301
+/booking-terms/               /en/booking-terms          301
+/booking-terms                /en/booking-terms          301
+/business-clients/            /en/company                301
+/business-clients             /en/company                301
+
+# Virheelliset kielireitit (suomenkielinen polku en-etuliitteellä)
+/en/majoitukset               /en/accommodations         301
+/en/yhteystiedot              /en/contact                301
+/en/terms                     /en/booking-terms          301
+
+# Vanhat ruotsinkieliset reitit (väärä muoto)
+/sv/boenden                   /sv/boende                 301
+/sv/aktuellt                  /sv/nyheter                301
+
+# Vanhat majoitussivut ja blogit → ohjaa majoituksiin tai etusivulle
+/skistar-levi-104/            /majoitukset               301
+/skistar-levi-104             /majoitukset               301
+/levin-keskustahuoneistot/    /majoitukset               301
+/levin-keskustahuoneistot     /majoitukset               301
+/levi-2/                      /levi                      301
+/levi-2                       /levi                      301
+
+# Vanhat blogipostaukset → uutiset
+/2020/                        /ajankohtaista             301
+/2020/11/                     /ajankohtaista             301
+/2020/*                       /ajankohtaista             301
+
+# SPA fallback — TÄMÄ PITÄÄ OLLA VIIMEISENÄ
+/*                            /index.html                200
