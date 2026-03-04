@@ -100,6 +100,7 @@ export default function CustomerServiceChat() {
       }]);
     } finally {
       setIsLoading(false);
+      setTimeout(() => inputRef.current?.focus(), 50);
     }
   };
 
