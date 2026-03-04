@@ -563,8 +563,8 @@ Guests must complete a 3-step process before using the fireplace:
 ### Accommodation Guides (unlisted / internal)
 - `/accommodations/guides/bearlodge` — Bear Lodge Guide (EN)
 - `/majoitukset/oppaat/bearlodge` — Bear Lodge Guide (FI)
-- `/accommodations/guides/skistar-apartments` — Skistar Guide (EN)
-- `/majoitukset/oppaat/skistar-huoneistot` — Skistar Guide (FI)
+- `/accommodations/guides/skistar-apartments` — Skistar Apartments Guide (EN)
+- `/majoitukset/oppaat/skistar-huoneistot` — Skistar-huoneistojen opas (FI)
 - `/accommodations/guides/frontslope-apartments` — Front Slope Guide (EN)
 
 ### Utility Pages (unlisted)
