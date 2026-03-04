@@ -120,7 +120,7 @@ export default function CustomerServiceChat() {
         ) : (
           <>
             <MessageCircle className="w-5 h-5" />
-            <span className="text-sm font-medium hidden sm:inline">Need help?</span>
+            <span className="text-sm font-medium hidden sm:inline">Questions about your stay? Ask here!</span>
           </>
         )}
       </motion.button>
