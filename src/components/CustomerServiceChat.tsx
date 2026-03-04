@@ -188,12 +188,14 @@ export default function CustomerServiceChat() {
               {/* Input */}
               <div className="p-3 border-t bg-background">
                 <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="flex gap-2">
-                  <Input
+                   <Input
+                    ref={inputRef}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask about accommodation, activities, getting to Levi..."
                     disabled={isLoading}
                     className="flex-1"
+                    autoFocus
                   />
                   <Button type="submit" size="icon" disabled={isLoading || !input.trim()} style={{ backgroundColor: "#B8860B" }}>
                     <Send className="w-4 h-4" />
