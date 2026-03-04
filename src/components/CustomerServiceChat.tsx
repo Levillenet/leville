@@ -18,6 +18,7 @@ export default function CustomerServiceChat() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -99,6 +100,7 @@ export default function CustomerServiceChat() {
       }]);
     } finally {
       setIsLoading(false);
+      setTimeout(() => inputRef.current?.focus(), 50);
     }
   };
 
@@ -107,12 +109,20 @@ export default function CustomerServiceChat() {
       {/* Chat toggle button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-transform"
+        className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg flex items-center gap-2 hover:scale-105 transition-transform px-4 py-3"
         style={{ backgroundColor: "#B8860B", color: "#fff" }}
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        aria-label="Ask for help with your stay"
       >
-        {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+        {isOpen ? (
+          <X className="w-5 h-5" />
+        ) : (
+          <>
+            <MessageCircle className="w-5 h-5" />
+            <span className="text-sm font-medium hidden sm:inline">Need help?</span>
+          </>
+        )}
       </motion.button>
 
       {/* Chat window */}
@@ -141,8 +151,14 @@ export default function CustomerServiceChat() {
                         : "bg-card border rounded-bl-md"
                     }`}
                     style={msg.role === "user" ? { backgroundColor: "#B8860B" } : undefined}
+                    dangerouslySetInnerHTML={msg.role === "assistant" ? { 
+                      __html: msg.content.replace(
+                        /(https?:\/\/[^\s)<]+)/g, 
+                        '<a href="$1" target="_blank" rel="noopener noreferrer" class="underline font-medium" style="color: #B8860B">$1</a>'
+                      ) 
+                    } : undefined}
                     >
-                      {msg.content}
+                      {msg.role === "user" ? msg.content : undefined}
                     </div>
                   </div>
                 ))}
@@ -172,12 +188,14 @@ export default function CustomerServiceChat() {
               {/* Input */}
               <div className="p-3 border-t bg-background">
                 <form onSubmit={(e) => { e.preventDefault(); handleSend(); }} className="flex gap-2">
-                  <Input
+                   <Input
+                    ref={inputRef}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask about accommodation, activities, getting to Levi..."
                     disabled={isLoading}
                     className="flex-1"
+                    autoFocus
                   />
                   <Button type="submit" size="icon" disabled={isLoading || !input.trim()} style={{ backgroundColor: "#B8860B" }}>
                     <Send className="w-4 h-4" />
