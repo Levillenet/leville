@@ -109,12 +109,20 @@ export default function CustomerServiceChat() {
       {/* Chat toggle button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-transform"
+        className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg flex items-center gap-2 hover:scale-105 transition-transform px-4 py-3"
         style={{ backgroundColor: "#B8860B", color: "#fff" }}
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        aria-label="Ask for help with your stay"
       >
-        {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+        {isOpen ? (
+          <X className="w-5 h-5" />
+        ) : (
+          <>
+            <MessageCircle className="w-5 h-5" />
+            <span className="text-sm font-medium hidden sm:inline">Need help?</span>
+          </>
+        )}
       </motion.button>
 
       {/* Chat window */}
