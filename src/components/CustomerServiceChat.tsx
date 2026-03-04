@@ -151,8 +151,14 @@ export default function CustomerServiceChat() {
                         : "bg-card border rounded-bl-md"
                     }`}
                     style={msg.role === "user" ? { backgroundColor: "#B8860B" } : undefined}
+                    dangerouslySetInnerHTML={msg.role === "assistant" ? { 
+                      __html: msg.content.replace(
+                        /(https?:\/\/[^\s)<]+)/g, 
+                        '<a href="$1" target="_blank" rel="noopener noreferrer" class="underline font-medium" style="color: #B8860B">$1</a>'
+                      ) 
+                    } : undefined}
                     >
-                      {msg.content}
+                      {msg.role === "user" ? msg.content : undefined}
                     </div>
                   </div>
                 ))}
