@@ -87,6 +87,7 @@ export const routeConfig = {
   // Accommodation guides
   guideBearlodge: { fi: "/majoitukset/oppaat/bearlodge", en: "/accommodations/guides/bearlodge", sv: "/accommodations/guides/bearlodge", de: "/accommodations/guides/bearlodge", es: "/accommodations/guides/bearlodge", fr: "/accommodations/guides/bearlodge", nl: "/accommodations/guides/bearlodge" },
   guideSkistar: { fi: "/majoitukset/oppaat/skistar-huoneistot", en: "/accommodations/guides/skistar-apartments", sv: "/accommodations/guides/skistar-apartments", de: "/accommodations/guides/skistar-apartments", es: "/accommodations/guides/skistar-apartments", fr: "/accommodations/guides/skistar-apartments", nl: "/accommodations/guides/skistar-apartments" },
+  guestSupport: { fi: "/asiakaspalvelu", en: "/en/support", sv: "/asiakaspalvelu", de: "/asiakaspalvelu", es: "/asiakaspalvelu", fr: "/asiakaspalvelu", nl: "/asiakaspalvelu" },
 };
 
 // Helper to get route for a specific language

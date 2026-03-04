@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Headset } from "lucide-react";
 import { Link } from "react-router-dom";
 import levilleLogo from "@/assets/leville-logo.png";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
@@ -13,13 +13,16 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     fi: {
       description: "Laadukasta majoitusta Levin keskustassa. Varaa suoraan meiltä parhaaseen hintaan.",
       siteTitle: "Sivusto",
+      supportTitle: "Asiakastuki",
+      supportLabel: "Tukisivu majoittujille",
+      supportDesc: "Ohjeet, WiFi, avaimet ja chat-tuki",
       links: [
         { label: "Majoitukset", href: routeConfig.accommodations.fi },
-        { label: "Ajankohtaista", href: routeConfig.news.fi },
-        { label: "Levi", href: routeConfig.levi.fi },
+        { label: "Äkkilähdöt", href: routeConfig.lastMinute.fi },
+        { label: "Levi-opas", href: routeConfig.levi.fi },
+        { label: "Yhteystiedot", href: routeConfig.contact.fi },
         { label: "UKK", href: routeConfig.faq.fi },
         { label: "Yritys", href: routeConfig.company.fi },
-        { label: "Yhteystiedot", href: routeConfig.contact.fi },
         { label: "Myy loma-asuntosi", href: routeConfig.sellProperty.fi },
       ],
       contactTitle: "Yhteystiedot",
@@ -34,14 +37,17 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     en: {
       description: "Quality accommodation in Levi center. Book directly from us for the best price.",
       siteTitle: "Site",
+      supportTitle: "Guest Support",
+      supportLabel: "Support for guests",
+      supportDesc: "Guides, WiFi, keys & chat support",
       links: [
         { label: "Accommodations", href: routeConfig.accommodations.en },
         { label: "Apartments", href: "/en/apartments" },
-        { label: "News", href: routeConfig.news.en },
-        { label: "Levi", href: routeConfig.levi.en },
+        { label: "Last Minute", href: routeConfig.lastMinute.en },
+        { label: "Levi Guide", href: routeConfig.levi.en },
+        { label: "Contact", href: routeConfig.contact.en },
         { label: "FAQ", href: routeConfig.faq.en },
         { label: "Company", href: routeConfig.company.en },
-        { label: "Contact", href: routeConfig.contact.en },
       ],
       apartmentLinks: [
         { label: "Studio apartments", href: "/en/apartments/studio" },
@@ -61,13 +67,16 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     sv: {
       description: "Kvalitetsboende i Levi centrum. Boka direkt från oss för bästa pris.",
       siteTitle: "Webbplats",
+      supportTitle: "Gäststöd",
+      supportLabel: "Support för gäster",
+      supportDesc: "Guider, WiFi, nycklar & chattsupport",
       links: [
         { label: "Boende", href: routeConfig.accommodations.sv },
-        { label: "Nyheter", href: routeConfig.news.sv },
+        { label: "Sista minuten", href: routeConfig.lastMinute.sv },
         { label: "Levi", href: routeConfig.levi.sv },
+        { label: "Kontakt", href: routeConfig.contact.sv },
         { label: "FAQ", href: routeConfig.faq.sv },
         { label: "Företag", href: routeConfig.company.sv },
-        { label: "Kontakt", href: routeConfig.contact.sv },
       ],
       contactTitle: "Kontakt",
       location: "Levi Centrum, Kittilä",
@@ -81,13 +90,16 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     de: {
       description: "Qualitätsunterkünfte im Zentrum von Levi. Buchen Sie direkt bei uns zum besten Preis.",
       siteTitle: "Seite",
+      supportTitle: "Gäste-Support",
+      supportLabel: "Support für Gäste",
+      supportDesc: "Anleitungen, WiFi, Schlüssel & Chat-Support",
       links: [
         { label: "Unterkünfte", href: routeConfig.accommodations.de },
-        { label: "Aktuelles", href: routeConfig.news.de },
+        { label: "Last Minute", href: routeConfig.lastMinute.de },
         { label: "Levi", href: routeConfig.levi.de },
+        { label: "Kontakt", href: routeConfig.contact.de },
         { label: "FAQ", href: routeConfig.faq.de },
         { label: "Unternehmen", href: routeConfig.company.de },
-        { label: "Kontakt", href: routeConfig.contact.de },
       ],
       contactTitle: "Kontakt",
       location: "Levi Zentrum, Kittilä",
@@ -101,13 +113,16 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     es: {
       description: "Alojamiento de calidad en el centro de Levi. Reserva directamente con nosotros al mejor precio.",
       siteTitle: "Sitio",
+      supportTitle: "Soporte al huésped",
+      supportLabel: "Soporte para huéspedes",
+      supportDesc: "Guías, WiFi, llaves y chat de soporte",
       links: [
         { label: "Alojamientos", href: routeConfig.accommodations.es },
-        { label: "Noticias", href: routeConfig.news.es },
+        { label: "Última hora", href: routeConfig.lastMinute.es },
         { label: "Levi", href: routeConfig.levi.es },
+        { label: "Contacto", href: routeConfig.contact.es },
         { label: "FAQ", href: routeConfig.faq.es },
         { label: "Empresa", href: routeConfig.company.es },
-        { label: "Contacto", href: routeConfig.contact.es },
       ],
       contactTitle: "Contacto",
       location: "Centro de Levi, Kittilä",
@@ -121,13 +136,16 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     fr: {
       description: "Hébergement de qualité au centre de Levi. Réservez directement chez nous au meilleur prix.",
       siteTitle: "Site",
+      supportTitle: "Support client",
+      supportLabel: "Support pour les hôtes",
+      supportDesc: "Guides, WiFi, clés et chat d'assistance",
       links: [
         { label: "Hébergements", href: routeConfig.accommodations.fr },
-        { label: "Actualités", href: routeConfig.news.fr },
+        { label: "Dernière minute", href: routeConfig.lastMinute.fr },
         { label: "Levi", href: routeConfig.levi.fr },
+        { label: "Contact", href: routeConfig.contact.fr },
         { label: "FAQ", href: routeConfig.faq.fr },
         { label: "Entreprise", href: routeConfig.company.fr },
-        { label: "Contact", href: routeConfig.contact.fr },
       ],
       contactTitle: "Contact",
       location: "Centre de Levi, Kittilä",
@@ -141,13 +159,16 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     nl: {
       description: "Kwaliteitsaccommodatie in het centrum van Levi. Boek direct bij ons voor de beste prijs.",
       siteTitle: "Website",
+      supportTitle: "Gastenondersteuning",
+      supportLabel: "Ondersteuning voor gasten",
+      supportDesc: "Gidsen, WiFi, sleutels & chatsupport",
       links: [
         { label: "Accommodaties", href: routeConfig.accommodations.nl },
-        { label: "Nieuws", href: routeConfig.news.nl },
+        { label: "Last minute", href: routeConfig.lastMinute.nl },
         { label: "Levi", href: routeConfig.levi.nl },
+        { label: "Contact", href: routeConfig.contact.nl },
         { label: "FAQ", href: routeConfig.faq.nl },
         { label: "Bedrijf", href: routeConfig.company.nl },
-        { label: "Contact", href: routeConfig.contact.nl },
       ],
       contactTitle: "Contact",
       location: "Centrum van Levi, Kittilä",
@@ -162,11 +183,12 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
 
   const c = content[lang];
   const homeHref = routeConfig.home[lang];
+  const supportHref = routeConfig.guestSupport[lang];
 
   return (
     <footer id="yhteystiedot" className="bg-card border-t border-border/30 py-12 md:py-20 pb-20 md:pb-24">
       <div className="container mx-auto px-4">
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-16 mb-12 md:mb-16">
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-16">
           {/* Brand */}
           <div>
             <Link to={homeHref} className="inline-block mb-6">
@@ -211,26 +233,26 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
             )}
           </div>
 
-          {/* Contact */}
+          {/* Guest Support - prominent */}
           <div>
-            <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{c.contactTitle}</h3>
-            <ul className="space-y-5">
-              <li className="flex items-center gap-4">
-                <div className="w-9 h-9 rounded-lg bg-aurora-green/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-4 h-4 text-aurora-green" />
+            <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{c.supportTitle}</h3>
+            <Link 
+              to={supportHref}
+              className="block rounded-xl border border-border/50 p-4 hover:border-primary/30 hover:shadow-md transition-all group mb-5"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "rgba(184, 134, 11, 0.15)" }}>
+                  <Headset className="w-4 h-4" style={{ color: "#B8860B" }} />
                 </div>
-                <a href="mailto:info@leville.net" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  info@leville.net
-                </a>
-              </li>
-              <li className="flex items-center gap-4">
-                <div className="w-9 h-9 rounded-lg bg-aurora-green/10 flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-4 h-4 text-aurora-green" />
-                </div>
-                <a href="tel:+35844131313" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  +358 44 131 313
-                </a>
-              </li>
+                <span className="font-medium text-sm text-foreground group-hover:text-primary transition-colors">
+                  {c.supportLabel}
+                </span>
+              </div>
+              <p className="text-xs text-muted-foreground pl-12">
+                {c.supportDesc}
+              </p>
+            </Link>
+            <ul className="space-y-4">
               <li className="flex items-center gap-4">
                 <div className="w-9 h-9 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0">
                   <WhatsAppIcon className="w-4 h-4 text-green-500" />
@@ -246,6 +268,29 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
               </li>
               <li className="flex items-center gap-4">
                 <div className="w-9 h-9 rounded-lg bg-aurora-green/10 flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-4 h-4 text-aurora-green" />
+                </div>
+                <a href="tel:+35844131313" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  +358 44 131 313
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{c.contactTitle}</h3>
+            <ul className="space-y-5">
+              <li className="flex items-center gap-4">
+                <div className="w-9 h-9 rounded-lg bg-aurora-green/10 flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-4 h-4 text-aurora-green" />
+                </div>
+                <a href="mailto:info@leville.net" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  info@leville.net
+                </a>
+              </li>
+              <li className="flex items-center gap-4">
+                <div className="w-9 h-9 rounded-lg bg-aurora-green/10 flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-4 h-4 text-aurora-green" />
                 </div>
                 <span className="text-muted-foreground text-sm">
@@ -255,7 +300,6 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
             </ul>
           </div>
         </div>
-
 
         {/* Bottom */}
         <div className="pt-6 border-t border-border/30 flex flex-col md:flex-row items-center justify-between gap-4">

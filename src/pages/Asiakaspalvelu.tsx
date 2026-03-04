@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, Mail, MessageCircle, Clock, FileText, Wifi, Key, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export default function Asiakaspalvelu() {
+export default function Asiakaspalvelu({ lang = "fi" }: { lang?: string }) {
   return (
     <>
       <Helmet>
