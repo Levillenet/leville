@@ -163,7 +163,7 @@ export default function InlineChat({
             </div>
           </div>
         )}
-        <div ref={messagesEndRef} />
+        
       </div>
 
       {/* Input */}
