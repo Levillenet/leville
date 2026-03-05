@@ -129,7 +129,7 @@ export default function InlineChat({
       </div>
 
       {/* Messages */}
-      <div className="h-[400px] md:h-[450px] overflow-y-auto p-4 space-y-3 bg-muted/30">
+      <div ref={messagesContainerRef} className="h-[400px] md:h-[450px] overflow-y-auto p-4 space-y-3 bg-muted/30">
         {messages.map((msg, i) => (
           <div
             key={i}
