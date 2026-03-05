@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CustomerServiceChat from "@/components/CustomerServiceChat";
+import InlineChat from "@/components/InlineChat";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Phone, Mail, MessageCircle, Clock, FileText, Wifi, Key, Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,8 +10,11 @@ import type { Language } from "@/translations";
 const content = {
   fi: {
     title: "Asiakaspalvelu | Leville",
-    heroTitle: "Tervetuloa Leville! 🏔️",
-    heroDesc: "Täältä löydät tärkeimmät ohjeet majoitustasi varten. Voit myös keskustella AI-avustajamme kanssa tai ottaa meihin yhteyttä.",
+    heroTitle: "Kysyttävää majoituksesta? 🏔️",
+    heroDesc: "Kysy AI-avustajaltamme – se tuntee huoneistomme, laitteet ja Levin alueen. Voit myös ottaa meihin yhteyttä suoraan.",
+    chatGreeting: "Hei! Olen Levillen AI-avustaja. Kysy mitä vain majoituksestasi, laitteista tai Levin palveluista! 🏔️",
+    chatPlaceholder: "Kysy esim. saunasta, lämmityksestä, avaimista, aktiviteeteista...",
+    chatSubtitle: "AI-avustaja • Levin paikallisopas",
     phone: "Puhelin",
     email: "Sähköposti",
     importantTitle: "Tärkeät ohjeet",
@@ -31,14 +34,15 @@ const content = {
     saunaTitle: "Saunaohjeet (Skistar-huoneistot)",
     saunaDesc: "Saunan käyttö ja ajastin Skistar-huoneistoissa",
     download: "Lataa PDF",
-    helpTitle: "Tarvitsetko apua?",
-    helpText: "Klikkaa oikeassa alakulmassa olevaa chat-kuvaketta keskustellaksesi AI-avustajamme kanssa. Botti osaa vastata yleisimpiin kysymyksiin majoituksesta ja laitteista.",
-    helpUrgent: "Kiireellisissä asioissa tavoitat meidät parhaiten WhatsAppilla.",
+    urgentNote: "Kiireellisissä asioissa tavoitat meidät parhaiten WhatsAppilla.",
   },
   en: {
     title: "Guest Support | Leville",
-    heroTitle: "Welcome to Levi! 🏔️",
-    heroDesc: "Here you'll find the most important instructions for your stay. You can also chat with our AI assistant or contact us directly.",
+    heroTitle: "Questions about your stay? 🏔️",
+    heroDesc: "Ask our AI assistant — it knows our apartments, appliances, and the Levi area. You can also contact us directly.",
+    chatGreeting: "Hi! I'm your local Levi expert. Ask me anything about your stay, appliances, or activities in Levi! 🏔️",
+    chatPlaceholder: "Ask about sauna, heating, keys, activities...",
+    chatSubtitle: "AI assistant • Your Levi travel guide",
     phone: "Phone",
     email: "Email",
     importantTitle: "Important information",
@@ -58,9 +62,7 @@ const content = {
     saunaTitle: "Sauna instructions (Skistar apartments)",
     saunaDesc: "Sauna usage and timer in Skistar apartments",
     download: "Download PDF",
-    helpTitle: "Need help?",
-    helpText: "Click the chat icon in the bottom-right corner to talk with our AI assistant. It can answer the most common questions about accommodation and appliances.",
-    helpUrgent: "For urgent matters, reach us fastest via WhatsApp.",
+    urgentNote: "For urgent matters, reach us fastest via WhatsApp.",
   },
 };
 
@@ -78,10 +80,10 @@ export default function Asiakaspalvelu({ lang = "fi" }: { lang?: Language }) {
       <Header />
 
       <main className="min-h-screen pt-24 pb-16 bg-background">
-        <div className="container mx-auto px-4 max-w-5xl">
+        <div className="container mx-auto px-4 max-w-6xl">
           {/* Hero */}
-          <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-display font-bold mb-4">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-display font-bold mb-3">
               {t.heroTitle}
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -89,53 +91,66 @@ export default function Asiakaspalvelu({ lang = "fi" }: { lang?: Language }) {
             </p>
           </div>
 
-          {/* Quick contact cards */}
-          <div className="grid md:grid-cols-3 gap-4 mb-12">
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-2">
-                <Phone className="w-8 h-8 mx-auto text-primary mb-2" />
-                <CardTitle className="text-lg">{t.phone}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <a href="tel:+35844131313" className="text-primary hover:underline font-medium">
-                  +358 44 131 313
-                </a>
-              </CardContent>
-            </Card>
+          {/* Main layout: Chat + Contact side by side on desktop */}
+          <div className="grid lg:grid-cols-5 gap-8 mb-12">
+            {/* Chat - takes more space */}
+            <div className="lg:col-span-3">
+              <InlineChat
+                greeting={t.chatGreeting}
+                placeholder={t.chatPlaceholder}
+                subtitle={t.chatSubtitle}
+              />
+            </div>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-2">
-                <MessageCircle className="w-8 h-8 mx-auto text-green-600 mb-2" />
-                <CardTitle className="text-lg">WhatsApp</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <a 
-                  href="https://wa.me/35844131313" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-green-600 hover:underline font-medium"
-                >
-                  +358 44 131 313
-                </a>
-              </CardContent>
-            </Card>
+            {/* Contact + urgent info sidebar */}
+            <div className="lg:col-span-2 space-y-4">
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardHeader className="pb-2">
+                  <MessageCircle className="w-8 h-8 mx-auto text-green-600 mb-2" />
+                  <CardTitle className="text-lg">WhatsApp</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <a
+                    href="https://wa.me/358441313131"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-600 hover:underline font-medium text-lg"
+                  >
+                    +358 44 131 3131
+                  </a>
+                  <p className="text-xs text-muted-foreground mt-2">{t.urgentNote}</p>
+                </CardContent>
+              </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-2">
-                <Mail className="w-8 h-8 mx-auto text-primary mb-2" />
-                <CardTitle className="text-lg">{t.email}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <a href="mailto:info@leville.net" className="text-primary hover:underline font-medium">
-                  info@leville.net
-                </a>
-              </CardContent>
-            </Card>
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardHeader className="pb-2">
+                  <Phone className="w-8 h-8 mx-auto text-primary mb-2" />
+                  <CardTitle className="text-lg">{t.phone}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <a href="tel:+358441313131" className="text-primary hover:underline font-medium">
+                    +358 44 131 3131
+                  </a>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center hover:shadow-lg transition-shadow">
+                <CardHeader className="pb-2">
+                  <Mail className="w-8 h-8 mx-auto text-primary mb-2" />
+                  <CardTitle className="text-lg">{t.email}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <a href="mailto:info@leville.net" className="text-primary hover:underline font-medium">
+                    info@leville.net
+                  </a>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
           {/* Important info cards */}
           <h2 className="text-2xl font-display font-semibold mb-6">{t.importantTitle}</h2>
-          
+
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             <Card>
               <CardHeader>
@@ -184,7 +199,7 @@ export default function Asiakaspalvelu({ lang = "fi" }: { lang?: Language }) {
 
           {/* Downloadable documents */}
           <h2 className="text-2xl font-display font-semibold mb-6">{t.docsTitle}</h2>
-          
+
           <div className="grid md:grid-cols-1 gap-4 mb-12">
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="flex items-center gap-4 p-4">
@@ -199,21 +214,10 @@ export default function Asiakaspalvelu({ lang = "fi" }: { lang?: Language }) {
               </CardContent>
             </Card>
           </div>
-
-          {/* AI Chat info */}
-          <Card className="bg-primary/5 border-primary/20">
-            <CardContent className="p-6 text-center">
-              <MessageCircle className="w-12 h-12 mx-auto text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">{t.helpTitle}</h3>
-              <p className="text-muted-foreground mb-4">{t.helpText}</p>
-              <p className="text-sm text-muted-foreground">{t.helpUrgent}</p>
-            </CardContent>
-          </Card>
         </div>
       </main>
 
       <Footer lang={lang} />
-      <CustomerServiceChat />
     </>
   );
 }
