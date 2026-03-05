@@ -24,11 +24,14 @@ export default function InlineChat({
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const container = messagesContainerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
   }, [messages]);
 
   const streamChat = async (userMessages: Message[]) => {
@@ -126,7 +129,7 @@ export default function InlineChat({
       </div>
 
       {/* Messages */}
-      <div className="h-[400px] md:h-[450px] overflow-y-auto p-4 space-y-3 bg-muted/30">
+      <div ref={messagesContainerRef} className="h-[400px] md:h-[450px] overflow-y-auto p-4 space-y-3 bg-muted/30">
         {messages.map((msg, i) => (
           <div
             key={i}
@@ -160,7 +163,7 @@ export default function InlineChat({
             </div>
           </div>
         )}
-        <div ref={messagesEndRef} />
+        
       </div>
 
       {/* Input */}
