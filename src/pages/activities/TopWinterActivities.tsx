@@ -218,7 +218,7 @@ const translations = {
             title: "Slopes and Lifts",
             items: [
               "43 slopes for all skill levels",
-              "28 lifts including various lift types",
+              "28 lifts – Leevilandia has child-friendly lifts",
               "Longest slope 2.5 km",
               "Vertical drop 325 meters",
               "Snow-guaranteed season from October to May"
