@@ -375,7 +375,7 @@ const translations = {
       skiing: {
         title: "Skiën en snowboarden",
         icon: "mountain",
-        intro: "Levi is het grootste skigebied van Finland met 43 pistes en 27 liften.",
+        intro: "Levi is het grootste skigebied van Finland met 43 pistes en 28 liften.",
         subsections: [
           {
             title: "Pistes en liften",
