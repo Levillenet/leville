@@ -28,6 +28,7 @@ const Header = () => {
           { name: "Boende", href: routeConfig.accommodations.sv },
           { name: "Sista Minuten", href: routeConfig.lastMinute.sv, highlight: true },
           { name: "Levi-guide", href: routeConfig.levi.sv },
+          { name: "Evenemang", href: routeConfig.events.sv },
           { name: "Kontakt", href: routeConfig.contact.sv },
         ];
       case "de":
