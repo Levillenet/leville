@@ -90,7 +90,7 @@ import LeviCenterApartments from "./pages/en/apartments/LeviCenterApartments";
 // When you create a new page component, add it here with a unique key
 // Then register that key in the admin panel under "SEO-sivut"
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
-  // Example: 'SaunaLevi': SaunaLevilla,
+  'ReindeerSafariLevi': ReindeerSafariLevi,
   // Add new SEO page components here as you create them
 };
 
