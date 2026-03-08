@@ -55,7 +55,7 @@ const translations = {
             title: "Rinteet ja hissit",
             items: [
               "43 rinnettä kaikille taitotasoille",
-              "28 hissiä, mukaan lukien useita erilaisia hissityyppejä",
+              "28 hissiä – Leevilandiassa lapsille sopivia hissejä",
               "Pisin rinne 2,5 km",
               "Korkeusero 325 metriä",
               "Lumetettu kausi marraskuusta toukokuulle"
@@ -218,7 +218,7 @@ const translations = {
             title: "Slopes and Lifts",
             items: [
               "43 slopes for all skill levels",
-              "28 lifts including various lift types",
+              "28 lifts – Leevilandia has child-friendly lifts",
               "Longest slope 2.5 km",
               "Vertical drop 325 meters",
               "Snow-guaranteed season from October to May"
@@ -381,7 +381,7 @@ const translations = {
             title: "Pistes en liften",
             items: [
               "43 pistes voor alle niveaus",
-              "28 liften inclusief diverse lifttypen",
+              "28 liften – Leevilandia heeft kindvriendelijke liften",
               "Langste piste 2,5 km",
               "Hoogteverschil 325 meter",
               "Gegarandeerd sneeuw van oktober tot mei"

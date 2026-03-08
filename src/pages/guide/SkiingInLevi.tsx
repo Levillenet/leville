@@ -68,7 +68,7 @@ const translations = {
       },
       lifts: {
         title: "Hissijärjestelmä",
-        content: "Levin moderni hissijärjestelmä sisältää useita erilaisia hissejä, kuten gondolihissin, tuolihissejä, ankkurihissejä ja taikamattoja. Gondolihissi vie sinut tunturin huipulle vain muutamassa minuutissa. Hissien kapasiteetti on yli 30 000 henkilöä tunnissa."
+        content: "Levin moderni hissijärjestelmä sisältää useita erilaisia hissejä. Gondolihissi vie sinut tunturin huipulle vain muutamassa minuutissa, ja Leevilandiassa on lapsille sopivia hissejä. Hissien kapasiteetti on yli 30 000 henkilöä tunnissa."
       },
       passes: {
         title: "Hissiliput",
@@ -156,7 +156,7 @@ const translations = {
       },
       lifts: {
         title: "Lift System",
-        content: "Levi's modern lift system includes various types of lifts such as a gondola, chairlifts, T-bar lifts and magic carpets. The gondola takes you to the summit in just a few minutes. The lift capacity exceeds 30,000 people per hour."
+        content: "Levi's modern lift system includes various types of lifts. The gondola takes you to the summit in just a few minutes, and Leevilandia has child-friendly lifts. The lift capacity exceeds 30,000 people per hour."
       },
       passes: {
         title: "Lift Passes",
@@ -244,7 +244,7 @@ const translations = {
       },
       lifts: {
         title: "Liftensysteem",
-        content: "Het moderne liftensysteem van Levi omvat diverse soorten liften, waaronder een gondel, stoeltjesliften, sleepliften en tapijtenliften. De gondel brengt u in slechts enkele minuten naar de top. De liftcapaciteit bedraagt meer dan 30.000 personen per uur."
+        content: "Het moderne liftensysteem van Levi omvat diverse soorten liften. De gondel brengt u in slechts enkele minuten naar de top, en Leevilandia heeft kindvriendelijke liften. De liftcapaciteit bedraagt meer dan 30.000 personen per uur."
       },
       passes: {
         title: "Skipassen",
