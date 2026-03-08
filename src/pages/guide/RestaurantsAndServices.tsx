@@ -159,7 +159,7 @@ const translations = {
           },
           {
             name: "Family friendly restaurants",
-            places: ["Kotipizza", "Pizza Kebab Levi", "Colorado Bar & Grill"],
+            places: ["Kotipizza", "Pizza Kebab Levi", "Colorado"],
             note: "Children menus and easy access for families.",
           },
           {

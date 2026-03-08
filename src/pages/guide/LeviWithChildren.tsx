@@ -521,7 +521,7 @@ const translations = {
         items: [
           { name: "Café Kiisa", note: "Gezellig café met kindermenu. Lekkere taarten en warme dranken." },
           { name: "Hullu Poro Arena", note: "Bowling + restaurant. Uitgebreid kindermenu, kinderstoelen, speelruimte." },
-          { name: "Colorado Bar & Grill", note: "Hamburgers en pizza's. Kindvriendelijke bediening." },
+          { name: "Colorado", note: "Restaurant met hamburgers en pizza's. Kindvriendelijke bediening." },
           { name: "Pizza-Kebab Levi", note: "Betaalbare optie, afhalen naar de accommodatie mogelijk." },
         ],
         tip: "Reserveer een tafel voor het avondeten, vooral in het weekend en tijdens piekseizoen.",
