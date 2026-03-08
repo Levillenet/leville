@@ -1050,6 +1050,42 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_pages: {
+        Row: {
+          component_name: string
+          created_at: string
+          id: string
+          is_published: boolean
+          lang: string
+          path: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          component_name: string
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          lang?: string
+          path: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          component_name?: string
+          created_at?: string
+          id?: string
+          is_published?: boolean
+          lang?: string
+          path?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           created_at: string
