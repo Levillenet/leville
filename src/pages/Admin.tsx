@@ -407,6 +407,10 @@ const Admin = () => {
             <GuideAdmin isViewer={isViewer} />
           </TabsContent>
 
+          <TabsContent value="seo-pages">
+            <SeoPageAdmin isViewer={isViewer} />
+          </TabsContent>
+
           <TabsContent value="stats">
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
