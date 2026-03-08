@@ -104,7 +104,9 @@ const translations = {
     readNext: {
       title: "Lue myös",
       links: [
+        { title: "Talvi Levillä", desc: "Kaamos, lumi ja aktiviteetit marraskuusta maaliskuuhun", href: "/opas/talvi-levi" },
         { title: "Hiihto Levillä", desc: "Yli 230 km huollettuja latuja", href: "/opas/hiihto-levi" },
+        { title: "Sää ja lumitilanne", desc: "Lämpötilat ja olosuhteet kuukausittain", href: "/levi/saatieto-levilta" },
         { title: "Talvivarusteet", desc: "Pukeutumisvinkit Levin pakkasiin", href: "/opas/talvivarusteet-leville" },
         { title: "Parhaat talviaktiviteetit", desc: "Kattava opas Levin talveen", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
         { title: "Liikkuminen Levillä", desc: "Skibussit, taksit ja autonvuokraus", href: "/opas/liikkuminen-levilla" }
@@ -190,7 +192,9 @@ const translations = {
     readNext: {
       title: "Read Next",
       links: [
+        { title: "Winter in Levi", desc: "Polar night, snow and winter activities", href: "/guide/winter-in-levi" },
         { title: "Cross-Country Skiing", desc: "Over 230 km of groomed trails", href: "/guide/cross-country-skiing-in-levi" },
+        { title: "Weather in Levi", desc: "Temperatures and conditions by month", href: "/en/levi/weather-in-levi" },
         { title: "Winter Clothing Guide", desc: "How to dress for Levi's frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
         { title: "Top Winter Activities", desc: "Complete guide to Levi winter", href: "/activities/top-winter-activities-in-levi-lapland" },
         { title: "Getting Around Levi", desc: "Ski buses, taxis and car rental", href: "/guide/getting-around-in-levi" }

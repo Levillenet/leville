@@ -110,9 +110,11 @@ const translations = {
     readNext: {
       title: "Lue myös",
       links: [
-        { title: "Hiihto Levillä", desc: "Yli 230 km latuja – kevät on parasta hiihtoaikaa", href: "/opas/hiihto-levi" },
         { title: "Laskettelu Levillä", desc: "Rinteet auki toukokuulle asti", href: "/opas/laskettelu-levi" },
+        { title: "Hiihto Levillä", desc: "Yli 230 km latuja – kevät on parasta hiihtoaikaa", href: "/opas/hiihto-levi" },
+        { title: "Sää ja lumitilanne", desc: "Kevään lämpötilat ja olosuhteet", href: "/levi/saatieto-levilta" },
         { title: "Kesä Levillä", desc: "Mitä tehdä Levillä kesällä", href: "/opas/kesa-levi" },
+        { title: "Talvi Levillä", desc: "Kaamos ja talviaktiviteetit", href: "/opas/talvi-levi" },
         { title: "Talvivarusteet", desc: "Pukeutuminen keväthangille", href: "/opas/talvivarusteet-leville" }
       ]
     },
@@ -202,9 +204,11 @@ const translations = {
     readNext: {
       title: "Read Next",
       links: [
-        { title: "Cross-Country Skiing", desc: "230+ km of trails – spring is prime time", href: "/guide/cross-country-skiing-in-levi" },
         { title: "Skiing in Levi", desc: "Slopes open until May", href: "/guide/skiing-in-levi" },
+        { title: "Cross-Country Skiing", desc: "230+ km of trails – spring is prime time", href: "/guide/cross-country-skiing-in-levi" },
+        { title: "Weather in Levi", desc: "Spring temperatures and conditions", href: "/en/levi/weather-in-levi" },
         { title: "Summer in Levi", desc: "What to do in Levi in summer", href: "/guide/summer-in-levi" },
+        { title: "Winter in Levi", desc: "Polar night and winter activities", href: "/guide/winter-in-levi" },
         { title: "Winter Clothing", desc: "What to wear for spring skiing", href: "/guide/how-to-dress-for-winter-in-levi-lapland" }
       ]
     },

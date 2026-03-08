@@ -185,10 +185,12 @@ const translations = {
     readNext: {
       title: "Lue myös",
       links: [
-        { title: "Talvivarusteet", desc: "Pukeudu sään mukaan oikein", href: "/opas/talvivarusteet-leville" },
-        { title: "Vuodenajat Levillä", desc: "Mikä kausi sopii sinulle", href: "/opas/vuodenajat-levi" },
-        { title: "Miten pääsee Leville", desc: "Tarkista yhteydet", href: "/matka/miten-paasee-leville-helsingista" },
+        { title: "Talvi Levillä", desc: "Kaamos, lumi ja aktiviteetit", href: "/opas/talvi-levi" },
         { title: "Laskettelu Levillä", desc: "Rinteiden olosuhteet", href: "/opas/laskettelu-levi" },
+        { title: "Talvivarusteet", desc: "Pukeudu sään mukaan oikein", href: "/opas/talvivarusteet-leville" },
+        { title: "Kesä Levillä", desc: "Yötön yö ja kesäaktiviteetit", href: "/opas/kesa-levi" },
+        { title: "Vuodenajat Levillä", desc: "Mikä kausi sopii sinulle", href: "/opas/vuodenajat-levi" },
+        { title: "Revontulet", desc: "Milloin revontulia näkee", href: "/revontulet" },
       ],
     },
   },
@@ -350,10 +352,12 @@ const translations = {
     readNext: {
       title: "Read Next",
       links: [
+        { title: "Winter in Levi", desc: "Polar night, snow and activities", href: "/guide/winter-in-levi" },
+        { title: "Skiing in Levi", desc: "Slope conditions and tips", href: "/guide/skiing-in-levi" },
         { title: "Winter Clothing", desc: "Dress right for the weather", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Summer in Levi", desc: "Midnight sun and summer activities", href: "/guide/summer-in-levi" },
         { title: "Seasons in Levi", desc: "Which season suits you", href: "/guide/seasons-in-levi" },
-        { title: "How to Get to Levi", desc: "Check travel connections", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
-        { title: "Skiing in Levi", desc: "Slope conditions", href: "/guide/skiing-in-levi" },
+        { title: "Northern Lights", desc: "When to see the aurora", href: "/en/northern-lights" },
       ],
     },
   }

@@ -117,6 +117,17 @@ const translations = {
       accommodation: "Varaa ruska-majoitus",
       accommodationLink: "/majoitukset"
     },
+    readNext: {
+      title: "Lue myös",
+      links: [
+        { title: "Vaellus ja pyöräily", desc: "Parhaat reitit ruska-aikaan", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi" },
+        { title: "Revontulet", desc: "Revontulikausi alkaa syyskuussa", href: "/revontulet" },
+        { title: "Sää ja lumitilanne", desc: "Syksyn lämpötilat ja olosuhteet", href: "/levi/saatieto-levilta" },
+        { title: "Kesä Levillä", desc: "Mitä tehdä ennen syksyä", href: "/opas/kesa-levi" },
+        { title: "Talvi Levillä", desc: "Mitä odottaa ruskan jälkeen", href: "/opas/talvi-levi" },
+        { title: "Ravintolat ja palvelut", desc: "Syksyn ravintolat ja kaupat", href: "/opas/ravintolat-ja-palvelut-levilla" }
+      ]
+    },
     breadcrumbLabel: "Ruska Levillä"
   },
   en: {
@@ -214,6 +225,8 @@ const translations = {
       title: "Read Next",
       links: [
         { title: "Hiking & Biking", desc: "Best trails during ruska season", href: "/activities/hiking-and-biking-levi" },
+        { title: "Northern Lights", desc: "Aurora season starts in September", href: "/en/northern-lights" },
+        { title: "Weather in Levi", desc: "Autumn temperatures and conditions", href: "/en/levi/weather-in-levi" },
         { title: "Summer in Levi", desc: "What to do before autumn", href: "/guide/summer-in-levi" },
         { title: "Winter in Levi", desc: "What to expect after ruska", href: "/guide/winter-in-levi" },
         { title: "Restaurants & Services", desc: "Autumn dining in Levi", href: "/guide/restaurants-and-services-in-levi" }
