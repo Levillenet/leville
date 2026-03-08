@@ -11,7 +11,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Snowflake, Sun, Moon, TreeDeciduous, Mountain, ArrowRight, Star,
-  Sparkles, ThermometerSun, CloudSnow, Calendar, Camera, Users, Baby,
+  Sparkles, CloudSnow, Calendar, Camera,
   Compass, Sunrise, Leaf, CloudSun
 } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
