@@ -35,6 +35,7 @@ import NotFound from "./pages/NotFound";
 import WinterClothingGuide from "./pages/guide/WinterClothingGuide";
 import SnowmobileSafariTips from "./pages/activities/SnowmobileSafariTips";
 import HuskySafariTips from "./pages/activities/HuskySafariTips";
+import ReindeerSafariLevi from "./pages/activities/ReindeerSafariLevi";
 import HikingAndBikingLevi from "./pages/activities/HikingAndBikingLevi";
 import HowToGetToLevi from "./pages/travel/HowToGetToLevi";
 import TopWinterActivities from "./pages/activities/TopWinterActivities";
