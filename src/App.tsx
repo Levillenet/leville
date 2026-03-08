@@ -143,6 +143,13 @@ const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = 
   'AccessibleLevi': AccessibleLevi,
   'SamiCultureLevi': SamiCultureLevi,
   'MonthlyGuideLevi': MonthlyGuideLevi,
+  'BestTimeNorthernLightsLevi': BestTimeNorthernLightsLevi,
+  'NorthernLightsSeasonLevi': NorthernLightsSeasonLevi,
+  'NorthernLightsForecastLevi': NorthernLightsForecastLevi,
+  'WhereToSeeNorthernLightsLevi': WhereToSeeNorthernLightsLevi,
+  'NorthernLightsPhotographyLevi': NorthernLightsPhotographyLevi,
+  'HowNorthernLightsForm': HowNorthernLightsForm,
+  'NorthernLightsColorsExplained': NorthernLightsColorsExplained,
 };
 
 const queryClient = new QueryClient();
