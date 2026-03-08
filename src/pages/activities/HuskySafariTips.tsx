@@ -50,19 +50,19 @@ const translations = {
         items: [
           {
             type: "Lyhyet ajelut (30 min – 1 h)",
-            desc: "Täydellinen tutustuminen koiravaljakkoajeluun. Sopii perheille ja ensikertalaisislle. Hinta tyypillisesti 80–120€ per henkilö.",
+            desc: "Täydellinen tutustuminen koiravaljakkoajeluun. Sopii perheille ja ensikertalaisille. Hinta esim. alkaen n. 80 € / henkilö – tarkista ajantasainen hinta palveluntuottajalta.",
             duration: "30–60 min",
             icon: "clock",
           },
           {
             type: "Puolen päivän safarit",
-            desc: "3–4 tunnin retki vie syvemmälle erämaahan. Sisältää pidemmän ajomatkan ja eväätauon. Hinta 150–220€ per henkilö.",
+            desc: "3–4 tunnin retki vie syvemmälle erämaahan. Sisältää pidemmän ajomatkan ja eväätauon. Hinta esim. alkaen n. 150 € / henkilö – tarkista palveluntuottajalta.",
             duration: "3–4 tuntia",
             icon: "mappin",
           },
           {
             type: "Yön yli expeditiot",
-            desc: "Uskomaton seikkailu yöpymisellä erämaakämpällä. Tähtitaivas, revontulet ja hiljaisuus. Hinta alkaen 400€/yö.",
+            desc: "Uskomaton seikkailu yöpymisellä erämaakämpällä. Tähtitaivas, revontulet ja hiljaisuus. Hinta esim. alkaen n. 400 € / yö – tarkista palveluntuottajalta.",
             duration: "1–3 yötä",
             icon: "snowflake",
           },
@@ -143,13 +143,13 @@ const translations = {
           ],
         },
         prices: {
-          title: "Tyypilliset hinnat (2024–2025)",
-          list: [
-            "30 min ajelu: 80–100€ / henkilö",
-            "1h ajelu: 100–140€ / henkilö",
-            "Puolipäiväsafari: 150–250€ / henkilö",
-            "Yön yli ekspediti: 400€+ / henkilö",
-          ],
+           title: "Suuntaa-antavat hinnat",
+           list: [
+             "30 min ajelu: esim. alkaen n. 80 € / henkilö",
+             "1h ajelu: esim. alkaen n. 100 € / henkilö",
+             "Puolipäiväsafari: esim. alkaen n. 150 € / henkilö",
+             "Tarkista ajantasaiset hinnat suoraan palveluntuottajalta",
+           ],
         },
         tip: "Varaa ajoissa sesonkiaikoina! Koiravaljakkoajelut ovat suosittuja ja täyttyvät nopeasti.",
       },
@@ -236,19 +236,19 @@ const translations = {
         items: [
           {
             type: "Short Rides (30 min – 1 h)",
-            desc: "Perfect introduction to dog sledding. Suitable for families and first-timers. Price typically €80–120 per person.",
+            desc: "Perfect introduction to dog sledding. Suitable for families and first-timers. Price e.g. from approx. €80 / person – check current prices with operator.",
             duration: "30–60 min",
             icon: "clock",
           },
           {
             type: "Half-Day Safaris",
-            desc: "3–4 hour trip takes you deeper into the wilderness. Includes longer ride and lunch break. Price €150–220 per person.",
+            desc: "3–4 hour trip takes you deeper into the wilderness. Includes longer ride and lunch break. Price e.g. from approx. €150 / person – check with operator.",
             duration: "3–4 hours",
             icon: "mappin",
           },
           {
             type: "Overnight Expeditions",
-            desc: "An incredible adventure with overnight stay at a wilderness cabin. Starry sky, northern lights and silence. Price from €400/night.",
+            desc: "An incredible adventure with overnight stay at a wilderness cabin. Starry sky, northern lights and silence. Price e.g. from approx. €400/night – check with operator.",
             duration: "1–3 nights",
             icon: "snowflake",
           },
@@ -329,13 +329,13 @@ const translations = {
           ],
         },
         prices: {
-          title: "Typical Prices (2024–2025)",
-          list: [
-            "30 min ride: €80–100 / person",
-            "1h ride: €100–140 / person",
-            "Half-day safari: €150–250 / person",
-            "Overnight expedition: €400+ / person",
-          ],
+           title: "Indicative Prices",
+           list: [
+             "30 min ride: e.g. from approx. €80 / person",
+             "1h ride: e.g. from approx. €100 / person",
+             "Half-day safari: e.g. from approx. €150 / person",
+             "Always check current prices directly with the operator",
+           ],
         },
         tip: "Book early during peak seasons! Husky safaris are popular and fill up quickly.",
       },
@@ -420,19 +420,19 @@ const translations = {
         items: [
           {
             type: "Korte ritten (1 uur)",
-            desc: "Perfecte kennismaking met sledehonden. Geschikt voor gezinnen en beginners. Prijs ca. €100-150 per persoon.",
+            desc: "Perfecte kennismaking met sledehonden. Geschikt voor gezinnen en beginners. Prijs bijv. vanaf ca. €100 per persoon – controleer actuele prijzen bij de operator.",
             duration: "ca. 1 uur",
             icon: "clock",
           },
           {
             type: "Halvedagsafari's (2-3 uur)",
-            desc: "Langere tocht dieper de wildernis in. Inclusief lunchpauze bij kampvuur. Prijs €150-200 per persoon.",
+            desc: "Langere tocht dieper de wildernis in. Inclusief lunchpauze bij kampvuur. Prijs bijv. vanaf ca. €150 per persoon – controleer bij operator.",
             duration: "2–3 uur",
             icon: "mappin",
           },
           {
             type: "Overnachtingsexpedities",
-            desc: "Een ongelooflijk avontuur met overnachting in een wildernishut. Sterrenhemel, noorderlicht en stilte. Prijs vanaf €400/nacht.",
+            desc: "Een ongelooflijk avontuur met overnachting in een wildernishut. Sterrenhemel, noorderlicht en stilte. Prijs bijv. vanaf ca. €400/nacht – controleer bij operator.",
             duration: "1–3 nachten",
             icon: "snowflake",
           },
@@ -513,13 +513,13 @@ const translations = {
           ],
         },
         prices: {
-          title: "Typische prijzen (2025–2026)",
-          list: [
-            "1 uur rit: €100–150 / persoon",
-            "2-3 uur safari: €150–200 / persoon",
-            "Halvedagsafari: €150–250 / persoon",
-            "Overnachtingsexpeditie: €400+ / persoon",
-          ],
+           title: "Indicatieve prijzen",
+           list: [
+             "1 uur rit: bijv. vanaf ca. €100 / persoon",
+             "2-3 uur safari: bijv. vanaf ca. €150 / persoon",
+             "Halvedagsafari: bijv. vanaf ca. €150 / persoon",
+             "Controleer altijd actuele prijzen bij de operator",
+           ],
         },
         tip: "Boek op tijd, vooral tijdens de Nederlandse en Belgische schoolvakanties! Huskysafari's zijn erg populair.",
       },

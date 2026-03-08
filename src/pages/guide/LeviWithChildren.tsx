@@ -41,7 +41,7 @@ const translations = {
         items: [
           {
             title: "Leevilandia Snow Park",
-            desc: "Lasten oma alue helpoilla eteläpuolen rinteillä , liukumäillä ja Leevilandia -teemalla. Turvallinen ympäristö ensimmäisille laskuille.",
+            desc: "Lasten oma alue helpoilla eteläpuolen rinteillä, liukumäillä ja Leevilandia-teemalla. Turvallinen ympäristö ensimmäisille laskuille.",
           },
           {
             title: "Lasten hiihtokoulu",

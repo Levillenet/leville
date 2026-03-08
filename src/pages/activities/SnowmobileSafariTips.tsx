@@ -50,19 +50,19 @@ const translations = {
         items: [
           {
             type: "Lyhyet 2 tunnin safarit",
-            desc: "Täydellinen ensikertalaisialle. Tutustut kelkan ajamiseen ja pääset tunturin päälle nauttimaan maisemista. Hinta tyypillisesti 100–150€ per henkilö.",
+            desc: "Täydellinen ensikertalaisille. Tutustut kelkan ajamiseen ja pääset tunturin päälle nauttimaan maisemista. Hinta esim. alkaen n. 100 € / henkilö – tarkista ajantasainen hinta palveluntuottajalta.",
             duration: "2 tuntia",
             icon: "clock",
           },
           {
             type: "Puolen päivän seikkailut",
-            desc: "4–5 tunnin retki vie sinut syvemmälle erämaahan. Sisältää pidempiä ajojaksoja ja tauon laavulla. Hinta 180–250€ per henkilö.",
+            desc: "4–5 tunnin retki vie sinut syvemmälle erämaahan. Sisältää pidempiä ajojaksoja ja tauon laavulla. Hinta esim. alkaen n. 180 € / henkilö – tarkista palveluntuottajalta.",
             duration: "4–5 tuntia",
             icon: "mappin",
           },
           {
             type: "Usean päivän expeditiot",
-            desc: "Kokeneiden ajajien unelma. Yövy erämaakämpillä ja aja satoja kilometrejä Lapin sydämessä. Hinta alkaen 500€/päivä.",
+            desc: "Kokeneiden ajajien unelma. Yövy erämaakämpillä ja aja satoja kilometrejä Lapin sydämessä. Hinta esim. alkaen n. 500 € / päivä – tarkista palveluntuottajalta.",
             duration: "2–5 päivää",
             icon: "snowflake",
           },
@@ -95,10 +95,10 @@ const translations = {
             title: "Matkustajana ajaminen",
             text: "Matkustajan paikka on takana. Pidä kiinni ja nojaa kuljettajan mukana kaarteissa. Se on helpompaa kuin luulet!",
           },
-          {
-            title: "Ensimmäinen kerta?",
-            text: "Kelkan ajaminen on helpompaa kuin auto. Ohjaustanko kääntyy kevyesti ja jarru on vasemmalla puolella. Opit muutamassa minuutissa.",
-          },
+           {
+             title: "Ensimmäinen kerta?",
+             text: "Kelkan ajaminen on helpompaa kuin auto. Jarru on vasemmalla ja kaasu oikealla – kaasua painetaan peukalolla. Opit muutamassa minuutissa.",
+           },
         ],
       },
       bestTime: {
@@ -128,13 +128,13 @@ const translations = {
           ],
         },
         prices: {
-          title: "Tyypilliset hinnat (2024–2025)",
-          list: [
-            "2h safari: 100–160€ / henkilö",
-            "4h safari: 180–260€ / henkilö",
-            "Iltasafari (revontulimahdollisuus): 150–220€ / henkilö",
-            "Omat käsineet ja kasvosuoja: mukana tai 10–20€ lisämaksu",
-          ],
+           title: "Suuntaa-antavat hinnat",
+           list: [
+             "2h safari: esim. alkaen n. 100 € / henkilö",
+             "4h safari: esim. alkaen n. 180 € / henkilö",
+             "Iltasafari (revontulimahdollisuus): esim. alkaen n. 150 € / henkilö",
+             "Tarkista ajantasaiset hinnat suoraan palveluntuottajalta",
+           ],
         },
         tip: "Varaa ajoissa sesonkiaikoina (joulu, hiihtoloma). Suosituimmat safarit täyttyvät nopeasti.",
       },
@@ -216,19 +216,19 @@ const translations = {
         items: [
           {
             type: "Short 2-Hour Tours",
-            desc: "Perfect for first-timers. Learn to operate the snowmobile and enjoy fell-top views. Price typically €100–150 per person.",
+            desc: "Perfect for first-timers. Learn to operate the snowmobile and enjoy fell-top views. Price e.g. from approx. €100 / person – check current prices with the operator.",
             duration: "2 hours",
             icon: "clock",
           },
           {
             type: "Half-Day Adventures",
-            desc: "4–5 hour trip takes you deeper into the wilderness. Includes longer riding periods and a break at a cabin. Price €180–250 per person.",
+            desc: "4–5 hour trip takes you deeper into the wilderness. Includes longer riding periods and a break at a cabin. Price e.g. from approx. €180 / person – check with operator.",
             duration: "4–5 hours",
             icon: "mappin",
           },
           {
             type: "Multi-Day Expeditions",
-            desc: "An experienced rider's dream. Stay overnight in wilderness cabins and cover hundreds of kilometers through Lapland. Price from €500/day.",
+            desc: "An experienced rider's dream. Stay overnight in wilderness cabins and cover hundreds of kilometers through Lapland. Price e.g. from approx. €500/day – check with operator.",
             duration: "2–5 days",
             icon: "snowflake",
           },
@@ -262,8 +262,8 @@ const translations = {
             text: "Passengers sit in the back. Hold on and lean with the driver through turns. It's easier than you might think!",
           },
           {
-            title: "First Time?",
-            text: "Driving a snowmobile is easier than a car. The handlebars turn easily and the brake is on the left side. You'll learn in a few minutes.",
+             title: "First Time?",
+             text: "Driving a snowmobile is easier than a car. The brake is on the left and the throttle on the right – you operate the throttle with your thumb. You'll learn in a few minutes.",
           },
         ],
       },
@@ -291,13 +291,13 @@ const translations = {
           ],
         },
         prices: {
-          title: "Typical Prices (2024–2025)",
-          list: [
-            "2h safari: €100–160 / person",
-            "4h safari: €180–260 / person",
-            "Evening safari (aurora chance): €150–220 / person",
-            "Own gloves and face protection: included or €10–20 extra",
-          ],
+           title: "Indicative Prices",
+           list: [
+             "2h safari: e.g. from approx. €100 / person",
+             "4h safari: e.g. from approx. €180 / person",
+             "Evening safari (aurora chance): e.g. from approx. €150 / person",
+             "Always check current prices directly with the operator",
+           ],
         },
         tip: "Book early during peak seasons (Christmas, ski holidays). Popular safaris fill up quickly.",
       },

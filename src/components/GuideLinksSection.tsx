@@ -25,7 +25,7 @@ const content: Record<Language, GuideContent> = {
     heading: "Kaikki mitä tarvitset tietää Levin lomasta",
     subtitle: "Paikalliset vinkit majoituksesta, aktiviteeteista ja käytännön asioista",
     cards: [
-      { icon: Mountain, title: "Laskettelu Levillä", desc: "43 rinnettä, 27 hissiä ja Suomen suurin hiihtokeskus. Aloittelijan ja kokeneemman laskijan opas.", href: "/opas/laskettelu-levi" },
+      { icon: Mountain, title: "Laskettelu Levillä", desc: "43 rinnettä, 28 hissiä ja Suomen suurin hiihtokeskus. Aloittelijan ja kokeneemman laskijan opas.", href: "/opas/laskettelu-levi" },
       { icon: TreePine, title: "Hiihtoladut ja murtomaahiihto", desc: "Yli 230 km huollettua latua tunturimaisemissa. Reitit, palvelut ja vinkit.", href: "/opas/hiihtoladut-levi" },
       { icon: Flame, title: "Sauna ja saunaelämykset", desc: "Savusaunat, avantouinti ja sähkökiukaan käyttöohje – opas suomalaiseen saunaan.", href: "/opas/sauna-levilla" },
       { icon: UtensilsCrossed, title: "Ravintolat ja palvelut", desc: "Levin parhaat ravintolat, kaupat, Alko ja käytännön palvelut keskustassa.", href: "/opas/ravintolat-ja-palvelut-levilla" },
@@ -40,7 +40,7 @@ const content: Record<Language, GuideContent> = {
     heading: "Everything you need to know about Levi",
     subtitle: "Local tips on accommodation, activities and practical info",
     cards: [
-      { icon: Mountain, title: "Skiing in Levi", desc: "43 slopes, 27 lifts and Finland's largest ski resort. A guide for all levels.", href: "/guide/skiing-in-levi" },
+      { icon: Mountain, title: "Skiing in Levi", desc: "43 slopes, 28 lifts and Finland's largest ski resort. A guide for all levels.", href: "/guide/skiing-in-levi" },
       { icon: TreePine, title: "Cross-Country Trails", desc: "Over 230 km of groomed trails in fell landscapes. Routes, services and tips.", href: "/guide/cross-country-skiing-in-levi" },
       { icon: Flame, title: "Finnish Sauna", desc: "Smoke saunas, ice swimming and electric sauna guide – Finnish sauna culture explained.", href: "/guide/finnish-sauna-in-levi" },
       { icon: UtensilsCrossed, title: "Restaurants & Services", desc: "The best restaurants, shops and practical services in Levi centre.", href: "/guide/restaurants-and-services-in-levi" },
@@ -115,7 +115,7 @@ const content: Record<Language, GuideContent> = {
     heading: "Alles wat je moet weten over Levi",
     subtitle: "Lokale tips over accommodatie, activiteiten en praktische info",
     cards: [
-      { icon: Mountain, title: "Skiën in Levi", desc: "43 pistes, 27 liften en het grootste skigebied van Finland. Gids voor alle niveaus.", href: "/nl/gids/skieen-in-levi" },
+      { icon: Mountain, title: "Skiën in Levi", desc: "43 pistes, 28 liften en het grootste skigebied van Finland. Gids voor alle niveaus.", href: "/nl/gids/skieen-in-levi" },
       { icon: TreePine, title: "Langlaufen", desc: "Meer dan 230 km geprepareerde loipes in het fjälllandschap. Routes en tips.", href: "/nl/gids/langlaufen-in-levi" },
       { icon: Flame, title: "Finse sauna", desc: "Rooksauna's, ijszwemmen en instructies – jouw gids voor de Finse saunacultuur.", href: "/nl/levi" },
       { icon: UtensilsCrossed, title: "Restaurants en voorzieningen", desc: "De beste restaurants, winkels en voorzieningen in het centrum van Levi.", href: "/nl/levi" },

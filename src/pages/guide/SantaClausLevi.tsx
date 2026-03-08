@@ -34,11 +34,11 @@ const translations = {
       canonical: "https://leville.net/opas/joulupukki-levilla"
     },
     h1: "Joulupukki Levillä — missä tavata pukki?",
-    intro: "Levillä joulupukki asuu tunturin huipulla — ei teemapuistossa. Tässä oppaassa kerromme missä ja miten tapaat pukin, mitä muita jouluelämyksiä Levillä on ja miten Levi vertautuu Rovaniemeen.",
+    intro: "Levin tunturin huipulla sijaitsee Joulupukin mökki — tunnelmallinen elämys koko perheelle. Tässä oppaassa kerromme missä ja miten tapaat pukin, mitä muita jouluelämyksiä Levillä on ja miten Levi vertautuu Rovaniemeen.",
     sections: {
       cabin: {
         title: "Joulupukin mökki Levin tunturilla",
-        content: "Levin tunturin huipulla sijaitsee Joulupukin mökki, jonne pääsee Levi Black -gondolihissillä. Mökki on aito, tunnelmallinen elämys — ei suuri kaupallinen teemapuisto vaan intiimi tapaaminen joulupukin kanssa. Gondolimatka itsessään on elämys lapsille ja aikuisille.",
+        content: "Levin tunturin huipulla sijaitsee Joulupukin mökki, jonne pääsee Levi Black -gondolihissillä. Mökki on tunnelmallinen elämys — ei suuri kaupallinen teemapuisto vaan intiimi tapaaminen joulupukin kanssa. Gondolimatka itsessään on elämys lapsille ja aikuisille.",
         note: "Tarkista aukioloajat Levin matkailuinfosta — mökki on auki tyypillisesti joulu–maaliskuussa."
       },
       arcandia: {
@@ -112,11 +112,11 @@ const translations = {
       canonical: "https://leville.net/guide/santa-claus-in-levi"
     },
     h1: "Santa Claus in Levi — Where to Meet Santa?",
-    intro: "In Levi, Santa lives on top of a fell — not in a theme park. This guide tells you where and how to meet Santa, what other Christmas experiences Levi offers and how it compares to Rovaniemi.",
+    intro: "On top of Levi fell sits Santa's Cabin — an atmospheric experience for the whole family. This guide tells you where and how to meet Santa, what other Christmas experiences Levi offers and how it compares to Rovaniemi.",
     sections: {
       cabin: {
         title: "Santa's Cabin on Levi Fell",
-        content: "On top of Levi fell sits Santa's Cabin, accessible via the Levi Black gondola lift. The cabin offers an authentic, atmospheric experience — not a large commercial theme park but an intimate meeting with Santa. The gondola ride itself is an experience for children and adults alike.",
+        content: "On top of Levi fell sits Santa's Cabin, accessible via the Levi Black gondola lift. The cabin offers an atmospheric experience — not a large commercial theme park but an intimate meeting with Santa. The gondola ride itself is an experience for children and adults alike.",
         note: "Check opening times from Levi tourist info — the cabin is typically open from Christmas to March."
       },
       arcandia: {

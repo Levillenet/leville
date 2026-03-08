@@ -49,13 +49,13 @@ const translations = {
       skiing: {
         title: "Laskettelu ja lumilautailu",
         icon: "mountain",
-        intro: "Levi on Suomen suurin laskettelukeskus, jossa on 43 rinnettä ja 27 hissiä.",
+        intro: "Levi on Suomen suurin laskettelukeskus, jossa on 43 rinnettä ja 28 hissiä.",
         subsections: [
           {
             title: "Rinteet ja hissit",
             items: [
               "43 rinnettä kaikille taitotasoille",
-              "27 hissiä, mukaan lukien moderni gondolihissi",
+              "28 hissiä, mukaan lukien useita erilaisia hissityyppejä",
               "Pisin rinne 2,5 km",
               "Korkeusero 325 metriä",
               "Lumetettu kausi marraskuusta toukokuulle"
@@ -212,13 +212,13 @@ const translations = {
       skiing: {
         title: "Skiing and Snowboarding",
         icon: "mountain",
-        intro: "Levi is Finland's largest ski resort with 43 slopes and 27 lifts.",
+        intro: "Levi is Finland's largest ski resort with 43 slopes and 28 lifts.",
         subsections: [
           {
             title: "Slopes and Lifts",
             items: [
               "43 slopes for all skill levels",
-              "27 lifts including modern gondola lift",
+              "28 lifts including various lift types",
               "Longest slope 2.5 km",
               "Vertical drop 325 meters",
               "Snow-guaranteed season from October to May"
@@ -375,13 +375,13 @@ const translations = {
       skiing: {
         title: "Skiën en snowboarden",
         icon: "mountain",
-        intro: "Levi is het grootste skigebied van Finland met 43 pistes en 27 liften.",
+        intro: "Levi is het grootste skigebied van Finland met 43 pistes en 28 liften.",
         subsections: [
           {
             title: "Pistes en liften",
             items: [
               "43 pistes voor alle niveaus",
-              "27 liften inclusief moderne gondellift",
+              "28 liften inclusief diverse lifttypen",
               "Langste piste 2,5 km",
               "Hoogteverschil 325 meter",
               "Gegarandeerd sneeuw van oktober tot mei"
