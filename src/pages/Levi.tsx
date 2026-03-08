@@ -98,7 +98,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovTitle: "Levi vs Rovaniemi",
       comparisonRovDesc: "Tunturikylä vai Lapin pääkaupunki?",
       saunaTitle: "Saunaopas",
-      saunaDesc: "Saunakulttuuri, ohjeet ja elämykset Levillä"
+      saunaDesc: "Saunakulttuuri, ohjeet ja elämykset Levillä",
+      eventsTitle: "Tapahtumat Levillä",
+      eventsDesc: "World Cup, Ylläs-Levi hiihto, Ruskamaraton ja muut tapahtumat"
     },
     en: {
       intro: "Find everything you need for your Levi trip. Explore seasons, activities and practical travel guides.",
