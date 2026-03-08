@@ -432,7 +432,7 @@ const translations = {
           },
           {
             type: "Overnachtingsexpedities",
-            desc: "Een ongelooflijk avontuur met overnachting in een wildernishut. Sterrenhemel, noorderlicht en stilte. Prijs vanaf €400/nacht.",
+            desc: "Een ongelooflijk avontuur met overnachting in een wildernishut. Sterrenhemel, noorderlicht en stilte. Prijs bijv. vanaf ca. €400/nacht – controleer bij operator.",
             duration: "1–3 nachten",
             icon: "snowflake",
           },
