@@ -95,10 +95,10 @@ const translations = {
             title: "Matkustajana ajaminen",
             text: "Matkustajan paikka on takana. Pidä kiinni ja nojaa kuljettajan mukana kaarteissa. Se on helpompaa kuin luulet!",
           },
-          {
-            title: "Ensimmäinen kerta?",
-            text: "Kelkan ajaminen on helpompaa kuin auto. Ohjaustanko kääntyy kevyesti ja jarru on vasemmalla puolella. Opit muutamassa minuutissa.",
-          },
+           {
+             title: "Ensimmäinen kerta?",
+             text: "Kelkan ajaminen on helpompaa kuin auto. Jarru on vasemmalla ja kaasu oikealla – kaasua painetaan peukalolla. Opit muutamassa minuutissa.",
+           },
         ],
       },
       bestTime: {
