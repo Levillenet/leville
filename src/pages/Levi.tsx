@@ -14,6 +14,7 @@ import { routeConfig } from "@/translations";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
 
