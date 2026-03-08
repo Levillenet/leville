@@ -41,7 +41,6 @@ const Header = () => {
           { name: "Alojamientos", href: routeConfig.accommodations.es },
           { name: "Última Hora", href: routeConfig.lastMinute.es, highlight: true },
           { name: "Guía de Levi", href: routeConfig.levi.es },
-          { name: "Eventos", href: routeConfig.events.es },
           { name: "Contacto", href: routeConfig.contact.es },
         ];
       case "fr":
