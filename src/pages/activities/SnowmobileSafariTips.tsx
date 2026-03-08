@@ -21,10 +21,8 @@ interface SnowmobileSafariTipsProps {
   lang?: Language;
 }
 
-const translations = {
-  fi: {
-    meta: {
-      title: "Moottorikelkkasafari Levillä – Vinkit ensikertalaiselle | Leville.net",
+import { snowmobileSafariTranslations } from "./snowmobileSafariTranslations";
+const translations = snowmobileSafariTranslations;
       description:
         "Ensimmäinen moottorikelkkasafari Levillä? Lue käytännön vinkit pukeutumiseen, ajamiseen ja varaamiseen. Koe Lapin erämaa itsevarmuudella.",
       canonical: "https://leville.net/aktiviteetit/moottorikelkkasafari-vinkit-levi",
