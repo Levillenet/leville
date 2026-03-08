@@ -128,13 +128,13 @@ const translations = {
           ],
         },
         prices: {
-          title: "Tyypilliset hinnat (2024–2025)",
-          list: [
-            "2h safari: 100–160€ / henkilö",
-            "4h safari: 180–260€ / henkilö",
-            "Iltasafari (revontulimahdollisuus): 150–220€ / henkilö",
-            "Omat käsineet ja kasvosuoja: mukana tai 10–20€ lisämaksu",
-          ],
+           title: "Suuntaa-antavat hinnat",
+           list: [
+             "2h safari: esim. alkaen n. 100 € / henkilö",
+             "4h safari: esim. alkaen n. 180 € / henkilö",
+             "Iltasafari (revontulimahdollisuus): esim. alkaen n. 150 € / henkilö",
+             "Tarkista ajantasaiset hinnat suoraan palveluntuottajalta",
+           ],
         },
         tip: "Varaa ajoissa sesonkiaikoina (joulu, hiihtoloma). Suosituimmat safarit täyttyvät nopeasti.",
       },
