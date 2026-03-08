@@ -420,7 +420,7 @@ const translations = {
         items: [
           {
             type: "Korte ritten (1 uur)",
-            desc: "Perfecte kennismaking met sledehonden. Geschikt voor gezinnen en beginners. Prijs ca. €100-150 per persoon.",
+            desc: "Perfecte kennismaking met sledehonden. Geschikt voor gezinnen en beginners. Prijs bijv. vanaf ca. €100 per persoon – controleer actuele prijzen bij de operator.",
             duration: "ca. 1 uur",
             icon: "clock",
           },
