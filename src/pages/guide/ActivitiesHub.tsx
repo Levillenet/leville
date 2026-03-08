@@ -391,7 +391,7 @@ const ActivitiesHub = ({ lang = "fi" }: ActivitiesHubProps) => {
                 },
               };
               const rn = readNextData[lang] || readNextData.en;
-              return <ReadNextSection title={rn.title} links={rn.links} />;
+              return <><GuideDisclaimer lang={lang} /><ReadNextSection title={rn.title} links={rn.links} /></>;
             })()}
 
             {/* Booking CTA */}

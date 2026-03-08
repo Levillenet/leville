@@ -1425,6 +1425,10 @@ const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
           </Accordion>
         </section>
 
+        <div className="max-w-4xl mx-auto px-4 pb-4">
+          <GuideDisclaimer lang={lang} />
+        </div>
+
         {/* Read Next */}
         <div className="max-w-4xl mx-auto px-4 pb-8">
           <ReadNextSection

@@ -227,6 +227,7 @@ const WhereToSeeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
                 ))}
               </Accordion>
             </section>
+            <GuideDisclaimer lang={lang} />
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
           </div>
         </main>
