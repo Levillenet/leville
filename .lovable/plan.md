@@ -1,37 +1,35 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+## SEO-sivujen ryhmittely komponenttitasolla
 
-## Muutos
+### Nykytila
+- 50+ sivua listataan yksitellen, jokainen vaatii oman julkaisukytkimen
+- MonthlyGuideLevi-sivuja on 24 kpl (12 kk x 2 kieltä), kaikilla sort_order=0
+- Muut komponentit (esim. SnowshoeingLevi) ovat FI+EN-pareja
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+### Ratkaisu
+Ryhmitellään sivut `component_name`-kentän mukaan. Yksi kytkin per komponentti julkaisee/piilottaa KAIKKI sen kieliversiot ja reitit kerralla.
 
-## Toteutus
-
-Tiedosto: `src/components/ModerBookingWidget.tsx`
-
-`showLoadingOverlay`-funktion alkuun lisataan:
-
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
+```text
+MonthlyGuideLevi          [FI×12] [EN×12]    ⟨ Switch ⟩
+SnowshoeingLevi           [FI] [EN]          ⟨ Switch ⟩
+ApresSkiLevi              [FI] [EN]          ⟨ Switch ⟩
+ChristmasDinnerLeviFI     [FI]               ⟨ Switch ⟩
 ```
 
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+### Muutokset
 
-## Missa naet tulokset
+**1. Edge function `manage-seo-pages/index.ts`**
+- Uusi action `toggle_publish_group`: ottaa `component_name`, päivittää kaikkien vastaavien sivujen `is_published` kerralla
 
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+**2. Admin UI `SeoPageAdmin.tsx`**
+- Ryhmittele sivut `component_name` mukaan
+- Näytä yksi rivi per ryhmä: komponentin nimi, kielibadget (FI ×12, EN ×12 tai FI, EN), sivumäärä, yksi julkaisukytkin
+- Ryhmä on laajennettavissa (Collapsible/Accordion) yksittäisten polkujen näkemiseksi
+- Yksittäisten sivujen poisto/lisäys toimii edelleen rivi kerrallaan laajennettuna
+- Julkaisukytkin vaikuttaa aina koko ryhmään
 
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+### Toteutus
+- Edge function: 1 uusi action (~10 riviä SQL)
+- Admin UI: refaktoroi taulukko ryhmiteltyyn näkymään, käytä olemassa olevaa Collapsible-komponenttia
 
