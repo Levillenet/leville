@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Info, Star, Calendar, Trophy, Sun, TreePine, Leaf, Music } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import EventTimeline from "@/components/guide/EventTimeline";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
