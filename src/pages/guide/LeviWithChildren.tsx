@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Baby, Mountain, Shirt, Home, UtensilsCrossed, Shield, Snowflake, Heart } from "lucide-react";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface LeviWithChildrenProps {
