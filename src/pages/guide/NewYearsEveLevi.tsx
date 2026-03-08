@@ -52,7 +52,7 @@ const translations = {
       },
       nightlife: {
         title: "Baarit ja yöelämä",
-        content: "Uudenvuodenaattona Levin baarit ovat täynnä tunnelmaa. Hullu Poro, Colorado ja muut paikat järjestävät ohjelmaa ja ovat auki myöhään. Ikäraja (18+, yökerhoissa usein 20+) kannattaa huomioida."
+        content: "Uudenvuodenaattona Levin baarit ovat täynnä tunnelmaa. Hullu Poro Arena, Ihku ja muut paikat järjestävät ohjelmaa ja ovat auki myöhään. Ikäraja (18+, yökerhoissa usein 20+) kannattaa huomioida."
       },
       families: {
         title: "Lapsiperheet ja uusivuosi",
@@ -119,7 +119,7 @@ const translations = {
       },
       nightlife: {
         title: "Bars and Nightlife",
-        content: "On New Year's Eve, Levi's bars are full of atmosphere. Hullu Poro, Colorado and other venues have programmes and stay open late. Note the age limits (18+, nightclubs often 20+)."
+        content: "On New Year's Eve, Levi's bars are full of atmosphere. Hullu Poro Arena, Ihku and other venues have programmes and stay open late. Note the age limits (18+, nightclubs often 20+)."
       },
       families: {
         title: "Families and New Year's",

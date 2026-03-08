@@ -43,11 +43,11 @@ const translations = {
       places: {
         title: "Suosittuja paikkoja",
         items: [
-          { name: "Hullu Poro", desc: "Tunnetuin — afterski, ravintola ja yökerho saman katon alla" },
-          { name: "Colorado Bar", desc: "Live-musiikki, rennompi tunnelma" },
-          { name: "Ihku", desc: "Cocktailbaari, trendikkäämpi ilmapiiri" },
-          { name: "Tuikkubaari ja rinneravintolat", desc: "Afterski suoraan rinteellä" },
-          { name: "Ravintolabaarit", desc: "King Crab House, Ämmilä ym. — hyvää ruokaa ja juomaa" }
+           { name: "Hullu Poro Arena", desc: "Tunnetuin — afterski, ravintola ja yökerho saman katon alla" },
+           { name: "Colorado", desc: "Ruokaravintola hyvässä tunnelmassa" },
+           { name: "Ihku", desc: "Yökerho ja bailupaikka" },
+           { name: "Tuikku", desc: "Päivä-afterski tunturissa, suoraan rinteiden vieressä" },
+           { name: "Ravintolabaarit", desc: "King Crab House, Ämmilä ym. — hyvää ruokaa ja juomaa" }
         ],
         disclaimer: "Aukioloajat ja ohjelma vaihtelevat sesongin mukaan. Tarkista aina ajantasaiset tiedot paikan omilta sivuilta."
       },
@@ -74,8 +74,8 @@ const translations = {
     faq: {
       title: "Usein kysytyt kysymykset",
       items: [
-        { q: "Mikä on suosituin afterski-paikka?", a: "Hullu Poro on ylivoimaisesti tunnetuin afterski-paikka Levillä. Live-musiikkia, karaokea ja yökerho samassa paketissa." },
-        { q: "Onko Levillä yökerhoa?", a: "Kyllä, Hullu Poron yhteydessä. Sesonkiaikoina auki myöhään. Ikäraja yleensä 20 tai 22." },
+         { q: "Mikä on suosituin afterski-paikka?", a: "Hullu Poro Arena on ylivoimaisesti tunnetuin afterski-paikka Levillä. Live-musiikkia, karaokea ja yökerho samassa paketissa." },
+         { q: "Onko Levillä yökerhoa?", a: "Kyllä, Ihku on Levin tunnetuin yökerho. Sesonkiaikoina auki myöhään. Ikäraja yleensä 20 tai 22." },
         { q: "Voiko mennä afterskille hiihtovaatteissa?", a: "Kyllä, afterski on rento ja ihmiset tulevat suoraan rinteiltä. Hiihtovaatteet ovat normaalia." }
       ]
     },
@@ -105,11 +105,11 @@ const translations = {
       places: {
         title: "Popular Spots",
         items: [
-          { name: "Hullu Poro", desc: "The most famous — après-ski, restaurant and nightclub under one roof" },
-          { name: "Colorado Bar", desc: "Live music, more laid-back vibe" },
-          { name: "Ihku", desc: "Cocktail bar, trendier atmosphere" },
-          { name: "Tuikkubaari & slope restaurants", desc: "Après-ski right on the slopes" },
-          { name: "Restaurant bars", desc: "King Crab House, Ämmilä etc. — great food and drinks" }
+           { name: "Hullu Poro Arena", desc: "The most famous — après-ski, restaurant and nightclub under one roof" },
+           { name: "Colorado", desc: "Restaurant with great atmosphere" },
+           { name: "Ihku", desc: "Nightclub and party venue" },
+           { name: "Tuikku", desc: "Daytime après-ski on the fell, right next to the slopes" },
+           { name: "Restaurant bars", desc: "King Crab House, Ämmilä etc. — great food and drinks" }
         ],
         disclaimer: "Opening hours and programmes vary by season. Always check the latest info on each venue's own pages."
       },
@@ -136,8 +136,8 @@ const translations = {
     faq: {
       title: "Frequently Asked Questions",
       items: [
-        { q: "What's the most popular après-ski spot?", a: "Hullu Poro is by far the most famous après-ski venue in Levi. Live music, karaoke and nightclub all in one." },
-        { q: "Is there a nightclub in Levi?", a: "Yes, connected to Hullu Poro. Open late during peak season. Age limit usually 20 or 22." },
+         { q: "What's the most popular après-ski spot?", a: "Hullu Poro Arena is by far the most famous après-ski venue in Levi. Live music, karaoke and nightclub all in one." },
+         { q: "Is there a nightclub in Levi?", a: "Yes, Ihku is Levi's best-known nightclub. Open late during peak season. Age limit usually 20 or 22." },
         { q: "Can you go out in ski clothes?", a: "Yes, après-ski is casual and people come straight from the slopes. Ski clothes are completely normal." }
       ]
     },

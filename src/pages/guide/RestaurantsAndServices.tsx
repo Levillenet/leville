@@ -58,7 +58,7 @@ const translations = {
           },
           {
             name: "Perheystävälliset ravintolat",
-            places: ["Kotipizza", "Pizza Kebab Levi", "Colorado Bar & Grill"],
+             places: ["Kotipizza", "Pizza Kebab Levi", "Colorado"],
             note: "Lasten menut ja helppo asiointi perheille.",
           },
           {
@@ -159,7 +159,7 @@ const translations = {
           },
           {
             name: "Family friendly restaurants",
-            places: ["Kotipizza", "Pizza Kebab Levi", "Colorado Bar & Grill"],
+            places: ["Kotipizza", "Pizza Kebab Levi", "Colorado"],
             note: "Children menus and easy access for families.",
           },
           {
@@ -335,7 +335,7 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
                   rel="noopener noreferrer"
                   className="text-primary hover:underline"
                 >
-                  Colorado Bar and Grill Levi
+                  Colorado Levi
                 </a>
               </li>
               <li>

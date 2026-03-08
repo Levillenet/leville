@@ -148,7 +148,7 @@ const translations = {
         intro: "Levillä on useita ravintoloita, jotka palvelevat lapsiperheitä hyvin:",
         items: [
           { name: "Hullu Poro", note: "Laaja lastenruokalista, syöttötuolit, leikkitila. Tunnelmallinen mutta rento." },
-          { name: "Colorado Bar & Grill", note: "Hampurilaiset ja pizzat. Lapsiystävällinen palvelu." },
+          { name: "Colorado", note: "Ruokaravintola. Hampurilaiset ja pizzat. Lapsiystävällinen palvelu." },
           { name: "Levin Panimo", note: "Perinteistä suomalaista ruokaa, lasten annokset saatavilla." },
           { name: "Pizza-Kebab Levi", note: "Edullinen vaihtoehto, noutomyynti majoitukseen." },
         ],
@@ -344,7 +344,7 @@ const translations = {
         intro: "Levi has several restaurants that serve families well:",
         items: [
           { name: "Hullu Poro", note: "Extensive children's menu, high chairs, play area. Atmospheric but relaxed." },
-          { name: "Colorado Bar & Grill", note: "Burgers and pizzas. Family-friendly service." },
+          { name: "Colorado", note: "Restaurant with burgers and pizzas. Family-friendly service." },
           { name: "Levin Panimo", note: "Traditional Finnish food, children's portions available." },
           { name: "Pizza-Kebab Levi", note: "Affordable option, take-away to accommodation." },
         ],
@@ -521,7 +521,7 @@ const translations = {
         items: [
           { name: "Café Kiisa", note: "Gezellig café met kindermenu. Lekkere taarten en warme dranken." },
           { name: "Hullu Poro Arena", note: "Bowling + restaurant. Uitgebreid kindermenu, kinderstoelen, speelruimte." },
-          { name: "Colorado Bar & Grill", note: "Hamburgers en pizza's. Kindvriendelijke bediening." },
+          { name: "Colorado", note: "Restaurant met hamburgers en pizza's. Kindvriendelijke bediening." },
           { name: "Pizza-Kebab Levi", note: "Betaalbare optie, afhalen naar de accommodatie mogelijk." },
         ],
         tip: "Reserveer een tafel voor het avondeten, vooral in het weekend en tijdens piekseizoen.",
