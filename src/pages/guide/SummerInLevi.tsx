@@ -112,7 +112,9 @@ const translations = {
       links: [
         { title: "Vaellus ja pyöräily", desc: "Tunturivaelluksia ja maastopyöräilyä", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi" },
         { title: "Syksy ja ruska Levillä", desc: "Upeimmat ruska-ajat ja -reitit", href: "/opas/syksy-ruska-levi" },
+        { title: "Sää ja lumitilanne", desc: "Kesän lämpötilat ja olosuhteet", href: "/levi/saatieto-levilta" },
         { title: "Ravintolat ja palvelut", desc: "Kesän ravintolat ja kaupat", href: "/opas/ravintolat-ja-palvelut-levilla" },
+        { title: "Kevät Levillä", desc: "Kevätaurinko ja hiihtokauden huippu", href: "/opas/kevat-levi" },
         { title: "Miten pääsee Leville", desc: "Kesän matkustusyhteydet", href: "/matka/miten-paasee-leville-helsingista" }
       ]
     },
