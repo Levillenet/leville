@@ -610,6 +610,8 @@ const SnowmobileSafariTips = ({ lang = "fi" }: SnowmobileSafariTipsProps) => {
             </Accordion>
           </section>
 
+          <GuideDisclaimer lang={lang} />
+
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 

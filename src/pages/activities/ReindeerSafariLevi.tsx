@@ -554,6 +554,8 @@ const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
             </Card>
           </section>
 
+          <GuideDisclaimer lang={lang} />
+
           {/* Read Next */}
           <ReadNextSection
             title={t.readNext.title}
