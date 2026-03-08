@@ -308,7 +308,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovTitle: "Levi vs Rovaniemi",
       comparisonRovDesc: "Fjeldorp of hoofdstad van Lapland?",
       saunaTitle: "Saunagids",
-      saunaDesc: "Saunacultuur, tips en ervaringen in Levi"
+      saunaDesc: "Saunacultuur, tips en ervaringen in Levi",
+      eventsTitle: "Evenementen in Levi",
+      eventsDesc: "World Cup, Ylläs-Levi langlauf, Ruskamarathon en meer evenementen"
     }
   };
 
