@@ -330,6 +330,7 @@ const App = () => {
               <Route path="/opas/kevat-levi" element={<SpringInLevi />} />
               <Route path="/opas/kesa-levi" element={<SummerInLevi />} />
               <Route path="/opas/syksy-ruska-levi" element={<AutumnRuskaInLevi />} />
+              <Route path="/opas/paras-aika-matkustaa-leville" element={<BestTimeToVisitLevi />} />
               <Route path="/aktiviteetit/moottorikelkkasafari-vinkit-levi" element={<SnowmobileSafariTips />} />
               <Route path="/aktiviteetit/koiravaljakkoajelu-levi" element={<HuskySafariTips />} />
               <Route path="/aktiviteetit/vaellus-ja-maastopyoraily-levi" element={<HikingAndBikingLevi />} />
