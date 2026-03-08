@@ -58,7 +58,7 @@ const translations = {
           },
           {
             name: "Perheystävälliset ravintolat",
-            places: ["Kotipizza", "Pizza Kebab Levi", "Colorado Bar & Grill"],
+             places: ["Kotipizza", "Pizza Kebab Levi", "Colorado"],
             note: "Lasten menut ja helppo asiointi perheille.",
           },
           {
