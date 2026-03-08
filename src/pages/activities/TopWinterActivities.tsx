@@ -381,7 +381,7 @@ const translations = {
             title: "Pistes en liften",
             items: [
               "43 pistes voor alle niveaus",
-              "28 liften inclusief diverse lifttypen",
+              "28 liften – Leevilandia heeft kindvriendelijke liften",
               "Langste piste 2,5 km",
               "Hoogteverschil 325 meter",
               "Gegarandeerd sneeuw van oktober tot mei"
