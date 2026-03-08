@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Trash2, Globe, Loader2, ExternalLink } from "lucide-react";
+import { Plus, Trash2, Globe, Loader2, ExternalLink, ChevronDown, ChevronRight } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 interface SeoPage {
   id: string;
@@ -39,19 +40,32 @@ interface SeoPageAdminProps {
 }
 
 const LANGUAGES = [
-  { value: 'fi', label: 'Suomi' },
-  { value: 'en', label: 'English' },
-  { value: 'sv', label: 'Svenska' },
-  { value: 'de', label: 'Deutsch' },
-  { value: 'es', label: 'Español' },
-  { value: 'fr', label: 'Français' },
-  { value: 'nl', label: 'Nederlands' },
+  { value: 'fi', label: 'FI' },
+  { value: 'en', label: 'EN' },
+  { value: 'sv', label: 'SV' },
+  { value: 'de', label: 'DE' },
+  { value: 'es', label: 'ES' },
+  { value: 'fr', label: 'FR' },
+  { value: 'nl', label: 'NL' },
 ];
+
+const LANG_FULL_NAMES: Record<string, string> = {
+  fi: 'Suomi', en: 'English', sv: 'Svenska', de: 'Deutsch', es: 'Español', fr: 'Français', nl: 'Nederlands',
+};
+
+interface PageGroup {
+  component_name: string;
+  pages: SeoPage[];
+  langCounts: Record<string, number>;
+  isPublished: boolean;
+  totalPages: number;
+}
 
 const SeoPageAdmin = ({ isViewer }: SeoPageAdminProps) => {
   const [pages, setPages] = useState<SeoPage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
   const [newPage, setNewPage] = useState({ path: '', title: '', component_name: '', lang: 'fi', sort_order: 0 });
   const { toast } = useToast();
 
@@ -73,14 +87,37 @@ const SeoPageAdmin = ({ isViewer }: SeoPageAdminProps) => {
 
   useEffect(() => { fetchPages(); }, []);
 
-  const togglePublish = async (id: string, currentState: boolean) => {
+  const groups = useMemo<PageGroup[]>(() => {
+    const map = new Map<string, SeoPage[]>();
+    for (const page of pages) {
+      const key = page.component_name;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(page);
+    }
+
+    return Array.from(map.entries()).map(([component_name, groupPages]) => {
+      const langCounts: Record<string, number> = {};
+      for (const p of groupPages) {
+        langCounts[p.lang] = (langCounts[p.lang] || 0) + 1;
+      }
+      return {
+        component_name,
+        pages: groupPages.sort((a, b) => a.lang.localeCompare(b.lang) || a.path.localeCompare(b.path)),
+        langCounts,
+        isPublished: groupPages.every(p => p.is_published),
+        totalPages: groupPages.length,
+      };
+    }).sort((a, b) => a.component_name.localeCompare(b.component_name));
+  }, [pages]);
+
+  const toggleGroupPublish = async (component_name: string, currentState: boolean) => {
     try {
       const { error } = await supabase.functions.invoke('manage-seo-pages', {
-        body: { action: 'toggle_publish', password: getPassword(), id, is_published: !currentState }
+        body: { action: 'toggle_publish_group', password: getPassword(), component_name, is_published: !currentState }
       });
       if (error) throw error;
-      setPages(prev => prev.map(p => p.id === id ? { ...p, is_published: !currentState } : p));
-      toast({ title: !currentState ? "Julkaistu" : "Piilotettu", description: "Sivun tila päivitetty" });
+      setPages(prev => prev.map(p => p.component_name === component_name ? { ...p, is_published: !currentState } : p));
+      toast({ title: !currentState ? "Ryhmä julkaistu" : "Ryhmä piilotettu", description: `${component_name}: kaikki kieliversiot` });
     } catch (error) {
       toast({ title: "Virhe", description: "Tilan päivitys epäonnistui", variant: "destructive" });
     }
@@ -119,6 +156,15 @@ const SeoPageAdmin = ({ isViewer }: SeoPageAdminProps) => {
     }
   };
 
+  const toggleExpand = (component_name: string) => {
+    setExpandedGroups(prev => {
+      const next = new Set(prev);
+      if (next.has(component_name)) next.delete(component_name);
+      else next.add(component_name);
+      return next;
+    });
+  };
+
   const publishedCount = pages.filter(p => p.is_published).length;
   const draftCount = pages.filter(p => !p.is_published).length;
 
@@ -141,7 +187,7 @@ const SeoPageAdmin = ({ isViewer }: SeoPageAdminProps) => {
                 SEO-sivujen hallinta
               </CardTitle>
               <CardDescription className="mt-1">
-                Hallitse sivujen julkaisutilaa. Julkaistut: {publishedCount} · Luonnokset: {draftCount}
+                {groups.length} ryhmää · {publishedCount} julkaistu · {draftCount} luonnos
               </CardDescription>
             </div>
             {!isViewer && (
@@ -181,7 +227,7 @@ const SeoPageAdmin = ({ isViewer }: SeoPageAdminProps) => {
                         onChange={(e) => setNewPage(p => ({ ...p, component_name: e.target.value }))}
                       />
                       <p className="text-xs text-muted-foreground mt-1">
-                        Komponentin nimi koodissa (App.tsx:n komponenttikartta)
+                        Sama nimi kuin muiden kieliversioiden → samaan ryhmään
                       </p>
                     </div>
                     <div>
@@ -192,7 +238,7 @@ const SeoPageAdmin = ({ isViewer }: SeoPageAdminProps) => {
                         </SelectTrigger>
                         <SelectContent>
                           {LANGUAGES.map(l => (
-                            <SelectItem key={l.value} value={l.value}>{l.label}</SelectItem>
+                            <SelectItem key={l.value} value={l.value}>{LANG_FULL_NAMES[l.value] || l.value}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -215,78 +261,89 @@ const SeoPageAdmin = ({ isViewer }: SeoPageAdminProps) => {
           </div>
         </CardHeader>
         <CardContent>
-          {pages.length === 0 ? (
+          {groups.length === 0 ? (
             <p className="text-muted-foreground text-sm text-center py-8">
-              Ei rekisteröityjä SEO-sivuja. Lisää ensimmäinen klikkaamalla "Lisää sivu".
+              Ei rekisteröityjä SEO-sivuja.
             </p>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border">
-                    <th className="text-left py-2 px-3 font-medium text-muted-foreground">Nimi</th>
-                    <th className="text-left py-2 px-3 font-medium text-muted-foreground">Polku</th>
-                    <th className="text-left py-2 px-3 font-medium text-muted-foreground">Komponentti</th>
-                    <th className="text-left py-2 px-3 font-medium text-muted-foreground">Kieli</th>
-                    <th className="text-left py-2 px-3 font-medium text-muted-foreground">Tila</th>
-                    {!isViewer && (
-                      <th className="text-right py-2 px-3 font-medium text-muted-foreground">Toiminnot</th>
-                    )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {pages.map((page) => (
-                    <tr key={page.id} className="border-b border-border/50 hover:bg-muted/50">
-                      <td className="py-2 px-3 font-medium">{page.title}</td>
-                      <td className="py-2 px-3">
-                        <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{page.path}</code>
-                      </td>
-                      <td className="py-2 px-3">
-                        <code className="text-xs bg-muted px-1.5 py-0.5 rounded">{page.component_name}</code>
-                      </td>
-                      <td className="py-2 px-3">
-                        <Badge variant="outline" className="text-xs">
-                          {LANGUAGES.find(l => l.value === page.lang)?.label || page.lang}
-                        </Badge>
-                      </td>
-                      <td className="py-2 px-3">
+            <div className="space-y-1">
+              {groups.map((group) => {
+                const isExpanded = expandedGroups.has(group.component_name);
+                return (
+                  <Collapsible key={group.component_name} open={isExpanded} onOpenChange={() => toggleExpand(group.component_name)}>
+                    <div className="flex items-center gap-3 py-2 px-3 rounded-md hover:bg-muted/50 transition-colors">
+                      <CollapsibleTrigger asChild>
+                        <Button variant="ghost" size="sm" className="p-0 h-6 w-6">
+                          {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                        </Button>
+                      </CollapsibleTrigger>
+
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <Switch
-                            checked={page.is_published}
-                            onCheckedChange={() => !isViewer && togglePublish(page.id, page.is_published)}
-                            disabled={isViewer}
-                          />
-                          <span className={`text-xs ${page.is_published ? 'text-green-600' : 'text-muted-foreground'}`}>
-                            {page.is_published ? 'Julkaistu' : 'Luonnos'}
-                          </span>
+                          <code className="text-sm font-medium">{group.component_name}</code>
+                          <span className="text-xs text-muted-foreground">({group.totalPages})</span>
                         </div>
-                      </td>
-                      {!isViewer && (
-                        <td className="py-2 px-3 text-right">
-                          <div className="flex items-center justify-end gap-1">
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => window.open(page.path, '_blank')}
-                              title="Esikatsele sivua"
-                            >
-                              <ExternalLink className="w-3.5 h-3.5" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => deletePage(page.id, page.title)}
-                              className="text-destructive hover:text-destructive"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </Button>
+                        <div className="flex items-center gap-1 mt-0.5 flex-wrap">
+                          {Object.entries(group.langCounts)
+                            .sort(([a], [b]) => a.localeCompare(b))
+                            .map(([lang, count]) => (
+                              <Badge key={lang} variant="outline" className="text-[10px] px-1.5 py-0">
+                                {lang.toUpperCase()}{count > 1 ? ` ×${count}` : ''}
+                              </Badge>
+                            ))}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 shrink-0">
+                        <Switch
+                          checked={group.isPublished}
+                          onCheckedChange={() => !isViewer && toggleGroupPublish(group.component_name, group.isPublished)}
+                          disabled={isViewer}
+                        />
+                        <span className={`text-xs w-16 ${group.isPublished ? 'text-green-600' : 'text-muted-foreground'}`}>
+                          {group.isPublished ? 'Julkaistu' : 'Luonnos'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <CollapsibleContent>
+                      <div className="ml-9 border-l border-border pl-3 mb-2">
+                        {group.pages.map((page) => (
+                          <div key={page.id} className="flex items-center gap-2 py-1.5 text-sm text-muted-foreground">
+                            <Badge variant="outline" className="text-[10px] px-1.5 py-0 shrink-0">
+                              {page.lang.toUpperCase()}
+                            </Badge>
+                            <code className="text-xs truncate flex-1">{page.path}</code>
+                            <span className="text-xs truncate max-w-[150px]">{page.title}</span>
+                            {!isViewer && (
+                              <div className="flex items-center gap-0.5 shrink-0">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-6 w-6 p-0"
+                                  onClick={() => window.open(page.path, '_blank')}
+                                  title="Esikatsele"
+                                >
+                                  <ExternalLink className="w-3 h-3" />
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-6 w-6 p-0 text-destructive hover:text-destructive"
+                                  onClick={() => deletePage(page.id, page.title)}
+                                  title="Poista"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </Button>
+                              </div>
+                            )}
                           </div>
-                        </td>
-                      )}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                        ))}
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
+                );
+              })}
             </div>
           )}
         </CardContent>
