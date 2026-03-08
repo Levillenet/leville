@@ -56,7 +56,7 @@ const translations = {
           },
           {
             type: "Puolen päivän seikkailut",
-            desc: "4–5 tunnin retki vie sinut syvemmälle erämaahan. Sisältää pidempiä ajojaksoja ja tauon laavulla. Hinta 180–250€ per henkilö.",
+            desc: "4–5 tunnin retki vie sinut syvemmälle erämaahan. Sisältää pidempiä ajojaksoja ja tauon laavulla. Hinta esim. alkaen n. 180 € / henkilö – tarkista palveluntuottajalta.",
             duration: "4–5 tuntia",
             icon: "mappin",
           },
