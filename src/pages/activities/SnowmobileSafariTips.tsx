@@ -222,7 +222,7 @@ const translations = {
           },
           {
             type: "Half-Day Adventures",
-            desc: "4–5 hour trip takes you deeper into the wilderness. Includes longer riding periods and a break at a cabin. Price €180–250 per person.",
+            desc: "4–5 hour trip takes you deeper into the wilderness. Includes longer riding periods and a break at a cabin. Price e.g. from approx. €180 / person – check with operator.",
             duration: "4–5 hours",
             icon: "mappin",
           },
