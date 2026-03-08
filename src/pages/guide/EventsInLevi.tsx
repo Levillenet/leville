@@ -238,6 +238,9 @@ const EventsInLevi = ({ lang = "fi" }: EventsInLeviProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
             </section>
 
+            {/* Interactive Event Calendar */}
+            <EventTimeline lang={lang} />
+
             {/* Overview */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">

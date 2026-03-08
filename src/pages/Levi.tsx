@@ -64,6 +64,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     comparisonRovDesc: string;
     saunaTitle: string;
     saunaDesc: string;
+    eventsTitle: string;
+    eventsDesc: string;
   }> = {
     fi: {
       intro: "Löydä kaikki tarvitsemasi Levi-matkaa varten. Tutustu vuodenaikoihin, aktiviteetteihin ja käytännön matkailuoppaisiin.",
