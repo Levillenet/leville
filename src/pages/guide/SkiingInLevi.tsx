@@ -211,7 +211,7 @@ const translations = {
     },
     title: "Skiën in Levi",
     subtitle: "Het populairste skigebied van Finland – 43 pistes en 28 liften",
-    intro: "Levi is het grootste en populairste skigebied van Finland. Een modern liftensysteem, gevarieerde pistes voor alle niveaus en meer dan 200 skidagen per seizoen maken Levi de perfecte bestemming voor een skivakantie. Het seizoen loopt doorgaans van november tot mei.",
+    intro: "Levi is het grootste en populairste skigebied van Finland. Een modern liftensysteem, gevarieerde pistes voor alle niveaus en meer dan 200 skidagen per seizoen maken Levi de perfecte bestemming voor een skivakantie. Het seizoen loopt doorgaans van oktober tot mei.",
     sections: {
       overview: {
         title: "Skigebied Levi",
