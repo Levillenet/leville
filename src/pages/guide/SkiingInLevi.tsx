@@ -35,7 +35,7 @@ const translations = {
     },
     title: "Laskettelu Levillä",
     subtitle: "Suomen suosituin hiihtokeskus – 43 rinnettä ja 28 hissiä",
-    intro: "Levi on Suomen suurin ja suosituin hiihtokeskus. Moderni hissijärjestelmä, monipuoliset rinteet kaikille tasoille ja yli 200 laskettelupäivää kaudessa tekevät Levistä täydellisen kohteen laskettelulomalle. Kausi kestää tyypillisesti marraskuusta toukokuuhun.",
+    intro: "Levi on Suomen suurin ja suosituin hiihtokeskus. Moderni hissijärjestelmä, monipuoliset rinteet kaikille tasoille ja yli 200 laskettelupäivää kaudessa tekevät Levistä täydellisen kohteen laskettelulomalle. Kausi kestää tyypillisesti lokakuusta toukokuuhun.",
     sections: {
       overview: {
         title: "Levin laskettelukeskus",
