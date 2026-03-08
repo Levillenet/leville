@@ -110,9 +110,11 @@ const translations = {
     readNext: {
       title: "Lue myös",
       links: [
-        { title: "Hiihto Levillä", desc: "Yli 230 km latuja – kevät on parasta hiihtoaikaa", href: "/opas/hiihto-levi" },
         { title: "Laskettelu Levillä", desc: "Rinteet auki toukokuulle asti", href: "/opas/laskettelu-levi" },
+        { title: "Hiihto Levillä", desc: "Yli 230 km latuja – kevät on parasta hiihtoaikaa", href: "/opas/hiihto-levi" },
+        { title: "Sää ja lumitilanne", desc: "Kevään lämpötilat ja olosuhteet", href: "/levi/saatieto-levilta" },
         { title: "Kesä Levillä", desc: "Mitä tehdä Levillä kesällä", href: "/opas/kesa-levi" },
+        { title: "Talvi Levillä", desc: "Kaamos ja talviaktiviteetit", href: "/opas/talvi-levi" },
         { title: "Talvivarusteet", desc: "Pukeutuminen keväthangille", href: "/opas/talvivarusteet-leville" }
       ]
     },
