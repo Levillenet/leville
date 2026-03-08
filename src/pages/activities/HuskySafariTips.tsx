@@ -248,7 +248,7 @@ const translations = {
           },
           {
             type: "Overnight Expeditions",
-            desc: "An incredible adventure with overnight stay at a wilderness cabin. Starry sky, northern lights and silence. Price from €400/night.",
+            desc: "An incredible adventure with overnight stay at a wilderness cabin. Starry sky, northern lights and silence. Price e.g. from approx. €400/night – check with operator.",
             duration: "1–3 nights",
             icon: "snowflake",
           },
