@@ -513,13 +513,13 @@ const translations = {
           ],
         },
         prices: {
-          title: "Typische prijzen (2025–2026)",
-          list: [
-            "1 uur rit: €100–150 / persoon",
-            "2-3 uur safari: €150–200 / persoon",
-            "Halvedagsafari: €150–250 / persoon",
-            "Overnachtingsexpeditie: €400+ / persoon",
-          ],
+           title: "Indicatieve prijzen",
+           list: [
+             "1 uur rit: bijv. vanaf ca. €100 / persoon",
+             "2-3 uur safari: bijv. vanaf ca. €150 / persoon",
+             "Halvedagsafari: bijv. vanaf ca. €150 / persoon",
+             "Controleer altijd actuele prijzen bij de operator",
+           ],
         },
         tip: "Boek op tijd, vooral tijdens de Nederlandse en Belgische schoolvakanties! Huskysafari's zijn erg populair.",
       },
