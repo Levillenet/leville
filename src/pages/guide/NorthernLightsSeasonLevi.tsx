@@ -170,6 +170,176 @@ In April, seeing northern lights in Levi is already very difficult — nights ar
         { title: "Accommodation", desc: "Book aurora-friendly accommodation", href: "/en/accommodation" }
       ]
     }
+  },
+  nl: {
+    meta: {
+      title: "Noorderlichtseizoen in Levi — Wanneer begint en eindigt het? | Leville.net",
+      description: "Het noorderlichtseizoen in Levi loopt van eind augustus tot begin april. Waarom deze maanden? Uitleg over seizoenen, licht en zonneactiviteit.",
+      canonical: "https://leville.net/nl/gids/noorderlicht-seizoen-levi"
+    },
+    h1: "Noorderlichtseizoen in Levi — wanneer begint en eindigt het?",
+    breadcrumbLabel: "Noorderlichtseizoen",
+    sections: [
+      { title: "Seizoenslengte", content: `Het noorderlichtseizoen in Levi duurt van eind augustus tot begin april — ongeveer 7–8 maanden per jaar. Dit maakt Levi tot een van de beste locaties in Europa voor het bekijken van noorderlicht: een lang seizoen, een positie boven de poolcirkel (67,8° NB) en relatief weinig lichtvervuiling.\n\nTer vergelijking: in Zuid-Finland (Helsinki, 60° NB) is noorderlicht alleen zichtbaar tijdens sterke stormen, een paar keer per jaar. In Levi is de statistische aurora-activiteit tien keer hoger — aurora komt voor op ongeveer 150 nachten per jaar, hoewel de zichtbaarheid altijd afhangt van de bewolking.` },
+      { title: "Waarom niet in de zomer?", content: `De middernachtzon is het antwoord. In Levi gaat de zon helemaal niet onder in juni en begin juli. Zelfs als de zonnewind de aarde intens zou bombarderen, is noorderlicht niet zichtbaar tegen een lichte hemel — het verdwijnt in de helderheid net als sterren overdag.\n\nHetzelfde fenomeen werkt omgekeerd in de winter: de poolnacht (begin december tot half januari) biedt de langste donkere periodes en de meeste potentiële kijktijd.` },
+      { title: "Seizoensstart (augustus–september)", content: `De eerste aurora-waarnemingen zijn mogelijk in de laatste week van augustus, wanneer de nachten weer donker worden. In september worden de nachten snel donkerder — ongeveer 6 minuten per dag — en het seizoen is in volle gang vanaf half september.\n\nHet speciale voordeel van het vroege seizoen is het weer: de herfst is vaak helder en droog in Lapland. In september liggen de gemiddelde temperaturen nog op 5–10°C. Het ruska-seizoen (half september tot begin oktober) voegt diepte toe: noorderlicht boven herfstkleuren is een van de onvergetelijkste gezichten van Lapland.` },
+      { title: "Hoogseizoen (oktober–februari)", content: `Van oktober tot februari zijn de nachten lang en donker — optimaal voor het bekijken van noorderlicht. Oktober biedt nog redelijk vaak helder weer voordat het bewolktere november begint.\n\nDe poolnacht in december is theoretisch de beste tijd qua donkerte, maar in de praktijk is de bewolking het hoogst. Januari en februari zijn de optimale combinatie: nachten zijn nog lang en heldere koude periodes zijn gebruikelijk. Koude lucht (−20°C en lager) correleert vaak met heldere luchten.` },
+      { title: "Seizoenseinde (maart–april)", content: `Begin maart is noorderlicht nog goed te zien, vooral in de eerste helft van de maand. Maar de nachten worden snel lichter: eind maart heeft Levi al 14 uur daglicht. Zwak noorderlicht verdwijnt in de lichte hemel.\n\nIn april is het zien van noorderlicht in Levi al zeer moeilijk — de nachten zijn te licht.` },
+      { title: "Waarom Levi een geweldige locatie is", content: `**67,8° noorderbreedte** — Levi ligt boven de poolcirkel, direct onder de aurora-ovaal. Dit is de zone waar noorderlicht het vaakst voorkomt.\n\n**Continentaal klimaat** — Levi ligt in het binnenland, ver van de vochtigheid van de zee. Dit betekent meer heldere nachten dan kustlocaties zoals Tromsø of IJsland.\n\n**Weinig lichtvervuiling** — Het dorp Levi is klein (ongeveer 800 vaste bewoners) en de omringende wildernisgebieden zijn uitgestrekt.\n\n**Lang seizoen** — 7–8 maanden per jaar biedt ruime mogelijkheden.` },
+      { title: "Vergelijking met andere bestemmingen", content: `**Levi vs. Tromsø (Noorwegen):** Tromsø (69,6° NB) ligt iets noordelijker maar aan de kust. Het zeeklimaat brengt meer bewolking — Levi's continentale klimaat levert statistisch meer heldere nachten op. Tromsø's voordeel is het dramatische fjord- en zeelandschap.\n\n**Levi vs. IJsland:** IJsland is een populaire aurora-bestemming, maar de maritieme omstandigheden maken het weer onvoorspelbaar. In Levi is het weer stabieler.\n\n**Levi vs. Rovaniemi:** Rovaniemi (66,5° NB) ligt op de poolcirkel, Levi erboven. Levi is rustiger en donkerder — minder lichtvervuiling, langere poolnacht, statistisch betere aurora-kansen.` }
+    ],
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Hoe lang is het noorderlichtseizoen in Levi?", a: "Ongeveer 7–8 maanden — van eind augustus tot begin april. Beste maanden zijn januari, februari en september." },
+        { q: "Waarom kun je in de zomer geen aurora zien?", a: "Middernachtzon — de hemel is te licht. De zon gaat helemaal niet onder in juni." },
+        { q: "Is Levi beter dan Tromsø voor noorderlicht?", a: "Anders. Levi is droger en biedt meer heldere nachten (continentaal klimaat). Tromsø ligt aan de kust met een ander landschap. Beide zijn uitstekende aurora-bestemmingen." }
+      ]
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Noorderlicht in Levi", desc: "Uitgebreide aurora-gids", href: "/nl/noorderlicht" },
+        { title: "Beste tijd voor aurora", desc: "Maanden en tijdstippen", href: "/nl/gids/beste-tijd-noorderlicht-levi" },
+        { title: "Accommodatie", desc: "Boek aurora-vriendelijke accommodatie", href: "/nl/accommodatie" }
+      ]
+    }
+  },
+  sv: {
+    meta: {
+      title: "Norrskenssäsongen i Levi — När börjar och slutar den? | Leville.net",
+      description: "Norrskenssäsongen i Levi varar från slutet av augusti till början av april. Varför just dessa månader? Förklaring av säsonger, ljus och solaktivitet.",
+      canonical: "https://leville.net/sv/guide/norrsken-sasong-levi"
+    },
+    h1: "Norrskenssäsongen i Levi — när börjar och slutar den?",
+    breadcrumbLabel: "Norrskenssäsong",
+    sections: [
+      { title: "Säsongens längd", content: `Norrskenssäsongen i Levi varar från slutet av augusti till början av april — ungefär 7–8 månader per år. Detta gör Levi till en av Europas bästa platser för norrskensvisning: en lång säsong, läge norr om polcirkeln (67,8° N) och relativt lite ljusföroreningar.\n\nFör jämförelse: i södra Finland (Helsingfors, 60° N) syns norrsken bara under starka stormar några gånger per år. I Levi är den statistiska aurora-aktiviteten tio gånger högre.` },
+      { title: "Varför inte på sommaren?", content: `Midnattssolen är svaret. I Levi går solen inte ner alls i juni och början av juli. Norrsken kan inte ses mot en ljus himmel.\n\nSamma fenomen fungerar omvänt på vintern: polarnatt (början av december till mitten av januari) erbjuder de längsta mörka perioderna.` },
+      { title: "Säsongsstart (augusti–september)", content: `De första norrskensobservationerna är möjliga under sista veckan i augusti. I september mörknar nätterna snabbt — cirka 6 minuter per dag.\n\nTidig säsongens speciella fördel är vädret: hösten är ofta klar och torr i Lappland. Ruska-säsongen (mitten av september till början av oktober) adderar djup: norrsken ovanför höstfärger är en av Lapplands mest oförglömliga vyer.` },
+      { title: "Högsäsong (oktober–februari)", content: `Från oktober till februari är nätterna långa och mörka — optimalt. Oktober erbjuder fortfarande rimligt klart väder.\n\nDecembers polarnatt är teoretiskt bäst, men i praktiken är molntäcket som störst. Januari och februari är den optimala kombinationen: nätterna är fortfarande långa och klara köldknäppar är vanliga.` },
+      { title: "Säsongsslut (mars–april)", content: `I början av mars kan norrsken fortfarande ses bra. Men nätterna ljusnar snabbt: i slutet av mars har Levi redan 14 timmar dagsljus.\n\nI april är det redan mycket svårt att se norrsken i Levi.` },
+      { title: "Varför Levi är en bra plats", content: `**67,8° nordlig breddgrad** — Levi ligger ovanför polcirkeln, direkt under aurora-ovalen.\n\n**Kontinentalt klimat** — Levi ligger i inlandet, långt från havets fuktighet. Fler klara nätter än kustlägen.\n\n**Lite ljusföroreningar** — Levi by är liten (ca 800 invånare).\n\n**Lång säsong** — 7–8 månader per år.` },
+      { title: "Jämförelse med andra destinationer", content: `**Levi vs. Tromsø:** Tromsø (69,6° N) ligger vid kusten med mer molnighet. Levi har statistiskt fler klara nätter.\n\n**Levi vs. Island:** Islands maritima förhållanden gör vädret oförutsägbart. Levi har stabilare väder.\n\n**Levi vs. Rovaniemi:** Rovaniemi (66,5° N) ligger på polcirkeln, Levi ovanför. Levi är lugnare och mörkare.` }
+    ],
+    faq: {
+      title: "Vanliga frågor",
+      items: [
+        { q: "Hur lång är norrskenssäsongen i Levi?", a: "Ungefär 7–8 månader — från slutet av augusti till början av april. Bästa månaderna är januari, februari och september." },
+        { q: "Varför kan man inte se norrsken på sommaren?", a: "Midnattssol — himlen är för ljus. Solen går inte ner alls i juni." },
+        { q: "Är Levi bättre än Tromsø?", a: "Annorlunda. Levi är torrare och erbjuder fler klara nätter. Tromsø har kustlandskap. Båda är utmärkta." }
+      ]
+    },
+    readNext: {
+      title: "Läs också",
+      links: [
+        { title: "Norrsken i Levi", desc: "Omfattande norrskensguide", href: "/sv/guide/norrsken-levi" },
+        { title: "Bästa tid för norrsken", desc: "Månader och tidpunkter", href: "/sv/guide/basta-tid-norrsken-levi" },
+        { title: "Boende", desc: "Boka norrskensvänligt boende", href: "/sv/boende" }
+      ]
+    }
+  },
+  de: {
+    meta: {
+      title: "Nordlichtsaison in Levi — Wann beginnt und endet sie? | Leville.net",
+      description: "Die Nordlichtsaison in Levi dauert von Ende August bis Anfang April. Warum diese Monate? Erklärung von Jahreszeiten, Licht und Sonnenaktivität.",
+      canonical: "https://leville.net/de/ratgeber/nordlicht-saison-levi"
+    },
+    h1: "Nordlichtsaison in Levi — wann beginnt und endet sie?",
+    breadcrumbLabel: "Nordlichtsaison",
+    sections: [
+      { title: "Saisonlänge", content: `Die Nordlichtsaison in Levi dauert von Ende August bis Anfang April — etwa 7–8 Monate pro Jahr. Dies macht Levi zu einem der besten Orte Europas für Nordlichtbeobachtung: eine lange Saison, Lage nördlich des Polarkreises (67,8° N) und relativ wenig Lichtverschmutzung.\n\nZum Vergleich: In Südfinnland (Helsinki, 60° N) sind Nordlichter nur bei starken Stürmen einige Male pro Jahr sichtbar. In Levi ist die statistische Aurora-Aktivität zehnmal höher.` },
+      { title: "Warum nicht im Sommer?", content: `Die Mitternachtssonne ist die Antwort. In Levi geht die Sonne im Juni und Anfang Juli gar nicht unter. Nordlichter sind gegen einen hellen Himmel nicht sichtbar.\n\nDas gleiche Phänomen funktioniert umgekehrt im Winter: Die Polarnacht (Anfang Dezember bis Mitte Januar) bietet die längsten dunklen Perioden.` },
+      { title: "Saisonbeginn (August–September)", content: `Die ersten Aurora-Sichtungen sind in der letzten Augustwoche möglich. Im September werden die Nächte schnell dunkler — etwa 6 Minuten pro Tag.\n\nDer besondere Vorteil der Frühsaison ist das Wetter: Der Herbst ist oft klar und trocken in Lappland. Die Ruska-Saison (Mitte September bis Anfang Oktober) bereichert das Erlebnis: Nordlichter über Herbstlaub gehören zu Lapplands unvergesslichsten Anblicken.` },
+      { title: "Hochsaison (Oktober–Februar)", content: `Von Oktober bis Februar sind die Nächte lang und dunkel — optimal. Oktober bietet noch recht häufig klares Wetter.\n\nDie Polarnacht im Dezember ist theoretisch die beste Zeit, aber praktisch ist die Bewölkung am höchsten. Januar und Februar sind die optimale Kombination: lange Nächte und häufige klare Kälteperioden.` },
+      { title: "Saisonende (März–April)", content: `Anfang März sind Nordlichter noch gut sichtbar. Aber die Nächte werden schnell heller: Ende März hat Levi bereits 14 Stunden Tageslicht.\n\nIm April ist es bereits sehr schwierig, Nordlichter in Levi zu sehen.` },
+      { title: "Warum Levi ein großartiger Standort ist", content: `**67,8° nördlicher Breite** — Levi liegt oberhalb des Polarkreises, direkt unter dem Aurora-Oval.\n\n**Kontinentales Klima** — Levi liegt im Landesinneren. Mehr klare Nächte als Küstenstandorte.\n\n**Wenig Lichtverschmutzung** — Das Dorf Levi ist klein (ca. 800 Einwohner).\n\n**Lange Saison** — 7–8 Monate pro Jahr.` },
+      { title: "Vergleich mit anderen Reisezielen", content: `**Levi vs. Tromsø:** Tromsø (69,6° N) liegt an der Küste mit mehr Bewölkung. Levi hat statistisch mehr klare Nächte.\n\n**Levi vs. Island:** Islands maritime Bedingungen machen das Wetter unberechenbar. Levi hat stabileres Wetter.\n\n**Levi vs. Rovaniemi:** Rovaniemi (66,5° N) liegt am Polarkreis, Levi darüber. Levi ist ruhiger und dunkler.` }
+    ],
+    faq: {
+      title: "Häufig gestellte Fragen",
+      items: [
+        { q: "Wie lang ist die Nordlichtsaison in Levi?", a: "Etwa 7–8 Monate — von Ende August bis Anfang April. Beste Monate sind Januar, Februar und September." },
+        { q: "Warum sieht man im Sommer keine Nordlichter?", a: "Mitternachtssonne — der Himmel ist zu hell. Die Sonne geht im Juni gar nicht unter." },
+        { q: "Ist Levi besser als Tromsø?", a: "Anders. Levi ist trockener und bietet mehr klare Nächte. Tromsø hat Küstenlandschaft. Beide sind ausgezeichnet." }
+      ]
+    },
+    readNext: {
+      title: "Lesen Sie auch",
+      links: [
+        { title: "Nordlichter in Levi", desc: "Umfassender Aurora-Guide", href: "/de/ratgeber/nordlichter-levi" },
+        { title: "Beste Zeit für Nordlichter", desc: "Monate und Uhrzeiten", href: "/de/ratgeber/beste-zeit-nordlichter-levi" },
+        { title: "Unterkunft", desc: "Aurora-freundliche Unterkunft buchen", href: "/de/unterkunft" }
+      ]
+    }
+  },
+  es: {
+    meta: {
+      title: "Temporada de auroras boreales en Levi — ¿Cuándo empieza y termina? | Leville.net",
+      description: "La temporada de auroras boreales en Levi va de finales de agosto a principios de abril. ¿Por qué estos meses? Explicación de estaciones, luz y actividad solar.",
+      canonical: "https://leville.net/es/guia/temporada-auroras-boreales-levi"
+    },
+    h1: "Temporada de auroras boreales en Levi — ¿cuándo empieza y termina?",
+    breadcrumbLabel: "Temporada de auroras",
+    sections: [
+      { title: "Duración de la temporada", content: `La temporada de auroras boreales en Levi dura de finales de agosto a principios de abril — aproximadamente 7–8 meses al año. Esto convierte a Levi en una de las mejores ubicaciones de Europa para observar auroras: una temporada larga, posición al norte del Círculo Polar Ártico (67,8° N) y relativamente poca contaminación lumínica.\n\nPara comparar: en el sur de Finlandia (Helsinki, 60° N), las auroras solo se ven durante tormentas fuertes unas pocas veces al año. En Levi, la actividad de aurora estadística es diez veces mayor.` },
+      { title: "¿Por qué no en verano?", content: `El sol de medianoche es la respuesta. En Levi, el sol no se pone en junio ni a principios de julio. Las auroras no se ven contra un cielo claro.\n\nEl mismo fenómeno funciona a la inversa en invierno: la noche polar (principios de diciembre a mediados de enero) ofrece los períodos oscuros más largos.` },
+      { title: "Inicio de temporada (agosto–septiembre)", content: `Los primeros avistamientos de aurora son posibles en la última semana de agosto. En septiembre, las noches oscurecen rápidamente — unos 6 minutos por día.\n\nLa ventaja especial del inicio de temporada es el clima: el otoño suele ser despejado y seco en Laponia. La temporada de ruska (mediados de septiembre a principios de octubre) añade profundidad: auroras sobre el follaje otoñal es una de las vistas más inolvidables de Laponia.` },
+      { title: "Temporada alta (octubre–febrero)", content: `De octubre a febrero, las noches son largas y oscuras — óptimo. Octubre aún ofrece tiempo despejado con frecuencia.\n\nLa noche polar de diciembre es teóricamente la mejor época, pero en la práctica la nubosidad es máxima. Enero y febrero son la combinación óptima: noches largas y periodos fríos despejados frecuentes.` },
+      { title: "Fin de temporada (marzo–abril)", content: `A principios de marzo, las auroras aún se ven bien. Pero las noches se aclaran rápido: a finales de marzo Levi tiene 14 horas de luz.\n\nEn abril ya es muy difícil ver auroras en Levi.` },
+      { title: "Por qué Levi es una gran ubicación", content: `**67,8° de latitud norte** — Levi está por encima del Círculo Polar Ártico, directamente bajo el óvalo auroral.\n\n**Clima continental** — Levi está en el interior. Más noches despejadas que ubicaciones costeras.\n\n**Poca contaminación lumínica** — El pueblo es pequeño (unos 800 habitantes).\n\n**Temporada larga** — 7–8 meses al año.` },
+      { title: "Comparación con otros destinos", content: `**Levi vs. Tromsø:** Tromsø (69,6° N) está en la costa con más nubosidad. Levi tiene estadísticamente más noches despejadas.\n\n**Levi vs. Islandia:** Las condiciones marítimas de Islandia hacen el tiempo impredecible. Levi tiene clima más estable.\n\n**Levi vs. Rovaniemi:** Rovaniemi (66,5° N) está en el Círculo Polar, Levi por encima. Levi es más tranquilo y oscuro.` }
+    ],
+    faq: {
+      title: "Preguntas frecuentes",
+      items: [
+        { q: "¿Cuánto dura la temporada de auroras en Levi?", a: "Aproximadamente 7–8 meses — de finales de agosto a principios de abril. Los mejores meses son enero, febrero y septiembre." },
+        { q: "¿Por qué no se ven auroras en verano?", a: "Sol de medianoche — el cielo es demasiado claro. El sol no se pone en junio." },
+        { q: "¿Es Levi mejor que Tromsø?", a: "Diferente. Levi es más seco y ofrece más noches despejadas. Tromsø tiene paisaje costero. Ambos son excelentes." }
+      ]
+    },
+    readNext: {
+      title: "Lee también",
+      links: [
+        { title: "Auroras boreales en Levi", desc: "Guía completa de aurora", href: "/es/guia/auroras-boreales-levi" },
+        { title: "Mejor momento para auroras", desc: "Meses y horarios", href: "/es/guia/mejor-momento-auroras-boreales-levi" },
+        { title: "Alojamiento", desc: "Reserva alojamiento aurora-friendly", href: "/es/alojamiento" }
+      ]
+    }
+  },
+  fr: {
+    meta: {
+      title: "Saison des aurores boréales à Levi — Quand commence-t-elle et quand finit-elle ? | Leville.net",
+      description: "La saison des aurores boréales à Levi s'étend de fin août à début avril. Pourquoi ces mois ? Explication des saisons, de la lumière et de l'activité solaire.",
+      canonical: "https://leville.net/fr/guide/saison-aurores-boreales-levi"
+    },
+    h1: "Saison des aurores boréales à Levi — quand commence-t-elle ?",
+    breadcrumbLabel: "Saison des aurores",
+    sections: [
+      { title: "Durée de la saison", content: `La saison des aurores boréales à Levi dure de fin août à début avril — environ 7–8 mois par an. Cela fait de Levi l'un des meilleurs endroits d'Europe pour l'observation des aurores : une longue saison, une position au nord du cercle polaire (67,8° N) et relativement peu de pollution lumineuse.\n\nPour comparaison : dans le sud de la Finlande (Helsinki, 60° N), les aurores ne sont visibles que lors de fortes tempêtes quelques fois par an. À Levi, l'activité aurora statistique est dix fois plus élevée.` },
+      { title: "Pourquoi pas en été ?", content: `Le soleil de minuit est la réponse. À Levi, le soleil ne se couche pas du tout en juin et début juillet. Les aurores ne sont pas visibles contre un ciel clair.\n\nLe même phénomène fonctionne en sens inverse en hiver : la nuit polaire (début décembre à mi-janvier) offre les périodes sombres les plus longues.` },
+      { title: "Début de saison (août–septembre)", content: `Les premières observations d'aurores sont possibles la dernière semaine d'août. En septembre, les nuits s'assombrissent rapidement — environ 6 minutes par jour.\n\nL'avantage spécial du début de saison est la météo : l'automne est souvent clair et sec en Laponie. La saison ruska (mi-septembre à début octobre) ajoute de la profondeur : aurores au-dessus des couleurs d'automne est l'un des spectacles les plus inoubliables de Laponie.` },
+      { title: "Haute saison (octobre–février)", content: `D'octobre à février, les nuits sont longues et sombres — optimal. Octobre offre encore un temps assez souvent dégagé.\n\nLa nuit polaire de décembre est théoriquement la meilleure période, mais en pratique la nébulosité est maximale. Janvier et février sont la combinaison optimale.` },
+      { title: "Fin de saison (mars–avril)", content: `Début mars, les aurores sont encore bien visibles. Mais les nuits s'éclaircissent vite : fin mars, Levi a déjà 14 heures de lumière du jour.\n\nEn avril, il est déjà très difficile de voir des aurores à Levi.` },
+      { title: "Pourquoi Levi est un excellent endroit", content: `**67,8° de latitude nord** — Levi se trouve au-dessus du cercle polaire, directement sous l'ovale auroral.\n\n**Climat continental** — Levi est à l'intérieur des terres. Plus de nuits claires que les sites côtiers.\n\n**Peu de pollution lumineuse** — Le village est petit (environ 800 habitants).\n\n**Longue saison** — 7–8 mois par an.` },
+      { title: "Comparaison avec d'autres destinations", content: `**Levi vs. Tromsø :** Tromsø (69,6° N) est sur la côte avec plus de nuages. Levi a statistiquement plus de nuits claires.\n\n**Levi vs. Islande :** Les conditions maritimes islandaises rendent la météo imprévisible. Levi a un temps plus stable.\n\n**Levi vs. Rovaniemi :** Rovaniemi (66,5° N) est sur le cercle polaire, Levi au-dessus. Levi est plus calme et plus sombre.` }
+    ],
+    faq: {
+      title: "Questions fréquentes",
+      items: [
+        { q: "Combien de temps dure la saison des aurores à Levi ?", a: "Environ 7–8 mois — de fin août à début avril. Les meilleurs mois sont janvier, février et septembre." },
+        { q: "Pourquoi ne voit-on pas d'aurores en été ?", a: "Soleil de minuit — le ciel est trop clair. Le soleil ne se couche pas du tout en juin." },
+        { q: "Levi est-il mieux que Tromsø ?", a: "Différent. Levi est plus sec et offre plus de nuits claires. Tromsø a un paysage côtier. Les deux sont excellents." }
+      ]
+    },
+    readNext: {
+      title: "À lire aussi",
+      links: [
+        { title: "Aurores boréales à Levi", desc: "Guide complet des aurores", href: "/fr/guide/aurores-boreales-levi" },
+        { title: "Meilleur moment pour les aurores", desc: "Mois et horaires", href: "/fr/guide/meilleur-moment-aurores-boreales-levi" },
+        { title: "Hébergement", desc: "Réservez un hébergement aurora-friendly", href: "/fr/hebergement" }
+      ]
+    }
   }
 };
 
