@@ -119,7 +119,7 @@ const translations = {
       },
       nightlife: {
         title: "Bars and Nightlife",
-        content: "On New Year's Eve, Levi's bars are full of atmosphere. Hullu Poro, Colorado and other venues have programmes and stay open late. Note the age limits (18+, nightclubs often 20+)."
+        content: "On New Year's Eve, Levi's bars are full of atmosphere. Hullu Poro Arena, Ihku and other venues have programmes and stay open late. Note the age limits (18+, nightclubs often 20+)."
       },
       families: {
         title: "Families and New Year's",

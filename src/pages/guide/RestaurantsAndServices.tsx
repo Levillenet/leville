@@ -335,7 +335,7 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
                   rel="noopener noreferrer"
                   className="text-primary hover:underline"
                 >
-                  Colorado Bar and Grill Levi
+                  Colorado Levi
                 </a>
               </li>
               <li>

@@ -28,7 +28,7 @@ const distances = [
   { label: "K-Market grocery store", value: "2–3 min walk" },
   { label: "Alko (state liquor store)", value: "2–3 min walk" },
   { label: "Ski rental shops", value: "3 min walk" },
-  { label: "Restaurants (Hullu Poro, Colorado, etc.)", value: "2–5 min walk" },
+  { label: "Restaurants (Hullu Poro Arena, Colorado, etc.)", value: "2–5 min walk" },
   { label: "Levin Spa water park", value: "1–3 min walk" },
   { label: "Snowmobile track", value: "~150m from Bear Lodge" },
 ];
