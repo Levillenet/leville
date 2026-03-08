@@ -273,6 +273,7 @@ const App = () => {
               <Route path="/aktiviteetit/vaellus-ja-maastopyoraily-levi" element={<HikingAndBikingLevi />} />
               <Route path="/matka/miten-paasee-leville-helsingista" element={<HowToGetToLevi />} />
               <Route path="/aktiviteetit/parhaat-talviaktiviteetit-levi" element={<TopWinterActivities />} />
+              <Route path="/aktiviteetit/porosafari-levi" element={<ReindeerSafariLevi />} />
               
               {/* SEO Landing Pages - English */}
               <Route path="/guide/how-to-dress-for-winter-in-levi-lapland" element={<WinterClothingGuide lang="en" />} />
