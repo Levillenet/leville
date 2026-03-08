@@ -80,7 +80,7 @@ const translations = {
       items: [
         {
           q: "Milloin Levin rinteet aukeavat?",
-          a: "Levin kausi alkaa tyypillisesti marraskuun alussa ja päättyy toukokuun alussa. Tarkista aukioloajat Levin virallisilta sivuilta."
+          a: "Levin kausi alkaa tyypillisesti lokakuun alussa tykkilumella ja ensilumen ladulla, ja päättyy toukokuun alussa. Tarkista aukioloajat Levin virallisilta sivuilta."
         },
         {
           q: "Voinko vuokrata lasketteluvälineet Leviltä?",
