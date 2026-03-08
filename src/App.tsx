@@ -365,6 +365,19 @@ const App = () => {
               <Route path="/takka-ohje" element={<FireplaceInstructions />} />
               <Route path="/en/fireplace" element={<FireplaceInstructions lang="en" />} />
               
+              {/* Dynamic SEO pages from database */}
+              {dynamicRoutes.map((route) => {
+                const Component = seoComponentMap[route.component_name];
+                if (!Component) return null;
+                return (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={<Component lang={route.lang !== 'fi' ? route.lang : undefined} />}
+                  />
+                );
+              })}
+
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
@@ -373,6 +386,7 @@ const App = () => {
       </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>
-);
+  );
+};
 
 export default App;
