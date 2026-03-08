@@ -40,7 +40,7 @@ const content: Record<Language, GuideContent> = {
     heading: "Everything you need to know about Levi",
     subtitle: "Local tips on accommodation, activities and practical info",
     cards: [
-      { icon: Mountain, title: "Skiing in Levi", desc: "43 slopes, 27 lifts and Finland's largest ski resort. A guide for all levels.", href: "/guide/skiing-in-levi" },
+      { icon: Mountain, title: "Skiing in Levi", desc: "43 slopes, 28 lifts and Finland's largest ski resort. A guide for all levels.", href: "/guide/skiing-in-levi" },
       { icon: TreePine, title: "Cross-Country Trails", desc: "Over 230 km of groomed trails in fell landscapes. Routes, services and tips.", href: "/guide/cross-country-skiing-in-levi" },
       { icon: Flame, title: "Finnish Sauna", desc: "Smoke saunas, ice swimming and electric sauna guide – Finnish sauna culture explained.", href: "/guide/finnish-sauna-in-levi" },
       { icon: UtensilsCrossed, title: "Restaurants & Services", desc: "The best restaurants, shops and practical services in Levi centre.", href: "/guide/restaurants-and-services-in-levi" },
