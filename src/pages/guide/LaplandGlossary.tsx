@@ -369,6 +369,8 @@ const LaplandGlossary = ({ lang = "fi" }: { lang?: Language }) => {
             );
           })}
 
+          <GuideDisclaimer lang={lang} />
+
           {/* Read Next */}
           <ReadNextSection
             title={isFi ? "Lue myös" : "Read Also"}

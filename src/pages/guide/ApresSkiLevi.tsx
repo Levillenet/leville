@@ -291,6 +291,8 @@ const ApresSkiLevi = ({ lang = "fi" }: ApresSkiLeviProps) => {
               </Accordion>
             </section>
 
+            <GuideDisclaimer lang={lang} />
+
             {/* Read Next */}
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
           </div>

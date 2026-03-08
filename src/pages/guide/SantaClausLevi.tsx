@@ -359,7 +359,7 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </section>
+            <GuideDisclaimer lang={lang} />
 
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 

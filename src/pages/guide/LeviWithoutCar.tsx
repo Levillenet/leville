@@ -532,6 +532,8 @@ const LeviWithoutCar = ({ lang = "fi" }: LeviWithoutCarProps) => {
               </section>
             </ScrollReveal>
 
+            <GuideDisclaimer lang={lang} />
+
             {/* Read Next */}
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 

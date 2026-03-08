@@ -536,6 +536,8 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
             </Card>
           </section>
 
+          <GuideDisclaimer lang={lang} />
+
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 

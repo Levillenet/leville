@@ -570,7 +570,7 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
                 },
               };
               const rn = readNextTranslations[lang] || readNextTranslations.en;
-              return <ReadNextSection title={rn.title} links={rn.links} />;
+              return <><GuideDisclaimer lang={lang} /><ReadNextSection title={rn.title} links={rn.links} /></>;
             })()}
 
             {/* CTA */}
