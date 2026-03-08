@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Plane, Train, Bus, MapPin, AlertTriangle, ArrowLeft, ArrowRight, Check, X } from "lucide-react";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 
 interface LeviWithoutCarProps {
   lang?: Language;
