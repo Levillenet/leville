@@ -55,7 +55,7 @@ const translations = {
             title: "Rinteet ja hissit",
             items: [
               "43 rinnettä kaikille taitotasoille",
-              "28 hissiä, mukaan lukien useita erilaisia hissityyppejä",
+              "28 hissiä – Leevilandiassa lapsille sopivia hissejä",
               "Pisin rinne 2,5 km",
               "Korkeusero 325 metriä",
               "Lumetettu kausi marraskuusta toukokuulle"
