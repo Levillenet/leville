@@ -172,7 +172,7 @@ const translations: Record<string, TranslationContent> = {
         "Varaa joulun ja uudenvuoden majoitus hyvissä ajoin – hinnat nousevat ja paikat täyttyvät nopeasti.",
         "Maaliskuu on paras hinta-laatusuhteeltaan: täysi laskettelukausi + halvemmat hinnat kuin jouluna.",
         "Kevätlomaviikoilla on vilkasta – varaa etukäteen.",
-        "Syyskuussa on hiljaista ja edullista, mutta säa voi olla arvaamaton.",
+        "Syyskuussa on hiljaista ja edullista, mutta sää voi olla arvaamaton.",
       ],
       links: [
         { text: "Pukeutumisvinkit talvelle", href: "/opas/talvivarusteet-leville" },
