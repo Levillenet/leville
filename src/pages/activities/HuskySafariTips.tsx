@@ -143,13 +143,13 @@ const translations = {
           ],
         },
         prices: {
-          title: "Tyypilliset hinnat (2024–2025)",
-          list: [
-            "30 min ajelu: 80–100€ / henkilö",
-            "1h ajelu: 100–140€ / henkilö",
-            "Puolipäiväsafari: 150–250€ / henkilö",
-            "Yön yli ekspediti: 400€+ / henkilö",
-          ],
+           title: "Suuntaa-antavat hinnat",
+           list: [
+             "30 min ajelu: esim. alkaen n. 80 € / henkilö",
+             "1h ajelu: esim. alkaen n. 100 € / henkilö",
+             "Puolipäiväsafari: esim. alkaen n. 150 € / henkilö",
+             "Tarkista ajantasaiset hinnat suoraan palveluntuottajalta",
+           ],
         },
         tip: "Varaa ajoissa sesonkiaikoina! Koiravaljakkoajelut ovat suosittuja ja täyttyvät nopeasti.",
       },
