@@ -104,7 +104,9 @@ const translations = {
     readNext: {
       title: "Lue myös",
       links: [
+        { title: "Talvi Levillä", desc: "Kaamos, lumi ja aktiviteetit marraskuusta maaliskuuhun", href: "/opas/talvi-levi" },
         { title: "Hiihto Levillä", desc: "Yli 230 km huollettuja latuja", href: "/opas/hiihto-levi" },
+        { title: "Sää ja lumitilanne", desc: "Lämpötilat ja olosuhteet kuukausittain", href: "/levi/saatieto-levilta" },
         { title: "Talvivarusteet", desc: "Pukeutumisvinkit Levin pakkasiin", href: "/opas/talvivarusteet-leville" },
         { title: "Parhaat talviaktiviteetit", desc: "Kattava opas Levin talveen", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
         { title: "Liikkuminen Levillä", desc: "Skibussit, taksit ja autonvuokraus", href: "/opas/liikkuminen-levilla" }
