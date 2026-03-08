@@ -561,10 +561,10 @@ const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
         <section className="max-w-4xl mx-auto px-4 pb-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {data.quickFacts.map((fact, i) => (
-              <Card key={i} className="glass-card border-border/30 text-center">
+              <Card key={i} className="border-border/30 text-center shadow-sm" style={{ backgroundColor: "rgba(255,255,255,0.85)" }}>
                 <CardContent className="p-4 flex flex-col items-center gap-2">
-                  <div className="text-primary">{fact.icon}</div>
-                  <p className="text-xs text-muted-foreground">{fact.label}</p>
+                  <div style={{ color: "#B8860B" }}>{fact.icon}</div>
+                  <p className="text-xs" style={{ color: "#666" }}>{fact.label}</p>
                   <p className="font-semibold text-sm" style={{ color: "#2D2D2D" }}>{fact.value}</p>
                 </CardContent>
               </Card>
