@@ -1,0 +1,1 @@
+UPDATE seo_pages SET is_published = true, updated_at = now() WHERE component_name = 'EventsInLevi';
