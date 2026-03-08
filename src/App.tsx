@@ -98,6 +98,8 @@ import FatbikeLevi from "./pages/activities/FatbikeLevi";
 import SkiHolidayLevi from "./pages/guide/SkiHolidayLevi";
 import LeviForKids from "./pages/activities/LeviForKids";
 import IceFishingLevi from "./pages/activities/IceFishingLevi";
+import RomanticLeviGetaway from "./pages/guide/RomanticLeviGetaway";
+import DayTripsFromLevi from "./pages/guide/DayTripsFromLevi";
 
 // Component map for dynamically registered SEO pages
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
