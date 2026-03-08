@@ -236,7 +236,7 @@ const translations = {
         items: [
           {
             type: "Short Rides (30 min – 1 h)",
-            desc: "Perfect introduction to dog sledding. Suitable for families and first-timers. Price typically €80–120 per person.",
+            desc: "Perfect introduction to dog sledding. Suitable for families and first-timers. Price e.g. from approx. €80 / person – check current prices with operator.",
             duration: "30–60 min",
             icon: "clock",
           },
