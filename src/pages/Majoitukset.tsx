@@ -341,6 +341,37 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                 </section>
               </ScrollReveal>
             )}
+
+            {/* Read Also / Lue myös */}
+            <ScrollReveal delay={0.2}>
+              <section className="mt-16 md:mt-20 mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
+                  {isEnglish ? "Read Also" : "Lue myös"}
+                </h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {(isEnglish ? [
+                    { title: "Cabin or Apartment? How to Choose", href: "/guide/cabin-vs-apartment-levi" },
+                    { title: "Last-Minute Deals in Levi", href: "/en/last-minute" },
+                    { title: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+                  ] : [
+                    { title: "Mökki vai huoneisto? Näin valitset oikean majoituksen", href: "/opas/mokki-vai-huoneisto-levi" },
+                    { title: "Äkkilähdöt Levi – Viime hetken tarjoukset", href: "/akkilahdot" },
+                    { title: "Miten pääsee Leville?", href: "/matka/miten-paasee-leville-helsingista" },
+                  ]).map((item) => (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      className="glass-card border-border/30 hover:border-primary/50 rounded-xl p-5 flex items-center justify-between gap-3 transition-all duration-300 group"
+                    >
+                      <span className="text-foreground font-medium group-hover:text-primary transition-colors">
+                        {item.title}
+                      </span>
+                      <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            </ScrollReveal>
           </div>
         </main>
         <PageCTA lang={lang} />
