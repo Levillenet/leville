@@ -112,9 +112,11 @@ const translations = {
       title: "Lue myös",
       links: [
         { title: "Laskettelu Levillä", desc: "43 rinnettä ja 28 hissiä", href: "/opas/laskettelu-levi" },
-        { title: "Talvivarusteet", desc: "Pukeutumisvinkit pakkaseen", href: "/opas/talvivarusteet-leville" },
+        { title: "Sää ja lumitilanne", desc: "Lämpötilat ja lumensyvyys kuukausittain", href: "/levi/saatieto-levilta" },
         { title: "Revontulet", desc: "Revontulien bongausopas", href: "/revontulet" },
-        { title: "Moottorikelkkasafari", desc: "Vinkit ensikertalaiselle", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" }
+        { title: "Parhaat talviaktiviteetit", desc: "Kattava opas Levin talveen", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
+        { title: "Talvivarusteet", desc: "Pukeutumisvinkit pakkaseen", href: "/opas/talvivarusteet-leville" },
+        { title: "Hiihto Levillä", desc: "230 km huollettuja latuja", href: "/opas/hiihto-levi" }
       ]
     },
     breadcrumbLabel: "Talvi Levillä"
