@@ -34,7 +34,7 @@ const translations = {
       canonical: "https://leville.net/opas/joulupukki-levilla"
     },
     h1: "Joulupukki Levillä — missä tavata pukki?",
-    intro: "Levillä joulupukki asuu tunturin huipulla — ei teemapuistossa. Tässä oppaassa kerromme missä ja miten tapaat pukin, mitä muita jouluelämyksiä Levillä on ja miten Levi vertautuu Rovaniemeen.",
+    intro: "Levin tunturin huipulla sijaitsee Joulupukin mökki — tunnelmallinen elämys koko perheelle. Tässä oppaassa kerromme missä ja miten tapaat pukin, mitä muita jouluelämyksiä Levillä on ja miten Levi vertautuu Rovaniemeen.",
     sections: {
       cabin: {
         title: "Joulupukin mökki Levin tunturilla",
