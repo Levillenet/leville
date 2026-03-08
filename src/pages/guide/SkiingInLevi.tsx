@@ -156,7 +156,7 @@ const translations = {
       },
       lifts: {
         title: "Lift System",
-        content: "Levi's modern lift system includes various types of lifts such as a gondola, chairlifts, T-bar lifts and magic carpets. The gondola takes you to the summit in just a few minutes. The lift capacity exceeds 30,000 people per hour."
+        content: "Levi's modern lift system includes various types of lifts. The gondola takes you to the summit in just a few minutes, and Leevilandia has child-friendly lifts. The lift capacity exceeds 30,000 people per hour."
       },
       passes: {
         title: "Lift Passes",
