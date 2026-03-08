@@ -49,7 +49,7 @@ const translations = {
       skiing: {
         title: "Laskettelu ja lumilautailu",
         icon: "mountain",
-        intro: "Levi on Suomen suurin laskettelukeskus, jossa on 43 rinnettä ja 27 hissiä.",
+        intro: "Levi on Suomen suurin laskettelukeskus, jossa on 43 rinnettä ja 28 hissiä.",
         subsections: [
           {
             title: "Rinteet ja hissit",
