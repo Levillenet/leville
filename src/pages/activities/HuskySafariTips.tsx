@@ -426,7 +426,7 @@ const translations = {
           },
           {
             type: "Halvedagsafari's (2-3 uur)",
-            desc: "Langere tocht dieper de wildernis in. Inclusief lunchpauze bij kampvuur. Prijs €150-200 per persoon.",
+            desc: "Langere tocht dieper de wildernis in. Inclusief lunchpauze bij kampvuur. Prijs bijv. vanaf ca. €150 per persoon – controleer bij operator.",
             duration: "2–3 uur",
             icon: "mappin",
           },
