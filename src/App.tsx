@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,114 +8,116 @@ import { HelmetProvider } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollToTop from "./components/ScrollToTop";
 import PageTransition from "./components/PageTransition";
-import Index from "./pages/Index";
-import IndexEN from "./pages/en/Index";
-import Majoitukset from "./pages/Majoitukset";
-import Ajankohtaista from "./pages/Ajankohtaista";
-import Levi from "./pages/Levi";
-import JouluLapissa from "./pages/JouluLapissa";
-import Revontulet from "./pages/Revontulet";
-import Yhteystiedot from "./pages/Yhteystiedot";
-import UKK from "./pages/UKK";
-import Varausehdot from "./pages/Varausehdot";
-import Tietosuoja from "./pages/Tietosuoja";
-import Yritys from "./pages/Yritys";
-import Sauna from "./pages/Sauna";
-import Tietovisa from "./pages/Tietovisa";
-import Akkilahdot from "./pages/Akkilahdot";
-import Admin from "./pages/Admin";
-import Asiakaspalvelu from "./pages/Asiakaspalvelu";
-import Unsubscribe from "./pages/Unsubscribe";
-import LeviPronounce from "./pages/LeviPronounce";
-import Latuinfo from "./pages/Latuinfo";
-import MyyLomaAsuntosi from "./pages/MyyLomaAsuntosi";
-import NotFound from "./pages/NotFound";
+
+// Lazy-loaded page components
+const Index = lazy(() => import("./pages/Index"));
+const IndexEN = lazy(() => import("./pages/en/Index"));
+const Majoitukset = lazy(() => import("./pages/Majoitukset"));
+const Ajankohtaista = lazy(() => import("./pages/Ajankohtaista"));
+const Levi = lazy(() => import("./pages/Levi"));
+const JouluLapissa = lazy(() => import("./pages/JouluLapissa"));
+const Revontulet = lazy(() => import("./pages/Revontulet"));
+const Yhteystiedot = lazy(() => import("./pages/Yhteystiedot"));
+const UKK = lazy(() => import("./pages/UKK"));
+const Varausehdot = lazy(() => import("./pages/Varausehdot"));
+const Tietosuoja = lazy(() => import("./pages/Tietosuoja"));
+const Yritys = lazy(() => import("./pages/Yritys"));
+const Sauna = lazy(() => import("./pages/Sauna"));
+const Tietovisa = lazy(() => import("./pages/Tietovisa"));
+const Akkilahdot = lazy(() => import("./pages/Akkilahdot"));
+const Admin = lazy(() => import("./pages/Admin"));
+const Asiakaspalvelu = lazy(() => import("./pages/Asiakaspalvelu"));
+const Unsubscribe = lazy(() => import("./pages/Unsubscribe"));
+const LeviPronounce = lazy(() => import("./pages/LeviPronounce"));
+const Latuinfo = lazy(() => import("./pages/Latuinfo"));
+const MyyLomaAsuntosi = lazy(() => import("./pages/MyyLomaAsuntosi"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 // SEO Landing Pages
-import WinterClothingGuide from "./pages/guide/WinterClothingGuide";
-import SnowmobileSafariTips from "./pages/activities/SnowmobileSafariTips";
-import HuskySafariTips from "./pages/activities/HuskySafariTips";
-import ReindeerSafariLevi from "./pages/activities/ReindeerSafariLevi";
-import HikingAndBikingLevi from "./pages/activities/HikingAndBikingLevi";
-import HowToGetToLevi from "./pages/travel/HowToGetToLevi";
-import TopWinterActivities from "./pages/activities/TopWinterActivities";
-import SkiingInLevi from "./pages/guide/SkiingInLevi";
-import CrossCountrySkiingInLevi from "./pages/guide/CrossCountrySkiingInLevi";
-import WinterInLevi from "./pages/guide/WinterInLevi";
-import WeatherInLevi from "./pages/guide/WeatherInLevi";
-import SpringInLevi from "./pages/guide/SpringInLevi";
-import SummerInLevi from "./pages/guide/SummerInLevi";
-import AutumnRuskaInLevi from "./pages/guide/AutumnRuskaInLevi";
+const WinterClothingGuide = lazy(() => import("./pages/guide/WinterClothingGuide"));
+const SnowmobileSafariTips = lazy(() => import("./pages/activities/SnowmobileSafariTips"));
+const HuskySafariTips = lazy(() => import("./pages/activities/HuskySafariTips"));
+const ReindeerSafariLevi = lazy(() => import("./pages/activities/ReindeerSafariLevi"));
+const HikingAndBikingLevi = lazy(() => import("./pages/activities/HikingAndBikingLevi"));
+const HowToGetToLevi = lazy(() => import("./pages/travel/HowToGetToLevi"));
+const TopWinterActivities = lazy(() => import("./pages/activities/TopWinterActivities"));
+const SkiingInLevi = lazy(() => import("./pages/guide/SkiingInLevi"));
+const CrossCountrySkiingInLevi = lazy(() => import("./pages/guide/CrossCountrySkiingInLevi"));
+const WinterInLevi = lazy(() => import("./pages/guide/WinterInLevi"));
+const WeatherInLevi = lazy(() => import("./pages/guide/WeatherInLevi"));
+const SpringInLevi = lazy(() => import("./pages/guide/SpringInLevi"));
+const SummerInLevi = lazy(() => import("./pages/guide/SummerInLevi"));
+const AutumnRuskaInLevi = lazy(() => import("./pages/guide/AutumnRuskaInLevi"));
 
 // Guide HUB Pages
-import SeasonsHub from "./pages/guide/SeasonsHub";
-import ActivitiesHub from "./pages/guide/ActivitiesHub";
-import TravelHub from "./pages/guide/TravelHub";
+const SeasonsHub = lazy(() => import("./pages/guide/SeasonsHub"));
+const ActivitiesHub = lazy(() => import("./pages/guide/ActivitiesHub"));
+const TravelHub = lazy(() => import("./pages/guide/TravelHub"));
 
 // Travel HUB Child Pages
-import GettingAroundLevi from "./pages/guide/GettingAroundLevi";
-import RestaurantsAndServices from "./pages/guide/RestaurantsAndServices";
-import LeviWithChildren from "./pages/guide/LeviWithChildren";
-import LeviWithoutCar from "./pages/guide/LeviWithoutCar";
-import HeatingSystemsInLevi from "./pages/guide/HeatingSystemsInLevi";
-import HolidayPlanner from "./pages/HolidayPlanner";
-import FireplaceInstructions from "./pages/FireplaceInstructions";
-import LeviVsYllasVsRuka from "./pages/guide/LeviVsYllasVsRuka";
-import LeviVsYllasVsRukaEN from "./pages/guide/LeviVsYllasVsRukaEN";
-import LeviVsRovaniemi from "./pages/opas/LeviVsRovaniemi";
-import LeviVsRovaniemiComparison from "./pages/guide/LeviVsRovaniemiComparison";
-import SaunaLevilla from "./pages/opas/SaunaLevillä";
-import FinnishSaunaLevi from "./pages/guide/FinnishSaunaLevi";
-import ChristmasDinnerLevi from "./pages/guide/ChristmasDinnerLevi";
-import LaplandGlossary from "./pages/guide/LaplandGlossary";
-import LevinHinnatPage from "./pages/guide/LevinHinnatPage";
-import PricesInLeviPage from "./pages/guide/PricesInLeviPage";
-import PrijzenInLeviPage from "./pages/guide/PrijzenInLeviPage";
-import PropertyGuide from "./pages/PropertyGuide";
-import BearlodgeGuide from "./pages/accommodations/BearlodgeGuide";
-import SkistarGuide from "./pages/accommodations/SkistarGuide";
-import FrontslopeGuide from "./pages/accommodations/FrontslopeGuide";
-import ApartmentsHub from "./pages/en/apartments/ApartmentsHub";
-import StudioApartments from "./pages/en/apartments/StudioApartments";
-import ApartmentsFor4 from "./pages/en/apartments/ApartmentsFor4";
-import ApartmentsFor6 from "./pages/en/apartments/ApartmentsFor6";
-import ApartmentsFor8 from "./pages/en/apartments/ApartmentsFor8";
-import LargeGroupAccommodation from "./pages/en/apartments/LargeGroupAccommodation";
-import PenthouseApartments from "./pages/en/apartments/PenthouseApartments";
-import TwoBedroomApartments from "./pages/en/apartments/TwoBedroomApartments";
-import ThreeBedroomApartments from "./pages/en/apartments/ThreeBedroomApartments";
-import LeviCenterApartments from "./pages/en/apartments/LeviCenterApartments";
+const GettingAroundLevi = lazy(() => import("./pages/guide/GettingAroundLevi"));
+const RestaurantsAndServices = lazy(() => import("./pages/guide/RestaurantsAndServices"));
+const LeviWithChildren = lazy(() => import("./pages/guide/LeviWithChildren"));
+const LeviWithoutCar = lazy(() => import("./pages/guide/LeviWithoutCar"));
+const HeatingSystemsInLevi = lazy(() => import("./pages/guide/HeatingSystemsInLevi"));
+const HolidayPlanner = lazy(() => import("./pages/HolidayPlanner"));
+const FireplaceInstructions = lazy(() => import("./pages/FireplaceInstructions"));
+const LeviVsYllasVsRuka = lazy(() => import("./pages/guide/LeviVsYllasVsRuka"));
+const LeviVsYllasVsRukaEN = lazy(() => import("./pages/guide/LeviVsYllasVsRukaEN"));
+const LeviVsRovaniemi = lazy(() => import("./pages/opas/LeviVsRovaniemi"));
+const LeviVsRovaniemiComparison = lazy(() => import("./pages/guide/LeviVsRovaniemiComparison"));
+const SaunaLevilla = lazy(() => import("./pages/opas/SaunaLevillä"));
+const FinnishSaunaLevi = lazy(() => import("./pages/guide/FinnishSaunaLevi"));
+const ChristmasDinnerLevi = lazy(() => import("./pages/guide/ChristmasDinnerLevi"));
+const LaplandGlossary = lazy(() => import("./pages/guide/LaplandGlossary"));
+const LevinHinnatPage = lazy(() => import("./pages/guide/LevinHinnatPage"));
+const PricesInLeviPage = lazy(() => import("./pages/guide/PricesInLeviPage"));
+const PrijzenInLeviPage = lazy(() => import("./pages/guide/PrijzenInLeviPage"));
+const PropertyGuide = lazy(() => import("./pages/PropertyGuide"));
+const BearlodgeGuide = lazy(() => import("./pages/accommodations/BearlodgeGuide"));
+const SkistarGuide = lazy(() => import("./pages/accommodations/SkistarGuide"));
+const FrontslopeGuide = lazy(() => import("./pages/accommodations/FrontslopeGuide"));
+const ApartmentsHub = lazy(() => import("./pages/en/apartments/ApartmentsHub"));
+const StudioApartments = lazy(() => import("./pages/en/apartments/StudioApartments"));
+const ApartmentsFor4 = lazy(() => import("./pages/en/apartments/ApartmentsFor4"));
+const ApartmentsFor6 = lazy(() => import("./pages/en/apartments/ApartmentsFor6"));
+const ApartmentsFor8 = lazy(() => import("./pages/en/apartments/ApartmentsFor8"));
+const LargeGroupAccommodation = lazy(() => import("./pages/en/apartments/LargeGroupAccommodation"));
+const PenthouseApartments = lazy(() => import("./pages/en/apartments/PenthouseApartments"));
+const TwoBedroomApartments = lazy(() => import("./pages/en/apartments/TwoBedroomApartments"));
+const ThreeBedroomApartments = lazy(() => import("./pages/en/apartments/ThreeBedroomApartments"));
+const LeviCenterApartments = lazy(() => import("./pages/en/apartments/LeviCenterApartments"));
 
-import CabinVsApartmentLevi from "./pages/guide/CabinVsApartmentLevi";
-import PackingListLapland from "./pages/guide/PackingListLapland";
-import ApresSkiLevi from "./pages/guide/ApresSkiLevi";
-import SnowshoeingLevi from "./pages/activities/SnowshoeingLevi";
-import SantaClausLevi from "./pages/guide/SantaClausLevi";
-import SpringSkiingLevi from "./pages/guide/SpringSkiingLevi";
-import EquipmentRentalLevi from "./pages/guide/EquipmentRentalLevi";
-import NewYearsEveLevi from "./pages/guide/NewYearsEveLevi";
-import FatbikeLevi from "./pages/activities/FatbikeLevi";
-import SkiHolidayLevi from "./pages/guide/SkiHolidayLevi";
-import LeviForKids from "./pages/activities/LeviForKids";
-import IceFishingLevi from "./pages/activities/IceFishingLevi";
-import RomanticLeviGetaway from "./pages/guide/RomanticLeviGetaway";
-import DayTripsFromLevi from "./pages/guide/DayTripsFromLevi";
-import ChristmasDinnerLeviFI from "./pages/guide/ChristmasDinnerLeviFI";
-import EventsInLevi from "./pages/guide/EventsInLevi";
-import HorseRidingLevi from "./pages/activities/HorseRidingLevi";
-import GolfLevi from "./pages/activities/GolfLevi";
-import IceSwimmingLevi from "./pages/activities/IceSwimmingLevi";
-import CanoeingAndSUPLevi from "./pages/activities/CanoeingAndSUPLevi";
-import AccessibleLevi from "./pages/guide/AccessibleLevi";
-import SamiCultureLevi from "./pages/guide/SamiCultureLevi";
-import MonthlyGuideLevi from "./pages/guide/MonthlyGuideLevi";
-import BestTimeNorthernLightsLevi from "./pages/guide/BestTimeNorthernLightsLevi";
-import NorthernLightsSeasonLevi from "./pages/guide/NorthernLightsSeasonLevi";
-import NorthernLightsForecastLevi from "./pages/guide/NorthernLightsForecastLevi";
-import WhereToSeeNorthernLightsLevi from "./pages/guide/WhereToSeeNorthernLightsLevi";
-import NorthernLightsPhotographyLevi from "./pages/guide/NorthernLightsPhotographyLevi";
-import HowNorthernLightsForm from "./pages/guide/HowNorthernLightsForm";
-import NorthernLightsColorsExplained from "./pages/guide/NorthernLightsColorsExplained";
+const CabinVsApartmentLevi = lazy(() => import("./pages/guide/CabinVsApartmentLevi"));
+const PackingListLapland = lazy(() => import("./pages/guide/PackingListLapland"));
+const ApresSkiLevi = lazy(() => import("./pages/guide/ApresSkiLevi"));
+const SnowshoeingLevi = lazy(() => import("./pages/activities/SnowshoeingLevi"));
+const SantaClausLevi = lazy(() => import("./pages/guide/SantaClausLevi"));
+const SpringSkiingLevi = lazy(() => import("./pages/guide/SpringSkiingLevi"));
+const EquipmentRentalLevi = lazy(() => import("./pages/guide/EquipmentRentalLevi"));
+const NewYearsEveLevi = lazy(() => import("./pages/guide/NewYearsEveLevi"));
+const FatbikeLevi = lazy(() => import("./pages/activities/FatbikeLevi"));
+const SkiHolidayLevi = lazy(() => import("./pages/guide/SkiHolidayLevi"));
+const LeviForKids = lazy(() => import("./pages/activities/LeviForKids"));
+const IceFishingLevi = lazy(() => import("./pages/activities/IceFishingLevi"));
+const RomanticLeviGetaway = lazy(() => import("./pages/guide/RomanticLeviGetaway"));
+const DayTripsFromLevi = lazy(() => import("./pages/guide/DayTripsFromLevi"));
+const ChristmasDinnerLeviFI = lazy(() => import("./pages/guide/ChristmasDinnerLeviFI"));
+const EventsInLevi = lazy(() => import("./pages/guide/EventsInLevi"));
+const HorseRidingLevi = lazy(() => import("./pages/activities/HorseRidingLevi"));
+const GolfLevi = lazy(() => import("./pages/activities/GolfLevi"));
+const IceSwimmingLevi = lazy(() => import("./pages/activities/IceSwimmingLevi"));
+const CanoeingAndSUPLevi = lazy(() => import("./pages/activities/CanoeingAndSUPLevi"));
+const AccessibleLevi = lazy(() => import("./pages/guide/AccessibleLevi"));
+const SamiCultureLevi = lazy(() => import("./pages/guide/SamiCultureLevi"));
+const MonthlyGuideLevi = lazy(() => import("./pages/guide/MonthlyGuideLevi"));
+const BestTimeNorthernLightsLevi = lazy(() => import("./pages/guide/BestTimeNorthernLightsLevi"));
+const NorthernLightsSeasonLevi = lazy(() => import("./pages/guide/NorthernLightsSeasonLevi"));
+const NorthernLightsForecastLevi = lazy(() => import("./pages/guide/NorthernLightsForecastLevi"));
+const WhereToSeeNorthernLightsLevi = lazy(() => import("./pages/guide/WhereToSeeNorthernLightsLevi"));
+const NorthernLightsPhotographyLevi = lazy(() => import("./pages/guide/NorthernLightsPhotographyLevi"));
+const HowNorthernLightsForm = lazy(() => import("./pages/guide/HowNorthernLightsForm"));
+const NorthernLightsColorsExplained = lazy(() => import("./pages/guide/NorthernLightsColorsExplained"));
 
 // Component map for dynamically registered SEO pages
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
@@ -188,6 +190,7 @@ const App = () => {
         <BrowserRouter>
           <ScrollToTop />
           <PageTransition>
+            <Suspense fallback={<div className="min-h-screen" />}>
             <Routes>
               {/* Finnish routes (default) */}
               <Route path="/" element={<Index />} />
@@ -442,6 +445,7 @@ const App = () => {
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
+            </Suspense>
           </PageTransition>
         </BrowserRouter>
       </TooltipProvider>
