@@ -15,6 +15,7 @@ import { AuroraAlertSubscribe } from "@/components/AuroraAlertSubscribe";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 
 interface RevontuletProps {
