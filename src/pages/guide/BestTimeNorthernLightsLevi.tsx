@@ -291,6 +291,7 @@ const BestTimeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
                   </AccordionItem>
                 ))}
               </Accordion>
+            </section>
             <GuideDisclaimer lang={lang} />
 
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
