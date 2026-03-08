@@ -216,7 +216,7 @@ const translations = {
         items: [
           {
             type: "Short 2-Hour Tours",
-            desc: "Perfect for first-timers. Learn to operate the snowmobile and enjoy fell-top views. Price typically €100–150 per person.",
+            desc: "Perfect for first-timers. Learn to operate the snowmobile and enjoy fell-top views. Price e.g. from approx. €100 / person – check current prices with the operator.",
             duration: "2 hours",
             icon: "clock",
           },
