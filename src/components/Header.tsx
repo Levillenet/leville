@@ -55,7 +55,6 @@ const Header = () => {
           { name: "Accommodaties", href: routeConfig.accommodations.nl },
           { name: "Last Minute", href: routeConfig.lastMinute.nl, highlight: true },
           { name: "Levi-gids", href: routeConfig.levi.nl },
-          { name: "Evenementen", href: routeConfig.events.nl },
           { name: "Contact", href: routeConfig.contact.nl },
         ];
       default: // Finnish
