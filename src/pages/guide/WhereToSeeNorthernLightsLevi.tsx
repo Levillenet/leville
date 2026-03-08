@@ -150,7 +150,7 @@ Usein paras paikka on aivan majoituksen lähellä — tuttu, turvallinen ja help
 };
 
 const WhereToSeeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
-  const t = translations[lang as keyof typeof translations] || translations.fi;
+  const t = translations[lang as keyof typeof translations] || translations.en;
   const location = useLocation();
   const customUrls: Record<string, string> = { fi: "/opas/missa-nahda-revontulet-levi", en: "/guide/where-to-see-northern-lights-levi" };
   const breadcrumbItems = [

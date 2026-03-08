@@ -174,7 +174,7 @@ In April, seeing northern lights in Levi is already very difficult — nights ar
 };
 
 const NorthernLightsSeasonLevi = ({ lang = "fi" }: Props) => {
-  const t = translations[lang as keyof typeof translations] || translations.fi;
+  const t = translations[lang as keyof typeof translations] || translations.en;
   const location = useLocation();
   const customUrls: Record<string, string> = { fi: "/opas/revontulisesonki-levi", en: "/guide/northern-lights-season-levi" };
   const breadcrumbItems = [

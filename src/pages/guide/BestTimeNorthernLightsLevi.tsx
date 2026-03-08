@@ -193,7 +193,7 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
 };
 
 const BestTimeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
-  const t = translations[lang as keyof typeof translations] || translations.fi;
+  const t = translations[lang as keyof typeof translations] || translations.en;
   const location = useLocation();
 
   const customUrls: Record<string, string> = {

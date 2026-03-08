@@ -145,7 +145,7 @@ Revontulien korkeus selittää miksi ne näkyvät niin laajalla alueella: Levill
 };
 
 const HowNorthernLightsForm = ({ lang = "fi" }: Props) => {
-  const t = translations[lang as keyof typeof translations] || translations.fi;
+  const t = translations[lang as keyof typeof translations] || translations.en;
   const location = useLocation();
   const customUrls: Record<string, string> = { fi: "/opas/miten-revontulet-syntyvat", en: "/guide/how-northern-lights-form" };
   const breadcrumbItems = [

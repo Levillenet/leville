@@ -159,7 +159,7 @@ Käytä kolmanneksen sääntöä: horisontti kuvan alakolmanneksessa, taivas ja 
 };
 
 const NorthernLightsPhotographyLevi = ({ lang = "fi" }: Props) => {
-  const t = translations[lang as keyof typeof translations] || translations.fi;
+  const t = translations[lang as keyof typeof translations] || translations.en;
   const location = useLocation();
   const customUrls: Record<string, string> = { fi: "/opas/revontulien-valokuvaus-levi", en: "/guide/northern-lights-photography-levi" };
   const breadcrumbItems = [
