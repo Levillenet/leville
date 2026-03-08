@@ -86,12 +86,14 @@ import TwoBedroomApartments from "./pages/en/apartments/TwoBedroomApartments";
 import ThreeBedroomApartments from "./pages/en/apartments/ThreeBedroomApartments";
 import LeviCenterApartments from "./pages/en/apartments/LeviCenterApartments";
 
+import CabinVsApartmentLevi from "./pages/guide/CabinVsApartmentLevi";
+import PackingListLapland from "./pages/guide/PackingListLapland";
+
 // Component map for dynamically registered SEO pages
-// When you create a new page component, add it here with a unique key
-// Then register that key in the admin panel under "SEO-sivut"
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
   'ReindeerSafariLevi': ReindeerSafariLevi,
-  // Add new SEO page components here as you create them
+  'CabinVsApartmentLevi': CabinVsApartmentLevi,
+  'PackingListLapland': PackingListLapland,
 };
 
 const queryClient = new QueryClient();
