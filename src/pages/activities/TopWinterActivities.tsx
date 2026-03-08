@@ -381,7 +381,7 @@ const translations = {
             title: "Pistes en liften",
             items: [
               "43 pistes voor alle niveaus",
-              "27 liften inclusief moderne gondellift",
+              "28 liften inclusief diverse lifttypen",
               "Langste piste 2,5 km",
               "Hoogteverschil 325 meter",
               "Gegarandeerd sneeuw van oktober tot mei"

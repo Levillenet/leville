@@ -185,7 +185,7 @@ const PrijzenInLeviPage = () => {
         {/* Section 1: Skipasprijzen */}
         <SectionCard icon={Mountain} title="Skipasprijzen">
           <p className="text-muted-foreground mb-4">
-            Een Levi-skipas geeft toegang tot alle 43 pistes en 27 liften. Je kunt passen online kopen, bij automaten of aan de kassa. Online vooraf kopen is het voordeligst. Kinderen onder 6 met helm skiën gratis met een volwassen skipas.
+            Een Levi-skipas geeft toegang tot alle 43 pistes en 28 liften. Je kunt passen online kopen, bij automaten of aan de kassa. Online vooraf kopen is het voordeligst. Kinderen onder 6 met helm skiën gratis met een volwassen skipas.
           </p>
           <PriceTable
             headers={["Pastype", "Kind (6–11)", "Volwassene (12–64)", "Senior (65+)"]}

@@ -115,7 +115,7 @@ const content: Record<Language, GuideContent> = {
     heading: "Alles wat je moet weten over Levi",
     subtitle: "Lokale tips over accommodatie, activiteiten en praktische info",
     cards: [
-      { icon: Mountain, title: "Skiën in Levi", desc: "43 pistes, 27 liften en het grootste skigebied van Finland. Gids voor alle niveaus.", href: "/nl/gids/skieen-in-levi" },
+      { icon: Mountain, title: "Skiën in Levi", desc: "43 pistes, 28 liften en het grootste skigebied van Finland. Gids voor alle niveaus.", href: "/nl/gids/skieen-in-levi" },
       { icon: TreePine, title: "Langlaufen", desc: "Meer dan 230 km geprepareerde loipes in het fjälllandschap. Routes en tips.", href: "/nl/gids/langlaufen-in-levi" },
       { icon: Flame, title: "Finse sauna", desc: "Rooksauna's, ijszwemmen en instructies – jouw gids voor de Finse saunacultuur.", href: "/nl/levi" },
       { icon: UtensilsCrossed, title: "Restaurants en voorzieningen", desc: "De beste restaurants, winkels en voorzieningen in het centrum van Levi.", href: "/nl/levi" },

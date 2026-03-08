@@ -177,7 +177,7 @@ const LevinHinnatPage = () => {
         {/* Osio 1: Hissilippujen hinnat */}
         <SectionCard icon={Mountain} title="Hissilippujen hinnat">
           <p className="text-muted-foreground mb-4">
-            Levin hissilippu kattaa kaikki 43 rinnettä ja 27 hissiä. Hissilipun saa netistä, automaatilta tai lippukassalta. Edullisin tapa on ostaa nettikaupasta etukäteen. Alle 6-vuotiaat kypärää käyttävät lapset laskettelevat ilmaiseksi aikuisen hissilipulla.
+            Levin hissilippu kattaa kaikki 43 rinnettä ja 28 hissiä. Hissilipun saa netistä, automaatilta tai lippukassalta. Edullisin tapa on ostaa nettikaupasta etukäteen. Alle 6-vuotiaat kypärää käyttävät lapset laskettelevat ilmaiseksi aikuisen hissilipulla.
           </p>
           <PriceTable
             headers={["Lipputyyppi", "Lapsi (6–11 v.)", "Aikuinen (12–64 v.)", "Seniori (65+ v.)"]}

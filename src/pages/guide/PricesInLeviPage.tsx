@@ -185,7 +185,7 @@ const PricesInLeviPage = () => {
         {/* Section 1: Ski Pass Prices */}
         <SectionCard icon={Mountain} title="Ski Pass Prices">
           <p className="text-muted-foreground mb-4">
-            A Levi ski pass covers all 43 slopes and 27 lifts. You can buy passes online, from ticket machines or at the counter. The cheapest option is to buy online in advance. Children under 6 wearing a helmet ski free with an adult pass.
+            A Levi ski pass covers all 43 slopes and 28 lifts. You can buy passes online, from ticket machines or at the counter. The cheapest option is to buy online in advance. Children under 6 wearing a helmet ski free with an adult pass.
           </p>
           <PriceTable
             headers={["Pass Type", "Child (6–11)", "Adult (12–64)", "Senior (65+)"]}
