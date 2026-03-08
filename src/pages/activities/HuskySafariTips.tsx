@@ -62,7 +62,7 @@ const translations = {
           },
           {
             type: "Yön yli expeditiot",
-            desc: "Uskomaton seikkailu yöpymisellä erämaakämpällä. Tähtitaivas, revontulet ja hiljaisuus. Hinta alkaen 400€/yö.",
+            desc: "Uskomaton seikkailu yöpymisellä erämaakämpällä. Tähtitaivas, revontulet ja hiljaisuus. Hinta esim. alkaen n. 400 € / yö – tarkista palveluntuottajalta.",
             duration: "1–3 yötä",
             icon: "snowflake",
           },
