@@ -25,7 +25,7 @@ const content: Record<Language, GuideContent> = {
     heading: "Kaikki mitä tarvitset tietää Levin lomasta",
     subtitle: "Paikalliset vinkit majoituksesta, aktiviteeteista ja käytännön asioista",
     cards: [
-      { icon: Mountain, title: "Laskettelu Levillä", desc: "43 rinnettä, 27 hissiä ja Suomen suurin hiihtokeskus. Aloittelijan ja kokeneemman laskijan opas.", href: "/opas/laskettelu-levi" },
+      { icon: Mountain, title: "Laskettelu Levillä", desc: "43 rinnettä, 28 hissiä ja Suomen suurin hiihtokeskus. Aloittelijan ja kokeneemman laskijan opas.", href: "/opas/laskettelu-levi" },
       { icon: TreePine, title: "Hiihtoladut ja murtomaahiihto", desc: "Yli 230 km huollettua latua tunturimaisemissa. Reitit, palvelut ja vinkit.", href: "/opas/hiihtoladut-levi" },
       { icon: Flame, title: "Sauna ja saunaelämykset", desc: "Savusaunat, avantouinti ja sähkökiukaan käyttöohje – opas suomalaiseen saunaan.", href: "/opas/sauna-levilla" },
       { icon: UtensilsCrossed, title: "Ravintolat ja palvelut", desc: "Levin parhaat ravintolat, kaupat, Alko ja käytännön palvelut keskustassa.", href: "/opas/ravintolat-ja-palvelut-levilla" },
