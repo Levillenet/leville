@@ -490,6 +490,396 @@ function getMonthData(month: number, lang: string): MonthData | null {
       };
     }
 
+    case 5: {
+      const mName = monthNames[lang]?.[5] || "May";
+      return {
+        meta: isFi
+          ? { title: "Levi toukokuussa — Kevät, sulamisvedet ja hiljaisuus | Leville.net", description: "Millaista Levillä on toukokuussa? Rinteet sulkeutuvat, luonto herää ja hiljaisuus laskeutuu tunturiin. Siirtymäkauden opas.", canonical }
+          : { title: "Levi in May — Spring Thaw, Silence & Renewal | Leville.net", description: "What is Levi like in May? Slopes close, nature awakens and silence descends on the fells. A guide to the transition season.", canonical },
+        h1: isFi ? "Levi toukokuussa — kevään ja kesän välissä" : "Levi in May — Between Spring and Summer",
+        subtitle: isFi ? "Siirtymäkausi, hiljaisuus ja luonnon herääminen" : "Transition season, silence and nature awakening",
+        quickFacts: [
+          { icon: <Thermometer className="w-5 h-5" />, label: isFi ? "Lämpötila" : "Temperature", value: "0…+10 °C" },
+          { icon: <Sun className="w-5 h-5" />, label: isFi ? "Päivänvalo" : "Daylight", value: "18–22 h" },
+          { icon: <Snowflake className="w-5 h-5" />, label: isFi ? "Lumi" : "Snow", value: isFi ? "Sulaa nopeasti" : "Melting fast" },
+          { icon: <Users className="w-5 h-5" />, label: isFi ? "Sesonki" : "Season", value: isFi ? "Hyvin rauhallinen" : "Very quiet" },
+        ],
+        whatItsLike: {
+          title: isFi ? "Millaista Levillä on toukokuussa?" : "What is Levi like in May?",
+          text: isFi
+            ? "Toukokuu on Levin siirtymäkautta. Rinteet ja ladut sulkeutuvat yleensä vapun tienoilla. Lumi sulaa nopeasti etenkin kylässä, mutta tunturin huipulla voi olla lunta pitkälle toukokuuhun. Monet ravintolat ja safariyrittäjät pitävät taukoa ennen kesäsesonkia. Luonto herää — muuttolinnut palaavat, purot virtaavat, koivut silmukoivat. Toukokuu on hiljaista ja edullista, mutta palveluvalikoima on rajallisempi."
+            : "May is Levi's transition season. Slopes and trails usually close around May Day. Snow melts quickly especially in the village, but fell tops may have snow well into May. Many restaurants and safari operators take a break before summer season. Nature awakens — migratory birds return, streams flow, birch trees bud. May is quiet and affordable, but the range of services is more limited.",
+        },
+        whatToDo: {
+          title: isFi ? "Mitä tehdä toukokuussa?" : "What to do in May?",
+          items: isFi
+            ? [
+                "Vaellus ja kävely — tunturireitit aukeavat lumen sulettua (loppukuussa)",
+                "Lintujen tarkkailu — muuttolinnut palaavat Lappiin",
+                "Kalastus — Ounasjoki vapautuu jäästä, kalastuskausi alkaa",
+                "Pyöräily — maantiepyöräily mahdollista kun tiet kuivuvat",
+                "Hiljaisuus ja luonnon heräämisen seuraaminen",
+              ]
+            : [
+                "Hiking and walking — fell trails open as snow melts (late month)",
+                "Birdwatching — migratory birds return to Lapland",
+                "Fishing — Ounasjoki river breaks free from ice, fishing season begins",
+                "Cycling — road cycling possible as roads dry out",
+                "Silence and watching nature awaken",
+              ],
+        },
+        events: {
+          title: isFi ? "Tapahtumat" : "Events",
+          items: isFi
+            ? ["Toukokuussa ei tyypillisesti ole suuria tapahtumia — siirtymäkausi palvelujen välillä."]
+            : ["May typically has no major events — it's a transition period between seasons."],
+          disclaimer: isFi ? "Tarkista: levi.fi/tapahtumat" : "Check: levi.fi/tapahtumat",
+        },
+        tips: {
+          title: isFi ? "Käytännön vinkit" : "Practical Tips",
+          items: isFi
+            ? [
+                "Tarkista etukäteen mitkä palvelut ovat auki — siirtymäkaudella valikoima rajoitettu",
+                "Kelirikkotilanteen vuoksi maastopolut voivat olla mutaisia — kumisaappaat hyödylliset",
+                "Hyttyset eivät vielä vaivaa toukokuussa",
+                "Edullisinta aikaa majoituksessa",
+              ]
+            : [
+                "Check in advance which services are open — limited selection during transition season",
+                "Trails can be muddy due to thaw — rubber boots are useful",
+                "Mosquitoes are not yet an issue in May",
+                "Most affordable time for accommodation",
+              ],
+        },
+        faqs: isFi
+          ? [
+              { question: "Voiko toukokuussa lasketella?", answer: "Yleensä ei — rinteet sulkeutuvat vapun tienoilla. Tarkista levi.fi." },
+              { question: "Onko toukokuussa tekemistä?", answer: "Kyllä luontoaktiviteetteja, mutta safarit ja osa ravintoloista pitävät taukoa. Rauhallista ja edullista." },
+              { question: "Onko toukokuussa lunta?", answer: "Kylässä ei juuri. Tunturin huipulla mahdollisesti. Lumi sulaa nopeasti." },
+            ]
+          : [
+              { question: "Can you ski in May?", answer: "Usually not — slopes close around May Day. Check levi.fi." },
+              { question: "Is there anything to do in May?", answer: "Yes, nature activities, but safaris and some restaurants take a break. Quiet and affordable." },
+              { question: "Is there snow in May?", answer: "Barely any in the village. Possibly on fell tops. Snow melts quickly." },
+            ],
+        readNext: isFi
+          ? [
+              { title: "Kevät Levillä", desc: "Kevätkauden opas", href: "/opas/kevat-levi" },
+              { title: "Kesä Levillä", desc: "Kesäkauden opas", href: "/opas/kesa-levi" },
+              { title: "Sää Levillä", desc: "Sääolosuhteet kuukausittain", href: "/levi/saatieto-levilta" },
+              { title: "Majoitukset", desc: "Löydä sopiva majoitus", href: "/majoitukset" },
+            ]
+          : [
+              { title: "Spring in Levi", desc: "Spring season guide", href: "/guide/spring-in-levi" },
+              { title: "Summer in Levi", desc: "Summer season guide", href: "/guide/summer-in-levi" },
+              { title: "Weather in Levi", desc: "Weather by month", href: "/guide/weather-in-levi" },
+              { title: "Accommodations", desc: "Find accommodation", href: "/en/accommodations" },
+            ],
+        cta: isFi
+          ? { text: "Toukokuu on hiljaista ja edullista — täydellinen luonnon ystäville.", href: "/majoitukset" }
+          : { text: "May is quiet and affordable — perfect for nature lovers.", href: "/en/accommodations" },
+        hreflang,
+        breadcrumbs: [
+          { name: isFi ? "Etusivu" : "Home", url: isFi ? base : `${base}/en` },
+          guideBreadcrumb,
+          { name: isFi ? `Levi ${mName}` : `Levi in ${mName}`, url: canonical },
+        ],
+      };
+    }
+
+    case 6: {
+      const mName = monthNames[lang]?.[6] || "June";
+      return {
+        meta: isFi
+          ? { title: "Levi kesäkuussa — Yötön yö, vaellus ja keskiyön aurinko | Leville.net", description: "Millaista Levillä on kesäkuussa? Yötön yö alkaa, luonto kukoistaa ja kesäaktiviteetit käynnistyvät.", canonical }
+          : { title: "Levi in June — Midnight Sun, Hiking & Summer Begins | Leville.net", description: "What is Levi like in June? Midnight sun starts, nature blooms and summer activities begin.", canonical },
+        h1: isFi ? "Levi kesäkuussa — yötön yö ja luonnon herääminen" : "Levi in June — Midnight Sun and Nature in Bloom",
+        subtitle: isFi ? "Aurinko ei laske — luonto räjähtää vihreäksi" : "The sun doesn't set — nature explodes into green",
+        quickFacts: [
+          { icon: <Thermometer className="w-5 h-5" />, label: isFi ? "Lämpötila" : "Temperature", value: "+5…+20 °C" },
+          { icon: <Sun className="w-5 h-5" />, label: isFi ? "Päivänvalo" : "Daylight", value: "24 h ☀️" },
+          { icon: <Snowflake className="w-5 h-5" />, label: isFi ? "Lumi" : "Snow", value: isFi ? "Sulanut" : "Melted" },
+          { icon: <Users className="w-5 h-5" />, label: isFi ? "Sesonki" : "Season", value: isFi ? "Kasvava" : "Growing" },
+        ],
+        whatItsLike: {
+          title: isFi ? "Millaista Levillä on kesäkuussa?" : "What is Levi like in June?",
+          text: isFi
+            ? "Kesäkuu on Lapin kesän alku. Yötön yö alkaa — aurinko ei laske lainkaan kesäkuun alusta heinäkuun alkuun. Luonto räjähtää vihreäksi muutamassa viikossa. Tunturiniityt kukkivat, joet virtaavat ja lintujen laulu täyttää metsät. Kesäaktiviteetit (vaellus, pyöräily, kalastus, melonta) käynnistyvät täysillä. Hyttyset ilmestyvät loppukuussa."
+            : "June marks the beginning of Lapland summer. The midnight sun starts — the sun doesn't set at all from early June to early July. Nature explodes into green within weeks. Fell meadows bloom, rivers flow and birdsong fills the forests. Summer activities (hiking, cycling, fishing, canoeing) launch in full. Mosquitoes appear towards the end of the month.",
+        },
+        whatToDo: {
+          title: isFi ? "Mitä tehdä kesäkuussa?" : "What to do in June?",
+          items: isFi
+            ? [
+                "Vaellus tunturiin — reitit aukeavat, pitkät päivät mahdollistavat myöhäiset retket",
+                "Keskiyön aurinko -golf — pelaa klo 23 tai klo 2 yöllä",
+                "Maastopyöräily ja fatbike — Levi Bike Park aukeaa",
+                "Kalastus Ounasjoella — perhokalastuskausi alkaa",
+                "Melonta ja SUP Immeljärvellä",
+                "Keskiyön auringon ihastelu — se ei koskaan vanhene",
+              ]
+            : [
+                "Hiking into the fells — trails open, long days allow late trips",
+                "Midnight sun golf — play at 11 PM or 2 AM",
+                "Mountain biking and fatbiking — Levi Bike Park opens",
+                "Fishing on Ounasjoki river — fly fishing season begins",
+                "Canoeing and SUP on Lake Immeljärvi",
+                "Admiring the midnight sun — it never gets old",
+              ],
+        },
+        events: {
+          title: isFi ? "Tapahtumat" : "Events",
+          items: isFi
+            ? ["Kesäsesongin avajaiset ja ensimmäiset kesätapahtumat — tarkista ohjelma etukäteen."]
+            : ["Summer season opening and first summer events — check the programme in advance."],
+          disclaimer: isFi ? "Tarkista: levi.fi/tapahtumat" : "Check: levi.fi/tapahtumat",
+        },
+        tips: {
+          title: isFi ? "Käytännön vinkit" : "Practical Tips",
+          items: isFi
+            ? [
+                "Hyttyssuoja! Kesäkuun loppu on hyttyskauden alkua — ota mukaan hyttysverkko ja suojavoide",
+                "Yöt ovat valoisia → pimennysverhot tai unimaski avuksi nukkumiseen",
+                "Sää vaihtelee — voi olla +20 °C auringossa mutta +5 °C tuulisena päivänä. Kerrospukeutuminen.",
+              ]
+            : [
+                "Mosquito repellent! Late June marks the start of mosquito season — bring nets and repellent",
+                "Nights are bright → blackout curtains or a sleep mask help with sleeping",
+                "Weather varies — can be +20 °C in sun but +5 °C on a windy day. Layer up.",
+              ],
+        },
+        faqs: isFi
+          ? [
+              { question: "Onko kesäkuussa ihan valoisaa yöllä?", answer: "Kyllä, aurinko ei laske lainkaan." },
+              { question: "Ovatko hyttyset ongelma?", answer: "Loppukuussa alkavat. Ota hyttyssuoja mukaan." },
+              { question: "Mitä lämpötilaa odottaa?", answer: "Vaihteleva, +5…+20 °C. Valmistaudu molempiin." },
+            ]
+          : [
+              { question: "Is it truly light all night in June?", answer: "Yes, the sun doesn't set at all." },
+              { question: "Are mosquitoes a problem?", answer: "They start appearing towards the end of June. Bring repellent." },
+              { question: "What temperatures to expect?", answer: "Variable, +5…+20 °C. Be prepared for both." },
+            ],
+        readNext: isFi
+          ? [
+              { title: "Kesä Levillä", desc: "Kesäkauden kokonaisopas", href: "/opas/kesa-levi" },
+              { title: "Vaellus ja pyöräily", desc: "Reitit ja vinkit", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi" },
+              { title: "Majoitukset", desc: "Löydä sopiva majoitus", href: "/majoitukset" },
+            ]
+          : [
+              { title: "Summer in Levi", desc: "Complete summer guide", href: "/guide/summer-in-levi" },
+              { title: "Hiking & Biking", desc: "Trails and tips", href: "/activities/hiking-and-biking-levi" },
+              { title: "Accommodations", desc: "Find accommodation", href: "/en/accommodations" },
+            ],
+        cta: isFi
+          ? { text: "Kesäloma Levillä — yötön yö, vaellus ja keskiyön golf.", href: "/majoitukset" }
+          : { text: "Summer holiday in Levi — midnight sun, hiking and midnight golf.", href: "/en/accommodations" },
+        hreflang,
+        breadcrumbs: [
+          { name: isFi ? "Etusivu" : "Home", url: isFi ? base : `${base}/en` },
+          guideBreadcrumb,
+          { name: isFi ? `Levi ${mName}` : `Levi in ${mName}`, url: canonical },
+        ],
+      };
+    }
+
+    case 7: {
+      const mName = monthNames[lang]?.[7] || "July";
+      return {
+        meta: isFi
+          ? { title: "Levi heinäkuussa — Keskikesä, vaellus ja vesistöt | Leville.net", description: "Millaista Levillä on heinäkuussa? Lapin kesän huippu — lämpimintä, valoisinta ja eniten aktiviteetteja.", canonical }
+          : { title: "Levi in July — Midsummer, Hiking & Lake Activities | Leville.net", description: "What is Levi like in July? Peak Lapland summer — warmest, brightest and most activities.", canonical },
+        h1: isFi ? "Levi heinäkuussa — keskikesän huippu" : "Levi in July — Peak Midsummer",
+        subtitle: isFi ? "Lämpimin kuukausi, kaikki aktiviteetit täydessä vauhdissa" : "Warmest month, all activities in full swing",
+        quickFacts: [
+          { icon: <Thermometer className="w-5 h-5" />, label: isFi ? "Lämpötila" : "Temperature", value: "+10…+25 °C" },
+          { icon: <Sun className="w-5 h-5" />, label: isFi ? "Päivänvalo" : "Daylight", value: "22–24 h" },
+          { icon: <Snowflake className="w-5 h-5" />, label: isFi ? "Lumi" : "Snow", value: isFi ? "Ei lainkaan" : "None" },
+          { icon: <Users className="w-5 h-5" />, label: isFi ? "Sesonki" : "Season", value: isFi ? "Kesähuippu" : "Summer peak" },
+        ],
+        whatItsLike: {
+          title: isFi ? "Millaista Levillä on heinäkuussa?" : "What is Levi like in July?",
+          text: isFi
+            ? "Heinäkuu on Levin lämpimin ja vilkkain kesäkuukausi. Suomalaisten kesälomakausi tuo perheitä pohjoiseen. Kaikki kesäaktiviteetit ovat täydessä vauhdissa. Luonto on vehreimmillään, marjat kypsyvät (mustikka ja puolukka myöhemmin) ja vesistöt ovat lämpimimmillään. Hyttyset ovat aktiivisimmillaan heinäkuussa."
+            : "July is Levi's warmest and busiest summer month. The Finnish summer holiday season brings families north. All summer activities are in full swing. Nature is at its lushest, berries are ripening (blueberries and lingonberries later) and waters are at their warmest. Mosquitoes are most active in July.",
+        },
+        whatToDo: {
+          title: isFi ? "Mitä tehdä heinäkuussa?" : "What to do in July?",
+          items: isFi
+            ? [
+                "Vaellus kansallispuistossa (Pallas-Yllästunturi)",
+                "Maastopyöräily ja Levi Bike Park",
+                "SUP ja melonta Immeljärvellä ja Ounasjoella",
+                "Kalastus — paras aika kesäkalastukselle",
+                "Golf keskiyön auringossa",
+                "Uiminen ja rantapäivä Immeljärvellä (Saunabar-ravintola)",
+                "Marjojen poiminta (loppukuussa mustikkaa)",
+              ]
+            : [
+                "Hiking in Pallas-Yllästunturi National Park",
+                "Mountain biking and Levi Bike Park",
+                "SUP and canoeing on Lake Immeljärvi and Ounasjoki",
+                "Fishing — best time for summer fishing",
+                "Golf under the midnight sun",
+                "Swimming and beach day at Lake Immeljärvi (Saunabar restaurant)",
+                "Berry picking (blueberries towards end of month)",
+              ],
+        },
+        events: {
+          title: isFi ? "Tapahtumat" : "Events",
+          items: isFi
+            ? ["Musiikkitapahtumat ja festivaalit — vaihtelee vuosittain. Tarkista ohjelma."]
+            : ["Music events and festivals — varies by year. Check the programme."],
+          disclaimer: isFi ? "Tarkista: levi.fi/tapahtumat" : "Check: levi.fi/tapahtumat",
+        },
+        tips: {
+          title: isFi ? "Käytännön vinkit" : "Practical Tips",
+          items: isFi
+            ? [
+                "Hyttyset ovat pahimmillaan — suojavoide, verkko ja pitkähihaiset vaatteet",
+                "Uiminen: Lapin vedet ovat viileitä (+15–18 °C) mutta virkistäviä",
+                "Majoitukset voivat olla kysyttyjä suomalaisten lomaviikkoina (vk 27–30)",
+              ]
+            : [
+                "Mosquitoes are at their worst — repellent, nets and long sleeves recommended",
+                "Swimming: Lapland waters are cool (+15–18 °C) but refreshing",
+                "Accommodation can be in demand during Finnish holiday weeks (weeks 27–30)",
+              ],
+        },
+        faqs: isFi
+          ? [
+              { question: "Kuinka lämmintä heinäkuussa on?", answer: "Tyypillisesti +15…+25 °C, parhaimmillaan jopa +30 °C. Lapin ennätys on yli +35 °C." },
+              { question: "Onko heinäkuussa hyttysiä?", answer: "Kyllä, heinäkuu on hyttyssesongin huippua. Varaudu hyvin." },
+              { question: "Voiko uida?", answer: "Kyllä, Immeljärvellä ja Ounasjoella. Vesi on viileää mutta virkistävää." },
+            ]
+          : [
+              { question: "How warm is it in July?", answer: "Typically +15…+25 °C, sometimes up to +30 °C. Lapland's record is over +35 °C." },
+              { question: "Are there mosquitoes in July?", answer: "Yes, July is peak mosquito season. Be well prepared." },
+              { question: "Can you swim?", answer: "Yes, in Lake Immeljärvi and Ounasjoki. Water is cool but refreshing." },
+            ],
+        readNext: isFi
+          ? [
+              { title: "Kesä Levillä", desc: "Kesäkauden kokonaisopas", href: "/opas/kesa-levi" },
+              { title: "Melonta ja SUP", desc: "Vesillä Levillä", href: "/aktiviteetit/melonta-ja-sup-levi" },
+              { title: "Vaellus ja pyöräily", desc: "Reitit ja vinkit", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi" },
+              { title: "Majoitukset", desc: "Löydä sopiva majoitus", href: "/majoitukset" },
+            ]
+          : [
+              { title: "Summer in Levi", desc: "Complete summer guide", href: "/guide/summer-in-levi" },
+              { title: "Canoeing & SUP", desc: "Water activities in Levi", href: "/activities/canoeing-and-sup-levi" },
+              { title: "Hiking & Biking", desc: "Trails and tips", href: "/activities/hiking-and-biking-levi" },
+              { title: "Accommodations", desc: "Find accommodation", href: "/en/accommodations" },
+            ],
+        cta: isFi
+          ? { text: "Heinäkuu on Lapin kesän huippu — varaa kesälomasi Leville.", href: "/majoitukset" }
+          : { text: "July is the peak of Lapland summer — book your summer holiday.", href: "/en/accommodations" },
+        hreflang,
+        breadcrumbs: [
+          { name: isFi ? "Etusivu" : "Home", url: isFi ? base : `${base}/en` },
+          guideBreadcrumb,
+          { name: isFi ? `Levi ${mName}` : `Levi in ${mName}`, url: canonical },
+        ],
+      };
+    }
+
+    case 8: {
+      const mName = monthNames[lang]?.[8] || "August";
+      return {
+        meta: isFi
+          ? { title: "Levi elokuussa — Kesän loppu, marjat ja pimeät yöt palaavat | Leville.net", description: "Millaista Levillä on elokuussa? Kesän jatkoa, marjakausi huipussaan, ensimmäiset revontulet ja syksyn esimaku.", canonical }
+          : { title: "Levi in August — Late Summer, Berries & Dark Nights Return | Leville.net", description: "What is Levi like in August? Summer continues, berry season peaks, first northern lights and a hint of autumn.", canonical },
+        h1: isFi ? "Levi elokuussa — kesän loppu ja syksyn esimaku" : "Levi in August — Late Summer and a Taste of Autumn",
+        subtitle: isFi ? "Marjat, hiljaisuus ja ensimmäiset revontulet" : "Berries, silence and the first Northern Lights",
+        quickFacts: [
+          { icon: <Thermometer className="w-5 h-5" />, label: isFi ? "Lämpötila" : "Temperature", value: "+8…+18 °C" },
+          { icon: <Sun className="w-5 h-5" />, label: isFi ? "Päivänvalo" : "Daylight", value: "16–20 h" },
+          { icon: <Snowflake className="w-5 h-5" />, label: isFi ? "Lumi" : "Snow", value: isFi ? "Ei vielä" : "Not yet" },
+          { icon: <Users className="w-5 h-5" />, label: isFi ? "Sesonki" : "Season", value: isFi ? "Rauhallinen" : "Quiet" },
+        ],
+        whatItsLike: {
+          title: isFi ? "Millaista Levillä on elokuussa?" : "What is Levi like in August?",
+          text: isFi
+            ? "Elokuu on Lapin aliarvostetuin kuukausi. Kesä jatkuu mutta yöt pimenevät — ja se tarkoittaa revontulien paluuta! Ensimmäiset aurora-havainnot ovat mahdollisia elokuun lopussa. Marjakausi on huipussaan: mustikat, puolukat ja lakat kypsyvät tunturien rinteillä. Hyttyset vähenevät merkittävästi. Luonto alkaa valmistautua syksyyn — ensimmäiset keltaiset lehdet ilmestyvät kuun lopussa."
+            : "August is Lapland's most underrated month. Summer continues but nights darken — meaning the Northern Lights return! First aurora sightings are possible in late August. Berry season is at its peak: blueberries, lingonberries and cloudberries ripen on the fell slopes. Mosquitoes decrease significantly. Nature starts preparing for autumn — first yellow leaves appear at month's end.",
+        },
+        whatToDo: {
+          title: isFi ? "Mitä tehdä elokuussa?" : "What to do in August?",
+          items: isFi
+            ? [
+                "Marjojen poiminta — mustikka ja puolukka parhaimmillaan",
+                "Vaellus — reitit tyhjempiä kuin heinäkuussa, hyttyset vähenevät",
+                "Revontulien katselu — ensimmäiset mahdolliset havainnot loppukuussa",
+                "Kalastus — edelleen hyvää",
+                "Pyöräily ja maastopyöräily",
+                "Sienien poiminta — herkkutatit ja kantarellit",
+              ]
+            : [
+                "Berry picking — blueberries and lingonberries at their best",
+                "Hiking — trails are emptier than July, mosquitoes decreasing",
+                "Northern Lights watching — first possible sightings in late August",
+                "Fishing — still good",
+                "Cycling and mountain biking",
+                "Mushroom foraging — porcini and chanterelles",
+              ],
+        },
+        events: {
+          title: isFi ? "Tapahtumat" : "Events",
+          items: isFi
+            ? ["Elokuussa ei tyypillisesti suuria tapahtumia — rauhallinen aika ennen ruskakautta."]
+            : ["August typically has no major events — a peaceful time before the ruska season."],
+          disclaimer: isFi ? "Tarkista: levi.fi/tapahtumat" : "Check: levi.fi/tapahtumat",
+        },
+        tips: {
+          title: isFi ? "Käytännön vinkit" : "Practical Tips",
+          items: isFi
+            ? [
+                "Hyttyset vähenevät elokuussa merkittävästi — helpompi olla ulkona",
+                "Yöt viilenevät — ota villapaitoja ja lämmin takki mukaan iltoihin",
+                "Jokamiehenoikeus: saat poimia marjoja ja sieniä vapaasti metsistä",
+                "Rauhallinen ja edullinen aika — hyvä hinta-laatusuhde",
+              ]
+            : [
+                "Mosquitoes decrease significantly in August — easier to be outdoors",
+                "Evenings get cooler — bring warm layers for the nights",
+                "Everyman's right: you can freely pick berries and mushrooms in the forests",
+                "Quiet and affordable time — excellent value",
+              ],
+        },
+        faqs: isFi
+          ? [
+              { question: "Näkeekö elokuussa revontulia?", answer: "Mahdollisesti loppukuussa kun yöt pimenevät. Ei taattua." },
+              { question: "Milloin marjakausi on?", answer: "Mustikka ja puolukka tyypillisesti elo–syyskuussa. Lakka heinä–elokuussa." },
+              { question: "Onko elokuussa hyttysiä?", answer: "Selvästi vähemmän kuin heinäkuussa. Suojavoide silti mukaan." },
+            ]
+          : [
+              { question: "Can you see the Northern Lights in August?", answer: "Possibly in late August when nights darken. Not guaranteed." },
+              { question: "When is berry season?", answer: "Blueberries and lingonberries typically August–September. Cloudberries July–August." },
+              { question: "Are there mosquitoes in August?", answer: "Significantly fewer than July. Still bring repellent." },
+            ],
+        readNext: isFi
+          ? [
+              { title: "Kesä Levillä", desc: "Kesäkauden opas", href: "/opas/kesa-levi" },
+              { title: "Ruska Levillä", desc: "Syksyn väriloisto", href: "/opas/syksy-ruska-levi" },
+              { title: "Revontulet", desc: "Revontuliopas", href: "/revontulet" },
+              { title: "Majoitukset", desc: "Löydä sopiva majoitus", href: "/majoitukset" },
+            ]
+          : [
+              { title: "Summer in Levi", desc: "Summer season guide", href: "/guide/summer-in-levi" },
+              { title: "Autumn Ruska", desc: "Fall colors in Levi", href: "/guide/autumn-ruska-in-levi" },
+              { title: "Northern Lights", desc: "Aurora guide", href: "/revontulet" },
+              { title: "Accommodations", desc: "Find accommodation", href: "/en/accommodations" },
+            ],
+        cta: isFi
+          ? { text: "Elokuu on Levin aliarvostetuin aika — marjat, hiljaisuus ja ensimmäiset revontulet.", href: "/majoitukset" }
+          : { text: "August is Levi's most underrated time — berries, silence and the first Northern Lights.", href: "/en/accommodations" },
+        hreflang,
+        breadcrumbs: [
+          { name: isFi ? "Etusivu" : "Home", url: isFi ? base : `${base}/en` },
+          guideBreadcrumb,
+          { name: isFi ? `Levi ${mName}` : `Levi in ${mName}`, url: canonical },
+        ],
+      };
+    }
+
     default:
       return null;
   }
