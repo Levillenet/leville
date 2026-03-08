@@ -136,8 +136,8 @@ const translations = {
     faq: {
       title: "Frequently Asked Questions",
       items: [
-        { q: "What's the most popular après-ski spot?", a: "Hullu Poro is by far the most famous après-ski venue in Levi. Live music, karaoke and nightclub all in one." },
-        { q: "Is there a nightclub in Levi?", a: "Yes, connected to Hullu Poro. Open late during peak season. Age limit usually 20 or 22." },
+         { q: "What's the most popular après-ski spot?", a: "Hullu Poro Arena is by far the most famous après-ski venue in Levi. Live music, karaoke and nightclub all in one." },
+         { q: "Is there a nightclub in Levi?", a: "Yes, Ihku is Levi's best-known nightclub. Open late during peak season. Age limit usually 20 or 22." },
         { q: "Can you go out in ski clothes?", a: "Yes, après-ski is casual and people come straight from the slopes. Ski clothes are completely normal." }
       ]
     },
