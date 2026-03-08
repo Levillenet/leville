@@ -112,6 +112,8 @@ const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = 
   'NewYearsEveLevi': NewYearsEveLevi,
   'FatbikeLevi': FatbikeLevi,
   'SkiHolidayLevi': SkiHolidayLevi,
+  'LeviForKids': LeviForKids,
+  'IceFishingLevi': IceFishingLevi,
 };
 
 const queryClient = new QueryClient();
