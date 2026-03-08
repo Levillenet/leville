@@ -596,6 +596,54 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                     </CardContent>
                   </Card>
                 </Link>
+
+                {/* Sauna Guide Link */}
+                <Link 
+                  to={routeConfig.finnishSauna[lang]}
+                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
+                >
+                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
+                    <CardContent className="p-4 sm:p-5">
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Flame className="w-5 h-5 text-primary" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
+                            {c.saunaTitle}
+                          </h3>
+                          <p className="text-sm text-muted-foreground mt-0.5">
+                            {c.saunaDesc}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+
+                {/* Events Link */}
+                <Link 
+                  to={routeConfig.events[lang]}
+                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
+                >
+                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
+                    <CardContent className="p-4 sm:p-5">
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-sky-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Calendar className="w-5 h-5 text-sky-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
+                            {c.eventsTitle}
+                          </h3>
+                          <p className="text-sm text-muted-foreground mt-0.5">
+                            {c.eventsDesc}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               </div>
             </section>
 

@@ -20,6 +20,7 @@ const Header = () => {
           { name: "Accommodations", href: routeConfig.accommodations.en },
           { name: "Last Minute", href: routeConfig.lastMinute.en, highlight: true },
           { name: "Levi Guide", href: routeConfig.levi.en },
+          { name: "Events", href: routeConfig.events.en },
           { name: "Contact", href: routeConfig.contact.en },
         ];
       case "sv":
