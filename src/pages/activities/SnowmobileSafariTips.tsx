@@ -291,13 +291,13 @@ const translations = {
           ],
         },
         prices: {
-          title: "Typical Prices (2024–2025)",
-          list: [
-            "2h safari: €100–160 / person",
-            "4h safari: €180–260 / person",
-            "Evening safari (aurora chance): €150–220 / person",
-            "Own gloves and face protection: included or €10–20 extra",
-          ],
+           title: "Indicative Prices",
+           list: [
+             "2h safari: e.g. from approx. €100 / person",
+             "4h safari: e.g. from approx. €180 / person",
+             "Evening safari (aurora chance): e.g. from approx. €150 / person",
+             "Always check current prices directly with the operator",
+           ],
         },
         tip: "Book early during peak seasons (Christmas, ski holidays). Popular safaris fill up quickly.",
       },
