@@ -109,6 +109,13 @@ import CanoeingAndSUPLevi from "./pages/activities/CanoeingAndSUPLevi";
 import AccessibleLevi from "./pages/guide/AccessibleLevi";
 import SamiCultureLevi from "./pages/guide/SamiCultureLevi";
 import MonthlyGuideLevi from "./pages/guide/MonthlyGuideLevi";
+import BestTimeNorthernLightsLevi from "./pages/guide/BestTimeNorthernLightsLevi";
+import NorthernLightsSeasonLevi from "./pages/guide/NorthernLightsSeasonLevi";
+import NorthernLightsForecastLevi from "./pages/guide/NorthernLightsForecastLevi";
+import WhereToSeeNorthernLightsLevi from "./pages/guide/WhereToSeeNorthernLightsLevi";
+import NorthernLightsPhotographyLevi from "./pages/guide/NorthernLightsPhotographyLevi";
+import HowNorthernLightsForm from "./pages/guide/HowNorthernLightsForm";
+import NorthernLightsColorsExplained from "./pages/guide/NorthernLightsColorsExplained";
 
 // Component map for dynamically registered SEO pages
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
@@ -136,6 +143,13 @@ const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = 
   'AccessibleLevi': AccessibleLevi,
   'SamiCultureLevi': SamiCultureLevi,
   'MonthlyGuideLevi': MonthlyGuideLevi,
+  'BestTimeNorthernLightsLevi': BestTimeNorthernLightsLevi,
+  'NorthernLightsSeasonLevi': NorthernLightsSeasonLevi,
+  'NorthernLightsForecastLevi': NorthernLightsForecastLevi,
+  'WhereToSeeNorthernLightsLevi': WhereToSeeNorthernLightsLevi,
+  'NorthernLightsPhotographyLevi': NorthernLightsPhotographyLevi,
+  'HowNorthernLightsForm': HowNorthernLightsForm,
+  'NorthernLightsColorsExplained': NorthernLightsColorsExplained,
 };
 
 const queryClient = new QueryClient();
