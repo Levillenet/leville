@@ -369,10 +369,9 @@ const BestTimeToVisitLevi = ({ lang = "fi" }: BestTimeToVisitLeviProps) => {
         datePublished: "2025-01-15",
         dateModified: "2025-03-08",
       })} />
-      <JsonLd data={getBreadcrumbSchema(breadcrumbItems.map((item, i) => ({
+      <JsonLd data={getBreadcrumbSchema(breadcrumbItems.map((item) => ({
         name: item.label,
         url: item.href ? `https://leville.net${item.href}` : t.meta.canonical,
-        position: i + 1,
       })))} />
       <JsonLd data={getFAQSchema(faqSchemaItems)} />
 
