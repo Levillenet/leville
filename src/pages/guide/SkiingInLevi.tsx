@@ -168,7 +168,7 @@ const translations = {
       items: [
         {
           q: "When does the Levi ski season start?",
-          a: "The Levi season typically begins in early November and ends in early May. Check opening times on Levi's official website."
+          a: "The Levi season typically begins in early October with machine-made snow and the first snow track, and ends in early May. Check opening times on Levi's official website."
         },
         {
           q: "Can I rent ski equipment in Levi?",
