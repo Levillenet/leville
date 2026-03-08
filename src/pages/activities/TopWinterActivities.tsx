@@ -55,7 +55,7 @@ const translations = {
             title: "Rinteet ja hissit",
             items: [
               "43 rinnettä kaikille taitotasoille",
-              "27 hissiä, mukaan lukien moderni gondolihissi",
+              "28 hissiä, mukaan lukien useita erilaisia hissityyppejä",
               "Pisin rinne 2,5 km",
               "Korkeusero 325 metriä",
               "Lumetettu kausi marraskuusta toukokuulle"
