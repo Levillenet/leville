@@ -162,7 +162,7 @@ const translations: Record<string, TranslationContent> = {
     ],
     northernLights: {
       title: "Revontulet Levillä",
-      content: "Revontulikausi kestää syyskuusta maaliskuuhun. Parhaat mahdollisuudet ovat tammi–helmikuussa, kun yöt ovat pisimmillään ja taivas on usein kirkas. Levin vähäinen valosaastekirkkaat yötaivas tekevät siitä erinomaisen paikan revontulien tarkkailuun.",
+      content: "Revontulikausi kestää syyskuusta maaliskuuhun. Parhaat mahdollisuudet ovat tammi–helmikuussa, kun yöt ovat pisimmillään ja taivas on usein kirkas. Levin vähäinen valosaaste ja kirkas yötaivas tekevät siitä erinomaisen paikan revontulien tarkkailuun.",
       linkText: "Lue revontuliopas",
       linkHref: "/revontulet",
     },
