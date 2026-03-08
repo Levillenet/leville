@@ -56,7 +56,7 @@ const translations = {
           },
           {
             type: "Puolen päivän safarit",
-            desc: "3–4 tunnin retki vie syvemmälle erämaahan. Sisältää pidemmän ajomatkan ja eväätauon. Hinta 150–220€ per henkilö.",
+            desc: "3–4 tunnin retki vie syvemmälle erämaahan. Sisältää pidemmän ajomatkan ja eväätauon. Hinta esim. alkaen n. 150 € / henkilö – tarkista palveluntuottajalta.",
             duration: "3–4 tuntia",
             icon: "mappin",
           },
