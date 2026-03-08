@@ -148,7 +148,7 @@ const translations = {
         intro: "Levillä on useita ravintoloita, jotka palvelevat lapsiperheitä hyvin:",
         items: [
           { name: "Hullu Poro", note: "Laaja lastenruokalista, syöttötuolit, leikkitila. Tunnelmallinen mutta rento." },
-          { name: "Colorado Bar & Grill", note: "Hampurilaiset ja pizzat. Lapsiystävällinen palvelu." },
+          { name: "Colorado", note: "Ruokaravintola. Hampurilaiset ja pizzat. Lapsiystävällinen palvelu." },
           { name: "Levin Panimo", note: "Perinteistä suomalaista ruokaa, lasten annokset saatavilla." },
           { name: "Pizza-Kebab Levi", note: "Edullinen vaihtoehto, noutomyynti majoitukseen." },
         ],
