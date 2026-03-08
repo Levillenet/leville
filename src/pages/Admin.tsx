@@ -19,6 +19,7 @@ import FloorHeatingAdmin from "@/components/admin/FloorHeatingAdmin";
 import { BookingTermsAdmin } from "@/components/admin/BookingTermsAdmin";
 import MessagingAdmin from "@/components/admin/MessagingAdmin";
 import GuideAdmin from "@/components/admin/GuideAdmin";
+import SeoPageAdmin from "@/components/admin/SeoPageAdmin";
 import {
   BarChart,
   Bar,
@@ -345,6 +346,10 @@ const Admin = () => {
               <BookOpen className="w-4 h-4" />
               Oppaat
             </TabsTrigger>
+            <TabsTrigger value="seo-pages" className="flex items-center gap-2">
+              <Globe className="w-4 h-4" />
+              SEO-sivut
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="maintenance">
@@ -400,6 +405,10 @@ const Admin = () => {
 
           <TabsContent value="guides">
             <GuideAdmin isViewer={isViewer} />
+          </TabsContent>
+
+          <TabsContent value="seo-pages">
+            <SeoPageAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="stats">
