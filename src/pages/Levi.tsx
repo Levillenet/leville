@@ -238,7 +238,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovTitle: "Levi vs Rovaniemi",
       comparisonRovDesc: "¿Pueblo de montaña o capital de Laponia?",
       saunaTitle: "Guía de sauna",
-      saunaDesc: "Cultura de sauna, consejos y experiencias en Levi"
+      saunaDesc: "Cultura de sauna, consejos y experiencias en Levi",
+      eventsTitle: "Eventos en Levi",
+      eventsDesc: "World Cup, esquí de fondo Ylläs-Levi, Ruskamaratón y más eventos"
     },
     fr: {
       intro: "Trouvez tout ce dont vous avez besoin pour votre voyage à Levi. Explorez les saisons, les activités et les guides de voyage pratiques.",
