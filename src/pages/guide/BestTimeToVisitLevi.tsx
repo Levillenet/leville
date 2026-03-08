@@ -377,7 +377,7 @@ const BestTimeToVisitLevi = ({ lang = "fi" }: BestTimeToVisitLeviProps) => {
 
       <div className="min-h-screen bg-background">
         <Header />
-        <SubpageBackground variant="snow" />
+        <SubpageBackground />
 
         <main className="container max-w-4xl mx-auto px-4 pt-32 pb-16">
           <Breadcrumbs items={breadcrumbItems} />

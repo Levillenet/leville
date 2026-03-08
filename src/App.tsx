@@ -346,6 +346,7 @@ const App = () => {
               <Route path="/guide/spring-in-levi" element={<SpringInLevi lang="en" />} />
               <Route path="/guide/summer-in-levi" element={<SummerInLevi lang="en" />} />
               <Route path="/guide/autumn-ruska-in-levi" element={<AutumnRuskaInLevi lang="en" />} />
+              <Route path="/guide/best-time-to-visit-levi" element={<BestTimeToVisitLevi lang="en" />} />
               <Route path="/activities/snowmobile-safari-tips-levi" element={<SnowmobileSafariTips lang="en" />} />
               <Route path="/activities/husky-safari-levi" element={<HuskySafariTips lang="en" />} />
               <Route path="/activities/hiking-and-biking-levi" element={<HikingAndBikingLevi lang="en" />} />
