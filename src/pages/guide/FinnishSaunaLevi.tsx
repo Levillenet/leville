@@ -469,6 +469,7 @@ const FinnishSaunaLevi = () => {
               </Link>
             </Button>
           </div>
+          <GuideDisclaimer lang="en" />
         </div>
       </main>
 

@@ -756,6 +756,7 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                 </Link>
               </Button>
             </section>
+            <GuideDisclaimer lang={lang} />
           </div>
         </main>
         

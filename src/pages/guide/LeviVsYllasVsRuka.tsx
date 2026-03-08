@@ -470,6 +470,7 @@ const LeviVsYllasVsRuka = () => {
                 </Link>
               </Button>
             </section>
+            <GuideDisclaimer lang="fi" />
           </div>
         </main>
 

@@ -485,6 +485,7 @@ const ChristmasDinnerLevi = () => {
                 </Link>
               </Button>
             </section>
+          <GuideDisclaimer lang="en" />
           </div>
         </main>
 

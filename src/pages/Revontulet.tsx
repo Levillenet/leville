@@ -581,6 +581,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
                 </section>
               </ScrollReveal>
             )}
+            <GuideDisclaimer lang={lang} />
           </div>
         </main>
         <Footer lang={lang} />

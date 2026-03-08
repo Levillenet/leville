@@ -706,6 +706,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 <span className="text-sm underline-offset-4 group-hover:underline">{c.pronounceLabel}</span>
               </Link>
             </section>
+            <GuideDisclaimer lang={lang} />
           </div>
         </main>
         <PageCTA lang={lang} />

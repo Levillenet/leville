@@ -280,6 +280,8 @@ const IceSwimmingLevi = ({ lang = "fi" }: Props) => {
               </Accordion>
             </section>
 
+            <GuideDisclaimer lang={lang} />
+
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
             <section className="text-center mb-8">
