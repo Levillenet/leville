@@ -344,7 +344,7 @@ const translations = {
         intro: "Levi has several restaurants that serve families well:",
         items: [
           { name: "Hullu Poro", note: "Extensive children's menu, high chairs, play area. Atmospheric but relaxed." },
-          { name: "Colorado Bar & Grill", note: "Burgers and pizzas. Family-friendly service." },
+          { name: "Colorado", note: "Restaurant with burgers and pizzas. Family-friendly service." },
           { name: "Levin Panimo", note: "Traditional Finnish food, children's portions available." },
           { name: "Pizza-Kebab Levi", note: "Affordable option, take-away to accommodation." },
         ],
