@@ -21,6 +21,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 
 const LeviVsYllasVsRuka = () => {
   const location = useLocation();
@@ -469,6 +470,7 @@ const LeviVsYllasVsRuka = () => {
                 </Link>
               </Button>
             </section>
+            <GuideDisclaimer lang="fi" />
           </div>
         </main>
 

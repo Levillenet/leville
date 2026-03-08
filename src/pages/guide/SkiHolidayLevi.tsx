@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Clock, Star, Info, Heart, Mountain, Users, Euro, Snowflake } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -367,6 +368,8 @@ const SkiHolidayLevi = ({ lang = "fi" }: SkiHolidayLeviProps) => {
                 ))}
               </Accordion>
             </section>
+
+            <GuideDisclaimer lang={lang} />
 
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 

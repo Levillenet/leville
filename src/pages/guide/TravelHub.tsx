@@ -11,6 +11,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideHubCard from "@/components/guide/GuideHubCard";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft, Plane, Shirt, Bus, UtensilsCrossed, Baby, Footprints, Thermometer, Flame, BookOpen, Euro } from "lucide-react";
 import { Language } from "@/translations";
@@ -345,7 +346,7 @@ const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
                 },
               };
               const rn = readNextData[lang] || readNextData.en;
-              return <ReadNextSection title={rn.title} links={rn.links} />;
+              return <><GuideDisclaimer lang={lang} /><ReadNextSection title={rn.title} links={rn.links} /></>;
             })()}
 
             {/* Booking CTA */}

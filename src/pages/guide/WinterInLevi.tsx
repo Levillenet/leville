@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Snowflake, Moon, Thermometer, Mountain, ArrowRight, Star, Sparkles } from "lucide-react";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -366,6 +367,8 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
                 ))}
               </Accordion>
             </section>
+
+            <GuideDisclaimer lang={lang} />
 
             {/* Read Next */}
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />

@@ -15,6 +15,7 @@ import {
   Compass, Sunrise, Leaf, CloudSun
 } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -544,6 +545,8 @@ const BestTimeToVisitLevi = ({ lang = "fi" }: BestTimeToVisitLeviProps) => {
               ))}
             </Accordion>
           </section>
+
+          <GuideDisclaimer lang={lang} />
 
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />

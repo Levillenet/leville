@@ -14,6 +14,7 @@ import { routeConfig } from "@/translations";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
 
@@ -705,6 +706,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 <span className="text-sm underline-offset-4 group-hover:underline">{c.pronounceLabel}</span>
               </Link>
             </section>
+            <GuideDisclaimer lang={lang} />
           </div>
         </main>
         <PageCTA lang={lang} />

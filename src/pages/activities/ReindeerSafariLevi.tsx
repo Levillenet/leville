@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Snowflake, Clock, Euro, Users, Camera, ThermometerSnowflake, Heart, MapPin, ArrowRight, Info } from "lucide-react";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -552,6 +553,8 @@ const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
               </CardContent>
             </Card>
           </section>
+
+          <GuideDisclaimer lang={lang} />
 
           {/* Read Next */}
           <ReadNextSection

@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Thermometer, Sun, Snowflake, Users, Calendar, ArrowRight, Mountain, Star } from "lucide-react";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -1423,6 +1424,10 @@ const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
             ))}
           </Accordion>
         </section>
+
+        <div className="max-w-4xl mx-auto px-4 pb-4">
+          <GuideDisclaimer lang={lang as any} />
+        </div>
 
         {/* Read Next */}
         <div className="max-w-4xl mx-auto px-4 pb-8">

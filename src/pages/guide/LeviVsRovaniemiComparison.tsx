@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 
 import type { Language } from "@/translations";
 import { routeConfig } from "@/translations";
@@ -569,7 +570,7 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
                 },
               };
               const rn = readNextTranslations[lang] || readNextTranslations.en;
-              return <ReadNextSection title={rn.title} links={rn.links} />;
+              return <><GuideDisclaimer lang={lang} /><ReadNextSection title={rn.title} links={rn.links} /></>;
             })()}
 
             {/* CTA */}

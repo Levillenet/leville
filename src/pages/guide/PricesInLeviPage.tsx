@@ -12,6 +12,7 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import {
   Euro,
   Mountain,
@@ -476,6 +477,8 @@ const PricesInLeviPage = () => {
             ))}
           </Accordion>
         </SectionCard>
+
+        <GuideDisclaimer lang="en" />
 
         {/* Read Next */}
         <ReadNextSection

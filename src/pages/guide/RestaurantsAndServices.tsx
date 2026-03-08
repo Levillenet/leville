@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { UtensilsCrossed } from "lucide-react";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 
 interface RestaurantsAndServicesProps {
   lang?: Language;
@@ -369,6 +370,8 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
               </li>
             </ul>
           </section>
+
+          <GuideDisclaimer lang={lang} />
 
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />

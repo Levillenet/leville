@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, ArrowRight, Snowflake, Star, Route, TreePine, Moon } from "lucide-react";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -436,6 +437,8 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
                 ))}
               </Accordion>
             </section>
+
+            <GuideDisclaimer lang={lang} />
 
             {/* Read Next */}
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />

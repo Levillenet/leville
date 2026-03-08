@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 
 // Import images
 import electricRadiatorImg from "@/assets/heating/electric-radiator.jpg";
@@ -534,6 +535,8 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
               </CardContent>
             </Card>
           </section>
+
+          <GuideDisclaimer lang={lang} />
 
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />

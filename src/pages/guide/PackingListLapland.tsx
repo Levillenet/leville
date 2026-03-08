@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Snowflake, Smartphone, Baby, XCircle, Sun, CheckCircle } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
@@ -323,6 +324,8 @@ const PackingListLapland = ({ lang = "fi" }: PackingListLaplandProps) => {
                 ))}
               </Accordion>
             </section>
+
+            <GuideDisclaimer lang={lang} />
 
             {/* Read Next */}
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />

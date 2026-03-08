@@ -22,6 +22,7 @@ import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import {
   Accordion,
   AccordionContent,
@@ -796,6 +797,8 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
               ))}
             </Accordion>
           </section>
+
+          <GuideDisclaimer lang={lang} />
 
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />

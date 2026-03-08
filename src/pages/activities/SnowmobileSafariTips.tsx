@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Snowflake, Clock, Shield, Users, Thermometer, AlertTriangle, CheckCircle, MapPin } from "lucide-react";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -608,6 +609,8 @@ const SnowmobileSafariTips = ({ lang = "fi" }: SnowmobileSafariTipsProps) => {
               ))}
             </Accordion>
           </section>
+
+          <GuideDisclaimer lang={lang} />
 
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
