@@ -19,6 +19,7 @@ import FloorHeatingAdmin from "@/components/admin/FloorHeatingAdmin";
 import { BookingTermsAdmin } from "@/components/admin/BookingTermsAdmin";
 import MessagingAdmin from "@/components/admin/MessagingAdmin";
 import GuideAdmin from "@/components/admin/GuideAdmin";
+import SeoPageAdmin from "@/components/admin/SeoPageAdmin";
 import {
   BarChart,
   Bar,
