@@ -362,9 +362,10 @@ const BestTimeToVisitLevi = ({ lang = "fi" }: BestTimeToVisitLeviProps) => {
         <meta name="twitter:description" content={t.meta.description} />
       </Helmet>
       <JsonLd data={getArticleSchema({
-        headline: t.title,
+        title: t.title,
         description: t.meta.description,
         url: t.meta.canonical,
+        lang: lang === "fi" ? "fi" : "en",
         datePublished: "2025-01-15",
         dateModified: "2025-03-08",
       })} />
