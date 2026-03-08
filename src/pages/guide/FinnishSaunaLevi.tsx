@@ -10,6 +10,7 @@ import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import {
   Heart,
   Brain,
