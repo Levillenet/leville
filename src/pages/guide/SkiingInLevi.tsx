@@ -35,7 +35,7 @@ const translations = {
     },
     title: "Laskettelu Levillä",
     subtitle: "Suomen suosituin hiihtokeskus – 43 rinnettä ja 28 hissiä",
-    intro: "Levi on Suomen suurin ja suosituin hiihtokeskus. Moderni hissijärjestelmä, monipuoliset rinteet kaikille tasoille ja yli 200 laskettelupäivää kaudessa tekevät Levistä täydellisen kohteen laskettelulomalle. Kausi kestää tyypillisesti marraskuusta toukokuuhun.",
+    intro: "Levi on Suomen suurin ja suosituin hiihtokeskus. Moderni hissijärjestelmä, monipuoliset rinteet kaikille tasoille ja yli 200 laskettelupäivää kaudessa tekevät Levistä täydellisen kohteen laskettelulomalle. Kausi kestää tyypillisesti lokakuusta toukokuuhun.",
     sections: {
       overview: {
         title: "Levin laskettelukeskus",
@@ -123,7 +123,7 @@ const translations = {
     },
     title: "Skiing in Levi",
     subtitle: "Finland's most popular ski resort – 43 slopes and 28 lifts",
-    intro: "Levi is Finland's largest and most popular ski resort. A modern lift system, diverse slopes for all skill levels, and over 200 skiing days per season make Levi the perfect destination for a ski holiday. The season typically runs from November to May.",
+    intro: "Levi is Finland's largest and most popular ski resort. A modern lift system, diverse slopes for all skill levels, and over 200 skiing days per season make Levi the perfect destination for a ski holiday. The season typically runs from October to May.",
     sections: {
       overview: {
         title: "Levi Ski Resort",

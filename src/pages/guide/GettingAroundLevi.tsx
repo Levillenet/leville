@@ -45,7 +45,7 @@ const translations = {
       skibus: {
         title: "Hiihtobussa ja paikallisliikenne",
         items: [
-          "Ilmainen Ski Bus kiertää Levin keskustan ja rinteet",
+          "Ski Bus kiertää Levin keskustan ja rinteet (maksullinen, hissilipun yhteydessä tai erikseen)",
           "Bussit kulkevat noin 15–30 min välein sesonkina",
           "Reittejä keskustasta eri hisseille ja majoitusalueille",
           "Aikataulut ja reitit: levi.fi/ski-bus",
@@ -134,7 +134,7 @@ const translations = {
       skibus: {
         title: "Ski Bus and Local Transport",
         items: [
-          "Free Ski Bus runs around Levi center and slopes",
+          "Ski Bus runs around Levi center and slopes (paid, available with lift pass or separately)",
           "Buses run every 15–30 minutes during season",
           "Routes from center to different lifts and accommodation areas",
           "Schedules and routes: levi.fi/ski-bus",
