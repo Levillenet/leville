@@ -88,12 +88,16 @@ import LeviCenterApartments from "./pages/en/apartments/LeviCenterApartments";
 
 import CabinVsApartmentLevi from "./pages/guide/CabinVsApartmentLevi";
 import PackingListLapland from "./pages/guide/PackingListLapland";
+import ApresSkiLevi from "./pages/guide/ApresSkiLevi";
+import SnowshoeingLevi from "./pages/activities/SnowshoeingLevi";
 
 // Component map for dynamically registered SEO pages
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
   'ReindeerSafariLevi': ReindeerSafariLevi,
   'CabinVsApartmentLevi': CabinVsApartmentLevi,
   'PackingListLapland': PackingListLapland,
+  'ApresSkiLevi': ApresSkiLevi,
+  'SnowshoeingLevi': SnowshoeingLevi,
 };
 
 const queryClient = new QueryClient();
