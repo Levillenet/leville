@@ -118,6 +118,7 @@ const WhereToSeeNorthernLightsLevi = lazy(() => import("./pages/guide/WhereToSee
 const NorthernLightsPhotographyLevi = lazy(() => import("./pages/guide/NorthernLightsPhotographyLevi"));
 const HowNorthernLightsForm = lazy(() => import("./pages/guide/HowNorthernLightsForm"));
 const NorthernLightsColorsExplained = lazy(() => import("./pages/guide/NorthernLightsColorsExplained"));
+const BestTimeToVisitLevi = lazy(() => import("./pages/guide/BestTimeToVisitLevi"));
 
 // Component map for dynamically registered SEO pages
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
@@ -329,6 +330,7 @@ const App = () => {
               <Route path="/opas/kevat-levi" element={<SpringInLevi />} />
               <Route path="/opas/kesa-levi" element={<SummerInLevi />} />
               <Route path="/opas/syksy-ruska-levi" element={<AutumnRuskaInLevi />} />
+              <Route path="/opas/paras-aika-matkustaa-leville" element={<BestTimeToVisitLevi />} />
               <Route path="/aktiviteetit/moottorikelkkasafari-vinkit-levi" element={<SnowmobileSafariTips />} />
               <Route path="/aktiviteetit/koiravaljakkoajelu-levi" element={<HuskySafariTips />} />
               <Route path="/aktiviteetit/vaellus-ja-maastopyoraily-levi" element={<HikingAndBikingLevi />} />
@@ -344,6 +346,7 @@ const App = () => {
               <Route path="/guide/spring-in-levi" element={<SpringInLevi lang="en" />} />
               <Route path="/guide/summer-in-levi" element={<SummerInLevi lang="en" />} />
               <Route path="/guide/autumn-ruska-in-levi" element={<AutumnRuskaInLevi lang="en" />} />
+              <Route path="/guide/best-time-to-visit-levi" element={<BestTimeToVisitLevi lang="en" />} />
               <Route path="/activities/snowmobile-safari-tips-levi" element={<SnowmobileSafariTips lang="en" />} />
               <Route path="/activities/husky-safari-levi" element={<HuskySafariTips lang="en" />} />
               <Route path="/activities/hiking-and-biking-levi" element={<HikingAndBikingLevi lang="en" />} />
