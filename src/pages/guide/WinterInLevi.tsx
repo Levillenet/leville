@@ -207,9 +207,11 @@ const translations = {
       title: "Read Next",
       links: [
         { title: "Skiing in Levi", desc: "43 slopes and 28 lifts", href: "/guide/skiing-in-levi" },
-        { title: "Winter Clothing Guide", desc: "How to dress for the frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Weather in Levi", desc: "Temperatures and snow depth by month", href: "/en/levi/weather-in-levi" },
         { title: "Northern Lights", desc: "Aurora viewing guide", href: "/en/northern-lights" },
-        { title: "Snowmobile Safari", desc: "Tips for first-timers", href: "/activities/snowmobile-safari-tips-levi" }
+        { title: "Top Winter Activities", desc: "Complete guide to Levi winter", href: "/activities/top-winter-activities-in-levi-lapland" },
+        { title: "Winter Clothing Guide", desc: "How to dress for the frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Cross-Country Skiing", desc: "230 km of groomed trails", href: "/guide/cross-country-skiing-in-levi" }
       ]
     },
     breadcrumbLabel: "Winter in Levi"

@@ -185,10 +185,12 @@ const translations = {
     readNext: {
       title: "Lue myös",
       links: [
-        { title: "Talvivarusteet", desc: "Pukeudu sään mukaan oikein", href: "/opas/talvivarusteet-leville" },
-        { title: "Vuodenajat Levillä", desc: "Mikä kausi sopii sinulle", href: "/opas/vuodenajat-levi" },
-        { title: "Miten pääsee Leville", desc: "Tarkista yhteydet", href: "/matka/miten-paasee-leville-helsingista" },
+        { title: "Talvi Levillä", desc: "Kaamos, lumi ja aktiviteetit", href: "/opas/talvi-levi" },
         { title: "Laskettelu Levillä", desc: "Rinteiden olosuhteet", href: "/opas/laskettelu-levi" },
+        { title: "Talvivarusteet", desc: "Pukeudu sään mukaan oikein", href: "/opas/talvivarusteet-leville" },
+        { title: "Kesä Levillä", desc: "Yötön yö ja kesäaktiviteetit", href: "/opas/kesa-levi" },
+        { title: "Vuodenajat Levillä", desc: "Mikä kausi sopii sinulle", href: "/opas/vuodenajat-levi" },
+        { title: "Revontulet", desc: "Milloin revontulia näkee", href: "/revontulet" },
       ],
     },
   },

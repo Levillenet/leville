@@ -194,7 +194,9 @@ const translations = {
     readNext: {
       title: "Read Next",
       links: [
+        { title: "Winter in Levi", desc: "Polar night, snow and winter activities", href: "/guide/winter-in-levi" },
         { title: "Skiing in Levi", desc: "43 slopes and 28 lifts", href: "/guide/skiing-in-levi" },
+        { title: "Weather in Levi", desc: "Temperatures and snow conditions", href: "/en/levi/weather-in-levi" },
         { title: "Winter Clothing Guide", desc: "How to dress for Levi's frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
         { title: "Spring in Levi", desc: "Best skiing in spring sunshine", href: "/guide/spring-in-levi" },
         { title: "Levi Without a Car", desc: "How to reach the trails car-free", href: "/guide/levi-without-a-car" }
