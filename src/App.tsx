@@ -102,6 +102,12 @@ import RomanticLeviGetaway from "./pages/guide/RomanticLeviGetaway";
 import DayTripsFromLevi from "./pages/guide/DayTripsFromLevi";
 import ChristmasDinnerLeviFI from "./pages/guide/ChristmasDinnerLeviFI";
 import EventsInLevi from "./pages/guide/EventsInLevi";
+import HorseRidingLevi from "./pages/activities/HorseRidingLevi";
+import GolfLevi from "./pages/activities/GolfLevi";
+import IceSwimmingLevi from "./pages/activities/IceSwimmingLevi";
+import CanoeingAndSUPLevi from "./pages/activities/CanoeingAndSUPLevi";
+import AccessibleLevi from "./pages/guide/AccessibleLevi";
+import SamiCultureLevi from "./pages/guide/SamiCultureLevi";
 
 // Component map for dynamically registered SEO pages
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
@@ -122,6 +128,12 @@ const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = 
   'DayTripsFromLevi': DayTripsFromLevi,
   'ChristmasDinnerLeviFI': ChristmasDinnerLeviFI,
   'EventsInLevi': EventsInLevi,
+  'HorseRidingLevi': HorseRidingLevi,
+  'GolfLevi': GolfLevi,
+  'IceSwimmingLevi': IceSwimmingLevi,
+  'CanoeingAndSUPLevi': CanoeingAndSUPLevi,
+  'AccessibleLevi': AccessibleLevi,
+  'SamiCultureLevi': SamiCultureLevi,
 };
 
 const queryClient = new QueryClient();
