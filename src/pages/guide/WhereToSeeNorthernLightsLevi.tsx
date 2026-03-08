@@ -146,6 +146,176 @@ Usein paras paikka on aivan majoituksen lähellä — tuttu, turvallinen ja help
         { title: "Accommodation", desc: "Watch aurora from your terrace", href: "/en/accommodation" }
       ]
     }
+  },
+  nl: {
+    meta: {
+      title: "Waar noorderlicht zien in Levi — Beste plekken & tips | Leville.net",
+      description: "Beste plekken om noorderlicht te zien in Levi: weg van lichtvervuiling, open uitzicht en hoge uitkijkpunten. Lokale tips.",
+      canonical: "https://leville.net/nl/gids/waar-noorderlicht-zien-levi"
+    },
+    h1: "Waar noorderlicht zien in Levi — beste plekken",
+    breadcrumbLabel: "Waar noorderlicht zien",
+    sections: [
+      { title: "Basisprincipe — wat heb je nodig?", content: `Om het noorderlicht te zien heb je drie dingen nodig: 1) **een donkere plek** met weinig kunstlicht, 2) **een open uitzicht naar het noorden** (aurora verschijnt het vaakst aan de noordelijke hemel, maar bij sterke stormen bedekt het de hele hemel), en 3) **een heldere hemel** zonder wolken.\n\nVan deze drie is bewolking degene die je niet kunt beïnvloeden — maar je kunt wel je locatie en richting kiezen. Goed nieuws: in Levi hoef je niet ver te reizen. De omgeving van het dorp heeft volop geschikte plekken op slechts enkele minuten afstand.` },
+      { title: "Direct vanaf je accommodatie", content: `Veel van onze gasten zien het noorderlicht direct vanaf het terras of de tuin van hun accommodatie — vooral als de accommodatie een open uitzicht naar het noorden heeft. Dit is verreweg de comfortabelste manier: je kunt de situatie in je pyjama controleren, naar binnen gaan om op te warmen en weer naar buiten gaan als de show versterkt.\n\nIn accommodaties in het centrum vermindert straatverlichting de zichtbaarheid, maar bij sterke stormen (KP 5+) is aurora toch duidelijk zichtbaar. Een kleine tip die een groot verschil maakt: **doe de binnenverlichting uit**, ga naar het balkon of de tuin en wacht tot je ogen aan het donker gewend zijn (10–15 minuten). In die tijd passen je ogen zich aan en wordt zelfs zwak noorderlicht zichtbaar.` },
+      { title: "In de buurt van het centrum", content: `Je hoeft niet ver te rijden — een wandeling van een paar honderd meter naar de rand van het dorp brengt je al naar een aanzienlijk donkerdere plek. De lichten van het centrum verdwijnen snel als je richting de fjällhelling of de oever van het meer gaat.\n\n**Ga richting:**\n• Immeljärvi-meer — open uitzicht, gemakkelijk bereikbaar te voet\n• Sirkkajärvi-richting — groot open gebied, weinig gebouwen\n• Fjäll-richting — loop voorbij restaurant Zero Point richting de hellingen\n• Langlaufroutes — kant-en-klare paden naar donkere gebieden\n\nEen wandeling van 5–15 minuten vanuit het centrum volstaat meestal. Neem een hoofdlamp mee (met rood licht) zodat je kunt zien waar je loopt, maar zet hem uit als je naar de hemel kijkt.` },
+      { title: "Open terrein en meren", content: `Bevroren meren in de winter bieden open uitzichten in alle richtingen zonder bomen of gebouwen. Dit is bijzonder indrukwekkend: aurora weerspiegelt in het ijsoppervlak en het uitzicht strekt zich uit van horizon tot horizon.\n\n**Immeljärvi** is het populairst en het gemakkelijkst te bereiken — minder dan 10 minuten lopen vanuit het centrum. In de winter is het veilig om op het meerijs te lopen (het ijs is doorgaans 50–80 cm dik in januari–maart).\n\nOpen velden en langlaufgebieden zijn ook uitstekend — wijde open hemel zonder bomen die het uitzicht blokkeren. Het Levi Golf-gebied in de winter is een verrassend goede plek: open en dicht bij het centrum.` },
+      { title: "Hoge plekken", content: `Fjällhellingen en topgebieden bieden het breedste uitzicht — aurora kan zich uitstrekken van horizon tot horizon in een volledig 360°-panorama. Op hoogte kan de wolkenlaag zich ook onder je bevinden — soms kun je aurora boven de wolken zien, zelfs als het in het dal bewolkt is.\n\nDe Levi-gondel werkt niet 's avonds, dus om de top te bereiken heb je eigen vervoer of een wandeling nodig. Met de auto kun je hogere wegsecties bereiken (bijv. Levitunturintie) met wijd panoramisch uitzicht.\n\n**Veiligheidswaarschuwing:** Ga niet alleen de fjäll in 's nachts zonder goede uitrusting. In de winter is het koud, winderig en kan het zicht slecht zijn. Een lager gelegen open plek (meeroever, veld) is een veiliger en praktischer alternatief.` },
+      { title: "Begeleide aurora-safari's", content: `Safarigeïden kennen de beste plekken en volgen de voorspellingen professioneel. Een begeleide aurora-safari brengt je doorgaans 15–30 km van het dorp naar extreem donkere locaties die je anders niet zou bereiken.\n\nVoordelen van safari's:\n• De gids weet waar de minste wolken zijn en rijdt erheen\n• Vervoer is geregeld — geen eigen auto nodig\n• Warme dranken en snacks in een wildernishut tijdens het wachten\n• Gidsen bieden vaak professionele fotografie (aurora-foto's als souvenir)\n• Kennis over aurora en de Laplandse natuur\n\nAurora-safari's worden georganiseerd door verschillende lokale operators in Levi. Prijzen zijn doorgaans €70–120 per persoon. Boek van tevoren, vooral tijdens het hoogseizoen (december–februari).\n\n**Belangrijk:** Een safari garandeert geen noorderlicht — de natuur beslist. Maar de gids maximaliseert je kansen en maakt de avond hoe dan ook aangenaam.` },
+      { title: "Tip — ga niet te ver", content: `Een veelgemaakte fout is een uur rijden op zoek naar de \"perfecte\" plek. In werkelijkheid is 2–5 km van het centrum genoeg — het dorp Levi is al zo klein dat er geen serieuze lichtvervuiling is.\n\nBelangrijker dan de absolute afstand van lichten:\n• **Heldere hemel** (controleer de wolkenvoorspelling)\n• **Open uitzicht** (geen hoge bomen of gebouwen die blokkeren)\n• **Kijk naar het noorden** (zwak noorderlicht verschijnt eerst laag aan de noordelijke horizon)\n• **Geduld** (wacht minstens 15–30 minuten tot je ogen gewend zijn)\n\nVaak is de beste plek vlak bij je accommodatie — vertrouwd, veilig en gemakkelijk bereikbaar midden in de nacht.` }
+    ],
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Kan ik noorderlicht zien vanuit het centrum van Levi?", a: "Ja, bij sterke stormen (KP 5+). Een betere ervaring is een paar honderd meter van de straatverlichting waar je ogen zich goed aan het donker kunnen aanpassen." },
+        { q: "Moet ik op safari gaan?", a: "Niet noodzakelijk. Veel gasten zien aurora vanuit hun eigen tuin of op korte loopafstand. Een safari is een comfortabele keuze die goede plekken en een deskundige gids garandeert." },
+        { q: "Welke richting moet ik kijken?", a: "Noord. Zwak noorderlicht verschijnt eerst laag aan de noordelijke hemel. Bij sterke stormen verspreidt het zich over de hele hemel — kijk dan overal." }
+      ]
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Noorderlicht in Levi", desc: "Uitgebreide aurora-gids", href: "/nl/noorderlicht" },
+        { title: "Aurora-fotografie", desc: "Camera-instellingen en tips", href: "/nl/gids/noorderlicht-fotografie-levi" },
+        { title: "Accommodatie", desc: "Bekijk aurora vanaf je terras", href: "/nl/accommodatie" }
+      ]
+    }
+  },
+  sv: {
+    meta: {
+      title: "Var se norrsken i Levi — Bästa platserna & tips | Leville.net",
+      description: "Bästa platserna att se norrsken i Levi: bort från ljusföroreningar, öppna vyer och höga utsiktspunkter. Lokala tips.",
+      canonical: "https://leville.net/sv/guide/var-se-norrsken-levi"
+    },
+    h1: "Var se norrsken i Levi — bästa platserna",
+    breadcrumbLabel: "Var se norrsken",
+    sections: [
+      { title: "Grundprincipen — vad behöver du?", content: `Att se norrsken kräver tre saker: 1) **en mörk plats** med lite artificiellt ljus, 2) **fri sikt mot norr** (norrsken syns oftast på den norra himlen, men vid starka stormar täcker det hela himlen), och 3) **en klar himmel** utan moln.\n\nAv dessa tre är molntäcket det du inte kan kontrollera — men du kan välja plats och riktning. Goda nyheter: i Levi behöver du inte resa långt. Området runt byn har gott om lämpliga platser bara minuter bort.` },
+      { title: "Direkt från ditt boende", content: `Många av våra gäster ser norrsken direkt från sin terrass eller gård — särskilt om boendet har fri sikt mot norr. Detta är det absolut bekvämaste sättet: du kan kolla läget i pyjamas, gå in och värma dig och komma ut igen när skådespelet intensifieras.\n\nI centrala boenden minskar gatubelysningen sikten, men under starka stormar (KP 5+) syns norrsken tydligt ändå. Ett litet tips som gör stor skillnad: **släck inomhusbelysningen**, gå ut på balkongen eller gården och vänta tills ögonen vant sig vid mörkret (10–15 minuter).` },
+      { title: "Nära centrum", content: `Du behöver inte köra långt — några hundra meters promenad till byns utkant tar dig till en betydligt mörkare plats. Centrumljusen försvinner snabbt när du går mot fjällsluttningen eller sjöstranden.\n\n**Gå mot:**\n• Immeljärvi sjöstrand — öppen vy, lätt att nå till fots\n• Sirkkajärvi-riktningen — stort öppet område, få byggnader\n• Fjällriktningen — gå förbi restaurang Zero Point mot sluttningarna\n• Längdskidspår — färdiga stigar till mörka områden\n\nEn promenad på 5–15 minuter från centrum räcker vanligtvis.` },
+      { title: "Öppna terrängområden och sjöar", content: `Frusna sjöar på vintern erbjuder öppna vyer i alla riktningar utan träd eller byggnader. Aurora reflekteras i isytan och utsikten sträcker sig från horisont till horisont.\n\n**Immeljärvi** är populärast och lättast att nå — mindre än 10 minuters promenad från centrum. På vintern är det säkert att gå på sjöisen (isen är typiskt 50–80 cm tjock i januari–mars).\n\nÖppna fält och skidspårsområden är också utmärkta.` },
+      { title: "Höga platser", content: `Fjällsluttningar och toppområden erbjuder den bredaste utsikten — norrsken kan sträcka sig från horisont till horisont i ett fullt 360°-panorama.\n\nLevi-gondolen går inte på kvällstid, så att nå toppen kräver eget fordon eller vandring. Med bil kan du nå högre vägsektioner (t.ex. Levitunturintie) med vida panoramautsikter.\n\n**Säkerhetsvarning:** Gå inte ensam ut på fjällen i mörker utan rätt utrustning.` },
+      { title: "Guidade norrskenssafarier", content: `Safariguider känner till de bästa platserna och övervakar prognoserna professionellt. En guidad norrskenssafari tar dig vanligtvis 15–30 km från byn till extremt mörka platser.\n\nFördelar:\n• Guiden vet var det är minst moln och kör dit\n• Transport ordnad — inget behov av egen bil\n• Varma drycker och snacks i en vildmarkskoja\n• Guider erbjuder ofta professionell fotografering\n\nPriser är typiskt €70–120 per person. Boka i förväg, särskilt under högsäsong (december–februari).` },
+      { title: "Tips — gå inte för långt", content: `Ett vanligt misstag är att köra en timme för att hitta den \"perfekta\" platsen. I verkligheten räcker 2–5 km från centrum — Levi by är redan så liten att det inte finns allvarlig ljusförening.\n\nViktigare än absolut avstånd från ljus:\n• **Klar himmel** (kolla molnprognosen)\n• **Öppen vy** (inga höga träd eller byggnader)\n• **Titta norrut** (svagt norrsken syns först lågt på den norra horisonten)\n• **Tålamod** (vänta minst 15–30 minuter)` }
+    ],
+    faq: {
+      title: "Vanliga frågor",
+      items: [
+        { q: "Kan jag se norrsken från Levi centrum?", a: "Ja, vid starka stormar (KP 5+). En bättre upplevelse fås några hundra meter från gatubelysningen." },
+        { q: "Måste jag åka på safari?", a: "Inte nödvändigt. Många gäster ser norrsken från sin egen gård eller på kort promenadavstånd." },
+        { q: "Åt vilket håll ska jag titta?", a: "Norr. Svagt norrsken syns först lågt på den norra himlen. Vid starka stormar sprider det sig över hela himlen." }
+      ]
+    },
+    readNext: {
+      title: "Läs också",
+      links: [
+        { title: "Norrsken i Levi", desc: "Omfattande norrskensguide", href: "/sv/guide/norrsken-levi" },
+        { title: "Norrskensfotografering", desc: "Kamerainställningar och tips", href: "/sv/guide/norrsken-fotografering-levi" },
+        { title: "Boende", desc: "Se norrsken från din terrass", href: "/sv/boende" }
+      ]
+    }
+  },
+  de: {
+    meta: {
+      title: "Wo Nordlichter in Levi sehen — Beste Plätze & Tipps | Leville.net",
+      description: "Beste Plätze für Nordlichtbeobachtung in Levi: wenig Lichtverschmutzung, offene Aussichten und erhöhte Aussichtspunkte. Lokale Tipps.",
+      canonical: "https://leville.net/de/ratgeber/wo-nordlichter-sehen-levi"
+    },
+    h1: "Wo Nordlichter in Levi sehen — beste Plätze",
+    breadcrumbLabel: "Wo Nordlichter sehen",
+    sections: [
+      { title: "Grundprinzip — was braucht man?", content: `Um Nordlichter zu sehen, braucht man drei Dinge: 1) **einen dunklen Ort** mit wenig Kunstlicht, 2) **freie Sicht nach Norden** (Polarlichter erscheinen am häufigsten am Nordhimmel, bei starken Stürmen bedecken sie aber den gesamten Himmel), und 3) **einen klaren Himmel** ohne Wolken.\n\nVon diesen drei ist die Bewölkung nicht beeinflussbar — aber den Standort und die Richtung kann man wählen. Gute Nachricht: In Levi muss man nicht weit reisen. Die Umgebung des Dorfes bietet zahlreiche geeignete Plätze in wenigen Minuten Entfernung.` },
+      { title: "Direkt von Ihrer Unterkunft", content: `Viele unserer Gäste sehen Nordlichter direkt von der Terrasse oder dem Garten ihrer Unterkunft — besonders wenn die Unterkunft freie Sicht nach Norden hat. Dies ist der bequemste Weg: Sie können die Situation im Pyjama prüfen, zum Aufwärmen reingehen und wieder herauskommen, wenn die Show stärker wird.\n\nBei Unterkünften im Zentrum reduziert Straßenbeleuchtung die Sichtbarkeit, aber bei starken Stürmen (KP 5+) sind Nordlichter trotzdem deutlich sichtbar. Ein kleiner Tipp mit großer Wirkung: **Schalten Sie das Innenlicht aus**, gehen Sie auf den Balkon und warten Sie, bis sich Ihre Augen an die Dunkelheit gewöhnt haben (10–15 Minuten).` },
+      { title: "In der Nähe des Zentrums", content: `Man muss nicht weit fahren — ein paar hundert Meter Fußweg zum Dorfrand bringt Sie an einen deutlich dunkleren Ort.\n\n**Gehen Sie Richtung:**\n• Immeljärvi-Seeufer — offene Sicht, leicht zu Fuß erreichbar\n• Sirkkajärvi-Richtung — großes offenes Gebiet, wenige Gebäude\n• Fjäll-Richtung — am Restaurant Zero Point vorbei Richtung Hänge\n• Langlaufloipen — fertige Wege in dunkle Gebiete\n\nEin 5–15-minütiger Spaziergang vom Zentrum reicht meist aus.` },
+      { title: "Offenes Gelände und Seen", content: `Gefrorene Seen im Winter bieten offene Aussichten in alle Richtungen. Aurora spiegelt sich in der Eisoberfläche und die Sicht reicht von Horizont zu Horizont.\n\n**Immeljärvi** ist am beliebtesten und am leichtesten erreichbar — weniger als 10 Minuten zu Fuß vom Zentrum. Im Winter ist es sicher, auf dem Seeeis zu gehen (das Eis ist typischerweise 50–80 cm dick im Januar–März).` },
+      { title: "Erhöhte Plätze", content: `Fjällhänge und Gipfelbereiche bieten die weiteste Aussicht — Nordlichter können sich in einem vollen 360°-Panorama von Horizont zu Horizont erstrecken.\n\nDie Levi-Gondel fährt abends nicht, der Gipfel erfordert eigenes Fahrzeug oder Wanderung. Mit dem Auto erreicht man höhere Straßenabschnitte (z.B. Levitunturintie) mit weitem Panoramablick.\n\n**Sicherheitshinweis:** Gehen Sie nicht allein nachts in die Fjälls ohne angemessene Ausrüstung.` },
+      { title: "Geführte Aurora-Safaris", content: `Safari-Guides kennen die besten Plätze und überwachen Vorhersagen professionell. Eine geführte Aurora-Safari bringt Sie typischerweise 15–30 km vom Dorf zu extrem dunklen Orten.\n\nVorteile:\n• Der Guide weiß, wo die wenigsten Wolken sind\n• Transport ist organisiert — kein eigenes Auto nötig\n• Warme Getränke und Snacks in einer Wildnishütte\n• Guides bieten oft professionelle Fotografie\n\nPreise liegen typischerweise bei €70–120 pro Person. Buchen Sie im Voraus, besonders in der Hochsaison (Dezember–Februar).` },
+      { title: "Tipp — fahren Sie nicht zu weit", content: `Ein häufiger Fehler ist, eine Stunde zu fahren auf der Suche nach dem \"perfekten\" Platz. In Wirklichkeit reichen 2–5 km vom Zentrum — das Dorf Levi ist bereits so klein, dass es keine ernsthafte Lichtverschmutzung gibt.\n\nWichtiger als die absolute Entfernung von Lichtquellen:\n• **Klarer Himmel** (Wolkenvorhersage prüfen)\n• **Offene Sicht** (keine hohen Bäume oder Gebäude)\n• **Nach Norden schauen** (schwache Aurora erscheint zuerst tief am Nordhorizont)\n• **Geduld** (mindestens 15–30 Minuten warten)` }
+    ],
+    faq: {
+      title: "Häufig gestellte Fragen",
+      items: [
+        { q: "Kann ich Nordlichter vom Zentrum Levis aus sehen?", a: "Ja, bei starken Stürmen (KP 5+). Ein besseres Erlebnis bietet sich einige hundert Meter von der Straßenbeleuchtung entfernt." },
+        { q: "Muss ich auf Safari gehen?", a: "Nicht unbedingt. Viele Gäste sehen Aurora vom eigenen Garten oder bei einem kurzen Spaziergang." },
+        { q: "In welche Richtung soll ich schauen?", a: "Nach Norden. Schwache Aurora erscheint zuerst tief am Nordhimmel. Bei starken Stürmen breitet sie sich über den gesamten Himmel aus." }
+      ]
+    },
+    readNext: {
+      title: "Lesen Sie auch",
+      links: [
+        { title: "Nordlichter in Levi", desc: "Umfassender Aurora-Guide", href: "/de/ratgeber/nordlichter-levi" },
+        { title: "Aurora-Fotografie", desc: "Kameraeinstellungen und Tipps", href: "/de/ratgeber/nordlichter-fotografie-levi" },
+        { title: "Unterkunft", desc: "Nordlichter von Ihrer Terrasse", href: "/de/unterkunft" }
+      ]
+    }
+  },
+  es: {
+    meta: {
+      title: "Dónde ver auroras boreales en Levi — Mejores lugares y consejos | Leville.net",
+      description: "Mejores lugares para ver auroras boreales en Levi: lejos de la contaminación lumínica, vistas abiertas y miradores elevados. Consejos locales.",
+      canonical: "https://leville.net/es/guia/donde-ver-auroras-boreales-levi"
+    },
+    h1: "Dónde ver auroras boreales en Levi — mejores lugares",
+    breadcrumbLabel: "Dónde ver auroras",
+    sections: [
+      { title: "Principio básico — ¿qué necesitas?", content: `Para ver auroras boreales necesitas tres cosas: 1) **un lugar oscuro** con poca luz artificial, 2) **una vista abierta hacia el norte** (la aurora aparece con más frecuencia en el cielo norte, pero en tormentas fuertes cubre todo el cielo), y 3) **un cielo despejado** sin nubes.\n\nDe estos tres, la nubosidad es lo que no puedes controlar — pero puedes elegir tu ubicación y dirección. Buenas noticias: en Levi no necesitas viajar lejos. Los alrededores del pueblo tienen muchos lugares adecuados a solo minutos.` },
+      { title: "Desde tu alojamiento", content: `Muchos de nuestros huéspedes ven auroras directamente desde la terraza o el jardín de su alojamiento — especialmente si tiene vista abierta hacia el norte. Esta es la forma más cómoda: puedes verificar la situación en pijama, volver adentro a calentarte y salir de nuevo cuando el espectáculo se intensifica.\n\nUn pequeño consejo que marca gran diferencia: **apaga las luces interiores**, sal al balcón y espera a que tus ojos se adapten a la oscuridad (10–15 minutos).` },
+      { title: "Cerca del centro", content: `No necesitas conducir lejos — una caminata de unos cientos de metros hasta el borde del pueblo te lleva a un lugar significativamente más oscuro.\n\n**Dirígete hacia:**\n• Orilla del lago Immeljärvi — vista abierta, fácilmente accesible a pie\n• Dirección Sirkkajärvi — gran área abierta, pocos edificios\n• Dirección del fjäll — pasa el restaurante Zero Point hacia las laderas\n• Rutas de esquí de fondo — caminos preparados hacia áreas oscuras\n\nUna caminata de 5–15 minutos desde el centro suele ser suficiente.` },
+      { title: "Terreno abierto y lagos", content: `Los lagos congelados en invierno ofrecen vistas abiertas en todas las direcciones. La aurora se refleja en la superficie del hielo y la vista se extiende de horizonte a horizonte.\n\n**Immeljärvi** es el más popular y fácil de alcanzar — menos de 10 minutos caminando desde el centro. En invierno, es seguro caminar sobre el hielo del lago (el hielo tiene típicamente 50–80 cm de grosor en enero–marzo).` },
+      { title: "Lugares elevados", content: `Las laderas y zonas de cumbres ofrecen la vista más amplia — la aurora puede extenderse en un panorama completo de 360°.\n\nLa góndola de Levi no opera por la noche, llegar a la cumbre requiere vehículo propio o caminata.\n\n**Nota de seguridad:** No vayas solo a los fjälls de noche sin equipo adecuado.` },
+      { title: "Safaris de aurora guiados", content: `Los guías de safari conocen los mejores lugares y monitorizan las previsiones profesionalmente. Un safari de aurora guiado te lleva típicamente 15–30 km del pueblo a ubicaciones extremadamente oscuras.\n\nVentajas:\n• El guía sabe dónde hay menos nubes\n• Transporte organizado\n• Bebidas calientes y snacks en una cabaña\n• Los guías ofrecen fotografía profesional\n\nPrecios típicos: €70–120 por persona. Reserva con antelación, especialmente en temporada alta (diciembre–febrero).` },
+      { title: "Consejo — no vayas demasiado lejos", content: `Un error común es conducir una hora buscando el lugar \"perfecto\". En realidad, 2–5 km del centro es suficiente.\n\nMás importante que la distancia absoluta:\n• **Cielo despejado** (revisa el pronóstico de nubes)\n• **Vista abierta** (sin árboles altos ni edificios bloqueando)\n• **Mira hacia el norte** (aurora débil aparece primero baja en el horizonte norte)\n• **Paciencia** (espera al menos 15–30 minutos)` }
+    ],
+    faq: {
+      title: "Preguntas frecuentes",
+      items: [
+        { q: "¿Puedo ver auroras desde el centro de Levi?", a: "Sí, durante tormentas fuertes (KP 5+). Una mejor experiencia se tiene a unos cientos de metros de las farolas." },
+        { q: "¿Necesito ir de safari?", a: "No es esencial. Muchos huéspedes ven aurora desde su propio jardín o a corta distancia caminando." },
+        { q: "¿Hacia qué dirección debo mirar?", a: "Norte. La aurora débil aparece primero baja en el cielo norte. En tormentas fuertes se extiende por todo el cielo." }
+      ]
+    },
+    readNext: {
+      title: "Lee también",
+      links: [
+        { title: "Auroras boreales en Levi", desc: "Guía completa de aurora", href: "/es/guia/auroras-boreales-levi" },
+        { title: "Fotografía de aurora", desc: "Ajustes de cámara y consejos", href: "/es/guia/fotografia-auroras-boreales-levi" },
+        { title: "Alojamiento", desc: "Ve auroras desde tu terraza", href: "/es/alojamiento" }
+      ]
+    }
+  },
+  fr: {
+    meta: {
+      title: "Où voir les aurores boréales à Levi — Meilleurs endroits & conseils | Leville.net",
+      description: "Meilleurs endroits pour observer les aurores boréales à Levi : loin de la pollution lumineuse, vues ouvertes et points de vue élevés. Conseils locaux.",
+      canonical: "https://leville.net/fr/guide/ou-voir-aurores-boreales-levi"
+    },
+    h1: "Où voir les aurores boréales à Levi — meilleurs endroits",
+    breadcrumbLabel: "Où voir les aurores",
+    sections: [
+      { title: "Principe de base — de quoi avez-vous besoin ?", content: `Pour voir les aurores boréales, il faut trois choses : 1) **un endroit sombre** avec peu de lumière artificielle, 2) **une vue dégagée vers le nord** (l'aurore apparaît le plus souvent dans le ciel nord, mais lors des fortes tempêtes, elle couvre tout le ciel), et 3) **un ciel clair** sans nuages.\n\nDe ces trois facteurs, la couverture nuageuse est celui que vous ne pouvez pas contrôler — mais vous pouvez choisir votre emplacement et votre direction. Bonne nouvelle : à Levi, vous n'avez pas besoin d'aller loin.` },
+      { title: "Directement depuis votre hébergement", content: `Beaucoup de nos clients voient les aurores directement depuis la terrasse ou le jardin de leur hébergement. C'est de loin la manière la plus confortable.\n\nUn petit conseil qui fait une grande différence : **éteignez les lumières intérieures**, sortez sur le balcon et attendez que vos yeux s'habituent à l'obscurité (10–15 minutes).` },
+      { title: "Près du centre", content: `Pas besoin de conduire loin — une marche de quelques centaines de mètres jusqu'au bord du village vous amène à un endroit nettement plus sombre.\n\n**Dirigez-vous vers :**\n• Rive du lac Immeljärvi — vue ouverte, facilement accessible à pied\n• Direction Sirkkajärvi — grande zone ouverte, peu de bâtiments\n• Direction du fjäll — passez le restaurant Zero Point vers les pentes\n• Pistes de ski de fond — sentiers tout faits vers des zones sombres\n\nUne marche de 5–15 minutes depuis le centre suffit généralement.` },
+      { title: "Terrains ouverts et lacs", content: `Les lacs gelés en hiver offrent des vues ouvertes dans toutes les directions. L'aurore se reflète dans la surface de glace et la vue s'étend d'horizon en horizon.\n\n**Immeljärvi** est le plus populaire et le plus facile d'accès — moins de 10 minutes à pied du centre.` },
+      { title: "Points élevés", content: `Les pentes et zones sommitales du fjäll offrent la vue la plus large — l'aurore peut s'étendre en un panorama complet de 360°.\n\nLa télécabine de Levi ne fonctionne pas le soir. Avec la voiture, on peut atteindre des sections de route plus élevées avec de vastes panoramas.\n\n**Note de sécurité :** Ne partez pas seul dans les fjälls la nuit sans équipement approprié.` },
+      { title: "Safaris d'aurores guidés", content: `Les guides de safari connaissent les meilleurs endroits et surveillent les prévisions professionnellement. Un safari guidé vous emmène typiquement à 15–30 km du village vers des endroits extrêmement sombres.\n\nAvantages :\n• Le guide sait où il y a le moins de nuages\n• Transport organisé\n• Boissons chaudes et collations dans un abri\n• Les guides proposent souvent la photographie professionnelle\n\nPrix typiques : 70–120 € par personne.` },
+      { title: "Conseil — n'allez pas trop loin", content: `Une erreur courante est de conduire une heure à la recherche de l'endroit \"parfait\". En réalité, 2–5 km du centre suffit.\n\nPlus important que la distance absolue :\n• **Ciel clair** (vérifiez les prévisions nuageuses)\n• **Vue ouverte** (pas de grands arbres ni bâtiments)\n• **Regardez vers le nord** (l'aurore faible apparaît d'abord basse sur l'horizon nord)\n• **Patience** (attendez au moins 15–30 minutes)` }
+    ],
+    faq: {
+      title: "Questions fréquentes",
+      items: [
+        { q: "Peut-on voir les aurores depuis le centre de Levi ?", a: "Oui, lors de fortes tempêtes (KP 5+). Une meilleure expérience est à quelques centaines de mètres de l'éclairage public." },
+        { q: "Dois-je aller en safari ?", a: "Pas indispensable. Beaucoup de clients voient l'aurore depuis leur jardin ou à courte distance à pied." },
+        { q: "Dans quelle direction regarder ?", a: "Nord. L'aurore faible apparaît d'abord basse dans le ciel nord. Lors de fortes tempêtes, elle s'étend sur tout le ciel." }
+      ]
+    },
+    readNext: {
+      title: "À lire aussi",
+      links: [
+        { title: "Aurores boréales à Levi", desc: "Guide complet des aurores", href: "/fr/guide/aurores-boreales-levi" },
+        { title: "Photographie d'aurores", desc: "Réglages caméra et conseils", href: "/fr/guide/photographie-aurores-boreales-levi" },
+        { title: "Hébergement", desc: "Observez les aurores depuis votre terrasse", href: "/fr/hebergement" }
+      ]
+    }
   }
 };
 

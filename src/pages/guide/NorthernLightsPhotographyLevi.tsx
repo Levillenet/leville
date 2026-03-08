@@ -155,6 +155,176 @@ Käytä kolmanneksen sääntöä: horisontti kuvan alakolmanneksessa, taivas ja 
         { title: "Winter Clothing Guide", desc: "Dressing for Lapland frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" }
       ]
     }
+  },
+  nl: {
+    meta: {
+      title: "Noorderlichtfotografie in Levi — Camera-instellingen & tips | Leville.net",
+      description: "Hoe fotografeer je het noorderlicht? Camera-instellingen, statief, ISO, sluitertijd en lenzen. Praktische gids voor Levi.",
+      canonical: "https://leville.net/nl/gids/noorderlicht-fotografie-levi"
+    },
+    h1: "Noorderlichtfotografie in Levi — instellingen en tips",
+    breadcrumbLabel: "Noorderlichtfotografie",
+    sections: [
+      { title: "Heb je een camera nodig of volstaat een telefoon?", content: `Moderne smartphones (iPhone 15+, Samsung S24+, Pixel 8+) fotograferen aurora verrassend goed in nachtmodus. Maar een systeemcamera geeft dramatisch betere resultaten — vooral voor het vastleggen van zwak noorderlicht.\n\n**Beide werken** — het belangrijkste is een statief. Zonder stabiele basis produceert geen van beide goede resultaten bij lange belichtingen.` },
+      { title: "Essentieel: statief (tripod)", content: `Bij het fotograferen van noorderlicht zijn belichtingstijden lang — 5–25 seconden. De camera moet volledig stil staan. Uit de hand fotograferen is onmogelijk.\n\nZelfs een klein reisstatief werkt perfect. Het past in een koffer en weegt doorgaans minder dan een kilo. Prijs: €30–50 — de beste investering voor een aurora-vakantie.\n\n**Tip:** Een compact reisstatief past in je koffer en kost €30–50.` },
+      { title: "Camera-instellingen (systeemcamera)", content: `Zet je camera op handmatige modus (M) en stel in:\n\n• **ISO: 1600–6400** — Begin op 3200 en pas aan. Hogere ISO = lichter beeld maar meer ruis.\n\n• **Diafragma: zo open mogelijk** — f/2.8 of sneller is ideaal.\n\n• **Sluitertijd: 8–25 seconden** — Korter als aurora snel beweegt, langer als aurora zwak is.\n\n• **Scherpstelling: handmatig, op oneindig (∞)** — Autofocus werkt niet in het donker.\n\n• **Witbalans: 3500–4000K** — Koele tint brengt het groen van aurora het beste naar voren.\n\n• **Bestandsformaat: RAW** indien mogelijk.` },
+      { title: "Lenzen", content: `**Groothoek (10–24 mm)** is ideaal. Het maakt het mogelijk een brede hemel en voorgrondlandschap in hetzelfde beeld vast te leggen. f/2.8 of sneller is het beste.\n\nPopulaire groothoeklenzen: Samyang/Rokinon 14mm f/2.8, Tokina 11–20mm f/2.8, Sigma 14–24mm f/2.8.\n\n**Kitlenz (18–55 mm f/3.5–5.6)** werkt ook — op de breedste stand (18 mm) zijn de resultaten acceptabel.` },
+      { title: "Fotograferen met telefoon", content: `**iPhone (15 en nieuwer):** Nachtmodus activeert automatisch in het donker. Zet de telefoon op een statief en houd de belichting lang — iPhone stelt automatisch 10–30 seconden voor.\n\n**Android (Samsung, Pixel, etc.):** Gebruik Nachtmodus of Pro-modus. In Pro-modus stel ISO 800–3200 en sluitertijd 10–30 seconden in. Google Pixel's astrofotografiemodus is bijzonder goed.\n\n**Belangrijkste: houd de telefoon volledig stil.** Gebruik een timer (2–10 seconden vertraging) zodat het aanraken van de telefoon geen trilling veroorzaakt.` },
+      { title: "Praktische tips voor kou", content: `**Batterij loopt snel leeg in de kou.** Houd een reservebatterij warm in een binnenzak.\n\n**Condensatiegevaar:** Breng camera's niet direct van vriestemperaturen naar een warme ruimte. Laat de camera langzaam opwarmen in de cameratas gedurende 15–30 minuten.\n\n**Handschoenen:** Draag dunne binnenhandschoenen (touchscreen-compatibel) voor het bedienen van de camera.\n\n**Hoofdlamp:** Gebruik rood licht. Rood licht verpest je nachtzicht niet.` },
+      { title: "Compositie — het belang van de voorgrond", content: `Alleen lucht is eentonig — neem een voorgrond mee. Een voorgrond geeft schaal en sfeer.\n\n• **Huisje of gebouw** — warm licht uit ramen + aurora = klassiek Lapland-beeld\n• **Fjäll-silhouet** — de omtrek tegen de hemel\n• **Enkele boom** — besneeuwde bomen zijn bijzonder mooi\n• **Meerijs** — weerspiegelingen en weidsheid\n• **Persoon** — silhouet geeft schaal\n\nGebruik de regel van derden: horizon in het onderste derde, lucht en aurora in de bovenste twee derde.` }
+    ],
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Volstaat een telefoon voor noorderlichtfotografie?", a: "Ja voor basisniveau — de nieuwste iPhones en Android-telefoons fotograferen verrassend goed in nachtmodus. Maar een statief is essentieel. Een systeemcamera geeft dramatisch betere resultaten." },
+        { q: "Wat is de belangrijkste instelling?", a: "Statief + lange belichting. Zonder stabiel statief helpt geen enkele camera-instelling. Daarna is een voldoende hoge ISO (3200 is een goed startpunt) en het breedst mogelijke diafragma belangrijk." },
+        { q: "Hoe voorkom ik dat mijn camera bevriest?", a: "Houd een reservebatterij warm in een binnenzak. Breng de camera na het fotograferen niet direct naar binnen — laat hem langzaam acclimatiseren in de cameratas gedurende 15–30 minuten." }
+      ]
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Noorderlicht in Levi", desc: "Uitgebreide aurora-gids", href: "/nl/noorderlicht" },
+        { title: "Waar noorderlicht zien", desc: "Beste plekken in Levi", href: "/nl/gids/waar-noorderlicht-zien-levi" },
+        { title: "Winterkleding", desc: "Kleden voor Laplandse kou", href: "/nl/gids/winterkleding-lapland" }
+      ]
+    }
+  },
+  sv: {
+    meta: {
+      title: "Norrskensfotografering i Levi — Kamerainställningar & tips | Leville.net",
+      description: "Hur fotograferar man norrsken? Kamerainställningar, stativ, ISO, slutartid och objektiv. Praktisk guide för Levi.",
+      canonical: "https://leville.net/sv/guide/norrsken-fotografering-levi"
+    },
+    h1: "Norrskensfotografering i Levi — inställningar och tips",
+    breadcrumbLabel: "Norrskensfotografering",
+    sections: [
+      { title: "Behöver du en kamera eller räcker telefonen?", content: `Moderna smartphones (iPhone 15+, Samsung S24+, Pixel 8+) fotograferar norrsken förvånansvärt bra i nattläge. Men en systemkamera ger dramatiskt bättre resultat.\n\n**Båda fungerar** — det viktigaste är ett stativ.` },
+      { title: "Nödvändig utrustning: stativ", content: `Vid norrskensfotografering är exponeringstiderna långa — 5–25 sekunder. Kameran måste vara helt stilla. Att fotografera ur hand är omöjligt.\n\nÄven ett litet resestativ fungerar perfekt. Det kostar €30–50 — bästa investeringen för en norrskenssemester.` },
+      { title: "Kamerainställningar (systemkamera)", content: `Ställ kameran i manuellt läge (M):\n\n• **ISO: 1600–6400** — Börja på 3200.\n\n• **Bländare: så öppen som möjligt** — f/2.8 eller snabbare.\n\n• **Slutartid: 8–25 sekunder**\n\n• **Fokus: manuell, på oändlighet (∞)**\n\n• **Vitbalans: 3500–4000K**\n\n• **Filformat: RAW** om möjligt.` },
+      { title: "Objektiv", content: `**Vidvinkel (10–24 mm)** är idealiskt. f/2.8 eller snabbare bländare är bäst.\n\nPopulära vidvinkelobjektiv: Samyang 14mm f/2.8, Tokina 11–20mm f/2.8, Sigma 14–24mm f/2.8.\n\n**Kit-objektiv (18–55 mm f/3.5–5.6)** fungerar också på den bredaste änden (18 mm).` },
+      { title: "Fotografera med telefon", content: `**iPhone (15 och nyare):** Nattläge aktiveras automatiskt. Sätt telefonen på stativ och håll exponeringen lång.\n\n**Android:** Använd nattläge eller Pro-läge. Google Pixels astrofotograferingsläge är särskilt bra.\n\n**Viktigast: håll telefonen helt stilla.** Använd timer (2–10 sekunders fördröjning).` },
+      { title: "Praktiska tips i kylan", content: `**Batteriet tömms snabbt i kyla.** Ha ett reservbatteri varmt i en innerficka.\n\n**Kondensrisk:** Ta inte in kameran direkt i värmen. Låt den acklimatisera i kameraväskan i 15–30 minuter.\n\n**Handskar:** Använd tunna inre handskar (pekskärmskompatibla).\n\n**Pannlampa:** Använd rött ljus.` },
+      { title: "Komposition — förgrunden är viktig", content: `Bara himmel blir enformigt — inkludera en förgrund.\n\n• **Stuga** — varmt ljus från fönster + norrsken = klassisk Lapplandsbild\n• **Fjällsiluett**\n• **Enskilt träd** — snöklädda träd är särskilt vackra\n• **Sjöis** — reflektioner\n• **Person** — siluett ger skala\n\nAnvänd tredjedelsregeln: horisont i nedre tredjedelen.` }
+    ],
+    faq: {
+      title: "Vanliga frågor",
+      items: [
+        { q: "Räcker en telefon för norrskensfotografering?", a: "Ja på grundnivå. Men stativ är fortfarande nödvändigt. En systemkamera ger dramatiskt bättre resultat." },
+        { q: "Vilken är den viktigaste inställningen?", a: "Stativ + lång exponering. Utan stabilt stativ hjälper ingen kamerainställning." },
+        { q: "Hur förhindrar jag att kameran fryser?", a: "Ha reservbatteri varmt i innerficka. Ta inte in kameran direkt i värmen — låt den acklimatisera i 15–30 minuter." }
+      ]
+    },
+    readNext: {
+      title: "Läs också",
+      links: [
+        { title: "Norrsken i Levi", desc: "Omfattande norrskensguide", href: "/sv/guide/norrsken-levi" },
+        { title: "Var se norrsken", desc: "Bästa platserna i Levi", href: "/sv/guide/var-se-norrsken-levi" },
+        { title: "Vinterkläder", desc: "Klä dig för Lapplands kyla", href: "/sv/guide/vinterklaeder-lappland" }
+      ]
+    }
+  },
+  de: {
+    meta: {
+      title: "Nordlichtfotografie in Levi — Kameraeinstellungen & Tipps | Leville.net",
+      description: "Wie fotografiert man Nordlichter? Kameraeinstellungen, Stativ, ISO, Belichtungszeit und Objektive. Praktischer Guide für Levi.",
+      canonical: "https://leville.net/de/ratgeber/nordlichter-fotografie-levi"
+    },
+    h1: "Nordlichtfotografie in Levi — Einstellungen und Tipps",
+    breadcrumbLabel: "Nordlichtfotografie",
+    sections: [
+      { title: "Braucht man eine Kamera oder reicht das Handy?", content: `Moderne Smartphones (iPhone 15+, Samsung S24+, Pixel 8+) fotografieren Nordlichter überraschend gut im Nachtmodus. Aber eine Systemkamera liefert dramatisch bessere Ergebnisse.\n\n**Beides funktioniert** — am wichtigsten ist ein Stativ.` },
+      { title: "Unverzichtbar: Stativ", content: `Bei Nordlichtfotografie sind die Belichtungszeiten lang — 5–25 Sekunden. Die Kamera muss völlig still stehen. Aus der Hand fotografieren ist unmöglich.\n\nSelbst ein kleines Reisestativ funktioniert perfekt. Es kostet €30–50 — die beste Investition für einen Aurora-Urlaub.` },
+      { title: "Kameraeinstellungen (Systemkamera)", content: `Stellen Sie die Kamera auf Manuell (M):\n\n• **ISO: 1600–6400** — Beginnen Sie mit 3200.\n\n• **Blende: so offen wie möglich** — f/2.8 oder schneller.\n\n• **Belichtungszeit: 8–25 Sekunden**\n\n• **Fokus: Manuell, auf Unendlich (∞)**\n\n• **Weißabgleich: 3500–4000K**\n\n• **Dateiformat: RAW** wenn möglich.` },
+      { title: "Objektive", content: `**Weitwinkel (10–24 mm)** ist ideal. f/2.8 oder schneller.\n\nBeliebte Weitwinkelobjektive: Samyang 14mm f/2.8, Tokina 11–20mm f/2.8, Sigma 14–24mm f/2.8.\n\n**Kit-Objektiv (18–55 mm f/3.5–5.6)** funktioniert auch am weitesten Ende (18 mm).` },
+      { title: "Fotografieren mit dem Handy", content: `**iPhone (15 und neuer):** Nachtmodus aktiviert sich automatisch. Stellen Sie das Handy auf ein Stativ.\n\n**Android:** Verwenden Sie Nachtmodus oder Pro-Modus. Google Pixels Astrofotografie-Modus ist besonders gut.\n\n**Am wichtigsten: Halten Sie das Handy völlig still.** Verwenden Sie einen Timer (2–10 Sekunden Verzögerung).` },
+      { title: "Praktische Tipps bei Kälte", content: `**Akku entlädt sich schnell bei Kälte.** Halten Sie einen Ersatzakku warm in einer Innentasche.\n\n**Kondensationsgefahr:** Bringen Sie Kameras nicht direkt von Minusgraden in warme Innenräume. Lassen Sie die Kamera langsam in der Kameratasche akklimatisieren (15–30 Minuten).\n\n**Handschuhe:** Tragen Sie dünne Innenhandschuhe (touchscreen-kompatibel).\n\n**Stirnlampe:** Verwenden Sie rotes Licht.` },
+      { title: "Komposition — die Bedeutung des Vordergrunds", content: `Nur Himmel ist monoton — fügen Sie einen Vordergrund hinzu.\n\n• **Hütte oder Gebäude** — warmes Licht + Nordlichter = klassisches Lappland-Bild\n• **Fjäll-Silhouette**\n• **Einzelner Baum** — schneebedeckte Bäume sind besonders schön\n• **Seeeis** — Spiegelungen\n• **Person** — Silhouette gibt Maßstab\n\nVerwenden Sie die Drittel-Regel: Horizont im unteren Drittel.` }
+    ],
+    faq: {
+      title: "Häufig gestellte Fragen",
+      items: [
+        { q: "Reicht ein Handy für Nordlichtfotografie?", a: "Ja auf Grundniveau. Aber ein Stativ ist unerlässlich. Eine Systemkamera liefert dramatisch bessere Ergebnisse." },
+        { q: "Was ist die wichtigste Einstellung?", a: "Stativ + lange Belichtung. Ohne stabiles Stativ hilft keine Kameraeinstellung." },
+        { q: "Wie verhindere ich das Einfrieren der Kamera?", a: "Ersatzakku warm in der Innentasche halten. Kamera nicht direkt ins Warme bringen — in der Kameratasche 15–30 Minuten akklimatisieren lassen." }
+      ]
+    },
+    readNext: {
+      title: "Lesen Sie auch",
+      links: [
+        { title: "Nordlichter in Levi", desc: "Umfassender Aurora-Guide", href: "/de/ratgeber/nordlichter-levi" },
+        { title: "Wo Nordlichter sehen", desc: "Beste Plätze in Levi", href: "/de/ratgeber/wo-nordlichter-sehen-levi" },
+        { title: "Winterkleidung", desc: "Richtig gekleidet für Lapplands Kälte", href: "/de/ratgeber/winterkleidung-lappland" }
+      ]
+    }
+  },
+  es: {
+    meta: {
+      title: "Fotografía de auroras boreales en Levi — Ajustes de cámara y consejos | Leville.net",
+      description: "Cómo fotografiar auroras boreales: ajustes de cámara, trípode, ISO, velocidad de obturación y objetivos. Guía práctica para Levi.",
+      canonical: "https://leville.net/es/guia/fotografia-auroras-boreales-levi"
+    },
+    h1: "Fotografía de auroras boreales en Levi — ajustes y consejos",
+    breadcrumbLabel: "Fotografía de auroras",
+    sections: [
+      { title: "¿Necesitas una cámara o basta con el móvil?", content: `Los smartphones modernos (iPhone 15+, Samsung S24+, Pixel 8+) fotografían auroras sorprendentemente bien en modo nocturno. Pero una cámara sin espejo da resultados dramáticamente mejores.\n\n**Ambos funcionan** — lo más importante es un trípode.` },
+      { title: "Imprescindible: trípode", content: `Al fotografiar auroras, los tiempos de exposición son largos — 5–25 segundos. La cámara debe estar completamente inmóvil. Fotografiar a pulso es imposible.\n\nIncluso un pequeño trípode de viaje funciona perfectamente. Cuesta €30–50 — la mejor inversión para unas vacaciones de aurora.` },
+      { title: "Ajustes de cámara (sin espejo/réflex)", content: `Pon la cámara en modo manual (M):\n\n• **ISO: 1600–6400** — Empieza en 3200.\n\n• **Apertura: lo más abierta posible** — f/2.8 o más rápido.\n\n• **Velocidad de obturación: 8–25 segundos**\n\n• **Enfoque: manual, al infinito (∞)**\n\n• **Balance de blancos: 3500–4000K**\n\n• **Formato: RAW** si es posible.` },
+      { title: "Objetivos", content: `**Gran angular (10–24 mm)** es ideal. f/2.8 o más rápido.\n\nObjetivos populares: Samyang 14mm f/2.8, Tokina 11–20mm f/2.8, Sigma 14–24mm f/2.8.\n\n**Objetivo kit (18–55 mm f/3.5–5.6)** también funciona en el extremo más ancho (18 mm).` },
+      { title: "Fotografía con móvil", content: `**iPhone (15 y posterior):** El modo nocturno se activa automáticamente. Coloca el móvil en un trípode.\n\n**Android:** Usa modo nocturno o modo Pro. El modo astrofotografía de Google Pixel es especialmente bueno.\n\n**Lo más importante: mantén el móvil completamente inmóvil.** Usa temporizador (2–10 segundos).` },
+      { title: "Consejos prácticos para el frío", content: `**La batería se agota rápido con frío.** Lleva una batería de repuesto caliente en un bolsillo interior.\n\n**Peligro de condensación:** No lleves la cámara directamente del frío a un interior cálido. Déjala aclimatarse en la bolsa 15–30 minutos.\n\n**Guantes:** Usa guantes finos interiores (compatibles con pantalla táctil).\n\n**Linterna frontal:** Usa luz roja.` },
+      { title: "Composición — la importancia del primer plano", content: `Solo cielo es monótono — incluye un primer plano.\n\n• **Cabaña** — luz cálida + aurora = imagen clásica de Laponia\n• **Silueta del fjäll**\n• **Árbol solitario** — los árboles nevados son especialmente bonitos\n• **Hielo del lago** — reflejos\n• **Persona** — silueta da escala\n\nUsa la regla de los tercios: horizonte en el tercio inferior.` }
+    ],
+    faq: {
+      title: "Preguntas frecuentes",
+      items: [
+        { q: "¿Basta un móvil para fotografiar auroras?", a: "Sí a nivel básico. Pero un trípode es esencial. Una cámara sin espejo da resultados dramáticamente mejores." },
+        { q: "¿Cuál es el ajuste más importante?", a: "Trípode + exposición larga. Sin trípode estable, ningún ajuste de cámara ayuda." },
+        { q: "¿Cómo evitar que la cámara se congele?", a: "Lleva batería de repuesto caliente en un bolsillo interior. No metas la cámara directamente en un sitio cálido — déjala aclimatarse 15–30 minutos." }
+      ]
+    },
+    readNext: {
+      title: "Lee también",
+      links: [
+        { title: "Auroras boreales en Levi", desc: "Guía completa de aurora", href: "/es/guia/auroras-boreales-levi" },
+        { title: "Dónde ver auroras", desc: "Mejores lugares en Levi", href: "/es/guia/donde-ver-auroras-boreales-levi" },
+        { title: "Ropa de invierno", desc: "Vestirse para el frío de Laponia", href: "/es/guia/ropa-invierno-laponia" }
+      ]
+    }
+  },
+  fr: {
+    meta: {
+      title: "Photographie d'aurores boréales à Levi — Réglages caméra & conseils | Leville.net",
+      description: "Comment photographier les aurores boréales ? Réglages caméra, trépied, ISO, vitesse d'obturation et objectifs. Guide pratique pour Levi.",
+      canonical: "https://leville.net/fr/guide/photographie-aurores-boreales-levi"
+    },
+    h1: "Photographie d'aurores boréales à Levi — réglages et conseils",
+    breadcrumbLabel: "Photographie d'aurores",
+    sections: [
+      { title: "Faut-il un appareil photo ou un téléphone suffit-il ?", content: `Les smartphones modernes (iPhone 15+, Samsung S24+, Pixel 8+) photographient les aurores étonnamment bien en mode nuit. Mais un appareil photo hybride donne des résultats nettement meilleurs.\n\n**Les deux fonctionnent** — l'essentiel est un trépied.` },
+      { title: "Indispensable : trépied", content: `Les temps d'exposition sont longs — 5–25 secondes. L'appareil doit être parfaitement immobile. Photographier à main levée est impossible.\n\nMême un petit trépied de voyage fonctionne parfaitement. Prix : 30–50 € — le meilleur investissement pour des vacances aurores.` },
+      { title: "Réglages caméra (hybride/reflex)", content: `Mettez l'appareil en mode manuel (M) :\n\n• **ISO : 1600–6400** — Commencez à 3200.\n\n• **Ouverture : aussi grande que possible** — f/2.8 ou plus rapide.\n\n• **Vitesse d'obturation : 8–25 secondes**\n\n• **Mise au point : manuelle, sur l'infini (∞)**\n\n• **Balance des blancs : 3500–4000K**\n\n• **Format : RAW** si possible.` },
+      { title: "Objectifs", content: `**Grand angle (10–24 mm)** est idéal. f/2.8 ou plus rapide.\n\nObjectifs populaires : Samyang 14mm f/2.8, Tokina 11–20mm f/2.8, Sigma 14–24mm f/2.8.\n\n**Objectif kit (18–55 mm f/3.5–5.6)** fonctionne aussi au plus grand angle (18 mm).` },
+      { title: "Photographier avec un téléphone", content: `**iPhone (15 et plus récent) :** Le mode nuit s'active automatiquement. Placez le téléphone sur un trépied.\n\n**Android :** Utilisez le mode nuit ou le mode Pro. Le mode astrophotographie du Google Pixel est particulièrement bon.\n\n**Le plus important : gardez le téléphone parfaitement immobile.** Utilisez un minuteur (2–10 secondes).` },
+      { title: "Conseils pratiques par temps froid", content: `**La batterie se vide rapidement par temps froid.** Gardez une batterie de rechange au chaud dans une poche intérieure.\n\n**Danger de condensation :** Ne rentrez pas l'appareil directement du froid dans un intérieur chaud. Laissez-le s'acclimater dans le sac photo 15–30 minutes.\n\n**Gants :** Portez des sous-gants fins (compatibles écran tactile).\n\n**Lampe frontale :** Utilisez la lumière rouge.` },
+      { title: "Composition — l'importance du premier plan", content: `Le ciel seul est monotone — incluez un premier plan.\n\n• **Chalet** — lumière chaude + aurore = image classique de Laponie\n• **Silhouette du fjäll**\n• **Arbre isolé** — les arbres enneigés sont particulièrement beaux\n• **Glace du lac** — reflets\n• **Personne** — silhouette donne l'échelle\n\nUtilisez la règle des tiers : horizon dans le tiers inférieur.` }
+    ],
+    faq: {
+      title: "Questions fréquentes",
+      items: [
+        { q: "Un téléphone suffit-il pour photographier les aurores ?", a: "Oui au niveau de base. Mais un trépied reste indispensable. Un appareil hybride donne des résultats nettement meilleurs." },
+        { q: "Quel est le réglage le plus important ?", a: "Trépied + longue exposition. Sans trépied stable, aucun réglage ne vous aidera." },
+        { q: "Comment éviter le gel de l'appareil ?", a: "Gardez une batterie de rechange au chaud. Ne rentrez pas l'appareil directement — laissez-le s'acclimater dans le sac 15–30 minutes." }
+      ]
+    },
+    readNext: {
+      title: "À lire aussi",
+      links: [
+        { title: "Aurores boréales à Levi", desc: "Guide complet des aurores", href: "/fr/guide/aurores-boreales-levi" },
+        { title: "Où voir les aurores", desc: "Meilleurs endroits à Levi", href: "/fr/guide/ou-voir-aurores-boreales-levi" },
+        { title: "Vêtements d'hiver", desc: "S'habiller pour le froid lapon", href: "/fr/guide/vetements-hiver-laponie" }
+      ]
+    }
   }
 };
 
