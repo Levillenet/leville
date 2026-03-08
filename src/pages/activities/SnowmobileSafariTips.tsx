@@ -228,7 +228,7 @@ const translations = {
           },
           {
             type: "Multi-Day Expeditions",
-            desc: "An experienced rider's dream. Stay overnight in wilderness cabins and cover hundreds of kilometers through Lapland. Price from €500/day.",
+            desc: "An experienced rider's dream. Stay overnight in wilderness cabins and cover hundreds of kilometers through Lapland. Price e.g. from approx. €500/day – check with operator.",
             duration: "2–5 days",
             icon: "snowflake",
           },
