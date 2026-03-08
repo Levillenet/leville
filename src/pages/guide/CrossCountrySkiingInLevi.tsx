@@ -180,7 +180,7 @@ const translations = {
     faq: {
       title: "Frequently Asked Questions",
       items: [
-        { q: "When do Levi's trails open?", a: "The trail season typically starts in early November on the snow-making trail. The full trail network opens after sufficient snowfall." },
+        { q: "When do Levi's trails open?", a: "The trail season typically starts in early October on the first snow track. The full trail network opens after sufficient snowfall, usually in November." },
         { q: "Is there ski instruction in Levi?", a: "Yes, Levi's ski schools offer lessons for all skill levels, in both classic and skating techniques." },
         { q: "Can I ski in the evening?", a: "Yes, Levi has 28 km of illuminated trails that are open during dark hours." },
         { q: "Is there a trail fee?", a: "Levi's trails are free of charge. Equipment can be rented on site." }
