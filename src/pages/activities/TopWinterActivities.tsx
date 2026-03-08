@@ -218,7 +218,7 @@ const translations = {
             title: "Slopes and Lifts",
             items: [
               "43 slopes for all skill levels",
-              "27 lifts including modern gondola lift",
+              "28 lifts including various lift types",
               "Longest slope 2.5 km",
               "Vertical drop 325 meters",
               "Snow-guaranteed season from October to May"
