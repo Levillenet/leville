@@ -50,7 +50,7 @@ const translations = {
         items: [
           {
             type: "Lyhyet 2 tunnin safarit",
-            desc: "Täydellinen ensikertalaisialle. Tutustut kelkan ajamiseen ja pääset tunturin päälle nauttimaan maisemista. Hinta tyypillisesti 100–150€ per henkilö.",
+            desc: "Täydellinen ensikertalaisille. Tutustut kelkan ajamiseen ja pääset tunturin päälle nauttimaan maisemista. Hinta esim. alkaen n. 100 € / henkilö – tarkista ajantasainen hinta palveluntuottajalta.",
             duration: "2 tuntia",
             icon: "clock",
           },
