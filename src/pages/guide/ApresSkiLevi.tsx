@@ -74,8 +74,8 @@ const translations = {
     faq: {
       title: "Usein kysytyt kysymykset",
       items: [
-        { q: "Mikä on suosituin afterski-paikka?", a: "Hullu Poro on ylivoimaisesti tunnetuin afterski-paikka Levillä. Live-musiikkia, karaokea ja yökerho samassa paketissa." },
-        { q: "Onko Levillä yökerhoa?", a: "Kyllä, Hullu Poron yhteydessä. Sesonkiaikoina auki myöhään. Ikäraja yleensä 20 tai 22." },
+         { q: "Mikä on suosituin afterski-paikka?", a: "Hullu Poro Arena on ylivoimaisesti tunnetuin afterski-paikka Levillä. Live-musiikkia, karaokea ja yökerho samassa paketissa." },
+         { q: "Onko Levillä yökerhoa?", a: "Kyllä, Ihku on Levin tunnetuin yökerho. Sesonkiaikoina auki myöhään. Ikäraja yleensä 20 tai 22." },
         { q: "Voiko mennä afterskille hiihtovaatteissa?", a: "Kyllä, afterski on rento ja ihmiset tulevat suoraan rinteiltä. Hiihtovaatteet ovat normaalia." }
       ]
     },
