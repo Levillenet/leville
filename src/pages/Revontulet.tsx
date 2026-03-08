@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -531,6 +531,55 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
                 </Card>
               </section>
             </ScrollReveal>
+
+            {/* Aurora Guide Cluster Links - only FI and EN */}
+            {(lang === "fi" || lang === "en") && (
+              <ScrollReveal>
+                <section>
+                  <h2 className="text-2xl md:text-3xl font-display font-bold mb-3 text-center">
+                    {lang === "fi" ? "Revontuliopas — syvemmälle aiheeseen" : "Northern Lights Guide — Dive Deeper"}
+                  </h2>
+                  <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+                    {lang === "fi"
+                      ? "Haluatko tietää lisää revontulista? Olemme koonneet kattavan oppassarjan joka kattaa kaiken ajoituksesta valokuvaukseen."
+                      : "Want to learn more about the northern lights? We've compiled a comprehensive guide series covering everything from timing to photography."}
+                  </p>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {(lang === "fi"
+                      ? [
+                          { title: "Paras aika nähdä revontulet", desc: "Kuukaudet, kellonajat ja olosuhteet", href: "/opas/paras-aika-revontulet-levi" },
+                          { title: "Revontulisesonki", desc: "Milloin kausi alkaa ja päättyy?", href: "/opas/revontulisesonki-levi" },
+                          { title: "Revontuliennuste", desc: "Kp-indeksi, aurinkotuuli ja pilviennuste", href: "/opas/revontuliennuste-levi" },
+                          { title: "Missä nähdä revontulet", desc: "Parhaat paikat Levillä", href: "/opas/missa-nahda-revontulet-levi" },
+                          { title: "Revontulien valokuvaus", desc: "Kamera-asetukset ja vinkit", href: "/opas/revontulien-valokuvaus-levi" },
+                          { title: "Miten revontulet syntyvät", desc: "Tieteellinen selitys", href: "/opas/miten-revontulet-syntyvat" },
+                          { title: "Revontulien värit", desc: "Miksi vihreä, punainen ja violetti?", href: "/opas/revontulien-varit" },
+                        ]
+                      : [
+                          { title: "Best Time to See Northern Lights", desc: "Months, hours and conditions", href: "/guide/best-time-to-see-northern-lights-levi" },
+                          { title: "Northern Lights Season", desc: "When does it start and end?", href: "/guide/northern-lights-season-levi" },
+                          { title: "Northern Lights Forecast", desc: "KP index, solar wind and cloud cover", href: "/guide/northern-lights-forecast-levi" },
+                          { title: "Where to See Northern Lights", desc: "Best spots in Levi", href: "/guide/where-to-see-northern-lights-levi" },
+                          { title: "Northern Lights Photography", desc: "Camera settings and tips", href: "/guide/northern-lights-photography-levi" },
+                          { title: "How Northern Lights Form", desc: "Scientific explanation", href: "/guide/how-northern-lights-form" },
+                          { title: "Northern Lights Colors", desc: "Why green, red and purple?", href: "/guide/northern-lights-colors-explained" },
+                        ]
+                    ).map((item) => (
+                      <Link key={item.href} to={item.href}>
+                        <Card className="h-full glass-card border-border/30 hover:border-primary/40 transition-colors group cursor-pointer">
+                          <CardContent className="p-5">
+                            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-1">
+                              {item.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">{item.desc}</p>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              </ScrollReveal>
+            )}
           </div>
         </main>
         <Footer lang={lang} />
