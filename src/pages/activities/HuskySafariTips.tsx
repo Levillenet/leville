@@ -329,13 +329,13 @@ const translations = {
           ],
         },
         prices: {
-          title: "Typical Prices (2024–2025)",
-          list: [
-            "30 min ride: €80–100 / person",
-            "1h ride: €100–140 / person",
-            "Half-day safari: €150–250 / person",
-            "Overnight expedition: €400+ / person",
-          ],
+           title: "Indicative Prices",
+           list: [
+             "30 min ride: e.g. from approx. €80 / person",
+             "1h ride: e.g. from approx. €100 / person",
+             "Half-day safari: e.g. from approx. €150 / person",
+             "Always check current prices directly with the operator",
+           ],
         },
         tip: "Book early during peak seasons! Husky safaris are popular and fill up quickly.",
       },
