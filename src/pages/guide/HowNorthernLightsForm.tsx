@@ -141,6 +141,151 @@ Revontulien korkeus selittää miksi ne näkyvät niin laajalla alueella: Levill
         { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodation" }
       ]
     }
+  },
+  nl: {
+    meta: { title: "Hoe ontstaat het noorderlicht? Wetenschappelijke uitleg | Leville.net", description: "Hoe ontstaat het noorderlicht? Zonnewind, het magnetisch veld van de aarde en botsingen met zuurstof en stikstof. Een heldere wetenschappelijke uitleg.", canonical: "https://leville.net/nl/gids/hoe-ontstaat-noorderlicht" },
+    h1: "Hoe ontstaat het noorderlicht?",
+    breadcrumbLabel: "Hoe aurora ontstaat",
+    sections: [
+      { title: "Het begint allemaal bij de zon", content: `De zon stuurt voortdurend een stroom deeltjes de ruimte in — dit heet de zonnewind. Normaal gesproken is de zonnewind stabiel en veroorzaakt geen significant noorderlicht. Maar af en toe barsten er enorme deeltjeswolken uit van het zonoppervlak, genaamd Coronal Mass Ejections (CME's). Deze uitbarstingen bevatten miljarden tonnen geladen deeltjes.\n\nHet zonneoppervlak vertoont ook zonnevlekken — donkere, magnetisch actieve gebieden. Meer zonnevlekken betekent meer kans op CME's. De 11-jarige activiteitscyclus van de zon bepaalt het aantal zonnevlekken — en daarmee de sterkte en frequentie van het noorderlicht.` },
+      { title: "Het magnetisch veld van de aarde — het onzichtbare schild", content: `De aarde is als een gigantische magneet. Het magnetisch veld, de magnetosfeer, strekt zich tienduizenden kilometers de ruimte in en leidt het grootste deel van de zonnewind om de aarde heen.\n\nMaar bij de polen — precies waar Levi ligt — heeft het magnetisch veld een andere structuur. Bij de polen buigen de veldlijnen naar het aardoppervlak en creëren een "trechter" waardoor zonnewinddeeltjes de atmosfeer kunnen binnendringen.\n\nDit gebied heet de **aurora-ovaal** — een ringvormige zone rond elk poolgebied, typisch op breedtegraden 65°–75° N. Levi (67,8° N) ligt in het hart van deze zone.` },
+      { title: "Botsingen in de atmosfeer — het lichtspektakel begint", content: `Wanneer zonnewinddeeltjes (elektronen) de atmosfeer binnendringen, beginnen ze te botsen met gasatomen — voornamelijk zuurstof en stikstof. Deze botsingen vinden plaats op 100–300 kilometer hoogte.\n\nBij een botsing wordt het gasatoom **aangeslagen** — het ontvangt extra energie. Wanneer de aangeslagen toestand zich herstelt, zendt het atoom de overtollige energie uit als **licht**. Dit licht is het noorderlicht.\n\nVerschillende gassen en hoogtes produceren verschillende kleuren:\n• **Groen** — zuurstof op 100–200 km hoogte (meest voorkomend)\n• **Rood** — zuurstof boven 200 km hoogte (zeldzamer)\n• **Paars/blauw** — stikstof (vaak aan de onderrand van het gordijn)` },
+      { title: "Waarom juist bij de polen?", content: `De aurora-ovaal is een ringvormige zone rond de poolgebieden op breedtegraden 65°–75°. Levi (67,8° N) ligt nabij de zuidrand van de noordelijke ovaal — een uitstekende locatie.\n\nTijdens zeer sterke geomagnetische stormen (KP 7+) **breidt de aurora-ovaal zich significant zuidwaarts uit**. Dan kan noorderlicht zelfs in Midden-Europa worden gezien.` },
+      { title: "Verschillende vormen", content: `Noorderlicht verschijnt in vele vormen:\n\n**Boog (arc)** — De meest voorkomende vorm. Een groene boog aan de noordelijke hemel.\n\n**Gordijn (curtain)** — Een bewegende, golvende structuur. Zeer mooi en dynamisch.\n\n**Corona** — Een stralende structuur recht boven je hoofd. Indrukwekkend en zeldzaam.\n\n**Vlekken en gloed** — Zwakke, diffuse lichtgebieden. Vaak het 'beginstadium' van een sterkere vertoning.` },
+      { title: "Hoe hoog zijn ze?", content: `Noorderlicht vindt typisch plaats op 100–300 kilometer hoogte in de atmosfeer.\n\n**Groen noorderlicht** verschijnt op ongeveer 100–200 km hoogte.\n\n**Rood noorderlicht** verschijnt hoger, op 200–300 km.\n\nTer vergelijking: vliegtuigen vliegen op ongeveer 10 km hoogte. Het ISS draait op 400 km — noorderlicht bevindt zich dus onder het ISS!\n\nDe hoogte van het noorderlicht verklaart waarom het over zo'n groot gebied zichtbaar is: het noorderlicht dat je in Levi ziet kan fysiek 500–1000 km naar het noorden liggen, maar omdat het zo hoog is, is het zelfs van ver zichtbaar.` }
+    ],
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Is het noorderlicht gevaarlijk?", a: "Nee. Het vindt plaats op 100–300 km hoogte en heeft geen enkel effect op de grond. Sterke geomagnetische stormen kunnen satellieten en stroomnetwerken verstoren, maar ze zijn volledig onschadelijk voor mensen." },
+        { q: "Komt noorderlicht voor op andere planeten?", a: "Ja — op elke planeet met een magnetisch veld en atmosfeer. Jupiter en Saturnus vertonen enorme aurora's, en zelfs op Mars is zwak noorderlicht waargenomen." },
+        { q: "Kun je het noorderlicht horen?", a: "Controversieel onderwerp. Sommige mensen melden knisperend of sissend geluid tijdens sterk noorderlicht. Fins onderzoek (Aalto Universiteit) heeft geluiden op ongeveer 70 meter hoogte gedocumenteerd. Maar wetenschappelijk bewijs is beperkt." }
+      ]
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Noorderlicht in Levi", desc: "Uitgebreide aurora-gids", href: "/nl/noorderlicht" },
+        { title: "Kleuren van het noorderlicht", desc: "Waarom groen, rood en paars?", href: "/nl/gids/kleuren-van-noorderlicht" },
+        { title: "Accommodatie", desc: "Boek accommodatie in Levi", href: "/nl/accommodatie" }
+      ]
+    }
+  },
+  sv: {
+    meta: { title: "Hur uppstår norrsken? Vetenskaplig förklaring | Leville.net", description: "Hur uppstår norrsken? Solvind, jordens magnetfält och kollisioner med syre och kväve. En tydlig vetenskaplig förklaring.", canonical: "https://leville.net/sv/guide/hur-uppstar-norrsken" },
+    h1: "Hur uppstår norrsken?",
+    breadcrumbLabel: "Hur norrsken uppstår",
+    sections: [
+      { title: "Allt börjar med solen", content: `Solen skickar ständigt en ström av partiklar ut i rymden — detta kallas solvinden. Normalt är solvinden stabil. Men ibland bryter enorma partikelmoln ut från solens yta, kallade Coronal Mass Ejections (CME). Dessa utbrott innehåller miljarder ton laddade partiklar.\n\nSolens yta uppvisar också solfläckar — mörka, magnetiskt aktiva områden. Fler solfläckar innebär fler CME-utbrott. Solens 11-åriga aktivitetscykel bestämmer antalet solfläckar.` },
+      { title: "Jordens magnetfält — den osynliga skölden", content: `Jorden är som en gigantisk magnet. Magnetfältet, magnetosfären, sträcker sig tiotusentals kilometer ut i rymden och avleder det mesta av solvinden.\n\nMen nära polerna — precis där Levi ligger — har magnetfältet en annan struktur. Fältlinjerna böjer sig mot jordytan och skapar en "tratt" genom vilken solvindspartiklar kan tränga in i atmosfären.\n\nDetta område kallas **aurora-ovalen** — en ringformad zon runt varje polområde, typiskt vid breddgrader 65°–75° N. Levi (67,8° N) ligger i hjärtat av denna zon.` },
+      { title: "Kollisioner i atmosfären — ljusshowen börjar", content: `När solvindspartiklar (elektroner) tränger in i atmosfären börjar de kollidera med gasatomer — främst syre och kväve. Dessa kollisioner sker på 100–300 kilometers höjd.\n\nVid en kollision blir gasatomen **exciterad**. När det exciterade tillståndet återställs avger atomen överskottsenergin som **ljus**. Detta ljus är norrskenet.\n\nOlika gaser och höjder producerar olika färger:\n• **Grönt** — syre på 100–200 km höjd (vanligast)\n• **Rött** — syre över 200 km höjd (sällsyntare)\n• **Lila/blått** — kväve (ofta vid gardinens nedre kant)` },
+      { title: "Varför just nära polerna?", content: `Aurora-ovalen är en ringformad zon runt polområdena. Levi (67,8° N) ligger nära södra kanten av den norra ovalen.\n\nVid mycket starka geomagnetiska stormar (KP 7+) **utvidgas aurora-ovalen betydligt söderut**. Då kan norrsken ses även i Centraleuropa.` },
+      { title: "Olika former", content: `Norrsken uppträder i många former:\n\n**Båge (arc)** — Den vanligaste formen. En grön båge på norra himlen.\n\n**Gardin (curtain)** — En rörlig, böljande struktur. Mycket vacker och dynamisk.\n\n**Corona** — En strålande struktur rakt ovanför. Imponerande och sällsynt.\n\n**Fläckar och sken** — Svaga, diffusa ljusområden på himlen.` },
+      { title: "Hur högt är de?", content: `Norrsken uppträder typiskt på 100–300 kilometers höjd.\n\n**Grönt norrsken** förekommer på cirka 100–200 km höjd.\n\n**Rött norrsken** förekommer högre, på 200–300 km.\n\nISS kretsar på 400 km — norrskenet finns alltså under ISS! Norrskenets höjd förklarar varför det syns över ett så stort område.` }
+    ],
+    faq: {
+      title: "Vanliga frågor",
+      items: [
+        { q: "Är norrsken farligt?", a: "Nej. Det sker på 100–300 km höjd och påverkar inte marken. Starka geomagnetiska stormar kan störa satelliter och elnät, men de är helt ofarliga för människor." },
+        { q: "Förekommer norrsken på andra planeter?", a: "Ja — på alla planeter med magnetfält och atmosfär. Jupiter och Saturnus visar enorma norrsken, och även Mars har uppvisat svagt norrsken." },
+        { q: "Kan man höra norrskenet?", a: "Omtvistat ämne. Finsk forskning (Aalto-universitetet) har dokumenterat ljud på cirka 70 meters höjd. Men vetenskapliga bevis är begränsade." }
+      ]
+    },
+    readNext: {
+      title: "Läs också",
+      links: [
+        { title: "Norrsken i Levi", desc: "Utförlig aurora-guide", href: "/en/northern-lights" },
+        { title: "Norrskens färger", desc: "Varför grönt, rött och lila?", href: "/sv/guide/norrskens-farger" },
+        { title: "Boende", desc: "Boka boende i Levi", href: "/en/accommodation" }
+      ]
+    }
+  },
+  de: {
+    meta: { title: "Wie entstehen Nordlichter? Wissenschaftliche Erklärung | Leville.net", description: "Wie entstehen Nordlichter? Sonnenwind, Erdmagnetfeld und Kollisionen mit Sauerstoff und Stickstoff. Eine klare wissenschaftliche Erklärung.", canonical: "https://leville.net/de/ratgeber/wie-entstehen-nordlichter" },
+    h1: "Wie entstehen Nordlichter?",
+    breadcrumbLabel: "Wie Aurora entsteht",
+    sections: [
+      { title: "Alles beginnt mit der Sonne", content: `Die Sonne sendet ständig einen Teilchenstrom in den Weltraum — den Sonnenwind. Normalerweise ist der Sonnenwind stabil. Aber gelegentlich brechen riesige Teilchenwolken von der Sonnenoberfläche aus, sogenannte Koronale Massenauswürfe (CME). Diese Ausbrüche enthalten Milliarden Tonnen geladener Teilchen.\n\nDie Sonnenoberfläche zeigt auch Sonnenflecken — dunkle, magnetisch aktive Bereiche. Mehr Sonnenflecken bedeuten mehr CME-Wahrscheinlichkeit. Der 11-jährige Aktivitätszyklus der Sonne bestimmt die Anzahl der Sonnenflecken.` },
+      { title: "Das Erdmagnetfeld — der unsichtbare Schild", content: `Die Erde ist wie ein riesiger Magnet. Das Magnetfeld, die Magnetosphäre, erstreckt sich Zehntausende Kilometer in den Weltraum und lenkt den größten Teil des Sonnenwindes ab.\n\nAber in der Nähe der Pole — genau dort, wo Levi liegt — hat das Magnetfeld eine andere Struktur. Die Feldlinien biegen sich zur Erdoberfläche und schaffen einen "Trichter", durch den Sonnenwindteilchen in die Atmosphäre eindringen können.\n\nDieses Gebiet heißt **Aurora-Oval** — eine ringförmige Zone um jeden Polbereich, typisch bei Breitengraden 65°–75° N. Levi (67,8° N) liegt im Herzen dieser Zone.` },
+      { title: "Kollisionen in der Atmosphäre — die Lichtshow beginnt", content: `Wenn Sonnenwindteilchen (Elektronen) in die Atmosphäre eindringen, kollidieren sie mit Gasatomen — hauptsächlich Sauerstoff und Stickstoff. Diese Kollisionen finden in 100–300 Kilometern Höhe statt.\n\nBei einer Kollision wird das Gasatom **angeregt**. Wenn der angeregte Zustand sich entspannt, gibt das Atom die überschüssige Energie als **Licht** ab. Dieses Licht ist das Nordlicht.\n\nVerschiedene Gase und Höhen erzeugen verschiedene Farben:\n• **Grün** — Sauerstoff in 100–200 km Höhe (häufigste)\n• **Rot** — Sauerstoff über 200 km Höhe (seltener)\n• **Lila/Blau** — Stickstoff (oft am unteren Rand des Vorhangs)` },
+      { title: "Warum gerade an den Polen?", content: `Das Aurora-Oval ist eine ringförmige Zone um die Polregionen. Levi (67,8° N) liegt nahe dem Südrand des nördlichen Ovals.\n\nBei sehr starken geomagnetischen Stürmen (KP 7+) **dehnt sich das Aurora-Oval deutlich nach Süden aus**. Dann können Nordlichter sogar in Mitteleuropa gesehen werden.` },
+      { title: "Verschiedene Formen", content: `Nordlichter erscheinen in vielen Formen:\n\n**Bogen (Arc)** — Die häufigste Form. Ein grüner Bogen am Nordhimmel.\n\n**Vorhang (Curtain)** — Eine sich bewegende, wellenförmige Struktur. Sehr schön und dynamisch.\n\n**Corona** — Eine strahlenförmige Struktur direkt über dem Kopf. Beeindruckend und selten.\n\n**Flecken und Schein** — Schwache, diffuse Lichtbereiche am Himmel.` },
+      { title: "Wie hoch sind sie?", content: `Nordlichter treten typischerweise in 100–300 Kilometern Höhe auf.\n\n**Grüne Aurora** tritt in etwa 100–200 km Höhe auf.\n\n**Rote Aurora** tritt höher auf, in 200–300 km.\n\nDie ISS umkreist in 400 km Höhe — Nordlichter befinden sich also unter der ISS! Die Höhe der Nordlichter erklärt, warum sie über ein so großes Gebiet sichtbar sind.` }
+    ],
+    faq: {
+      title: "Häufig gestellte Fragen",
+      items: [
+        { q: "Sind Nordlichter gefährlich?", a: "Nein. Sie treten in 100–300 km Höhe auf und haben keinerlei Auswirkungen auf den Boden. Starke geomagnetische Stürme können Satelliten und Stromnetze stören, sind aber für Menschen völlig ungefährlich." },
+        { q: "Gibt es Nordlichter auf anderen Planeten?", a: "Ja — auf jedem Planeten mit Magnetfeld und Atmosphäre. Jupiter und Saturn zeigen riesige Aurora, und sogar auf dem Mars wurde schwaches Nordlicht beobachtet." },
+        { q: "Kann man Nordlichter hören?", a: "Umstrittenes Thema. Finnische Forschung (Aalto-Universität) hat Geräusche in etwa 70 Metern Höhe dokumentiert. Aber wissenschaftliche Belege sind begrenzt." }
+      ]
+    },
+    readNext: {
+      title: "Lesen Sie auch",
+      links: [
+        { title: "Nordlichter in Levi", desc: "Umfassender Aurora-Ratgeber", href: "/en/northern-lights" },
+        { title: "Farben der Nordlichter", desc: "Warum grün, rot und lila?", href: "/de/ratgeber/farben-der-nordlichter" },
+        { title: "Unterkunft", desc: "Unterkunft in Levi buchen", href: "/en/accommodation" }
+      ]
+    }
+  },
+  es: {
+    meta: { title: "¿Cómo se forman las auroras boreales? Explicación científica | Leville.net", description: "¿Cómo se forman las auroras boreales? Viento solar, campo magnético terrestre y colisiones con oxígeno y nitrógeno.", canonical: "https://leville.net/es/guia/como-se-forman-auroras-boreales" },
+    h1: "¿Cómo se forman las auroras boreales?",
+    breadcrumbLabel: "Cómo se forman las auroras",
+    sections: [
+      { title: "Todo comienza con el sol", content: `El sol envía constantemente un flujo de partículas al espacio — esto se llama viento solar. Normalmente es estable. Pero ocasionalmente enormes nubes de partículas estallan desde la superficie solar, llamadas Eyecciones de Masa Coronal (CME). Estas erupciones contienen miles de millones de toneladas de partículas cargadas.\n\nLa superficie solar también presenta manchas solares — áreas oscuras y magnéticamente activas. Más manchas solares significan más probabilidad de CME. El ciclo de actividad de 11 años del sol determina el número de manchas.` },
+      { title: "El campo magnético de la Tierra — el escudo invisible", content: `La Tierra es como un imán gigante. Su campo magnético se extiende decenas de miles de kilómetros en el espacio y desvía la mayor parte del viento solar.\n\nPero cerca de los polos — exactamente donde está Levi — el campo magnético tiene una estructura diferente. Las líneas de campo se curvan hacia la superficie creando un "embudo" por donde las partículas del viento solar penetran en la atmósfera.\n\nEsta área se llama el **óvalo auroral** — una zona anular alrededor de cada región polar, típicamente en latitudes 65°–75° N. Levi (67,8° N) se encuentra en el corazón de esta zona.` },
+      { title: "Colisiones en la atmósfera — el espectáculo de luz comienza", content: `Cuando las partículas del viento solar (electrones) entran en la atmósfera, comienzan a colisionar con átomos de gas — principalmente oxígeno y nitrógeno. Estas colisiones ocurren a 100–300 kilómetros de altitud.\n\nEn una colisión, el átomo de gas se **excita**. Cuando el estado excitado se relaja, el átomo emite la energía excedente como **luz**. Esta luz es la aurora.\n\nDiferentes gases y altitudes producen diferentes colores:\n• **Verde** — oxígeno a 100–200 km (más común)\n• **Rojo** — oxígeno por encima de 200 km (más raro)\n• **Púrpura/azul** — nitrógeno (a menudo en el borde inferior)` },
+      { title: "¿Por qué cerca de los polos?", content: `El óvalo auroral es una zona anular alrededor de las regiones polares. Levi (67,8° N) está cerca del borde sur del óvalo norte.\n\nDurante tormentas geomagnéticas muy fuertes (KP 7+), el óvalo auroral **se expande significativamente hacia el sur**. Entonces las auroras pueden verse incluso en Europa Central.` },
+      { title: "Diferentes formas", content: `Las auroras boreales aparecen en muchas formas:\n\n**Arco** — La forma más común. Un arco verde en el cielo norte.\n\n**Cortina** — Una estructura ondulante en movimiento. Muy hermosa y dinámica.\n\n**Corona** — Una estructura radiante directamente sobre la cabeza. Impresionante y rara.\n\n**Manchas y resplandor** — Áreas de luz débil y difusa en el cielo.` },
+      { title: "¿A qué altura están?", content: `Las auroras ocurren típicamente a 100–300 kilómetros de altitud.\n\n**Aurora verde** ocurre a aproximadamente 100–200 km.\n\n**Aurora roja** ocurre más alto, a 200–300 km.\n\nLa ISS orbita a 400 km — ¡las auroras están por debajo de la ISS! La altitud de las auroras explica por qué son visibles en un área tan grande.` }
+    ],
+    faq: {
+      title: "Preguntas frecuentes",
+      items: [
+        { q: "¿Son peligrosas las auroras boreales?", a: "No. Ocurren a 100–300 km de altitud y no tienen ningún efecto en el suelo. Las tormentas geomagnéticas fuertes pueden perturbar satélites y redes eléctricas, pero son completamente inofensivas para las personas." },
+        { q: "¿Hay auroras en otros planetas?", a: "Sí — en cualquier planeta con campo magnético y atmósfera. Júpiter y Saturno muestran enormes auroras, e incluso en Marte se ha observado aurora débil." },
+        { q: "¿Se pueden escuchar las auroras?", a: "Tema controvertido. Investigación finlandesa (Universidad Aalto) ha documentado sonidos a unos 70 metros de altura. Pero la evidencia científica es limitada." }
+      ]
+    },
+    readNext: {
+      title: "Lea también",
+      links: [
+        { title: "Auroras boreales en Levi", desc: "Guía completa de auroras", href: "/en/northern-lights" },
+        { title: "Colores de las auroras", desc: "¿Por qué verde, rojo y púrpura?", href: "/es/guia/colores-auroras-boreales" },
+        { title: "Alojamiento", desc: "Reserve alojamiento en Levi", href: "/en/accommodation" }
+      ]
+    }
+  },
+  fr: {
+    meta: { title: "Comment se forment les aurores boréales ? Explication scientifique | Leville.net", description: "Comment se forment les aurores boréales ? Vent solaire, champ magnétique terrestre et collisions avec l'oxygène et l'azote.", canonical: "https://leville.net/fr/guide/comment-se-forment-aurores-boreales" },
+    h1: "Comment se forment les aurores boréales ?",
+    breadcrumbLabel: "Comment se forment les aurores",
+    sections: [
+      { title: "Tout commence avec le soleil", content: `Le soleil envoie en permanence un flux de particules dans l'espace — c'est le vent solaire. Normalement stable, il n'entraîne pas d'aurores significatives. Mais parfois d'énormes nuages de particules éclatent de la surface solaire, appelées Éjections de Masse Coronale (CME). Ces éruptions contiennent des milliards de tonnes de particules chargées.\n\nLa surface solaire présente aussi des taches solaires — des zones sombres et magnétiquement actives. Plus de taches signifie plus de CME probables. Le cycle d'activité de 11 ans du soleil détermine le nombre de taches.` },
+      { title: "Le champ magnétique terrestre — le bouclier invisible", content: `La Terre est comme un aimant géant. Son champ magnétique s'étend sur des dizaines de milliers de kilomètres dans l'espace et dévie la majeure partie du vent solaire.\n\nMais près des pôles — exactement où se trouve Levi — le champ magnétique a une structure différente. Les lignes de champ se courbent vers la surface, créant un "entonnoir" par lequel les particules du vent solaire pénètrent dans l'atmosphère.\n\nCette zone s'appelle l'**ovale auroral** — une zone annulaire autour de chaque région polaire, typiquement aux latitudes 65°–75° N. Levi (67,8° N) se situe au cœur de cette zone.` },
+      { title: "Collisions dans l'atmosphère — le spectacle lumineux commence", content: `Lorsque les particules du vent solaire (électrons) pénètrent dans l'atmosphère, elles commencent à entrer en collision avec des atomes de gaz — principalement l'oxygène et l'azote. Ces collisions se produisent à 100–300 kilomètres d'altitude.\n\nLors d'une collision, l'atome de gaz est **excité**. Quand l'état excité se relaxe, l'atome émet l'énergie excédentaire sous forme de **lumière**. Cette lumière est l'aurore.\n\nDifférents gaz et altitudes produisent différentes couleurs :\n• **Vert** — oxygène à 100–200 km d'altitude (plus courant)\n• **Rouge** — oxygène au-dessus de 200 km (plus rare)\n• **Violet/bleu** — azote (souvent au bord inférieur du rideau)` },
+      { title: "Pourquoi près des pôles ?", content: `L'ovale auroral est une zone annulaire autour des régions polaires. Levi (67,8° N) se situe près du bord sud de l'ovale nord.\n\nLors de tempêtes géomagnétiques très fortes (KP 7+), l'ovale auroral **s'étend significativement vers le sud**. Les aurores peuvent alors être vues même en Europe centrale.` },
+      { title: "Différentes formes", content: `Les aurores boréales apparaissent sous de nombreuses formes :\n\n**Arc** — La forme la plus courante. Un arc vert dans le ciel nord.\n\n**Rideau** — Une structure ondulante en mouvement. Très belle et dynamique.\n\n**Corona** — Une structure rayonnante directement au-dessus. Impressionnante et rare.\n\n**Taches et lueur** — Des zones de lumière faible et diffuse dans le ciel.` },
+      { title: "À quelle hauteur sont-elles ?", content: `Les aurores se produisent typiquement à 100–300 kilomètres d'altitude.\n\n**L'aurore verte** apparaît à environ 100–200 km d'altitude.\n\n**L'aurore rouge** apparaît plus haut, à 200–300 km.\n\nL'ISS orbite à 400 km — les aurores sont donc sous l'ISS ! L'altitude des aurores explique pourquoi elles sont visibles sur une si grande zone.` }
+    ],
+    faq: {
+      title: "Questions fréquentes",
+      items: [
+        { q: "Les aurores boréales sont-elles dangereuses ?", a: "Non. Elles se produisent à 100–300 km d'altitude et n'ont aucun effet au sol. Les tempêtes géomagnétiques fortes peuvent perturber les satellites et les réseaux électriques, mais elles sont totalement inoffensives pour les personnes." },
+        { q: "Y a-t-il des aurores sur d'autres planètes ?", a: "Oui — sur toute planète possédant un champ magnétique et une atmosphère. Jupiter et Saturne affichent d'énormes aurores, et même sur Mars, de faibles aurores ont été observées." },
+        { q: "Peut-on entendre les aurores ?", a: "Sujet controversé. Des recherches finlandaises (Université Aalto) ont documenté des sons à environ 70 mètres d'altitude. Mais les preuves scientifiques restent limitées." }
+      ]
+    },
+    readNext: {
+      title: "Lire aussi",
+      links: [
+        { title: "Aurores boréales à Levi", desc: "Guide complet des aurores", href: "/en/northern-lights" },
+        { title: "Couleurs des aurores", desc: "Pourquoi vert, rouge et violet ?", href: "/fr/guide/couleurs-aurores-boreales" },
+        { title: "Hébergement", desc: "Réservez un hébergement à Levi", href: "/en/accommodation" }
+      ]
+    }
   }
 };
 
