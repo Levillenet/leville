@@ -244,7 +244,7 @@ const translations = {
       },
       lifts: {
         title: "Liftensysteem",
-        content: "Het moderne liftensysteem van Levi omvat diverse soorten liften, waaronder een gondel, stoeltjesliften, sleepliften en tapijtenliften. De gondel brengt u in slechts enkele minuten naar de top. De liftcapaciteit bedraagt meer dan 30.000 personen per uur."
+        content: "Het moderne liftensysteem van Levi omvat diverse soorten liften. De gondel brengt u in slechts enkele minuten naar de top, en Leevilandia heeft kindvriendelijke liften. De liftcapaciteit bedraagt meer dan 30.000 personen per uur."
       },
       passes: {
         title: "Skipassen",
