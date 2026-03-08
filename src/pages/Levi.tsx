@@ -64,6 +64,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     comparisonRovDesc: string;
     saunaTitle: string;
     saunaDesc: string;
+    eventsTitle: string;
+    eventsDesc: string;
   }> = {
     fi: {
       intro: "Löydä kaikki tarvitsemasi Levi-matkaa varten. Tutustu vuodenaikoihin, aktiviteetteihin ja käytännön matkailuoppaisiin.",
@@ -96,7 +98,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovTitle: "Levi vs Rovaniemi",
       comparisonRovDesc: "Tunturikylä vai Lapin pääkaupunki?",
       saunaTitle: "Saunaopas",
-      saunaDesc: "Saunakulttuuri, ohjeet ja elämykset Levillä"
+      saunaDesc: "Saunakulttuuri, ohjeet ja elämykset Levillä",
+      eventsTitle: "Tapahtumat Levillä",
+      eventsDesc: "World Cup, Ylläs-Levi hiihto, Ruskamaraton ja muut tapahtumat"
     },
     en: {
       intro: "Find everything you need for your Levi trip. Explore seasons, activities and practical travel guides.",
@@ -129,7 +133,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovTitle: "Levi vs Rovaniemi",
       comparisonRovDesc: "Fell village or the capital of Lapland?",
       saunaTitle: "Sauna Guide",
-      saunaDesc: "Sauna culture, tips and experiences in Levi"
+      saunaDesc: "Sauna culture, tips and experiences in Levi",
+      eventsTitle: "Events in Levi",
+      eventsDesc: "World Cup, Ylläs-Levi ski race, Ruskamarathon and more events"
     },
     sv: {
       intro: "Hitta allt du behöver för din Levi-resa. Utforska årstider, aktiviteter och praktiska reseguider.",
@@ -162,7 +168,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovTitle: "Levi vs Rovaniemi",
       comparisonRovDesc: "Fjällby eller Lapplands huvudstad?",
       saunaTitle: "Bastuguide",
-      saunaDesc: "Bastukultur, tips och upplevelser i Levi"
+      saunaDesc: "Bastukultur, tips och upplevelser i Levi",
+      eventsTitle: "Evenemang i Levi",
+      eventsDesc: "World Cup, Ylläs-Levi skidlopp, Ruskamaraton och fler evenemang"
     },
     de: {
       intro: "Finden Sie alles, was Sie für Ihre Levi-Reise brauchen. Entdecken Sie Jahreszeiten, Aktivitäten und praktische Reiseführer.",
@@ -195,7 +203,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovTitle: "Levi vs Rovaniemi",
       comparisonRovDesc: "Fjälldorf oder Hauptstadt Lapplands?",
       saunaTitle: "Sauna-Guide",
-      saunaDesc: "Saunakultur, Tipps und Erlebnisse in Levi"
+      saunaDesc: "Saunakultur, Tipps und Erlebnisse in Levi",
+      eventsTitle: "Veranstaltungen in Levi",
+      eventsDesc: "World Cup, Ylläs-Levi Skilanglauf, Ruskamarathon und weitere Events"
     },
     es: {
       intro: "Encuentra todo lo que necesitas para tu viaje a Levi. Explora estaciones, actividades y guías de viaje prácticas.",
@@ -228,7 +238,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovTitle: "Levi vs Rovaniemi",
       comparisonRovDesc: "¿Pueblo de montaña o capital de Laponia?",
       saunaTitle: "Guía de sauna",
-      saunaDesc: "Cultura de sauna, consejos y experiencias en Levi"
+      saunaDesc: "Cultura de sauna, consejos y experiencias en Levi",
+      eventsTitle: "Eventos en Levi",
+      eventsDesc: "World Cup, esquí de fondo Ylläs-Levi, Ruskamaratón y más eventos"
     },
     fr: {
       intro: "Trouvez tout ce dont vous avez besoin pour votre voyage à Levi. Explorez les saisons, les activités et les guides de voyage pratiques.",
@@ -261,7 +273,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovTitle: "Levi vs Rovaniemi",
       comparisonRovDesc: "Village de montagne ou capitale de la Laponie ?",
       saunaTitle: "Guide du sauna",
-      saunaDesc: "Culture du sauna, conseils et expériences à Levi"
+      saunaDesc: "Culture du sauna, conseils et expériences à Levi",
+      eventsTitle: "Événements à Levi",
+      eventsDesc: "World Cup, ski de fond Ylläs-Levi, Ruskamarathon et plus d'événements"
     },
     nl: {
       intro: "Vind alles wat je nodig hebt voor je Levi-reis. Ontdek seizoenen, activiteiten en praktische reisgidsen.",
@@ -294,7 +308,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       comparisonRovTitle: "Levi vs Rovaniemi",
       comparisonRovDesc: "Fjeldorp of hoofdstad van Lapland?",
       saunaTitle: "Saunagids",
-      saunaDesc: "Saunacultuur, tips en ervaringen in Levi"
+      saunaDesc: "Saunacultuur, tips en ervaringen in Levi",
+      eventsTitle: "Evenementen in Levi",
+      eventsDesc: "World Cup, Ylläs-Levi langlauf, Ruskamarathon en meer evenementen"
     }
   };
 
@@ -574,6 +590,54 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                           </h3>
                           <p className="text-sm text-muted-foreground mt-0.5">
                             {c.comparisonRovDesc}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+
+                {/* Sauna Guide Link */}
+                <Link 
+                  to={routeConfig.finnishSauna[lang]}
+                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
+                >
+                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
+                    <CardContent className="p-4 sm:p-5">
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Flame className="w-5 h-5 text-primary" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
+                            {c.saunaTitle}
+                          </h3>
+                          <p className="text-sm text-muted-foreground mt-0.5">
+                            {c.saunaDesc}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+
+                {/* Events Link */}
+                <Link 
+                  to={routeConfig.events[lang]}
+                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
+                >
+                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
+                    <CardContent className="p-4 sm:p-5">
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-sky-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Calendar className="w-5 h-5 text-sky-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
+                            {c.eventsTitle}
+                          </h3>
+                          <p className="text-sm text-muted-foreground mt-0.5">
+                            {c.eventsDesc}
                           </p>
                         </div>
                       </div>
