@@ -2059,4 +2059,283 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Après-ski & Nightlife in Levi - all languages -->
+  <url>
+    <loc>https://leville.net/opas/afterski-ja-yoelama-levilla</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/afterski-ja-yoelama-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/apres-ski-and-nightlife-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/afterski-ja-yoelama-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/sv/guide/apres-ski-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/afterski-ja-yoelama-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/de/ratgeber/apres-ski-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/afterski-ja-yoelama-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/es/guia/apres-ski-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/afterski-ja-yoelama-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/fr/guide/apres-ski-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/afterski-ja-yoelama-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/apres-ski-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/afterski-ja-yoelama-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/apres-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/apres-ski-and-nightlife-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Cabin vs Apartment in Levi - all languages -->
+  <url>
+    <loc>https://leville.net/opas/mokki-vai-huoneisto-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/mokki-vai-huoneisto-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/stuga-eller-lagenhet-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/huette-oder-apartment-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/cabana-o-apartamento-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/chalet-ou-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/chalet-of-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/cabin-vs-apartment-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/mokki-vai-huoneisto-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/stuga-eller-lagenhet-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/huette-oder-apartment-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/cabana-o-apartamento-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/chalet-ou-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/chalet-of-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/sv/guide/stuga-eller-lagenhet-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/mokki-vai-huoneisto-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/stuga-eller-lagenhet-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/huette-oder-apartment-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/cabana-o-apartamento-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/chalet-ou-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/chalet-of-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/de/ratgeber/huette-oder-apartment-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/mokki-vai-huoneisto-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/stuga-eller-lagenhet-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/huette-oder-apartment-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/cabana-o-apartamento-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/chalet-ou-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/chalet-of-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/es/guia/cabana-o-apartamento-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/mokki-vai-huoneisto-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/stuga-eller-lagenhet-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/huette-oder-apartment-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/cabana-o-apartamento-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/chalet-ou-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/chalet-of-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/fr/guide/chalet-ou-appartement-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/mokki-vai-huoneisto-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/stuga-eller-lagenhet-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/huette-oder-apartment-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/cabana-o-apartamento-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/chalet-ou-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/chalet-of-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/chalet-of-appartement-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/mokki-vai-huoneisto-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/stuga-eller-lagenhet-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/huette-oder-apartment-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/cabana-o-apartamento-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/chalet-ou-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/chalet-of-appartement-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/cabin-vs-apartment-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Ski Holiday in Levi - all languages -->
+  <url>
+    <loc>https://leville.net/opas/hiihtoloma-levilla</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihtoloma-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/skidsemester-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/skiurlaub-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/vacaciones-esqui-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/vacances-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skivakantie-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/ski-holiday-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihtoloma-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/skidsemester-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/skiurlaub-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/vacaciones-esqui-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/vacances-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skivakantie-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/sv/guide/skidsemester-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihtoloma-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/skidsemester-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/skiurlaub-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/vacaciones-esqui-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/vacances-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skivakantie-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/de/ratgeber/skiurlaub-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihtoloma-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/skidsemester-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/skiurlaub-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/vacaciones-esqui-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/vacances-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skivakantie-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/es/guia/vacaciones-esqui-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihtoloma-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/skidsemester-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/skiurlaub-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/vacaciones-esqui-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/vacances-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skivakantie-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/fr/guide/vacances-ski-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihtoloma-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/skidsemester-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/skiurlaub-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/vacaciones-esqui-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/vacances-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skivakantie-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/skivakantie-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihtoloma-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/skidsemester-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/skiurlaub-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/vacaciones-esqui-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/vacances-ski-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/skivakantie-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/ski-holiday-in-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
