@@ -264,15 +264,14 @@ const SeoPageAdmin = ({ isViewer }: SeoPageAdminProps) => {
                       {!isViewer && (
                         <td className="py-2 px-3 text-right">
                           <div className="flex items-center justify-end gap-1">
-                            {page.is_published && (
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => window.open(page.path, '_blank')}
-                              >
-                                <ExternalLink className="w-3.5 h-3.5" />
-                              </Button>
-                            )}
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => window.open(page.path, '_blank')}
+                              title="Esikatsele sivua"
+                            >
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </Button>
                             <Button
                               variant="ghost"
                               size="sm"
