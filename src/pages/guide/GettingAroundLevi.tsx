@@ -134,7 +134,7 @@ const translations = {
       skibus: {
         title: "Ski Bus and Local Transport",
         items: [
-          "Free Ski Bus runs around Levi center and slopes",
+          "Ski Bus runs around Levi center and slopes (paid, available with lift pass or separately)",
           "Buses run every 15–30 minutes during season",
           "Routes from center to different lifts and accommodation areas",
           "Schedules and routes: levi.fi/ski-bus",

@@ -301,7 +301,7 @@ const translations: Record<string, TranslationContent> = {
         { q: "What is the coldest month in Levi?", a: "January is typically the coldest month, with temperatures dropping to -35°C. February is nearly as cold but has noticeably more daylight." },
         { q: "Can you see Northern Lights in Levi in March?", a: "Yes! March is an excellent time for Northern Lights. Clear nights and extended darkness in the evenings provide great opportunities." },
         { q: "Is Levi worth visiting in summer?", a: "Absolutely! The midnight sun is a once-in-a-lifetime experience. Hiking, fishing, and cycling in the fell landscapes are unforgettable." },
-        { q: "When does the ski season start and end?", a: "The ski season typically starts in early November and runs until early May. The best skiing conditions are in March–April." },
+        { q: "When does the ski season start and end?", a: "The ski season typically starts in early October with machine-made snow and the first snow track, and runs until early May. The best skiing conditions are in March–April." },
         { q: "What is Ruska season?", a: "Ruska refers to the peak of autumn leaf colours. In Levi, this happens in the second and third weeks of September, when the fells glow in red, orange, and yellow." },
         { q: "Is March or February better for Levi?", a: "March is better for most: more daylight, warmer days, and excellent skiing. February is better for Northern Lights and true winter atmosphere." },
         { q: "When is Levi cheapest?", a: "The most affordable times are October–November and late April – early May. Summer is also affordable, but some services are limited." },
