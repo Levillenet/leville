@@ -85,9 +85,42 @@ import TwoBedroomApartments from "./pages/en/apartments/TwoBedroomApartments";
 import ThreeBedroomApartments from "./pages/en/apartments/ThreeBedroomApartments";
 import LeviCenterApartments from "./pages/en/apartments/LeviCenterApartments";
 
+// Component map for dynamically registered SEO pages
+// When you create a new page component, add it here with a unique key
+// Then register that key in the admin panel under "SEO-sivut"
+const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
+  // Example: 'SaunaLevi': SaunaLevilla,
+  // Add new SEO page components here as you create them
+};
+
 const queryClient = new QueryClient();
 
-const App = () => (
+interface SeoPageRoute {
+  path: string;
+  component_name: string;
+  lang: string;
+}
+
+const App = () => {
+  const [dynamicRoutes, setDynamicRoutes] = useState<SeoPageRoute[]>([]);
+
+  useEffect(() => {
+    const fetchPublishedPages = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke('manage-seo-pages', {
+          body: { action: 'get_published' }
+        });
+        if (!error && data) {
+          setDynamicRoutes(data);
+        }
+      } catch (e) {
+        console.error('Failed to fetch SEO pages:', e);
+      }
+    };
+    fetchPublishedPages();
+  }, []);
+
+  return (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
