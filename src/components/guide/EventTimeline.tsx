@@ -4,7 +4,6 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Info, Trophy, Users, Music, Filter } from "lucide-react";
 import { Language } from "@/translations";
-import { Language } from "@/translations";
 import { motion, AnimatePresence } from "framer-motion";
 
 type EventCategory = "sports" | "family" | "entertainment";
