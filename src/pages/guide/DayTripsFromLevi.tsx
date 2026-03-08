@@ -317,7 +317,7 @@ const DayTripsFromLevi = ({ lang = "fi" }: DayTripsFromLeviProps) => {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </section>
+            <GuideDisclaimer lang={lang} />
 
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 

@@ -307,7 +307,7 @@ const NewYearsEveLevi = ({ lang = "fi" }: NewYearsEveLeviProps) => {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </section>
+            <GuideDisclaimer lang={lang} />
 
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
