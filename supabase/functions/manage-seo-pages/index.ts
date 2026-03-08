@@ -60,6 +60,18 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
+    // Toggle publish for all pages sharing the same component_name
+    if (action === 'toggle_publish_group') {
+      const { component_name, is_published } = params;
+      const { error } = await supabase
+        .from('seo_pages')
+        .update({ is_published, updated_at: new Date().toISOString() })
+        .eq('component_name', component_name);
+
+      if (error) throw error;
+      return new Response(JSON.stringify({ success: true }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    }
+
     if (action === 'create_page') {
       const { path, title, component_name, lang, sort_order } = params;
       const { data, error } = await supabase
