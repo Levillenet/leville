@@ -68,7 +68,7 @@ const translations = {
       },
       lifts: {
         title: "Hissijärjestelmä",
-        content: "Levin moderni hissijärjestelmä sisältää gondolihissin, useita tuolihissejä ja ankkurihissejä. Gondolihissi vie sinut tunturin huipulle vain muutamassa minuutissa. Hissien kapasiteetti on yli 30 000 henkilöä tunnissa."
+        content: "Levin moderni hissijärjestelmä sisältää useita erilaisia hissejä, kuten gondolihissin, tuolihissejä, ankkurihissejä ja taikamattoja. Gondolihissi vie sinut tunturin huipulle vain muutamassa minuutissa. Hissien kapasiteetti on yli 30 000 henkilöä tunnissa."
       },
       passes: {
         title: "Hissiliput",
