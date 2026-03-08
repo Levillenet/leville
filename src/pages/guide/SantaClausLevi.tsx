@@ -38,7 +38,7 @@ const translations = {
     sections: {
       cabin: {
         title: "Joulupukin mökki Levin tunturilla",
-        content: "Levin tunturin huipulla sijaitsee Joulupukin mökki, jonne pääsee Levi Black -gondolihissillä. Mökki on aito, tunnelmallinen elämys — ei suuri kaupallinen teemapuisto vaan intiimi tapaaminen joulupukin kanssa. Gondolimatka itsessään on elämys lapsille ja aikuisille.",
+        content: "Levin tunturin huipulla sijaitsee Joulupukin mökki, jonne pääsee Levi Black -gondolihissillä. Mökki on tunnelmallinen elämys — ei suuri kaupallinen teemapuisto vaan intiimi tapaaminen joulupukin kanssa. Gondolimatka itsessään on elämys lapsille ja aikuisille.",
         note: "Tarkista aukioloajat Levin matkailuinfosta — mökki on auki tyypillisesti joulu–maaliskuussa."
       },
       arcandia: {
