@@ -212,7 +212,7 @@ const translations = {
       skiing: {
         title: "Skiing and Snowboarding",
         icon: "mountain",
-        intro: "Levi is Finland's largest ski resort with 43 slopes and 27 lifts.",
+        intro: "Levi is Finland's largest ski resort with 43 slopes and 28 lifts.",
         subsections: [
           {
             title: "Slopes and Lifts",
