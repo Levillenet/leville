@@ -50,7 +50,7 @@ const translations = {
         items: [
           {
             type: "Lyhyet ajelut (30 min – 1 h)",
-            desc: "Täydellinen tutustuminen koiravaljakkoajeluun. Sopii perheille ja ensikertalaisislle. Hinta tyypillisesti 80–120€ per henkilö.",
+            desc: "Täydellinen tutustuminen koiravaljakkoajeluun. Sopii perheille ja ensikertalaisille. Hinta esim. alkaen n. 80 € / henkilö – tarkista ajantasainen hinta palveluntuottajalta.",
             duration: "30–60 min",
             icon: "clock",
           },
