@@ -56,12 +56,12 @@ export const fi = {
   },
   majoitukset: {
     meta: {
-      title: "Majoitukset | Leville.net – Huoneistot ja mökit Leviltä",
-      description: "Tutustu Leville.net majoitusvaihtoehtoihin: modernit huoneistot, tilavat perheasunnot ja tunnelmalliset hirsimökit Levin keskustassa ja ympäristössä.",
-      keywords: "Levi majoitus, Levi huoneisto, Levi mökki, Levin vuokramökit",
+      title: "Majoitus Levillä – Huoneistot ja mökit Levin keskustassa | Leville.net",
+      description: "Varaa majoitus Levin keskustasta. Huoneistot, mökit ja lomahuvilat kävelymatkan päässä rinteistä ja palveluista. Tarkista saatavuus ja hinnat.",
+      keywords: "Levi majoitus, majoitus levillä, Levi huoneistot, Levi mökit, Levin majoitus",
       canonical: "https://leville.net/majoitukset"
     },
-    title: "Majoituksemme",
+    title: "Majoitus Levillä – Huoneistot ja mökit Levin keskustassa",
     subtitle: "Laadukkaat majoitusvaihtoehdot Levin sydämessä. Valitse sinulle sopiva kohde ja nauti Lapin taianomaisesta luonnosta.",
     bookCta: "Varaa heti lomasi",
     amenitiesTitle: "Kaikissa majoituksissamme",
