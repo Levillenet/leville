@@ -191,6 +191,8 @@ const ChristmasDinnerLeviFI = () => {
               </Accordion>
             </section>
 
+            <GuideDisclaimer lang="fi" />
+
             <ReadNextSection
               title="Lue myös"
               links={[

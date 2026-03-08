@@ -470,6 +470,8 @@ const LevinHinnatPage = () => {
           </Accordion>
         </SectionCard>
 
+        <GuideDisclaimer lang="fi" />
+
         {/* Lue lisää */}
         <ReadNextSection
           title="Lue lisää"

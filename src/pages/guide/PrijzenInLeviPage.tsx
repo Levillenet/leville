@@ -478,6 +478,8 @@ const PrijzenInLeviPage = () => {
           </Accordion>
         </SectionCard>
 
+        <GuideDisclaimer lang="nl" />
+
         {/* Read Next */}
         <ReadNextSection
           title="Lees ook"
