@@ -116,7 +116,7 @@ const translations = {
     sections: {
       cabin: {
         title: "Santa's Cabin on Levi Fell",
-        content: "On top of Levi fell sits Santa's Cabin, accessible via the Levi Black gondola lift. The cabin offers an authentic, atmospheric experience — not a large commercial theme park but an intimate meeting with Santa. The gondola ride itself is an experience for children and adults alike.",
+        content: "On top of Levi fell sits Santa's Cabin, accessible via the Levi Black gondola lift. The cabin offers an atmospheric experience — not a large commercial theme park but an intimate meeting with Santa. The gondola ride itself is an experience for children and adults alike.",
         note: "Check opening times from Levi tourist info — the cabin is typically open from Christmas to March."
       },
       arcandia: {
