@@ -314,6 +314,8 @@ const RomanticLeviGetaway = ({ lang = "fi" }: RomanticLeviGetawayProps) => {
                   </AccordionItem>
                 ))}
               </Accordion>
+            </section>
+
             <GuideDisclaimer lang={lang} />
 
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />

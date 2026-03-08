@@ -300,6 +300,8 @@ const EventsInLevi = ({ lang = "fi" }: EventsInLeviProps) => {
                   </AccordionItem>
                 ))}
               </Accordion>
+            </section>
+
             <GuideDisclaimer lang={lang} />
 
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />

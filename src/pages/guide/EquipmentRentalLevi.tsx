@@ -298,6 +298,8 @@ const EquipmentRentalLevi = ({ lang = "fi" }: EquipmentRentalLeviProps) => {
                   </AccordionItem>
                 ))}
               </Accordion>
+            </section>
+
             <GuideDisclaimer lang={lang} />
 
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
