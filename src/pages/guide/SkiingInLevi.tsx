@@ -80,7 +80,7 @@ const translations = {
       items: [
         {
           q: "Milloin Levin rinteet aukeavat?",
-          a: "Levin kausi alkaa tyypillisesti marraskuun alussa ja päättyy toukokuun alussa. Tarkista aukioloajat Levin virallisilta sivuilta."
+          a: "Levin kausi alkaa tyypillisesti lokakuun alussa tykkilumella ja ensilumen ladulla, ja päättyy toukokuun alussa. Tarkista aukioloajat Levin virallisilta sivuilta."
         },
         {
           q: "Voinko vuokrata lasketteluvälineet Leviltä?",
@@ -168,7 +168,7 @@ const translations = {
       items: [
         {
           q: "When does the Levi ski season start?",
-          a: "The Levi season typically begins in early November and ends in early May. Check opening times on Levi's official website."
+          a: "The Levi season typically begins in early October with machine-made snow and the first snow track, and ends in early May. Check opening times on Levi's official website."
         },
         {
           q: "Can I rent ski equipment in Levi?",
@@ -211,7 +211,7 @@ const translations = {
     },
     title: "Skiën in Levi",
     subtitle: "Het populairste skigebied van Finland – 43 pistes en 28 liften",
-    intro: "Levi is het grootste en populairste skigebied van Finland. Een modern liftensysteem, gevarieerde pistes voor alle niveaus en meer dan 200 skidagen per seizoen maken Levi de perfecte bestemming voor een skivakantie. Het seizoen loopt doorgaans van november tot mei.",
+    intro: "Levi is het grootste en populairste skigebied van Finland. Een modern liftensysteem, gevarieerde pistes voor alle niveaus en meer dan 200 skidagen per seizoen maken Levi de perfecte bestemming voor een skivakantie. Het seizoen loopt doorgaans van oktober tot mei.",
     sections: {
       overview: {
         title: "Skigebied Levi",
@@ -256,7 +256,7 @@ const translations = {
       items: [
         {
           q: "Wanneer begint het skiseizoen in Levi?",
-          a: "Het seizoen in Levi begint doorgaans begin november en eindigt begin mei. Controleer de openingstijden op de officiële website van Levi."
+          a: "Het seizoen in Levi begint doorgaans begin oktober met kunstsneeuw en het eerste sneeuwspoor, en eindigt begin mei. Controleer de openingstijden op de officiële website van Levi."
         },
         {
           q: "Kan ik ski-uitrusting huren in Levi?",

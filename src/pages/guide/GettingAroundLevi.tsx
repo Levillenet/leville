@@ -120,7 +120,7 @@ const translations = {
     title: "Getting Around Levi",
     subtitle: "Transfers, taxis, car rental and winter driving tips",
     intro:
-      "Getting to Levi is easy from Kittilä Airport or by car. Once there, you can use the free ski bus, taxis or walk. This guide covers everything you need for getting around.",
+      "Getting to Levi is easy from Kittilä Airport or by car. Once there, you can use the ski bus, taxis or walk. This guide covers everything you need for getting around.",
     sections: {
       airport: {
         title: "Airport Transfers",

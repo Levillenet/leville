@@ -221,7 +221,7 @@ const translations = {
               "27 lifts including modern gondola lift",
               "Longest slope 2.5 km",
               "Vertical drop 325 meters",
-              "Snow-guaranteed season from November to May"
+              "Snow-guaranteed season from October to May"
             ]
           },
           {
@@ -384,7 +384,7 @@ const translations = {
               "27 liften inclusief moderne gondellift",
               "Langste piste 2,5 km",
               "Hoogteverschil 325 meter",
-              "Gegarandeerd sneeuw van november tot mei"
+              "Gegarandeerd sneeuw van oktober tot mei"
             ]
           },
           {

@@ -95,7 +95,7 @@ const translations = {
       items: [
         {
           q: "Milloin Levin ladut aukeavat?",
-          a: "Latukausi alkaa tyypillisesti marraskuun alussa lumetuslaturilla. Täysi latuverkosto avautuu riittävien lumisateiden jälkeen."
+          a: "Latukausi alkaa tyypillisesti lokakuun alussa ensilumen ladulla. Täysi latuverkosto avautuu riittävien lumisateiden jälkeen, tyypillisesti marraskuussa."
         },
         {
           q: "Onko Levillä hiihdon opetusta?",
@@ -180,7 +180,7 @@ const translations = {
     faq: {
       title: "Frequently Asked Questions",
       items: [
-        { q: "When do Levi's trails open?", a: "The trail season typically starts in early November on the snow-making trail. The full trail network opens after sufficient snowfall." },
+        { q: "When do Levi's trails open?", a: "The trail season typically starts in early October on the first snow track. The full trail network opens after sufficient snowfall, usually in November." },
         { q: "Is there ski instruction in Levi?", a: "Yes, Levi's ski schools offer lessons for all skill levels, in both classic and skating techniques." },
         { q: "Can I ski in the evening?", a: "Yes, Levi has 28 km of illuminated trails that are open during dark hours." },
         { q: "Is there a trail fee?", a: "Levi's trails are free of charge. Equipment can be rented on site." }
@@ -256,7 +256,7 @@ const translations = {
     faq: {
       title: "Veelgestelde vragen",
       items: [
-        { q: "Wanneer gaan de loipes in Levi open?", a: "Het loipeseizoen begint meestal begin november op de kunstsneeuwloipe. Het volledige loipenetwerk opent na voldoende sneeuwval." },
+        { q: "Wanneer gaan de loipes in Levi open?", a: "Het loipeseizoen begint meestal begin oktober op het eerste sneeuwspoor. Het volledige loipenetwerk opent na voldoende sneeuwval, meestal in november." },
         { q: "Zijn er langlauflessen in Levi?", a: "Ja, de skischolen van Levi bieden lessen voor alle niveaus, zowel klassiek als skating." },
         { q: "Kan ik 's avonds langlaufen?", a: "Ja, Levi heeft 28 km verlichte loipes die ook in het donker open zijn." },
         { q: "Moet ik betalen voor de loipes?", a: "Nee, de loipes van Levi zijn gratis. Uitrusting kun je ter plaatse huren." }
