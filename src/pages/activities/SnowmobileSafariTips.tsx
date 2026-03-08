@@ -62,7 +62,7 @@ const translations = {
           },
           {
             type: "Usean päivän expeditiot",
-            desc: "Kokeneiden ajajien unelma. Yövy erämaakämpillä ja aja satoja kilometrejä Lapin sydämessä. Hinta alkaen 500€/päivä.",
+            desc: "Kokeneiden ajajien unelma. Yövy erämaakämpillä ja aja satoja kilometrejä Lapin sydämessä. Hinta esim. alkaen n. 500 € / päivä – tarkista palveluntuottajalta.",
             duration: "2–5 päivää",
             icon: "snowflake",
           },
