@@ -35,6 +35,7 @@ import NotFound from "./pages/NotFound";
 import WinterClothingGuide from "./pages/guide/WinterClothingGuide";
 import SnowmobileSafariTips from "./pages/activities/SnowmobileSafariTips";
 import HuskySafariTips from "./pages/activities/HuskySafariTips";
+import ReindeerSafariLevi from "./pages/activities/ReindeerSafariLevi";
 import HikingAndBikingLevi from "./pages/activities/HikingAndBikingLevi";
 import HowToGetToLevi from "./pages/travel/HowToGetToLevi";
 import TopWinterActivities from "./pages/activities/TopWinterActivities";
@@ -89,7 +90,7 @@ import LeviCenterApartments from "./pages/en/apartments/LeviCenterApartments";
 // When you create a new page component, add it here with a unique key
 // Then register that key in the admin panel under "SEO-sivut"
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
-  // Example: 'SaunaLevi': SaunaLevilla,
+  'ReindeerSafariLevi': ReindeerSafariLevi,
   // Add new SEO page components here as you create them
 };
 
@@ -272,6 +273,7 @@ const App = () => {
               <Route path="/aktiviteetit/vaellus-ja-maastopyoraily-levi" element={<HikingAndBikingLevi />} />
               <Route path="/matka/miten-paasee-leville-helsingista" element={<HowToGetToLevi />} />
               <Route path="/aktiviteetit/parhaat-talviaktiviteetit-levi" element={<TopWinterActivities />} />
+              <Route path="/aktiviteetit/porosafari-levi" element={<ReindeerSafariLevi />} />
               
               {/* SEO Landing Pages - English */}
               <Route path="/guide/how-to-dress-for-winter-in-levi-lapland" element={<WinterClothingGuide lang="en" />} />
@@ -286,6 +288,7 @@ const App = () => {
               <Route path="/activities/hiking-and-biking-levi" element={<HikingAndBikingLevi lang="en" />} />
               <Route path="/travel/how-to-get-to-levi-from-helsinki-and-abroad" element={<HowToGetToLevi lang="en" />} />
               <Route path="/activities/top-winter-activities-in-levi-lapland" element={<TopWinterActivities lang="en" />} />
+              <Route path="/activities/reindeer-safari-levi" element={<ReindeerSafariLevi lang="en" />} />
               
               {/* Travel HUB Child Pages - Finnish */}
               <Route path="/opas/liikkuminen-levilla" element={<GettingAroundLevi />} />
