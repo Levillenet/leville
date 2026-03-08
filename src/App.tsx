@@ -135,6 +135,7 @@ const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = 
   'CanoeingAndSUPLevi': CanoeingAndSUPLevi,
   'AccessibleLevi': AccessibleLevi,
   'SamiCultureLevi': SamiCultureLevi,
+  'MonthlyGuideLevi': MonthlyGuideLevi,
 };
 
 const queryClient = new QueryClient();
