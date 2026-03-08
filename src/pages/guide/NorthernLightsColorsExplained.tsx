@@ -145,7 +145,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
 };
 
 const NorthernLightsColorsExplained = ({ lang = "fi" }: Props) => {
-  const t = translations[lang as keyof typeof translations] || translations.fi;
+  const t = translations[lang as keyof typeof translations] || translations.en;
   const location = useLocation();
   const customUrls: Record<string, string> = { fi: "/opas/revontulien-varit", en: "/guide/northern-lights-colors-explained" };
   const breadcrumbItems = [

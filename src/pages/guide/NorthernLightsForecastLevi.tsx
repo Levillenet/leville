@@ -210,7 +210,7 @@ A three-night holiday gives statistically good odds. On a week-long holiday, you
 };
 
 const NorthernLightsForecastLevi = ({ lang = "fi" }: Props) => {
-  const t = translations[lang as keyof typeof translations] || translations.fi;
+  const t = translations[lang as keyof typeof translations] || translations.en;
   const location = useLocation();
   const customUrls: Record<string, string> = { fi: "/opas/revontuliennuste-levi", en: "/guide/northern-lights-forecast-levi" };
   const breadcrumbItems = [
