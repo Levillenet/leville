@@ -189,6 +189,122 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
         { title: "Accommodation", desc: "Watch aurora from your own terrace", href: "/en/accommodation" }
       ]
     }
+  },
+  nl: {
+    meta: { title: "Beste tijd om noorderlicht te zien in Levi — Maanden, uren en omstandigheden | Leville.net", description: "Wanneer is het noorderlicht het best zichtbaar in Levi? Beste maanden, uren en maandelijkse waarschijnlijkheid.", canonical: "https://leville.net/nl/gids/beste-tijd-noorderlicht-levi" },
+    h1: "Beste tijd om noorderlicht te zien in Levi",
+    breadcrumbLabel: "Beste tijd voor aurora",
+    sections: [
+      { title: "Het noorderlichtseizoen in een oogopslag", content: `Het noorderlichtseizoen in Levi duurt van eind augustus tot begin april. Levi ligt onder de aurora-ovaal (67,8° N) — de zone waar noorderlicht het vaakst voorkomt.` },
+      { title: "Beste maanden", content: `**September:** Seizoen begint half september. Ruska-seizoen (herfstkleuren) maakt het uniek.\n\n**Oktober:** Lange nachten, vaak helder weer.\n\n**Januari:** Beste maand — heldere vriesperiodes.\n\n**Februari:** Uitstekend. Lange nachten, helder en koud.\n\n**Maart:** Begin maart nog mogelijk.` },
+      { title: "Beste tijd van de nacht", content: `Tussen 21:00 en 01:00. Controleer de KP-index en ga naar buiten bij KP 3+.\n\n**Tip:** Installeer My Aurora Forecast voor meldingen.` },
+      { title: "Het belang van duisternis", content: `Noorderlicht is alleen zichtbaar tegen een donkere hemel.\n\n• **Niet zichtbaar:** mei–juli (middernachtzon)\n• **Beste zichtbaarheid:** september–februari` },
+      { title: "Bewolking — de grootste vijand", content: `Bewolking blokkeert het zicht volledig. Levi's continentale klimaat biedt meer heldere nachten dan de kust van Noorwegen of IJsland.` },
+      { title: "Zonne-activiteitscyclus", content: `De jaren 2024–2026 liggen nabij de piek van Solar Cycle 25. Maar Levi heeft tientallen aurora-nachten per jaar ongeacht de cyclus.` }
+    ],
+    faq: { title: "Veelgestelde vragen", items: [
+      { q: "Wat is de beste maand?", a: "Januari en februari. September is ook uitstekend." },
+      { q: "Hoe laat naar buiten?", a: "21:00–01:00, bij KP 3+." },
+      { q: "Elke nacht noorderlicht?", a: "Nee. Bij 3+ nachten stijgt de kans aanzienlijk." },
+      { q: "Zichtbaar vanuit het centrum?", a: "Ja bij KP 5+. Beter een paar honderd meter van straatverlichting." }
+    ]},
+    readNext: { title: "Lees ook", links: [
+      { title: "Noorderlicht in Levi", desc: "Uitgebreide aurora-gids", href: "/nl/noorderlicht" },
+      { title: "Winter in Levi", desc: "Wat biedt een wintervakantie?", href: "/guide/winter-in-levi" },
+      { title: "Accommodatie", desc: "Bekijk aurora vanaf uw terras", href: "/nl/accommodatie" }
+    ]}
+  },
+  sv: {
+    meta: { title: "Bästa tiden att se norrsken i Levi | Leville.net", description: "När syns norrskenet bäst i Levi? Bästa månader, tider och förhållanden.", canonical: "https://leville.net/sv/guide/basta-tiden-norrsken-levi" },
+    h1: "Bästa tiden att se norrsken i Levi", breadcrumbLabel: "Bästa tiden för norrsken",
+    sections: [
+      { title: "Norrskensäsongen i korthet", content: `Säsongen varar från slutet av augusti till början av april. Levi ligger under aurora-ovalen (67,8° N).` },
+      { title: "Bästa månader", content: `**September:** Ruska-säsongen. **Oktober:** Långa nätter, klart väder. **Januari:** Bästa månaden — klara köldperioder. **Februari:** Utmärkt. **Mars:** Möjligt i början.` },
+      { title: "Bästa tid på natten", content: `Kl. 21–01. Kontrollera KP-index och gå ut vid KP 3+.` },
+      { title: "Mörkrets betydelse", content: `Norrsken syns bara mot mörk himmel. Bäst september–februari.` },
+      { title: "Molntäcke", content: `Levis kontinentala klimat ger fler klara nätter än Norges kuster.` },
+      { title: "Solens aktivitetscykel", content: `2024–2026 nära toppen av Solar Cycle 25. Levi har norrsken dussintals gånger årligen.` }
+    ],
+    faq: { title: "Vanliga frågor", items: [
+      { q: "Bästa månaden?", a: "Januari och februari. September också utmärkt." },
+      { q: "Vilken tid?", a: "Kl. 21–01, vid KP 3+." },
+      { q: "Varje natt?", a: "Nej. Längre semester ökar chansen." },
+      { q: "Från centrum?", a: "Ja vid KP 5+." }
+    ]},
+    readNext: { title: "Läs också", links: [
+      { title: "Norrsken i Levi", desc: "Utförlig guide", href: "/en/northern-lights" },
+      { title: "Vinter i Levi", desc: "Vintersemester", href: "/guide/winter-in-levi" },
+      { title: "Boende", desc: "Se norrsken från terrassen", href: "/en/accommodation" }
+    ]}
+  },
+  de: {
+    meta: { title: "Beste Zeit für Nordlichter in Levi | Leville.net", description: "Wann sind Nordlichter in Levi am besten sichtbar? Beste Monate, Uhrzeiten und Bedingungen.", canonical: "https://leville.net/de/ratgeber/beste-zeit-nordlichter-levi" },
+    h1: "Beste Zeit für Nordlichter in Levi", breadcrumbLabel: "Beste Zeit für Aurora",
+    sections: [
+      { title: "Die Nordlichtsaison im Überblick", content: `Die Saison dauert von Ende August bis Anfang April. Levi liegt unter dem Aurora-Oval (67,8° N).` },
+      { title: "Beste Monate", content: `**September:** Ruska-Saison. **Oktober:** Lange Nächte, klares Wetter. **Januar:** Bester Monat — klare Kälteperioden. **Februar:** Ausgezeichnet. **März:** Anfang noch möglich.` },
+      { title: "Beste Uhrzeit", content: `21:00–01:00 Uhr. Bei KP 3+ rausgehen.` },
+      { title: "Dunkelheit", content: `Nordlichter nur gegen dunklen Himmel sichtbar. Beste Zeit: September–Februar.` },
+      { title: "Bewölkung", content: `Levis kontinentales Klima bietet mehr klare Nächte als Norwegens Küsten.` },
+      { title: "Sonnenaktivitätszyklus", content: `2024–2026 nahe dem Höhepunkt von Solar Cycle 25.` }
+    ],
+    faq: { title: "Häufig gestellte Fragen", items: [
+      { q: "Bester Monat?", a: "Januar und Februar. September auch ausgezeichnet." },
+      { q: "Welche Uhrzeit?", a: "21:00–01:00, bei KP 3+." },
+      { q: "Jede Nacht?", a: "Nein. Längerer Urlaub erhöht die Chance." },
+      { q: "Vom Zentrum aus?", a: "Ja bei KP 5+." }
+    ]},
+    readNext: { title: "Lesen Sie auch", links: [
+      { title: "Nordlichter in Levi", desc: "Umfassender Ratgeber", href: "/en/northern-lights" },
+      { title: "Winter in Levi", desc: "Winterurlaub", href: "/guide/winter-in-levi" },
+      { title: "Unterkunft", desc: "Aurora von der Terrasse", href: "/en/accommodation" }
+    ]}
+  },
+  es: {
+    meta: { title: "Mejor momento para ver auroras boreales en Levi | Leville.net", description: "¿Cuándo son más visibles las auroras en Levi? Mejores meses, horas y condiciones.", canonical: "https://leville.net/es/guia/mejor-momento-auroras-boreales-levi" },
+    h1: "Mejor momento para ver auroras boreales en Levi", breadcrumbLabel: "Mejor momento para auroras",
+    sections: [
+      { title: "La temporada en resumen", content: `Dura desde finales de agosto hasta principios de abril. Levi se sitúa bajo el óvalo auroral (67,8° N).` },
+      { title: "Mejores meses", content: `**Septiembre:** Temporada de ruska. **Octubre:** Noches largas, clima despejado. **Enero:** Mejor mes — períodos fríos y claros. **Febrero:** Excelente. **Marzo:** Posible a principios.` },
+      { title: "Mejor hora", content: `21:00–01:00. Salga cuando el KP sea 3+.` },
+      { title: "Oscuridad", content: `Las auroras solo son visibles contra un cielo oscuro. Mejor: septiembre–febrero.` },
+      { title: "Nubosidad", content: `El clima continental de Levi ofrece más noches despejadas que las costas de Noruega o Islandia.` },
+      { title: "Ciclo solar", content: `2024–2026 cerca del pico del Solar Cycle 25.` }
+    ],
+    faq: { title: "Preguntas frecuentes", items: [
+      { q: "¿Mejor mes?", a: "Enero y febrero. Septiembre también excelente." },
+      { q: "¿A qué hora?", a: "21:00–01:00, con KP 3+." },
+      { q: "¿Cada noche?", a: "No. Estancias más largas aumentan la probabilidad." },
+      { q: "¿Desde el centro?", a: "Sí con KP 5+." }
+    ]},
+    readNext: { title: "Lea también", links: [
+      { title: "Auroras en Levi", desc: "Guía completa", href: "/en/northern-lights" },
+      { title: "Invierno en Levi", desc: "Vacaciones de invierno", href: "/guide/winter-in-levi" },
+      { title: "Alojamiento", desc: "Vea auroras desde su terraza", href: "/en/accommodation" }
+    ]}
+  },
+  fr: {
+    meta: { title: "Meilleur moment pour voir les aurores boréales à Levi | Leville.net", description: "Quand les aurores sont-elles les plus visibles à Levi ? Meilleurs mois, heures et conditions.", canonical: "https://leville.net/fr/guide/meilleur-moment-aurores-boreales-levi" },
+    h1: "Meilleur moment pour voir les aurores boréales à Levi", breadcrumbLabel: "Meilleur moment pour aurores",
+    sections: [
+      { title: "La saison en un coup d'œil", content: `De fin août à début avril. Levi se situe sous l'ovale auroral (67,8° N).` },
+      { title: "Meilleurs mois", content: `**Septembre :** Saison du ruska. **Octobre :** Longues nuits, temps clair. **Janvier :** Meilleur mois — périodes froides et claires. **Février :** Excellent. **Mars :** Possible début mars.` },
+      { title: "Meilleure heure", content: `21h–1h. Sortez quand le KP est 3+.` },
+      { title: "Obscurité", content: `Les aurores ne sont visibles que contre un ciel sombre. Meilleure période : septembre–février.` },
+      { title: "Nébulosité", content: `Le climat continental de Levi offre plus de nuits claires que les côtes de Norvège ou d'Islande.` },
+      { title: "Cycle solaire", content: `2024–2026 proche du pic du Solar Cycle 25.` }
+    ],
+    faq: { title: "Questions fréquentes", items: [
+      { q: "Meilleur mois ?", a: "Janvier et février. Septembre aussi excellent." },
+      { q: "Quelle heure ?", a: "21h–1h, avec KP 3+." },
+      { q: "Chaque nuit ?", a: "Non. Un séjour plus long augmente la probabilité." },
+      { q: "Depuis le centre ?", a: "Oui avec KP 5+." }
+    ]},
+    readNext: { title: "Lire aussi", links: [
+      { title: "Aurores à Levi", desc: "Guide complet", href: "/en/northern-lights" },
+      { title: "Hiver à Levi", desc: "Vacances d'hiver", href: "/guide/winter-in-levi" },
+      { title: "Hébergement", desc: "Aurores depuis votre terrasse", href: "/en/accommodation" }
+    ]}
   }
 };
 
