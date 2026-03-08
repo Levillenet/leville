@@ -105,11 +105,11 @@ const translations = {
       places: {
         title: "Popular Spots",
         items: [
-          { name: "Hullu Poro", desc: "The most famous — après-ski, restaurant and nightclub under one roof" },
-          { name: "Colorado Bar", desc: "Live music, more laid-back vibe" },
-          { name: "Ihku", desc: "Cocktail bar, trendier atmosphere" },
-          { name: "Tuikkubaari & slope restaurants", desc: "Après-ski right on the slopes" },
-          { name: "Restaurant bars", desc: "King Crab House, Ämmilä etc. — great food and drinks" }
+           { name: "Hullu Poro Arena", desc: "The most famous — après-ski, restaurant and nightclub under one roof" },
+           { name: "Colorado", desc: "Restaurant with great atmosphere" },
+           { name: "Ihku", desc: "Nightclub and party venue" },
+           { name: "Tuikku", desc: "Daytime après-ski on the fell, right next to the slopes" },
+           { name: "Restaurant bars", desc: "King Crab House, Ämmilä etc. — great food and drinks" }
         ],
         disclaimer: "Opening hours and programmes vary by season. Always check the latest info on each venue's own pages."
       },
