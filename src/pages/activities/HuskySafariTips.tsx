@@ -21,10 +21,8 @@ interface HuskySafariTipsProps {
   lang?: Language;
 }
 
-const translations = {
-  fi: {
-    meta: {
-      title: "Koiravaljakkoajelu Levillä – Vinkit ensikertalaiselle | Leville.net",
+import { huskySafariTranslations } from "./huskySafariTranslations";
+const translations = huskySafariTranslations;
       description:
         "Ensimmäinen koiravaljakkoajelu Levillä? Lue opas huskyjen kanssa seikkailuun: mitä odottaa, miten pukeutua ja mistä varata. Unohtumatonta Lapin taikaa.",
       canonical: "https://leville.net/aktiviteetit/koiravaljakkoajelu-levi",

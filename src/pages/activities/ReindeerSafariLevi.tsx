@@ -21,10 +21,8 @@ interface ReindeerSafariLeviProps {
   lang?: Language;
 }
 
-const translations = {
-  fi: {
-    meta: {
-      title: "Porosafari Levillä — Mitä odottaa, vinkit ja käytännön tietoa | Leville.net",
+import { reindeerSafariTranslations } from "./reindeerSafariTranslations";
+const translations = reindeerSafariTranslations;
       description: "Kattava opas porosafareista Levillä. Erilaiset poroelämykset, mitä pukea, vinkit perheille ja käytännön tietoa paikalliselta majoittajalta.",
       canonical: "https://leville.net/aktiviteetit/porosafari-levi",
     },
