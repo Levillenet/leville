@@ -880,6 +880,408 @@ function getMonthData(month: number, lang: string): MonthData | null {
       };
     }
 
+    case 9: {
+      const mName = monthNames[lang]?.[9] || "September";
+      return {
+        meta: isFi
+          ? { title: "Levi syyskuussa — Ruska, revontulet ja hiljaisuus | Leville.net", description: "Millaista Levillä on syyskuussa? Ruska-aika, revontulikausi alkaa ja tunturit hehkuvat väreissä. Yksi kauneimmista kuukausista.", canonical }
+          : { title: "Levi in September — Autumn Colors, Northern Lights & Silence | Leville.net", description: "What is Levi like in September? Autumn foliage season, northern lights begin and fells glow in colors.", canonical },
+        h1: isFi ? "Levi syyskuussa — ruska ja revontulet" : "Levi in September — Autumn Colors and Northern Lights",
+        subtitle: isFi ? "Tunturit hehkuvat väreissä, yöt pimenevät ja revontulet palaavat" : "Fells glow in colors, nights darken and Northern Lights return",
+        quickFacts: [
+          { icon: <Thermometer className="w-5 h-5" />, label: isFi ? "Lämpötila" : "Temperature", value: "+2…+12 °C" },
+          { icon: <Sun className="w-5 h-5" />, label: isFi ? "Päivänvalo" : "Daylight", value: "12–15 h" },
+          { icon: <Snowflake className="w-5 h-5" />, label: isFi ? "Lumi" : "Snow", value: isFi ? "Ei vielä" : "Not yet" },
+          { icon: <Users className="w-5 h-5" />, label: isFi ? "Sesonki" : "Season", value: isFi ? "Rauhallinen" : "Quiet" },
+        ],
+        whatItsLike: {
+          title: isFi ? "Millaista Levillä on syyskuussa?" : "What is Levi like in September?",
+          text: isFi
+            ? "Syyskuu on Levin kaunein kuukausi monien mielestä. Tunturimaisema muuttuu kullankeltaiseksi ja tulipunaiseksi — tätä kutsutaan ruskaksi. Revontulikausi on alkanut ja pimenevät yöt tarjoavat erinomaisia mahdollisuuksia. Ilma on raikas ja hyttyset ovat kadonneet. Syyskuu on hiljaista — ei talvisesongin massaturismia, mutta kaikki kesäaktiviteetit ovat vielä mahdollisia."
+            : "September is many people's favorite month in Levi. The fell landscape transforms into golden yellows and fiery reds — this is called ruska (autumn foliage). The Northern Lights season has begun and darkening nights offer excellent opportunities. The air is crisp and mosquitoes are gone. September is quiet — no winter mass tourism, but all summer activities are still possible.",
+        },
+        whatToDo: {
+          title: isFi ? "Mitä tehdä syyskuussa?" : "What to do in September?",
+          items: isFi
+            ? [
+                "Ruskavaellus — tunturireitit väriloistossa, erityisesti Kätkätunturi ja Pallas-Yllästunturi",
+                "Revontulien katselu — kausi alkaa, pitkät yöt + usein kirkas sää",
+                "Ruskamaraton (syyskuu) — juoksutapahtuma, myös lyhyempiä matkoja",
+                "Marjojen ja sienien poiminta — puolukka ja sienet vielä",
+                "Pyöräily ja maastopyöräily — viimeiset kesäreitit",
+                "Valokuvaus — ruska on valokuvaajan unelma",
+              ]
+            : [
+                "Ruska hiking — fell trails in a blaze of color, especially Kätkätunturi and Pallas-Yllästunturi",
+                "Northern Lights watching — season begins, long nights + often clear skies",
+                "Ruska Marathon (September) — running event with shorter distances available",
+                "Berry and mushroom picking — lingonberries and mushrooms still available",
+                "Cycling and mountain biking — last summer trails",
+                "Photography — ruska is a photographer's dream",
+              ],
+        },
+        events: {
+          title: isFi ? "Tapahtumat" : "Events",
+          items: isFi
+            ? ["Ruskamaraton — juoksutapahtuma ruskan keskellä"]
+            : ["Ruska Marathon — running event amid the autumn colors"],
+          disclaimer: isFi ? "Tarkista ajantasainen tapahtumakalenteri: levi.fi" : "Check the up-to-date event calendar: levi.fi",
+        },
+        tips: {
+          title: isFi ? "Käytännön vinkit" : "Practical Tips",
+          items: isFi
+            ? [
+                "Kerrospukeutuminen — päivällä voi olla +15 °C, illalla +2 °C",
+                "Sadeasusteet mukaan — syyssade mahdollinen",
+                "Ei hyttysiä! Syyskuu on ihanteellinen ulkoiluaika",
+                "Rauhallinen ja edullinen — hyvä aika matkailijoille jotka eivät hiihdä",
+              ]
+            : [
+                "Layer up — daytime can be +15 °C, evening +2 °C",
+                "Bring rain gear — autumn rain is possible",
+                "No mosquitoes! September is ideal for outdoor activities",
+                "Quiet and affordable — great time for non-skiing travelers",
+              ],
+        },
+        faqs: isFi
+          ? [
+              { question: "Milloin ruska on parhaimmillaan?", answer: "Tyypillisesti syyskuun toinen ja kolmas viikko. Vaihtelee vuosittain." },
+              { question: "Näkeekö syyskuussa revontulia?", answer: "Kyllä, kausi alkaa. Parhaat mahdollisuudet loppukuussa." },
+              { question: "Voiko syyskuussa vaeltaa?", answer: "Ehdottomasti — parasta aikaa! Ei hyttysiä, kauniit värit, sopiva lämpötila." },
+            ]
+          : [
+              { question: "When is the autumn foliage at its best?", answer: "Typically the second and third week of September. Varies each year." },
+              { question: "Can you see Northern Lights in September?", answer: "Yes, the season begins. Best chances towards the end of the month." },
+              { question: "Can you hike in September?", answer: "Absolutely — it's the best time! No mosquitoes, beautiful colors, comfortable temperatures." },
+            ],
+        readNext: isFi
+          ? [
+              { title: "Ruska Levillä", desc: "Syksyn väriloisto tunturissa", href: "/opas/syksy-ruska-levi" },
+              { title: "Revontulet", desc: "Revontuliopas ja ennuste", href: "/revontulet" },
+              { title: "Vaellus ja pyöräily", desc: "Reitit ja vinkit", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi" },
+              { title: "Majoitukset", desc: "Löydä sopiva majoitus", href: "/majoitukset" },
+            ]
+          : [
+              { title: "Autumn Ruska", desc: "Fall colors in the fells", href: "/guide/autumn-ruska-in-levi" },
+              { title: "Northern Lights", desc: "Aurora guide and forecast", href: "/revontulet" },
+              { title: "Hiking & Biking", desc: "Trails and tips", href: "/activities/hiking-and-biking-levi" },
+              { title: "Accommodations", desc: "Find accommodation", href: "/en/accommodations" },
+            ],
+        cta: isFi
+          ? { text: "Syyskuu on Levin kaunein kuukausi — koe ruska ja revontulet.", href: "/majoitukset" }
+          : { text: "September is Levi's most beautiful month — experience ruska and Northern Lights.", href: "/en/accommodations" },
+        hreflang,
+        breadcrumbs: [
+          { name: isFi ? "Etusivu" : "Home", url: isFi ? base : `${base}/en` },
+          guideBreadcrumb,
+          { name: isFi ? `Levi ${mName}` : `Levi in ${mName}`, url: canonical },
+        ],
+      };
+    }
+
+    case 10: {
+      const mName = monthNames[lang]?.[10] || "October";
+      return {
+        meta: isFi
+          ? { title: "Levi lokakuussa — Ensimmäinen lumi, kaamos lähestyy ja hiljaisuus | Leville.net", description: "Millaista Levillä on lokakuussa? Ensimmäiset lumisateet, pimeys lisääntyy ja Levi valmistautuu talveen.", canonical }
+          : { title: "Levi in October — First Snow, Darkness Grows & Quiet Season | Leville.net", description: "What is Levi like in October? First snowfall, growing darkness and Levi prepares for winter.", canonical },
+        h1: isFi ? "Levi lokakuussa — ensimmäinen lumi ja talven odotus" : "Levi in October — First Snow and Waiting for Winter",
+        subtitle: isFi ? "Siirtymäkausi, pimeys lisääntyy ja ensimmäiset lumisateet" : "Transition season, growing darkness and first snowfalls",
+        quickFacts: [
+          { icon: <Thermometer className="w-5 h-5" />, label: isFi ? "Lämpötila" : "Temperature", value: "-5…+5 °C" },
+          { icon: <Sun className="w-5 h-5" />, label: isFi ? "Päivänvalo" : "Daylight", value: "8–11 h" },
+          { icon: <Snowflake className="w-5 h-5" />, label: isFi ? "Lumi" : "Snow", value: isFi ? "Ensimmäiset sateet" : "First snowfall" },
+          { icon: <Users className="w-5 h-5" />, label: isFi ? "Sesonki" : "Season", value: isFi ? "Hyvin rauhallinen" : "Very quiet" },
+        ],
+        whatItsLike: {
+          title: isFi ? "Millaista Levillä on lokakuussa?" : "What is Levi like in October?",
+          text: isFi
+            ? "Lokakuu on Levin siirtymäkautta. Ruska on ohi, lumi ei vielä peittä maata pysyvästi, mutta ensimmäiset lumisateet tuovat talven esimakua. Päivä lyhenee nopeasti ja pimeys lisääntyy — revontulet ovat mahdollisia lähes joka yö. Monet palvelut ovat siirtymässä talvikauteen. Levi on hiljainen mutta rinteet avaavat yleensä lokakuun lopussa (ensilumen latu tai tekolumirinne)."
+            : "October is Levi's transition season. Autumn colors are gone, snow doesn't yet cover the ground permanently, but first snowfalls bring a taste of winter. Days shorten rapidly and darkness increases — Northern Lights are possible almost every night. Many services are transitioning to winter season. Levi is quiet but slopes typically open at the end of October (early snow trail or artificial snow slope).",
+        },
+        whatToDo: {
+          title: isFi ? "Mitä tehdä lokakuussa?" : "What to do in October?",
+          items: isFi
+            ? [
+                "Revontulien katselu — erinomainen kuukausi, pitkät pimeät yöt",
+                "Ensimmäinen laskettelu — rinteet avaavat tyypillisesti lokakuun lopussa",
+                "Vaellus — vielä mahdollista mutta maasto voi olla jäinen/mutainen",
+                "Hiljaisuudesta nauttiminen — lokakuu on Levin rauhallisin aika",
+              ]
+            : [
+                "Northern Lights watching — excellent month, long dark nights",
+                "First skiing — slopes typically open at the end of October",
+                "Hiking — still possible but terrain can be icy/muddy",
+                "Enjoying the silence — October is Levi's most peaceful time",
+              ],
+        },
+        events: {
+          title: isFi ? "Tapahtumat" : "Events",
+          items: isFi
+            ? ["Lokakuussa ei tyypillisesti suuria tapahtumia — siirtymäkausi talveen."]
+            : ["October typically has no major events — it's a transition to winter."],
+          disclaimer: isFi ? "Tarkista: levi.fi/tapahtumat" : "Check: levi.fi/tapahtumat",
+        },
+        tips: {
+          title: isFi ? "Käytännön vinkit" : "Practical Tips",
+          items: isFi
+            ? [
+                "Tarkista etukäteen mitkä palvelut ovat auki — siirtymäkausi",
+                "Rinteiden avauspäivä vaihtelee — seuraa levi.fi",
+                "Pimeässä liikkuminen: otsalamppu ja heijastimet",
+                "Edullisinta aikaa — mutta palveluita rajallisesti",
+              ]
+            : [
+                "Check in advance which services are open — transition season",
+                "Slope opening date varies — follow levi.fi",
+                "Moving in the dark: headlamp and reflectors",
+                "Most affordable time — but limited services",
+              ],
+        },
+        faqs: isFi
+          ? [
+              { question: "Voiko lokakuussa lasketella?", answer: "Mahdollisesti loppukuussa — ensilumen latu tai tekolumirinne. Tarkista levi.fi." },
+              { question: "Onko lokakuussa lunta?", answer: "Ensimmäisiä sataa, ei yleensä pysyvää. Vaihtelee vuosittain." },
+              { question: "Onko tekemistä?", answer: "Rajallisemmin kuin talvella tai kesällä. Revontulet ja rauha ovat lokakuun parasta." },
+            ]
+          : [
+              { question: "Can you ski in October?", answer: "Possibly at the end of the month — early snow trail or artificial snow slope. Check levi.fi." },
+              { question: "Is there snow in October?", answer: "First snowfalls come, but usually not permanent. Varies each year." },
+              { question: "Is there much to do?", answer: "Less than in winter or summer. Northern Lights and peace are October's highlights." },
+            ],
+        readNext: isFi
+          ? [
+              { title: "Ruska Levillä", desc: "Syksyn väriloisto", href: "/opas/syksy-ruska-levi" },
+              { title: "Revontulet", desc: "Revontuliopas", href: "/revontulet" },
+              { title: "Majoitukset", desc: "Löydä sopiva majoitus", href: "/majoitukset" },
+            ]
+          : [
+              { title: "Autumn Ruska", desc: "Fall colors in Levi", href: "/guide/autumn-ruska-in-levi" },
+              { title: "Northern Lights", desc: "Aurora guide", href: "/revontulet" },
+              { title: "Accommodations", desc: "Find accommodation", href: "/en/accommodations" },
+            ],
+        cta: isFi
+          ? { text: "Lokakuu on Levin rauhallisin aika — revontulet ja hiljaisuus.", href: "/majoitukset" }
+          : { text: "October is Levi's most peaceful time — Northern Lights and silence.", href: "/en/accommodations" },
+        hreflang,
+        breadcrumbs: [
+          { name: isFi ? "Etusivu" : "Home", url: isFi ? base : `${base}/en` },
+          guideBreadcrumb,
+          { name: isFi ? `Levi ${mName}` : `Levi in ${mName}`, url: canonical },
+        ],
+      };
+    }
+
+    case 11: {
+      const mName = monthNames[lang]?.[11] || "November";
+      return {
+        meta: isFi
+          ? { title: "Levi marraskuussa — Talvi alkaa, rinteet aukeavat ja kaamos saapuu | Leville.net", description: "Millaista Levillä on marraskuussa? Talvikausi alkaa, rinteet aukeavat, World Cup ja kaamos alkaa. Paikallisen opas.", canonical }
+          : { title: "Levi in November — Winter Begins, Slopes Open & World Cup | Leville.net", description: "What is Levi like in November? Winter season starts, slopes open, Alpine World Cup and polar night begins.", canonical },
+        h1: isFi ? "Levi marraskuussa — talvikausi alkaa" : "Levi in November — Winter Season Begins",
+        subtitle: isFi ? "Rinteet aukeavat, World Cup ja kaamos saapuu" : "Slopes open, World Cup and polar night arrives",
+        quickFacts: [
+          { icon: <Thermometer className="w-5 h-5" />, label: isFi ? "Lämpötila" : "Temperature", value: "-5…-15 °C" },
+          { icon: <Sun className="w-5 h-5" />, label: isFi ? "Päivänvalo" : "Daylight", value: "4–7 h" },
+          { icon: <Snowflake className="w-5 h-5" />, label: isFi ? "Lumi" : "Snow", value: isFi ? "Pysyvä lumi saapuu" : "Permanent snow arrives" },
+          { icon: <Users className="w-5 h-5" />, label: isFi ? "Sesonki" : "Season", value: isFi ? "Kasvava" : "Growing" },
+        ],
+        whatItsLike: {
+          title: isFi ? "Millaista Levillä on marraskuussa?" : "What is Levi like in November?",
+          text: isFi
+            ? "Marraskuu on Levin talvikauden avaus. Pysyvä lumi saapuu yleensä marraskuussa ja rinteet aukeavat. Iso tapahtuma on FIS Alpine World Cup Slalom marraskuussa — kansainvälinen kilpailu joka tuo Leville huippu-urheilijoita ja katsojia. Kaamos alkaa loppukuussa — päivä lyhenee rajusti mutta tunturikylä saa jouluvalot ja tunnelma muuttuu maagiseksi."
+            : "November is the opening of Levi's winter season. Permanent snow usually arrives in November and slopes open. The big event is the FIS Alpine World Cup Slalom in November — an international competition bringing top athletes and spectators to Levi. The polar night begins at the end of the month — days shorten dramatically but the fell village gets Christmas lights and the atmosphere turns magical.",
+        },
+        whatToDo: {
+          title: isFi ? "Mitä tehdä marraskuussa?" : "What to do in November?",
+          items: isFi
+            ? [
+                "Kauden avauslaskettelu — ensimmäiset rinteet ja ladut auki",
+                "World Cup -katselu — ilmainen yleisölle rinteeltä",
+                "Revontulet — erinomainen kuukausi (pitkät yöt)",
+                "Ensimmäiset talvisafarit käynnistyvät (husky, poro, moottorikelkka)",
+                "Suksibussi alkaa kulkea",
+              ]
+            : [
+                "Season opening skiing — first slopes and trails open",
+                "World Cup viewing — free for spectators from the slope",
+                "Northern Lights — excellent month (long nights)",
+                "First winter safaris begin (husky, reindeer, snowmobile)",
+                "Ski bus starts running",
+              ],
+        },
+        events: {
+          title: isFi ? "Tapahtumat" : "Events",
+          items: isFi
+            ? [
+                "FIS Alpine World Cup Slalom — tyypillisesti marraskuun puolivälissä",
+                "Joulusesonki alkaa — jouluvalot ja koristeet ilmestyvät",
+              ]
+            : [
+                "FIS Alpine World Cup Slalom — typically mid-November",
+                "Christmas season begins — Christmas lights and decorations appear",
+              ],
+          disclaimer: isFi ? "Tarkista: levi.fi/tapahtumat" : "Check: levi.fi/tapahtumat",
+        },
+        tips: {
+          title: isFi ? "Käytännön vinkit" : "Practical Tips",
+          items: isFi
+            ? [
+                "Kaikki rinteet eivät ole vielä auki — tarkista levi.fi",
+                "Pukeudu talvivarusteet — marraskuu on jo todellista talvea",
+                "World Cup -viikonloppuna majoitus on kysyttyä — varaa ajoissa",
+              ]
+            : [
+                "Not all slopes are open yet — check levi.fi",
+                "Dress in full winter gear — November is real winter",
+                "Accommodation is in demand during World Cup weekend — book early",
+              ],
+        },
+        faqs: isFi
+          ? [
+              { question: "Milloin rinteet aukeavat?", answer: "Tyypillisesti lokakuun lopussa tai marraskuun alussa. Kaikki rinteet auki yleensä marraskuun lopussa." },
+              { question: "Mikä on World Cup?", answer: "FIS Alpine World Cup Slalom — kansainvälinen alppihiihtokisa Levillä. Katselu on ilmaista rinteeltä." },
+              { question: "Alkaako kaamos marraskuussa?", answer: "Kyllä, loppukuussa. Aurinko ei enää nouse horisontin yläpuolelle noin 10.–15. joulukuuta alkaen." },
+            ]
+          : [
+              { question: "When do the slopes open?", answer: "Typically late October or early November. All slopes usually open by late November." },
+              { question: "What is the World Cup?", answer: "FIS Alpine World Cup Slalom — an international alpine skiing competition in Levi. Spectating is free from the slope." },
+              { question: "Does the polar night begin in November?", answer: "Yes, at the end of the month. The sun no longer rises above the horizon from around December 10–15." },
+            ],
+        readNext: isFi
+          ? [
+              { title: "Talvi Levillä", desc: "Talvikauden kokonaisopas", href: "/opas/talvi-levi" },
+              { title: "Laskettelu Levillä", desc: "Rinteet ja vinkit", href: "/opas/laskettelu-levi" },
+              { title: "Revontulet", desc: "Revontuliopas", href: "/revontulet" },
+              { title: "Majoitukset", desc: "Löydä sopiva majoitus", href: "/majoitukset" },
+            ]
+          : [
+              { title: "Winter in Levi", desc: "Complete winter guide", href: "/guide/winter-in-levi" },
+              { title: "Skiing in Levi", desc: "Slopes and tips", href: "/guide/skiing-in-levi" },
+              { title: "Northern Lights", desc: "Aurora guide", href: "/revontulet" },
+              { title: "Accommodations", desc: "Find accommodation", href: "/en/accommodations" },
+            ],
+        cta: isFi
+          ? { text: "Marraskuu on talvikauden avaus — World Cup ja ensimmäiset rinteet.", href: "/majoitukset" }
+          : { text: "November opens the winter season — World Cup and first slopes.", href: "/en/accommodations" },
+        hreflang,
+        breadcrumbs: [
+          { name: isFi ? "Etusivu" : "Home", url: isFi ? base : `${base}/en` },
+          guideBreadcrumb,
+          { name: isFi ? `Levi ${mName}` : `Levi in ${mName}`, url: canonical },
+        ],
+      };
+    }
+
+    case 12: {
+      const mName = monthNames[lang]?.[12] || "December";
+      return {
+        meta: isFi
+          ? { title: "Levi joulukuussa — Joulu, kaamos ja maaginen tunnelma | Leville.net", description: "Millaista Levillä on joulukuussa? Joulusesonki, kaamos, joulupukki ja unohtumaton tunnelma. Varaa ajoissa!", canonical }
+          : { title: "Levi in December — Christmas, Polar Night & Magic | Leville.net", description: "What is Levi like in December? Christmas season, polar night, Santa Claus and unforgettable atmosphere. Book early!", canonical },
+        h1: isFi ? "Levi joulukuussa — joulun taikaa kaamoksen keskellä" : "Levi in December — Christmas Magic in the Polar Night",
+        subtitle: isFi ? "Joulusesonki, kaamos ja unohtumaton tunnelma" : "Christmas season, polar night and unforgettable atmosphere",
+        quickFacts: [
+          { icon: <Thermometer className="w-5 h-5" />, label: isFi ? "Lämpötila" : "Temperature", value: "-10…-25 °C" },
+          { icon: <Sun className="w-5 h-5" />, label: isFi ? "Päivänvalo" : "Daylight", value: isFi ? "0–3 h (kaamos)" : "0–3 h (polar night)" },
+          { icon: <Snowflake className="w-5 h-5" />, label: isFi ? "Lumi" : "Snow", value: isFi ? "Runsas ja pysyvä" : "Deep and permanent" },
+          { icon: <Users className="w-5 h-5" />, label: isFi ? "Sesonki" : "Season", value: isFi ? "Huippu" : "Peak" },
+        ],
+        whatItsLike: {
+          title: isFi ? "Millaista Levillä on joulukuussa?" : "What is Levi like in December?",
+          text: isFi
+            ? "Joulukuu on Levin maagisinta aikaa. Kaamos luo sinisen hämärän, kylä hehkuu jouluvaloin, lumi peittää kaiken ja tunnelma on kuin satukirjasta. Joulusesonki on Levin vilkkain ja kallein aika — majoitukset varataan kuukausia etukäteen. Joulupukki, porot, huskyajelut ja jouluillalliset tekevät joulukuusta unohtumattoman. Pakkanen voi olla kova mutta se on osa elämystä."
+            : "December is Levi's most magical time. The polar night creates a blue twilight, the village glows with Christmas lights, snow covers everything and the atmosphere is like a storybook. The Christmas season is Levi's busiest and most expensive time — accommodation is booked months in advance. Santa Claus, reindeer, husky rides and Christmas dinners make December unforgettable. The cold can be intense but it's part of the experience.",
+        },
+        whatToDo: {
+          title: isFi ? "Mitä tehdä joulukuussa?" : "What to do in December?",
+          items: isFi
+            ? [
+                "Joulupukin tapaaminen — tunturin mökki + Arcandia",
+                "Jouluostokset ja joulumarkkinat",
+                "Laskettelu ja hiihto — rinteet ja ladut valaistuja, tunnelmallista pimeässä",
+                "Huskyajelu, porosafari, moottorikelkkasafari",
+                "Revontulet — erinomainen kuukausi (pitkät yöt)",
+                "Jouluillallinen ravintolassa tai oma jouluruoka mökissä",
+                "Uusivuosi Levillä",
+              ]
+            : [
+                "Meeting Santa Claus — fell cabin + Arcandia",
+                "Christmas shopping and Christmas markets",
+                "Skiing and snowboarding — slopes and trails illuminated, atmospheric in the dark",
+                "Husky rides, reindeer safaris, snowmobile safaris",
+                "Northern Lights — excellent month (long nights)",
+                "Christmas dinner at a restaurant or cooking your own in the cabin",
+                "New Year's Eve in Levi",
+              ],
+        },
+        events: {
+          title: isFi ? "Tapahtumat" : "Events",
+          items: isFi
+            ? [
+                "Joulusesonki koko kuun — joulupukkikohteet, jouluohjelma ravintoloissa",
+                "Uudenvuodenaatto ja ilotulitukset",
+              ]
+            : [
+                "Christmas season all month — Santa Claus venues, Christmas programmes at restaurants",
+                "New Year's Eve and fireworks",
+              ],
+          disclaimer: isFi ? "Tarkista: levi.fi/tapahtumat" : "Check: levi.fi/tapahtumat",
+        },
+        tips: {
+          title: isFi ? "Käytännön vinkit" : "Practical Tips",
+          items: isFi
+            ? [
+                "VARAA HYVIN AJOISSA — 6–12 kk etukäteen joulusesonkille",
+                "Ravintolat: varaa viikkoja etukäteen, erityisesti jouluaatolle",
+                "Alko: jouluaattona sulkee aikaisin, joulupäivänä ja tapaninpäivänä kiinni",
+                "Pukeudu erittäin lämpimästi — pakkanen voi olla -25…-35 °C",
+                "Lasten kanssa: otsalamppu tekee pimeässä liikkumisesta seikkailun",
+              ]
+            : [
+                "BOOK WELL IN ADVANCE — 6–12 months ahead for the Christmas season",
+                "Restaurants: book weeks in advance, especially for Christmas Eve",
+                "Alko (liquor store): closes early on Christmas Eve, closed on Christmas Day and Boxing Day",
+                "Dress extremely warmly — frost can be -25…-35 °C",
+                "With children: a headlamp turns moving in the dark into an adventure",
+              ],
+        },
+        faqs: isFi
+          ? [
+              { question: "Paljonko joulumatka Leville maksaa?", answer: "Joulusesonki on kalleinta. Katso hintaopas ja varaa ajoissa." },
+              { question: "Onko joulukuussa ihan pimeää?", answer: "Kaamos = aurinko ei nouse, mutta keskipäivällä on 2–3 h kaunista sinistä hämärää. Ei pikipimeää." },
+              { question: "Tarvitseeko varata etukäteen?", answer: "Ehdottomasti. Joulusesonki täyttyy kuukausia etukäteen." },
+            ]
+          : [
+              { question: "How much does a Christmas trip to Levi cost?", answer: "Christmas season is the most expensive. Check the price guide and book early." },
+              { question: "Is it completely dark in December?", answer: "Polar night = the sun doesn't rise, but midday has 2–3 hours of beautiful blue twilight. Not pitch black." },
+              { question: "Do I need to book in advance?", answer: "Absolutely. The Christmas season fills up months ahead." },
+            ],
+        readNext: isFi
+          ? [
+              { title: "Joulu Lapissa", desc: "Kattava jouluopas", href: "/levi/joulu-lapissa" },
+              { title: "Revontulet", desc: "Revontuliopas", href: "/revontulet" },
+              { title: "Hinnat Levillä", desc: "Mitä Levi-loma maksaa?", href: "/opas/hinnat-levilla" },
+              { title: "Majoitukset", desc: "Löydä sopiva majoitus", href: "/majoitukset" },
+            ]
+          : [
+              { title: "Christmas in Lapland", desc: "Complete Christmas guide", href: "/levi/joulu-lapissa" },
+              { title: "Northern Lights", desc: "Aurora guide", href: "/revontulet" },
+              { title: "Prices in Levi", desc: "What does a holiday cost?", href: "/guide/prices-in-levi" },
+              { title: "Accommodations", desc: "Find accommodation", href: "/en/accommodations" },
+            ],
+        cta: isFi
+          ? { text: "Joulukuu on Levin maagisinta aikaa — varaa ajoissa!", href: "/majoitukset" }
+          : { text: "December is Levi's most magical time — book early!", href: "/en/accommodations" },
+        hreflang,
+        breadcrumbs: [
+          { name: isFi ? "Etusivu" : "Home", url: isFi ? base : `${base}/en` },
+          guideBreadcrumb,
+          { name: isFi ? `Levi ${mName}` : `Levi in ${mName}`, url: canonical },
+        ],
+      };
+    }
+
     default:
       return null;
   }
