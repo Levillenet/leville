@@ -308,6 +308,8 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
             );
           })}
 
+          <GuideDisclaimer lang={lang} />
+
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
