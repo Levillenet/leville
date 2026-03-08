@@ -95,7 +95,7 @@ const translations = {
       items: [
         {
           q: "Milloin Levin ladut aukeavat?",
-          a: "Latukausi alkaa tyypillisesti marraskuun alussa lumetuslaturilla. Täysi latuverkosto avautuu riittävien lumisateiden jälkeen."
+          a: "Latukausi alkaa tyypillisesti lokakuun alussa ensilumen ladulla. Täysi latuverkosto avautuu riittävien lumisateiden jälkeen, tyypillisesti marraskuussa."
         },
         {
           q: "Onko Levillä hiihdon opetusta?",
