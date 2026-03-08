@@ -262,8 +262,8 @@ const translations = {
             text: "Passengers sit in the back. Hold on and lean with the driver through turns. It's easier than you might think!",
           },
           {
-            title: "First Time?",
-            text: "Driving a snowmobile is easier than a car. The handlebars turn easily and the brake is on the left side. You'll learn in a few minutes.",
+             title: "First Time?",
+             text: "Driving a snowmobile is easier than a car. The brake is on the left and the throttle on the right – you operate the throttle with your thumb. You'll learn in a few minutes.",
           },
         ],
       },
