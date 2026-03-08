@@ -68,6 +68,7 @@ const Header = () => {
           { name: "Majoitukset", href: routeConfig.accommodations.fi },
           { name: "Äkkilähdöt", href: routeConfig.lastMinute.fi, highlight: true },
           { name: "Levi-opas", href: routeConfig.levi.fi },
+          { name: "Tapahtumat", href: routeConfig.events.fi },
           { name: "Yhteystiedot", href: routeConfig.contact.fi },
         ];
     }
