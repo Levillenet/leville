@@ -112,7 +112,7 @@ const translations = {
       canonical: "https://leville.net/guide/santa-claus-in-levi"
     },
     h1: "Santa Claus in Levi — Where to Meet Santa?",
-    intro: "In Levi, Santa lives on top of a fell — not in a theme park. This guide tells you where and how to meet Santa, what other Christmas experiences Levi offers and how it compares to Rovaniemi.",
+    intro: "On top of Levi fell sits Santa's Cabin — an atmospheric experience for the whole family. This guide tells you where and how to meet Santa, what other Christmas experiences Levi offers and how it compares to Rovaniemi.",
     sections: {
       cabin: {
         title: "Santa's Cabin on Levi Fell",
