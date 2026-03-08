@@ -346,6 +346,10 @@ const Admin = () => {
               <BookOpen className="w-4 h-4" />
               Oppaat
             </TabsTrigger>
+            <TabsTrigger value="seo-pages" className="flex items-center gap-2">
+              <Globe className="w-4 h-4" />
+              SEO-sivut
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="maintenance">
