@@ -185,7 +185,7 @@ const translations: Record<string, TranslationContent> = {
         { q: "Mikä on Levin kylmin kuukausi?", a: "Tammikuu on tyypillisesti kylmin kuukausi, jolloin lämpötilat voivat laskea -35°C:seen. Helmikuu on lähes yhtä kylmä, mutta valoa on jo enemmän." },
         { q: "Voiko Levillä nähdä revontulia maaliskuussa?", a: "Kyllä! Maaliskuu on erinomainen aika revontulien näkemiseen. Kirkkaat yöt ja pidempi pimeys iltaisin tarjoavat hyviä mahdollisuuksia." },
         { q: "Kannattaako Levillä käydä kesällä?", a: "Ehdottomasti! Yötön yö on ainutlaatuinen kokemus. Vaellus, kalastus ja pyöräily tunturimaisemissa ovat unohtumattomia." },
-        { q: "Milloin laskettelukausi alkaa ja päättyy?", a: "Laskettelukausi alkaa tyypillisesti marraskuun alussa ja jatkuu toukokuun alkuun. Paras aika laskettelulle on maalis–huhtikuu." },
+        { q: "Milloin laskettelukausi alkaa ja päättyy?", a: "Laskettelukausi alkaa tyypillisesti lokakuun alussa tykkilumella ja ensilumen ladulla, ja jatkuu toukokuun alkuun. Paras aika laskettelulle on maalis–huhtikuu." },
         { q: "Mitä on ruska?", a: "Ruska tarkoittaa syksyn lehtivärien huippua. Levillä tämä tapahtuu syyskuun toisella ja kolmannella viikolla, kun tunturit hehkuvat punaisina, oranssina ja keltaisina." },
         { q: "Onko maalis- vai helmikuu parempi aika Leville?", a: "Maaliskuu on monille parempi: enemmän valoa, lämpimämpiä päiviä ja paremmat lasketteluolosuhteet. Helmikuu on parempi revontulien kannalta." },
         { q: "Milloin Levillä on halvinta?", a: "Edullisimmat ajat ovat loka–marraskuu ja huhtikuun loppu – toukokuun alku. Kesällä on myös edullista, mutta palvelut ovat rajoitetumpia." },
