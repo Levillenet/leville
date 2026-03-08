@@ -256,7 +256,7 @@ const translations = {
       items: [
         {
           q: "Wanneer begint het skiseizoen in Levi?",
-          a: "Het seizoen in Levi begint doorgaans begin november en eindigt begin mei. Controleer de openingstijden op de officiële website van Levi."
+          a: "Het seizoen in Levi begint doorgaans begin oktober met kunstsneeuw en het eerste sneeuwspoor, en eindigt begin mei. Controleer de openingstijden op de officiële website van Levi."
         },
         {
           q: "Kan ik ski-uitrusting huren in Levi?",

@@ -106,7 +106,7 @@ export const sv = {
     faqTitle: "Vanliga frågor om boende i Levi",
     faqs: [
       { question: "Hur mycket kostar boende i Levi?", answer: "Priserna beror på säsong, storlek och läge. En studiolägenhet för två kostar ca 70–150 €/natt, familjelägenhet för 4–6 personer ca 120–250 €/natt och rymlig stuga för 8–14 personer ca 200–500 €/natt." },
-      { question: "Behöver jag bil i Levi?", answer: "Om du bor i Levi centrum behöver du ingen bil. Backar, spår, restauranger och butiker är inom gångavstånd. På vintern går gratis Ski Bus." },
+      { question: "Behöver jag bil i Levi?", answer: "Om du bor i Levi centrum behöver du ingen bil. Backar, spår, restauranger och butiker är inom gångavstånd. På vintern går Ski Bus regelbundet (avgiftsbelagd, ingår i liftkort eller köps separat)." },
       { question: "Har boendena bastu?", answer: "Nästan alla Leville.net boenden har egen bastu. Detta är standard i Finland men ofta en trevlig överraskning för utländska besökare. Alla boenden med bastu har elektriskt uppvärmd bastu.", link: "/sauna", linkText: "Läs vår bastuguide" },
       { question: "Hur tar jag mig till Levi?", answer: "Du kan flyga till Kittilä flygplats (15 min med buss) eller ta tåg till Kolari (1 h med buss). Med bil är Helsinki–Levi ca 1 100 km.", link: "/en/travel/how-to-get-to-levi", linkText: "Läs mer på vår reseguide" },
       { question: "Passar Levi för barnfamiljer?", answer: "Absolut. Levi har egna barnbackar, skidskola, familjerestauranger och massor av barnvänliga aktiviteter.", link: "/en/guide/levi-with-children", linkText: "Läs vår guide för familjer" },

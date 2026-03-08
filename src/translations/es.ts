@@ -106,7 +106,7 @@ export const es = {
     faqTitle: "Preguntas frecuentes sobre alojamiento en Levi",
     faqs: [
       { question: "¿Cuánto cuesta el alojamiento en Levi?", answer: "Los precios dependen de la temporada, tamaño y ubicación. Un estudio para dos cuesta aproximadamente 70–150 €/noche, un apartamento familiar para 4–6 personas alrededor de 120–250 €/noche." },
-      { question: "¿Necesito coche en Levi?", answer: "Si te alojas en el centro de Levi, no necesitas coche. Las pistas, restaurantes y tiendas están a poca distancia a pie. En invierno, el Ski Bus gratuito circula regularmente." },
+      { question: "¿Necesito coche en Levi?", answer: "Si te alojas en el centro de Levi, no necesitas coche. Las pistas, restaurantes y tiendas están a poca distancia a pie. En invierno, el Ski Bus circula regularmente (de pago, disponible con forfait o por separado)." },
       { question: "¿Los alojamientos tienen sauna?", answer: "Casi todos los alojamientos de Leville.net tienen su propia sauna. Esto es estándar en Finlandia pero a menudo una grata sorpresa para los visitantes internacionales. Todos los alojamientos con sauna tienen sauna eléctrica.", link: "/sauna", linkText: "Lee nuestra guía de sauna" },
       { question: "¿Cómo llego a Levi?", answer: "Puedes volar al aeropuerto de Kittilä (15 min en autobús) o tomar el tren a Kolari (1 h en autobús).", link: "/en/travel/how-to-get-to-levi", linkText: "Lee más en nuestra guía de viaje" },
       { question: "¿Es Levi adecuado para familias?", answer: "Absolutamente. Levi tiene pistas para niños, escuela de esquí, restaurantes familiares y muchas actividades para niños.", link: "/en/guide/levi-with-children", linkText: "Lee nuestra guía para familias" },

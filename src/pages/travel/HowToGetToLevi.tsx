@@ -297,7 +297,7 @@ const translations = {
         options: [
           {
             name: "Ski Bus",
-            desc: "Free ski bus circulates Levi center, hotels and slopes. Runs approximately every 15 minutes during peak season."
+            desc: "Ski Bus circulates Levi center, hotels and slopes (paid, available with lift pass or separately). Runs approximately every 15 minutes during peak season."
           },
           {
             name: "Taxi",

@@ -256,7 +256,7 @@ const translations = {
     faq: {
       title: "Veelgestelde vragen",
       items: [
-        { q: "Wanneer gaan de loipes in Levi open?", a: "Het loipeseizoen begint meestal begin november op de kunstsneeuwloipe. Het volledige loipenetwerk opent na voldoende sneeuwval." },
+        { q: "Wanneer gaan de loipes in Levi open?", a: "Het loipeseizoen begint meestal begin oktober op het eerste sneeuwspoor. Het volledige loipenetwerk opent na voldoende sneeuwval, meestal in november." },
         { q: "Zijn er langlauflessen in Levi?", a: "Ja, de skischolen van Levi bieden lessen voor alle niveaus, zowel klassiek als skating." },
         { q: "Kan ik 's avonds langlaufen?", a: "Ja, Levi heeft 28 km verlichte loipes die ook in het donker open zijn." },
         { q: "Moet ik betalen voor de loipes?", a: "Nee, de loipes van Levi zijn gratis. Uitrusting kun je ter plaatse huren." }

@@ -384,7 +384,7 @@ const translations = {
               "27 liften inclusief moderne gondellift",
               "Langste piste 2,5 km",
               "Hoogteverschil 325 meter",
-              "Gegarandeerd sneeuw van november tot mei"
+              "Gegarandeerd sneeuw van oktober tot mei"
             ]
           },
           {
