@@ -242,7 +242,7 @@ const translations = {
           },
           {
             type: "Half-Day Safaris",
-            desc: "3–4 hour trip takes you deeper into the wilderness. Includes longer ride and lunch break. Price €150–220 per person.",
+            desc: "3–4 hour trip takes you deeper into the wilderness. Includes longer ride and lunch break. Price e.g. from approx. €150 / person – check with operator.",
             duration: "3–4 hours",
             icon: "mappin",
           },
