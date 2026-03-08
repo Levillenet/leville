@@ -1,0 +1,1 @@
+UPDATE public.seo_pages SET is_published = true WHERE component_name IN ('HowNorthernLightsForm', 'NorthernLightsColorsExplained', 'NorthernLightsPhotographyLevi', 'WhereToSeeNorthernLightsLevi', 'NorthernLightsForecastLevi', 'NorthernLightsSeasonLevi') AND is_published = false;
