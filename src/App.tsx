@@ -92,6 +92,8 @@ import ApresSkiLevi from "./pages/guide/ApresSkiLevi";
 import SnowshoeingLevi from "./pages/activities/SnowshoeingLevi";
 import SantaClausLevi from "./pages/guide/SantaClausLevi";
 import SpringSkiingLevi from "./pages/guide/SpringSkiingLevi";
+import EquipmentRentalLevi from "./pages/guide/EquipmentRentalLevi";
+import NewYearsEveLevi from "./pages/guide/NewYearsEveLevi";
 
 // Component map for dynamically registered SEO pages
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
@@ -102,6 +104,8 @@ const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = 
   'SnowshoeingLevi': SnowshoeingLevi,
   'SantaClausLevi': SantaClausLevi,
   'SpringSkiingLevi': SpringSkiingLevi,
+  'EquipmentRentalLevi': EquipmentRentalLevi,
+  'NewYearsEveLevi': NewYearsEveLevi,
 };
 
 const queryClient = new QueryClient();
