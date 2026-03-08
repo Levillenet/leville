@@ -43,11 +43,11 @@ const translations = {
       places: {
         title: "Suosittuja paikkoja",
         items: [
-          { name: "Hullu Poro", desc: "Tunnetuin — afterski, ravintola ja yökerho saman katon alla" },
-          { name: "Colorado Bar", desc: "Live-musiikki, rennompi tunnelma" },
-          { name: "Ihku", desc: "Cocktailbaari, trendikkäämpi ilmapiiri" },
-          { name: "Tuikkubaari ja rinneravintolat", desc: "Afterski suoraan rinteellä" },
-          { name: "Ravintolabaarit", desc: "King Crab House, Ämmilä ym. — hyvää ruokaa ja juomaa" }
+           { name: "Hullu Poro Arena", desc: "Tunnetuin — afterski, ravintola ja yökerho saman katon alla" },
+           { name: "Colorado", desc: "Ruokaravintola hyvässä tunnelmassa" },
+           { name: "Ihku", desc: "Yökerho ja bailupaikka" },
+           { name: "Tuikku", desc: "Päivä-afterski tunturissa, suoraan rinteiden vieressä" },
+           { name: "Ravintolabaarit", desc: "King Crab House, Ämmilä ym. — hyvää ruokaa ja juomaa" }
         ],
         disclaimer: "Aukioloajat ja ohjelma vaihtelevat sesongin mukaan. Tarkista aina ajantasaiset tiedot paikan omilta sivuilta."
       },
