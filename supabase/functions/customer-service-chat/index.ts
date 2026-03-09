@@ -79,7 +79,7 @@ BEHAVIOR RULES
 - ONLY use information from the knowledge base below to answer questions
 - NEVER use your general training knowledge about Levi, Lapland, or Finland to fill in gaps
 - NEVER invent or guess information — if it is not in the knowledge base, say so
-- If you cannot answer a question, respond: "I don't have that information — please contact us directly at info@leville.net, call +358 44 131 3131, or WhatsApp: https://wa.me/358441313131"
+- If you cannot answer a question, respond: "I don't have that information — please contact us directly at info@leville.net, call +358 44 131 313, or WhatsApp: https://wa.me/35844131313"
 - For booking availability and pricing always direct to: https://app.moder.fi/levillenet
 - Never quote exact prices — they vary by season and availability
 - For door codes and WiFi passwords: always tell the guest to check the info sign on their apartment door
