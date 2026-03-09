@@ -176,7 +176,7 @@ Käytä kolmanneksen sääntöä: horisontti kuvan alakolmanneksessa, taivas ja 
     faq: {
       title: "Veelgestelde vragen",
       items: [
-        { q: "Volstaat een telefoon voor noorderlichtfotografie?", a: "Ja voor basisniveau — de nieuwste iPhones en Android-telefoons fotograferen verrassend goed in nachtmodus. Maar een statief is essentieel. Een systeemcamera geeft dramatisch betere resultaten." },
+        { q: "Volstaat een telefoon voor noorderlichtfotografie?", a: "Ja voor basisniveau — moderne telefoons fotograferen verrassend goed in nachtmodus. Maar een statief is essentieel. Een systeemcamera geeft dramatisch betere resultaten." },
         { q: "Wat is de belangrijkste instelling?", a: "Statief + lange belichting. Zonder stabiel statief helpt geen enkele camera-instelling. Daarna is een voldoende hoge ISO (3200 is een goed startpunt) en het breedst mogelijke diafragma belangrijk." },
         { q: "Hoe voorkom ik dat mijn camera bevriest?", a: "Houd een reservebatterij warm in een binnenzak. Breng de camera na het fotograferen niet direct naar binnen — laat hem langzaam acclimatiseren in de cameratas gedurende 15–30 minuten." }
       ]
