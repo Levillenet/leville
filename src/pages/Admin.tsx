@@ -355,6 +355,7 @@ const Admin = () => {
               <Bot className="w-4 h-4" />
               Chatbot
             </TabsTrigger>
+          </TabsList>
 
           <TabsContent value="maintenance">
             <MaintenanceAdmin isViewer={isViewer} />
