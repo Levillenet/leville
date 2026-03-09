@@ -58,7 +58,7 @@ const content: Record<Language, {
     popularGuidesTitle: "Suositut aktiviteettiopaat",
     activities: [
       { id: "skiing", title: "Laskettelu", description: "43 rinnettä ja 28 hissiä – Suomen suosituin hiihtokeskus tarjoaa laskettelua kaikille tasoille.", href: "/opas/laskettelu-levi", iconKey: "mountain" },
-      { id: "cross-country", title: "Hiihto", description: "Yli 230 kilometriä huollettuja latuja upeissa Lapin maisemissa.", href: "/opas/hiihto-levi", iconKey: "snowflake" },
+      { id: "cross-country", title: "Hiihto", description: "Yli 230 kilometriä huollettuja latuja upeissa Lapin maisemissa.", href: "/opas/hiihtoladut-levi", iconKey: "snowflake" },
       { id: "aurora", title: "Revontulet", description: "Levillä nähdään revontulia noin 200 yönä vuodessa. Opi parhaat bongauspaikat.", href: "/revontulet", iconKey: "sparkles" },
       { id: "snowmobile", title: "Moottorikelkkasafari", description: "Koe Lapin erämaiden huima vauhti ja vapaus moottorikelkkasafarilla.", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi", iconKey: "sun" },
       { id: "husky", title: "Koiravaljakkoajelu", description: "Unohtumaton elämys huskyjen kanssa Lapin talvisessa luonnossa.", href: "/aktiviteetit/koiravaljakkoajelu-levi", iconKey: "dog" },

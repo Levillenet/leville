@@ -117,7 +117,7 @@ const translations = {
         { title: "Revontulet", desc: "Revontulien bongausopas", href: "/revontulet" },
         { title: "Parhaat talviaktiviteetit", desc: "Kattava opas Levin talveen", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
         { title: "Talvivarusteet", desc: "Pukeutumisvinkit pakkaseen", href: "/opas/talvivarusteet-leville" },
-        { title: "Hiihto Levillä", desc: "230 km huollettuja latuja", href: "/opas/hiihto-levi" }
+        { title: "Hiihto Levillä", desc: "230 km huollettuja latuja", href: "/opas/hiihtoladut-levi" }
       ]
     },
     breadcrumbLabel: "Talvi Levillä"

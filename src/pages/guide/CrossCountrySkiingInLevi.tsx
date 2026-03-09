@@ -286,7 +286,7 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
   const location = useLocation();
 
   const customUrls: Record<string, string> = {
-    fi: "/opas/hiihto-levi",
+    fi: "/opas/hiihtoladut-levi",
     en: "/guide/cross-country-skiing-in-levi",
     nl: "/nl/gids/langlaufen-in-levi"
   };

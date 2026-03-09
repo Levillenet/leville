@@ -103,7 +103,7 @@ const translations = {
       title: "Lue myös",
       links: [
         { title: "Laskettelu Levillä", desc: "43 rinnettä ja vinkit", href: "/opas/laskettelu-levi" },
-        { title: "Hiihto Levillä", desc: "Yli 230 km latuja", href: "/opas/hiihto-levi" },
+        { title: "Hiihto Levillä", desc: "Yli 230 km latuja", href: "/opas/hiihtoladut-levi" },
         { title: "Hinnat Levillä", desc: "Mitä loma maksaa?", href: "/opas/hinnat-levilla" },
         { title: "Lapsiperheet Levillä", desc: "Vinkit perheen lomaan", href: "/opas/lapsiperheet-levilla" },
         { title: "Majoitukset", desc: "Mökit ja huoneistot", href: "/majoitukset" }
