@@ -138,7 +138,7 @@ const FrontslopeGuide = () => {
     { icon: Cigarette, title: "No Smoking", desc: "No smoking or vaping inside the apartments. Please smoke outside and use the ashtray provided." },
     { icon: Volume2, title: "Quiet Time from 11 PM", desc: "Quiet hours begin at 11:00 PM. Please — no excessive noise, loud music or rowdy behaviour. Disturbances to neighbours will not be tolerated." },
     { icon: ShieldCheck, title: "Damage", desc: "Please report any damage or malfunction to us right away so we can repair or replace items quickly." },
-    { icon: Phone, title: "Emergencies", desc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers are located in the hallway. For non-urgent issues, contact us at +358 44 131 3131 or info@leville.net." },
+    { icon: Phone, title: "Emergencies", desc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers are located in the hallway. For non-urgent issues, contact us at +358 44 131 313 or info@leville.net." },
   ];
 
   const checkoutItems = [
