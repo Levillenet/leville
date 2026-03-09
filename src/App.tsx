@@ -325,7 +325,7 @@ const App = () => {
               {/* SEO Landing Pages - Finnish */}
               <Route path="/opas/talvivarusteet-leville" element={<WinterClothingGuide />} />
               <Route path="/opas/laskettelu-levi" element={<SkiingInLevi />} />
-              <Route path="/opas/hiihto-levi" element={<CrossCountrySkiingInLevi />} />
+              <Route path="/opas/hiihtoladut-levi" element={<CrossCountrySkiingInLevi />} />
               <Route path="/opas/talvi-levi" element={<WinterInLevi />} />
               <Route path="/opas/kevat-levi" element={<SpringInLevi />} />
               <Route path="/opas/kesa-levi" element={<SummerInLevi />} />
