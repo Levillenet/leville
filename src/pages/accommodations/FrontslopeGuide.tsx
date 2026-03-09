@@ -459,8 +459,8 @@ const FrontslopeGuide = () => {
         <div className="container mx-auto px-4 max-w-3xl text-center">
           <h2 className="text-2xl sm:text-3xl font-bold mb-8" style={{ color: "#2D2D2D" }}>Need Anything During Your Stay?</h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
-            <a href="tel:+358441313131" className="flex items-center gap-2 text-lg font-medium hover:underline" style={{ color: "#B8860B" }}>
-              <Phone className="w-5 h-5" /> +358 44 131 3131
+            <a href="tel:+35844131313" className="flex items-center gap-2 text-lg font-medium hover:underline" style={{ color: "#B8860B" }}>
+              <Phone className="w-5 h-5" /> +358 44 131 313
             </a>
             <a href="mailto:info@leville.net" className="flex items-center gap-2 text-lg font-medium hover:underline" style={{ color: "#B8860B" }}>
               <Mail className="w-5 h-5" /> info@leville.net

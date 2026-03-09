@@ -128,8 +128,8 @@ export default function Asiakaspalvelu({ lang = "fi" }: { lang?: Language }) {
                   <CardTitle className="text-lg">{t.phone}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <a href="tel:+358441313131" className="text-primary hover:underline font-medium">
-                    +358 44 131 3131
+                  <a href="tel:+35844131313" className="text-primary hover:underline font-medium">
+                    +358 44 131 313
                   </a>
                 </CardContent>
               </Card>
