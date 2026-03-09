@@ -351,7 +351,10 @@ const Admin = () => {
               <Globe className="w-4 h-4" />
               SEO-sivut
             </TabsTrigger>
-          </TabsList>
+            <TabsTrigger value="chatbot-stats" className="flex items-center gap-2">
+              <Bot className="w-4 h-4" />
+              Chatbot
+            </TabsTrigger>
 
           <TabsContent value="maintenance">
             <MaintenanceAdmin isViewer={isViewer} />
