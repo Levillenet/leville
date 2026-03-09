@@ -1,37 +1,22 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+# Hero-kuvien korvaaminen JPG-versioilla
 
-## Muutos
+## Muutokset
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+### 1. Kopioi ladatut kuvat asset-kansioon
+Korvataan 5 nykyistä hero-kuvaa ladatuilla JPG-tiedostoilla:
+- `src/assets/hero-chalet.png` → `.jpg` (Adobe_Express_-_file.jpg)
+- `src/assets/hero-village.png` → `.jpg` (Adobe_Express_-_file_1.jpg)
+- `src/assets/hero-apartment.png` → `.jpg` (Adobe_Express_-_file_2.jpg)
+- `src/assets/hero-lodge.png` → `.jpg` (Adobe_Express_-_file_3.jpg)
+- `src/assets/hero-cabin.jpg` → uusi versio (173457-4.jpg)
 
-## Toteutus
+### 2. Päivitä importit `src/components/Hero.tsx`
+Muutetaan vain import-rivit 4–8 viittaamaan uusiin `.jpg`-tiedostoihin. Kaikki muu koodi (slideshow-logiikka, Ken Burns, overlay, booking widget, asettelut) pysyy täysin ennallaan.
 
-Tiedosto: `src/components/ModerBookingWidget.tsx`
+### 3. Lisää preload `index.html`
+Lisätään `<link rel="preload">` ensimmäiselle hero-kuvalle (hero-chalet.jpg) nopeuttamaan ensimmäisen kuvan latautumista.
 
-`showLoadingOverlay`-funktion alkuun lisataan:
-
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
-```
-
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
-
-## Missa naet tulokset
-
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
-
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+Ei muita muutoksia — widget, animaatiot ja layout säilyvät identtisinä.
 
