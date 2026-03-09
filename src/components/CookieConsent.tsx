@@ -105,7 +105,7 @@ const CookieConsent = () => {
   const privacyPath = lang === "fi" ? "/tietosuoja" : "/en/privacy";
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[9999] p-4 md:p-6 animate-in slide-in-from-bottom-4 duration-500">
+    <div className="fixed bottom-14 md:bottom-0 left-0 right-0 z-[9999] p-4 md:p-6 animate-in slide-in-from-bottom-4 duration-500">
       <div className="mx-auto max-w-2xl rounded-xl border border-border/50 bg-card/95 backdrop-blur-md shadow-lg p-4 md:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
         <Cookie className="h-5 w-5 text-primary shrink-0 mt-0.5 sm:mt-0" />
         <p className="text-sm text-muted-foreground flex-1 leading-relaxed">
