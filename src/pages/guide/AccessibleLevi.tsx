@@ -48,7 +48,7 @@ const translations = {
       accommodation: {
         title: "Esteettömät majoitukset",
         content: "Osa hotelleista ja huoneistoista tarjoaa esteettömiä huoneita. Mökeissä esteettömyys vaihtelee — monikerroksiset hirsimökit usein haastavia. Kysy aina tarkasti ennen varausta.",
-        contact: "Ota yhteyttä niin kerromme mitkä kohteistamme sopivat: +358 44 131 3131."
+        contact: "Ota yhteyttä niin kerromme mitkä kohteistamme sopivat: +358 44 131 313."
       },
       activities: {
         title: "Laskettelu ja aktiviteetit",
