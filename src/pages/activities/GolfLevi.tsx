@@ -53,7 +53,7 @@ const translations = {
         title: "Edullisia golflippuja meiltä",
         content: "Leville.netin kautta voit hankkia edullisesti golflippuja Levin kentälle. Ota yhteyttä niin kerromme tarkemmin:",
         email: "info@leville.net",
-        phone: "+358 44 131 3131"
+        phone: "+358 44 131 313"
       },
       other: {
         title: "Muuta huomioitavaa",
