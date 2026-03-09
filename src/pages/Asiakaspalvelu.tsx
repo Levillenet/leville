@@ -111,12 +111,12 @@ export default function Asiakaspalvelu({ lang = "fi" }: { lang?: Language }) {
                 </CardHeader>
                 <CardContent>
                   <a
-                    href="https://wa.me/358441313131"
+                    href="https://wa.me/35844131313"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-green-600 hover:underline font-medium text-lg"
                   >
-                    +358 44 131 3131
+                    +358 44 131 313
                   </a>
                   <p className="text-xs text-muted-foreground mt-2">{t.urgentNote}</p>
                 </CardContent>
