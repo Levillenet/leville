@@ -31,7 +31,7 @@ const translations = {
     meta: {
       title: "Hiihto Levillä – Ladut, reitit ja vinkit | Leville.net",
       description: "Kattava opas Levin hiihtoon. 230 km latuja, reittikartat ja parhaat hiihtovinkit. Suunnittele murtomaahiihto- tai perinteisen hiihdon lomasi Levillä.",
-      canonical: "https://leville.net/opas/hiihto-levi"
+      canonical: "https://leville.net/opas/hiihtoladut-levi"
     },
     title: "Hiihto Levillä",
     subtitle: "230 km huollettuja latuja Lapin tunturimaisemissa",
