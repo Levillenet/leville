@@ -10,15 +10,8 @@
     <!-- Author meta - global -->
     <meta name="author" content="Leville.net" />
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6BR1JFF2Q8"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6BR1JFF2Q8');
-    </script>
-    <!-- Track outbound clicks to Moder booking system -->
+    <!-- GA4 and analytics loaded dynamically via CookieConsent component -->
+    <!-- Track outbound clicks to Moder booking system (only fires if gtag exists) -->
     <script>
       document.addEventListener('click', function(e) {
         var link = e.target.closest ? e.target.closest('a') : null;
@@ -33,16 +26,6 @@
           }
         }
       }, true);
-      // Also track via beforeunload for iframe-triggered navigations to Moder
-      window.addEventListener('beforeunload', function() {
-        if (document.getElementById('moder-embed') && typeof gtag === 'function') {
-          navigator.sendBeacon && navigator.sendBeacon(
-            'https://www.google-analytics.com/g/collect?v=2&tid=G-6BR1JFF2Q8&en=accommodation_search&ep.event_category=booking&ep.page_location=' +
-            encodeURIComponent(window.location.pathname) + '&cid=' +
-            ((document.cookie.match(/_ga=GA\\d+\\.\\d+\\.(\\d+\\.\\d+)/) || [])[1] || Math.random())
-          );
-        }
-      });
     </script>
     
     <!-- Favicon -->
