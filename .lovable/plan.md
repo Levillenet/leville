@@ -1,37 +1,30 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+# Korjaus: `/opas/hiihtoladut-levi` ei toimi
 
-## Muutos
+## Ongelma
+`GuideLinksSection.tsx` linkittää polkuun `/opas/hiihtoladut-levi`, mutta `App.tsx`:ssä reitti on `/opas/hiihto-levi`. Polut eivät täsmää → 404.
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+## Ratkaisu
 
-## Toteutus
+Kaksi vaihtoehtoa — suosittelen **vaihtoehto A** koska `/opas/hiihtoladut-levi` on kuvaavampi URL ja parempi SEO:lle:
 
-Tiedosto: `src/components/ModerBookingWidget.tsx`
+### Vaihtoehto A: Päivitä reitti ja routeConfig vastaamaan linkkiä
 
-`showLoadingOverlay`-funktion alkuun lisataan:
+1. **`src/App.tsx`** — Muuta FI-reitti `/opas/hiihto-levi` → `/opas/hiihtoladut-levi`
 
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
-```
+2. **`src/translations/index.ts`** — Päivitä `crossCountrySkiing.fi`: `/opas/hiihto-levi` → `/opas/hiihtoladut-levi`
 
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+3. **`public/_redirects`** — Lisää 301-redirect vanhasta polusta:
+   ```
+   /opas/hiihto-levi    /opas/hiihtoladut-levi    301
+   ```
 
-## Missa naet tulokset
+4. **`public/sitemap.xml`** — Päivitä URL jos siellä on vanha polku
 
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
-
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+## Vaikutusalue
+- Yksi reittimuutos App.tsx:ssä
+- Yksi routeConfig-päivitys translations/index.ts:ssä  
+- Yksi redirect-rivi _redirects-tiedostoon
+- Sitemap-tarkistus
 
