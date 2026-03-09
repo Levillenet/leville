@@ -152,6 +152,33 @@ export type Database = {
         }
         Relationships: []
       }
+      chatbot_logs: {
+        Row: {
+          bot_response: string | null
+          created_at: string
+          detected_language: string | null
+          id: string
+          property_mentioned: string | null
+          user_message: string
+        }
+        Insert: {
+          bot_response?: string | null
+          created_at?: string
+          detected_language?: string | null
+          id?: string
+          property_mentioned?: string | null
+          user_message: string
+        }
+        Update: {
+          bot_response?: string | null
+          created_at?: string
+          detected_language?: string | null
+          id?: string
+          property_mentioned?: string | null
+          user_message?: string
+        }
+        Relationships: []
+      }
       cleaning_status: {
         Row: {
           booking_id: string | null
