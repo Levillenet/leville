@@ -111,7 +111,7 @@ export default function InlineChat({
         {
           role: "assistant",
           content:
-            "Sorry, something went wrong. Contact us via WhatsApp: +358 44 131 3131 or email info@leville.net",
+            "Sorry, something went wrong. Contact us via WhatsApp: +358 44 131 313 or email info@leville.net",
         },
       ]);
     } finally {
