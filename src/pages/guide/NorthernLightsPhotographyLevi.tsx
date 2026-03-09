@@ -74,9 +74,9 @@ Kiinteäpolttoväliset "prime"-objektiivit (esim. 24 mm f/1.4 tai 35 mm f/1.8) o
       },
       {
         title: "Puhelimella kuvaaminen",
-        content: `**iPhone (15 ja uudemmat):** Yötila (Night Mode) aktivoituu automaattisesti pimeässä. Aseta puhelin jalustalle, avaa kamera ja kosketa näyttöä. Pidä valotus pitkänä — iPhone ehdottaa automaattisesti 10–30 sekunnin valotusta pimeässä. Pidä puhelin täysin vakaana koko valotuksen ajan.
+        content: `Useimmissa moderneissa puhelimissa on yötila (Night Mode), joka aktivoituu automaattisesti pimeässä. Aseta puhelin jalustalle, avaa kamera ja anna puhelimen valita pitkä valotusaika — tyypillisesti 10–30 sekuntia pimeässä. Pidä puhelin täysin vakaana koko valotuksen ajan.
 
-**Android (Samsung, Pixel, jne.):** Käytä joko yötilaa (Night Mode) tai Pro-tilaa. Pro-tilassa aseta ISO 800–3200 ja valotusaika 10–30 sekuntia. Google Pixel -puhelinten astrophotography-tila on erityisen hyvä — se ottaa automaattisesti pitkän valotuksen ja yhdistää useita kuvia.
+Monissa puhelimissa on myös Pro-tila, jossa voit säätää ISO-arvoa (800–3200) ja valotusaikaa (10–30 sekuntia) manuaalisesti. Joissain puhelimissa on myös erityinen astrofotografiatila, joka yhdistää useita kuvia automaattisesti.
 
 **Lisäsovellukset:** ProCamera, NightCap Camera tai vastaava sovellus antaa enemmän hallintaa ISO-, aukko- ja valotusasetuksiin.
 
