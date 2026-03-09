@@ -142,7 +142,7 @@ Käytä kolmanneksen sääntöä: horisontti kuvan alakolmanneksessa, taivas ja 
     faq: {
       title: "Frequently Asked Questions",
       items: [
-        { q: "Is a phone sufficient for aurora photography?", a: "Yes for basic level — the latest iPhone and Android phones photograph surprisingly well in night mode. But a tripod is still essential. A mirrorless/DSLR camera gives dramatically better results." },
+        { q: "Is a phone sufficient for aurora photography?", a: "Yes for basic level — modern phones photograph surprisingly well in night mode. But a tripod is still essential. A mirrorless/DSLR camera gives dramatically better results." },
         { q: "What's the most important setting?", a: "Tripod + long exposure. Without a stable tripod, no camera setting will help. Second most important is sufficiently high ISO (3200 is a good starting point) and the widest possible aperture." },
         { q: "How to prevent camera freezing?", a: "Keep a spare battery warm in an inside pocket. After shooting, don't bring the camera straight into warmth — let it acclimatise slowly in the camera bag or vestibule for 15–30 minutes." }
       ]
