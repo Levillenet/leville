@@ -445,6 +445,47 @@ const App = () => {
                 );
               })}
 
+              {/* Old WordPress redirects - Finnish */}
+              <Route path="/majoituksemme" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/majoituksemme/*" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/levin-keskustahuoneistot" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/levin-keskustahuoneistot/*" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/kysymykset" element={<Navigate to="/ukk" replace />} />
+              <Route path="/kysymykset/*" element={<Navigate to="/ukk" replace />} />
+              <Route path="/yritysasiakkaille" element={<Navigate to="/yhteystiedot" replace />} />
+              <Route path="/yritysasiakkaille/*" element={<Navigate to="/yhteystiedot" replace />} />
+              <Route path="/yrityksemme" element={<Navigate to="/yritys" replace />} />
+              <Route path="/yrityksemme/*" element={<Navigate to="/yritys" replace />} />
+              <Route path="/levi-2" element={<Navigate to="/levi" replace />} />
+              <Route path="/levi-2/*" element={<Navigate to="/levi" replace />} />
+
+              {/* Old WordPress redirects - English */}
+              <Route path="/our-accommodations" element={<Navigate to="/accommodations" replace />} />
+              <Route path="/our-accommodations/*" element={<Navigate to="/accommodations" replace />} />
+              <Route path="/business-clients" element={<Navigate to="/contact" replace />} />
+              <Route path="/business-clients/*" element={<Navigate to="/contact" replace />} />
+              <Route path="/about-us" element={<Navigate to="/about" replace />} />
+              <Route path="/about-us/*" element={<Navigate to="/about" replace />} />
+              <Route path="/booking-terms" element={<Navigate to="/terms" replace />} />
+              <Route path="/booking-terms/*" element={<Navigate to="/terms" replace />} />
+              <Route path="/latest-news" element={<Navigate to="/levi" replace />} />
+              <Route path="/latest-news/*" element={<Navigate to="/levi" replace />} />
+
+              {/* Old blog archive */}
+              <Route path="/2020" element={<Navigate to="/levi" replace />} />
+              <Route path="/2020/*" element={<Navigate to="/levi" replace />} />
+
+              {/* Old property page */}
+              <Route path="/skistar-levi-104" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/skistar-levi-104/*" element={<Navigate to="/majoitukset" replace />} />
+
+              {/* Wrong language paths */}
+              <Route path="/sv/boenden" element={<Navigate to="/sv/boende" replace />} />
+              <Route path="/sv/aktuellt" element={<Navigate to="/sv" replace />} />
+              <Route path="/en/majoitukset" element={<Navigate to="/accommodations" replace />} />
+              <Route path="/en/yhteystiedot" element={<Navigate to="/contact" replace />} />
+              <Route path="/en/terms" element={<Navigate to="/terms" replace />} />
+
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
