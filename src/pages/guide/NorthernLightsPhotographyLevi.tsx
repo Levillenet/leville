@@ -30,7 +30,7 @@ const translations = {
     sections: [
       {
         title: "Tarvitsetko kameran vai riittääkö puhelin?",
-        content: `Moderni puhelin (iPhone 15+, Samsung S24+, Pixel 8+) kuvaa revontulia yllättävän hyvin yötilassa. Puhelimien yökameratekniikka on kehittynyt valtavasti ja tulokset ovat monesti riittäviä sosiaaliseen mediaan ja muistoksi.
+        content: `Moderni puhelin kuvaa revontulia yllättävän hyvin yötilassa ja usein ihan automaatillakin. Puhelimien yökameratekniikka on kehittynyt valtavasti ja tulokset ovat monesti riittäviä sosiaaliseen mediaan ja muistoksi.
 
 Mutta järjestelmäkamera antaa dramaattisesti parempia tuloksia — erityisesti heikkojen revontulien kuvaamisessa ja yksityiskohtien tallentamisessa. Jos sinulla on järjestelmäkamera, ota se ehdottomasti mukaan.
 
