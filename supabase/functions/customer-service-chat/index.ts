@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -147,8 +148,61 @@ ${knowledgeBase}
     }
 
     console.log("Streaming response from AI gateway");
-    
-    return new Response(response.body, {
+
+    // Collect the last user message for logging
+    const lastUserMessage = messages.filter((m: { role: string }) => m.role === 'user').pop()?.content || '';
+
+    // Use TransformStream to intercept response chunks for logging
+    const decoder = new TextDecoder();
+    let collectedResponse = '';
+
+    const transformStream = new TransformStream({
+      transform(chunk, controller) {
+        controller.enqueue(chunk);
+        const text = decoder.decode(chunk, { stream: true });
+        const lines = text.split('\n');
+        for (const line of lines) {
+          if (line.startsWith('data: ') && line !== 'data: [DONE]') {
+            try {
+              const json = JSON.parse(line.slice(6));
+              const content = json.choices?.[0]?.delta?.content;
+              if (content) collectedResponse += content;
+            } catch { /* skip parse errors */ }
+          }
+        }
+      },
+      flush() {
+        if (lastUserMessage) {
+          const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+          const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+          const sb = createClient(supabaseUrl, supabaseKey);
+          
+          const detectLang = (text: string): string => {
+            const lower = text.toLowerCase();
+            if (/[äöåÄÖÅ]/.test(text) && /(?:miten|missä|onko|voiko|paljonko|kiitos|hei|terve)/.test(lower)) return 'fi';
+            if (/(?:how|what|where|when|can|is|the|and|please|hello|hi)/.test(lower)) return 'en';
+            if (/(?:wie|wo|kann|ist|bitte|hallo)/.test(lower)) return 'de';
+            if (/(?:hur|var|kan|hej|tack)/.test(lower)) return 'sv';
+            if (/(?:comment|où|est|bonjour|merci)/.test(lower)) return 'fr';
+            if (/(?:cómo|dónde|puede|hola|gracias)/.test(lower)) return 'es';
+            if (/(?:hoe|waar|kan|hallo|dank)/.test(lower)) return 'nl';
+            return 'unknown';
+          };
+
+          sb.from('chatbot_logs').insert({
+            user_message: lastUserMessage.substring(0, 2000),
+            bot_response: collectedResponse.substring(0, 5000),
+            detected_language: detectLang(lastUserMessage),
+          }).then(({ error }) => {
+            if (error) console.error('Failed to log chatbot usage:', error);
+          });
+        }
+      }
+    });
+
+    const loggedStream = response.body!.pipeThrough(transformStream);
+
+    return new Response(loggedStream, {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
   } catch (e) {

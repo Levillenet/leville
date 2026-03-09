@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare, BookOpen } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare, BookOpen, Bot } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
@@ -20,6 +20,7 @@ import { BookingTermsAdmin } from "@/components/admin/BookingTermsAdmin";
 import MessagingAdmin from "@/components/admin/MessagingAdmin";
 import GuideAdmin from "@/components/admin/GuideAdmin";
 import SeoPageAdmin from "@/components/admin/SeoPageAdmin";
+import ChatbotStatsAdmin from "@/components/admin/ChatbotStatsAdmin";
 import {
   BarChart,
   Bar,
@@ -350,6 +351,10 @@ const Admin = () => {
               <Globe className="w-4 h-4" />
               SEO-sivut
             </TabsTrigger>
+            <TabsTrigger value="chatbot-stats" className="flex items-center gap-2">
+              <Bot className="w-4 h-4" />
+              Chatbot
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="maintenance">
@@ -409,6 +414,10 @@ const Admin = () => {
 
           <TabsContent value="seo-pages">
             <SeoPageAdmin isViewer={isViewer} />
+          </TabsContent>
+
+          <TabsContent value="chatbot-stats">
+            <ChatbotStatsAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="stats">
