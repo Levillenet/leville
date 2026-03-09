@@ -3,26 +3,40 @@
 
 # Old WordPress pages (Finnish)
 /majoituksemme/             /majoitukset          301
+/majoituksemme              /majoitukset          301
 /levin-keskustahuoneistot/  /majoitukset          301
+/levin-keskustahuoneistot   /majoitukset          301
 /kysymykset/                /ukk                  301
+/kysymykset                 /ukk                  301
 /yritysasiakkaille/         /yhteystiedot         301
+/yritysasiakkaille          /yhteystiedot         301
 /yrityksemme/               /yritys               301
+/yrityksemme                /yritys               301
 /levi-2/                    /levi                 301
+/levi-2                     /levi                 301
 
 # Old WordPress pages (English)
 /our-accommodations/        /accommodations       301
+/our-accommodations         /accommodations       301
 /business-clients/          /contact              301
+/business-clients           /contact              301
 /about-us/                  /about                301
+/about-us                   /about                301
 /booking-terms/             /terms                301
+/booking-terms              /terms                301
 /latest-news/               /levi                 301
+/latest-news                /levi                 301
 /faq/                       /faq                  301
+/faq                        /faq                  301
 
 # Old blog archive URLs
 /2020/                      /levi                 301
 /2020/11/                   /levi                 301
+/2020/*                     /levi                 301
 
 # Old property page
 /skistar-levi-104/          /majoitukset          301
+/skistar-levi-104           /majoitukset          301
 
 # Wrong language path patterns
 /sv/boenden                 /sv/boende            301
