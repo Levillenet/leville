@@ -1333,10 +1333,10 @@
   <!-- NL Guide Pages -->
   <url>
     <loc>https://leville.net/nl/gids/langlaufen-in-levi</loc>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihto-levi"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/hiihtoladut-levi"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cross-country-skiing-in-levi"/>
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/langlaufen-in-levi"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/hiihto-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/hiihtoladut-levi"/>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
