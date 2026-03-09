@@ -108,7 +108,7 @@ Käytä kolmanneksen sääntöä: horisontti kuvan alakolmanneksessa, taivas ja 
     faq: {
       title: "Usein kysytyt kysymykset",
       items: [
-        { q: "Riittääkö puhelin revontulien kuvaamiseen?", a: "Kyllä perustasolle — uusimmat iPhone- ja Android-puhelimet kuvaavat yllättävän hyvin yötilassa. Mutta jalusta on silti välttämätön. Järjestelmäkamera antaa dramaattisesti parempia tuloksia." },
+        { q: "Riittääkö puhelin revontulien kuvaamiseen?", a: "Kyllä perustasolle — modernit puhelimet kuvaavat yllättävän hyvin yötilassa. Mutta jalusta on silti välttämätön. Järjestelmäkamera antaa dramaattisesti parempia tuloksia." },
         { q: "Mikä on tärkein asetus?", a: "Jalusta + pitkä valotusaika. Ilman vakaata jalustaa mikään kamera-asetus ei auta. Toiseksi tärkein on riittävän korkea ISO (3200 on hyvä lähtökohta) ja mahdollisimman auki oleva aukko." },
         { q: "Miten estää kameran jäätymisen?", a: "Pidä varaakku kehon lämmössä sisätaskussa. Kuvaamisen jälkeen älä tuo kameraa suoraan lämpimään — anna tasaantua hitaasti kameralaukussa tai tuulikaapissa 15–30 minuuttia." }
       ]
