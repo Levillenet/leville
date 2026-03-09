@@ -49,5 +49,8 @@
 /2020/11/                     /ajankohtaista             301
 /2020/*                       /ajankohtaista             301
 
+# Vanhat opas-reitit
+/opas/hiihto-levi             /opas/hiihtoladut-levi     301
+
 # SPA fallback — TÄMÄ PITÄÄ OLLA VIIMEISENÄ
 /*                            /index.html                200
