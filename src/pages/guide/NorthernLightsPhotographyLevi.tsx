@@ -199,7 +199,7 @@ Käytä kolmanneksen sääntöä: horisontti kuvan alakolmanneksessa, taivas ja 
     h1: "Norrskensfotografering i Levi — inställningar och tips",
     breadcrumbLabel: "Norrskensfotografering",
     sections: [
-      { title: "Behöver du en kamera eller räcker telefonen?", content: `Moderna smartphones (iPhone 15+, Samsung S24+, Pixel 8+) fotograferar norrsken förvånansvärt bra i nattläge. Men en systemkamera ger dramatiskt bättre resultat.\n\n**Båda fungerar** — det viktigaste är ett stativ.` },
+      { title: "Behöver du en kamera eller räcker telefonen?", content: `En modern telefon fotograferar norrsken förvånansvärt bra i nattläge och ofta till och med på automatiska inställningar. Men en systemkamera ger dramatiskt bättre resultat.\n\n**Båda fungerar** — det viktigaste är ett stativ.` },
       { title: "Nödvändig utrustning: stativ", content: `Vid norrskensfotografering är exponeringstiderna långa — 5–25 sekunder. Kameran måste vara helt stilla. Att fotografera ur hand är omöjligt.\n\nÄven ett litet resestativ fungerar perfekt. Det kostar €30–50 — bästa investeringen för en norrskenssemester.` },
       { title: "Kamerainställningar (systemkamera)", content: `Ställ kameran i manuellt läge (M):\n\n• **ISO: 1600–6400** — Börja på 3200.\n\n• **Bländare: så öppen som möjligt** — f/2.8 eller snabbare.\n\n• **Slutartid: 8–25 sekunder**\n\n• **Fokus: manuell, på oändlighet (∞)**\n\n• **Vitbalans: 3500–4000K**\n\n• **Filformat: RAW** om möjligt.` },
       { title: "Objektiv", content: `**Vidvinkel (10–24 mm)** är idealiskt. f/2.8 eller snabbare bländare är bäst.\n\nPopulära vidvinkelobjektiv: Samyang 14mm f/2.8, Tokina 11–20mm f/2.8, Sigma 14–24mm f/2.8.\n\n**Kit-objektiv (18–55 mm f/3.5–5.6)** fungerar också på den bredaste änden (18 mm).` },
