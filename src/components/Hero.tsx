@@ -2,10 +2,10 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { MapPin, CreditCard, Home } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import heroCabin from "@/assets/hero-cabin.jpg";
-import heroChalet from "@/assets/hero-chalet.png";
-import heroVillage from "@/assets/hero-village.png";
-import heroApartment from "@/assets/hero-apartment.png";
-import heroLodge from "@/assets/hero-lodge.png";
+import heroChalet from "@/assets/hero-chalet.jpg";
+import heroVillage from "@/assets/hero-village.jpg";
+import heroApartment from "@/assets/hero-apartment.jpg";
+import heroLodge from "@/assets/hero-lodge.jpg";
 
 const heroImages = [heroChalet, heroVillage, heroApartment, heroLodge, heroCabin];
 
