@@ -1,56 +1,35 @@
-# 301 Redirects — vanhat WordPress-URL:t uusiin React-osoitteisiin
-# Korjaa Google Search Consolen Soft 404 -ongelmat
+# Leville.net – 301 redirects for old WordPress URLs
+# Fixes soft 404 issues reported by Google Search Console
 
-# Vanhat suomenkieliset sivut
-/home/                        /                          301
-/home                         /                          301
-/majoituksemme/               /majoitukset               301
-/majoituksemme                /majoitukset               301
-/kysymykset/                  /ukk                       301
-/kysymykset                   /ukk                       301
-/yrityksemme/                 /yritys                    301
-/yrityksemme                  /yritys                    301
-/yritysasiakkaille/           /yritys                    301
-/yritysasiakkaille            /yritys                    301
-/faq/                         /ukk                       301
-/faq                          /ukk                       301
+# Old WordPress pages (Finnish)
+/majoituksemme/             /majoitukset          301
+/levin-keskustahuoneistot/  /majoitukset          301
+/kysymykset/                /ukk                  301
+/yritysasiakkaille/         /yhteystiedot         301
+/yrityksemme/               /yritys               301
+/levi-2/                    /levi                 301
 
-# Vanhat englanninkieliset sivut
-/our-accommodations/          /en/accommodations         301
-/our-accommodations           /en/accommodations         301
-/latest-news/                 /en/news                   301
-/latest-news                  /en/news                   301
-/about-us/                    /en/company                301
-/about-us                     /en/company                301
-/booking-terms/               /en/booking-terms          301
-/booking-terms                /en/booking-terms          301
-/business-clients/            /en/company                301
-/business-clients             /en/company                301
+# Old WordPress pages (English)
+/our-accommodations/        /accommodations       301
+/business-clients/          /contact              301
+/about-us/                  /about                301
+/booking-terms/             /terms                301
+/latest-news/               /levi                 301
+/faq/                       /faq                  301
 
-# Virheelliset kielireitit (suomenkielinen polku en-etuliitteellä)
-/en/majoitukset               /en/accommodations         301
-/en/yhteystiedot              /en/contact                301
-/en/terms                     /en/booking-terms          301
+# Old blog archive URLs
+/2020/                      /levi                 301
+/2020/11/                   /levi                 301
 
-# Vanhat ruotsinkieliset reitit (väärä muoto)
-/sv/boenden                   /sv/boende                 301
-/sv/aktuellt                  /sv/nyheter                301
+# Old property page
+/skistar-levi-104/          /majoitukset          301
 
-# Vanhat majoitussivut ja blogit → ohjaa majoituksiin tai etusivulle
-/skistar-levi-104/            /majoitukset               301
-/skistar-levi-104             /majoitukset               301
-/levin-keskustahuoneistot/    /majoitukset               301
-/levin-keskustahuoneistot     /majoitukset               301
-/levi-2/                      /levi                      301
-/levi-2                       /levi                      301
+# Wrong language path patterns
+/sv/boenden                 /sv/boende            301
+/sv/aktuellt                /sv                   301
+/en/majoitukset             /accommodations       301
+/en/yhteystiedot            /contact              301
+/en/terms                   /terms                301
 
-# Vanhat blogipostaukset → uutiset
-/2020/                        /ajankohtaista             301
-/2020/11/                     /ajankohtaista             301
-/2020/*                       /ajankohtaista             301
-
-# Vanhat opas-reitit
-/opas/hiihto-levi             /opas/hiihtoladut-levi     301
-
-# SPA fallback — TÄMÄ PITÄÄ OLLA VIIMEISENÄ
-/*                            /index.html                200
+# SPA fallback — MUST be the last rule
+/*                          /index.html           200
