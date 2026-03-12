@@ -21,34 +21,55 @@ const getExternalReferrer = (): string | null => {
   }
 };
 
+const trackEvent = async (path: string, referrer?: string | null) => {
+  try {
+    await supabase.from("page_views").insert({
+      path,
+      referrer: referrer ?? null,
+      device_type: getDeviceType(),
+      language: navigator.language?.split("-")[0] || null,
+    });
+  } catch {
+    // Silent fail
+  }
+};
+
 const PageViewTracker = () => {
   const location = useLocation();
   const lastPath = useRef<string>("");
 
+  // Track page views
   useEffect(() => {
     const path = location.pathname;
-
-    // Skip duplicate tracking for same path
     if (path === lastPath.current) return;
     lastPath.current = path;
-
-    // Skip admin pages
     if (path.startsWith("/admin")) return;
 
-    const trackPageView = async () => {
-      try {
-        await supabase.from("page_views").insert({
-          path,
-          referrer: getExternalReferrer(),
-          device_type: getDeviceType(),
-          language: navigator.language?.split("-")[0] || null,
-        });
-      } catch (e) {
-        // Silent fail - analytics should never break the app
+    trackEvent(path, getExternalReferrer());
+  }, [location.pathname]);
+
+  // Track outbound clicks to app.moder.fi (booking searches)
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest("a[href]") as HTMLAnchorElement | null;
+
+      // Check for direct link clicks to moder.fi
+      if (anchor?.href?.includes("app.moder.fi")) {
+        trackEvent("/event/booking-search", location.pathname);
+        return;
+      }
+
+      // Check for Moder widget search button clicks
+      // The widget uses .moder-bar__search-button class
+      if (target.closest(".moder-bar__search-button")) {
+        trackEvent("/event/booking-search", location.pathname);
+        return;
       }
     };
 
-    trackPageView();
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
   }, [location.pathname]);
 
   return null;
