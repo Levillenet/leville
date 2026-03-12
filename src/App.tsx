@@ -8,7 +8,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollToTop from "./components/ScrollToTop";
 import PageTransition from "./components/PageTransition";
-import CookieConsent from "./components/CookieConsent";
+
 import PageViewTracker from "./components/PageViewTracker";
 
 // Lazy-loaded page components
@@ -494,7 +494,7 @@ const App = () => {
             </Routes>
             </Suspense>
           </PageTransition>
-          <CookieConsent />
+          
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
