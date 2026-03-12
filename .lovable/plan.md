@@ -1,37 +1,29 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+## Varausklikkausten erittely näkyviin
 
-## Muutos
+### Ongelma
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+Yhteenvetorivillä näkyy vain yksi "Varausklikkaukset"-kortti kokonaisluvulla. Eritelty Konversiot-osio näkyy alempana vain jos dataa on, ja sekin voi jäädä huomaamatta.
 
-## Toteutus
+### Ratkaisu
 
-Tiedosto: `src/components/ModerBookingWidget.tsx`
+Muutetaan yhteenvetokorttien rivi näyttämään jokainen klikkaustyyppi erikseen:
 
-`showLoadingOverlay`-funktion alkuun lisataan:
+| Kortti | Selite |
+|---|---|
+| Yhteensä (sivukatselut) | Pysyy |
+| Hakuwidget-haut | `/event/booking-search-widget` |
+| Varaa tästä -palkki | `/event/booking-sticky-bar` |
+| Sivun CTA-painike | `/event/booking-page-cta` |
+| Muut varauslinkit | `/event/booking-link` |
+| Mobiili / Tietokone / Tabletti | Pysyy |
 
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
-```
+Lisäksi Konversiot-osio näytetään aina (myös 0 klikkauksilla), jotta lähtösivut näkyvät heti kun dataa kertyy.
 
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+### Tiedostot
 
-## Missa naet tulokset
-
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
-
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+| Tiedosto | Muutos |
+|---|---|
+| `src/components/admin/PageViewsAdmin.tsx` | Eriteltyjen korttien lisäys, Konversiot-osion näyttö aina |
 
