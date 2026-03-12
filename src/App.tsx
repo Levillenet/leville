@@ -494,7 +494,7 @@ const App = () => {
             </Routes>
             </Suspense>
           </PageTransition>
-          <CookieConsent />
+          
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
