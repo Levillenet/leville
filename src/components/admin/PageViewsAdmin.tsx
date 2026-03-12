@@ -123,7 +123,24 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   const mobileCount = stats.byDevice["mobile"] || 0;
   const desktopCount = stats.byDevice["desktop"] || 0;
   const tabletCount = stats.byDevice["tablet"] || 0;
-  const totalConversions = (stats.conversionEvents || []).reduce((sum, e) => sum + e.count, 0);
+
+  const conversionCounts: Record<string, number> = {};
+  for (const e of stats.conversionEvents || []) {
+    conversionCounts[e.type] = e.count;
+  }
+  const getConvCount = (type: string) => conversionCounts[type] || 0;
+
+  // Build full conversion list (always show all 4 types)
+  const allConversionTypes = [
+    "/event/booking-search-widget",
+    "/event/booking-sticky-bar",
+    "/event/booking-page-cta",
+    "/event/booking-link",
+  ];
+  const conversionEventsComplete = allConversionTypes.map((type) => {
+    const existing = (stats.conversionEvents || []).find((e) => e.type === type);
+    return existing || { type, count: 0, topSources: [] };
+  });
 
   return (
     <div className="space-y-6">
@@ -135,13 +152,23 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
         </Button>
       </div>
 
-      {/* Summary cards */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      {/* Page view summary */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <SummaryCard icon={<Eye className="w-5 h-5 text-primary" />} label="Yhteensä" value={stats.total} colorClass="bg-primary/10" />
-        <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-5" />} label="Varausklikkaukset" value={totalConversions} colorClass="bg-chart-5/10" />
         <SummaryCard icon={<Smartphone className="w-5 h-5 text-chart-2" />} label="Mobiili" value={mobileCount} colorClass="bg-chart-2/10" />
         <SummaryCard icon={<Monitor className="w-5 h-5 text-chart-3" />} label="Tietokone" value={desktopCount} colorClass="bg-chart-3/10" />
         <SummaryCard icon={<Tablet className="w-5 h-5 text-chart-4" />} label="Tabletti" value={tabletCount} colorClass="bg-chart-4/10" />
+      </div>
+
+      {/* Conversion summary cards */}
+      <div>
+        <h3 className="text-sm font-medium text-muted-foreground mb-3">Varausklikkaukset</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-5" />} label="Hakuwidget" value={getConvCount("/event/booking-search-widget")} colorClass="bg-chart-5/10" />
+          <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-2" />} label="Varaa tästä -palkki" value={getConvCount("/event/booking-sticky-bar")} colorClass="bg-chart-2/10" />
+          <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-3" />} label="Sivun CTA" value={getConvCount("/event/booking-page-cta")} colorClass="bg-chart-3/10" />
+          <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-4" />} label="Muut varauslinkit" value={getConvCount("/event/booking-link")} colorClass="bg-chart-4/10" />
+        </div>
       </div>
 
       {/* Conversion events section */}
