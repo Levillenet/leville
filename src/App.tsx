@@ -192,6 +192,7 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <PageViewTracker />
           <PageTransition>
             <Suspense fallback={<div className="min-h-screen" />}>
             <Routes>

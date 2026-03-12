@@ -21,6 +21,7 @@ import MessagingAdmin from "@/components/admin/MessagingAdmin";
 import GuideAdmin from "@/components/admin/GuideAdmin";
 import SeoPageAdmin from "@/components/admin/SeoPageAdmin";
 import ChatbotStatsAdmin from "@/components/admin/ChatbotStatsAdmin";
+import PageViewsAdmin from "@/components/admin/PageViewsAdmin";
 import {
   BarChart,
   Bar,
