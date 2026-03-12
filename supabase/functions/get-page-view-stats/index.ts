@@ -31,7 +31,6 @@ Deno.serve(async (req) => {
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
     const since = thirtyDaysAgo.toISOString();
 
-    // Fetch all page views from the last 30 days (up to 10000)
     const { data: views, error } = await supabase
       .from("page_views")
       .select("path, referrer, device_type, language, created_at")
@@ -47,53 +46,77 @@ Deno.serve(async (req) => {
       });
     }
 
-    const total = views?.length || 0;
-
-    // Aggregate by date
     const byDate: Record<string, number> = {};
-    // Aggregate by path
     const byPath: Record<string, number> = {};
-    // Aggregate by referrer
     const byReferrer: Record<string, number> = {};
-    // Aggregate by device
     const byDevice: Record<string, number> = {};
-    // Aggregate by language
     const byLanguage: Record<string, number> = {};
 
+    // Conversion events: type -> { count, sources }
+    const conversionMap: Record<string, { count: number; sources: Record<string, number> }> = {};
+
+    let total = 0;
+
     for (const v of views || []) {
-      // Date
-      const date = v.created_at.split("T")[0];
-      byDate[date] = (byDate[date] || 0) + 1;
+      const isEvent = v.path.startsWith("/event/");
 
-      // Path
-      byPath[v.path] = (byPath[v.path] || 0) + 1;
-
-      // Referrer
-      if (v.referrer) {
-        try {
-          const host = new URL(v.referrer).hostname.replace("www.", "");
-          byReferrer[host] = (byReferrer[host] || 0) + 1;
-        } catch {
-          byReferrer["other"] = (byReferrer["other"] || 0) + 1;
+      if (isEvent) {
+        const eventType = v.path;
+        if (!conversionMap[eventType]) {
+          conversionMap[eventType] = { count: 0, sources: {} };
         }
+        conversionMap[eventType].count++;
+        // referrer field stores the source page path
+        const source = v.referrer || "unknown";
+        conversionMap[eventType].sources[source] = (conversionMap[eventType].sources[source] || 0) + 1;
       } else {
-        byReferrer["direct"] = (byReferrer["direct"] || 0) + 1;
+        total++;
+
+        // Date
+        const date = v.created_at.split("T")[0];
+        byDate[date] = (byDate[date] || 0) + 1;
+
+        // Path
+        byPath[v.path] = (byPath[v.path] || 0) + 1;
+
+        // Referrer
+        if (v.referrer) {
+          try {
+            const host = new URL(v.referrer).hostname.replace("www.", "");
+            byReferrer[host] = (byReferrer[host] || 0) + 1;
+          } catch {
+            byReferrer["other"] = (byReferrer["other"] || 0) + 1;
+          }
+        } else {
+          byReferrer["direct"] = (byReferrer["direct"] || 0) + 1;
+        }
+
+        // Device
+        const dev = v.device_type || "unknown";
+        byDevice[dev] = (byDevice[dev] || 0) + 1;
+
+        // Language
+        const lang = v.language || "unknown";
+        byLanguage[lang] = (byLanguage[lang] || 0) + 1;
       }
-
-      // Device
-      const dev = v.device_type || "unknown";
-      byDevice[dev] = (byDevice[dev] || 0) + 1;
-
-      // Language
-      const lang = v.language || "unknown";
-      byLanguage[lang] = (byLanguage[lang] || 0) + 1;
     }
 
-    // Sort paths by count, return top 20
     const topPages = Object.entries(byPath)
       .sort(([, a], [, b]) => b - a)
       .slice(0, 20)
       .map(([path, count]) => ({ path, count }));
+
+    // Build conversion events array with top 5 sources
+    const conversionEvents = Object.entries(conversionMap)
+      .sort(([, a], [, b]) => b.count - a.count)
+      .map(([type, data]) => ({
+        type,
+        count: data.count,
+        topSources: Object.entries(data.sources)
+          .sort(([, a], [, b]) => b - a)
+          .slice(0, 5)
+          .map(([source, count]) => ({ source, count })),
+      }));
 
     return new Response(
       JSON.stringify({
@@ -103,6 +126,7 @@ Deno.serve(async (req) => {
         byReferrer,
         byDevice,
         byLanguage,
+        conversionEvents,
       }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
