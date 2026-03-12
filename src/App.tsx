@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import ScrollToTop from "./components/ScrollToTop";
 import PageTransition from "./components/PageTransition";
 import CookieConsent from "./components/CookieConsent";
+import PageViewTracker from "./components/PageViewTracker";
 
 // Lazy-loaded page components
 const Index = lazy(() => import("./pages/Index"));
@@ -191,6 +192,7 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <PageViewTracker />
           <PageTransition>
             <Suspense fallback={<div className="min-h-screen" />}>
             <Routes>

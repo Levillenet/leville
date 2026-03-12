@@ -957,6 +957,33 @@ export type Database = {
         }
         Relationships: []
       }
+      page_views: {
+        Row: {
+          created_at: string
+          device_type: string | null
+          id: string
+          language: string | null
+          path: string
+          referrer: string | null
+        }
+        Insert: {
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          language?: string | null
+          path: string
+          referrer?: string | null
+        }
+        Update: {
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          language?: string | null
+          path?: string
+          referrer?: string | null
+        }
+        Relationships: []
+      }
       period_settings: {
         Row: {
           check_in: string

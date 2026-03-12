@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare, BookOpen, Bot } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare, BookOpen, Bot, TrendingUp } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
@@ -21,6 +21,7 @@ import MessagingAdmin from "@/components/admin/MessagingAdmin";
 import GuideAdmin from "@/components/admin/GuideAdmin";
 import SeoPageAdmin from "@/components/admin/SeoPageAdmin";
 import ChatbotStatsAdmin from "@/components/admin/ChatbotStatsAdmin";
+import PageViewsAdmin from "@/components/admin/PageViewsAdmin";
 import {
   BarChart,
   Bar,
@@ -355,6 +356,10 @@ const Admin = () => {
               <Bot className="w-4 h-4" />
               Chatbot
             </TabsTrigger>
+            <TabsTrigger value="page-views" className="flex items-center gap-2">
+              <TrendingUp className="w-4 h-4" />
+              Analytiikka
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="maintenance">
@@ -418,6 +423,10 @@ const Admin = () => {
 
           <TabsContent value="chatbot-stats">
             <ChatbotStatsAdmin isViewer={isViewer} />
+          </TabsContent>
+
+          <TabsContent value="page-views">
+            <PageViewsAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="stats">
