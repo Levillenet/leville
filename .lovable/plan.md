@@ -1,37 +1,26 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+## Poista evästesuostumusbanneri ja GA4/Clarity-seuranta
 
-## Muutos
+Sivuston oma analytiikka (page_views-taulu) toimii ilman GA4:ää. Poistetaan kaikki Google Analytics-, Microsoft Clarity- ja evästesuostumuskomponentit.
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+### Muutokset
 
-## Toteutus
+| Tiedosto | Muutos |
+|---|---|
+| `src/App.tsx` | Poista `CookieConsent`-import ja `<CookieConsent />` |
+| `src/components/CookieConsent.tsx` | Poista koko tiedosto |
+| `index.html` | Poista rivit 13–29 (GA4 outbound click listener + kommentit) |
+| `src/components/ModerBookingWidget.tsx` | Poista `showLoadingOverlay`-funktion GA4 gtag-kutsu (jos sellainen on lisätty) |
 
-Tiedosto: `src/components/ModerBookingWidget.tsx`
+### Mitä säilyy
 
-`showLoadingOverlay`-funktion alkuun lisataan:
+- `PageViewTracker` ja `page_views`-taulu — oma analytiikka jatkaa toimintaansa normaalisti
+- Konversioseuranta (booking-tapahtumat) — tallentuu edelleen tietokantaan
+- CSV-vienti ja admin-näkymän analytiikka — ei muutoksia
 
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
-```
+### Huomioita
 
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
-
-## Missa naet tulokset
-
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
-
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+- `localStorage`-avain `cookie_consent` jää vanhoille kävijöille mutta ei haittaa
+- GA4-property (G-6BR1JFF2Q8) ja Clarity (utrphfjqd1) eivät enää saa dataa
 
