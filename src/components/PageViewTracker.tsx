@@ -48,22 +48,31 @@ const PageViewTracker = () => {
     trackEvent(path, getExternalReferrer());
   }, [location.pathname]);
 
-  // Track outbound clicks to app.moder.fi (booking searches)
+  // Track outbound clicks to app.moder.fi with specific event types
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest("a[href]") as HTMLAnchorElement | null;
 
-      // Check for direct link clicks to moder.fi
-      if (anchor?.href?.includes("app.moder.fi")) {
-        trackEvent("/event/booking-search", location.pathname);
+      // Check for Moder widget search button clicks (hero widget)
+      if (target.closest(".moder-bar__search-button")) {
+        trackEvent("/event/booking-search-widget", location.pathname);
         return;
       }
 
-      // Check for Moder widget search button clicks
-      // The widget uses .moder-bar__search-button class
-      if (target.closest(".moder-bar__search-button")) {
-        trackEvent("/event/booking-search", location.pathname);
+      // Check for direct link clicks to moder.fi
+      if (anchor?.href?.includes("app.moder.fi")) {
+        // Distinguish sticky bar vs PageCTA vs other booking links
+        const isStickyBar = !!anchor.closest(".fixed.bottom-0");
+        const isPageCTA = !!anchor.closest("section");
+        
+        if (isStickyBar) {
+          trackEvent("/event/booking-sticky-bar", location.pathname);
+        } else if (isPageCTA && anchor.closest(".rounded-2xl")) {
+          trackEvent("/event/booking-page-cta", location.pathname);
+        } else {
+          trackEvent("/event/booking-link", location.pathname);
+        }
         return;
       }
     };
