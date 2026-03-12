@@ -356,6 +356,10 @@ const Admin = () => {
               <Bot className="w-4 h-4" />
               Chatbot
             </TabsTrigger>
+            <TabsTrigger value="page-views" className="flex items-center gap-2">
+              <TrendingUp className="w-4 h-4" />
+              Analytiikka
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="maintenance">
