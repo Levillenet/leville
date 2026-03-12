@@ -54,9 +54,51 @@ const EVENT_LABELS: Record<string, string> = {
   "/event/booking-link": "Muut varauslinkit",
 };
 
+const REPORT_DESCRIPTION = `LEVILLE.FI ANALYTIIKKARAPORTTI — TEKNINEN KUVAUS
+
+Tämä CSV-raportti sisältää sivuston leville.fi kävijädataa 30 päivän ajalta.
+Jokainen rivi on yksi tapahtuma (sivulataus tai klikkaus).
+
+SARAKKEET:
+- date: Päivämäärä (YYYY-MM-DD)
+- time: Kellonaika UTC (HH:MM:SS)
+- path: Sivun polku (tyhjä konversiotapahtumilla)
+- type: "pageview" tai konversiotapahtuman tyyppi (ks. alla)
+- referrer: Ulkoinen lähde (sivukatseluilla) TAI sisäinen lähtösivu (konversiotapahtumilla)
+- device_type: "mobile", "tablet" tai "desktop"
+- language: Selaimen kieli (fi, en, de, sv, es, fr, nl jne.)
+
+TAPAHTUMATYYPIT (type-sarake):
+
+1. "pageview" — Tavallinen sivulataus. path = sivun URL-polku (esim. "/" = etusivu, "/majoitukset" = majoitussivu, "/en/levi" = englanninkielinen Levi-sivu). referrer = ulkoinen lähde (google.com, facebook.com) tai tyhjä (suora liikenne).
+
+2. "booking-search-widget" — Käyttäjä painoi etusivun hero-osion majoitushakuwidgetin "Hae"-painiketta. Tämä ohjaa käyttäjän varausjärjestelmään (app.moder.fi). referrer = sivu jolta haku tehtiin (yleensä "/" eli etusivu).
+
+3. "booking-sticky-bar" — Käyttäjä painoi alareunan kiinnitettyä "Varaa heti tästä" -palkkia. Tämä palkki näkyy kaikilla sivuilla näytön alareunassa. referrer = sivu jolta painettiin.
+
+4. "booking-page-cta" — Käyttäjä painoi sivun lopussa olevaa "Katso vapaat majoitukset" -toimintakehotuspainiketta (CTA = Call to Action). Tämä painike on pyöristetyssä laatikossa sivun alaosassa monilla sisältösivuilla. referrer = sivu jolta painettiin.
+
+5. "booking-link" — Käyttäjä painoi muuta linkkiä joka johtaa varausjärjestelmään (app.moder.fi). Esim. yksittäisen majoituskohteen varauslinkki. referrer = sivu jolta painettiin.
+
+KONVERSIOANALYYSI:
+- Konversioprosentti = (booking-tapahtumien määrä / pageview-tapahtumien määrä) × 100
+- Vertaa eri konversiotyyppien tehokkuutta: kumpi tuottaa enemmän klikkauksia, sticky bar vai page CTA?
+- Analysoi referrer-sarake konversiotapahtumissa: mitkä sivut tuottavat eniten varausklikkauksia?
+- Kieliversioiden tehokkuus: vertaa fi vs en vs de kävijöiden konversiota
+
+SIVUSTON RAKENNE:
+- / = suomenkielinen etusivu
+- /majoitukset = majoitussivu
+- /levi = Levi-opas
+- /en/ = englanninkieliset sivut (esim. /en/levi, /en/accommodations)
+- /opas/ = oppaat ja artikkelit
+- /guide/ = englanninkieliset oppaat
+- /sauna, /revontulet, /latuinfo jne. = erikoissivut`;
+
 const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [csvLoading, setCsvLoading] = useState(false);
 
   const fetchStats = async () => {
     setLoading(true);
@@ -71,6 +113,40 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const downloadCsv = async () => {
+    setCsvLoading(true);
+    try {
+      const password = localStorage.getItem("admin_password");
+      if (!password) return;
+
+      const { data, error } = await supabase.functions.invoke("get-page-view-stats", {
+        body: { password, format: "csv" },
+      });
+      if (error) throw error;
+
+      // data comes as string from text/csv response
+      const csvText = typeof data === "string" ? data : JSON.stringify(data);
+      const blob = new Blob([csvText], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `leville-analytics-${new Date().toISOString().split("T")[0]}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success("CSV ladattu");
+    } catch (e) {
+      console.error("CSV download failed:", e);
+      toast.error("CSV-lataus epäonnistui");
+    } finally {
+      setCsvLoading(false);
+    }
+  };
+
+  const copyDescription = () => {
+    navigator.clipboard.writeText(REPORT_DESCRIPTION);
+    toast.success("Raportin selite kopioitu leikepöydälle");
   };
 
   useEffect(() => { fetchStats(); }, []);
