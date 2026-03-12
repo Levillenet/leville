@@ -12,7 +12,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { password } = await req.json();
+    const { password, format } = await req.json();
 
     const adminPassword = Deno.env.get("ADMIN_PASSWORD");
     if (!password || password !== adminPassword) {
@@ -46,15 +46,40 @@ Deno.serve(async (req) => {
       });
     }
 
+    // CSV format: return raw rows
+    if (format === "csv") {
+      const csvHeader = "date,time,path,type,referrer,device_type,language";
+      const csvRows = (views || []).map((v) => {
+        const dt = new Date(v.created_at);
+        const date = dt.toISOString().split("T")[0];
+        const time = dt.toISOString().split("T")[1].split(".")[0];
+        const isEvent = v.path.startsWith("/event/");
+        const type = isEvent ? v.path.replace("/event/", "") : "pageview";
+        const path = isEvent ? "" : v.path;
+        const ref = v.referrer || "";
+        const device = v.device_type || "unknown";
+        const lang = v.language || "unknown";
+        // Escape CSV fields
+        const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
+        return [date, time, esc(path), type, esc(ref), device, lang].join(",");
+      });
+
+      return new Response([csvHeader, ...csvRows].join("\n"), {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "text/csv; charset=utf-8",
+          "Content-Disposition": `attachment; filename="leville-analytics-${new Date().toISOString().split("T")[0]}.csv"`,
+        },
+      });
+    }
+
+    // JSON aggregated format (existing)
     const byDate: Record<string, number> = {};
     const byPath: Record<string, number> = {};
     const byReferrer: Record<string, number> = {};
     const byDevice: Record<string, number> = {};
     const byLanguage: Record<string, number> = {};
-
-    // Conversion events: type -> { count, sources }
     const conversionMap: Record<string, { count: number; sources: Record<string, number> }> = {};
-
     let total = 0;
 
     for (const v of views || []) {
@@ -66,20 +91,14 @@ Deno.serve(async (req) => {
           conversionMap[eventType] = { count: 0, sources: {} };
         }
         conversionMap[eventType].count++;
-        // referrer field stores the source page path
         const source = v.referrer || "unknown";
         conversionMap[eventType].sources[source] = (conversionMap[eventType].sources[source] || 0) + 1;
       } else {
         total++;
-
-        // Date
         const date = v.created_at.split("T")[0];
         byDate[date] = (byDate[date] || 0) + 1;
-
-        // Path
         byPath[v.path] = (byPath[v.path] || 0) + 1;
 
-        // Referrer
         if (v.referrer) {
           try {
             const host = new URL(v.referrer).hostname.replace("www.", "");
@@ -91,11 +110,8 @@ Deno.serve(async (req) => {
           byReferrer["direct"] = (byReferrer["direct"] || 0) + 1;
         }
 
-        // Device
         const dev = v.device_type || "unknown";
         byDevice[dev] = (byDevice[dev] || 0) + 1;
-
-        // Language
         const lang = v.language || "unknown";
         byLanguage[lang] = (byLanguage[lang] || 0) + 1;
       }
@@ -106,7 +122,6 @@ Deno.serve(async (req) => {
       .slice(0, 20)
       .map(([path, count]) => ({ path, count }));
 
-    // Build conversion events array with top 5 sources
     const conversionEvents = Object.entries(conversionMap)
       .sort(([, a], [, b]) => b.count - a.count)
       .map(([type, data]) => ({
@@ -119,18 +134,8 @@ Deno.serve(async (req) => {
       }));
 
     return new Response(
-      JSON.stringify({
-        total,
-        byDate,
-        topPages,
-        byReferrer,
-        byDevice,
-        byLanguage,
-        conversionEvents,
-      }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      JSON.stringify({ total, byDate, topPages, byReferrer, byDevice, byLanguage, conversionEvents }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
     console.error("Error:", error);
