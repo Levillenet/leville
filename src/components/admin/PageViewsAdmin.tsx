@@ -95,24 +95,39 @@ SIVUSTON RAKENNE:
 - /guide/ = englanninkieliset oppaat
 - /sauna, /revontulet, /latuinfo jne. = erikoissivut`;
 
+type Period = "today" | "week" | "month" | "30days";
+
+const PERIOD_LABELS: Record<Period, string> = {
+  today: "Tänään",
+  week: "Tämä viikko",
+  month: "Tämä kuukausi",
+  "30days": "30 päivää",
+};
+
 const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
   const [csvLoading, setCsvLoading] = useState(false);
+  const [period, setPeriod] = useState<Period>("30days");
 
-  const fetchStats = async () => {
+  const fetchStats = async (p: Period = period) => {
     setLoading(true);
     try {
       const password = localStorage.getItem("admin_password");
       if (!password) { setLoading(false); return; }
 
-      const { data, error } = await supabase.functions.invoke("get-page-view-stats", { body: { password } });
+      const { data, error } = await supabase.functions.invoke("get-page-view-stats", { body: { password, period: p } });
       if (!error && data) setStats(data);
     } catch (e) {
       console.error("Failed to fetch page view stats:", e);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handlePeriodChange = (p: Period) => {
+    setPeriod(p);
+    fetchStats(p);
   };
 
   const downloadCsv = async () => {
