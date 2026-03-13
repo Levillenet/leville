@@ -132,9 +132,11 @@ Deno.serve(async (req) => {
         byDate[date] = (byDate[date] || 0) + 1;
         byPath[v.path] = (byPath[v.path] || 0) + 1;
 
-        // Track daily unique sessions
-        if (!dailySessions[date]) dailySessions[date] = new Set();
-        dailySessions[date].add(sid);
+        // Track daily unique sessions (only with session_id)
+        if (sid) {
+          if (!dailySessions[date]) dailySessions[date] = new Set();
+          dailySessions[date].add(sid);
+        }
 
         if (v.referrer) {
           try {
