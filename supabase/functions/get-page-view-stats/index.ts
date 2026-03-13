@@ -103,11 +103,14 @@ Deno.serve(async (req) => {
 
     for (const v of views || []) {
       const isEvent = v.path.startsWith("/event/");
-      const sid = v.session_id || "unknown";
+      const sid = v.session_id || null;
       const ts = new Date(v.created_at).getTime();
 
-      if (!sessionPages[sid]) {
-        sessionPages[sid] = { timestamps: [], pageCount: 0 };
+      // Only track sessions for rows that have a session_id
+      if (sid) {
+        if (!sessionPages[sid]) {
+          sessionPages[sid] = { timestamps: [], pageCount: 0 };
+        }
       }
 
       if (isEvent) {
