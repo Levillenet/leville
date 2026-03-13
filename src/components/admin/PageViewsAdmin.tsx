@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Eye, Monitor, Smartphone, Tablet, RefreshCw, MousePointerClick, Download, ClipboardCopy } from "lucide-react";
+import { Loader2, Eye, Monitor, Smartphone, Tablet, RefreshCw, MousePointerClick, Download, ClipboardCopy, Users, Clock, TrendingDown } from "lucide-react";
 import { toast } from "sonner";
 import {
   ResponsiveContainer,
