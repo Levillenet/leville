@@ -123,8 +123,10 @@ Deno.serve(async (req) => {
         conversionMap[eventType].sources[source] = (conversionMap[eventType].sources[source] || 0) + 1;
       } else {
         total++;
-        sessionPages[sid].timestamps.push(ts);
-        sessionPages[sid].pageCount++;
+        if (sid && sessionPages[sid]) {
+          sessionPages[sid].timestamps.push(ts);
+          sessionPages[sid].pageCount++;
+        }
 
         const date = v.created_at.split("T")[0];
         byDate[date] = (byDate[date] || 0) + 1;
