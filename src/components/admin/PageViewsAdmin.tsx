@@ -279,9 +279,16 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
         ))}
       </div>
 
-      {/* Page view summary */}
+      {/* Session & page view summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <SummaryCard icon={<Eye className="w-5 h-5 text-primary" />} label="Yhteensä" value={stats.total} colorClass="bg-primary/10" />
+        <SummaryCard icon={<Eye className="w-5 h-5 text-primary" />} label="Sivukatselut" value={stats.total} colorClass="bg-primary/10" />
+        <SummaryCard icon={<Users className="w-5 h-5 text-chart-2" />} label="Istunnot" value={stats.totalSessions || 0} colorClass="bg-chart-2/10" />
+        <SummaryCard icon={<TrendingDown className="w-5 h-5 text-chart-3" />} label="Bounce rate" value={stats.bounceRate || 0} colorClass="bg-chart-3/10" suffix="%" />
+        <SummaryCard icon={<Clock className="w-5 h-5 text-chart-4" />} label="Keskim. kesto" value={stats.avgSessionDurationSec || 0} colorClass="bg-chart-4/10" formatAs="duration" />
+      </div>
+
+      {/* Device summary */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         <SummaryCard icon={<Smartphone className="w-5 h-5 text-chart-2" />} label="Mobiili" value={mobileCount} colorClass="bg-chart-2/10" />
         <SummaryCard icon={<Monitor className="w-5 h-5 text-chart-3" />} label="Tietokone" value={desktopCount} colorClass="bg-chart-3/10" />
         <SummaryCard icon={<Tablet className="w-5 h-5 text-chart-4" />} label="Tabletti" value={tabletCount} colorClass="bg-chart-4/10" />
