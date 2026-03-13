@@ -71,6 +71,13 @@ SARAKKEET:
 - referrer: Ulkoinen lähde (sivukatseluilla) TAI sisäinen lähtösivu (konversiotapahtumilla)
 - device_type: "mobile", "tablet" tai "desktop"
 - language: Selaimen kieli (fi, en, de, sv, es, fr, nl jne.)
+- session_id: Istunnon tunniste (sama käyttäjä samassa selainikkunassa)
+
+ISTUNTOANALYYSI:
+- session_id yhdistää saman käyttäjän sivukatselut yhdeksi istunnoksi
+- Istunto päättyy kun käyttäjä sulkee välilehden/selaimen
+- Bounce rate = yhden sivun istuntojen osuus kaikista istunnoista
+- Istunnon kesto = ensimmäisen ja viimeisen sivukatselun aikaero
 
 TAPAHTUMATYYPIT (type-sarake):
 
