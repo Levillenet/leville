@@ -137,7 +137,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
       if (!password) return;
 
       const { data, error } = await supabase.functions.invoke("get-page-view-stats", {
-        body: { password, format: "csv" },
+        body: { password, format: "csv", period },
       });
       if (error) throw error;
 
