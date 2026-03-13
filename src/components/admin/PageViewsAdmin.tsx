@@ -60,8 +60,9 @@ const EVENT_LABELS: Record<string, string> = {
 
 const REPORT_DESCRIPTION = `LEVILLE.FI ANALYTIIKKARAPORTTI — TEKNINEN KUVAUS
 
-Tämä CSV-raportti sisältää sivuston leville.fi kävijädataa 30 päivän ajalta.
+Tämä CSV-raportti sisältää sivuston leville.fi kävijädataa valitulta ajanjaksolta.
 Jokainen rivi on yksi tapahtuma (sivulataus tai klikkaus).
+Ajanjakso valitaan dashboardista: tänään, tämä viikko, tämä kuukausi tai 30 päivää.
 
 SARAKKEET:
 - date: Päivämäärä (YYYY-MM-DD)
@@ -71,13 +72,15 @@ SARAKKEET:
 - referrer: Ulkoinen lähde (sivukatseluilla) TAI sisäinen lähtösivu (konversiotapahtumilla)
 - device_type: "mobile", "tablet" tai "desktop"
 - language: Selaimen kieli (fi, en, de, sv, es, fr, nl jne.)
-- session_id: Istunnon tunniste (sama käyttäjä samassa selainikkunassa)
+- session_id: Istunnon tunniste (UUID). Sama käyttäjä samassa selainikkunassa/välilehdessä saa saman session_id:n. Uusi välilehti tai selaimen sulkeminen luo uuden istunnon. HUOM: Vanhoilla riveillä (ennen 13.3.2026) session_id on tyhjä.
 
 ISTUNTOANALYYSI:
-- session_id yhdistää saman käyttäjän sivukatselut yhdeksi istunnoksi
+- session_id yhdistää saman käyttäjän sivukatselut yhdeksi istunnoksi (evästeetön, sessionStorage-pohjainen)
 - Istunto päättyy kun käyttäjä sulkee välilehden/selaimen
-- Bounce rate = yhden sivun istuntojen osuus kaikista istunnoista
-- Istunnon kesto = ensimmäisen ja viimeisen sivukatselun aikaero
+- Bounce rate = yhden sivun istuntojen osuus kaikista istunnoista (%)
+- Istunnon kesto = ensimmäisen ja viimeisen sivukatselun aikaero (vain istunnot joissa 2+ sivua)
+- Päivittäiset kävijät = uniikit session_id:t per päivä (eri asia kuin sivukatselut)
+- Istuntotilastot lasketaan vain riveistä joissa session_id on olemassa
 
 TAPAHTUMATYYPIT (type-sarake):
 
@@ -96,6 +99,7 @@ KONVERSIOANALYYSI:
 - Vertaa eri konversiotyyppien tehokkuutta: kumpi tuottaa enemmän klikkauksia, sticky bar vai page CTA?
 - Analysoi referrer-sarake konversiotapahtumissa: mitkä sivut tuottavat eniten varausklikkauksia?
 - Kieliversioiden tehokkuus: vertaa fi vs en vs de kävijöiden konversiota
+- Istuntokohtainen konversio: kuinka moni istunto johti varausklikkiin?
 
 SIVUSTON RAKENNE:
 - / = suomenkielinen etusivu
