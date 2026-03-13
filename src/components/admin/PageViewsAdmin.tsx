@@ -237,7 +237,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <h2 className="text-lg font-semibold">Sivukatselut (30 pv)</h2>
+        <h2 className="text-lg font-semibold">Sivukatselut ({PERIOD_LABELS[period]})</h2>
         <div className="flex gap-2">
           <Button variant="outline" size="sm" onClick={copyDescription}>
             <ClipboardCopy className="w-4 h-4 mr-2" />
@@ -247,11 +247,25 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
             {csvLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Download className="w-4 h-4 mr-2" />}
             Lataa CSV
           </Button>
-          <Button variant="outline" size="sm" onClick={fetchStats}>
+          <Button variant="outline" size="sm" onClick={() => fetchStats()}>
             <RefreshCw className="w-4 h-4 mr-2" />
             Päivitä
           </Button>
         </div>
+      </div>
+
+      {/* Period selector */}
+      <div className="flex gap-2 flex-wrap">
+        {(["today", "week", "month", "30days"] as Period[]).map((p) => (
+          <Button
+            key={p}
+            variant={period === p ? "default" : "outline"}
+            size="sm"
+            onClick={() => handlePeriodChange(p)}
+          >
+            {PERIOD_LABELS[p]}
+          </Button>
+        ))}
       </div>
 
       {/* Page view summary */}
