@@ -1,27 +1,37 @@
 
 
-## /levi-sivun konversio-optimointi
+# GA4-tapahtumaseuranta majoitushauille
 
-### Ongelma
-Sivu on puhdas navigointihubi: kaikki linkit ohjaavat sisäisiin oppaisiin. Ainoa varauskehotus on aivan sivun lopussa (rivi 754), ja sekin ohjaa /majoitukset-sivulle eikä suoraan varausmoottoriin. Käyttäjä ei koskaan pääse Moder-varauslinkille asti.
+## Muutos
 
-### Ratkaisu: 3 strategista booking-CTA:ta
+Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
 
-**1. Hero-osion jälkeen (rivi 455 jälkeen)** — Heti intron alle kompakti varaus-CTA-painike joka ohjaa suoraan Moder-varausmoottorin:
-- Iso `Button` linkillä `app.moder.fi/levillenet` (kieliversiot)
-- Teksti: "Varaa majoitus" / "Book accommodation"
+## Toteutus
 
-**2. Quick Links -osion jälkeen (rivi 648 jälkeen)** — Visuaalinen booking-banneri ennen Quiz/Joulu-kortteja:
-- Gradient-taustainen `Card` tekstillä "Oletko valmis Levi-lomaan?" + Moder-linkki
-- Erottaa informaatiosisällön ja viihteellisen sisällön
+Tiedosto: `src/components/ModerBookingWidget.tsx`
 
-**3. Loppupainike korjaus (rivi 754-761)** — Nykyinen "Varaa majoitus" -painike ohjaa /majoitukset-sivulle. Muutetaan osoittamaan suoraan Moder-varausmoottoriin (`a`-tagi `target="_blank"`) samoin kuin PageCTA.
+`showLoadingOverlay`-funktion alkuun lisataan:
 
-### Tiedosto
+```typescript
+if (typeof window !== 'undefined' && (window as any).gtag) {
+  (window as any).gtag('event', 'accommodation_search', {
+    event_category: 'booking',
+    event_label: lang,
+    page_location: window.location.pathname,
+  });
+}
+```
 
-| Tiedosto | Muutos |
-|---|---|
-| `src/pages/Levi.tsx` | Lisää 2 uutta booking-CTA:ta + korjaa loppupainikkeen linkki Moderiin |
+Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
 
-Kaikki CTA:t käyttävät samaa `getModerUrl(lang)`-logiikkaa kuin `StickyBookingBar`. Uusi content-avain `bookNow` ja `readyHeading` lisätään olemassaolevaan `content`-objektiin 7 kielelle.
+## Missa naet tulokset
+
+Google Analytics 4 -hallintapaneelissa (analytics.google.com):
+- **Reaaliaikainen testaus:** Reports > Realtime
+- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+
+## Ei muita muutoksia
+- Ei uusia riippuvuuksia
+- GA4-skripti on jo ladattu index.html:ssa
+- Yksi tiedosto muuttuu, yksi rivi lisataan
 

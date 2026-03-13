@@ -31,6 +31,13 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
   const t = getTranslations(lang).levi;
   const location = useLocation();
 
+  const getModerUrl = () => {
+    if (lang === "fi") return "https://app.moder.fi/levillenet";
+    if (lang === "sv") return "https://app.moder.fi/levillenet?lang=sv";
+    return "https://app.moder.fi/levillenet?lang=en";
+  };
+
+
   // Multilingual content for the simplified HUB
   const content: Record<Language, {
     intro: string;
@@ -42,6 +49,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     travelHubDesc: string;
     exploreButton: string;
     bookCta: string;
+    bookNow: string;
+    readyHeading: string;
+    readyDesc: string;
     accommodationsLink: string;
     quizTitle: string;
     quizDesc: string;
@@ -77,6 +87,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       travelHubDesc: "Miten pääset perille, mitä vaatteita tarvitset ja käytännön vinkit matkallesi.",
       exploreButton: "Tutustu",
       bookCta: "Varaa majoitus Leviltä",
+      bookNow: "Varaa majoitus",
+      readyHeading: "Oletko valmis Levi-lomaan?",
+      readyDesc: "Tutustu vapaana oleviin majoituksiin ja varaa suoraan meiltä – paras hinta ilman välittäjiä.",
       accommodationsLink: "/majoitukset",
       quizTitle: "Testaa Levi-tietämyksesi!",
       quizDesc: "Pelaa hauska tietovisa Suomen suosituimmasta hiihtokeskuksesta.",
@@ -112,6 +125,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       travelHubDesc: "How to get there, what clothes you need and practical tips for your trip.",
       exploreButton: "Explore",
       bookCta: "Book accommodation in Levi",
+      bookNow: "Book accommodation",
+      readyHeading: "Ready for your Levi holiday?",
+      readyDesc: "Browse available accommodations and book directly from us – best price without middlemen.",
       accommodationsLink: "/en/accommodations",
       quizTitle: "Test Your Levi Knowledge!",
       quizDesc: "Take our fun quiz about Finland's favorite ski resort.",
@@ -147,6 +163,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       travelHubDesc: "Hur du tar dig dit, vilka kläder du behöver och praktiska tips för din resa.",
       exploreButton: "Utforska",
       bookCta: "Boka boende i Levi",
+      bookNow: "Boka boende",
+      readyHeading: "Redo för din Levi-semester?",
+      readyDesc: "Bläddra bland lediga boenden och boka direkt från oss – bästa pris utan mellanhänder.",
       accommodationsLink: "/sv/boende",
       quizTitle: "Testa din Levi-kunskap!",
       quizDesc: "Spela ett roligt quiz om Finlands populäraste skidort.",
@@ -182,6 +201,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       travelHubDesc: "Wie Sie dorthin kommen, welche Kleidung Sie brauchen und praktische Tipps für Ihre Reise.",
       exploreButton: "Entdecken",
       bookCta: "Unterkunft in Levi buchen",
+      bookNow: "Unterkunft buchen",
+      readyHeading: "Bereit für Ihren Levi-Urlaub?",
+      readyDesc: "Durchsuchen Sie verfügbare Unterkünfte und buchen Sie direkt bei uns – bester Preis ohne Zwischenhändler.",
       accommodationsLink: "/de/unterkuenfte",
       quizTitle: "Teste dein Levi-Wissen!",
       quizDesc: "Spiele unser lustiges Quiz über Finnlands beliebtestes Skigebiet.",
@@ -217,6 +239,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       travelHubDesc: "Cómo llegar, qué ropa necesitas y consejos prácticos para tu viaje.",
       exploreButton: "Explorar",
       bookCta: "Reservar alojamiento en Levi",
+      bookNow: "Reservar alojamiento",
+      readyHeading: "¿Listo para tus vacaciones en Levi?",
+      readyDesc: "Explora alojamientos disponibles y reserva directamente con nosotros – mejor precio sin intermediarios.",
       accommodationsLink: "/es/alojamientos",
       quizTitle: "¡Pon a prueba tus conocimientos sobre Levi!",
       quizDesc: "Juega nuestro divertido quiz sobre la estación de esquí más popular de Finlandia.",
@@ -252,6 +277,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       travelHubDesc: "Comment y arriver, quels vêtements vous avez besoin et conseils pratiques pour votre voyage.",
       exploreButton: "Explorer",
       bookCta: "Réserver un hébergement à Levi",
+      bookNow: "Réserver un hébergement",
+      readyHeading: "Prêt pour vos vacances à Levi ?",
+      readyDesc: "Parcourez les hébergements disponibles et réservez directement chez nous – meilleur prix sans intermédiaires.",
       accommodationsLink: "/fr/hebergements",
       quizTitle: "Testez vos connaissances sur Levi !",
       quizDesc: "Jouez à notre quiz amusant sur la station de ski la plus populaire de Finlande.",
@@ -287,6 +315,9 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       travelHubDesc: "Hoe je er komt, welke kleding je nodig hebt en praktische tips voor je reis.",
       exploreButton: "Ontdekken",
       bookCta: "Boek accommodatie in Levi",
+      bookNow: "Boek accommodatie",
+      readyHeading: "Klaar voor je Levi-vakantie?",
+      readyDesc: "Bekijk beschikbare accommodaties en boek rechtstreeks bij ons – beste prijs zonder tussenpersonen.",
       accommodationsLink: "/nl/accommodaties",
       quizTitle: "Test je Levi-kennis!",
       quizDesc: "Speel onze leuke quiz over het populairste skigebied van Finland.",
@@ -454,7 +485,17 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </p>
             </section>
 
-            {/* Three HUB Navigation Cards */}
+            {/* Booking CTA after hero */}
+            <section className="mb-10 sm:mb-14 text-center">
+              <Button asChild size="lg" className="text-lg sm:text-xl px-8 sm:px-10 py-6 sm:py-7 shadow-lg animate-pulse-subtle">
+                <a href={getModerUrl()} target="_blank" rel="noopener noreferrer">
+                  {c.bookNow}
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </a>
+              </Button>
+            </section>
+
+
             <section className="mb-12 sm:mb-16">
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {hubCards.map((hub) => {
@@ -647,7 +688,27 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </div>
             </section>
 
-            {/* Quiz and Christmas CTAs */}
+            {/* Booking Banner */}
+            <section className="mb-12 sm:mb-16">
+              <Card className="border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 overflow-hidden">
+                <CardContent className="p-6 sm:p-8 text-center">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+                    {c.readyHeading}
+                  </h2>
+                  <p className="text-sm sm:text-base text-muted-foreground mb-5 max-w-lg mx-auto">
+                    {c.readyDesc}
+                  </p>
+                  <Button asChild size="lg" className="text-base px-8">
+                    <a href={getModerUrl()} target="_blank" rel="noopener noreferrer">
+                      {c.bookNow}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            </section>
+
+
             <section className="mb-12 sm:mb-16 grid sm:grid-cols-2 gap-4">
               {/* Quiz CTA */}
               <Card className="glass-card border-primary/30 bg-primary/5 overflow-hidden">
@@ -753,10 +814,10 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             {/* Strong Booking CTA */}
             <section className="mb-10 text-center">
               <Button asChild size="lg" className="text-base px-8">
-                <Link to={c.accommodationsLink}>
+                <a href={getModerUrl()} target="_blank" rel="noopener noreferrer">
                   {c.bookCta}
                   <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
+                </a>
               </Button>
             </section>
 
