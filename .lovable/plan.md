@@ -1,37 +1,28 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+## Aikajaksovalitsin analytiikkanäkymään
 
-## Muutos
+### Muutokset
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+**1. Edge function (`get-page-view-stats/index.ts`)**
+- Lisätään `period`-parametri: `"today"`, `"week"`, `"month"`, `"30days"` (oletus)
+- Lasketaan `since`-päivämäärä parametrin mukaan (tänään, 7 pv sitten, kuukauden alku, 30 pv sitten)
+- Kaikki aggregoinnit (topPages, byReferrer, byDevice, byLanguage, conversionEvents) suodattuvat valitun jakson mukaan
+- CSV-vienti käyttää samaa period-parametria
 
-## Toteutus
+**2. Frontend (`PageViewsAdmin.tsx`)**
+- Lisätään `period`-tila: `"today" | "week" | "month" | "30days"`
+- Yläosaan 4 painikkeen rivi: "Tänään", "Tämä viikko", "Tämä kuukausi", "30 päivää"
+- Otsikko päivittyy valinnan mukaan (esim. "Sivukatselut (tänään)")
+- `fetchStats` lähettää `period`-arvon edge functionille
+- Period-muutos triggeröi uuden haun
+- Kaikki kortit, top 20 -taulukko, konversiot, pie/bar-kaaviot päivittyvät valitun jakson mukaan
+- Päivittäiset katselut -viivakaavio näyttää aina päivätason datan riippumatta valinnasta
 
-Tiedosto: `src/components/ModerBookingWidget.tsx`
+### Tiedostot
 
-`showLoadingOverlay`-funktion alkuun lisataan:
-
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
-```
-
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
-
-## Missa naet tulokset
-
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
-
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+| Tiedosto | Muutos |
+|---|---|
+| `supabase/functions/get-page-view-stats/index.ts` | Lisää `period`-parametrin käsittely |
+| `src/components/admin/PageViewsAdmin.tsx` | Lisää aikajaksovalitsin UI + period-parametrin lähetys |
 
