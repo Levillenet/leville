@@ -200,6 +200,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
     .map(([date, views]) => ({
       date: new Date(date).toLocaleDateString("fi-FI", { day: "numeric", month: "numeric" }),
       views,
+      sessions: stats.byDateSessions?.[date] || 0,
     }));
 
   const deviceData = Object.entries(stats.byDevice).map(([name, value]) => ({
