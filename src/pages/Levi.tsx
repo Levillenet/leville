@@ -688,7 +688,27 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </div>
             </section>
 
-            {/* Quiz and Christmas CTAs */}
+            {/* Booking Banner */}
+            <section className="mb-12 sm:mb-16">
+              <Card className="border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 overflow-hidden">
+                <CardContent className="p-6 sm:p-8 text-center">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+                    {c.readyHeading}
+                  </h2>
+                  <p className="text-sm sm:text-base text-muted-foreground mb-5 max-w-lg mx-auto">
+                    {c.readyDesc}
+                  </p>
+                  <Button asChild size="lg" className="text-base px-8">
+                    <a href={getModerUrl()} target="_blank" rel="noopener noreferrer">
+                      {c.bookNow}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            </section>
+
+
             <section className="mb-12 sm:mb-16 grid sm:grid-cols-2 gap-4">
               {/* Quiz CTA */}
               <Card className="glass-card border-primary/30 bg-primary/5 overflow-hidden">
