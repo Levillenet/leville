@@ -485,7 +485,17 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
               </p>
             </section>
 
-            {/* Three HUB Navigation Cards */}
+            {/* Booking CTA after hero */}
+            <section className="mb-10 sm:mb-14 text-center">
+              <Button asChild size="lg" className="text-lg sm:text-xl px-8 sm:px-10 py-6 sm:py-7 shadow-lg animate-pulse-subtle">
+                <a href={getModerUrl()} target="_blank" rel="noopener noreferrer">
+                  {c.bookNow}
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </a>
+              </Button>
+            </section>
+
+
             <section className="mb-12 sm:mb-16">
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {hubCards.map((hub) => {
