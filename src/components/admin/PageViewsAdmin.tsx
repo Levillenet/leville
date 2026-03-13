@@ -438,7 +438,15 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   );
 };
 
-function SummaryCard({ icon, label, value, colorClass }: { icon: React.ReactNode; label: string; value: number; colorClass: string }) {
+function SummaryCard({ icon, label, value, colorClass, suffix, formatAs }: { icon: React.ReactNode; label: string; value: number; colorClass: string; suffix?: string; formatAs?: "duration" }) {
+  let displayValue: string;
+  if (formatAs === "duration") {
+    const min = Math.floor(value / 60);
+    const sec = value % 60;
+    displayValue = min > 0 ? `${min}m ${sec}s` : `${sec}s`;
+  } else {
+    displayValue = value.toLocaleString("fi-FI") + (suffix || "");
+  }
   return (
     <Card>
       <CardContent className="pt-6">
@@ -446,7 +454,7 @@ function SummaryCard({ icon, label, value, colorClass }: { icon: React.ReactNode
           <div className={`w-10 h-10 rounded-full ${colorClass} flex items-center justify-center`}>{icon}</div>
           <div>
             <p className="text-sm text-muted-foreground">{label}</p>
-            <p className="text-2xl font-bold">{value.toLocaleString("fi-FI")}</p>
+            <p className="text-2xl font-bold">{displayValue}</p>
           </div>
         </div>
       </CardContent>
