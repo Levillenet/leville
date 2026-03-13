@@ -1,42 +1,37 @@
 
 
-## Joulupukki Levillä -sivun sisältökorjaus
+# GA4-tapahtumaseuranta majoitushauille
 
-Sivulla on useita faktavirheitä. Korjataan sisältö vastaamaan todellisuutta ja lisätään uutta materiaalia.
+## Muutos
 
-### Sisältömuutokset (fi + en)
+Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
 
-**1. Joulupukin mökki -osio — korjaus nähtävyydeksi**
-- Mökki on Joulutarina-elokuvasta tunnettu vanha mökki, Levin kuvatuin kohde
-- Joulupukki EI ole siellä yleensä paikalla — kyseessä on nähtävyys ja valokuvauspaikka upeilla näköaloilla
-- Sinne pääsee: gondolihissillä + kävellen alas rinnettä, kesällä patikoiden Tuikku-ravintolalta, talvella suksilla laskettelun yhteydessä
-- Lisätään ladattu kuva (IMG_20200828_122422.jpg) mökin kuvaksi
+## Toteutus
 
-**2. Arcandia-osio — poisto**
-- Poistetaan kokonaan sekä käännöksistä että JSX:stä
+Tiedosto: `src/components/ModerBookingWidget.tsx`
 
-**3. Uusi osio: Joulupukkielämykset Levillä**
-- Esimerkkinä Elves Village (suurin ja suosituin)
-- Maininta että monia muitakin palveluntarjoajia on
-- Lisätään joulupukin tervetulokirje PDF-linkki (`/docs/tervetulokirje.pdf`)
+`showLoadingOverlay`-funktion alkuun lisataan:
 
-**4. Muut jouluelämykset — lisäys**
-- Lisätään: "Joulupukin voi tilata myös omaan majoitukseen! Kysy lisää Visit Levi -matkailuneuvonnasta."
+```typescript
+if (typeof window !== 'undefined' && (window as any).gtag) {
+  (window as any).gtag('event', 'accommodation_search', {
+    event_category: 'booking',
+    event_label: lang,
+    page_location: window.location.pathname,
+  });
+}
+```
 
-**5. Levi vs Rovaniemi -vertailu — korjaus**
-- Levi-kortti: poistetaan "tapaaminen tunturin huipulla", korvataan oikealla sisällöllä (elämysyritykset + ikoninen mökki nähtävyys)
+Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
 
-**6. Vinkkejä perheille — korjaus**
-- Poistetaan "gondolimatka + pukkitapaaminen" -kohta (pukki ei ole tunturissa)
-- Korvataan oikeilla vinkeillä
+## Missa naet tulokset
 
-**7. FAQ — päivitys**
-- Poistetaan Arcandia-viittaukset, päivitetään vastaukset
+Google Analytics 4 -hallintapaneelissa (analytics.google.com):
+- **Reaaliaikainen testaus:** Reports > Realtime
+- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
 
-### Tiedostot
-
-| Tiedosto | Muutos |
-|---|---|
-| `src/assets/santa-cabin-fell.jpg` | Kopioidaan ladattu kuva |
-| `src/pages/guide/SantaClausLevi.tsx` | Koko sisältöpäivitys: käännökset + JSX (Arcandia pois, mökki nähtävyydeksi, Elves Village + PDF, perhevinkki-korjaukset) |
+## Ei muita muutoksia
+- Ei uusia riippuvuuksia
+- GA4-skripti on jo ladattu index.html:ssa
+- Yksi tiedosto muuttuu, yksi rivi lisataan
 

@@ -9,12 +9,13 @@ import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema, getFAQSchema } from "@/utils/structuredData";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Gift, Mountain, Users, MapPin, Info, Camera, Heart } from "lucide-react";
+import { ArrowRight, Star, Gift, Mountain, Users, MapPin, Info, Camera, Heart, Download, TreePine } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import santaCabinImage from "@/assets/santa-cabin-fell.jpg";
 import {
   Accordion,
   AccordionContent,
@@ -30,28 +31,33 @@ const translations = {
   fi: {
     meta: {
       title: "Joulupukki Levillä — Missä tavata pukki ja jouluelämykset | Leville.net",
-      description: "Opas joulupukin tapaamiseen Levillä: Joulupukin mökki tunturilla, Arcandia ja muut jouluelämykset. Vertailu Rovaniemen Pajakylään.",
+      description: "Opas joulupukin tapaamiseen Levillä: Joulupukin mökki tunturilla, Elves Village ja muut jouluelämykset. Vertailu Rovaniemen Pajakylään.",
       canonical: "https://leville.net/opas/joulupukki-levilla"
     },
     h1: "Joulupukki Levillä — missä tavata pukki?",
-    intro: "Levin tunturin huipulla sijaitsee Joulupukin mökki — tunnelmallinen elämys koko perheelle. Tässä oppaassa kerromme missä ja miten tapaat pukin, mitä muita jouluelämyksiä Levillä on ja miten Levi vertautuu Rovaniemeen.",
+    intro: "Levi tarjoaa ainutlaatuisia jouluelämyksiä koko perheelle — tunturin huipun ikonisesta joulupukin mökistä elämysyritysten pukkitapaamisiin. Tässä oppaassa kerromme mitä Levillä on tarjolla ja miten Levi vertautuu Rovaniemeen.",
     sections: {
       cabin: {
         title: "Joulupukin mökki Levin tunturilla",
-        content: "Levin tunturin huipulla sijaitsee Joulupukin mökki, jonne pääsee Levi Black -gondolihissillä. Mökki on tunnelmallinen elämys — ei suuri kaupallinen teemapuisto vaan intiimi tapaaminen joulupukin kanssa. Gondolimatka itsessään on elämys lapsille ja aikuisille.",
-        note: "Tarkista aukioloajat Levin matkailuinfosta — mökki on auki tyypillisesti joulu–maaliskuussa."
+        content: "Levin tunturin huipulla sijaitsee ikoninen Joulupukin mökki — Levin kuvatuin kohde, joka tunnetaan Joulutarina-elokuvasta. Mökki on upea nähtävyys ja valokuvauspaikka henkeäsalpaavine näköaloineen, mutta joulupukki ei yleensä ole siellä paikalla.",
+        access: "Mökille pääsee gondolihissillä ja kävellen alas rinnettä, kesällä patikoiden Tuikku-ravintolalta tai talvella suksilla laskettelun yhteydessä. Retki mökille kannattaa ehdottomasti tehdä Levin-vierailun aikana!",
+        note: "Mökki on nähtävyys — ei varsinainen joulupukkielämys. Pukkitapaamiset järjestävät Levin elämysyritykset."
       },
-      arcandia: {
-        title: "Arcandia",
-        content: "Arcandia on elämyskeskus joka sijaitsee hylätyssä elokuvalavasteessa Levin lähettyvillä. Tarjolla on joulupukkitapaamisia, tonttutoimintaa, jousiammuntaa ja muita elämyksiä seikkailullisessa ympäristössä. Sopii erityisesti lapsiperheille.",
-        note: "Tarkista ajantasaiset aukioloajat ja hinnat Arcandian omilta sivuilta."
+      experiences: {
+        title: "Joulupukkielämykset Levillä",
+        content: "Levillä toimii useita elämysyrityksiä jotka järjestävät joulupukkitapaamisia. Suurin ja suosituin näistä on Elves Village, joka tarjoaa monipuolisen jouluisen elämyksen tonttutoimintoineen.",
+        note: "Levillä on monia muitakin pukkielämysten järjestäjiä — tarkista ajantasaiset vaihtoehdot Visit Levi -matkailuneuvonnasta.",
+        letterTitle: "Joulupukin tervetulokirje",
+        letterDesc: "Lataa joulupukin tervetulokirje tulostettavaksi — mukava yllätys lapsille majoitukseen saapuessa!",
+        letterButton: "Lataa tervetulokirje (PDF)"
       },
       other: {
         title: "Muut jouluelämykset Levillä",
         items: [
           "Porosafari joulutunnelmassa — porotiloilla on usein jouluinen ohjelma",
           "Joulumarkkinat (ajankohdasta riippuen)",
-          "Jouluilta omassa mökissä — sauna, joulupöytä ja hiljaisuus"
+          "Jouluilta omassa mökissä — sauna, joulupöytä ja hiljaisuus",
+          "Joulupukin voi tilata myös omaan majoitukseen! Kysy lisää Visit Levi -matkailuneuvonnasta."
         ],
         disclaimer: "Joulusesongin ohjelma vaihtelee vuosittain. Tarkista ajantasaiset tiedot etukäteen."
       },
@@ -64,7 +70,7 @@ const translations = {
         ],
         levi: [
           "Intiimimpi ja autenttisempi — ei massaturismia",
-          "Rauhallinen tapaaminen tunturin huipulla",
+          "Elämysyritysten pukkitapaamiset + ikoninen mökki nähtävyytenä",
           "Joulupukki + laskettelu + safarit + oma mökki — monipuolisempi loma"
         ],
         daytrip: "Päiväretki Rovaniemelle Leviltä on mahdollinen (noin 2,5 h suuntaan) jos haluat molemmat.",
@@ -74,18 +80,18 @@ const translations = {
         title: "Vinkkejä perheille",
         items: [
           "Varaa joulupukkitapaamiset etukäteen — erityisesti joulu- ja hiihtolomasesonkina",
-          "Pienimmille lapsille (~2–4 v) gondolimatka + pukkitapaaminen on riittävä elämys",
-          "Ota kamera mukaan — mutta pukkimökeissä on usein myös valokuvaaja",
-          "Yhdistä pukkitapaaminen poroajeluun samana päivänä"
+          "Retki Joulupukin mökille tunturiin on elämys itsessään — upeat maisemat ja valokuvauspaikka",
+          "Ota kamera mukaan — mökillä on mahtavat näköalat ja jouluinen tunnelma",
+          "Yhdistä pukkielämys poroajeluun samana päivänä"
         ]
       }
     },
     faq: {
       title: "Usein kysytyt kysymykset",
       items: [
-        { q: "Onko joulupukki Levillä ympäri vuoden?", a: "Joulupukin mökki on auki joulusesongin aikana (tyypillisesti joulu–maaliskuu). Ympärivuotiseen pukkitapaamiseen Rovaniemen Pajakylä on vaihtoehto." },
-        { q: "Paljonko joulupukkitapaaminen maksaa?", a: "Riippuu elämyksestä. Gondolimatka + mökki on eri hinta kuin Arcandia. Tarkista ajantasaiset hinnat etukäteen." },
-        { q: "Sopiiko pienille lapsille?", a: "Ehdottomasti — sekä Joulupukin mökki että Arcandia on suunniteltu perheille." },
+        { q: "Onko joulupukki Levillä ympäri vuoden?", a: "Joulupukkielämyksiä on tarjolla joulusesongin aikana. Ympärivuotiseen pukkitapaamiseen Rovaniemen Pajakylä on vaihtoehto." },
+        { q: "Paljonko joulupukkitapaaminen maksaa?", a: "Riippuu elämyksestä ja palveluntarjoajasta. Tarkista ajantasaiset hinnat esim. Elves Villagelta tai Visit Levi -matkailuneuvonnasta." },
+        { q: "Sopiiko pienille lapsille?", a: "Ehdottomasti — pukkielämykset on suunniteltu perheille. Myös retki tunturin joulupukin mökille sopii kaiken ikäisille." },
         { q: "Voiko tehdä päiväretken Rovaniemelle?", a: "Kyllä, matka on noin 2,5 tuntia suuntaan. Opastettuja päiväretkiä on myös saatavilla." }
       ]
     },
@@ -108,28 +114,33 @@ const translations = {
   en: {
     meta: {
       title: "Santa Claus in Levi — Where to Meet Santa & Christmas Experiences | Leville.net",
-      description: "Guide to meeting Santa in Levi: Santa's Cabin on the fell, Arcandia and other Christmas experiences. Comparison with Rovaniemi.",
+      description: "Guide to meeting Santa in Levi: Santa's Cabin on the fell, Elves Village and other Christmas experiences. Comparison with Rovaniemi.",
       canonical: "https://leville.net/guide/santa-claus-in-levi"
     },
     h1: "Santa Claus in Levi — Where to Meet Santa?",
-    intro: "On top of Levi fell sits Santa's Cabin — an atmospheric experience for the whole family. This guide tells you where and how to meet Santa, what other Christmas experiences Levi offers and how it compares to Rovaniemi.",
+    intro: "Levi offers unique Christmas experiences for the whole family — from the iconic Santa's Cabin on top of the fell to Santa meetings organised by experience companies. This guide tells you what's on offer and how Levi compares to Rovaniemi.",
     sections: {
       cabin: {
         title: "Santa's Cabin on Levi Fell",
-        content: "On top of Levi fell sits Santa's Cabin, accessible via the Levi Black gondola lift. The cabin offers an atmospheric experience — not a large commercial theme park but an intimate meeting with Santa. The gondola ride itself is an experience for children and adults alike.",
-        note: "Check opening times from Levi tourist info — the cabin is typically open from Christmas to March."
+        content: "On top of Levi fell sits the iconic Santa's Cabin — Levi's most photographed spot, known from the Finnish film 'Christmas Story' (Joulutarina). The cabin is a stunning landmark and photo spot with breathtaking views, but Santa is not usually present there.",
+        access: "You can reach the cabin via the gondola lift and walking down the slope, by hiking from Tuikku restaurant in summer, or by skiing in winter. A trip to the cabin is an absolute must during your visit to Levi!",
+        note: "The cabin is a landmark — not a Santa experience as such. Santa meetings are organised by Levi's experience companies."
       },
-      arcandia: {
-        title: "Arcandia",
-        content: "Arcandia is an experience centre located in an abandoned film set near Levi. It offers Santa meetings, elf activities, archery and other experiences in an adventurous setting. Particularly suitable for families with children.",
-        note: "Check current opening times and prices on Arcandia's own website."
+      experiences: {
+        title: "Santa Claus Experiences in Levi",
+        content: "Several experience companies in Levi organise Santa Claus meetings. The largest and most popular is Elves Village, which offers a comprehensive Christmas experience with elf activities and more.",
+        note: "There are many other Santa experience providers in Levi — check current options from Visit Levi tourist information.",
+        letterTitle: "Santa's Welcome Letter",
+        letterDesc: "Download Santa's welcome letter to print — a lovely surprise for children upon arrival at your accommodation!",
+        letterButton: "Download welcome letter (PDF)"
       },
       other: {
         title: "Other Christmas Experiences in Levi",
         items: [
           "Reindeer safari in a Christmas atmosphere — reindeer farms often have festive programmes",
           "Christmas markets (depending on dates)",
-          "Christmas Eve in your own cabin — sauna, festive dinner and peace"
+          "Christmas Eve in your own cabin — sauna, festive dinner and peace",
+          "You can even book Santa to visit your accommodation! Ask Visit Levi tourist information for details."
         ],
         disclaimer: "Christmas season programmes vary yearly. Check up-to-date info in advance."
       },
@@ -142,7 +153,7 @@ const translations = {
         ],
         levi: [
           "More intimate and authentic — no mass tourism",
-          "Peaceful meeting on top of a fell",
+          "Santa experiences by local companies + iconic cabin as a landmark",
           "Santa + skiing + safaris + own cabin — a more versatile holiday"
         ],
         daytrip: "A day trip from Levi to Rovaniemi is possible (about 2.5 hours each way) if you want both.",
@@ -152,18 +163,18 @@ const translations = {
         title: "Tips for Families",
         items: [
           "Book Santa meetings in advance — especially during Christmas and ski holiday season",
-          "For the youngest children (~2–4 years) the gondola ride + Santa meeting is enough",
-          "Bring a camera — but Santa's cabins usually have a photographer too",
-          "Combine the Santa visit with a reindeer sleigh ride on the same day"
+          "A trip to Santa's Cabin on the fell is an experience in itself — stunning views and a great photo spot",
+          "Bring a camera — the cabin has amazing views and a festive atmosphere",
+          "Combine a Santa experience with a reindeer sleigh ride on the same day"
         ]
       }
     },
     faq: {
       title: "Frequently Asked Questions",
       items: [
-        { q: "Is Santa in Levi year-round?", a: "Santa's Cabin is open during the Christmas season (typically December–March). For year-round Santa meetings, Rovaniemi's Santa Claus Village is an option." },
-        { q: "How much does a Santa meeting cost?", a: "Depends on the experience. The gondola ride + cabin is a different price than Arcandia. Check current prices in advance." },
-        { q: "Is it suitable for small children?", a: "Absolutely — both Santa's Cabin and Arcandia are designed for families." },
+        { q: "Is Santa in Levi year-round?", a: "Santa experiences are available during the Christmas season. For year-round Santa meetings, Rovaniemi's Santa Claus Village is an option." },
+        { q: "How much does a Santa meeting cost?", a: "Depends on the experience and provider. Check current prices from e.g. Elves Village or Visit Levi tourist information." },
+        { q: "Is it suitable for small children?", a: "Absolutely — Santa experiences are designed for families. The trip to Santa's Cabin on the fell is also suitable for all ages." },
         { q: "Can I take a day trip to Rovaniemi?", a: "Yes, the journey is about 2.5 hours each way. Guided day trips are also available." }
       ]
     },
@@ -199,6 +210,8 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
     { label: lang === "en" ? "Guide" : "Opas", href: lang === "en" ? "/en/levi" : "/levi" },
     { label: t.breadcrumbLabel, href: "" }
   ];
+
+  const letterPdf = lang === "en" ? "/docs/tervetulokirje.pdf" : "/docs/tervetulokirje.pdf";
 
   return (
     <>
@@ -240,7 +253,7 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
             </section>
 
-            {/* Santa's Cabin */}
+            {/* Santa's Cabin — landmark */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
@@ -248,7 +261,16 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
                 </div>
                 <h2 className="text-2xl font-bold text-foreground">{t.sections.cabin.title}</h2>
               </div>
+              <div className="rounded-xl overflow-hidden mb-4">
+                <img
+                  src={santaCabinImage}
+                  alt={lang === "fi" ? "Joulupukin mökki Levin tunturilla" : "Santa's Cabin on Levi fell"}
+                  className="w-full h-64 sm:h-80 object-cover"
+                  loading="lazy"
+                />
+              </div>
               <p className="text-muted-foreground mb-3">{t.sections.cabin.content}</p>
+              <p className="text-muted-foreground mb-3">{t.sections.cabin.access}</p>
               <Card className="glass-card border-border/30 p-4">
                 <div className="flex items-start gap-3">
                   <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
@@ -257,20 +279,35 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
               </Card>
             </section>
 
-            {/* Arcandia */}
+            {/* Santa experiences */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
                   <Gift className="w-5 h-5 text-primary" />
                 </div>
-                <h2 className="text-2xl font-bold text-foreground">{t.sections.arcandia.title}</h2>
+                <h2 className="text-2xl font-bold text-foreground">{t.sections.experiences.title}</h2>
               </div>
-              <p className="text-muted-foreground mb-3">{t.sections.arcandia.content}</p>
-              <Card className="glass-card border-border/30 p-4">
+              <p className="text-muted-foreground mb-3">{t.sections.experiences.content}</p>
+              <Card className="glass-card border-border/30 p-4 mb-4">
                 <div className="flex items-start gap-3">
                   <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-muted-foreground italic">{t.sections.arcandia.note}</p>
+                  <p className="text-sm text-muted-foreground italic">{t.sections.experiences.note}</p>
                 </div>
+              </Card>
+
+              {/* Welcome letter PDF */}
+              <Card className="glass-card border-border/30 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <TreePine className="w-5 h-5 text-primary" />
+                  <h3 className="font-bold text-foreground">{t.sections.experiences.letterTitle}</h3>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">{t.sections.experiences.letterDesc}</p>
+                <Button variant="outline" asChild>
+                  <a href={letterPdf} target="_blank" rel="noopener noreferrer">
+                    <Download className="w-4 h-4 mr-2" />
+                    {t.sections.experiences.letterButton}
+                  </a>
+                </Button>
               </Card>
             </section>
 
