@@ -103,11 +103,14 @@ Deno.serve(async (req) => {
 
     for (const v of views || []) {
       const isEvent = v.path.startsWith("/event/");
-      const sid = v.session_id || "unknown";
+      const sid = v.session_id || null;
       const ts = new Date(v.created_at).getTime();
 
-      if (!sessionPages[sid]) {
-        sessionPages[sid] = { timestamps: [], pageCount: 0 };
+      // Only track sessions for rows that have a session_id
+      if (sid) {
+        if (!sessionPages[sid]) {
+          sessionPages[sid] = { timestamps: [], pageCount: 0 };
+        }
       }
 
       if (isEvent) {
@@ -120,16 +123,20 @@ Deno.serve(async (req) => {
         conversionMap[eventType].sources[source] = (conversionMap[eventType].sources[source] || 0) + 1;
       } else {
         total++;
-        sessionPages[sid].timestamps.push(ts);
-        sessionPages[sid].pageCount++;
+        if (sid && sessionPages[sid]) {
+          sessionPages[sid].timestamps.push(ts);
+          sessionPages[sid].pageCount++;
+        }
 
         const date = v.created_at.split("T")[0];
         byDate[date] = (byDate[date] || 0) + 1;
         byPath[v.path] = (byPath[v.path] || 0) + 1;
 
-        // Track daily unique sessions
-        if (!dailySessions[date]) dailySessions[date] = new Set();
-        dailySessions[date].add(sid);
+        // Track daily unique sessions (only with session_id)
+        if (sid) {
+          if (!dailySessions[date]) dailySessions[date] = new Set();
+          dailySessions[date].add(sid);
+        }
 
         if (v.referrer) {
           try {
