@@ -814,10 +814,10 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             {/* Strong Booking CTA */}
             <section className="mb-10 text-center">
               <Button asChild size="lg" className="text-base px-8">
-                <Link to={c.accommodationsLink}>
+                <a href={getModerUrl()} target="_blank" rel="noopener noreferrer">
                   {c.bookCta}
                   <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
+                </a>
               </Button>
             </section>
 
