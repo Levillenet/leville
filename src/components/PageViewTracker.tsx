@@ -21,6 +21,15 @@ const getExternalReferrer = (): string | null => {
   }
 };
 
+const getSessionId = (): string => {
+  let sid = sessionStorage.getItem("_lv_sid");
+  if (!sid) {
+    sid = crypto.randomUUID();
+    sessionStorage.setItem("_lv_sid", sid);
+  }
+  return sid;
+};
+
 const trackEvent = async (path: string, referrer?: string | null) => {
   try {
     await supabase.from("page_views").insert({
@@ -28,6 +37,7 @@ const trackEvent = async (path: string, referrer?: string | null) => {
       referrer: referrer ?? null,
       device_type: getDeviceType(),
       language: navigator.language?.split("-")[0] || null,
+      session_id: getSessionId(),
     });
   } catch {
     // Silent fail
@@ -62,7 +72,6 @@ const PageViewTracker = () => {
 
       // Check for direct link clicks to moder.fi
       if (anchor?.href?.includes("app.moder.fi")) {
-        // Distinguish sticky bar vs PageCTA vs other booking links
         const isStickyBar = !!anchor.closest(".fixed.bottom-0");
         const isPageCTA = !!anchor.closest("section");
         
