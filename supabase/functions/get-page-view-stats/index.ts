@@ -12,7 +12,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { password, format } = await req.json();
+    const { password, format, period } = await req.json();
 
     const adminPassword = Deno.env.get("ADMIN_PASSWORD");
     if (!password || password !== adminPassword) {
@@ -27,9 +27,24 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-    const since = thirtyDaysAgo.toISOString();
+    const now = new Date();
+    let sinceDate: Date;
+    switch (period) {
+      case "today":
+        sinceDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        break;
+      case "week":
+        sinceDate = new Date(now);
+        sinceDate.setDate(sinceDate.getDate() - 7);
+        break;
+      case "month":
+        sinceDate = new Date(now.getFullYear(), now.getMonth(), 1);
+        break;
+      default:
+        sinceDate = new Date(now);
+        sinceDate.setDate(sinceDate.getDate() - 30);
+    }
+    const since = sinceDate.toISOString();
 
     const { data: views, error } = await supabase
       .from("page_views")
