@@ -44,9 +44,21 @@ const trackEvent = async (path: string, referrer?: string | null) => {
   }
 };
 
+const DEBOUNCE_MS = 3000;
+
 const PageViewTracker = () => {
   const location = useLocation();
   const lastPath = useRef<string>("");
+  const lastEventRef = useRef<{ path: string; time: number }>({ path: "", time: 0 });
+
+  const trackConversion = (eventPath: string, referrer: string) => {
+    const now = Date.now();
+    if (eventPath === lastEventRef.current.path && now - lastEventRef.current.time < DEBOUNCE_MS) {
+      return; // skip duplicate within cooldown
+    }
+    lastEventRef.current = { path: eventPath, time: now };
+    trackEvent(eventPath, referrer);
+  };
 
   // Track page views
   useEffect(() => {
@@ -64,23 +76,21 @@ const PageViewTracker = () => {
       const target = e.target as HTMLElement;
       const anchor = target.closest("a[href]") as HTMLAnchorElement | null;
 
-      // Check for Moder widget search button clicks (hero widget)
       if (target.closest(".moder-bar__search-button")) {
-        trackEvent("/event/booking-search-widget", location.pathname);
+        trackConversion("/event/booking-search-widget", location.pathname);
         return;
       }
 
-      // Check for direct link clicks to moder.fi
       if (anchor?.href?.includes("app.moder.fi")) {
         const isStickyBar = !!anchor.closest(".fixed.bottom-0");
         const isPageCTA = !!anchor.closest("section");
         
         if (isStickyBar) {
-          trackEvent("/event/booking-sticky-bar", location.pathname);
+          trackConversion("/event/booking-sticky-bar", location.pathname);
         } else if (isPageCTA && anchor.closest(".rounded-2xl")) {
-          trackEvent("/event/booking-page-cta", location.pathname);
+          trackConversion("/event/booking-page-cta", location.pathname);
         } else {
-          trackEvent("/event/booking-link", location.pathname);
+          trackConversion("/event/booking-link", location.pathname);
         }
         return;
       }
