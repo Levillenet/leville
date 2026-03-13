@@ -67,6 +67,51 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     eventsTitle: string;
     eventsDesc: string;
   }> = {
+  const getModerUrl = () => {
+    if (lang === "fi") return "https://app.moder.fi/levillenet";
+    if (lang === "sv") return "https://app.moder.fi/levillenet?lang=sv";
+    return "https://app.moder.fi/levillenet?lang=en";
+  };
+
+  // Multilingual content for the simplified HUB
+  const content: Record<Language, {
+    intro: string;
+    seasonsHubTitle: string;
+    seasonsHubDesc: string;
+    activitiesHubTitle: string;
+    activitiesHubDesc: string;
+    travelHubTitle: string;
+    travelHubDesc: string;
+    exploreButton: string;
+    bookCta: string;
+    bookNow: string;
+    readyHeading: string;
+    readyDesc: string;
+    accommodationsLink: string;
+    quizTitle: string;
+    quizDesc: string;
+    quizButton: string;
+    christmasTitle: string;
+    christmasDesc: string;
+    christmasButton: string;
+    liveCamera: string;
+    liveCameraDesc: string;
+    pronounceLabel: string;
+    atmosphereTitle: string;
+    quickLinksTitle: string;
+    weatherLinkTitle: string;
+    weatherLinkDesc: string;
+    northernLightsTitle: string;
+    northernLightsDesc: string;
+    comparisonTitle: string;
+    comparisonDesc: string;
+    comparisonRovTitle: string;
+    comparisonRovDesc: string;
+    saunaTitle: string;
+    saunaDesc: string;
+    eventsTitle: string;
+    eventsDesc: string;
+  }> = {
     fi: {
       intro: "Löydä kaikki tarvitsemasi Levi-matkaa varten. Tutustu vuodenaikoihin, aktiviteetteihin ja käytännön matkailuoppaisiin.",
       seasonsHubTitle: "Vuodenajat Levillä",
