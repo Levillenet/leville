@@ -48,7 +48,7 @@ Deno.serve(async (req) => {
 
     const { data: views, error } = await supabase
       .from("page_views")
-      .select("path, referrer, device_type, language, created_at")
+      .select("path, referrer, device_type, language, created_at, session_id")
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .limit(10000);
@@ -63,7 +63,7 @@ Deno.serve(async (req) => {
 
     // CSV format: return raw rows
     if (format === "csv") {
-      const csvHeader = "date,time,path,type,referrer,device_type,language";
+      const csvHeader = "date,time,path,type,referrer,device_type,language,session_id";
       const csvRows = (views || []).map((v) => {
         const dt = new Date(v.created_at);
         const date = dt.toISOString().split("T")[0];
@@ -74,9 +74,9 @@ Deno.serve(async (req) => {
         const ref = v.referrer || "";
         const device = v.device_type || "unknown";
         const lang = v.language || "unknown";
-        // Escape CSV fields
+        const sid = v.session_id || "";
         const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
-        return [date, time, esc(path), type, esc(ref), device, lang].join(",");
+        return [date, time, esc(path), type, esc(ref), device, lang, sid].join(",");
       });
 
       return new Response([csvHeader, ...csvRows].join("\n"), {
@@ -88,7 +88,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    // JSON aggregated format (existing)
+    // JSON aggregated format
     const byDate: Record<string, number> = {};
     const byPath: Record<string, number> = {};
     const byReferrer: Record<string, number> = {};
@@ -97,8 +97,18 @@ Deno.serve(async (req) => {
     const conversionMap: Record<string, { count: number; sources: Record<string, number> }> = {};
     let total = 0;
 
+    // Session tracking
+    const sessionPages: Record<string, { timestamps: number[]; pageCount: number }> = {};
+    const dailySessions: Record<string, Set<string>> = {};
+
     for (const v of views || []) {
       const isEvent = v.path.startsWith("/event/");
+      const sid = v.session_id || "unknown";
+      const ts = new Date(v.created_at).getTime();
+
+      if (!sessionPages[sid]) {
+        sessionPages[sid] = { timestamps: [], pageCount: 0 };
+      }
 
       if (isEvent) {
         const eventType = v.path;
@@ -110,9 +120,16 @@ Deno.serve(async (req) => {
         conversionMap[eventType].sources[source] = (conversionMap[eventType].sources[source] || 0) + 1;
       } else {
         total++;
+        sessionPages[sid].timestamps.push(ts);
+        sessionPages[sid].pageCount++;
+
         const date = v.created_at.split("T")[0];
         byDate[date] = (byDate[date] || 0) + 1;
         byPath[v.path] = (byPath[v.path] || 0) + 1;
+
+        // Track daily unique sessions
+        if (!dailySessions[date]) dailySessions[date] = new Set();
+        dailySessions[date].add(sid);
 
         if (v.referrer) {
           try {
@@ -132,6 +149,32 @@ Deno.serve(async (req) => {
       }
     }
 
+    // Calculate session metrics
+    const sessionEntries = Object.values(sessionPages);
+    const totalSessions = sessionEntries.filter(s => s.pageCount > 0).length;
+    const bounceSessions = sessionEntries.filter(s => s.pageCount === 1).length;
+    const bounceRate = totalSessions > 0 ? Math.round((bounceSessions / totalSessions) * 100) : 0;
+
+    // Average session duration (only sessions with 2+ pages)
+    let totalDuration = 0;
+    let durationCount = 0;
+    for (const s of sessionEntries) {
+      if (s.timestamps.length >= 2) {
+        const sorted = s.timestamps.sort((a, b) => a - b);
+        const duration = sorted[sorted.length - 1] - sorted[0];
+        totalDuration += duration;
+        durationCount++;
+      }
+    }
+    const avgSessionDurationMs = durationCount > 0 ? totalDuration / durationCount : 0;
+    const avgSessionDurationSec = Math.round(avgSessionDurationMs / 1000);
+
+    // Daily unique sessions map
+    const byDateSessions: Record<string, number> = {};
+    for (const [date, sessions] of Object.entries(dailySessions)) {
+      byDateSessions[date] = sessions.size;
+    }
+
     const topPages = Object.entries(byPath)
       .sort(([, a], [, b]) => b - a)
       .slice(0, 20)
@@ -149,7 +192,10 @@ Deno.serve(async (req) => {
       }));
 
     return new Response(
-      JSON.stringify({ total, byDate, topPages, byReferrer, byDevice, byLanguage, conversionEvents }),
+      JSON.stringify({
+        total, byDate, topPages, byReferrer, byDevice, byLanguage, conversionEvents,
+        totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
+      }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {

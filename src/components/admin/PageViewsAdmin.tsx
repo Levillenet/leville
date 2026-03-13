@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Eye, Monitor, Smartphone, Tablet, RefreshCw, MousePointerClick, Download, ClipboardCopy } from "lucide-react";
+import { Loader2, Eye, Monitor, Smartphone, Tablet, RefreshCw, MousePointerClick, Download, ClipboardCopy, Users, Clock, TrendingDown } from "lucide-react";
 import { toast } from "sonner";
 import {
   ResponsiveContainer,
@@ -41,6 +41,10 @@ interface Stats {
   byDevice: Record<string, number>;
   byLanguage: Record<string, number>;
   conversionEvents?: ConversionEvent[];
+  totalSessions?: number;
+  bounceRate?: number;
+  avgSessionDurationSec?: number;
+  byDateSessions?: Record<string, number>;
 }
 
 interface PageViewsAdminProps {
@@ -67,6 +71,13 @@ SARAKKEET:
 - referrer: Ulkoinen lähde (sivukatseluilla) TAI sisäinen lähtösivu (konversiotapahtumilla)
 - device_type: "mobile", "tablet" tai "desktop"
 - language: Selaimen kieli (fi, en, de, sv, es, fr, nl jne.)
+- session_id: Istunnon tunniste (sama käyttäjä samassa selainikkunassa)
+
+ISTUNTOANALYYSI:
+- session_id yhdistää saman käyttäjän sivukatselut yhdeksi istunnoksi
+- Istunto päättyy kun käyttäjä sulkee välilehden/selaimen
+- Bounce rate = yhden sivun istuntojen osuus kaikista istunnoista
+- Istunnon kesto = ensimmäisen ja viimeisen sivukatselun aikaero
 
 TAPAHTUMATYYPIT (type-sarake):
 
@@ -189,6 +200,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
     .map(([date, views]) => ({
       date: new Date(date).toLocaleDateString("fi-FI", { day: "numeric", month: "numeric" }),
       views,
+      sessions: stats.byDateSessions?.[date] || 0,
     }));
 
   const deviceData = Object.entries(stats.byDevice).map(([name, value]) => ({
@@ -268,9 +280,16 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
         ))}
       </div>
 
-      {/* Page view summary */}
+      {/* Session & page view summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <SummaryCard icon={<Eye className="w-5 h-5 text-primary" />} label="Yhteensä" value={stats.total} colorClass="bg-primary/10" />
+        <SummaryCard icon={<Eye className="w-5 h-5 text-primary" />} label="Sivukatselut" value={stats.total} colorClass="bg-primary/10" />
+        <SummaryCard icon={<Users className="w-5 h-5 text-chart-2" />} label="Istunnot" value={stats.totalSessions || 0} colorClass="bg-chart-2/10" />
+        <SummaryCard icon={<TrendingDown className="w-5 h-5 text-chart-3" />} label="Bounce rate" value={stats.bounceRate || 0} colorClass="bg-chart-3/10" suffix="%" />
+        <SummaryCard icon={<Clock className="w-5 h-5 text-chart-4" />} label="Keskim. kesto" value={stats.avgSessionDurationSec || 0} colorClass="bg-chart-4/10" formatAs="duration" />
+      </div>
+
+      {/* Device summary */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         <SummaryCard icon={<Smartphone className="w-5 h-5 text-chart-2" />} label="Mobiili" value={mobileCount} colorClass="bg-chart-2/10" />
         <SummaryCard icon={<Monitor className="w-5 h-5 text-chart-3" />} label="Tietokone" value={desktopCount} colorClass="bg-chart-3/10" />
         <SummaryCard icon={<Tablet className="w-5 h-5 text-chart-4" />} label="Tabletti" value={tabletCount} colorClass="bg-chart-4/10" />
@@ -336,7 +355,8 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
                 <XAxis dataKey="date" tick={{ fontSize: 12 }} />
                 <YAxis tick={{ fontSize: 12 }} />
                 <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
-                <Line type="monotone" dataKey="views" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: "hsl(var(--primary))" }} />
+                <Line type="monotone" dataKey="views" name="Sivukatselut" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: "hsl(var(--primary))" }} />
+                <Line type="monotone" dataKey="sessions" name="Kävijät" stroke="hsl(var(--chart-2))" strokeWidth={2} dot={{ fill: "hsl(var(--chart-2))" }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -418,7 +438,15 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   );
 };
 
-function SummaryCard({ icon, label, value, colorClass }: { icon: React.ReactNode; label: string; value: number; colorClass: string }) {
+function SummaryCard({ icon, label, value, colorClass, suffix, formatAs }: { icon: React.ReactNode; label: string; value: number; colorClass: string; suffix?: string; formatAs?: "duration" }) {
+  let displayValue: string;
+  if (formatAs === "duration") {
+    const min = Math.floor(value / 60);
+    const sec = value % 60;
+    displayValue = min > 0 ? `${min}m ${sec}s` : `${sec}s`;
+  } else {
+    displayValue = value.toLocaleString("fi-FI") + (suffix || "");
+  }
   return (
     <Card>
       <CardContent className="pt-6">
@@ -426,7 +454,7 @@ function SummaryCard({ icon, label, value, colorClass }: { icon: React.ReactNode
           <div className={`w-10 h-10 rounded-full ${colorClass} flex items-center justify-center`}>{icon}</div>
           <div>
             <p className="text-sm text-muted-foreground">{label}</p>
-            <p className="text-2xl font-bold">{value.toLocaleString("fi-FI")}</p>
+            <p className="text-2xl font-bold">{displayValue}</p>
           </div>
         </div>
       </CardContent>

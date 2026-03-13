@@ -965,6 +965,7 @@ export type Database = {
           language: string | null
           path: string
           referrer: string | null
+          session_id: string | null
         }
         Insert: {
           created_at?: string
@@ -973,6 +974,7 @@ export type Database = {
           language?: string | null
           path: string
           referrer?: string | null
+          session_id?: string | null
         }
         Update: {
           created_at?: string
@@ -981,6 +983,7 @@ export type Database = {
           language?: string | null
           path?: string
           referrer?: string | null
+          session_id?: string | null
         }
         Relationships: []
       }
