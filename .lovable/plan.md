@@ -1,20 +1,37 @@
 
 
-## Konversioklikkausten debounce
+# GA4-tapahtumaseuranta majoitushauille
 
-### Ongelma
-Hakuwidgetin klikkaus laukaisee `trackEvent`-kutsun joka kerta ilman rajoitusta — sama käyttäjä voi tuottaa kymmeniä duplikaatteja.
+## Muutos
 
-### Ratkaisu
-Lisätään `PageViewTracker.tsx`:iin yksinkertainen debounce-mekanismi konversiotapahtumille (ei sivukatseluille):
+Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
 
-- `lastEventRef` tallentaa viimeisimmän konversiotapahtuman polun + aikaleiman
-- Jos sama event-polku on laukaistu alle 3 sekuntia sitten, ohitetaan
-- Koskee kaikkia `/event/`-alkuisia tapahtumia (search-widget, sticky-bar, page-cta, booking-link)
+## Toteutus
 
-### Tiedosto
+Tiedosto: `src/components/ModerBookingWidget.tsx`
 
-| Tiedosto | Muutos |
-|---|---|
-| `src/components/PageViewTracker.tsx` | Lisää `lastEventRef` + 3s debounce `trackEvent`-kutsuihin click-handlerissa |
+`showLoadingOverlay`-funktion alkuun lisataan:
+
+```typescript
+if (typeof window !== 'undefined' && (window as any).gtag) {
+  (window as any).gtag('event', 'accommodation_search', {
+    event_category: 'booking',
+    event_label: lang,
+    page_location: window.location.pathname,
+  });
+}
+```
+
+Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+
+## Missa naet tulokset
+
+Google Analytics 4 -hallintapaneelissa (analytics.google.com):
+- **Reaaliaikainen testaus:** Reports > Realtime
+- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+
+## Ei muita muutoksia
+- Ei uusia riippuvuuksia
+- GA4-skripti on jo ladattu index.html:ssa
+- Yksi tiedosto muuttuu, yksi rivi lisataan
 
