@@ -41,6 +41,10 @@ interface Stats {
   byDevice: Record<string, number>;
   byLanguage: Record<string, number>;
   conversionEvents?: ConversionEvent[];
+  totalSessions?: number;
+  bounceRate?: number;
+  avgSessionDurationSec?: number;
+  byDateSessions?: Record<string, number>;
 }
 
 interface PageViewsAdminProps {
