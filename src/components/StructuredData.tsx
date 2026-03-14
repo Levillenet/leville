@@ -3,6 +3,16 @@ import { useLocation } from "react-router-dom";
 
 const BASE_URL = "https://leville.net";
 
+/**
+ * Global structured data component.
+ * 
+ * ONLY injects schemas that are safe to show on every page.
+ * Page-specific schemas (Article, FAQPage, BreadcrumbList, TouristDestination)
+ * are handled by each individual page component — NOT here.
+ * 
+ * This avoids duplicate/conflicting schemas that confuse Google.
+ */
+
 function getLodgingBusiness() {
   return {
     "@context": "https://schema.org",
@@ -13,7 +23,9 @@ function getLodgingBusiness() {
       "Accommodation in Levi centre. Apartments and chalets located in the best locations in Levi, Finland.",
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Levi",
+      streetAddress: "Levin keskusta",
+      addressLocality: "Sirkka",
+      postalCode: "99130",
       addressRegion: "Lapland",
       addressCountry: "FI",
     },
@@ -46,105 +58,38 @@ function getVacationRental() {
   };
 }
 
-function getTouristDestination() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "TouristDestination",
-    name: "Levi Ski Resort",
-    description:
-      "Levi is the largest ski resort in Finland located in Lapland.",
-    touristType: ["Skiers", "Winter travellers", "Families"],
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 67.804,
-      longitude: 24.806,
-    },
-  };
-}
-
 function getWebSite() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Leville.net",
     url: BASE_URL,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${BASE_URL}/?s={search_term_string}`,
-      "query-input": "required name=search_term_string",
+    description: "Travel guide and accommodation booking for Levi ski resort in Finnish Lapland",
+    inLanguage: ["fi", "en", "sv", "de", "fr", "es", "nl"],
+    publisher: {
+      "@type": "Organization",
+      name: "Leville.net",
+      url: BASE_URL,
     },
-  };
-}
-
-function getFAQPage() {
-  const faqs = [
-    {
-      q: "What is the best area to stay in Levi?",
-      a: "The Levi centre area is the most popular for accommodation, offering direct access to ski slopes, restaurants, and services within walking distance.",
-    },
-    {
-      q: "Is Levi good for skiing holidays?",
-      a: "Yes, Levi is Finland's largest ski resort with 43 slopes, 28 lifts, and a vertical drop of 325 metres. The ski season typically runs from November to May.",
-    },
-    {
-      q: "How far are the apartments from Levi ski slopes?",
-      a: "Most Leville.net apartments are located in Levi centre, within 50–500 metres of the nearest ski slopes and lifts.",
-    },
-  ];
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: f.a,
-      },
-    })),
-  };
-}
-
-function getBreadcrumbList(pathname: string) {
-  const segments = pathname.split("/").filter(Boolean);
-  if (segments.length === 0) return null;
-
-  const items = [
-    { "@type": "ListItem" as const, position: 1, name: "Home", item: BASE_URL },
-  ];
-
-  let path = "";
-  segments.forEach((seg, i) => {
-    path += `/${seg}`;
-    items.push({
-      "@type": "ListItem",
-      position: i + 2,
-      name: seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-      item: `${BASE_URL}${path}`,
-    });
-  });
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items,
   };
 }
 
 const StructuredData = () => {
   const { pathname } = useLocation();
 
+  // Don't inject global schemas on admin or utility pages
+  if (pathname.startsWith("/admin") || pathname === "/unsubscribe") {
+    return null;
+  }
+
+  // Only LodgingBusiness, VacationRental, and WebSite are safe globally.
+  // Everything else (Article, FAQPage, BreadcrumbList, TouristDestination)
+  // is page-specific and already handled by individual page components.
   const schemas: Record<string, unknown>[] = [
+    getWebSite(),
     getLodgingBusiness(),
     getVacationRental(),
-    getTouristDestination(),
-    getWebSite(),
-    getFAQPage(),
   ];
-
-  const breadcrumb = getBreadcrumbList(pathname);
-  if (breadcrumb) schemas.push(breadcrumb);
 
   return (
     <Helmet>
