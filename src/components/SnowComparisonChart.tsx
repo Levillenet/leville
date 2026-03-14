@@ -17,7 +17,7 @@ interface SnowComparisonChartProps {
 
 interface ChartPoint {
   date: string;
-  kittila: number | null;
+  levi: number | null;
   rovaniemi: number | null;
 }
 
