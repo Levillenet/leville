@@ -50,8 +50,8 @@ async function fetchSnowData(place: string) {
 
   // Oct 1 - Dec 31
   const url1 = `${baseUrl}?place=${encodeURIComponent(place)}&startDay=1&startMonth=10&endDay=31&endMonth=12&years=10`;
-  // Jan 1 - Apr 30
-  const url2 = `${baseUrl}?place=${encodeURIComponent(place)}&startDay=1&startMonth=1&endDay=30&endMonth=4&years=10`;
+  // Jan 1 - May 31
+  const url2 = `${baseUrl}?place=${encodeURIComponent(place)}&startDay=1&startMonth=1&endDay=31&endMonth=5&years=10`;
 
   const [res1, res2] = await Promise.all([
     fetch(url1, { headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` } }),
