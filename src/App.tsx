@@ -503,9 +503,9 @@ const App = () => {
               {/* Wrong language paths */}
               <Route path="/sv/boenden" element={<Navigate to="/sv/boende" replace />} />
               <Route path="/sv/aktuellt" element={<Navigate to="/sv" replace />} />
-              <Route path="/en/majoitukset" element={<Navigate to="/accommodations" replace />} />
-              <Route path="/en/yhteystiedot" element={<Navigate to="/contact" replace />} />
-              <Route path="/en/terms" element={<Navigate to="/terms" replace />} />
+              <Route path="/en/majoitukset" element={<Navigate to="/en/accommodations" replace />} />
+              <Route path="/en/yhteystiedot" element={<Navigate to="/en/contact" replace />} />
+              <Route path="/en/terms" element={<Navigate to="/varausehdot" replace />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

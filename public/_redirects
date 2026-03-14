@@ -26,8 +26,8 @@
 /booking-terms              /varausehdot          301
 /latest-news/               /levi                 301
 /latest-news                /levi                 301
-/faq/                       /faq                  301
-/faq                        /faq                  301
+/faq/                       /en/faq               301
+/faq                        /en/faq               301
 
 # Old blog archive URLs
 /2020/                      /levi                 301
