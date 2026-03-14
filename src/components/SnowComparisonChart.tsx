@@ -43,14 +43,6 @@ const labels = {
 };
 
 async function fetchSnowData(place: string) {
-  // Fetch Oct-Dec
-  const { data: octDec } = await supabase.functions.invoke("fmi-snow-data", {
-    body: null,
-    method: "GET",
-    headers: {},
-  });
-
-  // We need to call the function via URL params. Use fetch directly.
   const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
   const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
