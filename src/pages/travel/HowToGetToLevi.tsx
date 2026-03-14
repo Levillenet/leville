@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import {
@@ -835,7 +835,7 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </div>
   );
 };

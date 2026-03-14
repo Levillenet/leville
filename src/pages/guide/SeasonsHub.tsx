@@ -9,7 +9,7 @@ import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import GuideHubCard from "@/components/guide/GuideHubCard";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
@@ -381,7 +381,7 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
         <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

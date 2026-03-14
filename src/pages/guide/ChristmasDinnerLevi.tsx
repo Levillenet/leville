@@ -11,7 +11,7 @@ import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema } from "@/utils
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import {
   Accordion,
@@ -494,7 +494,7 @@ const ChristmasDinnerLevi = () => {
 
         <Footer lang="en" />
         <WhatsAppChat lang="en" />
-        <StickyBookingBar lang="en" />
+        
       </div>
     </>
   );

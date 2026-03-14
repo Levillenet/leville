@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import { BookingTermsContent } from "@/components/BookingTermsContent";
 import type { Language } from "@/translations";
 
@@ -123,7 +123,7 @@ const Varausehdot = ({ lang = "fi" }: VarausehdotProps) => {
         </main>
         <Footer lang={lang} />
         <WhatsAppChat />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

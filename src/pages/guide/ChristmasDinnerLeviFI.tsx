@@ -14,7 +14,7 @@ import { ArrowRight, Heart, Info, Star, UtensilsCrossed, ShoppingCart, Wine, Bab
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import {
   Accordion,
   AccordionContent,
@@ -226,7 +226,7 @@ const ChristmasDinnerLeviFI = () => {
 
         <Footer />
         <WhatsAppChat />
-        <StickyBookingBar />
+        
       </div>
     </>
   );

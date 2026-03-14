@@ -31,7 +31,7 @@ import {
   ShowerHead,
 } from "lucide-react";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import {
   Accordion,
   AccordionContent,
@@ -478,7 +478,7 @@ const FinnishSaunaLevi = () => {
 
       <Footer lang="en" />
       <WhatsAppChat lang="en" />
-      <StickyBookingBar lang="en" />
+      
     </div>
   );
 };
