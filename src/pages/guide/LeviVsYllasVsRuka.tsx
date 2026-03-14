@@ -438,9 +438,9 @@ const LeviVsYllasVsRuka = () => {
               <h2 className="text-2xl font-bold text-foreground mb-6">Lue myös</h2>
               <div className="grid sm:grid-cols-3 gap-4">
                 {[
-                  { title: "Laskettelu Levillä", href: "/opas/laskettelu-levi", icon: Mountain },
+                  { title: "Levi vs. Rovaniemi", href: "/opas/levi-vs-rovaniemi", icon: Mountain },
+                  { title: "Levi vs. Saariselkä", href: "/opas/levi-vs-saariselka", icon: Mountain },
                   { title: "Miten pääsee Leville", href: "/matka/miten-paasee-leville-helsingista", icon: Plane },
-                  { title: "Talvivarusteet Leville", href: "/opas/talvivarusteet-leville", icon: Snowflake },
                 ].map((link, idx) => (
                   <Link key={idx} to={link.href}>
                     <Card className="glass-card border-border/30 hover:border-primary/50 transition-colors h-full">
