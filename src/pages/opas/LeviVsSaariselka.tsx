@@ -18,7 +18,7 @@ import {
   Mountain, ArrowRight, Check, Plane, Heart, MapPin, Snowflake, BookOpen,
 } from "lucide-react";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 
 const LeviVsSaariselka = () => {
   const location = useLocation();
