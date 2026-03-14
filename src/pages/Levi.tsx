@@ -68,10 +68,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     weatherLinkDesc: string;
     northernLightsTitle: string;
     northernLightsDesc: string;
-    comparisonTitle: string;
-    comparisonDesc: string;
-    comparisonRovTitle: string;
-    comparisonRovDesc: string;
+    comparisonHubTitle: string;
+    comparisonHubDesc: string;
     saunaTitle: string;
     saunaDesc: string;
     eventsTitle: string;
@@ -106,10 +104,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       weatherLinkDesc: "Lumensyvyys, lämpötilat ja vuodenajat",
       northernLightsTitle: "Revontulet Levillä",
       northernLightsDesc: "Opas revontulien katseluun ja ennusteet",
-      comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Vertaile Lapin suosituimpia hiihtokeskuksia",
-      comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Tunturikylä vai Lapin pääkaupunki?",
+      comparisonHubTitle: "Miksi valita Levi?",
+      comparisonHubDesc: "Vertaile Leviä muihin suosittuihin lomakohteisiin",
       saunaTitle: "Saunaopas",
       saunaDesc: "Saunakulttuuri, ohjeet ja elämykset Levillä",
       eventsTitle: "Tapahtumat Levillä",
@@ -144,10 +140,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       weatherLinkDesc: "Snow depth, temperatures and seasons",
       northernLightsTitle: "Northern Lights in Levi",
       northernLightsDesc: "Guide to aurora viewing and forecasts",
-      comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Compare Lapland's most popular ski resorts",
-      comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Fell village or the capital of Lapland?",
+      comparisonHubTitle: "Why Choose Levi?",
+      comparisonHubDesc: "Compare Levi to other popular resort destinations",
       saunaTitle: "Sauna Guide",
       saunaDesc: "Sauna culture, tips and experiences in Levi",
       eventsTitle: "Events in Levi",
@@ -182,10 +176,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       weatherLinkDesc: "Snödjup, temperaturer och årstider",
       northernLightsTitle: "Norrsken i Levi",
       northernLightsDesc: "Guide till norrskensskådning och prognoser",
-      comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Jämför Lapplands populäraste skidorter",
-      comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Fjällby eller Lapplands huvudstad?",
+      comparisonHubTitle: "Varför välja Levi?",
+      comparisonHubDesc: "Jämför Levi med andra populära semesterdestinationer",
       saunaTitle: "Bastuguide",
       saunaDesc: "Bastukultur, tips och upplevelser i Levi",
       eventsTitle: "Evenemang i Levi",
@@ -220,10 +212,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       weatherLinkDesc: "Schneehöhe, Temperaturen und Jahreszeiten",
       northernLightsTitle: "Nordlichter in Levi",
       northernLightsDesc: "Leitfaden zur Polarlichtbeobachtung und Vorhersagen",
-      comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Vergleiche Lapplands beliebteste Skigebiete",
-      comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Fjälldorf oder Hauptstadt Lapplands?",
+      comparisonHubTitle: "Warum Levi wählen?",
+      comparisonHubDesc: "Vergleichen Sie Levi mit anderen beliebten Urlaubszielen",
       saunaTitle: "Sauna-Guide",
       saunaDesc: "Saunakultur, Tipps und Erlebnisse in Levi",
       eventsTitle: "Veranstaltungen in Levi",
@@ -258,10 +248,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       weatherLinkDesc: "Profundidad de nieve, temperaturas y estaciones",
       northernLightsTitle: "Auroras Boreales en Levi",
       northernLightsDesc: "Guía para ver auroras y pronósticos",
-      comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Compara las estaciones de esquí más populares de Laponia",
-      comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "¿Pueblo de montaña o capital de Laponia?",
+      comparisonHubTitle: "¿Por qué elegir Levi?",
+      comparisonHubDesc: "Compara Levi con otros destinos populares",
       saunaTitle: "Guía de sauna",
       saunaDesc: "Cultura de sauna, consejos y experiencias en Levi",
       eventsTitle: "Eventos en Levi",
@@ -296,10 +284,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       weatherLinkDesc: "Épaisseur de neige, températures et saisons",
       northernLightsTitle: "Aurores Boréales à Levi",
       northernLightsDesc: "Guide d'observation des aurores et prévisions",
-      comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Comparez les stations de ski les plus populaires de Laponie",
-      comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Village de montagne ou capitale de la Laponie ?",
+      comparisonHubTitle: "Pourquoi choisir Levi ?",
+      comparisonHubDesc: "Comparez Levi avec d'autres destinations populaires",
       saunaTitle: "Guide du sauna",
       saunaDesc: "Culture du sauna, conseils et expériences à Levi",
       eventsTitle: "Événements à Levi",
@@ -334,10 +320,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       weatherLinkDesc: "Sneeuwdiepte, temperaturen en seizoenen",
       northernLightsTitle: "Noorderlicht in Levi",
       northernLightsDesc: "Gids voor het bekijken van noorderlicht en voorspellingen",
-      comparisonTitle: "Levi vs Ylläs vs Ruka",
-      comparisonDesc: "Vergelijk de populairste skigebieden van Lapland",
-      comparisonRovTitle: "Levi vs Rovaniemi",
-      comparisonRovDesc: "Fjeldorp of hoofdstad van Lapland?",
+      comparisonHubTitle: "Waarom Levi kiezen?",
+      comparisonHubDesc: "Vergelijk Levi met andere populaire vakantiebestemmingen",
       saunaTitle: "Saunagids",
       saunaDesc: "Saunacultuur, tips en ervaringen in Levi",
       eventsTitle: "Evenementen in Levi",
@@ -392,14 +376,14 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     nl: "/en/levi/weather-in-levi"
   };
 
-  const comparisonLinks: Record<Language, { yllas: string; rovaniemi: string }> = {
-    fi: { yllas: "/opas/levi-vs-yllas-vs-ruka", rovaniemi: "/opas/levi-vs-rovaniemi" },
-    en: { yllas: "/guide/levi-vs-yllas-vs-ruka-comparison", rovaniemi: "/guide/levi-vs-rovaniemi-comparison" },
-    sv: { yllas: "/guide/levi-vs-yllas-vs-ruka-comparison", rovaniemi: "/guide/levi-vs-rovaniemi-comparison" },
-    de: { yllas: "/de/guide/levi-vs-yllas-vs-ruka", rovaniemi: "/de/guide/levi-vs-rovaniemi" },
-    es: { yllas: "/es/guia/levi-vs-yllas-vs-ruka", rovaniemi: "/es/guia/levi-vs-rovaniemi" },
-    fr: { yllas: "/fr/guide/levi-vs-yllas-vs-ruka", rovaniemi: "/fr/guide/levi-vs-rovaniemi" },
-    nl: { yllas: "/nl/gids/levi-vs-yllas-vs-ruka", rovaniemi: "/nl/gids/levi-vs-rovaniemi" },
+  const comparisonLinks: Record<Language, { yllas: string; rovaniemi: string; saariselka: string }> = {
+    fi: { yllas: "/opas/levi-vs-yllas-vs-ruka", rovaniemi: "/opas/levi-vs-rovaniemi", saariselka: "/opas/levi-vs-saariselka" },
+    en: { yllas: "/guide/levi-vs-yllas-vs-ruka-comparison", rovaniemi: "/guide/levi-vs-rovaniemi-comparison", saariselka: "/guide/levi-vs-saariselka-comparison" },
+    sv: { yllas: "/guide/levi-vs-yllas-vs-ruka-comparison", rovaniemi: "/guide/levi-vs-rovaniemi-comparison", saariselka: "/guide/levi-vs-saariselka-comparison" },
+    de: { yllas: "/de/guide/levi-vs-yllas-vs-ruka", rovaniemi: "/de/guide/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
+    es: { yllas: "/es/guia/levi-vs-yllas-vs-ruka", rovaniemi: "/es/guia/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
+    fr: { yllas: "/fr/guide/levi-vs-yllas-vs-ruka", rovaniemi: "/fr/guide/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
+    nl: { yllas: "/nl/gids/levi-vs-yllas-vs-ruka", rovaniemi: "/nl/gids/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
   };
 
   const c = content[lang];
@@ -590,53 +574,35 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                   </Card>
                 </Link>
 
-                {/* Comparison Link */}
-                <Link 
-                  to={comparisonLinks[lang]?.yllas || "/guide/levi-vs-yllas-vs-ruka-comparison"}
-                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
-                >
-                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
-                    <CardContent className="p-4 sm:p-5">
-                      <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                          <Scale className="w-5 h-5 text-amber-400" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
-                            {c.comparisonTitle}
-                          </h3>
-                          <p className="text-sm text-muted-foreground mt-0.5">
-                            {c.comparisonDesc}
-                          </p>
+                {/* Resort Comparisons Card */}
+                <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 h-full">
+                  <CardContent className="p-4 sm:p-5">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center flex-shrink-0">
+                        <Scale className="w-5 h-5 text-amber-400" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-foreground text-sm sm:text-base">
+                          {c.comparisonHubTitle}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-0.5 mb-3">
+                          {c.comparisonHubDesc}
+                        </p>
+                        <div className="flex flex-col gap-1.5">
+                          <Link to={comparisonLinks[lang].yllas} className="text-sm text-primary hover:underline flex items-center gap-1">
+                            <ArrowRight className="w-3.5 h-3.5" /> Levi vs Ylläs vs Ruka
+                          </Link>
+                          <Link to={comparisonLinks[lang].rovaniemi} className="text-sm text-primary hover:underline flex items-center gap-1">
+                            <ArrowRight className="w-3.5 h-3.5" /> Levi vs Rovaniemi
+                          </Link>
+                          <Link to={comparisonLinks[lang].saariselka} className="text-sm text-primary hover:underline flex items-center gap-1">
+                            <ArrowRight className="w-3.5 h-3.5" /> Levi vs Saariselkä
+                          </Link>
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-
-                {/* Levi vs Rovaniemi Link */}
-                <Link 
-                  to={comparisonLinks[lang]?.rovaniemi || "/guide/levi-vs-rovaniemi-comparison"}
-                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
-                >
-                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
-                    <CardContent className="p-4 sm:p-5">
-                      <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-rose-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                          <Scale className="w-5 h-5 text-rose-400" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
-                            {c.comparisonRovTitle}
-                          </h3>
-                          <p className="text-sm text-muted-foreground mt-0.5">
-                            {c.comparisonRovDesc}
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
+                    </div>
+                  </CardContent>
+                </Card>
 
                 {/* Sauna Guide Link */}
                 <Link 
