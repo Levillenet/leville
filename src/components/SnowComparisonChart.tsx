@@ -9,7 +9,6 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface SnowComparisonChartProps {
