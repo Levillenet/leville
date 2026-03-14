@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import { useLocation, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageCTA from "@/components/PageCTA";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
@@ -342,6 +343,8 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
           </section>
         </div>
       </main>
+
+      <PageCTA lang={lang} />
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
