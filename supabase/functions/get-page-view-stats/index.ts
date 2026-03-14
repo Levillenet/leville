@@ -136,6 +136,11 @@ Deno.serve(async (req) => {
     const dailySessions: Record<string, Set<string>> = {};
 
     for (const v of views || []) {
+      // Filter out dev/preview traffic
+      if (v.referrer && (v.referrer.includes("lovable.app") || v.referrer.includes("localhost"))) {
+        continue;
+      }
+
       const isEvent = v.path.startsWith("/event/");
       const sid = v.session_id || null;
       const ts = new Date(v.created_at).getTime();
@@ -191,20 +196,29 @@ Deno.serve(async (req) => {
     }
 
     // Calculate session metrics
+    const MAX_GAP_MS = 30 * 60 * 1000; // 30 minutes
     const sessionEntries = Object.values(sessionPages);
     const totalSessions = sessionEntries.filter(s => s.pageCount > 0).length;
     const bounceSessions = sessionEntries.filter(s => s.pageCount === 1).length;
     const bounceRate = totalSessions > 0 ? Math.round((bounceSessions / totalSessions) * 100) : 0;
 
-    // Average session duration (only sessions with 2+ pages)
+    // Average session duration using cumulative gaps (capped at 30 min per gap)
     let totalDuration = 0;
     let durationCount = 0;
     for (const s of sessionEntries) {
       if (s.timestamps.length >= 2) {
         const sorted = s.timestamps.sort((a, b) => a - b);
-        const duration = sorted[sorted.length - 1] - sorted[0];
-        totalDuration += duration;
-        durationCount++;
+        let sessionDuration = 0;
+        for (let i = 0; i < sorted.length - 1; i++) {
+          const gap = sorted[i + 1] - sorted[i];
+          if (gap < MAX_GAP_MS) {
+            sessionDuration += gap;
+          }
+        }
+        if (sessionDuration > 0) {
+          totalDuration += sessionDuration;
+          durationCount++;
+        }
       }
     }
     const avgSessionDurationMs = durationCount > 0 ? totalDuration / durationCount : 0;
