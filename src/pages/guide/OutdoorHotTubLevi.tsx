@@ -78,7 +78,7 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
       <JsonLd data={articleSchema} />
       <JsonLd data={breadcrumbSchema} />
 
-      <Header lang={lang} />
+      <Header />
       <SubpageBackground />
 
       <main className="min-h-screen">
