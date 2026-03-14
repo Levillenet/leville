@@ -122,7 +122,7 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
               {t.tempParagraphs.map((p, i) => <p key={i}>{p}</p>)}
             </div>
             <img
-              src={hotTubSteam}
+              src={hotTubChampagne}
               alt={t.steamAlt}
               className="w-full rounded-2xl mt-6 shadow-lg"
               loading="lazy"
