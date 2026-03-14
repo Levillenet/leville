@@ -17,50 +17,48 @@ import hotTubSteam from "@/assets/guide/hot-tub-steam-winter.jpg";
 import hotTubBeanie from "@/assets/guide/hot-tub-beanie.jpg";
 import hotTubCover from "@/assets/guide/hot-tub-cover.jpg";
 
-type Language = "fi" | "en";
-
 interface Props {
   lang?: string;
 }
 
 const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
   const location = useLocation();
-  const lang: Language = (langProp === "fi" || langProp === "en") ? langProp : location.pathname.startsWith("/opas/") ? "fi" : "en";
+  const lang = ((langProp === "fi" || langProp === "en") ? langProp : location.pathname.startsWith("/opas/") ? "fi" : "en") as Language;
 
   const hreflangUrls = {
     fi: "https://leville.net/opas/ulkoporeallas-levilla",
     en: "https://leville.net/guide/outdoor-hot-tub-levi-cabin",
   };
 
-  const t = translations[lang];
+  const t = translations[lang as "fi" | "en"];
 
   const breadcrumbItems = lang === "fi"
     ? [
         { label: "Etusivu", href: "/" },
         { label: "Matkaopas", href: "/opas/matkaopas-levi" },
-        { label: t.breadcrumb },
+        { label: t.breadcrumb, href: hreflangUrls.fi },
       ]
     : [
         { label: "Home", href: "/en" },
         { label: "Travel Guide", href: "/guide/travel-to-levi" },
-        { label: t.breadcrumb },
+        { label: t.breadcrumb, href: hreflangUrls.en },
       ];
 
   const articleSchema = getArticleSchema({
-    headline: t.title,
+    title: t.title,
     description: t.metaDescription,
-    url: hreflangUrls[lang],
+    url: hreflangUrls[lang as "fi" | "en"],
+    lang,
     datePublished: "2026-03-14",
     dateModified: "2026-03-14",
-    image: `https://leville.net${hotTubTerrace}`,
   });
 
   const breadcrumbSchema = getBreadcrumbSchema(
-    breadcrumbItems.map((item, index) => ({
+    breadcrumbItems.map((item) => ({
       name: item.label,
-      url: item.href
-        ? `https://leville.net${item.href}`
-        : hreflangUrls[lang],
+      url: item.href.startsWith("http")
+        ? item.href
+        : `https://leville.net${item.href}`,
     }))
   );
 
