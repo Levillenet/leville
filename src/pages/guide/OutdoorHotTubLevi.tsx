@@ -8,6 +8,7 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import { getArticleSchema, getBreadcrumbSchema } from "@/utils/structuredData";
+import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Thermometer, ShieldCheck, ShowerHead, Clock, Droplets, Info } from "lucide-react";

@@ -404,6 +404,8 @@ const App = () => {
               <Route path="/fr/guide/why-choose-levi" element={<ComparisonHub lang="fr" />} />
               <Route path="/es/guia/why-choose-levi" element={<ComparisonHub lang="es" />} />
               <Route path="/guide/finnish-sauna-in-levi" element={<FinnishSaunaLevi />} />
+              <Route path="/opas/ulkoporeallas-levilla" element={<OutdoorHotTubLevi />} />
+              <Route path="/guide/outdoor-hot-tub-levi-cabin" element={<OutdoorHotTubLevi lang="en" />} />
               <Route path="/en/guide/christmas-dinner-in-levi" element={<ChristmasDinnerLevi />} />
               {/* Holiday Planner */}
               <Route path="/lomasuunnittelija" element={<HolidayPlanner />} />
