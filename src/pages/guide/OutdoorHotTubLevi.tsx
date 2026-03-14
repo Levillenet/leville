@@ -13,8 +13,8 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Thermometer, ShieldCheck, ShowerHead, Clock, Droplets, Info } from "lucide-react";
 
-import hotTubTerrace from "@/assets/guide/hot-tub-snowy-terrace.jpg";
-import hotTubSteam from "@/assets/guide/hot-tub-steam-winter.jpg";
+import hotTubHero from "@/assets/guide/hot-tub-hero.jpg";
+import hotTubChampagne from "@/assets/guide/hot-tub-champagne.jpg";
 import hotTubBeanie from "@/assets/guide/hot-tub-beanie.jpg";
 import hotTubCover from "@/assets/guide/hot-tub-cover.jpg";
 
@@ -95,7 +95,7 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
           </p>
 
           <img
-            src={hotTubTerrace}
+            src={hotTubHero}
             alt={t.heroAlt}
             className="w-full rounded-2xl mb-12 shadow-lg"
             loading="eager"
@@ -122,7 +122,7 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
               {t.tempParagraphs.map((p, i) => <p key={i}>{p}</p>)}
             </div>
             <img
-              src={hotTubSteam}
+              src={hotTubChampagne}
               alt={t.steamAlt}
               className="w-full rounded-2xl mt-6 shadow-lg"
               loading="lazy"
