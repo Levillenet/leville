@@ -1,37 +1,36 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+## Analytiikan istunnon keston korjaus
 
-## Muutos
+### Ongelma
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+Istunnon kesto lasketaan session_id:n ensimmäisen ja viimeisen sivukatselun välisenä aikana. Tämä vääristyy kun:
 
-## Toteutus
+1. Käyttäjä käy sivulla, siirtyy /admin-näkymään tunneiksi, palaa sivulle -- kesto näyttää tunteja vaikka todellinen selaus oli lyhyt
+2. Preview/dev-istunnot (lovable.app) ovat mukana datassa
+3. Käyttäjä jättää välilehden auki ja palaa myöhemmin -- sama session_id, valtava aikaväli
 
-Tiedosto: `src/components/ModerBookingWidget.tsx`
+### Ratkaisu
 
-`showLoadingOverlay`-funktion alkuun lisataan:
+**Edge functioniin (`get-page-view-stats/index.ts`) kaksi muutosta:**
 
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
+1. **Maksimikesto sivujen välillä**: Sen sijaan että lasketaan (viimeinen - ensimmäinen), lasketaan kumulatiivinen kesto peräkkäisten sivukatselujen väleistä ja ohitetaan yli 30 minuutin välit (= käyttäjä oli poissa). Tämä poistaa /admin-istuntojen ja "jätetty auki" -tapausten vääristymän.
+
+2. **Referrer-suodatus**: Ohitetaan rivit joiden referrer sisältää "lovable.app" tai "localhost" -- nämä ovat dev-istuntoja. Myös session-laskennasta pois.
+
+### Tekninen toteutus
+
+Istunnon keston laskenta muutetaan:
+```
+// Nykyinen: viimeinen - ensimmäinen timestamp
+// Uusi: summa peräkkäisistä väleistä, max 30 min per väli
+const MAX_GAP_MS = 30 * 60 * 1000; // 30 min
+for each consecutive pair of timestamps:
+  gap = t[i+1] - t[i]
+  if gap < MAX_GAP_MS: duration += gap
 ```
 
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+Referrer-suodatus lisätään data-looppiin: ohitetaan rivit joissa referrer sisältää "lovable.app" tai "localhost".
 
-## Missa naet tulokset
-
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
-
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+Muutokset tehdään vain edge functioniin, UI-komponenttiin ei tarvita muutoksia.
 
