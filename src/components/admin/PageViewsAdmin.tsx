@@ -301,6 +301,37 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
         ))}
       </div>
 
+      {/* Live users */}
+      {liveUsers !== null && (
+        <Card className="border-primary/30 bg-primary/5">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center relative">
+                  <Radio className="w-5 h-5 text-primary" />
+                  <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Sivustolla nyt</p>
+                  <p className="text-3xl font-bold">{liveUsers.activeUsers}</p>
+                </div>
+              </div>
+              {liveUsers.topPages.length > 0 && (
+                <div className="ml-auto text-right">
+                  <p className="text-xs text-muted-foreground mb-1">Aktiiviset sivut (5 min)</p>
+                  {liveUsers.topPages.map((p) => (
+                    <div key={p.path} className="text-xs font-mono flex justify-end gap-2">
+                      <span className="truncate max-w-[200px]">{p.path}</span>
+                      <span className="text-muted-foreground">{p.count}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Session & page view summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <SummaryCard icon={<Eye className="w-5 h-5 text-primary" />} label="Sivukatselut" value={stats.total} colorClass="bg-primary/10" />
