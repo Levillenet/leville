@@ -811,6 +811,8 @@ const HikingAndBikingLevi = ({ lang = "fi" }: HikingAndBikingLeviProps) => {
           </div>
         </main>
 
+        <PageCTA lang={lang} />
+
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

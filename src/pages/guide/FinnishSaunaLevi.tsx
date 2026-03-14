@@ -474,6 +474,8 @@ const FinnishSaunaLevi = () => {
         </div>
       </main>
 
+      <PageCTA lang={lang} />
+
       <Footer lang="en" />
       <WhatsAppChat lang="en" />
       <StickyBookingBar lang="en" />

@@ -299,6 +299,8 @@ const ApresSkiLevi = ({ lang = "fi" }: ApresSkiLeviProps) => {
           </div>
         </main>
 
+        <PageCTA lang={lang} />
+
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

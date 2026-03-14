@@ -552,6 +552,8 @@ const HeatingSystemsInLevi = ({ lang = "fi" }: HeatingSystemsInLeviProps) => {
         </div>
       </main>
 
+      <PageCTA lang={lang} />
+
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />

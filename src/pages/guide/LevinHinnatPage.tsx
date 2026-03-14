@@ -484,6 +484,8 @@ const LevinHinnatPage = () => {
         />
       </main>
 
+      <PageCTA lang="fi" />
+
       <Footer />
       <WhatsAppChat />
       <StickyBookingBar />

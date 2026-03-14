@@ -439,6 +439,8 @@ const LeviVsSaariselka = () => {
           </div>
         </main>
 
+        <PageCTA lang="fi" />
+
         <Footer />
         <WhatsAppChat />
         <StickyBookingBar />

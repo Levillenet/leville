@@ -442,6 +442,8 @@ const SaunaLevilla = () => {
         </div>
       </main>
 
+      <PageCTA lang="fi" />
+
       <Footer />
       <WhatsAppChat />
       <StickyBookingBar />

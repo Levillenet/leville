@@ -361,6 +361,8 @@ const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
             </section>
           </div>
         </main>
+
+        <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

@@ -275,6 +275,8 @@ const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
         </div>
       </main>
 
+      <PageCTA lang={lang} />
+
       <Footer />
       <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />

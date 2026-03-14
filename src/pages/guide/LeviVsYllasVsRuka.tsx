@@ -475,6 +475,8 @@ const LeviVsYllasVsRuka = () => {
           </div>
         </main>
 
+        <PageCTA lang={lang} />
+
         <Footer />
         <WhatsAppChat />
         <StickyBookingBar />

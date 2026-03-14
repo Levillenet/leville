@@ -1004,6 +1004,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             </ScrollReveal>
           </div>
         </main>
+
+        <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

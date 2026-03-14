@@ -394,6 +394,8 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
           </div>
         </main>
 
+        <PageCTA lang={lang} />
+
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

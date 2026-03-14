@@ -571,6 +571,8 @@ const LeviWithoutCar = ({ lang = "fi" }: LeviWithoutCarProps) => {
             </ScrollReveal>
           </div>
         </main>
+
+        <PageCTA lang={lang} />
         
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />

@@ -310,6 +310,8 @@ const SnowmobileSafariTips = ({ lang = "fi" }: SnowmobileSafariTipsProps) => {
         </div>
       </main>
 
+      <PageCTA lang={lang} />
+
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />

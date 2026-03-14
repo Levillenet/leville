@@ -828,6 +828,8 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
         </div>
       </main>
 
+      <PageCTA lang={lang} />
+
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />

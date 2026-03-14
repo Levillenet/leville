@@ -324,6 +324,8 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
         </div>
       </main>
 
+      <PageCTA lang={lang} />
+
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />

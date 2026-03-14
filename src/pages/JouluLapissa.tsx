@@ -760,6 +760,8 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
             <GuideDisclaimer lang={lang} />
           </div>
         </main>
+
+        <PageCTA lang={lang} />
         
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />

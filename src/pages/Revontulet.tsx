@@ -585,6 +585,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
             <GuideDisclaimer lang={lang} />
           </div>
         </main>
+
+        <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

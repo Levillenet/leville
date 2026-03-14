@@ -372,6 +372,8 @@ const HowNorthernLightsForm = ({ lang = "fi" }: Props) => {
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
           </div>
         </main>
+
+        <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
