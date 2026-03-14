@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Snowflake, Sun, CloudRain, Thermometer, ArrowRight, Star, TreeDeciduous, Cloud, Mountain, Calendar } from "lucide-react";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import SnowDepthChart from "@/components/SnowDepthChart";
