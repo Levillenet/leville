@@ -55,6 +55,7 @@ const AutumnRuskaInLevi = lazy(() => import("./pages/guide/AutumnRuskaInLevi"));
 const SeasonsHub = lazy(() => import("./pages/guide/SeasonsHub"));
 const ActivitiesHub = lazy(() => import("./pages/guide/ActivitiesHub"));
 const TravelHub = lazy(() => import("./pages/guide/TravelHub"));
+const ComparisonHub = lazy(() => import("./pages/guide/ComparisonHub"));
 
 // Travel HUB Child Pages
 const GettingAroundLevi = lazy(() => import("./pages/guide/GettingAroundLevi"));
@@ -309,6 +310,7 @@ const App = () => {
               <Route path="/nl/gids/seizoenen-in-levi" element={<SeasonsHub lang="nl" />} />
               <Route path="/nl/gids/activiteiten-in-levi" element={<ActivitiesHub lang="nl" />} />
               <Route path="/nl/gids/reisgids-levi" element={<TravelHub lang="nl" />} />
+              <Route path="/nl/gids/waarom-levi-kiezen" element={<ComparisonHub lang="nl" />} />
               <Route path="/nl/gids/winterkleding-levi-lapland" element={<WinterClothingGuide lang="nl" />} />
               <Route path="/nl/gids/hoe-kom-je-in-levi" element={<HowToGetToLevi lang="nl" />} />
               <Route path="/nl/activiteiten/winteractiviteiten-levi" element={<TopWinterActivities lang="nl" />} />
@@ -321,11 +323,13 @@ const App = () => {
               <Route path="/opas/vuodenajat-levi" element={<SeasonsHub />} />
               <Route path="/opas/aktiviteetit-levi" element={<ActivitiesHub />} />
               <Route path="/opas/matkaopas-levi" element={<TravelHub />} />
+              <Route path="/opas/miksi-valita-levi" element={<ComparisonHub />} />
               
               {/* Guide HUB Pages - English */}
               <Route path="/guide/seasons-in-levi" element={<SeasonsHub lang="en" />} />
               <Route path="/guide/activities-in-levi" element={<ActivitiesHub lang="en" />} />
               <Route path="/guide/travel-to-levi" element={<TravelHub lang="en" />} />
+              <Route path="/guide/why-choose-levi" element={<ComparisonHub lang="en" />} />
               
               {/* SEO Landing Pages - Finnish */}
               <Route path="/opas/talvivarusteet-leville" element={<WinterClothingGuide />} />
@@ -391,6 +395,11 @@ const App = () => {
               <Route path="/fr/guide/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="fr" />} />
               <Route path="/es/guia/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="es" />} />
               <Route path="/es/guia/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="es" />} />
+              {/* Comparison HUB - other languages */}
+              <Route path="/sv/guide/why-choose-levi" element={<ComparisonHub lang="sv" />} />
+              <Route path="/de/guide/why-choose-levi" element={<ComparisonHub lang="de" />} />
+              <Route path="/fr/guide/why-choose-levi" element={<ComparisonHub lang="fr" />} />
+              <Route path="/es/guia/why-choose-levi" element={<ComparisonHub lang="es" />} />
               <Route path="/guide/finnish-sauna-in-levi" element={<FinnishSaunaLevi />} />
               <Route path="/en/guide/christmas-dinner-in-levi" element={<ChristmasDinnerLevi />} />
               {/* Holiday Planner */}

@@ -376,14 +376,14 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     nl: "/en/levi/weather-in-levi"
   };
 
-  const comparisonLinks: Record<Language, { yllas: string; rovaniemi: string; saariselka: string }> = {
-    fi: { yllas: "/opas/levi-vs-yllas-vs-ruka", rovaniemi: "/opas/levi-vs-rovaniemi", saariselka: "/opas/levi-vs-saariselka" },
-    en: { yllas: "/guide/levi-vs-yllas-vs-ruka-comparison", rovaniemi: "/guide/levi-vs-rovaniemi-comparison", saariselka: "/guide/levi-vs-saariselka-comparison" },
-    sv: { yllas: "/guide/levi-vs-yllas-vs-ruka-comparison", rovaniemi: "/guide/levi-vs-rovaniemi-comparison", saariselka: "/guide/levi-vs-saariselka-comparison" },
-    de: { yllas: "/de/guide/levi-vs-yllas-vs-ruka", rovaniemi: "/de/guide/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
-    es: { yllas: "/es/guia/levi-vs-yllas-vs-ruka", rovaniemi: "/es/guia/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
-    fr: { yllas: "/fr/guide/levi-vs-yllas-vs-ruka", rovaniemi: "/fr/guide/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
-    nl: { yllas: "/nl/gids/levi-vs-yllas-vs-ruka", rovaniemi: "/nl/gids/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
+  const comparisonHubLinks: Record<Language, string> = {
+    fi: "/opas/miksi-valita-levi",
+    en: "/guide/why-choose-levi",
+    sv: "/guide/why-choose-levi",
+    de: "/guide/why-choose-levi",
+    es: "/guide/why-choose-levi",
+    fr: "/guide/why-choose-levi",
+    nl: "/nl/gids/waarom-levi-kiezen",
   };
 
   const c = content[lang];
@@ -575,34 +575,28 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                 </Link>
 
                 {/* Resort Comparisons Card */}
-                <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 h-full">
-                  <CardContent className="p-4 sm:p-5">
-                    <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center flex-shrink-0">
-                        <Scale className="w-5 h-5 text-amber-400" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-foreground text-sm sm:text-base">
-                          {c.comparisonHubTitle}
-                        </h3>
-                        <p className="text-sm text-muted-foreground mt-0.5 mb-3">
-                          {c.comparisonHubDesc}
-                        </p>
-                        <div className="flex flex-col gap-1.5">
-                          <Link to={comparisonLinks[lang].yllas} className="text-sm text-primary hover:underline flex items-center gap-1">
-                            <ArrowRight className="w-3.5 h-3.5" /> Levi vs Ylläs vs Ruka
-                          </Link>
-                          <Link to={comparisonLinks[lang].rovaniemi} className="text-sm text-primary hover:underline flex items-center gap-1">
-                            <ArrowRight className="w-3.5 h-3.5" /> Levi vs Rovaniemi
-                          </Link>
-                          <Link to={comparisonLinks[lang].saariselka} className="text-sm text-primary hover:underline flex items-center gap-1">
-                            <ArrowRight className="w-3.5 h-3.5" /> Levi vs Saariselkä
-                          </Link>
+                <Link 
+                  to={comparisonHubLinks[lang]}
+                  className="block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-xl"
+                >
+                  <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
+                    <CardContent className="p-4 sm:p-5">
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                          <Scale className="w-5 h-5 text-amber-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
+                            {c.comparisonHubTitle}
+                          </h3>
+                          <p className="text-sm text-muted-foreground mt-0.5">
+                            {c.comparisonHubDesc}
+                          </p>
                         </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Link>
 
                 {/* Sauna Guide Link */}
                 <Link 
