@@ -82,6 +82,7 @@ const content: Record<Language, {
       { id: "car-free", title: "Levi Without a Car", description: "How to arrive and get around in Levi without your own car. Ski buses, walking distances and central accommodation.", href: "/guide/levi-without-a-car", iconKey: "footprints" },
       { id: "heating", title: "Heating Systems in Cabins", description: "How heating systems work in Levi. Electric radiators, floor heating, fireplaces and heat pumps.", href: "/guide/heating-systems-in-levi", iconKey: "thermometer" },
       { id: "sauna", title: "Finnish Sauna Guide", description: "Sauna culture, how to use an electric heater and unique sauna experiences in Levi.", href: "/guide/finnish-sauna-in-levi", iconKey: "flame" },
+      { id: "hot-tub", title: "Outdoor Hot Tub Guide", description: "What guests should know about using outdoor hot tubs in Levi cabin accommodation.", href: "/guide/outdoor-hot-tub-levi-cabin", iconKey: "droplets" },
       { id: "glossary", title: "Lapland Glossary", description: "40+ Finnish words with pronunciations and explanations for visitors.", href: "/guide/lapland-glossary", iconKey: "book" },
       { id: "prices", title: "Prices in Levi", description: "Ski passes, dining, activities and grocery prices. Plan your budget before you go.", href: "/guide/prices-in-levi", iconKey: "euro" }
     ]
