@@ -1272,7 +1272,25 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Skiing Guide - FI/EN/NL -->
+  <!-- Outdoor Hot Tub Guide FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/ulkoporeallas-levilla</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/ulkoporeallas-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/outdoor-hot-tub-levi-cabin"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/ulkoporeallas-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/outdoor-hot-tub-levi-cabin</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/ulkoporeallas-levilla"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/outdoor-hot-tub-levi-cabin"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/ulkoporeallas-levilla"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+
   <url>
     <loc>https://leville.net/nl/gids/skieen-in-levi</loc>
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/laskettelu-levi"/>
