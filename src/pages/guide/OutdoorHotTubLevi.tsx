@@ -13,8 +13,8 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Thermometer, ShieldCheck, ShowerHead, Clock, Droplets, Info } from "lucide-react";
 
-import hotTubTerrace from "@/assets/guide/hot-tub-snowy-terrace.jpg";
-import hotTubSteam from "@/assets/guide/hot-tub-steam-winter.jpg";
+import hotTubHero from "@/assets/guide/hot-tub-hero.jpg";
+import hotTubChampagne from "@/assets/guide/hot-tub-champagne.jpg";
 import hotTubBeanie from "@/assets/guide/hot-tub-beanie.jpg";
 import hotTubCover from "@/assets/guide/hot-tub-cover.jpg";
 
