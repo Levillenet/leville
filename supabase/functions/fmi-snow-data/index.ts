@@ -56,25 +56,30 @@ serve(async (req) => {
         continue;
       }
 
-      const fmiUrl = `https://opendata.fmi.fi/wfs?request=GetFeature&storedquery_id=fmi::observations::weather::daily::simple&place=${encodeURIComponent(place)}&starttime=${startDate}&endtime=${endDate}`;
-      
-      console.log(`Fetching FMI data for ${startYear}: ${fmiUrl}`);
+      const primaryUrl = buildFmiUrl({ place, startDate, endDate });
+      console.log(`Fetching FMI data for ${startYear}: ${primaryUrl}`);
 
       try {
-        const response = await fetch(fmiUrl);
-        
-        if (!response.ok) {
-          console.error(`FMI API error for year ${startYear}: ${response.status}`);
-          continue;
+        let snowData = await fetchSnowDataFromFmi(primaryUrl, startYear);
+        let nonNullCount = snowData.filter((point) => point.snow !== null).length;
+
+        // Rovaniemi city query often resolves to a station with missing snow depth values.
+        // If that happens, fall back to nearby stations and combine them.
+        if (place.toLowerCase() === "rovaniemi" && nonNullCount === 0) {
+          const fallbackUrl = buildFmiUrl({
+            bbox: "25.2,66.3,26.2,66.8",
+            maxLocations: 10,
+            startDate,
+            endDate,
+          });
+
+          console.log(`Rovaniemi fallback to bbox for ${startYear}: ${fallbackUrl}`);
+          snowData = await fetchSnowDataFromFmi(fallbackUrl, startYear);
+          nonNullCount = snowData.filter((point) => point.snow !== null).length;
         }
 
-        const xmlText = await response.text();
-        
-        // Parse XML to extract snow depth data
-        const snowData = parseSnowDataFromXml(xmlText, startYear);
-        
-        console.log(`${place} year ${startYear}: found ${snowData.length} snow data points`);
-        
+        console.log(`${place} year ${startYear}: found ${snowData.length} snow data points (${nonNullCount} with values)`);
+
         if (snowData.length > 0) {
           allData.push(...snowData);
           yearsWithData.push(startYear);
