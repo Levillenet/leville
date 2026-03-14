@@ -17,24 +17,24 @@ interface SnowComparisonChartProps {
 
 interface ChartPoint {
   date: string;
-  kittila: number | null;
+  levi: number | null;
   rovaniemi: number | null;
 }
 
 const labels = {
   fi: {
-    title: "Keskimääräinen lumensyvyys: Kittilä vs Rovaniemi",
-    subtitle: "10 vuoden keskiarvo, lokakuu–huhtikuu (FMI / Ilmatieteen laitos)",
-    kittila: "Kittilä (Levi)",
+    title: "Keskimääräinen lumensyvyys: Levi vs Rovaniemi",
+    subtitle: "10 vuoden keskiarvo, lokakuu–toukokuu (FMI / Ilmatieteen laitos)",
+    levi: "Levi (Kittilä)",
     rovaniemi: "Rovaniemi",
     yAxis: "Lumensyvyys (cm)",
     loading: "Ladataan lumitietoja...",
     error: "Lumitietoja ei voitu ladata.",
   },
   en: {
-    title: "Average Snow Depth: Kittilä vs Rovaniemi",
-    subtitle: "10-year average, October–April (FMI / Finnish Meteorological Institute)",
-    kittila: "Kittilä (Levi)",
+    title: "Average Snow Depth: Levi vs Rovaniemi",
+    subtitle: "10-year average, October–May (FMI / Finnish Meteorological Institute)",
+    levi: "Levi (Kittilä)",
     rovaniemi: "Rovaniemi",
     yAxis: "Snow depth (cm)",
     loading: "Loading snow data...",
@@ -50,8 +50,8 @@ async function fetchSnowData(place: string) {
 
   // Oct 1 - Dec 31
   const url1 = `${baseUrl}?place=${encodeURIComponent(place)}&startDay=1&startMonth=10&endDay=31&endMonth=12&years=10`;
-  // Jan 1 - Apr 30
-  const url2 = `${baseUrl}?place=${encodeURIComponent(place)}&startDay=1&startMonth=1&endDay=30&endMonth=4&years=10`;
+  // Jan 1 - May 31
+  const url2 = `${baseUrl}?place=${encodeURIComponent(place)}&startDay=1&startMonth=1&endDay=31&endMonth=5&years=10`;
 
   const [res1, res2] = await Promise.all([
     fetch(url1, { headers: { apikey: anonKey, Authorization: `Bearer ${anonKey}` } }),
@@ -97,8 +97,8 @@ function computeAverages(
   return avgMap;
 }
 
-// Sort dates in Oct-Apr order (Oct first, then Nov, Dec, Jan, Feb, Mar, Apr)
-function sortOctToApr(dates: string[]): string[] {
+// Sort dates in Oct-May order (Oct first, then Nov, Dec, Jan, Feb, Mar, Apr, May)
+function sortOctToMay(dates: string[]): string[] {
   return dates.sort((a, b) => {
     const [dayA, monthA] = a.split(".").map(Number);
     const [dayB, monthB] = b.split(".").map(Number);
@@ -117,6 +117,7 @@ const monthLabels: Record<string, string> = {
   "01.02": "Helmi",
   "01.03": "Maalis",
   "01.04": "Huhti",
+  "01.05": "Touko",
 };
 
 const monthLabelsEn: Record<string, string> = {
@@ -127,6 +128,7 @@ const monthLabelsEn: Record<string, string> = {
   "01.02": "Feb",
   "01.03": "Mar",
   "01.04": "Apr",
+  "01.05": "May",
 };
 
 const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
@@ -153,11 +155,11 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
 
         // Merge all dates
         const allDates = new Set([...kAvg.keys(), ...rAvg.keys()]);
-        const sorted = sortOctToApr(Array.from(allDates));
+        const sorted = sortOctToMay(Array.from(allDates));
 
         const points: ChartPoint[] = sorted.map((date) => ({
           date,
-          kittila: kAvg.get(date) ?? null,
+          levi: kAvg.get(date) ?? null,
           rovaniemi: rAvg.get(date) ?? null,
         }));
 
@@ -189,8 +191,6 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
     );
   }
 
-  // Show only every ~7th tick to avoid crowding
-  const tickInterval = Math.max(1, Math.floor(chartData.length / 25));
 
   return (
     <div className="my-6 bg-card border border-border rounded-xl p-4 md:p-6">
@@ -227,19 +227,19 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
               fontSize: 12,
             }}
             formatter={(value: number, name: string) => {
-              const label = name === "kittila" ? t.kittila : t.rovaniemi;
+              const label = name === "levi" ? t.levi : t.rovaniemi;
               return [`${value} cm`, label];
             }}
             labelFormatter={(label: string) => label}
           />
           <Legend
             formatter={(value: string) =>
-              value === "kittila" ? t.kittila : t.rovaniemi
+              value === "levi" ? t.levi : t.rovaniemi
             }
           />
           <Area
             type="monotone"
-            dataKey="kittila"
+            dataKey="levi"
             stroke="hsl(var(--primary))"
             fill="hsl(var(--primary) / 0.2)"
             strokeWidth={2}
