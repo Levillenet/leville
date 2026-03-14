@@ -8,7 +8,7 @@ interface PageCTAProps {
 
 const PageCTA = ({ lang = "fi" }: PageCTAProps) => {
   const content: Record<Language, { heading: string; bookLabel: string; contactLabel: string }> = {
-    fi: { heading: "Löydä unelmamajoituksesi Leviltä", bookLabel: "Katso vapaat majoitukset", contactLabel: "Ota yhteyttä" },
+    fi: { heading: "Löydä unelmamajoituksesi Leviltä", bookLabel: "Varaa Levin lomasi tästä!", contactLabel: "Ota yhteyttä" },
     en: { heading: "Find your dream accommodation in Levi", bookLabel: "View available accommodations", contactLabel: "Contact us" },
     sv: { heading: "Hitta ditt drömboende i Levi", bookLabel: "Se lediga boenden", contactLabel: "Kontakta oss" },
     de: { heading: "Finden Sie Ihre Traumunterkunft in Levi", bookLabel: "Verfügbare Unterkünfte ansehen", contactLabel: "Kontaktieren Sie uns" },
