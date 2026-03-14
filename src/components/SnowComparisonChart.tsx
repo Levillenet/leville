@@ -97,8 +97,8 @@ function computeAverages(
   return avgMap;
 }
 
-// Sort dates in Oct-Apr order (Oct first, then Nov, Dec, Jan, Feb, Mar, Apr)
-function sortOctToApr(dates: string[]): string[] {
+// Sort dates in Oct-May order (Oct first, then Nov, Dec, Jan, Feb, Mar, Apr, May)
+function sortOctToMay(dates: string[]): string[] {
   return dates.sort((a, b) => {
     const [dayA, monthA] = a.split(".").map(Number);
     const [dayB, monthB] = b.split(".").map(Number);
@@ -117,6 +117,7 @@ const monthLabels: Record<string, string> = {
   "01.02": "Helmi",
   "01.03": "Maalis",
   "01.04": "Huhti",
+  "01.05": "Touko",
 };
 
 const monthLabelsEn: Record<string, string> = {
@@ -127,6 +128,7 @@ const monthLabelsEn: Record<string, string> = {
   "01.02": "Feb",
   "01.03": "Mar",
   "01.04": "Apr",
+  "01.05": "May",
 };
 
 const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
