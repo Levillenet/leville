@@ -3293,4 +3293,152 @@
     <priority>0.7</priority>
   </url>
 
+
+  <!-- Why Choose Levi / Miksi valita Levi - 7 languages -->
+  <url>
+    <loc>https://leville.net/opas/miksi-valita-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/miksi-valita-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/waarom-levi-kiezen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/why-choose-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/why-choose-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/miksi-valita-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/waarom-levi-kiezen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/why-choose-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/sv/guide/why-choose-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/miksi-valita-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/waarom-levi-kiezen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/why-choose-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/de/guide/why-choose-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/miksi-valita-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/waarom-levi-kiezen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/why-choose-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/es/guia/why-choose-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/miksi-valita-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/waarom-levi-kiezen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/why-choose-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/fr/guide/why-choose-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/miksi-valita-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/waarom-levi-kiezen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/why-choose-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/nl/gids/waarom-levi-kiezen</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/miksi-valita-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/why-choose-levi"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/waarom-levi-kiezen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/why-choose-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Best Time to Visit Levi - FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/paras-aika-matkustaa-leville</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/paras-aika-matkustaa-leville"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/best-time-to-visit-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/best-time-to-visit-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/best-time-to-visit-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/paras-aika-matkustaa-leville"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/best-time-to-visit-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/best-time-to-visit-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Levi vs Saariselkä Comparison - FI/EN -->
+  <url>
+    <loc>https://leville.net/opas/levi-vs-saariselka</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-saariselka"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-saariselka-comparison"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-saariselka-comparison"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/guide/levi-vs-saariselka-comparison</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levi-vs-saariselka"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-saariselka-comparison"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-saariselka-comparison"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Reindeer Safari in Levi - FI/EN -->
+  <url>
+    <loc>https://leville.net/aktiviteetit/porosafari-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/aktiviteetit/porosafari-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/activities/reindeer-safari-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/activities/reindeer-safari-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/activities/reindeer-safari-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/aktiviteetit/porosafari-levi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/activities/reindeer-safari-levi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/activities/reindeer-safari-levi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
