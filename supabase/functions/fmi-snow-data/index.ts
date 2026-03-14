@@ -56,7 +56,7 @@ serve(async (req) => {
         continue;
       }
 
-      const fmiUrl = `https://opendata.fmi.fi/wfs?request=GetFeature&storedquery_id=fmi::observations::weather::daily::simple&place=Kittil%C3%A4&starttime=${startDate}&endtime=${endDate}`;
+      const fmiUrl = `https://opendata.fmi.fi/wfs?request=GetFeature&storedquery_id=fmi::observations::weather::daily::simple&place=${encodeURIComponent(place)}&starttime=${startDate}&endtime=${endDate}`;
       
       console.log(`Fetching FMI data for ${startYear}: ${fmiUrl}`);
 

@@ -236,6 +236,7 @@ const LeviVsRovaniemi = () => {
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                 Levillä lunta on aina enemmän, se sataa aiemmin ja sulaa myöhemmin kuin Rovaniemellä. Kittilän alueella ensimmäiset pysyvät lumet tulevat tyypillisesti lokakuussa, kun Rovaniemellä pysyvä lumipeite muodostuu usein vasta marraskuussa. Keväällä lumi sulaa Rovaniemeltä huhtikuussa, kun Levillä lasketellaan ja hiihdellään vielä toukokuussa. Keskitalvella lumensyvyysero voi olla jopa 30–40 cm Levin hyväksi. <strong className="text-foreground">Jos lumi on tärkeä osa lomaasi – oli kyse hiihdosta, kelkkailusta, lumikenkäilystä tai lasten lumileikeistä – valinta on selvä: Levi.</strong>
               </p>
+              <SnowComparisonChart lang="fi" />
               <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 mt-4">
                 <p className="text-sm text-muted-foreground">
                   📊 <strong className="text-foreground">Vertaile itse:</strong> Katso Levin alueen historialliset lumensyvyystiedot interaktiivisesta graafikastamme ja vertaile eri vuosien lumitilannetta haluamaltasi aikaväliltä.{" "}
