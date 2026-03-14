@@ -168,7 +168,7 @@ const FinnishSaunaLevi = () => {
   const etiquette = [
     { text: "Shower first – Always shower before entering the sauna. This is an absolute rule.", ok: true },
     { text: "Nudity is normal – In traditional Finnish sauna, people go nude, but wearing a swimsuit or towel is perfectly acceptable, especially in a cabin sauna with friends.", ok: true },
-    { text: "Sit on a towel – The bench is hot. Place a towel underneath you.", ok: true },
+    { text: "Use a seat cover – Most accommodations provide disposable seat covers for the sauna bench for hygiene reasons. The bench is usually not very hot, but you can splash a little cold water on it before sitting down.", ok: true },
     { text: "Throw water gently – Start with a small amount of water on the stones. You can add more if you want more heat. Ask others before throwing more löyly.", ok: true },
     { text: "Cool down – Step outside between rounds to cool down. In winter, you can stand on the terrace or take a dip in an ice hole.", ok: true },
     { text: "Drink water – Sauna dehydrates. Drink water before, during and after.", ok: true },
