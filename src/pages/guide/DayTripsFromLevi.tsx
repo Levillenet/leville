@@ -344,7 +344,7 @@ const DayTripsFromLevi = ({ lang = "fi" }: DayTripsFromLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

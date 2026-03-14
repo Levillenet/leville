@@ -116,7 +116,7 @@ const UKK = ({ lang = "fi" }: UKKProps) => {
         <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

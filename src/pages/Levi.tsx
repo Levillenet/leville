@@ -797,7 +797,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
         <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

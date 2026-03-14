@@ -494,7 +494,7 @@ const ChristmasDinnerLevi = () => {
 
         <Footer lang="en" />
         <WhatsAppChat lang="en" />
-        <StickyBookingBar lang="en" />
+        
       </div>
     </>
   );

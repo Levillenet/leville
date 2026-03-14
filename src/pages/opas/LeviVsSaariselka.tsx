@@ -443,7 +443,7 @@ const LeviVsSaariselka = () => {
 
         <Footer />
         <WhatsAppChat />
-        <StickyBookingBar />
+        
       </div>
     </>
   );

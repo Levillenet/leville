@@ -193,7 +193,7 @@ const Tietovisa = ({ lang = "fi" }: TietovisaProps) => {
         </main>
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

@@ -398,7 +398,7 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

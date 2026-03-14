@@ -251,7 +251,7 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
         <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

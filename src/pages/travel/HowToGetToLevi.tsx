@@ -835,7 +835,7 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </div>
   );
 };

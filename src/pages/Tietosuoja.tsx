@@ -293,7 +293,7 @@ const Tietosuoja = ({ lang = "fi" }: TietosuojaProps) => {
       </main>
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </>
   );
 };

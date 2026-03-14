@@ -1008,7 +1008,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
         <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

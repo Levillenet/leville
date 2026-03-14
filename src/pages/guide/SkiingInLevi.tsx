@@ -463,7 +463,7 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

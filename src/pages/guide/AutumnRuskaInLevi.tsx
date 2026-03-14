@@ -430,7 +430,7 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

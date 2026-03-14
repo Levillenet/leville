@@ -381,7 +381,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
         <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

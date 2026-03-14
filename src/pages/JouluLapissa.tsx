@@ -24,7 +24,7 @@ import {
 import { Link } from "react-router-dom";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import OptimizedImage from "@/components/OptimizedImage";
 import santaSitting from "@/assets/santa-sitting.jpg";

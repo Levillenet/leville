@@ -279,7 +279,7 @@ const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
 
       <Footer />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </div>
   );
 };

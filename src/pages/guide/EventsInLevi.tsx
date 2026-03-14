@@ -331,7 +331,7 @@ const EventsInLevi = ({ lang = "fi" }: EventsInLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

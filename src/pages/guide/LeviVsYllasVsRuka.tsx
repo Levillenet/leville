@@ -479,7 +479,7 @@ const LeviVsYllasVsRuka = () => {
 
         <Footer />
         <WhatsAppChat />
-        <StickyBookingBar />
+        
       </div>
     </>
   );

@@ -314,7 +314,7 @@ const SnowmobileSafariTips = ({ lang = "fi" }: SnowmobileSafariTipsProps) => {
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </div>
   );
 };

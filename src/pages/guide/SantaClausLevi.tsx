@@ -423,7 +423,7 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

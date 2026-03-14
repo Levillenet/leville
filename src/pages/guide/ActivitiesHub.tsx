@@ -410,7 +410,7 @@ const ActivitiesHub = ({ lang = "fi" }: ActivitiesHubProps) => {
         <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

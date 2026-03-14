@@ -401,7 +401,7 @@ const NorthernLightsColorsExplained = ({ lang = "fi" }: Props) => {
         <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

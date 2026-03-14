@@ -221,7 +221,7 @@ const SnowshoeingLevi = ({ lang = "fi" }: SnowshoeingLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

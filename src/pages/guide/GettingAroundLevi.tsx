@@ -328,7 +328,7 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </div>
   );
 };

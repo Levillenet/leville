@@ -478,7 +478,7 @@ const FinnishSaunaLevi = () => {
 
       <Footer lang="en" />
       <WhatsAppChat lang="en" />
-      <StickyBookingBar lang="en" />
+      
     </div>
   );
 };

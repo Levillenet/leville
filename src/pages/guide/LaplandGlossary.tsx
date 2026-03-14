@@ -395,7 +395,7 @@ const LaplandGlossary = ({ lang = "fi" }: { lang?: Language }) => {
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </div>
   );
 };

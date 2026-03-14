@@ -15,7 +15,7 @@ import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSectio
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import {
   Accordion,
   AccordionContent,

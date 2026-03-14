@@ -446,7 +446,7 @@ const SaunaLevilla = () => {
 
       <Footer />
       <WhatsAppChat />
-      <StickyBookingBar />
+      
     </div>
   );
 };

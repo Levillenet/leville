@@ -123,7 +123,7 @@ const Varausehdot = ({ lang = "fi" }: VarausehdotProps) => {
         </main>
         <Footer lang={lang} />
         <WhatsAppChat />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

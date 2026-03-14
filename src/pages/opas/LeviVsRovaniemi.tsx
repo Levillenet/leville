@@ -546,7 +546,7 @@ const LeviVsRovaniemi = () => {
 
         <Footer />
         <WhatsAppChat />
-        <StickyBookingBar />
+        
       </div>
     </>
   );

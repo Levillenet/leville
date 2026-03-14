@@ -199,7 +199,7 @@ const FatbikeLevi = ({ lang = "fi" }: FatbikeLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

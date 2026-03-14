@@ -226,7 +226,7 @@ const ChristmasDinnerLeviFI = () => {
 
         <Footer />
         <WhatsAppChat />
-        <StickyBookingBar />
+        
       </div>
     </>
   );

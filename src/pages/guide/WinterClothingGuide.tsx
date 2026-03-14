@@ -832,7 +832,7 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </div>
   );
 };

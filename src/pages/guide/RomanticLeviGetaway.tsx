@@ -341,7 +341,7 @@ const RomanticLeviGetaway = ({ lang = "fi" }: RomanticLeviGetawayProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

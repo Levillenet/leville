@@ -617,7 +617,7 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

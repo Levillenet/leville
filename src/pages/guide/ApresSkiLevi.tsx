@@ -303,7 +303,7 @@ const ApresSkiLevi = ({ lang = "fi" }: ApresSkiLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

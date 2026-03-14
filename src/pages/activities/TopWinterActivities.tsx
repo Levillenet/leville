@@ -856,7 +856,7 @@ const TopWinterActivities = ({ lang = "fi" }: TopWinterActivitiesProps) => {
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </div>
   );
 };

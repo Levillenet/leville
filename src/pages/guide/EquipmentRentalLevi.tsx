@@ -325,7 +325,7 @@ const EquipmentRentalLevi = ({ lang = "fi" }: EquipmentRentalLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

@@ -576,7 +576,7 @@ const BestTimeToVisitLevi = ({ lang = "fi" }: BestTimeToVisitLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

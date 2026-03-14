@@ -177,7 +177,7 @@ const IceSwimmingLevi = ({ lang = "fi" }: Props) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

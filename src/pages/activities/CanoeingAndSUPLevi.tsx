@@ -291,7 +291,7 @@ const CanoeingAndSUPLevi = ({ lang = "fi" }: Props) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

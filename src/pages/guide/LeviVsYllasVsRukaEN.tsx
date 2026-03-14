@@ -522,7 +522,7 @@ const LeviVsYllasVsRukaEN = ({ lang = "en" }: LeviVsYllasVsRukaENProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

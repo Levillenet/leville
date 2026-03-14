@@ -348,7 +348,7 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </div>
   );
 };
