@@ -136,6 +136,38 @@ serve(async (req) => {
   }
 });
 
+function buildFmiUrl(options: {
+  startDate: string;
+  endDate: string;
+  place?: string;
+  bbox?: string;
+  maxLocations?: number;
+}) {
+  const params = new URLSearchParams({
+    request: "GetFeature",
+    storedquery_id: "fmi::observations::weather::daily::simple",
+    starttime: options.startDate,
+    endtime: options.endDate,
+  });
+
+  if (options.place) params.set("place", options.place);
+  if (options.bbox) params.set("bbox", options.bbox);
+  if (options.maxLocations) params.set("maxlocations", String(options.maxLocations));
+
+  return `https://opendata.fmi.fi/wfs?${params.toString()}`;
+}
+
+async function fetchSnowDataFromFmi(fmiUrl: string, year: number): Promise<SnowDataPoint[]> {
+  const response = await fetch(fmiUrl);
+
+  if (!response.ok) {
+    throw new Error(`FMI API error: ${response.status}`);
+  }
+
+  const xmlText = await response.text();
+  return parseSnowDataFromXml(xmlText, year);
+}
+
 function parseSnowDataFromXml(xmlText: string, year: number): SnowDataPoint[] {
   const snowData: SnowDataPoint[] = [];
   
