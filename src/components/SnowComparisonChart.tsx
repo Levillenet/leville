@@ -249,8 +249,8 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
           <Area
             type="monotone"
             dataKey="rovaniemi"
-            stroke="hsl(var(--accent-foreground))"
-            fill="hsl(var(--accent) / 0.3)"
+            stroke="hsl(var(--foreground))"
+            fill="hsl(var(--foreground) / 0.12)"
             strokeWidth={2}
             strokeDasharray="5 3"
             dot={false}
