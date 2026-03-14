@@ -9,7 +9,7 @@ import JsonLd from "@/components/JsonLd";
 import SeoMeta from "@/components/SeoMeta";
 import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import WhatsAppChat from "@/components/WhatsAppChat";
-
+import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ReadNextSection from "@/components/guide/ReadNextSection";
@@ -496,7 +496,7 @@ const PrijzenInLeviPage = () => {
 
       <Footer lang="nl" />
       <WhatsAppChat lang="nl" />
-      
+      <StickyBookingBar lang="nl" />
     </div>
   );
 };

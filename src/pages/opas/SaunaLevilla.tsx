@@ -27,7 +27,7 @@ import {
   ShowerHead,
 } from "lucide-react";
 import WhatsAppChat from "@/components/WhatsAppChat";
-
+import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Accordion,
   AccordionContent,
@@ -446,7 +446,7 @@ const SaunaLevilla = () => {
 
       <Footer />
       <WhatsAppChat />
-      
+      <StickyBookingBar />
     </div>
   );
 };

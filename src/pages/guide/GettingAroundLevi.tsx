@@ -9,7 +9,7 @@ import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import WhatsAppChat from "@/components/WhatsAppChat";
-
+import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plane, Bus, Car, Footprints, Snowflake, MapPin } from "lucide-react";
@@ -328,7 +328,7 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      
+      <StickyBookingBar lang={lang} />
     </div>
   );
 };

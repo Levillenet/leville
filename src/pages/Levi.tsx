@@ -13,7 +13,7 @@ import { Calendar, Mountain, Plane, ArrowRight, Brain, Gift, Star, Snowflake, Fl
 import { routeConfig } from "@/translations";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
-
+import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -797,7 +797,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
         <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );
