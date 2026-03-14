@@ -13,7 +13,7 @@ import { Calendar, Sparkles, Clock, Flame, ArrowRight } from "lucide-react";
 import { getTranslations, Language, routeConfig } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import PageCTA from "@/components/PageCTA";
 import { Link } from "react-router-dom";
 
