@@ -74,6 +74,7 @@ const LeviVsSaariselka = lazy(() => import("./pages/opas/LeviVsSaariselka"));
 const LeviVsSaariselkaComparison = lazy(() => import("./pages/guide/LeviVsSaariselkaComparison"));
 const SaunaLevilla = lazy(() => import("./pages/opas/SaunaLevilla"));
 const FinnishSaunaLevi = lazy(() => import("./pages/guide/FinnishSaunaLevi"));
+const OutdoorHotTubLevi = lazy(() => import("./pages/guide/OutdoorHotTubLevi"));
 const ChristmasDinnerLevi = lazy(() => import("./pages/guide/ChristmasDinnerLevi"));
 const LaplandGlossary = lazy(() => import("./pages/guide/LaplandGlossary"));
 const LevinHinnatPage = lazy(() => import("./pages/guide/LevinHinnatPage"));
