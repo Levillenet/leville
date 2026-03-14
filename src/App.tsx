@@ -68,6 +68,8 @@ const LeviVsYllasVsRuka = lazy(() => import("./pages/guide/LeviVsYllasVsRuka"));
 const LeviVsYllasVsRukaEN = lazy(() => import("./pages/guide/LeviVsYllasVsRukaEN"));
 const LeviVsRovaniemi = lazy(() => import("./pages/opas/LeviVsRovaniemi"));
 const LeviVsRovaniemiComparison = lazy(() => import("./pages/guide/LeviVsRovaniemiComparison"));
+const LeviVsSaariselka = lazy(() => import("./pages/opas/LeviVsSaariselka"));
+const LeviVsSaariselkaComparison = lazy(() => import("./pages/guide/LeviVsSaariselkaComparison"));
 const SaunaLevilla = lazy(() => import("./pages/opas/SaunaLevilla"));
 const FinnishSaunaLevi = lazy(() => import("./pages/guide/FinnishSaunaLevi"));
 const ChristmasDinnerLevi = lazy(() => import("./pages/guide/ChristmasDinnerLevi"));
