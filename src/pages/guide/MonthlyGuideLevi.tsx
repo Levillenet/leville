@@ -14,7 +14,7 @@ import { Thermometer, Sun, Snowflake, Users, Calendar, ArrowRight, Mountain, Sta
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import {
   Accordion,
   AccordionContent,

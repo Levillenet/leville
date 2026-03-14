@@ -17,7 +17,7 @@ import { Calendar, Clock, ExternalLink, MessageCircle, Sparkles, Ticket, Flame, 
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getDefaultPropertyDetails } from "@/data/propertyDetails";
