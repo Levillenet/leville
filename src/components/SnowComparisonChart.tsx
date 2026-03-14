@@ -261,8 +261,8 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
 
       <p className="text-[10px] text-muted-foreground mt-2 text-center">
         {lang === "fi"
-          ? "Lähde: Ilmatieteen laitos (FMI), Kittilä Pakatti & Rovaniemi Apukka"
-          : "Source: Finnish Meteorological Institute (FMI), Kittilä Pakatti & Rovaniemi Apukka"}
+          ? "Lähde: Ilmatieteen laitos (FMI), Levi/Kittilä & Rovaniemi"
+          : "Source: Finnish Meteorological Institute (FMI), Levi/Kittilä & Rovaniemi"}
       </p>
     </div>
   );
