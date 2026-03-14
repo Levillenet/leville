@@ -1453,7 +1453,7 @@ const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
         </section>
       </main>
 
-      <PageCTA lang={lang} />
+      <PageCTA lang={lang as "fi" | "en" | "sv" | "de" | "es" | "fr" | "nl"} />
 
       <Footer />
       <WhatsAppChat />
