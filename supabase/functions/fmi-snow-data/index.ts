@@ -175,8 +175,9 @@ function parseSnowDataFromXml(xmlText: string, year: number): SnowDataPoint[] {
   const memberRegex = /<BsWfs:BsWfsElement[^>]*>([\s\S]*?)<\/BsWfs:BsWfsElement>/g;
   let memberMatch;
   
-  // Temporary storage to group by time
-  const timeDataMap = new Map<string, { time: string; snow: number | null }>();
+  // Temporary storage to group by time. For bbox queries there can be multiple stations
+  // per timestamp, so we aggregate all numeric snow values.
+  const timeDataMap = new Map<string, number[]>();
   
   while ((memberMatch = memberRegex.exec(xmlText)) !== null) {
     const memberContent = memberMatch[1];
@@ -194,25 +195,33 @@ function parseSnowDataFromXml(xmlText: string, year: number): SnowDataPoint[] {
       const value = valueMatch[1];
       
       // We're only interested in snow depth
-      if (param === "snow") {
-        const snowValue = value === "NaN" ? null : parseFloat(value);
-        timeDataMap.set(time, { time, snow: snowValue });
+      if (param === "snow" && value !== "NaN") {
+        const snowValue = parseFloat(value);
+        if (!isNaN(snowValue)) {
+          if (!timeDataMap.has(time)) {
+            timeDataMap.set(time, []);
+          }
+          timeDataMap.get(time)!.push(snowValue);
+        }
       }
     }
   }
   
-  // Convert to array format
-  for (const [time, data] of timeDataMap) {
+  // Convert to array format (average by date if multiple stations are present)
+  for (const [time, values] of timeDataMap) {
+    if (values.length === 0) continue;
+
     const date = new Date(time);
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const dayMonth = `${String(day).padStart(2, "0")}.${String(month).padStart(2, "0")}`;
+    const avgSnow = values.reduce((sum, value) => sum + value, 0) / values.length;
     
     snowData.push({
       year,
       date: time,
       dayMonth,
-      snow: data.snow,
+      snow: Math.round(avgSnow * 10) / 10,
     });
   }
   
