@@ -12,7 +12,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { password, format, period } = await req.json();
+    const { password, format, period, action } = await req.json();
 
     const adminPassword = Deno.env.get("ADMIN_PASSWORD");
     if (!password || password !== adminPassword) {
@@ -26,6 +26,40 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
+
+    // Live active users: unique sessions in last 5 minutes
+    if (action === "live") {
+      const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+      const { data: liveRows, error: liveErr } = await supabase
+        .from("page_views")
+        .select("session_id, path")
+        .gte("created_at", fiveMinAgo)
+        .not("path", "like", "/event/%")
+        .not("session_id", "is", null);
+
+      if (liveErr) {
+        return new Response(JSON.stringify({ error: liveErr.message }), {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const uniqueSessions = new Set((liveRows || []).map((r) => r.session_id));
+      // Top active pages
+      const pageCounts: Record<string, number> = {};
+      for (const r of liveRows || []) {
+        pageCounts[r.path] = (pageCounts[r.path] || 0) + 1;
+      }
+      const topPages = Object.entries(pageCounts)
+        .sort(([, a], [, b]) => b - a)
+        .slice(0, 5)
+        .map(([path, count]) => ({ path, count }));
+
+      return new Response(
+        JSON.stringify({ activeUsers: uniqueSessions.size, topPages }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
     const now = new Date();
     let sinceDate: Date;

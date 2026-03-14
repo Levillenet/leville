@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Eye, Monitor, Smartphone, Tablet, RefreshCw, MousePointerClick, Download, ClipboardCopy, Users, Clock, TrendingDown } from "lucide-react";
+import { Loader2, Eye, Monitor, Smartphone, Tablet, RefreshCw, MousePointerClick, Download, ClipboardCopy, Users, Clock, TrendingDown, Radio } from "lucide-react";
 import { toast } from "sonner";
 import {
   ResponsiveContainer,
@@ -124,6 +124,23 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   const [loading, setLoading] = useState(true);
   const [csvLoading, setCsvLoading] = useState(false);
   const [period, setPeriod] = useState<Period>("30days");
+  const [liveUsers, setLiveUsers] = useState<{ activeUsers: number; topPages: Array<{ path: string; count: number }> } | null>(null);
+
+  const fetchLive = useCallback(async () => {
+    try {
+      const password = localStorage.getItem("admin_password");
+      if (!password) return;
+      const { data, error } = await supabase.functions.invoke("get-page-view-stats", { body: { password, action: "live" } });
+      if (!error && data) setLiveUsers(data);
+    } catch { /* silent */ }
+  }, []);
+
+  // Poll live users every 30s
+  useEffect(() => {
+    fetchLive();
+    const interval = setInterval(fetchLive, 30000);
+    return () => clearInterval(interval);
+  }, [fetchLive]);
 
   const fetchStats = async (p: Period = period) => {
     setLoading(true);
@@ -283,6 +300,37 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
           </Button>
         ))}
       </div>
+
+      {/* Live users */}
+      {liveUsers !== null && (
+        <Card className="border-primary/30 bg-primary/5">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center relative">
+                  <Radio className="w-5 h-5 text-primary" />
+                  <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Sivustolla nyt</p>
+                  <p className="text-3xl font-bold">{liveUsers.activeUsers}</p>
+                </div>
+              </div>
+              {liveUsers.topPages.length > 0 && (
+                <div className="ml-auto text-right">
+                  <p className="text-xs text-muted-foreground mb-1">Aktiiviset sivut (5 min)</p>
+                  {liveUsers.topPages.map((p) => (
+                    <div key={p.path} className="text-xs font-mono flex justify-end gap-2">
+                      <span className="truncate max-w-[200px]">{p.path}</span>
+                      <span className="text-muted-foreground">{p.count}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Session & page view summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
