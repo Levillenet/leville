@@ -23,18 +23,18 @@ interface ChartPoint {
 
 const labels = {
   fi: {
-    title: "Keskimääräinen lumensyvyys: Kittilä vs Rovaniemi",
-    subtitle: "10 vuoden keskiarvo, lokakuu–huhtikuu (FMI / Ilmatieteen laitos)",
-    kittila: "Kittilä (Levi)",
+    title: "Keskimääräinen lumensyvyys: Levi vs Rovaniemi",
+    subtitle: "10 vuoden keskiarvo, lokakuu–toukokuu (FMI / Ilmatieteen laitos)",
+    levi: "Levi (Kittilä)",
     rovaniemi: "Rovaniemi",
     yAxis: "Lumensyvyys (cm)",
     loading: "Ladataan lumitietoja...",
     error: "Lumitietoja ei voitu ladata.",
   },
   en: {
-    title: "Average Snow Depth: Kittilä vs Rovaniemi",
-    subtitle: "10-year average, October–April (FMI / Finnish Meteorological Institute)",
-    kittila: "Kittilä (Levi)",
+    title: "Average Snow Depth: Levi vs Rovaniemi",
+    subtitle: "10-year average, October–May (FMI / Finnish Meteorological Institute)",
+    levi: "Levi (Kittilä)",
     rovaniemi: "Rovaniemi",
     yAxis: "Snow depth (cm)",
     loading: "Loading snow data...",
