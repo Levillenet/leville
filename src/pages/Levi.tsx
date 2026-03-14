@@ -68,10 +68,8 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     weatherLinkDesc: string;
     northernLightsTitle: string;
     northernLightsDesc: string;
-    comparisonTitle: string;
-    comparisonDesc: string;
-    comparisonRovTitle: string;
-    comparisonRovDesc: string;
+    comparisonHubTitle: string;
+    comparisonHubDesc: string;
     saunaTitle: string;
     saunaDesc: string;
     eventsTitle: string;
