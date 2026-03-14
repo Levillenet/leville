@@ -310,6 +310,7 @@ const App = () => {
               <Route path="/nl/gids/seizoenen-in-levi" element={<SeasonsHub lang="nl" />} />
               <Route path="/nl/gids/activiteiten-in-levi" element={<ActivitiesHub lang="nl" />} />
               <Route path="/nl/gids/reisgids-levi" element={<TravelHub lang="nl" />} />
+              <Route path="/nl/gids/waarom-levi-kiezen" element={<ComparisonHub lang="nl" />} />
               <Route path="/nl/gids/winterkleding-levi-lapland" element={<WinterClothingGuide lang="nl" />} />
               <Route path="/nl/gids/hoe-kom-je-in-levi" element={<HowToGetToLevi lang="nl" />} />
               <Route path="/nl/activiteiten/winteractiviteiten-levi" element={<TopWinterActivities lang="nl" />} />
