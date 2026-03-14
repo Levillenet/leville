@@ -145,7 +145,7 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
       try {
         const [kittila, rovaniemi] = await Promise.all([
           fetchSnowData("Kittilä"),
-          fetchSnowData("Rovaniemi"),
+          fetchSnowData("Rovaniemi lentoasema"),
         ]);
 
         if (cancelled) return;
