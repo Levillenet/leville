@@ -322,11 +322,13 @@ const App = () => {
               <Route path="/opas/vuodenajat-levi" element={<SeasonsHub />} />
               <Route path="/opas/aktiviteetit-levi" element={<ActivitiesHub />} />
               <Route path="/opas/matkaopas-levi" element={<TravelHub />} />
+              <Route path="/opas/miksi-valita-levi" element={<ComparisonHub />} />
               
               {/* Guide HUB Pages - English */}
               <Route path="/guide/seasons-in-levi" element={<SeasonsHub lang="en" />} />
               <Route path="/guide/activities-in-levi" element={<ActivitiesHub lang="en" />} />
               <Route path="/guide/travel-to-levi" element={<TravelHub lang="en" />} />
+              <Route path="/guide/why-choose-levi" element={<ComparisonHub lang="en" />} />
               
               {/* SEO Landing Pages - Finnish */}
               <Route path="/opas/talvivarusteet-leville" element={<WinterClothingGuide />} />
