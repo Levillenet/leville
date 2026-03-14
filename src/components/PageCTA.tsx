@@ -9,12 +9,12 @@ interface PageCTAProps {
 const PageCTA = ({ lang = "fi" }: PageCTAProps) => {
   const content: Record<Language, { heading: string; bookLabel: string; contactLabel: string }> = {
     fi: { heading: "Löydä unelmamajoituksesi Leviltä", bookLabel: "Varaa Levin lomasi tästä!", contactLabel: "Ota yhteyttä" },
-    en: { heading: "Find your dream accommodation in Levi", bookLabel: "View available accommodations", contactLabel: "Contact us" },
-    sv: { heading: "Hitta ditt drömboende i Levi", bookLabel: "Se lediga boenden", contactLabel: "Kontakta oss" },
-    de: { heading: "Finden Sie Ihre Traumunterkunft in Levi", bookLabel: "Verfügbare Unterkünfte ansehen", contactLabel: "Kontaktieren Sie uns" },
-    es: { heading: "Encuentra tu alojamiento ideal en Levi", bookLabel: "Ver alojamientos disponibles", contactLabel: "Contáctanos" },
-    fr: { heading: "Trouvez votre hébergement idéal à Levi", bookLabel: "Voir les hébergements disponibles", contactLabel: "Contactez-nous" },
-    nl: { heading: "Vind uw droomaccommodatie in Levi", bookLabel: "Bekijk beschikbare accommodaties", contactLabel: "Neem contact op" },
+    en: { heading: "Find your dream accommodation in Levi", bookLabel: "Book your Levi holiday here!", contactLabel: "Contact us" },
+    sv: { heading: "Hitta ditt drömboende i Levi", bookLabel: "Boka din Levi-semester här!", contactLabel: "Kontakta oss" },
+    de: { heading: "Finden Sie Ihre Traumunterkunft in Levi", bookLabel: "Buchen Sie Ihren Levi-Urlaub hier!", contactLabel: "Kontaktieren Sie uns" },
+    es: { heading: "Encuentra tu alojamiento ideal en Levi", bookLabel: "¡Reserva tus vacaciones en Levi aquí!", contactLabel: "Contáctanos" },
+    fr: { heading: "Trouvez votre hébergement idéal à Levi", bookLabel: "Réservez vos vacances à Levi ici !", contactLabel: "Contactez-nous" },
+    nl: { heading: "Vind uw droomaccommodatie in Levi", bookLabel: "Boek uw Levi-vakantie hier!", contactLabel: "Neem contact op" },
   };
 
   const c = content[lang];
