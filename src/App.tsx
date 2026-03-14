@@ -481,14 +481,14 @@ const App = () => {
               <Route path="/levi-2/*" element={<Navigate to="/levi" replace />} />
 
               {/* Old WordPress redirects - English */}
-              <Route path="/our-accommodations" element={<Navigate to="/accommodations" replace />} />
-              <Route path="/our-accommodations/*" element={<Navigate to="/accommodations" replace />} />
-              <Route path="/business-clients" element={<Navigate to="/contact" replace />} />
-              <Route path="/business-clients/*" element={<Navigate to="/contact" replace />} />
-              <Route path="/about-us" element={<Navigate to="/about" replace />} />
-              <Route path="/about-us/*" element={<Navigate to="/about" replace />} />
-              <Route path="/booking-terms" element={<Navigate to="/terms" replace />} />
-              <Route path="/booking-terms/*" element={<Navigate to="/terms" replace />} />
+              <Route path="/our-accommodations" element={<Navigate to="/en/accommodations" replace />} />
+              <Route path="/our-accommodations/*" element={<Navigate to="/en/accommodations" replace />} />
+              <Route path="/business-clients" element={<Navigate to="/en/contact" replace />} />
+              <Route path="/business-clients/*" element={<Navigate to="/en/contact" replace />} />
+              <Route path="/about-us" element={<Navigate to="/yritys" replace />} />
+              <Route path="/about-us/*" element={<Navigate to="/yritys" replace />} />
+              <Route path="/booking-terms" element={<Navigate to="/varausehdot" replace />} />
+              <Route path="/booking-terms/*" element={<Navigate to="/varausehdot" replace />} />
               <Route path="/latest-news" element={<Navigate to="/levi" replace />} />
               <Route path="/latest-news/*" element={<Navigate to="/levi" replace />} />
 
