@@ -431,7 +431,7 @@ const CabinVsApartmentLevi = ({ lang = "fi" }: CabinVsApartmentLeviProps) => {
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

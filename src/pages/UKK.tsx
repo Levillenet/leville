@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/accordion";
 import { getTranslations, Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import PageCTA from "@/components/PageCTA";
 
 interface UKKProps {

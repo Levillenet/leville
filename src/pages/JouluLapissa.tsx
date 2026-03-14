@@ -765,7 +765,7 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
         
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );

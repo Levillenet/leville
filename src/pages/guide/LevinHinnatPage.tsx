@@ -488,7 +488,7 @@ const LevinHinnatPage = () => {
 
       <Footer />
       <WhatsAppChat />
-      <StickyBookingBar />
+      
     </div>
   );
 };

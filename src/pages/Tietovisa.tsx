@@ -13,7 +13,7 @@ import QuizQuestion from "@/components/quiz/QuizQuestion";
 import QuizResult from "@/components/quiz/QuizResult";
 import { quizQuestions } from "@/data/quizQuestions";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import { Language } from "@/translations";
 import { AnimatePresence } from "framer-motion";
 

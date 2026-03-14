@@ -898,7 +898,7 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
-      <StickyBookingBar lang={lang} />
+      
     </div>
   );
 };

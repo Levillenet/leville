@@ -1457,7 +1457,7 @@ const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
 
       <Footer />
       <WhatsAppChat />
-      <StickyBookingBar />
+      
     </div>
   );
 };

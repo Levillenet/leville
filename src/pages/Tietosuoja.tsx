@@ -5,7 +5,7 @@ import SubpageBackground from "@/components/SubpageBackground";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import HreflangTags from "@/components/HreflangTags";
 import WhatsAppChat from "@/components/WhatsAppChat";
-import StickyBookingBar from "@/components/StickyBookingBar";
+
 import { Language, routeConfig } from "@/translations";
 import { useLocation } from "react-router-dom";
 
