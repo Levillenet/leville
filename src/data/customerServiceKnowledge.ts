@@ -208,8 +208,8 @@ Löyly:
   // Yhteystiedot
   contact: {
     email: "info@leville.net",
-    phone: "+358 40 1234567",
-    whatsapp: "+358 40 1234567",
+    phone: "+35844131313",
+    whatsapp: "+35844131313",
     address: "Levi, Suomi",
     responseTime: "Vastaamme yleensä saman päivän aikana, myös lomien aikana."
   },
