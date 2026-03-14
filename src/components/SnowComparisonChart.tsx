@@ -191,8 +191,6 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
     );
   }
 
-  // Show only every ~7th tick to avoid crowding
-  const tickInterval = Math.max(1, Math.floor(chartData.length / 25));
 
   return (
     <div className="my-6 bg-card border border-border rounded-xl p-4 md:p-6">
