@@ -197,6 +197,7 @@ const App = () => {
         <BrowserRouter>
           <ScrollToTop />
           <PageViewTracker />
+          <StructuredData />
           <PageTransition>
             <Suspense fallback={<div className="min-h-screen" />}>
             <Routes>
