@@ -74,6 +74,7 @@ const LeviVsSaariselka = lazy(() => import("./pages/opas/LeviVsSaariselka"));
 const LeviVsSaariselkaComparison = lazy(() => import("./pages/guide/LeviVsSaariselkaComparison"));
 const SaunaLevilla = lazy(() => import("./pages/opas/SaunaLevilla"));
 const FinnishSaunaLevi = lazy(() => import("./pages/guide/FinnishSaunaLevi"));
+const OutdoorHotTubLevi = lazy(() => import("./pages/guide/OutdoorHotTubLevi"));
 const ChristmasDinnerLevi = lazy(() => import("./pages/guide/ChristmasDinnerLevi"));
 const LaplandGlossary = lazy(() => import("./pages/guide/LaplandGlossary"));
 const LevinHinnatPage = lazy(() => import("./pages/guide/LevinHinnatPage"));
@@ -403,6 +404,8 @@ const App = () => {
               <Route path="/fr/guide/why-choose-levi" element={<ComparisonHub lang="fr" />} />
               <Route path="/es/guia/why-choose-levi" element={<ComparisonHub lang="es" />} />
               <Route path="/guide/finnish-sauna-in-levi" element={<FinnishSaunaLevi />} />
+              <Route path="/opas/ulkoporeallas-levilla" element={<OutdoorHotTubLevi />} />
+              <Route path="/guide/outdoor-hot-tub-levi-cabin" element={<OutdoorHotTubLevi lang="en" />} />
               <Route path="/en/guide/christmas-dinner-in-levi" element={<ChristmasDinnerLevi />} />
               {/* Holiday Planner */}
               <Route path="/lomasuunnittelija" element={<HolidayPlanner />} />
