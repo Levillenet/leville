@@ -151,7 +151,7 @@ serve(async (req: Request): Promise<Response> => {
     </div>
     <div class="footer">
       <p>Leville.net | Majoituspalvelut Levillä<br>
-      info@leville.net | +358 40 123 4567</p>
+      info@leville.net | +358 44 131 313</p>
     </div>
   </div>
 </body>
