@@ -74,7 +74,7 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
         <meta property="og:type" content="article" />
         <meta property="og:url" content={hreflangUrls[lang]} />
       </Helmet>
-      <HreflangTags hreflangUrls={hreflangUrls} />
+      <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={hreflangUrls} />
       <JsonLd data={articleSchema} />
       <JsonLd data={breadcrumbSchema} />
 
