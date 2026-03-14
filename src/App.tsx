@@ -10,6 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import PageTransition from "./components/PageTransition";
 
 import PageViewTracker from "./components/PageViewTracker";
+import StructuredData from "./components/StructuredData";
 
 // Lazy-loaded page components
 const Index = lazy(() => import("./pages/Index"));
@@ -196,6 +197,7 @@ const App = () => {
         <BrowserRouter>
           <ScrollToTop />
           <PageViewTracker />
+          <StructuredData />
           <PageTransition>
             <Suspense fallback={<div className="min-h-screen" />}>
             <Routes>
