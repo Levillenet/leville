@@ -95,7 +95,7 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
           </p>
 
           <img
-            src={hotTubTerrace}
+            src={hotTubHero}
             alt={t.heroAlt}
             className="w-full rounded-2xl mb-12 shadow-lg"
             loading="eager"
