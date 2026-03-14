@@ -481,14 +481,14 @@ const App = () => {
               <Route path="/levi-2/*" element={<Navigate to="/levi" replace />} />
 
               {/* Old WordPress redirects - English */}
-              <Route path="/our-accommodations" element={<Navigate to="/accommodations" replace />} />
-              <Route path="/our-accommodations/*" element={<Navigate to="/accommodations" replace />} />
-              <Route path="/business-clients" element={<Navigate to="/contact" replace />} />
-              <Route path="/business-clients/*" element={<Navigate to="/contact" replace />} />
-              <Route path="/about-us" element={<Navigate to="/about" replace />} />
-              <Route path="/about-us/*" element={<Navigate to="/about" replace />} />
-              <Route path="/booking-terms" element={<Navigate to="/terms" replace />} />
-              <Route path="/booking-terms/*" element={<Navigate to="/terms" replace />} />
+              <Route path="/our-accommodations" element={<Navigate to="/en/accommodations" replace />} />
+              <Route path="/our-accommodations/*" element={<Navigate to="/en/accommodations" replace />} />
+              <Route path="/business-clients" element={<Navigate to="/en/contact" replace />} />
+              <Route path="/business-clients/*" element={<Navigate to="/en/contact" replace />} />
+              <Route path="/about-us" element={<Navigate to="/yritys" replace />} />
+              <Route path="/about-us/*" element={<Navigate to="/yritys" replace />} />
+              <Route path="/booking-terms" element={<Navigate to="/varausehdot" replace />} />
+              <Route path="/booking-terms/*" element={<Navigate to="/varausehdot" replace />} />
               <Route path="/latest-news" element={<Navigate to="/levi" replace />} />
               <Route path="/latest-news/*" element={<Navigate to="/levi" replace />} />
 
@@ -503,9 +503,9 @@ const App = () => {
               {/* Wrong language paths */}
               <Route path="/sv/boenden" element={<Navigate to="/sv/boende" replace />} />
               <Route path="/sv/aktuellt" element={<Navigate to="/sv" replace />} />
-              <Route path="/en/majoitukset" element={<Navigate to="/accommodations" replace />} />
-              <Route path="/en/yhteystiedot" element={<Navigate to="/contact" replace />} />
-              <Route path="/en/terms" element={<Navigate to="/terms" replace />} />
+              <Route path="/en/majoitukset" element={<Navigate to="/en/accommodations" replace />} />
+              <Route path="/en/yhteystiedot" element={<Navigate to="/en/contact" replace />} />
+              <Route path="/en/terms" element={<Navigate to="/varausehdot" replace />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

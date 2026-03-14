@@ -16,18 +16,18 @@
 /levi-2                     /levi                 301
 
 # Old WordPress pages (English)
-/our-accommodations/        /accommodations       301
-/our-accommodations         /accommodations       301
-/business-clients/          /contact              301
-/business-clients           /contact              301
-/about-us/                  /about                301
-/about-us                   /about                301
-/booking-terms/             /terms                301
-/booking-terms              /terms                301
+/our-accommodations/        /en/accommodations    301
+/our-accommodations         /en/accommodations    301
+/business-clients/          /en/contact           301
+/business-clients           /en/contact           301
+/about-us/                  /yritys               301
+/about-us                   /yritys               301
+/booking-terms/             /varausehdot          301
+/booking-terms              /varausehdot          301
 /latest-news/               /levi                 301
 /latest-news                /levi                 301
-/faq/                       /faq                  301
-/faq                        /faq                  301
+/faq/                       /en/faq               301
+/faq                        /en/faq               301
 
 # Old blog archive URLs
 /2020/                      /levi                 301
