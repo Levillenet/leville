@@ -23,6 +23,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import SnowComparisonChart from "@/components/SnowComparisonChart";
 
 import type { Language } from "@/translations";
 import { routeConfig } from "@/translations";
