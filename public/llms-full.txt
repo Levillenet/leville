@@ -332,6 +332,7 @@ Guests must complete a 3-step process before using the fireplace:
 - Husky safari tips
 - Hiking and mountain biking
 - Top winter activities
+- Reindeer safari tips and what to expect
 
 ### Travel & Practical
 - How to get to Levi (from Helsinki: fly to Kittilä KTT, 1.5h; or drive ~1000 km, ~12h)
@@ -346,6 +347,8 @@ Guests must complete a 3-step process before using the fireplace:
 ### Comparisons
 - Levi vs Ylläs vs Ruka: three top Finnish ski resorts compared
 - Levi vs Rovaniemi: ski resort vs city experience
+- Levi vs Saariselkä: ski resort vs national park destination
+- Best time to visit Levi (month-by-month breakdown)
 
 ### Other
 - Prices in Levi (accommodation, food, activities, ski passes)
@@ -353,6 +356,7 @@ Guests must complete a 3-step process before using the fireplace:
 - Lapland glossary (Finnish/Sámi terms)
 - Northern lights guide and forecasts
 - Holiday planner tool
+- Outdoor hot tub guide (using a hot tub in winter, safety tips)
 
 ---
 
@@ -383,7 +387,7 @@ Guests must complete a 3-step process before using the fireplace:
 - `/opas/matkaopas-levi` — Matkaopas (Travel Hub)
 - `/opas/talvivarusteet-leville` — Talvivarusteet (Winter Clothing)
 - `/opas/laskettelu-levi` — Laskettelu (Skiing)
-- `/opas/hiihto-levi` — Hiihto (Cross-Country)
+- `/opas/hiihtoladut-levi` — Hiihto (Cross-Country)
 - `/opas/talvi-levi` — Talvi (Winter)
 - `/opas/kevat-levi` — Kevät (Spring)
 - `/opas/kesa-levi` — Kesä (Summer)
@@ -398,12 +402,17 @@ Guests must complete a 3-step process before using the fireplace:
 - `/opas/sauna-levilla` — Sauna Levillä (Sauna Guide)
 - `/opas/lapin-sanasto` — Lapin sanasto (Glossary)
 - `/opas/hinnat-levilla` — Hinnat (Prices)
+- `/opas/miksi-valita-levi` — Miksi valita Levi (Why Choose Levi Hub)
+- `/opas/paras-aika-matkustaa-leville` — Paras aika matkustaa (Best Time to Visit)
+- `/opas/levi-vs-saariselka` — Levi vs Saariselkä
+- `/opas/ulkoporeallas-levilla` — Ulkoporeallas (Outdoor Hot Tub Guide)
 
 ### Finnish Activities (fi)
 - `/aktiviteetit/moottorikelkkasafari-vinkit-levi` — Moottorikelkka (Snowmobile)
 - `/aktiviteetit/koiravaljakkoajelu-levi` — Koiravaljakko (Husky Safari)
 - `/aktiviteetit/vaellus-ja-maastopyoraily-levi` — Vaellus (Hiking & Biking)
 - `/aktiviteetit/parhaat-talviaktiviteetit-levi` — Parhaat talviaktiviteetit (Top Winter Activities)
+- `/aktiviteetit/porosafari-levi` — Porosafari (Reindeer Safari)
 - `/matka/miten-paasee-leville-helsingista` — Miten pääsee Leville (How to Get)
 
 ### English (en)
@@ -445,12 +454,17 @@ Guests must complete a 3-step process before using the fireplace:
 - `/guide/lapland-glossary` — Lapland Glossary
 - `/guide/prices-in-levi` — Prices
 - `/en/guide/christmas-dinner-in-levi` — Christmas Dinner
+- `/guide/why-choose-levi` — Why Choose Levi (Comparison Hub)
+- `/guide/best-time-to-visit-levi` — Best Time to Visit Levi
+- `/guide/levi-vs-saariselka-comparison` — Levi vs Saariselkä
+- `/guide/outdoor-hot-tub-levi-cabin` — Outdoor Hot Tub Guide
 
 ### English Activities (en)
 - `/activities/snowmobile-safari-tips-levi` — Snowmobile Safari
 - `/activities/husky-safari-levi` — Husky Safari
 - `/activities/hiking-and-biking-levi` — Hiking & Biking
 - `/activities/top-winter-activities-in-levi-lapland` — Top Winter Activities
+- `/activities/reindeer-safari-levi` — Reindeer Safari
 - `/travel/how-to-get-to-levi-from-helsinki-and-abroad` — How to Get to Levi
 
 ### English Apartments (en) — Programmatic SEO
@@ -560,6 +574,13 @@ Guests must complete a 3-step process before using the fireplace:
 - `/fr/guide/levi-vs-rovaniemi` — FR comparison
 - `/es/guia/levi-vs-yllas-vs-ruka` — ES comparison
 - `/es/guia/levi-vs-rovaniemi` — ES comparison
+
+### Why Choose Levi Hub (multilingual)
+- `/sv/guide/why-choose-levi` — SV comparison hub
+- `/de/guide/why-choose-levi` — DE comparison hub
+- `/es/guia/why-choose-levi` — ES comparison hub
+- `/fr/guide/why-choose-levi` — FR comparison hub
+- `/nl/gids/waarom-levi-kiezen` — NL comparison hub
 
 ### Accommodation Guides (unlisted / internal)
 - `/accommodations/guides/bearlodge` — Bear Lodge Guide (EN)
