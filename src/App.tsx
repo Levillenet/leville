@@ -55,6 +55,7 @@ const AutumnRuskaInLevi = lazy(() => import("./pages/guide/AutumnRuskaInLevi"));
 const SeasonsHub = lazy(() => import("./pages/guide/SeasonsHub"));
 const ActivitiesHub = lazy(() => import("./pages/guide/ActivitiesHub"));
 const TravelHub = lazy(() => import("./pages/guide/TravelHub"));
+const ComparisonHub = lazy(() => import("./pages/guide/ComparisonHub"));
 
 // Travel HUB Child Pages
 const GettingAroundLevi = lazy(() => import("./pages/guide/GettingAroundLevi"));
