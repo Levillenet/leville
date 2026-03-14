@@ -395,6 +395,11 @@ const App = () => {
               <Route path="/fr/guide/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="fr" />} />
               <Route path="/es/guia/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="es" />} />
               <Route path="/es/guia/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="es" />} />
+              {/* Comparison HUB - other languages */}
+              <Route path="/sv/guide/why-choose-levi" element={<ComparisonHub lang="sv" />} />
+              <Route path="/de/guide/why-choose-levi" element={<ComparisonHub lang="de" />} />
+              <Route path="/fr/guide/why-choose-levi" element={<ComparisonHub lang="fr" />} />
+              <Route path="/es/guia/why-choose-levi" element={<ComparisonHub lang="es" />} />
               <Route path="/guide/finnish-sauna-in-levi" element={<FinnishSaunaLevi />} />
               <Route path="/en/guide/christmas-dinner-in-levi" element={<ChristmasDinnerLevi />} />
               {/* Holiday Planner */}
