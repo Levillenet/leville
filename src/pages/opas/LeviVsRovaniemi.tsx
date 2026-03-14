@@ -19,7 +19,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
-import SnowComparisonChart from "@/components/SnowComparisonChart";
+
 
 const LeviVsRovaniemi = () => {
   const location = useLocation();
