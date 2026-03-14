@@ -194,6 +194,7 @@ const iconMap: Record<string, typeof Plane> = {
   footprints: Footprints,
   thermometer: Thermometer,
   flame: Flame,
+  droplets: Droplets,
   book: BookOpen,
   euro: Euro
 };
