@@ -73,6 +73,8 @@ serve(async (req) => {
         // Parse XML to extract snow depth data
         const snowData = parseSnowDataFromXml(xmlText, startYear);
         
+        console.log(`${place} year ${startYear}: found ${snowData.length} snow data points`);
+        
         if (snowData.length > 0) {
           allData.push(...snowData);
           yearsWithData.push(startYear);
