@@ -25,8 +25,9 @@ serve(async (req) => {
     const endDay = parseInt(url.searchParams.get("endDay") || "6");
     const endMonth = parseInt(url.searchParams.get("endMonth") || "12");
     const years = parseInt(url.searchParams.get("years") || "10");
+    const place = url.searchParams.get("place") || "Kittilä";
 
-    console.log(`Fetching snow data: ${startDay}.${startMonth} - ${endDay}.${endMonth}, ${years} years`);
+    console.log(`Fetching snow data for ${place}: ${startDay}.${startMonth} - ${endDay}.${endMonth}, ${years} years`);
 
     const currentYear = new Date().getFullYear();
     const allData: SnowDataPoint[] = [];
@@ -55,7 +56,7 @@ serve(async (req) => {
         continue;
       }
 
-      const fmiUrl = `https://opendata.fmi.fi/wfs?request=GetFeature&storedquery_id=fmi::observations::weather::daily::simple&place=Kittil%C3%A4&starttime=${startDate}&endtime=${endDate}`;
+      const fmiUrl = `https://opendata.fmi.fi/wfs?request=GetFeature&storedquery_id=fmi::observations::weather::daily::simple&place=${encodeURIComponent(place)}&starttime=${startDate}&endtime=${endDate}`;
       
       console.log(`Fetching FMI data for ${startYear}: ${fmiUrl}`);
 

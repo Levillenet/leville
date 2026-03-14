@@ -23,6 +23,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import SnowComparisonChart from "@/components/SnowComparisonChart";
 
 import type { Language } from "@/translations";
 import { routeConfig } from "@/translations";
@@ -260,6 +261,7 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                 Levi consistently has more snow, it arrives earlier and melts later than in Rovaniemi. In the Kittilä region, the first permanent snow typically falls in October, while Rovaniemi often doesn't see lasting snow cover until November. In spring, Rovaniemi's snow melts in April, while Levi still offers skiing and cross-country well into May. In midwinter, the snow depth difference can reach 30–40 cm in Levi's favour. <strong className="text-foreground">If snow is an important part of your holiday – whether for skiing, snowmobiling, snowshoeing or the kids playing in powder – the choice is clear: Levi.</strong>
               </p>
+              <SnowComparisonChart lang="en" />
               <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 mt-4">
                 <p className="text-sm text-muted-foreground">
                   📊 <strong className="text-foreground">Compare for yourself:</strong> See historical snow depth data for the Levi area in our interactive chart and compare snow conditions across different years for any date range.{" "}
