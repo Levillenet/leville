@@ -576,7 +576,7 @@ const LeviWithoutCar = ({ lang = "fi" }: LeviWithoutCarProps) => {
         
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
-        <StickyBookingBar lang={lang} />
+        
       </div>
     </>
   );
