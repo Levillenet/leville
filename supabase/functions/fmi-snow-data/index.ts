@@ -56,25 +56,30 @@ serve(async (req) => {
         continue;
       }
 
-      const fmiUrl = `https://opendata.fmi.fi/wfs?request=GetFeature&storedquery_id=fmi::observations::weather::daily::simple&place=${encodeURIComponent(place)}&starttime=${startDate}&endtime=${endDate}`;
-      
-      console.log(`Fetching FMI data for ${startYear}: ${fmiUrl}`);
+      const primaryUrl = buildFmiUrl({ place, startDate, endDate });
+      console.log(`Fetching FMI data for ${startYear}: ${primaryUrl}`);
 
       try {
-        const response = await fetch(fmiUrl);
-        
-        if (!response.ok) {
-          console.error(`FMI API error for year ${startYear}: ${response.status}`);
-          continue;
+        let snowData = await fetchSnowDataFromFmi(primaryUrl, startYear);
+        let nonNullCount = snowData.filter((point) => point.snow !== null).length;
+
+        // Rovaniemi city query often resolves to a station with missing snow depth values.
+        // If that happens, fall back to nearby stations and combine them.
+        if (place.toLowerCase() === "rovaniemi" && nonNullCount === 0) {
+          const fallbackUrl = buildFmiUrl({
+            bbox: "25.2,66.3,26.2,66.8",
+            maxLocations: 10,
+            startDate,
+            endDate,
+          });
+
+          console.log(`Rovaniemi fallback to bbox for ${startYear}: ${fallbackUrl}`);
+          snowData = await fetchSnowDataFromFmi(fallbackUrl, startYear);
+          nonNullCount = snowData.filter((point) => point.snow !== null).length;
         }
 
-        const xmlText = await response.text();
-        
-        // Parse XML to extract snow depth data
-        const snowData = parseSnowDataFromXml(xmlText, startYear);
-        
-        console.log(`${place} year ${startYear}: found ${snowData.length} snow data points`);
-        
+        console.log(`${place} year ${startYear}: found ${snowData.length} snow data points (${nonNullCount} with values)`);
+
         if (snowData.length > 0) {
           allData.push(...snowData);
           yearsWithData.push(startYear);
@@ -131,6 +136,38 @@ serve(async (req) => {
   }
 });
 
+function buildFmiUrl(options: {
+  startDate: string;
+  endDate: string;
+  place?: string;
+  bbox?: string;
+  maxLocations?: number;
+}) {
+  const params = new URLSearchParams({
+    request: "GetFeature",
+    storedquery_id: "fmi::observations::weather::daily::simple",
+    starttime: options.startDate,
+    endtime: options.endDate,
+  });
+
+  if (options.place) params.set("place", options.place);
+  if (options.bbox) params.set("bbox", options.bbox);
+  if (options.maxLocations) params.set("maxlocations", String(options.maxLocations));
+
+  return `https://opendata.fmi.fi/wfs?${params.toString()}`;
+}
+
+async function fetchSnowDataFromFmi(fmiUrl: string, year: number): Promise<SnowDataPoint[]> {
+  const response = await fetch(fmiUrl);
+
+  if (!response.ok) {
+    throw new Error(`FMI API error: ${response.status}`);
+  }
+
+  const xmlText = await response.text();
+  return parseSnowDataFromXml(xmlText, year);
+}
+
 function parseSnowDataFromXml(xmlText: string, year: number): SnowDataPoint[] {
   const snowData: SnowDataPoint[] = [];
   
@@ -138,8 +175,9 @@ function parseSnowDataFromXml(xmlText: string, year: number): SnowDataPoint[] {
   const memberRegex = /<BsWfs:BsWfsElement[^>]*>([\s\S]*?)<\/BsWfs:BsWfsElement>/g;
   let memberMatch;
   
-  // Temporary storage to group by time
-  const timeDataMap = new Map<string, { time: string; snow: number | null }>();
+  // Temporary storage to group by time. For bbox queries there can be multiple stations
+  // per timestamp, so we aggregate all numeric snow values.
+  const timeDataMap = new Map<string, number[]>();
   
   while ((memberMatch = memberRegex.exec(xmlText)) !== null) {
     const memberContent = memberMatch[1];
@@ -157,25 +195,33 @@ function parseSnowDataFromXml(xmlText: string, year: number): SnowDataPoint[] {
       const value = valueMatch[1];
       
       // We're only interested in snow depth
-      if (param === "snow") {
-        const snowValue = value === "NaN" ? null : parseFloat(value);
-        timeDataMap.set(time, { time, snow: snowValue });
+      if (param === "snow" && value !== "NaN") {
+        const snowValue = parseFloat(value);
+        if (!isNaN(snowValue)) {
+          if (!timeDataMap.has(time)) {
+            timeDataMap.set(time, []);
+          }
+          timeDataMap.get(time)!.push(snowValue);
+        }
       }
     }
   }
   
-  // Convert to array format
-  for (const [time, data] of timeDataMap) {
+  // Convert to array format (average by date if multiple stations are present)
+  for (const [time, values] of timeDataMap) {
+    if (values.length === 0) continue;
+
     const date = new Date(time);
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const dayMonth = `${String(day).padStart(2, "0")}.${String(month).padStart(2, "0")}`;
+    const avgSnow = values.reduce((sum, value) => sum + value, 0) / values.length;
     
     snowData.push({
       year,
       date: time,
       dayMonth,
-      snow: data.snow,
+      snow: Math.round(avgSnow * 10) / 10,
     });
   }
   
