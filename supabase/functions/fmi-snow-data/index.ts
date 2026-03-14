@@ -25,8 +25,9 @@ serve(async (req) => {
     const endDay = parseInt(url.searchParams.get("endDay") || "6");
     const endMonth = parseInt(url.searchParams.get("endMonth") || "12");
     const years = parseInt(url.searchParams.get("years") || "10");
+    const place = url.searchParams.get("place") || "Kittilä";
 
-    console.log(`Fetching snow data: ${startDay}.${startMonth} - ${endDay}.${endMonth}, ${years} years`);
+    console.log(`Fetching snow data for ${place}: ${startDay}.${startMonth} - ${endDay}.${endMonth}, ${years} years`);
 
     const currentYear = new Date().getFullYear();
     const allData: SnowDataPoint[] = [];
