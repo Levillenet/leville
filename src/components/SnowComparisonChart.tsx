@@ -155,11 +155,11 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
 
         // Merge all dates
         const allDates = new Set([...kAvg.keys(), ...rAvg.keys()]);
-        const sorted = sortOctToApr(Array.from(allDates));
+        const sorted = sortOctToMay(Array.from(allDates));
 
         const points: ChartPoint[] = sorted.map((date) => ({
           date,
-          kittila: kAvg.get(date) ?? null,
+          levi: kAvg.get(date) ?? null,
           rovaniemi: rAvg.get(date) ?? null,
         }));
 
