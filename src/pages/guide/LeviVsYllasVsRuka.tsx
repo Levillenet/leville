@@ -16,7 +16,7 @@ import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-  Mountain, ArrowRight, Check, Snowflake, Plane, Heart,
+  Mountain, ArrowRight, Check, Plane, Heart,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import WhatsAppChat from "@/components/WhatsAppChat";
