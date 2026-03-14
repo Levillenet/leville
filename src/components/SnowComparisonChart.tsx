@@ -229,19 +229,19 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
               fontSize: 12,
             }}
             formatter={(value: number, name: string) => {
-              const label = name === "kittila" ? t.kittila : t.rovaniemi;
+              const label = name === "levi" ? t.levi : t.rovaniemi;
               return [`${value} cm`, label];
             }}
             labelFormatter={(label: string) => label}
           />
           <Legend
             formatter={(value: string) =>
-              value === "kittila" ? t.kittila : t.rovaniemi
+              value === "levi" ? t.levi : t.rovaniemi
             }
           />
           <Area
             type="monotone"
-            dataKey="kittila"
+            dataKey="levi"
             stroke="hsl(var(--primary))"
             fill="hsl(var(--primary) / 0.2)"
             strokeWidth={2}
