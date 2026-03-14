@@ -15,12 +15,12 @@ const StickyBookingBar = ({ lang = "fi" }: StickyBookingBarProps) => {
 
   const text: Record<Language, string> = {
     fi: "Varaa Levin lomasi tästä!",
-    en: "Book now",
-    sv: "Boka nu",
-    de: "Jetzt buchen",
-    es: "Reservar ahora",
-    fr: "Réserver maintenant",
-    nl: "Nu boeken",
+    en: "Book your Levi holiday here!",
+    sv: "Boka din Levi-semester här!",
+    de: "Buchen Sie Ihren Levi-Urlaub hier!",
+    es: "¡Reserva tus vacaciones en Levi aquí!",
+    fr: "Réservez vos vacances à Levi ici !",
+    nl: "Boek uw Levi-vakantie hier!",
   };
 
   return (
