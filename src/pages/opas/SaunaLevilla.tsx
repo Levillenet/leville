@@ -164,7 +164,7 @@ const SaunaLevilla = () => {
   const etiquette = [
     { icon: CheckCircle, text: "Peseytyminen ensin – Käy suihkussa ennen saunaan menoa. Tämä on ehdoton sääntö.", ok: true },
     { icon: CheckCircle, text: "Alastomuus on normaalia – Suomalaisessa saunassa ollaan perinteisesti alasti, mutta uimapuku tai pyyhe on täysin hyväksyttävää, erityisesti mökkisaunassa vieraiden kanssa.", ok: true },
-    { icon: CheckCircle, text: "Istu pyyhkeen päällä – Lauta on kuuma. Ota pyyhe alleen.", ok: true },
+    { icon: CheckCircle, text: "Käytä laudealustaa – Useimmissa majoituksissa on kertakäyttöisiä laudealustoja hygieniasyistä. Laude ei yleensä ole kovin kuuma, mutta voit hieman kastella sitä kylmällä vedellä ennen istumista.", ok: true },
     { icon: CheckCircle, text: "Löylyjä maltillisesti – Aloita pienellä vesimäärällä kiukaalle. Voit lisätä jos haluat lisää kuumuutta. Kysy muilta saunojilta ennen kuin heität lisää löylyä.", ok: true },
     { icon: CheckCircle, text: "Jäähdyttely – Käy välillä ulkona vilvoittelemassa. Talvella voit astua terassille tai pulahtaa avantoon.", ok: true },
     { icon: CheckCircle, text: "Juo vettä – Saunominen kuivattaa. Juo vettä ennen, aikana ja jälkeen.", ok: true },
