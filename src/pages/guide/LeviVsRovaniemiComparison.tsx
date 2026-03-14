@@ -253,15 +253,14 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">Snow Depth & Snow Reliability</h2>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                Levi's location 170 km north of the Arctic Circle means a longer and more snow-reliable winter than Rovaniemi. The ski season and cross-country trails open in Levi as early as October with machine-made snow, and natural snow typically arrives by early December. Snow stays until May. Snow depth peaks at 80–100 centimetres, ensuring excellent conditions throughout the long season.
+                Both Levi and Rovaniemi have snow in winter – they are both genuine Lapland winter destinations. The most significant difference is at the start and end of the season. Levi's location 170 km north of the Arctic Circle means permanent snow cover typically arrives in October, while Rovaniemi often doesn't see lasting snow until November. In spring, the pattern repeats: Rovaniemi's snow melts in April, while Levi still offers skiing and cross-country well into May.
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                Rovaniemi sits near the Arctic Circle, about 170 km further south. This translates to a noticeably shorter snow season and thinner snow cover – especially in early winter and spring, the difference can be significant. A thick blanket of snow is not always guaranteed in Rovaniemi for the Christmas season, while Levi virtually always has plenty of snow in December.
+                In midwinter, both destinations have plenty of snow, but Levi's snow depth is noticeably greater – the difference can reach 30–40 cm. The snow quality is also better at Levi thanks to the colder climate. The ski season and cross-country trails open in Levi as early as October with machine-made snow, and natural snow is typically abundant by early December. Snow depth peaks at 80–100 centimetres.
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                Levi consistently has more snow, it arrives earlier and melts later than in Rovaniemi. In the Kittilä region, the first permanent snow typically falls in October, while Rovaniemi often doesn't see lasting snow cover until November. In spring, Rovaniemi's snow melts in April, while Levi still offers skiing and cross-country well into May. In midwinter, the snow depth difference can reach 30–40 cm in Levi's favour. <strong className="text-foreground">If snow is an important part of your holiday – whether for skiing, snowmobiling, snowshoeing or the kids playing in powder – the choice is clear: Levi.</strong>
+                In Rovaniemi, a thick blanket of snow is not always guaranteed for the Christmas season, while December in Levi is virtually always snowy. <strong className="text-foreground">If snow reliability is important for your holiday – especially at the start or end of the season – Levi is clearly the safer choice.</strong>
               </p>
-              <SnowComparisonChart lang="en" />
               <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 mt-4">
                 <p className="text-sm text-muted-foreground">
                   📊 <strong className="text-foreground">Compare for yourself:</strong> See historical snow depth data for the Levi area in our interactive chart and compare snow conditions across different years for any date range.{" "}
