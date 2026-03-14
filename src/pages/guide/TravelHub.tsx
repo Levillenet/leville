@@ -58,6 +58,7 @@ const content: Record<Language, {
       { id: "car-free", title: "Levi ilman autoa", description: "Miten saavut ja liikut Levillä ilman omaa autoa. Skibussit, kävelyetäisyydet ja keskustamajoitus.", href: "/opas/levi-ilman-autoa", iconKey: "footprints" },
       { id: "heating", title: "Lämmitys mökeissä ja huoneistoissa", description: "Näin toimivat lämmitysjärjestelmät Levillä. Sähköpatterit, lattialämmitys, takat ja ilmalämpöpumput.", href: "/opas/lammitysjarjestelmat-levi", iconKey: "thermometer" },
       { id: "sauna", title: "Saunaopas", description: "Saunakulttuuri, sähkökiukaan käyttöohje ja ainutlaatuiset saunaelämykset Levillä.", href: "/opas/sauna-levilla", iconKey: "flame" },
+      { id: "hot-tub", title: "Ulkoporeallas mökissä", description: "Mitä vieraan on hyvä tietää ulkoporealtaan käytöstä mökkimajoituksessa Levillä.", href: "/opas/ulkoporeallas-levilla", iconKey: "droplets" },
       { id: "glossary", title: "Lapin sanasto", description: "40+ suomalaista sanaa selityksineen – tykkylumi, kuksa, poronkäristys ja muut.", href: "/opas/lapin-sanasto", iconKey: "book" },
       { id: "prices", title: "Hinnat Levillä", description: "Hissilippujen, ravintoloiden, aktiviteettien ja ruokakauppojen hinnat. Suunnittele budjettisi etukäteen.", href: "/opas/hinnat-levilla", iconKey: "euro" }
     ]
