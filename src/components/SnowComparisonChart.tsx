@@ -145,7 +145,7 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
       try {
         const [kittila, rovaniemi] = await Promise.all([
           fetchSnowData("Kittilä"),
-          fetchSnowData("Rovaniemi lentoasema"),
+          fetchSnowData("Rovaniemi"),
         ]);
 
         if (cancelled) return;
@@ -249,8 +249,8 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
           <Area
             type="monotone"
             dataKey="rovaniemi"
-            stroke="hsl(var(--accent-foreground))"
-            fill="hsl(var(--accent) / 0.3)"
+            stroke="hsl(var(--foreground))"
+            fill="hsl(var(--foreground) / 0.12)"
             strokeWidth={2}
             strokeDasharray="5 3"
             dot={false}
@@ -261,8 +261,8 @@ const SnowComparisonChart = ({ lang = "fi" }: SnowComparisonChartProps) => {
 
       <p className="text-[10px] text-muted-foreground mt-2 text-center">
         {lang === "fi"
-          ? "Lähde: Ilmatieteen laitos (FMI), Kittilä Pakatti & Rovaniemi Apukka"
-          : "Source: Finnish Meteorological Institute (FMI), Kittilä Pakatti & Rovaniemi Apukka"}
+          ? "Lähde: Ilmatieteen laitos (FMI), Levi/Kittilä & Rovaniemi"
+          : "Source: Finnish Meteorological Institute (FMI), Levi/Kittilä & Rovaniemi"}
       </p>
     </div>
   );
