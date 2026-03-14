@@ -14,7 +14,7 @@ import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-  Mountain, ArrowRight, Check, Plane, Heart, Lightbulb, MapPin, TreePine,
+  Mountain, ArrowRight, Check, Plane, Heart, Lightbulb, MapPin,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import WhatsAppChat from "@/components/WhatsAppChat";
@@ -507,8 +507,8 @@ const LeviVsRovaniemi = () => {
               <div className="grid sm:grid-cols-3 gap-4">
                 {[
                   { title: "Levi vs. Ylläs vs. Ruka", href: "/opas/levi-vs-yllas-vs-ruka", icon: Mountain },
+                  { title: "Levi vs. Saariselkä", href: "/opas/levi-vs-saariselka", icon: Mountain },
                   { title: "Miten pääsee Leville", href: "/matka/miten-paasee-leville-helsingista", icon: Plane },
-                  { title: "Joulu Lapissa", href: "/levi/joulu-lapissa", icon: TreePine },
                 ].map((link, idx) => (
                   <Link key={idx} to={link.href}>
                     <Card className="glass-card border-border/30 hover:border-primary/50 transition-colors h-full">

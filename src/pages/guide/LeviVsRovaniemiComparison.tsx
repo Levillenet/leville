@@ -531,8 +531,8 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
                   title: "Read Next",
                   links: [
                     { title: "Levi vs Ylläs vs Ruka", desc: "Compare Finland's top 3 ski resorts", href: "/guide/levi-vs-yllas-vs-ruka-comparison" },
+                    { title: "Levi vs Saariselkä", desc: "Lively resort or peaceful wilderness?", href: "/guide/levi-vs-saariselka-comparison" },
                     { title: "How to Get to Levi", desc: "Flights, trains and driving", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
-                    { title: "Top Winter Activities", desc: "What to do in Levi", href: "/activities/top-winter-activities-in-levi-lapland" },
                     { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
                   ],
                 },

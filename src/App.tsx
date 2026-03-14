@@ -68,6 +68,8 @@ const LeviVsYllasVsRuka = lazy(() => import("./pages/guide/LeviVsYllasVsRuka"));
 const LeviVsYllasVsRukaEN = lazy(() => import("./pages/guide/LeviVsYllasVsRukaEN"));
 const LeviVsRovaniemi = lazy(() => import("./pages/opas/LeviVsRovaniemi"));
 const LeviVsRovaniemiComparison = lazy(() => import("./pages/guide/LeviVsRovaniemiComparison"));
+const LeviVsSaariselka = lazy(() => import("./pages/opas/LeviVsSaariselka"));
+const LeviVsSaariselkaComparison = lazy(() => import("./pages/guide/LeviVsSaariselkaComparison"));
 const SaunaLevilla = lazy(() => import("./pages/opas/SaunaLevilla"));
 const FinnishSaunaLevi = lazy(() => import("./pages/guide/FinnishSaunaLevi"));
 const ChristmasDinnerLevi = lazy(() => import("./pages/guide/ChristmasDinnerLevi"));
@@ -365,6 +367,7 @@ const App = () => {
               <Route path="/opas/lammitysjarjestelmat-levi" element={<HeatingSystemsInLevi />} />
               <Route path="/opas/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRuka />} />
               <Route path="/opas/levi-vs-rovaniemi" element={<LeviVsRovaniemi />} />
+              <Route path="/opas/levi-vs-saariselka" element={<LeviVsSaariselka />} />
               <Route path="/opas/sauna-levilla" element={<SaunaLevilla />} />
               <Route path="/opas/lapin-sanasto" element={<LaplandGlossary />} />
               <Route path="/opas/hinnat-levilla" element={<LevinHinnatPage />} />
@@ -376,6 +379,7 @@ const App = () => {
               <Route path="/guide/heating-systems-in-levi" element={<HeatingSystemsInLevi lang="en" />} />
               <Route path="/guide/levi-vs-yllas-vs-ruka-comparison" element={<LeviVsYllasVsRukaEN />} />
               <Route path="/guide/levi-vs-rovaniemi-comparison" element={<LeviVsRovaniemiComparison />} />
+              <Route path="/guide/levi-vs-saariselka-comparison" element={<LeviVsSaariselkaComparison />} />
               <Route path="/guide/lapland-glossary" element={<LaplandGlossary lang="en" />} />
               <Route path="/guide/prices-in-levi" element={<PricesInLeviPage />} />
               {/* Comparison pages - NL/DE/FR/ES */}
