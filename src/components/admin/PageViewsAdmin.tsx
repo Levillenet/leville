@@ -124,6 +124,23 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   const [loading, setLoading] = useState(true);
   const [csvLoading, setCsvLoading] = useState(false);
   const [period, setPeriod] = useState<Period>("30days");
+  const [liveUsers, setLiveUsers] = useState<{ activeUsers: number; topPages: Array<{ path: string; count: number }> } | null>(null);
+
+  const fetchLive = useCallback(async () => {
+    try {
+      const password = localStorage.getItem("admin_password");
+      if (!password) return;
+      const { data, error } = await supabase.functions.invoke("get-page-view-stats", { body: { password, action: "live" } });
+      if (!error && data) setLiveUsers(data);
+    } catch { /* silent */ }
+  }, []);
+
+  // Poll live users every 30s
+  useEffect(() => {
+    fetchLive();
+    const interval = setInterval(fetchLive, 30000);
+    return () => clearInterval(interval);
+  }, [fetchLive]);
 
   const fetchStats = async (p: Period = period) => {
     setLoading(true);
