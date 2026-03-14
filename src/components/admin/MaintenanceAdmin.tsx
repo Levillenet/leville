@@ -575,7 +575,30 @@ const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
             <div className="flex items-center gap-2">
               <Switch
                 checked={isEnabled}
-                onCheckedChange={setIsEnabled}
+                onCheckedChange={async (checked) => {
+                  setIsEnabled(checked);
+                  try {
+                    await supabase.functions.invoke('maintenance-settings', {
+                      body: {
+                        action: 'update_setting',
+                        data: {
+                          id: 'worklist_enabled',
+                          value: { enabled: checked }
+                        }
+                      }
+                    });
+                    toast({
+                      title: checked ? "Automaattinen lähetys päällä" : "Automaattinen lähetys pois päältä",
+                    });
+                  } catch (error) {
+                    setIsEnabled(!checked); // Revert on error
+                    toast({
+                      title: "Virhe",
+                      description: "Asetuksen tallennus epäonnistui",
+                      variant: "destructive"
+                    });
+                  }
+                }}
               />
               <Label>Automaattinen lähetys päällä</Label>
             </div>
