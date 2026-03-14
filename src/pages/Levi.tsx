@@ -376,14 +376,14 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     nl: "/en/levi/weather-in-levi"
   };
 
-  const comparisonLinks: Record<Language, { yllas: string; rovaniemi: string; saariselka: string }> = {
-    fi: { yllas: "/opas/levi-vs-yllas-vs-ruka", rovaniemi: "/opas/levi-vs-rovaniemi", saariselka: "/opas/levi-vs-saariselka" },
-    en: { yllas: "/guide/levi-vs-yllas-vs-ruka-comparison", rovaniemi: "/guide/levi-vs-rovaniemi-comparison", saariselka: "/guide/levi-vs-saariselka-comparison" },
-    sv: { yllas: "/guide/levi-vs-yllas-vs-ruka-comparison", rovaniemi: "/guide/levi-vs-rovaniemi-comparison", saariselka: "/guide/levi-vs-saariselka-comparison" },
-    de: { yllas: "/de/guide/levi-vs-yllas-vs-ruka", rovaniemi: "/de/guide/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
-    es: { yllas: "/es/guia/levi-vs-yllas-vs-ruka", rovaniemi: "/es/guia/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
-    fr: { yllas: "/fr/guide/levi-vs-yllas-vs-ruka", rovaniemi: "/fr/guide/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
-    nl: { yllas: "/nl/gids/levi-vs-yllas-vs-ruka", rovaniemi: "/nl/gids/levi-vs-rovaniemi", saariselka: "/guide/levi-vs-saariselka-comparison" },
+  const comparisonHubLinks: Record<Language, string> = {
+    fi: "/opas/miksi-valita-levi",
+    en: "/guide/why-choose-levi",
+    sv: "/guide/why-choose-levi",
+    de: "/guide/why-choose-levi",
+    es: "/guide/why-choose-levi",
+    fr: "/guide/why-choose-levi",
+    nl: "/nl/gids/waarom-levi-kiezen",
   };
 
   const c = content[lang];
