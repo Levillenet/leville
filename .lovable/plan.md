@@ -1,20 +1,37 @@
 
 
-## Korjaukset Levi vs. Saariselkä -sivulle (FI)
+# GA4-tapahtumaseuranta majoitushauille
 
-### Muutokset
+## Muutos
 
-1. **Otsikko**: "vilkas tunturikylä vai rauhallinen erämaa?" → "vilkkaampi tunturikylä vai rauhaisaa hiljaista oleilua?"
-2. **Poista "rehellinen"**: meta description, alaotsikko, structured data — kaikki "rehellinen" pois
-3. **Saariselkä-kortti**: "aito erämaakokemus" → "vähemmän palveluja, mutta rauhaisaa tunnelmaa"
-4. **Levi-kortti**: Poista "Suosittelemme" badge laskettelu-taulukosta ja "Kumpi valita?" -osiosta. Korostukset (border, värit) saa jäädä.
-5. **Taivutusvirheet**: "Saariselkän" → "Saariselän" kaikkialla (genetiivi), "Saariselkään" → "Saariselälle" (allatiivi) kaikkialla — tarkistetaan koko tiedosto
-6. **Kaupat-vertailu**: Saariselän kohta "Pieni valikoima peruspalveluja" → "Peruskaupat ja hyvä valikoima etenkin ruokakaupassa"
-7. **Erikoisattraktiot**: "Erikoisattraktiot" → "Erikoisemmat aktiviteetit" (taulukossa)
-8. **Lasten aktiviteetit Levi**: "10 ilmaista hissiä" → "10 lapsille sopivaa hissiä, vesipuisto" + FAQ-kohdassa sama korjaus + lisäys kesäaktiviteeteista (seikkailuradat, kesäkelkkarata, padel, tennis)
-9. **Poista kokonaan**: "Paikallisen näkemys" -lainausosio (rivit 387–411)
-10. **Lisää "Lue myös" -linkkejä**: Saunakulttuuri (/opas/saunakulttuuri-levilla), Paras aika matkustaa (/opas/paras-aika-matkustaa-leville), Pakkauslista (/opas/pakkauslista-lapin-lomalle)
+Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
 
-### Tiedostot
-- `src/pages/opas/LeviVsSaariselka.tsx` — kaikki muutokset yhteen tiedostoon
+## Toteutus
+
+Tiedosto: `src/components/ModerBookingWidget.tsx`
+
+`showLoadingOverlay`-funktion alkuun lisataan:
+
+```typescript
+if (typeof window !== 'undefined' && (window as any).gtag) {
+  (window as any).gtag('event', 'accommodation_search', {
+    event_category: 'booking',
+    event_label: lang,
+    page_location: window.location.pathname,
+  });
+}
+```
+
+Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+
+## Missa naet tulokset
+
+Google Analytics 4 -hallintapaneelissa (analytics.google.com):
+- **Reaaliaikainen testaus:** Reports > Realtime
+- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+
+## Ei muita muutoksia
+- Ei uusia riippuvuuksia
+- GA4-skripti on jo ladattu index.html:ssa
+- Yksi tiedosto muuttuu, yksi rivi lisataan
 

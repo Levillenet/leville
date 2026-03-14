@@ -14,9 +14,8 @@ import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-  Mountain, ArrowRight, Check, Plane, Heart, Lightbulb, MapPin,
+  Mountain, ArrowRight, Check, Plane, Heart, MapPin, Snowflake, BookOpen,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 
@@ -41,7 +40,7 @@ const LeviVsSaariselka = () => {
     },
     {
       q: "Kumpi sopii paremmin perheille?",
-      a: "Molemmat sopivat perheille, mutta Levillä on selvästi enemmän oheispalveluja: 10 ilmaista lastenhissiä, Leevilandia, vesipuisto LeviWaterWorld, Arcandia-elämyskeskus ja laaja valikoima erilaisia aktiviteetteja. Saariselkä on rauhallisempi ja sopii perheille, jotka arvostavat hiljaisuutta ja luontoa.",
+      a: "Molemmat sopivat perheille, mutta Levillä on selvästi enemmän oheispalveluja: 10 lapsille sopivaa hissiä, Leevilandia, vesipuisto LeviWaterWorld, Arcandia-elämyskeskus ja laaja valikoima erilaisia aktiviteetteja. Kesällä Levillä on lisäksi seikkailuratoja, kesäkelkkarata, padel- ja tenniskentät. Saariselkä on rauhallisempi ja sopii perheille, jotka arvostavat hiljaisuutta ja luontoa.",
     },
     {
       q: "Kummassa on paremmat revontulet?",
@@ -52,8 +51,8 @@ const LeviVsSaariselka = () => {
       a: "Kyllä – Saariselkä Ski & Sport Resort markkinoi itseään Euroopan pohjoisimpana hiihtokeskuksena. Sijainti on ainutlaatuinen, mutta rinteiden määrä ja koko on vaatimattomampi verrattuna esimerkiksi Leviin tai Rukaan.",
     },
     {
-      q: "Pääseekö Saariselkään junalla?",
-      a: "Ei suoraan. Lähin rautatieasema on Rovaniemellä, josta Saariselkään on vielä noin 260 km bussimatka. Levillä lähin juna-asema on Kolari (~1h siirtymä). Molempiin on helpointa lentää – Ivalon lentokenttä palvelee Saariselkää, Kittilä Leviä.",
+      q: "Pääseekö Saariselälle junalla?",
+      a: "Ei suoraan. Lähin rautatieasema on Rovaniemellä, josta Saariselälle on vielä noin 260 km bussimatka. Levillä lähin juna-asema on Kolari (~1h siirtymä). Molempiin on helpointa lentää – Ivalon lentokenttä palvelee Saariselkää, Kittilä Leviä.",
     },
   ];
 
@@ -65,25 +64,25 @@ const LeviVsSaariselka = () => {
       <Helmet>
         <html lang="fi" />
         <title>Levi vs. Saariselkä – Kumpi Lapin kohde sopii sinulle? | Leville.net</title>
-        <meta name="description" content="Levi vai Saariselkä? Rehellinen vertailu kahdesta suositusta Lapin matkakohteesta. Rinteet, ladut, aktiviteetit, tunnelma ja saavutettavuus." />
+        <meta name="description" content="Levi vai Saariselkä? Vertailu kahdesta suositusta Lapin matkakohteesta. Rinteet, ladut, aktiviteetit, tunnelma ja saavutettavuus." />
         <link rel="canonical" href="https://leville.net/opas/levi-vs-saariselka" />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="https://leville.net/opas/levi-vs-saariselka" />
         <meta property="og:title" content="Levi vs. Saariselkä – Kumpi Lapin kohde sopii sinulle? | Leville.net" />
-        <meta property="og:description" content="Levi vai Saariselkä? Rehellinen vertailu kahdesta suositusta Lapin matkakohteesta." />
+        <meta property="og:description" content="Levi vai Saariselkä? Vertailu kahdesta suositusta Lapin matkakohteesta." />
         <meta property="og:locale" content="fi_FI" />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Levi vs. Saariselkä – Kumpi Lapin kohde sopii sinulle? | Leville.net" />
-        <meta name="twitter:description" content="Levi vai Saariselkä? Rehellinen vertailu kahdesta suositusta Lapin matkakohteesta." />
+        <meta name="twitter:description" content="Levi vai Saariselkä? Vertailu kahdesta suositusta Lapin matkakohteesta." />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            headline: "Levi vs. Saariselkä – vilkas tunturikylä vai rauhallinen erämaa?",
-            description: "Levi vai Saariselkä? Rehellinen vertailu kahdesta suositusta Lapin matkakohteesta.",
+            headline: "Levi vs. Saariselkä – vilkkaampi tunturikylä vai rauhaisaa hiljaista oleilua?",
+            description: "Vertailu kahdesta suositusta Lapin matkakohteesta: Levi ja Saariselkä.",
             author: { "@type": "Organization", name: "Leville.net" },
             publisher: { "@type": "Organization", name: "Leville.net" },
           })}
@@ -111,10 +110,10 @@ const LeviVsSaariselka = () => {
             {/* Hero */}
             <section className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Levi vs. Saariselkä – vilkas tunturikylä vai rauhallinen erämaa?
+                Levi vs. Saariselkä – vilkkaampi tunturikylä vai rauhaisaa hiljaista oleilua?
               </h1>
               <p className="text-lg text-primary font-medium mb-4">
-                Kahden erilaisen Lappi-kokemuksen rehellinen vertailu
+                Kahden erilaisen Lappi-kokemuksen vertailu
               </p>
               <p className="text-muted-foreground max-w-3xl mx-auto">
                 Levi ja Saariselkä ovat molemmat suosittuja Lapin matkakohteita, mutta ne tarjoavat hyvin erilaisen kokemuksen. Levi on Suomen suurin ja monipuolisin hiihtokeskus kompaktissa tunturikylässä. Saariselkä on Euroopan pohjoisin hiihtokeskus Urho Kekkosen kansallispuiston portilla – rauhallisempi, perinteisempi ja erämaahenkisempi. Molemmat ovat erinomaisia kohteita, mutta aivan eri tunnelmaan. Tässä vertailussa autamme sinua valitsemaan.
@@ -137,7 +136,7 @@ const LeviVsSaariselka = () => {
                         "Kompakti kylä – kaikki kävelymatkan päässä",
                         "Laaja ravintola-, kauppa- ja palvelutarjonta",
                         "Vilkas after-ski ja yöelämä",
-                        "Vesipuisto, Arcandia, Ice Karting ja muita erikoisattraktioita",
+                        "Vesipuisto, Arcandia, Ice Karting ja muita erikoisempia aktiviteetteja",
                         "230 km murtomaahiihtolatuja",
                         "Useita Joulupukki-elämyksiä ja jouluaktiviteetteja",
                         "15 min Kittilän lentokentältä, 1h Kolarin juna-asemalta",
@@ -163,7 +162,7 @@ const LeviVsSaariselka = () => {
                         "Urho Kekkosen kansallispuisto aivan vieressä",
                         "Rauhallinen, perinteinen tunnelma",
                         "Erinomaiset hiihtoladut (~200 km)",
-                        "Vähemmän palveluja, mutta aito erämaakokemus",
+                        "Vähemmän palveluja, mutta rauhaisaa tunnelmaa",
                         "Kullanhuuhdontahistoria ja saamelaiskulttuuri",
                         "25 min Ivalon lentokentältä, ei junayhteyttä",
                       ].map((item, idx) => (
@@ -187,9 +186,7 @@ const LeviVsSaariselka = () => {
                     <TableRow className="bg-muted/50">
                       <TableHead className="font-semibold text-foreground min-w-[160px]" />
                       <TableHead className={`font-bold text-primary min-w-[200px] ${leviHighlight}`}>
-                        <div className="flex items-center gap-2">
-                          Levi <Badge variant="default" className="text-[10px] px-1.5 py-0">Suosittelemme</Badge>
-                        </div>
+                        Levi
                       </TableHead>
                       <TableHead className="font-semibold text-foreground min-w-[200px]">Saariselkä</TableHead>
                     </TableRow>
@@ -221,7 +218,7 @@ const LeviVsSaariselka = () => {
                 </Table>
               </div>
               <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-                Laskettelussa Levi on selvästi suurempi: lähes kolme kertaa enemmän rinteitä, kaksi gondolihissiä ja Suomen modernein hissijärjestelmä. Saariselkän hiihtokeskus on pienempi ja sopii hyvin aloittelijoille ja rauhallisempaa laskettelua arvostaville – kokeneemmat laskijat saattavat kaivata lisää haastetta muutaman päivän jälkeen. Murtomaahiihdossa molemmat ovat erinomaisia: Levillä on hieman enemmän latuja, mutta Saariselkän latuverkosto kulkee kansallispuiston upeissa maisemissa ja on murtomaahiihtäjien keskuudessa erittäin arvostettu.
+                Laskettelussa Levi on selvästi suurempi: lähes kolme kertaa enemmän rinteitä, kaksi gondolihissiä ja Suomen modernein hissijärjestelmä. Saariselän hiihtokeskus on pienempi ja sopii hyvin aloittelijoille ja rauhallisempaa laskettelua arvostaville – kokeneemmat laskijat saattavat kaivata lisää haastetta muutaman päivän jälkeen. Murtomaahiihdossa molemmat ovat erinomaisia: Levillä on hieman enemmän latuja, mutta Saariselän latuverkosto kulkee kansallispuiston upeissa maisemissa ja on murtomaahiihtäjien keskuudessa erittäin arvostettu.
               </p>
             </section>
 
@@ -232,7 +229,7 @@ const LeviVsSaariselka = () => {
                 Tämä on ehkä suurin ero näiden kahden kohteen välillä. Saariselkä on selvästi rauhallisempi ja "lappilaisempi" – sieltä astuu suoraan Urho Kekkosen kansallispuistoon, jonka upeat tunturimaisemat ovat kansainvälisestikin tunnettuja. Jos etsit hiljaisuutta, erämaan rauhaa ja perinteistä Lapin tunnelmaa, Saariselkä tarjoaa sitä enemmän.
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                Levi puolestaan on kehittyneempi lomakeskus, jossa tunnelma on vilkkaampi ja palvelutarjonta laajempi. Levilläkin pääsee luontoon helposti – tunturiluonto alkaa aivan kylän reunalta – mutta kylän ydinkeskusta on eloisampi, etenkin iltaisin. Levin vahvuus on, että kaikki on kävelymatkan päässä: rinteet, ravintolat, kaupat ja aktiviteetit. Saariselkällä keskusta on pienempi ja hajautetumpi.
+                Levi puolestaan on kehittyneempi lomakeskus, jossa tunnelma on vilkkaampi ja palvelutarjonta laajempi. Levilläkin pääsee luontoon helposti – tunturiluonto alkaa aivan kylän reunalta – mutta kylän ydinkeskusta on eloisampi, etenkin iltaisin. Levin vahvuus on, että kaikki on kävelymatkan päässä: rinteet, ravintolat, kaupat ja aktiviteetit. Saariselälle keskusta on pienempi ja hajautetumpi.
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 <strong className="text-foreground">Tiivistettynä:</strong> Saariselkä on enemmän perinteinen, rauhallinen Lapin luontokohde. Levi on modernimpi, monipuolisempi lomakeskus, jossa on enemmän tekemistä – mutta jonka ympärillä on silti aito tunturiluonto.
@@ -258,11 +255,11 @@ const LeviVsSaariselka = () => {
                       ["Poroajelut", "Kyllä, porotiloja lähellä", "Kyllä, perinteisiä porotiloja"],
                       ["Kansallispuisto", "Pallas-Yllästunturin kp (päivämatka)", "Urho Kekkosen kp suoraan vieressä"],
                       ["Ravintolat", "Kymmeniä – fine dining, after-ski, fast food", "Muutamia – tunnelmallisia, pienempiä"],
-                      ["Kaupat", "S-Market, K-Market, erikoisliikkeitä", "Pieni valikoima peruspalveluja"],
+                      ["Kaupat", "S-Market, K-Market, erikoisliikkeitä", "Peruskaupat ja hyvä valikoima etenkin ruokakaupassa"],
                       ["Yöelämä / after-ski", "Vilkas (Hullu Poro Arena, Ihku, baareja)", "Vähäinen"],
                       ["Vesipuisto", "LeviWaterWorld", "Ei"],
-                      ["Erikoisattraktiot", "Arcandia, Ice Karting, Holiday Club Spa", "Aurora tobogganing, kullanhuuhdonta"],
-                      ["Lasten aktiviteetit", "10 ilmaista hissiä, Leevilandia, vesipuisto", "Perhealueet, rauhallista tekemistä"],
+                      ["Erikoisemmat aktiviteetit", "Arcandia, Ice Karting, Holiday Club Spa", "Aurora tobogganing, kullanhuuhdonta"],
+                      ["Lasten aktiviteetit", "10 lapsille sopivaa hissiä, vesipuisto, Leevilandia", "Perhealueet, rauhallista tekemistä"],
                       ["Joulupukki-elämykset", "Useita jouluaktiviteetteja kaudella", "Vähäisempi tarjonta"],
                     ].map((row, idx) => (
                       <TableRow key={idx} className={`${idx % 2 === 0 ? "bg-background" : "bg-muted/20"} hover:bg-muted/40 transition-colors`}>
@@ -275,7 +272,7 @@ const LeviVsSaariselka = () => {
                 </Table>
               </div>
               <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-                Levillä aktiviteettien määrä on selvästi suurempi ja kylän palvelutarjonta monipuolisempi. Perinteiset Lappi-aktiviteetit – husky-safarit, poroajelut, moottorikelkkailut – löytyvät molemmista, mutta Levillä niihin yhdistyvät myös erikoisattraktiot kuten vesipuisto, elämyskeskus ja vilkas after-ski-kulttuuri. Saariselkän vahvuus on luontoelämyksissä: Urho Kekkosen kansallispuisto on aivan vieressä, ja vaellusmahdollisuudet ovat Suomen parhaimmistoa.
+                Levillä aktiviteettien määrä on selvästi suurempi ja kylän palvelutarjonta monipuolisempi. Perinteiset Lappi-aktiviteetit – husky-safarit, poroajelut, moottorikelkkailut – löytyvät molemmista, mutta Levillä niihin yhdistyvät myös erikoisemmat aktiviteetit kuten vesipuisto, elämyskeskus ja vilkas after-ski-kulttuuri. Saariselän vahvuus on luontoelämyksissä: Urho Kekkosen kansallispuisto on aivan vieressä, ja vaellusmahdollisuudet ovat Suomen parhaimmistoa.
               </p>
             </section>
 
@@ -309,7 +306,7 @@ const LeviVsSaariselka = () => {
                 </Table>
               </div>
               <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
-                Molemmilla on lentokenttä lähellä, joten perille pääsee helposti. Merkittävin ero on junayhteys: Levin lähin juna-asema on Kolarissa (~1h), kun Saariselkään ei ole käytännössä junayhteyttä lainkaan – lähin asema on Rovaniemellä, noin 260 km päässä. Saariselkä sijaitsee Koillis-Lapissa kaukana junaradoista, mikä tekee siitä saavutettavuudeltaan hieman hankalamman niille, jotka eivät halua lentää.
+                Molemmilla on lentokenttä lähellä, joten perille pääsee helposti. Merkittävin ero on junayhteys: Levin lähin juna-asema on Kolarissa (~1h), kun Saariselälle ei ole käytännössä junayhteyttä lainkaan – lähin asema on Rovaniemellä, noin 260 km päässä. Saariselkä sijaitsee Koillis-Lapissa kaukana junaradoista, mikä tekee siitä saavutettavuudeltaan hieman hankalamman niille, jotka eivät halua lentää.
               </p>
             </section>
 
@@ -333,11 +330,8 @@ const LeviVsSaariselka = () => {
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6 text-center">Kumpi valita?</h2>
               <div className="grid md:grid-cols-5 gap-4 md:gap-6 items-start">
-                <Card className="md:col-span-3 border-2 border-primary shadow-lg relative glass-card">
-                  <Badge className="absolute -top-3 left-4 bg-primary text-primary-foreground">
-                    <Heart className="w-3 h-3 mr-1" /> Suosittelemme lomakohteeksi
-                  </Badge>
-                  <CardContent className="pt-8 pb-6">
+                <Card className="md:col-span-3 border-2 border-primary shadow-lg glass-card">
+                  <CardContent className="pt-6 pb-6">
                     <h3 className="text-xl font-bold text-foreground mb-4">Valitse Levi, jos:</h3>
                     <ul className="space-y-2.5">
                       {[
@@ -380,34 +374,8 @@ const LeviVsSaariselka = () => {
                 </Card>
               </div>
               <p className="text-muted-foreground mt-6 text-sm leading-relaxed text-center max-w-3xl mx-auto">
-                Molemmat ovat erinomaisia Lapin kohteita, ja valinta riippuu siitä mitä lomaltasi haet. Saariselkä on rauhallisempi ja erämaahenkisempi – loistava valinta niille, jotka haluavat irtautua kaikesta. Levi tarjoaa enemmän tekemistä, paremman laskettelun ja monipuolisemmat palvelut – se on kokonaisvaltainen lomakeskus, jossa yhdistyvät talviurheilu, aktiviteetit ja tunnelma. Me suosittelemme Leviä – ja autamme mielellämme majoituksen löytämisessä.
+                Molemmat ovat erinomaisia Lapin kohteita, ja valinta riippuu siitä mitä lomaltasi haet. Saariselkä on rauhallisempi ja erämaahenkisempi – loistava valinta niille, jotka haluavat irtautua kaikesta. Levi tarjoaa enemmän tekemistä, paremman laskettelun ja monipuolisemmat palvelut – se on kokonaisvaltainen lomakeskus, jossa yhdistyvät talviurheilu, aktiviteetit ja tunnelma.
               </p>
-            </section>
-
-            {/* Paikallisen vinkki */}
-            <section className="mb-12">
-              <Card className="bg-amber-50 dark:bg-amber-950/30 border-amber-200 dark:border-amber-800/50">
-                <CardContent className="p-5 sm:p-6">
-                  <div className="flex items-start gap-3">
-                    <Lightbulb className="w-6 h-6 text-amber-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold text-foreground mb-1">Paikallisen näkemys</p>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                        Olen käynyt molemmissa useaan otteeseen ja pidän molemmista eri syistä. Valinta riippuu todella siitä, mitä lomaltasi haet.
-                      </p>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                        Saariselkä on paljon rauhallisempi ja tuntuu kaukaisemmalta – se sijaitsee Koillis-Lapissa kaukana esimerkiksi junaradoista. Urho Kekkosen kansallispuiston maisemat ovat todella upeita. Murtomaahiihtoladut ovat erinomaiset (mikä on tärkeää itselleni), mutta laskettelukeskus on aika pieni. Hyvä aloittelijoille, mutta edistyneemmät laskijat saattavat tylsistyä muutaman päivän jälkeen.
-                      </p>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                        Levi on isompi ja vilkkaampi lomakeskus – ensisijainen valinta heille, jotka haluavat after-skitä ja yöelämää, vaikka siellä voi myös viettää lomaa huomaamatta sitä juuri ollenkaan. Levillä on enemmän erilaisia attraktioita (vesipuisto, Arcandia, jääkarting...), kauppoja ja ravintoloita, ja hiihtokeskus on selvästi suurempi. Levillä on myös enemmän mahdollisuuksia tavata Joulupukki.
-                      </p>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        Husky-safarit, poroajelut ja moottorikelkkailu onnistuvat molemmissa kohteissa – niissä eroa ei juuri ole. Toivottavasti tästä oli apua! 😊
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </section>
 
             {/* FAQ */}
@@ -430,11 +398,14 @@ const LeviVsSaariselka = () => {
             {/* Lue myös */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">Lue myös</h2>
-              <div className="grid sm:grid-cols-3 gap-4">
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {[
                   { title: "Levi vs. Rovaniemi", href: "/opas/levi-vs-rovaniemi", icon: Mountain },
                   { title: "Levi vs. Ylläs vs. Ruka", href: "/opas/levi-vs-yllas-vs-ruka", icon: Mountain },
                   { title: "Miten pääsee Leville", href: "/matka/miten-paasee-leville-helsingista", icon: Plane },
+                  { title: "Saunakulttuuri Levillä", href: "/opas/saunakulttuuri-levilla", icon: Heart },
+                  { title: "Paras aika matkustaa Leville", href: "/opas/paras-aika-matkustaa-leville", icon: Snowflake },
+                  { title: "Pakkauslista Lapin lomalle", href: "/opas/pakkauslista-lapin-lomalle", icon: BookOpen },
                 ].map((link, idx) => (
                   <Link key={idx} to={link.href}>
                     <Card className="glass-card border-border/30 hover:border-primary/50 transition-colors h-full">
