@@ -379,6 +379,7 @@ const App = () => {
               <Route path="/guide/heating-systems-in-levi" element={<HeatingSystemsInLevi lang="en" />} />
               <Route path="/guide/levi-vs-yllas-vs-ruka-comparison" element={<LeviVsYllasVsRukaEN />} />
               <Route path="/guide/levi-vs-rovaniemi-comparison" element={<LeviVsRovaniemiComparison />} />
+              <Route path="/guide/levi-vs-saariselka-comparison" element={<LeviVsSaariselkaComparison />} />
               <Route path="/guide/lapland-glossary" element={<LaplandGlossary lang="en" />} />
               <Route path="/guide/prices-in-levi" element={<PricesInLeviPage />} />
               {/* Comparison pages - NL/DE/FR/ES */}
