@@ -1,29 +1,37 @@
 
 
-# Fix: Markers drifting when zooming out
+# GA4-tapahtumaseuranta majoitushauille
 
-## Root cause
-The `.levi-marker-with-label` container has `position: relative; width: 32px; height: 32px` but labels are positioned with `position: absolute` which extends the element's bounding box. When Mapbox calculates the marker anchor, the varying bounding box causes drift at different zoom levels.
+## Muutos
 
-## Fix
-1. **Set explicit `anchor: 'center'`** on every `new mapboxgl.Marker()` call — this tells Mapbox to pin the center of the element to the geo coordinate.
+Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
 
-2. **Fix CSS**: Change `.levi-marker-with-label` to use a zero-size anchor point with `overflow: visible`, so the labels don't affect the element's dimensions:
-   ```css
-   .levi-marker-with-label {
-     position: relative;
-     width: 0;
-     height: 0;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     cursor: pointer;
-   }
-   ```
-   The dot/icon elements inside are already absolutely positioned or flex-centered, so they'll remain visible.
+## Toteutus
 
-3. **Adjust child elements** to be centered via `position: absolute; transform: translate(-50%, -50%)` so the dot is exactly at the coordinate point regardless of zoom.
+Tiedosto: `src/components/ModerBookingWidget.tsx`
 
-## Files changed
-- `src/pages/guide/LeviInteractiveMap.tsx` — marker creation calls + CSS styles
+`showLoadingOverlay`-funktion alkuun lisataan:
+
+```typescript
+if (typeof window !== 'undefined' && (window as any).gtag) {
+  (window as any).gtag('event', 'accommodation_search', {
+    event_category: 'booking',
+    event_label: lang,
+    page_location: window.location.pathname,
+  });
+}
+```
+
+Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+
+## Missa naet tulokset
+
+Google Analytics 4 -hallintapaneelissa (analytics.google.com):
+- **Reaaliaikainen testaus:** Reports > Realtime
+- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+
+## Ei muita muutoksia
+- Ei uusia riippuvuuksia
+- GA4-skripti on jo ladattu index.html:ssa
+- Yksi tiedosto muuttuu, yksi rivi lisataan
 

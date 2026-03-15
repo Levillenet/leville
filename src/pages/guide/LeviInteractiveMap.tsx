@@ -269,7 +269,7 @@ const LeviInteractiveMap = () => {
 
       // ─ Levi Center marker ─
       const centerEl = createCenterMarkerEl("Levi Center", "right");
-      new mapboxgl.Marker({ element: centerEl })
+      new mapboxgl.Marker({ element: centerEl, anchor: 'center' })
         .setLngLat(LEVI_CENTER)
         .addTo(map);
       centerEl.addEventListener("click", (e) => {
@@ -280,7 +280,7 @@ const LeviInteractiveMap = () => {
       // ─ Accommodation markers ─
       ACCOMMODATIONS.forEach((acc) => {
         const el = createAccommodationMarkerEl(acc.shortName, acc.labelPosition);
-        const marker = new mapboxgl.Marker({ element: el })
+        const marker = new mapboxgl.Marker({ element: el, anchor: 'center' })
           .setLngLat(acc.coords)
           .addTo(map);
 
@@ -304,7 +304,7 @@ const LeviInteractiveMap = () => {
       // ─ Landmark markers ─
       LANDMARKS.forEach((lm) => {
         const el = createLandmarkMarkerEl(lm.name, "top");
-        const marker = new mapboxgl.Marker({ element: el })
+        const marker = new mapboxgl.Marker({ element: el, anchor: 'center' })
           .setLngLat(lm.coords)
           .addTo(map);
 
@@ -531,26 +531,26 @@ const LeviInteractiveMap = () => {
       {/* Mapbox marker & popup styles */}
       <style>{`
         /* ── Levi Center pulsing marker ── */
-        .levi-center-marker { position: relative; width: 24px; height: 24px; cursor: pointer; }
+        .levi-center-marker { position: absolute; width: 24px; height: 24px; cursor: pointer; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         .levi-pulse-dot { width: 14px; height: 14px; background: hsl(var(--primary, 217 91% 60%)); border: 3px solid white; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 6px rgba(59,130,246,.5); z-index: 2; }
         .levi-pulse-ring { width: 24px; height: 24px; border-radius: 50%; background: rgba(59,130,246,.25); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: levi-pulse 2s ease-out infinite; }
         @keyframes levi-pulse { 0% { transform: translate(-50%,-50%) scale(1); opacity: .6; } 100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; } }
 
         /* ── Shared named-marker label system ── */
-        .levi-marker-with-label { position: relative; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .levi-marker-with-label { position: relative; width: 0; height: 0; overflow: visible; cursor: pointer; }
         .levi-marker-label { position: absolute; padding: 1px 6px; border-radius: 4px; font-size: 10px; font-weight: 600; line-height: 1.2; white-space: nowrap; box-shadow: 0 1px 4px rgba(0,0,0,.2); max-width: 150px; z-index: 3; }
-        .levi-label-top .levi-marker-label { bottom: calc(100% + 3px); left: 50%; transform: translateX(-50%); }
-        .levi-label-bottom .levi-marker-label { top: calc(100% + 3px); left: 50%; transform: translateX(-50%); }
-        .levi-label-right .levi-marker-label { left: calc(100% + 5px); top: 50%; transform: translateY(-50%); }
-        .levi-label-left .levi-marker-label { right: calc(100% + 5px); top: 50%; transform: translateY(-50%); }
+        .levi-label-top .levi-marker-label { bottom: 18px; left: 50%; transform: translateX(-50%); }
+        .levi-label-bottom .levi-marker-label { top: 18px; left: 50%; transform: translateX(-50%); }
+        .levi-label-right .levi-marker-label { left: 20px; top: 50%; transform: translateY(-50%); }
+        .levi-label-left .levi-marker-label { right: 20px; top: 50%; transform: translateY(-50%); }
 
         /* ── Accommodation markers ── */
-        .levi-accom-marker { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); transition: transform .15s; }
+        .levi-accom-marker { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); transition: transform .15s; }
         .levi-marker-with-label:hover .levi-accom-marker { transform: scale(1.15); }
         .levi-marker-label-accom { background: rgba(120,53,0,.85); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); }
 
         /* ── Landmark markers ── */
-        .levi-landmark-marker { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0d9488, #0f766e); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(13,148,136,.4); transition: transform .15s; }
+        .levi-landmark-marker { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0d9488, #0f766e); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(13,148,136,.4); transition: transform .15s; }
         .levi-marker-with-label:hover .levi-landmark-marker { transform: scale(1.15); }
         .levi-marker-label-landmark { background: rgba(5,80,72,.85); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); }
         .levi-marker-label-center { background: rgba(30,64,175,.9); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); }
