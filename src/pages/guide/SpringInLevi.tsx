@@ -17,6 +17,9 @@ import { Language } from "@/translations";
 import OptimizedImage from "@/components/OptimizedImage";
 import laavuOutside from "@/assets/seasons/laavu-outside.jpg";
 import laavuInside from "@/assets/seasons/laavu-inside.jpg";
+import springSlopesWind from "@/assets/seasons/spring-slopes-wind.jpg";
+import familySlopesBench from "@/assets/seasons/family-slopes-bench.jpg";
+import apresSkiTuikku from "@/assets/seasons/apres-ski-tuikku.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
