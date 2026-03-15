@@ -156,6 +156,8 @@ const LeviInteractiveMap = () => {
     pointBRef.current?.marker.remove();
     setPointA(null);
     setPointB(null);
+    setRouteInfo(null);
+    setRouteLoading(false);
     const map = mapRef.current;
     if (map) {
       if (map.getLayer("ab-line-layer")) map.removeLayer("ab-line-layer");
