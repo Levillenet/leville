@@ -19,10 +19,10 @@ const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || "pk.eyJ1IjoibGV2aWxsZW
 const LEVI_CENTER: [number, number] = [24.8134, 67.8039];
 
 const ACCOMMODATIONS = [
-  { name: "Skistar Apartments", coords: [24.80344133427575, 67.80940102593588] as [number, number], labelPosition: "left" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412" },
-  { name: "Levi Centre Chalets", coords: [24.80862246230913, 67.80593088058667] as [number, number], labelPosition: "left" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=413" },
-  { name: "Bearlodge Karhupirtti", coords: [24.80779533870497, 67.80682775484506] as [number, number], labelPosition: "bottom" as const, bookingUrl: "https://app.moder.fi/levillenet/303?step=1" },
-  { name: "Levi Glacier Apartments", coords: [24.81072616416929, 67.80602399128938] as [number, number], labelPosition: "right" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214" },
+  { name: "Skistar Apartments", shortName: "Skistar", coords: [24.80344133427575, 67.80940102593588] as [number, number], labelPosition: "left" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412" },
+  { name: "Levi Centre Chalets", shortName: "Centre Chalets", coords: [24.80862246230913, 67.80593088058667] as [number, number], labelPosition: "left" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=413" },
+  { name: "Bearlodge Karhupirtti", shortName: "Bearlodge", coords: [24.80779533870497, 67.80682775484506] as [number, number], labelPosition: "bottom" as const, bookingUrl: "https://app.moder.fi/levillenet/303?step=1" },
+  { name: "Levi Glacier Apartments", shortName: "Glacier", coords: [24.81072616416929, 67.80602399128938] as [number, number], labelPosition: "right" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214" },
 ];
 
 const LANDMARKS = [
