@@ -263,6 +263,14 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
               </Card>
             </section>
 
+            {/* Kids snow caves image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={kidsSnowCaves} alt={lang === "fi" ? "Lapset lumikuopissa majoituksen pihalla" : "Kids in snow caves in the accommodation yard"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Majoitustemme piha-alueilla on usein isoja lumikasoja joissa lapset voivat leikkiä lumilinnaa ja kaivaa luolastoja" : "The yards of our accommodation properties often have large snow piles where kids can build snow forts and dig caves"}
+              </p>
+            </section>
+
             {/* Mini snowmobiles */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
