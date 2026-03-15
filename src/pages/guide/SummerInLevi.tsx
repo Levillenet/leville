@@ -20,6 +20,7 @@ import lakeView from "@/assets/summer/lake-view.jpg";
 import leipajuusto from "@/assets/summer/leipajuusto-campfire.jpg";
 import beachFamilies from "@/assets/summer/beach-families.jpg";
 import storedSnow from "@/assets/summer/stored-snow.jpg";
+import hikingTrailSummer from "@/assets/summer/hiking-trail-summer.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -346,6 +347,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               <OptimizedImage src={summerToboggan} alt={lang === "fi" ? "Kesäkelkkarata Levillä – vauhdikas lasku tunturilta" : "Summer toboggan run in Levi – thrilling ride down the fell"} className="w-full h-64 sm:h-80 md:h-96" />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
                 {lang === "fi" ? "Kesäkelkkaradalla lasketaan vauhdikkaasti tunturin laelta alas – huippuhauskaa koko perheelle!" : "The summer toboggan run takes you racing down the fell – incredible fun for the whole family!"}
+              </p>
+            </section>
+
+            {/* Summer hiking trail image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={hikingTrailSummer} alt={lang === "fi" ? "Kesäinen kävelyreitti Levin metsässä" : "Summer hiking trail in Levi forest"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Merkityt kävelyreitit kulkevat koivumetsien ja mustikkakankaiden halki — Levin reitistö sopii kaikentasoisille" : "Marked hiking trails wind through birch forests and blueberry heaths — Levi's trail network suits all levels"}
               </p>
             </section>
 

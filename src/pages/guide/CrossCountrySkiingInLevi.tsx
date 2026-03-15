@@ -14,6 +14,8 @@ import { MapPin, Clock, ArrowRight, Snowflake, Star, Route, TreePine, Moon } fro
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
+import OptimizedImage from "@/components/OptimizedImage";
+import springCrossCountry from "@/assets/seasons/spring-cross-country.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -363,6 +365,14 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
               </h1>
               <p className="text-lg text-primary font-medium mb-4">{t.subtitle}</p>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+            </section>
+
+            {/* Cross-country trail image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={springCrossCountry} alt={lang === "fi" ? "Huollettu hiihtoladun mutka kevätauringossa Levillä" : "Groomed cross-country ski trail in spring sunshine in Levi"} className="w-full h-64 sm:h-80 md:h-96" priority />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Huollettu latu kaartaa metsän halki kevätauringossa — Levin latuverkosto on yli 230 km" : "A groomed trail curves through the forest in spring sunshine — Levi's trail network spans over 230 km"}
+              </p>
             </section>
 
             {/* Stats */}

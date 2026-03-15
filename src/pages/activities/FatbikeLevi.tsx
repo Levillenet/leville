@@ -16,6 +16,7 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import OptimizedImage from "@/components/OptimizedImage";
 import fatbikeSnow from "@/assets/seasons/fatbike-snow.jpg";
+import fatbikeSummerLake from "@/assets/summer/fatbike-summer-lake.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -128,6 +129,14 @@ const FatbikeLevi = ({ lang = "fi" }: FatbikeLeviProps) => {
                   <p className="text-sm text-muted-foreground italic">{t.sections.routes.tip}</p>
                 </div>
               </Card>
+            </section>
+
+            {/* Summer fatbike image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={fatbikeSummerLake} alt={lang === "fi" ? "Fatbike-pyöräilyä kesällä Levillä suolammen rannalla" : "Summer fatbiking in Levi by a marshland lake"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Fatbike-pyöräilyä kesällä Levin luonnossa — reitit kulkevat soiden, metsien ja järvien halki" : "Summer fatbiking in Levi's nature — trails run through marshlands, forests and lakes"}
+              </p>
             </section>
 
             {/* Rental */}
