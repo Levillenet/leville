@@ -371,6 +371,14 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
               </div>
             </section>
 
+            {/* Family at slopes image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={familySlopesBench} alt={lang === "fi" ? "Perhe tauolla laskettelurinteillä Levillä" : "Family taking a break at Levi ski slopes"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Perhe tauolla laskettelurinteiden äärellä — kevätauringossa riittää ihailtavaa tunturimaisemissa" : "A family taking a break by the ski slopes — spring sunshine makes the fell scenery even more stunning"}
+              </p>
+            </section>
+
             {/* Tips */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.tips.title}</h2>
@@ -382,6 +390,14 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
                   </li>
                 ))}
               </ul>
+            </section>
+
+            {/* Après-ski Tuikku image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={apresSkiTuikku} alt={lang === "fi" ? "Après-ski ravintola Tuikun terassilla Levillä" : "Après-ski at restaurant Tuikku terrace in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Après-ski ravintola Tuikun terassilla — kevätaurinko lämmittää ja tunnelma on katossa Levin huipulla" : "Après-ski at restaurant Tuikku terrace — the spring sun warms and the atmosphere is electric on top of Levi"}
+              </p>
             </section>
 
             {/* FAQ */}

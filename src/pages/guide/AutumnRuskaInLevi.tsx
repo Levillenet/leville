@@ -371,6 +371,14 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
               </div>
             </section>
 
+            {/* Autumn hiking trail image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={hikingTrailSummer} alt={lang === "fi" ? "Vaellusreitti Levin koivumetsässä syksyllä" : "Hiking trail in Levi birch forest in autumn"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Merkityt vaellusreitit kulkevat koivumetsien ja mustikkakankaiden halki — ruska-aikaan maisema on unohtumaton" : "Marked hiking trails wind through birch forests and blueberry heaths — during ruska season the scenery is unforgettable"}
+              </p>
+            </section>
+
             {/* Photography Tips */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.photography.title}</h2>

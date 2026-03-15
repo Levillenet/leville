@@ -333,6 +333,14 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
               </p>
             </section>
 
+            {/* Tykky kaamos image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={tykkyKaamos} alt={lang === "fi" ? "Tykkyluminen puu kaamoksen hämärässä Levin tunturilla" : "Snow-covered tykky tree in polar twilight on Levi fell"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Kaamoksen sininen valo ja tykkyluminen maisema Levin tunturin huipulla joulukuussa" : "The blue light of polar night and snow-laden landscape on top of Levi fell in December"}
+              </p>
+            </section>
+
             {/* Activities */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.sections.activities.title}</h2>
@@ -344,6 +352,14 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
                   </Card>
                 ))}
               </div>
+            </section>
+
+            {/* Night trail tykky image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={nightTrailTykky} alt={lang === "fi" ? "Valaistu latu tykkylumisten puiden keskellä yöllä" : "Illuminated ski trail among snow-laden trees at night"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Valaistu latu tykkylumisten puiden keskellä — Levillä voi hiihtää myös kaamosaikaan valaistuja latuja pitkin" : "Illuminated trail among snow-laden trees — in Levi you can ski along lit trails even during the polar night"}
+              </p>
             </section>
 
             {/* Temperatures */}

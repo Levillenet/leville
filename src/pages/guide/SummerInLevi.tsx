@@ -350,6 +350,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               </p>
             </section>
 
+            {/* Summer hiking trail image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={hikingTrailSummer} alt={lang === "fi" ? "Kesäinen kävelyreitti Levin metsässä" : "Summer hiking trail in Levi forest"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Merkityt kävelyreitit kulkevat koivumetsien ja mustikkakankaiden halki — Levin reitistö sopii kaikentasoisille" : "Marked hiking trails wind through birch forests and blueberry heaths — Levi's trail network suits all levels"}
+              </p>
+            </section>
+
             {/* Hiking Trails */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.sections.hiking.title}</h2>

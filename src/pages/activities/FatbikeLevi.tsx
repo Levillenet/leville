@@ -131,6 +131,14 @@ const FatbikeLevi = ({ lang = "fi" }: FatbikeLeviProps) => {
               </Card>
             </section>
 
+            {/* Summer fatbike image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={fatbikeSummerLake} alt={lang === "fi" ? "Fatbike-pyöräilyä kesällä Levillä suolammen rannalla" : "Summer fatbiking in Levi by a marshland lake"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Fatbike-pyöräilyä kesällä Levin luonnossa — reitit kulkevat soiden, metsien ja järvien halki" : "Summer fatbiking in Levi's nature — trails run through marshlands, forests and lakes"}
+              </p>
+            </section>
+
             {/* Rental */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.rental.title}</h2>

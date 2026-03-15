@@ -329,6 +329,22 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
               </p>
             </section>
 
+            {/* Child under tykky tree */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={childTykkyTree} alt={lang === "fi" ? "Lapsi valtavan tykkylumisen puun alla Levin tunturilla" : "Child under a massive snow-laden tykky tree on Levi fell"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Lapsi valtavan tykkylumisen puun alla Levin tunturilla — luminen luonto on lasten seikkailumaa" : "A child under a massive snow-laden tree on Levi fell — the snowy nature is an adventure land for kids"}
+              </p>
+            </section>
+
+            {/* Kota fire image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={kotaFire} alt={lang === "fi" ? "Nuotio kodassa Levillä — lapsi lämmittelee tulen ääressä" : "Campfire in a kota hut in Levi — child warming up by the fire"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Kota on perinteinen saamelaisrakennus jossa voi sytyttää nuotion — kodissa eväsretki on lasten mielestä paras hetki päivästä" : "A kota is a traditional Sámi hut where you can light a campfire — kids love a snack break inside a cozy kota"}
+              </p>
+            </section>
+
             {/* Other favourites */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
