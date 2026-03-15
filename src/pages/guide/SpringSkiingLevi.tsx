@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/accordion";
 import OptimizedImage from "@/components/OptimizedImage";
 import springSlopesSunny from "@/assets/seasons/spring-slopes-sunny.jpg";
+import springSkiingKid from "@/assets/seasons/spring-skiing-kid.jpg";
 import { springSkiingTranslations } from "./springSkiingTranslations";
 
 interface SpringSkiingLeviProps {

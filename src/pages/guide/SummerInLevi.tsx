@@ -381,6 +381,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               </p>
             </section>
 
+            {/* Palovartija restaurant image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={palovartijaSummer} alt={lang === "fi" ? "Ravintola Palovartija Levin tunturin huipulla kesällä" : "Restaurant Palovartija on top of Levi fell in summer"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Ravintola Palovartija Levin tunturin huipulla — terassille pääsee gondolihissillä ja näkymät ulottuvat kauas Lapin erämaahan" : "Restaurant Palovartija on top of Levi fell — reach the terrace by gondola lift and enjoy views stretching far into Lapland wilderness"}
+              </p>
+            </section>
+
             {/* Stored snow image */}
             <section className="mb-12 rounded-xl overflow-hidden">
               <OptimizedImage src={storedSnow} alt={lang === "fi" ? "Säilöttyä lunta Levin eturinteessä elokuussa" : "Stored snow on Levi's front slope in August"} className="w-full h-64 sm:h-80 md:h-96" />
