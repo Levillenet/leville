@@ -126,6 +126,7 @@ const NorthernLightsPhotographyLevi = lazy(() => import("./pages/guide/NorthernL
 const HowNorthernLightsForm = lazy(() => import("./pages/guide/HowNorthernLightsForm"));
 const NorthernLightsColorsExplained = lazy(() => import("./pages/guide/NorthernLightsColorsExplained"));
 const BestTimeToVisitLevi = lazy(() => import("./pages/guide/BestTimeToVisitLevi"));
+const LeviInteractiveMap = lazy(() => import("./pages/guide/LeviInteractiveMap"));
 
 // Component map for dynamically registered SEO pages
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
@@ -506,6 +507,9 @@ const App = () => {
               <Route path="/en/majoitukset" element={<Navigate to="/en/accommodations" replace />} />
               <Route path="/en/yhteystiedot" element={<Navigate to="/en/contact" replace />} />
               <Route path="/en/terms" element={<Navigate to="/varausehdot" replace />} />
+
+              {/* Interactive Map */}
+              <Route path="/levi-map" element={<LeviInteractiveMap />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
