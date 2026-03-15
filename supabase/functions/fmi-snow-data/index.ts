@@ -49,14 +49,24 @@ serve(async (req) => {
       const startDate = `${startYear}-${String(startMonth).padStart(2, "0")}-${String(startDay).padStart(2, "0")}T00:00:00Z`;
       const endDate = `${endYear}-${String(endMonth).padStart(2, "0")}-${String(endDay).padStart(2, "0")}T23:59:59Z`;
 
-      // Skip future dates
+      const now = new Date();
+      const startDateObj = new Date(startDate);
       const endDateObj = new Date(endDate);
-      if (endDateObj > new Date()) {
-        console.log(`Skipping future date range: ${startDate} - ${endDate}`);
+
+      // Skip only if the start date is in the future (no data possible)
+      if (startDateObj > now) {
+        console.log(`Skipping future start date: ${startDate}`);
         continue;
       }
 
-      const primaryUrl = buildFmiUrl({ place, startDate, endDate });
+      // Clamp end date to today if it's in the future
+      let effectiveEndDate = endDate;
+      if (endDateObj > now) {
+        effectiveEndDate = now.toISOString();
+        console.log(`Clamping end date from ${endDate} to ${effectiveEndDate}`);
+      }
+
+      const primaryUrl = buildFmiUrl({ place, startDate, endDate: effectiveEndDate });
       console.log(`Fetching FMI data for ${startYear}: ${primaryUrl}`);
 
       try {
@@ -70,7 +80,7 @@ serve(async (req) => {
             bbox: "25.2,66.3,26.2,66.8",
             maxLocations: 10,
             startDate,
-            endDate,
+            endDate: effectiveEndDate,
           });
 
           console.log(`Rovaniemi fallback to bbox for ${startYear}: ${fallbackUrl}`);
