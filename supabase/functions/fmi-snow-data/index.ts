@@ -80,7 +80,7 @@ serve(async (req) => {
             bbox: "25.2,66.3,26.2,66.8",
             maxLocations: 10,
             startDate,
-            endDate,
+            endDate: effectiveEndDate,
           });
 
           console.log(`Rovaniemi fallback to bbox for ${startYear}: ${fallbackUrl}`);
