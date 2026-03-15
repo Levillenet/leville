@@ -16,24 +16,24 @@ import { cn } from "@/lib/utils";
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || "pk.eyJ1IjoibGV2aWxsZW5ldCIsImEiOiJjbW1ycGNibXAxOGQ5MnlyMHJzNjY1NXdxIn0.PhSMYsZo5wg3bzYuSWZ6ZA";
 
-const LEVI_CENTER: [number, number] = [24.8134, 67.8039];
+const LEVI_CENTER: [number, number] = [24.8082, 67.8040]; // Gondola base, Hissitie 8
 
 const ACCOMMODATIONS = [
-  { name: "Skistar Apartments", shortName: "Skistar", coords: [24.80344133427575, 67.80940102593588] as [number, number], labelPosition: "left" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412" },
-  { name: "Levi Centre Chalets", shortName: "Centre Chalets", coords: [24.80862246230913, 67.80593088058667] as [number, number], labelPosition: "left" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=413" },
-  { name: "Bearlodge Karhupirtti", shortName: "Bearlodge", coords: [24.80779533870497, 67.80682775484506] as [number, number], labelPosition: "bottom" as const, bookingUrl: "https://app.moder.fi/levillenet/303?step=1" },
-  { name: "Levi Glacier Apartments", shortName: "Glacier", coords: [24.81072616416929, 67.80602399128938] as [number, number], labelPosition: "right" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214" },
+  { name: "Skistar Apartments", shortName: "Skistar", coords: [24.8065, 67.8058] as [number, number], labelPosition: "left" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412" },
+  { name: "Levi Centre Chalets", shortName: "Centre Chalets", coords: [24.8085, 67.8030] as [number, number], labelPosition: "left" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=413" },
+  { name: "Bearlodge Karhupirtti", shortName: "Bearlodge", coords: [24.8050, 67.8045] as [number, number], labelPosition: "bottom" as const, bookingUrl: "https://app.moder.fi/levillenet/303?step=1" },
+  { name: "Levi Glacier Apartments", shortName: "Glacier", coords: [24.8105, 67.8028] as [number, number], labelPosition: "right" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214" },
 ];
 
 const LANDMARKS = [
-  { name: "Utsuvaara", coords: [24.8863814171333, 67.78387521146712] as [number, number], icon: "mountain", description: "Scenic viewpoint hill" },
-  { name: "Levi Golf", coords: [24.87495212839187, 67.80021315268473] as [number, number], icon: "flag", description: "Levi Golf Course" },
-  { name: "South Point", coords: [24.85763668481725, 67.76723992669096] as [number, number], icon: "compass", description: "Southern ski area" },
-  { name: "Levi Black Slopes", coords: [24.820240762801834, 67.78661609676938] as [number, number], icon: "mountain", description: "Expert-level ski slopes" },
-  { name: "K-Market", coords: [24.80309651101312, 67.80576345750278] as [number, number], icon: "cart", description: "Grocery store" },
-  { name: "S-Market", coords: [24.805630637199016, 67.8089398914121] as [number, number], icon: "cart", description: "Grocery store" },
-  { name: "Levi Spa (Water Park)", coords: [24.802793868554122, 67.80408357275215] as [number, number], icon: "waves", description: "Spa & water park" },
-  { name: "Zero Point (Gondola Top)", coords: [24.808357257365213, 67.80428422200386] as [number, number], icon: "circle", description: "Gondola upper station, fell top" },
+  { name: "Utsuvaara", coords: [24.825, 67.800] as [number, number], icon: "mountain", description: "Scenic viewpoint hill" },
+  { name: "Levi Golf", coords: [24.840, 67.806] as [number, number], icon: "flag", description: "Levi Golf Course" },
+  { name: "South Point", coords: [24.820, 67.785] as [number, number], icon: "compass", description: "Southern ski area" },
+  { name: "Levi Black Slopes", coords: [24.798, 67.795] as [number, number], icon: "mountain", description: "Expert-level ski slopes" },
+  { name: "K-Market", coords: [24.8025, 67.8055] as [number, number], icon: "cart", description: "Grocery store" },
+  { name: "S-Market", coords: [24.8050, 67.8090] as [number, number], icon: "cart", description: "Grocery store" },
+  { name: "Levi Spa", coords: [24.8006, 67.8039] as [number, number], icon: "waves", description: "Spa & water park" },
+  { name: "Zero Point", coords: [24.8115, 67.7960] as [number, number], icon: "circle", description: "Gondola upper station, fell top" },
 ];
 
 // ── Helpers ────────────────────────────────────────────────
