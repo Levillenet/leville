@@ -267,6 +267,14 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
               </Card>
             </section>
 
+            {/* Child skiing with tykky tree */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={childSkiingTykky} alt={lang === "fi" ? "Lapsi laskettelemassa tykkypuun vieressä auringonlaskussa Levillä" : "Child skiing next to a tykky tree at sunset in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Lapsi laskettelemassa tykkypuun vieressä auringonlaskussa — Levin rinteet tarjoavat taianomaisen maiseman erityisesti alkutalvesta" : "A child skiing next to a tykky tree at sunset — Levi's slopes offer magical scenery especially in early winter"}
+              </p>
+            </section>
+
             {/* Kids snow caves image */}
             <section className="mb-12 rounded-xl overflow-hidden">
               <OptimizedImage src={kidsSnowCaves} alt={lang === "fi" ? "Lapset lumikuopissa majoituksen pihalla" : "Kids in snow caves in the accommodation yard"} className="w-full h-64 sm:h-80 md:h-96" />

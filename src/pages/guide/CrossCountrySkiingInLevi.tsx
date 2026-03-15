@@ -376,6 +376,14 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
               </p>
             </section>
 
+            {/* Sunny cross-country trail image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={crossCountrySunny} alt={lang === "fi" ? "Hiihtoladut aurinkoisena kevätpäivänä suolla" : "Cross-country ski tracks on a sunny spring day on the marsh"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Hiihtoladut aurinkoisena kevätpäivänä — Levin latuverkostosta löytyy reittejä avosuolle ja metsiin" : "Cross-country ski tracks on a sunny spring day — Levi's trail network includes routes across open marshes and through forests"}
+              </p>
+            </section>
+
             {/* Stats */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
