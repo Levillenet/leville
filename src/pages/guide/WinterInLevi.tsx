@@ -14,6 +14,8 @@ import { Snowflake, Moon, Thermometer, Mountain, ArrowRight, Star, Sparkles } fr
 import OptimizedImage from "@/components/OptimizedImage";
 import winterSunset from "@/assets/seasons/winter-sunset.jpg";
 import tykkyTrees from "@/assets/seasons/tykky-trees.jpg";
+import tykkyKaamos from "@/assets/seasons/tykky-kaamos.jpg";
+import nightTrailTykky from "@/assets/seasons/night-trail-tykky.jpg";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
