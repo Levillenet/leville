@@ -21,6 +21,7 @@ import leipajuusto from "@/assets/summer/leipajuusto-campfire.jpg";
 import beachFamilies from "@/assets/summer/beach-families.jpg";
 import storedSnow from "@/assets/summer/stored-snow.jpg";
 import hikingTrailSummer from "@/assets/summer/hiking-trail-summer.jpg";
+import palovartijaSummer from "@/assets/summer/palovartija-summer.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -374,9 +375,17 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
 
             {/* Beach families image */}
             <section className="mb-12 rounded-xl overflow-hidden">
-              <OptimizedImage src={beachFamilies} alt={lang === "fi" ? "Perheitä hiekkarannalla Levillä kesällä" : "Families at the sandy beach in Levi during summer"} className="w-full h-64 sm:h-80 md:h-96" />
+              <OptimizedImage src={beachFamilies} alt={lang === "fi" ? "Perheitä uimarannalla Immeljärvellä Levillä" : "Families at the beach at Immeljärvi lake in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
-                {lang === "fi" ? "Levin hiekkarannoilla nautitaan kesäpäivistä – tunturit näkyvät järven takana" : "Enjoying summer days at Levi's sandy beaches – fells visible across the lake"}
+                {lang === "fi" ? "Immeljärven uimaranta täyttyy perheistä aurinkoisina kesäpäivinä — vesi lämpenee heinäkuussa jopa yli 20 asteeseen" : "Immeljärvi beach fills with families on sunny summer days — the water warms up to over 20°C in July"}
+              </p>
+            </section>
+
+            {/* Palovartija restaurant image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={palovartijaSummer} alt={lang === "fi" ? "Ravintola Palovartija Levin tunturin huipulla kesällä" : "Restaurant Palovartija on top of Levi fell in summer"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Ravintola Palovartija Levin tunturin huipulla — terassille pääsee gondolihissillä ja näkymät ulottuvat kauas Lapin erämaahan" : "Restaurant Palovartija on top of Levi fell — reach the terrace by gondola lift and enjoy views stretching far into Lapland wilderness"}
               </p>
             </section>
 
