@@ -296,6 +296,14 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
             </section>
 
+            {/* Spring slopes image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={springSlopesWind} alt={lang === "fi" ? "Levin laskettelurinteet keväällä — lunta riittää huhtikuulle" : "Levi ski slopes in spring — plenty of snow until April"} className="w-full h-64 sm:h-80 md:h-96" priority />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levin laskettelurinteet kevätauringossa — lunta riittää tunturissa yleensä huhtikuun loppuun asti" : "Levi ski slopes in the spring sun — snow usually lasts on the fell until the end of April"}
+              </p>
+            </section>
+
             {/* Stats */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
