@@ -10,7 +10,7 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building, ShieldCheck, KeyRound, LogOut, Bed } from "lucide-react";
+import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building, ShieldCheck, KeyRound, LogOut, Bed, MapPin } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
@@ -211,6 +211,22 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                 );
               })}
             </section>
+
+            {/* Map Link */}
+            <ScrollReveal>
+              <Link
+                to="/levi-map"
+                className="flex items-center gap-3 glass-card border-border/30 hover:border-primary/50 rounded-xl p-5 mb-16 md:mb-20 transition-all duration-300 group max-w-md mx-auto"
+              >
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-5 h-5 text-primary" />
+                </div>
+                <span className="text-foreground font-medium group-hover:text-primary transition-colors">
+                  {isEnglish ? "View locations on the map" : "Katso kohteet kartalla"}
+                </span>
+                <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors ml-auto flex-shrink-0" />
+              </Link>
+            </ScrollReveal>
 
             {/* Amenities */}
             <ScrollReveal delay={0.2}>
