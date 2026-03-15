@@ -17,6 +17,7 @@ import { Language } from "@/translations";
 import OptimizedImage from "@/components/OptimizedImage";
 import reindeerVillage from "@/assets/seasons/reindeer-village.jpg";
 import hikingTrailSummer from "@/assets/summer/hiking-trail-summer.jpg";
+import ruskaMarshPond from "@/assets/summer/ruska-marsh-pond.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -369,6 +370,14 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
                   </Card>
                 ))}
               </div>
+            </section>
+
+            {/* Ruska marsh landscape */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={ruskaMarshPond} alt={lang === "fi" ? "Ruska-ajan suomaisema Levillä — lampi ja ruskan värittämä suo" : "Autumn ruska landscape in Levi — a pond and marsh colored by autumn"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Ruska-ajan suomaisema Levillä — suon värit vaihtelevat keltaisesta oranssiin ja ruskeaan, ja hiljainen lampi heijastaa metsää" : "Autumn ruska landscape in Levi — the marsh colours range from yellow to orange and brown, and a quiet pond reflects the forest"}
+              </p>
             </section>
 
             {/* Autumn hiking trail image */}
