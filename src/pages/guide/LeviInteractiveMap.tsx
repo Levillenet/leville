@@ -345,10 +345,10 @@ const LeviInteractiveMap = () => {
                 </button>
                 {legendOpen && (
                   <div className="mt-2 space-y-1.5 text-xs">
-                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-blue-500 border-2 border-white shadow inline-block" /> Levi Center</div>
-                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-amber-500 border-2 border-white shadow inline-block" /> Our Accommodations</div>
-                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-teal-600 border-2 border-white shadow inline-block" /> Landmarks & Services</div>
-                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-red-500 border-2 border-white shadow inline-block" /> Your selected points</div>
+                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full border-2 border-background shadow inline-block" style={{ background: "hsl(217,91%,60%)" }} /> Levi Center</div>
+                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full border-2 border-background shadow inline-block" style={{ background: "hsl(38,92%,50%)" }} /> Our Accommodations</div>
+                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full border-2 border-background shadow inline-block" style={{ background: "hsl(173,58%,39%)" }} /> Landmarks & Services</div>
+                    <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full border-2 border-background shadow inline-block" style={{ background: "hsl(0,84%,60%)" }} /> Your selected points</div>
                     <p className="text-muted-foreground pt-1 border-t border-border/30 mt-1">💡 Click two points to compare</p>
                   </div>
                 )}
