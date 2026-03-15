@@ -140,6 +140,8 @@ const LeviInteractiveMap = () => {
   const [legendOpen, setLegendOpen] = useState(true);
   const [pointA, setPointA] = useState<SelectedPoint | null>(null);
   const [pointB, setPointB] = useState<SelectedPoint | null>(null);
+  const [routeInfo, setRouteInfo] = useState<{ distance_km: number } | null>(null);
+  const [routeLoading, setRouteLoading] = useState(false);
   const [mapReady, setMapReady] = useState(false);
   const [noToken, setNoToken] = useState(false);
   const pointARef = useRef<SelectedPoint | null>(null);
