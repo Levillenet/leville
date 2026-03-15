@@ -385,7 +385,9 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
 
             {/* Leipäjuusto image */}
             <section className="mb-12 rounded-xl overflow-hidden">
-              <OptimizedImage src={leipajuusto} alt={lang === "fi" ? "Leipäjuusto kermassa lakkahillolla nuotiolla Levillä" : "Finnish bread cheese with cream and cloudberry jam over campfire in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <div className="w-full h-64 sm:h-80 md:h-96 overflow-hidden">
+                <img src={leipajuusto} alt={lang === "fi" ? "Leipäjuusto kermassa lakkahillolla nuotiolla Levillä" : "Finnish bread cheese with cream and cloudberry jam over campfire in Levi"} loading="lazy" className="w-full h-full object-cover object-bottom" />
+              </div>
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
                 {lang === "fi" ? "Paikallinen herkku – leipäjuusto kermassa haudutettuna lakkahillolla, nautittuna nuotiolla järven rannalla" : "Local delicacy – bread cheese simmered in cream with cloudberry jam, enjoyed by a campfire at the lakeside"}
               </p>
