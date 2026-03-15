@@ -13,7 +13,12 @@ import { Button } from "@/components/ui/button";
 import { Sun, TreePine, Mountain, ArrowRight, Star, Bike, Fish, Thermometer } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import OptimizedImage from "@/components/OptimizedImage";
 import { Language } from "@/translations";
+import summerToboggan from "@/assets/summer/summer-toboggan.jpg";
+import lakeView from "@/assets/summer/lake-view.jpg";
+import leipajuusto from "@/assets/summer/leipajuusto-campfire.jpg";
+import beachFamilies from "@/assets/summer/beach-families.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
