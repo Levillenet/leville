@@ -508,6 +508,9 @@ const App = () => {
               <Route path="/en/yhteystiedot" element={<Navigate to="/en/contact" replace />} />
               <Route path="/en/terms" element={<Navigate to="/varausehdot" replace />} />
 
+              {/* Interactive Map */}
+              <Route path="/levi-map" element={<LeviInteractiveMap />} />
+
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

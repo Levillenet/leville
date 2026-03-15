@@ -8,9 +8,7 @@ import ReadNextSection from "@/components/guide/ReadNextSection";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  MapPin, Navigation, Car, Euro, ExternalLink, Home, ChevronRight,
-  Mountain, TreePine, ShoppingCart, Waves, Footprints, Clock, Compass,
-  Flag, CircleDot, X, RotateCcw, Info, Layers
+  Navigation, Car, ExternalLink, Home, Footprints, X, RotateCcw, Layers
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
