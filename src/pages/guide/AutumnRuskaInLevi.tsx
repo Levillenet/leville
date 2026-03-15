@@ -17,6 +17,7 @@ import { Language } from "@/translations";
 import OptimizedImage from "@/components/OptimizedImage";
 import reindeerVillage from "@/assets/seasons/reindeer-village.jpg";
 import hikingTrailSummer from "@/assets/summer/hiking-trail-summer.jpg";
+import ruskaMarshPond from "@/assets/summer/ruska-marsh-pond.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
