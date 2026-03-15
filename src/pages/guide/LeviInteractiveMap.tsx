@@ -26,7 +26,7 @@ const ACCOMMODATIONS = [
 ];
 
 const LANDMARKS = [
-  { name: "Utsuvaara", coords: [24.825, 67.800] as [number, number], icon: "mountain", description: "Scenic viewpoint hill" },
+  { name: "Utsuvaara", coords: [24.886583304399686, 67.78386643279669] as [number, number], icon: "mountain", description: "Scenic viewpoint hill" },
   { name: "Levi Golf", coords: [24.87495212839187, 67.80021315268473] as [number, number], icon: "flag", description: "Levi Golf Course" },
   { name: "South Point", coords: [24.85763668481725, 67.76723992669096] as [number, number], icon: "compass", description: "Southern ski area" },
   { name: "Levi Black Slopes", coords: [24.820240762801834, 67.78661609676938] as [number, number], icon: "mountain", description: "Expert-level ski slopes" },
