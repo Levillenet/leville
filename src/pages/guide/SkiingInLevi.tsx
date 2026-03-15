@@ -14,6 +14,7 @@ import { Mountain, MapPin, Clock, Euro, Users, ArrowRight, Snowflake, Star, Cabl
 import OptimizedImage from "@/components/OptimizedImage";
 import sunsetSlopesTykky from "@/assets/seasons/sunset-slopes-tykky.jpg";
 import frontSlopesSpring from "@/assets/seasons/front-slopes-spring.jpg";
+import springSlopesWind from "@/assets/seasons/spring-slopes-wind.jpg";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
@@ -366,6 +367,14 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
               <OptimizedImage src={sunsetSlopesTykky} alt={lang === "fi" ? "Laskettelu auringonlaskussa tykkylumisten puiden keskellä Levin tunturilla" : "Skiing at sunset among snow-laden tykky trees on Levi fell"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
                 {lang === "fi" ? "Laskettelu auringonlaskussa tykkylumisten puiden keskellä — Levin rinteiltä avautuvat henkeäsalpaavat näkymät erityisesti marraskuussa ja joulukuussa" : "Skiing at sunset among snow-laden tykky trees — the slopes of Levi offer breathtaking views especially in November and December"}
+              </p>
+            </section>
+
+            {/* Skier on top */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={springSlopesWind} alt={lang === "fi" ? "Laskettelija Levin tunturin huipulla — näkymät ulottuvat kymmenien kilometrien päähän Lapin erämaahan" : "A skier on top of Levi fell — views stretch tens of kilometres across the Lapland wilderness"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Laskettelija Levin tunturin huipulla — näkymät ulottuvat kymmenien kilometrien päähän Lapin erämaahan" : "A skier on top of Levi fell — views stretch tens of kilometres across the Lapland wilderness"}
               </p>
             </section>
 

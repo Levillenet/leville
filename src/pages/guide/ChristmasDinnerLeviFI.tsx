@@ -11,6 +11,8 @@ import { getWebsiteSchema, getArticleSchema, getFAQSchema } from "@/utils/struct
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Info, Star, UtensilsCrossed, ShoppingCart, Wine, Baby, Clock } from "lucide-react";
+import OptimizedImage from "@/components/OptimizedImage";
+import reindeerStewPots from "@/assets/seasons/reindeer-stew-pots.jpg";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
@@ -130,6 +132,14 @@ const ChristmasDinnerLeviFI = () => {
                   <p className="text-sm text-muted-foreground italic">Vinkki: tuo joulukynttilät ja jouluservetit kotoa mukaan — ne tuovat joulumielen mökkiin.</p>
                 </div>
               </Card>
+            </section>
+
+            {/* Reindeer stew image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={reindeerStewPots} alt="Poronkäristystä valurautapadoissa perunamuusin kera — klassinen Lapin ateria jonka voi tilata valmiina majoitukseen usealta paikalliselta yritykseltä" className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                Poronkäristystä valurautapadoissa perunamuusin kera — klassinen Lapin ateria jonka voi tilata valmiina majoitukseen usealta paikalliselta yritykseltä
+              </p>
             </section>
 
             {/* Traditional foods */}
