@@ -331,6 +331,14 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
               </ul>
             </section>
 
+            {/* Snowman in village */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={snowmanVillage} alt={lang === "fi" ? "Lumiukko Levin kylässä jouluvaloineen" : "Snowman in Levi village with Christmas lights"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Lumiukko Levin kylässä — lasten oma taideteokset koristavat majoitusten pihoja koko talven" : "A snowman in Levi village — children's own creations decorate accommodation yards throughout winter"}
+              </p>
+            </section>
+
             {/* Kids sledding in dark image */}
             <section className="mb-12 rounded-xl overflow-hidden">
               <OptimizedImage src={kidsSleddingDark} alt={lang === "fi" ? "Pulkkailua joulukuun hämärässä" : "Sledding in December twilight"} className="w-full h-64 sm:h-80 md:h-96" />
