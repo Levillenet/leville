@@ -405,6 +405,14 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
               </div>
             </section>
 
+            {/* Front slopes spring image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={frontSlopesSpring} alt={lang === "fi" ? "Levin eturinteet keväällä — laskettelijoita aurinkoisella rinteellä" : "Levi front slopes in spring — skiers on a sunny slope"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levin eturinteet keväällä — kevätlaskettelukausi jatkuu tyypillisesti toukokuulle saakka loistavissa olosuhteissa" : "Levi front slopes in spring — the spring skiing season typically extends into May with excellent conditions"}
+              </p>
+            </section>
+
             {/* Tips */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.tips.title}</h2>
