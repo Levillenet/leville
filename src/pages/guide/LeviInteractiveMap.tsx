@@ -238,7 +238,7 @@ const LeviInteractiveMap = () => {
 
       // ─ Accommodation markers ─
       ACCOMMODATIONS.forEach((acc) => {
-        const el = createAccommodationMarkerEl();
+        const el = createAccommodationMarkerEl(acc.name);
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(acc.coords)
           .addTo(map);
