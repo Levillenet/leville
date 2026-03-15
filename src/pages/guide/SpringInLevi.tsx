@@ -14,6 +14,9 @@ import { Sun, Snowflake, Mountain, ArrowRight, Star, Coffee, Thermometer } from 
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
+import OptimizedImage from "@/components/OptimizedImage";
+import laavuOutside from "@/assets/seasons/laavu-outside.jpg";
+import laavuInside from "@/assets/seasons/laavu-inside.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
