@@ -126,6 +126,7 @@ const NorthernLightsPhotographyLevi = lazy(() => import("./pages/guide/NorthernL
 const HowNorthernLightsForm = lazy(() => import("./pages/guide/HowNorthernLightsForm"));
 const NorthernLightsColorsExplained = lazy(() => import("./pages/guide/NorthernLightsColorsExplained"));
 const BestTimeToVisitLevi = lazy(() => import("./pages/guide/BestTimeToVisitLevi"));
+const LeviInteractiveMap = lazy(() => import("./pages/guide/LeviInteractiveMap"));
 
 // Component map for dynamically registered SEO pages
 const seoComponentMap: Record<string, React.ComponentType<{ lang?: string }>> = {
