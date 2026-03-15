@@ -180,7 +180,7 @@ const LeviInteractiveMap = () => {
 
   const resetView = useCallback(() => {
     clearSelection();
-    mapRef.current?.flyTo({ center: LEVI_CENTER, zoom: 13 });
+    mapRef.current?.flyTo({ center: LEVI_CENTER, zoom: 12.5 });
   }, [clearSelection]);
 
   // Handle map click – the core two-click logic
@@ -258,7 +258,7 @@ const LeviInteractiveMap = () => {
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/outdoors-v12",
       center: LEVI_CENTER,
-      zoom: 13,
+      zoom: 12.5,
     });
     mapRef.current = map;
 
