@@ -17,6 +17,8 @@ import { Language } from "@/translations";
 import OptimizedImage from "@/components/OptimizedImage";
 import kidsSnowCaves from "@/assets/seasons/kids-snow-caves.jpg";
 import kidsSleddingDark from "@/assets/seasons/kids-sledding-dark.jpg";
+import childTykkyTree from "@/assets/seasons/child-tykky-tree.jpg";
+import kotaFire from "@/assets/seasons/kota-fire.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
