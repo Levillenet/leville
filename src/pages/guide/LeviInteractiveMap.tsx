@@ -537,12 +537,12 @@ const LeviInteractiveMap = () => {
         @keyframes levi-pulse { 0% { transform: translate(-50%,-50%) scale(1); opacity: .6; } 100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; } }
 
         /* ── Shared named-marker label system ── */
-        .levi-marker-with-label { position: relative; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .levi-marker-with-label { position: relative; width: 0; height: 0; overflow: visible; cursor: pointer; }
         .levi-marker-label { position: absolute; padding: 1px 6px; border-radius: 4px; font-size: 10px; font-weight: 600; line-height: 1.2; white-space: nowrap; box-shadow: 0 1px 4px rgba(0,0,0,.2); max-width: 150px; z-index: 3; }
-        .levi-label-top .levi-marker-label { bottom: calc(100% + 3px); left: 50%; transform: translateX(-50%); }
-        .levi-label-bottom .levi-marker-label { top: calc(100% + 3px); left: 50%; transform: translateX(-50%); }
-        .levi-label-right .levi-marker-label { left: calc(100% + 5px); top: 50%; transform: translateY(-50%); }
-        .levi-label-left .levi-marker-label { right: calc(100% + 5px); top: 50%; transform: translateY(-50%); }
+        .levi-label-top .levi-marker-label { bottom: 18px; left: 50%; transform: translateX(-50%); }
+        .levi-label-bottom .levi-marker-label { top: 18px; left: 50%; transform: translateX(-50%); }
+        .levi-label-right .levi-marker-label { left: 20px; top: 50%; transform: translateY(-50%); }
+        .levi-label-left .levi-marker-label { right: 20px; top: 50%; transform: translateY(-50%); }
 
         /* ── Accommodation markers ── */
         .levi-accom-marker { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); transition: transform .15s; }
