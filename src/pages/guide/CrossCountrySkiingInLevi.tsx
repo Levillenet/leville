@@ -16,6 +16,7 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import OptimizedImage from "@/components/OptimizedImage";
 import springCrossCountry from "@/assets/seasons/spring-cross-country.jpg";
+import crossCountrySunny from "@/assets/seasons/cross-country-sunny.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
