@@ -185,22 +185,30 @@ const LeviInteractiveMap = () => {
         .addTo(map);
       setPointA({ coords, name, marker });
     } else if (!b) {
-      // Second click → set B and draw line
+      // Second click → set B and fetch route
       const marker = new mapboxgl.Marker({ element: createUserMarkerEl("B") })
         .setLngLat(coords)
         .addTo(map);
       setPointB({ coords, name, marker });
+      setRouteLoading(true);
 
-      // Draw line
+      // Clean old line
       if (map.getLayer("ab-line-layer")) map.removeLayer("ab-line-layer");
       if (map.getSource("ab-line")) map.removeSource("ab-line");
+
+      // Fetch real route
+      const route = await fetchRoute(a.coords, coords);
+      const geometry = route?.geometry || { type: "LineString" as const, coordinates: [a.coords, coords] };
+      const distance_km = route?.distance_km ?? haversine(a.coords, coords);
+      setRouteInfo({ distance_km });
+      setRouteLoading(false);
 
       map.addSource("ab-line", {
         type: "geojson",
         data: {
           type: "Feature",
           properties: {},
-          geometry: { type: "LineString", coordinates: [a.coords, coords] },
+          geometry,
         },
       });
       map.addLayer({
@@ -209,8 +217,8 @@ const LeviInteractiveMap = () => {
         source: "ab-line",
         paint: {
           "line-color": "#ef4444",
-          "line-width": 3,
-          "line-dasharray": [2, 2],
+          "line-width": 4,
+          "line-dasharray": [0],
         },
       });
     } else {
