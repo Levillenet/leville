@@ -1,34 +1,37 @@
 
 
-# Kartan parannukset: tietä pitkin reititys + majoitusten nimet ja varauslinkit
+# GA4-tapahtumaseuranta majoitushauille
 
-## Ongelma
-1. **Etäisyydet mitataan linnuntietä** (Haversine) → pitää mitata tietä pitkin
-2. **Majoitusten nimet eivät näy kartalla** markkerien kohdalla
-3. **Varauslinkki pitää näkyä paremmin** kun klikkaa majoitusta
+## Muutos
 
-## Ratkaisu
+Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
 
-### 1. Tietä pitkin reititys — Mapbox Directions API
-Korvataan Haversine-laskenta Mapbox Directions API:lla:
-- Kun molemmat pisteet (A ja B) on valittu, haetaan `https://api.mapbox.com/directions/v5/mapbox/driving/{A};{B}?access_token=...`
-- API palauttaa todellisen ajoreitin etäisyyden ja geometrian
-- Piirretään todellinen reitti kartalle (ei suoraa viivaa)
-- Taksilaskelman ja kävelyajan pohjaksi tulee API:n palauttama etäisyys
-- Haversine jää fallbackiksi (esim. jos API-kutsu epäonnistuu) ja "etäisyys keskustaan" -tietoihin (nämä voivat jäädä linnuntietä koska ovat vain suuntaa-antavia)
+## Toteutus
 
-### 2. Majoitusten nimet näkyviin kartalle
-- Lisätään jokaiseen majoitusmarkkeriin teksti-label (HTML-elementti markkerissa) jossa majoituksen nimi näkyy
-- Label on pieni, pyöristetty badge majoitusmarkkerin vieressä/alla
+Tiedosto: `src/components/ModerBookingWidget.tsx`
 
-### 3. Majoituksen popup parannukset
-- Popup näyttää jo nyt "Book Now →" -linkin — varmistetaan että se on selkeä ja toimii
-- Nimeä korostetaan isommaksi popupissa
+`showLoadingOverlay`-funktion alkuun lisataan:
 
-## Tekniset muutokset — `src/pages/guide/LeviInteractiveMap.tsx`
+```typescript
+if (typeof window !== 'undefined' && (window as any).gtag) {
+  (window as any).gtag('event', 'accommodation_search', {
+    event_category: 'booking',
+    event_label: lang,
+    page_location: window.location.pathname,
+  });
+}
+```
 
-1. **Uusi async-funktio `fetchRoute`**: hakee Mapbox Directions API:sta reitin kahden pisteen välillä, palauttaa `{ distance_km, geometry }`
-2. **`handleMapClick` päivitetään**: toisen klikkauksen jälkeen kutsutaan `fetchRoute`, piirretään reitti geometriasta (ei suora viiva), käytetään API:n etäisyyttä laskelmiin
-3. **`createAccommodationMarkerEl`**: lisätään nimi-label markkerin alle
-4. **Comparison panel**: lisätään "⚠️ Etäisyys tietä pitkin" -teksti selventämään
+Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+
+## Missa naet tulokset
+
+Google Analytics 4 -hallintapaneelissa (analytics.google.com):
+- **Reaaliaikainen testaus:** Reports > Realtime
+- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+
+## Ei muita muutoksia
+- Ei uusia riippuvuuksia
+- GA4-skripti on jo ladattu index.html:ssa
+- Yksi tiedosto muuttuu, yksi rivi lisataan
 

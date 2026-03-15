@@ -84,10 +84,15 @@ function createCenterMarkerEl() {
   return el;
 }
 
-function createAccommodationMarkerEl() {
+function createAccommodationMarkerEl(name: string) {
   const el = document.createElement("div");
-  el.className = "levi-accom-marker";
-  el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`;
+  el.className = "levi-accom-wrapper";
+  el.innerHTML = `
+    <div class="levi-accom-marker">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    </div>
+    <div class="levi-accom-label">${name}</div>
+  `;
   return el;
 }
 
@@ -105,6 +110,22 @@ function createUserMarkerEl(label: string) {
   return el;
 }
 
+// ── Routing helper ─────────────────────────────────────────
+
+async function fetchRoute(a: [number, number], b: [number, number]): Promise<{ distance_km: number; geometry: GeoJSON.LineString } | null> {
+  try {
+    const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${a[0]},${a[1]};${b[0]},${b[1]}?geometries=geojson&overview=full&access_token=${MAPBOX_TOKEN}`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const route = data.routes?.[0];
+    if (!route) return null;
+    return { distance_km: route.distance / 1000, geometry: route.geometry };
+  } catch {
+    return null;
+  }
+}
+
 // ── Component ──────────────────────────────────────────────
 
 interface SelectedPoint {
@@ -119,6 +140,8 @@ const LeviInteractiveMap = () => {
   const [legendOpen, setLegendOpen] = useState(true);
   const [pointA, setPointA] = useState<SelectedPoint | null>(null);
   const [pointB, setPointB] = useState<SelectedPoint | null>(null);
+  const [routeInfo, setRouteInfo] = useState<{ distance_km: number } | null>(null);
+  const [routeLoading, setRouteLoading] = useState(false);
   const [mapReady, setMapReady] = useState(false);
   const [noToken, setNoToken] = useState(false);
   const pointARef = useRef<SelectedPoint | null>(null);
@@ -133,6 +156,8 @@ const LeviInteractiveMap = () => {
     pointBRef.current?.marker.remove();
     setPointA(null);
     setPointB(null);
+    setRouteInfo(null);
+    setRouteLoading(false);
     const map = mapRef.current;
     if (map) {
       if (map.getLayer("ab-line-layer")) map.removeLayer("ab-line-layer");
@@ -146,7 +171,7 @@ const LeviInteractiveMap = () => {
   }, [clearSelection]);
 
   // Handle map click – the core two-click logic
-  const handleMapClick = useCallback((coords: [number, number], name: string) => {
+  const handleMapClick = useCallback(async (coords: [number, number], name: string) => {
     const map = mapRef.current;
     if (!map) return;
 
@@ -160,22 +185,30 @@ const LeviInteractiveMap = () => {
         .addTo(map);
       setPointA({ coords, name, marker });
     } else if (!b) {
-      // Second click → set B and draw line
+      // Second click → set B and fetch route
       const marker = new mapboxgl.Marker({ element: createUserMarkerEl("B") })
         .setLngLat(coords)
         .addTo(map);
       setPointB({ coords, name, marker });
+      setRouteLoading(true);
 
-      // Draw line
+      // Clean old line
       if (map.getLayer("ab-line-layer")) map.removeLayer("ab-line-layer");
       if (map.getSource("ab-line")) map.removeSource("ab-line");
+
+      // Fetch real route
+      const route = await fetchRoute(a.coords, coords);
+      const geometry = route?.geometry || { type: "LineString" as const, coordinates: [a.coords, coords] };
+      const distance_km = route?.distance_km ?? haversine(a.coords, coords);
+      setRouteInfo({ distance_km });
+      setRouteLoading(false);
 
       map.addSource("ab-line", {
         type: "geojson",
         data: {
           type: "Feature",
           properties: {},
-          geometry: { type: "LineString", coordinates: [a.coords, coords] },
+          geometry,
         },
       });
       map.addLayer({
@@ -184,8 +217,8 @@ const LeviInteractiveMap = () => {
         source: "ab-line",
         paint: {
           "line-color": "#ef4444",
-          "line-width": 3,
-          "line-dasharray": [2, 2],
+          "line-width": 4,
+          "line-dasharray": [0],
         },
       });
     } else {
@@ -233,7 +266,7 @@ const LeviInteractiveMap = () => {
 
       // ─ Accommodation markers ─
       ACCOMMODATIONS.forEach((acc) => {
-        const el = createAccommodationMarkerEl();
+        const el = createAccommodationMarkerEl(acc.name);
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(acc.coords)
           .addTo(map);
@@ -288,13 +321,14 @@ const LeviInteractiveMap = () => {
 
   // ── Comparison data ───────────────────────────────────────
   const comparison = pointA && pointB ? (() => {
-    const dist = haversine(pointA.coords, pointB.coords);
+    const dist = routeInfo?.distance_km ?? haversine(pointA.coords, pointB.coords);
     return {
       dist,
       fare: taxiFare(dist),
       walk: walkTime(dist),
       aToCenter: distToCenter(pointA.coords),
       bToCenter: distToCenter(pointB.coords),
+      isRoute: !!routeInfo,
     };
   })() : null;
 
@@ -372,8 +406,15 @@ const LeviInteractiveMap = () => {
               </div>
             )}
 
+            {/* Loading indicator */}
+            {routeLoading && pointA && (
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 bg-background/95 backdrop-blur-sm rounded-lg border border-border/50 shadow-xl px-4 py-3 max-w-xs text-center animate-fade-in">
+                <p className="text-sm text-muted-foreground">🔄 Calculating route...</p>
+              </div>
+            )}
+
             {/* Comparison panel */}
-            {comparison && pointA && pointB && (
+            {comparison && pointA && pointB && !routeLoading && (
               <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 bg-background/95 backdrop-blur-sm rounded-lg border border-border/50 shadow-xl px-4 sm:px-6 py-4 w-[calc(100%-1.5rem)] sm:w-auto sm:max-w-md animate-fade-in">
                 <div className="flex justify-between items-start mb-2">
                   <div className="text-sm">
@@ -386,13 +427,13 @@ const LeviInteractiveMap = () => {
                   </button>
                 </div>
                 <div className="border-t border-border/40 pt-2 space-y-1 text-sm">
-                  <div className="flex items-center gap-2"><Navigation className="w-3.5 h-3.5 text-primary" /> <span>Distance: <strong>{fmtKm(comparison.dist)}</strong></span></div>
+                  <div className="flex items-center gap-2"><Navigation className="w-3.5 h-3.5 text-primary" /> <span>Distance {comparison.isRoute ? "(road)" : "(straight line)"}: <strong>{fmtKm(comparison.dist)}</strong></span></div>
                   <div className="flex items-center gap-2"><Car className="w-3.5 h-3.5 text-primary" /> <span>Taxi fare: <strong>~{fmtEur(comparison.fare)}</strong></span></div>
                   <div className="flex items-center gap-2"><Footprints className="w-3.5 h-3.5 text-primary" /> <span>Walking: <strong>{comparison.walk}</strong></span></div>
                 </div>
                 <div className="border-t border-border/40 pt-2 mt-2 text-xs text-muted-foreground space-y-0.5">
-                  <p>A → Levi Center: {fmtKm(comparison.aToCenter)}</p>
-                  <p>B → Levi Center: {fmtKm(comparison.bToCenter)}</p>
+                  <p>A → Levi Center: ~{fmtKm(comparison.aToCenter)}</p>
+                  <p>B → Levi Center: ~{fmtKm(comparison.bToCenter)}</p>
                 </div>
               </div>
             )}
@@ -482,8 +523,10 @@ const LeviInteractiveMap = () => {
         @keyframes levi-pulse { 0% { transform: translate(-50%,-50%) scale(1); opacity: .6; } 100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; } }
 
         /* ── Accommodation markers ── */
-        .levi-accom-marker { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); cursor: pointer; transition: transform .15s; }
-        .levi-accom-marker:hover { transform: scale(1.15); }
+        .levi-accom-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+        .levi-accom-marker { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); transition: transform .15s; }
+        .levi-accom-wrapper:hover .levi-accom-marker { transform: scale(1.15); }
+        .levi-accom-label { margin-top: 2px; background: rgba(217,119,6,.9); color: white; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 4px; white-space: nowrap; box-shadow: 0 1px 4px rgba(0,0,0,.2); }
 
         /* ── Landmark markers ── */
         .levi-landmark-marker { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0d9488, #0f766e); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(13,148,136,.4); cursor: pointer; transition: transform .15s; }
