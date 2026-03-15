@@ -31,6 +31,7 @@ import santaSitting from "@/assets/santa-sitting.jpg";
 import santaWaving from "@/assets/santa-waving.png";
 import santaCabin from "@/assets/santa-cabin.webp";
 import christmasCozy from "@/assets/christmas-cozy.png";
+import christmasMarket from "@/assets/seasons/christmas-market.jpg";
 
 interface JouluLapissakProps {
   lang?: Language;
