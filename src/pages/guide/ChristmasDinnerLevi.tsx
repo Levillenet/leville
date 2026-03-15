@@ -19,6 +19,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import OptimizedImage from "@/components/OptimizedImage";
+import reindeerStewPots from "@/assets/seasons/reindeer-stew-pots.jpg";
 import {
   Star,
   Gift,
