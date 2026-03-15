@@ -200,14 +200,13 @@ const LeviInteractiveMap = () => {
 
   // ── Init map ──────────────────────────────────────────────
   useEffect(() => {
-    const token = import.meta.env.VITE_MAPBOX_TOKEN;
-    if (!token) {
+    if (!MAPBOX_TOKEN) {
       setNoToken(true);
       return;
     }
     if (mapRef.current || !mapContainer.current) return;
 
-    mapboxgl.accessToken = token;
+    mapboxgl.accessToken = MAPBOX_TOKEN;
 
     const map = new mapboxgl.Map({
       container: mapContainer.current,
