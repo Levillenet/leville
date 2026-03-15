@@ -11,6 +11,8 @@ import { getWebsiteSchema, getArticleSchema, getFAQSchema } from "@/utils/struct
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Music, MapPin, Info, Wine, Moon, Star } from "lucide-react";
+import OptimizedImage from "@/components/OptimizedImage";
+import campfireBarista from "@/assets/seasons/campfire-barista.jpg";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
