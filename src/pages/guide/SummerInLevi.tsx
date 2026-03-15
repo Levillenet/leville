@@ -20,6 +20,7 @@ import lakeView from "@/assets/summer/lake-view.jpg";
 import leipajuusto from "@/assets/summer/leipajuusto-campfire.jpg";
 import beachFamilies from "@/assets/summer/beach-families.jpg";
 import storedSnow from "@/assets/summer/stored-snow.jpg";
+import hikingTrailSummer from "@/assets/summer/hiking-trail-summer.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
