@@ -77,29 +77,42 @@ function distToCenter(coords: [number, number]) {
 
 // ── Marker HTML builders ───────────────────────────────────
 
-function createCenterMarkerEl() {
-  const el = document.createElement("div");
-  el.className = "levi-center-marker";
-  el.innerHTML = `<div class="levi-pulse-ring"></div><div class="levi-pulse-dot"></div>`;
-  return el;
-}
+type MarkerLabelPosition = "top" | "right" | "bottom" | "left";
 
-function createAccommodationMarkerEl(name: string) {
+function createCenterMarkerEl(name: string, labelPosition: MarkerLabelPosition = "right") {
   const el = document.createElement("div");
-  el.className = "levi-accom-wrapper";
+  el.className = `levi-marker-with-label levi-label-${labelPosition}`;
   el.innerHTML = `
-    <div class="levi-accom-marker">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    <div class="levi-center-marker">
+      <div class="levi-pulse-ring"></div>
+      <div class="levi-pulse-dot"></div>
     </div>
-    <div class="levi-accom-label">${name}</div>
+    <div class="levi-marker-label levi-marker-label-center">${name}</div>
   `;
   return el;
 }
 
-function createLandmarkMarkerEl() {
+function createAccommodationMarkerEl(name: string, labelPosition: MarkerLabelPosition = "bottom") {
   const el = document.createElement("div");
-  el.className = "levi-landmark-marker";
-  el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
+  el.className = `levi-marker-with-label levi-label-${labelPosition}`;
+  el.innerHTML = `
+    <div class="levi-accom-marker">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    </div>
+    <div class="levi-marker-label levi-marker-label-accom">${name}</div>
+  `;
+  return el;
+}
+
+function createLandmarkMarkerEl(name: string, labelPosition: MarkerLabelPosition = "top") {
+  const el = document.createElement("div");
+  el.className = `levi-marker-with-label levi-label-${labelPosition}`;
+  el.innerHTML = `
+    <div class="levi-landmark-marker">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+    </div>
+    <div class="levi-marker-label levi-marker-label-landmark">${name}</div>
+  `;
   return el;
 }
 
