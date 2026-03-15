@@ -295,6 +295,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
             </section>
 
+            {/* Hero image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={lakeView} alt={lang === "fi" ? "Järvimaisema Levillä kesällä – tunturit ja kirkas vesi" : "Lake view in Levi during summer – fells and clear water"} className="w-full h-64 sm:h-80 md:h-96" priority />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levin hiekkarannat ja kristallinkirkas järvivesi houkuttelevat uimaan kesäpäivinä" : "Levi's sandy beaches and crystal-clear lake water invite swimmers on summer days"}
+              </p>
+            </section>
+
             {/* Stats */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
