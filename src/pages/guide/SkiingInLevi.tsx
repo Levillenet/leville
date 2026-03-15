@@ -361,6 +361,14 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
             </section>
 
+            {/* Sunset slopes image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={sunsetSlopesTykky} alt={lang === "fi" ? "Laskettelu auringonlaskussa tykkylumisten puiden keskellä Levin tunturilla" : "Skiing at sunset among snow-laden tykky trees on Levi fell"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Laskettelu auringonlaskussa tykkylumisten puiden keskellä — Levin rinteiltä avautuvat henkeäsalpaavat näkymät erityisesti marraskuussa ja joulukuussa" : "Skiing at sunset among snow-laden tykky trees — the slopes of Levi offer breathtaking views especially in November and December"}
+              </p>
+            </section>
+
             {/* Stats */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6 text-center">

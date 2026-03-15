@@ -126,6 +126,14 @@ const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">{t.intro}</p>
           </section>
 
+          {/* Reindeer farm image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={reindeerFarm} alt={lang === "fi" ? "Poro lepäämässä porotilalla Levillä" : "Reindeer resting at a reindeer farm in Levi"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              {lang === "fi" ? "Poro lepäämässä porotilalla — porosafarin aikana pääset tutustumaan porojen elämään lähietäisyydeltä" : "A reindeer resting at the farm — during a reindeer safari you get to experience reindeer life up close"}
+            </p>
+          </section>
+
           {/* Experiences */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">

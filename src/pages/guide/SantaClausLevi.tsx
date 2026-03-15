@@ -272,6 +272,17 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
                 />
               </div>
               <p className="text-muted-foreground mb-3">{t.sections.cabin.content}</p>
+              <div className="rounded-xl overflow-hidden mb-4">
+                <img
+                  src={santaCabinWinter}
+                  alt={lang === "fi" ? "Joulupukin mökki talviasussa Levin tunturin huipulla" : "Santa's Cabin in its winter coat on top of Levi fell"}
+                  className="w-full h-64 sm:h-80 object-cover"
+                  loading="lazy"
+                />
+                <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                  {lang === "fi" ? "Joulupukin mökki talviasussa — paksu lumi ja huurre tekevät mökistä erityisen taianomaisen tammikuussa" : "Santa's Cabin in its winter coat — thick snow and frost make the cabin especially magical in January"}
+                </p>
+              </div>
               <p className="text-muted-foreground mb-3">{t.sections.cabin.access}</p>
               <Card className="glass-card border-border/30 p-4">
                 <div className="flex items-start gap-3">

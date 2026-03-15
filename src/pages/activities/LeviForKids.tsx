@@ -19,6 +19,8 @@ import kidsSnowCaves from "@/assets/seasons/kids-snow-caves.jpg";
 import kidsSleddingDark from "@/assets/seasons/kids-sledding-dark.jpg";
 import childTykkyTree from "@/assets/seasons/child-tykky-tree.jpg";
 import kotaFire from "@/assets/seasons/kota-fire.jpg";
+import childSkiingTykky from "@/assets/seasons/child-skiing-tykky.jpg";
+import snowmanVillage from "@/assets/seasons/snowman-village.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {

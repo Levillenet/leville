@@ -222,7 +222,13 @@ const ApresSkiLevi = ({ lang = "fi" }: ApresSkiLeviProps) => {
             {/* Culture */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.culture.title}</h2>
-              <p className="text-muted-foreground">{t.sections.culture.content}</p>
+              <p className="text-muted-foreground mb-4">{t.sections.culture.content}</p>
+              <div className="rounded-xl overflow-hidden">
+                <OptimizedImage src={campfireBarista} alt={lang === "fi" ? "Campfire Barista -kahvakoju Levin rinteillä" : "Campfire Barista coffee stand at Levi slopes"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+                <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                  {lang === "fi" ? "Campfire Barista — palkittu nuotiokahvila Levin rinteen juurella, jossa voi nauttia tulen ääressä kahvista ja tikkupullasta" : "Campfire Barista — an award-winning campfire coffee stand at the foot of Levi slopes, where you can enjoy coffee and stick buns by the fire"}
+                </p>
+              </div>
             </section>
 
             {/* Popular places */}
