@@ -269,7 +269,7 @@ const LeviInteractiveMap = () => {
 
       // ─ Levi Center marker ─
       const centerEl = createCenterMarkerEl("Levi Center", "right");
-      new mapboxgl.Marker({ element: centerEl })
+      new mapboxgl.Marker({ element: centerEl, anchor: 'center' })
         .setLngLat(LEVI_CENTER)
         .addTo(map);
       centerEl.addEventListener("click", (e) => {
