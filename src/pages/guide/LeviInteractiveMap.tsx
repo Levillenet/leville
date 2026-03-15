@@ -110,6 +110,22 @@ function createUserMarkerEl(label: string) {
   return el;
 }
 
+// ── Routing helper ─────────────────────────────────────────
+
+async function fetchRoute(a: [number, number], b: [number, number]): Promise<{ distance_km: number; geometry: GeoJSON.LineString } | null> {
+  try {
+    const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${a[0]},${a[1]};${b[0]},${b[1]}?geometries=geojson&overview=full&access_token=${MAPBOX_TOKEN}`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const data = await res.json();
+    const route = data.routes?.[0];
+    if (!route) return null;
+    return { distance_km: route.distance / 1000, geometry: route.geometry };
+  } catch {
+    return null;
+  }
+}
+
 // ── Component ──────────────────────────────────────────────
 
 interface SelectedPoint {
