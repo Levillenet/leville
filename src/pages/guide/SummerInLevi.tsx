@@ -340,6 +340,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               </div>
             </section>
 
+            {/* Summer toboggan image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={summerToboggan} alt={lang === "fi" ? "Kesäkelkkarata Levillä – vauhdikas lasku tunturilta" : "Summer toboggan run in Levi – thrilling ride down the fell"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Kesäkelkkaradalla lasketaan vauhdikkaasti tunturin laelta alas – huippuhauskaa koko perheelle!" : "The summer toboggan run takes you racing down the fell – incredible fun for the whole family!"}
+              </p>
+            </section>
+
             {/* Hiking Trails */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.sections.hiking.title}</h2>
