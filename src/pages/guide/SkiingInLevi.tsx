@@ -14,6 +14,7 @@ import { Mountain, MapPin, Clock, Euro, Users, ArrowRight, Snowflake, Star, Cabl
 import OptimizedImage from "@/components/OptimizedImage";
 import sunsetSlopesTykky from "@/assets/seasons/sunset-slopes-tykky.jpg";
 import frontSlopesSpring from "@/assets/seasons/front-slopes-spring.jpg";
+import springSlopesWind from "@/assets/seasons/spring-slopes-wind.jpg";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
