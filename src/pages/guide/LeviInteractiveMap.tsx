@@ -531,7 +531,7 @@ const LeviInteractiveMap = () => {
       {/* Mapbox marker & popup styles */}
       <style>{`
         /* ── Levi Center pulsing marker ── */
-        .levi-center-marker { position: relative; width: 24px; height: 24px; cursor: pointer; }
+        .levi-center-marker { position: absolute; width: 24px; height: 24px; cursor: pointer; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         .levi-pulse-dot { width: 14px; height: 14px; background: hsl(var(--primary, 217 91% 60%)); border: 3px solid white; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 6px rgba(59,130,246,.5); z-index: 2; }
         .levi-pulse-ring { width: 24px; height: 24px; border-radius: 50%; background: rgba(59,130,246,.25); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: levi-pulse 2s ease-out infinite; }
         @keyframes levi-pulse { 0% { transform: translate(-50%,-50%) scale(1); opacity: .6; } 100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; } }
