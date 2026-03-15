@@ -49,11 +49,21 @@ serve(async (req) => {
       const startDate = `${startYear}-${String(startMonth).padStart(2, "0")}-${String(startDay).padStart(2, "0")}T00:00:00Z`;
       const endDate = `${endYear}-${String(endMonth).padStart(2, "0")}-${String(endDay).padStart(2, "0")}T23:59:59Z`;
 
-      // Skip future dates
+      const now = new Date();
+      const startDateObj = new Date(startDate);
       const endDateObj = new Date(endDate);
-      if (endDateObj > new Date()) {
-        console.log(`Skipping future date range: ${startDate} - ${endDate}`);
+
+      // Skip only if the start date is in the future (no data possible)
+      if (startDateObj > now) {
+        console.log(`Skipping future start date: ${startDate}`);
         continue;
+      }
+
+      // Clamp end date to today if it's in the future
+      let effectiveEndDate = endDate;
+      if (endDateObj > now) {
+        effectiveEndDate = now.toISOString();
+        console.log(`Clamping end date from ${endDate} to ${effectiveEndDate}`);
       }
 
       const primaryUrl = buildFmiUrl({ place, startDate, endDate });
