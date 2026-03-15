@@ -778,6 +778,18 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
                 </Card>
               ))}
             </div>
+            <Link
+              to="/levi-map"
+              className="flex items-center gap-3 bg-card/50 border border-border hover:border-primary/50 rounded-xl p-5 mt-6 transition-all duration-300 group max-w-md mx-auto"
+            >
+              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                <MapPin className="w-5 h-5 text-primary" />
+              </div>
+              <span className="text-foreground font-medium group-hover:text-primary transition-colors">
+                {lang === "fi" ? "Katso kohteet kartalla" : "View locations on the map"}
+              </span>
+              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors ml-auto flex-shrink-0" />
+            </Link>
           </section>
 
           {/* FAQ Section */}
