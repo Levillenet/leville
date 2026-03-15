@@ -321,13 +321,14 @@ const LeviInteractiveMap = () => {
 
   // ── Comparison data ───────────────────────────────────────
   const comparison = pointA && pointB ? (() => {
-    const dist = haversine(pointA.coords, pointB.coords);
+    const dist = routeInfo?.distance_km ?? haversine(pointA.coords, pointB.coords);
     return {
       dist,
       fare: taxiFare(dist),
       walk: walkTime(dist),
       aToCenter: distToCenter(pointA.coords),
       bToCenter: distToCenter(pointB.coords),
+      isRoute: !!routeInfo,
     };
   })() : null;
 
