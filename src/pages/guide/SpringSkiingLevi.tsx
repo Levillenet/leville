@@ -155,6 +155,14 @@ const SpringSkiingLevi = ({ lang = "fi" }: SpringSkiingLeviProps) => {
               <p className="text-muted-foreground">{t.sections.terrace.content}</p>
             </section>
 
+            {/* Spring skiing kid image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={springSkiingKid} alt={lang === "fi" ? "Lapsi laskettelemassa kevätauringossa pelkässä kerrasto-paidassa" : "Child skiing in spring sunshine wearing just a base layer"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Kevätlaskettelun parhaimmillaan — huhtikuussa aurinko lämmittää niin että takki jää naulakkoon ja rinteellä pärjää kerrasto-paidassa" : "Spring skiing at its best — in April the sun is so warm that jackets stay on the rack and a base layer is all you need on the slopes"}
+              </p>
+            </section>
+
             {/* Ylläs-Levi */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.yllasLevi.title}</h2>
