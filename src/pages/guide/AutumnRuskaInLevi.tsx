@@ -14,6 +14,8 @@ import { Leaf, Sparkles, Mountain, ArrowRight, Star, Camera, TreePine, Thermomet
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
+import OptimizedImage from "@/components/OptimizedImage";
+import reindeerVillage from "@/assets/seasons/reindeer-village.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -345,6 +347,14 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
                   </div>
                 ))}
               </div>
+            </section>
+
+            {/* Reindeer in village image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={reindeerVillage} alt={lang === "fi" ? "Poroja Levin kyläkeskuksessa" : "Reindeer in Levi village centre"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Poroja Levin kyläkeskuksessa — porot vierailevat kylässä erityisesti keväisin ja kesäisin" : "Reindeer in Levi village centre — reindeer visit the village especially in spring and summer"}
+              </p>
             </section>
 
             {/* Activities */}

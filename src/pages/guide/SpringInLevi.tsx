@@ -14,6 +14,9 @@ import { Sun, Snowflake, Mountain, ArrowRight, Star, Coffee, Thermometer } from 
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
+import OptimizedImage from "@/components/OptimizedImage";
+import laavuOutside from "@/assets/seasons/laavu-outside.jpg";
+import laavuInside from "@/assets/seasons/laavu-inside.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -325,6 +328,22 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
                   </Card>
                 ))}
               </div>
+            </section>
+
+            {/* Laavu outside image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={laavuOutside} alt={lang === "fi" ? "Laavu retkeilyreitin varrella Levillä" : "A laavu shelter along a hiking trail in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Laavu on avoin tulentekopaikka retkeilijöille — niitä voi käyttää ilmaiseksi ympäri Levin retkeilyreitistöä" : "A laavu is an open-air shelter for hikers — they can be used for free across Levi's trail network"}
+              </p>
+            </section>
+
+            {/* Laavu inside image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={laavuInside} alt={lang === "fi" ? "Nuotio laavussa kevätretkellä" : "Campfire in a laavu during a spring outing"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Nuotio laavussa kevätretkellä — eväsretki nuotion ääressä kuuluu Lapin retkeilykulttuuriin" : "Campfire in a laavu during a spring outing — a fireside snack break is an essential part of Lapland hiking culture"}
+              </p>
             </section>
 
             {/* Temperatures */}

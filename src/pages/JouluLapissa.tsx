@@ -31,6 +31,7 @@ import santaSitting from "@/assets/santa-sitting.jpg";
 import santaWaving from "@/assets/santa-waving.png";
 import santaCabin from "@/assets/santa-cabin.webp";
 import christmasCozy from "@/assets/christmas-cozy.png";
+import christmasMarket from "@/assets/seasons/christmas-market.jpg";
 
 interface JouluLapissakProps {
   lang?: Language;
@@ -595,6 +596,14 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                   </CardContent>
                 </Card>
               </Link>
+            </section>
+
+            {/* Christmas market image */}
+            <section className="mb-12 sm:mb-16 rounded-xl overflow-hidden max-w-4xl mx-auto">
+              <OptimizedImage src={christmasMarket} alt={lang === "fi" ? "Joulumarkkinat Levin keskustassa" : "Christmas market in Levi centre"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Joulumarkkinat Levin keskustassa — paikallista käsityötä ja jouluista tunnelmaa" : "Christmas market in Levi centre — local handicrafts and festive atmosphere"}
+              </p>
             </section>
 
             {/* Christmas Experiences */}

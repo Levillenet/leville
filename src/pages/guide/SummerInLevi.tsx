@@ -19,6 +19,7 @@ import summerToboggan from "@/assets/summer/summer-toboggan.jpg";
 import lakeView from "@/assets/summer/lake-view.jpg";
 import leipajuusto from "@/assets/summer/leipajuusto-campfire.jpg";
 import beachFamilies from "@/assets/summer/beach-families.jpg";
+import storedSnow from "@/assets/summer/stored-snow.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -367,6 +368,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               <OptimizedImage src={beachFamilies} alt={lang === "fi" ? "Perheitä hiekkarannalla Levillä kesällä" : "Families at the sandy beach in Levi during summer"} className="w-full h-64 sm:h-80 md:h-96" />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
                 {lang === "fi" ? "Levin hiekkarannoilla nautitaan kesäpäivistä – tunturit näkyvät järven takana" : "Enjoying summer days at Levi's sandy beaches – fells visible across the lake"}
+              </p>
+            </section>
+
+            {/* Stored snow image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={storedSnow} alt={lang === "fi" ? "Säilöttyä lunta Levin eturinteessä elokuussa" : "Stored snow on Levi's front slope in August"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Säilöttyä lunta Levin eturinteessä elokuussa — lunta varastoidaan sahanpurun alla kesän yli laskettelukauden aikaistamiseksi" : "Stored snow on Levi's front slope in August — snow is preserved under sawdust over summer to enable an early ski season start"}
               </p>
             </section>
 

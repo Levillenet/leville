@@ -11,6 +11,9 @@ import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema }
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Snowflake, Moon, Thermometer, Mountain, ArrowRight, Star, Sparkles } from "lucide-react";
+import OptimizedImage from "@/components/OptimizedImage";
+import winterSunset from "@/assets/seasons/winter-sunset.jpg";
+import tykkyTrees from "@/assets/seasons/tykky-trees.jpg";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
@@ -306,10 +309,26 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
               </div>
             </section>
 
+            {/* Winter sunset image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={winterSunset} alt={lang === "fi" ? "Auringonlasku Levin rinteiden yllä talvella" : "Sunset over Levi slopes in winter"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levin taivas voi näyttäytyä erityisen kauniina auringonlaskun aikaan talvella" : "The sky above Levi can look spectacular at sunset during winter"}
+              </p>
+            </section>
+
             {/* Kaamos */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.kaamos.title}</h2>
               <p className="text-muted-foreground">{t.sections.kaamos.content}</p>
+            </section>
+
+            {/* Tykky trees image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={tykkyTrees} alt={lang === "fi" ? "Tykkylumisia puita Levin tunturissa" : "Snow-laden tykky trees on Levi fell"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Tykkylumisia puita Levin tunturissa — tykky tarkoittaa puihin jäätynyttä paksua lumikerrosta, jota esiintyy tyypillisesti joulukuusta helmikuuhun" : "Snow-laden 'tykky' trees on Levi fell — tykky refers to thick frozen snow coating on trees, typically seen from December to February"}
+              </p>
             </section>
 
             {/* Activities */}

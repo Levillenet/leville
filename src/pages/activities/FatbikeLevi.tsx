@@ -14,6 +14,8 @@ import { ArrowRight, Bike, MapPin, Clock, Star, Info, Heart, Sun, Users, Snowfla
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
+import OptimizedImage from "@/components/OptimizedImage";
+import fatbikeSnow from "@/assets/seasons/fatbike-snow.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -81,6 +83,14 @@ const FatbikeLevi = ({ lang = "fi" }: FatbikeLeviProps) => {
             <section className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.h1}</h1>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+            </section>
+
+            {/* Fatbike snow image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={fatbikeSnow} alt={lang === "fi" ? "Fatbike-pyöräilyä lumisella reitillä Levillä" : "Fatbiking on a snowy trail in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Fatbike-pyöräilyä lumisella reitillä Levillä kevättalvella" : "Fatbiking on a snowy trail in Levi during late winter"}
+              </p>
             </section>
 
             {/* What is fatbike */}

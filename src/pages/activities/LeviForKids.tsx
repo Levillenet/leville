@@ -14,6 +14,9 @@ import { ArrowRight, Heart, Info, Star, Users, Snowflake, Baby, Mountain, TreePi
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
+import OptimizedImage from "@/components/OptimizedImage";
+import kidsSnowCaves from "@/assets/seasons/kids-snow-caves.jpg";
+import kidsSleddingDark from "@/assets/seasons/kids-sledding-dark.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -260,6 +263,14 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
               </Card>
             </section>
 
+            {/* Kids snow caves image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={kidsSnowCaves} alt={lang === "fi" ? "Lapset lumikuopissa majoituksen pihalla" : "Kids in snow caves in the accommodation yard"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Majoitustemme piha-alueilla on usein isoja lumikasoja joissa lapset voivat leikkiä lumilinnaa ja kaivaa luolastoja" : "The yards of our accommodation properties often have large snow piles where kids can build snow forts and dig caves"}
+              </p>
+            </section>
+
             {/* Mini snowmobiles */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
@@ -306,6 +317,14 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
                   </li>
                 ))}
               </ul>
+            </section>
+
+            {/* Kids sledding in dark image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={kidsSleddingDark} alt={lang === "fi" ? "Pulkkailua joulukuun hämärässä" : "Sledding in December twilight"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Pulkkailua joulukuun hämärässä — talvipimeäkin on seikkailua lasten mielestä" : "Sledding in December twilight — even the winter darkness is an adventure for kids"}
+              </p>
             </section>
 
             {/* Other favourites */}
