@@ -318,6 +318,22 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
             ))}
           </section>
 
+          {/* Grocery fish counter image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={groceryFishCounter} alt={lang === "fi" ? "Levin ruokakauppojen kalatiskit tarjoavat tuoretta lohta, siikaa ja muikkua — kala on Lapissa aina tuoretta" : "The fish counter at Levi's grocery stores offers fresh salmon, whitefish and vendace — fish is always fresh in Lapland"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              {lang === "fi" ? "Levin ruokakauppojen kalatiskit tarjoavat tuoretta lohta, siikaa ja muikkua — kala on Lapissa aina tuoretta" : "The fish counter at Levi's grocery stores offers fresh salmon, whitefish and vendace — fish is always fresh in Lapland"}
+            </p>
+          </section>
+
+          {/* Reindeer dinner spread image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={reindeerDinnerSpread} alt={lang === "fi" ? "Poronkäristys-illallinen majoituksessa — valurautapadoissa tarjoiltu käristys puolukkoineen, suolakurkkuineen ja tuoreen leivän kera on aito lappilaisateria" : "A reindeer dinner at the accommodation — sautéed reindeer served in cast iron pots with lingonberries, pickled cucumbers and fresh bread is an authentic Lappish meal"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              {lang === "fi" ? "Poronkäristys-illallinen majoituksessa — valurautapadoissa tarjoiltu käristys puolukkoineen, suolakurkkuineen ja tuoreen leivän kera on aito lappilaisateria" : "A reindeer dinner at the accommodation — sautéed reindeer served in cast iron pots with lingonberries, pickled cucumbers and fresh bread is an authentic Lappish meal"}
+            </p>
+          </section>
+
           {/* External Links */}
           <section className="mb-12">
             <h3 className="text-lg font-semibold mb-4">{t.linksTitle}</h3>

@@ -342,6 +342,14 @@ const ChristmasDinnerLevi = () => {
               </div>
             </section>
 
+            {/* Reindeer stew image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={reindeerStewPots} alt="Sautéed reindeer in cast iron pots with mashed potatoes — a classic Lapland meal that can be ordered ready-made to your accommodation from several local companies" className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                Sautéed reindeer in cast iron pots with mashed potatoes — a classic Lapland meal that can be ordered ready-made to your accommodation from several local companies
+              </p>
+            </section>
+
             {/* Cabin Delivery */}
             <section className="mb-12 sm:mb-16">
               <h2 className="text-2xl sm:text-3xl font-bold text-[#7F1D1D] mb-4 flex items-center gap-2">

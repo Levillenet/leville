@@ -370,6 +370,14 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
               </p>
             </section>
 
+            {/* Skier on top */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={springSlopesWind} alt={lang === "fi" ? "Laskettelija Levin tunturin huipulla — näkymät ulottuvat kymmenien kilometrien päähän Lapin erämaahan" : "A skier on top of Levi fell — views stretch tens of kilometres across the Lapland wilderness"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Laskettelija Levin tunturin huipulla — näkymät ulottuvat kymmenien kilometrien päähän Lapin erämaahan" : "A skier on top of Levi fell — views stretch tens of kilometres across the Lapland wilderness"}
+              </p>
+            </section>
+
             {/* Stats */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6 text-center">

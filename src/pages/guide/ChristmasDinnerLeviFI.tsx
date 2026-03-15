@@ -134,6 +134,14 @@ const ChristmasDinnerLeviFI = () => {
               </Card>
             </section>
 
+            {/* Reindeer stew image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={reindeerStewPots} alt="Poronkäristystä valurautapadoissa perunamuusin kera — klassinen Lapin ateria jonka voi tilata valmiina majoitukseen usealta paikalliselta yritykseltä" className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                Poronkäristystä valurautapadoissa perunamuusin kera — klassinen Lapin ateria jonka voi tilata valmiina majoitukseen usealta paikalliselta yritykseltä
+              </p>
+            </section>
+
             {/* Traditional foods */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
