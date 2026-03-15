@@ -268,18 +268,18 @@ const LeviInteractiveMap = () => {
       setMapReady(true);
 
       // ─ Levi Center marker ─
-      new mapboxgl.Marker({ element: createCenterMarkerEl() })
+      const centerEl = createCenterMarkerEl("Levi Center", "right");
+      new mapboxgl.Marker({ element: centerEl })
         .setLngLat(LEVI_CENTER)
-        .addTo(map)
-        .getElement()
-        .addEventListener("click", (e) => {
-          e.stopPropagation();
-          handleMapClick(LEVI_CENTER, "Levi Center – Gondola Lift");
-        });
+        .addTo(map);
+      centerEl.addEventListener("click", (e) => {
+        e.stopPropagation();
+        handleMapClick(LEVI_CENTER, "Levi Center – Gondola Lift");
+      });
 
       // ─ Accommodation markers ─
       ACCOMMODATIONS.forEach((acc) => {
-        const el = createAccommodationMarkerEl(acc.name);
+        const el = createAccommodationMarkerEl(acc.name, acc.labelPosition);
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(acc.coords)
           .addTo(map);
@@ -296,13 +296,14 @@ const LeviInteractiveMap = () => {
 
         el.addEventListener("click", (e) => {
           e.stopPropagation();
+          window.open(acc.bookingUrl, "_blank", "noopener,noreferrer");
           handleMapClick(acc.coords, acc.name);
         });
       });
 
       // ─ Landmark markers ─
       LANDMARKS.forEach((lm) => {
-        const el = createLandmarkMarkerEl();
+        const el = createLandmarkMarkerEl(lm.name, "top");
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(lm.coords)
           .addTo(map);
