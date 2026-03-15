@@ -17,6 +17,7 @@ import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import santaCabinImage from "@/assets/santa-cabin-fell.jpg";
+import santaCabinWinter from "@/assets/seasons/santa-cabin-winter.jpg";
 import {
   Accordion,
   AccordionContent,
