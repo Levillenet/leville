@@ -1,37 +1,15 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+# Zoom in default map view to show only center markers
 
-## Muutos
+## Change
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+In `src/pages/guide/LeviInteractiveMap.tsx`, increase the default zoom from `12.5` to `14` in both:
+1. Initial map creation (line 261)
+2. Reset view function (line 183)
 
-## Toteutus
+This will show only the central Levi area (Centre Chalets, Bearlodge, K-Market, Zero Point, Levi Center, etc.) on load, requiring users to zoom out to see distant markers like Skistar or Utsuvaara.
 
-Tiedosto: `src/components/ModerBookingWidget.tsx`
-
-`showLoadingOverlay`-funktion alkuun lisataan:
-
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
-```
-
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
-
-## Missa naet tulokset
-
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
-
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+## Files changed
+- `src/pages/guide/LeviInteractiveMap.tsx` — two zoom value changes
 
