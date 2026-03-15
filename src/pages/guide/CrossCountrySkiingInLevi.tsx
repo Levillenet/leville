@@ -14,6 +14,8 @@ import { MapPin, Clock, ArrowRight, Snowflake, Star, Route, TreePine, Moon } fro
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
+import OptimizedImage from "@/components/OptimizedImage";
+import springCrossCountry from "@/assets/seasons/spring-cross-country.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
