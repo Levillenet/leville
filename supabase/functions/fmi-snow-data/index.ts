@@ -66,7 +66,7 @@ serve(async (req) => {
         console.log(`Clamping end date from ${endDate} to ${effectiveEndDate}`);
       }
 
-      const primaryUrl = buildFmiUrl({ place, startDate, endDate });
+      const primaryUrl = buildFmiUrl({ place, startDate, endDate: effectiveEndDate });
       console.log(`Fetching FMI data for ${startYear}: ${primaryUrl}`);
 
       try {
