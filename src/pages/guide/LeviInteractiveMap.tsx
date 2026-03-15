@@ -523,8 +523,10 @@ const LeviInteractiveMap = () => {
         @keyframes levi-pulse { 0% { transform: translate(-50%,-50%) scale(1); opacity: .6; } 100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; } }
 
         /* ── Accommodation markers ── */
-        .levi-accom-marker { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); cursor: pointer; transition: transform .15s; }
-        .levi-accom-marker:hover { transform: scale(1.15); }
+        .levi-accom-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+        .levi-accom-marker { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); transition: transform .15s; }
+        .levi-accom-wrapper:hover .levi-accom-marker { transform: scale(1.15); }
+        .levi-accom-label { margin-top: 2px; background: rgba(217,119,6,.9); color: white; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 4px; white-space: nowrap; box-shadow: 0 1px 4px rgba(0,0,0,.2); }
 
         /* ── Landmark markers ── */
         .levi-landmark-marker { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0d9488, #0f766e); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(13,148,136,.4); cursor: pointer; transition: transform .15s; }
