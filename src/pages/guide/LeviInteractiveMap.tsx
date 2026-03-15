@@ -406,8 +406,15 @@ const LeviInteractiveMap = () => {
               </div>
             )}
 
+            {/* Loading indicator */}
+            {routeLoading && pointA && (
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 bg-background/95 backdrop-blur-sm rounded-lg border border-border/50 shadow-xl px-4 py-3 max-w-xs text-center animate-fade-in">
+                <p className="text-sm text-muted-foreground">🔄 Calculating route...</p>
+              </div>
+            )}
+
             {/* Comparison panel */}
-            {comparison && pointA && pointB && (
+            {comparison && pointA && pointB && !routeLoading && (
               <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 bg-background/95 backdrop-blur-sm rounded-lg border border-border/50 shadow-xl px-4 sm:px-6 py-4 w-[calc(100%-1.5rem)] sm:w-auto sm:max-w-md animate-fade-in">
                 <div className="flex justify-between items-start mb-2">
                   <div className="text-sm">
@@ -420,13 +427,13 @@ const LeviInteractiveMap = () => {
                   </button>
                 </div>
                 <div className="border-t border-border/40 pt-2 space-y-1 text-sm">
-                  <div className="flex items-center gap-2"><Navigation className="w-3.5 h-3.5 text-primary" /> <span>Distance: <strong>{fmtKm(comparison.dist)}</strong></span></div>
+                  <div className="flex items-center gap-2"><Navigation className="w-3.5 h-3.5 text-primary" /> <span>Distance {comparison.isRoute ? "(road)" : "(straight line)"}: <strong>{fmtKm(comparison.dist)}</strong></span></div>
                   <div className="flex items-center gap-2"><Car className="w-3.5 h-3.5 text-primary" /> <span>Taxi fare: <strong>~{fmtEur(comparison.fare)}</strong></span></div>
                   <div className="flex items-center gap-2"><Footprints className="w-3.5 h-3.5 text-primary" /> <span>Walking: <strong>{comparison.walk}</strong></span></div>
                 </div>
                 <div className="border-t border-border/40 pt-2 mt-2 text-xs text-muted-foreground space-y-0.5">
-                  <p>A → Levi Center: {fmtKm(comparison.aToCenter)}</p>
-                  <p>B → Levi Center: {fmtKm(comparison.bToCenter)}</p>
+                  <p>A → Levi Center: ~{fmtKm(comparison.aToCenter)}</p>
+                  <p>B → Levi Center: ~{fmtKm(comparison.bToCenter)}</p>
                 </div>
               </div>
             )}
