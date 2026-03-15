@@ -14,6 +14,8 @@ import { Leaf, Sparkles, Mountain, ArrowRight, Star, Camera, TreePine, Thermomet
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
+import OptimizedImage from "@/components/OptimizedImage";
+import reindeerVillage from "@/assets/seasons/reindeer-village.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
