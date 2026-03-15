@@ -13,7 +13,12 @@ import { Button } from "@/components/ui/button";
 import { Sun, TreePine, Mountain, ArrowRight, Star, Bike, Fish, Thermometer } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import OptimizedImage from "@/components/OptimizedImage";
 import { Language } from "@/translations";
+import summerToboggan from "@/assets/summer/summer-toboggan.jpg";
+import lakeView from "@/assets/summer/lake-view.jpg";
+import leipajuusto from "@/assets/summer/leipajuusto-campfire.jpg";
+import beachFamilies from "@/assets/summer/beach-families.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -290,6 +295,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
             </section>
 
+            {/* Hero image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={lakeView} alt={lang === "fi" ? "Järvimaisema Levillä kesällä – tunturit ja kirkas vesi" : "Lake view in Levi during summer – fells and clear water"} className="w-full h-64 sm:h-80 md:h-96" priority />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levin hiekkarannat ja kristallinkirkas järvivesi houkuttelevat uimaan kesäpäivinä" : "Levi's sandy beaches and crystal-clear lake water invite swimmers on summer days"}
+              </p>
+            </section>
+
             {/* Stats */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
@@ -327,6 +340,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               </div>
             </section>
 
+            {/* Summer toboggan image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={summerToboggan} alt={lang === "fi" ? "Kesäkelkkarata Levillä – vauhdikas lasku tunturilta" : "Summer toboggan run in Levi – thrilling ride down the fell"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Kesäkelkkaradalla lasketaan vauhdikkaasti tunturin laelta alas – huippuhauskaa koko perheelle!" : "The summer toboggan run takes you racing down the fell – incredible fun for the whole family!"}
+              </p>
+            </section>
+
             {/* Hiking Trails */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.sections.hiking.title}</h2>
@@ -341,6 +362,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               </div>
             </section>
 
+            {/* Beach families image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={beachFamilies} alt={lang === "fi" ? "Perheitä hiekkarannalla Levillä kesällä" : "Families at the sandy beach in Levi during summer"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levin hiekkarannoilla nautitaan kesäpäivistä – tunturit näkyvät järven takana" : "Enjoying summer days at Levi's sandy beaches – fells visible across the lake"}
+              </p>
+            </section>
+
             {/* Tips */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.tips.title}</h2>
@@ -352,6 +381,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
                   </li>
                 ))}
               </ul>
+            </section>
+
+            {/* Leipäjuusto image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={leipajuusto} alt={lang === "fi" ? "Leipäjuusto kermassa lakkahillolla nuotiolla Levillä" : "Finnish bread cheese with cream and cloudberry jam over campfire in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Paikallinen herkku – leipäjuusto kermassa haudutettuna lakkahillolla, nautittuna nuotiolla järven rannalla" : "Local delicacy – bread cheese simmered in cream with cloudberry jam, enjoyed by a campfire at the lakeside"}
+              </p>
             </section>
 
             {/* FAQ */}
