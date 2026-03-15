@@ -545,7 +545,7 @@ const LeviInteractiveMap = () => {
         .levi-label-left .levi-marker-label { right: 20px; top: 50%; transform: translateY(-50%); }
 
         /* ── Accommodation markers ── */
-        .levi-accom-marker { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); transition: transform .15s; }
+        .levi-accom-marker { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); transition: transform .15s; }
         .levi-marker-with-label:hover .levi-accom-marker { transform: scale(1.15); }
         .levi-marker-label-accom { background: rgba(120,53,0,.85); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); }
 
