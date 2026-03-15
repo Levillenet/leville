@@ -547,13 +547,13 @@ const LeviInteractiveMap = () => {
         /* ── Accommodation markers ── */
         .levi-accom-marker { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); transition: transform .15s; }
         .levi-marker-with-label:hover .levi-accom-marker { transform: scale(1.15); }
-        .levi-marker-label-accom { background: rgba(217,119,6,.92); color: white; }
+        .levi-marker-label-accom { background: rgba(120,53,0,.85); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); }
 
         /* ── Landmark markers ── */
         .levi-landmark-marker { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0d9488, #0f766e); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(13,148,136,.4); transition: transform .15s; }
         .levi-marker-with-label:hover .levi-landmark-marker { transform: scale(1.15); }
-        .levi-marker-label-landmark { background: rgba(15,118,110,.92); color: white; }
-        .levi-marker-label-center { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+        .levi-marker-label-landmark { background: rgba(5,80,72,.85); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); }
+        .levi-marker-label-center { background: rgba(30,64,175,.9); color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); }
 
         /* ── User-placed A/B markers ── */
         .levi-user-marker { width: 28px; height: 28px; border-radius: 50%; background: #ef4444; border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(239,68,68,.4); cursor: pointer; }
