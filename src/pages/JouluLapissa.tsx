@@ -607,6 +607,14 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
               </p>
             </section>
 
+            {/* Christmas grilling image */}
+            <section className="mb-12 sm:mb-16 rounded-xl overflow-hidden max-w-4xl mx-auto">
+              <OptimizedImage src={christmasGrilling} alt={lang === "fi" ? "Grillailua joulumarkkinoilla Levillä" : "Grilling at the Christmas market in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Joulumarkkinoiden tunnelmaa — nuotion äärellä voi paistaa tikkupullaa ja poromakkaraa rinteiden juurella" : "Christmas market atmosphere — you can grill stick buns and reindeer sausage by the fire at the foot of the slopes"}
+              </p>
+            </section>
+
             {/* Christmas Experiences */}
             <section className="mb-12 sm:mb-20">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-8 text-center">
