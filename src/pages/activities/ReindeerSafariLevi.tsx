@@ -11,6 +11,8 @@ import { getWebsiteSchema } from "@/utils/structuredData";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Snowflake, Clock, Euro, Users, Camera, ThermometerSnowflake, Heart, MapPin, ArrowRight, Info } from "lucide-react";
+import OptimizedImage from "@/components/OptimizedImage";
+import reindeerFarm from "@/assets/seasons/reindeer-farm.jpg";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
@@ -122,6 +124,14 @@ const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.title}</h1>
             <p className="text-lg sm:text-xl text-primary font-medium mb-4">{t.subtitle}</p>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">{t.intro}</p>
+          </section>
+
+          {/* Reindeer farm image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={reindeerFarm} alt={lang === "fi" ? "Poro lepäämässä porotilalla Levillä" : "Reindeer resting at a reindeer farm in Levi"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              {lang === "fi" ? "Poro lepäämässä porotilalla — porosafarin aikana pääset tutustumaan porojen elämään lähietäisyydeltä" : "A reindeer resting at the farm — during a reindeer safari you get to experience reindeer life up close"}
+            </p>
           </section>
 
           {/* Experiences */}

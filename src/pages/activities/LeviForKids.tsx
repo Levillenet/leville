@@ -19,6 +19,8 @@ import kidsSnowCaves from "@/assets/seasons/kids-snow-caves.jpg";
 import kidsSleddingDark from "@/assets/seasons/kids-sledding-dark.jpg";
 import childTykkyTree from "@/assets/seasons/child-tykky-tree.jpg";
 import kotaFire from "@/assets/seasons/kota-fire.jpg";
+import childSkiingTykky from "@/assets/seasons/child-skiing-tykky.jpg";
+import snowmanVillage from "@/assets/seasons/snowman-village.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -265,6 +267,14 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
               </Card>
             </section>
 
+            {/* Child skiing with tykky tree */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={childSkiingTykky} alt={lang === "fi" ? "Lapsi laskettelemassa tykkypuun vieressä auringonlaskussa Levillä" : "Child skiing next to a tykky tree at sunset in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Lapsi laskettelemassa tykkypuun vieressä auringonlaskussa — Levin rinteet tarjoavat taianomaisen maiseman erityisesti alkutalvesta" : "A child skiing next to a tykky tree at sunset — Levi's slopes offer magical scenery especially in early winter"}
+              </p>
+            </section>
+
             {/* Kids snow caves image */}
             <section className="mb-12 rounded-xl overflow-hidden">
               <OptimizedImage src={kidsSnowCaves} alt={lang === "fi" ? "Lapset lumikuopissa majoituksen pihalla" : "Kids in snow caves in the accommodation yard"} className="w-full h-64 sm:h-80 md:h-96" />
@@ -319,6 +329,14 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
                   </li>
                 ))}
               </ul>
+            </section>
+
+            {/* Snowman in village */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={snowmanVillage} alt={lang === "fi" ? "Lumiukko Levin kylässä jouluvaloineen" : "Snowman in Levi village with Christmas lights"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Lumiukko Levin kylässä — lasten oma taideteokset koristavat majoitusten pihoja koko talven" : "A snowman in Levi village — children's own creations decorate accommodation yards throughout winter"}
+              </p>
             </section>
 
             {/* Kids sledding in dark image */}

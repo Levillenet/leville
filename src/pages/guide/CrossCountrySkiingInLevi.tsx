@@ -16,6 +16,7 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import OptimizedImage from "@/components/OptimizedImage";
 import springCrossCountry from "@/assets/seasons/spring-cross-country.jpg";
+import crossCountrySunny from "@/assets/seasons/cross-country-sunny.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -372,6 +373,14 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
               <OptimizedImage src={springCrossCountry} alt={lang === "fi" ? "Huollettu hiihtoladun mutka kevätauringossa Levillä" : "Groomed cross-country ski trail in spring sunshine in Levi"} className="w-full h-64 sm:h-80 md:h-96" priority />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
                 {lang === "fi" ? "Huollettu latu kaartaa metsän halki kevätauringossa — Levin latuverkosto on yli 230 km" : "A groomed trail curves through the forest in spring sunshine — Levi's trail network spans over 230 km"}
+              </p>
+            </section>
+
+            {/* Sunny cross-country trail image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={crossCountrySunny} alt={lang === "fi" ? "Hiihtoladut aurinkoisena kevätpäivänä suolla" : "Cross-country ski tracks on a sunny spring day on the marsh"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Hiihtoladut aurinkoisena kevätpäivänä — Levin latuverkostosta löytyy reittejä avosuolle ja metsiin" : "Cross-country ski tracks on a sunny spring day — Levi's trail network includes routes across open marshes and through forests"}
               </p>
             </section>
 

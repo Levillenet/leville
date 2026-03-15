@@ -22,6 +22,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import OptimizedImage from "@/components/OptimizedImage";
+import springSlopesSunny from "@/assets/seasons/spring-slopes-sunny.jpg";
 import { springSkiingTranslations } from "./springSkiingTranslations";
 
 interface SpringSkiingLeviProps {
@@ -101,6 +103,14 @@ const SpringSkiingLevi = ({ lang = "fi" }: SpringSkiingLeviProps) => {
             <section className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.h1}</h1>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+            </section>
+
+            {/* Spring slopes image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={springSlopesSunny} alt={lang === "fi" ? "Levin tunturin rinteet keväällä kirkkaassa auringonpaisteessa" : "Levi fell slopes in spring under bright sunshine"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levin tunturin rinteet keväällä — huhtikuussa aurinko paistaa ja lumikerros on vielä paksu" : "Levi fell slopes in spring — in April the sun shines bright and the snow cover is still thick"}
+              </p>
             </section>
 
             {/* Why spring */}
