@@ -14,6 +14,8 @@ import { cn } from "@/lib/utils";
 
 // ── Constants ──────────────────────────────────────────────
 
+const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || "pk.eyJ1IjoibGV2aWxsZW5ldCIsImEiOiJjbW1ycGNibXAxOGQ5MnlyMHJzNjY1NXdxIn0.PhSMYsZo5wg3bzYuSWZ6ZA";
+
 const LEVI_CENTER: [number, number] = [24.8134, 67.8039];
 
 const ACCOMMODATIONS = [
