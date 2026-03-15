@@ -304,7 +304,7 @@ const LeviInteractiveMap = () => {
       // ─ Landmark markers ─
       LANDMARKS.forEach((lm) => {
         const el = createLandmarkMarkerEl(lm.name, "top");
-        const marker = new mapboxgl.Marker({ element: el })
+        const marker = new mapboxgl.Marker({ element: el, anchor: 'center' })
           .setLngLat(lm.coords)
           .addTo(map);
 
