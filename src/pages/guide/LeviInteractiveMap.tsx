@@ -258,7 +258,7 @@ const LeviInteractiveMap = () => {
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/outdoors-v12",
       center: LEVI_CENTER,
-      zoom: 13,
+      zoom: 12.5,
     });
     mapRef.current = map;
 
