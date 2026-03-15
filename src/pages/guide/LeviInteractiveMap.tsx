@@ -171,7 +171,7 @@ const LeviInteractiveMap = () => {
   }, [clearSelection]);
 
   // Handle map click – the core two-click logic
-  const handleMapClick = useCallback((coords: [number, number], name: string) => {
+  const handleMapClick = useCallback(async (coords: [number, number], name: string) => {
     const map = mapRef.current;
     if (!map) return;
 
