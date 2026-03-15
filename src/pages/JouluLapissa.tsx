@@ -598,6 +598,14 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
               </Link>
             </section>
 
+            {/* Christmas market image */}
+            <section className="mb-12 sm:mb-16 rounded-xl overflow-hidden max-w-4xl mx-auto">
+              <OptimizedImage src={christmasMarket} alt={lang === "fi" ? "Joulumarkkinat Levin keskustassa" : "Christmas market in Levi centre"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Joulumarkkinat Levin keskustassa — paikallista käsityötä ja jouluista tunnelmaa" : "Christmas market in Levi centre — local handicrafts and festive atmosphere"}
+              </p>
+            </section>
+
             {/* Christmas Experiences */}
             <section className="mb-12 sm:mb-20">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-8 text-center">

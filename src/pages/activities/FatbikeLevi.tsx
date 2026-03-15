@@ -85,6 +85,14 @@ const FatbikeLevi = ({ lang = "fi" }: FatbikeLeviProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
             </section>
 
+            {/* Fatbike snow image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={fatbikeSnow} alt={lang === "fi" ? "Fatbike-pyöräilyä lumisella reitillä Levillä" : "Fatbiking on a snowy trail in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Fatbike-pyöräilyä lumisella reitillä Levillä kevättalvella" : "Fatbiking on a snowy trail in Levi during late winter"}
+              </p>
+            </section>
+
             {/* What is fatbike */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">

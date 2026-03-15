@@ -319,6 +319,14 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
               </ul>
             </section>
 
+            {/* Kids sledding in dark image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={kidsSleddingDark} alt={lang === "fi" ? "Pulkkailua joulukuun hämärässä" : "Sledding in December twilight"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Pulkkailua joulukuun hämärässä — talvipimeäkin on seikkailua lasten mielestä" : "Sledding in December twilight — even the winter darkness is an adventure for kids"}
+              </p>
+            </section>
+
             {/* Other favourites */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">

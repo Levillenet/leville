@@ -371,6 +371,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               </p>
             </section>
 
+            {/* Stored snow image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={storedSnow} alt={lang === "fi" ? "Säilöttyä lunta Levin eturinteessä elokuussa" : "Stored snow on Levi's front slope in August"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Säilöttyä lunta Levin eturinteessä elokuussa — lunta varastoidaan sahanpurun alla kesän yli laskettelukauden aikaistamiseksi" : "Stored snow on Levi's front slope in August — snow is preserved under sawdust over summer to enable an early ski season start"}
+              </p>
+            </section>
+
             {/* Tips */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.tips.title}</h2>

@@ -349,6 +349,14 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
               </div>
             </section>
 
+            {/* Reindeer in village image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={reindeerVillage} alt={lang === "fi" ? "Poroja Levin kyläkeskuksessa" : "Reindeer in Levi village centre"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Poroja Levin kyläkeskuksessa — porot vierailevat kylässä erityisesti keväisin ja kesäisin" : "Reindeer in Levi village centre — reindeer visit the village especially in spring and summer"}
+              </p>
+            </section>
+
             {/* Activities */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.sections.activities.title}</h2>

@@ -309,10 +309,26 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
               </div>
             </section>
 
+            {/* Winter sunset image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={winterSunset} alt={lang === "fi" ? "Auringonlasku Levin rinteiden yllä talvella" : "Sunset over Levi slopes in winter"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levin taivas voi näyttäytyä erityisen kauniina auringonlaskun aikaan talvella" : "The sky above Levi can look spectacular at sunset during winter"}
+              </p>
+            </section>
+
             {/* Kaamos */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.kaamos.title}</h2>
               <p className="text-muted-foreground">{t.sections.kaamos.content}</p>
+            </section>
+
+            {/* Tykky trees image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={tykkyTrees} alt={lang === "fi" ? "Tykkylumisia puita Levin tunturissa" : "Snow-laden tykky trees on Levi fell"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Tykkylumisia puita Levin tunturissa — tykky tarkoittaa puihin jäätynyttä paksua lumikerrosta, jota esiintyy tyypillisesti joulukuusta helmikuuhun" : "Snow-laden 'tykky' trees on Levi fell — tykky refers to thick frozen snow coating on trees, typically seen from December to February"}
+              </p>
             </section>
 
             {/* Activities */}

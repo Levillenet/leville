@@ -330,6 +330,22 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
               </div>
             </section>
 
+            {/* Laavu outside image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={laavuOutside} alt={lang === "fi" ? "Laavu retkeilyreitin varrella Levillä" : "A laavu shelter along a hiking trail in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Laavu on avoin tulentekopaikka retkeilijöille — niitä voi käyttää ilmaiseksi ympäri Levin retkeilyreitistöä" : "A laavu is an open-air shelter for hikers — they can be used for free across Levi's trail network"}
+              </p>
+            </section>
+
+            {/* Laavu inside image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={laavuInside} alt={lang === "fi" ? "Nuotio laavussa kevätretkellä" : "Campfire in a laavu during a spring outing"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Nuotio laavussa kevätretkellä — eväsretki nuotion ääressä kuuluu Lapin retkeilykulttuuriin" : "Campfire in a laavu during a spring outing — a fireside snack break is an essential part of Lapland hiking culture"}
+              </p>
+            </section>
+
             {/* Temperatures */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.sections.temperatures.title}</h2>
