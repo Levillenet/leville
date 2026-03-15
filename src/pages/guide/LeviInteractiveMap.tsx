@@ -19,10 +19,10 @@ const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || "pk.eyJ1IjoibGV2aWxsZW
 const LEVI_CENTER: [number, number] = [24.8134, 67.8039];
 
 const ACCOMMODATIONS = [
-  { name: "Skistar Apartments", coords: [24.80344133427575, 67.80940102593588] as [number, number], bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412" },
-  { name: "Levi Centre Chalets", coords: [24.80862246230913, 67.80593088058667] as [number, number], bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=413" },
-  { name: "Bearlodge Karhupirtti", coords: [24.80779533870497, 67.80682775484506] as [number, number], bookingUrl: "https://app.moder.fi/levillenet/303?step=1" },
-  { name: "Levi Glacier Apartments", coords: [24.81072616416929, 67.80602399128938] as [number, number], bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214" },
+  { name: "Skistar Apartments", coords: [24.80344133427575, 67.80940102593588] as [number, number], labelPosition: "left" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412" },
+  { name: "Levi Centre Chalets", coords: [24.80862246230913, 67.80593088058667] as [number, number], labelPosition: "left" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=413" },
+  { name: "Bearlodge Karhupirtti", coords: [24.80779533870497, 67.80682775484506] as [number, number], labelPosition: "bottom" as const, bookingUrl: "https://app.moder.fi/levillenet/303?step=1" },
+  { name: "Levi Glacier Apartments", coords: [24.81072616416929, 67.80602399128938] as [number, number], labelPosition: "right" as const, bookingUrl: "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=214" },
 ];
 
 const LANDMARKS = [
@@ -77,29 +77,42 @@ function distToCenter(coords: [number, number]) {
 
 // ── Marker HTML builders ───────────────────────────────────
 
-function createCenterMarkerEl() {
-  const el = document.createElement("div");
-  el.className = "levi-center-marker";
-  el.innerHTML = `<div class="levi-pulse-ring"></div><div class="levi-pulse-dot"></div>`;
-  return el;
-}
+type MarkerLabelPosition = "top" | "right" | "bottom" | "left";
 
-function createAccommodationMarkerEl(name: string) {
+function createCenterMarkerEl(name: string, labelPosition: MarkerLabelPosition = "right") {
   const el = document.createElement("div");
-  el.className = "levi-accom-wrapper";
+  el.className = `levi-marker-with-label levi-label-${labelPosition}`;
   el.innerHTML = `
-    <div class="levi-accom-marker">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    <div class="levi-center-marker">
+      <div class="levi-pulse-ring"></div>
+      <div class="levi-pulse-dot"></div>
     </div>
-    <div class="levi-accom-label">${name}</div>
+    <div class="levi-marker-label levi-marker-label-center">${name}</div>
   `;
   return el;
 }
 
-function createLandmarkMarkerEl() {
+function createAccommodationMarkerEl(name: string, labelPosition: MarkerLabelPosition = "bottom") {
   const el = document.createElement("div");
-  el.className = "levi-landmark-marker";
-  el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
+  el.className = `levi-marker-with-label levi-label-${labelPosition}`;
+  el.innerHTML = `
+    <div class="levi-accom-marker">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+    </div>
+    <div class="levi-marker-label levi-marker-label-accom">${name}</div>
+  `;
+  return el;
+}
+
+function createLandmarkMarkerEl(name: string, labelPosition: MarkerLabelPosition = "top") {
+  const el = document.createElement("div");
+  el.className = `levi-marker-with-label levi-label-${labelPosition}`;
+  el.innerHTML = `
+    <div class="levi-landmark-marker">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+    </div>
+    <div class="levi-marker-label levi-marker-label-landmark">${name}</div>
+  `;
   return el;
 }
 
@@ -255,18 +268,18 @@ const LeviInteractiveMap = () => {
       setMapReady(true);
 
       // ─ Levi Center marker ─
-      new mapboxgl.Marker({ element: createCenterMarkerEl() })
+      const centerEl = createCenterMarkerEl("Levi Center", "right");
+      new mapboxgl.Marker({ element: centerEl })
         .setLngLat(LEVI_CENTER)
-        .addTo(map)
-        .getElement()
-        .addEventListener("click", (e) => {
-          e.stopPropagation();
-          handleMapClick(LEVI_CENTER, "Levi Center – Gondola Lift");
-        });
+        .addTo(map);
+      centerEl.addEventListener("click", (e) => {
+        e.stopPropagation();
+        handleMapClick(LEVI_CENTER, "Levi Center – Gondola Lift");
+      });
 
       // ─ Accommodation markers ─
       ACCOMMODATIONS.forEach((acc) => {
-        const el = createAccommodationMarkerEl(acc.name);
+        const el = createAccommodationMarkerEl(acc.name, acc.labelPosition);
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(acc.coords)
           .addTo(map);
@@ -283,13 +296,14 @@ const LeviInteractiveMap = () => {
 
         el.addEventListener("click", (e) => {
           e.stopPropagation();
+          window.open(acc.bookingUrl, "_blank", "noopener,noreferrer");
           handleMapClick(acc.coords, acc.name);
         });
       });
 
       // ─ Landmark markers ─
       LANDMARKS.forEach((lm) => {
-        const el = createLandmarkMarkerEl();
+        const el = createLandmarkMarkerEl(lm.name, "top");
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat(lm.coords)
           .addTo(map);
@@ -522,15 +536,24 @@ const LeviInteractiveMap = () => {
         .levi-pulse-ring { width: 24px; height: 24px; border-radius: 50%; background: rgba(59,130,246,.25); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: levi-pulse 2s ease-out infinite; }
         @keyframes levi-pulse { 0% { transform: translate(-50%,-50%) scale(1); opacity: .6; } 100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; } }
 
+        /* ── Shared named-marker label system ── */
+        .levi-marker-with-label { position: relative; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .levi-marker-label { position: absolute; padding: 1px 6px; border-radius: 4px; font-size: 10px; font-weight: 600; line-height: 1.2; white-space: nowrap; box-shadow: 0 1px 4px rgba(0,0,0,.2); max-width: 150px; z-index: 3; }
+        .levi-label-top .levi-marker-label { bottom: calc(100% + 3px); left: 50%; transform: translateX(-50%); }
+        .levi-label-bottom .levi-marker-label { top: calc(100% + 3px); left: 50%; transform: translateX(-50%); }
+        .levi-label-right .levi-marker-label { left: calc(100% + 5px); top: 50%; transform: translateY(-50%); }
+        .levi-label-left .levi-marker-label { right: calc(100% + 5px); top: 50%; transform: translateY(-50%); }
+
         /* ── Accommodation markers ── */
-        .levi-accom-wrapper { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
         .levi-accom-marker { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(217,119,6,.4); transition: transform .15s; }
-        .levi-accom-wrapper:hover .levi-accom-marker { transform: scale(1.15); }
-        .levi-accom-label { margin-top: 2px; background: rgba(217,119,6,.9); color: white; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 4px; white-space: nowrap; box-shadow: 0 1px 4px rgba(0,0,0,.2); }
+        .levi-marker-with-label:hover .levi-accom-marker { transform: scale(1.15); }
+        .levi-marker-label-accom { background: rgba(217,119,6,.92); color: white; }
 
         /* ── Landmark markers ── */
-        .levi-landmark-marker { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0d9488, #0f766e); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(13,148,136,.4); cursor: pointer; transition: transform .15s; }
-        .levi-landmark-marker:hover { transform: scale(1.15); }
+        .levi-landmark-marker { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0d9488, #0f766e); border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(13,148,136,.4); transition: transform .15s; }
+        .levi-marker-with-label:hover .levi-landmark-marker { transform: scale(1.15); }
+        .levi-marker-label-landmark { background: rgba(15,118,110,.92); color: white; }
+        .levi-marker-label-center { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
 
         /* ── User-placed A/B markers ── */
         .levi-user-marker { width: 28px; height: 28px; border-radius: 50%; background: #ef4444; border: 2.5px solid white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(239,68,68,.4); cursor: pointer; }
