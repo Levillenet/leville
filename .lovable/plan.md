@@ -1,37 +1,34 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+# Fix: 2026 data missing from snow depth charts
 
-## Muutos
+## Root cause
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
-
-## Toteutus
-
-Tiedosto: `src/components/ModerBookingWidget.tsx`
-
-`showLoadingOverlay`-funktion alkuun lisataan:
+In the edge function `fmi-snow-data`, lines 53-56 skip any date range where the **end date** is in the future. Today is March 15, 2026. When the function requests Jan 1 – May 31, 2026 data, the end date (May 31) is in the future, so the **entire range is skipped** — even though Jan–Mar 2026 data already exists at FMI.
 
 ```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
+// Current logic — skips ALL of 2026 Jan-May
+if (endDateObj > new Date()) {
+  console.log(`Skipping future date range`);
+  continue;
 }
 ```
 
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+## Fix
 
-## Missa naet tulokset
+Instead of skipping the range entirely, **clamp the end date to today** when it's in the future. This way the function fetches whatever data is available up to today.
 
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+```typescript
+// Replace skip logic with clamping
+const now = new Date();
+let effectiveEndDate = endDate;
+if (endDateObj > now) {
+  effectiveEndDate = now.toISOString();
+}
+```
 
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+Then use `effectiveEndDate` in the FMI URL construction. Also skip only if the **start date** is in the future (truly no data possible).
+
+## Files changed
+- `supabase/functions/fmi-snow-data/index.ts` — clamp future end dates to today instead of skipping
 
