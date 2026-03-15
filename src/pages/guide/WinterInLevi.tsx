@@ -11,6 +11,9 @@ import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema }
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Snowflake, Moon, Thermometer, Mountain, ArrowRight, Star, Sparkles } from "lucide-react";
+import OptimizedImage from "@/components/OptimizedImage";
+import winterSunset from "@/assets/seasons/winter-sunset.jpg";
+import tykkyTrees from "@/assets/seasons/tykky-trees.jpg";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
