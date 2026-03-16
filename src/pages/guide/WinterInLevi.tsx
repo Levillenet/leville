@@ -316,13 +316,17 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
   const t = translations[lang] || translations.fi;
   const location = useLocation();
 
-  const customUrls = lang === "fi" 
-    ? { fi: "/opas/talvi-levi", en: "/guide/winter-in-levi" }
-    : { en: "/guide/winter-in-levi", fi: "/opas/talvi-levi" };
+  const customUrls: Record<string, string> = { fi: "/opas/talvi-levi", en: "/guide/winter-in-levi", nl: "/nl/gids/winter-in-levi" };
+
+  const homeLabel = lang === "fi" ? "Etusivu" : "Home";
+  const homeHref = lang === "fi" ? "/" : lang === "nl" ? "/nl" : "/en";
+  const leviHref = lang === "fi" ? "/levi" : lang === "nl" ? "/nl/levi" : "/en/levi";
+  const seasonsLabel = lang === "fi" ? "Vuodenajat" : "Seizoenen";
+  const seasonsUrl = lang === "fi" ? "/opas/vuodenajat-levi" : lang === "nl" ? "/nl/gids/seizoenen-in-levi" : "/guide/seasons-in-levi";
 
   const breadcrumbItems = [
-    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : "/en" },
-    { label: lang === "fi" ? "Levi" : "Levi", href: lang === "fi" ? "/levi" : "/en/levi" },
+    { label: homeLabel, href: homeHref },
+    { label: "Levi", href: leviHref },
     { label: t.breadcrumbLabel, href: "" }
   ];
 
