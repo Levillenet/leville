@@ -232,6 +232,107 @@ const canonicalUrls: Record<Language, string> = {
   nl: "https://leville.net/nl/gids/seizoenen-in-levi"
 };
 
+const monthlyData: Partial<Record<Language, { month: string; temp: string; href: string }[]>> = {
+  fi: [
+    { month: "Tammikuu", temp: "−14°C", href: "/opas/levi-tammikuussa" },
+    { month: "Helmikuu", temp: "−12°C", href: "/opas/levi-helmikuussa" },
+    { month: "Maaliskuu", temp: "−7°C", href: "/opas/levi-maaliskuussa" },
+    { month: "Huhtikuu", temp: "−2°C", href: "/opas/levi-huhtikuussa" },
+    { month: "Toukokuu", temp: "+5°C", href: "/opas/levi-toukokuussa" },
+    { month: "Kesäkuu", temp: "+12°C", href: "/opas/levi-kesakuussa" },
+    { month: "Heinäkuu", temp: "+14°C", href: "/opas/levi-heinakuussa" },
+    { month: "Elokuu", temp: "+12°C", href: "/opas/levi-elokuussa" },
+    { month: "Syyskuu", temp: "+6°C", href: "/opas/levi-syyskuussa" },
+    { month: "Lokakuu", temp: "−1°C", href: "/opas/levi-lokakuussa" },
+    { month: "Marraskuu", temp: "−7°C", href: "/opas/levi-marraskuussa" },
+    { month: "Joulukuu", temp: "−12°C", href: "/opas/levi-joulukuussa" },
+  ],
+  en: [
+    { month: "January", temp: "−14°C", href: "/guide/levi-in-january" },
+    { month: "February", temp: "−12°C", href: "/guide/levi-in-february" },
+    { month: "March", temp: "−7°C", href: "/guide/levi-in-march" },
+    { month: "April", temp: "−2°C", href: "/guide/levi-in-april" },
+    { month: "May", temp: "+5°C", href: "/guide/levi-in-may" },
+    { month: "June", temp: "+12°C", href: "/guide/levi-in-june" },
+    { month: "July", temp: "+14°C", href: "/guide/levi-in-july" },
+    { month: "August", temp: "+12°C", href: "/guide/levi-in-august" },
+    { month: "September", temp: "+6°C", href: "/guide/levi-in-september" },
+    { month: "October", temp: "−1°C", href: "/guide/levi-in-october" },
+    { month: "November", temp: "−7°C", href: "/guide/levi-in-november" },
+    { month: "December", temp: "−12°C", href: "/guide/levi-in-december" },
+  ],
+  nl: [
+    { month: "Januari", temp: "−14°C", href: "/guide/levi-in-january" },
+    { month: "Februari", temp: "−12°C", href: "/guide/levi-in-february" },
+    { month: "Maart", temp: "−7°C", href: "/guide/levi-in-march" },
+    { month: "April", temp: "−2°C", href: "/guide/levi-in-april" },
+    { month: "Mei", temp: "+5°C", href: "/guide/levi-in-may" },
+    { month: "Juni", temp: "+12°C", href: "/guide/levi-in-june" },
+    { month: "Juli", temp: "+14°C", href: "/guide/levi-in-july" },
+    { month: "Augustus", temp: "+12°C", href: "/guide/levi-in-august" },
+    { month: "September", temp: "+6°C", href: "/guide/levi-in-september" },
+    { month: "Oktober", temp: "−1°C", href: "/guide/levi-in-october" },
+    { month: "November", temp: "−7°C", href: "/guide/levi-in-november" },
+    { month: "December", temp: "−12°C", href: "/guide/levi-in-december" },
+  ],
+  sv: [
+    { month: "Januari", temp: "−14°C", href: "/guide/levi-in-january" },
+    { month: "Februari", temp: "−12°C", href: "/guide/levi-in-february" },
+    { month: "Mars", temp: "−7°C", href: "/guide/levi-in-march" },
+    { month: "April", temp: "−2°C", href: "/guide/levi-in-april" },
+    { month: "Maj", temp: "+5°C", href: "/guide/levi-in-may" },
+    { month: "Juni", temp: "+12°C", href: "/guide/levi-in-june" },
+    { month: "Juli", temp: "+14°C", href: "/guide/levi-in-july" },
+    { month: "Augusti", temp: "+12°C", href: "/guide/levi-in-august" },
+    { month: "September", temp: "+6°C", href: "/guide/levi-in-september" },
+    { month: "Oktober", temp: "−1°C", href: "/guide/levi-in-october" },
+    { month: "November", temp: "−7°C", href: "/guide/levi-in-november" },
+    { month: "December", temp: "−12°C", href: "/guide/levi-in-december" },
+  ],
+  de: [
+    { month: "Januar", temp: "−14°C", href: "/guide/levi-in-january" },
+    { month: "Februar", temp: "−12°C", href: "/guide/levi-in-february" },
+    { month: "März", temp: "−7°C", href: "/guide/levi-in-march" },
+    { month: "April", temp: "−2°C", href: "/guide/levi-in-april" },
+    { month: "Mai", temp: "+5°C", href: "/guide/levi-in-may" },
+    { month: "Juni", temp: "+12°C", href: "/guide/levi-in-june" },
+    { month: "Juli", temp: "+14°C", href: "/guide/levi-in-july" },
+    { month: "August", temp: "+12°C", href: "/guide/levi-in-august" },
+    { month: "September", temp: "+6°C", href: "/guide/levi-in-september" },
+    { month: "Oktober", temp: "−1°C", href: "/guide/levi-in-october" },
+    { month: "November", temp: "−7°C", href: "/guide/levi-in-november" },
+    { month: "Dezember", temp: "−12°C", href: "/guide/levi-in-december" },
+  ],
+  es: [
+    { month: "Enero", temp: "−14°C", href: "/guide/levi-in-january" },
+    { month: "Febrero", temp: "−12°C", href: "/guide/levi-in-february" },
+    { month: "Marzo", temp: "−7°C", href: "/guide/levi-in-march" },
+    { month: "Abril", temp: "−2°C", href: "/guide/levi-in-april" },
+    { month: "Mayo", temp: "+5°C", href: "/guide/levi-in-may" },
+    { month: "Junio", temp: "+12°C", href: "/guide/levi-in-june" },
+    { month: "Julio", temp: "+14°C", href: "/guide/levi-in-july" },
+    { month: "Agosto", temp: "+12°C", href: "/guide/levi-in-august" },
+    { month: "Septiembre", temp: "+6°C", href: "/guide/levi-in-september" },
+    { month: "Octubre", temp: "−1°C", href: "/guide/levi-in-october" },
+    { month: "Noviembre", temp: "−7°C", href: "/guide/levi-in-november" },
+    { month: "Diciembre", temp: "−12°C", href: "/guide/levi-in-december" },
+  ],
+  fr: [
+    { month: "Janvier", temp: "−14°C", href: "/guide/levi-in-january" },
+    { month: "Février", temp: "−12°C", href: "/guide/levi-in-february" },
+    { month: "Mars", temp: "−7°C", href: "/guide/levi-in-march" },
+    { month: "Avril", temp: "−2°C", href: "/guide/levi-in-april" },
+    { month: "Mai", temp: "+5°C", href: "/guide/levi-in-may" },
+    { month: "Juin", temp: "+12°C", href: "/guide/levi-in-june" },
+    { month: "Juillet", temp: "+14°C", href: "/guide/levi-in-july" },
+    { month: "Août", temp: "+12°C", href: "/guide/levi-in-august" },
+    { month: "Septembre", temp: "+6°C", href: "/guide/levi-in-september" },
+    { month: "Octobre", temp: "−1°C", href: "/guide/levi-in-october" },
+    { month: "Novembre", temp: "−7°C", href: "/guide/levi-in-november" },
+    { month: "Décembre", temp: "−12°C", href: "/guide/levi-in-december" },
+  ],
+};
+
 const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
   const location = useLocation();
   const c = content[lang];
@@ -331,6 +432,27 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
                     readMoreText={c.readMore}
                   />
                 ))}
+              </div>
+            </section>
+
+            {/* Monthly Grid */}
+            <section className="mb-12">
+              <h2 className="text-2xl font-bold text-foreground mb-6">
+                {lang === "fi" ? "Levi kuukausi kuukaudelta" : lang === "nl" ? "Levi maand voor maand" : lang === "sv" ? "Levi månad för månad" : lang === "de" ? "Levi Monat für Monat" : lang === "es" ? "Levi mes a mes" : lang === "fr" ? "Levi mois par mois" : "Levi Month by Month"}
+              </h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {monthlyData[lang]?.map((m) => (
+                  <Link
+                    key={m.month}
+                    to={m.href}
+                    className="group block rounded-lg border border-border/30 bg-card/50 backdrop-blur-sm p-4 hover:border-primary/50 hover:bg-card/80 transition-all"
+                  >
+                    <div className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
+                      {m.month}
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">{m.temp}</div>
+                  </Link>
+                )) || null}
               </div>
             </section>
 

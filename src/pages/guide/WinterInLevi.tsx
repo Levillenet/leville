@@ -119,11 +119,13 @@ const translations = {
       title: "Lue myös",
       links: [
         { title: "Laskettelu Levillä", desc: "43 rinnettä ja 28 hissiä", href: "/opas/laskettelu-levi" },
-        { title: "Sää ja lumitilanne", desc: "Lämpötilat ja lumensyvyys kuukausittain", href: "/levi/saatieto-levilta" },
         { title: "Revontulet", desc: "Revontulien bongausopas", href: "/revontulet" },
-        { title: "Parhaat talviaktiviteetit", desc: "Kattava opas Levin talveen", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
         { title: "Talvivarusteet", desc: "Pukeutumisvinkit pakkaseen", href: "/opas/talvivarusteet-leville" },
-        { title: "Hiihto Levillä", desc: "230 km huollettuja latuja", href: "/opas/hiihtoladut-levi" }
+        { title: "Marraskuu Levillä", desc: "Kaamos alkaa, ensimmäiset rinteet aukeavat", href: "/opas/levi-marraskuussa" },
+        { title: "Joulukuu Levillä", desc: "Joulukausi ja tähtitaivas", href: "/opas/levi-joulukuussa" },
+        { title: "Tammikuu Levillä", desc: "Kaamoksen taika ja revontulet", href: "/opas/levi-tammikuussa" },
+        { title: "Helmikuu Levillä", desc: "Valo palaa ja hiihtokausi alkaa", href: "/opas/levi-helmikuussa" },
+        { title: "Maaliskuu Levillä", desc: "Kevätaurinko ja parhaat lumikelit", href: "/opas/levi-maaliskuussa" }
       ]
     },
     breadcrumbLabel: "Talvi Levillä"
@@ -214,11 +216,13 @@ const translations = {
       title: "Read Next",
       links: [
         { title: "Skiing in Levi", desc: "43 slopes and 28 lifts", href: "/guide/skiing-in-levi" },
-        { title: "Weather in Levi", desc: "Temperatures and snow depth by month", href: "/en/levi/weather-in-levi" },
         { title: "Northern Lights", desc: "Aurora viewing guide", href: "/en/northern-lights" },
-        { title: "Top Winter Activities", desc: "Complete guide to Levi winter", href: "/activities/top-winter-activities-in-levi-lapland" },
         { title: "Winter Clothing Guide", desc: "How to dress for the frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
-        { title: "Cross-Country Skiing", desc: "230 km of groomed trails", href: "/guide/cross-country-skiing-in-levi" }
+        { title: "November in Levi", desc: "Polar night begins, first slopes open", href: "/guide/levi-in-november" },
+        { title: "December in Levi", desc: "Christmas season and starry skies", href: "/guide/levi-in-december" },
+        { title: "January in Levi", desc: "Polar night magic and northern lights", href: "/guide/levi-in-january" },
+        { title: "February in Levi", desc: "Light returns and ski season begins", href: "/guide/levi-in-february" },
+        { title: "March in Levi", desc: "Spring sun and best snow conditions", href: "/guide/levi-in-march" }
       ]
     },
     breadcrumbLabel: "Winter in Levi"

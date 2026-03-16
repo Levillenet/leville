@@ -122,10 +122,11 @@ const translations = {
       links: [
         { title: "Vaellus ja pyöräily", desc: "Tunturivaelluksia ja maastopyöräilyä", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi" },
         { title: "Syksy ja ruska Levillä", desc: "Upeimmat ruska-ajat ja -reitit", href: "/opas/syksy-ruska-levi" },
-        { title: "Sää ja lumitilanne", desc: "Kesän lämpötilat ja olosuhteet", href: "/levi/saatieto-levilta" },
         { title: "Ravintolat ja palvelut", desc: "Kesän ravintolat ja kaupat", href: "/opas/ravintolat-ja-palvelut-levilla" },
-        { title: "Kevät Levillä", desc: "Kevätaurinko ja hiihtokauden huippu", href: "/opas/kevat-levi" },
-        { title: "Miten pääsee Leville", desc: "Kesän matkustusyhteydet", href: "/matka/miten-paasee-leville-helsingista" }
+        { title: "Toukokuu Levillä", desc: "Kevät kääntyy kesäksi", href: "/opas/levi-toukokuussa" },
+        { title: "Kesäkuu Levillä", desc: "Yötön yö ja luonto herää", href: "/opas/levi-kesakuussa" },
+        { title: "Heinäkuu Levillä", desc: "Keskiyön aurinko ja vaellukset", href: "/opas/levi-heinakuussa" },
+        { title: "Elokuu Levillä", desc: "Marjastuskausi ja ensimmäiset ruskan merkit", href: "/opas/levi-elokuussa" }
       ]
     },
     breadcrumbLabel: "Kesä Levillä"
@@ -216,10 +217,11 @@ const translations = {
       links: [
         { title: "Hiking & Biking", desc: "Fell hikes and mountain biking trails", href: "/activities/hiking-and-biking-levi" },
         { title: "Autumn Ruska in Levi", desc: "Stunning fall colours and best routes", href: "/guide/autumn-ruska-in-levi" },
-        { title: "Weather in Levi", desc: "Summer temperatures and conditions", href: "/en/levi/weather-in-levi" },
         { title: "Restaurants & Services", desc: "Summer dining and shops", href: "/guide/restaurants-and-services-in-levi" },
-        { title: "Spring in Levi", desc: "Spring sun and peak ski season", href: "/guide/spring-in-levi" },
-        { title: "How to Get to Levi", desc: "Summer travel connections", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" }
+        { title: "May in Levi", desc: "Spring turns to summer", href: "/guide/levi-in-may" },
+        { title: "June in Levi", desc: "Midnight sun and nature awakens", href: "/guide/levi-in-june" },
+        { title: "July in Levi", desc: "Midnight sun and hiking", href: "/guide/levi-in-july" },
+        { title: "August in Levi", desc: "Berry season and first signs of ruska", href: "/guide/levi-in-august" }
       ]
     },
     breadcrumbLabel: "Summer in Levi"
