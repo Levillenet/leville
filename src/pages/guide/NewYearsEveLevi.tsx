@@ -16,12 +16,7 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface NewYearsEveLeviProps {
   lang?: Language;
@@ -31,33 +26,41 @@ const translations = {
   fi: {
     meta: {
       title: "Uusivuosi Levillä — Ilotulitukset, ohjelma ja vinkit | Leville.net",
-      description: "Uudenvuodenaatto Levillä: ilotulitukset, ravintolat, ohjelma ja tunnelma. Käytännön vinkit uudenvuoden juhlintaan tunturissa.",
-      canonical: "https://leville.net/opas/uusivuosi-levilla"
+      description:
+        "Uudenvuodenaatto Levillä: ilotulitukset, ravintolat, ohjelma ja tunnelma. Käytännön vinkit uudenvuoden juhlintaan tunturissa.",
+      canonical: "https://leville.net/opas/uusivuosi-levilla",
     },
     h1: "Uusivuosi Levillä — juhli vuodenvaihdetta tunturissa",
-    intro: "Uudenvuodenaatto lumisessa tunturimaisemassa, ilotulitukset taivaan halki ja sen jälkeen lämmin sauna — harva paikka maailmassa tarjoaa vastaavaa yhdistelmää.",
+    intro:
+      "Uudenvuodenaatto lumisessa tunturimaisemassa, ilotulitukset taivaan halki ja sen jälkeen lämmin sauna — harva paikka maailmassa tarjoaa vastaavaa yhdistelmää.",
     sections: {
       atmosphere: {
         title: "Uudenvuoden tunnelma Levillä",
-        content: "Uudenvuodenaatto Levillä on jotain aivan erityistä. Luminen tunturimaisema, pakkanen, ilotulitukset taivaan halki ja sen jälkeen lämmin sauna — harva paikka maailmassa tarjoaa vastaavaa yhdistelmää. Levi on kompakti kylä, joten kaikki tapahtuu kävelymatkan päässä."
+        content:
+          "Uudenvuodenaatto Levillä on jotain aivan erityistä. Luminen tunturimaisema, pakkanen, ilotulitukset taivaan halki ja sen jälkeen lämmin sauna — harva paikka maailmassa tarjoaa vastaavaa yhdistelmää. Levi on kompakti kylä, joten kaikki tapahtuu kävelymatkan päässä.",
       },
       fireworks: {
         title: "Ilotulitukset",
-        content: "Levin ilotulitus ammutaan perinteisesti keskustan tuntumasta keskiyöllä. Paras katselupaikka on eturinteiden alue (Zero Point) tai Hullu Poron terassi. Kylmään kannattaa varautua — pakkanen voi olla kova yöllä.",
-        disclaimer: "Ilotulituksen tarkka paikka ja ajankohta vahvistetaan vuosittain. Tarkista ajantasainen tieto Levin matkailuinfosta."
+        content:
+          "Levin ilotulitus ammutaan perinteisesti keskustan tuntumasta keskiyöllä. Paras katselupaikka on eturinteiden alue (Zero Point). Kylmään kannattaa varautua — pakkanen voi olla kova yöllä.",
+        disclaimer:
+          "Ilotulituksen tarkka paikka ja ajankohta vahvistetaan vuosittain. Tarkista ajantasainen tieto Levin matkailuinfosta.",
       },
       restaurants: {
         title: "Ravintoloissa juhlistaminen",
-        content: "Monet Levin ravintolat järjestävät uudenvuoden illallisia ja juhlia. Tarjolla on gaala-illallisia, teemailtoja ja à la carte -menuja. Varaa pöytä hyvissä ajoin — suositut ravintolat täyttyvät viikkoja ennen.",
-        tip: "Vinkki: jos haluat kokata itse, Levin kaupoista saa hyvin aineksia juhlaillalliseen. Kotikokkaus mökissä tai huoneistossa on tunnelmallinen vaihtoehto."
+        content:
+          "Monet Levin ravintolat järjestävät uudenvuoden illallisia ja juhlia. Tarjolla on gaala-illallisia, teemailtoja ja à la carte -menuja. Varaa pöytä hyvissä ajoin — suositut ravintolat täyttyvät viikkoja ennen.",
+        tip: "Vinkki: jos haluat kokata itse, Levin kaupoista saa hyvin aineksia juhlaillalliseen. Kotikokkaus mökissä tai huoneistossa on tunnelmallinen vaihtoehto.",
       },
       nightlife: {
         title: "Baarit ja yöelämä",
-        content: "Uudenvuodenaattona Levin baarit ovat täynnä tunnelmaa. Hullu Poro Arena, Ihku ja muut paikat järjestävät ohjelmaa ja ovat auki myöhään. Ikäraja (18+, yökerhoissa usein 20+) kannattaa huomioida."
+        content:
+          "Uudenvuodenaattona Levin baarit ovat täynnä tunnelmaa. Hullu Poro Arena, Ihku ja muut paikat järjestävät ohjelmaa ja ovat auki myöhään. Ikäraja (18+, yökerhoissa usein 20+) kannattaa huomioida.",
       },
       families: {
         title: "Lapsiperheet ja uusivuosi",
-        content: "Lasten kanssa uusivuosi voi olla myös rauhallinen — oma sauna, hyvä ruoka ja ilotulituksen katsominen pihalta tai parvekkeelta. Pienempiä lapsia ei kannata viedä pakkaseen keskiyöllä — ilotulituksen näkee myös ikkunasta."
+        content:
+          "Lasten kanssa uusivuosi voi olla myös rauhallinen — oma sauna, hyvä ruoka ja ilotulituksen katsominen pihalta tai parvekkeelta. Pienempiä lapsia ei kannata viedä pakkaseen keskiyöllä — ilotulituksen näkee myös ikkunasta.",
       },
       tips: {
         title: "Käytännön vinkit",
@@ -66,65 +69,83 @@ const translations = {
           "Pukeudu lämpimästi ilotulitusta katsoessa — voi olla -20…-30 °C",
           "Taksi kotiin: tilaa ajoissa (puh. 0200 99800)",
           "Alko on suljettu uudenvuodenpäivänä — osta juomat etukäteen",
-          "Suksibussi ei kulje yöllä — kävely tai taksi"
-        ]
-      }
+          "Suksibussi ei kulje yöllä — kävely tai taksi",
+        ],
+      },
     },
     faq: {
       title: "Usein kysytyt kysymykset",
       items: [
-        { q: "Onko Levillä ilotulitukset?", a: "Kyllä, perinteisesti keskiyöllä keskustan tuntumasta. Tarkka paikka vaihtelee vuosittain." },
+        {
+          q: "Onko Levillä ilotulitukset?",
+          a: "Kyllä, perinteisesti keskiyöllä keskustan tuntumasta. Tarkka paikka vaihtelee vuosittain.",
+        },
         { q: "Tarvitseeko varata ravintola?", a: "Ehdottomasti — viikkoja etukäteen uudenvuodenaatolle." },
-        { q: "Onko lapsille sopivaa ohjelmaa?", a: "Uusivuosi on enemmän aikuisten juhla, mutta ilotulitukset näkyvät kaikkialle. Rauhallinen perheillallinen mökissä on suosittu vaihtoehto." }
-      ]
+        {
+          q: "Onko lapsille sopivaa ohjelmaa?",
+          a: "Uusivuosi on enemmän aikuisten juhla, mutta ilotulitukset näkyvät kaikkialle. Rauhallinen perheillallinen mökissä on suosittu vaihtoehto.",
+        },
+      ],
     },
     cta: {
       text: "Varaa uudenvuoden majoitus ajoissa — suosituimmat kohteet täyttyvät nopeasti.",
       link: "/majoitukset",
-      button: "Katso majoitukset"
+      button: "Katso majoitukset",
     },
     readNext: {
       title: "Lue myös",
       links: [
         { title: "Afterski ja yöelämä", desc: "Baarit ja tunnelma", href: "/opas/afterski-ja-yoelama-levilla" },
-        { title: "Ravintolat ja palvelut", desc: "Ruokailupaikat Levillä", href: "/opas/ravintolat-ja-palvelut-levilla" },
+        {
+          title: "Ravintolat ja palvelut",
+          desc: "Ruokailupaikat Levillä",
+          href: "/opas/ravintolat-ja-palvelut-levilla",
+        },
         { title: "Joulu Lapissa", desc: "Tunnelmallinen jouluopas", href: "/levi/joulu-lapissa" },
         { title: "Hinnat Levillä", desc: "Mitä loma maksaa?", href: "/opas/hinnat-levilla" },
-        { title: "Majoitukset", desc: "Mökit ja huoneistot", href: "/majoitukset" }
-      ]
+        { title: "Majoitukset", desc: "Mökit ja huoneistot", href: "/majoitukset" },
+      ],
     },
-    breadcrumbLabel: "Uusivuosi Levillä"
+    breadcrumbLabel: "Uusivuosi Levillä",
   },
   en: {
     meta: {
       title: "New Year's Eve in Levi — Fireworks, Events & Tips | Leville.net",
-      description: "New Year's Eve in Levi: fireworks, restaurants, events and atmosphere. Practical tips for celebrating New Year's in the fells.",
-      canonical: "https://leville.net/guide/new-years-eve-in-levi"
+      description:
+        "New Year's Eve in Levi: fireworks, restaurants, events and atmosphere. Practical tips for celebrating New Year's in the fells.",
+      canonical: "https://leville.net/guide/new-years-eve-in-levi",
     },
     h1: "New Year's Eve in Levi — Celebrate in the Fells",
-    intro: "New Year's Eve in a snowy fell landscape, fireworks across the sky and a warm sauna afterwards — few places in the world offer this combination.",
+    intro:
+      "New Year's Eve in a snowy fell landscape, fireworks across the sky and a warm sauna afterwards — few places in the world offer this combination.",
     sections: {
       atmosphere: {
         title: "New Year's Atmosphere in Levi",
-        content: "New Year's Eve in Levi is something truly special. A snowy fell landscape, frost, fireworks across the sky and a warm sauna afterwards — few places in the world offer this combination. Levi is a compact village, so everything happens within walking distance."
+        content:
+          "New Year's Eve in Levi is something truly special. A snowy fell landscape, frost, fireworks across the sky and a warm sauna afterwards — few places in the world offer this combination. Levi is a compact village, so everything happens within walking distance.",
       },
       fireworks: {
         title: "Fireworks",
-        content: "Levi's fireworks are traditionally launched from near the centre at midnight. The best viewing spots are the front slope area (Zero Point) or Hullu Poro's terrace. Be prepared for cold — temperatures can be harsh at night.",
-        disclaimer: "The exact location and timing of fireworks are confirmed annually. Check current information from Levi tourist info."
+        content:
+          "Levi's fireworks are traditionally launched from near the centre at midnight. The best viewing spots are the front slope area (Zero Point) or Hullu Poro's terrace. Be prepared for cold — temperatures can be harsh at night.",
+        disclaimer:
+          "The exact location and timing of fireworks are confirmed annually. Check current information from Levi tourist info.",
       },
       restaurants: {
         title: "Celebrating at Restaurants",
-        content: "Many Levi restaurants organise New Year's Eve dinners and parties. Options include gala dinners, themed evenings and à la carte menus. Book your table well in advance — popular restaurants fill up weeks before.",
-        tip: "Tip: if you prefer to cook yourself, Levi's shops are well-stocked for a festive dinner. Cooking at home in your cabin or apartment is an atmospheric alternative."
+        content:
+          "Many Levi restaurants organise New Year's Eve dinners and parties. Options include gala dinners, themed evenings and à la carte menus. Book your table well in advance — popular restaurants fill up weeks before.",
+        tip: "Tip: if you prefer to cook yourself, Levi's shops are well-stocked for a festive dinner. Cooking at home in your cabin or apartment is an atmospheric alternative.",
       },
       nightlife: {
         title: "Bars and Nightlife",
-        content: "On New Year's Eve, Levi's bars are full of atmosphere. Hullu Poro Arena, Ihku and other venues have programmes and stay open late. Note the age limits (18+, nightclubs often 20+)."
+        content:
+          "On New Year's Eve, Levi's bars are full of atmosphere. Hullu Poro Arena, Ihku and other venues have programmes and stay open late. Note the age limits (18+, nightclubs often 20+).",
       },
       families: {
         title: "Families and New Year's",
-        content: "With children, New Year's can be peaceful too — your own sauna, good food and watching the fireworks from the yard or balcony. Don't take small children out into the frost at midnight — you can see the fireworks from the window too."
+        content:
+          "With children, New Year's can be peaceful too — your own sauna, good food and watching the fireworks from the yard or balcony. Don't take small children out into the frost at midnight — you can see the fireworks from the window too.",
       },
       tips: {
         title: "Practical Tips",
@@ -133,22 +154,28 @@ const translations = {
           "Dress warmly when watching fireworks — it can be -20…-30 °C",
           "Taxi home: book early (tel. 0200 99800)",
           "Alko (state liquor store) is closed on New Year's Day — buy drinks in advance",
-          "Ski bus doesn't run at night — walk or taxi"
-        ]
-      }
+          "Ski bus doesn't run at night — walk or taxi",
+        ],
+      },
     },
     faq: {
       title: "Frequently Asked Questions",
       items: [
-        { q: "Are there fireworks in Levi?", a: "Yes, traditionally at midnight from near the centre. The exact location varies yearly." },
+        {
+          q: "Are there fireworks in Levi?",
+          a: "Yes, traditionally at midnight from near the centre. The exact location varies yearly.",
+        },
         { q: "Do I need to book a restaurant?", a: "Absolutely — weeks in advance for New Year's Eve." },
-        { q: "Is there anything for children?", a: "New Year's is more of an adult celebration, but fireworks can be seen from everywhere. A peaceful family dinner in a cabin is a popular alternative." }
-      ]
+        {
+          q: "Is there anything for children?",
+          a: "New Year's is more of an adult celebration, but fireworks can be seen from everywhere. A peaceful family dinner in a cabin is a popular alternative.",
+        },
+      ],
     },
     cta: {
       text: "Book your New Year's accommodation early — the most popular properties fill up quickly.",
       link: "/en/accommodations",
-      button: "View accommodations"
+      button: "View accommodations",
     },
     readNext: {
       title: "Read Next",
@@ -157,11 +184,11 @@ const translations = {
         { title: "Restaurants & Services", desc: "Dining in Levi", href: "/guide/restaurants-and-services-in-levi" },
         { title: "Christmas in Lapland", desc: "Festive guide", href: "/levi/joulu-lapissa" },
         { title: "Prices in Levi", desc: "What does it cost?", href: "/guide/prices-in-levi" },
-        { title: "Accommodations", desc: "Cabins and apartments", href: "/en/accommodations" }
-      ]
+        { title: "Accommodations", desc: "Cabins and apartments", href: "/en/accommodations" },
+      ],
     },
-    breadcrumbLabel: "New Year's Eve in Levi"
-  }
+    breadcrumbLabel: "New Year's Eve in Levi",
+  },
 };
 
 const NewYearsEveLevi = ({ lang = "fi" }: NewYearsEveLeviProps) => {
@@ -170,20 +197,20 @@ const NewYearsEveLevi = ({ lang = "fi" }: NewYearsEveLeviProps) => {
 
   const customUrls: Record<string, string> = {
     fi: "/opas/uusivuosi-levilla",
-    en: "/guide/new-years-eve-in-levi"
+    en: "/guide/new-years-eve-in-levi",
   };
 
   const breadcrumbItems = [
     { label: lang === "en" ? "Home" : "Etusivu", href: lang === "en" ? "/en" : "/" },
     { label: lang === "en" ? "Guide" : "Opas", href: lang === "en" ? "/en/levi" : "/levi" },
-    { label: t.breadcrumbLabel, href: "" }
+    { label: t.breadcrumbLabel, href: "" },
   ];
 
   return (
     <>
       <JsonLd data={getWebsiteSchema()} />
       <JsonLd data={getArticleSchema({ title: t.h1, description: t.meta.description, url: t.meta.canonical, lang })} />
-      <JsonLd data={getFAQSchema(t.faq.items.map(item => ({ question: item.q, answer: item.a })))} />
+      <JsonLd data={getFAQSchema(t.faq.items.map((item) => ({ question: item.q, answer: item.a })))} />
       <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={customUrls} />
       <Helmet>
         <html lang={lang} />
@@ -302,8 +329,14 @@ const NewYearsEveLevi = ({ lang = "fi" }: NewYearsEveLeviProps) => {
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.faq.title}</h2>
               <Accordion type="single" collapsible className="space-y-2">
                 {t.faq.items.map((item, idx) => (
-                  <AccordionItem key={idx} value={`faq-${idx}`} className="glass-card border border-border/30 rounded-lg px-4">
-                    <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">{item.q}</AccordionTrigger>
+                  <AccordionItem
+                    key={idx}
+                    value={`faq-${idx}`}
+                    className="glass-card border border-border/30 rounded-lg px-4"
+                  >
+                    <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
+                      {item.q}
+                    </AccordionTrigger>
                     <AccordionContent className="text-muted-foreground">{item.a}</AccordionContent>
                   </AccordionItem>
                 ))}
