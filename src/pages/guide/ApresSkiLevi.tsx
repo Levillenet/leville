@@ -9,10 +9,9 @@ import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema, getFAQSchema } from "@/utils/structuredData";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Music, MapPin, Info, Wine, Moon, Star } from "lucide-react";
+import { ArrowRight, Music, MapPin, Info, Wine, Moon, Star, Utensils, PartyPopper } from "lucide-react";
 import OptimizedImage from "@/components/OptimizedImage";
-import campfireBarista from "@/assets/seasons/campfire-barista.jpg";
+import apresSkiTuikku from "@/assets/seasons/apres-ski-tuikku.jpg";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
@@ -37,22 +36,40 @@ const translations = {
       canonical: "https://leville.net/opas/afterski-ja-yoelama-levilla"
     },
     h1: "Afterski ja yöelämä Levillä",
-    intro: "Levin afterski on legendaarinen — ja yksi syy miksi tunturikylä on Suomen suosituin hiihtokeskus myös illan pimetessä. Tässä oppaassa kerromme mistä löydät parhaan tunnelman, mitä odottaa ja mitä paikallinen tietää.",
+    intro: "Levin afterski on legendaarinen — ja yksi syy miksi tunturikylä on Suomen suosituin hiihtokeskus myös illan pimetessä. Levin afterski jakautuu kahteen osaan: iltapäivän ulkoilmajuhlintaan rinteillä hiihtovaatteissa ja myöhemmin illalla ravintoloihin ja yökerhoihin.",
     sections: {
       culture: {
         title: "Afterski-kulttuuri Levillä",
-        content: "Afterski alkaa noin klo 15–16 rinteiden sulkeuduttua. Terasseilla nautitaan olut tai glögi, live-musiikki on yleistä erityisesti viikonloppuisin ja sesonkiaikoina. Tunnelma on rento ja kansainvälinen — hiihtovaatteet ovat täysin hyväksyttävä asuvalinta."
+        content: "Afterski alkaa iltapäivällä rinneravintoloissa ja terasseilla — hiihtovaatteet päällä, lasi kädessä. Tunnelma on rento ja kansainvälinen. Iltapäivän afterski tapahtuu nimenomaan ulkona tai rinneravintoloiden terasseilla, suoraan rinteiden juurella. Siitä ilta jatkuu usein saunomisen ja illallisen kautta yökerhoihin ja baareille.",
+        imageAlt: "Afterski Tuikussa Levin rinteillä",
+        imageCaption: "Tuikku — suosittu afterski-paikka suoraan Levin rinteiden vieressä"
       },
-      places: {
-        title: "Suosittuja paikkoja",
+      afterski: {
+        title: "Afterski-paikat — ulkona hiihtovaatteissa",
+        description: "Varsinainen afterski on ulkona tapahtuvaa ilonpitoa hiihtovaatteissa. Näissä paikoissa tunnelma alkaa heti rinteiden sulkeuduttua:",
         items: [
-           { name: "Hullu Poro Arena", desc: "Tunnetuin — afterski, ravintola ja yökerho saman katon alla" },
-           { name: "Colorado", desc: "Ruokaravintola hyvässä tunnelmassa" },
-           { name: "Ihku", desc: "Yökerho ja bailupaikka" },
-           { name: "Tuikku", desc: "Päivä-afterski tunturissa, suoraan rinteiden vieressä" },
-           { name: "Ravintolabaarit", desc: "King Crab House, Ämmilä ym. — hyvää ruokaa ja juomaa" }
+          { name: "Vinkkari", desc: "Legendaarinen afterski-paikka eturinteen juurella — tanssia, DJ:t ja uskomaton tunnelma. Levin suosituin ulko-afterski." },
+          { name: "Tuikku", desc: "Päivä-afterski tunturissa, suoraan rinteiden vieressä — rento meininki ja kylmät juomat auringossa." },
+          { name: "Hullu Poro Areena", desc: "Levin suurin afterski-paikka — live-bändejä ja ohjelmaa, aukeaa iltapäivällä/illalla." }
+        ]
+      },
+      restaurants: {
+        title: "Ravintolat — illallinen ja tunnelma",
+        description: "Afterski-iltapäivän jälkeen on aika saunoa ja nauttia hyvä illallinen ennen iltaa:",
+        items: [
+          { name: "Colorado", desc: "Ruokaravintola hyvässä tunnelmassa" },
+          { name: "King Crab House", desc: "Hienoa merenelävien ruokaa" },
+          { name: "Ämmilä", desc: "Lappalaista tunnelmaa ja perinteistä ruokaa" }
         ],
         disclaimer: "Aukioloajat ja ohjelma vaihtelevat sesongin mukaan. Tarkista aina ajantasaiset tiedot paikan omilta sivuilta."
+      },
+      nightlife: {
+        title: "Yökerhot — illan jatko",
+        description: "Illallisen jälkeen ilta jatkuu Levin yökerhoissa ja baareilla:",
+        items: [
+          { name: "Ihku", desc: "Levin tunnetuin yökerho — bailuja myöhään yöhön" },
+          { name: "Hullu Poro Areena", desc: "Bändejä, karaokea ja yökerho saman katon alla" }
+        ]
       },
       tips: {
         title: "Käytännön vinkit",
@@ -60,7 +77,7 @@ const translations = {
           "Suomessa alkoholia yli 5,5 % vain Alkosta",
           "Ikäraja 18 (yökerhoissa usein 20 tai 22)",
           "Korttimaksu kaikkialla — käteistä harvoin tarvitsee",
-          "Afterski hiihtovaatteissa ok — ihmiset tulevat suoraan rinteiltä",
+          "Afterski hiihtovaatteissa on normaalia — ihmiset tulevat suoraan rinteiltä",
           "Taksi sesonkina: tilaa ajoissa (puh. 0200 99800)"
         ]
       },
@@ -77,9 +94,9 @@ const translations = {
     faq: {
       title: "Usein kysytyt kysymykset",
       items: [
-         { q: "Mikä on suosituin afterski-paikka?", a: "Hullu Poro Arena on ylivoimaisesti tunnetuin afterski-paikka Levillä. Live-musiikkia, karaokea ja yökerho samassa paketissa." },
-         { q: "Onko Levillä yökerhoa?", a: "Kyllä, Ihku on Levin tunnetuin yökerho. Sesonkiaikoina auki myöhään. Ikäraja yleensä 20 tai 22." },
-        { q: "Voiko mennä afterskille hiihtovaatteissa?", a: "Kyllä, afterski on rento ja ihmiset tulevat suoraan rinteiltä. Hiihtovaatteet ovat normaalia." }
+        { q: "Mikä on suosituin afterski-paikka?", a: "Vinkkari eturinteen juurella on Levin legendaarisin afterski-paikka. DJ:t, tanssia ja uskomaton tunnelma ulkona hiihtovaatteissa. Hullu Poro Areena on suurin paikka, jossa live-bändejä." },
+        { q: "Onko Levillä yökerhoa?", a: "Kyllä, Ihku on Levin tunnetuin yökerho. Sesonkiaikoina auki myöhään. Ikäraja yleensä 20 tai 22." },
+        { q: "Voiko mennä afterskille hiihtovaatteissa?", a: "Kyllä! Afterski on nimenomaan hiihtovaatteissa tapahtuvaa ulkona juhlintaa — ihmiset tulevat suoraan rinteiltä Vinkkarille ja Tuikkuun." }
       ]
     },
     readNext: {
@@ -99,22 +116,40 @@ const translations = {
       canonical: "https://leville.net/guide/apres-ski-and-nightlife-in-levi"
     },
     h1: "Après-Ski and Nightlife in Levi",
-    intro: "Levi's après-ski scene is legendary — and one of the reasons why this resort village is Finland's most popular ski destination even after the sun goes down. Here's what to expect, where to go and what the locals know.",
+    intro: "Levi's après-ski scene is legendary — and one of the reasons why this resort village is Finland's most popular ski destination even after the sun goes down. Après-ski in Levi has two parts: the outdoor afternoon celebration at the slopes in ski clothes, and later in the evening the restaurants and nightclubs.",
     sections: {
       culture: {
         title: "Après-Ski Culture in Levi",
-        content: "Après-ski starts around 3–4 PM as the slopes close. Terraces fill up with beer or hot glögi, live music is common especially on weekends and during peak season. The atmosphere is relaxed and international — ski clothes are a perfectly acceptable outfit."
+        content: "Après-ski starts in the afternoon at slope-side restaurants and terraces — in ski clothes, drink in hand. The atmosphere is relaxed and international. The afternoon après-ski is very much an outdoor affair, right at the base of the slopes. From there, the evening often continues with a sauna, dinner and then nightclubs and bars.",
+        imageAlt: "Après-ski at Tuikku on Levi slopes",
+        imageCaption: "Tuikku — a popular après-ski spot right next to the Levi slopes"
       },
-      places: {
-        title: "Popular Spots",
+      afterski: {
+        title: "Après-Ski Spots — Outdoors in Ski Clothes",
+        description: "Real après-ski is outdoor celebration in ski clothes. These are the places where the party starts right after the slopes close:",
         items: [
-           { name: "Hullu Poro Arena", desc: "The most famous — après-ski, restaurant and nightclub under one roof" },
-           { name: "Colorado", desc: "Restaurant with great atmosphere" },
-           { name: "Ihku", desc: "Nightclub and party venue" },
-           { name: "Tuikku", desc: "Daytime après-ski on the fell, right next to the slopes" },
-           { name: "Restaurant bars", desc: "King Crab House, Ämmilä etc. — great food and drinks" }
+          { name: "Vinkkari", desc: "The legendary après-ski spot at the base of the front slope — dancing, DJs and incredible atmosphere. Levi's most popular outdoor après-ski." },
+          { name: "Tuikku", desc: "Daytime après-ski on the fell, right next to the slopes — relaxed vibes and cold drinks in the sun." },
+          { name: "Hullu Poro Arena", desc: "Levi's biggest après-ski venue — live bands and entertainment, opens in the afternoon/evening." }
+        ]
+      },
+      restaurants: {
+        title: "Restaurants — Dinner & Atmosphere",
+        description: "After the afternoon après-ski, it's time for a sauna and a great dinner before the evening:",
+        items: [
+          { name: "Colorado", desc: "Restaurant with great atmosphere" },
+          { name: "King Crab House", desc: "Fine seafood dining" },
+          { name: "Ämmilä", desc: "Lappish atmosphere and traditional cuisine" }
         ],
         disclaimer: "Opening hours and programmes vary by season. Always check the latest info on each venue's own pages."
+      },
+      nightlife: {
+        title: "Nightclubs — The Evening Continues",
+        description: "After dinner, the night continues at Levi's nightclubs and bars:",
+        items: [
+          { name: "Ihku", desc: "Levi's most famous nightclub — parties until late" },
+          { name: "Hullu Poro Arena", desc: "Live bands, karaoke and nightclub all under one roof" }
+        ]
       },
       tips: {
         title: "Practical Tips",
@@ -122,7 +157,7 @@ const translations = {
           "In Finland, alcohol over 5.5% is only sold at Alko stores",
           "Minimum age 18 (nightclubs often 20 or 22)",
           "Card payments accepted everywhere — cash rarely needed",
-          "Coming in ski clothes is totally fine — people come straight from the slopes",
+          "Coming in ski clothes is completely normal — people come straight from the slopes",
           "Taxis in peak season: book early (tel. 0200 99800)"
         ]
       },
@@ -139,9 +174,9 @@ const translations = {
     faq: {
       title: "Frequently Asked Questions",
       items: [
-         { q: "What's the most popular après-ski spot?", a: "Hullu Poro Arena is by far the most famous après-ski venue in Levi. Live music, karaoke and nightclub all in one." },
-         { q: "Is there a nightclub in Levi?", a: "Yes, Ihku is Levi's best-known nightclub. Open late during peak season. Age limit usually 20 or 22." },
-        { q: "Can you go out in ski clothes?", a: "Yes, après-ski is casual and people come straight from the slopes. Ski clothes are completely normal." }
+        { q: "What's the most popular après-ski spot?", a: "Vinkkari at the base of the front slope is Levi's most legendary après-ski spot. DJs, dancing and incredible atmosphere outdoors in ski clothes. Hullu Poro Arena is the biggest venue with live bands." },
+        { q: "Is there a nightclub in Levi?", a: "Yes, Ihku is Levi's best-known nightclub. Open late during peak season. Age limit usually 20 or 22." },
+        { q: "Can you go out in ski clothes?", a: "Yes! Après-ski is specifically an outdoor celebration in ski clothes — people come straight from the slopes to Vinkkari and Tuikku." }
       ]
     },
     readNext: {
@@ -224,18 +259,19 @@ const ApresSkiLevi = ({ lang = "fi" }: ApresSkiLeviProps) => {
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.culture.title}</h2>
               <p className="text-muted-foreground mb-4">{t.sections.culture.content}</p>
               <div className="rounded-xl overflow-hidden">
-                <OptimizedImage src={campfireBarista} alt={lang === "fi" ? "Campfire Barista -kahvakoju Levin rinteillä" : "Campfire Barista coffee stand at Levi slopes"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+                <OptimizedImage src={apresSkiTuikku} alt={t.sections.culture.imageAlt} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
                 <p className="text-xs text-muted-foreground mt-2 text-center italic">
-                  {lang === "fi" ? "Campfire Barista — palkittu nuotiokahvila Levin rinteen juurella, jossa voi nauttia tulen ääressä kahvista ja tikkupullasta" : "Campfire Barista — an award-winning campfire coffee stand at the foot of Levi slopes, where you can enjoy coffee and stick buns by the fire"}
+                  {t.sections.culture.imageCaption}
                 </p>
               </div>
             </section>
 
-            {/* Popular places */}
+            {/* Après-ski spots */}
             <section className="mb-12">
-              <h2 className="text-2xl font-bold text-foreground mb-6">{t.sections.places.title}</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-2">{t.sections.afterski.title}</h2>
+              <p className="text-muted-foreground mb-6">{t.sections.afterski.description}</p>
               <div className="space-y-3">
-                {t.sections.places.items.map((place, idx) => (
+                {t.sections.afterski.items.map((place, idx) => (
                   <Card key={idx} className="glass-card border-border/30 p-4">
                     <div className="flex items-start gap-3">
                       <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
@@ -249,12 +285,54 @@ const ApresSkiLevi = ({ lang = "fi" }: ApresSkiLeviProps) => {
                   </Card>
                 ))}
               </div>
+            </section>
+
+            {/* Restaurants */}
+            <section className="mb-12">
+              <h2 className="text-2xl font-bold text-foreground mb-2">{t.sections.restaurants.title}</h2>
+              <p className="text-muted-foreground mb-6">{t.sections.restaurants.description}</p>
+              <div className="space-y-3">
+                {t.sections.restaurants.items.map((place, idx) => (
+                  <Card key={idx} className="glass-card border-border/30 p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                        <Utensils className="w-4 h-4 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground">{place.name}</h3>
+                        <p className="text-sm text-muted-foreground">{place.desc}</p>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
               <Card className="glass-card border-border/30 p-4 mt-4">
                 <div className="flex items-start gap-3">
                   <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-muted-foreground italic">{t.sections.places.disclaimer}</p>
+                  <p className="text-sm text-muted-foreground italic">{t.sections.restaurants.disclaimer}</p>
                 </div>
               </Card>
+            </section>
+
+            {/* Nightlife */}
+            <section className="mb-12">
+              <h2 className="text-2xl font-bold text-foreground mb-2">{t.sections.nightlife.title}</h2>
+              <p className="text-muted-foreground mb-6">{t.sections.nightlife.description}</p>
+              <div className="space-y-3">
+                {t.sections.nightlife.items.map((place, idx) => (
+                  <Card key={idx} className="glass-card border-border/30 p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                        <PartyPopper className="w-4 h-4 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground">{place.name}</h3>
+                        <p className="text-sm text-muted-foreground">{place.desc}</p>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
             </section>
 
             {/* Tips */}
