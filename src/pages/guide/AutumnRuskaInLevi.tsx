@@ -128,10 +128,9 @@ const translations = {
       links: [
         { title: "Vaellus ja pyöräily", desc: "Parhaat reitit ruska-aikaan", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi" },
         { title: "Revontulet", desc: "Revontulikausi alkaa syyskuussa", href: "/revontulet" },
-        { title: "Sää ja lumitilanne", desc: "Syksyn lämpötilat ja olosuhteet", href: "/levi/saatieto-levilta" },
-        { title: "Kesä Levillä", desc: "Mitä tehdä ennen syksyä", href: "/opas/kesa-levi" },
         { title: "Talvi Levillä", desc: "Mitä odottaa ruskan jälkeen", href: "/opas/talvi-levi" },
-        { title: "Ravintolat ja palvelut", desc: "Syksyn ravintolat ja kaupat", href: "/opas/ravintolat-ja-palvelut-levilla" }
+        { title: "Syyskuu Levillä", desc: "Ruska-aika ja väriloisto", href: "/opas/levi-syyskuussa" },
+        { title: "Lokakuu Levillä", desc: "Ensimmäiset lumet ja kaamos lähestyy", href: "/opas/levi-lokakuussa" }
       ]
     },
     breadcrumbLabel: "Ruska Levillä"
