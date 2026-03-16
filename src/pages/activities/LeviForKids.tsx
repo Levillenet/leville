@@ -154,6 +154,7 @@ const translations = {
         title: "Other Kids' Favourites",
         items: [
           "Ice Karting — short, fun and thrilling (age limits vary)",
+          "Snow play and snowmen — during mild weather (around 0 °C or above) the snow becomes soft and moldable. Build snowmen, snow castles and anything you can imagine!",
           "Indoor playground / Kids' World — for winter days when it's too cold outside",
           "Bowling and mini golf (indoors)",
           "Swimming pool at Levi Spa — slides and children's pool",
