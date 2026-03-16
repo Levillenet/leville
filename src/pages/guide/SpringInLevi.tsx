@@ -219,6 +219,87 @@ const translations = {
       ]
     },
     breadcrumbLabel: "Spring in Levi"
+  },
+  nl: {
+    meta: {
+      title: "Lente in Levi – Lentezon & skiën | Leville.net",
+      description: "Complete gids voor de lente in Levi. Lentezon, sneeuwcondities en activiteiten in maart–april. Plan je lentevakantie in Levi.",
+      canonical: "https://leville.net/nl/gids/lente-in-levi"
+    },
+    title: "Lente in Levi",
+    subtitle: "Stralende lentezon en de beste ski-omstandigheden",
+    intro: "De lente in Levi is een van de beste periodes om te bezoeken. De dagen worden snel langer, de zon verwarmt de pistes en er ligt volop sneeuw. Lenteskiën is een unieke ervaring – terrassen vullen zich met zonnende mensen en de natuur ontwaakt uit de winterslaap.",
+    sections: {
+      conditions: {
+        title: "Lenteomstandigheden",
+        stats: [
+          { label: "Temperaturen", value: "-10 – +5°C", icon: "temp" },
+          { label: "Sneeuwdiepte", value: "80–120 cm", icon: "snow" },
+          { label: "Daglengte", value: "12–18 u", icon: "sun" },
+          { label: "Pistes open", value: "Tot april", icon: "mountain" }
+        ]
+      },
+      sunshine: {
+        title: "De lentezon",
+        content: "Vanaf maart worden de dagen snel langer. In april is het al bijna 18 uur licht. De zon verwarmt aangenaam, hoewel de temperatuur nog rond het vriespunt blijft. Skiën in de lentezon is een unieke ervaring – UV-straling is sterk, dus zonnebrandcrème is essentieel."
+      },
+      activities: {
+        title: "Lenteactiviteiten",
+        items: [
+          { name: "Lenteskiën", desc: "Beste omstandigheden, terrasleven" },
+          { name: "Langlaufen", desc: "Loipes in topconditie" },
+          { name: "Sneeuwschoenwandelen", desc: "Warm weer, prachtige vergezichten" },
+          { name: "IJsvissen", desc: "Nog veilig op het ijs" },
+          { name: "Sneeuwscooteren", desc: "Laatste safari's van het seizoen" },
+          { name: "Terrasleven", desc: "Genieten van de zon na het skiën" }
+        ]
+      },
+      temperatures: {
+        title: "Per maand",
+        months: [
+          { month: "Begin maart", temp: "-10 – -5°C", desc: "Licht keert terug, nog koud" },
+          { month: "Eind maart", temp: "-5 – 0°C", desc: "Lentezon verwarmt" },
+          { month: "Begin april", temp: "-5 – +5°C", desc: "Overdag plusgraden" },
+          { month: "Eind april", temp: "0 – +10°C", desc: "Sneeuw smelt langzaam" }
+        ]
+      },
+      tips: {
+        title: "Tips voor lentebezoekers",
+        items: [
+          "Zonnebril en zonnebrandcrème zijn essentieel",
+          "Kleed je in lagen – temperatuur verschilt in schaduw en zon",
+          "Pistes zijn het best 's ochtends vóór ze zacht worden",
+          "Reserveer terrastafels vooraf bij populaire spots",
+          "Dit is een voordeligere periode dan het hoogseizoen"
+        ]
+      }
+    },
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Hoe lang zijn de pistes open in de lente?", a: "De pistes van Levi zijn doorgaans open tot begin mei. Check de exacte data op de website van Levi." },
+        { q: "Is er nog genoeg sneeuw in de lente?", a: "Ja! De lente is vaak de sneeuwrijkste periode in Levi. Er ligt doorgaans 80–120 cm sneeuw." },
+        { q: "Wat is de temperatuur in de lente?", a: "In maart meestal -10 tot 0°C, in april al -5 tot +10°C. De zon verwarmt overdag." },
+        { q: "Is de lente geschikt voor gezinnen?", a: "Absoluut! Warmer weer en lange dagen maken activiteiten comfortabeler voor kinderen." }
+      ]
+    },
+    cta: {
+      hub: "Terug naar Levi-reisgids",
+      hubLink: "/nl/levi",
+      accommodation: "Boek lenteaccommodatie",
+      accommodationLink: "/nl/accommodaties"
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Skiën in Levi", desc: "Pistes open tot mei", href: "/nl/gids/skieen-in-levi" },
+        { title: "Langlaufen in Levi", desc: "230+ km loipes – lente is de beste tijd", href: "/nl/gids/langlaufen-in-levi" },
+        { title: "Winterkleding", desc: "Wat aantrekken voor lenteskiën", href: "/nl/gids/winterkleding-levi-lapland" },
+        { title: "Maart in Levi", desc: "Lentezon en beste sneeuw", href: "/guide/levi-in-march" },
+        { title: "April in Levi", desc: "Hoogtepunt van de lente", href: "/guide/levi-in-april" }
+      ]
+    },
+    breadcrumbLabel: "Lente in Levi"
   }
 };
 
@@ -226,13 +307,15 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
   const t = translations[lang] || translations.fi;
   const location = useLocation();
 
-  const customUrls = lang === "fi" 
-    ? { fi: "/opas/kevat-levi", en: "/guide/spring-in-levi" }
-    : { en: "/guide/spring-in-levi", fi: "/opas/kevat-levi" };
+  const customUrls: Record<string, string> = { fi: "/opas/kevat-levi", en: "/guide/spring-in-levi", nl: "/nl/gids/lente-in-levi" };
+
+  const homeHref = lang === "fi" ? "/" : lang === "nl" ? "/nl" : "/en";
+  const leviHref = lang === "fi" ? "/levi" : lang === "nl" ? "/nl/levi" : "/en/levi";
+  const seasonsUrl = lang === "fi" ? "/opas/vuodenajat-levi" : lang === "nl" ? "/nl/gids/seizoenen-in-levi" : "/guide/seasons-in-levi";
 
   const breadcrumbItems = [
-    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : "/en" },
-    { label: lang === "fi" ? "Levi" : "Levi", href: lang === "fi" ? "/levi" : "/en/levi" },
+    { label: lang === "fi" ? "Etusivu" : "Home", href: homeHref },
+    { label: "Levi", href: leviHref },
     { label: t.breadcrumbLabel, href: "" }
   ];
 
@@ -256,7 +339,7 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta property="og:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
@@ -272,8 +355,8 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
       <JsonLd data={getWebsiteSchema()} />
       <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
       <JsonLd data={getBreadcrumbSchema([
-        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
-        { name: lang === "fi" ? "Vuodenajat" : "Seasons", url: `https://leville.net${lang === "fi" ? "/opas/vuodenajat-levi" : "/guide/seasons-in-levi"}` },
+        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${homeHref}` },
+        { name: lang === "fi" ? "Vuodenajat" : "Seizoenen", url: `https://leville.net${seasonsUrl}` },
         { name: t.title, url: t.meta.canonical }
       ])} />
       <JsonLd data={getFAQSchema(t.faq.items.map(i => ({ question: i.q, answer: i.a })))} />

@@ -237,6 +237,97 @@ const translations = {
       ]
     },
     breadcrumbLabel: "Autumn Ruska in Levi"
+  },
+  nl: {
+    meta: {
+      title: "Herfst Ruska in Levi – Herfstkleuren | Leville.net",
+      description: "Complete gids voor de herfst-ruska in Levi. Beste timing, fotografietips en herfstactiviteiten in september. Ervaar de prachtige herfstkleuren van Lapland.",
+      canonical: "https://leville.net/nl/gids/herfst-ruska-in-levi"
+    },
+    title: "Herfst Ruska in Levi",
+    subtitle: "Laplands herfstkleuren in september – het kunstwerk van de natuur",
+    intro: "Ruska is een van de mooiste fenomenen van Lapland. In september kleuren de fjelllandschappen felrood, oranje en geel. Frisse herfstlucht, vredige natuur en de eerste noorderlicht-nachten maken ruska een unieke tijd om Levi te bezoeken.",
+    sections: {
+      conditions: {
+        title: "Ruska-seizoen omstandigheden",
+        stats: [
+          { label: "Temperaturen", value: "+5 – +15°C", icon: "temp" },
+          { label: "Ruska-tijd", value: "September", icon: "leaf" },
+          { label: "Noorderlicht", value: "Seizoen begint", icon: "sparkles" },
+          { label: "Natuur", value: "Kleurrijkst", icon: "tree" }
+        ]
+      },
+      timing: {
+        title: "Beste ruska-tijden",
+        content: "Ruska begint in Levi doorgaans begin september op de fjelltoppen en trekt binnen een week lager. De intensiefste ruska is meestal half september, maar de exacte timing verschilt jaarlijks afhankelijk van het weer. Ruska duurt ongeveer 2–3 weken."
+      },
+      colors: {
+        title: "Ruska-kleuren",
+        items: [
+          { plant: "Bergberk", color: "Felgeel", timing: "Begin september" },
+          { plant: "Bosbes en vossenbes", color: "Dieprood", timing: "Begin tot half september" },
+          { plant: "Dwergberk", color: "Oranje-rood", timing: "Half september" },
+          { plant: "Jeneverbes en den", color: "Donkergroen contrast", timing: "Hele ruska-periode" }
+        ]
+      },
+      activities: {
+        title: "Activiteiten tijdens ruska",
+        items: [
+          { name: "Wandelen en trekken", desc: "Herfstkleuren op fjellpaden" },
+          { name: "Fotografie", desc: "Geweldige fotomomenten" },
+          { name: "Bessen plukken", desc: "Bosbessen en vossenbessen" },
+          { name: "Paddenstoelen zoeken", desc: "Cantharellen en eekhoorntjesbrood" },
+          { name: "Noorderlicht jagen", desc: "Seizoen begint in september" },
+          { name: "Vissen", desc: "Herfst visseizoenen" }
+        ]
+      },
+      photography: {
+        title: "Fotografietips",
+        tips: [
+          "Beste licht is 's ochtends en 's avonds (gouden uur)",
+          "Gebruik een polarisatiefilter om kleuren te versterken",
+          "Zoek waterelementen voor reflecties",
+          "Fjelltoppen bieden weids panorama",
+          "Close-ups van bladeren brengen details naar voren"
+        ]
+      },
+      tips: {
+        title: "Tips voor het ruska-seizoen",
+        items: [
+          "Boek accommodatie vroeg – ruska-tijd is populair",
+          "Kleed je in lagen – weer kan wisselen",
+          "Neem regenkleding mee – september kan regenachtig zijn",
+          "Rubberlaarzen zijn handig op natte paden",
+          "Geniet van de stilte – toeristenmassa's zijn minimaal"
+        ]
+      }
+    },
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Wanneer is ruska op zijn mooist in Levi?", a: "Ruska is doorgaans op zijn mooist in de tweede en derde week van september. De exacte timing verschilt per jaar." },
+        { q: "Kun je noorderlicht zien tijdens ruska?", a: "Ja! Het noorderlichtseizoen begint in september als de nachten donkerder worden. Beste kansen zijn op heldere nachten." },
+        { q: "Hoe warm is het in september?", a: "Septembertemperaturen zijn doorgaans +5 tot +15°C overdag. 's Nachts kan het richting nul gaan." },
+        { q: "Is het ruska-seizoen geschikt voor gezinnen?", a: "Absoluut! Makkelijke wandelpaden, bessen plukken en natuur zijn geschikt voor het hele gezin." }
+      ]
+    },
+    cta: {
+      hub: "Terug naar Levi-reisgids",
+      hubLink: "/nl/levi",
+      accommodation: "Boek herfstaccommodatie",
+      accommodationLink: "/nl/accommodaties"
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Wandelen & fietsen", desc: "Beste routes tijdens ruska", href: "/activities/hiking-and-biking-levi" },
+        { title: "Noorderlicht", desc: "Noorderlichtseizoen begint in september", href: "/nl/noorderlicht" },
+        { title: "Winter in Levi", desc: "Wat te verwachten na ruska", href: "/nl/gids/winter-in-levi" },
+        { title: "September in Levi", desc: "Ruska-seizoen en herfstkleuren", href: "/guide/levi-in-september" },
+        { title: "Oktober in Levi", desc: "Eerste sneeuw en poolnacht nadert", href: "/guide/levi-in-october" }
+      ]
+    },
+    breadcrumbLabel: "Herfst Ruska in Levi"
   }
 };
 
@@ -244,13 +335,15 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
   const t = translations[lang] || translations.fi;
   const location = useLocation();
 
-  const customUrls = lang === "fi" 
-    ? { fi: "/opas/syksy-ruska-levi", en: "/guide/autumn-ruska-in-levi" }
-    : { en: "/guide/autumn-ruska-in-levi", fi: "/opas/syksy-ruska-levi" };
+  const customUrls: Record<string, string> = { fi: "/opas/syksy-ruska-levi", en: "/guide/autumn-ruska-in-levi", nl: "/nl/gids/herfst-ruska-in-levi" };
+
+  const homeHref = lang === "fi" ? "/" : lang === "nl" ? "/nl" : "/en";
+  const leviHref = lang === "fi" ? "/levi" : lang === "nl" ? "/nl/levi" : "/en/levi";
+  const seasonsUrl = lang === "fi" ? "/opas/vuodenajat-levi" : lang === "nl" ? "/nl/gids/seizoenen-in-levi" : "/guide/seasons-in-levi";
 
   const breadcrumbItems = [
-    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : "/en" },
-    { label: lang === "fi" ? "Levi" : "Levi", href: lang === "fi" ? "/levi" : "/en/levi" },
+    { label: lang === "fi" ? "Etusivu" : "Home", href: homeHref },
+    { label: "Levi", href: leviHref },
     { label: t.breadcrumbLabel, href: "" }
   ];
 
@@ -274,7 +367,7 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta property="og:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
@@ -289,8 +382,8 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
       <JsonLd data={getWebsiteSchema()} />
       <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
       <JsonLd data={getBreadcrumbSchema([
-        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
-        { name: lang === "fi" ? "Vuodenajat" : "Seasons", url: `https://leville.net${lang === "fi" ? "/opas/vuodenajat-levi" : "/guide/seasons-in-levi"}` },
+        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${homeHref}` },
+        { name: lang === "fi" ? "Vuodenajat" : "Seizoenen", url: `https://leville.net${seasonsUrl}` },
         { name: t.title, url: t.meta.canonical }
       ])} />
       <JsonLd data={getFAQSchema(t.faq.items.map(i => ({ question: i.q, answer: i.a })))} />

@@ -226,6 +226,89 @@ const translations = {
       ]
     },
     breadcrumbLabel: "Winter in Levi"
+  },
+  nl: {
+    meta: {
+      title: "Winter in Levi – Poolnacht, sneeuw & activiteiten | Leville.net",
+      description: "Complete gids voor de winter in Levi. Poolnacht, sneeuwcondities, temperaturen en winteractiviteiten van november tot maart.",
+      canonical: "https://leville.net/nl/gids/winter-in-levi"
+    },
+    title: "Winter in Levi",
+    subtitle: "Besneeuwd sprookje en arctische rust van november tot maart",
+    intro: "De winter in Levi is een unieke ervaring. De poolnacht brengt mystiek blauw licht, de pistes vullen zich met sneeuw en het noorderlicht danst aan de hemel. Het winterseizoen loopt van november tot maart en biedt onvergetelijke ervaringen van skiën tot noorderlicht-safari's.",
+    sections: {
+      conditions: {
+        title: "Winteromstandigheden",
+        stats: [
+          { label: "Temperaturen", value: "-5 – -35°C", icon: "temp" },
+          { label: "Sneeuwdiepte", value: "60–120 cm", icon: "snow" },
+          { label: "Poolnacht", value: "Dec–jan", icon: "moon" },
+          { label: "Skiseizoen", value: "200+ dagen", icon: "mountain" }
+        ]
+      },
+      kaamos: {
+        title: "De poolnacht",
+        content: "De poolnacht (kaamos) duurt ongeveer een maand in Levi, van december tot januari, wanneer de zon niet boven de horizon uitkomt. Dit betekent geen volledige duisternis – overdag is er prachtig blauw licht en heldere nachten bieden de beste kansen om het noorderlicht te zien. De mystieke sfeer van de poolnacht is een van de grootste attracties van Lapland."
+      },
+      activities: {
+        title: "Winteractiviteiten",
+        items: [
+          { name: "Skiën en snowboarden", desc: "43 pistes en 28 liften" },
+          { name: "Langlaufen", desc: "230 km geprepareerde loipes" },
+          { name: "Sneeuwscootersafari's", desc: "Begeleide tochten de fjells in" },
+          { name: "Husky- en rendierensafari's", desc: "Unieke ervaringen" },
+          { name: "Noorderlicht jagen", desc: "Beste kansen" },
+          { name: "Sneeuwschoenwandelen", desc: "Rustige natuurervaring" }
+        ]
+      },
+      temperatures: {
+        title: "Maandelijkse temperaturen",
+        months: [
+          { month: "November", temp: "-5 – -15°C", desc: "Eerste sneeuw, seizoen begint" },
+          { month: "December", temp: "-10 – -25°C", desc: "Poolnacht, besneeuwd landschap" },
+          { month: "Januari", temp: "-15 – -35°C", desc: "Koudste dagen, noorderlicht" },
+          { month: "Februari", temp: "-10 – -30°C", desc: "Licht keert terug, vorst gaat door" },
+          { month: "Maart", temp: "-5 – -20°C", desc: "Lentezon, volop sneeuw" }
+        ]
+      },
+      tips: {
+        title: "Tips voor winterreizigers",
+        items: [
+          "Kleed je in lagen – basislaag, middenlaag, buitenlaag",
+          "Bescherm je gezicht en vingers bij strenge kou",
+          "Boek activiteiten vooraf tijdens het hoogseizoen",
+          "Neem een zaklamp mee voor de donkere uren",
+          "Check noorderlichtvoorspellingen – heldere nachten zijn het best"
+        ]
+      }
+    },
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Hoe koud wordt het in Levi in de winter?", a: "Temperaturen variëren van -5°C tot -35°C. Doorgaans is het in december–februari -15 tot -25°C." },
+        { q: "Ligt er sneeuw in Levi met Kerstmis?", a: "Ja, Levi heeft doorgaans 50–80 cm sneeuw met Kerstmis. Sneeuw is bijna altijd gegarandeerd." },
+        { q: "Wanneer is de beste tijd om noorderlicht te zien?", a: "Het noorderlichtseizoen loopt van september tot maart. De beste kansen zijn op heldere, koude nachten." },
+        { q: "Is Levi geschikt voor gezinnen in de winter?", a: "Absoluut! Levi heeft skischolen voor kinderen, gezinsvriendelijke activiteiten en volop te doen voor het hele gezin." }
+      ]
+    },
+    cta: {
+      hub: "Terug naar Levi-reisgids",
+      hubLink: "/nl/levi",
+      accommodation: "Boek winteraccommodatie",
+      accommodationLink: "/nl/accommodaties"
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Skiën in Levi", desc: "43 pistes en 28 liften", href: "/nl/gids/skieen-in-levi" },
+        { title: "Noorderlicht", desc: "Noorderlicht-gids", href: "/nl/noorderlicht" },
+        { title: "Winterkleding", desc: "Hoe kleed je je voor de kou", href: "/nl/gids/winterkleding-levi-lapland" },
+        { title: "November in Levi", desc: "Poolnacht begint, eerste pistes open", href: "/guide/levi-in-november" },
+        { title: "December in Levi", desc: "Kerstseizoen en sterrenhemel", href: "/guide/levi-in-december" },
+        { title: "Januari in Levi", desc: "Poolnachtmagie en noorderlicht", href: "/guide/levi-in-january" }
+      ]
+    },
+    breadcrumbLabel: "Winter in Levi"
   }
 };
 
@@ -233,13 +316,17 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
   const t = translations[lang] || translations.fi;
   const location = useLocation();
 
-  const customUrls = lang === "fi" 
-    ? { fi: "/opas/talvi-levi", en: "/guide/winter-in-levi" }
-    : { en: "/guide/winter-in-levi", fi: "/opas/talvi-levi" };
+  const customUrls: Record<string, string> = { fi: "/opas/talvi-levi", en: "/guide/winter-in-levi", nl: "/nl/gids/winter-in-levi" };
+
+  const homeLabel = lang === "fi" ? "Etusivu" : "Home";
+  const homeHref = lang === "fi" ? "/" : lang === "nl" ? "/nl" : "/en";
+  const leviHref = lang === "fi" ? "/levi" : lang === "nl" ? "/nl/levi" : "/en/levi";
+  const seasonsLabel = lang === "fi" ? "Vuodenajat" : "Seizoenen";
+  const seasonsUrl = lang === "fi" ? "/opas/vuodenajat-levi" : lang === "nl" ? "/nl/gids/seizoenen-in-levi" : "/guide/seasons-in-levi";
 
   const breadcrumbItems = [
-    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : "/en" },
-    { label: lang === "fi" ? "Levi" : "Levi", href: lang === "fi" ? "/levi" : "/en/levi" },
+    { label: homeLabel, href: homeHref },
+    { label: "Levi", href: leviHref },
     { label: t.breadcrumbLabel, href: "" }
   ];
 
@@ -263,7 +350,7 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         
@@ -275,8 +362,8 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
       <JsonLd data={getWebsiteSchema()} />
       <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
       <JsonLd data={getBreadcrumbSchema([
-        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
-        { name: lang === "fi" ? "Vuodenajat" : "Seasons", url: `https://leville.net${lang === "fi" ? "/opas/vuodenajat-levi" : "/guide/seasons-in-levi"}` },
+        { name: homeLabel, url: `https://leville.net${homeHref}` },
+        { name: seasonsLabel, url: `https://leville.net${seasonsUrl}` },
         { name: t.title, url: t.meta.canonical }
       ])} />
       <JsonLd data={getFAQSchema(t.faq.items.map(i => ({ question: i.q, answer: i.a })))} />

@@ -225,6 +225,88 @@ const translations = {
       ]
     },
     breadcrumbLabel: "Summer in Levi"
+  },
+  nl: {
+    meta: {
+      title: "Zomer in Levi – Middernachtzon & activiteiten | Leville.net",
+      description: "Complete gids voor de zomer in Levi. Middernachtzon, wandelpaden, mountainbiken en vissen. Plan je zomervakantie in Lapland.",
+      canonical: "https://leville.net/nl/gids/zomer-in-levi"
+    },
+    title: "Zomer in Levi",
+    subtitle: "Middernachtzonmagie en arctische natuur op haar mooist",
+    intro: "De zomer in Levi is een tijd voor ontspanning en natuur. De middernachtzon brengt een bijzondere sfeer, omdat de zon in juni en juli helemaal niet ondergaat. De fjelllandschappen kleuren groen, wandelpaden lonken en de natuur biedt een unieke ontsnapping aan het dagelijks leven.",
+    sections: {
+      conditions: {
+        title: "Zomeromstandigheden",
+        stats: [
+          { label: "Temperaturen", value: "+10 – +25°C", icon: "temp" },
+          { label: "Middernachtzon", value: "6 weken", icon: "sun" },
+          { label: "Wandelpaden", value: "Honderden km", icon: "mountain" },
+          { label: "Natuur", value: "Groen", icon: "tree" }
+        ]
+      },
+      midnightSun: {
+        title: "De middernachtzon",
+        content: "Van begin juni tot half juli gaat de zon helemaal niet onder in Levi. Dit unieke fenomeen creëert een magische sfeer – je kunt midden in de nacht wandelen in de fjells bij zonneschijn of genieten van de avondrust aan een meer. De lichte nachten geven je alle tijd om te genieten van de natuur zonder haast."
+      },
+      activities: {
+        title: "Zomeractiviteiten",
+        items: [
+          { name: "Wandelen en trekken", desc: "Gemarkeerde routes voor alle niveaus" },
+          { name: "Mountainbiken", desc: "Bike Park en fjellroutes" },
+          { name: "Vissen", desc: "Fjellrivieren en meren" },
+          { name: "Kanoën", desc: "Kano's en kajaks te huur" },
+          { name: "Golf", desc: "Levi's 18-holes baan" },
+          { name: "Bessen plukken", desc: "Bosbessen en kruipbraam in augustus" }
+        ]
+      },
+      hiking: {
+        title: "Populairste wandelroutes",
+        trails: [
+          { name: "Kätkätunturi", length: "5–15 km", desc: "Makkelijke gezinsroute, prachtig uitzicht" },
+          { name: "Levitunturi", length: "3–8 km", desc: "Naar de top met gondel of te voet" },
+          { name: "Immeljärvi-ronde", length: "8 km", desc: "Meergebied en bospaden" },
+          { name: "Pallas-Yllästunturi Nationaal Park", length: "Meerdere routes", desc: "Het mooiste landschap van Lapland" }
+        ]
+      },
+      tips: {
+        title: "Tips voor zomerbezoekers",
+        items: [
+          "Bereid je voor op muggen – insectenspray is essentieel",
+          "Kleed je in lagen – het weer kan snel wisselen",
+          "De middernachtzon kan je slaap verstoren – neem een slaapmasker mee",
+          "Geniet van de stilte – Levi is rustig in de zomer",
+          "Proef lokale lekkernijen – rendierenvlees en kruipbraam"
+        ]
+      }
+    },
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Wat is de middernachtzon?", a: "De middernachtzon is de periode waarin de zon helemaal niet ondergaat. In Levi duurt dit ongeveer 6 weken van juni tot juli." },
+        { q: "Hoe warm is het in Levi in de zomer?", a: "Zomertemperaturen variëren van +10 tot +25°C. Juli is de warmste maand." },
+        { q: "Zijn er veel muggen?", a: "In juli kunnen er veel muggen zijn, vooral in natte gebieden. Muggenspray helpt." },
+        { q: "Is Levi geschikt voor gezinnen in de zomer?", a: "Absoluut! Makkelijke wandelpaden, Bike Park en natuurervaringen zijn geschikt voor het hele gezin." }
+      ]
+    },
+    cta: {
+      hub: "Terug naar Levi-reisgids",
+      hubLink: "/nl/levi",
+      accommodation: "Boek zomeraccommodatie",
+      accommodationLink: "/nl/accommodaties"
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Wandelen & fietsen", desc: "Fjellwandelingen en mountainbikeroutes", href: "/activities/hiking-and-biking-levi" },
+        { title: "Herfst Ruska in Levi", desc: "Prachtige herfstkleuren", href: "/nl/gids/herfst-ruska-in-levi" },
+        { title: "Mei in Levi", desc: "Lente wordt zomer", href: "/guide/levi-in-may" },
+        { title: "Juni in Levi", desc: "Middernachtzon en natuur ontwaakt", href: "/guide/levi-in-june" },
+        { title: "Juli in Levi", desc: "Middernachtzon en wandelen", href: "/guide/levi-in-july" },
+        { title: "Augustus in Levi", desc: "Bessenseizoen en eerste ruska", href: "/guide/levi-in-august" }
+      ]
+    },
+    breadcrumbLabel: "Zomer in Levi"
   }
 };
 
@@ -232,13 +314,15 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
   const t = translations[lang] || translations.fi;
   const location = useLocation();
 
-  const customUrls = lang === "fi" 
-    ? { fi: "/opas/kesa-levi", en: "/guide/summer-in-levi" }
-    : { en: "/guide/summer-in-levi", fi: "/opas/kesa-levi" };
+  const customUrls: Record<string, string> = { fi: "/opas/kesa-levi", en: "/guide/summer-in-levi", nl: "/nl/gids/zomer-in-levi" };
+
+  const homeHref = lang === "fi" ? "/" : lang === "nl" ? "/nl" : "/en";
+  const leviHref = lang === "fi" ? "/levi" : lang === "nl" ? "/nl/levi" : "/en/levi";
+  const seasonsUrl = lang === "fi" ? "/opas/vuodenajat-levi" : lang === "nl" ? "/nl/gids/seizoenen-in-levi" : "/guide/seasons-in-levi";
 
   const breadcrumbItems = [
-    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : "/en" },
-    { label: lang === "fi" ? "Levi" : "Levi", href: lang === "fi" ? "/levi" : "/en/levi" },
+    { label: lang === "fi" ? "Etusivu" : "Home", href: homeHref },
+    { label: "Levi", href: leviHref },
     { label: t.breadcrumbLabel, href: "" }
   ];
 
@@ -262,7 +346,7 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta property="og:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
@@ -278,8 +362,8 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
       <JsonLd data={getWebsiteSchema()} />
       <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
       <JsonLd data={getBreadcrumbSchema([
-        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
-        { name: lang === "fi" ? "Vuodenajat" : "Seasons", url: `https://leville.net${lang === "fi" ? "/opas/vuodenajat-levi" : "/guide/seasons-in-levi"}` },
+        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${homeHref}` },
+        { name: lang === "fi" ? "Vuodenajat" : "Seizoenen", url: `https://leville.net${seasonsUrl}` },
         { name: t.title, url: t.meta.canonical }
       ])} />
       <JsonLd data={getFAQSchema(t.faq.items.map(i => ({ question: i.q, answer: i.a })))} />

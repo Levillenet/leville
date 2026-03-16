@@ -362,6 +362,105 @@ const translations = {
         { title: "Northern Lights", desc: "When to see the aurora", href: "/en/northern-lights" },
       ],
     },
+  },
+  nl: {
+    meta: {
+      title: "Weer in Levi – sneeuwdiepte & seizoenen | Leville.net",
+      description: "Weer in Levi: sneeuwdiepte, temperaturen en seizoenen. Plan je reis met data van het Fins Meteorologisch Instituut.",
+      canonical: "https://leville.net/nl/levi/weer-in-levi"
+    },
+    title: "Weer in Levi",
+    subtitle: "Sneeuwdiepte, temperaturen en seizoenen vanuit reizigersperspectief",
+    intro: "Het weer in Levi is arctisch maar afwisselend. Winters zijn besneeuwd en de poolnacht heeft zijn eigen charme, terwijl de zomer de middernachtzon brengt. Deze gids helpt je je reis te plannen op basis van de weersomstandigheden in Levi.",
+    sections: {
+      seasons: {
+        title: "Weer per seizoen in Levi",
+        items: [
+          { season: "Winter", months: "November–maart", temp: "-5 tot -35°C", desc: "De poolnacht brengt mystiek blauw licht in december–januari. Sneeuwdiepte is doorgaans 60–120 cm. Perfecte tijd voor skiën, noorderlicht en winteravonturen.", icon: "snowflake" },
+          { season: "Lente", months: "Maart–mei", temp: "-10 tot +10°C", desc: "De lentezon brengt heldere dagen. Sneeuwcondities zijn optimaal voor langlaufen. Skiën gaat vaak door tot 1 mei.", icon: "sun" },
+          { season: "Zomer", months: "Juni–augustus", temp: "+10 tot +25°C", desc: "De middernachtzon verlicht de nacht. Wandelen, fietsen en vissen trekken natuurliefhebbers aan.", icon: "sun" },
+          { season: "Herfst", months: "September–oktober", temp: "+5 tot -5°C", desc: "Ruska kleurt de fjells in september. De eerste sneeuw valt meestal in oktober. Een rustig seizoen vóór de winter.", icon: "tree" }
+        ]
+      },
+      snowDepth: {
+        title: "Sneeuwdiepte in Levi per jaar",
+        intro: "Data van het Fins Meteorologisch Instituut (FMI) bij Kittilä toont typische sneeuwcondities.",
+        arrivalTitle: "Wanneer komt de sneeuw?",
+        arrivalDesc: "De eerste permanente sneeuw arriveert doorgaans eind oktober of begin november. Sneeuwkanonnen maken het mogelijk pistes al in oktober te openen, maar natuurlijke sneeuwval versterkt in november.",
+        decemberTitle: "Sneeuwdiepte in december",
+        decemberDesc: "Begin december is de sneeuwdiepte gemiddeld 40–60 cm. Met Kerstmis ligt er doorgaans 50–80 cm sneeuw, wat een witte kerst garandeert.",
+        tableTitle: "Typische sneeuwdiepte per maand",
+        months: [
+          { month: "November", depth: "20–40 cm", note: "Eerste sneeuw" },
+          { month: "December", depth: "40–70 cm", note: "Witte kerst gegarandeerd" },
+          { month: "Januari", depth: "50–80 cm", note: "Dik sneeuwdek" },
+          { month: "Februari", depth: "60–90 cm", note: "Piek sneeuwdiepte" },
+          { month: "Maart", depth: "70–100 cm", note: "Lentezon, uitstekend skiën" },
+          { month: "April", depth: "50–80 cm", note: "Geleidelijke dooi" }
+        ],
+        exceptionNote: "Uitzonderingen komen voor: in 2020 was de sneeuw in december uitzonderlijk laag, maar sneeuwkanonnen zorgden dat de pistes open bleven."
+      },
+      temperatures: {
+        title: "Typische temperaturen in Levi",
+        intro: "Het arctische klimaat brengt variatie. Hier zijn typische temperaturen door het jaar.",
+        months: [
+          { month: "Januari", temp: "-15 tot -35°C", tip: "Koudste dagen, kleed je warm" },
+          { month: "Februari", temp: "-10 tot -30°C", tip: "Licht keert terug, vorst blijft" },
+          { month: "Maart", temp: "-5 tot -20°C", tip: "Lentezon verwarmt" },
+          { month: "April", temp: "-5 tot +5°C", tip: "Dooiseizoen nadert" },
+          { month: "Mei", temp: "0 tot +15°C", tip: "Lente in volle gang" },
+          { month: "Juni", temp: "+5 tot +20°C", tip: "Middernachtzon begint" },
+          { month: "Juli", temp: "+10 tot +25°C", tip: "Warmste dagen" },
+          { month: "Augustus", temp: "+8 tot +20°C", tip: "Nazomer koelt af" },
+          { month: "September", temp: "+2 tot +12°C", tip: "Ruska-seizoen" },
+          { month: "Oktober", temp: "-5 tot +5°C", tip: "Eerste vorst" },
+          { month: "November", temp: "-5 tot -15°C", tip: "Winter begint" },
+          { month: "December", temp: "-10 tot -25°C", tip: "Poolnacht en besneeuwd landschap" }
+        ],
+        tips: [
+          "Kleed je in lagen: basislaag, middenlaag, winddichte buitenlaag",
+          "Bij strenge kou (-25°C of kouder) bescherm vooral gezicht en vingers",
+          "Wollen sokken en goede winterlaarzen zijn essentieel",
+          "Onderschat de gevoelstemperatuur door wind niet – het voelt kouder dan de thermometer aangeeft"
+        ]
+      },
+      travelImpact: {
+        title: "Hoe het weer je vakantie in Levi beïnvloedt",
+        categories: [
+          { title: "Skiën", icon: "mountain", items: ["Sneeuwkanonnen zorgen dat pistes al in oktober opengaan", "Beste skiperiode: december–april", "Bij strenge kou (-25°C) kunnen sommige liften sluiten"] },
+          { title: "Noorderlicht", icon: "star", items: ["Beste periode: september–maart", "Beste condities: heldere nachtelijke hemel, koud weer", "Poolnacht brengt lange nachten – meer kansen"] },
+          { title: "Gezinsvakanties", icon: "calendar", items: ["Warmste wintermaanden: november en maart", "Onder -20°C kan buitentijd voor jonge kinderen beperkt zijn", "Skischolen draaien ongeacht het weer"] },
+          { title: "Safari's en buitenactiviteiten", icon: "cloud", items: ["Husky- en rendierensafari's hebben een koudegrens van ca. -20°C", "Sneeuwscootersafari's draaien in bijna alle omstandigheden", "Sneeuwschoenwandelen en langlaufen zijn het best in maart"] }
+        ]
+      }
+    },
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Ligt er altijd sneeuw in Levi met Kerstmis?", a: "Ja, Levi heeft bijna altijd sneeuw met Kerstmis. De typische sneeuwdiepte in december is 50–70 cm. In uitzonderlijke jaren garanderen sneeuwkanonnen sneeuw op de pistes." },
+        { q: "Hoe koud is het in Levi in februari?", a: "Temperaturen in februari variëren doorgaans van -10°C tot -30°C. Het daglicht keert echter terug, waardoor de dagen helderder aanvoelen dan in december." },
+        { q: "Wanneer is de beste tijd om Levi te bezoeken met het gezin?", a: "Voor gezinnen is maart uitstekend: volop daglicht, mildere temperaturen (-5 tot -15°C) en nog veel sneeuw." },
+        { q: "Beïnvloedt het weer het zien van noorderlicht?", a: "Ja. Noorderlicht zien vereist een heldere hemel. De beste kansen zijn op koude nachten met wolkenloze lucht. Check de weersvoorspelling en de noorderlichtvoorspelling." }
+      ]
+    },
+    cta: {
+      hub: "Terug naar Levi-reisgids",
+      hubLink: "/nl/levi",
+      accommodation: "Boek accommodatie in Levi",
+      accommodationLink: "/nl/accommodaties"
+    },
+    breadcrumbLabel: "Weer in Levi",
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Winter in Levi", desc: "Poolnacht, sneeuw en activiteiten", href: "/nl/gids/winter-in-levi" },
+        { title: "Skiën in Levi", desc: "Piste-omstandigheden en tips", href: "/nl/gids/skieen-in-levi" },
+        { title: "Winterkleding", desc: "Kleed je goed voor het weer", href: "/nl/gids/winterkleding-levi-lapland" },
+        { title: "Zomer in Levi", desc: "Middernachtzon en zomeractiviteiten", href: "/nl/gids/zomer-in-levi" },
+        { title: "Seizoenen in Levi", desc: "Welk seizoen past bij jou", href: "/nl/gids/seizoenen-in-levi" },
+        { title: "Noorderlicht", desc: "Wanneer zie je het noorderlicht", href: "/nl/noorderlicht" },
+      ],
+    },
   }
 };
 
@@ -369,13 +468,11 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
   const t = translations[lang] || translations.fi;
   const location = useLocation();
 
-  const customUrls = lang === "fi" 
-    ? { fi: "/levi/saatieto-levilta", en: "/en/levi/weather-in-levi" }
-    : { en: "/en/levi/weather-in-levi", fi: "/levi/saatieto-levilta" };
+  const customUrls: Record<string, string> = { fi: "/levi/saatieto-levilta", en: "/en/levi/weather-in-levi", nl: "/nl/levi/weer-in-levi" };
 
   const breadcrumbItems = [
-    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : "/en" },
-    { label: lang === "fi" ? "Levi" : "Levi", href: lang === "fi" ? "/levi" : "/en/levi" },
+    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : lang === "nl" ? "/nl" : "/en" },
+    { label: "Levi", href: lang === "fi" ? "/levi" : lang === "nl" ? "/nl/levi" : "/en/levi" },
     { label: t.breadcrumbLabel, href: "" }
   ];
 
@@ -402,7 +499,7 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta property="og:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
