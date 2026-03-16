@@ -217,10 +217,11 @@ const translations = {
       links: [
         { title: "Hiking & Biking", desc: "Fell hikes and mountain biking trails", href: "/activities/hiking-and-biking-levi" },
         { title: "Autumn Ruska in Levi", desc: "Stunning fall colours and best routes", href: "/guide/autumn-ruska-in-levi" },
-        { title: "Weather in Levi", desc: "Summer temperatures and conditions", href: "/en/levi/weather-in-levi" },
         { title: "Restaurants & Services", desc: "Summer dining and shops", href: "/guide/restaurants-and-services-in-levi" },
-        { title: "Spring in Levi", desc: "Spring sun and peak ski season", href: "/guide/spring-in-levi" },
-        { title: "How to Get to Levi", desc: "Summer travel connections", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" }
+        { title: "May in Levi", desc: "Spring turns to summer", href: "/guide/levi-in-may" },
+        { title: "June in Levi", desc: "Midnight sun and nature awakens", href: "/guide/levi-in-june" },
+        { title: "July in Levi", desc: "Midnight sun and hiking", href: "/guide/levi-in-july" },
+        { title: "August in Levi", desc: "Berry season and first signs of ruska", href: "/guide/levi-in-august" }
       ]
     },
     breadcrumbLabel: "Summer in Levi"

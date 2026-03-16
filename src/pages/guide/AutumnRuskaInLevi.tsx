@@ -231,10 +231,9 @@ const translations = {
       links: [
         { title: "Hiking & Biking", desc: "Best trails during ruska season", href: "/activities/hiking-and-biking-levi" },
         { title: "Northern Lights", desc: "Aurora season starts in September", href: "/en/northern-lights" },
-        { title: "Weather in Levi", desc: "Autumn temperatures and conditions", href: "/en/levi/weather-in-levi" },
-        { title: "Summer in Levi", desc: "What to do before autumn", href: "/guide/summer-in-levi" },
         { title: "Winter in Levi", desc: "What to expect after ruska", href: "/guide/winter-in-levi" },
-        { title: "Restaurants & Services", desc: "Autumn dining in Levi", href: "/guide/restaurants-and-services-in-levi" }
+        { title: "September in Levi", desc: "Ruska season and fall colors", href: "/guide/levi-in-september" },
+        { title: "October in Levi", desc: "First snow and polar night approaches", href: "/guide/levi-in-october" }
       ]
     },
     breadcrumbLabel: "Autumn Ruska in Levi"

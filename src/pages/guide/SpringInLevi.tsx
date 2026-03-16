@@ -213,10 +213,9 @@ const translations = {
       links: [
         { title: "Skiing in Levi", desc: "Slopes open until May", href: "/guide/skiing-in-levi" },
         { title: "Cross-Country Skiing", desc: "230+ km of trails – spring is prime time", href: "/guide/cross-country-skiing-in-levi" },
-        { title: "Weather in Levi", desc: "Spring temperatures and conditions", href: "/en/levi/weather-in-levi" },
-        { title: "Summer in Levi", desc: "What to do in Levi in summer", href: "/guide/summer-in-levi" },
-        { title: "Winter in Levi", desc: "Polar night and winter activities", href: "/guide/winter-in-levi" },
-        { title: "Winter Clothing", desc: "What to wear for spring skiing", href: "/guide/how-to-dress-for-winter-in-levi-lapland" }
+        { title: "Winter Clothing", desc: "What to wear for spring skiing", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "March in Levi", desc: "Spring sun and best snow conditions", href: "/guide/levi-in-march" },
+        { title: "April in Levi", desc: "Peak spring and long days", href: "/guide/levi-in-april" }
       ]
     },
     breadcrumbLabel: "Spring in Levi"
