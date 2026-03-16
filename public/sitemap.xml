@@ -646,60 +646,70 @@
   
   <url>
     <loc>https://leville.net/de</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/sv" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://leville.net/es</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/sv" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://leville.net/fr</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/sv" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://leville.net/nl</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/sv" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://leville.net/sv</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
     <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl" />
-    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/sv" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -708,6 +718,14 @@
   
   <url>
     <loc>https://leville.net/en</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
