@@ -237,6 +237,97 @@ const translations = {
       ]
     },
     breadcrumbLabel: "Autumn Ruska in Levi"
+  },
+  nl: {
+    meta: {
+      title: "Herfst Ruska in Levi – Herfstkleuren | Leville.net",
+      description: "Complete gids voor de herfst-ruska in Levi. Beste timing, fotografietips en herfstactiviteiten in september. Ervaar de prachtige herfstkleuren van Lapland.",
+      canonical: "https://leville.net/nl/gids/herfst-ruska-in-levi"
+    },
+    title: "Herfst Ruska in Levi",
+    subtitle: "Laplands herfstkleuren in september – het kunstwerk van de natuur",
+    intro: "Ruska is een van de mooiste fenomenen van Lapland. In september kleuren de fjelllandschappen felrood, oranje en geel. Frisse herfstlucht, vredige natuur en de eerste noorderlicht-nachten maken ruska een unieke tijd om Levi te bezoeken.",
+    sections: {
+      conditions: {
+        title: "Ruska-seizoen omstandigheden",
+        stats: [
+          { label: "Temperaturen", value: "+5 – +15°C", icon: "temp" },
+          { label: "Ruska-tijd", value: "September", icon: "leaf" },
+          { label: "Noorderlicht", value: "Seizoen begint", icon: "sparkles" },
+          { label: "Natuur", value: "Kleurrijkst", icon: "tree" }
+        ]
+      },
+      timing: {
+        title: "Beste ruska-tijden",
+        content: "Ruska begint in Levi doorgaans begin september op de fjelltoppen en trekt binnen een week lager. De intensiefste ruska is meestal half september, maar de exacte timing verschilt jaarlijks afhankelijk van het weer. Ruska duurt ongeveer 2–3 weken."
+      },
+      colors: {
+        title: "Ruska-kleuren",
+        items: [
+          { plant: "Bergberk", color: "Felgeel", timing: "Begin september" },
+          { plant: "Bosbes en vossenbes", color: "Dieprood", timing: "Begin tot half september" },
+          { plant: "Dwergberk", color: "Oranje-rood", timing: "Half september" },
+          { plant: "Jeneverbes en den", color: "Donkergroen contrast", timing: "Hele ruska-periode" }
+        ]
+      },
+      activities: {
+        title: "Activiteiten tijdens ruska",
+        items: [
+          { name: "Wandelen en trekken", desc: "Herfstkleuren op fjellpaden" },
+          { name: "Fotografie", desc: "Geweldige fotomomenten" },
+          { name: "Bessen plukken", desc: "Bosbessen en vossenbessen" },
+          { name: "Paddenstoelen zoeken", desc: "Cantharellen en eekhoorntjesbrood" },
+          { name: "Noorderlicht jagen", desc: "Seizoen begint in september" },
+          { name: "Vissen", desc: "Herfst visseizoenen" }
+        ]
+      },
+      photography: {
+        title: "Fotografietips",
+        tips: [
+          "Beste licht is 's ochtends en 's avonds (gouden uur)",
+          "Gebruik een polarisatiefilter om kleuren te versterken",
+          "Zoek waterelementen voor reflecties",
+          "Fjelltoppen bieden weids panorama",
+          "Close-ups van bladeren brengen details naar voren"
+        ]
+      },
+      tips: {
+        title: "Tips voor het ruska-seizoen",
+        items: [
+          "Boek accommodatie vroeg – ruska-tijd is populair",
+          "Kleed je in lagen – weer kan wisselen",
+          "Neem regenkleding mee – september kan regenachtig zijn",
+          "Rubberlaarzen zijn handig op natte paden",
+          "Geniet van de stilte – toeristenmassa's zijn minimaal"
+        ]
+      }
+    },
+    faq: {
+      title: "Veelgestelde vragen",
+      items: [
+        { q: "Wanneer is ruska op zijn mooist in Levi?", a: "Ruska is doorgaans op zijn mooist in de tweede en derde week van september. De exacte timing verschilt per jaar." },
+        { q: "Kun je noorderlicht zien tijdens ruska?", a: "Ja! Het noorderlichtseizoen begint in september als de nachten donkerder worden. Beste kansen zijn op heldere nachten." },
+        { q: "Hoe warm is het in september?", a: "Septembertemperaturen zijn doorgaans +5 tot +15°C overdag. 's Nachts kan het richting nul gaan." },
+        { q: "Is het ruska-seizoen geschikt voor gezinnen?", a: "Absoluut! Makkelijke wandelpaden, bessen plukken en natuur zijn geschikt voor het hele gezin." }
+      ]
+    },
+    cta: {
+      hub: "Terug naar Levi-reisgids",
+      hubLink: "/nl/levi",
+      accommodation: "Boek herfstaccommodatie",
+      accommodationLink: "/nl/accommodaties"
+    },
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Wandelen & fietsen", desc: "Beste routes tijdens ruska", href: "/activities/hiking-and-biking-levi" },
+        { title: "Noorderlicht", desc: "Noorderlichtseizoen begint in september", href: "/nl/noorderlicht" },
+        { title: "Winter in Levi", desc: "Wat te verwachten na ruska", href: "/nl/gids/winter-in-levi" },
+        { title: "September in Levi", desc: "Ruska-seizoen en herfstkleuren", href: "/guide/levi-in-september" },
+        { title: "Oktober in Levi", desc: "Eerste sneeuw en poolnacht nadert", href: "/guide/levi-in-october" }
+      ]
+    },
+    breadcrumbLabel: "Herfst Ruska in Levi"
   }
 };
 
