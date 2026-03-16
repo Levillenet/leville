@@ -301,9 +301,10 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
   const location = useLocation();
   const t = translations[lang] || translations.fi;
 
-  const hreflangUrls = {
+  const hreflangUrls: Record<string, string> = {
     fi: "https://leville.net/opas/liikkuminen-levilla",
     en: "https://leville.net/guide/getting-around-in-levi",
+    nl: "https://leville.net/nl/gids/vervoer-in-levi",
   };
 
 
