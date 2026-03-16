@@ -1,37 +1,49 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+# Kuukausioppaat linkitettyyn SeasonsHub-sivulle + SEO-sivujen tilan tarkistus
 
-## Muutos
+## SEO-sivujen julkaisutila
+Kaikki SEO-sivut (310 kpl, 31 ryhmää) ovat jo julkaistuja (`is_published = true`). Yhtään luonnosta ei ole.
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+## Ongelma: kuukausioppaat ovat orpoja
 
-## Toteutus
+24 kuukausiopasta (FI + EN, 12 kuukautta) ovat linkitetty **vain** BestTimeToVisitLevi-sivulta ja MonthlyGuideLevi-sivun sisäisestä navigaatiosta. Ne puuttuvat kokonaan SeasonsHub-sivulta ja vuodenaika-sivuilta (Talvi, Kevät, Kesä, Syksy).
 
-Tiedosto: `src/components/ModerBookingWidget.tsx`
+## Suunnitelma
 
-`showLoadingOverlay`-funktion alkuun lisataan:
+### 1. SeasonsHub — lisää "Levi kuukausi kuukaudelta" -osio
+**Tiedosto:** `src/pages/guide/SeasonsHub.tsx`
 
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
+Vuodenaikakorttien jälkeen lisätään uusi osio, jossa on 12 kuukausikorttia (3×4 grid). Jokainen kortti sisältää kuukauden nimen, tyypillisen lämpötilan ja linkin kuukausioppaaseen. FI/EN-versiot.
+
+```text
+┌─────────────────────────────────────┐
+│  Levin vuodenajat (otsikko)         │
+│  [Talvi] [Kevät] [Kesä] [Syksy]    │  ← nykyiset kortit
+│                                      │
+│  ── Levi kuukausi kuukaudelta ──     │  ← UUSI osio
+│  [Tammi] [Helmi] [Maalis] [Huhti]  │
+│  [Touko] [Kesä]  [Heinä]  [Elo]    │
+│  [Syys]  [Loka]  [Marras] [Joulu]  │
+└─────────────────────────────────────┘
 ```
 
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+### 2. Vuodenaika-sivut — lisää kunkin kauden kuukaudet ReadNext-linkkeihin
+**Tiedostot:** `WinterInLevi.tsx`, `SpringInLevi.tsx`, `SummerInLevi.tsx`, `AutumnRuskaInLevi.tsx`
 
-## Missa naet tulokset
+Jokaiselle vuodenaika-sivulle lisätään "Lue myös" -osioon linkit kyseisen kauden kuukausiin:
+- Talvi: marras, joulu, tammi, helmi, maalis
+- Kevät: maalis, huhti
+- Kesä: touko, kesä, heinä, elo
+- Syksy: syys, loka
 
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+## Muutettavat tiedostot
+- `src/pages/guide/SeasonsHub.tsx` — uusi kuukausigrid-osio
+- `src/pages/guide/WinterInLevi.tsx` — kuukausilinkit ReadNext-osioon
+- `src/pages/guide/SpringInLevi.tsx` — kuukausilinkit ReadNext-osioon
+- `src/pages/guide/SummerInLevi.tsx` — kuukausilinkit ReadNext-osioon
+- `src/pages/guide/AutumnRuskaInLevi.tsx` — kuukausilinkit ReadNext-osioon
 
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+## Vaikutus
+Kaikki 24 kuukausiopasta saavat vahvan sisäisen linkityksen SeasonsHub-sivulta ja relevanteista vuodenaika-sivuilta, mikä parantaa crawl-prioriteettia merkittävästi.
 
