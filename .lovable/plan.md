@@ -1,30 +1,37 @@
 
 
-# Korjaa lumiukkokuvan asemointi ja lisää lumiukko-sisältöä
+# GA4-tapahtumaseuranta majoitushauille
 
-## Ongelma
-`OptimizedImage`-komponentti käyttää `object-cover`-luokkaa sisäisessä `<img>`-elementissä, mutta ei tue `object-position`-arvon muuttamista. Oletuksena `object-position: center`, joka rajaa lumiukon pois kuvasta.
+## Muutos
 
-## Muutokset
+Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
 
-### 1. OptimizedImage — lisää `objectPosition`-prop
-**Tiedosto:** `src/components/OptimizedImage.tsx`
+## Toteutus
 
-Lisätään valinnainen `objectPosition`-prop (esim. `"top"`, `"center bottom"`) joka välitetään img-elementin tyyliin. Oletus pysyy `center`.
+Tiedosto: `src/components/ModerBookingWidget.tsx`
 
-### 2. LeviForKids — korjaa lumiukon asemointi
-**Tiedosto:** `src/pages/activities/LeviForKids.tsx`
+`showLoadingOverlay`-funktion alkuun lisataan:
 
-Lumiukkokuvalle (rivi 336) lisätään `objectPosition="top"` (tai sopiva arvo), jotta lumiukko näkyy kuvassa.
+```typescript
+if (typeof window !== 'undefined' && (window as any).gtag) {
+  (window as any).gtag('event', 'accommodation_search', {
+    event_category: 'booking',
+    event_label: lang,
+    page_location: window.location.pathname,
+  });
+}
+```
 
-### 3. LeviForKids — lisää lumiukko/lumileikki-sisältö
-**Tiedosto:** `src/pages/activities/LeviForKids.tsx`
+Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
 
-Lumiukkokuvan kuvatekstiin lisätään tieto: kun lämpötila on 0 °C tai plussan puolella, lumesta voi muotoilla melkein mitä vaan — lumiukkoja, lumilinnoja, eläinhahmoja. Kannattaa kokeilla! Sama FI/EN.
+## Missa naet tulokset
 
-Lisäksi päivitetään `other`-osion items-listaan maininta lumileikeistä ja lumiukkojen tekemisestä suojakeleillä.
+Google Analytics 4 -hallintapaneelissa (analytics.google.com):
+- **Reaaliaikainen testaus:** Reports > Realtime
+- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
 
-## Muutettavat tiedostot
-- `src/components/OptimizedImage.tsx`
-- `src/pages/activities/LeviForKids.tsx`
+## Ei muita muutoksia
+- Ei uusia riippuvuuksia
+- GA4-skripti on jo ladattu index.html:ssa
+- Yksi tiedosto muuttuu, yksi rivi lisataan
 

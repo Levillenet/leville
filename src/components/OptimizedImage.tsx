@@ -6,6 +6,7 @@ interface OptimizedImageProps {
   className?: string;
   priority?: boolean;
   style?: React.CSSProperties;
+  objectPosition?: string;
 }
 
 const OptimizedImage = ({ 
@@ -13,7 +14,8 @@ const OptimizedImage = ({
   alt, 
   className = "", 
   priority = false,
-  style 
+  style,
+  objectPosition = "center"
 }: OptimizedImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority);
@@ -58,6 +60,7 @@ const OptimizedImage = ({
           className={`w-full h-full object-cover transition-opacity duration-500 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
+          style={{ objectPosition }}
         />
       )}
     </div>
