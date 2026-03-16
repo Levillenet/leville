@@ -1,30 +1,37 @@
 
 
-# Sitemap XML-muotoilukorjaus: yksiriviset entryt moniriviksi
+# GA4-tapahtumaseuranta majoitushauille
 
-## Ongelma
-Rivit 3302–3598 (297 riviä) sisältävät ~200 URL-entryä joissa koko `<url>...</url>` on yhdellä rivillä. XML on teknisesti validia mutta huonosti luettavaa ja epäyhtenäistä vanhojen entryjen kanssa (rivit 2491–3299 ovat oikein muotoiltuja).
+## Muutos
 
-## Vaikuttavat komponenttiryhmät (kaikki yksirivisinä)
-FatbikeLevi, GolfLevi, HorseRidingLevi, HowNorthernLightsForm, IceFishingLevi, IceSwimmingLevi, LeviForKids, MonthlyGuideLevi (tammi–joulu, 84 URL:ia), NewYearsEveLevi, NorthernLightsColorsExplained, NorthernLightsForecastLevi, NorthernLightsPhotographyLevi, NorthernLightsSeasonLevi, PackingListLapland, RomanticLeviGetaway, SamiCultureLevi, SantaClausLevi, SkiHolidayLevi, SnowshoeingLevi, SpringSkiingLevi, WhereToSeeNorthernLightsLevi
+Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
 
-## Korjaus
-Korvaa rivit 3302–3598 uudelleenmuotoilluilla entryillä joissa:
-1. `<url>` omalla rivillään
-2. `<loc>URL</loc>` omalla rivillään (4 välilyönnin sisennys)
-3. Jokainen `<xhtml:link>` omalla rivillään
-4. `<lastmod>`, `<changefreq>`, `<priority>` omilla riveillään
-5. `</url>` omalla rivillään (2 välilyönnin sisennys)
+## Toteutus
 
-Sisältö pysyy täysin samana — vain muotoilu muuttuu.
+Tiedosto: `src/components/ModerBookingWidget.tsx`
 
-## Tekninen toteutus
-- Tiedosto: `public/sitemap.xml`
-- Alue: rivit 3302–3598 (korvataan ~3500 rivillä oikein muotoiltua XML:ää)
-- Vanhat entryt (rivit 1–3299) eivät muutu
-- `</urlset>` säilyy lopussa
+`showLoadingOverlay`-funktion alkuun lisataan:
 
-## Riskit
-- Ei sisällöllisiä muutoksia, pelkkä whitespace-reformatointi
-- XML-validius säilyy (teknisesti jo validi, mutta yhtenäinen muotoilu)
+```typescript
+if (typeof window !== 'undefined' && (window as any).gtag) {
+  (window as any).gtag('event', 'accommodation_search', {
+    event_category: 'booking',
+    event_label: lang,
+    page_location: window.location.pathname,
+  });
+}
+```
+
+Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+
+## Missa naet tulokset
+
+Google Analytics 4 -hallintapaneelissa (analytics.google.com):
+- **Reaaliaikainen testaus:** Reports > Realtime
+- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+
+## Ei muita muutoksia
+- Ei uusia riippuvuuksia
+- GA4-skripti on jo ladattu index.html:ssa
+- Yksi tiedosto muuttuu, yksi rivi lisataan
 
