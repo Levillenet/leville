@@ -334,6 +334,27 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
               </div>
             </section>
 
+            {/* Monthly Grid */}
+            <section className="mb-12">
+              <h2 className="text-2xl font-bold text-foreground mb-6">
+                {lang === "fi" ? "Levi kuukausi kuukaudelta" : lang === "nl" ? "Levi maand voor maand" : lang === "sv" ? "Levi månad för månad" : lang === "de" ? "Levi Monat für Monat" : lang === "es" ? "Levi mes a mes" : lang === "fr" ? "Levi mois par mois" : "Levi Month by Month"}
+              </h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                {monthlyData[lang]?.map((m) => (
+                  <Link
+                    key={m.month}
+                    to={m.href}
+                    className="group block rounded-lg border border-border/30 bg-card/50 backdrop-blur-sm p-4 hover:border-primary/50 hover:bg-card/80 transition-all"
+                  >
+                    <div className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
+                      {m.month}
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">{m.temp}</div>
+                  </Link>
+                )) || null}
+              </div>
+            </section>
+
             {/* Read Next */}
             {(() => {
               const readNextData: Record<string, { title: string; links: { title: string; desc: string; href: string }[] }> = {
