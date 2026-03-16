@@ -6,6 +6,7 @@ interface OptimizedImageProps {
   className?: string;
   priority?: boolean;
   style?: React.CSSProperties;
+  objectPosition?: string;
 }
 
 const OptimizedImage = ({ 
