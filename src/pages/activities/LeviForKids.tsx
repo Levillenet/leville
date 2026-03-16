@@ -73,6 +73,7 @@ const translations = {
         title: "Muita lasten suosikkeja",
         items: [
           "Ice Karting — lyhyt, hauska ja adrenaliinillinen (ikäraja vaihtelee)",
+          "Lumileikit ja lumiukot — suojakelillä (0 °C tai lähellä plussa-asteita) lumi on pehmeää ja siitä voi muotoilla lumiukkoja, lumilinnoja ja mitä vain!",
           "Sisäleikkipaikka / Lasten maailma — talvipäivinä kun ulkona on liian kylmä",
           "Keilaus ja minigolf (sisätiloissa)",
           "Uimahalli Levin Spa — liukumäet ja lastenallas",
