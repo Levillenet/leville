@@ -46,6 +46,11 @@ const trackEvent = async (path: string, referrer?: string | null) => {
 
 const DEBOUNCE_MS = 3000;
 
+const isDevEnvironment = (): boolean => {
+  const host = window.location.hostname;
+  return host.includes("lovable.app") || host.includes("lovableproject.com") || host === "localhost" || host === "127.0.0.1";
+};
+
 const PageViewTracker = () => {
   const location = useLocation();
   const lastPath = useRef<string>("");
