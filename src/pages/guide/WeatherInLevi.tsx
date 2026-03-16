@@ -471,8 +471,8 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
   const customUrls: Record<string, string> = { fi: "/levi/saatieto-levilta", en: "/en/levi/weather-in-levi", nl: "/nl/levi/weer-in-levi" };
 
   const breadcrumbItems = [
-    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : "/en" },
-    { label: lang === "fi" ? "Levi" : "Levi", href: lang === "fi" ? "/levi" : "/en/levi" },
+    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : lang === "nl" ? "/nl" : "/en" },
+    { label: "Levi", href: lang === "fi" ? "/levi" : lang === "nl" ? "/nl/levi" : "/en/levi" },
     { label: t.breadcrumbLabel, href: "" }
   ];
 
