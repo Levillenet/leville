@@ -281,9 +281,11 @@
   
   <url>
     <loc>https://leville.net/en/apartments</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/apartments" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/apartments" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 
   
