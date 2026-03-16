@@ -468,9 +468,7 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
   const t = translations[lang] || translations.fi;
   const location = useLocation();
 
-  const customUrls = lang === "fi" 
-    ? { fi: "/levi/saatieto-levilta", en: "/en/levi/weather-in-levi" }
-    : { en: "/en/levi/weather-in-levi", fi: "/levi/saatieto-levilta" };
+  const customUrls: Record<string, string> = { fi: "/levi/saatieto-levilta", en: "/en/levi/weather-in-levi", nl: "/nl/levi/weer-in-levi" };
 
   const breadcrumbItems = [
     { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : "/en" },
