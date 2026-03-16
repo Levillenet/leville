@@ -333,9 +333,11 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
 
             {/* Snowman in village */}
             <section className="mb-12 rounded-xl overflow-hidden">
-              <OptimizedImage src={snowmanVillage} alt={lang === "fi" ? "Lumiukko Levin kylässä jouluvaloineen" : "Snowman in Levi village with Christmas lights"} className="w-full h-64 sm:h-80 md:h-96" />
+              <OptimizedImage src={snowmanVillage} alt={lang === "fi" ? "Lumiukko Levin kylässä jouluvaloineen" : "Snowman in Levi village with Christmas lights"} className="w-full h-64 sm:h-80 md:h-96" objectPosition="top" />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
-                {lang === "fi" ? "Lumiukko Levin kylässä — lasten oma taideteokset koristavat majoitusten pihoja koko talven" : "A snowman in Levi village — children's own creations decorate accommodation yards throughout winter"}
+                {lang === "fi" 
+                  ? "Lumiukko Levin kylässä — kun lämpötila nousee nollan tienoille tai plussan puolelle (suojakeli), lumesta voi muotoilla melkein mitä vaan: lumiukkoja, lumilinnoja, eläinhahmoja ja taideteoksia. Kannattaa kokeilla lasten kanssa!" 
+                  : "A snowman in Levi village — when the temperature rises to around 0 °C or above, the snow becomes soft and moldable. You can shape almost anything: snowmen, snow castles, animal figures and sculptures. A must-try with kids!"}
               </p>
             </section>
 
