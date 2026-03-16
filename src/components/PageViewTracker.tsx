@@ -71,6 +71,7 @@ const PageViewTracker = () => {
     if (path === lastPath.current) return;
     lastPath.current = path;
     if (path.startsWith("/admin")) return;
+    if (isDevEnvironment()) return;
 
     trackEvent(path, getExternalReferrer());
   }, [location.pathname]);

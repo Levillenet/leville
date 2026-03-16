@@ -137,7 +137,7 @@ Deno.serve(async (req) => {
 
     for (const v of views || []) {
       // Filter out dev/preview traffic
-      if (v.referrer && (v.referrer.includes("lovable.app") || v.referrer.includes("localhost"))) {
+      if (v.referrer && (v.referrer.includes("lovable.app") || v.referrer.includes("lovable.dev") || v.referrer.includes("lovableproject.com") || v.referrer.includes("localhost"))) {
         continue;
       }
 
