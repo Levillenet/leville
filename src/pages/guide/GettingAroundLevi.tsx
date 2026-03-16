@@ -199,6 +199,91 @@ const translations = {
       ],
     },
   },
+  nl: {
+    meta: {
+      title: "Vervoer in Levi | Leville.net",
+      description: "Hoe kom je in Levi en hoe reis je rond. Luchthaven transfers, skibus, taxi's, autoverhuur en winterrijtips.",
+      canonical: "https://leville.net/nl/gids/vervoer-in-levi",
+    },
+    title: "Vervoer in Levi",
+    subtitle: "Transfers, taxi's, autoverhuur en winterrijtips",
+    intro: "Levi bereiken is eenvoudig vanaf luchthaven Kittilä of met de auto. Ter plaatse kun je de skibus, taxi's of gewoon lopen gebruiken. Deze gids bevat alles wat je nodig hebt.",
+    sections: {
+      airport: {
+        title: "Luchthaven transfers",
+        items: [
+          "Luchthaven Kittilä ligt op ongeveer 15 km van het centrum van Levi",
+          "Bustransfers volgens vliegrooster (Airport Bus Levi)",
+          "Taxirit duurt ca. 15–20 min, boek vooraf in het hoogseizoen",
+          "Huurauto's beschikbaar op de luchthaven",
+        ],
+      },
+      skibus: {
+        title: "Skibus en lokaal vervoer",
+        items: [
+          "Skibus rijdt rond het centrum van Levi en de pistes (betaald, met liftpas of apart)",
+          "Bussen rijden elke 15–30 minuten in het seizoen",
+          "Routes van het centrum naar verschillende liften en accommodatiegebieden",
+          "Roosters en routes: levi.fi/ski-bus",
+        ],
+      },
+      taxi: {
+        title: "Taxi's en vervoersdiensten",
+        items: [
+          "Levin Taksi: 0600 300 72",
+          "Lappland Taxi: 0200 60 060",
+          "Boek vooraf, vooral 's avonds en in weekenden",
+          "Apps zoals Uber zijn niet beschikbaar in Levi",
+        ],
+      },
+      car: {
+        title: "Autoverhuur en parkeren",
+        items: [
+          "Huurauto's beschikbaar op luchthaven Kittilä (Avis, Hertz, Europcar)",
+          "Winterbanden verplicht van november tot maart",
+          "Motorverwarming aanbevolen bij strenge kou",
+          "Gratis parkeren bij de meeste accommodaties",
+        ],
+      },
+      walking: {
+        title: "Lopen en afstanden",
+        items: [
+          "Het centrum van Levi is compact, ca. 500 m loopgebied",
+          "Lopen naar de pisteonderkant duurt 5–15 min vanuit het centrum",
+          "Let in de winter op gladheid en koude",
+          "Goede schoenen en een zaklamp voor donkere uren",
+        ],
+      },
+      winterDriving: {
+        title: "Winterrijtips",
+        items: [
+          "Spijker- of frictie-winterbanden verplicht",
+          "Wegen worden goed onderhouden maar sneeuw kan verrassen",
+          "Gebruik ruitensproeiervloeistof bestand tegen -40°C",
+          "Rij kalm en reken op langere remafstanden",
+          "Let op rendieren op de weg, vooral in de schemering",
+        ],
+      },
+    },
+    breadcrumbs: [
+      { label: "Home", href: "/nl" },
+      { label: "Reisgids", href: "/nl/gids/reisgids-levi" },
+      { label: "Vervoer in Levi", href: "/nl/gids/vervoer-in-levi" },
+    ],
+    travelHubLink: "/nl/gids/reisgids-levi",
+    travelHubText: "Terug naar reisgids",
+    accommodationsHref: "/nl/accommodaties",
+    ctaTitle: "Boek accommodatie in het centrum van Levi",
+    ctaButton: "Bekijk accommodaties",
+    readNext: {
+      title: "Lees ook",
+      links: [
+        { title: "Hoe kom je in Levi", desc: "Vluchten, treinen en autoroutes", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+        { title: "Levi zonder auto", desc: "Complete autovrije gids", href: "/guide/levi-without-a-car" },
+        { title: "Levi met kinderen", desc: "Reizen met kinderen", href: "/nl/gids/levi-met-kinderen" },
+      ],
+    },
+  },
 };
 
 type SectionKey = "airport" | "skibus" | "taxi" | "car" | "walking" | "winterDriving";
