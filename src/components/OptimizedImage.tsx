@@ -14,7 +14,8 @@ const OptimizedImage = ({
   alt, 
   className = "", 
   priority = false,
-  style 
+  style,
+  objectPosition = "center"
 }: OptimizedImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority);
