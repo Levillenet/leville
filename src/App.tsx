@@ -322,6 +322,14 @@ const App = () => {
               <Route path="/nl/gids/langlaufen-in-levi" element={<CrossCountrySkiingInLevi lang="nl" />} />
               <Route path="/nl/gids/levi-met-kinderen" element={<LeviWithChildren lang="nl" />} />
               <Route path="/nl/gids/prijzen-in-levi" element={<PrijzenInLeviPage />} />
+              <Route path="/nl/levi/weer-in-levi" element={<WeatherInLevi lang="nl" />} />
+              <Route path="/nl/gids/winter-in-levi" element={<WinterInLevi lang="nl" />} />
+              <Route path="/nl/gids/lente-in-levi" element={<SpringInLevi lang="nl" />} />
+              <Route path="/nl/gids/zomer-in-levi" element={<SummerInLevi lang="nl" />} />
+              <Route path="/nl/gids/herfst-ruska-in-levi" element={<AutumnRuskaInLevi lang="nl" />} />
+              <Route path="/nl/activiteiten/sneeuwscooter-safari-levi" element={<SnowmobileSafariTips lang="nl" />} />
+              <Route path="/nl/activiteiten/rendier-safari-levi" element={<ReindeerSafariLevi lang="nl" />} />
+              <Route path="/nl/gids/vervoer-in-levi" element={<GettingAroundLevi lang="nl" />} />
               
               {/* Guide HUB Pages - Finnish */}
               <Route path="/opas/vuodenajat-levi" element={<SeasonsHub />} />
