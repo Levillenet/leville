@@ -1,7 +1,22 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  
+  <url>
+    <loc>https://leville.net</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en" />
+    <lastmod>2026-03-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+
   <url>
     <loc>https://leville.net/guide/activities-in-levi</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi" />
