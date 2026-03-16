@@ -1933,6 +1933,8 @@
   
   <url>
     <loc>https://leville.net/en/apartments/2-bedroom</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/apartments/2-bedroom" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/apartments/2-bedroom" />
     <lastmod>2026-03-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
