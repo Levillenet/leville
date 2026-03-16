@@ -362,8 +362,8 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
       <JsonLd data={getWebsiteSchema()} />
       <JsonLd data={getArticleSchema({ title: t.meta.title, description: t.meta.description, url: t.meta.canonical, lang })} />
       <JsonLd data={getBreadcrumbSchema([
-        { name: lang === "fi" ? "Etusivu" : "Home", url: `https://leville.net${lang === "fi" ? "/" : "/en"}` },
-        { name: lang === "fi" ? "Vuodenajat" : "Seasons", url: `https://leville.net${lang === "fi" ? "/opas/vuodenajat-levi" : "/guide/seasons-in-levi"}` },
+        { name: homeLabel, url: `https://leville.net${homeHref}` },
+        { name: seasonsLabel, url: `https://leville.net${seasonsUrl}` },
         { name: t.title, url: t.meta.canonical }
       ])} />
       <JsonLd data={getFAQSchema(t.faq.items.map(i => ({ question: i.q, answer: i.a })))} />
