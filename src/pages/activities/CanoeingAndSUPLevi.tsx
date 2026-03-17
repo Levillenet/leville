@@ -133,7 +133,7 @@ const translations = {
       title: "Read Next",
       links: [
         { title: "Summer in Levi", desc: "Midnight sun and nature", href: "/guide/summer-in-levi" },
-        { title: "Hiking & Biking", desc: "Fell trails and routes", href: "/activities/hiking-and-biking-in-levi" },
+        { title: "Hiking & Biking", desc: "Fell trails and routes", href: "/activities/hiking-and-biking-levi" },
         { title: "Accommodations", desc: "Cabins and apartments", href: "/en/accommodations" }
       ]
     },

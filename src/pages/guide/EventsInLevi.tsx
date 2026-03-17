@@ -170,7 +170,7 @@ const translations = {
       title: "Read Next",
       links: [
         { title: "Skiing in Levi", desc: "Slopes and lifts", href: "/guide/skiing-in-levi" },
-        { title: "Seasons", desc: "Levi year-round", href: "/guide/seasons" },
+        { title: "Seasons", desc: "Levi year-round", href: "/guide/seasons-in-levi" },
         { title: "Summer in Levi", desc: "Summer activities", href: "/guide/summer-in-levi" },
         { title: "Accommodations", desc: "Cabins and apartments", href: "/en/accommodations" }
       ]

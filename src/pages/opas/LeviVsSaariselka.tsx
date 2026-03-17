@@ -404,7 +404,7 @@ const LeviVsSaariselka = () => {
                   { title: "Levi vs. Rovaniemi", href: "/opas/levi-vs-rovaniemi", icon: Mountain },
                   { title: "Levi vs. Ylläs vs. Ruka", href: "/opas/levi-vs-yllas-vs-ruka", icon: Mountain },
                   { title: "Miten pääsee Leville", href: "/matka/miten-paasee-leville-helsingista", icon: Plane },
-                  { title: "Saunakulttuuri Levillä", href: "/opas/saunakulttuuri-levilla", icon: Heart },
+                  { title: "Sauna Levillä", href: "/opas/sauna-levilla", icon: Heart },
                   { title: "Paras aika matkustaa Leville", href: "/opas/paras-aika-matkustaa-leville", icon: Snowflake },
                   { title: "Pakkauslista Lapin lomalle", href: "/opas/pakkauslista-lapin-lomalle", icon: BookOpen },
                 ].map((link, idx) => (

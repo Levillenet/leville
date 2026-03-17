@@ -366,7 +366,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                 </h2>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {(isEnglish ? [
-                    { title: "Cabin or Apartment? How to Choose", href: "/guide/cabin-vs-apartment-levi" },
+                    { title: "Cabin or Apartment? How to Choose", href: "/guide/cabin-vs-apartment-in-levi" },
                     { title: "Last-Minute Deals in Levi", href: "/en/last-minute" },
                     { title: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
                   ] : [

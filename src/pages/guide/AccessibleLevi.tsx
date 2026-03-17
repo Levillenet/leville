@@ -140,7 +140,7 @@ const translations = {
     readNext: {
       title: "Read Next",
       links: [
-        { title: "Getting Around Levi", desc: "Buses, taxis and connections", href: "/guide/getting-around-levi" },
+        { title: "Getting Around Levi", desc: "Buses, taxis and connections", href: "/guide/getting-around-in-levi" },
         { title: "Skiing in Levi", desc: "Slopes and lifts", href: "/guide/skiing-in-levi" },
         { title: "Accommodations", desc: "Cabins and apartments", href: "/en/accommodations" }
       ]
