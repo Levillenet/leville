@@ -88,7 +88,7 @@ function getMonthData(month: number, lang: string): MonthData | null {
   const canonical = isFi ? `${base}${fiPaths[month]}` : `${base}${enPaths[month]}`;
 
   const seasonPage = isFi ? "/opas/talvi-levi" : "/guide/winter-in-levi";
-  const weatherPage = isFi ? "/levi/saatieto-levilta" : "/guide/weather-in-levi";
+  const weatherPage = isFi ? "/levi/saatieto-levilta" : "/en/levi/weather-in-levi";
   const accommodationsPage = isFi ? "/majoitukset" : "/en/accommodations";
 
   const guideBreadcrumb = isFi
@@ -376,7 +376,7 @@ function getMonthData(month: number, lang: string): MonthData | null {
             ]
           : [
               { title: "Spring in Levi", desc: "Spring season conditions and activities", href: "/guide/spring-in-levi" },
-              { title: "Weather in Levi", desc: "Weather conditions by month", href: "/guide/weather-in-levi" },
+              { title: "Weather in Levi", desc: "Weather conditions by month", href: "/en/levi/weather-in-levi" },
               { title: "Accommodations", desc: "Find the right accommodation", href: "/en/accommodations" },
             ],
         cta: isFi
@@ -477,7 +477,7 @@ function getMonthData(month: number, lang: string): MonthData | null {
             ]
           : [
               { title: "Spring in Levi", desc: "Spring season guide", href: "/guide/spring-in-levi" },
-              { title: "Weather in Levi", desc: "Weather conditions by month", href: "/guide/weather-in-levi" },
+              { title: "Weather in Levi", desc: "Weather conditions by month", href: "/en/levi/weather-in-levi" },
               { title: "Accommodations", desc: "Find the right accommodation", href: "/en/accommodations" },
             ],
         cta: isFi
@@ -574,7 +574,7 @@ function getMonthData(month: number, lang: string): MonthData | null {
           : [
               { title: "Spring in Levi", desc: "Spring season guide", href: "/guide/spring-in-levi" },
               { title: "Summer in Levi", desc: "Summer season guide", href: "/guide/summer-in-levi" },
-              { title: "Weather in Levi", desc: "Weather by month", href: "/guide/weather-in-levi" },
+              { title: "Weather in Levi", desc: "Weather by month", href: "/en/levi/weather-in-levi" },
               { title: "Accommodations", desc: "Find accommodation", href: "/en/accommodations" },
             ],
         cta: isFi

@@ -138,7 +138,7 @@ const translations = {
       links: [
         { title: "Winter Activities", desc: "All winter experiences", href: "/activities/top-winter-activities-in-levi-lapland" },
         { title: "Summer in Levi", desc: "Summer activities and tips", href: "/guide/summer-in-levi" },
-        { title: "Winter Clothing", desc: "What to wear in Levi", href: "/guide/winter-clothing-guide-levi" },
+        { title: "Winter Clothing", desc: "What to wear in Levi", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
         { title: "Accommodations", desc: "Cabins and apartments", href: "/en/accommodations" }
       ]
     },

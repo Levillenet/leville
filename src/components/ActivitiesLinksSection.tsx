@@ -36,7 +36,7 @@ const content: Record<Language, ActivitiesContent> = {
     heading: "Levi's most popular experiences",
     subtitle: "Husky safaris, snowmobiles, Northern Lights and much more",
     cards: [
-      { emoji: "🐕‍🦺", title: "Husky Safari", desc: "Dog sledding through snowy Lapland. Drive your own team or enjoy the ride.", href: "/activities/husky-safari-tips-levi", meta: "Duration: 2–4 hours" },
+      { emoji: "🐕‍🦺", title: "Husky Safari", desc: "Dog sledding through snowy Lapland. Drive your own team or enjoy the ride.", href: "/activities/husky-safari-levi", meta: "Duration: 2–4 hours" },
       { emoji: "🏔️", title: "Snowmobile Safari", desc: "Fell landscapes meet adrenaline. Tips for your first snowmobile safari.", href: "/activities/snowmobile-safari-tips-levi", meta: "Duration: 2–6 hours" },
       { icon: Sparkles, title: "Northern Lights", desc: "Best times, best spots and forecasts. Levi's dark skies are perfect for aurora.", href: "/en/northern-lights", meta: "Season: Sep–Mar" },
       { icon: Compass, title: "All Activities", desc: "Browse all winter and summer activities on one page.", href: "/guide/activities-in-levi", meta: "20+ activities" },
