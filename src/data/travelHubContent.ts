@@ -103,7 +103,7 @@ export const travelHubContent: Record<Language, TravelHubContent> = {
         { id: "getting-there", title: "Getting to Levi", description: "Flight connections, train routes and driving directions to Levi.", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad", iconKey: "plane" },
         { id: "best-time", title: "Best Time to Visit Levi", description: "Monthly guide: the best time for skiing, northern lights, autumn colors or summer.", href: "/guide/best-time-to-visit-levi", iconKey: "calendar" },
         { id: "clothing", title: "Winter Clothing Guide", description: "What clothes do you need for Levi winter? Dressing tips for -30°C.", href: "/guide/how-to-dress-for-winter-in-levi-lapland", iconKey: "shirt" },
-        { id: "packing", title: "Packing List for Lapland", description: "Printable checklist – what to pack for a Lapland holiday.", href: "/guide/packing-list-for-lapland-holiday", iconKey: "list" },
+        { id: "packing", title: "Packing List for Lapland", description: "Printable checklist – what to pack for a Lapland holiday.", href: "/guide/packing-list-for-lapland", iconKey: "list" },
         { id: "prices", title: "Prices in Levi", description: "Ski passes, dining, activities and grocery prices.", href: "/guide/prices-in-levi", iconKey: "euro" },
         { id: "car-free", title: "Levi Without a Car", description: "How to arrive and get around in Levi without your own car.", href: "/guide/levi-without-a-car", iconKey: "footprints" },
         { id: "family", title: "Levi with Children", description: "Kids' slopes, activities and practical tips for family trips.", href: "/guide/levi-with-children", iconKey: "baby" },
