@@ -50,6 +50,9 @@
 /opas/saamelaisuus-levilla       /opas/saamelaiset-levilla         301
 /opas/romanttinen-levi           /opas/romanttinen-loma-levilla    301
 /opas/levin-kartta               /levi-map                         301
+/guide/sami-culture-levi         /guide/sami-culture-in-levi       301
+/guide/romantic-getaway-levi     /guide/romantic-getaway-in-levi   301
+/guide/levi-interactive-map      /levi-map                         301
 /opas/paras-aika-vierailla-levilla  /opas/paras-aika-matkustaa-leville  200
 
 # SPA fallback — MUST be the last rule
