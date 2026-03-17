@@ -45,5 +45,8 @@
 /en/yhteystiedot            /en/contact           301
 /en/terms                   /en/booking-terms     301
 
+# Vanhat polkumuutokset
+/opas/paras-aika-vierailla-levilla  /opas/paras-aika-matkustaa-leville  301
+
 # SPA fallback — MUST be the last rule
 /*                          /index.html           200

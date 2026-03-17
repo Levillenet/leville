@@ -54,7 +54,7 @@ const content: Record<Language, {
       { id: "rovaniemi", title: "Levi vs Rovaniemi", description: "Kumpi sopii sinulle paremmin lomakohteeksi? Rinteet, sijainti, palvelut ja tunnelma.", href: "/opas/levi-vs-rovaniemi", iconKey: "mapPin" },
       { id: "saariselka", title: "Levi vs Saariselkä", description: "Vilkkaampi tunturikylä vai rauhaisaa hiljaista oleilua? Vertailemme molempia.", href: "/opas/levi-vs-saariselka", iconKey: "mapPin" },
       { id: "cabin-apartment", title: "Mökki vai huoneisto?", description: "Kumpi sopii sinulle – oma rauhallinen mökki vai keskustan lomahuoneisto? Hinnat, sijainti ja erot.", href: "/opas/mokki-vai-huoneisto-levi", iconKey: "home" },
-      { id: "best-time", title: "Paras aika vierailla Levillä", description: "Kuukausittainen opas: milloin on paras aika lasketteluun, revontuliin, ruskan ihailuun tai kesälomaan.", href: "/opas/paras-aika-vierailla-levilla", iconKey: "calendar" },
+      { id: "best-time", title: "Paras aika vierailla Levillä", description: "Kuukausittainen opas: milloin on paras aika lasketteluun, revontuliin, ruskan ihailuun tai kesälomaan.", href: "/opas/paras-aika-matkustaa-leville", iconKey: "calendar" },
       { id: "weather", title: "Sää ja lämpötilat Levillä", description: "Kuukausittaiset keskiarvot, lumitilanne ja mitä odottaa Levin säältä ympäri vuoden.", href: "/levi/saatieto-levilta", iconKey: "thermometer" },
     ]
   },
