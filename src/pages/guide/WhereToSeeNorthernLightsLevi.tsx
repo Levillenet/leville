@@ -16,6 +16,8 @@ import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import OptimizedImage from "@/components/OptimizedImage";
+import auroraTykkyWide from "@/assets/activities/aurora-tykky-wide.jpg";
 
 interface Props { lang?: Language; }
 
