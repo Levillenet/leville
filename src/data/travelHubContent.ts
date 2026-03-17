@@ -67,9 +67,9 @@ export const travelHubContent: Record<Language, TravelHubContent> = {
         { id: "day-trips", title: "Päiväretket Leviltä", description: "Retkikohteet Levin lähialueilla – Ylläs, Muonio, jäämeri.", href: "/opas/paivaretket-levilla", iconKey: "compass" },
         { id: "santa", title: "Joulupukki Levillä", description: "Missä tapaat joulupukin Levillä ja mitä jouluteemaa on tarjolla.", href: "/opas/joulupukki-levilla", iconKey: "gift" },
         { id: "glossary", title: "Lapin sanasto", description: "40+ suomalaista sanaa selityksineen – tykkylumi, kuksa, poronkäristys.", href: "/opas/lapin-sanasto", iconKey: "book" },
-        { id: "sami", title: "Saamelaisuus Levillä", description: "Saamelaisesta kulttuurista ja perinteistä Levin alueella.", href: "/opas/saamelaisuus-levilla", iconKey: "heart" },
-        { id: "romantic", title: "Romanttinen Levi", description: "Vinkit pariskunnille: parhaat ravintolat, aktiviteetit ja elämykset.", href: "/opas/romanttinen-levi", iconKey: "heart" },
-        { id: "map", title: "Levin interaktiivinen kartta", description: "Katso rinteet, ladut, ravintolat ja palvelut kartalla.", href: "/opas/levin-kartta", iconKey: "map" },
+        { id: "sami", title: "Saamelaisuus Levillä", description: "Saamelaisesta kulttuurista ja perinteistä Levin alueella.", href: "/opas/saamelaiset-levilla", iconKey: "heart" },
+        { id: "romantic", title: "Romanttinen Levi", description: "Vinkit pariskunnille: parhaat ravintolat, aktiviteetit ja elämykset.", href: "/opas/romanttinen-loma-levilla", iconKey: "heart" },
+        { id: "map", title: "Levin interaktiivinen kartta", description: "Katso rinteet, ladut, ravintolat ja palvelut kartalla.", href: "/levi-map", iconKey: "map" },
       ],
     },
     accommodation: {
