@@ -17,6 +17,8 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import OptimizedImage from "@/components/OptimizedImage";
+import bikeparkSummer from "@/assets/activities/bikepark-summer.jpg";
 
 interface HikingAndBikingLeviProps {
   lang?: Language;
@@ -543,6 +545,14 @@ const HikingAndBikingLevi = ({ lang = "fi" }: HikingAndBikingLeviProps) => {
               </p>
               <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
                 {t.intro}
+              </p>
+            </section>
+
+            {/* Bike Park image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={bikeparkSummer} alt={lang === "fi" ? "Maastopyöräilyä Levin Bike Parkissa" : "Mountain biking at Levi Bike Park"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Maastopyöräilyä Levin Bike Parkissa kesäisessä tunturimaisemassa. Kuva: Hendrik Morkel" : "Mountain biking at Levi Bike Park with stunning fell scenery in summer. Photo: Hendrik Morkel"}
               </p>
             </section>
 

@@ -21,6 +21,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import OptimizedImage from "@/components/OptimizedImage";
+import auroraTykkySpiral from "@/assets/activities/aurora-tykky-spiral.jpg";
 
 interface Props {
   lang?: Language;
@@ -363,6 +365,14 @@ const BestTimeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
                 {t.h1}
               </h1>
+            </section>
+
+            {/* Aurora image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={auroraTykkySpiral} alt={lang === "fi" ? "Revontulet tykkylumisten puiden yllä Levillä" : "Northern lights over snow-laden trees in Levi"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Revontulet kaareutuvat tykkylumisten puiden yllä Levillä – talven taianomainen valoshow. Kuva: Janosch Diggelmann" : "Northern lights arching over snow-laden trees in Levi — winter's magical light show. Photo: Janosch Diggelmann"}
+              </p>
             </section>
 
             {t.sections.map((section, idx) => (

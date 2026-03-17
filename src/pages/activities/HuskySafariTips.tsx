@@ -17,6 +17,9 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import OptimizedImage from "@/components/OptimizedImage";
+import huskyCloseup from "@/assets/activities/husky-closeup.jpg";
+import huskyTrail from "@/assets/activities/husky-trail.jpg";
 
 interface HuskySafariTipsProps {
   lang?: Language;
@@ -135,6 +138,22 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.title}</h1>
             <p className="text-lg sm:text-xl text-primary font-medium mb-4">{t.subtitle}</p>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">{t.intro}</p>
+          </section>
+
+          {/* Husky closeup image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={huskyCloseup} alt={lang === "fi" ? "Huskykoirat valmiina safarille" : "Husky dogs ready for a safari"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              {lang === "fi" ? "Innokkaat huskykoirat valmiina safarille – koiravaljakkoajelu on Lapin suosituimpia elämyksiä. Kuva: Ugur Arpaci" : "Eager husky dogs ready for a safari — dog sledding is one of the most popular experiences in Lapland. Photo: Ugur Arpaci"}
+            </p>
+          </section>
+
+          {/* Husky trail image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={huskyTrail} alt={lang === "fi" ? "Huskyvaljakko talvisella polulla" : "Husky team on a winter trail"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              {lang === "fi" ? "Huskyvaljakko talvisella polulla Lapissa – koirat johtavat tietä lumisessa metsässä. Kuva: Janosch Diggelmann" : "Husky team on a winter trail in Lapland — the dogs lead the way through snowy forests. Photo: Janosch Diggelmann"}
+            </p>
           </section>
 
           {/* What to Expect */}

@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Snowflake, Clock, Euro, Users, Camera, ThermometerSnowflake, Heart, MapPin, ArrowRight, Info } from "lucide-react";
 import OptimizedImage from "@/components/OptimizedImage";
 import reindeerFarm from "@/assets/seasons/reindeer-farm.jpg";
+import reindeerRoadside from "@/assets/activities/reindeer-roadside.jpg";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
@@ -124,6 +125,14 @@ const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.title}</h1>
             <p className="text-lg sm:text-xl text-primary font-medium mb-4">{t.subtitle}</p>
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">{t.intro}</p>
+          </section>
+
+          {/* Reindeer roadside image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={reindeerRoadside} alt={lang === "fi" ? "Poroja tien varrella Lapissa" : "Reindeer by the roadside in Lapland"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              {lang === "fi" ? "Poroja tien varrella Lapissa – porojen kohtaaminen luonnossa on yksi Levin ikimuistoisimmista elämyksistä. Kuva: Christoph Nolte" : "Reindeer by the roadside in Lapland — encountering reindeer in the wild is one of the most memorable experiences in Levi. Photo: Christoph Nolte"}
+            </p>
           </section>
 
           {/* Reindeer farm image */}
