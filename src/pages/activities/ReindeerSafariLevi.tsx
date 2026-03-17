@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Snowflake, Clock, Euro, Users, Camera, ThermometerSnowflake, Heart, MapPin, ArrowRight, Info } from "lucide-react";
 import OptimizedImage from "@/components/OptimizedImage";
 import reindeerFarm from "@/assets/seasons/reindeer-farm.jpg";
+import reindeerRoadside from "@/assets/activities/reindeer-roadside.jpg";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
