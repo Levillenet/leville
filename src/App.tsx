@@ -546,6 +546,18 @@ const App = () => {
 
               {/* Legacy slug redirects */}
               <Route path="/opas/paras-aika-vierailla-levilla" element={<BestTimeToVisitLevi />} />
+              <Route path="/opas/esteetomyys-levilla" element={<Navigate to="/opas/esteetton-levi" replace />} />
+              <Route path="/opas/saamelaisuus-levilla" element={<Navigate to="/opas/saamelaiset-levilla" replace />} />
+              <Route path="/opas/romanttinen-levi" element={<Navigate to="/opas/romanttinen-loma-levilla" replace />} />
+              <Route path="/opas/levin-kartta" element={<Navigate to="/levi-map" replace />} />
+              <Route path="/opas/valineenvuokraus-levilla" element={<Navigate to="/opas/valinevuokraus-levilla" replace />} />
+              <Route path="/guide/sami-culture-levi" element={<Navigate to="/guide/sami-culture-in-levi" replace />} />
+              <Route path="/guide/romantic-getaway-levi" element={<Navigate to="/guide/romantic-getaway-in-levi" replace />} />
+              <Route path="/guide/levi-interactive-map" element={<Navigate to="/levi-map" replace />} />
+              <Route path="/guide/equipment-rental-levi" element={<Navigate to="/guide/equipment-rental-in-levi" replace />} />
+              <Route path="/guide/packing-list-for-lapland-holiday" element={<Navigate to="/guide/packing-list-for-lapland" replace />} />
+              <Route path="/guide/apres-ski-nightlife-levi" element={<Navigate to="/guide/apres-ski-and-nightlife-in-levi" replace />} />
+              <Route path="/guide/santa-claus-levi" element={<Navigate to="/guide/santa-claus-in-levi" replace />} />
 
               {/* Interactive Map */}
               <Route path="/levi-map" element={<LeviInteractiveMap />} />
