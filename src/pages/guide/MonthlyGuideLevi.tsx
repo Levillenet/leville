@@ -88,7 +88,7 @@ function getMonthData(month: number, lang: string): MonthData | null {
   const canonical = isFi ? `${base}${fiPaths[month]}` : `${base}${enPaths[month]}`;
 
   const seasonPage = isFi ? "/opas/talvi-levi" : "/guide/winter-in-levi";
-  const weatherPage = isFi ? "/levi/saatieto-levilta" : "/guide/weather-in-levi";
+  const weatherPage = isFi ? "/levi/saatieto-levilta" : "/en/levi/weather-in-levi";
   const accommodationsPage = isFi ? "/majoitukset" : "/en/accommodations";
 
   const guideBreadcrumb = isFi
