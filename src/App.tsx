@@ -462,6 +462,34 @@ const App = () => {
               <Route path="/takka-ohje" element={<FireplaceInstructions />} />
               <Route path="/en/fireplace" element={<FireplaceInstructions lang="en" />} />
               
+              {/* Northern Lights cluster - Finnish */}
+              <Route path="/opas/paras-aika-revontulet-levi" element={<BestTimeNorthernLightsLevi />} />
+              <Route path="/opas/revontulisesonki-levi" element={<NorthernLightsSeasonLevi />} />
+              <Route path="/opas/revontuliennuste-levi" element={<NorthernLightsForecastLevi />} />
+              <Route path="/opas/missa-nahda-revontulet-levi" element={<WhereToSeeNorthernLightsLevi />} />
+              <Route path="/opas/revontulien-valokuvaus-levi" element={<NorthernLightsPhotographyLevi />} />
+              <Route path="/opas/miten-revontulet-syntyvat" element={<HowNorthernLightsForm />} />
+              <Route path="/opas/revontulien-varit" element={<NorthernLightsColorsExplained />} />
+
+              {/* Northern Lights cluster - English */}
+              <Route path="/guide/best-time-to-see-northern-lights-levi" element={<BestTimeNorthernLightsLevi lang="en" />} />
+              <Route path="/guide/northern-lights-season-levi" element={<NorthernLightsSeasonLevi lang="en" />} />
+              <Route path="/guide/northern-lights-forecast-levi" element={<NorthernLightsForecastLevi lang="en" />} />
+              <Route path="/guide/where-to-see-northern-lights-levi" element={<WhereToSeeNorthernLightsLevi lang="en" />} />
+              <Route path="/guide/northern-lights-photography-levi" element={<NorthernLightsPhotographyLevi lang="en" />} />
+              <Route path="/guide/how-northern-lights-form" element={<HowNorthernLightsForm lang="en" />} />
+              <Route path="/guide/northern-lights-colors-explained" element={<NorthernLightsColorsExplained lang="en" />} />
+
+              {/* Other unpublished pages - Finnish */}
+              <Route path="/opas/joulupukki-levilla" element={<SantaClausLevi />} />
+              <Route path="/opas/pakkauslista-lapin-lomalle" element={<PackingListLapland />} />
+              <Route path="/opas/afterski-ja-yoelama-levilla" element={<ApresSkiLevi />} />
+              <Route path="/aktiviteetit/melonta-ja-sup-levi" element={<CanoeingAndSUPLevi />} />
+
+              {/* Other unpublished pages - English */}
+              <Route path="/activities/levi-for-kids" element={<LeviForKids lang="en" />} />
+              <Route path="/activities/canoeing-and-sup-levi" element={<CanoeingAndSUPLevi lang="en" />} />
+
               {/* Dynamic SEO pages from database */}
               {dynamicRoutes.map((route) => {
                 const Component = seoComponentMap[route.component_name];
