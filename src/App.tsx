@@ -517,8 +517,7 @@ const App = () => {
               <Route path="/en/terms" element={<Navigate to="/varausehdot" replace />} />
 
               {/* Legacy slug redirects */}
-              <Route path="/opas/paras-aika-vierailla-levilla" element={<Navigate to="/opas/paras-aika-matkustaa-leville" replace />} />
-              <Route path="/opas/paras-aika-vierailla-levilla/*" element={<Navigate to="/opas/paras-aika-matkustaa-leville" replace />} />
+              <Route path="/opas/paras-aika-vierailla-levilla" element={<BestTimeToVisitLevi />} />
 
               {/* Interactive Map */}
               <Route path="/levi-map" element={<LeviInteractiveMap />} />
