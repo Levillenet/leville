@@ -21,6 +21,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import OptimizedImage from "@/components/OptimizedImage";
+import auroraTykkySpiral from "@/assets/activities/aurora-tykky-spiral.jpg";
 
 interface Props {
   lang?: Language;
