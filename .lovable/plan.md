@@ -1,37 +1,19 @@
 
 
-# GA4-tapahtumaseuranta majoitushauille
+# Korjaus: Esteettömyys-sivu ei toimi tuotannossa
 
-## Muutos
+## Ongelma
+`travelHubContent.ts` viittaa polkuun `/opas/esteetomyys-levilla`, mutta `App.tsx`:ssä reitti on `/opas/esteetton-levi`. Polut eivät täsmää → 404.
 
-Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
+## Ratkaisu
 
-## Toteutus
+Kaksi muutosta:
 
-Tiedosto: `src/components/ModerBookingWidget.tsx`
+1. **`src/data/travelHubContent.ts`** — Korjataan linkki oikeaan polkuun:
+   - `/opas/esteetomyys-levilla` → `/opas/esteetton-levi`
 
-`showLoadingOverlay`-funktion alkuun lisataan:
+2. **`public/_redirects`** — Lisätään 301-uudelleenohjaus vanhasta polusta uuteen, jotta mahdolliset indeksoidut/jaetut linkit toimivat:
+   - `/opas/esteetomyys-levilla` → `/opas/esteetton-levi` (301)
 
-```typescript
-if (typeof window !== 'undefined' && (window as any).gtag) {
-  (window as any).gtag('event', 'accommodation_search', {
-    event_category: 'booking',
-    event_label: lang,
-    page_location: window.location.pathname,
-  });
-}
-```
-
-Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
-
-## Missa naet tulokset
-
-Google Analytics 4 -hallintapaneelissa (analytics.google.com):
-- **Reaaliaikainen testaus:** Reports > Realtime
-- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
-
-## Ei muita muutoksia
-- Ei uusia riippuvuuksia
-- GA4-skripti on jo ladattu index.html:ssa
-- Yksi tiedosto muuttuu, yksi rivi lisataan
+Tämä korjaa sekä sivuston sisäiset linkit että ulkoiset/hakukoneiden mahdollisesti indeksoimat vanhat polut.
 
