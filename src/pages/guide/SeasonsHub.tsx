@@ -450,6 +450,7 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
                     <div className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
                       {m.month}
                     </div>
+                    <div className="text-xs text-primary/70 mt-0.5 italic">{m.tag}</div>
                     <div className="text-xs text-muted-foreground mt-1">{m.temp}</div>
                   </Link>
                 )) || null}
