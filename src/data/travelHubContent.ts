@@ -62,7 +62,7 @@ export const travelHubContent: Record<Language, TravelHubContent> = {
         { id: "transport", title: "Liikkuminen Levillä", description: "Skibussit, taksit ja autonvuokraus. Miten liikut kätevästi Levillä.", href: "/opas/liikkuminen-levilla", iconKey: "bus" },
         { id: "services", title: "Ravintolat ja palvelut", description: "Ravintolat, kaupat, vuokraamot ja muut palvelut Levin keskustassa.", href: "/opas/ravintolat-ja-palvelut-levilla", iconKey: "utensils" },
         { id: "apres-ski", title: "Afterski ja yöelämä", description: "Levin parhaat afterski-baarit ja illanviettokohteet.", href: "/opas/afterski-ja-yoelama-levilla", iconKey: "glass" },
-        { id: "rental", title: "Välinevuokraus", description: "Sukset, lumikenk\u00e4t, moottorikelkat – mistä vuokraat välineet Levillä.", href: "/opas/valineenvuokraus-levilla", iconKey: "ski" },
+        { id: "rental", title: "Välinevuokraus", description: "Sukset, lumikengät, moottorikelkat – mistä vuokraat välineet Levillä.", href: "/opas/valinevuokraus-levilla", iconKey: "ski" },
         { id: "events", title: "Tapahtumat Levillä", description: "Konsertteja, kilpailuja ja kausiluonteisia tapahtumia ympäri vuoden.", href: "/opas/tapahtumat-levilla", iconKey: "ticket" },
         { id: "day-trips", title: "Päiväretket Leviltä", description: "Retkikohteet Levin lähialueilla – Ylläs, Muonio, jäämeri.", href: "/opas/paivaretket-levilla", iconKey: "compass" },
         { id: "santa", title: "Joulupukki Levillä", description: "Missä tapaat joulupukin Levillä ja mitä jouluteemaa on tarjolla.", href: "/opas/joulupukki-levilla", iconKey: "gift" },
