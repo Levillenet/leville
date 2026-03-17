@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import OptimizedImage from "@/components/OptimizedImage";
+import saunaKarhupirtti from "@/assets/about/sauna-karhupirtti-log.jpg";
 // Timer dial image served from /public for better caching
 import { useLocation, Link } from "react-router-dom";
 import Header from "@/components/Header";
