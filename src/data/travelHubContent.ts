@@ -123,9 +123,9 @@ export const travelHubContent: Record<Language, TravelHubContent> = {
         { id: "day-trips", title: "Day Trips from Levi", description: "Explore nearby destinations – Ylläs, Muonio, Arctic Ocean.", href: "/guide/day-trips-from-levi", iconKey: "compass" },
         { id: "santa", title: "Santa Claus in Levi", description: "Where to meet Santa in Levi and what Christmas activities are on offer.", href: "/guide/santa-claus-levi", iconKey: "gift" },
         { id: "glossary", title: "Lapland Glossary", description: "40+ Finnish words with pronunciations and explanations.", href: "/guide/lapland-glossary", iconKey: "book" },
-        { id: "sami", title: "Sámi Culture in Levi", description: "Learn about indigenous Sámi culture and traditions in Levi.", href: "/guide/sami-culture-levi", iconKey: "heart" },
-        { id: "romantic", title: "Romantic Getaway in Levi", description: "Tips for couples: best restaurants, activities and experiences.", href: "/guide/romantic-getaway-levi", iconKey: "heart" },
-        { id: "map", title: "Interactive Levi Map", description: "View slopes, trails, restaurants and services on the map.", href: "/guide/levi-interactive-map", iconKey: "map" },
+        { id: "sami", title: "Sámi Culture in Levi", description: "Learn about indigenous Sámi culture and traditions in Levi.", href: "/guide/sami-culture-in-levi", iconKey: "heart" },
+        { id: "romantic", title: "Romantic Getaway in Levi", description: "Tips for couples: best restaurants, activities and experiences.", href: "/guide/romantic-getaway-in-levi", iconKey: "heart" },
+        { id: "map", title: "Interactive Levi Map", description: "View slopes, trails, restaurants and services on the map.", href: "/levi-map", iconKey: "map" },
       ],
     },
     accommodation: {
