@@ -52,7 +52,7 @@ export const travelHubContent: Record<Language, TravelHubContent> = {
         { id: "car-free", title: "Levi ilman autoa", description: "Miten saavut ja liikut Levillä ilman omaa autoa.", href: "/opas/levi-ilman-autoa", iconKey: "footprints" },
         { id: "family", title: "Lapsiperheet Levillä", description: "Lasten rinteet, aktiviteetit ja käytännön vinkit perhematkoille.", href: "/opas/lapsiperheet-levilla", iconKey: "baby" },
         { id: "weather", title: "Sää ja lämpötilat", description: "Kuukausittaiset keskiarvot, lumitilanne ja mitä odottaa Levin säältä.", href: "/levi/saatieto-levilta", iconKey: "thermometer" },
-        { id: "accessible", title: "Esteettömyys Levillä", description: "Esteettömät palvelut, rinteet ja majoitusvaihtoehdot Levillä.", href: "/opas/esteetomyys-levilla", iconKey: "accessibility" },
+        { id: "accessible", title: "Esteettömyys Levillä", description: "Esteettömät palvelut, rinteet ja majoitusvaihtoehdot Levillä.", href: "/opas/esteetton-levi", iconKey: "accessibility" },
       ],
     },
     onsite: {
