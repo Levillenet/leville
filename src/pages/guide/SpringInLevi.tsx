@@ -463,6 +463,30 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
               </p>
             </section>
 
+            {/* Bistro West summit image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={bistroWestSummit} alt={lang === "fi" ? "Bistro West Levin tunturin huipulla keväällä" : "Bistro West on top of Levi fell in spring"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Bistro West Levin tunturin huipulla — kevätauringossa nautitaan eväitä terassilla hissien ja rinteen äärellä" : "Bistro West on Levi fell summit — enjoying snacks on the terrace in spring sunshine surrounded by lifts and slopes"}
+              </p>
+            </section>
+
+            {/* Kids skiing spring image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={kidsSkiingSpring} alt={lang === "fi" ? "Lapset laskettelemassa Levillä kevätauringossa" : "Kids skiing in Levi in spring sunshine"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Lapset nauttivat kevätlaskettelusta Levin rinteillä — lämmin aurinko ja pehmyt lumi tekevät päivästä täydellisen" : "Kids enjoying spring skiing on Levi slopes — warm sun and soft snow make for a perfect day"}
+              </p>
+            </section>
+
+            {/* Fell spring view image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={fellSpringView} alt={lang === "fi" ? "Levin tunturimaisema keväällä — lunta ja paljasta maata" : "Levi fell landscape in spring — snow and bare ground"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levin tunturimaisema keväällä — lumi alkaa sulaa tunturin laelta mutta rinteet ovat vielä täynnä lunta" : "Levi fell landscape in spring — snow starts melting from the fell top but the slopes are still full of snow"}
+              </p>
+            </section>
+
             {/* Tips */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.tips.title}</h2>

@@ -229,6 +229,14 @@ const FinnishSaunaLevi = () => {
             </p>
           </section>
 
+          {/* Karhupirtti sauna image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={saunaKarhupirtti} alt="Karhupirtin hirsisauna – perinteinen suomalainen sauna lämpimässä valossa" className="w-full h-64 sm:h-80 md:h-96" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              Karhupirtti's traditional log sauna – warm lighting and the scent of wood create the authentic Finnish sauna experience
+            </p>
+          </section>
+
           {/* What Is Finnish Sauna */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold text-foreground mb-4">What Is Finnish Sauna?</h2>
