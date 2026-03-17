@@ -16,6 +16,10 @@ import winterSunset from "@/assets/seasons/winter-sunset.jpg";
 import tykkyTrees from "@/assets/seasons/tykky-trees.jpg";
 import tykkyKaamos from "@/assets/seasons/tykky-kaamos.jpg";
 import nightTrailTykky from "@/assets/seasons/night-trail-tykky.jpg";
+import sunsetSkiingFell from "@/assets/seasons/sunset-skiing-fell.jpg";
+import icekartingNight from "@/assets/activities/icekarting-night.jpg";
+import iceRinkZeropoint from "@/assets/seasons/ice-rink-zeropoint.jpg";
+import tykkyDawnTrail from "@/assets/seasons/tykky-dawn-trail.jpg";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
@@ -450,6 +454,38 @@ const WinterInLevi = ({ lang = "fi" }: WinterInLeviProps) => {
               <OptimizedImage src={nightTrailTykky} alt={lang === "fi" ? "Valaistu latu tykkylumisten puiden keskellä yöllä" : "Illuminated ski trail among snow-laden trees at night"} className="w-full h-64 sm:h-80 md:h-96" />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
                 {lang === "fi" ? "Valaistu latu tykkylumisten puiden keskellä — Levillä voi hiihtää myös kaamosaikaan valaistuja latuja pitkin" : "Illuminated trail among snow-laden trees — in Levi you can ski along lit trails even during the polar night"}
+              </p>
+            </section>
+
+            {/* Sunset skiing image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={sunsetSkiingFell} alt={lang === "fi" ? "Auringonlasku Levin tunturin huipulta laskettelijoiden kanssa" : "Sunset from Levi fell summit with skiers"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Auringonlasku Levin tunturilta — talvella aurinko maalaa taivaan oranssiksi ja violetiksi" : "Sunset from Levi fell — in winter the sun paints the sky orange and violet"}
+              </p>
+            </section>
+
+            {/* Tykky dawn trail image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={tykkyDawnTrail} alt={lang === "fi" ? "Tykkyluminen maisema aamuhämärässä Levin tunturissa" : "Snow-laden landscape at dawn on Levi fell"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Tykkyluminen maisema aamuhämärässä — hiihtolatu kulkee lumisten puiden halki hiljaisuudessa. Kuva: Harri P / Unsplash" : "Snow-laden landscape at dawn — a ski trail winds through snowy trees in silence. Photo: Harri P / Unsplash"}
+              </p>
+            </section>
+
+            {/* Ice rink Zero Point image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={iceRinkZeropoint} alt={lang === "fi" ? "Luistelukenttä Zero Point -alueella Levillä" : "Ice skating rink at Zero Point area in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Luistelukenttä Zero Point -alueella Levin keskustassa — talvella jäällä pääsee luistelemaan ilmaiseksi" : "Ice skating rink at the Zero Point area in Levi centre — free ice skating available in winter"}
+              </p>
+            </section>
+
+            {/* Ice karting image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={icekartingNight} alt={lang === "fi" ? "Jääkarting-rata valaistuna Levillä illalla" : "Ice karting track illuminated at night in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Jääkarting-rata Levillä — valaistulla jääradalla ajetaan karting-autoilla talvi-iltaisin" : "Ice karting track in Levi — race go-karts on an illuminated ice track on winter evenings"}
               </p>
             </section>
 

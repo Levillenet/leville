@@ -22,6 +22,7 @@ import beachFamilies from "@/assets/summer/beach-families.jpg";
 import storedSnow from "@/assets/summer/stored-snow.jpg";
 import hikingTrailSummer from "@/assets/summer/hiking-trail-summer.jpg";
 import palovartijaSummer from "@/assets/summer/palovartija-summer.jpg";
+import adventureParkRopes from "@/assets/summer/adventure-park-ropes.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -434,6 +435,14 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               <OptimizedImage src={summerToboggan} alt={lang === "fi" ? "Kesäkelkkarata Levillä – vauhdikas lasku tunturilta" : "Summer toboggan run in Levi – thrilling ride down the fell"} className="w-full h-64 sm:h-80 md:h-96" />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
                 {lang === "fi" ? "Kesäkelkkaradalla lasketaan vauhdikkaasti tunturin laelta alas – huippuhauskaa koko perheelle!" : "The summer toboggan run takes you racing down the fell – incredible fun for the whole family!"}
+              </p>
+            </section>
+
+            {/* Adventure park image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={adventureParkRopes} alt={lang === "fi" ? "Seikkailurata Levillä kesällä – köysiradat ja kiipeilyä" : "Adventure park in Levi in summer – high ropes and climbing"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levillä on upeita seikkailuratoja ja todella pitkiä vaijeriliukuja — hauskaa koko perheelle kesäpäivänä" : "Levi offers impressive adventure parks and long ziplines — fun for the whole family on a summer day"}
               </p>
             </section>
 

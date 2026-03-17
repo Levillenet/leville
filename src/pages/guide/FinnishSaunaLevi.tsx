@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import OptimizedImage from "@/components/OptimizedImage";
+import saunaKarhupirtti from "@/assets/about/sauna-karhupirtti-log.jpg";
 // Timer dial image served from /public for better caching
 import { useLocation, Link } from "react-router-dom";
 import Header from "@/components/Header";
@@ -224,6 +226,14 @@ const FinnishSaunaLevi = () => {
           <section className="mb-12">
             <p className="text-muted-foreground leading-relaxed">
               Finland has over 3 million saunas – more than passenger cars. For Finns, the sauna is much more than a place to wash: it is a sanctuary of relaxation, silence and togetherness. UNESCO added Finnish sauna culture to its Intangible Cultural Heritage list in 2020. In Levi, this tradition is especially strong – nearly every cabin and apartment has its own sauna, and the area has over 2,000 saunas in total. This guide tells you everything you need to know about sauna on your Levi holiday – whether it's your first time or your thousandth.
+            </p>
+          </section>
+
+          {/* Karhupirtti sauna image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={saunaKarhupirtti} alt="Karhupirtin hirsisauna – perinteinen suomalainen sauna lämpimässä valossa" className="w-full h-64 sm:h-80 md:h-96" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              Karhupirtti's traditional log sauna – warm lighting and the scent of wood create the authentic Finnish sauna experience
             </p>
           </section>
 

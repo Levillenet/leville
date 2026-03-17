@@ -20,6 +20,9 @@ import laavuInside from "@/assets/seasons/laavu-inside.jpg";
 import springSlopesWind from "@/assets/seasons/spring-slopes-wind.jpg";
 import familySlopesBench from "@/assets/seasons/family-slopes-bench.jpg";
 import apresSkiTuikku from "@/assets/seasons/apres-ski-tuikku.jpg";
+import bistroWestSummit from "@/assets/seasons/bistro-west-summit.jpg";
+import fellSpringView from "@/assets/seasons/fell-spring-view.jpg";
+import kidsSkiingSpring from "@/assets/seasons/kids-skiing-spring.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
@@ -457,6 +460,30 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
               <OptimizedImage src={familySlopesBench} alt={lang === "fi" ? "Perhe tauolla laskettelurinteillä Levillä" : "Family taking a break at Levi ski slopes"} className="w-full h-64 sm:h-80 md:h-96" />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
                 {lang === "fi" ? "Perhe tauolla laskettelurinteiden äärellä — kevätauringossa riittää ihailtavaa tunturimaisemissa" : "A family taking a break by the ski slopes — spring sunshine makes the fell scenery even more stunning"}
+              </p>
+            </section>
+
+            {/* Bistro West summit image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={bistroWestSummit} alt={lang === "fi" ? "Bistro West Levin tunturin huipulla keväällä" : "Bistro West on top of Levi fell in spring"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Bistro West Levin tunturin huipulla — kevätauringossa nautitaan eväitä terassilla hissien ja rinteen äärellä" : "Bistro West on Levi fell summit — enjoying snacks on the terrace in spring sunshine surrounded by lifts and slopes"}
+              </p>
+            </section>
+
+            {/* Kids skiing spring image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={kidsSkiingSpring} alt={lang === "fi" ? "Lapset laskettelemassa Levillä kevätauringossa" : "Kids skiing in Levi in spring sunshine"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Lapset nauttivat kevätlaskettelusta Levin rinteillä — lämmin aurinko ja pehmyt lumi tekevät päivästä täydellisen" : "Kids enjoying spring skiing on Levi slopes — warm sun and soft snow make for a perfect day"}
+              </p>
+            </section>
+
+            {/* Fell spring view image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={fellSpringView} alt={lang === "fi" ? "Levin tunturimaisema keväällä — lunta ja paljasta maata" : "Levi fell landscape in spring — snow and bare ground"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Levin tunturimaisema keväällä — lumi alkaa sulaa tunturin laelta mutta rinteet ovat vielä täynnä lunta" : "Levi fell landscape in spring — snow starts melting from the fell top but the slopes are still full of snow"}
               </p>
             </section>
 
