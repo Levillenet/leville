@@ -463,11 +463,11 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
               </p>
             </section>
 
-            {/* Bistro West summit image */}
+            {/* Palovartijan maja summit image */}
             <section className="mb-12 rounded-xl overflow-hidden">
-              <OptimizedImage src={bistroWestSummit} alt={lang === "fi" ? "Bistro West Levin tunturin huipulla keväällä" : "Bistro West on top of Levi fell in spring"} className="w-full h-64 sm:h-80 md:h-96" />
+              <OptimizedImage src={bistroWestSummit} alt={lang === "fi" ? "Palovartijan maja Levin tunturin huipulla keväällä" : "Palovartijan Maja on top of Levi fell in spring"} className="w-full h-64 sm:h-80 md:h-96" />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
-                {lang === "fi" ? "Bistro West Levin tunturin huipulla — kevätauringossa nautitaan eväitä terassilla hissien ja rinteen äärellä" : "Bistro West on Levi fell summit — enjoying snacks on the terrace in spring sunshine surrounded by lifts and slopes"}
+                {lang === "fi" ? "Palovartijan maja Levin tunturin huipulla — kevätauringossa nautitaan eväitä terassilla hissien ja rinteen äärellä" : "Palovartijan Maja on Levi fell summit — enjoying snacks on the terrace in spring sunshine surrounded by lifts and slopes"}
               </p>
             </section>
 
