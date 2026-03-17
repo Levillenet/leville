@@ -376,7 +376,7 @@ function getMonthData(month: number, lang: string): MonthData | null {
             ]
           : [
               { title: "Spring in Levi", desc: "Spring season conditions and activities", href: "/guide/spring-in-levi" },
-              { title: "Weather in Levi", desc: "Weather conditions by month", href: "/guide/weather-in-levi" },
+              { title: "Weather in Levi", desc: "Weather conditions by month", href: "/en/levi/weather-in-levi" },
               { title: "Accommodations", desc: "Find the right accommodation", href: "/en/accommodations" },
             ],
         cta: isFi
