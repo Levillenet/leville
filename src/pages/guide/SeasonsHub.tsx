@@ -445,13 +445,17 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
                   <Link
                     key={m.month}
                     to={m.href}
-                    className="group block rounded-lg border border-border/30 bg-card/50 backdrop-blur-sm p-4 hover:border-primary/50 hover:bg-card/80 transition-all"
+                    className="group block rounded-lg border border-border/30 bg-card/50 backdrop-blur-sm p-4 hover:border-primary/50 hover:bg-card/80 hover:shadow-md transition-all cursor-pointer"
                   >
                     <div className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm sm:text-base">
                       {m.month}
                     </div>
                     <div className="text-xs text-primary/70 mt-0.5 italic">{m.tag}</div>
                     <div className="text-xs text-muted-foreground mt-1">{m.temp}</div>
+                    <span className="inline-flex items-center gap-1 text-xs text-primary font-medium mt-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                      {c.readMore}
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                    </span>
                   </Link>
                 )) || null}
               </div>
