@@ -127,6 +127,14 @@ const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">{t.intro}</p>
           </section>
 
+          {/* Reindeer roadside image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={reindeerRoadside} alt={lang === "fi" ? "Poroja tien varrella Lapissa" : "Reindeer by the roadside in Lapland"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              {lang === "fi" ? "Poroja tien varrella Lapissa – porojen kohtaaminen luonnossa on yksi Levin ikimuistoisimmista elämyksistä. Kuva: Christoph Nolte" : "Reindeer by the roadside in Lapland — encountering reindeer in the wild is one of the most memorable experiences in Levi. Photo: Christoph Nolte"}
+            </p>
+          </section>
+
           {/* Reindeer farm image */}
           <section className="mb-12 rounded-xl overflow-hidden">
             <OptimizedImage src={reindeerFarm} alt={lang === "fi" ? "Poro lepäämässä porotilalla Levillä" : "Reindeer resting at a reindeer farm in Levi"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />

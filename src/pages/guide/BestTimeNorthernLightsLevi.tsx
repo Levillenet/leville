@@ -367,6 +367,14 @@ const BestTimeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
               </h1>
             </section>
 
+            {/* Aurora image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={auroraTykkySpiral} alt={lang === "fi" ? "Revontulet tykkylumisten puiden yllä Levillä" : "Northern lights over snow-laden trees in Levi"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Revontulet kaareutuvat tykkylumisten puiden yllä Levillä – talven taianomainen valoshow. Kuva: Janosch Diggelmann" : "Northern lights arching over snow-laden trees in Levi — winter's magical light show. Photo: Janosch Diggelmann"}
+              </p>
+            </section>
+
             {t.sections.map((section, idx) => (
               <section key={idx} className="mb-12">
                 <h2 className="text-2xl font-bold text-foreground mb-4">{section.title}</h2>

@@ -367,6 +367,14 @@ const WhereToSeeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
             <section className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.h1}</h1>
             </section>
+            {/* Aurora wide image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={auroraTykkyWide} alt={lang === "fi" ? "Revontulet tykkylumisten puiden ja erätuvan yllä" : "Northern lights over snow-covered trees and a wilderness cabin"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Revontulet loistavat tykkylumisten puiden ja erätuvan yllä Levin tunturilla. Kuva: Jouni Rajala" : "Northern lights glowing over snow-covered trees and a wilderness cabin on Levi fell. Photo: Jouni Rajala"}
+              </p>
+            </section>
+
             {t.sections.map((section, idx) => (
               <section key={idx} className="mb-12">
                 <h2 className="text-2xl font-bold text-foreground mb-4">{section.title}</h2>

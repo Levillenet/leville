@@ -548,6 +548,14 @@ const HikingAndBikingLevi = ({ lang = "fi" }: HikingAndBikingLeviProps) => {
               </p>
             </section>
 
+            {/* Bike Park image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={bikeparkSummer} alt={lang === "fi" ? "Maastopyöräilyä Levin Bike Parkissa" : "Mountain biking at Levi Bike Park"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Maastopyöräilyä Levin Bike Parkissa kesäisessä tunturimaisemassa. Kuva: Hendrik Morkel" : "Mountain biking at Levi Bike Park with stunning fell scenery in summer. Photo: Hendrik Morkel"}
+              </p>
+            </section>
+
             {/* Hiking Section */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 flex items-center gap-3">

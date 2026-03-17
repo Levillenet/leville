@@ -140,6 +140,22 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
             <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">{t.intro}</p>
           </section>
 
+          {/* Husky closeup image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={huskyCloseup} alt={lang === "fi" ? "Huskykoirat valmiina safarille" : "Husky dogs ready for a safari"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              {lang === "fi" ? "Innokkaat huskykoirat valmiina safarille – koiravaljakkoajelu on Lapin suosituimpia elämyksiä. Kuva: Ugur Arpaci" : "Eager husky dogs ready for a safari — dog sledding is one of the most popular experiences in Lapland. Photo: Ugur Arpaci"}
+            </p>
+          </section>
+
+          {/* Husky trail image */}
+          <section className="mb-12 rounded-xl overflow-hidden">
+            <OptimizedImage src={huskyTrail} alt={lang === "fi" ? "Huskyvaljakko talvisella polulla" : "Husky team on a winter trail"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+            <p className="text-xs text-muted-foreground mt-2 text-center italic">
+              {lang === "fi" ? "Huskyvaljakko talvisella polulla Lapissa – koirat johtavat tietä lumisessa metsässä. Kuva: Janosch Diggelmann" : "Husky team on a winter trail in Lapland — the dogs lead the way through snowy forests. Photo: Janosch Diggelmann"}
+            </p>
+          </section>
+
           {/* What to Expect */}
           <section className="mb-12">
             <Card className="bg-card/80 backdrop-blur-sm border-border/50">
