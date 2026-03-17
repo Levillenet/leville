@@ -17,6 +17,8 @@ import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import OptimizedImage from "@/components/OptimizedImage";
+import auroraTykkyWide from "@/assets/activities/aurora-tykky-wide.jpg";
 import { Language } from "@/translations";
 
 interface RevontuletProps {
@@ -354,6 +356,16 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
                 </h1>
                 <p className="text-xl text-primary font-medium">
                   {t.hero.subtitle}
+                </p>
+              </section>
+            </ScrollReveal>
+
+            {/* Aurora hero image */}
+            <ScrollReveal>
+              <section className="mb-12 rounded-xl overflow-hidden max-w-4xl mx-auto">
+                <OptimizedImage src={auroraTykkyWide} alt={lang === "fi" ? "Revontulet tykkylumisten puiden yllä Levillä" : "Northern Lights above snow-laden trees in Levi"} className="w-full h-64 sm:h-80 md:h-[28rem]" priority />
+                <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                  {lang === "fi" ? "Revontulet tanssivat tykkylumisten puiden yllä Levin tunturissa" : "Northern Lights dancing above snow-laden trees on Levi fell"}
                 </p>
               </section>
             </ScrollReveal>
