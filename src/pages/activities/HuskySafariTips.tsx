@@ -17,6 +17,9 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import OptimizedImage from "@/components/OptimizedImage";
+import huskyCloseup from "@/assets/activities/husky-closeup.jpg";
+import huskyTrail from "@/assets/activities/husky-trail.jpg";
 
 interface HuskySafariTipsProps {
   lang?: Language;
