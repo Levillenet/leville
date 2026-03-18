@@ -406,7 +406,7 @@ const NorthernLightsSeasonLevi = ({ lang = "fi" }: Props) => {
                   {lang === "fi" ? "Majoitu Levillä ja katsele revontulia omalta terassilta." : "Stay in Levi and watch the northern lights from your own terrace."}
                 </p>
                 <Button asChild>
-                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodation"}>
+                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodations"}>
                     {lang === "fi" ? "Selaa majoituksia" : "Browse accommodation"} →
                   </Link>
                 </Button>

@@ -351,7 +351,7 @@ const HowNorthernLightsForm = ({ lang = "fi" }: Props) => {
                   {lang === "fi" ? "Tule kokemaan revontulet itse Levillä." : "Come experience the northern lights yourself in Levi."}
                 </p>
                 <Button asChild>
-                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodation"}>
+                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodations"}>
                     {lang === "fi" ? "Selaa majoituksia" : "Browse accommodation"} →
                   </Link>
                 </Button>

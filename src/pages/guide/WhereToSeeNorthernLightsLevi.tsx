@@ -391,7 +391,7 @@ const WhereToSeeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
                   {lang === "fi" ? "Monissa majoituksissamme on avoin näkymä pohjoiseen — täydellinen revontulien katseluun." : "Many of our accommodations have an open view to the north — perfect for aurora viewing."}
                 </p>
                 <Button asChild>
-                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodation"}>
+                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodations"}>
                     {lang === "fi" ? "Selaa majoituksia" : "Browse accommodation"} →
                   </Link>
                 </Button>
