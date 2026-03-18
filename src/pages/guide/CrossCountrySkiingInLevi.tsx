@@ -129,7 +129,7 @@ const translations = {
         { title: "Sää ja lumitilanne", desc: "Lämpötilat ja olosuhteet", href: "/levi/saatieto-levilta" },
         { title: "Talvivarusteet", desc: "Pukeutumisvinkit Levin pakkasiin", href: "/opas/talvivarusteet-leville" },
         { title: "Kevät Levillä", desc: "Parhaat hiihtokelit kevätauringossa", href: "/opas/kevat-levi" },
-        { title: "Levi ilman autoa", desc: "Miten pääset laduille ilman autoa", href: "/opas/levi-ilman-autoa" }
+        { title: "Levi vs Ylläs vs Ruka", desc: "Latuverkostojen ja keskusten vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }
       ]
     },
     breadcrumbLabel: "Hiihto Levillä"
@@ -204,7 +204,7 @@ const translations = {
         { title: "Weather in Levi", desc: "Temperatures and snow conditions", href: "/en/levi/weather-in-levi" },
         { title: "Winter Clothing Guide", desc: "How to dress for Levi's frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
         { title: "Spring in Levi", desc: "Best skiing in spring sunshine", href: "/guide/spring-in-levi" },
-        { title: "Levi Without a Car", desc: "How to reach the trails car-free", href: "/guide/levi-without-a-car" }
+        { title: "Levi vs Ylläs vs Ruka", desc: "Trail networks and resorts compared", href: "/guide/levi-vs-yllas-vs-ruka-comparison" }
       ]
     },
     breadcrumbLabel: "Cross-Country Skiing in Levi"

@@ -115,7 +115,7 @@ const translations = {
         { title: "Sää ja lumitilanne", desc: "Lämpötilat ja olosuhteet kuukausittain", href: "/levi/saatieto-levilta" },
         { title: "Talvivarusteet", desc: "Pukeutumisvinkit Levin pakkasiin", href: "/opas/talvivarusteet-leville" },
         { title: "Parhaat talviaktiviteetit", desc: "Kattava opas Levin talveen", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
-        { title: "Liikkuminen Levillä", desc: "Skibussit, taksit ja autonvuokraus", href: "/opas/liikkuminen-levilla" }
+        { title: "Levi vs Ylläs vs Ruka", desc: "Kolmen hiihtokeskuksen vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }
       ]
     },
     breadcrumbLabel: "Laskettelu Levillä"
@@ -203,7 +203,7 @@ const translations = {
         { title: "Weather in Levi", desc: "Temperatures and conditions by month", href: "/en/levi/weather-in-levi" },
         { title: "Winter Clothing Guide", desc: "How to dress for Levi's frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
         { title: "Top Winter Activities", desc: "Complete guide to Levi winter", href: "/activities/top-winter-activities-in-levi-lapland" },
-        { title: "Getting Around Levi", desc: "Ski buses, taxis and car rental", href: "/guide/getting-around-in-levi" }
+        { title: "Levi vs Ylläs vs Ruka", desc: "Three ski resorts compared", href: "/guide/levi-vs-yllas-vs-ruka-comparison" }
       ]
     },
     breadcrumbLabel: "Skiing in Levi"

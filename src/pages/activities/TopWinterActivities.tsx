@@ -182,7 +182,8 @@ const translations = {
         { title: "Laskettelu Levillä", desc: "43 rinnettä ja 28 hissiä", href: "/opas/laskettelu-levi" },
         { title: "Moottorikelkkasafari", desc: "Vinkit ensikertalaiselle", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
         { title: "Koiravaljakkoajelu", desc: "Unohtumaton huskyelämys", href: "/aktiviteetit/koiravaljakkoajelu-levi" },
-        { title: "Talvivarusteet", desc: "Pukeutuminen aktiviteetteihin", href: "/opas/talvivarusteet-leville" }
+        { title: "Talvivarusteet", desc: "Pukeutuminen aktiviteetteihin", href: "/opas/talvivarusteet-leville" },
+        { title: "Levi vs Ylläs vs Ruka", desc: "Kolmen hiihtokeskuksen vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }
       ]
     },
     relatedTitle: "Lue myös",
@@ -345,7 +346,8 @@ const translations = {
         { title: "Skiing in Levi", desc: "43 slopes and 28 lifts", href: "/guide/skiing-in-levi" },
         { title: "Snowmobile Safari", desc: "Tips for first-timers", href: "/activities/snowmobile-safari-tips-levi" },
         { title: "Husky Safari", desc: "Unforgettable husky experience", href: "/activities/husky-safari-levi" },
-        { title: "Winter Clothing", desc: "How to dress for activities", href: "/guide/how-to-dress-for-winter-in-levi-lapland" }
+        { title: "Winter Clothing", desc: "How to dress for activities", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+        { title: "Levi vs Ylläs vs Ruka", desc: "Three ski resorts compared", href: "/guide/levi-vs-yllas-vs-ruka-comparison" }
       ]
     },
     relatedTitle: "Read Also",

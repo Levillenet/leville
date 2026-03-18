@@ -568,6 +568,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
                           { title: "Revontulien valokuvaus", desc: "Kamera-asetukset ja vinkit", href: "/opas/revontulien-valokuvaus-levi" },
                           { title: "Miten revontulet syntyvät", desc: "Tieteellinen selitys", href: "/opas/miten-revontulet-syntyvat" },
                           { title: "Revontulien värit", desc: "Miksi vihreä, punainen ja violetti?", href: "/opas/revontulien-varit" },
+                          { title: "Levi vs Rovaniemi", desc: "Kumpi parempi revontulille?", href: "/opas/levi-vs-rovaniemi" },
                         ]
                       : [
                           { title: "Best Time to See Northern Lights", desc: "Months, hours and conditions", href: "/guide/best-time-to-see-northern-lights-levi" },
@@ -577,6 +578,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
                           { title: "Northern Lights Photography", desc: "Camera settings and tips", href: "/guide/northern-lights-photography-levi" },
                           { title: "How Northern Lights Form", desc: "Scientific explanation", href: "/guide/how-northern-lights-form" },
                           { title: "Northern Lights Colors", desc: "Why green, red and purple?", href: "/guide/northern-lights-colors-explained" },
+                          { title: "Levi vs Rovaniemi", desc: "Which is better for northern lights?", href: "/guide/levi-vs-rovaniemi-comparison" },
                         ]
                     ).map((item) => (
                       <Link key={item.href} to={item.href}>

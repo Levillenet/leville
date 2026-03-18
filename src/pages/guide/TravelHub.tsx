@@ -211,6 +211,7 @@ const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
                     { title: "Vuodenajat Levillä", desc: "Valitse paras ajankohta", href: "/opas/vuodenajat-levi" },
                     { title: "Aktiviteetit Levillä", desc: "Mitä tehdä perillä", href: "/opas/aktiviteetit-levi" },
                     { title: "Majoitukset", desc: "Varaa majoitus Leviltä", href: "/majoitukset" },
+                    { title: "Levi vs Rovaniemi", desc: "Kumpi on parempi lomakohde?", href: "/opas/levi-vs-rovaniemi" },
                   ],
                 },
                 en: {
@@ -219,6 +220,7 @@ const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
                     { title: "Seasons in Levi", desc: "Choose the best time to visit", href: "/guide/seasons-in-levi" },
                     { title: "Activities in Levi", desc: "What to do when you arrive", href: "/guide/activities-in-levi" },
                     { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
+                    { title: "Levi vs Rovaniemi", desc: "Which destination is better?", href: "/guide/levi-vs-rovaniemi-comparison" },
                   ],
                 },
                 nl: {
@@ -227,6 +229,7 @@ const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
                     { title: "Seizoenen in Levi", desc: "Kies de beste tijd om te bezoeken", href: "/nl/gids/seizoenen-in-levi" },
                     { title: "Activiteiten in Levi", desc: "Wat te doen als je er bent", href: "/nl/gids/activiteiten-in-levi" },
                     { title: "Accommodaties", desc: "Boek je verblijf in Levi", href: "/nl/accommodaties" },
+                    { title: "Levi vs Rovaniemi", desc: "Welke bestemming is beter?", href: "/guide/levi-vs-rovaniemi-comparison" },
                   ],
                 },
               };

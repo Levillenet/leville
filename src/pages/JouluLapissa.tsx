@@ -26,6 +26,7 @@ import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import OptimizedImage from "@/components/OptimizedImage";
 import santaSitting from "@/assets/santa-sitting.jpg";
 import santaWaving from "@/assets/santa-waving.png";
@@ -775,6 +776,25 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                 </Link>
               </Button>
             </section>
+            {/* Read Next */}
+            {(() => {
+              const readNextData: Record<string, { title: string; links: { title: string; desc: string; href: string }[] }> = {
+                fi: {
+                  title: "Lue myös",
+                  links: [
+                    { title: "Levi vs Rovaniemi", desc: "Kumpi on parempi joulukohde?", href: "/opas/levi-vs-rovaniemi" },
+                  ],
+                },
+                en: {
+                  title: "Read Next",
+                  links: [
+                    { title: "Levi vs Rovaniemi", desc: "Which is the better Christmas destination?", href: "/guide/levi-vs-rovaniemi-comparison" },
+                  ],
+                },
+              };
+              const rn = readNextData[lang] || readNextData.en;
+              return <ReadNextSection title={rn.title} links={rn.links} />;
+            })()}
             <GuideDisclaimer lang={lang} />
           </div>
         </main>
