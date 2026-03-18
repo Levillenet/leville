@@ -107,8 +107,8 @@ Deno.serve(async (req) => {
 
     // CSV format: return raw rows
     if (format === "csv") {
-      const csvHeader = "date,time,path,type,referrer,device_type,language,session_id";
-      const csvRows = (views || []).map((v) => {
+      const csvHeader = "date,time,path,type,referrer,device_type,language,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page";
+      const csvRows = (views || []).map((v: any) => {
         const dt = new Date(v.created_at);
         const date = dt.toISOString().split("T")[0];
         const time = dt.toISOString().split("T")[1].split(".")[0];
@@ -119,8 +119,13 @@ Deno.serve(async (req) => {
         const device = v.device_type || "unknown";
         const lang = v.language || "unknown";
         const sid = v.session_id || "";
+        const utmSrc = v.utm_source || "";
+        const utmMed = v.utm_medium || "";
+        const utmCamp = v.utm_campaign || "";
+        const scrollD = v.scroll_depth != null ? String(v.scroll_depth) : "";
+        const timeP = v.time_on_page != null ? String(v.time_on_page) : "";
         const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
-        return [date, time, esc(path), type, esc(ref), device, lang, sid].join(",");
+        return [date, time, esc(path), type, esc(ref), device, lang, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP].join(",");
       });
 
       return new Response([csvHeader, ...csvRows].join("\n"), {
