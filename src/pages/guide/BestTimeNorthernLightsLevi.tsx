@@ -189,7 +189,7 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "Winter in Levi", desc: "What does a winter holiday offer?", href: "/guide/winter-in-levi" },
-        { title: "Accommodation", desc: "Watch aurora from your own terrace", href: "/en/accommodation" }
+        { title: "Accommodation", desc: "Watch aurora from your own terrace", href: "/en/accommodations" }
       ]
     }
   },
