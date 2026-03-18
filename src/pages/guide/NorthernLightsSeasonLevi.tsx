@@ -168,7 +168,7 @@ In April, seeing northern lights in Levi is already very difficult — nights ar
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "Best Time for Aurora", desc: "Months and hours", href: "/guide/best-time-to-see-northern-lights-levi" },
-        { title: "Accommodation", desc: "Book aurora-friendly accommodation", href: "/en/accommodation" }
+        { title: "Accommodation", desc: "Book aurora-friendly accommodation", href: "/en/accommodations" }
       ]
     }
   },
