@@ -204,7 +204,7 @@ A three-night holiday gives statistically good odds. On a week-long holiday, you
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "Best Time for Aurora", desc: "Months and hours", href: "/guide/best-time-to-see-northern-lights-levi" },
-        { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodation" }
+        { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodations" }
       ]
     }
   },
