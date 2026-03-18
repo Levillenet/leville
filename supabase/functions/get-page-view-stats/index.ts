@@ -144,7 +144,14 @@ Deno.serve(async (req) => {
     const byDevice: Record<string, number> = {};
     const byLanguage: Record<string, number> = {};
     const conversionMap: Record<string, { count: number; sources: Record<string, number> }> = {};
+    const byUtmSource: Record<string, number> = {};
+    const byUtmMedium: Record<string, number> = {};
+    const byUtmCampaign: Record<string, number> = {};
     let total = 0;
+    let scrollDepthSum = 0;
+    let scrollDepthCount = 0;
+    let timeOnPageSum = 0;
+    let timeOnPageCount = 0;
 
     // Session tracking
     const sessionPages: Record<string, { timestamps: number[]; pageCount: number }> = {};
