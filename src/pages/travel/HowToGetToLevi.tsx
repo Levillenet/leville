@@ -195,6 +195,7 @@ const translations = {
         { title: "Levi ilman autoa", desc: "Vinkit autoiluttomaan lomaan", href: "/opas/levi-ilman-autoa" },
         { title: "Talvivarusteet", desc: "Mitä pakata mukaan Leville", href: "/opas/talvivarusteet-leville" },
         { title: "Majoitukset", desc: "Varaa majoitus Leviltä", href: "/majoitukset" },
+        { title: "Levi vs Rovaniemi", desc: "Kumpi on parempi lomakohde?", href: "/opas/levi-vs-rovaniemi" },
       ],
     },
   },
