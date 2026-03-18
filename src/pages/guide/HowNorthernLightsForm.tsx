@@ -255,7 +255,7 @@ Revontulien korkeus selittää miksi ne näkyvät niin laajalla alueella: Levill
       links: [
         { title: "Auroras boreales en Levi", desc: "Guía completa de auroras", href: "/en/northern-lights" },
         { title: "Colores de las auroras", desc: "¿Por qué verde, rojo y púrpura?", href: "/es/guia/colores-auroras-boreales" },
-        { title: "Alojamiento", desc: "Reserve alojamiento en Levi", href: "/en/accommodation" }
+        { title: "Alojamiento", desc: "Reserve alojamiento en Levi", href: "/en/accommodations" }
       ]
     }
   },
