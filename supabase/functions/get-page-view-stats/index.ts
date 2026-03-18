@@ -277,10 +277,14 @@ Deno.serve(async (req) => {
           .map(([source, count]) => ({ source, count })),
       }));
 
+    const avgScrollDepth = scrollDepthCount > 0 ? Math.round(scrollDepthSum / scrollDepthCount) : null;
+    const avgTimeOnPage = timeOnPageCount > 0 ? Math.round(timeOnPageSum / timeOnPageCount) : null;
+
     return new Response(
       JSON.stringify({
         total, byDate, topPages, byReferrer, byDevice, byLanguage, conversionEvents,
         totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
+        byUtmSource, byUtmMedium, byUtmCampaign, avgScrollDepth, avgTimeOnPage,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
