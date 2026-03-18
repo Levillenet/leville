@@ -26,6 +26,7 @@ import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import ReadNextSection from "@/components/guide/ReadNextSection";
 import OptimizedImage from "@/components/OptimizedImage";
 import santaSitting from "@/assets/santa-sitting.jpg";
 import santaWaving from "@/assets/santa-waving.png";
