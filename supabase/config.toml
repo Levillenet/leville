@@ -75,3 +75,9 @@ verify_jwt = false
 
 [functions.log-message]
 verify_jwt = false
+
+[functions.get-page-view-stats]
+verify_jwt = false
+
+[functions.update-page-engagement]
+verify_jwt = false
