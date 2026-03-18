@@ -59,7 +59,10 @@ const OptimizedImage = ({
           src={src}
           alt={alt}
           loading={priority ? "eager" : "lazy"}
-          decoding="async"
+          decoding={priority ? "sync" : "async"}
+          fetchPriority={priority ? "high" : "auto"}
+          width={width}
+          height={height}
           onLoad={() => setIsLoaded(true)}
           className={`w-full h-full object-cover transition-opacity duration-500 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
