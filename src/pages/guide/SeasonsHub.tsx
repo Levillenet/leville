@@ -470,6 +470,7 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
                     { title: "Aktiviteetit Levillä", desc: "Kaikki Levin aktiviteetit", href: "/opas/aktiviteetit-levi" },
                     { title: "Matkaopas", desc: "Käytännön vinkit Levin lomaan", href: "/opas/matkaopas-levi" },
                     { title: "Majoitukset", desc: "Varaa majoitus Leviltä", href: "/majoitukset" },
+                    { title: "Levi vs Ylläs vs Ruka", desc: "Kolmen hiihtokeskuksen vertailu", href: "/opas/levi-vs-yllas-vs-ruka" },
                   ],
                 },
                 en: {
@@ -478,6 +479,7 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
                     { title: "Activities in Levi", desc: "All Levi activities", href: "/guide/activities-in-levi" },
                     { title: "Travel Guide", desc: "Practical tips for your Levi trip", href: "/guide/travel-to-levi" },
                     { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
+                    { title: "Levi vs Ylläs vs Ruka", desc: "Three ski resorts compared", href: "/guide/levi-vs-yllas-vs-ruka-comparison" },
                   ],
                 },
                 nl: {
@@ -486,6 +488,7 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
                     { title: "Activiteiten in Levi", desc: "Alle activiteiten in Levi", href: "/nl/gids/activiteiten-in-levi" },
                     { title: "Reisgids", desc: "Praktische tips voor je Levi-reis", href: "/nl/gids/reisgids-levi" },
                     { title: "Accommodaties", desc: "Boek je verblijf in Levi", href: "/nl/accommodaties" },
+                    { title: "Levi vs Ylläs vs Ruka", desc: "Drie skigebieden vergeleken", href: "/guide/levi-vs-yllas-vs-ruka-comparison" },
                   ],
                 },
               };

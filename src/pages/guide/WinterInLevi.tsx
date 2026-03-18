@@ -226,7 +226,7 @@ const translations = {
         { title: "December in Levi", desc: "Christmas season and starry skies", href: "/guide/levi-in-december" },
         { title: "January in Levi", desc: "Polar night magic and northern lights", href: "/guide/levi-in-january" },
         { title: "February in Levi", desc: "Light returns and ski season begins", href: "/guide/levi-in-february" },
-        { title: "March in Levi", desc: "Spring sun and best snow conditions", href: "/guide/levi-in-march" }
+        { title: "Levi vs Ylläs vs Ruka", desc: "Three ski resorts compared", href: "/guide/levi-vs-yllas-vs-ruka-comparison" }
       ]
     },
     breadcrumbLabel: "Winter in Levi"

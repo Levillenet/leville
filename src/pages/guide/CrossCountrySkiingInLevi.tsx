@@ -204,7 +204,7 @@ const translations = {
         { title: "Weather in Levi", desc: "Temperatures and snow conditions", href: "/en/levi/weather-in-levi" },
         { title: "Winter Clothing Guide", desc: "How to dress for Levi's frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
         { title: "Spring in Levi", desc: "Best skiing in spring sunshine", href: "/guide/spring-in-levi" },
-        { title: "Levi Without a Car", desc: "How to reach the trails car-free", href: "/guide/levi-without-a-car" }
+        { title: "Levi vs Ylläs vs Ruka", desc: "Trail networks and resorts compared", href: "/guide/levi-vs-yllas-vs-ruka-comparison" }
       ]
     },
     breadcrumbLabel: "Cross-Country Skiing in Levi"

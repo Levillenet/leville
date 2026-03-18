@@ -413,6 +413,7 @@ const translations = {
         { title: "Husky Safari", desc: "An experience for the whole family", href: "/activities/husky-safari-levi" },
         { title: "Winter Clothing", desc: "Dressing kids for the cold", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
         { title: "Restaurants & Services", desc: "Family-friendly dining", href: "/guide/restaurants-and-services-in-levi" },
+        { title: "Levi vs Rovaniemi", desc: "Which is better for families?", href: "/guide/levi-vs-rovaniemi-comparison" },
       ],
     },
   },

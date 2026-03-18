@@ -357,6 +357,7 @@ const translations = {
         { title: "Levi Without a Car", desc: "Tips for a car-free holiday", href: "/guide/levi-without-a-car" },
         { title: "Winter Clothing", desc: "What to pack for Levi", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
         { title: "Accommodations", desc: "Book your stay in Levi", href: "/en/accommodations" },
+        { title: "Levi vs Rovaniemi", desc: "Which destination is better?", href: "/guide/levi-vs-rovaniemi-comparison" },
       ],
     },
   },
