@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 interface Star {
   id: number;
@@ -10,10 +10,7 @@ interface Star {
 }
 
 const SubpageBackground = () => {
-  const [stars, setStars] = useState<Star[]>([]);
-
-  useEffect(() => {
-    // Generate random stars/snow crystals
+  const stars = useMemo(() => {
     const generatedStars: Star[] = [];
     for (let i = 0; i < 18; i++) {
       generatedStars.push({
@@ -25,7 +22,7 @@ const SubpageBackground = () => {
         duration: Math.random() * 2 + 3,
       });
     }
-    setStars(generatedStars);
+    return generatedStars;
   }, []);
 
   return (
