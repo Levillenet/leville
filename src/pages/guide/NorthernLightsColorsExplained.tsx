@@ -275,7 +275,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
       links: [
         { title: "Auroras boreales en Levi", desc: "Gu\u00eda completa de auroras", href: "/en/northern-lights" },
         { title: "C\u00f3mo se forman las auroras", desc: "Explicaci\u00f3n cient\u00edfica", href: "/es/guia/como-se-forman-auroras-boreales" },
-        { title: "Alojamiento", desc: "Reserve alojamiento en Levi", href: "/en/accommodation" }
+        { title: "Alojamiento", desc: "Reserve alojamiento en Levi", href: "/en/accommodations" }
       ]
     }
   },
