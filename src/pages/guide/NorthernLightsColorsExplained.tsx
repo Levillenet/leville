@@ -207,7 +207,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
       links: [
         { title: "Norrsken i Levi", desc: "Utf\u00f6rlig aurora-guide", href: "/en/northern-lights" },
         { title: "Hur uppst\u00e5r norrsken", desc: "Vetenskaplig f\u00f6rklaring", href: "/sv/guide/hur-uppstar-norrsken" },
-        { title: "Boende", desc: "Boka boende i Levi", href: "/en/accommodation" }
+        { title: "Boende", desc: "Boka boende i Levi", href: "/en/accommodations" }
       ]
     }
   },
