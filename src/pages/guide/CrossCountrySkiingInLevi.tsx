@@ -129,7 +129,7 @@ const translations = {
         { title: "Sää ja lumitilanne", desc: "Lämpötilat ja olosuhteet", href: "/levi/saatieto-levilta" },
         { title: "Talvivarusteet", desc: "Pukeutumisvinkit Levin pakkasiin", href: "/opas/talvivarusteet-leville" },
         { title: "Kevät Levillä", desc: "Parhaat hiihtokelit kevätauringossa", href: "/opas/kevat-levi" },
-        { title: "Levi ilman autoa", desc: "Miten pääset laduille ilman autoa", href: "/opas/levi-ilman-autoa" }
+        { title: "Levi vs Ylläs vs Ruka", desc: "Latuverkostojen ja keskusten vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }
       ]
     },
     breadcrumbLabel: "Hiihto Levillä"
