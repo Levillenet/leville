@@ -92,7 +92,7 @@ Deno.serve(async (req) => {
 
     const { data: views, error } = await supabase
       .from("page_views")
-      .select("path, referrer, device_type, language, created_at, session_id")
+      .select("path, referrer, device_type, language, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page")
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .limit(queryLimit);
