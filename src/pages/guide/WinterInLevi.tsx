@@ -129,7 +129,7 @@ const translations = {
         { title: "Joulukuu Levillä", desc: "Joulukausi ja tähtitaivas", href: "/opas/levi-joulukuussa" },
         { title: "Tammikuu Levillä", desc: "Kaamoksen taika ja revontulet", href: "/opas/levi-tammikuussa" },
         { title: "Helmikuu Levillä", desc: "Valo palaa ja hiihtokausi alkaa", href: "/opas/levi-helmikuussa" },
-        { title: "Maaliskuu Levillä", desc: "Kevätaurinko ja parhaat lumikelit", href: "/opas/levi-maaliskuussa" }
+        { title: "Levi vs Ylläs vs Ruka", desc: "Kolmen hiihtokeskuksen vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }
       ]
     },
     breadcrumbLabel: "Talvi Levillä"
