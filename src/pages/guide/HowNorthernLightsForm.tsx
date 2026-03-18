@@ -226,7 +226,7 @@ Revontulien korkeus selittää miksi ne näkyvät niin laajalla alueella: Levill
       links: [
         { title: "Nordlichter in Levi", desc: "Umfassender Aurora-Ratgeber", href: "/en/northern-lights" },
         { title: "Farben der Nordlichter", desc: "Warum grün, rot und lila?", href: "/de/ratgeber/farben-der-nordlichter" },
-        { title: "Unterkunft", desc: "Unterkunft in Levi buchen", href: "/en/accommodation" }
+        { title: "Unterkunft", desc: "Unterkunft in Levi buchen", href: "/en/accommodations" }
       ]
     }
   },
