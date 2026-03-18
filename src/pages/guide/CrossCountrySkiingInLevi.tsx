@@ -33,8 +33,8 @@ interface CrossCountrySkiingProps {
 const translations = {
   fi: {
     meta: {
-      title: "Hiihto Levillä – Ladut, reitit ja vinkit | Leville.net",
-      description: "Kattava opas Levin hiihtoon. 230 km latuja, reittikartat ja parhaat hiihtovinkit. Suunnittele murtomaahiihto- tai perinteisen hiihdon lomasi Levillä.",
+      title: "Levin hiihtoladut – 230 km latuja, reittikartat ja latuinfo | Leville.net",
+      description: "Levin ladut: 230 km huollettuja hiihtolatuja helposta vaativaan. Latukartta, helpot ladut aloittelijoille ja Levin kierros kokeneille hiihtäjille.",
       canonical: "https://leville.net/opas/hiihtoladut-levi"
     },
     title: "Hiihto Levillä",
