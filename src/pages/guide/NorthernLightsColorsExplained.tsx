@@ -139,7 +139,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "How Aurora Forms", desc: "Scientific explanation", href: "/guide/how-northern-lights-form" },
-        { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodation" }
+        { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodations" }
       ]
     }
   },
