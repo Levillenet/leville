@@ -965,7 +965,12 @@ export type Database = {
           language: string | null
           path: string
           referrer: string | null
+          scroll_depth: number | null
           session_id: string | null
+          time_on_page: number | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
         }
         Insert: {
           created_at?: string
@@ -974,7 +979,12 @@ export type Database = {
           language?: string | null
           path: string
           referrer?: string | null
+          scroll_depth?: number | null
           session_id?: string | null
+          time_on_page?: number | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Update: {
           created_at?: string
@@ -983,7 +993,12 @@ export type Database = {
           language?: string | null
           path?: string
           referrer?: string | null
+          scroll_depth?: number | null
           session_id?: string | null
+          time_on_page?: number | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Relationships: []
       }

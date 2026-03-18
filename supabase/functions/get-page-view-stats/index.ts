@@ -92,7 +92,7 @@ Deno.serve(async (req) => {
 
     const { data: views, error } = await supabase
       .from("page_views")
-      .select("path, referrer, device_type, language, created_at, session_id")
+      .select("path, referrer, device_type, language, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page")
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .limit(queryLimit);
@@ -107,8 +107,8 @@ Deno.serve(async (req) => {
 
     // CSV format: return raw rows
     if (format === "csv") {
-      const csvHeader = "date,time,path,type,referrer,device_type,language,session_id";
-      const csvRows = (views || []).map((v) => {
+      const csvHeader = "date,time,path,type,referrer,device_type,language,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page";
+      const csvRows = (views || []).map((v: any) => {
         const dt = new Date(v.created_at);
         const date = dt.toISOString().split("T")[0];
         const time = dt.toISOString().split("T")[1].split(".")[0];
@@ -119,8 +119,13 @@ Deno.serve(async (req) => {
         const device = v.device_type || "unknown";
         const lang = v.language || "unknown";
         const sid = v.session_id || "";
+        const utmSrc = v.utm_source || "";
+        const utmMed = v.utm_medium || "";
+        const utmCamp = v.utm_campaign || "";
+        const scrollD = v.scroll_depth != null ? String(v.scroll_depth) : "";
+        const timeP = v.time_on_page != null ? String(v.time_on_page) : "";
         const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
-        return [date, time, esc(path), type, esc(ref), device, lang, sid].join(",");
+        return [date, time, esc(path), type, esc(ref), device, lang, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP].join(",");
       });
 
       return new Response([csvHeader, ...csvRows].join("\n"), {
@@ -139,7 +144,14 @@ Deno.serve(async (req) => {
     const byDevice: Record<string, number> = {};
     const byLanguage: Record<string, number> = {};
     const conversionMap: Record<string, { count: number; sources: Record<string, number> }> = {};
+    const byUtmSource: Record<string, number> = {};
+    const byUtmMedium: Record<string, number> = {};
+    const byUtmCampaign: Record<string, number> = {};
     let total = 0;
+    let scrollDepthSum = 0;
+    let scrollDepthCount = 0;
+    let timeOnPageSum = 0;
+    let timeOnPageCount = 0;
 
     // Session tracking
     const sessionPages: Record<string, { timestamps: number[]; pageCount: number }> = {};
@@ -202,6 +214,15 @@ Deno.serve(async (req) => {
         byDevice[dev] = (byDevice[dev] || 0) + 1;
         const lang = v.language || "unknown";
         byLanguage[lang] = (byLanguage[lang] || 0) + 1;
+
+        // UTM aggregation
+        if (v.utm_source) byUtmSource[v.utm_source] = (byUtmSource[v.utm_source] || 0) + 1;
+        if (v.utm_medium) byUtmMedium[v.utm_medium] = (byUtmMedium[v.utm_medium] || 0) + 1;
+        if (v.utm_campaign) byUtmCampaign[v.utm_campaign] = (byUtmCampaign[v.utm_campaign] || 0) + 1;
+
+        // Engagement aggregation
+        if (v.scroll_depth != null) { scrollDepthSum += v.scroll_depth; scrollDepthCount++; }
+        if (v.time_on_page != null) { timeOnPageSum += v.time_on_page; timeOnPageCount++; }
       }
     }
 
@@ -256,10 +277,14 @@ Deno.serve(async (req) => {
           .map(([source, count]) => ({ source, count })),
       }));
 
+    const avgScrollDepth = scrollDepthCount > 0 ? Math.round(scrollDepthSum / scrollDepthCount) : null;
+    const avgTimeOnPage = timeOnPageCount > 0 ? Math.round(timeOnPageSum / timeOnPageCount) : null;
+
     return new Response(
       JSON.stringify({
         total, byDate, topPages, byReferrer, byDevice, byLanguage, conversionEvents,
         totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
+        byUtmSource, byUtmMedium, byUtmCampaign, avgScrollDepth, avgTimeOnPage,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
