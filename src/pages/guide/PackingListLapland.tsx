@@ -192,7 +192,7 @@ const translations = {
       title: "Read Next",
       links: [
         { title: "Winter Clothing Guide", desc: "How to dress for Levi's frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
-        { title: "How to Get to Levi", desc: "Flights, trains and cars", href: "/travel/how-to-get-to-levi-from-helsinki" },
+        { title: "How to Get to Levi", desc: "Flights, trains and cars", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
         { title: "Prices in Levi", desc: "What does a Lapland holiday cost?", href: "/guide/prices-in-levi" }
       ]
     },

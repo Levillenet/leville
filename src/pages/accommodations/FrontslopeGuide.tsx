@@ -152,8 +152,8 @@ const FrontslopeGuide = () => {
 
   const readNextLinks = [
     { to: "/sauna", label: "Finnish Sauna Guide" },
-    { to: "/guide/restaurants-and-dining", label: "Restaurants & Dining in Levi" },
-    { to: "/travel/how-to-get-to-levi", label: "How to Get to Levi" },
+    { to: "/guide/restaurants-and-services-in-levi", label: "Restaurants & Dining in Levi" },
+    { to: "/travel/how-to-get-to-levi-from-helsinki-and-abroad", label: "How to Get to Levi" },
   ];
 
   return (

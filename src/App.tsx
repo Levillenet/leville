@@ -537,6 +537,12 @@ const App = () => {
               <Route path="/skistar-levi-104" element={<Navigate to="/majoitukset" replace />} />
               <Route path="/skistar-levi-104/*" element={<Navigate to="/majoitukset" replace />} />
 
+              {/* Common broken link redirects */}
+              <Route path="/en/accommodation" element={<Navigate to="/en/accommodations" replace />} />
+              <Route path="/travel/how-to-get-to-levi" element={<Navigate to="/travel/how-to-get-to-levi-from-helsinki-and-abroad" replace />} />
+              <Route path="/travel/how-to-get-to-levi-from-helsinki" element={<Navigate to="/travel/how-to-get-to-levi-from-helsinki-and-abroad" replace />} />
+              <Route path="/guide/restaurants-and-dining" element={<Navigate to="/guide/restaurants-and-services-in-levi" replace />} />
+
               {/* Wrong language paths */}
               <Route path="/sv/boenden" element={<Navigate to="/sv/boende" replace />} />
               <Route path="/sv/aktuellt" element={<Navigate to="/sv" replace />} />
