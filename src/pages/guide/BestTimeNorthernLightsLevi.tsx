@@ -237,7 +237,7 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
     readNext: { title: "Läs också", links: [
       { title: "Norrsken i Levi", desc: "Utförlig guide", href: "/en/northern-lights" },
       { title: "Vinter i Levi", desc: "Vintersemester", href: "/guide/winter-in-levi" },
-      { title: "Boende", desc: "Se norrsken från terrassen", href: "/en/accommodation" }
+      { title: "Boende", desc: "Se norrsken från terrassen", href: "/en/accommodations" }
     ]}
   },
   de: {
