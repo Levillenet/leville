@@ -283,7 +283,7 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
     readNext: { title: "Lea también", links: [
       { title: "Auroras en Levi", desc: "Guía completa", href: "/en/northern-lights" },
       { title: "Invierno en Levi", desc: "Vacaciones de invierno", href: "/guide/winter-in-levi" },
-      { title: "Alojamiento", desc: "Vea auroras desde su terraza", href: "/en/accommodation" }
+      { title: "Alojamiento", desc: "Vea auroras desde su terraza", href: "/en/accommodations" }
     ]}
   },
   fr: {
