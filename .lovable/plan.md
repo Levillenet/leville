@@ -1,24 +1,37 @@
 
 
-## Analytiikan CSV-viennin laajennus: 90 ja 180 päivää
+# GA4-tapahtumaseuranta majoitushauille
 
-### Nykytilanne
-- Period-valinnat: tänään, viikko, kuukausi, 30 päivää
-- Edge function tukee vain näitä neljää
-- Query limit on 10 000 riviä (riittää ~30 päivälle)
-- Data tallentuu `page_views`-tauluun ilman automaattista poistoa → data säilyy kyllä
+## Muutos
 
-### Muutokset
+Lisataan yksi GA4-tapahtuman lahetys `src/components/ModerBookingWidget.tsx` -tiedostoon.
 
-**1. Edge function (`supabase/functions/get-page-view-stats/index.ts`)**
-- Lisätään `case "90days"` ja `case "180days"` period-switchiin
-- Nostetaan query limit 10 000 → 50 000 pitkille ajanjaksoille (90/180 pv)
+## Toteutus
 
-**2. Frontend (`src/components/admin/PageViewsAdmin.tsx`)**
-- Laajennetaan `Period`-tyyppi: `"90days" | "180days"`
-- Lisätään `PERIOD_LABELS`: `"90 päivää"`, `"180 päivää"`
-- Lisätään painikkeet period-valitsimeen
+Tiedosto: `src/components/ModerBookingWidget.tsx`
 
-### Datan säilyvyys
-Data säilyy tietokannassa toistaiseksi ilman aikarajaa. Taulusta ei poisteta rivejä automaattisesti, joten 365 päivän ja pidemmänkin datan käyttö on mahdollista tulevaisuudessa.
+`showLoadingOverlay`-funktion alkuun lisataan:
+
+```typescript
+if (typeof window !== 'undefined' && (window as any).gtag) {
+  (window as any).gtag('event', 'accommodation_search', {
+    event_category: 'booking',
+    event_label: lang,
+    page_location: window.location.pathname,
+  });
+}
+```
+
+Tama lahettaa `accommodation_search`-tapahtuman GA4:aan joka kerta kun kayttaja klikkaa hakupainiketta.
+
+## Missa naet tulokset
+
+Google Analytics 4 -hallintapaneelissa (analytics.google.com):
+- **Reaaliaikainen testaus:** Reports > Realtime
+- **Historiatiedot:** Reports > Engagement > Events > `accommodation_search`
+
+## Ei muita muutoksia
+- Ei uusia riippuvuuksia
+- GA4-skripti on jo ladattu index.html:ssa
+- Yksi tiedosto muuttuu, yksi rivi lisataan
 

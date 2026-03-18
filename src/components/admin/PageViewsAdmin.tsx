@@ -110,13 +110,15 @@ SIVUSTON RAKENNE:
 - /guide/ = englanninkieliset oppaat
 - /sauna, /revontulet, /latuinfo jne. = erikoissivut`;
 
-type Period = "today" | "week" | "month" | "30days";
+type Period = "today" | "week" | "month" | "30days" | "90days" | "180days";
 
 const PERIOD_LABELS: Record<Period, string> = {
   today: "Tänään",
   week: "Tämä viikko",
   month: "Tämä kuukausi",
   "30days": "30 päivää",
+  "90days": "90 päivää",
+  "180days": "180 päivää",
 };
 
 const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
