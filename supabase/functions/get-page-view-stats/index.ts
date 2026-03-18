@@ -74,18 +74,28 @@ Deno.serve(async (req) => {
       case "month":
         sinceDate = new Date(now.getFullYear(), now.getMonth(), 1);
         break;
+      case "90days":
+        sinceDate = new Date(now);
+        sinceDate.setDate(sinceDate.getDate() - 90);
+        break;
+      case "180days":
+        sinceDate = new Date(now);
+        sinceDate.setDate(sinceDate.getDate() - 180);
+        break;
       default:
         sinceDate = new Date(now);
         sinceDate.setDate(sinceDate.getDate() - 30);
     }
     const since = sinceDate.toISOString();
 
+    const queryLimit = (period === "90days" || period === "180days") ? 50000 : 10000;
+
     const { data: views, error } = await supabase
       .from("page_views")
       .select("path, referrer, device_type, language, created_at, session_id")
       .gte("created_at", since)
       .order("created_at", { ascending: false })
-      .limit(10000);
+      .limit(queryLimit);
 
     if (error) {
       console.error("Query error:", error);
