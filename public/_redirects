@@ -60,5 +60,16 @@
 /guide/santa-claus-levi          /guide/santa-claus-in-levi        301
 /opas/paras-aika-vierailla-levilla  /opas/paras-aika-matkustaa-leville  200
 
+# Fix Google Search Console 404s
+/home/                      /                     301
+/home                       /                     301
+/hiihtajankuja/             /majoitukset          301
+/hiihtajankuja              /majoitukset          301
+/skistar-levi-210/          /majoitukset          301
+/skistar-levi-210           /majoitukset          301
+/skistar-levi/              /majoitukset          301
+/skistar-levi               /majoitukset          301
+/opas/tapahtumat-levilla    /levi                 301
+
 # SPA fallback — MUST be the last rule
 /*                          /index.html           200
