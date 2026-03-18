@@ -214,6 +214,15 @@ Deno.serve(async (req) => {
         byDevice[dev] = (byDevice[dev] || 0) + 1;
         const lang = v.language || "unknown";
         byLanguage[lang] = (byLanguage[lang] || 0) + 1;
+
+        // UTM aggregation
+        if (v.utm_source) byUtmSource[v.utm_source] = (byUtmSource[v.utm_source] || 0) + 1;
+        if (v.utm_medium) byUtmMedium[v.utm_medium] = (byUtmMedium[v.utm_medium] || 0) + 1;
+        if (v.utm_campaign) byUtmCampaign[v.utm_campaign] = (byUtmCampaign[v.utm_campaign] || 0) + 1;
+
+        // Engagement aggregation
+        if (v.scroll_depth != null) { scrollDepthSum += v.scroll_depth; scrollDepthCount++; }
+        if (v.time_on_page != null) { timeOnPageSum += v.time_on_page; timeOnPageCount++; }
       }
     }
 
