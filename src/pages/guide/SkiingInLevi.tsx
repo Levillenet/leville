@@ -34,8 +34,8 @@ interface SkiingInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Laskettelu Levillä – Rinteet, hissit ja vinkit | Leville.net",
-      description: "Kattava opas Levin lasketteluun. 43 rinnettä, 28 hissiä, rinteiden vaikeustasot ja vinkit laskettelijoille. Suunnittele laskettelulomasi Leville.",
+      title: "Levin rinteet – 43 rinnettä ja lasketteluvinkit kaudelle 2025–2026 | Leville.net",
+      description: "Levin laskettelu: 43 rinnettä, 28 hissiä ja Suomen pisin kausi lokakuusta toukokuuhun. Rinteiden vaikeustasot, hissilippujen hinnat ja käytännön vinkit.",
       canonical: "https://leville.net/opas/laskettelu-levi"
     },
     title: "Laskettelu Levillä",
@@ -122,8 +122,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Skiing in Levi – Slopes, Lifts & Tips | Leville.net",
-      description: "Complete guide to skiing in Levi. 43 slopes, 28 lifts, difficulty levels and tips for skiers. Plan your ski holiday in Levi, Finnish Lapland.",
+      title: "Levi Ski Resort – 43 Slopes, Trail Map & Tips for 2025–2026 | Leville.net",
+      description: "Complete guide to skiing in Levi, Finland. 43 slopes, 28 lifts, slope difficulty levels, lift pass prices and practical tips. Finland's longest ski season.",
       canonical: "https://leville.net/guide/skiing-in-levi"
     },
     title: "Skiing in Levi",
