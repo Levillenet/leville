@@ -216,6 +216,7 @@ const translations = {
         { title: "Koiravaljakkoajelu", desc: "Elämys koko perheelle", href: "/aktiviteetit/koiravaljakkoajelu-levi" },
         { title: "Talvivarusteet", desc: "Lasten pukeutuminen pakkaseen", href: "/opas/talvivarusteet-leville" },
         { title: "Ravintolat ja palvelut", desc: "Perheystävälliset ravintolat", href: "/opas/ravintolat-ja-palvelut-levilla" },
+        { title: "Levi vs Rovaniemi", desc: "Kumpi sopii paremmin perheille?", href: "/opas/levi-vs-rovaniemi" },
       ],
     },
   },
