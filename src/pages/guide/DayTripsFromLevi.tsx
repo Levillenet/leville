@@ -170,7 +170,7 @@ const translations = {
     readNext: {
       title: "Read Next",
       links: [
-        { title: "How to Get to Levi", desc: "Transport from Helsinki", href: "/travel/how-to-get-to-levi-from-helsinki" },
+        { title: "How to Get to Levi", desc: "Transport from Helsinki", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
         { title: "Getting Around Levi", desc: "By car, bus and taxi", href: "/guide/getting-around-in-levi" },
         { title: "Levi vs Ylläs vs Ruka", desc: "Ski resort comparison", href: "/guide/levi-vs-yllas-vs-ruka-comparison" },
         { title: "Accommodations", desc: "Cabins and apartments", href: "/en/accommodations" }

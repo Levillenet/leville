@@ -204,7 +204,7 @@ A three-night holiday gives statistically good odds. On a week-long holiday, you
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "Best Time for Aurora", desc: "Months and hours", href: "/guide/best-time-to-see-northern-lights-levi" },
-        { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodation" }
+        { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodations" }
       ]
     }
   },
@@ -436,7 +436,7 @@ const NorthernLightsForecastLevi = ({ lang = "fi" }: Props) => {
                   {lang === "fi" ? "Majoitu Levillä ja katsele revontulia omalta terassilta." : "Stay in Levi and watch the northern lights from your own terrace."}
                 </p>
                 <Button asChild>
-                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodation"}>
+                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodations"}>
                     {lang === "fi" ? "Selaa majoituksia" : "Browse accommodation"} →
                   </Link>
                 </Button>

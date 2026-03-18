@@ -379,8 +379,8 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
 
   const readNextLinks = [
     { to: "/sauna", label: t.readSauna },
-    { to: lang === "fi" ? "/guide/restaurants-and-dining" : "/guide/restaurants-and-dining", label: t.readRestaurants },
-    { to: "/travel/how-to-get-to-levi", label: t.readTravel },
+    { to: "/guide/restaurants-and-services-in-levi", label: t.readRestaurants },
+    { to: "/travel/how-to-get-to-levi-from-helsinki-and-abroad", label: t.readTravel },
   ];
 
   return (

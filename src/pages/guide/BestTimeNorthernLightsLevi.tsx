@@ -189,7 +189,7 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "Winter in Levi", desc: "What does a winter holiday offer?", href: "/guide/winter-in-levi" },
-        { title: "Accommodation", desc: "Watch aurora from your own terrace", href: "/en/accommodation" }
+        { title: "Accommodation", desc: "Watch aurora from your own terrace", href: "/en/accommodations" }
       ]
     }
   },
@@ -237,7 +237,7 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
     readNext: { title: "Läs också", links: [
       { title: "Norrsken i Levi", desc: "Utförlig guide", href: "/en/northern-lights" },
       { title: "Vinter i Levi", desc: "Vintersemester", href: "/guide/winter-in-levi" },
-      { title: "Boende", desc: "Se norrsken från terrassen", href: "/en/accommodation" }
+      { title: "Boende", desc: "Se norrsken från terrassen", href: "/en/accommodations" }
     ]}
   },
   de: {
@@ -260,7 +260,7 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
     readNext: { title: "Lesen Sie auch", links: [
       { title: "Nordlichter in Levi", desc: "Umfassender Ratgeber", href: "/en/northern-lights" },
       { title: "Winter in Levi", desc: "Winterurlaub", href: "/guide/winter-in-levi" },
-      { title: "Unterkunft", desc: "Aurora von der Terrasse", href: "/en/accommodation" }
+      { title: "Unterkunft", desc: "Aurora von der Terrasse", href: "/en/accommodations" }
     ]}
   },
   es: {
@@ -283,7 +283,7 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
     readNext: { title: "Lea también", links: [
       { title: "Auroras en Levi", desc: "Guía completa", href: "/en/northern-lights" },
       { title: "Invierno en Levi", desc: "Vacaciones de invierno", href: "/guide/winter-in-levi" },
-      { title: "Alojamiento", desc: "Vea auroras desde su terraza", href: "/en/accommodation" }
+      { title: "Alojamiento", desc: "Vea auroras desde su terraza", href: "/en/accommodations" }
     ]}
   },
   fr: {
@@ -306,7 +306,7 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
     readNext: { title: "Lire aussi", links: [
       { title: "Aurores à Levi", desc: "Guide complet", href: "/en/northern-lights" },
       { title: "Hiver à Levi", desc: "Vacances d'hiver", href: "/guide/winter-in-levi" },
-      { title: "Hébergement", desc: "Aurores depuis votre terrasse", href: "/en/accommodation" }
+      { title: "Hébergement", desc: "Aurores depuis votre terrasse", href: "/en/accommodations" }
     ]}
   }
 };
@@ -397,7 +397,7 @@ const BestTimeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
                     : "Stay in Levi and watch the northern lights from your own terrace."}
                 </p>
                 <Button asChild>
-                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodation"}>
+                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodations"}>
                     {lang === "fi" ? "Selaa majoituksia" : "Browse accommodation"} →
                   </Link>
                 </Button>

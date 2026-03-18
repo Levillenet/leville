@@ -177,7 +177,7 @@ const canonicalUrls: Record<Language, string> = {
   en: "https://leville.net/guide/why-choose-levi",
   sv: "https://leville.net/sv/guide/why-choose-levi",
   de: "https://leville.net/de/guide/why-choose-levi",
-  es: "https://leville.net/es/guide/why-choose-levi",
+  es: "https://leville.net/es/guia/why-choose-levi",
   fr: "https://leville.net/fr/guide/why-choose-levi",
   nl: "https://leville.net/nl/gids/waarom-levi-kiezen"
 };

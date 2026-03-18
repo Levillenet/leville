@@ -139,7 +139,7 @@ Revontulien korkeus selittää miksi ne näkyvät niin laajalla alueella: Levill
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "Aurora Colors Explained", desc: "Why green, red and purple?", href: "/guide/northern-lights-colors-explained" },
-        { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodation" }
+        { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodations" }
       ]
     }
   },
@@ -197,7 +197,7 @@ Revontulien korkeus selittää miksi ne näkyvät niin laajalla alueella: Levill
       links: [
         { title: "Norrsken i Levi", desc: "Utförlig aurora-guide", href: "/en/northern-lights" },
         { title: "Norrskens färger", desc: "Varför grönt, rött och lila?", href: "/sv/guide/norrskens-farger" },
-        { title: "Boende", desc: "Boka boende i Levi", href: "/en/accommodation" }
+        { title: "Boende", desc: "Boka boende i Levi", href: "/en/accommodations" }
       ]
     }
   },
@@ -226,7 +226,7 @@ Revontulien korkeus selittää miksi ne näkyvät niin laajalla alueella: Levill
       links: [
         { title: "Nordlichter in Levi", desc: "Umfassender Aurora-Ratgeber", href: "/en/northern-lights" },
         { title: "Farben der Nordlichter", desc: "Warum grün, rot und lila?", href: "/de/ratgeber/farben-der-nordlichter" },
-        { title: "Unterkunft", desc: "Unterkunft in Levi buchen", href: "/en/accommodation" }
+        { title: "Unterkunft", desc: "Unterkunft in Levi buchen", href: "/en/accommodations" }
       ]
     }
   },
@@ -255,7 +255,7 @@ Revontulien korkeus selittää miksi ne näkyvät niin laajalla alueella: Levill
       links: [
         { title: "Auroras boreales en Levi", desc: "Guía completa de auroras", href: "/en/northern-lights" },
         { title: "Colores de las auroras", desc: "¿Por qué verde, rojo y púrpura?", href: "/es/guia/colores-auroras-boreales" },
-        { title: "Alojamiento", desc: "Reserve alojamiento en Levi", href: "/en/accommodation" }
+        { title: "Alojamiento", desc: "Reserve alojamiento en Levi", href: "/en/accommodations" }
       ]
     }
   },
@@ -284,7 +284,7 @@ Revontulien korkeus selittää miksi ne näkyvät niin laajalla alueella: Levill
       links: [
         { title: "Aurores boréales à Levi", desc: "Guide complet des aurores", href: "/en/northern-lights" },
         { title: "Couleurs des aurores", desc: "Pourquoi vert, rouge et violet ?", href: "/fr/guide/couleurs-aurores-boreales" },
-        { title: "Hébergement", desc: "Réservez un hébergement à Levi", href: "/en/accommodation" }
+        { title: "Hébergement", desc: "Réservez un hébergement à Levi", href: "/en/accommodations" }
       ]
     }
   }
@@ -351,7 +351,7 @@ const HowNorthernLightsForm = ({ lang = "fi" }: Props) => {
                   {lang === "fi" ? "Tule kokemaan revontulet itse Levillä." : "Come experience the northern lights yourself in Levi."}
                 </p>
                 <Button asChild>
-                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodation"}>
+                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodations"}>
                     {lang === "fi" ? "Selaa majoituksia" : "Browse accommodation"} →
                   </Link>
                 </Button>

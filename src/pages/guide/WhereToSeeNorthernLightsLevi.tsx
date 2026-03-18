@@ -146,7 +146,7 @@ Usein paras paikka on aivan majoituksen lähellä — tuttu, turvallinen ja help
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "Aurora Photography", desc: "Camera settings and tips", href: "/guide/northern-lights-photography-levi" },
-        { title: "Accommodation", desc: "Watch aurora from your terrace", href: "/en/accommodation" }
+        { title: "Accommodation", desc: "Watch aurora from your terrace", href: "/en/accommodations" }
       ]
     }
   },
@@ -391,7 +391,7 @@ const WhereToSeeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
                   {lang === "fi" ? "Monissa majoituksissamme on avoin näkymä pohjoiseen — täydellinen revontulien katseluun." : "Many of our accommodations have an open view to the north — perfect for aurora viewing."}
                 </p>
                 <Button asChild>
-                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodation"}>
+                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodations"}>
                     {lang === "fi" ? "Selaa majoituksia" : "Browse accommodation"} →
                   </Link>
                 </Button>

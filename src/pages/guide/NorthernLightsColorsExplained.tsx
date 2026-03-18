@@ -139,7 +139,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "How Aurora Forms", desc: "Scientific explanation", href: "/guide/how-northern-lights-form" },
-        { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodation" }
+        { title: "Accommodation", desc: "Book accommodation in Levi", href: "/en/accommodations" }
       ]
     }
   },
@@ -207,7 +207,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
       links: [
         { title: "Norrsken i Levi", desc: "Utf\u00f6rlig aurora-guide", href: "/en/northern-lights" },
         { title: "Hur uppst\u00e5r norrsken", desc: "Vetenskaplig f\u00f6rklaring", href: "/sv/guide/hur-uppstar-norrsken" },
-        { title: "Boende", desc: "Boka boende i Levi", href: "/en/accommodation" }
+        { title: "Boende", desc: "Boka boende i Levi", href: "/en/accommodations" }
       ]
     }
   },
@@ -241,7 +241,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
       links: [
         { title: "Nordlichter in Levi", desc: "Umfassender Aurora-Ratgeber", href: "/en/northern-lights" },
         { title: "Wie Nordlichter entstehen", desc: "Wissenschaftliche Erkl\u00e4rung", href: "/de/ratgeber/wie-entstehen-nordlichter" },
-        { title: "Unterkunft", desc: "Unterkunft in Levi buchen", href: "/en/accommodation" }
+        { title: "Unterkunft", desc: "Unterkunft in Levi buchen", href: "/en/accommodations" }
       ]
     }
   },
@@ -275,7 +275,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
       links: [
         { title: "Auroras boreales en Levi", desc: "Gu\u00eda completa de auroras", href: "/en/northern-lights" },
         { title: "C\u00f3mo se forman las auroras", desc: "Explicaci\u00f3n cient\u00edfica", href: "/es/guia/como-se-forman-auroras-boreales" },
-        { title: "Alojamiento", desc: "Reserve alojamiento en Levi", href: "/en/accommodation" }
+        { title: "Alojamiento", desc: "Reserve alojamiento en Levi", href: "/en/accommodations" }
       ]
     }
   },
@@ -307,9 +307,9 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
     readNext: {
       title: "Lire aussi",
       links: [
-        { title: "Aurores bor\u00e9ales \u00e0 Levi", desc: "Guide complet des aurores", href: "/en/northern-lights" },
+        { title: "Aurores boréales à Levi", desc: "Guide complet des aurores", href: "/en/northern-lights" },
         { title: "Comment se forment les aurores", desc: "Explication scientifique", href: "/fr/guide/comment-se-forment-aurores-boreales" },
-        { title: "H\u00e9bergement", desc: "R\u00e9servez un h\u00e9bergement \u00e0 Levi", href: "/en/accommodation" }
+        { title: "Hébergement", desc: "Réservez un hébergement à Levi", href: "/en/accommodations" }
       ]
     }
   }
@@ -376,7 +376,7 @@ const NorthernLightsColorsExplained = ({ lang = "fi" }: Props) => {
                   {lang === "fi" ? "Tule näkemään revontulien väriloisto itse Levillä." : "Come see the aurora colour spectacle yourself in Levi."}
                 </p>
                 <Button asChild>
-                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodation"}>
+                  <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodations"}>
                     {lang === "fi" ? "Selaa majoituksia" : "Browse accommodation"} →
                   </Link>
                 </Button>
