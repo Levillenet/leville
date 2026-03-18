@@ -241,7 +241,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
       links: [
         { title: "Nordlichter in Levi", desc: "Umfassender Aurora-Ratgeber", href: "/en/northern-lights" },
         { title: "Wie Nordlichter entstehen", desc: "Wissenschaftliche Erkl\u00e4rung", href: "/de/ratgeber/wie-entstehen-nordlichter" },
-        { title: "Unterkunft", desc: "Unterkunft in Levi buchen", href: "/en/accommodation" }
+        { title: "Unterkunft", desc: "Unterkunft in Levi buchen", href: "/en/accommodations" }
       ]
     }
   },
