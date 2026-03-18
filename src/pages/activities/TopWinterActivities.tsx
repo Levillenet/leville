@@ -182,7 +182,8 @@ const translations = {
         { title: "Laskettelu Levillä", desc: "43 rinnettä ja 28 hissiä", href: "/opas/laskettelu-levi" },
         { title: "Moottorikelkkasafari", desc: "Vinkit ensikertalaiselle", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
         { title: "Koiravaljakkoajelu", desc: "Unohtumaton huskyelämys", href: "/aktiviteetit/koiravaljakkoajelu-levi" },
-        { title: "Talvivarusteet", desc: "Pukeutuminen aktiviteetteihin", href: "/opas/talvivarusteet-leville" }
+        { title: "Talvivarusteet", desc: "Pukeutuminen aktiviteetteihin", href: "/opas/talvivarusteet-leville" },
+        { title: "Levi vs Ylläs vs Ruka", desc: "Kolmen hiihtokeskuksen vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }
       ]
     },
     relatedTitle: "Lue myös",
