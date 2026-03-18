@@ -146,7 +146,7 @@ Usein paras paikka on aivan majoituksen lähellä — tuttu, turvallinen ja help
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "Aurora Photography", desc: "Camera settings and tips", href: "/guide/northern-lights-photography-levi" },
-        { title: "Accommodation", desc: "Watch aurora from your terrace", href: "/en/accommodation" }
+        { title: "Accommodation", desc: "Watch aurora from your terrace", href: "/en/accommodations" }
       ]
     }
   },
