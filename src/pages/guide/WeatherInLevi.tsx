@@ -31,8 +31,8 @@ interface WeatherInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Säätietoa Leviltä – lumensyvyys ja vuodenajat | Leville.net",
-      description: "Levin sää, lumensyvyys ja lämpötilat eri vuodenaikoina. Suunnittele matkasi FMI:n dataan perustuvilla tiedoilla.",
+      title: "Levin sää nyt — lämpötila, lumensyvyys ja ennuste",
+      description: "Levin säätiedot reaaliajassa: lämpötila, lumensyvyys ja tuuliolosuhteet. Kuukausittaiset keskiarvot matkan suunnitteluun.",
       canonical: "https://leville.net/levi/saatieto-levilta"
     },
     title: "Säätietoa Leviltä",
