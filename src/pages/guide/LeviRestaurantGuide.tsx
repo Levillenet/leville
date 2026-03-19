@@ -119,8 +119,8 @@ const translations: Record<"fi" | "en", {
       links: [
         { title: "Ravintolat ja palvelut", desc: "Kaikki palvelut yhdellä sivulla", href: "/opas/ravintolat-ja-palvelut-levilla" },
         { title: "Lapsiperheet Levillä", desc: "Perheystävälliset ravintolat", href: "/opas/lapsiperheet-levilla" },
-        { title: "Après ski Levillä", desc: "Tunnelmaa rinteen jälkeen", href: "/opas/apres-ski-levilla" },
-        { title: "Levin hinnat", desc: "Mitä maksaa Levillä?", href: "/opas/levin-hinnat" },
+        { title: "Après ski Levillä", desc: "Tunnelmaa rinteen jälkeen", href: "/opas/afterski-ja-yoelama-levilla" },
+        { title: "Levin hinnat", desc: "Mitä maksaa Levillä?", href: "/opas/hinnat-levilla" },
       ],
     },
     restaurants: [
