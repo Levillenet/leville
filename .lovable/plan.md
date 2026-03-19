@@ -1,27 +1,22 @@
 
 
-## Laskettelusivujen meta-optimointi ja pakettitarjous-kortti
+## Golf-sivun kuvapäivitys
 
-### Muutokset
+Lisätään 4 golfikuvaa sivulle `src/pages/activities/GolfLevi.tsx`.
 
-**1. SkiingInLevi.tsx — Meta-päivitykset (FI + EN)**
-- FI title: `"Laskettelu Levillä 2026 — Rinteet, hissiliput ja majoituspaketit | Leville.net"`
-- FI description: `"Levin 43 rinnettä ja 28 hissiä. Kysy tarjous majoitus + hissiliput -paketista suoraan meiltä. Rinnekartta, vaikeustasot ja vinkit laskettelulomalle."`
-- EN title: `"Skiing in Levi 2026 — Slopes, Lift Passes & Accommodation Packages | Leville.net"`
-- EN description: `"Levi's 43 slopes and 28 lifts. Ask us for a combined accommodation + lift pass package. Slope map, difficulty levels and tips for your ski holiday."`
+### Kuvat ja sijoittelu
 
-**2. SkiingInLevi.tsx — Pakettitarjous-kortti**
-- Lisätään uusi callout-kortti hero-osion ja ensimmäisen kuvan väliin (rivin 363 jälkeen)
-- Käytetään `glass-card border-primary` -tyyliä erottuvuuden vuoksi
-- FI/EN-käännökset translations-objektiin
-- Kortti sisältää otsikon (🎿-emojilla), tekstikappaleen ja CTA-napin
-- Nappi linkittää `/yhteystiedot` (FI) tai `/en/contact` (EN)
+1. `DJI_0390-2.JPG` → `src/assets/activities/golf-aerial-fells.jpg` — Hero-kuva intron jälkeen
+2. `IMG_20200829_160212-2.jpg` → `src/assets/activities/golf-player-sun.jpg` — Club-osion jälkeen
+3. `DJI_0384-2.JPG` → `src/assets/activities/golf-aerial-fairways.jpg` — Midnight sun -osion jälkeen
+4. `IMG_20200829_174300-2.jpg` → `src/assets/activities/golf-green-close.jpg` — Course info -osion jälkeen
 
-**3. CrossCountrySkiingInLevi.tsx — Meta-päivitykset (FI + EN)**
-- FI title: `"Hiihtoladut Levillä 2026 — Reitit, latukartta ja majoitus latujen vieressä | Leville.net"`
-- EN title: `"Cross-Country Skiing in Levi 2026 — Trails, Map & Accommodation Near Tracks | Leville.net"`
+### Toteutus
 
-### Muutettavat tiedostot
-1. `src/pages/guide/SkiingInLevi.tsx` — meta + uusi käännösavain `packageDeal` + callout-kortti JSX:ään
-2. `src/pages/guide/CrossCountrySkiingInLevi.tsx` — meta-titlet
+**Tiedosto: `src/pages/activities/GolfLevi.tsx`**
+
+1. Kopioidaan 4 kuvaa `src/assets/activities/`-kansioon
+2. Importoidaan `OptimizedImage` ja 4 kuvatiedostoa
+3. Lisätään `images`-avain käännösobjekteihin (FI/EN) alt-teksteillä ja kuvateksteillä
+4. Lisätään 4 kuvaosio osioiden väliin tyylillä `rounded-xl overflow-hidden`, `aspect-video`, kuvateksti `text-sm text-muted-foreground italic text-center`
 
