@@ -7,6 +7,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
+import OptimizedImage from "@/components/OptimizedImage";
 import { getWebsiteSchema, getArticleSchema, getFAQSchema } from "@/utils/structuredData";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,11 @@ import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
 
+import golfAerialFells from "@/assets/activities/golf-aerial-fells.jpg";
+import golfPlayerSun from "@/assets/activities/golf-player-sun.jpg";
+import golfAerialFairways from "@/assets/activities/golf-aerial-fairways.jpg";
+import golfGreenClose from "@/assets/activities/golf-green-close.jpg";
+
 interface Props { lang?: Language; }
 
 const translations = {
@@ -31,6 +37,12 @@ const translations = {
     },
     h1: "Golf Levillä — pelaa keskiyön auringon alla",
     intro: "Yksi Euroopan pohjoisimpia 18-reikäisiä kenttiä tunturimaisemissa — ja kesällä aurinko ei laske.",
+    images: {
+      hero: { alt: "Ilmakuva Levin golfkentästä ja tuntureista", caption: "Levin golfkenttä tunturimaisemissa" },
+      player: { alt: "Golfari pelaamassa auringonpaisteessa Levillä", caption: "Golfia keskiyön auringossa" },
+      fairways: { alt: "Ilmakuva golfväylistä ja järvestä", caption: "Väylät kietoutuvat Lapin luonnon keskelle" },
+      green: { alt: "Golfgreeni lähikuvassa", caption: "Hyvin hoidetut greenit tunturin juurella" },
+    },
     sections: {
       club: {
         title: "Levi Golf & Country Club",
@@ -96,6 +108,12 @@ const translations = {
     },
     h1: "Golf in Levi — Play Under the Midnight Sun",
     intro: "One of Europe's northernmost 18-hole courses amid fell landscapes — and in summer, the sun never sets.",
+    images: {
+      hero: { alt: "Aerial view of Levi golf course and fells", caption: "Levi golf course amid fell scenery" },
+      player: { alt: "Golfer playing in sunshine in Levi", caption: "Golf under the midnight sun" },
+      fairways: { alt: "Aerial view of fairways and lake", caption: "Fairways winding through Lapland nature" },
+      green: { alt: "Golf green close-up", caption: "Well-maintained greens at the foot of the fells" },
+    },
     sections: {
       club: {
         title: "Levi Golf & Country Club",
@@ -155,6 +173,15 @@ const translations = {
   }
 };
 
+const GolfImage = ({ src, alt, caption }: { src: string; alt: string; caption: string }) => (
+  <figure className="my-8">
+    <div className="rounded-xl overflow-hidden aspect-video">
+      <OptimizedImage src={src} alt={alt} className="w-full h-full" />
+    </div>
+    <figcaption className="text-sm text-muted-foreground italic text-center mt-2">{caption}</figcaption>
+  </figure>
+);
+
 const GolfLevi = ({ lang = "fi" }: Props) => {
   const t = translations[lang as keyof typeof translations] || translations.fi;
   const location = useLocation();
@@ -203,6 +230,9 @@ const GolfLevi = ({ lang = "fi" }: Props) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
             </section>
 
+            {/* Hero image */}
+            <GolfImage src={golfAerialFells} alt={t.images.hero.alt} caption={t.images.hero.caption} />
+
             {/* Club */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
@@ -214,6 +244,9 @@ const GolfLevi = ({ lang = "fi" }: Props) => {
               <p className="text-muted-foreground">{t.sections.club.content}</p>
             </section>
 
+            {/* Player image */}
+            <GolfImage src={golfPlayerSun} alt={t.images.player.alt} caption={t.images.player.caption} />
+
             {/* Midnight sun */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
@@ -224,6 +257,9 @@ const GolfLevi = ({ lang = "fi" }: Props) => {
               </div>
               <p className="text-muted-foreground">{t.sections.midnight.content}</p>
             </section>
+
+            {/* Fairways image */}
+            <GolfImage src={golfAerialFairways} alt={t.images.fairways.alt} caption={t.images.fairways.caption} />
 
             {/* Course info */}
             <section className="mb-12">
@@ -243,6 +279,9 @@ const GolfLevi = ({ lang = "fi" }: Props) => {
               </ul>
               <p className="text-sm text-muted-foreground italic">{t.sections.courseInfo.disclaimer}</p>
             </section>
+
+            {/* Green image */}
+            <GolfImage src={golfGreenClose} alt={t.images.green.alt} caption={t.images.green.caption} />
 
             {/* Discount CTA */}
             <section className="mb-12">
