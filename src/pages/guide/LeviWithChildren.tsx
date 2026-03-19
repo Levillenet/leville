@@ -222,7 +222,7 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Levi with Children – Kids' Slopes, Activities | Leville.net",
+      title: "Levi with Kids — Slopes, Activities & Tips 2026",
       description:
         "Levi for families: kids' slopes, ski school, winter clothing, indoor activities and family-friendly services. Practical tips for family trips.",
       canonical: "https://leville.net/guide/levi-with-children",
