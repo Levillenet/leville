@@ -37,7 +37,7 @@ const translations = {
     meta: {
     title: "Levin ravintolat 2026 — suositukset ja aukioloajat",
     description:
-        "Levin ravintolat, ruokakaupat, vuokraamot ja palvelut. Aukioloajat, perheystävälliset vaihtoehdot ja käytännön vinkit.",
+        "Paras pizza, lappilaiset erikoisuudet ja fine dining. Paikallisen ravintolasuositukset, hintatasot ja kauppojen aukioloajat.",
       canonical: "https://leville.net/opas/ravintolat-ja-palvelut-levilla",
     },
     title: "Ravintolat ja palvelut Levillä",
