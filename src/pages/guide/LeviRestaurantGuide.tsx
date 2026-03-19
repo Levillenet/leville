@@ -219,7 +219,7 @@ const translations: Record<"fi" | "en", {
         images: [
           { src: myllynLeike, alt: "Leike sienikastikkeella – Myllyn Äijä, Levi" },
           { src: myllynPihvi, alt: "Pippuripihvi perunagratiinilla – Myllyn Äijä, Levi" },
-          { src: myllynPihvi2, alt: "Pippuripihvi perunagratiinilla – Myllyn Äijä, Levi" },
+          
         ],
       },
       {
