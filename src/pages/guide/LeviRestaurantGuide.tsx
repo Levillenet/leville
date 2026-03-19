@@ -47,9 +47,9 @@ import coloradoNachot from "@/assets/restaurants/Nachot guacamolella - Colorado 
 import coloradoNyhtoliha from "@/assets/restaurants/Nyhtöliha jalapenolla - Colorado Bar and Grill (Levi).jpg?w=800&format=webp&quality=75";
 
 // Pannukakkutalo
-import pannukakkuMansikka from "@/assets/restaurants/Pannukakku mansikalla ja kermavaahdolla - Pannukakkutalo (Levi).jpg";
-import pannukakkuMustikka from "@/assets/restaurants/Pannukakku mustikalla ja jaatelolla - Pannukakkutalo (Levi).jpg";
-import pannukakkuMarja from "@/assets/restaurants/Pannukakku marjoilla ja kermavaahdolla - Pannukakkutalo (Levi).jpg";
+import pannukakkuMansikka from "@/assets/restaurants/Pannukakku mansikalla ja kermavaahdolla - Pannukakkutalo (Levi).jpg?w=800&format=webp&quality=75";
+import pannukakkuMustikka from "@/assets/restaurants/Pannukakku mustikalla ja jaatelolla - Pannukakkutalo (Levi).jpg?w=800&format=webp&quality=75";
+import pannukakkuMarja from "@/assets/restaurants/Pannukakku marjoilla ja kermavaahdolla - Pannukakkutalo (Levi).jpg?w=800&format=webp&quality=75";
 
 // Myllyn Äijä
 import myllynLeike from "@/assets/restaurants/Leike sienikastikkeella - Myllyn Aija (Levi).jpg";
