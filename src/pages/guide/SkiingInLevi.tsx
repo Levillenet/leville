@@ -34,8 +34,8 @@ interface SkiingInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Levin rinteet – 43 rinnettä ja lasketteluvinkit kaudelle 2025–2026 | Leville.net",
-      description: "Levin laskettelu: 43 rinnettä, 28 hissiä ja Suomen pisin kausi lokakuusta toukokuuhun. Rinteiden vaikeustasot, hissilippujen hinnat ja käytännön vinkit.",
+      title: "Laskettelu Levillä 2026 — Rinteet, hissiliput ja majoituspaketit | Leville.net",
+      description: "Levin 43 rinnettä ja 28 hissiä. Kysy tarjous majoitus + hissiliput -paketista suoraan meiltä. Rinnekartta, vaikeustasot ja vinkit laskettelulomalle.",
       canonical: "https://leville.net/opas/laskettelu-levi"
     },
     title: "Laskettelu Levillä",
