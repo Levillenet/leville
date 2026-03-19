@@ -304,6 +304,12 @@ const translations = {
         { title: "Getting Around Levi", desc: "Ski buses, taxis and car rental", href: "/guide/getting-around-in-levi" }
       ]
     },
+    packageDeal: {
+      heading: "🎿 Accommodatie + skipassen — vraag een pakketdeal",
+      text: "Een skivakantie in Levi plannen? Vraag ons naar een deal die accommodatie en skipassen combineert in één pakket. Neem contact op voor meer info!",
+      button: "Vraag een offerte",
+      link: "/en/contact"
+    },
     breadcrumbLabel: "Skiën in Levi"
   }
 };
