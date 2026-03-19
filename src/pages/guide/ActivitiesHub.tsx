@@ -96,7 +96,16 @@ const content: Record<Language, {
       { id: "aurora", title: "Northern Lights", description: "Aurora can be seen on about 200 nights per year in Levi. Learn the best viewing spots.", href: "/en/northern-lights", iconKey: "sparkles" },
       { id: "snowmobile", title: "Snowmobile Safari", description: "Experience the thrill and freedom of Lapland wilderness on a snowmobile safari.", href: "/activities/snowmobile-safari-tips-levi", iconKey: "sun" },
       { id: "husky", title: "Husky Safari", description: "An unforgettable experience with huskies in Lapland's winter nature.", href: "/activities/husky-safari-levi", iconKey: "dog" },
-      { id: "hiking", title: "Hiking & Biking", description: "Fell hiking, mountain biking and e-biking year-round.", href: "/activities/hiking-and-biking-levi", iconKey: "treepine" }
+      { id: "reindeer", title: "Reindeer Safari", description: "Traditional reindeer sleigh ride through snowy Lapland landscapes. Suitable for all ages.", href: "/activities/reindeer-safari-levi", iconKey: "treepine" },
+      { id: "ice-swimming", title: "Ice Swimming", description: "Try Finnish ice swimming — an unforgettable experience after a hot sauna.", href: "/activities/ice-swimming-in-levi", iconKey: "snowflake" },
+      { id: "snowshoeing", title: "Snowshoeing", description: "An easy way to explore Lapland's winter nature. No experience needed.", href: "/activities/snowshoeing-in-levi", iconKey: "mountain" },
+      { id: "fatbike", title: "Fatbiking", description: "Ride fat-tire bikes on snowy trails — the new winter cycling trend.", href: "/activities/fatbiking-in-levi", iconKey: "bike" },
+      { id: "fishing", title: "Ice Fishing & Fishing", description: "Ice fishing in winter and lake fishing in summer on Levi's lakes and rivers.", href: "/activities/ice-fishing-and-fishing-levi", iconKey: "sun" },
+      { id: "hiking", title: "Hiking & Biking", description: "Fell hiking, mountain biking and e-biking year-round.", href: "/activities/hiking-and-biking-levi", iconKey: "treepine" },
+      { id: "golf", title: "Golf", description: "Play golf under the midnight sun. Levi's course is one of the northernmost in the world.", href: "/activities/golf-in-levi", iconKey: "sun" },
+      { id: "canoeing", title: "Canoeing & SUP", description: "Canoeing and stand-up paddleboarding on the peaceful Ounasjoki river.", href: "/activities/canoeing-and-sup-levi", iconKey: "sun" },
+      { id: "horse-riding", title: "Horse Riding", description: "Horseback riding through Lapland fell landscapes in summer and winter.", href: "/activities/horse-riding-in-levi", iconKey: "treepine" },
+      { id: "kids", title: "Levi for Kids", description: "Leevilandia park, magic carpet lifts, ski school and family experiences.", href: "/activities/levi-for-kids", iconKey: "baby" }
     ],
     popularGuides: [
       { id: "snowmobile-tips", title: "Snowmobile Safari Tips", description: "Practical tips for first-timers: what to wear, how to drive and where to book.", href: "/activities/snowmobile-safari-tips-levi" },
