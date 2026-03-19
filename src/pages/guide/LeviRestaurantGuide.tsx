@@ -52,8 +52,8 @@ import pannukakkuMustikka from "@/assets/restaurants/Pannukakku mustikalla ja ja
 import pannukakkuMarja from "@/assets/restaurants/Pannukakku marjoilla ja kermavaahdolla - Pannukakkutalo (Levi).jpg?w=800&format=webp&quality=75";
 
 // Myllyn Äijä
-import myllynLeike from "@/assets/restaurants/Leike sienikastikkeella - Myllyn Aija (Levi).jpg";
-import myllynPihvi from "@/assets/restaurants/Pippuripihvi perunagratiinilla - Myllyn Aija (Levi).jpg";
+import myllynLeike from "@/assets/restaurants/Leike sienikastikkeella - Myllyn Aija (Levi).jpg?w=800&format=webp&quality=75";
+import myllynPihvi from "@/assets/restaurants/Pippuripihvi perunagratiinilla - Myllyn Aija (Levi).jpg?w=800&format=webp&quality=75";
 
 
 // Ravintola Renna
