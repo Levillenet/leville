@@ -275,6 +275,13 @@ export const es = {
     bookCta: "Buscar disponibilidad y reservar",
     items: [
       {
+        badge: "🌤️ Primavera 2026",
+        date: "19 mar 2026",
+        title: "La primavera avanza en Levi – un invierno excepcional atrás, las mejores condiciones por delante",
+        description: "La primavera llega a Levi un poco antes de lo previsto este año. Las temperaturas diurnas han subido muy por encima de cero, pero las condiciones de nieve siguen siendo excelentes: hay aproximadamente 70 centímetros de nieve en las colinas.\n\nAunque las últimas semanas han sido excepcionalmente cálidas, el pronóstico vuelve a ser más invernal. Las temperaturas están bajando de nuevo bajo cero y las heladas nocturnas se intensifican, lo que significa que las mejores condiciones de primavera apenas están comenzando.\n\nEste invierno en Levi ha sido excepcional en muchos sentidos. Al principio de la temporada, la nieve tardó en llegar, pero cuando finalmente llegó, lo hizo en abundancia. Alrededor de Navidad y en enero hubo una ola de frío extremo con temperaturas de hasta -40°C. Después, el tiempo cambió rápidamente en dirección opuesta, y ahora vivimos un periodo inusualmente cálido.\n\nLa primavera en Levi es considerada por muchos como la mejor época del año. Cuando el sol comienza a calentar y los días se alargan, lo mejor del invierno y la luminosidad de la primavera se combinan de manera única. Con el regreso de las heladas, las pistas y senderos se mantienen en excelentes condiciones.\n\nHacia finales de marzo, el número de viajeros internacionales comienza a disminuir, y en abril Levi se llena principalmente de visitantes nacionales. El ambiente se vuelve algo más tranquilo, pero sigue habiendo mucho que hacer.\n\nMientras la primavera avanza, la mirada ya está puesta firmemente en la próxima temporada. Las reservas para el próximo invierno van a buen ritmo, y las fechas de Navidad y enero en particular se llenan rápidamente.\n\nAunque el invierno y la primavera son las temporadas más famosas de Levi, el verano también ofrece una experiencia completamente única. El sol de medianoche es un fenómeno que no se puede comprender realmente hasta experimentarlo: el sol no se pone en absoluto y la luz continúa las 24 horas.",
+        highlight: "Bienvenido a Levi, independientemente de la estación. Si planeas un viaje para la próxima temporada, ahora es un momento excelente para verificar la disponibilidad y reservar con antelación."
+      },
+      {
         badge: "☀️ Fin de invierno",
         date: "7 feb 2026",
         title: "El invierno en su mejor momento en Levi – el sol de primavera a la vuelta de la esquina",

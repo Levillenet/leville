@@ -275,6 +275,13 @@ export const de = {
     bookCta: "Verfügbarkeit durchsuchen und buchen",
     items: [
       {
+        badge: "🌤️ Frühling 2026",
+        date: "19. Mär 2026",
+        title: "Der Frühling schreitet in Levi voran – ein außergewöhnlicher Winter liegt hinter uns, die besten Bedingungen liegen vor uns",
+        description: "Der Frühling kommt in diesem Jahr etwas früher nach Levi. Die Tagestemperaturen sind deutlich über null gestiegen, aber die Schneeverhältnisse sind weiterhin ausgezeichnet – auf dem Fjell liegen etwa 70 Zentimeter Schnee.\n\nObwohl die letzten Wochen außergewöhnlich warm waren, zeigt die Vorhersage wieder winterlicheres Wetter. Die Temperaturen sinken zurück unter null und der Nachtfrost verschärft sich, was bedeutet, dass die besten Frühlingsbedingungen gerade erst beginnen.\n\nDieser Winter in Levi war in vielerlei Hinsicht außergewöhnlich. Zu Beginn der Saison ließ der Schnee lange auf sich warten, aber als er schließlich kam, kam er reichlich. Um Weihnachten und im Januar gab es eine extreme Kälteperiode mit Temperaturen bis -40°C. Danach schlug das Wetter schnell in die andere Richtung um – und nun erleben wir eine ungewöhnlich warme Phase.\n\nDer Frühling in Levi gilt für viele als die beste Zeit des Jahres. Wenn die Sonne zu wärmen beginnt und die Tage länger werden, verbinden sich die besten Seiten des Winters mit der Helligkeit des Frühlings auf einzigartige Weise. Wenn der Frost zurückkehrt, bleiben Pisten und Loipen in ausgezeichnetem Zustand.\n\nGegen Ende März nimmt die Zahl internationaler Reisender ab, und im April füllt sich Levi hauptsächlich mit einheimischen Besuchern. Die Atmosphäre wird etwas ruhiger, aber es gibt weiterhin viel zu erleben.\n\nWährend der Frühling voranschreitet, richtet sich der Blick bereits fest auf die nächste Saison. Die Buchungen für den nächsten Winter laufen rege, und besonders Weihnachts- und Januartermine füllen sich schnell.\n\nObwohl Winter und Frühling Levis bekannteste Jahreszeiten sind, bietet auch der Sommer ein völlig einzigartiges Erlebnis. Die Mitternachtssonne ist ein Phänomen, das man erst verstehen kann, wenn man es selbst erlebt – die Sonne geht überhaupt nicht unter, und das Licht hält rund um die Uhr an.",
+        highlight: "Willkommen in Levi – unabhängig von der Jahreszeit. Wenn Sie eine Reise für die nächste Saison planen, ist jetzt ein hervorragender Zeitpunkt, die Verfügbarkeit zu prüfen und rechtzeitig zu buchen."
+      },
+      {
         badge: "☀️ Spätwinter",
         date: "7. Feb 2026",
         title: "Winter in Bestform in Levi – Frühlingssonne steht vor der Tür",

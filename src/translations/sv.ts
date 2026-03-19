@@ -275,6 +275,13 @@ export const sv = {
     bookCta: "Bläddra tillgänglighet och boka",
     items: [
       {
+        badge: "🌤️ Vår 2026",
+        date: "19 mar 2026",
+        title: "Våren fortskrider i Levi – en exceptionell vinter bakom oss, de bästa förhållandena framför oss",
+        description: "Våren anländer till Levi lite i förtid i år. Dagtemperaturerna har stigit rejält över noll, men snöförhållandena är fortfarande utmärkta – det finns cirka 70 centimeter snö på fjället.\n\nÄven om de senaste veckorna har varit exceptionellt varma, pekar prognosen åter mot vintrigare väder. Temperaturerna sjunker tillbaka under noll och nattfrosten skärps, vilket innebär att vårens bästa förhållanden bara har börjat.\n\nDenna vinter i Levi har varit exceptionell på många sätt. I början av säsongen lät snön vänta på sig länge, men när den väl kom, kom den ordentligt. Runt jul och i januari upplevdes en extrem köldperiod med temperaturer ner till -40°C. Därefter svängde vädret snabbt åt andra hållet – och nu upplever vi en ovanligt varm period.\n\nVåren i Levi anses av många vara årets bästa tid. När solen börjar värma och dagarna blir längre förenas vinterns bästa sidor med vårens ljus på ett unikt sätt. När frosten återvänder förblir pisterna och spåren i utmärkt skick.\n\nMot slutet av mars börjar antalet internationella resenärer minska, och i april fylls Levi huvudsakligen av inhemska besökare. Stämningen blir något lugnare, men det finns fortfarande gott om aktiviteter.\n\nSamtidigt som våren fortskrider riktas blickarna redan mot nästa säsong. Bokningar för nästa vinter går livligt, och särskilt jul- och januaridatum fylls snabbt.\n\nÄven om vinter och vår är Levis mest kända säsonger erbjuder även sommaren en helt unik upplevelse. Midnattssolen är ett fenomen man inte kan förstå förrän man upplever det själv – solen går inte ner alls, och ljuset fortsätter dygnet runt.",
+        highlight: "Välkommen till Levi – oavsett säsong. Om du planerar en resa nästa säsong är det nu ett utmärkt tillfälle att kontrollera tillgängligheten och boka i tid."
+      },
+      {
         badge: "☀️ Senvinter",
         date: "7 feb 2026",
         title: "Vintern på sitt bästa i Levi – vårsolen runt hörnet",
