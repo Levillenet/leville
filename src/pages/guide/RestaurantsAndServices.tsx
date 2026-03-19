@@ -325,6 +325,7 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
                 {lang === "en" ? "See restaurant reviews and dish photos →" : "Katso ravintolaesittelyt ja annoskuvat →"}
               </Link>
             </div>
+          </section>
 
           {/* Grocery fish counter image */}
           <section className="mb-12 rounded-xl overflow-hidden">
