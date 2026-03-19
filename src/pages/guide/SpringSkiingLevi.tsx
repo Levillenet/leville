@@ -54,7 +54,7 @@ const SpringSkiingLevi = ({ lang = "fi" }: SpringSkiingLeviProps) => {
     en: "/guide/spring-skiing-in-levi",
     nl: "/nl/gids/lente-skieen-levi",
     sv: "/sv/guide/varskidakning-levi",
-    de: "/de/ratgeber/fruehlingsskifahren-levi",
+    de: "/de/ratgeber/fruehlings-skifahren-levi",
     es: "/es/guia/esqui-primavera-levi",
     fr: "/fr/guide/ski-printemps-levi"
   };

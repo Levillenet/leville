@@ -291,7 +291,7 @@ export const springSkiingTranslations = {
     meta: {
       title: "Frühlingsskifahren in Levi — Sonne, Schnee & lange Tage | Leville.net",
       description: "Frühlingsskifahren ist Levi von seiner besten Seite: sonnige Tage, weiche Pisten und eine entspannte Atmosphäre. Ratgeber für einen Frühlingsurlaub in Levi.",
-      canonical: "https://leville.net/de/ratgeber/fruehlingsskifahren-levi"
+      canonical: "https://leville.net/de/ratgeber/fruehlings-skifahren-levi"
     },
     h1: "Frühlingsskifahren in Levi — Sonne, Schnee und lange Tage",
     intro: "Viele Einheimische sagen, dass der Frühling die beste Jahreszeit in Levi ist. Die Sonne scheint stundenlang, der Schnee ist am tiefsten und die Atmosphäre ist entspannt. Dieser Ratgeber behandelt alles zum Frühlingsskifahren in Levi.",
