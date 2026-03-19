@@ -3710,4 +3710,25 @@
     <priority>0.6</priority>
   </url>
 
+
+  <url>
+    <loc>https://leville.net/opas/levin-ravintolat-ja-annokset</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levin-ravintolat-ja-annokset" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-restaurants-and-dishes" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-restaurants-and-dishes" />
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/guide/levi-restaurants-and-dishes</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/levin-ravintolat-ja-annokset" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-restaurants-and-dishes" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-restaurants-and-dishes" />
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
