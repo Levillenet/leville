@@ -39,8 +39,8 @@ interface TopWinterActivitiesProps {
 const translations = {
   fi: {
     meta: {
-      title: "Parhaat talviaktiviteetit Levillä | Mitä tehdä | Leville.net",
-      description: "Löydä parhaat talviaktiviteetit Levillä: laskettelu, huskysafarit, poroajelut, pilkkiminen ja paljon muuta. Suunnittele täydellinen Lapin seikkailu.",
+      title: "Mitä tehdä Levillä? 15 parasta aktiviteettia 2026",
+      description: "Huskysafarit, poroajelut, moottorikelkkailu, avantouinti ja revontuliretket. Hinnat, varaus ja paikallisen vinkit.",
       canonical: "https://leville.net/aktiviteetit/parhaat-talviaktiviteetit-levi"
     },
     title: "Parhaat talviaktiviteetit Levillä",
