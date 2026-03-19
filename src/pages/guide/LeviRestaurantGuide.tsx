@@ -398,7 +398,7 @@ const translations: Record<"fi" | "en", {
         images: [
           { src: myllynLeike, alt: "Schnitzel with mushroom sauce – Myllyn Äijä, Levi" },
           { src: myllynPihvi, alt: "Pepper steak with potato gratin – Myllyn Äijä, Levi" },
-          { src: myllynPihvi2, alt: "Pepper steak with potato gratin – Myllyn Äijä, Levi" },
+          
         ],
       },
       {
