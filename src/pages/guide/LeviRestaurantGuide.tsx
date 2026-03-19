@@ -26,7 +26,7 @@ import asiaStickyPork from "@/assets/restaurants/Sticky pork aasialainen - Levi 
 import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg?w=800&format=webp&quality=75";
 
 // Ravintola Ämmilä
-import ammilaHampurilainen from "@/assets/restaurants/Hampurilainen ja ranskalaiset - Ravintola Ammila (Levi).jpg";
+import ammilaHampurilainen from "@/assets/restaurants/Hampurilainen ja ranskalaiset - Ravintola Ammila (Levi).jpg?w=800&format=webp&quality=75";
 import ammilaSiika from "@/assets/restaurants/Paistettu siika ja kasviksia - Ravintola Ammila (Levi).jpg";
 import ammilaKaristys from "@/assets/restaurants/Poronkaristys perunamuusilla - Ravintola Ammila (Levi).jpg";
 
