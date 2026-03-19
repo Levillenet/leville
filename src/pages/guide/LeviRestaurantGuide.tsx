@@ -33,11 +33,11 @@ import ammilaKaristys from "@/assets/restaurants/Poronkaristys perunamuusilla - 
 import ammilaMakkara from "@/assets/restaurants/Makkaralautanen perunoilla - Ravintola Ammila (Levi).jpg?w=800&format=webp&quality=75";
 
 // Ravintola Niliporo
-import niliporoMakkara from "@/assets/restaurants/Poronmakkara perunamuusilla - ravintola niliporo.jpg";
-import niliporoLihapullat from "@/assets/restaurants/Lihapullat perunamuusilla - Niliporo.jpg";
-import niliporoLihaLautanen from "@/assets/restaurants/Liha- ja makkaralautanen- ravintola niliporo.jpg";
-import niliporoMaksa from "@/assets/restaurants/Poronmaksaa perunamuusilla - Levi Niliporo.jpg";
-import niliporoHampurilainen from "@/assets/restaurants/poroHampurilainen ja ranskalaiset -Ravintola NIliporo.jpg";
+import niliporoMakkara from "@/assets/restaurants/Poronmakkara perunamuusilla - ravintola niliporo.jpg?w=800&format=webp&quality=75";
+import niliporoLihapullat from "@/assets/restaurants/Lihapullat perunamuusilla - Niliporo.jpg?w=800&format=webp&quality=75";
+import niliporoLihaLautanen from "@/assets/restaurants/Liha- ja makkaralautanen- ravintola niliporo.jpg?w=800&format=webp&quality=75";
+import niliporoMaksa from "@/assets/restaurants/Poronmaksaa perunamuusilla - Levi Niliporo.jpg?w=800&format=webp&quality=75";
+import niliporoHampurilainen from "@/assets/restaurants/poroHampurilainen ja ranskalaiset -Ravintola NIliporo.jpg?w=800&format=webp&quality=75";
 
 // Colorado
 import coloradoRibs from "@/assets/restaurants/BBQ-ribsit laudalla - ravintola colorado.jpg";
