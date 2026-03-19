@@ -76,11 +76,20 @@ Deno.serve(async (req) => {
     }
 
     const now = new Date();
+    // Helsinki timezone for "today" calculation
+    const helsinkiNow = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Helsinki" }));
     let sinceDate: Date;
     switch (period) {
-      case "today":
-        sinceDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      case "today": {
+        // Start of day in Helsinki timezone
+        const hYear = helsinkiNow.getFullYear();
+        const hMonth = helsinkiNow.getMonth();
+        const hDay = helsinkiNow.getDate();
+        // Create Helsinki midnight, then convert to UTC
+        const helsinkiMidnight = new Date(`${hYear}-${String(hMonth + 1).padStart(2, "0")}-${String(hDay).padStart(2, "0")}T00:00:00+${getHelsinkiOffset(now)}`);
+        sinceDate = helsinkiMidnight;
         break;
+      }
       case "week":
         sinceDate = new Date(now);
         sinceDate.setDate(sinceDate.getDate() - 7);
