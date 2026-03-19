@@ -25,7 +25,7 @@ interface LeviWithChildrenProps {
 const translations = {
   fi: {
     meta: {
-      title: "Lapsiperheet Levillä – Lasten rinteet, aktiviteetit | Leville.net",
+      title: "Levi lasten kanssa — rinteet, aktiviteetit ja vinkit",
       description:
         "Levi lapsiperheille: lasten rinteet, hiihtokoulu, talvivaatetus, sisäaktiviteetit ja perheystävälliset palvelut. Käytännön vinkit perhematkalle.",
       canonical: "https://leville.net/opas/lapsiperheet-levilla",
