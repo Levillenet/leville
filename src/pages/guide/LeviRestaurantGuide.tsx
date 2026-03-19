@@ -298,7 +298,7 @@ const translations: Record<"fi" | "en", {
       links: [
         { title: "Restaurants and Services", desc: "All services on one page", href: "/guide/restaurants-and-services-in-levi" },
         { title: "Levi With Children", desc: "Family-friendly restaurants", href: "/guide/levi-with-children" },
-        { title: "Après Ski in Levi", desc: "Atmosphere after the slopes", href: "/guide/apres-ski-in-levi" },
+        { title: "Après Ski in Levi", desc: "Atmosphere after the slopes", href: "/guide/apres-ski-and-nightlife-in-levi" },
         { title: "Prices in Levi", desc: "What does it cost in Levi?", href: "/guide/prices-in-levi" },
       ],
     },
