@@ -240,7 +240,9 @@ const iconMap: Record<string, typeof Mountain> = {
   sun: Sun,
   sparkles: Sparkles,
   dog: Dog,
-  treepine: TreePine
+  treepine: TreePine,
+  bike: Bike,
+  baby: Baby
 };
 
 const localeMap: Record<Language, string> = {
