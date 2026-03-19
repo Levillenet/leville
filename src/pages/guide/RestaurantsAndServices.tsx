@@ -138,7 +138,7 @@ const translations = {
     meta: {
     title: "Levi Restaurants 2026 — Local Picks & Opening Hours",
     description:
-        "Levi restaurants, grocery stores, rentals and services. Practical tips, opening hours and family friendly options.",
+        "Best pizza, Lappish specialties and fine dining in Levi. Local restaurant tips, price levels and grocery store hours.",
       canonical: "https://leville.net/guide/restaurants-and-services-in-levi",
     },
     title: "Restaurants and Services in Levi",
