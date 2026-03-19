@@ -30,6 +30,7 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
+        assetFileNames: 'assets/[hash][extname]',
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'ui-vendor': ['framer-motion', 'recharts', '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs', '@radix-ui/react-accordion'],
