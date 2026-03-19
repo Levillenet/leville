@@ -34,8 +34,8 @@ interface SkiingInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Levin rinteet – 43 rinnettä ja lasketteluvinkit kaudelle 2025–2026 | Leville.net",
-      description: "Levin laskettelu: 43 rinnettä, 28 hissiä ja Suomen pisin kausi lokakuusta toukokuuhun. Rinteiden vaikeustasot, hissilippujen hinnat ja käytännön vinkit.",
+      title: "Laskettelu Levillä 2026 — Rinteet, hissiliput ja majoituspaketit | Leville.net",
+      description: "Levin 43 rinnettä ja 28 hissiä. Kysy tarjous majoitus + hissiliput -paketista suoraan meiltä. Rinnekartta, vaikeustasot ja vinkit laskettelulomalle.",
       canonical: "https://leville.net/opas/laskettelu-levi"
     },
     title: "Laskettelu Levillä",
@@ -118,12 +118,18 @@ const translations = {
         { title: "Levi vs Ylläs vs Ruka", desc: "Kolmen hiihtokeskuksen vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }
       ]
     },
+    packageDeal: {
+      heading: "🎿 Majoitus + hissiliput — kysy pakettitarjous",
+      text: "Suunnitteletko laskettelulomaa Leville? Kysy meiltä tarjous, jossa majoitus ja hissiliput on paketoitu yhteen. Ota yhteyttä niin kerromme lisää!",
+      button: "Kysy tarjous",
+      link: "/yhteystiedot"
+    },
     breadcrumbLabel: "Laskettelu Levillä"
   },
   en: {
     meta: {
-      title: "Levi Ski Resort – 43 Slopes, Trail Map & Tips for 2025–2026 | Leville.net",
-      description: "Complete guide to skiing in Levi, Finland. 43 slopes, 28 lifts, slope difficulty levels, lift pass prices and practical tips. Finland's longest ski season.",
+      title: "Skiing in Levi 2026 — Slopes, Lift Passes & Accommodation Packages | Leville.net",
+      description: "Levi's 43 slopes and 28 lifts. Ask us for a combined accommodation + lift pass package. Slope map, difficulty levels and tips for your ski holiday.",
       canonical: "https://leville.net/guide/skiing-in-levi"
     },
     title: "Skiing in Levi",
@@ -205,6 +211,12 @@ const translations = {
         { title: "Top Winter Activities", desc: "Complete guide to Levi winter", href: "/activities/top-winter-activities-in-levi-lapland" },
         { title: "Levi vs Ylläs vs Ruka", desc: "Three ski resorts compared", href: "/guide/levi-vs-yllas-vs-ruka-comparison" }
       ]
+    },
+    packageDeal: {
+      heading: "🎿 Accommodation + lift passes — ask for a package deal",
+      text: "Planning a ski holiday in Levi? Ask us for a deal that combines accommodation and lift passes in one package. Contact us to learn more!",
+      button: "Ask for a quote",
+      link: "/en/contact"
     },
     breadcrumbLabel: "Skiing in Levi"
   },
@@ -292,6 +304,12 @@ const translations = {
         { title: "Getting Around Levi", desc: "Ski buses, taxis and car rental", href: "/guide/getting-around-in-levi" }
       ]
     },
+    packageDeal: {
+      heading: "🎿 Accommodatie + skipassen — vraag een pakketdeal",
+      text: "Een skivakantie in Levi plannen? Vraag ons naar een deal die accommodatie en skipassen combineert in één pakket. Neem contact op voor meer info!",
+      button: "Vraag een offerte",
+      link: "/en/contact"
+    },
     breadcrumbLabel: "Skiën in Levi"
   }
 };
@@ -360,6 +378,25 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
               </h1>
               <p className="text-lg text-primary font-medium mb-4">{t.subtitle}</p>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+            </section>
+
+            {/* Package Deal Callout */}
+            <section className="mb-12">
+              <Card className="glass-card border-primary/50 bg-primary/5">
+                <CardContent className="p-6 sm:p-8 text-center">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+                    {t.packageDeal.heading}
+                  </h2>
+                  <p className="text-muted-foreground max-w-xl mx-auto mb-5">
+                    {t.packageDeal.text}
+                  </p>
+                  <Button asChild>
+                    <Link to={t.packageDeal.link}>
+                      {t.packageDeal.button} <ArrowRight className="ml-2 w-4 h-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
             </section>
 
             {/* Sunset slopes image */}
