@@ -702,6 +702,14 @@ const HikingAndBikingLevi = ({ lang = "fi" }: HikingAndBikingLeviProps) => {
               </Card>
             </section>
 
+            {/* Fatbike spring trail image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={fatbikeSpringTrail} alt={lang === "fi" ? "Fatbike lumisella polulla kevätauringossa Levillä" : "Fatbike on a snowy trail in spring sunshine in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Fatbike-pyöräilyä aurinkoisella kevättalven reitillä Levillä" : "Fatbiking on a sunny late-winter trail in Levi"}
+              </p>
+            </section>
+
             {/* Best Time Section */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
