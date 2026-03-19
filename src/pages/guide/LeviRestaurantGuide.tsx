@@ -16,60 +16,57 @@ import ReadNextSection from "@/components/guide/ReadNextSection";
 import { Language } from "@/translations";
 
 // Restaurant Asia
-import asiaWokki from "@/assets/restaurants/Aasialainen wokki bataattiranskalaisilla - Ravintola Asia.jpg?w=800&format=webp&quality=75";
-import asiaPaistettuLiha from "@/assets/restaurants/Aasialainen paistettu liha - ravintola asia.jpg?w=800&format=webp&quality=75";
-import asiaLohiWasabi from "@/assets/restaurants/Paistettu lohi wasabilla - Restaurant ASia.jpg?w=800&format=webp&quality=75";
-import asiaGrillLohi from "@/assets/restaurants/Grillattu lohi chililla - restaurant asia.jpg?w=800&format=webp&quality=75";
-import asiaTempura from "@/assets/restaurants/Tempurakatkaravut ja bataattiranskalaiset 2 - ravintola asia.jpg?w=800&format=webp&quality=75";
-
-import asiaStickyPork from "@/assets/restaurants/Sticky pork aasialainen - Levi Ravintola ASia.jpg?w=800&format=webp&quality=75";
-import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg?w=800&format=webp&quality=75";
+import asiaWokki from "@/assets/restaurants/Aasialainen wokki bataattiranskalaisilla - Ravintola Asia.jpg";
+import asiaPaistettuLiha from "@/assets/restaurants/Aasialainen paistettu liha - ravintola asia.jpg";
+import asiaLohiWasabi from "@/assets/restaurants/Paistettu lohi wasabilla - Restaurant ASia.jpg";
+import asiaGrillLohi from "@/assets/restaurants/Grillattu lohi chililla - restaurant asia.jpg";
+import asiaTempura from "@/assets/restaurants/Tempurakatkaravut ja bataattiranskalaiset 2 - ravintola asia.jpg";
+import asiaStickyPork from "@/assets/restaurants/Sticky pork aasialainen - Levi Ravintola ASia.jpg";
+import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg";
 
 // Ravintola Ämmilä
-import ammilaHampurilainen from "@/assets/restaurants/Hampurilainen ja ranskalaiset - Ravintola Ammila (Levi).jpg?w=800&format=webp&quality=75";
-import ammilaSiika from "@/assets/restaurants/Paistettu siika ja kasviksia - Ravintola Ammila (Levi).jpg?w=800&format=webp&quality=75";
-import ammilaKaristys from "@/assets/restaurants/Poronkaristys perunamuusilla - Ravintola Ammila (Levi).jpg?w=800&format=webp&quality=75";
-
-import ammilaMakkara from "@/assets/restaurants/Makkaralautanen perunoilla - Ravintola Ammila (Levi).jpg?w=800&format=webp&quality=75";
+import ammilaHampurilainen from "@/assets/restaurants/Hampurilainen ja ranskalaiset - Ravintola Ammila (Levi).jpg";
+import ammilaSiika from "@/assets/restaurants/Paistettu siika ja kasviksia - Ravintola Ammila (Levi).jpg";
+import ammilaKaristys from "@/assets/restaurants/Poronkaristys perunamuusilla - Ravintola Ammila (Levi).jpg";
+import ammilaMakkara from "@/assets/restaurants/Makkaralautanen perunoilla - Ravintola Ammila (Levi).jpg";
 
 // Ravintola Niliporo
-import niliporoMakkara from "@/assets/restaurants/Poronmakkara perunamuusilla - ravintola niliporo.jpg?w=800&format=webp&quality=75";
-import niliporoLihapullat from "@/assets/restaurants/Lihapullat perunamuusilla - Niliporo.jpg?w=800&format=webp&quality=75";
-import niliporoLihaLautanen from "@/assets/restaurants/Liha- ja makkaralautanen- ravintola niliporo.jpg?w=800&format=webp&quality=75";
-import niliporoMaksa from "@/assets/restaurants/Poronmaksaa perunamuusilla - Levi Niliporo.jpg?w=800&format=webp&quality=75";
-import niliporoHampurilainen from "@/assets/restaurants/poroHampurilainen ja ranskalaiset -Ravintola NIliporo.jpg?w=800&format=webp&quality=75";
+import niliporoMakkara from "@/assets/restaurants/Poronmakkara perunamuusilla - ravintola niliporo.jpg";
+import niliporoLihapullat from "@/assets/restaurants/Lihapullat perunamuusilla - Niliporo.jpg";
+import niliporoLihaLautanen from "@/assets/restaurants/Liha- ja makkaralautanen- ravintola niliporo.jpg";
+import niliporoMaksa from "@/assets/restaurants/Poronmaksaa perunamuusilla - Levi Niliporo.jpg";
+import niliporoHampurilainen from "@/assets/restaurants/poroHampurilainen ja ranskalaiset -Ravintola NIliporo.jpg";
 
 // Colorado
-import coloradoRibs from "@/assets/restaurants/BBQ-ribsit laudalla - ravintola colorado.jpg?w=800&format=webp&quality=75";
-import coloradoFajitas from "@/assets/restaurants/Kana fajitas - Colorado Bar and Grill (Levi).jpg?w=800&format=webp&quality=75";
-import coloradoFajitas2 from "@/assets/restaurants/Kanafajitas lisukkeineen -  ravintola colorado.jpg?w=800&format=webp&quality=75";
-import coloradoNachot from "@/assets/restaurants/Nachot guacamolella - Colorado Bar and Grill (Levi).jpg?w=800&format=webp&quality=75";
-import coloradoNyhtoliha from "@/assets/restaurants/Nyhtöliha jalapenolla - Colorado Bar and Grill (Levi).jpg?w=800&format=webp&quality=75";
+import coloradoRibs from "@/assets/restaurants/BBQ-ribsit laudalla - ravintola colorado.jpg";
+import coloradoFajitas from "@/assets/restaurants/Kana fajitas - Colorado Bar and Grill (Levi).jpg";
+import coloradoFajitas2 from "@/assets/restaurants/Kanafajitas lisukkeineen -  ravintola colorado.jpg";
+import coloradoNachot from "@/assets/restaurants/Nachot guacamolella - Colorado Bar and Grill (Levi).jpg";
+import coloradoNyhtoliha from "@/assets/restaurants/Nyhtöliha jalapenolla - Colorado Bar and Grill (Levi).jpg";
 
 // Pannukakkutalo
-import pannukakkuMansikka from "@/assets/restaurants/Pannukakku mansikalla ja kermavaahdolla - Pannukakkutalo (Levi).jpg?w=800&format=webp&quality=75";
-import pannukakkuMustikka from "@/assets/restaurants/Pannukakku mustikalla ja jaatelolla - Pannukakkutalo (Levi).jpg?w=800&format=webp&quality=75";
-import pannukakkuMarja from "@/assets/restaurants/Pannukakku marjoilla ja kermavaahdolla - Pannukakkutalo (Levi).jpg?w=800&format=webp&quality=75";
+import pannukakkuMansikka from "@/assets/restaurants/Pannukakku mansikalla ja kermavaahdolla - Pannukakkutalo (Levi).jpg";
+import pannukakkuMustikka from "@/assets/restaurants/Pannukakku mustikalla ja jaatelolla - Pannukakkutalo (Levi).jpg";
+import pannukakkuMarja from "@/assets/restaurants/Pannukakku marjoilla ja kermavaahdolla - Pannukakkutalo (Levi).jpg";
 
 // Myllyn Äijä
-import myllynLeike from "@/assets/restaurants/Leike sienikastikkeella - Myllyn Aija (Levi).jpg?w=800&format=webp&quality=75";
-import myllynPihvi from "@/assets/restaurants/Pippuripihvi perunagratiinilla - Myllyn Aija (Levi).jpg?w=800&format=webp&quality=75";
-
+import myllynLeike from "@/assets/restaurants/Leike sienikastikkeella - Myllyn Aija (Levi).jpg";
+import myllynPihvi from "@/assets/restaurants/Pippuripihvi perunagratiinilla - Myllyn Aija (Levi).jpg";
 
 // Ravintola Renna
-import rennaPizza from "@/assets/restaurants/Pizza prosciutto e rucola - restaurant Renna.jpg?w=800&format=webp&quality=75";
-import rennaPizza2 from "@/assets/restaurants/Pizza prosciutto rucola - ravintola renna.jpg?w=800&format=webp&quality=75";
-import rennaPizza3 from "@/assets/restaurants/Pizza prosciutto rucola take-away - ristorante renna.jpg?w=800&format=webp&quality=75";
+import rennaPizza from "@/assets/restaurants/Pizza prosciutto e rucola - restaurant Renna.jpg";
+import rennaPizza2 from "@/assets/restaurants/Pizza prosciutto rucola - ravintola renna.jpg";
+import rennaPizza3 from "@/assets/restaurants/Pizza prosciutto rucola take-away - ristorante renna.jpg";
 
 // Salteriet
-import salterietLeike from "@/assets/restaurants/Leike ranskalaisilla ja remouladella - Levi Salteriet.jpg?w=800&format=webp&quality=75";
-import salterietLeike2 from "@/assets/restaurants/Leike ranskalaisilla ja tzatzikilla - Salteriet Levi .jpg?w=800&format=webp&quality=75";
+import salterietLeike from "@/assets/restaurants/Leike ranskalaisilla ja remouladella - Levi Salteriet.jpg";
+import salterietLeike2 from "@/assets/restaurants/Leike ranskalaisilla ja tzatzikilla - Salteriet Levi .jpg";
 
 // Hook
-import hookWings from "@/assets/restaurants/Buffalo wings - Ravintola Hook.jpeg?w=800&format=webp&quality=75";
+import hookWings from "@/assets/restaurants/Buffalo wings - Ravintola Hook.jpeg";
 
 // Pihvipirtti
-import pihvipirttiKala from "@/assets/restaurants/kalapöytä alkupalat ravintola pihvipirtti.jpg?w=800&format=webp&quality=75";
+import pihvipirttiKala from "@/assets/restaurants/kalapöytä alkupalat ravintola pihvipirtti.jpg";
 
 interface LeviRestaurantGuideProps {
   lang?: Language;
