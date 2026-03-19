@@ -29,7 +29,7 @@ import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg";
 import ammilaHampurilainen from "@/assets/restaurants/Hampurilainen ja ranskalaiset - Ravintola Ammila (Levi).jpg";
 import ammilaSiika from "@/assets/restaurants/Paistettu siika ja kasviksia - Ravintola Ammila (Levi).jpg";
 import ammilaKaristys from "@/assets/restaurants/Poronkaristys perunamuusilla - Ravintola Ammila (Levi).jpg";
-import ammilaKaristys2 from "@/assets/restaurants/Poronkaristys perunamuusilla - ravintola ämmilä.jpg";
+
 import ammilaMakkara from "@/assets/restaurants/Makkaralautanen perunoilla - Ravintola Ammila (Levi).jpg";
 
 // Ravintola Niliporo
@@ -54,7 +54,7 @@ import pannukakkuMarja from "@/assets/restaurants/Pannukakku marjoilla ja kermav
 // Myllyn Äijä
 import myllynLeike from "@/assets/restaurants/Leike sienikastikkeella - Myllyn Aija (Levi).jpg";
 import myllynPihvi from "@/assets/restaurants/Pippuripihvi perunagratiinilla - Myllyn Aija (Levi).jpg";
-import myllynPihvi2 from "@/assets/restaurants/Pippuripihvi perunagratiinilla 2 - Myllyn Aija (Levi).jpg";
+
 
 // Ravintola Renna
 import rennaPizza from "@/assets/restaurants/Pizza prosciutto e rucola - restaurant Renna.jpg";
@@ -158,7 +158,7 @@ const translations: Record<"fi" | "en", {
           { src: ammilaHampurilainen, alt: "Hampurilainen ja ranskalaiset – Ravintola Ämmilä, Levi" },
           { src: ammilaSiika, alt: "Paistettu siika ja kasviksia – Ravintola Ämmilä, Levi" },
           { src: ammilaKaristys, alt: "Poronkäristys perunamuusilla – Ravintola Ämmilä, Levi" },
-          { src: ammilaKaristys2, alt: "Poronkäristys perunamuusilla – Ravintola Ämmilä, Levi" },
+          
           { src: ammilaMakkara, alt: "Makkaralautanen perunoilla – Ravintola Ämmilä, Levi" },
         ],
       },
@@ -219,7 +219,7 @@ const translations: Record<"fi" | "en", {
         images: [
           { src: myllynLeike, alt: "Leike sienikastikkeella – Myllyn Äijä, Levi" },
           { src: myllynPihvi, alt: "Pippuripihvi perunagratiinilla – Myllyn Äijä, Levi" },
-          { src: myllynPihvi2, alt: "Pippuripihvi perunagratiinilla – Myllyn Äijä, Levi" },
+          
         ],
       },
       {
@@ -337,7 +337,7 @@ const translations: Record<"fi" | "en", {
           { src: ammilaHampurilainen, alt: "Burger and fries – Ravintola Ämmilä, Levi" },
           { src: ammilaSiika, alt: "Pan-fried whitefish with vegetables – Ravintola Ämmilä, Levi" },
           { src: ammilaKaristys, alt: "Sautéed reindeer with mashed potatoes – Ravintola Ämmilä, Levi" },
-          { src: ammilaKaristys2, alt: "Sautéed reindeer with mashed potatoes – Ravintola Ämmilä, Levi" },
+          
           { src: ammilaMakkara, alt: "Sausage platter with potatoes – Ravintola Ämmilä, Levi" },
         ],
       },
@@ -398,7 +398,7 @@ const translations: Record<"fi" | "en", {
         images: [
           { src: myllynLeike, alt: "Schnitzel with mushroom sauce – Myllyn Äijä, Levi" },
           { src: myllynPihvi, alt: "Pepper steak with potato gratin – Myllyn Äijä, Levi" },
-          { src: myllynPihvi2, alt: "Pepper steak with potato gratin – Myllyn Äijä, Levi" },
+          
         ],
       },
       {
