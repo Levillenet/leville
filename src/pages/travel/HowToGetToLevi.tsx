@@ -39,8 +39,8 @@ interface HowToGetToLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Miten pääsee Leville – Lennot, junat ja autot | Leville.net",
-      description: "Suunnittele matkasi Leville. Vertaa lentoja Kittilään, junayhteydet Kolariin ja ajoreitit Helsingistä. Kattava matkustusopas Lappiin.",
+      title: "Miten pääset Leville? Lennot 1h, juna tai auto",
+      description: "Suorat lennot Helsingistä Kittilään 1h 15min. Yöjuna Kolariin. Auton vuokraus tai bussi. Vertaile vaihtoehdot ja hinnat.",
       canonical: "https://leville.net/matka/miten-paasee-leville-helsingista"
     },
     title: "Miten pääsee Leville",
