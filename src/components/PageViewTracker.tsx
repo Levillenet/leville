@@ -113,16 +113,15 @@ const sendEngagement = (pageViewId: string, scrollDepth: number, timeOnPage: num
   });
 
   const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/update-page-engagement`;
+  const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
-  // Try sendBeacon first, fallback to fetch
-  if (navigator.sendBeacon) {
-    const blob = new Blob([payload], { type: "application/json" });
-    const sent = navigator.sendBeacon(url, blob);
-    if (sent) return;
-  }
+  // Always use fetch with keepalive — sendBeacon can't set custom headers
   fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": anonKey,
+    },
     body: payload,
     keepalive: true,
   }).catch(() => {});
