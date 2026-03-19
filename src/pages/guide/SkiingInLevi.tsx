@@ -128,7 +128,7 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Skiing in Levi 2026 — Slopes, Lift Passes & Accommodation Packages | Leville.net",
+      title: "Skiing in Levi 2026 — 43 Slopes, Lifts & Packages",
       description: "Levi's 43 slopes and 28 lifts. Ask us for a combined accommodation + lift pass package. Slope map, difficulty levels and tips for your ski holiday.",
       canonical: "https://leville.net/guide/skiing-in-levi"
     },
