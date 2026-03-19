@@ -50,7 +50,11 @@ Deno.serve(async (req) => {
       const activeRows = (liveRows || []).filter((r: any) => {
         const createdMs = new Date(r.created_at).getTime();
         const timeOnPageSec = typeof r.time_on_page === "number" ? r.time_on_page : 0;
-        const lastActivityMs = createdMs + timeOnPageSec * 1000;
+        // If time_on_page exists, last activity = created + time_on_page
+        // If null (no engagement yet), fall back to created_at within 5 min window
+        const lastActivityMs = timeOnPageSec > 0
+          ? createdMs + timeOnPageSec * 1000
+          : createdMs;
         return lastActivityMs >= activeThresholdMs;
       });
 
