@@ -14,7 +14,7 @@ import GuideHubCard from "@/components/guide/GuideHubCard";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, Mountain, Snowflake, Sun, Sparkles, Dog, TreePine, BookOpen } from "lucide-react";
+import { ArrowRight, ArrowLeft, Mountain, Snowflake, Sun, Sparkles, Dog, TreePine, BookOpen, Bike, Baby } from "lucide-react";
 import { Language } from "@/translations";
 
 interface ActivitiesHubProps {
@@ -63,7 +63,16 @@ const content: Record<Language, {
       { id: "aurora", title: "Revontulet", description: "Levillä nähdään revontulia noin 200 yönä vuodessa. Opi parhaat bongauspaikat.", href: "/revontulet", iconKey: "sparkles" },
       { id: "snowmobile", title: "Moottorikelkkasafari", description: "Koe Lapin erämaiden huima vauhti ja vapaus moottorikelkkasafarilla.", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi", iconKey: "sun" },
       { id: "husky", title: "Koiravaljakkoajelu", description: "Unohtumaton elämys huskyjen kanssa Lapin talvisessa luonnossa.", href: "/aktiviteetit/koiravaljakkoajelu-levi", iconKey: "dog" },
-      { id: "hiking", title: "Vaellus ja pyöräily", description: "Tunturivaellusta, maastopyöräilyä ja sähköpyöräilyä ympäri vuoden.", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi", iconKey: "treepine" }
+      { id: "reindeer", title: "Porosafari", description: "Perinteinen poroajelu Lapin lumisessa maisemassa. Sopii kaikenikäisille.", href: "/aktiviteetit/porosafari-levi", iconKey: "treepine" },
+      { id: "ice-swimming", title: "Avantouinti", description: "Kokeile suomalaista avantouintia – unohtumaton elämys saunomisen jälkeen.", href: "/aktiviteetit/avantouinti-levi", iconKey: "snowflake" },
+      { id: "snowshoeing", title: "Lumikenkäily", description: "Helppo tapa tutkia Lapin talvista luontoa. Ei vaadi aiempaa kokemusta.", href: "/aktiviteetit/lumikenkaily-levi", iconKey: "mountain" },
+      { id: "fatbike", title: "Fatbike", description: "Leveärenkaisella pyörällä lumisille poluille – talvipyöräilyn uusi trendi.", href: "/aktiviteetit/fatbike-levi", iconKey: "bike" },
+      { id: "fishing", title: "Pilkkiminen ja kalastus", description: "Pilkkimistä talvella ja kalastusta kesällä Levin järvillä ja joilla.", href: "/aktiviteetit/pilkkiminen-ja-kalastus-levi", iconKey: "sun" },
+      { id: "hiking", title: "Vaellus ja pyöräily", description: "Tunturivaellusta, maastopyöräilyä ja sähköpyöräilyä ympäri vuoden.", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi", iconKey: "treepine" },
+      { id: "golf", title: "Golf", description: "Pelaa golfia keskiyön auringossa. Levin kenttä on yksi maailman pohjoisimmista.", href: "/aktiviteetit/golf-levi", iconKey: "sun" },
+      { id: "canoeing", title: "Melonta ja SUP", description: "Melontaa ja stand-up paddleboardingia Ounasjoen rauhallisissa maisemissa.", href: "/aktiviteetit/melonta-ja-sup-levi", iconKey: "sun" },
+      { id: "horse-riding", title: "Ratsastus", description: "Ratsastusretkiä Lapin tunturimaisemissa kesällä ja talvella.", href: "/aktiviteetit/ratsastus-levi", iconKey: "treepine" },
+      { id: "kids", title: "Levi lapsille", description: "Leevilandia, taikamattohissit, lasten hiihtokoulu ja perheen yhteiset elämykset.", href: "/aktiviteetit/levi-lapsille", iconKey: "baby" }
     ],
     popularGuides: [
       { id: "snowmobile-tips", title: "Moottorikelkkasafari-vinkit", description: "Käytännön vinkit ensikertalaiselle: mitä pukea, miten ajaa ja mistä varata.", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
@@ -87,7 +96,16 @@ const content: Record<Language, {
       { id: "aurora", title: "Northern Lights", description: "Aurora can be seen on about 200 nights per year in Levi. Learn the best viewing spots.", href: "/en/northern-lights", iconKey: "sparkles" },
       { id: "snowmobile", title: "Snowmobile Safari", description: "Experience the thrill and freedom of Lapland wilderness on a snowmobile safari.", href: "/activities/snowmobile-safari-tips-levi", iconKey: "sun" },
       { id: "husky", title: "Husky Safari", description: "An unforgettable experience with huskies in Lapland's winter nature.", href: "/activities/husky-safari-levi", iconKey: "dog" },
-      { id: "hiking", title: "Hiking & Biking", description: "Fell hiking, mountain biking and e-biking year-round.", href: "/activities/hiking-and-biking-levi", iconKey: "treepine" }
+      { id: "reindeer", title: "Reindeer Safari", description: "Traditional reindeer sleigh ride through snowy Lapland landscapes. Suitable for all ages.", href: "/activities/reindeer-safari-levi", iconKey: "treepine" },
+      { id: "ice-swimming", title: "Ice Swimming", description: "Try Finnish ice swimming — an unforgettable experience after a hot sauna.", href: "/activities/ice-swimming-in-levi", iconKey: "snowflake" },
+      { id: "snowshoeing", title: "Snowshoeing", description: "An easy way to explore Lapland's winter nature. No experience needed.", href: "/activities/snowshoeing-in-levi", iconKey: "mountain" },
+      { id: "fatbike", title: "Fatbiking", description: "Ride fat-tire bikes on snowy trails — the new winter cycling trend.", href: "/activities/fatbiking-in-levi", iconKey: "bike" },
+      { id: "fishing", title: "Ice Fishing & Fishing", description: "Ice fishing in winter and lake fishing in summer on Levi's lakes and rivers.", href: "/activities/ice-fishing-and-fishing-levi", iconKey: "sun" },
+      { id: "hiking", title: "Hiking & Biking", description: "Fell hiking, mountain biking and e-biking year-round.", href: "/activities/hiking-and-biking-levi", iconKey: "treepine" },
+      { id: "golf", title: "Golf", description: "Play golf under the midnight sun. Levi's course is one of the northernmost in the world.", href: "/activities/golf-in-levi", iconKey: "sun" },
+      { id: "canoeing", title: "Canoeing & SUP", description: "Canoeing and stand-up paddleboarding on the peaceful Ounasjoki river.", href: "/activities/canoeing-and-sup-levi", iconKey: "sun" },
+      { id: "horse-riding", title: "Horse Riding", description: "Horseback riding through Lapland fell landscapes in summer and winter.", href: "/activities/horse-riding-in-levi", iconKey: "treepine" },
+      { id: "kids", title: "Levi for Kids", description: "Leevilandia park, magic carpet lifts, ski school and family experiences.", href: "/activities/levi-for-kids", iconKey: "baby" }
     ],
     popularGuides: [
       { id: "snowmobile-tips", title: "Snowmobile Safari Tips", description: "Practical tips for first-timers: what to wear, how to drive and where to book.", href: "/activities/snowmobile-safari-tips-levi" },
@@ -222,7 +240,9 @@ const iconMap: Record<string, typeof Mountain> = {
   sun: Sun,
   sparkles: Sparkles,
   dog: Dog,
-  treepine: TreePine
+  treepine: TreePine,
+  bike: Bike,
+  baby: Baby
 };
 
 const localeMap: Record<Language, string> = {
