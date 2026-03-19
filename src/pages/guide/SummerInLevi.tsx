@@ -39,8 +39,8 @@ interface SummerInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Kesä Levillä – Yötön yö ja aktiviteetit | Leville.net",
-      description: "Kattava opas Levin kesään. Yötön yö, vaellusreitit, maastopyöräily ja kalastus. Suunnittele kesälomasi Lapin luonnossa.",
+      title: "Kesä Levillä 2026 — vaellus, pyöräily ja yötön yö",
+      description: "Tunturivaellukset, sähköpyörävuokraus, kalastus ja keskiyön aurinko. Edullisemmat majoitushinnat kesäkaudella.",
       canonical: "https://leville.net/opas/kesa-levi"
     },
     title: "Kesä Levillä",
