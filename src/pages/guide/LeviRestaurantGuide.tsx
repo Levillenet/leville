@@ -17,7 +17,7 @@ import { Language } from "@/translations";
 
 // Restaurant Asia
 import asiaWokki from "@/assets/restaurants/Aasialainen wokki bataattiranskalaisilla - Ravintola Asia.jpg?w=800&format=webp&quality=75";
-import asiaPaistettuLiha from "@/assets/restaurants/Aasialainen paistettu liha - ravintola asia.jpg";
+import asiaPaistettuLiha from "@/assets/restaurants/Aasialainen paistettu liha - ravintola asia.jpg?w=800&format=webp&quality=75";
 import asiaLohiWasabi from "@/assets/restaurants/Paistettu lohi wasabilla - Restaurant ASia.jpg";
 import asiaGrillLohi from "@/assets/restaurants/Grillattu lohi chililla - restaurant asia.jpg";
 import asiaTempura from "@/assets/restaurants/Tempurakatkaravut ja bataattiranskalaiset 2 - ravintola asia.jpg";
