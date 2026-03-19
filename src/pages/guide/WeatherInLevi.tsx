@@ -31,8 +31,8 @@ interface WeatherInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Säätietoa Leviltä – lumensyvyys ja vuodenajat | Leville.net",
-      description: "Levin sää, lumensyvyys ja lämpötilat eri vuodenaikoina. Suunnittele matkasi FMI:n dataan perustuvilla tiedoilla.",
+      title: "Levin sää nyt — lämpötila, lumensyvyys ja ennuste",
+      description: "Levin säätiedot reaaliajassa: lämpötila, lumensyvyys ja tuuliolosuhteet. Kuukausittaiset keskiarvot matkan suunnitteluun.",
       canonical: "https://leville.net/levi/saatieto-levilta"
     },
     title: "Säätietoa Leviltä",
@@ -198,8 +198,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Weather in Levi – snow depth & seasons | Leville.net",
-      description: "Levi weather, snow depth and temperatures across seasons. Plan your trip with data from the Finnish Meteorological Institute.",
+      title: "Levi Weather Now — Temperature, Snow Depth & Forecast",
+      description: "Live weather data for Levi ski resort. Current temperature, snow depth and wind conditions. Monthly averages for trip planning.",
       canonical: "https://leville.net/en/levi/weather-in-levi"
     },
     title: "Weather in Levi",

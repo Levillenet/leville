@@ -25,9 +25,9 @@ interface LeviWithChildrenProps {
 const translations = {
   fi: {
     meta: {
-      title: "Lapsiperheet Levillä – Lasten rinteet, aktiviteetit | Leville.net",
+      title: "Levi lasten kanssa — rinteet, aktiviteetit ja vinkit",
       description:
-        "Levi lapsiperheille: lasten rinteet, hiihtokoulu, talvivaatetus, sisäaktiviteetit ja perheystävälliset palvelut. Käytännön vinkit perhematkalle.",
+        "Levin lasten rinteet, Leevilandia, hiihtokoulu ja perheystävälliset ravintolat. Käytännön vinkit talvilomalle lasten kanssa.",
       canonical: "https://leville.net/opas/lapsiperheet-levilla",
     },
     title: "Lapsiperheet Levillä",
@@ -222,9 +222,9 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Levi with Children – Kids' Slopes, Activities | Leville.net",
+      title: "Levi with Kids — Slopes, Activities & Tips 2026",
       description:
-        "Levi for families: kids' slopes, ski school, winter clothing, indoor activities and family-friendly services. Practical tips for family trips.",
+        "Kids' slopes, Leevilandia park, ski school and family-friendly restaurants. Practical tips for a winter holiday with children.",
       canonical: "https://leville.net/guide/levi-with-children",
     },
     title: "Levi with Children",
@@ -419,8 +419,8 @@ const translations = {
   },
   nl: {
     meta: {
-      title: "Levi met kinderen – Gezinstips voor Lapland vakantie | Leville.net",
-      description: "Praktische tips voor een gezinsvakantie in Levi. Kinderpistes, Leevilandia, gezinsactiviteiten, restaurants en accommodatietips voor families.",
+      title: "Levi met kinderen — Pistes, activiteiten & tips",
+      description: "Kinderpistes, Leevilandia, skischool en gezinsvriendelijke restaurants. Tips voor een wintervakantie met kinderen.",
       canonical: "https://leville.net/nl/gids/levi-met-kinderen",
     },
     title: "Levi met kinderen",

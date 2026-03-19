@@ -50,8 +50,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
   }> = {
     fi: {
       meta: {
-        title: "Revontulet Levillä: Parhaat Katselupaikat & Ennuste 2026",
-        description: "Näe revontulet Levillä! Paras aika syys–maaliskuu, parhaat katselupaikat ja live-ennuste. Varaa revontulimajoitus nyt.",
+        title: "Revontulet Levillä tänään — ennuste ja paikat 2026",
+        description: "Näetkö revontulia tänään? Reaaliaikainen ennuste, parhaat katselupaikat ja kokeneen paikallisen vinkit kuvaamiseen.",
         canonical: "https://leville.net/revontulet",
       },
       hero: {
@@ -85,8 +85,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     en: {
       meta: {
-        title: "Northern Lights in Levi: Best Viewing Spots & Forecast 2026",
-        description: "See the aurora borealis in Levi, Finland. Best viewing times Sept–March, prime locations and live forecasts. Book aurora-friendly accommodation.",
+        title: "Northern Lights in Levi — Live Forecast & Best Spots",
+        description: "Will you see aurora borealis in Levi tonight? Real-time KP index forecast, best viewing locations and photography tips from locals.",
         canonical: "https://leville.net/en/northern-lights",
       },
       hero: {
@@ -120,8 +120,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     sv: {
       meta: {
-        title: "Norrsken i Levi – Aurora Borealis | Leville.net",
-        description: "Upplev norrskensmagin i Levi. Bästa platser, tider och tips för att se norrsken i Lappland.",
+        title: "Norrsken i Levi — Prognos & bästa platser 2026",
+        description: "Se norrsken i Levi ikväll? Realtidsprognos, KP-index, bästa utsiktsplatser och fototips från lokalbefolkningen.",
         canonical: "https://leville.net/sv/norrsken",
       },
       hero: {
@@ -155,8 +155,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     de: {
       meta: {
-        title: "Nordlichter in Levi – Aurora Borealis | Leville.net",
-        description: "Erleben Sie die Magie der Nordlichter in Levi. Beste Orte, Zeiten und Tipps zur Beobachtung der Aurora in Lappland.",
+        title: "Nordlichter in Levi — Vorhersage & beste Orte 2026",
+        description: "Nordlichter in Levi sehen: Live-Vorhersage, KP-Index, beste Beobachtungsplätze und Foto-Tipps von Einheimischen.",
         canonical: "https://leville.net/de/nordlichter",
       },
       hero: {
@@ -190,8 +190,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     es: {
       meta: {
-        title: "Auroras Boreales en Levi – Aurora Boreal | Leville.net",
-        description: "Experimenta la magia de las auroras boreales en Levi. Mejores lugares, horarios y consejos para ver auroras en Laponia.",
+        title: "Aurora boreal en Levi — Pronóstico & mejores lugares",
+        description: "¿Verás auroras boreales en Levi esta noche? Pronóstico en tiempo real, mejores ubicaciones y consejos fotográficos de locales.",
         canonical: "https://leville.net/es/auroras-boreales",
       },
       hero: {
@@ -225,8 +225,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     fr: {
       meta: {
-        title: "Aurores Boréales à Levi: Meilleurs Spots & Prévisions 2026",
-        description: "Observez les aurores boréales à Levi en Laponie finlandaise. Meilleure période sept–mars, lieux d'observation et prévisions. Hébergement idéal.",
+        title: "Aurores boréales à Levi — Prévisions & meilleurs spots",
+        description: "Verrez-vous des aurores boréales à Levi ce soir? Prévisions en temps réel, meilleurs sites et conseils photo de locaux.",
         canonical: "https://leville.net/fr/aurores-boreales",
       },
       hero: {
@@ -260,8 +260,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     nl: {
       meta: {
-        title: "Noorderlicht in Levi – Aurora Borealis | Leville.net",
-        description: "Ervaar de magie van het noorderlicht in Levi. Beste locaties, tijden en tips voor het bekijken van aurora in Lapland.",
+        title: "Noorderlicht in Levi — Verwachting & beste plekken",
+        description: "Noorderlicht zien in Levi vanavond? Realtime KP-index, beste kijklocaties en fototips van locals.",
         canonical: "https://leville.net/nl/noorderlicht",
       },
       hero: {

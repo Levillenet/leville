@@ -35,9 +35,9 @@ const externalLinks = {
 const translations = {
   fi: {
     meta: {
-      title: "Ravintolat ja palvelut Levillä | Leville.net",
-      description:
-        "Levin ravintolat, ruokakaupat, vuokraamot ja palvelut. Aukioloajat, perheystävälliset vaihtoehdot ja käytännön vinkit.",
+    title: "Levin ravintolat 2026 — suositukset ja aukioloajat",
+    description:
+        "Paras pizza, lappilaiset erikoisuudet ja fine dining. Paikallisen ravintolasuositukset, hintatasot ja kauppojen aukioloajat.",
       canonical: "https://leville.net/opas/ravintolat-ja-palvelut-levilla",
     },
     title: "Ravintolat ja palvelut Levillä",
@@ -136,9 +136,9 @@ const translations = {
 
   en: {
     meta: {
-      title: "Restaurants and Services in Levi | Leville.net",
-      description:
-        "Levi restaurants, grocery stores, rentals and services. Practical tips, opening hours and family friendly options.",
+    title: "Levi Restaurants 2026 — Local Picks & Opening Hours",
+    description:
+        "Best pizza, Lappish specialties and fine dining in Levi. Local restaurant tips, price levels and grocery store hours.",
       canonical: "https://leville.net/guide/restaurants-and-services-in-levi",
     },
     title: "Restaurants and Services in Levi",
