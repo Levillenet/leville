@@ -569,15 +569,6 @@ const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
 
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
-          <section className="text-center bg-card rounded-xl p-8">
-            <h3 className="text-xl font-semibold mb-3">{t.ctaTitle}</h3>
-            <Link
-              to={t.accommodationsHref}
-              className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-6 py-3 font-medium hover:bg-primary/90 transition-colors"
-            >
-              {t.ctaButton}
-            </Link>
-          </section>
         </div>
       </main>
 
