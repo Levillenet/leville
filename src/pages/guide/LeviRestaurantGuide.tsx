@@ -21,7 +21,7 @@ import asiaPaistettuLiha from "@/assets/restaurants/Aasialainen paistettu liha -
 import asiaLohiWasabi from "@/assets/restaurants/Paistettu lohi wasabilla - Restaurant ASia.jpg";
 import asiaGrillLohi from "@/assets/restaurants/Grillattu lohi chililla - restaurant asia.jpg";
 import asiaTempura from "@/assets/restaurants/Tempurakatkaravut ja bataattiranskalaiset 2 - ravintola asia.jpg";
-import asiaKatkaravut from "@/assets/restaurants/katkaravut ja bataattiranskalaiset - ravintola asia.jpg";
+
 import asiaStickyPork from "@/assets/restaurants/Sticky pork aasialainen - Levi Ravintola ASia.jpg";
 import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg";
 
@@ -141,7 +141,7 @@ const translations: Record<"fi" | "en", {
           { src: asiaLohiWasabi, alt: "Paistettu lohi wasabilla – Restaurant Asia, Levi" },
           { src: asiaGrillLohi, alt: "Grillattu lohi chilillä – Restaurant Asia, Levi" },
           { src: asiaTempura, alt: "Tempurakatkaravut ja bataattiranskalaiset – Restaurant Asia, Levi" },
-          { src: asiaKatkaravut, alt: "Katkaravut ja bataattiranskalaiset – Restaurant Asia, Levi" },
+          
           { src: asiaStickyPork, alt: "Sticky pork aasialainen – Restaurant Asia, Levi" },
           { src: asiaTataki, alt: "Pihvi tataki – Restaurant Asia, Levi" },
         ],
@@ -320,7 +320,7 @@ const translations: Record<"fi" | "en", {
           { src: asiaLohiWasabi, alt: "Pan-fried salmon with wasabi – Restaurant Asia, Levi" },
           { src: asiaGrillLohi, alt: "Grilled salmon with chili – Restaurant Asia, Levi" },
           { src: asiaTempura, alt: "Tempura shrimp with sweet potato fries – Restaurant Asia, Levi" },
-          { src: asiaKatkaravut, alt: "Shrimp with sweet potato fries – Restaurant Asia, Levi" },
+          
           { src: asiaStickyPork, alt: "Sticky pork Asian style – Restaurant Asia, Levi" },
           { src: asiaTataki, alt: "Beef tataki – Restaurant Asia, Levi" },
         ],
