@@ -136,7 +136,7 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Cross-Country Skiing in Levi – 230 km Trails, Maps & Tips | Leville.net",
+      title: "Cross-Country Skiing in Levi 2026 — Trails, Map & Accommodation Near Tracks | Leville.net",
       description: "Levi cross-country skiing guide: 230 km of groomed trails through Lapland fells. Trail maps, easy routes for beginners and tips for your ski holiday.",
       canonical: "https://leville.net/guide/cross-country-skiing-in-levi"
     },

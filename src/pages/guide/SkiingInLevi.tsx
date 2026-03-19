@@ -374,6 +374,25 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
             </section>
 
+            {/* Package Deal Callout */}
+            <section className="mb-12">
+              <Card className="glass-card border-primary/50 bg-primary/5">
+                <CardContent className="p-6 sm:p-8 text-center">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">
+                    {t.packageDeal.heading}
+                  </h2>
+                  <p className="text-muted-foreground max-w-xl mx-auto mb-5">
+                    {t.packageDeal.text}
+                  </p>
+                  <Button asChild>
+                    <Link to={t.packageDeal.link}>
+                      {t.packageDeal.button} <ArrowRight className="ml-2 w-4 h-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </section>
+
             {/* Sunset slopes image */}
             <section className="mb-12 rounded-xl overflow-hidden">
               <OptimizedImage src={sunsetSlopesTykky} alt={lang === "fi" ? "Laskettelu auringonlaskussa tykkylumisten puiden keskellä Levin tunturilla" : "Skiing at sunset among snow-laden tykky trees on Levi fell"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
