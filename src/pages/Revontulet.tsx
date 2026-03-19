@@ -190,8 +190,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     es: {
       meta: {
-        title: "Auroras Boreales en Levi – Aurora Boreal | Leville.net",
-        description: "Experimenta la magia de las auroras boreales en Levi. Mejores lugares, horarios y consejos para ver auroras en Laponia.",
+        title: "Aurora boreal en Levi — Pronóstico & mejores lugares",
+        description: "¿Verás auroras boreales en Levi esta noche? Pronóstico en tiempo real, mejores ubicaciones y consejos fotográficos de locales.",
         canonical: "https://leville.net/es/auroras-boreales",
       },
       hero: {
