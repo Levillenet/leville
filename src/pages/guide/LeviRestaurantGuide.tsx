@@ -69,7 +69,7 @@ import salterietLeike2 from "@/assets/restaurants/Leike ranskalaisilla ja tzatzi
 import hookWings from "@/assets/restaurants/Buffalo wings - Ravintola Hook.jpeg?w=800&format=webp&quality=75";
 
 // Pihvipirtti
-import pihvipirttiKala from "@/assets/restaurants/kalapöytä alkupalat ravintola pihvipirtti.jpg";
+import pihvipirttiKala from "@/assets/restaurants/kalapöytä alkupalat ravintola pihvipirtti.jpg?w=800&format=webp&quality=75";
 
 interface LeviRestaurantGuideProps {
   lang?: Language;
