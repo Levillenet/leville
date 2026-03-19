@@ -64,6 +64,7 @@ const RestaurantsAndServices = lazy(() => import("./pages/guide/RestaurantsAndSe
 const LeviWithChildren = lazy(() => import("./pages/guide/LeviWithChildren"));
 const LeviWithoutCar = lazy(() => import("./pages/guide/LeviWithoutCar"));
 const HeatingSystemsInLevi = lazy(() => import("./pages/guide/HeatingSystemsInLevi"));
+const LeviRestaurantGuide = lazy(() => import("./pages/guide/LeviRestaurantGuide"));
 const HolidayPlanner = lazy(() => import("./pages/HolidayPlanner"));
 const FireplaceInstructions = lazy(() => import("./pages/FireplaceInstructions"));
 const LeviVsYllasVsRuka = lazy(() => import("./pages/guide/LeviVsYllasVsRuka"));
