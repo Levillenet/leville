@@ -33,7 +33,7 @@ interface CrossCountrySkiingProps {
 const translations = {
   fi: {
     meta: {
-      title: "Hiihtoladut Levillä 2026 — Reitit, latukartta ja majoitus latujen vieressä | Leville.net",
+      title: "Hiihtoladut Levillä 2026 — 230 km latuja ja kartta",
       description: "Levin ladut: 230 km huollettuja hiihtolatuja helposta vaativaan. Latukartta, helpot ladut aloittelijoille ja Levin kierros kokeneille hiihtäjille.",
       canonical: "https://leville.net/opas/hiihtoladut-levi"
     },
