@@ -62,8 +62,8 @@ import rennaPizza2 from "@/assets/restaurants/Pizza prosciutto rucola - ravintol
 import rennaPizza3 from "@/assets/restaurants/Pizza prosciutto rucola take-away - ristorante renna.jpg?w=800&format=webp&quality=75";
 
 // Salteriet
-import salterietLeike from "@/assets/restaurants/Leike ranskalaisilla ja remouladella - Levi Salteriet.jpg";
-import salterietLeike2 from "@/assets/restaurants/Leike ranskalaisilla ja tzatzikilla - Salteriet Levi .jpg";
+import salterietLeike from "@/assets/restaurants/Leike ranskalaisilla ja remouladella - Levi Salteriet.jpg?w=800&format=webp&quality=75";
+import salterietLeike2 from "@/assets/restaurants/Leike ranskalaisilla ja tzatzikilla - Salteriet Levi .jpg?w=800&format=webp&quality=75";
 
 // Hook
 import hookWings from "@/assets/restaurants/Buffalo wings - Ravintola Hook.jpeg";
