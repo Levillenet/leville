@@ -379,6 +379,7 @@ const App = () => {
               {/* Travel HUB Child Pages - Finnish */}
               <Route path="/opas/liikkuminen-levilla" element={<GettingAroundLevi />} />
               <Route path="/opas/ravintolat-ja-palvelut-levilla" element={<RestaurantsAndServices />} />
+              <Route path="/opas/levin-ravintolat-ja-annokset" element={<LeviRestaurantGuide />} />
               <Route path="/opas/lapsiperheet-levilla" element={<LeviWithChildren />} />
               <Route path="/opas/levi-ilman-autoa" element={<LeviWithoutCar />} />
               <Route path="/opas/lammitysjarjestelmat-levi" element={<HeatingSystemsInLevi />} />
