@@ -35,8 +35,8 @@ const externalLinks = {
 const translations = {
   fi: {
     meta: {
-      title: "Ravintolat ja palvelut Levillä | Leville.net",
-      description:
+    title: "Levin ravintolat 2026 — suositukset ja aukioloajat",
+    description:
         "Levin ravintolat, ruokakaupat, vuokraamot ja palvelut. Aukioloajat, perheystävälliset vaihtoehdot ja käytännön vinkit.",
       canonical: "https://leville.net/opas/ravintolat-ja-palvelut-levilla",
     },
