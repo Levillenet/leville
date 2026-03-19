@@ -19,6 +19,8 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import OptimizedImage from "@/components/OptimizedImage";
 import bikeparkSummer from "@/assets/activities/bikepark-summer.jpg";
+import fatbikeSpringTrail from "@/assets/activities/fatbike-spring-trail.jpg";
+import fatbikeWinterForest from "@/assets/activities/fatbike-winter-forest.jpg";
 
 interface HikingAndBikingLeviProps {
   lang?: Language;
@@ -605,6 +607,14 @@ const HikingAndBikingLevi = ({ lang = "fi" }: HikingAndBikingLeviProps) => {
               </Card>
             </section>
 
+            {/* Fatbike winter forest image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={fatbikeWinterForest} alt={lang === "fi" ? "Punainen fatbike lumisessa metsässä Levillä" : "Red fatbike in a snowy forest in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Talvinen fatbike-retki lumisessa metsässä Levillä" : "Winter fatbike ride through a snowy forest in Levi"}
+              </p>
+            </section>
+
             {/* Mountain Biking Section */}
             <section className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
@@ -698,6 +708,14 @@ const HikingAndBikingLevi = ({ lang = "fi" }: HikingAndBikingLeviProps) => {
                   <p className="text-sm text-amber-800 dark:text-amber-200">{t.sections.ebike.tip}</p>
                 </CardContent>
               </Card>
+            </section>
+
+            {/* Fatbike spring trail image */}
+            <section className="mb-12 rounded-xl overflow-hidden">
+              <OptimizedImage src={fatbikeSpringTrail} alt={lang === "fi" ? "Fatbike lumisella polulla kevätauringossa Levillä" : "Fatbike on a snowy trail in spring sunshine in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
+              <p className="text-xs text-muted-foreground mt-2 text-center italic">
+                {lang === "fi" ? "Fatbike-pyöräilyä aurinkoisella kevättalven reitillä Levillä" : "Fatbiking on a sunny late-winter trail in Levi"}
+              </p>
             </section>
 
             {/* Best Time Section */}
