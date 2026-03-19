@@ -212,6 +212,12 @@ const translations = {
         { title: "Levi vs Ylläs vs Ruka", desc: "Three ski resorts compared", href: "/guide/levi-vs-yllas-vs-ruka-comparison" }
       ]
     },
+    packageDeal: {
+      heading: "🎿 Accommodation + lift passes — ask for a package deal",
+      text: "Planning a ski holiday in Levi? Ask us for a deal that combines accommodation and lift passes in one package. Contact us to learn more!",
+      button: "Ask for a quote",
+      link: "/en/contact"
+    },
     breadcrumbLabel: "Skiing in Levi"
   },
   nl: {
