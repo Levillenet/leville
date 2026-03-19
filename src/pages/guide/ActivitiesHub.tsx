@@ -14,7 +14,7 @@ import GuideHubCard from "@/components/guide/GuideHubCard";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, Mountain, Snowflake, Sun, Sparkles, Dog, TreePine, BookOpen } from "lucide-react";
+import { ArrowRight, ArrowLeft, Mountain, Snowflake, Sun, Sparkles, Dog, TreePine, BookOpen, Bike, Baby } from "lucide-react";
 import { Language } from "@/translations";
 
 interface ActivitiesHubProps {
