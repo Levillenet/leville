@@ -6,6 +6,14 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+// Helsinki UTC offset helper (handles DST)
+const getHelsinkiOffset = (date: Date): string => {
+  const helsinkiStr = date.toLocaleString("en-US", { timeZone: "Europe/Helsinki", hour: "numeric", hour12: false });
+  const utcStr = date.toLocaleString("en-US", { timeZone: "UTC", hour: "numeric", hour12: false });
+  const diff = (parseInt(helsinkiStr) - parseInt(utcStr) + 24) % 24;
+  return diff === 3 ? "03:00" : "02:00";
+};
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
