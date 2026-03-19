@@ -21,7 +21,7 @@ import asiaPaistettuLiha from "@/assets/restaurants/Aasialainen paistettu liha -
 import asiaLohiWasabi from "@/assets/restaurants/Paistettu lohi wasabilla - Restaurant ASia.jpg";
 import asiaGrillLohi from "@/assets/restaurants/Grillattu lohi chililla - restaurant asia.jpg";
 import asiaTempura from "@/assets/restaurants/Tempurakatkaravut ja bataattiranskalaiset 2 - ravintola asia.jpg";
-import asiaKatkaravut from "@/assets/restaurants/katkaravut ja bataattiranskalaiset - ravintola asia.jpg";
+
 import asiaStickyPork from "@/assets/restaurants/Sticky pork aasialainen - Levi Ravintola ASia.jpg";
 import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg";
 
