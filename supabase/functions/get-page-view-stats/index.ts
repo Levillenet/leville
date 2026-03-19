@@ -6,6 +6,14 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+// Helsinki UTC offset helper (handles DST)
+const getHelsinkiOffset = (date: Date): string => {
+  const helsinkiStr = date.toLocaleString("en-US", { timeZone: "Europe/Helsinki", hour: "numeric", hour12: false });
+  const utcStr = date.toLocaleString("en-US", { timeZone: "UTC", hour: "numeric", hour12: false });
+  const diff = (parseInt(helsinkiStr) - parseInt(utcStr) + 24) % 24;
+  return diff === 3 ? "03:00" : "02:00";
+};
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -50,7 +58,11 @@ Deno.serve(async (req) => {
       const activeRows = (liveRows || []).filter((r: any) => {
         const createdMs = new Date(r.created_at).getTime();
         const timeOnPageSec = typeof r.time_on_page === "number" ? r.time_on_page : 0;
-        const lastActivityMs = createdMs + timeOnPageSec * 1000;
+        // If time_on_page exists, last activity = created + time_on_page
+        // If null (no engagement yet), fall back to created_at within 5 min window
+        const lastActivityMs = timeOnPageSec > 0
+          ? createdMs + timeOnPageSec * 1000
+          : createdMs;
         return lastActivityMs >= activeThresholdMs;
       });
 
@@ -72,11 +84,20 @@ Deno.serve(async (req) => {
     }
 
     const now = new Date();
+    // Helsinki timezone for "today" calculation
+    const helsinkiNow = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Helsinki" }));
     let sinceDate: Date;
     switch (period) {
-      case "today":
-        sinceDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      case "today": {
+        // Start of day in Helsinki timezone
+        const hYear = helsinkiNow.getFullYear();
+        const hMonth = helsinkiNow.getMonth();
+        const hDay = helsinkiNow.getDate();
+        // Create Helsinki midnight, then convert to UTC
+        const helsinkiMidnight = new Date(`${hYear}-${String(hMonth + 1).padStart(2, "0")}-${String(hDay).padStart(2, "0")}T00:00:00+${getHelsinkiOffset(now)}`);
+        sinceDate = helsinkiMidnight;
         break;
+      }
       case "week":
         sinceDate = new Date(now);
         sinceDate.setDate(sinceDate.getDate() - 7);

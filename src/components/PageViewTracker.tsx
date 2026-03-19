@@ -48,8 +48,10 @@ const getUtmParams = () => ({
 
 const trackEvent = async (path: string, referrer?: string | null): Promise<string | null> => {
   try {
+    const id = crypto.randomUUID();
     const utm = getUtmParams();
-    const { data } = await supabase.from("page_views").insert({
+    const { error } = await supabase.from("page_views").insert({
+      id,
       path,
       referrer: referrer ?? null,
       device_type: getDeviceType(),
@@ -58,8 +60,8 @@ const trackEvent = async (path: string, referrer?: string | null): Promise<strin
       utm_source: utm.utm_source,
       utm_medium: utm.utm_medium,
       utm_campaign: utm.utm_campaign,
-    }).select("id").single();
-    return data?.id ?? null;
+    });
+    return error ? null : id;
   } catch {
     return null;
   }
