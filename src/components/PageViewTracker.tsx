@@ -136,7 +136,7 @@ const PageViewTracker = () => {
   const currentPageViewId = useRef<string | null>(null);
   const pageEntryTime = useRef<number>(0);
   const maxScrollDepth = useRef<number>(0);
-  const engagementSent = useRef<boolean>(false);
+  const lastEngagementSentSeconds = useRef<number>(0);
 
   const trackConversion = (eventPath: string, referrer: string) => {
     const now = Date.now();
@@ -149,13 +149,13 @@ const PageViewTracker = () => {
 
   // Flush engagement data for current page
   const flushEngagement = () => {
-    if (engagementSent.current) return;
     if (!currentPageViewId.current) return;
 
     const timeOnPage = Math.round((Date.now() - pageEntryTime.current) / 1000);
     if (timeOnPage < 1) return;
+    if (timeOnPage <= lastEngagementSentSeconds.current) return;
 
-    engagementSent.current = true;
+    lastEngagementSentSeconds.current = timeOnPage;
     sendEngagement(currentPageViewId.current, maxScrollDepth.current, timeOnPage);
   };
 
@@ -179,7 +179,7 @@ const PageViewTracker = () => {
     // Reset engagement for new page
     maxScrollDepth.current = 0;
     pageEntryTime.current = Date.now();
-    engagementSent.current = false;
+    lastEngagementSentSeconds.current = 0;
     currentPageViewId.current = null;
 
     trackEvent(path, getExternalReferrer()).then((id) => {
@@ -198,6 +198,16 @@ const PageViewTracker = () => {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Heartbeat while user stays on the same page
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      if (document.visibilityState !== "visible") return;
+      flushEngagement();
+    }, 30000);
+
+    return () => window.clearInterval(interval);
   }, []);
 
   // Flush on visibility change (tab close, navigate away)
