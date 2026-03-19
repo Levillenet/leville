@@ -128,8 +128,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Levi Ski Resort – 43 Slopes, Trail Map & Tips for 2025–2026 | Leville.net",
-      description: "Complete guide to skiing in Levi, Finland. 43 slopes, 28 lifts, slope difficulty levels, lift pass prices and practical tips. Finland's longest ski season.",
+      title: "Skiing in Levi 2026 — Slopes, Lift Passes & Accommodation Packages | Leville.net",
+      description: "Levi's 43 slopes and 28 lifts. Ask us for a combined accommodation + lift pass package. Slope map, difficulty levels and tips for your ski holiday.",
       canonical: "https://leville.net/guide/skiing-in-levi"
     },
     title: "Skiing in Levi",
