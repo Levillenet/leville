@@ -29,7 +29,7 @@ import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg";
 import ammilaHampurilainen from "@/assets/restaurants/Hampurilainen ja ranskalaiset - Ravintola Ammila (Levi).jpg";
 import ammilaSiika from "@/assets/restaurants/Paistettu siika ja kasviksia - Ravintola Ammila (Levi).jpg";
 import ammilaKaristys from "@/assets/restaurants/Poronkaristys perunamuusilla - Ravintola Ammila (Levi).jpg";
-import ammilaKaristys2 from "@/assets/restaurants/Poronkaristys perunamuusilla - ravintola ämmilä.jpg";
+
 import ammilaMakkara from "@/assets/restaurants/Makkaralautanen perunoilla - Ravintola Ammila (Levi).jpg";
 
 // Ravintola Niliporo
