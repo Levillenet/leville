@@ -201,8 +201,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: "How to Get to Levi from Helsinki & Abroad | Travel Guide | Leville.net",
-      description: "Plan your journey to Levi, Lapland. Compare flights to Kittilä, trains to Kolari, and driving routes from Helsinki. Complete travel planning guide.",
+      title: "How to Get to Levi — Flights 1h, Trains & All Routes",
+      description: "Direct flights from Helsinki to Kittilä in 75 min. Night train to Kolari. Car rental or bus. Compare all options and prices.",
       canonical: "https://leville.net/travel/how-to-get-to-levi-from-helsinki-and-abroad"
     },
     title: "How to Get to Levi from Helsinki and Abroad",

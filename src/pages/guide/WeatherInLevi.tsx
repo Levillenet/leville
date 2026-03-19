@@ -198,8 +198,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Weather in Levi – snow depth & seasons | Leville.net",
-      description: "Levi weather, snow depth and temperatures across seasons. Plan your trip with data from the Finnish Meteorological Institute.",
+      title: "Levi Weather Now — Temperature, Snow Depth & Forecast",
+      description: "Live weather data for Levi ski resort. Current temperature, snow depth and wind conditions. Monthly averages for trip planning.",
       canonical: "https://leville.net/en/levi/weather-in-levi"
     },
     title: "Weather in Levi",

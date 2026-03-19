@@ -260,8 +260,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     nl: {
       meta: {
-        title: "Noorderlicht in Levi – Aurora Borealis | Leville.net",
-        description: "Ervaar de magie van het noorderlicht in Levi. Beste locaties, tijden en tips voor het bekijken van aurora in Lapland.",
+        title: "Noorderlicht in Levi — Verwachting & beste plekken",
+        description: "Noorderlicht zien in Levi vanavond? Realtime KP-index, beste kijklocaties en fototips van locals.",
         canonical: "https://leville.net/nl/noorderlicht",
       },
       hero: {
