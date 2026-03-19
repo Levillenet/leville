@@ -1,42 +1,27 @@
 
 
-## Analytiikan korjaussuunnitelma
+## Laskettelusivujen meta-optimointi ja pakettitarjous-kortti
 
-### Löydetyt ongelmat
+### Muutokset
 
-**1. Engagement-data (scroll_depth, time_on_page) ei tallennu koskaan**
-Tietokannassa on 2295 riviä, ja yhdessäkään ei ole scroll_depth tai time_on_page -arvoa. Syy: `trackEvent` tekee `.select("id").single()` insertin jälkeen, mutta page_views-taulun SELECT-RLS estää lukemisen (`using: false`). Tulos: `currentPageViewId` on aina `null` → `flushEngagement` ei koskaan lähetä dataa.
+**1. SkiingInLevi.tsx — Meta-päivitykset (FI + EN)**
+- FI title: `"Laskettelu Levillä 2026 — Rinteet, hissiliput ja majoituspaketit | Leville.net"`
+- FI description: `"Levin 43 rinnettä ja 28 hissiä. Kysy tarjous majoitus + hissiliput -paketista suoraan meiltä. Rinnekartta, vaikeustasot ja vinkit laskettelulomalle."`
+- EN title: `"Skiing in Levi 2026 — Slopes, Lift Passes & Accommodation Packages | Leville.net"`
+- EN description: `"Levi's 43 slopes and 28 lifts. Ask us for a combined accommodation + lift pass package. Slope map, difficulty levels and tips for your ski holiday."`
 
-**2. "Sivustolla nyt" näyttää aina 0**
-Live-käyttäjien laskenta perustuu kaavaan `created_at + time_on_page`, mutta koska time_on_page on aina null (ongelma 1), se tulkitaan nollaksi. Käyttäjä näkyy aktiivisena vain 5 minuuttia sivulatauksesta.
+**2. SkiingInLevi.tsx — Pakettitarjous-kortti**
+- Lisätään uusi callout-kortti hero-osion ja ensimmäisen kuvan väliin (rivin 363 jälkeen)
+- Käytetään `glass-card border-primary` -tyyliä erottuvuuden vuoksi
+- FI/EN-käännökset translations-objektiin
+- Kortti sisältää otsikon (🎿-emojilla), tekstikappaleen ja CTA-napin
+- Nappi linkittää `/yhteystiedot` (FI) tai `/en/contact` (EN)
 
-**3. Bounce rate 100% ja kesto 0s**
-Nämä ovat osittain oikeita (monet kävijät katsovat vain yhden sivun), mutta sinun oma selailu ei näy koska korjattu koodi ei ole vielä tuotannossa — ja vaikka olisi, ongelma 1 estää datan tallennuksen.
+**3. CrossCountrySkiingInLevi.tsx — Meta-päivitykset (FI + EN)**
+- FI title: `"Hiihtoladut Levillä 2026 — Reitit, latukartta ja majoitus latujen vieressä | Leville.net"`
+- EN title: `"Cross-Country Skiing in Levi 2026 — Trails, Map & Accommodation Near Tracks | Leville.net"`
 
-**4. "Tänään" käyttää UTC-aikaa eikä Suomen aikaa**
-Haluat Suomen aikavyöhykettä.
-
-### Korjaukset
-
-**Korjaus 1: Generoi page_view ID selaimessa (PageViewTracker.tsx)**
-Sen sijaan että yritetään lukea ID takaisin insertistä (jota RLS estää), generoidaan UUID selaimessa `crypto.randomUUID()` ja lähetetään se insertin mukana. Näin `currentPageViewId` saa aina arvon ja engagement-data lähtee perille.
-
-```text
-Nykyinen:
-  insert → .select("id").single() → null (RLS estää)
-
-Korjattu:
-  const id = crypto.randomUUID()
-  insert({ id, ... }) → id talteen heti
-```
-
-**Korjaus 2: Live-käyttäjien laskenta (get-page-view-stats edge function)**
-Varmuuskorjaus: jos `time_on_page` on null, käytetään pelkkää `created_at`-aikaa (fallback nykyiseen 5 min ikkunaan). Tämä toimii kunnes engagement-data alkaa virrata.
-
-**Korjaus 3: Suomen aikavyöhyke "Tänään"-rajaukseen (get-page-view-stats edge function)**
-Muutetaan `today`-period käyttämään `Europe/Helsinki`-aikavyöhykettä päivän alun laskemiseen.
-
-### Tiedostot jotka muuttuvat
-1. `src/components/PageViewTracker.tsx` — client-side UUID generation
-2. `supabase/functions/get-page-view-stats/index.ts` — timezone fix + live fallback
+### Muutettavat tiedostot
+1. `src/pages/guide/SkiingInLevi.tsx` — meta + uusi käännösavain `packageDeal` + callout-kortti JSX:ään
+2. `src/pages/guide/CrossCountrySkiingInLevi.tsx` — meta-titlet
 
