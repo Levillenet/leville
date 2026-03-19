@@ -120,8 +120,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     sv: {
       meta: {
-        title: "Norrsken i Levi – Aurora Borealis | Leville.net",
-        description: "Upplev norrskensmagin i Levi. Bästa platser, tider och tips för att se norrsken i Lappland.",
+        title: "Norrsken i Levi — Prognos & bästa platser 2026",
+        description: "Se norrsken i Levi ikväll? Realtidsprognos, KP-index, bästa utsiktsplatser och fototips från lokalbefolkningen.",
         canonical: "https://leville.net/sv/norrsken",
       },
       hero: {
