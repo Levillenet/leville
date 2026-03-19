@@ -158,7 +158,7 @@ const translations: Record<"fi" | "en", {
           { src: ammilaHampurilainen, alt: "Hampurilainen ja ranskalaiset – Ravintola Ämmilä, Levi" },
           { src: ammilaSiika, alt: "Paistettu siika ja kasviksia – Ravintola Ämmilä, Levi" },
           { src: ammilaKaristys, alt: "Poronkäristys perunamuusilla – Ravintola Ämmilä, Levi" },
-          { src: ammilaKaristys2, alt: "Poronkäristys perunamuusilla – Ravintola Ämmilä, Levi" },
+          
           { src: ammilaMakkara, alt: "Makkaralautanen perunoilla – Ravintola Ämmilä, Levi" },
         ],
       },
