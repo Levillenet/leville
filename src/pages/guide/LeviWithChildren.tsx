@@ -27,7 +27,7 @@ const translations = {
     meta: {
       title: "Levi lasten kanssa — rinteet, aktiviteetit ja vinkit",
       description:
-        "Levi lapsiperheille: lasten rinteet, hiihtokoulu, talvivaatetus, sisäaktiviteetit ja perheystävälliset palvelut. Käytännön vinkit perhematkalle.",
+        "Levin lasten rinteet, Leevilandia, hiihtokoulu ja perheystävälliset ravintolat. Käytännön vinkit talvilomalle lasten kanssa.",
       canonical: "https://leville.net/opas/lapsiperheet-levilla",
     },
     title: "Lapsiperheet Levillä",
