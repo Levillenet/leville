@@ -40,11 +40,11 @@ import niliporoMaksa from "@/assets/restaurants/Poronmaksaa perunamuusilla - Lev
 import niliporoHampurilainen from "@/assets/restaurants/poroHampurilainen ja ranskalaiset -Ravintola NIliporo.jpg?w=800&format=webp&quality=75";
 
 // Colorado
-import coloradoRibs from "@/assets/restaurants/BBQ-ribsit laudalla - ravintola colorado.jpg";
-import coloradoFajitas from "@/assets/restaurants/Kana fajitas - Colorado Bar and Grill (Levi).jpg";
-import coloradoFajitas2 from "@/assets/restaurants/Kanafajitas lisukkeineen -  ravintola colorado.jpg";
-import coloradoNachot from "@/assets/restaurants/Nachot guacamolella - Colorado Bar and Grill (Levi).jpg";
-import coloradoNyhtoliha from "@/assets/restaurants/Nyhtöliha jalapenolla - Colorado Bar and Grill (Levi).jpg";
+import coloradoRibs from "@/assets/restaurants/BBQ-ribsit laudalla - ravintola colorado.jpg?w=800&format=webp&quality=75";
+import coloradoFajitas from "@/assets/restaurants/Kana fajitas - Colorado Bar and Grill (Levi).jpg?w=800&format=webp&quality=75";
+import coloradoFajitas2 from "@/assets/restaurants/Kanafajitas lisukkeineen -  ravintola colorado.jpg?w=800&format=webp&quality=75";
+import coloradoNachot from "@/assets/restaurants/Nachot guacamolella - Colorado Bar and Grill (Levi).jpg?w=800&format=webp&quality=75";
+import coloradoNyhtoliha from "@/assets/restaurants/Nyhtöliha jalapenolla - Colorado Bar and Grill (Levi).jpg?w=800&format=webp&quality=75";
 
 // Pannukakkutalo
 import pannukakkuMansikka from "@/assets/restaurants/Pannukakku mansikalla ja kermavaahdolla - Pannukakkutalo (Levi).jpg";
