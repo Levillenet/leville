@@ -118,6 +118,12 @@ const translations = {
         { title: "Levi vs Ylläs vs Ruka", desc: "Kolmen hiihtokeskuksen vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }
       ]
     },
+    packageDeal: {
+      heading: "🎿 Majoitus + hissiliput — kysy pakettitarjous",
+      text: "Suunnitteletko laskettelulomaa Leville? Kysy meiltä tarjous, jossa majoitus ja hissiliput on paketoitu yhteen. Ota yhteyttä niin kerromme lisää!",
+      button: "Kysy tarjous",
+      link: "/yhteystiedot"
+    },
     breadcrumbLabel: "Laskettelu Levillä"
   },
   en: {
