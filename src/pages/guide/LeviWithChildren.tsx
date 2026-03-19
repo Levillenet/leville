@@ -224,7 +224,7 @@ const translations = {
     meta: {
       title: "Levi with Kids — Slopes, Activities & Tips 2026",
       description:
-        "Levi for families: kids' slopes, ski school, winter clothing, indoor activities and family-friendly services. Practical tips for family trips.",
+        "Kids' slopes, Leevilandia park, ski school and family-friendly restaurants. Practical tips for a winter holiday with children.",
       canonical: "https://leville.net/guide/levi-with-children",
     },
     title: "Levi with Children",
