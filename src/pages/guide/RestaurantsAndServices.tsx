@@ -316,7 +316,15 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
                 </CardContent>
               </Card>
             ))}
-          </section>
+
+            <div className="mt-6 text-center">
+              <Link
+                to={lang === "en" ? "/guide/levi-restaurants-and-dishes" : "/opas/levin-ravintolat-ja-annokset"}
+                className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-6 py-3 font-medium hover:bg-primary/90 transition-colors"
+              >
+                {lang === "en" ? "See restaurant reviews and dish photos →" : "Katso ravintolaesittelyt ja annoskuvat →"}
+              </Link>
+            </div>
 
           {/* Grocery fish counter image */}
           <section className="mb-12 rounded-xl overflow-hidden">
