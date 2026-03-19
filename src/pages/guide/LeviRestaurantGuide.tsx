@@ -141,7 +141,7 @@ const translations: Record<"fi" | "en", {
           { src: asiaLohiWasabi, alt: "Paistettu lohi wasabilla – Restaurant Asia, Levi" },
           { src: asiaGrillLohi, alt: "Grillattu lohi chilillä – Restaurant Asia, Levi" },
           { src: asiaTempura, alt: "Tempurakatkaravut ja bataattiranskalaiset – Restaurant Asia, Levi" },
-          { src: asiaKatkaravut, alt: "Katkaravut ja bataattiranskalaiset – Restaurant Asia, Levi" },
+          
           { src: asiaStickyPork, alt: "Sticky pork aasialainen – Restaurant Asia, Levi" },
           { src: asiaTataki, alt: "Pihvi tataki – Restaurant Asia, Levi" },
         ],
