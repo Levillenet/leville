@@ -548,15 +548,19 @@ const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
                   ? "grid-cols-2"
                   : "grid-cols-2 md:grid-cols-3"
               }`}>
-                {restaurant.images.map((img, imgIdx) => (
-                  <div key={imgIdx} className="rounded-lg overflow-hidden">
-                    <OptimizedImage
-                      src={img.src}
-                      alt={img.alt}
-                      className="w-full h-48 sm:h-56 md:h-64"
-                    />
-                  </div>
-                ))}
+                {restaurant.images.map((img, imgIdx) => {
+                  const isFirstImage = idx === 0 && imgIdx === 0;
+                  return (
+                    <div key={imgIdx} className="rounded-lg overflow-hidden">
+                      <OptimizedImage
+                        src={img.src}
+                        alt={img.alt}
+                        className="w-full h-48 sm:h-56 md:h-64"
+                        priority={isFirstImage}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </section>
           ))}
