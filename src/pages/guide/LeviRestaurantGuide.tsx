@@ -337,7 +337,7 @@ const translations: Record<"fi" | "en", {
           { src: ammilaHampurilainen, alt: "Burger and fries – Ravintola Ämmilä, Levi" },
           { src: ammilaSiika, alt: "Pan-fried whitefish with vegetables – Ravintola Ämmilä, Levi" },
           { src: ammilaKaristys, alt: "Sautéed reindeer with mashed potatoes – Ravintola Ämmilä, Levi" },
-          { src: ammilaKaristys2, alt: "Sautéed reindeer with mashed potatoes – Ravintola Ämmilä, Levi" },
+          
           { src: ammilaMakkara, alt: "Sausage platter with potatoes – Ravintola Ämmilä, Levi" },
         ],
       },
