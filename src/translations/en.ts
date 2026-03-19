@@ -280,6 +280,13 @@ export const en = {
     bookCta: "Browse availability and book",
     items: [
       {
+        badge: "🌤️ Spring 2026",
+        date: "Mar 19, 2026",
+        title: "Spring is advancing in Levi – an exceptional winter behind, the best conditions ahead",
+        description: "Spring is arriving in Levi slightly ahead of schedule this year. Daytime temperatures have risen well above zero, but the snow conditions remain excellent – there is approximately 70 centimeters of snow on the fells.\n\nAlthough recent weeks have been exceptionally warm, the forecast is turning wintry again. Temperatures are dropping back below zero and night frosts are tightening, which means the best spring conditions are just beginning.\n\nThis winter in Levi has been exceptional in many ways. Early in the season, snow was slow to arrive, but when it finally came, it came in abundance. Around Christmas and into January, an extreme cold spell brought temperatures down to -40°C. After that, the weather quickly swung in the opposite direction – and now we're experiencing an unusually warm period.\n\nSpring in Levi is considered by many to be the best time of year. When the sun starts to warm and the days grow longer, the best of winter and the brightness of spring combine in a unique way. As the frost returns, the slopes and trails remain in excellent condition.\n\nTowards the end of March, the number of international travelers begins to decrease, and in April Levi fills mainly with domestic visitors. The atmosphere becomes somewhat calmer, but there is still plenty to do.\n\nAs spring progresses, the focus is already firmly on next season. Bookings for next winter are brisk, and Christmas and January dates in particular are filling up fast.\n\nAlthough winter and spring are Levi's most famous seasons, summer also offers an entirely unique experience. The midnight sun is a phenomenon you can't truly understand until you experience it yourself – the sun doesn't set at all, and daylight continues around the clock.",
+        highlight: "Welcome to Levi – regardless of the season. If you're planning a trip for next season, now is an excellent time to check availability and book in advance."
+      },
+      {
         badge: "☀️ Late Winter",
         date: "Feb 7, 2026",
         title: "Winter at its best in Levi – spring sunshine just around the corner",

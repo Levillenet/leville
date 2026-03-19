@@ -280,6 +280,13 @@ export const fi = {
     bookCta: "Tutustu vapaisiin ajankohtiin ja varaa",
     items: [
       {
+        badge: "🌤️ Kevät 2026",
+        date: "19.3.2026",
+        title: "Kevät etenee Levillä – poikkeuksellinen talvi takana, parhaat kelit edessä",
+        description: "Kevät on saapumassa Leville tänä vuonna hieman etuajassa. Päivälämpötilat ovat nousseet reilusti plussan puolelle, mutta lumitilanne on edelleen erinomainen – tunturissa on lunta noin 70 senttimetriä.\n\nVaikka viime viikot ovat olleet poikkeuksellisen lämpimiä, ennuste näyttää jälleen talvisemmalta. Lämpötilat ovat painumassa takaisin pakkasen puolelle ja yöpakkaset kiristyvät, mikä tarkoittaa käytännössä sitä, että kevään parhaat kelit ovat vasta alkamassa.\n\nKulunut talvi Levillä on ollut monella tapaa poikkeuksellinen. Alkukaudesta lunta saatiin odottaa pitkään, mutta kun sitä lopulta tuli, sitä tuli kunnolla. Joulun aikaan ja heti sen jälkeen tammikuussa koettiin erittäin kova pakkasjakso, jolloin lämpötilat laskivat jopa -40 asteeseen. Tämän jälkeen sää kääntyi nopeasti jälleen toiseen suuntaan – ja nyt elämme harvinaisen lämmintä jaksoa.\n\nKevät Levillä on monen mielestä vuoden parasta aikaa. Kun aurinko alkaa lämmittää ja päivät pitenevät, yhdistyvät talven parhaat puolet ja kevään valoisuus ainutlaatuisella tavalla. Pakkasten palatessa myös rinteet ja ladut pysyvät erinomaisessa kunnossa.\n\nMaaliskuun loppua kohden kansainvälisten matkailijoiden määrä alkaa vähentyä, ja huhtikuussa Levi täyttyykin pääosin kotimaisista matkailijoista. Tunnelma muuttuu hieman rauhallisemmaksi, mutta tekemistä riittää edelleen runsaasti.\n\nSamalla kun kevät etenee, katse on jo vahvasti tulevassa kaudessa. Ensi talven varaukset käyvät tällä hetkellä vilkkaasti, ja erityisesti joulun ja tammikuun ajankohdat täyttyvät nopeasti.\n\nVaikka talvi ja kevät ovat Levin tunnetuimpia sesonkeja, myös kesä tarjoaa täysin ainutlaatuisen kokemuksen. Yötön yö on ilmiö, jota ei voi todella ymmärtää ennen kuin sen kokee itse – aurinko ei laske lainkaan, ja valo jatkuu ympäri vuorokauden.",
+        highlight: "Tervetuloa Leville – vuodenajasta riippumatta. Jos suunnittelet matkaa ensi kaudelle, nyt on erinomainen hetki tarkistaa saatavuus ja tehdä varaus ajoissa."
+      },
+      {
         badge: "☀️ Kevättalvi",
         date: "7.2.2026",
         title: "Talvi parhaimmillaan Levillä – kevätaurinko jo nurkan takana",

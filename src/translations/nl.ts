@@ -275,6 +275,13 @@ export const nl = {
     bookCta: "Bekijk beschikbaarheid en boek",
     items: [
       {
+        badge: "🌤️ Lente 2026",
+        date: "19 mrt 2026",
+        title: "De lente vordert in Levi – een uitzonderlijke winter achter de rug, de beste omstandigheden in het verschiet",
+        description: "De lente komt dit jaar iets eerder dan verwacht naar Levi. De dagtemperaturen zijn flink boven nul gestegen, maar de sneeuwcondities zijn nog steeds uitstekend – er ligt ongeveer 70 centimeter sneeuw op de fjell.\n\nHoewel de afgelopen weken uitzonderlijk warm waren, wijst de voorspelling weer richting winterser weer. De temperaturen zakken terug onder nul en de nachtvorst wordt strenger, wat betekent dat de beste lenteomstandigheden net beginnen.\n\nDeze winter in Levi was op veel manieren uitzonderlijk. Aan het begin van het seizoen liet de sneeuw lang op zich wachten, maar toen die eindelijk kwam, kwam hij flink. Rond kerst en in januari was er een extreme koude periode met temperaturen tot -40°C. Daarna sloeg het weer snel om in de andere richting – en nu beleven we een ongewoon warme periode.\n\nDe lente in Levi wordt door velen beschouwd als de beste tijd van het jaar. Wanneer de zon begint te verwarmen en de dagen langer worden, combineren de beste kanten van de winter en de helderheid van de lente zich op een unieke manier. Als de vorst terugkeert, blijven de pistes en loipes in uitstekende conditie.\n\nRichting het einde van maart neemt het aantal internationale reizigers af, en in april vult Levi zich voornamelijk met binnenlandse bezoekers. De sfeer wordt wat rustiger, maar er is nog steeds genoeg te doen.\n\nTerwijl de lente vordert, is de blik al stevig gericht op het volgende seizoen. De boekingen voor de komende winter lopen goed, en vooral kerst- en januaridata raken snel vol.\n\nHoewel winter en lente de bekendste seizoenen van Levi zijn, biedt ook de zomer een volstrekt unieke ervaring. De middernachtzon is een fenomeen dat je pas echt kunt begrijpen als je het zelf meemaakt – de zon gaat helemaal niet onder en het licht gaat de klok rond door.",
+        highlight: "Welkom in Levi – ongeacht het seizoen. Als u een reis plant voor het volgende seizoen, is dit een uitstekend moment om de beschikbaarheid te controleren en tijdig te boeken."
+      },
+      {
         badge: "☀️ Laat winter",
         date: "7 feb 2026",
         title: "Winter op zijn best in Levi – de voorjaarszon komt eraan",

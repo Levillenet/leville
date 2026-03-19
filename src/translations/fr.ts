@@ -275,6 +275,13 @@ export const fr = {
     bookCta: "Voir les disponibilités et réserver",
     items: [
       {
+        badge: "🌤️ Printemps 2026",
+        date: "19 mars 2026",
+        title: "Le printemps avance à Levi – un hiver exceptionnel derrière nous, les meilleures conditions devant nous",
+        description: "Le printemps arrive à Levi un peu en avance cette année. Les températures diurnes ont bien dépassé le zéro, mais les conditions d'enneigement restent excellentes – il y a environ 70 centimètres de neige sur les collines.\n\nBien que les dernières semaines aient été exceptionnellement douces, les prévisions annoncent un retour à des conditions plus hivernales. Les températures repassent sous zéro et le gel nocturne se renforce, ce qui signifie que les meilleures conditions printanières ne font que commencer.\n\nCet hiver à Levi a été exceptionnel à bien des égards. En début de saison, la neige s'est fait attendre, mais quand elle est enfin arrivée, elle est venue en abondance. Autour de Noël et en janvier, une vague de froid extrême a fait chuter les températures jusqu'à -40°C. Ensuite, le temps a rapidement basculé dans l'autre sens – et nous vivons maintenant une période inhabituellement douce.\n\nLe printemps à Levi est considéré par beaucoup comme la meilleure période de l'année. Quand le soleil commence à réchauffer et les jours rallongent, le meilleur de l'hiver et la luminosité du printemps se combinent de manière unique. Avec le retour du gel, les pistes et sentiers restent en excellent état.\n\nVers la fin mars, le nombre de voyageurs internationaux commence à diminuer, et en avril Levi se remplit principalement de visiteurs finlandais. L'ambiance devient plus calme, mais il y a toujours beaucoup à faire.\n\nAlors que le printemps avance, le regard est déjà tourné vers la prochaine saison. Les réservations pour l'hiver prochain sont en plein essor, et les dates de Noël et janvier en particulier se remplissent rapidement.\n\nBien que l'hiver et le printemps soient les saisons les plus célèbres de Levi, l'été offre également une expérience totalement unique. Le soleil de minuit est un phénomène qu'on ne peut vraiment comprendre qu'en le vivant soi-même – le soleil ne se couche pas du tout, et la lumière perdure 24 heures sur 24.",
+        highlight: "Bienvenue à Levi – quelle que soit la saison. Si vous planifiez un voyage pour la prochaine saison, c'est le moment idéal pour vérifier les disponibilités et réserver à l'avance."
+      },
+      {
         badge: "☀️ Fin d'hiver",
         date: "7 fév. 2026",
         title: "L'hiver à son meilleur à Levi – le soleil de printemps approche",
