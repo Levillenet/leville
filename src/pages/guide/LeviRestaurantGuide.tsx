@@ -21,7 +21,6 @@ import asiaPaistettuLiha from "@/assets/restaurants/Aasialainen paistettu liha -
 import asiaLohiWasabi from "@/assets/restaurants/Paistettu lohi wasabilla - Restaurant ASia.jpg";
 import asiaGrillLohi from "@/assets/restaurants/Grillattu lohi chililla - restaurant asia.jpg";
 import asiaTempura from "@/assets/restaurants/Tempurakatkaravut ja bataattiranskalaiset 2 - ravintola asia.jpg";
-
 import asiaStickyPork from "@/assets/restaurants/Sticky pork aasialainen - Levi Ravintola ASia.jpg";
 import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg";
 
@@ -29,7 +28,6 @@ import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg";
 import ammilaHampurilainen from "@/assets/restaurants/Hampurilainen ja ranskalaiset - Ravintola Ammila (Levi).jpg";
 import ammilaSiika from "@/assets/restaurants/Paistettu siika ja kasviksia - Ravintola Ammila (Levi).jpg";
 import ammilaKaristys from "@/assets/restaurants/Poronkaristys perunamuusilla - Ravintola Ammila (Levi).jpg";
-
 import ammilaMakkara from "@/assets/restaurants/Makkaralautanen perunoilla - Ravintola Ammila (Levi).jpg";
 
 // Ravintola Niliporo
@@ -54,7 +52,6 @@ import pannukakkuMarja from "@/assets/restaurants/Pannukakku marjoilla ja kermav
 // Myllyn Äijä
 import myllynLeike from "@/assets/restaurants/Leike sienikastikkeella - Myllyn Aija (Levi).jpg";
 import myllynPihvi from "@/assets/restaurants/Pippuripihvi perunagratiinilla - Myllyn Aija (Levi).jpg";
-
 
 // Ravintola Renna
 import rennaPizza from "@/assets/restaurants/Pizza prosciutto e rucola - restaurant Renna.jpg";
