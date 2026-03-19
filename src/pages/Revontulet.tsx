@@ -85,8 +85,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     en: {
       meta: {
-        title: "Northern Lights in Levi: Best Viewing Spots & Forecast 2026",
-        description: "See the aurora borealis in Levi, Finland. Best viewing times Sept–March, prime locations and live forecasts. Book aurora-friendly accommodation.",
+        title: "Northern Lights in Levi — Live Forecast & Best Spots",
+        description: "Will you see aurora borealis in Levi tonight? Real-time KP index forecast, best viewing locations and photography tips from locals.",
         canonical: "https://leville.net/en/northern-lights",
       },
       hero: {
