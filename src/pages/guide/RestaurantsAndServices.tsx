@@ -136,8 +136,8 @@ const translations = {
 
   en: {
     meta: {
-      title: "Restaurants and Services in Levi | Leville.net",
-      description:
+    title: "Levi Restaurants 2026 — Local Picks & Opening Hours",
+    description:
         "Levi restaurants, grocery stores, rentals and services. Practical tips, opening hours and family friendly options.",
       canonical: "https://leville.net/guide/restaurants-and-services-in-levi",
     },

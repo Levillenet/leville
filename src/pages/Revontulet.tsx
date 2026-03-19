@@ -225,8 +225,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     fr: {
       meta: {
-        title: "Aurores Boréales à Levi: Meilleurs Spots & Prévisions 2026",
-        description: "Observez les aurores boréales à Levi en Laponie finlandaise. Meilleure période sept–mars, lieux d'observation et prévisions. Hébergement idéal.",
+        title: "Aurores boréales à Levi — Prévisions & meilleurs spots",
+        description: "Verrez-vous des aurores boréales à Levi ce soir? Prévisions en temps réel, meilleurs sites et conseils photo de locaux.",
         canonical: "https://leville.net/fr/aurores-boreales",
       },
       hero: {

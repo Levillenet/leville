@@ -203,8 +203,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Top Winter Activities in Levi Lapland | What to Do | Leville.net",
-      description: "Discover the best winter activities in Levi: skiing, husky safaris, reindeer rides, ice fishing, and more. Plan your perfect Lapland adventure.",
+      title: "Things to Do in Levi — 15 Best Activities 2026",
+      description: "Husky safaris, reindeer rides, snowmobiling, ice swimming and northern lights tours. Prices, booking tips and local picks.",
       canonical: "https://leville.net/activities/top-winter-activities-in-levi-lapland"
     },
     title: "Top Winter Activities in Levi, Lapland",

@@ -419,8 +419,8 @@ const translations = {
   },
   nl: {
     meta: {
-      title: "Levi met kinderen – Gezinstips voor Lapland vakantie | Leville.net",
-      description: "Praktische tips voor een gezinsvakantie in Levi. Kinderpistes, Leevilandia, gezinsactiviteiten, restaurants en accommodatietips voor families.",
+      title: "Levi met kinderen — Pistes, activiteiten & tips",
+      description: "Kinderpistes, Leevilandia, skischool en gezinsvriendelijke restaurants. Tips voor een wintervakantie met kinderen.",
       canonical: "https://leville.net/nl/gids/levi-met-kinderen",
     },
     title: "Levi met kinderen",

@@ -134,8 +134,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Summer in Levi – Midnight Sun & Activities | Leville.net",
-      description: "Complete guide to summer in Levi. Midnight sun, hiking trails, mountain biking and fishing. Plan your summer holiday in Lapland's nature.",
+      title: "Summer in Levi 2026 — Hiking, Biking & Midnight Sun",
+      description: "Fell hiking, e-bike rentals, fishing and midnight sun. Lower accommodation prices during summer season.",
       canonical: "https://leville.net/guide/summer-in-levi"
     },
     title: "Summer in Levi",
