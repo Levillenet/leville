@@ -30,7 +30,7 @@ import ammilaHampurilainen from "@/assets/restaurants/Hampurilainen ja ranskalai
 import ammilaSiika from "@/assets/restaurants/Paistettu siika ja kasviksia - Ravintola Ammila (Levi).jpg?w=800&format=webp&quality=75";
 import ammilaKaristys from "@/assets/restaurants/Poronkaristys perunamuusilla - Ravintola Ammila (Levi).jpg?w=800&format=webp&quality=75";
 
-import ammilaMakkara from "@/assets/restaurants/Makkaralautanen perunoilla - Ravintola Ammila (Levi).jpg";
+import ammilaMakkara from "@/assets/restaurants/Makkaralautanen perunoilla - Ravintola Ammila (Levi).jpg?w=800&format=webp&quality=75";
 
 // Ravintola Niliporo
 import niliporoMakkara from "@/assets/restaurants/Poronmakkara perunamuusilla - ravintola niliporo.jpg";
