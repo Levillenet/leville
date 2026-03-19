@@ -320,7 +320,7 @@ const translations: Record<"fi" | "en", {
           { src: asiaLohiWasabi, alt: "Pan-fried salmon with wasabi – Restaurant Asia, Levi" },
           { src: asiaGrillLohi, alt: "Grilled salmon with chili – Restaurant Asia, Levi" },
           { src: asiaTempura, alt: "Tempura shrimp with sweet potato fries – Restaurant Asia, Levi" },
-          { src: asiaKatkaravut, alt: "Shrimp with sweet potato fries – Restaurant Asia, Levi" },
+          
           { src: asiaStickyPork, alt: "Sticky pork Asian style – Restaurant Asia, Levi" },
           { src: asiaTataki, alt: "Beef tataki – Restaurant Asia, Levi" },
         ],
