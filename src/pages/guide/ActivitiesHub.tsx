@@ -63,7 +63,16 @@ const content: Record<Language, {
       { id: "aurora", title: "Revontulet", description: "Levillä nähdään revontulia noin 200 yönä vuodessa. Opi parhaat bongauspaikat.", href: "/revontulet", iconKey: "sparkles" },
       { id: "snowmobile", title: "Moottorikelkkasafari", description: "Koe Lapin erämaiden huima vauhti ja vapaus moottorikelkkasafarilla.", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi", iconKey: "sun" },
       { id: "husky", title: "Koiravaljakkoajelu", description: "Unohtumaton elämys huskyjen kanssa Lapin talvisessa luonnossa.", href: "/aktiviteetit/koiravaljakkoajelu-levi", iconKey: "dog" },
-      { id: "hiking", title: "Vaellus ja pyöräily", description: "Tunturivaellusta, maastopyöräilyä ja sähköpyöräilyä ympäri vuoden.", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi", iconKey: "treepine" }
+      { id: "reindeer", title: "Porosafari", description: "Perinteinen poroajelu Lapin lumisessa maisemassa. Sopii kaikenikäisille.", href: "/aktiviteetit/porosafari-levi", iconKey: "treepine" },
+      { id: "ice-swimming", title: "Avantouinti", description: "Kokeile suomalaista avantouintia – unohtumaton elämys saunomisen jälkeen.", href: "/aktiviteetit/avantouinti-levi", iconKey: "snowflake" },
+      { id: "snowshoeing", title: "Lumikenkäily", description: "Helppo tapa tutkia Lapin talvista luontoa. Ei vaadi aiempaa kokemusta.", href: "/aktiviteetit/lumikenkaily-levi", iconKey: "mountain" },
+      { id: "fatbike", title: "Fatbike", description: "Leveärenkaisella pyörällä lumisille poluille – talvipyöräilyn uusi trendi.", href: "/aktiviteetit/fatbike-levi", iconKey: "bike" },
+      { id: "fishing", title: "Pilkkiminen ja kalastus", description: "Pilkkimistä talvella ja kalastusta kesällä Levin järvillä ja joilla.", href: "/aktiviteetit/pilkkiminen-ja-kalastus-levi", iconKey: "sun" },
+      { id: "hiking", title: "Vaellus ja pyöräily", description: "Tunturivaellusta, maastopyöräilyä ja sähköpyöräilyä ympäri vuoden.", href: "/aktiviteetit/vaellus-ja-maastopyoraily-levi", iconKey: "treepine" },
+      { id: "golf", title: "Golf", description: "Pelaa golfia keskiyön auringossa. Levin kenttä on yksi maailman pohjoisimmista.", href: "/aktiviteetit/golf-levi", iconKey: "sun" },
+      { id: "canoeing", title: "Melonta ja SUP", description: "Melontaa ja stand-up paddleboardingia Ounasjoen rauhallisissa maisemissa.", href: "/aktiviteetit/melonta-ja-sup-levi", iconKey: "sun" },
+      { id: "horse-riding", title: "Ratsastus", description: "Ratsastusretkiä Lapin tunturimaisemissa kesällä ja talvella.", href: "/aktiviteetit/ratsastus-levi", iconKey: "treepine" },
+      { id: "kids", title: "Levi lapsille", description: "Leevilandia, taikamattohissit, lasten hiihtokoulu ja perheen yhteiset elämykset.", href: "/aktiviteetit/levi-lapsille", iconKey: "baby" }
     ],
     popularGuides: [
       { id: "snowmobile-tips", title: "Moottorikelkkasafari-vinkit", description: "Käytännön vinkit ensikertalaiselle: mitä pukea, miten ajaa ja mistä varata.", href: "/aktiviteetit/moottorikelkkasafari-vinkit-levi" },
