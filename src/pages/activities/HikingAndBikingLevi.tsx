@@ -19,6 +19,8 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import OptimizedImage from "@/components/OptimizedImage";
 import bikeparkSummer from "@/assets/activities/bikepark-summer.jpg";
+import fatbikeSpringTrail from "@/assets/activities/fatbike-spring-trail.jpg";
+import fatbikeWinterForest from "@/assets/activities/fatbike-winter-forest.jpg";
 
 interface HikingAndBikingLeviProps {
   lang?: Language;
