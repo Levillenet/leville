@@ -119,21 +119,29 @@ Deno.serve(async (req) => {
     }
     const since = sinceDate.toISOString();
 
-    const queryLimit = (period === "90days" || period === "180days") ? 50000 : 10000;
+    // Fetch all rows using pagination (PostgREST caps at 1000 per request)
+    const PAGE_SIZE = 1000;
+    let views: any[] = [];
+    let from = 0;
+    while (true) {
+      const { data: batch, error: batchErr } = await supabase
+        .from("page_views")
+        .select("path, referrer, device_type, language, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page")
+        .gte("created_at", since)
+        .order("created_at", { ascending: false })
+        .range(from, from + PAGE_SIZE - 1);
 
-    const { data: views, error } = await supabase
-      .from("page_views")
-      .select("path, referrer, device_type, language, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page")
-      .gte("created_at", since)
-      .order("created_at", { ascending: false })
-      .limit(queryLimit);
-
-    if (error) {
-      console.error("Query error:", error);
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      if (batchErr) {
+        console.error("Query error:", batchErr);
+        return new Response(JSON.stringify({ error: batchErr.message }), {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      if (!batch || batch.length === 0) break;
+      views = views.concat(batch);
+      if (batch.length < PAGE_SIZE) break;
+      from += PAGE_SIZE;
     }
 
     // CSV format: return raw rows
