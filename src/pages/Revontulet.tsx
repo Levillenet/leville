@@ -50,8 +50,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
   }> = {
     fi: {
       meta: {
-        title: "Revontulet Levillä: Parhaat Katselupaikat & Ennuste 2026",
-        description: "Näe revontulet Levillä! Paras aika syys–maaliskuu, parhaat katselupaikat ja live-ennuste. Varaa revontulimajoitus nyt.",
+        title: "Revontulet Levillä tänään — ennuste ja paikat 2026",
+        description: "Näetkö revontulia tänään? Reaaliaikainen ennuste, parhaat katselupaikat ja kokeneen paikallisen vinkit kuvaamiseen.",
         canonical: "https://leville.net/revontulet",
       },
       hero: {
