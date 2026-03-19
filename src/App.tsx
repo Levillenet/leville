@@ -64,6 +64,7 @@ const RestaurantsAndServices = lazy(() => import("./pages/guide/RestaurantsAndSe
 const LeviWithChildren = lazy(() => import("./pages/guide/LeviWithChildren"));
 const LeviWithoutCar = lazy(() => import("./pages/guide/LeviWithoutCar"));
 const HeatingSystemsInLevi = lazy(() => import("./pages/guide/HeatingSystemsInLevi"));
+const LeviRestaurantGuide = lazy(() => import("./pages/guide/LeviRestaurantGuide"));
 const HolidayPlanner = lazy(() => import("./pages/HolidayPlanner"));
 const FireplaceInstructions = lazy(() => import("./pages/FireplaceInstructions"));
 const LeviVsYllasVsRuka = lazy(() => import("./pages/guide/LeviVsYllasVsRuka"));
@@ -378,6 +379,7 @@ const App = () => {
               {/* Travel HUB Child Pages - Finnish */}
               <Route path="/opas/liikkuminen-levilla" element={<GettingAroundLevi />} />
               <Route path="/opas/ravintolat-ja-palvelut-levilla" element={<RestaurantsAndServices />} />
+              <Route path="/opas/levin-ravintolat-ja-annokset" element={<LeviRestaurantGuide />} />
               <Route path="/opas/lapsiperheet-levilla" element={<LeviWithChildren />} />
               <Route path="/opas/levi-ilman-autoa" element={<LeviWithoutCar />} />
               <Route path="/opas/lammitysjarjestelmat-levi" element={<HeatingSystemsInLevi />} />
@@ -390,6 +392,7 @@ const App = () => {
               {/* Travel HUB Child Pages - English */}
               <Route path="/guide/getting-around-in-levi" element={<GettingAroundLevi lang="en" />} />
               <Route path="/guide/restaurants-and-services-in-levi" element={<RestaurantsAndServices lang="en" />} />
+              <Route path="/guide/levi-restaurants-and-dishes" element={<LeviRestaurantGuide lang="en" />} />
               <Route path="/guide/levi-with-children" element={<LeviWithChildren lang="en" />} />
               <Route path="/guide/levi-without-a-car" element={<LeviWithoutCar lang="en" />} />
               <Route path="/guide/heating-systems-in-levi" element={<HeatingSystemsInLevi lang="en" />} />
