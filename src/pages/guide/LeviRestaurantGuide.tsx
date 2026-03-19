@@ -20,7 +20,7 @@ import asiaWokki from "@/assets/restaurants/Aasialainen wokki bataattiranskalais
 import asiaPaistettuLiha from "@/assets/restaurants/Aasialainen paistettu liha - ravintola asia.jpg?w=800&format=webp&quality=75";
 import asiaLohiWasabi from "@/assets/restaurants/Paistettu lohi wasabilla - Restaurant ASia.jpg?w=800&format=webp&quality=75";
 import asiaGrillLohi from "@/assets/restaurants/Grillattu lohi chililla - restaurant asia.jpg?w=800&format=webp&quality=75";
-import asiaTempura from "@/assets/restaurants/Tempurakatkaravut ja bataattiranskalaiset 2 - ravintola asia.jpg";
+import asiaTempura from "@/assets/restaurants/Tempurakatkaravut ja bataattiranskalaiset 2 - ravintola asia.jpg?w=800&format=webp&quality=75";
 
 import asiaStickyPork from "@/assets/restaurants/Sticky pork aasialainen - Levi Ravintola ASia.jpg";
 import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg";
