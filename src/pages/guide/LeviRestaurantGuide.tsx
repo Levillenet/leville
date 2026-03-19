@@ -57,9 +57,9 @@ import myllynPihvi from "@/assets/restaurants/Pippuripihvi perunagratiinilla - M
 
 
 // Ravintola Renna
-import rennaPizza from "@/assets/restaurants/Pizza prosciutto e rucola - restaurant Renna.jpg";
-import rennaPizza2 from "@/assets/restaurants/Pizza prosciutto rucola - ravintola renna.jpg";
-import rennaPizza3 from "@/assets/restaurants/Pizza prosciutto rucola take-away - ristorante renna.jpg";
+import rennaPizza from "@/assets/restaurants/Pizza prosciutto e rucola - restaurant Renna.jpg?w=800&format=webp&quality=75";
+import rennaPizza2 from "@/assets/restaurants/Pizza prosciutto rucola - ravintola renna.jpg?w=800&format=webp&quality=75";
+import rennaPizza3 from "@/assets/restaurants/Pizza prosciutto rucola take-away - ristorante renna.jpg?w=800&format=webp&quality=75";
 
 // Salteriet
 import salterietLeike from "@/assets/restaurants/Leike ranskalaisilla ja remouladella - Levi Salteriet.jpg";
