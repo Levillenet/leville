@@ -10,7 +10,18 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  plugins: [react(), imagetools(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [
+    react(),
+    imagetools({
+      defaultDirectives: (url) => {
+        if (url.pathname.includes('/restaurants/')) {
+          return new URLSearchParams({ w: '800', format: 'webp', quality: '75' });
+        }
+        return new URLSearchParams();
+      },
+    }),
+    mode === "development" && componentTagger(),
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
