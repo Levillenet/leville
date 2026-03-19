@@ -155,8 +155,8 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     de: {
       meta: {
-        title: "Nordlichter in Levi – Aurora Borealis | Leville.net",
-        description: "Erleben Sie die Magie der Nordlichter in Levi. Beste Orte, Zeiten und Tipps zur Beobachtung der Aurora in Lappland.",
+        title: "Nordlichter in Levi — Vorhersage & beste Orte 2026",
+        description: "Nordlichter in Levi sehen: Live-Vorhersage, KP-Index, beste Beobachtungsplätze und Foto-Tipps von Einheimischen.",
         canonical: "https://leville.net/de/nordlichter",
       },
       hero: {
