@@ -27,13 +27,16 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Live active users: unique sessions in last 5 minutes
+    // Live active users: sessions active in the last 5 minutes.
+    // We scan the last 30 minutes and use (created_at + time_on_page) as last activity.
     if (action === "live") {
-      const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+      const thirtyMinAgo = new Date(Date.now() - 30 * 60 * 1000).toISOString();
+      const activeThresholdMs = Date.now() - 5 * 60 * 1000;
+
       const { data: liveRows, error: liveErr } = await supabase
         .from("page_views")
-        .select("session_id, path")
-        .gte("created_at", fiveMinAgo)
+        .select("session_id, path, created_at, time_on_page")
+        .gte("created_at", thirtyMinAgo)
         .not("path", "like", "/event/%")
         .not("session_id", "is", null);
 
@@ -44,10 +47,17 @@ Deno.serve(async (req) => {
         });
       }
 
-      const uniqueSessions = new Set((liveRows || []).map((r) => r.session_id));
-      // Top active pages
+      const activeRows = (liveRows || []).filter((r: any) => {
+        const createdMs = new Date(r.created_at).getTime();
+        const timeOnPageSec = typeof r.time_on_page === "number" ? r.time_on_page : 0;
+        const lastActivityMs = createdMs + timeOnPageSec * 1000;
+        return lastActivityMs >= activeThresholdMs;
+      });
+
+      const uniqueSessions = new Set(activeRows.map((r: any) => r.session_id));
+
       const pageCounts: Record<string, number> = {};
-      for (const r of liveRows || []) {
+      for (const r of activeRows) {
         pageCounts[r.path] = (pageCounts[r.path] || 0) + 1;
       }
       const topPages = Object.entries(pageCounts)
