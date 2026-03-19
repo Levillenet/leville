@@ -22,7 +22,7 @@ import asiaLohiWasabi from "@/assets/restaurants/Paistettu lohi wasabilla - Rest
 import asiaGrillLohi from "@/assets/restaurants/Grillattu lohi chililla - restaurant asia.jpg?w=800&format=webp&quality=75";
 import asiaTempura from "@/assets/restaurants/Tempurakatkaravut ja bataattiranskalaiset 2 - ravintola asia.jpg?w=800&format=webp&quality=75";
 
-import asiaStickyPork from "@/assets/restaurants/Sticky pork aasialainen - Levi Ravintola ASia.jpg";
+import asiaStickyPork from "@/assets/restaurants/Sticky pork aasialainen - Levi Ravintola ASia.jpg?w=800&format=webp&quality=75";
 import asiaTataki from "@/assets/restaurants/Pihvi tataki - Asia ravintola.jpg";
 
 // Ravintola Ämmilä
