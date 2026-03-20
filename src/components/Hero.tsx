@@ -54,12 +54,12 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
     let isMounted = true;
     
     const preloadRest = async () => {
-      const promises = heroImages.slice(1).map((src) => {
+      const promises = heroImages.slice(1).map((item) => {
         return new Promise<void>((resolve) => {
           const img = new Image();
           img.onload = () => resolve();
           img.onerror = () => resolve();
-          img.src = src;
+          img.src = item.src;
         });
       });
       
@@ -123,10 +123,10 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
     >
       {/* Background images slideshow with crossfade and Ken Burns effect */}
       <div className="absolute inset-0 overflow-hidden bg-leville-dark">
-        {heroImages.map((image, index) => {
+        {heroImages.map((item, index) => {
           const isCurrent = index === currentImageIndex;
           const isPrevious = previousImageIndex !== null && index === previousImageIndex;
-          const isCabin = image === heroCabin;
+          const isCabin = item.src === heroCabin;
           const kenBurnsClass = isCabin ? "animate-ken-burns-cabin" : "animate-ken-burns";
 
           // Only render current + previous for performance and predictable layering.
@@ -138,15 +138,14 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
               className={`absolute inset-0 ${kenBurnsClass}`}
               style={{
                 zIndex: isPrevious ? 2 : 1,
-                // Freeze outgoing image at its current zoom to prevent "snap back" while fading.
                 animationPlayState: isPrevious ? "paused" : "running",
               }}
             >
               <img
-                src={image}
+                src={item.src}
                 alt=""
-                width={1920}
-                height={1080}
+                width={item.w}
+                height={item.h}
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={index === 0 ? "high" : "auto"}
