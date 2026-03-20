@@ -10,6 +10,7 @@ import { detectLanguageFromPath, routeConfig } from "@/translations";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
   const currentLang = detectLanguageFromPath(location.pathname);
 
