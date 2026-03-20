@@ -33,14 +33,44 @@
 
     <!-- Microsoft Clarity loaded dynamically via CookieConsent component -->
 
+    <!-- LCP Fix 1: Preload hero image so browser fetches it before JS bundle -->
+    <link rel="preload" as="image" href="/hero-chalet.jpg" fetchpriority="high">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Raleway:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+
+    <!-- LCP Fix 2: Critical inline CSS for above-the-fold content -->
+    <style>
+      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+      body{font-family:'DM Sans',system-ui,-apple-system,sans-serif;background-color:#152030;color:#e2e8f0;-webkit-font-smoothing:antialiased}
+      .lcp-header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;background:rgba(10,22,40,0.85);backdrop-filter:blur(8px)}
+      .lcp-logo{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;font-weight:600;color:#e2e8f0;letter-spacing:0.02em}
+      .lcp-hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:#0a1628}
+      .lcp-hero-bg{position:absolute;inset:0;background:url('/hero-chalet.jpg') center/cover no-repeat}
+      .lcp-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,22,40,0.75),rgba(10,22,40,0.50),rgba(10,22,40,0.85))}
+      .lcp-hero-content{position:relative;z-index:10;text-align:center;padding:2rem 1rem;max-width:56rem;margin:0 auto}
+      .lcp-hero-content h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2rem,5vw,4.5rem);font-weight:600;line-height:1.1;margin-bottom:1rem;color:#e2e8f0}
+      .lcp-hero-content p{font-size:clamp(0.95rem,2vw,1.25rem);opacity:0.8;max-width:36rem;margin:0 auto;line-height:1.6}
+    </style>
   </head>
 
   <body style="background-color:#152030">
-    <div id="root"></div>
+    <!-- LCP Fix 3: Static HTML shell — replaced instantly when React mounts -->
+    <div id="root">
+      <div class="lcp-header">
+        <span class="lcp-logo">Leville.net</span>
+      </div>
+      <div class="lcp-hero">
+        <div class="lcp-hero-bg"></div>
+        <div class="lcp-hero-overlay"></div>
+        <div class="lcp-hero-content">
+          <h1>Leville.net</h1>
+          <p>Laadukasta majoitusta Levin keskustassa</p>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
