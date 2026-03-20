@@ -200,6 +200,7 @@ const Header = () => {
           </nav>
         )}
       </div>
+      <SiteSearch open={isSearchOpen} onOpenChange={setIsSearchOpen} />
     </header>
   );
 };
