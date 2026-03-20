@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import levilleLogo from "@/assets/leville-logo.png";
 import WeatherWidget from "@/components/WeatherWidget";
 import LanguageSelector from "@/components/LanguageSelector";
+import SiteSearch from "@/components/SiteSearch";
 import { detectLanguageFromPath, routeConfig } from "@/translations";
 
 const Header = () => {
