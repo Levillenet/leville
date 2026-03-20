@@ -98,6 +98,8 @@ const Header = () => {
               <img 
                 src={levilleLogo} 
                 alt="Leville.net - Apartments & Villas" 
+                width={240}
+                height={96}
                 loading="eager"
                 decoding="async"
                 fetchPriority="high"
