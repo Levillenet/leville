@@ -31,17 +31,9 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
   const location = useLocation();
   const currentLang = detectLanguageFromPath(location.pathname);
   const labels = searchLabels[currentLang] || searchLabels.fi;
-  const catLabels = categoryLabels[currentLang] || categoryLabels.fi;
 
   // Filter pages for current language
   const langPages = searchPages.filter((p) => p.lang === currentLang);
-
-  // Group by category
-  const grouped = langPages.reduce<Record<string, SearchPage[]>>((acc, page) => {
-    if (!acc[page.category]) acc[page.category] = [];
-    acc[page.category].push(page);
-    return acc;
-  }, {});
 
   const handleSelect = useCallback(
     (path: string) => {
