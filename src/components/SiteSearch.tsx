@@ -65,26 +65,24 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
   }, []);
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <Command filter={customFilter} className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
-        <CommandInput placeholder={labels.placeholder} />
-        <CommandList>
-          <CommandEmpty>{labels.noResults}</CommandEmpty>
-          {langPages.map((page) => (
-            <CommandItem
-              key={page.path}
-              value={`${page.title}|${page.description}`}
-              onSelect={() => handleSelect(page.path)}
-              className="cursor-pointer"
-            >
-              <div className="flex flex-col">
-                <span className="font-medium">{page.title}</span>
-                <span className="text-xs text-muted-foreground">{page.description}</span>
-              </div>
-            </CommandItem>
-          ))}
-        </CommandList>
-      </Command>
+    <CommandDialog open={open} onOpenChange={onOpenChange} commandProps={{ filter: customFilter }}>
+      <CommandInput placeholder={labels.placeholder} />
+      <CommandList>
+        <CommandEmpty>{labels.noResults}</CommandEmpty>
+        {langPages.map((page) => (
+          <CommandItem
+            key={page.path}
+            value={`${page.title}|${page.description}`}
+            onSelect={() => handleSelect(page.path)}
+            className="cursor-pointer"
+          >
+            <div className="flex flex-col">
+              <span className="font-medium">{page.title}</span>
+              <span className="text-xs text-muted-foreground">{page.description}</span>
+            </div>
+          </CommandItem>
+        ))}
+      </CommandList>
     </CommandDialog>
   );
 };
