@@ -116,7 +116,7 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
   }, []);
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange} commandProps={{ filter: customFilter }}>
+    <CommandDialog open={open} onOpenChange={handleOpenChange} commandProps={{ filter: customFilter }}>
       <CommandInput placeholder={labels.placeholder} onValueChange={(v) => { lastQueryRef.current = v; }} />
       <CommandList>
         <CommandEmpty>{labels.noResults}</CommandEmpty>

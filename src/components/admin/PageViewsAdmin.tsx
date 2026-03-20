@@ -277,6 +277,8 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
     "/event/booking-sticky-bar",
     "/event/booking-page-cta",
     "/event/booking-link",
+    "/event/site-search",
+    "/event/site-search-abandon",
   ];
   const conversionEventsComplete = allConversionTypes.map((type) => {
     const existing = (stats.conversionEvents || []).find((e) => e.type === type);
