@@ -1,37 +1,33 @@
 
 
-## Hakutulosten parantaminen
+## Hakutilastojen varmistaminen CSV-viennissä ja dashboardissa
 
-### Ongelma
-cmdk:n oletushaku käyttää fuzzy-matchingia, joka tuottaa epäloogisia osumia (esim. "sauna" → Last Minute). Lisäksi kategoriaryhmittely häiritsee tulosten järjestystä.
+### Nykytilanne
 
-### Ratkaisu
+Hakutapahtumat (`/event/site-search`) tallentuvat jo `page_views`-tauluun ja näkyvät CSV-viennissä riveinä. **Mutta:**
 
-**Tiedosto: `src/components/SiteSearch.tsx`**
+1. **REPORT_DESCRIPTION** (LLM-selite) ei dokumentoi `site-search`-tapahtumatyyppiä — LLM ei osaa tulkita hakudataa
+2. **Dashboard** näyttää vain 4 booking-konversiota — hakutilastot eivät näy lainkaan
+3. **Haut ilman klikkausta** eivät tallennu — jos käyttäjä hakee mutta sulkee dialogin, data menetetään
 
-1. **Poista kategoriaryhmittely** — näytetään tulokset yksinkertaisena listana ilman CommandGroup-jakoa
-2. **Lisää oma filter-funktio** Command-komponenttiin, joka:
-   - Tekee substring-haun (ei fuzzy) otsikosta ja kuvauksesta
-   - Pisteyttää: otsikon osuma saa korkeamman pisteen kuin kuvauksen osuma
-   - Otsikon alusta alkava osuma saa korkeimman pisteen
-3. Tulokset järjestyvät automaattisesti relevanssin mukaan (cmdk käyttää filter-funktion palauttamaa pistemäärää)
+### Muutokset
 
-### Tekninen toteutus
+**1. `src/components/SiteSearch.tsx`** — Lisää "tyhjän haun" logitus
+- Kun dialogi suljetaan JA hakukenttään on kirjoitettu vähintään 2 merkkiä mutta tulosta ei valittu, logitetaan `/event/site-search-abandon`
+- referrer = hakusana, utm_source = tyhjä (ei valintaa)
+- Tämä kertoo mitä käyttäjät yrittävät etsiä mutta eivät löydä
 
-```tsx
-// Custom filter: exact substring match, title > description
-<Command filter={(value, search) => {
-  const s = search.toLowerCase();
-  const v = value.toLowerCase();
-  // title is before the | separator
-  const [title, desc] = v.split('|');
-  if (title.startsWith(s)) return 1;      // title starts with search
-  if (title.includes(s)) return 0.8;      // title contains search  
-  if (desc?.includes(s)) return 0.5;      // description contains search
-  return 0;                                // no match
-}}>
-```
+**2. `src/components/admin/PageViewsAdmin.tsx`** — Näytä hakutilastot dashboardissa
+- Lisää `EVENT_LABELS`-mappiin: `"/event/site-search": "Sivuhaku (klikkaus)"` ja `"/event/site-search-abandon": "Sivuhaku (ei tulosta)"`
+- Nämä näkyvät automaattisesti konversio-osiossa top-lähtösivujen kanssa
+- Hakujen `referrer`-kenttä sisältää hakusanan → näkyy "Suosituimmat lähtösivut" -listassa (= suosituimmat hakusanat)
 
-- CommandItem value muutetaan muotoon `title|description` jotta filter voi erottaa ne
-- Poistetaan CommandGroup, käytetään yhtä listaa
+**3. `src/components/admin/PageViewsAdmin.tsx`** — Päivitä REPORT_DESCRIPTION
+- Lisää site-search ja site-search-abandon tapahtumatyyppien dokumentaatio
+- Selitä että referrer = hakusana, utm_source = valittu sivu
+- Lisää hakuanalyysiohjeita (suosituimmat hakusanat, hakujen konversio, epäonnistuneet haut)
+
+### Muutettavat tiedostot
+- `src/components/SiteSearch.tsx` — abandon-logitus dialogin sulkeutuessa
+- `src/components/admin/PageViewsAdmin.tsx` — EVENT_LABELS + REPORT_DESCRIPTION päivitys
 
