@@ -139,6 +139,8 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
               <img
                 src={image}
                 alt=""
+                width={1920}
+                height={1080}
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={index === 0 ? "high" : "auto"}
