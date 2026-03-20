@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import levilleLogo from "@/assets/leville-logo.png";
 import WeatherWidget from "@/components/WeatherWidget";
 import LanguageSelector from "@/components/LanguageSelector";
+import SiteSearch from "@/components/SiteSearch";
 import { detectLanguageFromPath, routeConfig } from "@/translations";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
   const currentLang = detectLanguageFromPath(location.pathname);
 
@@ -112,6 +114,14 @@ const Header = () => {
           <nav className="hidden md:flex items-center gap-8">
             <WeatherWidget />
             <div className="w-px h-5 bg-border/50" />
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Search"
+              title="Ctrl+K"
+            >
+              <Search className="w-4 h-4" />
+            </button>
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -138,13 +148,22 @@ const Header = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-foreground flex-shrink-0"
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="flex items-center gap-1 md:hidden flex-shrink-0">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 text-foreground"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 text-foreground"
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -181,6 +200,7 @@ const Header = () => {
           </nav>
         )}
       </div>
+      <SiteSearch open={isSearchOpen} onOpenChange={setIsSearchOpen} />
     </header>
   );
 };
