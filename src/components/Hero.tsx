@@ -7,7 +7,13 @@ import heroVillage from "@/assets/hero-village.jpg";
 import heroApartment from "@/assets/hero-apartment.jpg";
 import heroLodge from "@/assets/hero-lodge.jpg";
 
-const heroImages = [heroChalet, heroVillage, heroApartment, heroLodge, heroCabin];
+const heroImages = [
+  { src: heroChalet, w: 1536, h: 1024 },
+  { src: heroVillage, w: 1536, h: 1024 },
+  { src: heroApartment, w: 1024, h: 1536 },
+  { src: heroLodge, w: 1536, h: 1024 },
+  { src: heroCabin, w: 1536, h: 1152 },
+];
 
 const FADE_DURATION_MS = 5000;
 const SLIDE_INTERVAL_MS = 10000;

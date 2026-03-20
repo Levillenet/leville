@@ -212,6 +212,8 @@ const About = ({ lang = "fi" }: AboutProps) => {
                       key={index}
                       src={image}
                       alt={`${t.imageAlt} ${index + 1}`}
+                      width={1280}
+                      height={853}
                       loading="eager"
                       decoding="async"
                       className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1000ms] ease-in-out ${
