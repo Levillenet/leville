@@ -1,15 +1,13 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Search } from "lucide-react";
 import {
   CommandDialog,
   CommandInput,
   CommandList,
   CommandEmpty,
-  CommandGroup,
   CommandItem,
 } from "@/components/ui/command";
-import { searchPages, categoryLabels, type SearchPage } from "@/data/searchIndex";
+import { searchPages, type SearchPage } from "@/data/searchIndex";
 import { detectLanguageFromPath, type Language } from "@/translations";
 
 const searchLabels: Record<Language, { placeholder: string; noResults: string }> = {
@@ -32,17 +30,9 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
   const location = useLocation();
   const currentLang = detectLanguageFromPath(location.pathname);
   const labels = searchLabels[currentLang] || searchLabels.fi;
-  const catLabels = categoryLabels[currentLang] || categoryLabels.fi;
 
   // Filter pages for current language
   const langPages = searchPages.filter((p) => p.lang === currentLang);
-
-  // Group by category
-  const grouped = langPages.reduce<Record<string, SearchPage[]>>((acc, page) => {
-    if (!acc[page.category]) acc[page.category] = [];
-    acc[page.category].push(page);
-    return acc;
-  }, {});
 
   const handleSelect = useCallback(
     (path: string) => {
@@ -64,27 +54,32 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
     return () => document.removeEventListener("keydown", down);
   }, [open, onOpenChange]);
 
+  const customFilter = useCallback((value: string, search: string) => {
+    const s = search.toLowerCase();
+    const [title, desc] = value.toLowerCase().split('|');
+    if (title.startsWith(s)) return 1;
+    if (title.includes(s)) return 0.8;
+    if (desc?.includes(s)) return 0.5;
+    return 0;
+  }, []);
+
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange}>
+    <CommandDialog open={open} onOpenChange={onOpenChange} commandProps={{ filter: customFilter }}>
       <CommandInput placeholder={labels.placeholder} />
       <CommandList>
         <CommandEmpty>{labels.noResults}</CommandEmpty>
-        {Object.entries(grouped).map(([category, pages]) => (
-          <CommandGroup key={category} heading={catLabels[category] || category}>
-            {pages.map((page) => (
-              <CommandItem
-                key={page.path}
-                value={`${page.title} ${page.description}`}
-                onSelect={() => handleSelect(page.path)}
-                className="cursor-pointer"
-              >
-                <div className="flex flex-col">
-                  <span className="font-medium">{page.title}</span>
-                  <span className="text-xs text-muted-foreground">{page.description}</span>
-                </div>
-              </CommandItem>
-            ))}
-          </CommandGroup>
+        {langPages.map((page) => (
+          <CommandItem
+            key={page.path}
+            value={`${page.title}|${page.description}`}
+            onSelect={() => handleSelect(page.path)}
+            className="cursor-pointer"
+          >
+            <div className="flex flex-col">
+              <span className="font-medium">{page.title}</span>
+              <span className="text-xs text-muted-foreground">{page.description}</span>
+            </div>
+          </CommandItem>
         ))}
       </CommandList>
     </CommandDialog>
