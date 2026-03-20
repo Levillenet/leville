@@ -1,33 +1,32 @@
 
 
-## Hakutilastojen varmistaminen CSV-viennissä ja dashboardissa
+## LCP-korjaus: Hero-kuvan preload, kriittinen CSS ja staattinen HTML-shell
 
-### Nykytilanne
-
-Hakutapahtumat (`/event/site-search`) tallentuvat jo `page_views`-tauluun ja näkyvät CSV-viennissä riveinä. **Mutta:**
-
-1. **REPORT_DESCRIPTION** (LLM-selite) ei dokumentoi `site-search`-tapahtumatyyppiä — LLM ei osaa tulkita hakudataa
-2. **Dashboard** näyttää vain 4 booking-konversiota — hakutilastot eivät näy lainkaan
-3. **Haut ilman klikkausta** eivät tallennu — jos käyttäjä hakee mutta sulkee dialogin, data menetetään
+### Ongelma
+Google Search Console raportoi LCP yli 4s mobiilissa 50 URL:lle. Syyt: selain odottaa React-bundlea + CSS-bundlea ennen kuin saa mitään piirrettävää.
 
 ### Muutokset
 
-**1. `src/components/SiteSearch.tsx`** — Lisää "tyhjän haun" logitus
-- Kun dialogi suljetaan JA hakukenttään on kirjoitettu vähintään 2 merkkiä mutta tulosta ei valittu, logitetaan `/event/site-search-abandon`
-- referrer = hakusana, utm_source = tyhjä (ei valintaa)
-- Tämä kertoo mitä käyttäjät yrittävät etsiä mutta eivät löydä
+**Tiedosto: `index.html`**
 
-**2. `src/components/admin/PageViewsAdmin.tsx`** — Näytä hakutilastot dashboardissa
-- Lisää `EVENT_LABELS`-mappiin: `"/event/site-search": "Sivuhaku (klikkaus)"` ja `"/event/site-search-abandon": "Sivuhaku (ei tulosta)"`
-- Nämä näkyvät automaattisesti konversio-osiossa top-lähtösivujen kanssa
-- Hakujen `referrer`-kenttä sisältää hakusanan → näkyy "Suosituimmat lähtösivut" -listassa (= suosituimmat hakusanat)
+1. **Hero-kuvan preload** — Lisätään `<link rel="preload">` ensimmäiselle hero-kuvalle (`hero-chalet.jpg`). Koska Vite hashaa tiedostonimet buildissa, preload ei toimi suoralla src/assets-polulla. Ratkaisu: kopioidaan hero-chalet.jpg → `public/hero-chalet.jpg` ja preloadataan se. Hero-komponentissa käytetään edelleen importtia, mutta `index.html` saa selaimen lataamaan kuvan heti.
 
-**3. `src/components/admin/PageViewsAdmin.tsx`** — Päivitä REPORT_DESCRIPTION
-- Lisää site-search ja site-search-abandon tapahtumatyyppien dokumentaatio
-- Selitä että referrer = hakusana, utm_source = valittu sivu
-- Lisää hakuanalyysiohjeita (suosituimmat hakusanat, hakujen konversio, epäonnistuneet haut)
+2. **Kriittinen inline-CSS** — Lisätään `<style>`-lohko `<head>`-osaan, joka sisältää:
+   - Body/tausta: `#0a1628` (background-color jo paikallaan bodyssa, pidetään)
+   - Header: taustanväri, flex-asettelu, logo-tila, navigaation perustyyli
+   - Hero-osion perusrakenne: min-height, taustanväri, flex-keskitys
+   - Fonttien perusmääritykset (DM Sans, Cormorant Garamond fallbackeineen)
+
+3. **Staattinen HTML-shell** — Korvataan tyhjä `<div id="root"></div>` minimaalisella rakenteella:
+   - Header-palkki logon tilalla ja navigaatiolinkeillä (harmaa placeholder)
+   - Hero-alue oikealla taustavärillä, keskitetyllä otsikolla "Leville.net" ja latausilmoituksella
+   - React korvaa tämän heti kun se mounttaa
+
+**Tiedosto: `public/hero-chalet.jpg`** (uusi)
+- Kopioidaan `src/assets/hero-chalet.jpg` → `public/hero-chalet.jpg` preload-käyttöön
+- Tämä on ylimääräinen kopio, mutta tarvitaan koska Vite ei paljasta hashattua polkua ennen buildia
 
 ### Muutettavat tiedostot
-- `src/components/SiteSearch.tsx` — abandon-logitus dialogin sulkeutuessa
-- `src/components/admin/PageViewsAdmin.tsx` — EVENT_LABELS + REPORT_DESCRIPTION päivitys
+- `index.html` — preload-link, inline CSS, staattinen shell
+- `public/hero-chalet.jpg` — kopio preloadille
 
