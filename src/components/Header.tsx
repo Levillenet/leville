@@ -114,6 +114,14 @@ const Header = () => {
           <nav className="hidden md:flex items-center gap-8">
             <WeatherWidget />
             <div className="w-px h-5 bg-border/50" />
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Search"
+              title="Ctrl+K"
+            >
+              <Search className="w-4 h-4" />
+            </button>
             {navLinks.map((link) => (
               <Link
                 key={link.name}
