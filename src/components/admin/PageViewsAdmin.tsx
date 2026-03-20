@@ -56,6 +56,8 @@ const EVENT_LABELS: Record<string, string> = {
   "/event/booking-sticky-bar": "Varaa tästä (alareunan palkki)",
   "/event/booking-page-cta": "Sivun CTA-painike",
   "/event/booking-link": "Muut varauslinkit",
+  "/event/site-search": "Sivuhaku (klikkaus)",
+  "/event/site-search-abandon": "Sivuhaku (ei tulosta)",
 };
 
 const REPORT_DESCRIPTION = `LEVILLE.FI ANALYTIIKKARAPORTTI — TEKNINEN KUVAUS
@@ -100,6 +102,18 @@ KONVERSIOANALYYSI:
 - Analysoi referrer-sarake konversiotapahtumissa: mitkä sivut tuottavat eniten varausklikkauksia?
 - Kieliversioiden tehokkuus: vertaa fi vs en vs de kävijöiden konversiota
 - Istuntokohtainen konversio: kuinka moni istunto johti varausklikkiin?
+
+HAKUTAPAHTUMAT:
+
+6. "site-search" — Käyttäjä haki sivustolta ja valitsi hakutuloksen. referrer = hakusana (esim. "sauna", "northern lights"), utm_source = valittu sivu (esim. "/sauna", "/guide/northern-lights-levi"). Analysoi suosituimmat hakusanat ja mitkä sivut valitaan useimmin.
+
+7. "site-search-abandon" — Käyttäjä haki sivustolta (kirjoitti vähintään 2 merkkiä) mutta sulki haun valitsematta tulosta. referrer = hakusana, utm_source = tyhjä. Tämä kertoo mitä käyttäjät yrittävät etsiä mutta eivät löydä — arvokas tieto sisällöntuotantoon.
+
+HAKUANALYYSI:
+- Suosituimmat hakusanat: ryhmittele referrer-sarake site-search ja site-search-abandon riveillä
+- Hakujen konversio: (site-search klikkaukset) / (site-search + site-search-abandon) × 100
+- Epäonnistuneet haut: site-search-abandon rivien hakusanat paljastavat puuttuvan sisällön
+- Hakusanojen ja valittujen sivujen yhteys: mitkä hakusanat johtavat mille sivuille?
 
 SIVUSTON RAKENNE:
 - / = suomenkielinen etusivu
@@ -263,6 +277,8 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
     "/event/booking-sticky-bar",
     "/event/booking-page-cta",
     "/event/booking-link",
+    "/event/site-search",
+    "/event/site-search-abandon",
   ];
   const conversionEventsComplete = allConversionTypes.map((type) => {
     const existing = (stats.conversionEvents || []).find((e) => e.type === type);

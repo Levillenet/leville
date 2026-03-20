@@ -56,14 +56,43 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
     } catch {}
   }, []);
 
+  const logAbandon = useCallback((query: string) => {
+    if (isDevEnvironment() || !query.trim() || query.trim().length < 2) return;
+    try {
+      const sessionId = sessionStorage.getItem("_lv_sid") || "unknown";
+      supabase.from("page_views").insert({
+        path: `/event/site-search-abandon`,
+        referrer: query.trim().substring(0, 200),
+        device_type: window.innerWidth < 768 ? "mobile" : window.innerWidth < 1024 ? "tablet" : "desktop",
+        language: navigator.language?.split("-")[0] || null,
+        session_id: sessionId,
+        utm_source: null,
+      }).then(() => {});
+    } catch {}
+  }, []);
+
+  const selectedRef = useRef(false);
+
   const handleSelect = useCallback(
     (path: string) => {
+      selectedRef.current = true;
       logSearch(lastQueryRef.current, path);
       onOpenChange(false);
       navigate(path);
     },
     [navigate, onOpenChange, logSearch]
   );
+
+  const handleOpenChange = useCallback((newOpen: boolean) => {
+    if (!newOpen && !selectedRef.current && lastQueryRef.current.trim().length >= 2) {
+      logAbandon(lastQueryRef.current);
+    }
+    if (newOpen) {
+      selectedRef.current = false;
+      lastQueryRef.current = "";
+    }
+    onOpenChange(newOpen);
+  }, [onOpenChange, logAbandon]);
 
   // Keyboard shortcut
   useEffect(() => {
@@ -87,7 +116,7 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
   }, []);
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange} commandProps={{ filter: customFilter }}>
+    <CommandDialog open={open} onOpenChange={handleOpenChange} commandProps={{ filter: customFilter }}>
       <CommandInput placeholder={labels.placeholder} onValueChange={(v) => { lastQueryRef.current = v; }} />
       <CommandList>
         <CommandEmpty>{labels.noResults}</CommandEmpty>
