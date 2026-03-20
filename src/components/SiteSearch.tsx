@@ -1,5 +1,6 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import {
   CommandDialog,
   CommandInput,
@@ -30,16 +31,38 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
   const location = useLocation();
   const currentLang = detectLanguageFromPath(location.pathname);
   const labels = searchLabels[currentLang] || searchLabels.fi;
+  const lastQueryRef = useRef<string>("");
 
   // Filter pages for current language
   const langPages = searchPages.filter((p) => p.lang === currentLang);
 
+  const isDevEnvironment = (): boolean => {
+    const host = window.location.hostname;
+    return host.includes("lovable.app") || host.includes("lovableproject.com") || host === "localhost" || host === "127.0.0.1";
+  };
+
+  const logSearch = useCallback((query: string, selectedPath: string) => {
+    if (isDevEnvironment() || !query.trim()) return;
+    try {
+      const sessionId = sessionStorage.getItem("_lv_sid") || "unknown";
+      supabase.from("page_views").insert({
+        path: `/event/site-search`,
+        referrer: query.trim().substring(0, 200),
+        device_type: window.innerWidth < 768 ? "mobile" : window.innerWidth < 1024 ? "tablet" : "desktop",
+        language: navigator.language?.split("-")[0] || null,
+        session_id: sessionId,
+        utm_source: selectedPath,
+      }).then(() => {});
+    } catch {}
+  }, []);
+
   const handleSelect = useCallback(
     (path: string) => {
+      logSearch(lastQueryRef.current, path);
       onOpenChange(false);
       navigate(path);
     },
-    [navigate, onOpenChange]
+    [navigate, onOpenChange, logSearch]
   );
 
   // Keyboard shortcut
@@ -65,7 +88,7 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
 
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange} commandProps={{ filter: customFilter }}>
-      <CommandInput placeholder={labels.placeholder} />
+      <CommandInput placeholder={labels.placeholder} onValueChange={(v) => { lastQueryRef.current = v; }} />
       <CommandList>
         <CommandEmpty>{labels.noResults}</CommandEmpty>
         {langPages.map((page) => (
