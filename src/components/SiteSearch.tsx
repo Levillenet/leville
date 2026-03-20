@@ -64,29 +64,36 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
     return () => document.removeEventListener("keydown", down);
   }, [open, onOpenChange]);
 
+  const customFilter = useCallback((value: string, search: string) => {
+    const s = search.toLowerCase();
+    const [title, desc] = value.toLowerCase().split('|');
+    if (title.startsWith(s)) return 1;
+    if (title.includes(s)) return 0.8;
+    if (desc?.includes(s)) return 0.5;
+    return 0;
+  }, []);
+
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange}>
-      <CommandInput placeholder={labels.placeholder} />
-      <CommandList>
-        <CommandEmpty>{labels.noResults}</CommandEmpty>
-        {Object.entries(grouped).map(([category, pages]) => (
-          <CommandGroup key={category} heading={catLabels[category] || category}>
-            {pages.map((page) => (
-              <CommandItem
-                key={page.path}
-                value={`${page.title} ${page.description}`}
-                onSelect={() => handleSelect(page.path)}
-                className="cursor-pointer"
-              >
-                <div className="flex flex-col">
-                  <span className="font-medium">{page.title}</span>
-                  <span className="text-xs text-muted-foreground">{page.description}</span>
-                </div>
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        ))}
-      </CommandList>
+      <Command filter={customFilter} className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+        <CommandInput placeholder={labels.placeholder} />
+        <CommandList>
+          <CommandEmpty>{labels.noResults}</CommandEmpty>
+          {langPages.map((page) => (
+            <CommandItem
+              key={page.path}
+              value={`${page.title}|${page.description}`}
+              onSelect={() => handleSelect(page.path)}
+              className="cursor-pointer"
+            >
+              <div className="flex flex-col">
+                <span className="font-medium">{page.title}</span>
+                <span className="text-xs text-muted-foreground">{page.description}</span>
+              </div>
+            </CommandItem>
+          ))}
+        </CommandList>
+      </Command>
     </CommandDialog>
   );
 };
