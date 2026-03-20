@@ -56,6 +56,8 @@ const EVENT_LABELS: Record<string, string> = {
   "/event/booking-sticky-bar": "Varaa tästä (alareunan palkki)",
   "/event/booking-page-cta": "Sivun CTA-painike",
   "/event/booking-link": "Muut varauslinkit",
+  "/event/site-search": "Sivuhaku (klikkaus)",
+  "/event/site-search-abandon": "Sivuhaku (ei tulosta)",
 };
 
 const REPORT_DESCRIPTION = `LEVILLE.FI ANALYTIIKKARAPORTTI — TEKNINEN KUVAUS
