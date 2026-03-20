@@ -1,31 +1,37 @@
 
+## CLS 0.707 korjaus — kuvien mitat kuntoon (oikeilla suhteilla)
 
-## CLS-korjaus: Eksplisiittiset kuva- ja elementtikoot
+### Mitä löytyi nyt koodista
+- `Header.tsx`: logolla on `width/height`, mutta arvot pitää varmistaa kuvan oikeaan natiivisuhteeseen.
+- `Footer.tsx`: logolla on tällä hetkellä väärä suhde (`240x192`), mikä voi aiheuttaa ison layout-shiftin.
+- `Hero.tsx`: `width/height` on asetettu kaikille hero-kuville samaan 16:9-muotoon, vaikka kuvat eivät ole samaa kuvasuhdetta.
+- `About.tsx`: carouselin `<img>`-tageilta puuttuu `width/height` kokonaan.
 
-### Analyysi (kuvakaappaus)
+### Toteutussuunnitelma
+1. **Korjaa logojen dimensioarvot kaikkiin logo-instansseihin**
+   - Päivitä `Header.tsx` ja `Footer.tsx` käyttämään samaa, logon oikeaa natiivisuhdetta vastaavaa `width` + `height`-paria.
+   - Erityisesti footerin nykyinen väärä suhde korjataan (tämä on todennäköisin iso CLS-lähde).
 
-Kuvakaappauksesta näkyy CLS yhteensä **1.102**, suurimmat syyt:
-1. **Logo-kuva ilman eksplisiittisiä mittoja** (0.679 + 0.421 + lisäosumia) — `<img>` ilman `width`/`height`-attribuutteja aiheuttaa shiftiä kun kuva latautuu
-2. **Hero-sisältö** (0.080) — container overflow:visible
-3. **Verkkofonttien lataus** — fonttien swap aiheuttaa pientä shiftiä
+2. **Korjaa hero-kuvien mitat kuvatiedostokohtaisesti**
+   - `Hero.tsx`: korvaa yksi yhteinen `1920x1080`-asetus kuvasrc-kohtaisella metadatalla (width/height per hero-kuva).
+   - Näin selain saa oikean aspektisuhteen heti, eikä arvioi väärin.
 
-### Korjaukset
+3. **Lisää puuttuvat mitat About-carouselin kuviin**
+   - `About.tsx`: lisää `<img>`-tageihin `width` ja `height` (vähintään vakioitu 4:3, mieluiten kuvatiedostojen todelliset mitat).
+   - Tällä poistetaan “Kuvaelementti, jonka kokoa ei ole asetettu” myös etusivun alemmasta osasta.
 
-**1. `src/components/Header.tsx`** — Lisää logo-kuvaan eksplisiittiset `width` ja `height`
-- Nykyinen: `className="h-10 sm:h-16 md:h-20 lg:h-24 w-auto"` ilman width/height attribuutteja
-- Lisätään `width={240} height={96}` (logon luonnolliset mitat tai lähellä) → selain varaa tilan ennen latausta
-- Tämä korjaa suurimman CLS-osuman (0.679 + 0.421)
+4. **Nopea etusivun audit ennen julkaisu**
+   - Tarkistus `Index`-reitillä renderöityviin komponentteihin: `Header`, `Hero`, `About`, `Footer`.
+   - Varmistetaan, että jokaisella näkyvällä `<img>`-tagilla on sekä `width` että `height`.
 
-**2. `src/components/Footer.tsx`** — Lisää footer-logoon `width` ja `height`
-- Nykyinen: `className="h-40 md:h-48 w-auto"` ilman mittoja
-- Lisätään `width={240} height={192}`
+5. **Verifiointi**
+   - Aja mobiili-Lighthouse/PageSpeed etusivulle.
+   - Varmista että:
+     - audit “image elements do not have explicit width and height” ei enää listaa etusivun kuvia
+     - CLS laskee merkittävästi (tavoite < 0.1).
 
-**3. `src/components/Hero.tsx`** — Hero-kuviin eksplisiittiset mitat
-- Hero `<img>`-tageista puuttuu `width`/`height`
-- Lisätään `width={1920} height={1080}` hero-kuviin
-
-### Muutettavat tiedostot
-- `src/components/Header.tsx` — logo width/height
-- `src/components/Footer.tsx` — logo width/height  
-- `src/components/Hero.tsx` — hero-kuvien width/height
-
+### Muokattavat tiedostot
+- `src/components/Header.tsx`
+- `src/components/Footer.tsx`
+- `src/components/Hero.tsx`
+- `src/components/About.tsx`
