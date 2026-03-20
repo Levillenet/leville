@@ -1,15 +1,14 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Search } from "lucide-react";
 import {
+  Command,
   CommandDialog,
   CommandInput,
   CommandList,
   CommandEmpty,
-  CommandGroup,
   CommandItem,
 } from "@/components/ui/command";
-import { searchPages, categoryLabels, type SearchPage } from "@/data/searchIndex";
+import { searchPages, type SearchPage } from "@/data/searchIndex";
 import { detectLanguageFromPath, type Language } from "@/translations";
 
 const searchLabels: Record<Language, { placeholder: string; noResults: string }> = {
