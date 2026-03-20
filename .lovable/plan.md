@@ -1,32 +1,31 @@
 
 
-## LCP-korjaus: Hero-kuvan preload, kriittinen CSS ja staattinen HTML-shell
+## CLS-korjaus: Eksplisiittiset kuva- ja elementtikoot
 
-### Ongelma
-Google Search Console raportoi LCP yli 4s mobiilissa 50 URL:lle. Syyt: selain odottaa React-bundlea + CSS-bundlea ennen kuin saa mitään piirrettävää.
+### Analyysi (kuvakaappaus)
 
-### Muutokset
+Kuvakaappauksesta näkyy CLS yhteensä **1.102**, suurimmat syyt:
+1. **Logo-kuva ilman eksplisiittisiä mittoja** (0.679 + 0.421 + lisäosumia) — `<img>` ilman `width`/`height`-attribuutteja aiheuttaa shiftiä kun kuva latautuu
+2. **Hero-sisältö** (0.080) — container overflow:visible
+3. **Verkkofonttien lataus** — fonttien swap aiheuttaa pientä shiftiä
 
-**Tiedosto: `index.html`**
+### Korjaukset
 
-1. **Hero-kuvan preload** — Lisätään `<link rel="preload">` ensimmäiselle hero-kuvalle (`hero-chalet.jpg`). Koska Vite hashaa tiedostonimet buildissa, preload ei toimi suoralla src/assets-polulla. Ratkaisu: kopioidaan hero-chalet.jpg → `public/hero-chalet.jpg` ja preloadataan se. Hero-komponentissa käytetään edelleen importtia, mutta `index.html` saa selaimen lataamaan kuvan heti.
+**1. `src/components/Header.tsx`** — Lisää logo-kuvaan eksplisiittiset `width` ja `height`
+- Nykyinen: `className="h-10 sm:h-16 md:h-20 lg:h-24 w-auto"` ilman width/height attribuutteja
+- Lisätään `width={240} height={96}` (logon luonnolliset mitat tai lähellä) → selain varaa tilan ennen latausta
+- Tämä korjaa suurimman CLS-osuman (0.679 + 0.421)
 
-2. **Kriittinen inline-CSS** — Lisätään `<style>`-lohko `<head>`-osaan, joka sisältää:
-   - Body/tausta: `#0a1628` (background-color jo paikallaan bodyssa, pidetään)
-   - Header: taustanväri, flex-asettelu, logo-tila, navigaation perustyyli
-   - Hero-osion perusrakenne: min-height, taustanväri, flex-keskitys
-   - Fonttien perusmääritykset (DM Sans, Cormorant Garamond fallbackeineen)
+**2. `src/components/Footer.tsx`** — Lisää footer-logoon `width` ja `height`
+- Nykyinen: `className="h-40 md:h-48 w-auto"` ilman mittoja
+- Lisätään `width={240} height={192}`
 
-3. **Staattinen HTML-shell** — Korvataan tyhjä `<div id="root"></div>` minimaalisella rakenteella:
-   - Header-palkki logon tilalla ja navigaatiolinkeillä (harmaa placeholder)
-   - Hero-alue oikealla taustavärillä, keskitetyllä otsikolla "Leville.net" ja latausilmoituksella
-   - React korvaa tämän heti kun se mounttaa
-
-**Tiedosto: `public/hero-chalet.jpg`** (uusi)
-- Kopioidaan `src/assets/hero-chalet.jpg` → `public/hero-chalet.jpg` preload-käyttöön
-- Tämä on ylimääräinen kopio, mutta tarvitaan koska Vite ei paljasta hashattua polkua ennen buildia
+**3. `src/components/Hero.tsx`** — Hero-kuviin eksplisiittiset mitat
+- Hero `<img>`-tageista puuttuu `width`/`height`
+- Lisätään `width={1920} height={1080}` hero-kuviin
 
 ### Muutettavat tiedostot
-- `index.html` — preload-link, inline CSS, staattinen shell
-- `public/hero-chalet.jpg` — kopio preloadille
+- `src/components/Header.tsx` — logo width/height
+- `src/components/Footer.tsx` — logo width/height  
+- `src/components/Hero.tsx` — hero-kuvien width/height
 
