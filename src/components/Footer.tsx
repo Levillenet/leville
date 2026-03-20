@@ -195,8 +195,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
               <img 
                 src={levilleLogo} 
                 alt="Leville.net - Apartments & Villas" 
-                width={240}
-                height={192}
+                width={1417}
+                height={591}
                 loading="lazy"
                 decoding="async"
                 className="h-40 md:h-48 w-auto"
