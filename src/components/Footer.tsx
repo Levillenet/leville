@@ -200,7 +200,15 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
             <ul className="space-y-4">
               {c.links.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors text-sm tracking-wide">
+                  <Link 
+                    to={link.href} 
+                    className={
+                      (link as any).highlight 
+                        ? "text-primary font-semibold hover:text-primary/80 transition-colors text-sm tracking-wide flex items-center gap-2" 
+                        : "text-muted-foreground hover:text-foreground transition-colors text-sm tracking-wide"
+                    }
+                  >
+                    {(link as any).highlight && <span className="text-xs">★</span>}
                     {link.label}
                   </Link>
                 </li>
