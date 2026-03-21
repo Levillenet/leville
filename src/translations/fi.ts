@@ -221,7 +221,20 @@ export const fi = {
     companyNameValue: "Leville Oy",
     businessIdValue: "3178413-5",
     marketingNameValue: "Leville.net",
-    companyAddressValue: "Ratsastajankuja 2, 99130 Levi"
+    companyAddressValue: "Ratsastajankuja 2, 99130 Levi",
+    storyTitle: "Tarinamme",
+    storyParagraphs: [
+      "Leville.netin tarina alkaa jo vuosikymmenten takaa. Olemme viettäneet Lapissa aikaa perheenä aivan pienestä saakka – kuten monet suomalaiset. Ensimmäiset muistot ovat Pallakselta ja myöhemmin Leviltä, jolloin 80-luvulla majoituimme perheen kanssa asuntovaunussa. Noista kevätmatkoista syntyi kipinä, joka ei ole koskaan sammunut.",
+      "Lapin reissut jatkuivat vuosittain, kunnes hankimme oman mökin Levin pohjoispuolelta, rauhallisesta erämaisesta ympäristöstä. Lopulta intohimo Lappiin ja majoittamiseen johti siihen, että vuonna 2011 hankimme ensimmäisen majoituskohteemme Levin keskustasta.",
+      "Siitä lähtien toimintaamme on kasvatettu määrätietoisesti, kohde kerrallaan, nykyiseen laajuuteensa.",
+      "Tänä päivänä Leville.net ei ole perinteinen välittäjä – vuokraamme ainoastaan omia huoneistojamme ja mökkejämme. Tämä mahdollistaa kilpailukykyiset hinnat sekä aidosti henkilökohtaisen palvelun jokaisessa tilanteessa.",
+      "Meille tärkeintä on asiakastyytyväisyys. Panostamme siihen, että kohteemme ovat siistejä, hyvin varusteltuja ja viihtyisiä. Emme tavoittele ylikorostettua luksusta, vaan tarjoamme tilavia ja toimivia majoituksia, joissa niin perheet kuin pariskunnat viihtyvät.",
+      "Investoimme vuosittain merkittävästi kohteidemme ylläpitoon ja kehittämiseen, ja varustelutasomme onkin keskimääräistä parempi.",
+      "Toivotamme teidät lämpimästi tervetulleiksi Leville – vieraaksemme."
+    ],
+    ownerName: "Sami Aavikko",
+    ownerTitle: "Omistaja, Leville.net",
+    ownerImageAlt: "Sami Aavikko – Leville.net omistaja Levin tuntureilla"
   },
   levi: {
     meta: {
