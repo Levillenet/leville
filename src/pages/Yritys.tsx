@@ -18,6 +18,8 @@ import TiltCard from "@/components/TiltCard";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import ownerPhoto from "@/assets/sami-aavikko.jpg";
+import signatureImage from "@/assets/signature-sami.png";
 
 const serviceIcons: LucideIcon[] = [Building, Home, Users, Briefcase, MapPin];
 
@@ -87,6 +89,20 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
     ]
   };
 
+  // Person Schema for owner (E-E-A-T)
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sami Aavikko",
+    "jobTitle": isEnglish ? "Owner" : "Omistaja",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Leville Oy",
+      "url": "https://leville.net"
+    },
+    "image": "https://leville.net/assets/sami-aavikko.jpg"
+  };
+
   return (
     <>
       <JsonLd data={getWebsiteSchema()} />
@@ -120,6 +136,9 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
         {/* Organization Schema */}
         <script type="application/ld+json">
           {JSON.stringify(organizationSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(personSchema)}
         </script>
       </Helmet>
       
@@ -181,7 +200,60 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
               </section>
             </ScrollReveal>
 
-            {/* Services Grid */}
+            {/* Our Story - Personal Section */}
+            <ScrollReveal delay={0.15}>
+              <section className="max-w-4xl mx-auto mb-20">
+                <Card className="glass-card border-border/30 p-8 md:p-12 overflow-hidden">
+                  <CardContent className="p-0">
+                    <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-8">
+                      {t.storyTitle}
+                    </h2>
+                    
+                    <div className="md:flex md:gap-10">
+                      {/* Owner photo */}
+                      <div className="flex-shrink-0 mb-6 md:mb-0 md:w-56">
+                        <div className="w-40 h-40 md:w-52 md:h-52 mx-auto md:mx-0 rounded-2xl overflow-hidden border-2 border-primary/20 shadow-lg">
+                          <img 
+                            src={ownerPhoto} 
+                            alt={t.ownerImageAlt}
+                            width={768}
+                            height={1024}
+                            className="w-full h-full object-cover object-top"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </div>
+                      </div>
+                      
+                      {/* Story text */}
+                      <div className="space-y-4 flex-1">
+                        {t.storyParagraphs.map((paragraph, index) => (
+                          <p key={index} className="text-muted-foreground leading-relaxed">
+                            {paragraph}
+                          </p>
+                        ))}
+                        
+                        {/* Signature & name */}
+                        <div className="pt-6 border-t border-border/30 mt-8">
+                          <img 
+                            src={signatureImage}
+                            alt={t.ownerName}
+                            width={400}
+                            height={200}
+                            className="h-14 w-auto mb-2 opacity-80 dark:invert"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                          <p className="text-foreground font-semibold">{t.ownerName}</p>
+                          <p className="text-muted-foreground text-sm">{t.ownerTitle}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </section>
+            </ScrollReveal>
+
             <section className="mb-20">
               <ScrollReveal>
                 <h2 className="text-2xl md:text-3xl font-semibold text-foreground text-center mb-10">
