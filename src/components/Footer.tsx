@@ -9,7 +9,6 @@ import { Language, routeConfig } from "@/translations";
 interface FooterProps {
   lang?: Language;
 }
-);
 
 const Footer = ({ lang = "fi" }: FooterProps) => {
   const content = {
