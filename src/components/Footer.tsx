@@ -17,12 +17,12 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Sivusto",
       trustTitle: "Arvioitu erinomaiseksi",
       links: [
+        { label: "Tarinamme", href: routeConfig.company.fi, highlight: true },
         { label: "Majoitukset", href: routeConfig.accommodations.fi },
         { label: "Äkkilähdöt", href: routeConfig.lastMinute.fi },
         { label: "Levi-opas", href: routeConfig.levi.fi },
         { label: "Yhteystiedot", href: routeConfig.contact.fi },
         { label: "UKK", href: routeConfig.faq.fi },
-        { label: "Yritys", href: routeConfig.company.fi },
         { label: "Myy loma-asuntosi", href: routeConfig.sellProperty.fi },
       ],
       contactTitle: "Yhteystiedot",
@@ -39,13 +39,13 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Site",
       trustTitle: "Rated Excellent",
       links: [
+        { label: "Our Story", href: routeConfig.company.en, highlight: true },
         { label: "Accommodations", href: routeConfig.accommodations.en },
         { label: "Apartments", href: "/en/apartments" },
         { label: "Last Minute", href: routeConfig.lastMinute.en },
         { label: "Levi Guide", href: routeConfig.levi.en },
         { label: "Contact", href: routeConfig.contact.en },
         { label: "FAQ", href: routeConfig.faq.en },
-        { label: "Company", href: routeConfig.company.en },
       ],
       apartmentLinks: [
         { label: "Studio apartments", href: "/en/apartments/studio" },
