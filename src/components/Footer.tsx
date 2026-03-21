@@ -1,24 +1,14 @@
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import levilleLogo from "@/assets/leville-logo.png";
+import bookingLogo from "@/assets/booking-logo.png";
+import airbnbLogo from "@/assets/airbnb-logo.png";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
 import { Language, routeConfig } from "@/translations";
 
 interface FooterProps {
   lang?: Language;
 }
-
-const BookingComLogo = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 75.76 15.41" fill="currentColor" className={className} aria-label="Booking.com">
-    <path d="M68.89 5.18a2.14 2.14 0 1 1-2.14 2.14 2.13 2.13 0 0 1 2.14-2.14m-7 7.74a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m0-7.25a4.79 4.79 0 1 1-4.78 4.79 4.78 4.78 0 0 1 4.78-4.79m-10.49 7.25a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m0-7.25a4.79 4.79 0 1 1-4.79 4.79 4.78 4.78 0 0 1 4.79-4.79M28.38 5.85h-2.6v2.44h2.6a1.22 1.22 0 0 0 0-2.44m.2 4.68h-2.8v2.63h2.8a1.32 1.32 0 0 0 0-2.63m1.47-2.07a2.94 2.94 0 0 1 1.69 2.72 3 3 0 0 1-3.1 2.98h-5.36V3.58h5a2.73 2.73 0 0 1 2.84 2.68 2.59 2.59 0 0 1-1.07 2.2m8.26 4.46a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m0-7.25a4.79 4.79 0 1 1-4.78 4.79 4.78 4.78 0 0 1 4.78-4.79m8.22 7.25a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m0-7.25a4.79 4.79 0 1 1-4.78 4.79 4.78 4.78 0 0 1 4.78-4.79m5.34-.09h2.34v1.15a3.4 3.4 0 0 1 3-1.34v2.39a3.08 3.08 0 0 0-3 3.1v4.78h-2.34zM14 5.67a4.75 4.75 0 0 1 3.41 1.46V1.25H19.8v14h-2.34V14a4.79 4.79 0 1 1-3.46-8.33m.2 7.25a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m-7.23-5.6h2V4.91H7a5.81 5.81 0 0 0-3.65 1.22v-.46H1v9.58h2.35v-5a3.84 3.84 0 0 1 3.62-2.93m62.29-.42a4.79 4.79 0 1 1-4.79 4.79 4.78 4.78 0 0 1 4.79-4.79m0 7.21a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m6.5-7h2.34v1.1a3.73 3.73 0 0 1 3-1.34 3.2 3.2 0 0 1 3.23 3.33v5.24H75.8V10.2a1.6 1.6 0 0 0-1.74-1.74 2.28 2.28 0 0 0-2.3 2.39v4.4h-2.34z"/>
-  </svg>
-);
-
-const AirbnbLogo = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-label="Airbnb">
-    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.5 17.3c-.3 1.1-.9 2-1.7 2.7-.9.7-1.9 1-3 1-.6 0-1.1-.1-1.5-.4-.2-.1-.3-.2-.5-.3-.1.1-.2.2-.3.3-.5.3-1 .6-1.6.7-.3.1-.6.1-.9.1-1 0-2-.3-2.9-1-.9-.7-1.5-1.6-1.7-2.7-.1-.8 0-1.7.4-2.6.4-.8.9-1.7 1.6-2.5.7-.9 1.4-1.7 2.2-2.4.6-.6 1-.9 1-.9l.4-.4.2.3c.2.2.4.6.7 1 .3.5.7 1.1 1.1 1.9l.1.1c.7 1 1.4 2 1.9 2.5.7.9 1.2 1.7 1.6 2.5.4.9.5 1.8.4 2.6zm-5.5-3c-1.1-1.4-1.7-2.6-1.9-3.6-.2-.9-.1-1.7.4-2.2.4-.4.9-.7 1.5-.7h.1c.6 0 1.2.2 1.5.7.5.6.6 1.3.4 2.2-.2 1-.8 2.2-1.9 3.6z"/>
-  </svg>
-);
 
 const Footer = ({ lang = "fi" }: FooterProps) => {
   const content = {
@@ -238,8 +228,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
             <div className="space-y-5">
               {/* Booking.com */}
               <div className="rounded-xl border border-border/50 p-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <BookingComLogo className="h-4 w-auto text-foreground opacity-80" />
+                <div className="mb-3">
+                  <img src={bookingLogo} alt="Booking.com" width={400} height={64} className="h-5 w-auto" loading="lazy" decoding="async" />
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="inline-flex items-center justify-center bg-[hsl(221,100%,30%)] text-white text-xs font-bold rounded-md px-2 py-1">
@@ -251,9 +241,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
 
               {/* Airbnb */}
               <div className="rounded-xl border border-border/50 p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <AirbnbLogo className="h-5 w-5 text-[hsl(356,100%,45%)]" />
-                  <span className="font-medium text-sm text-foreground opacity-80">Airbnb</span>
+                <div className="mb-3">
+                  <img src={airbnbLogo} alt="Airbnb" width={600} height={190} className="h-5 w-auto" loading="lazy" decoding="async" />
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex text-[hsl(356,100%,45%)]">
