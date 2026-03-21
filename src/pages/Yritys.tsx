@@ -18,6 +18,8 @@ import TiltCard from "@/components/TiltCard";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import ownerPhoto from "@/assets/sami-aavikko.jpg";
+import signatureImage from "@/assets/signature-sami.png";
 
 const serviceIcons: LucideIcon[] = [Building, Home, Users, Briefcase, MapPin];
 
