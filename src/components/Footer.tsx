@@ -229,7 +229,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
               {/* Booking.com */}
               <div className="rounded-xl border border-border/50 p-4">
                 <div className="mb-3">
-                  <img src={bookingLogo} alt="Booking.com" width={400} height={64} className="h-5 w-auto" loading="lazy" decoding="async" />
+                  <img src={bookingLogo} alt="Booking.com" width={400} height={64} className="h-8 w-auto" loading="lazy" decoding="async" />
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="inline-flex items-center justify-center bg-[hsl(221,100%,30%)] text-white text-xs font-bold rounded-md px-2 py-1">
@@ -242,7 +242,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
               {/* Airbnb */}
               <div className="rounded-xl border border-border/50 p-4">
                 <div className="mb-3">
-                  <img src={airbnbLogo} alt="Airbnb" width={600} height={190} className="h-5 w-auto" loading="lazy" decoding="async" />
+                  <img src={airbnbLogo} alt="Airbnb" width={600} height={190} className="h-8 w-auto" loading="lazy" decoding="async" />
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="flex text-[hsl(356,100%,45%)]">
