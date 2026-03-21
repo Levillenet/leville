@@ -137,6 +137,9 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
         <script type="application/ld+json">
           {JSON.stringify(organizationSchema)}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify(personSchema)}
+        </script>
       </Helmet>
       
       <div className="min-h-screen bg-background relative">
