@@ -339,6 +339,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // Filter deals based on night filter - memoized
   const filteredDeals = useMemo(() => 
     beds24Deals.filter((deal) => {
+      // Never show stays longer than 7 nights
+      if (deal.nights > 7) return false;
       if (nightFilter === "all") return true;
       if (nightFilter === "short") return deal.nights <= 2;
       if (nightFilter === "long") return deal.nights >= 3;
