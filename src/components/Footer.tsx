@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Headset } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import levilleLogo from "@/assets/leville-logo.png";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
@@ -8,14 +8,24 @@ interface FooterProps {
   lang?: Language;
 }
 
+const BookingComLogo = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 75.76 15.41" fill="currentColor" className={className} aria-label="Booking.com">
+    <path d="M68.89 5.18a2.14 2.14 0 1 1-2.14 2.14 2.13 2.13 0 0 1 2.14-2.14m-7 7.74a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m0-7.25a4.79 4.79 0 1 1-4.78 4.79 4.78 4.78 0 0 1 4.78-4.79m-10.49 7.25a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m0-7.25a4.79 4.79 0 1 1-4.79 4.79 4.78 4.78 0 0 1 4.79-4.79M28.38 5.85h-2.6v2.44h2.6a1.22 1.22 0 0 0 0-2.44m.2 4.68h-2.8v2.63h2.8a1.32 1.32 0 0 0 0-2.63m1.47-2.07a2.94 2.94 0 0 1 1.69 2.72 3 3 0 0 1-3.1 2.98h-5.36V3.58h5a2.73 2.73 0 0 1 2.84 2.68 2.59 2.59 0 0 1-1.07 2.2m8.26 4.46a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m0-7.25a4.79 4.79 0 1 1-4.78 4.79 4.78 4.78 0 0 1 4.78-4.79m8.22 7.25a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m0-7.25a4.79 4.79 0 1 1-4.78 4.79 4.78 4.78 0 0 1 4.78-4.79m5.34-.09h2.34v1.15a3.4 3.4 0 0 1 3-1.34v2.39a3.08 3.08 0 0 0-3 3.1v4.78h-2.34zM14 5.67a4.75 4.75 0 0 1 3.41 1.46V1.25H19.8v14h-2.34V14a4.79 4.79 0 1 1-3.46-8.33m.2 7.25a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m-7.23-5.6h2V4.91H7a5.81 5.81 0 0 0-3.65 1.22v-.46H1v9.58h2.35v-5a3.84 3.84 0 0 1 3.62-2.93m62.29-.42a4.79 4.79 0 1 1-4.79 4.79 4.78 4.78 0 0 1 4.79-4.79m0 7.21a2.46 2.46 0 1 0-2.46-2.46 2.46 2.46 0 0 0 2.46 2.46m6.5-7h2.34v1.1a3.73 3.73 0 0 1 3-1.34 3.2 3.2 0 0 1 3.23 3.33v5.24H75.8V10.2a1.6 1.6 0 0 0-1.74-1.74 2.28 2.28 0 0 0-2.3 2.39v4.4h-2.34z"/>
+  </svg>
+);
+
+const AirbnbLogo = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-label="Airbnb">
+    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.5 17.3c-.3 1.1-.9 2-1.7 2.7-.9.7-1.9 1-3 1-.6 0-1.1-.1-1.5-.4-.2-.1-.3-.2-.5-.3-.1.1-.2.2-.3.3-.5.3-1 .6-1.6.7-.3.1-.6.1-.9.1-1 0-2-.3-2.9-1-.9-.7-1.5-1.6-1.7-2.7-.1-.8 0-1.7.4-2.6.4-.8.9-1.7 1.6-2.5.7-.9 1.4-1.7 2.2-2.4.6-.6 1-.9 1-.9l.4-.4.2.3c.2.2.4.6.7 1 .3.5.7 1.1 1.1 1.9l.1.1c.7 1 1.4 2 1.9 2.5.7.9 1.2 1.7 1.6 2.5.4.9.5 1.8.4 2.6zm-5.5-3c-1.1-1.4-1.7-2.6-1.9-3.6-.2-.9-.1-1.7.4-2.2.4-.4.9-.7 1.5-.7h.1c.6 0 1.2.2 1.5.7.5.6.6 1.3.4 2.2-.2 1-.8 2.2-1.9 3.6z"/>
+  </svg>
+);
+
 const Footer = ({ lang = "fi" }: FooterProps) => {
   const content = {
     fi: {
       description: "Laadukasta majoitusta Levin keskustassa. Varaa suoraan meiltä parhaaseen hintaan.",
       siteTitle: "Sivusto",
-      supportTitle: "Asiakastuki",
-      supportLabel: "Tukisivu majoittujille",
-      supportDesc: "Ohjeet, WiFi, avaimet ja chat-tuki",
+      trustTitle: "Arvioitu erinomaiseksi",
       links: [
         { label: "Majoitukset", href: routeConfig.accommodations.fi },
         { label: "Äkkilähdöt", href: routeConfig.lastMinute.fi },
@@ -37,9 +47,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     en: {
       description: "Quality accommodation in Levi center. Book directly from us for the best price.",
       siteTitle: "Site",
-      supportTitle: "Guest Support",
-      supportLabel: "Support for guests",
-      supportDesc: "Guides, WiFi, keys & chat support",
+      trustTitle: "Rated Excellent",
       links: [
         { label: "Accommodations", href: routeConfig.accommodations.en },
         { label: "Apartments", href: "/en/apartments" },
@@ -67,9 +75,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     sv: {
       description: "Kvalitetsboende i Levi centrum. Boka direkt från oss för bästa pris.",
       siteTitle: "Webbplats",
-      supportTitle: "Gäststöd",
-      supportLabel: "Support för gäster",
-      supportDesc: "Guider, WiFi, nycklar & chattsupport",
+      trustTitle: "Utmärkt betyg",
       links: [
         { label: "Boende", href: routeConfig.accommodations.sv },
         { label: "Sista minuten", href: routeConfig.lastMinute.sv },
@@ -90,9 +96,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     de: {
       description: "Qualitätsunterkünfte im Zentrum von Levi. Buchen Sie direkt bei uns zum besten Preis.",
       siteTitle: "Seite",
-      supportTitle: "Gäste-Support",
-      supportLabel: "Support für Gäste",
-      supportDesc: "Anleitungen, WiFi, Schlüssel & Chat-Support",
+      trustTitle: "Hervorragend bewertet",
       links: [
         { label: "Unterkünfte", href: routeConfig.accommodations.de },
         { label: "Last Minute", href: routeConfig.lastMinute.de },
@@ -113,9 +117,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     es: {
       description: "Alojamiento de calidad en el centro de Levi. Reserva directamente con nosotros al mejor precio.",
       siteTitle: "Sitio",
-      supportTitle: "Soporte al huésped",
-      supportLabel: "Soporte para huéspedes",
-      supportDesc: "Guías, WiFi, llaves y chat de soporte",
+      trustTitle: "Calificación excelente",
       links: [
         { label: "Alojamientos", href: routeConfig.accommodations.es },
         { label: "Última hora", href: routeConfig.lastMinute.es },
@@ -136,9 +138,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     fr: {
       description: "Hébergement de qualité au centre de Levi. Réservez directement chez nous au meilleur prix.",
       siteTitle: "Site",
-      supportTitle: "Support client",
-      supportLabel: "Support pour les hôtes",
-      supportDesc: "Guides, WiFi, clés et chat d'assistance",
+      trustTitle: "Noté excellent",
       links: [
         { label: "Hébergements", href: routeConfig.accommodations.fr },
         { label: "Dernière minute", href: routeConfig.lastMinute.fr },
@@ -159,9 +159,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
     nl: {
       description: "Kwaliteitsaccommodatie in het centrum van Levi. Boek direct bij ons voor de beste prijs.",
       siteTitle: "Website",
-      supportTitle: "Gastenondersteuning",
-      supportLabel: "Ondersteuning voor gasten",
-      supportDesc: "Gidsen, WiFi, sleutels & chatsupport",
+      trustTitle: "Uitstekend beoordeeld",
       links: [
         { label: "Accommodaties", href: routeConfig.accommodations.nl },
         { label: "Last minute", href: routeConfig.lastMinute.nl },
@@ -183,7 +181,6 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
 
   const c = content[lang];
   const homeHref = routeConfig.home[lang];
-  const supportHref = routeConfig.guestSupport[lang];
 
   return (
     <footer id="yhteystiedot" className="bg-card border-t border-border/30 py-12 md:py-20 pb-20 md:pb-24">
@@ -235,48 +232,41 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
             )}
           </div>
 
-          {/* Guest Support - prominent */}
+          {/* Trust Badges */}
           <div>
-            <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{c.supportTitle}</h3>
-            <Link 
-              to={supportHref}
-              className="block rounded-xl border border-border/50 p-4 hover:border-primary/30 hover:shadow-md transition-all group mb-5"
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "rgba(184, 134, 11, 0.15)" }}>
-                  <Headset className="w-4 h-4" style={{ color: "#B8860B" }} />
+            <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{c.trustTitle}</h3>
+            <div className="space-y-5">
+              {/* Booking.com */}
+              <div className="rounded-xl border border-border/50 p-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <BookingComLogo className="h-4 w-auto text-foreground opacity-80" />
                 </div>
-                <span className="font-medium text-sm text-foreground group-hover:text-primary transition-colors">
-                  {c.supportLabel}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center justify-center bg-[hsl(221,100%,30%)] text-white text-xs font-bold rounded-md px-2 py-1">
+                    9.0
+                  </span>
+                  <span className="text-sm text-muted-foreground font-medium">Fabulous</span>
+                </div>
               </div>
-              <p className="text-xs text-muted-foreground pl-12">
-                {c.supportDesc}
-              </p>
-            </Link>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-4">
-                <div className="w-9 h-9 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0">
-                  <WhatsAppIcon className="w-4 h-4 text-green-500" />
+
+              {/* Airbnb */}
+              <div className="rounded-xl border border-border/50 p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <AirbnbLogo className="h-5 w-5 text-[hsl(356,100%,45%)]" />
+                  <span className="font-medium text-sm text-foreground opacity-80">Airbnb</span>
                 </div>
-                <a 
-                  href="https://wa.me/35844131313" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-green-500 hover:text-green-400 transition-colors text-sm"
-                >
-                  WhatsApp
-                </a>
-              </li>
-              <li className="flex items-center gap-4">
-                <div className="w-9 h-9 rounded-lg bg-aurora-green/10 flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-4 h-4 text-aurora-green" />
+                <div className="flex items-center gap-2">
+                  <div className="flex text-[hsl(356,100%,45%)]">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  <span className="text-sm text-muted-foreground font-medium">Exceptional</span>
                 </div>
-                <a href="tel:+35844131313" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  +358 44 131 313
-                </a>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
 
           {/* Contact */}
@@ -289,6 +279,27 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
                 </div>
                 <a href="mailto:info@leville.net" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
                   info@leville.net
+                </a>
+              </li>
+              <li className="flex items-center gap-4">
+                <div className="w-9 h-9 rounded-lg bg-aurora-green/10 flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-4 h-4 text-aurora-green" />
+                </div>
+                <a href="tel:+35844131313" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  +358 44 131 313
+                </a>
+              </li>
+              <li className="flex items-center gap-4">
+                <div className="w-9 h-9 rounded-lg bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                  <WhatsAppIcon className="w-4 h-4 text-green-500" />
+                </div>
+                <a 
+                  href="https://wa.me/35844131313" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-green-500 hover:text-green-400 transition-colors text-sm"
+                >
+                  WhatsApp
                 </a>
               </li>
               <li className="flex items-center gap-4">
