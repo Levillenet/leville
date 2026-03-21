@@ -17,12 +17,12 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Sivusto",
       trustTitle: "Arvioitu erinomaiseksi",
       links: [
+        { label: "Tarinamme", href: routeConfig.company.fi, highlight: true },
         { label: "Majoitukset", href: routeConfig.accommodations.fi },
         { label: "Äkkilähdöt", href: routeConfig.lastMinute.fi },
         { label: "Levi-opas", href: routeConfig.levi.fi },
         { label: "Yhteystiedot", href: routeConfig.contact.fi },
         { label: "UKK", href: routeConfig.faq.fi },
-        { label: "Yritys", href: routeConfig.company.fi },
         { label: "Myy loma-asuntosi", href: routeConfig.sellProperty.fi },
       ],
       contactTitle: "Yhteystiedot",
@@ -39,13 +39,13 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Site",
       trustTitle: "Rated Excellent",
       links: [
+        { label: "Our Story", href: routeConfig.company.en, highlight: true },
         { label: "Accommodations", href: routeConfig.accommodations.en },
         { label: "Apartments", href: "/en/apartments" },
         { label: "Last Minute", href: routeConfig.lastMinute.en },
         { label: "Levi Guide", href: routeConfig.levi.en },
         { label: "Contact", href: routeConfig.contact.en },
         { label: "FAQ", href: routeConfig.faq.en },
-        { label: "Company", href: routeConfig.company.en },
       ],
       apartmentLinks: [
         { label: "Studio apartments", href: "/en/apartments/studio" },
@@ -67,12 +67,12 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Webbplats",
       trustTitle: "Utmärkt betyg",
       links: [
+        { label: "Vår historia", href: routeConfig.company.sv, highlight: true },
         { label: "Boende", href: routeConfig.accommodations.sv },
         { label: "Sista minuten", href: routeConfig.lastMinute.sv },
         { label: "Levi", href: routeConfig.levi.sv },
         { label: "Kontakt", href: routeConfig.contact.sv },
         { label: "FAQ", href: routeConfig.faq.sv },
-        { label: "Företag", href: routeConfig.company.sv },
       ],
       contactTitle: "Kontakt",
       location: "Levi Centrum, Kittilä",
@@ -88,12 +88,12 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Seite",
       trustTitle: "Hervorragend bewertet",
       links: [
+        { label: "Unsere Geschichte", href: routeConfig.company.de, highlight: true },
         { label: "Unterkünfte", href: routeConfig.accommodations.de },
         { label: "Last Minute", href: routeConfig.lastMinute.de },
         { label: "Levi", href: routeConfig.levi.de },
         { label: "Kontakt", href: routeConfig.contact.de },
         { label: "FAQ", href: routeConfig.faq.de },
-        { label: "Unternehmen", href: routeConfig.company.de },
       ],
       contactTitle: "Kontakt",
       location: "Levi Zentrum, Kittilä",
@@ -109,12 +109,12 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Sitio",
       trustTitle: "Calificación excelente",
       links: [
+        { label: "Nuestra historia", href: routeConfig.company.es, highlight: true },
         { label: "Alojamientos", href: routeConfig.accommodations.es },
         { label: "Última hora", href: routeConfig.lastMinute.es },
         { label: "Levi", href: routeConfig.levi.es },
         { label: "Contacto", href: routeConfig.contact.es },
         { label: "FAQ", href: routeConfig.faq.es },
-        { label: "Empresa", href: routeConfig.company.es },
       ],
       contactTitle: "Contacto",
       location: "Centro de Levi, Kittilä",
@@ -130,12 +130,12 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Site",
       trustTitle: "Noté excellent",
       links: [
+        { label: "Notre histoire", href: routeConfig.company.fr, highlight: true },
         { label: "Hébergements", href: routeConfig.accommodations.fr },
         { label: "Dernière minute", href: routeConfig.lastMinute.fr },
         { label: "Levi", href: routeConfig.levi.fr },
         { label: "Contact", href: routeConfig.contact.fr },
         { label: "FAQ", href: routeConfig.faq.fr },
-        { label: "Entreprise", href: routeConfig.company.fr },
       ],
       contactTitle: "Contact",
       location: "Centre de Levi, Kittilä",
@@ -151,12 +151,12 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Website",
       trustTitle: "Uitstekend beoordeeld",
       links: [
+        { label: "Ons verhaal", href: routeConfig.company.nl, highlight: true },
         { label: "Accommodaties", href: routeConfig.accommodations.nl },
         { label: "Last minute", href: routeConfig.lastMinute.nl },
         { label: "Levi", href: routeConfig.levi.nl },
         { label: "Contact", href: routeConfig.contact.nl },
         { label: "FAQ", href: routeConfig.faq.nl },
-        { label: "Bedrijf", href: routeConfig.company.nl },
       ],
       contactTitle: "Contact",
       location: "Centrum van Levi, Kittilä",
@@ -200,7 +200,15 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
             <ul className="space-y-4">
               {c.links.map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors text-sm tracking-wide">
+                  <Link 
+                    to={link.href} 
+                    className={
+                      (link as any).highlight 
+                        ? "text-primary font-semibold hover:text-primary/80 transition-colors text-sm tracking-wide flex items-center gap-2" 
+                        : "text-muted-foreground hover:text-foreground transition-colors text-sm tracking-wide"
+                    }
+                  >
+                    {(link as any).highlight && <span className="text-xs">★</span>}
                     {link.label}
                   </Link>
                 </li>
