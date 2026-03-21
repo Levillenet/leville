@@ -240,7 +240,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
                             alt={t.ownerName}
                             width={400}
                             height={200}
-                            className="h-16 w-auto mb-2"
+                            className="h-32 w-auto mb-2"
                             loading="lazy"
                             decoding="async"
                           />
