@@ -89,6 +89,20 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
     ]
   };
 
+  // Person Schema for owner (E-E-A-T)
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sami Aavikko",
+    "jobTitle": isEnglish ? "Owner" : "Omistaja",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Leville Oy",
+      "url": "https://leville.net"
+    },
+    "image": "https://leville.net/assets/sami-aavikko.jpg"
+  };
+
   return (
     <>
       <JsonLd data={getWebsiteSchema()} />
