@@ -218,7 +218,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
                             alt={t.ownerImageAlt}
                             width={768}
                             height={1024}
-                            className="w-full h-full object-cover object-top"
+                            className="w-full h-full object-cover object-[center_25%]"
                             loading="lazy"
                             decoding="async"
                           />
@@ -240,7 +240,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
                             alt={t.ownerName}
                             width={400}
                             height={200}
-                            className="h-14 w-auto mb-2 opacity-80 dark:invert"
+                            className="h-16 w-auto mb-2 brightness-0 invert"
                             loading="lazy"
                             decoding="async"
                           />
