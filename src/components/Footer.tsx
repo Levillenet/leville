@@ -204,7 +204,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
                     to={link.href} 
                     className={
                       (link as any).highlight 
-                        ? "text-primary font-semibold hover:text-primary/80 transition-colors text-sm tracking-wide flex items-center gap-2" 
+                        ? "text-primary font-semibold hover:text-primary/80 transition-colors text-base tracking-wide flex items-center gap-2" 
                         : "text-muted-foreground hover:text-foreground transition-colors text-sm tracking-wide"
                     }
                   >
