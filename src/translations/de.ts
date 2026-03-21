@@ -221,7 +221,20 @@ export const de = {
     companyNameValue: "Leville Oy",
     businessIdValue: "3178413-5",
     marketingNameValue: "Leville.net",
-    companyAddressValue: "Ratsastajankuja 2, 99130 Levi"
+    companyAddressValue: "Ratsastajankuja 2, 99130 Levi",
+    storyTitle: "Unsere Geschichte",
+    storyParagraphs: [
+      "Die Geschichte von Leville.net reicht Jahrzehnte zurück. Wir haben seit unserer Kindheit als Familie Zeit in Lappland verbracht – wie viele Finnen. Unsere ersten Erinnerungen sind an Pallas und später an Levi, als wir in den 1980er Jahren mit der Familie im Wohnwagen übernachteten. Diese Frühlingsreisen entfachten eine Leidenschaft, die nie erloschen ist.",
+      "Die jährlichen Reisen nach Lappland gingen weiter, bis wir eine eigene Hütte auf der Nordseite von Levi erwarben, in einer ruhigen Wildnisumgebung. Schließlich führte unsere Leidenschaft für Lappland und Gastfreundschaft dazu, dass wir 2011 unsere erste Mietunterkunft im Zentrum von Levi kauften.",
+      "Seitdem haben wir unser Geschäft stetig ausgebaut, eine Immobilie nach der anderen, bis zum heutigen Umfang.",
+      "Heute ist Leville.net kein traditioneller Vermittler – wir vermieten ausschließlich unsere eigenen Wohnungen und Hütten. Dies ermöglicht wettbewerbsfähige Preise und echten persönlichen Service in jeder Situation.",
+      "Kundenzufriedenheit ist unsere oberste Priorität. Wir investieren darin, unsere Unterkünfte sauber, gut ausgestattet und gemütlich zu halten. Wir streben keinen übertriebenen Luxus an – stattdessen bieten wir geräumige und funktionale Unterkünfte, in denen sich Familien und Paare gleichermaßen wohlfühlen.",
+      "Wir investieren jedes Jahr erheblich in die Wartung und Weiterentwicklung unserer Immobilien, und unser Ausstattungsniveau liegt über dem Durchschnitt.",
+      "Wir heißen Sie herzlich willkommen in Levi – als unsere Gäste."
+    ],
+    ownerName: "Sami Aavikko",
+    ownerTitle: "Inhaber, Leville.net",
+    ownerImageAlt: "Sami Aavikko – Inhaber von Leville.net auf den Fjells von Levi"
   },
   levi: {
     meta: {

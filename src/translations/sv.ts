@@ -221,7 +221,20 @@ export const sv = {
     companyNameValue: "Leville Oy",
     businessIdValue: "3178413-5",
     marketingNameValue: "Leville.net",
-    companyAddressValue: "Ratsastajankuja 2, 99130 Levi"
+    companyAddressValue: "Ratsastajankuja 2, 99130 Levi",
+    storyTitle: "Vår historia",
+    storyParagraphs: [
+      "Historien om Leville.net går tillbaka decennier. Vi har tillbringat tid i Lappland som familj sedan barnsben – som många finländare. Våra första minnen är från Pallas och senare från Levi, när vi på 1980-talet bodde i husvagn med familjen. De där vårutflykterna tände en gnista som aldrig har slocknat.",
+      "Årliga resor till Lappland fortsatte tills vi skaffade en egen stuga på norra sidan av Levi, i en lugn vildmarksmiljö. Till slut ledde vår passion för Lappland och gästfrihet till att vi 2011 köpte vår första uthyrningsbostad i Levi centrum.",
+      "Sedan dess har vi vuxit stadigt, en fastighet i taget, till dagens omfattning.",
+      "Idag är Leville.net ingen traditionell förmedlare – vi hyr bara ut våra egna lägenheter och stugor. Detta möjliggör konkurrenskraftiga priser och genuint personlig service i varje situation.",
+      "Kundnöjdhet är vår högsta prioritet. Vi satsar på att hålla våra boenden rena, välutrustade och trivsamma. Vi strävar inte efter överdriven lyx – istället erbjuder vi rymliga och funktionella boenden där både familjer och par trivs.",
+      "Vi investerar betydande belopp varje år i underhåll och utveckling av våra fastigheter, och vår utrustningsnivå ligger över genomsnittet.",
+      "Vi välkomnar er varmt till Levi – som våra gäster."
+    ],
+    ownerName: "Sami Aavikko",
+    ownerTitle: "Ägare, Leville.net",
+    ownerImageAlt: "Sami Aavikko – Ägare av Leville.net på Levis fjäll"
   },
   levi: {
     meta: {

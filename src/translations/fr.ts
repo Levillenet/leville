@@ -221,7 +221,20 @@ export const fr = {
     companyNameValue: "Leville Oy",
     businessIdValue: "3178413-5",
     marketingNameValue: "Leville.net",
-    companyAddressValue: "Ratsastajankuja 2, 99130 Levi"
+    companyAddressValue: "Ratsastajankuja 2, 99130 Levi",
+    storyTitle: "Notre histoire",
+    storyParagraphs: [
+      "L'histoire de Leville.net remonte à des décennies. Nous avons passé du temps en Laponie en famille depuis l'enfance – comme beaucoup de Finlandais. Nos premiers souvenirs sont de Pallas puis de Levi, quand dans les années 80, nous logions en caravane avec la famille. Ces voyages de printemps ont allumé une passion qui ne s'est jamais éteinte.",
+      "Les voyages annuels en Laponie ont continué jusqu'à ce que nous achetions notre propre chalet au nord de Levi, dans un cadre paisible et sauvage. Finalement, notre passion pour la Laponie et l'hospitalité nous a conduits à acheter notre premier bien locatif au centre de Levi en 2011.",
+      "Depuis, nous avons développé notre activité de manière constante, propriété après propriété, jusqu'à son envergure actuelle.",
+      "Aujourd'hui, Leville.net n'est pas un intermédiaire traditionnel – nous louons uniquement nos propres appartements et chalets. Cela permet des prix compétitifs et un service véritablement personnel dans chaque situation.",
+      "La satisfaction client est notre priorité absolue. Nous veillons à ce que nos hébergements soient propres, bien équipés et confortables. Nous ne visons pas un luxe exagéré – nous proposons des logements spacieux et fonctionnels où familles et couples se sentent chez eux.",
+      "Nous investissons chaque année de manière significative dans l'entretien et le développement de nos propriétés, et notre niveau d'équipement est supérieur à la moyenne.",
+      "Nous vous accueillons chaleureusement à Levi – en tant que nos hôtes."
+    ],
+    ownerName: "Sami Aavikko",
+    ownerTitle: "Propriétaire, Leville.net",
+    ownerImageAlt: "Sami Aavikko – Propriétaire de Leville.net sur les fjells de Levi"
   },
   levi: {
     meta: {
