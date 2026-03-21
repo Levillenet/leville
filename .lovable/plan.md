@@ -1,37 +1,30 @@
 
-## CLS 0.707 korjaus — kuvien mitat kuntoon (oikeilla suhteilla)
 
-### Mitä löytyi nyt koodista
-- `Header.tsx`: logolla on `width/height`, mutta arvot pitää varmistaa kuvan oikeaan natiivisuhteeseen.
-- `Footer.tsx`: logolla on tällä hetkellä väärä suhde (`240x192`), mikä voi aiheuttaa ison layout-shiftin.
-- `Hero.tsx`: `width/height` on asetettu kaikille hero-kuville samaan 16:9-muotoon, vaikka kuvat eivät ole samaa kuvasuhdetta.
-- `About.tsx`: carouselin `<img>`-tageilta puuttuu `width/height` kokonaan.
+## Trust Badges footeriin — Booking.com & Airbnb arviot
 
-### Toteutussuunnitelma
-1. **Korjaa logojen dimensioarvot kaikkiin logo-instansseihin**
-   - Päivitä `Header.tsx` ja `Footer.tsx` käyttämään samaa, logon oikeaa natiivisuhdetta vastaavaa `width` + `height`-paria.
-   - Erityisesti footerin nykyinen väärä suhde korjataan (tämä on todennäköisin iso CLS-lähde).
+### Muutokset
 
-2. **Korjaa hero-kuvien mitat kuvatiedostokohtaisesti**
-   - `Hero.tsx`: korvaa yksi yhteinen `1920x1080`-asetus kuvasrc-kohtaisella metadatalla (width/height per hero-kuva).
-   - Näin selain saa oikean aspektisuhteen heti, eikä arvioi väärin.
+**Tiedosto: `src/components/Footer.tsx`**
 
-3. **Lisää puuttuvat mitat About-carouselin kuviin**
-   - `About.tsx`: lisää `<img>`-tageihin `width` ja `height` (vähintään vakioitu 4:3, mieluiten kuvatiedostojen todelliset mitat).
-   - Tällä poistetaan “Kuvaelementti, jonka kokoa ei ole asetettu” myös etusivun alemmasta osasta.
+1. **Poista "Guest Support" -sarake** (rivit 238-280) — tukisivulinkit, Headset-ikoni, WhatsApp ja puhelin siirtyvät pois kolmannesta sarakkeesta. WhatsApp ja puhelin säilyvät Contact-sarakkeessa.
 
-4. **Nopea etusivun audit ennen julkaisu**
-   - Tarkistus `Index`-reitillä renderöityviin komponentteihin: `Header`, `Hero`, `About`, `Footer`.
-   - Varmistetaan, että jokaisella näkyvällä `<img>`-tagilla on sekä `width` että `height`.
+2. **Korvaa poistettu sarake "Trust Badges" -sarakkeella:**
+   - Otsikko: "Arvioitu erinomaiseksi" / "Rated Excellent" / kieliversiot
+   - **Booking.com badge**: logo (SVG inline tai kuva `public/`-kansioon) + teksti "Fabulous 9.0" + pieni tähtirivistö
+   - **Airbnb badge**: logo (SVG inline tai kuva) + teksti "Exceptional" 
+   - Molemmat tyylitelty hillitysti footerin designiin sopiviksi (tumma tausta, vaalea teksti, logot harmaa/valkoinen)
 
-5. **Verifiointi**
-   - Aja mobiili-Lighthouse/PageSpeed etusivulle.
-   - Varmista että:
-     - audit “image elements do not have explicit width and height” ei enää listaa etusivun kuvia
-     - CLS laskee merkittävästi (tavoite < 0.1).
+3. **Siirrä WhatsApp ja puhelin Contact-sarakkeeseen** (4. sarake) — lisätään nykyisten email/location-rivien jälkeen
+
+4. **Logot**: Käytetään inline SVG:tä Booking.com ja Airbnb logoille (yksinkertaiset, tunnistettavat versiot). Vaihtoehtoisesti lisätään PNG-tiedostot `public/`-kansioon. SVG on parempi koska ei vaadi erillistä latausta.
+
+5. **Kieliversiot** otsikkotekstille (kaikki 7 kieltä), arviopisteet ja platformien nimet pysyvät englanniksi.
+
+### Grid-rakenne (ennallaan 4 saraketta)
+```text
+[Brand/Logo] [Quick Links] [Trust Badges] [Contact + WhatsApp/Phone]
+```
 
 ### Muokattavat tiedostot
-- `src/components/Header.tsx`
 - `src/components/Footer.tsx`
-- `src/components/Hero.tsx`
-- `src/components/About.tsx`
+
