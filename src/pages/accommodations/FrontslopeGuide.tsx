@@ -138,7 +138,7 @@ const FrontslopeGuide = () => {
     { icon: Cigarette, title: "No Smoking", desc: "No smoking or vaping inside the apartments. Please smoke outside and use the ashtray provided." },
     { icon: Volume2, title: "Quiet Time from 11 PM", desc: "Quiet hours begin at 11:00 PM. Please — no excessive noise, loud music or rowdy behaviour. Disturbances to neighbours will not be tolerated." },
     { icon: ShieldCheck, title: "Damage", desc: "Please report any damage or malfunction to us right away so we can repair or replace items quickly." },
-    { icon: Phone, title: "Emergencies", desc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers are located in the hallway. For non-urgent issues, contact us at +358 44 131 313 or info@leville.net." },
+    { icon: Phone, title: "Emergencies", desc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers are located in the hallway. For non-urgent issues, contact us at +358 44 13 13 13 or info@leville.net." },
   ];
 
   const checkoutItems = [
@@ -460,7 +460,7 @@ const FrontslopeGuide = () => {
           <h2 className="text-2xl sm:text-3xl font-bold mb-8" style={{ color: "#2D2D2D" }}>Need Anything During Your Stay?</h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
             <a href="tel:+35844131313" className="flex items-center gap-2 text-lg font-medium hover:underline" style={{ color: "#B8860B" }}>
-              <Phone className="w-5 h-5" /> +358 44 131 313
+              <Phone className="w-5 h-5" /> +358 44 13 13 13
             </a>
             <a href="mailto:info@leville.net" className="flex items-center gap-2 text-lg font-medium hover:underline" style={{ color: "#B8860B" }}>
               <Mail className="w-5 h-5" /> info@leville.net

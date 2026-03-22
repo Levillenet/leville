@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: "Can I book the entire Glacier building?",
-    a: "Yes, for large events. The building has multiple apartments in two sections (A and B), all with ski storage. There's a shared children's playroom. Contact us at info@leville.net or WhatsApp +358 44 131 313.",
+    a: "Yes, for large events. The building has multiple apartments in two sections (A and B), all with ski storage. There's a shared children's playroom. Contact us at info@leville.net or WhatsApp +358 44 13 13 13.",
   },
   {
     q: "Are there facilities for corporate retreats?",
@@ -123,7 +123,7 @@ const LargeGroupAccommodation = () => {
                   <Mail className="w-4 h-4" /> info@leville.net
                 </a>
                 <a href="https://wa.me/35844131313" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:underline underline-offset-2">
-                  <MessageCircle className="w-4 h-4" /> WhatsApp +358 44 131 313
+                  <MessageCircle className="w-4 h-4" /> WhatsApp +358 44 13 13 13
                 </a>
               </div>
             </CardContent>

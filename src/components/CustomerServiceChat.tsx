@@ -96,7 +96,7 @@ export default function CustomerServiceChat() {
     } catch (e) {
       setMessages(prev => [...prev, { 
         role: "assistant", 
-        content: `Sorry, something went wrong. Contact us via WhatsApp: +358 44 131 313 or email info@leville.net` 
+        content: `Sorry, something went wrong. Contact us via WhatsApp: +358 44 13 13 13 or email info@leville.net` 
       }]);
     } finally {
       setIsLoading(false);

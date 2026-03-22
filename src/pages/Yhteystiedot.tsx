@@ -62,14 +62,14 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
     {
       icon: Phone,
       title: t.contactInfo.phone,
-      value: "+358 44 131 313",
+      value: "+358 44 13 13 13",
       href: "tel:+35844131313",
       socialType: null as SocialType,
     },
     {
       icon: "whatsapp",
       title: "WhatsApp",
-      value: "+358 44 131 313",
+      value: "+358 44 13 13 13",
       href: "https://wa.me/35844131313",
       socialType: "whatsapp" as SocialType,
     },
@@ -110,7 +110,7 @@ const Yhteystiedot = ({ lang = "fi" }: YhteystiedotProps) => {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
     "name": "Leville.net",
-    "telephone": "+358 44 131 313",
+    "telephone": "+358 44 13 13 13",
     "email": "info@leville.net",
     "url": "https://leville.net",
     "address": {

@@ -221,7 +221,7 @@ Löyly:
       "Tervetuloa Levillen asiakaspalveluun! Kerro missä asunnossa majoitut, niin voin antaa tarkempia ohjeita."
     ],
     askForAccommodation: "Kerrothan ensin, missä majoituskohteessa olet tai olet varaamassa majoitusta? Vaihtoehdot ovat: Skistar-huoneistot (Modernit huoneistot), Tilavat perheasunnot, Karhupirtti (Bear Lodge) tai Levi Glacier Apartments.",
-    escalateToHuman: "Jos asia on kiireellinen tai tarvitset henkilökohtaista palvelua, ota meihin yhteyttä WhatsAppilla numeroon +358 44 131 313 tai sähköpostitse info@leville.net."
+    escalateToHuman: "Jos asia on kiireellinen tai tarvitset henkilökohtaista palvelua, ota meihin yhteyttä WhatsAppilla numeroon +358 44 13 13 13 tai sähköpostitse info@leville.net."
   }
 };
 

@@ -79,7 +79,7 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
     },
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+358 44 131 313",
+      "telephone": "+358 44 13 13 13",
       "contactType": "customer service",
       "email": "info@leville.net"
     },

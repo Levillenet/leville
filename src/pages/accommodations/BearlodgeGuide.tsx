@@ -116,7 +116,7 @@ const i18n = {
       { icon: Cigarette, title: "No Smoking", desc: "No smoking or vaping inside the cabin. Please smoke outside and use the ashtray provided." },
       { icon: Volume2, title: "Noise & Quiet Time", desc: "Inside the cabin, the sound level is entirely up to you — the cabin is yours. If you use the outdoor jacuzzi at night, please keep noise to a minimum for the neighbors." },
       { icon: ShieldCheck, title: "Damage", desc: "Please report any damage or malfunction to us right away so we can repair or replace items quickly." },
-      { icon: Phone, title: "Emergencies", desc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers and a fire blanket are in the hallway. For non-urgent issues, reach us at +358 44 131 313 or info@leville.net." },
+      { icon: Phone, title: "Emergencies", desc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers and a fire blanket are in the hallway. For non-urgent issues, reach us at +358 44 13 13 13 or info@leville.net." },
     ],
     checkoutTitle: "Before You Go – Checkout Checklist",
     checkoutIntro: "To help us prepare for the next guests, we appreciate your help with these simple things before you leave by 11:00 AM.",
@@ -243,7 +243,7 @@ const i18n = {
       { icon: Cigarette, title: "Tupakointi kielletty", desc: "Tupakointi tai sähkötupakointi sisätiloissa on kielletty. Tupakoi ulkona ja käytä tuhkakuppia." },
       { icon: Volume2, title: "Melu ja hiljaisuus", desc: "Mökin sisällä äänentaso on täysin teidän päätettävissänne — mökki on teidän. Jos käytätte ulkoporeallasta yöllä, pidä melu minimissä naapureiden vuoksi." },
       { icon: ShieldCheck, title: "Vahingot", desc: "Ilmoita kaikista vahingoista tai toimintahäiriöistä meille heti, jotta voimme korjata tai vaihtaa nopeasti." },
-      { icon: Phone, title: "Hätätilanteet", desc: "Hätätilanteessa soita 112. Sammuttimet ja sammutuspeite ovat eteisessä. Ei-kiireellisissä asioissa tavoitat meidät numerosta +358 44 131 313 tai info@leville.net." },
+      { icon: Phone, title: "Hätätilanteet", desc: "Hätätilanteessa soita 112. Sammuttimet ja sammutuspeite ovat eteisessä. Ei-kiireellisissä asioissa tavoitat meidät numerosta +358 44 13 13 13 tai info@leville.net." },
     ],
     checkoutTitle: "Ennen lähtöä – lähtömuistilista",
     checkoutIntro: "Auttaaksesi meitä valmistelemaan mökin seuraaville vieraille, arvostamme apuasi näissä yksinkertaisissa asioissa ennen klo 11:00 lähtöä.",
@@ -678,7 +678,7 @@ const BearlodgeGuide = ({ lang = "en" }: BearlodgeGuideProps) => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-6">
               <a href="tel:+35844131313" className="flex items-center gap-2 text-base font-medium hover:underline" style={{ color: "#2D2D2D" }}>
                 <Phone size={18} style={{ color: "#B8860B" }} />
-                +358 44 131 313
+                +358 44 13 13 13
               </a>
               <a href="mailto:info@leville.net" className="flex items-center gap-2 text-base font-medium hover:underline" style={{ color: "#2D2D2D" }}>
                 <Mail size={18} style={{ color: "#B8860B" }} />
