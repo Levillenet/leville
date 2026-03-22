@@ -26,7 +26,7 @@ const content: Record<Language, {
     sections: [
       {
         heading: "Rekisterinpitäjä",
-        text: "Leville.net (y-tunnus: 2965553-7)\nLevin keskusta, 99130 Sirkka\ninfo@leville.net\n+358 44 131 313"
+        text: "Leville.net (y-tunnus: 2965553-7)\nLevin keskusta, 99130 Sirkka\ninfo@leville.net\n+358 44 13 13 13"
       },
       {
         heading: "Kerättävät tiedot",
@@ -57,7 +57,7 @@ const content: Record<Language, {
     sections: [
       {
         heading: "Data Controller",
-        text: "Leville.net (Business ID: 2965553-7)\nLevi Center, 99130 Sirkka, Finland\ninfo@leville.net\n+358 44 131 313"
+        text: "Leville.net (Business ID: 2965553-7)\nLevi Center, 99130 Sirkka, Finland\ninfo@leville.net\n+358 44 13 13 13"
       },
       {
         heading: "Data Collected",
@@ -88,7 +88,7 @@ const content: Record<Language, {
     sections: [
       {
         heading: "Personuppgiftsansvarig",
-        text: "Leville.net (FO-nummer: 2965553-7)\nLevi Centrum, 99130 Sirkka, Finland\ninfo@leville.net\n+358 44 131 313"
+        text: "Leville.net (FO-nummer: 2965553-7)\nLevi Centrum, 99130 Sirkka, Finland\ninfo@leville.net\n+358 44 13 13 13"
       },
       {
         heading: "Insamlade uppgifter",
@@ -119,7 +119,7 @@ const content: Record<Language, {
     sections: [
       {
         heading: "Verantwortlicher",
-        text: "Leville.net (Handelsregister-Nr.: 2965553-7)\nLevi Zentrum, 99130 Sirkka, Finnland\ninfo@leville.net\n+358 44 131 313"
+        text: "Leville.net (Handelsregister-Nr.: 2965553-7)\nLevi Zentrum, 99130 Sirkka, Finnland\ninfo@leville.net\n+358 44 13 13 13"
       },
       {
         heading: "Erhobene Daten",
@@ -150,7 +150,7 @@ const content: Record<Language, {
     sections: [
       {
         heading: "Responsable del tratamiento",
-        text: "Leville.net (CIF: 2965553-7)\nCentro de Levi, 99130 Sirkka, Finlandia\ninfo@leville.net\n+358 44 131 313"
+        text: "Leville.net (CIF: 2965553-7)\nCentro de Levi, 99130 Sirkka, Finlandia\ninfo@leville.net\n+358 44 13 13 13"
       },
       {
         heading: "Datos recopilados",
@@ -181,7 +181,7 @@ const content: Record<Language, {
     sections: [
       {
         heading: "Responsable du traitement",
-        text: "Leville.net (SIRET : 2965553-7)\nCentre de Levi, 99130 Sirkka, Finlande\ninfo@leville.net\n+358 44 131 313"
+        text: "Leville.net (SIRET : 2965553-7)\nCentre de Levi, 99130 Sirkka, Finlande\ninfo@leville.net\n+358 44 13 13 13"
       },
       {
         heading: "Données collectées",
@@ -212,7 +212,7 @@ const content: Record<Language, {
     sections: [
       {
         heading: "Verwerkingsverantwoordelijke",
-        text: "Leville.net (KvK-nummer: 2965553-7)\nLevi Centrum, 99130 Sirkka, Finland\ninfo@leville.net\n+358 44 131 313"
+        text: "Leville.net (KvK-nummer: 2965553-7)\nLevi Centrum, 99130 Sirkka, Finland\ninfo@leville.net\n+358 44 13 13 13"
       },
       {
         heading: "Verzamelde gegevens",

@@ -283,7 +283,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
                   <Phone className="w-4 h-4 text-aurora-green" />
                 </div>
                 <a href="tel:+35844131313" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  +358 44 131 313
+                  +358 44 13 13 13
                 </a>
               </li>
               <li className="flex items-center gap-4">

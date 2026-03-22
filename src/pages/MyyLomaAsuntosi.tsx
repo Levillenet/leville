@@ -264,7 +264,7 @@ const MyyLomaAsuntosi = () => {
                         className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
                       >
                         <Phone className="w-4 h-4" />
-                        +358 44 131 313
+                        +358 44 13 13 13
                       </a>
                       <a
                         href="https://wa.me/35844131313?text=Hei!%20Haluaisin%20myydä%20loma-asuntoni%20Levillä."

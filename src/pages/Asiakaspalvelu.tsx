@@ -116,7 +116,7 @@ export default function Asiakaspalvelu({ lang = "fi" }: { lang?: Language }) {
                     rel="noopener noreferrer"
                     className="text-green-600 hover:underline font-medium text-lg"
                   >
-                    +358 44 131 313
+                    +358 44 13 13 13
                   </a>
                   <p className="text-xs text-muted-foreground mt-2">{t.urgentNote}</p>
                 </CardContent>
@@ -129,7 +129,7 @@ export default function Asiakaspalvelu({ lang = "fi" }: { lang?: Language }) {
                 </CardHeader>
                 <CardContent>
                   <a href="tel:+35844131313" className="text-primary hover:underline font-medium">
-                    +358 44 131 313
+                    +358 44 13 13 13
                   </a>
                 </CardContent>
               </Card>

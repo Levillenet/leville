@@ -133,7 +133,7 @@ export function getLodgingBusinessSchema(lang: string) {
       ? "Varaa mökit, huoneistot ja lomakoteja suoraan Levin hiihtokeskuksesta. Paras hinta, ei välikäsiä."
       : "Book cabins, apartments, and holiday homes directly in Levi ski resort, Finnish Lapland. Best price guarantee, no middleman fees.",
     "url": isFi ? `${BASE_URL}/majoitukset` : `${BASE_URL}/en/accommodations`,
-    "telephone": "+358 44 131 313",
+    "telephone": "+358 44 13 13 13",
     "email": "info@leville.net",
     "address": {
       "@type": "PostalAddress",

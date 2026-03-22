@@ -31,7 +31,7 @@ function getLodgingBusiness() {
     },
     areaServed: "Levi Finland",
     image: `${BASE_URL}/og-image.png`,
-    telephone: "+358 44 131 313",
+    telephone: "+358 44 13 13 13",
     email: "info@leville.net",
     priceRange: "€€-€€€",
     sameAs: [BASE_URL],

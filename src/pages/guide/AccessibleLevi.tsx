@@ -49,7 +49,7 @@ const translations = {
       accommodation: {
         title: "Esteettömät majoitukset",
         content: "Osa hotelleista ja huoneistoista tarjoaa esteettömiä huoneita. Mökeissä esteettömyys vaihtelee — monikerroksiset hirsimökit usein haastavia. Kysy aina tarkasti ennen varausta.",
-        contact: "Ota yhteyttä niin kerromme mitkä kohteistamme sopivat: +358 44 131 313."
+        contact: "Ota yhteyttä niin kerromme mitkä kohteistamme sopivat: +358 44 13 13 13."
       },
       activities: {
         title: "Laskettelu ja aktiviteetit",
@@ -111,7 +111,7 @@ const translations = {
       accommodation: {
         title: "Accessible Accommodation",
         content: "Some hotels and apartments offer accessible rooms. Cabin accessibility varies — multi-storey log cabins are often challenging. Always ask in detail before booking.",
-        contact: "Contact us to find out which of our properties are suitable: +358 44 131 313."
+        contact: "Contact us to find out which of our properties are suitable: +358 44 13 13 13."
       },
       activities: {
         title: "Skiing and Activities",
