@@ -573,6 +573,7 @@ const App = () => {
               <Route path="/guide/packing-list-for-lapland-holiday" element={<Navigate to="/guide/packing-list-for-lapland" replace />} />
               <Route path="/guide/apres-ski-nightlife-levi" element={<Navigate to="/guide/apres-ski-and-nightlife-in-levi" replace />} />
               <Route path="/guide/santa-claus-levi" element={<Navigate to="/guide/santa-claus-in-levi" replace />} />
+              <Route path="/opas/hiihto-levi" element={<Navigate to="/opas/hiihtoladut-levi" replace />} />
 
               {/* Interactive Map */}
               <Route path="/levi-map" element={<LeviInteractiveMap />} />
