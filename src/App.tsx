@@ -539,6 +539,12 @@ const App = () => {
               {/* Old property page */}
               <Route path="/skistar-levi-104" element={<Navigate to="/majoitukset" replace />} />
               <Route path="/skistar-levi-104/*" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/skistar-levi" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/skistar-levi/*" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/hiihtajankuja" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/hiihtajankuja/*" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/home" element={<Navigate to="/" replace />} />
+              <Route path="/author/*" element={<Navigate to="/" replace />} />
 
               {/* Common broken link redirects */}
               <Route path="/en/accommodation" element={<Navigate to="/en/accommodations" replace />} />
@@ -567,6 +573,7 @@ const App = () => {
               <Route path="/guide/packing-list-for-lapland-holiday" element={<Navigate to="/guide/packing-list-for-lapland" replace />} />
               <Route path="/guide/apres-ski-nightlife-levi" element={<Navigate to="/guide/apres-ski-and-nightlife-in-levi" replace />} />
               <Route path="/guide/santa-claus-levi" element={<Navigate to="/guide/santa-claus-in-levi" replace />} />
+              <Route path="/opas/hiihto-levi" element={<Navigate to="/opas/hiihtoladut-levi" replace />} />
 
               {/* Interactive Map */}
               <Route path="/levi-map" element={<LeviInteractiveMap />} />
