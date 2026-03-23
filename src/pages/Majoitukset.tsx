@@ -291,9 +291,9 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                   {isEnglish ? "Book direct — best price guaranteed" : "Varaa suoraan — paras hinta"}
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-6">
-                  {isEnglish
+                    {isEnglish
                     ? "All our properties are also listed on Booking.com, but by booking directly with us you always get the best price with no middlemen."
-                    : "Kaikki kohteemme löytyvät myös Booking.comista, mutta varaamalla suoraan meiltä saat aina parhaan hinnan ilman välikäsiä."}
+                    : "Kaikki kohteemme myös Booking.comissa."}
                 </p>
                 <div className="glass-card border-border/30 rounded-xl p-6">
                   <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
