@@ -288,12 +288,22 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
             <ScrollReveal delay={0.2}>
               <section className="mb-16 md:mb-20 max-w-3xl mx-auto">
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
-                  {isEnglish ? "Book direct — best price guaranteed" : "Varaa suoraan — paras hinta"}
+                  {lang === "fi" ? "Varaa suoraan — paras hinta" :
+                   lang === "sv" ? "Boka direkt" :
+                   lang === "de" ? "Direkt buchen" :
+                   lang === "es" ? "Reserva directa" :
+                   lang === "fr" ? "Réservez directement" :
+                   lang === "nl" ? "Direct boeken" :
+                   "Book direct"}
                 </h2>
                 <p className="text-muted-foreground leading-relaxed mb-6">
-                    {isEnglish
-                    ? "All our properties are also listed on Booking.com, but by booking directly with us you always get the best price with no middlemen."
-                    : "Kaikki kohteemme myös Booking.comissa."}
+                  {lang === "fi" ? "Kaikki kohteemme myös Booking.comissa." :
+                   lang === "sv" ? "Alla våra boenden finns också på Booking.com." :
+                   lang === "de" ? "Alle unsere Unterkünfte auch auf Booking.com." :
+                   lang === "es" ? "Todos nuestros alojamientos también en Booking.com." :
+                   lang === "fr" ? "Tous nos hébergements également sur Booking.com." :
+                   lang === "nl" ? "Al onze accommodaties ook op Booking.com." :
+                   "All our properties are also listed on Booking.com."}
                 </p>
                 <div className="glass-card border-border/30 rounded-xl p-6">
                   <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
