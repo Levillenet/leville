@@ -43,6 +43,17 @@ function getVacationRental() {
     "@context": "https://schema.org",
     "@type": "VacationRental",
     name: "Levi Apartments by Leville.net",
+    alternateName: [
+      "Levillenet Glacier Alpine Chalets at Levi Centre",
+      "Levillenet Levi centre chalets",
+      "Levillenet Bearlodge at Levi city centre",
+      "Levillenet Bears Watch Apartments",
+      "Levillenet Skistar Superior Studios",
+      "Levillenet Skistar Superior 1-bedroom apartments",
+      "Levillenet Skistar Superior 2 bedroom apartments",
+      "Levi Platinum Superior Apartments",
+      "Levi Centre Moonlight Studio with Sauna 415",
+    ],
     url: BASE_URL,
     address: {
       "@type": "PostalAddress",

@@ -284,6 +284,43 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </section>
             </ScrollReveal>
 
+            {/* Book Direct / Booking.com names section */}
+            <ScrollReveal delay={0.2}>
+              <section className="mb-16 md:mb-20 max-w-3xl mx-auto">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
+                  {isEnglish ? "Book direct — best price guaranteed" : "Varaa suoraan — paras hinta"}
+                </h2>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  {isEnglish
+                    ? "All our properties are also listed on Booking.com, but by booking directly with us you always get the best price with no middlemen."
+                    : "Kaikki kohteemme löytyvät myös Booking.comista, mutta varaamalla suoraan meiltä saat aina parhaan hinnan ilman välikäsiä."}
+                </p>
+                <div className="glass-card border-border/30 rounded-xl p-6">
+                  <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+                    {isEnglish ? "Our Booking.com listings" : "Booking.com-nimemme"}
+                  </h3>
+                  <ul className="space-y-2">
+                    {[
+                      "Levillenet Glacier Alpine Chalets at Levi Centre",
+                      "Levillenet Levi centre chalets",
+                      "Levillenet Bearlodge at Levi city centre",
+                      "Levillenet Bears Watch Apartments",
+                      "Levillenet Skistar Superior Studios",
+                      "Levillenet Skistar Superior 1-bedroom apartments",
+                      "Levillenet Skistar Superior 2 bedroom apartments",
+                      "Levi Platinum Superior Apartments",
+                      "Levi Centre Moonlight Studio with Sauna 415",
+                    ].map((name) => (
+                      <li key={name} className="text-sm text-foreground flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                        {name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            </ScrollReveal>
+
             {/* FAQ Section */}
             <ScrollReveal delay={0.2}>
               <section className="mb-16 md:mb-20 max-w-3xl mx-auto">
