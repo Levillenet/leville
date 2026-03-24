@@ -754,19 +754,6 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
               </Card>
             </section>
 
-            {/* Useful Links */}
-            <section className="mb-12 sm:mb-20 text-center">
-              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 sm:mb-8">{t.linksTitle}</h2>
-              <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-                {links.map((link) => (
-                  <Button key={link.name} asChild variant="secondary" className="text-xs sm:text-sm">
-                    <a href={link.url} target="_blank" rel="noopener noreferrer">
-                      {link.name} <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1.5 sm:ml-2" />
-                    </a>
-                  </Button>
-                ))}
-              </div>
-            </section>
 
             {/* Back to Levi */}
             <section className="text-center">
