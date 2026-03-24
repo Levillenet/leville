@@ -91,7 +91,7 @@ const translations = {
       },
       conditions: {
         title: "Latukausi ja olosuhteet",
-        content: "Latukausi alkaa tyypillisesti marraskuussa ja jatkuu huhtikuun loppuun. Lumetuslatu varmistaa hiihtomahkollisuudet jo aikaisessa vaiheessa. Tunturiladuilla lunta on usein toukokuuhun asti."
+        content: "Latukausi alkaa tyypillisesti lokakuun alkupäivinä ensilumen ladulla, jonne latu tehdään säilölumella. Täysi latuverkosto avautuu riittävien lumisateiden jälkeen, yleensä marraskuussa. Kausi jatkuu vapun yli — tunturiladuilla lunta on usein toukokuuhun asti."
       }
     },
     faq: {
@@ -178,7 +178,7 @@ const translations = {
       },
       conditions: {
         title: "Season and Conditions",
-        content: "The trail season typically begins in November and continues until late April. The snow-making trail ensures skiing opportunities early in the season. Fell trails often have snow until May."
+        content: "The trail season typically starts in early October on the first-snow trail, which is made using stored snow. The full trail network opens after sufficient snowfall, usually in November. The season continues past May Day — fell trails often have snow until May."
       }
     },
     faq: {
@@ -254,7 +254,7 @@ const translations = {
       },
       conditions: {
         title: "Seizoen en omstandigheden",
-        content: "Het loipeseizoen begint meestal in november en loopt door tot eind april. De kunstsneeuwloipe garandeert vroeg in het seizoen langlaufmogelijkheden. Op de fjellloipes ligt vaak sneeuw tot mei. Het beste seizoen voor langlaufen is maart-april: lentezon met uitstekende sneeuw."
+        content: "Het loipeseizoen begint meestal begin oktober op de eerste-sneeuwloipe, die wordt gemaakt met opgeslagen sneeuw. Het volledige loipenetwerk opent na voldoende sneeuwval, meestal in november. Het seizoen loopt door tot na 1 mei — op de fjellloipes ligt vaak sneeuw tot mei."
       }
     },
     faq: {
@@ -382,6 +382,55 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
                 {lang === "fi" ? "Hiihtoladut aurinkoisena kevätpäivänä — Levin latuverkostosta löytyy reittejä avosuolle ja metsiin" : "Cross-country ski tracks on a sunny spring day — Levi's trail network includes routes across open marshes and through forests"}
               </p>
+            </section>
+
+            {/* Trail maps and services links */}
+            <section className="mb-12">
+              <h2 className="text-2xl font-bold text-foreground mb-4">
+                {lang === "fi" ? "Latukartta ja latupalvelu" : lang === "nl" ? "Loipekaart en loipeservice" : "Trail Map and Trail Service"}
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <a
+                  href="https://kittila.fi/sites/default/files/2022-10/Levin%20latukartta%202022-2023.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Card className="glass-card border-border/30 p-4 hover:border-primary/50 transition-colors h-full">
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-semibold text-foreground mb-1">
+                          {lang === "fi" ? "Levin ja Kittilän latukartta (PDF)" : lang === "nl" ? "Loipekaart Levi en Kittilä (PDF)" : "Levi and Kittilä Trail Map (PDF)"}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {lang === "fi" ? "Tulostettava latukartta koko alueen laduista" : lang === "nl" ? "Printbare kaart van alle loipes in het gebied" : "Printable trail map of the entire area"}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+                </a>
+                <a
+                  href="https://www.infogis.fi/levi/?lang=fi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Card className="glass-card border-border/30 p-4 hover:border-primary/50 transition-colors h-full">
+                    <div className="flex items-start gap-3">
+                      <Route className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-semibold text-foreground mb-1">
+                          {lang === "fi" ? "Sähköinen latupalvelu" : lang === "nl" ? "Online loipeservice" : "Online Trail Service"}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {lang === "fi" ? "Tarkista latujen kunnossapito ja kunto reaaliajassa" : lang === "nl" ? "Controleer loipe-onderhoud en -condities in realtime" : "Check trail maintenance and conditions in real time"}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+                </a>
+              </div>
             </section>
 
             {/* Stats */}
