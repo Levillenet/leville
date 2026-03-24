@@ -15,7 +15,7 @@ import {
   TreePine, 
   Sparkles, 
   Heart,
-  ExternalLink,
+  
   Camera,
   Moon,
   Bell,
@@ -362,43 +362,6 @@ const translations: Record<Language, {
   }
 };
 
-const usefulLinks: Record<Language, { name: string; url: string }[]> = {
-  fi: [
-    { name: "Joulupukin Pajakylä", url: "https://santaclausvillage.info/fi/" },
-    { name: "Levi.fi – Joulun tapahtumat", url: "https://www.levi.fi/" },
-    { name: "Visit Finland – Joulu", url: "https://www.visitfinland.com/fi/" }
-  ],
-  en: [
-    { name: "Santa Claus Village", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Christmas Events", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Christmas", url: "https://www.visitfinland.com/" }
-  ],
-  sv: [
-    { name: "Jultomtens by", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Julevenemang", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Jul", url: "https://www.visitfinland.com/" }
-  ],
-  de: [
-    { name: "Weihnachtsmanndorf", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Weihnachtsveranstaltungen", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Weihnachten", url: "https://www.visitfinland.com/" }
-  ],
-  es: [
-    { name: "Aldea de Papá Noel", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Eventos navideños", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Navidad", url: "https://www.visitfinland.com/" }
-  ],
-  fr: [
-    { name: "Village du Père Noël", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Événements de Noël", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Noël", url: "https://www.visitfinland.com/" }
-  ],
-  nl: [
-    { name: "Dorp van de Kerstman", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Kerstevenementen", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Kerst", url: "https://www.visitfinland.com/" }
-  ]
-};
 
 // Internal link targets for experience cards (by icon key)
 const experienceLinks: Record<Language, Record<string, string>> = {
@@ -466,7 +429,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
   const t = translations[lang];
-  const links = usefulLinks[lang];
+  
   const location = useLocation();
 
   return (
@@ -754,19 +717,6 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
               </Card>
             </section>
 
-            {/* Useful Links */}
-            <section className="mb-12 sm:mb-20 text-center">
-              <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-6 sm:mb-8">{t.linksTitle}</h2>
-              <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-                {links.map((link) => (
-                  <Button key={link.name} asChild variant="secondary" className="text-xs sm:text-sm">
-                    <a href={link.url} target="_blank" rel="noopener noreferrer">
-                      {link.name} <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1.5 sm:ml-2" />
-                    </a>
-                  </Button>
-                ))}
-              </div>
-            </section>
 
             {/* Back to Levi */}
             <section className="text-center">
