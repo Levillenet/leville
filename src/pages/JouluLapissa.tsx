@@ -783,12 +783,61 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                   title: "Lue myös",
                   links: [
                     { title: "Levi vs Rovaniemi", desc: "Kumpi on parempi joulukohde?", href: "/opas/levi-vs-rovaniemi" },
+                    { title: "Talvi Levillä", desc: "Kaamos, lumi ja talviaktiviteetit", href: "/opas/talvi-levi" },
+                    { title: "Revontulet Levillä", desc: "Paras aika ja paikka revontulille", href: "/revontulet" },
+                    { title: "Talvivarusteet", desc: "Pukeutumisvinkit Lapin pakkasiin", href: "/opas/talvivarusteet-leville" },
+                    { title: "Ravintolat ja palvelut", desc: "Levin keskustan palvelut", href: "/opas/ravintolat-ja-palvelut-levilla" },
+                    { title: "Lapsiperheet Levillä", desc: "Vinkit perheen joulumatkaan", href: "/opas/lapsiperheet-levilla" },
                   ],
                 },
                 en: {
                   title: "Read Next",
                   links: [
                     { title: "Levi vs Rovaniemi", desc: "Which is the better Christmas destination?", href: "/guide/levi-vs-rovaniemi-comparison" },
+                    { title: "Winter in Levi", desc: "Polar night, snow and winter activities", href: "/guide/winter-in-levi" },
+                    { title: "Northern Lights in Levi", desc: "Best time and spots for aurora", href: "/en/northern-lights" },
+                    { title: "Winter Clothing Guide", desc: "How to dress for Lapland frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+                    { title: "Restaurants & Services", desc: "Levi center dining and services", href: "/guide/restaurants-and-services-in-levi" },
+                    { title: "Levi With Children", desc: "Tips for a family Christmas trip", href: "/guide/levi-with-children" },
+                  ],
+                },
+                sv: {
+                  title: "Läs också",
+                  links: [
+                    { title: "Vinter i Levi", desc: "Polarnatt, snö och vinteraktiviteter", href: "/guide/winter-in-levi" },
+                    { title: "Norrsken i Levi", desc: "Bästa tid och platser", href: "/sv/norrsken" },
+                    { title: "Vinterkläder", desc: "Klädtips för Lapplands kyla", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+                  ],
+                },
+                de: {
+                  title: "Lesen Sie auch",
+                  links: [
+                    { title: "Winter in Levi", desc: "Polarnacht, Schnee und Aktivitäten", href: "/guide/winter-in-levi" },
+                    { title: "Nordlichter in Levi", desc: "Beste Zeit und Orte", href: "/de/nordlichter" },
+                    { title: "Winterkleidung", desc: "Kleidungstipps für Lapplands Kälte", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+                  ],
+                },
+                es: {
+                  title: "Lee también",
+                  links: [
+                    { title: "Invierno en Levi", desc: "Noche polar, nieve y actividades", href: "/guide/winter-in-levi" },
+                    { title: "Auroras boreales en Levi", desc: "Mejor época y lugares", href: "/es/auroras-boreales" },
+                  ],
+                },
+                fr: {
+                  title: "À lire aussi",
+                  links: [
+                    { title: "L'hiver à Levi", desc: "Nuit polaire, neige et activités", href: "/guide/winter-in-levi" },
+                    { title: "Aurores boréales à Levi", desc: "Meilleure période et spots", href: "/fr/aurores-boreales" },
+                  ],
+                },
+                nl: {
+                  title: "Lees ook",
+                  links: [
+                    { title: "Winter in Levi", desc: "Poolnacht, sneeuw en activiteiten", href: "/guide/winter-in-levi" },
+                    { title: "Noorderlicht in Levi", desc: "Beste tijd en locaties", href: "/nl/noorderlicht" },
+                    { title: "Winterkleding", desc: "Kledingstips voor Lapland", href: "/nl/gids/winterkleding-levi-lapland" },
+                    { title: "Levi met kinderen", desc: "Tips voor een familiekersttrip", href: "/nl/gids/levi-met-kinderen" },
                   ],
                 },
               };
