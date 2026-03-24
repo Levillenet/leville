@@ -15,7 +15,7 @@ import {
   TreePine, 
   Sparkles, 
   Heart,
-  ExternalLink,
+  
   Camera,
   Moon,
   Bell,
@@ -466,7 +466,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
   const t = translations[lang];
-  const links = usefulLinks[lang];
+  
   const location = useLocation();
 
   return (
