@@ -362,43 +362,6 @@ const translations: Record<Language, {
   }
 };
 
-const usefulLinks: Record<Language, { name: string; url: string }[]> = {
-  fi: [
-    { name: "Joulupukin Pajakylä", url: "https://santaclausvillage.info/fi/" },
-    { name: "Levi.fi – Joulun tapahtumat", url: "https://www.levi.fi/" },
-    { name: "Visit Finland – Joulu", url: "https://www.visitfinland.com/fi/" }
-  ],
-  en: [
-    { name: "Santa Claus Village", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Christmas Events", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Christmas", url: "https://www.visitfinland.com/" }
-  ],
-  sv: [
-    { name: "Jultomtens by", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Julevenemang", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Jul", url: "https://www.visitfinland.com/" }
-  ],
-  de: [
-    { name: "Weihnachtsmanndorf", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Weihnachtsveranstaltungen", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Weihnachten", url: "https://www.visitfinland.com/" }
-  ],
-  es: [
-    { name: "Aldea de Papá Noel", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Eventos navideños", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Navidad", url: "https://www.visitfinland.com/" }
-  ],
-  fr: [
-    { name: "Village du Père Noël", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Événements de Noël", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Noël", url: "https://www.visitfinland.com/" }
-  ],
-  nl: [
-    { name: "Dorp van de Kerstman", url: "https://santaclausvillage.info/" },
-    { name: "Levi.fi – Kerstevenementen", url: "https://www.levi.fi/en" },
-    { name: "Visit Finland – Kerst", url: "https://www.visitfinland.com/" }
-  ]
-};
 
 // Internal link targets for experience cards (by icon key)
 const experienceLinks: Record<Language, Record<string, string>> = {
