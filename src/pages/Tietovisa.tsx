@@ -49,43 +49,43 @@ const Tietovisa = ({ lang = "fi" }: TietovisaProps) => {
       title: "Levi-tietovisa - Testaa tietämyksesi | Leville.net",
       description: "Testaa Levi-tietämyksesi hauskalla tietovisalla! 10 kysymystä Suomen suosituimmasta hiihtokeskuksesta.",
       keywords: "Levi tietovisa, Levi visa, hiihtokeskus tietovisa, Lappi tietovisa",
-      canonical: "https://www.leville.net/tietovisa"
+      canonical: "https://leville.net/tietovisa"
     },
     en: {
       title: "Levi Quiz - Test Your Knowledge | Leville.net",
       description: "Test your knowledge about Levi ski resort with our fun quiz! 10 questions about Finland's most popular skiing destination.",
       keywords: "Levi quiz, Levi trivia, Finland ski resort quiz, Lapland quiz",
-      canonical: "https://www.leville.net/en/quiz"
+      canonical: "https://leville.net/en/quiz"
     },
     sv: {
       title: "Levi Quiz - Testa dina kunskaper | Leville.net",
       description: "Testa dina kunskaper om Levi skidort med vårt roliga quiz! 10 frågor om Finlands mest populära skidort.",
       keywords: "Levi quiz, Levi frågesport, Finland skidort quiz, Lappland quiz",
-      canonical: "https://www.leville.net/sv/quiz"
+      canonical: "https://leville.net/sv/quiz"
     },
     de: {
       title: "Levi Quiz - Teste dein Wissen | Leville.net",
       description: "Teste dein Wissen über das Skigebiet Levi mit unserem lustigen Quiz! 10 Fragen über Finnlands beliebtestes Skigebiet.",
       keywords: "Levi Quiz, Levi Trivia, Finnland Skigebiet Quiz, Lappland Quiz",
-      canonical: "https://www.leville.net/de/quiz"
+      canonical: "https://leville.net/de/quiz"
     },
     es: {
       title: "Quiz de Levi - Pon a prueba tus conocimientos | Leville.net",
       description: "¡Pon a prueba tus conocimientos sobre la estación de esquí de Levi con nuestro divertido quiz! 10 preguntas sobre el destino de esquí más popular de Finlandia.",
       keywords: "Levi quiz, Levi trivia, Finlandia estación esquí quiz, Laponia quiz",
-      canonical: "https://www.leville.net/es/quiz"
+      canonical: "https://leville.net/es/quiz"
     },
     fr: {
       title: "Quiz Levi - Testez vos connaissances | Leville.net",
       description: "Testez vos connaissances sur la station de ski de Levi avec notre quiz amusant ! 10 questions sur la destination de ski la plus populaire de Finlande.",
       keywords: "Levi quiz, Levi trivia, Finlande station ski quiz, Laponie quiz",
-      canonical: "https://www.leville.net/fr/quiz"
+      canonical: "https://leville.net/fr/quiz"
     },
     nl: {
       title: "Levi Quiz - Test je kennis | Leville.net",
       description: "Test je kennis over skigebied Levi met onze leuke quiz! 10 vragen over de populairste skibestemming van Finland.",
       keywords: "Levi quiz, Levi trivia, Finland skigebied quiz, Lapland quiz",
-      canonical: "https://www.leville.net/nl/quiz"
+      canonical: "https://leville.net/nl/quiz"
     }
   };
 

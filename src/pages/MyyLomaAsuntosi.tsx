@@ -137,7 +137,7 @@ const MyyLomaAsuntosi = () => {
     name: "Leville.net",
     description: "Ostamme loma-asuntoja ja taloja Levin keskustasta käypään markkinahintaan.",
     url: "https://leville.net/myy-loma-asuntosi",
-    telephone: "+358441313313",
+    telephone: "+358 44 13 13 13",
     email: "info@leville.net",
     address: {
       "@type": "PostalAddress",
