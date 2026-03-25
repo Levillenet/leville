@@ -145,10 +145,10 @@ export default function InlineChat({
               dangerouslySetInnerHTML={
                 msg.role === "assistant"
                   ? {
-                      __html: msg.content.replace(
+                      __html: DOMPurify.sanitize(msg.content.replace(
                         /(https?:\/\/[^\s)<]+)/g,
                         '<a href="$1" target="_blank" rel="noopener noreferrer" class="underline font-medium text-primary">$1</a>'
-                      ),
+                      ), { ADD_ATTR: ['target'] }),
                     }
                   : undefined
               }

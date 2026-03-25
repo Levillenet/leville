@@ -153,10 +153,10 @@ export default function CustomerServiceChat() {
                     }`}
                     style={msg.role === "user" ? { backgroundColor: "#B8860B" } : undefined}
                     dangerouslySetInnerHTML={msg.role === "assistant" ? { 
-                      __html: msg.content.replace(
+                      __html: DOMPurify.sanitize(msg.content.replace(
                         /(https?:\/\/[^\s)<]+)/g, 
                         '<a href="$1" target="_blank" rel="noopener noreferrer" class="underline font-medium" style="color: #B8860B">$1</a>'
-                      ) 
+                      ), { ADD_ATTR: ['target'] })
                     } : undefined}
                     >
                       {msg.role === "user" ? msg.content : undefined}
