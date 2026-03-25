@@ -376,7 +376,17 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
             <p className="text-muted-foreground">{t.subtitle}</p>
           </header>
 
-          <p className="mb-10 text-lg">{t.intro}</p>
+          <p className="mb-6 text-lg">{t.intro}</p>
+
+          <div className="mb-10">
+            <a
+              href="#levin-taksilaskuri"
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+            >
+              <Calculator className="w-4 h-4" />
+              {lang === "en" ? "Jump to Levi Taxi Fare Calculator ↓" : lang === "nl" ? "Ga naar Levi taxicalculator ↓" : "Siirry Levin taksilaskuriin ↓"}
+            </a>
+          </div>
 
           {(Object.keys(t.sections) as Array<"airport" | "skibus" | "taxi" | "car" | "walking" | "winterDriving">).map((key) => {
             const section = t.sections[key];
