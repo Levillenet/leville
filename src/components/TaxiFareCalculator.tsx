@@ -104,6 +104,18 @@ const TaxiFareCalculator = ({ lang = "fi" }: TaxiFareCalculatorProps) => {
   const route = routes.find((r) => r.id === selectedRoute) || routes[0];
   const km = selectedRoute === "custom" ? customKm : route.km;
 
+  const sectionId = "levin-taksilaskuri";
+
+  return (
+    <section id={sectionId} aria-labelledby={`${sectionId}-heading`} className="mt-6">
+      <Card className="border-primary/20">
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Calculator className="w-5 h-5 text-primary" aria-hidden="true" />
+            <h3 id={`${sectionId}-heading`} className="text-lg font-semibold">{t.title}</h3>
+          </div>
+          <p className="text-sm text-muted-foreground mb-6">{t.subtitle}</p>
+
   const fare = useMemo(() => {
     if (route.isAirport) {
       return { kmCost: 0, timeCost: 0, total: 60, isFixed: true, minutes: 15 };
