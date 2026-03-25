@@ -398,6 +398,7 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
                     </ul>
                   </CardContent>
                 </Card>
+                {key === "taxi" && <TaxiFareCalculator lang={lang} />}
               </section>
             );
           })}
