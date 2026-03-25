@@ -1,48 +1,58 @@
 
 
-## Plan: CORS Restriction + Rate Limiting for Edge Functions
+## Plan: Fix routeConfig for Language Switching
 
-### 1. CORS Restriction — Admin Edge Functions (23 files)
+**Single file**: `src/translations/index.ts` — rewrite the `routeConfig` object.
 
-In each of the 23 admin/internal edge functions listed, change `'Access-Control-Allow-Origin': '*'` to `'Access-Control-Allow-Origin': 'https://leville.net'`.
+### What's wrong (summary)
 
-**Files to update:**
-`admin-auth`, `admin-settings`, `get-chatbot-stats`, `get-current-guests`, `get-download-stats`, `get-page-view-stats`, `log-message`, `manage-guide`, `manage-message-templates`, `manage-seo-pages`, `scrape-booking`, `send-admin-invite`, `send-worklist`, `translate-booking-terms`, `verify-admin`, `homey-api`, `homey-callback`, `melcloud-api`, `melcloud-cron`, `maintenance-settings`, `maintenance-bookings`, `mark-cleaned`, `floor-heating-cron`
+| Issue type | Count |
+|-----------|-------|
+| Wrong FI/EN slugs (don't match App.tsx) | 7 entries |
+| Missing localized NL/DE/SV/ES/FR slugs | ~20 entries |
+| Missing route groups entirely | ~19 new entries |
 
-**Keep `'*'` in these public functions (no changes):**
-`update-page-engagement`, `log-download`, `send-property-inquiry`, `send-aurora-confirmation`, `unsubscribe-aurora`, `fmi-snow-data`, `beds24-availability`, `customer-service-chat`, `check-aurora-alerts`
+### Fixes to existing entries
 
-### 2. DOMPurify Sanitization — Already Done
+| Key | What's wrong | Correct value (from App.tsx) |
+|-----|-------------|------------------------------|
+| `weatherInLevi` | NL → `/nl/levi` | `/nl/levi/weer-in-levi` |
+| `winterInLevi` | NL → `/guide/winter-in-levi` | `/nl/gids/winter-in-levi` |
+| `springInLevi` | NL → `/guide/spring-in-levi` | `/nl/gids/lente-in-levi` |
+| `summerInLevi` | NL → `/guide/summer-in-levi` | `/nl/gids/zomer-in-levi` |
+| `autumnInLevi` | NL → `/guide/autumn-ruska-in-levi` | `/nl/gids/herfst-ruska-in-levi` |
+| `accessible` | FI → `esteetonloma-levi` | `esteetton-levi` + add all localized |
+| `apresSkiLevi` | FI/EN wrong slugs | FI: `afterski-ja-yoelama-levilla`, EN: `apres-ski-and-nightlife-in-levi` + DE/ES |
+| `dayTrips` | FI → `paivaretkia-levilla` | `paivaretket-levilla` + all localized |
+| `equipmentRental` | FI/EN wrong | FI: `valinevuokraus-levilla`, EN: `equipment-rental-in-levi` + all localized |
+| `newYearsEve` | FI wrong | `uusivuosi-levilla` + all localized |
+| `cabinVsApartment` | EN → `cabin-vs-apartment-levi` | `cabin-vs-apartment-in-levi` |
+| `romanticGetaway` | EN → `romantic-levi-getaway` | `romantic-getaway-in-levi` + all localized |
+| `gettingAround` | NL missing | `/nl/gids/vervoer-in-levi` |
+| `snowmobileSafari` | NL missing | `/nl/activiteiten/sneeuwscooter-safari-levi` |
+| All activities (fatbike, golf, etc.) | Missing DE/SV/ES/FR/NL | Add from App.tsx routes |
+| Guide pages (packingList, santaClaus, etc.) | Missing DE/SV/ES/FR/NL | Add from App.tsx routes |
 
-Both `CustomerServiceChat.tsx` and `InlineChat.tsx` already import DOMPurify and use `DOMPurify.sanitize()` around `dangerouslySetInnerHTML` content. No changes needed.
+### New route groups to add (19 entries)
 
-### 3. Rate Limiting — Public Edge Functions (2 files)
+- `comparisonHub` (7 languages)
+- `leviRestaurantGuide` (fi + en)
+- `leviVsSaariselka` (fi + en)
+- `outdoorHotTub` (fi + en)
+- `christmasDinnerFI` (fi only)
+- `guideFrontslope` (en only)
+- `leviMap` (fi/en same path)
+- `fireplace` (fi + en)
+- 12 monthly guides (jan–dec, each with 7 languages)
 
-Add simple in-memory IP-based rate limiting to `update-page-engagement/index.ts` and `log-download/index.ts`:
+### Final entry count
 
-- Use a `Map<string, number[]>` to track request timestamps per IP
-- Extract IP from `req.headers.get('x-forwarded-for')` or `'unknown'`
-- Reject with 429 if >100 requests in the last 60 seconds from the same IP
-- Clean up old entries periodically
+**Current**: 46 entries
+**After update**: ~65 entries
 
-```typescript
-const rateLimit = new Map<string, number[]>();
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const timestamps = (rateLimit.get(ip) || []).filter(t => now - t < 60000);
-  if (timestamps.length >= 100) return false;
-  timestamps.push(now);
-  rateLimit.set(ip, timestamps);
-  return true;
-}
-```
+All paths taken directly from App.tsx `<Route path="...">` definitions. No changes to any other files.
 
-### Files Summary
+### Technical detail
 
-| Files | Change |
-|-------|--------|
-| 23 admin edge functions | CORS origin → `https://leville.net` |
-| `update-page-engagement/index.ts` | Add rate limiting |
-| `log-download/index.ts` | Add rate limiting |
-| Chat components | Already fixed — no changes |
+The `getRouteForLanguage` function and `detectLanguageFromPath` stay unchanged — the fix is purely data completeness in `routeConfig`.
 
