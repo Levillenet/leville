@@ -5,10 +5,33 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
+const rateLimit = new Map<string, number[]>();
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = (rateLimit.get(ip) || []).filter(t => now - t < 60000);
+  if (timestamps.length >= 100) return false;
+  timestamps.push(now);
+  rateLimit.set(ip, timestamps);
+  if (rateLimit.size > 10000) {
+    for (const [key, vals] of rateLimit) {
+      if (vals.every(t => now - t > 60000)) rateLimit.delete(key);
+    }
+  }
+  return true;
+}
+
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  if (!checkRateLimit(clientIp)) {
+    return new Response(
+      JSON.stringify({ error: 'Too many requests' }),
+      { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    );
   }
 
   try {
