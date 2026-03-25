@@ -13,6 +13,7 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plane, Bus, Car, Footprints, Snowflake, MapPin } from "lucide-react";
+import TaxiFareCalculator from "@/components/TaxiFareCalculator";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
@@ -53,12 +54,14 @@ const translations = {
         ],
       },
       taxi: {
-        title: "Taksit ja kyytipalvelut",
+        title: "Taksi Levi K. Särkelä",
         items: [
-          "Levin Taksi: 0600 300 72",
-          "Lappland Taxi: 0200 60 060",
-          "Varaa etukäteen erityisesti ilta-aikaan ja viikonloppuisin",
-          "Sovelluksia kuten Uber ei ole käytössä Levillä",
+          "Luotettavaa taksipalvelua Levillä ja lähialueilla",
+          "Puhelin: +358 440 666 766",
+          "Nettisivu: taksilevi.fi",
+          "Lentokenttäkuljetus Kittilä–Levi kiinteään hintaan 60 € (Leville.net-asiakkaille)",
+          "Tilaa etukäteen erityisesti sesonkina ja ilta-aikaan",
+          "Henkilö- ja tilatakseja saatavilla (1–8 henkilöä)",
         ],
       },
       car: {
@@ -142,12 +145,14 @@ const translations = {
         ],
       },
       taxi: {
-        title: "Taxis and Ride Services",
+        title: "Taxi Levi K. Särkelä",
         items: [
-          "Levin Taksi: 0600 300 72",
-          "Lappland Taxi: 0200 60 060",
-          "Book ahead especially in evenings and weekends",
-          "Apps like Uber are not available in Levi",
+          "Reliable taxi service in Levi and surrounding areas",
+          "Phone: +358 440 666 766",
+          "Website: taksilevi.fi",
+          "Airport transfer Kittilä–Levi at fixed price €60 (for Leville.net guests)",
+          "Book ahead especially during peak season and evenings",
+          "Regular and minivan taxis available (1–8 persons)",
         ],
       },
       car: {
@@ -228,12 +233,14 @@ const translations = {
         ],
       },
       taxi: {
-        title: "Taxi's en vervoersdiensten",
+        title: "Taxi Levi K. Särkelä",
         items: [
-          "Levin Taksi: 0600 300 72",
-          "Lappland Taxi: 0200 60 060",
-          "Boek vooraf, vooral 's avonds en in weekenden",
-          "Apps zoals Uber zijn niet beschikbaar in Levi",
+          "Betrouwbare taxiservice in Levi en omgeving",
+          "Telefoon: +358 440 666 766",
+          "Website: taksilevi.fi",
+          "Luchthaven transfer Kittilä–Levi voor vaste prijs €60 (voor Leville.net gasten)",
+          "Boek vooraf, vooral in het hoogseizoen en 's avonds",
+          "Gewone en minivan taxi's beschikbaar (1–8 personen)",
         ],
       },
       car: {
@@ -391,6 +398,7 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
                     </ul>
                   </CardContent>
                 </Card>
+                {key === "taxi" && <TaxiFareCalculator lang={lang} />}
               </section>
             );
           })}
