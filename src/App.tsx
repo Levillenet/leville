@@ -636,6 +636,11 @@ const App = () => {
               <Route path="/fr/activites/canoe-et-sup-levi" element={<CanoeingAndSUPLevi lang="fr" />} />
               <Route path="/nl/activiteiten/kanoen-en-sup-levi" element={<CanoeingAndSUPLevi lang="nl" />} />
 
+              {/* HuskySafariTips - DE */}
+              <Route path="/de/aktivitaeten/husky-safari-levi" element={<HuskySafariTips lang="de" />} />
+              {/* SnowmobileSafariTips - DE */}
+              <Route path="/de/aktivitaeten/schneemobil-safari-levi" element={<SnowmobileSafariTips lang="de" />} />
+
               {/* FatbikeLevi */}
               <Route path="/aktiviteetit/fatbike-levi" element={<FatbikeLevi />} />
               <Route path="/activities/fatbiking-in-levi" element={<FatbikeLevi lang="en" />} />
