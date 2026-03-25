@@ -32,6 +32,7 @@ const SnowmobileSafariTips = ({ lang = "fi" }: SnowmobileSafariTipsProps) => {
   const hreflangUrls = {
     fi: "https://leville.net/aktiviteetit/moottorikelkkasafari-vinkit-levi",
     en: "https://leville.net/activities/snowmobile-safari-tips-levi",
+    de: "https://leville.net/de/aktivitaeten/schneemobil-safari-levi",
   };
 
   const getIcon = (iconName: string) => {

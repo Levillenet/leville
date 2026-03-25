@@ -35,6 +35,7 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
   const hreflangUrls = {
     fi: "https://leville.net/aktiviteetit/koiravaljakkoajelu-levi",
     en: "https://leville.net/activities/husky-safari-levi",
+    de: "https://leville.net/de/aktivitaeten/husky-safari-levi",
     nl: "https://leville.net/nl/activiteiten/husky-safari-levi",
   };
 
