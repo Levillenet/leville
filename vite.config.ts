@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
     react(),
     imagetools({
       defaultDirectives: (url) => {
-        if (url.pathname.includes('/restaurants/')) {
+        if (url.pathname.includes('/assets/')) {
           return new URLSearchParams({ w: '800', format: 'webp', quality: '75' });
         }
         return new URLSearchParams();
