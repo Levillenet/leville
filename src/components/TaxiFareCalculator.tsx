@@ -79,34 +79,14 @@ interface Route {
 const routes: Route[] = [
   {
     id: "airport",
-    label: { fi: "Kittilän lentokenttä → Levi", en: "Kittilä Airport → Levi", nl: "Luchthaven Kittilä → Levi" },
+    label: { fi: "Kittilän lentokenttä → Levi (Hiihtäjänkuja)", en: "Kittilä Airport → Levi (Hiihtäjänkuja)", nl: "Luchthaven Kittilä → Levi (Hiihtäjänkuja)" },
     km: 15,
     isAirport: true,
   },
   {
     id: "southpoint",
-    label: { fi: "South Point → Levin keskusta", en: "South Point → Levi center", nl: "South Point → Levi centrum" },
-    km: 3,
-  },
-  {
-    id: "sirkka",
-    label: { fi: "Sirkka → Levin keskusta", en: "Sirkka → Levi center", nl: "Sirkka → Levi centrum" },
-    km: 2,
-  },
-  {
-    id: "gondoli",
-    label: { fi: "Gondolihissi → Levin keskusta", en: "Gondola lift → Levi center", nl: "Gondellift → Levi centrum" },
-    km: 1.5,
-  },
-  {
-    id: "summit",
-    label: { fi: "Levi Summit → Levin keskusta", en: "Levi Summit → Levi center", nl: "Levi Summit → Levi centrum" },
-    km: 4,
-  },
-  {
-    id: "katka",
-    label: { fi: "Kätkätunturi → Levin keskusta", en: "Kätkätunturi → Levi center", nl: "Kätkätunturi → Levi centrum" },
-    km: 8,
+    label: { fi: "South Point → Levin keskusta (Hiihtäjänkuja)", en: "South Point → Levi center (Hiihtäjänkuja)", nl: "South Point → Levi centrum (Hiihtäjänkuja)" },
+    km: 6,
   },
   {
     id: "custom",
