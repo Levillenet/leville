@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 type Message = { role: "user" | "assistant"; content: string };
 

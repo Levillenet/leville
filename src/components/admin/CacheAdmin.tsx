@@ -45,8 +45,8 @@ const CacheAdmin = ({ isViewer = false }: CacheAdminProps) => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjdnhrbHpjeG5nY3R5cW1rbmF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcwNDA5OTYsImV4cCI6MjA4MjYxNjk5Nn0.3nPNA-xWyfUtrsVq-DF_ztrWmLVtTh9UMtozKHLUDh8',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjdnhrbHpjeG5nY3R5cW1rbmF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcwNDA5OTYsImV4cCI6MjA4MjYxNjk5Nn0.3nPNA-xWyfUtrsVq-DF_ztrWmLVtTh9UMtozKHLUDh8'
+            'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`
           }
         }
       );

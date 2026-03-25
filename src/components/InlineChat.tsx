@@ -3,6 +3,7 @@ import { Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import DOMPurify from "dompurify";
 
 type Message = { role: "user" | "assistant"; content: string };
 
