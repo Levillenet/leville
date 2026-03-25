@@ -11,7 +11,7 @@ interface TaxiFareCalculatorProps {
 
 const translations = {
   fi: {
-    title: "Taksilaskuri",
+    title: "Levin taksilaskuri",
     subtitle: "Arvioi taksimatkan hinta Levillä",
     passengers: "Matkustajat",
     passengersGroup1: "1–4 henkilöä",
