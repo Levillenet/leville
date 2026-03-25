@@ -12,7 +12,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plane, Bus, Car, Footprints, Snowflake, MapPin } from "lucide-react";
+import { Plane, Bus, Car, Footprints, Snowflake, MapPin, Calculator } from "lucide-react";
 import TaxiFareCalculator from "@/components/TaxiFareCalculator";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
@@ -376,7 +376,17 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
             <p className="text-muted-foreground">{t.subtitle}</p>
           </header>
 
-          <p className="mb-10 text-lg">{t.intro}</p>
+          <p className="mb-6 text-lg">{t.intro}</p>
+
+          <div className="mb-10">
+            <a
+              href="#levin-taksilaskuri"
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+            >
+              <Calculator className="w-4 h-4" />
+              {lang === "en" ? "Jump to Levi Taxi Fare Calculator ↓" : lang === "nl" ? "Ga naar Levi taxicalculator ↓" : "Siirry Levin taksilaskuriin ↓"}
+            </a>
+          </div>
 
           {(Object.keys(t.sections) as Array<"airport" | "skibus" | "taxi" | "car" | "walking" | "winterDriving">).map((key) => {
             const section = t.sections[key];
