@@ -14,7 +14,7 @@ import {
 import livingFireplace from "@/assets/bearlodge/living-fireplace.jpg";
 import kitchenPhoto from "@/assets/bearlodge/kitchen.jpg";
 
-const BASE = "https://www.leville.net";
+const BASE = "https://leville.net";
 
 const i18n = {
   en: {

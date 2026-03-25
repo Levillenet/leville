@@ -268,8 +268,8 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
   const [showNav, setShowNav] = useState(false);
 
   const canonicalUrl = lang === "en"
-    ? "https://www.leville.net/accommodations/guides/skistar-apartments"
-    : "https://www.leville.net/majoitukset/oppaat/skistar-huoneistot";
+    ? "https://leville.net/accommodations/guides/skistar-apartments"
+    : "https://leville.net/majoitukset/oppaat/skistar-huoneistot";
 
   const accomLink = lang === "fi" ? "/majoitukset" : "/en/accommodations";
 
@@ -323,7 +323,7 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
     "@type": "LodgingBusiness",
     name: "Leville.net Skistar Apartments",
     description: t.metaDesc,
-    url: "https://www.leville.net/accommodations/guides/skistar-apartments",
+    url: "https://leville.net/accommodations/guides/skistar-apartments",
     telephone: "+35844131313",
     address: {
       "@type": "PostalAddress",
@@ -393,9 +393,9 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
         ogType="article"
       />
       <Helmet>
-        <link rel="alternate" hrefLang="en" href="https://www.leville.net/accommodations/guides/skistar-apartments" />
-        <link rel="alternate" hrefLang="fi" href="https://www.leville.net/majoitukset/oppaat/skistar-huoneistot" />
-        <link rel="alternate" hrefLang="x-default" href="https://www.leville.net/accommodations/guides/skistar-apartments" />
+        <link rel="alternate" hrefLang="en" href="https://leville.net/accommodations/guides/skistar-apartments" />
+        <link rel="alternate" hrefLang="fi" href="https://leville.net/majoitukset/oppaat/skistar-huoneistot" />
+        <link rel="alternate" hrefLang="x-default" href="https://leville.net/accommodations/guides/skistar-apartments" />
       </Helmet>
       <JsonLd data={articleSchema} />
       <JsonLd data={breadcrumbSchema} />

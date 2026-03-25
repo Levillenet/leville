@@ -33,7 +33,7 @@ const FrontslopeGuide = () => {
   const [activeSection, setActiveSection] = useState("");
   const [showNav, setShowNav] = useState(false);
 
-  const canonicalUrl = "https://www.leville.net/accommodations/guides/frontslope-apartments";
+  const canonicalUrl = "https://leville.net/accommodations/guides/frontslope-apartments";
 
   useEffect(() => {
     const handleScroll = () => {

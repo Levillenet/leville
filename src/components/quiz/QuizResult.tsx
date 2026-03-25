@@ -122,13 +122,13 @@ const QuizResult = ({ score, totalQuestions, onRestart, lang = "fi" }: QuizResul
   };
 
   const quizUrls: Record<Language, string> = {
-    fi: "https://www.leville.net/tietovisa",
-    en: "https://www.leville.net/en/quiz",
-    sv: "https://www.leville.net/sv/quiz",
-    de: "https://www.leville.net/de/quiz",
-    es: "https://www.leville.net/es/quiz",
-    fr: "https://www.leville.net/fr/quiz",
-    nl: "https://www.leville.net/nl/quiz"
+    fi: "https://leville.net/tietovisa",
+    en: "https://leville.net/en/quiz",
+    sv: "https://leville.net/sv/quiz",
+    de: "https://leville.net/de/quiz",
+    es: "https://leville.net/es/quiz",
+    fr: "https://leville.net/fr/quiz",
+    nl: "https://leville.net/nl/quiz"
   };
 
   const leviLinks: Record<Language, string> = {
