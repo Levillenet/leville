@@ -1,31 +1,48 @@
 
 
-## Plan: 5 Security Fixes
+## Plan: CORS Restriction + Rate Limiting for Edge Functions
 
-### Fix 1: Add .env to .gitignore
-Append environment variable entries to `.gitignore`.
+### 1. CORS Restriction — Admin Edge Functions (23 files)
 
-### Fix 2: Remove hardcoded Supabase key from CacheAdmin.tsx
-Replace hardcoded JWT strings on lines 48-49 with `import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY`.
+In each of the 23 admin/internal edge functions listed, change `'Access-Control-Allow-Origin': '*'` to `'Access-Control-Allow-Origin': 'https://leville.net'`.
 
-### Fix 3: Remove Mapbox token fallback
-In `src/pages/guide/LeviInteractiveMap.tsx` line 17, replace the hardcoded fallback token with empty string.
+**Files to update:**
+`admin-auth`, `admin-settings`, `get-chatbot-stats`, `get-current-guests`, `get-download-stats`, `get-page-view-stats`, `log-message`, `manage-guide`, `manage-message-templates`, `manage-seo-pages`, `scrape-booking`, `send-admin-invite`, `send-worklist`, `translate-booking-terms`, `verify-admin`, `homey-api`, `homey-callback`, `melcloud-api`, `melcloud-cron`, `maintenance-settings`, `maintenance-bookings`, `mark-cleaned`, `floor-heating-cron`
 
-### Fix 4: Disallow /admin in robots.txt
-Add `Disallow: /admin` before the Sitemap line in `public/robots.txt`.
+**Keep `'*'` in these public functions (no changes):**
+`update-page-engagement`, `log-download`, `send-property-inquiry`, `send-aurora-confirmation`, `unsubscribe-aurora`, `fmi-snow-data`, `beds24-availability`, `customer-service-chat`, `check-aurora-alerts`
 
-### Fix 5: Sanitize AI chat output with DOMPurify
-- Install `dompurify` + `@types/dompurify`
-- In both `CustomerServiceChat.tsx` and `InlineChat.tsx`, import DOMPurify and wrap the HTML passed to `dangerouslySetInnerHTML` with `DOMPurify.sanitize()`
+### 2. DOMPurify Sanitization — Already Done
 
-### Files
-| File | Change |
-|------|--------|
-| `.gitignore` | Add .env entries |
-| `src/components/admin/CacheAdmin.tsx` | Use env var instead of hardcoded key |
-| `src/pages/guide/LeviInteractiveMap.tsx` | Remove token fallback |
-| `public/robots.txt` | Add Disallow: /admin |
-| `src/components/CustomerServiceChat.tsx` | Add DOMPurify sanitization |
-| `src/components/InlineChat.tsx` | Add DOMPurify sanitization |
-| `package.json` | Add dompurify dependency |
+Both `CustomerServiceChat.tsx` and `InlineChat.tsx` already import DOMPurify and use `DOMPurify.sanitize()` around `dangerouslySetInnerHTML` content. No changes needed.
+
+### 3. Rate Limiting — Public Edge Functions (2 files)
+
+Add simple in-memory IP-based rate limiting to `update-page-engagement/index.ts` and `log-download/index.ts`:
+
+- Use a `Map<string, number[]>` to track request timestamps per IP
+- Extract IP from `req.headers.get('x-forwarded-for')` or `'unknown'`
+- Reject with 429 if >100 requests in the last 60 seconds from the same IP
+- Clean up old entries periodically
+
+```typescript
+const rateLimit = new Map<string, number[]>();
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = (rateLimit.get(ip) || []).filter(t => now - t < 60000);
+  if (timestamps.length >= 100) return false;
+  timestamps.push(now);
+  rateLimit.set(ip, timestamps);
+  return true;
+}
+```
+
+### Files Summary
+
+| Files | Change |
+|-------|--------|
+| 23 admin edge functions | CORS origin → `https://leville.net` |
+| `update-page-engagement/index.ts` | Add rate limiting |
+| `log-download/index.ts` | Add rate limiting |
+| Chat components | Already fixed — no changes |
 
