@@ -13,6 +13,7 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plane, Bus, Car, Footprints, Snowflake, MapPin } from "lucide-react";
+import TaxiFareCalculator from "@/components/TaxiFareCalculator";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
