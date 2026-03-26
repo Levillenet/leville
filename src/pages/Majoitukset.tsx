@@ -209,7 +209,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                               to={isEnglish ? "/accommodations/guides/bearlodge" : "/majoitukset/oppaat/karhupirtti"}
                               className="inline-flex items-center justify-center gap-1.5 w-full text-center py-2 px-3 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
                             >
-                              {isEnglish ? "Guest Guide" : "Vierasopas"}
+                              {isEnglish ? "Learn more" : "Tutustu tarkemmin"}
                               <ArrowRight className="w-3.5 h-3.5" />
                             </Link>
                           )}
