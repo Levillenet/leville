@@ -272,6 +272,7 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
     : "https://leville.net/majoitukset/oppaat/skistar-huoneistot";
 
   const accomLink = lang === "fi" ? "/majoitukset" : "/en/accommodations";
+  const moderBookingLink = "https://app.moder.fi/levillenet?filters_types=&filters_amenities=&filters_sort=&filters_places=412";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -437,7 +438,7 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
           <p className="text-base sm:text-lg text-white/85 mb-8 max-w-3xl mx-auto leading-relaxed">{t.subtitle}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-white font-semibold px-8" style={{ backgroundColor: "#B8860B" }}>
-              <Link to={accomLink}>{t.bookApartment} <ArrowRight className="ml-2 w-4 h-4" /></Link>
+              <a href={moderBookingLink} target="_blank" rel="noopener noreferrer">{t.bookApartment} <ArrowRight className="ml-2 w-4 h-4" /></a>
             </Button>
             <Button asChild variant="outline" size="lg" className="border-white/50 text-white hover:bg-white/10 px-8">
               <a href="#" /* Replace with actual PDF URL */><Download className="mr-2 w-4 h-4" /> {t.downloadPdf}</a>
@@ -661,7 +662,7 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
           <p className="leading-relaxed mb-10" style={{ color: "#555" }}>{t.contactNote}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <Button asChild size="lg" className="text-white font-semibold px-8" style={{ backgroundColor: "#B8860B" }}>
-              <Link to={accomLink}>{t.ctaBrowse} <ArrowRight className="ml-2 w-4 h-4" /></Link>
+              <a href={moderBookingLink} target="_blank" rel="noopener noreferrer">{t.ctaBrowse} <ArrowRight className="ml-2 w-4 h-4" /></a>
             </Button>
             <Button asChild variant="outline" size="lg" className="px-8" style={{ borderColor: "#B8860B", color: "#B8860B" }}>
               <Link to={lang === "fi" ? "/levi" : "/en/levi"}>{t.ctaGuide} <ArrowRight className="ml-2 w-4 h-4" /></Link>
