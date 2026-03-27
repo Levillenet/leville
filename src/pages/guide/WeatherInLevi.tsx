@@ -188,10 +188,10 @@ const translations = {
       title: "Lue myös",
       links: [
         { title: "Talvi Levillä", desc: "Kaamos, lumi ja aktiviteetit", href: "/opas/talvi-levi" },
+        { title: "Levin lumitilanne", desc: "Lumensyvyys ja latujen kunto", href: "/levi/lumitilanne" },
         { title: "Laskettelu Levillä", desc: "Rinteiden olosuhteet", href: "/opas/laskettelu-levi" },
         { title: "Talvivarusteet", desc: "Pukeudu sään mukaan oikein", href: "/opas/talvivarusteet-leville" },
         { title: "Kesä Levillä", desc: "Yötön yö ja kesäaktiviteetit", href: "/opas/kesa-levi" },
-        { title: "Vuodenajat Levillä", desc: "Mikä kausi sopii sinulle", href: "/opas/vuodenajat-levi" },
         { title: "Revontulet", desc: "Milloin revontulia näkee", href: "/revontulet" },
       ],
     },
@@ -355,10 +355,10 @@ const translations = {
       title: "Read Next",
       links: [
         { title: "Winter in Levi", desc: "Polar night, snow and activities", href: "/guide/winter-in-levi" },
+        { title: "Levi Snow Report", desc: "Snow depth and trail conditions", href: "/en/levi/snow-report" },
         { title: "Skiing in Levi", desc: "Slope conditions and tips", href: "/guide/skiing-in-levi" },
         { title: "Winter Clothing", desc: "Dress right for the weather", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
         { title: "Summer in Levi", desc: "Midnight sun and summer activities", href: "/guide/summer-in-levi" },
-        { title: "Seasons in Levi", desc: "Which season suits you", href: "/guide/seasons-in-levi" },
         { title: "Northern Lights", desc: "When to see the aurora", href: "/en/northern-lights" },
       ],
     },
