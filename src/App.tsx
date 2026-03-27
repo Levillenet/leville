@@ -213,7 +213,7 @@ const App = () => {
               <Route path="/levi/joulu-lapissa" element={<JouluLapissa />} />
               <Route path="/levi/saatieto-levilta" element={<WeatherInLevi />} />
                <Route path="/lumitilanne" element={<LeviSnowReport lang="fi" />} />
-               <Route path="/snowreport" element={<Navigate to="/lumitilanne" replace />} />
+               <Route path="/snowreport" element={<LeviSnowReport lang="en" />} />
                <Route path="/levi/lumitilanne" element={<Navigate to="/lumitilanne" replace />} />
               <Route path="/revontulet" element={<Revontulet />} />
               <Route path="/yhteystiedot" element={<Yhteystiedot />} />

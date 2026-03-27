@@ -73,7 +73,6 @@
 
 # Snow report URL change
 /levi/lumitilanne           /lumitilanne          301
-/snowreport                 /lumitilanne          301
 /en/levi/snow-report        /en/snowreport        301
 
 # SPA fallback — MUST be the last rule
