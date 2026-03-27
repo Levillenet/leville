@@ -82,18 +82,18 @@ const LeviVsYllasVsRukaEN = ({ lang = "en" }: LeviVsYllasVsRukaENProps) => {
       <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={customUrls} />
       <Helmet>
         <html lang={lang} />
-        <title>Levi vs. Ylläs vs. Ruka – Honest Comparison 2026 | Slopes, Lifts & Services | Leville.net</title>
+        <title>{`Levi vs. Ylläs vs. Ruka – Honest Comparison ${new Date().getFullYear()} | Slopes, Lifts & Services | Leville.net`}</title>
         <meta name="description" content="Levi, Ylläs or Ruka? An honest local comparison of Finland's three biggest ski resorts – slopes, lifts, cross-country trails, services, atmosphere and prices." />
         <link rel="canonical" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison" />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://leville.net${customUrls[lang] || customUrls.en}`} />
-        <meta property="og:title" content="Levi vs. Ylläs vs. Ruka – Honest Comparison 2026 | Leville.net" />
+        <meta property="og:title" content={`Levi vs. Ylläs vs. Ruka – Honest Comparison ${new Date().getFullYear()} | Leville.net`} />
         <meta property="og:description" content="Levi, Ylläs or Ruka? An honest local comparison of Finland's three biggest ski resorts – slopes, lifts, cross-country trails, services, atmosphere and prices." />
         <meta property="og:locale" content={localeMap[lang] || "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Levi vs. Ylläs vs. Ruka – Honest Comparison 2026 | Leville.net" />
+        <meta name="twitter:title" content={`Levi vs. Ylläs vs. Ruka – Honest Comparison ${new Date().getFullYear()} | Leville.net`} />
         <meta name="twitter:description" content="Levi, Ylläs or Ruka? An honest local comparison of Finland's three biggest ski resorts – slopes, lifts, cross-country trails, services, atmosphere and prices." />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
         <script type="application/ld+json">

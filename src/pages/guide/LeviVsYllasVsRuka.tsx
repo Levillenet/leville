@@ -68,18 +68,18 @@ const LeviVsYllasVsRuka = () => {
       <HreflangTags currentPath={location.pathname} currentLang="fi" customUrls={customUrls} />
       <Helmet>
         <html lang="fi" />
-        <title>Levi vs. Ylläs vs. Ruka – Vertailu 2026 | Rinteet, hissit ja palvelut | Leville.net</title>
+        <title>{`Levi vs. Ylläs vs. Ruka – Vertailu ${new Date().getFullYear()} | Rinteet, hissit ja palvelut | Leville.net`}</title>
         <meta name="description" content="Levi, Ylläs vai Ruka? Rehellinen paikallisen vertailu Suomen kolmen suurimman hiihtokeskuksen rinteistä, hisseistä, laduista, palveluista ja tunnelmasta." />
         <link rel="canonical" href="https://leville.net/opas/levi-vs-yllas-vs-ruka" />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="https://leville.net/opas/levi-vs-yllas-vs-ruka" />
-        <meta property="og:title" content="Levi vs. Ylläs vs. Ruka – Vertailu 2026 | Leville.net" />
+        <meta property="og:title" content={`Levi vs. Ylläs vs. Ruka – Vertailu ${new Date().getFullYear()} | Leville.net`} />
         <meta property="og:description" content="Levi, Ylläs vai Ruka? Rehellinen paikallisen vertailu Suomen kolmen suurimman hiihtokeskuksen rinteistä, hisseistä, laduista, palveluista ja tunnelmasta." />
         <meta property="og:locale" content="fi_FI" />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Levi vs. Ylläs vs. Ruka – Vertailu 2026 | Leville.net" />
+        <meta name="twitter:title" content={`Levi vs. Ylläs vs. Ruka – Vertailu ${new Date().getFullYear()} | Leville.net`} />
         <meta name="twitter:description" content="Levi, Ylläs vai Ruka? Rehellinen paikallisen vertailu Suomen kolmen suurimman hiihtokeskuksen rinteistä, hisseistä, laduista, palveluista ja tunnelmasta." />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
         <script type="application/ld+json">

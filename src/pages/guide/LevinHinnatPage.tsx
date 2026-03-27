@@ -120,7 +120,7 @@ const LevinHinnatPage = () => {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       <SeoMeta
-        title="Levin hinnat 2025–2026 – Hissilipuista ravintoloihin | Leville.net"
+        title={`Levin hinnat ${new Date().getFullYear() - 1}–${new Date().getFullYear()} – Hissilipuista ravintoloihin | Leville.net`}
         description="Kattava hintaopas Levin lomalle. Hissilippujen, ravintoloiden, aktiviteettien ja ruokakauppojen hinnat yhdellä sivulla. Suunnittele budjettisi etukäteen."
         canonicalUrl="https://leville.net/opas/hinnat-levilla"
         lang="fi"

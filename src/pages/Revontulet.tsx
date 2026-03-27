@@ -50,7 +50,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
   }> = {
     fi: {
       meta: {
-        title: "Revontulet Levillä tänään — ennuste ja paikat 2026",
+        title: `Revontulet Levillä tänään — ennuste ja paikat ${new Date().getFullYear()}`,
         description: "Näetkö revontulia tänään? Reaaliaikainen ennuste, parhaat katselupaikat ja kokeneen paikallisen vinkit kuvaamiseen.",
         canonical: "https://leville.net/revontulet",
       },
@@ -120,7 +120,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     sv: {
       meta: {
-        title: "Norrsken i Levi — Prognos & bästa platser 2026",
+        title: `Norrsken i Levi — Prognos & bästa platser ${new Date().getFullYear()}`,
         description: "Se norrsken i Levi ikväll? Realtidsprognos, KP-index, bästa utsiktsplatser och fototips från lokalbefolkningen.",
         canonical: "https://leville.net/sv/norrsken",
       },
@@ -155,7 +155,7 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
     },
     de: {
       meta: {
-        title: "Nordlichter in Levi — Vorhersage & beste Orte 2026",
+        title: `Nordlichter in Levi — Vorhersage & beste Orte ${new Date().getFullYear()}`,
         description: "Nordlichter in Levi sehen: Live-Vorhersage, KP-Index, beste Beobachtungsplätze und Foto-Tipps von Einheimischen.",
         canonical: "https://leville.net/de/nordlichter",
       },
