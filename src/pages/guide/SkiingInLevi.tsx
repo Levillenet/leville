@@ -112,7 +112,7 @@ const translations = {
       links: [
         { title: "Talvi Levillä", desc: "Kaamos, lumi ja aktiviteetit marraskuusta maaliskuuhun", href: "/opas/talvi-levi" },
         { title: "Hiihto Levillä", desc: "Yli 230 km huollettuja latuja", href: "/opas/hiihtoladut-levi" },
-        { title: "Levin lumitilanne", desc: "Lumensyvyys ja latujen kunto nyt", href: "/levi/lumitilanne" },
+        { title: "Levin lumitilanne", desc: "Lumensyvyys ja latujen kunto nyt", href: "/snowreport" },
         { title: "Sää ja lumitilanne", desc: "Lämpötilat ja olosuhteet kuukausittain", href: "/levi/saatieto-levilta" },
         { title: "Parhaat talviaktiviteetit", desc: "Kattava opas Levin talveen", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
         { title: "Levi vs Ylläs vs Ruka", desc: "Kolmen hiihtokeskuksen vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }
@@ -206,7 +206,7 @@ const translations = {
       links: [
         { title: "Winter in Levi", desc: "Polar night, snow and winter activities", href: "/guide/winter-in-levi" },
         { title: "Cross-Country Skiing", desc: "Over 230 km of groomed trails", href: "/guide/cross-country-skiing-in-levi" },
-        { title: "Levi Snow Report", desc: "Snow depth and conditions now", href: "/en/levi/snow-report" },
+        { title: "Levi Snow Report", desc: "Snow depth and conditions now", href: "/en/snowreport" },
         { title: "Weather in Levi", desc: "Temperatures and conditions by month", href: "/en/levi/weather-in-levi" },
         { title: "Top Winter Activities", desc: "Complete guide to Levi winter", href: "/activities/top-winter-activities-in-levi-lapland" },
         { title: "Levi vs Ylläs vs Ruka", desc: "Three ski resorts compared", href: "/guide/levi-vs-yllas-vs-ruka-comparison" }
