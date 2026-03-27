@@ -212,7 +212,8 @@ const App = () => {
               <Route path="/levi" element={<Levi />} />
               <Route path="/levi/joulu-lapissa" element={<JouluLapissa />} />
               <Route path="/levi/saatieto-levilta" element={<WeatherInLevi />} />
-              <Route path="/levi/lumitilanne" element={<LeviSnowReport lang="fi" />} />
+              <Route path="/snowreport" element={<LeviSnowReport lang="fi" />} />
+              <Route path="/levi/lumitilanne" element={<Navigate to="/snowreport" replace />} />
               <Route path="/revontulet" element={<Revontulet />} />
               <Route path="/yhteystiedot" element={<Yhteystiedot />} />
               <Route path="/ukk" element={<UKK />} />
@@ -230,7 +231,8 @@ const App = () => {
               <Route path="/en/levi" element={<Levi lang="en" />} />
               <Route path="/en/levi/christmas-in-lapland" element={<JouluLapissa lang="en" />} />
               <Route path="/en/levi/weather-in-levi" element={<WeatherInLevi lang="en" />} />
-              <Route path="/en/levi/snow-report" element={<LeviSnowReport lang="en" />} />
+              <Route path="/en/snowreport" element={<LeviSnowReport lang="en" />} />
+              <Route path="/en/levi/snow-report" element={<Navigate to="/en/snowreport" replace />} />
               <Route path="/en/northern-lights" element={<Revontulet lang="en" />} />
               <Route path="/en/contact" element={<Yhteystiedot lang="en" />} />
               <Route path="/en/faq" element={<UKK lang="en" />} />
