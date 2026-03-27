@@ -361,10 +361,10 @@ const LeviSnowReport = ({ lang = "fi" }: LeviSnowReportProps) => {
           </section>
 
           {/* Section 5: Booking CTA */}
-          <section className="mb-12 rounded-2xl bg-gradient-to-br from-sky-50 to-primary/5 dark:from-sky-950/50 dark:to-primary/10 border border-border p-8 text-center">
+          <section className="mb-12 rounded-2xl bg-gradient-to-br from-sky-100 to-primary/10 dark:from-sky-950/50 dark:to-primary/10 border border-border p-8 text-center">
             <Snowflake className="w-10 h-10 text-primary mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-3">{t.cta.title}</h2>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">{t.cta.text}</p>
+            <h2 className="text-2xl font-bold text-foreground mb-3">{t.cta.title}</h2>
+            <p className="text-foreground/70 mb-6 max-w-xl mx-auto">{t.cta.text}</p>
             <Button asChild size="lg" className="mb-4">
               <a href="https://app.moder.fi/levillenet" target="_blank" rel="noopener noreferrer">
                 {t.cta.button}
