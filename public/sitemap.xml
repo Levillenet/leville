@@ -3710,6 +3710,25 @@
     <priority>0.6</priority>
   </url>
 
+  <url>
+    <loc>https://leville.net/snowreport</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/snowreport" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/snowreport" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/snowreport" />
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/en/snowreport</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/snowreport" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/snowreport" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/snowreport" />
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
 
   <url>
     <loc>https://leville.net/opas/levin-ravintolat-ja-annokset</loc>
