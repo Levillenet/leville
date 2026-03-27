@@ -3711,8 +3711,8 @@
   </url>
 
   <url>
-    <loc>https://leville.net/snowreport</loc>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/snowreport" />
+    <loc>https://leville.net/lumitilanne</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/lumitilanne" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/snowreport" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/snowreport" />
     <lastmod>2026-03-27</lastmod>
@@ -3722,7 +3722,7 @@
 
   <url>
     <loc>https://leville.net/en/snowreport</loc>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/snowreport" />
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/lumitilanne" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/snowreport" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/snowreport" />
     <lastmod>2026-03-27</lastmod>

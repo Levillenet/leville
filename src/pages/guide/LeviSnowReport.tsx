@@ -36,7 +36,7 @@ const translations = {
     meta: {
       title: `Levin lumitilanne nyt — lumensyvyys ja latujen kunto ${year}`,
       description: "Lumensyvyys Levillä juuri nyt, latujen kunto ja historiadata Ilmatieteen laitokselta. Tarkista lumitilanne ennen Leville lähtöä.",
-      canonical: "https://leville.net/snowreport",
+      canonical: "https://leville.net/lumitilanne",
     },
     hero: {
       subtitle: "Lumensyvyys Levillä nyt",
@@ -108,7 +108,7 @@ const translations = {
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Levi", href: "/levi" },
-      { label: "Lumitilanne", href: "/snowreport" },
+      { label: "Lumitilanne", href: "/lumitilanne" },
     ],
   },
   en: {
@@ -238,7 +238,7 @@ const LeviSnowReport = ({ lang = "fi" }: LeviSnowReportProps) => {
   }, [lang]);
 
   const hreflangUrls = {
-    fi: "https://leville.net/snowreport",
+    fi: "https://leville.net/lumitilanne",
     en: "https://leville.net/en/snowreport",
   };
 
