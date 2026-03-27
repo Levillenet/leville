@@ -48,6 +48,7 @@ const SkiingInLevi = lazy(() => import("./pages/guide/SkiingInLevi"));
 const CrossCountrySkiingInLevi = lazy(() => import("./pages/guide/CrossCountrySkiingInLevi"));
 const WinterInLevi = lazy(() => import("./pages/guide/WinterInLevi"));
 const WeatherInLevi = lazy(() => import("./pages/guide/WeatherInLevi"));
+const LeviSnowReport = lazy(() => import("./pages/guide/LeviSnowReport"));
 const SpringInLevi = lazy(() => import("./pages/guide/SpringInLevi"));
 const SummerInLevi = lazy(() => import("./pages/guide/SummerInLevi"));
 const AutumnRuskaInLevi = lazy(() => import("./pages/guide/AutumnRuskaInLevi"));
@@ -211,6 +212,7 @@ const App = () => {
               <Route path="/levi" element={<Levi />} />
               <Route path="/levi/joulu-lapissa" element={<JouluLapissa />} />
               <Route path="/levi/saatieto-levilta" element={<WeatherInLevi />} />
+              <Route path="/levi/lumitilanne" element={<LeviSnowReport lang="fi" />} />
               <Route path="/revontulet" element={<Revontulet />} />
               <Route path="/yhteystiedot" element={<Yhteystiedot />} />
               <Route path="/ukk" element={<UKK />} />
@@ -228,6 +230,7 @@ const App = () => {
               <Route path="/en/levi" element={<Levi lang="en" />} />
               <Route path="/en/levi/christmas-in-lapland" element={<JouluLapissa lang="en" />} />
               <Route path="/en/levi/weather-in-levi" element={<WeatherInLevi lang="en" />} />
+              <Route path="/en/levi/snow-report" element={<LeviSnowReport lang="en" />} />
               <Route path="/en/northern-lights" element={<Revontulet lang="en" />} />
               <Route path="/en/contact" element={<Yhteystiedot lang="en" />} />
               <Route path="/en/faq" element={<UKK lang="en" />} />
