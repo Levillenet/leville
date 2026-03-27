@@ -125,7 +125,7 @@ const MajoitusLevilla = () => {
         lang="fi"
         ogType="article"
       />
-      <HreflangTags lang="fi" />
+      <HreflangTags currentPath="/opas/majoitus-levilla" currentLang="fi" />
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={faqSchema} />
       <SubpageBackground />
