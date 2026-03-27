@@ -75,6 +75,7 @@ const LeviVsRovaniemiComparison = lazy(() => import("./pages/guide/LeviVsRovanie
 const LeviVsSaariselka = lazy(() => import("./pages/opas/LeviVsSaariselka"));
 const LeviVsSaariselkaComparison = lazy(() => import("./pages/guide/LeviVsSaariselkaComparison"));
 const SaunaLevilla = lazy(() => import("./pages/opas/SaunaLevilla"));
+const MajoitusLevilla = lazy(() => import("./pages/opas/MajoitusLevilla"));
 const FinnishSaunaLevi = lazy(() => import("./pages/guide/FinnishSaunaLevi"));
 const OutdoorHotTubLevi = lazy(() => import("./pages/guide/OutdoorHotTubLevi"));
 const ChristmasDinnerLevi = lazy(() => import("./pages/guide/ChristmasDinnerLevi"));
@@ -393,6 +394,7 @@ const App = () => {
               <Route path="/opas/levi-vs-rovaniemi" element={<LeviVsRovaniemi />} />
               <Route path="/opas/levi-vs-saariselka" element={<LeviVsSaariselka />} />
               <Route path="/opas/sauna-levilla" element={<SaunaLevilla />} />
+              <Route path="/opas/majoitus-levilla" element={<MajoitusLevilla />} />
               <Route path="/opas/lapin-sanasto" element={<LaplandGlossary />} />
               <Route path="/opas/hinnat-levilla" element={<LevinHinnatPage />} />
               {/* Travel HUB Child Pages - English */}
