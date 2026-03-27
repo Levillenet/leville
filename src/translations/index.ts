@@ -130,6 +130,8 @@ export const routeConfig = {
   fireplace: { fi: "/takka-ohje", en: "/en/fireplace", sv: "/takka-ohje", de: "/takka-ohje", es: "/takka-ohje", fr: "/takka-ohje", nl: "/takka-ohje" },
   // Interactive Map
   leviMap: { fi: "/levi-map", en: "/levi-map", sv: "/levi-map", de: "/levi-map", es: "/levi-map", fr: "/levi-map", nl: "/levi-map" },
+  // Snow report
+  snowReport: { fi: "/lumitilanne", en: "/en/snowreport" },
   // Monthly guides
   leviInJanuary: { fi: "/opas/levi-tammikuussa", en: "/guide/levi-in-january", sv: "/sv/guide/levi-i-januari", de: "/de/ratgeber/levi-im-januar", es: "/es/guia/levi-en-enero", fr: "/fr/guide/levi-en-janvier", nl: "/nl/gids/levi-in-januari" },
   leviInFebruary: { fi: "/opas/levi-helmikuussa", en: "/guide/levi-in-february", sv: "/sv/guide/levi-i-februari", de: "/de/ratgeber/levi-im-februar", es: "/es/guia/levi-en-febrero", fr: "/fr/guide/levi-en-fevrier", nl: "/nl/gids/levi-in-februari" },
