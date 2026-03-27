@@ -71,5 +71,9 @@
 /opas/tapahtumat-levilla    /levi                 301
 /author/*                   /                     301
 
+# Snow report URL change
+/levi/lumitilanne           /snowreport           301
+/en/levi/snow-report        /en/snowreport        301
+
 # SPA fallback — MUST be the last rule
 /*                          /index.html           200
