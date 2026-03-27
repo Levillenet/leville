@@ -14,7 +14,7 @@ import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import SnowDepthChart from "@/components/SnowDepthChart";
-import SnowComparisonChart from "@/components/SnowComparisonChart";
+
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import {
@@ -294,8 +294,8 @@ const LeviSnowReport = ({ lang = "fi" }: LeviSnowReportProps) => {
                   </div>
                 )}
               </div>
-              <p className="text-lg font-medium text-muted-foreground mb-2">{t.hero.subtitle}</p>
-              <p className="text-xs text-muted-foreground/70">
+              <p className="text-lg font-medium text-foreground/80 mb-2">{t.hero.subtitle}</p>
+              <p className="text-xs text-foreground/60">
                 {t.hero.source} · {fetchTime}
               </p>
             </>
@@ -344,12 +344,6 @@ const LeviSnowReport = ({ lang = "fi" }: LeviSnowReportProps) => {
             <SnowDepthChart lang={lang} />
           </section>
 
-          {/* Section 3: Levi vs Rovaniemi */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">{t.comparison.title}</h2>
-            <p className="text-muted-foreground mb-6">{t.comparison.intro}</p>
-            <SnowComparisonChart lang={lang === "fi" ? "fi" : "en"} />
-          </section>
 
           {/* Section 4: Snow Season Facts */}
           <section className="mb-12">
