@@ -112,7 +112,7 @@ const translations = {
       links: [
         { title: "Talvi Levillä", desc: "Kaamos, lumi ja aktiviteetit marraskuusta maaliskuuhun", href: "/opas/talvi-levi" },
         { title: "Hiihto Levillä", desc: "Yli 230 km huollettuja latuja", href: "/opas/hiihtoladut-levi" },
-        { title: "Levin lumitilanne", desc: "Lumensyvyys ja latujen kunto nyt", href: "/snowreport" },
+        { title: "Levin lumitilanne", desc: "Lumensyvyys ja latujen kunto nyt", href: "/lumitilanne" },
         { title: "Sää ja lumitilanne", desc: "Lämpötilat ja olosuhteet kuukausittain", href: "/levi/saatieto-levilta" },
         { title: "Parhaat talviaktiviteetit", desc: "Kattava opas Levin talveen", href: "/aktiviteetit/parhaat-talviaktiviteetit-levi" },
         { title: "Levi vs Ylläs vs Ruka", desc: "Kolmen hiihtokeskuksen vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }

@@ -188,7 +188,7 @@ const translations = {
       title: "Lue myös",
       links: [
         { title: "Talvi Levillä", desc: "Kaamos, lumi ja aktiviteetit", href: "/opas/talvi-levi" },
-        { title: "Levin lumitilanne", desc: "Lumensyvyys ja latujen kunto", href: "/snowreport" },
+        { title: "Levin lumitilanne", desc: "Lumensyvyys ja latujen kunto", href: "/lumitilanne" },
         { title: "Laskettelu Levillä", desc: "Rinteiden olosuhteet", href: "/opas/laskettelu-levi" },
         { title: "Talvivarusteet", desc: "Pukeudu sään mukaan oikein", href: "/opas/talvivarusteet-leville" },
         { title: "Kesä Levillä", desc: "Yötön yö ja kesäaktiviteetit", href: "/opas/kesa-levi" },

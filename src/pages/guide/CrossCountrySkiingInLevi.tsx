@@ -126,7 +126,7 @@ const translations = {
       links: [
         { title: "Talvi Levillä", desc: "Kaamos, lumi ja aktiviteetit", href: "/opas/talvi-levi" },
         { title: "Laskettelu Levillä", desc: "43 rinnettä ja 28 hissiä", href: "/opas/laskettelu-levi" },
-        { title: "Levin lumitilanne", desc: "Lumensyvyys ja latujen kunto nyt", href: "/snowreport" },
+        { title: "Levin lumitilanne", desc: "Lumensyvyys ja latujen kunto nyt", href: "/lumitilanne" },
         { title: "Sää ja lumitilanne", desc: "Lämpötilat ja olosuhteet", href: "/levi/saatieto-levilta" },
         { title: "Kevät Levillä", desc: "Parhaat hiihtokelit kevätauringossa", href: "/opas/kevat-levi" },
         { title: "Levi vs Ylläs vs Ruka", desc: "Latuverkostojen ja keskusten vertailu", href: "/opas/levi-vs-yllas-vs-ruka" }
