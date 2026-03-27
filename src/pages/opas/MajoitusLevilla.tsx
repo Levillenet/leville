@@ -5,6 +5,12 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import SubpageBackground from "@/components/SubpageBackground";
+import HreflangTags from "@/components/HreflangTags";
+import WhatsAppChat from "@/components/WhatsAppChat";
+import StickyBookingBar from "@/components/StickyBookingBar";
+import PageCTA from "@/components/PageCTA";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
   Accordion,
@@ -21,6 +27,8 @@ import {
   CheckCircle,
   ChevronRight,
   ExternalLink,
+  ArrowLeft,
+  ArrowRight,
 } from "lucide-react";
 
 const accommodationTypes = [
@@ -117,8 +125,10 @@ const MajoitusLevilla = () => {
         lang="fi"
         ogType="article"
       />
+      <HreflangTags lang="fi" />
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={faqSchema} />
+      <SubpageBackground />
       <Header />
 
       <Breadcrumbs
@@ -364,9 +374,25 @@ const MajoitusLevilla = () => {
             Katso vapaat kohteet <ExternalLink className="w-4 h-4" />
           </Link>
         </section>
+
+        {/* Bottom navigation */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-12 mb-8">
+          <Link to="/opas" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+            <ArrowLeft className="w-4 h-4" /> Takaisin matkaoppaaseen
+          </Link>
+          <Link to="/majoitukset">
+            <Button className="gap-2">
+              Varaa majoitus
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+        </div>
       </main>
 
+      <PageCTA />
       <Footer />
+      <WhatsAppChat />
+      <StickyBookingBar />
     </div>
   );
 };
