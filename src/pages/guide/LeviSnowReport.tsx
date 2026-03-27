@@ -238,8 +238,8 @@ const LeviSnowReport = ({ lang = "fi" }: LeviSnowReportProps) => {
   }, [lang]);
 
   const hreflangUrls = {
-    fi: "https://leville.net/levi/lumitilanne",
-    en: "https://leville.net/en/levi/snow-report",
+    fi: "https://leville.net/snowreport",
+    en: "https://leville.net/en/snowreport",
   };
 
   const faqSchema = getFAQSchema(t.faq.items.map((item) => ({ question: item.q, answer: item.a })));
