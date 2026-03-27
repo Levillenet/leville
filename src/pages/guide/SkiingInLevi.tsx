@@ -34,7 +34,7 @@ interface SkiingInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Laskettelu Levillä 2026 — 43 rinnettä ja hissiliput",
+      title: `Laskettelu Levillä ${new Date().getFullYear()} — 43 rinnettä ja hissiliput`,
       description: "Levin 43 rinnettä ja 28 hissiä. Kysy tarjous majoitus + hissiliput -paketista suoraan meiltä. Rinnekartta, vaikeustasot ja vinkit laskettelulomalle.",
       canonical: "https://leville.net/opas/laskettelu-levi"
     },
@@ -128,7 +128,7 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Skiing in Levi 2026 — 43 Slopes, Lifts & Packages",
+      title: `Skiing in Levi ${new Date().getFullYear()} — 43 Slopes, Lifts & Packages`,
       description: "Levi's 43 slopes and 28 lifts. Ask us for a combined accommodation + lift pass package. Slope map, difficulty levels and tips for your ski holiday.",
       canonical: "https://leville.net/guide/skiing-in-levi"
     },

@@ -33,7 +33,7 @@ interface CrossCountrySkiingProps {
 const translations = {
   fi: {
     meta: {
-      title: "Hiihtoladut Levillä 2026 — 230 km latuja ja kartta",
+      title: `Hiihtoladut Levillä ${new Date().getFullYear()} — 230 km latuja ja kartta`,
       description: "Levin ladut: 230 km huollettuja hiihtolatuja helposta vaativaan. Latukartta, helpot ladut aloittelijoille ja Levin kierros kokeneille hiihtäjille.",
       canonical: "https://leville.net/opas/hiihtoladut-levi"
     },
@@ -136,7 +136,7 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Cross-Country Skiing in Levi 2026 — 230 km Trails",
+      title: `Cross-Country Skiing in Levi ${new Date().getFullYear()} — 230 km Trails`,
       description: "Levi cross-country skiing guide: 230 km of groomed trails through Lapland fells. Trail maps, easy routes for beginners and tips for your ski holiday.",
       canonical: "https://leville.net/guide/cross-country-skiing-in-levi"
     },

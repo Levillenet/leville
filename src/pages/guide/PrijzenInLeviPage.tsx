@@ -128,7 +128,7 @@ const PrijzenInLeviPage = () => {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       <SeoMeta
-        title="Prijzen in Levi 2025–2026 – Skipassen, Restaurants & Activiteiten | Leville.net"
+        title={`Prijzen in Levi ${new Date().getFullYear() - 1}–${new Date().getFullYear()} – Skipassen, Restaurants & Activiteiten | Leville.net`}
         description="Complete prijsgids voor een Levi-vakantie. Skipasprijzen, restaurantkosten, activiteitentarieven en boodschappenprijzen op één pagina. Plan je budget vooraf."
         canonicalUrl="https://leville.net/nl/gids/prijzen-in-levi"
         lang="nl"

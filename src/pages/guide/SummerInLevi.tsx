@@ -39,7 +39,7 @@ interface SummerInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Kesä Levillä 2026 — vaellus, pyöräily ja yötön yö",
+      title: `Kesä Levillä ${new Date().getFullYear()} — vaellus, pyöräily ja yötön yö`,
       description: "Tunturivaellukset, sähköpyörävuokraus, kalastus ja keskiyön aurinko. Edullisemmat majoitushinnat kesäkaudella.",
       canonical: "https://leville.net/opas/kesa-levi"
     },
@@ -134,7 +134,7 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Summer in Levi 2026 — Hiking, Biking & Midnight Sun",
+      title: `Summer in Levi ${new Date().getFullYear()} — Hiking, Biking & Midnight Sun`,
       description: "Fell hiking, e-bike rentals, fishing and midnight sun. Lower accommodation prices during summer season.",
       canonical: "https://leville.net/guide/summer-in-levi"
     },
