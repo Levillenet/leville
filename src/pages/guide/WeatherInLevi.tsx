@@ -16,6 +16,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import { weatherInLeviTranslations } from "./weatherInLeviTranslations";
 import SnowDepthChart from "@/components/SnowDepthChart";
 import {
   Accordion,
@@ -461,18 +462,30 @@ const translations = {
         { title: "Noorderlicht", desc: "Wanneer zie je het noorderlicht", href: "/nl/noorderlicht" },
       ],
     },
-  }
+  },
+  ...weatherInLeviTranslations
 };
-
 const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
   const t = translations[lang] || translations.fi;
   const location = useLocation();
 
-  const customUrls: Record<string, string> = { fi: "/levi/saatieto-levilta", en: "/en/levi/weather-in-levi", nl: "/nl/levi/weer-in-levi" };
+  const customUrls: Record<string, string> = {
+    fi: "/levi/saatieto-levilta",
+    en: "/en/levi/weather-in-levi",
+    nl: "/nl/levi/weer-in-levi",
+    de: "/de/levi/wetter-in-levi",
+    sv: "/sv/levi/vader-i-levi",
+    fr: "/fr/levi/meteo-a-levi",
+    es: "/es/levi/clima-en-levi"
+  };
+
+  const homeLabels: Record<string, string> = { fi: "Etusivu", en: "Home", nl: "Home", de: "Startseite", sv: "Hem", fr: "Accueil", es: "Inicio" };
+  const homeLinks: Record<string, string> = { fi: "/", en: "/en", nl: "/nl", de: "/de", sv: "/sv", fr: "/fr", es: "/es" };
+  const leviLinks: Record<string, string> = { fi: "/levi", en: "/en/levi", nl: "/nl/levi", de: "/de/levi", sv: "/sv/levi", fr: "/fr/levi", es: "/es/levi" };
 
   const breadcrumbItems = [
-    { label: lang === "fi" ? "Etusivu" : "Home", href: lang === "fi" ? "/" : lang === "nl" ? "/nl" : "/en" },
-    { label: "Levi", href: lang === "fi" ? "/levi" : lang === "nl" ? "/nl/levi" : "/en/levi" },
+    { label: homeLabels[lang] || "Etusivu", href: homeLinks[lang] || "/" },
+    { label: "Levi", href: leviLinks[lang] || "/levi" },
     { label: t.breadcrumbLabel, href: "" }
   ];
 
@@ -499,7 +512,7 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
+        <meta property="og:locale" content={{ fi: "fi_FI", en: "en_US", nl: "nl_NL", de: "de_DE", sv: "sv_SE", fr: "fr_FR", es: "es_ES" }[lang] || "fi_FI"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta property="og:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
