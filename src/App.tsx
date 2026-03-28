@@ -727,6 +727,11 @@ const App = () => {
               <Route path="/es/guia/levi-accesible" element={<AccessibleLevi lang="es" />} />
               <Route path="/fr/guide/levi-accessible" element={<AccessibleLevi lang="fr" />} />
               <Route path="/nl/gids/toegankelijk-levi" element={<AccessibleLevi lang="nl" />} />
+              {/* SkiingInLevi - DE/SV/FR/ES */}
+              <Route path="/de/ratgeber/skifahren-in-levi" element={<SkiingInLevi lang="de" />} />
+              <Route path="/sv/guide/skidakning-i-levi" element={<SkiingInLevi lang="sv" />} />
+              <Route path="/fr/guide/ski-a-levi" element={<SkiingInLevi lang="fr" />} />
+              <Route path="/es/guia/esqui-en-levi" element={<SkiingInLevi lang="es" />} />
 
               {/* ApresSkiLevi - missing DE/ES */}
               <Route path="/de/ratgeber/apres-ski-levi" element={<ApresSkiLevi lang="de" />} />
