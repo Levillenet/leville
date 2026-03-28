@@ -17,6 +17,7 @@ import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { leviWithChildrenTranslationsDe, leviWithChildrenTranslationsSv, leviWithChildrenTranslationsFr, leviWithChildrenTranslationsEs } from "./leviWithChildrenTranslations";
 
 interface LeviWithChildrenProps {
   lang?: Language;
