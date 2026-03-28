@@ -3001,8 +3001,12 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapsiperheet-levilla" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-with-children" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-met-kinderen" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/levi-mit-kindern" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/levi-med-barn" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-avec-enfants" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-con-ninos" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-with-children" />
-    <lastmod>2026-03-19</lastmod>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3012,8 +3016,12 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapsiperheet-levilla" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-with-children" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-met-kinderen" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/levi-mit-kindern" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/levi-med-barn" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-avec-enfants" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-con-ninos" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-with-children" />
-    <lastmod>2026-03-19</lastmod>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -3023,8 +3031,72 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapsiperheet-levilla" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-with-children" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-met-kinderen" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/levi-mit-kindern" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/levi-med-barn" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-avec-enfants" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-con-ninos" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-with-children" />
-    <lastmod>2026-03-19</lastmod>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/de/ratgeber/levi-mit-kindern</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapsiperheet-levilla" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-with-children" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-met-kinderen" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/levi-mit-kindern" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/levi-med-barn" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-avec-enfants" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-con-ninos" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-with-children" />
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/sv/guide/levi-med-barn</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapsiperheet-levilla" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-with-children" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-met-kinderen" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/levi-mit-kindern" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/levi-med-barn" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-avec-enfants" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-con-ninos" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-with-children" />
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/fr/guide/levi-avec-enfants</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapsiperheet-levilla" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-with-children" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-met-kinderen" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/levi-mit-kindern" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/levi-med-barn" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-avec-enfants" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-con-ninos" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-with-children" />
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/es/guia/levi-con-ninos</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/lapsiperheet-levilla" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-with-children" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-met-kinderen" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/levi-mit-kindern" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/levi-med-barn" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-avec-enfants" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-con-ninos" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-with-children" />
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
