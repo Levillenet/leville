@@ -669,6 +669,18 @@ const App = () => {
               <Route path="/fr/activites/safari-motoneige-levi" element={<SnowmobileSafariTips lang="fr" />} />
               <Route path="/es/actividades/safari-motonieve-levi" element={<SnowmobileSafariTips lang="es" />} />
 
+              {/* CrossCountrySkiingInLevi - DE/SV/FR/ES */}
+              <Route path="/de/ratgeber/langlauf-in-levi" element={<CrossCountrySkiingInLevi lang="de" />} />
+              <Route path="/sv/guide/langdskidakning-i-levi" element={<CrossCountrySkiingInLevi lang="sv" />} />
+              <Route path="/fr/guide/ski-de-fond-a-levi" element={<CrossCountrySkiingInLevi lang="fr" />} />
+              <Route path="/es/guia/esqui-de-fondo-en-levi" element={<CrossCountrySkiingInLevi lang="es" />} />
+
+              {/* TopWinterActivities - DE/SV/FR/ES */}
+              <Route path="/de/aktivitaeten/winteraktivitaeten-levi" element={<TopWinterActivities lang="de" />} />
+              <Route path="/sv/aktiviteter/vinteraktiviteter-levi" element={<TopWinterActivities lang="sv" />} />
+              <Route path="/fr/activites/activites-hiver-levi" element={<TopWinterActivities lang="fr" />} />
+              <Route path="/es/actividades/actividades-invierno-levi" element={<TopWinterActivities lang="es" />} />
+
               {/* FatbikeLevi */}
               <Route path="/aktiviteetit/fatbike-levi" element={<FatbikeLevi />} />
               <Route path="/activities/fatbiking-in-levi" element={<FatbikeLevi lang="en" />} />
