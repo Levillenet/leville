@@ -19,6 +19,7 @@ import reindeerDinnerSpread from "@/assets/seasons/reindeer-dinner-spread.jpg";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import { restaurantsTranslationsDe, restaurantsTranslationsSv, restaurantsTranslationsFr, restaurantsTranslationsEs } from "./restaurantsTranslations";
 
 interface RestaurantsAndServicesProps {
   lang?: Language;
@@ -230,6 +231,10 @@ const translations = {
       ],
     },
   },
+  de: restaurantsTranslationsDe,
+  sv: restaurantsTranslationsSv,
+  fr: restaurantsTranslationsFr,
+  es: restaurantsTranslationsEs,
 };
 
 const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) => {
@@ -239,6 +244,10 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
   const hreflangUrls = {
     fi: "https://leville.net/opas/ravintolat-ja-palvelut-levilla",
     en: "https://leville.net/guide/restaurants-and-services-in-levi",
+    de: "https://leville.net/de/ratgeber/restaurants-und-services-levi",
+    sv: "https://leville.net/sv/guide/restauranger-och-tjanster-levi",
+    fr: "https://leville.net/fr/guide/restaurants-et-services-levi",
+    es: "https://leville.net/es/guia/restaurantes-y-servicios-levi",
   };
 
   const breadcrumbSchema = {
@@ -264,7 +273,7 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : "en_US"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "de" ? "de_DE" : lang === "sv" ? "sv_SE" : lang === "fr" ? "fr_FR" : lang === "es" ? "es_ES" : "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         
