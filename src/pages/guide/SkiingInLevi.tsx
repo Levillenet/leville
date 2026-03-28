@@ -20,6 +20,7 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import { skiingInLeviTranslations } from "./skiingInLeviTranslations";
 import {
   Accordion,
   AccordionContent,
