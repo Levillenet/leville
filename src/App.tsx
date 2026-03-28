@@ -733,6 +733,18 @@ const App = () => {
               <Route path="/fr/guide/ski-a-levi" element={<SkiingInLevi lang="fr" />} />
               <Route path="/es/guia/esqui-en-levi" element={<SkiingInLevi lang="es" />} />
 
+              {/* WeatherInLevi - DE/SV/FR/ES */}
+              <Route path="/de/levi/wetter-in-levi" element={<WeatherInLevi lang="de" />} />
+              <Route path="/sv/levi/vader-i-levi" element={<WeatherInLevi lang="sv" />} />
+              <Route path="/fr/levi/meteo-a-levi" element={<WeatherInLevi lang="fr" />} />
+              <Route path="/es/levi/clima-en-levi" element={<WeatherInLevi lang="es" />} />
+
+              {/* HowToGetToLevi - DE/SV/FR/ES */}
+              <Route path="/de/reise/anreise-nach-levi" element={<HowToGetToLevi lang="de" />} />
+              <Route path="/sv/resa/hur-tar-man-sig-till-levi" element={<HowToGetToLevi lang="sv" />} />
+              <Route path="/fr/voyage/comment-aller-a-levi" element={<HowToGetToLevi lang="fr" />} />
+              <Route path="/es/viaje/como-llegar-a-levi" element={<HowToGetToLevi lang="es" />} />
+
               {/* ApresSkiLevi - missing DE/ES */}
               <Route path="/de/ratgeber/apres-ski-levi" element={<ApresSkiLevi lang="de" />} />
               <Route path="/es/guia/apres-ski-levi" element={<ApresSkiLevi lang="es" />} />
