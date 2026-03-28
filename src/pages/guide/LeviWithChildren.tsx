@@ -594,6 +594,10 @@ const translations = {
       ],
     },
   },
+  de: leviWithChildrenTranslationsDe,
+  sv: leviWithChildrenTranslationsSv,
+  fr: leviWithChildrenTranslationsFr,
+  es: leviWithChildrenTranslationsEs,
 };
 
 const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
@@ -604,6 +608,10 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
     fi: "https://leville.net/opas/lapsiperheet-levilla",
     en: "https://leville.net/guide/levi-with-children",
     nl: "https://leville.net/nl/gids/levi-met-kinderen",
+    de: "https://leville.net/de/ratgeber/levi-mit-kindern",
+    sv: "https://leville.net/sv/guide/levi-med-barn",
+    fr: "https://leville.net/fr/guide/levi-avec-enfants",
+    es: "https://leville.net/es/guia/levi-con-ninos",
   };
 
   const faqSchema = {
@@ -652,7 +660,7 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_GB"} />
+        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : lang === "de" ? "de_DE" : lang === "sv" ? "sv_SE" : lang === "fr" ? "fr_FR" : lang === "es" ? "es_ES" : "en_GB"} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
