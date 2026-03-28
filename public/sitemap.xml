@@ -2524,8 +2524,12 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuodenajat-levi" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/seasons-in-levi" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/seizoenen-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/jahreszeiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/arstilder-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/saisons-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/estaciones-en-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/seasons-in-levi" />
-    <lastmod>2026-03-19</lastmod>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2535,8 +2539,12 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuodenajat-levi" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/seasons-in-levi" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/seizoenen-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/jahreszeiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/arstilder-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/saisons-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/estaciones-en-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/seasons-in-levi" />
-    <lastmod>2026-03-19</lastmod>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2546,8 +2554,72 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuodenajat-levi" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/seasons-in-levi" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/seizoenen-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/jahreszeiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/arstilder-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/saisons-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/estaciones-en-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/seasons-in-levi" />
-    <lastmod>2026-03-19</lastmod>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/de/ratgeber/jahreszeiten-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuodenajat-levi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/seasons-in-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/seizoenen-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/jahreszeiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/arstilder-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/saisons-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/estaciones-en-levi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/seasons-in-levi" />
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/sv/guide/arstilder-i-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuodenajat-levi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/seasons-in-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/seizoenen-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/jahreszeiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/arstilder-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/saisons-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/estaciones-en-levi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/seasons-in-levi" />
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/fr/guide/saisons-a-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuodenajat-levi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/seasons-in-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/seizoenen-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/jahreszeiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/arstilder-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/saisons-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/estaciones-en-levi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/seasons-in-levi" />
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/es/guia/estaciones-en-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuodenajat-levi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/seasons-in-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/seizoenen-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/jahreszeiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/arstilder-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/saisons-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/estaciones-en-levi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/seasons-in-levi" />
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2557,8 +2629,12 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/aktiviteetit-levi" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/activiteiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/aktivitaeten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/aktiviteter-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/activites-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/actividades-en-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/activities-in-levi" />
-    <lastmod>2026-03-19</lastmod>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2568,8 +2644,12 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/aktiviteetit-levi" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/activiteiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/aktivitaeten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/aktiviteter-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/activites-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/actividades-en-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/activities-in-levi" />
-    <lastmod>2026-03-19</lastmod>
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2579,8 +2659,72 @@
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/aktiviteetit-levi" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi" />
     <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/activiteiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/aktivitaeten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/aktiviteter-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/activites-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/actividades-en-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/activities-in-levi" />
-    <lastmod>2026-03-19</lastmod>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/de/ratgeber/aktivitaeten-in-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/aktiviteetit-levi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/activiteiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/aktivitaeten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/aktiviteter-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/activites-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/actividades-en-levi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/activities-in-levi" />
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/sv/guide/aktiviteter-i-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/aktiviteetit-levi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/activiteiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/aktivitaeten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/aktiviteter-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/activites-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/actividades-en-levi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/activities-in-levi" />
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/fr/guide/activites-a-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/aktiviteetit-levi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/activiteiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/aktivitaeten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/aktiviteter-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/activites-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/actividades-en-levi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/activities-in-levi" />
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/es/guia/actividades-en-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/aktiviteetit-levi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/activities-in-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/activiteiten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/aktivitaeten-in-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/aktiviteter-i-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/activites-a-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/actividades-en-levi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/activities-in-levi" />
+    <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -2987,6 +3131,7 @@
     <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/restauranger-och-tjanster-levi" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/restaurants-et-services-levi" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/restaurantes-y-servicios-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/restaurants-en-diensten-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/restaurants-and-services-in-levi" />
     <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -3001,6 +3146,7 @@
     <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/restauranger-och-tjanster-levi" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/restaurants-et-services-levi" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/restaurantes-y-servicios-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/restaurants-en-diensten-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/restaurants-and-services-in-levi" />
     <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -3015,6 +3161,7 @@
     <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/restauranger-och-tjanster-levi" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/restaurants-et-services-levi" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/restaurantes-y-servicios-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/restaurants-en-diensten-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/restaurants-and-services-in-levi" />
     <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -3029,6 +3176,7 @@
     <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/restauranger-och-tjanster-levi" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/restaurants-et-services-levi" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/restaurantes-y-servicios-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/restaurants-en-diensten-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/restaurants-and-services-in-levi" />
     <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -3043,6 +3191,7 @@
     <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/restauranger-och-tjanster-levi" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/restaurants-et-services-levi" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/restaurantes-y-servicios-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/restaurants-en-diensten-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/restaurants-and-services-in-levi" />
     <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>
@@ -3057,6 +3206,22 @@
     <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/restauranger-och-tjanster-levi" />
     <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/restaurants-et-services-levi" />
     <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/restaurantes-y-servicios-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/restaurants-en-diensten-levi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/restaurants-and-services-in-levi" />
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://leville.net/nl/gids/restaurants-en-diensten-levi</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/ravintolat-ja-palvelut-levilla" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/restaurants-and-services-in-levi" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/ratgeber/restaurants-und-services-levi" />
+    <xhtml:link rel="alternate" hreflang="sv" href="https://leville.net/sv/guide/restauranger-och-tjanster-levi" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/restaurants-et-services-levi" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/restaurantes-y-servicios-levi" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/restaurants-en-diensten-levi" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/restaurants-and-services-in-levi" />
     <lastmod>2026-03-28</lastmod>
     <changefreq>weekly</changefreq>

@@ -350,6 +350,16 @@ const App = () => {
               <Route path="/guide/activities-in-levi" element={<ActivitiesHub lang="en" />} />
               <Route path="/guide/travel-to-levi" element={<TravelHub lang="en" />} />
               <Route path="/guide/why-choose-levi" element={<ComparisonHub lang="en" />} />
+
+              {/* Guide HUB Pages - DE/SV/FR/ES */}
+              <Route path="/de/ratgeber/jahreszeiten-in-levi" element={<SeasonsHub lang="de" />} />
+              <Route path="/sv/guide/arstilder-i-levi" element={<SeasonsHub lang="sv" />} />
+              <Route path="/fr/guide/saisons-a-levi" element={<SeasonsHub lang="fr" />} />
+              <Route path="/es/guia/estaciones-en-levi" element={<SeasonsHub lang="es" />} />
+              <Route path="/de/ratgeber/aktivitaeten-in-levi" element={<ActivitiesHub lang="de" />} />
+              <Route path="/sv/guide/aktiviteter-i-levi" element={<ActivitiesHub lang="sv" />} />
+              <Route path="/fr/guide/activites-a-levi" element={<ActivitiesHub lang="fr" />} />
+              <Route path="/es/guia/actividades-en-levi" element={<ActivitiesHub lang="es" />} />
               
               {/* SEO Landing Pages - Finnish */}
               <Route path="/opas/talvivarusteet-leville" element={<WinterClothingGuide />} />
@@ -750,6 +760,7 @@ const App = () => {
               <Route path="/sv/guide/restauranger-och-tjanster-levi" element={<RestaurantsAndServices lang="sv" />} />
               <Route path="/fr/guide/restaurants-et-services-levi" element={<RestaurantsAndServices lang="fr" />} />
               <Route path="/es/guia/restaurantes-y-servicios-levi" element={<RestaurantsAndServices lang="es" />} />
+              <Route path="/nl/gids/restaurants-en-diensten-levi" element={<RestaurantsAndServices lang="nl" />} />
 
               {/* WeatherInLevi - DE/SV/FR/ES */}
               <Route path="/de/levi/wetter-in-levi" element={<WeatherInLevi lang="de" />} />
