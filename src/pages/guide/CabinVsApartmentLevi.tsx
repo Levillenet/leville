@@ -77,18 +77,18 @@ const translations = {
         points: [
           "Iso porukka — perhe + isovanhemmat, kaveriporukka",
           "Oma piha — talvella lumileikit, kesällä grillaus",
-          "Takka — iso osa tunnelmaa + lisälämmitys",
+          "Takka — iso osa tunnelmaa",
           "Hiihtoladut ja kelkkareitit usein ovelta",
           "Kelomökki on kokemus itsessään"
         ],
-        notes: "Huomioitavaa: hinta korkeampi mutta henkeä kohti usein kohtuullinen, joissain mökeissä lisälämmitys puilla, kauempana keskustasta auto voi olla tarpeen."
+        notes: "Huomioitavaa: usein hieman kauempana keskustasta joten auto voi olla tarpeen."
       },
       apartmentBest: {
         title: "Milloin huoneisto on parempi valinta?",
         points: [
           "Pariskunnat, pienet ryhmät, budjettitietoiset",
-          "Edullisempi — tyypillisesti 30–50 % vähemmän",
-          "Helppo ja huoleton — ei lämmityshuolta",
+          "Perheille jotka haluavat helppoutta — kylässä kaikki voivat kulkea omia aikojaan laskettelemaan ja minne haluaa, ei tarvetta matkustaa taksilla tai bussilla",
+          "Samassa kokoluokassa usein sama hintataso — hyvillä sijainneilla voi olla mökkiä kalliimpikin",
           "Monissa aivan palveluiden vieressä",
           "Useimmissa oma sauna",
           "Hyvä lähtökohta aktiiviselle lomalle"
@@ -178,18 +178,18 @@ const translations = {
         points: [
           "Large groups — family + grandparents, friend groups",
           "Private yard — snow play in winter, BBQ in summer",
-          "Fireplace — a huge part of the atmosphere + extra warmth",
+          "Fireplace — a huge part of the atmosphere",
           "Ski trails and snowmobile routes often from the door",
           "A log cabin is an experience in itself"
         ],
-        notes: "Good to know: higher price but often reasonable per person, some cabins use wood for additional heating, you may need a car if further from the centre."
+        notes: "Good to know: often slightly further from the centre, so a car may be needed."
       },
       apartmentBest: {
         title: "When Is an Apartment Better?",
         points: [
           "Couples, small groups, budget-conscious travellers",
-          "More affordable — typically 30–50% less",
-          "Easy and hassle-free — no heating worries",
+          "Families who want convenience — in the village everyone can head to the slopes or wherever they like on their own, no need for taxis or buses",
+          "In the same size category, often a similar price level — in prime locations can even cost more than a cabin",
           "Many are right next to services",
           "Most have a private sauna",
           "Great base for an active holiday"
