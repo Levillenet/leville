@@ -25,6 +25,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import { howToGetToLeviTranslations } from "./howToGetToLeviTranslations";
 import {
   Accordion,
   AccordionContent,
@@ -523,9 +524,9 @@ const translations = {
         { title: "Accommodaties", desc: "Boek je verblijf in Levi", href: "/nl/accommodaties" },
       ],
     },
-  }
+  },
+  ...howToGetToLeviTranslations
 };
-
 const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
   const location = useLocation();
   const t = translations[lang] || translations.fi;
@@ -533,7 +534,11 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
   const hreflangUrls = {
     fi: "https://leville.net/matka/miten-paasee-leville-helsingista",
     en: "https://leville.net/travel/how-to-get-to-levi-from-helsinki-and-abroad",
-    nl: "https://leville.net/nl/gids/hoe-kom-je-in-levi"
+    nl: "https://leville.net/nl/gids/hoe-kom-je-in-levi",
+    de: "https://leville.net/de/reise/anreise-nach-levi",
+    sv: "https://leville.net/sv/resa/hur-tar-man-sig-till-levi",
+    fr: "https://leville.net/fr/voyage/comment-aller-a-levi",
+    es: "https://leville.net/es/viaje/como-llegar-a-levi"
   };
 
   const faqSchema = {
@@ -585,7 +590,7 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
         <meta property="og:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_GB"} />
+        <meta property="og:locale" content={{ fi: "fi_FI", en: "en_GB", nl: "nl_NL", de: "de_DE", sv: "sv_SE", fr: "fr_FR", es: "es_ES" }[lang] || "fi_FI"} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={t.meta.title} />
         <meta name="twitter:description" content={t.meta.description} />
