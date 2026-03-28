@@ -312,7 +312,8 @@ const translations = {
       link: "/en/contact"
     },
     breadcrumbLabel: "Skiën in Levi"
-  }
+  },
+  ...skiingInLeviTranslations
 };
 
 const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
@@ -322,12 +323,16 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
   const customUrls: Record<string, string> = {
     fi: "/opas/laskettelu-levi",
     en: "/guide/skiing-in-levi",
-    nl: "/nl/gids/skieen-in-levi"
+    nl: "/nl/gids/skieen-in-levi",
+    de: "/de/ratgeber/skifahren-in-levi",
+    sv: "/sv/guide/skidakning-i-levi",
+    fr: "/fr/guide/ski-a-levi",
+    es: "/es/guia/esqui-en-levi"
   };
 
-  const homeLabels: Record<string, string> = { fi: "Etusivu", en: "Home", nl: "Home" };
-  const homeLinks: Record<string, string> = { fi: "/", en: "/en", nl: "/nl" };
-  const leviLinks: Record<string, string> = { fi: "/levi", en: "/en/levi", nl: "/nl/levi" };
+  const homeLabels: Record<string, string> = { fi: "Etusivu", en: "Home", nl: "Home", de: "Startseite", sv: "Hem", fr: "Accueil", es: "Inicio" };
+  const homeLinks: Record<string, string> = { fi: "/", en: "/en", nl: "/nl", de: "/de", sv: "/sv", fr: "/fr", es: "/es" };
+  const leviLinks: Record<string, string> = { fi: "/levi", en: "/en/levi", nl: "/nl/levi", de: "/de/levi", sv: "/sv/levi", fr: "/fr/levi", es: "/es/levi" };
 
   const breadcrumbItems = [
     { label: homeLabels[lang] || "Etusivu", href: homeLinks[lang] || "/" },
@@ -351,7 +356,7 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
         <meta property="og:url" content={t.meta.canonical} />
         <meta property="og:title" content={t.meta.title} />
         <meta property="og:description" content={t.meta.description} />
-        <meta property="og:locale" content={lang === "fi" ? "fi_FI" : lang === "nl" ? "nl_NL" : "en_US"} />
+        <meta property="og:locale" content={{ fi: "fi_FI", en: "en_US", nl: "nl_NL", de: "de_DE", sv: "sv_SE", fr: "fr_FR", es: "es_ES" }[lang] || "fi_FI"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
         <meta property="og:image:alt" content={lang === "fi" ? "Levin hiihtokeskus Suomen Lapissa" : "Levi ski resort in Finnish Lapland"} />
