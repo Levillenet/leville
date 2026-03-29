@@ -81,3 +81,6 @@ verify_jwt = false
 
 [functions.update-page-engagement]
 verify_jwt = false
+
+[functions.manage-timed-notices]
+verify_jwt = false
