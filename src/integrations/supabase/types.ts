@@ -1041,6 +1041,102 @@ export type Database = {
         }
         Relationships: []
       }
+      promo_banners: {
+        Row: {
+          button_text_de: string | null
+          button_text_en: string | null
+          button_text_es: string | null
+          button_text_fi: string | null
+          button_text_fr: string | null
+          button_text_nl: string | null
+          button_text_sv: string | null
+          created_at: string
+          expires_at: string
+          heading_de: string | null
+          heading_en: string | null
+          heading_es: string | null
+          heading_fi: string | null
+          heading_fr: string | null
+          heading_nl: string | null
+          heading_sv: string | null
+          id: string
+          is_active: boolean
+          starts_at: string
+          subtext_de: string | null
+          subtext_en: string | null
+          subtext_es: string | null
+          subtext_fi: string | null
+          subtext_fr: string | null
+          subtext_nl: string | null
+          subtext_sv: string | null
+          target_url: string
+          theme: string
+          title: string
+        }
+        Insert: {
+          button_text_de?: string | null
+          button_text_en?: string | null
+          button_text_es?: string | null
+          button_text_fi?: string | null
+          button_text_fr?: string | null
+          button_text_nl?: string | null
+          button_text_sv?: string | null
+          created_at?: string
+          expires_at: string
+          heading_de?: string | null
+          heading_en?: string | null
+          heading_es?: string | null
+          heading_fi?: string | null
+          heading_fr?: string | null
+          heading_nl?: string | null
+          heading_sv?: string | null
+          id?: string
+          is_active?: boolean
+          starts_at?: string
+          subtext_de?: string | null
+          subtext_en?: string | null
+          subtext_es?: string | null
+          subtext_fi?: string | null
+          subtext_fr?: string | null
+          subtext_nl?: string | null
+          subtext_sv?: string | null
+          target_url?: string
+          theme?: string
+          title: string
+        }
+        Update: {
+          button_text_de?: string | null
+          button_text_en?: string | null
+          button_text_es?: string | null
+          button_text_fi?: string | null
+          button_text_fr?: string | null
+          button_text_nl?: string | null
+          button_text_sv?: string | null
+          created_at?: string
+          expires_at?: string
+          heading_de?: string | null
+          heading_en?: string | null
+          heading_es?: string | null
+          heading_fi?: string | null
+          heading_fr?: string | null
+          heading_nl?: string | null
+          heading_sv?: string | null
+          id?: string
+          is_active?: boolean
+          starts_at?: string
+          subtext_de?: string | null
+          subtext_en?: string | null
+          subtext_es?: string | null
+          subtext_fi?: string | null
+          subtext_fr?: string | null
+          subtext_nl?: string | null
+          subtext_sv?: string | null
+          target_url?: string
+          theme?: string
+          title?: string
+        }
+        Relationships: []
+      }
       property_maintenance: {
         Row: {
           cleaning_email: string | null
