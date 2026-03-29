@@ -58,13 +58,13 @@ const IndexEN = () => {
         <Header />
         <main>
           <Hero lang="en" />
+          <PromoBanner lang="en" />
           <About lang="en" />
           <Suspense fallback={<div className="min-h-[200px]" />}>
             <GuideLinksSection lang="en" />
             <ActivitiesLinksSection lang="en" />
           </Suspense>
           <NewsHighlight lang="en" />
-          <PromoBanner lang="en" />
           <Features lang="en" />
         </main>
         <Footer lang="en" />
