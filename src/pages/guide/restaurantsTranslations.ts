@@ -44,6 +44,17 @@ export const restaurantsTranslationsDe = {
       ],
     },
   },
+  priceGuide: {
+    title: "Typische Restaurantpreise in Levi",
+    note: "Preise sind Richtwerte und können je nach Restaurant variieren.",
+    headers: { category: "Mahlzeit", price: "Preisniveau", details: "Details" },
+    rows: [
+      { category: "🥐 Frühstück", price: "10–20 €", details: "Buffet oder à la carte, inkl. Kaffee" },
+      { category: "🍽️ Mittagessen", price: "~15 €", details: "Inkl. Salat, Brot, Getränk und Buffet" },
+      { category: "🍕 Pizza & Burger", price: "15–25 €", details: "Casual Dinner, Take-away möglich" },
+      { category: "🥩 Fine Dining", price: "25–60 €", details: "Menü, Steak oder Wild, à la carte" },
+    ],
+  },
   linksTitle: "Empfohlene Restaurants und nützliche Links",
   breadcrumbs: [
     { label: "Startseite", href: "/de" },
@@ -108,6 +119,17 @@ export const restaurantsTranslationsSv = {
         "Barnvagnsuthyrning på vissa boenden",
       ],
     },
+  },
+  priceGuide: {
+    title: "Typiska restaurangpriser i Levi",
+    note: "Priserna är ungefärliga och kan variera beroende på restaurang.",
+    headers: { category: "Måltid", price: "Prisnivå", details: "Detaljer" },
+    rows: [
+      { category: "🥐 Frukost", price: "10–20 €", details: "Buffé eller à la carte, inkl. kaffe" },
+      { category: "🍽️ Lunch", price: "~15 €", details: "Inkl. sallad, bröd, dryck och buffé" },
+      { category: "🍕 Pizza & burgare", price: "15–25 €", details: "Casual middag, take-away möjlig" },
+      { category: "🥩 Fine dining", price: "25–60 €", details: "Meny, biff eller vilt, à la carte" },
+    ],
   },
   linksTitle: "Rekommenderade restauranger och nyttiga länkar",
   breadcrumbs: [
@@ -174,6 +196,17 @@ export const restaurantsTranslationsFr = {
       ],
     },
   },
+  priceGuide: {
+    title: "Prix typiques des restaurants à Levi",
+    note: "Les prix sont indicatifs et peuvent varier selon le restaurant.",
+    headers: { category: "Type de repas", price: "Niveau de prix", details: "Détails" },
+    rows: [
+      { category: "🥐 Petit-déjeuner", price: "10–20 €", details: "Buffet ou à la carte, café inclus" },
+      { category: "🍽️ Déjeuner", price: "~15 €", details: "Incl. salade, pain, boisson et buffet" },
+      { category: "🍕 Pizza & burger", price: "15–25 €", details: "Dîner décontracté, à emporter possible" },
+      { category: "🥩 Gastronomie", price: "25–60 €", details: "Menu, steak ou gibier, à la carte" },
+    ],
+  },
   linksTitle: "Restaurants recommandés et liens utiles",
   breadcrumbs: [
     { label: "Accueil", href: "/fr" },
@@ -238,6 +271,17 @@ export const restaurantsTranslationsEs = {
         "Alquiler de cochecitos en algunos alojamientos",
       ],
     },
+  },
+  priceGuide: {
+    title: "Precios típicos de restaurantes en Levi",
+    note: "Los precios son orientativos y pueden variar según el restaurante.",
+    headers: { category: "Tipo de comida", price: "Nivel de precio", details: "Detalles" },
+    rows: [
+      { category: "🥐 Desayuno", price: "10–20 €", details: "Buffet o a la carta, incluye café" },
+      { category: "🍽️ Almuerzo", price: "~15 €", details: "Incl. ensalada, pan, bebida y buffet" },
+      { category: "🍕 Pizza y burger", price: "15–25 €", details: "Cena casual, para llevar disponible" },
+      { category: "🥩 Alta cocina", price: "25–60 €", details: "Menú, filete o caza, a la carta" },
+    ],
   },
   linksTitle: "Restaurantes recomendados y enlaces útiles",
   breadcrumbs: [
