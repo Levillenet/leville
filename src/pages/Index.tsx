@@ -122,6 +122,7 @@ const Index = ({ lang = "fi" }: IndexProps) => {
         <Header />
         <main>
           <Hero lang={lang} />
+          <PromoBanner lang={lang} />
           <Suspense fallback={<div className="min-h-[200px]" />}>
             <About lang={lang} />
           </Suspense>
@@ -131,7 +132,6 @@ const Index = ({ lang = "fi" }: IndexProps) => {
           </Suspense>
           <Suspense fallback={<div className="min-h-[200px]" />}>
             <NewsHighlight lang={lang} />
-            <PromoBanner lang={lang} />
             <Features lang={lang} />
           </Suspense>
         </main>
