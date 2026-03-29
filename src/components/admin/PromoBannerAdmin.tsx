@@ -8,7 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Trash2, Edit, Loader2, PartyPopper, TreePine, Sparkles, Sun, Leaf, Mountain, Snowflake } from "lucide-react";
+import { Plus, Trash2, Edit, Loader2, PartyPopper, TreePine, Sparkles, Sun, Leaf, Mountain, Snowflake, Languages } from "lucide-react";
+import { routeConfig } from "@/translations";
 
 interface PromoBannerData {
   id?: string;
@@ -39,6 +40,8 @@ interface PromoBannerData {
   starts_at: string;
   expires_at: string;
   is_active: boolean;
+  route_key: string;
+  redirect_localized: boolean;
 }
 
 const THEME_OPTIONS = [
@@ -61,6 +64,16 @@ const LANGUAGES = [
   { code: "nl", label: "Nederlands" },
 ];
 
+// Build page options from routeConfig
+const PAGE_OPTIONS = Object.entries(routeConfig).map(([key, routes]) => {
+  const langs = Object.keys(routes).filter((l) => l !== "fi") as string[];
+  return {
+    key,
+    label: (routes as Record<string, string>).fi,
+    langCount: langs.length,
+  };
+}).sort((a, b) => a.label.localeCompare(b.label, "fi"));
+
 const emptyBanner: PromoBannerData = {
   title: "",
   heading_fi: "", heading_en: "", heading_de: "", heading_sv: "", heading_fr: "", heading_es: "", heading_nl: "",
@@ -72,6 +85,8 @@ const emptyBanner: PromoBannerData = {
   starts_at: new Date().toISOString().slice(0, 16),
   expires_at: "",
   is_active: true,
+  route_key: "",
+  redirect_localized: true,
 };
 
 interface PromoBannerAdminProps {
@@ -83,6 +98,7 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<PromoBannerData | null>(null);
   const [saving, setSaving] = useState(false);
+  const [translating, setTranslating] = useState(false);
   const { toast } = useToast();
 
   const password = localStorage.getItem("admin_password") || "";
@@ -104,6 +120,48 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
 
   useEffect(() => { fetchBanners(); }, []);
 
+  const handlePageSelect = (routeKey: string) => {
+    if (!editing) return;
+    const routes = (routeConfig as Record<string, Record<string, string>>)[routeKey];
+    const fiPath = routes?.fi || "/";
+    setEditing({ ...editing, route_key: routeKey, target_url: fiPath });
+  };
+
+  const handleTranslate = async () => {
+    if (!editing || !editing.heading_fi) {
+      toast({ title: "Virhe", description: "Kirjoita ensin suomenkielinen otsikko", variant: "destructive" });
+      return;
+    }
+    setTranslating(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("manage-promo-banners", {
+        body: {
+          action: "translate",
+          password,
+          heading_fi: editing.heading_fi,
+          subtext_fi: editing.subtext_fi,
+          button_text_fi: editing.button_text_fi,
+        },
+      });
+      if (error) throw error;
+
+      const updated = { ...editing };
+      for (const lang of ["en", "de", "sv", "fr", "es", "nl"]) {
+        const t = data[lang];
+        if (t) {
+          (updated as any)[`heading_${lang}`] = t.heading || "";
+          (updated as any)[`subtext_${lang}`] = t.subtext || "";
+          (updated as any)[`button_text_${lang}`] = t.button_text || "";
+        }
+      }
+      setEditing(updated);
+      toast({ title: "Käännökset valmis!" });
+    } catch (e: any) {
+      toast({ title: "Käännösvirhe", description: e.message, variant: "destructive" });
+    }
+    setTranslating(false);
+  };
+
   const handleSave = async () => {
     if (!editing) return;
     if (!editing.title || !editing.expires_at) {
@@ -114,7 +172,10 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
     try {
       const isEdit = !!(editing as any).id;
       const action = isEdit ? "update" : "create";
-      const payload: any = { action, password, data: { ...editing } };
+      const saveData = { ...editing };
+      // If route_key is empty string, save as null
+      if (!saveData.route_key) (saveData as any).route_key = null;
+      const payload: any = { action, password, data: saveData };
       if (isEdit) {
         payload.id = (editing as any).id;
         delete payload.data.id;
@@ -180,9 +241,30 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
                 <Input value={editing.title} onChange={(e) => setEditing({ ...editing, title: e.target.value })} placeholder="esim. Vappukampanja 2026" />
               </div>
               <div>
-                <Label>Kohde-URL *</Label>
-                <Input value={editing.target_url} onChange={(e) => setEditing({ ...editing, target_url: e.target.value })} placeholder="/opas/vappu-levilla tai https://..." />
+                <Label>Kohdesivu</Label>
+                <Select value={editing.route_key || ""} onValueChange={handlePageSelect}>
+                  <SelectTrigger><SelectValue placeholder="Valitse sivu..." /></SelectTrigger>
+                  <SelectContent className="max-h-64">
+                    {PAGE_OPTIONS.map((p) => (
+                      <SelectItem key={p.key} value={p.key}>
+                        {p.label} ({p.langCount} kieltä)
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Switch checked={editing.redirect_localized} onCheckedChange={(v) => setEditing({ ...editing, redirect_localized: v })} />
+                <Label>Ohjaa kielen mukaiseen versioon</Label>
+              </div>
+              {editing.route_key && (
+                <span className="text-xs text-muted-foreground">
+                  FI: {(routeConfig as any)[editing.route_key]?.fi || "–"}
+                </span>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -213,7 +295,18 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
             </div>
 
             <div className="border-t pt-4">
-              <h4 className="font-semibold mb-3">Sisältö kielittäin</h4>
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="font-semibold">Sisältö kielittäin</h4>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleTranslate}
+                  disabled={translating || !editing.heading_fi}
+                >
+                  {translating ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Languages className="w-4 h-4 mr-1" />}
+                  Käännä suomesta
+                </Button>
+              </div>
               <div className="space-y-3">
                 {LANGUAGES.map((l) => (
                   <div key={l.code} className="grid grid-cols-1 md:grid-cols-3 gap-2 items-start">

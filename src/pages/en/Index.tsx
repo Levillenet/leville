@@ -14,6 +14,7 @@ import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredData";
 const GuideLinksSection = lazy(() => import("@/components/GuideLinksSection"));
 const ActivitiesLinksSection = lazy(() => import("@/components/ActivitiesLinksSection"));
+import PromoBanner from "@/components/PromoBanner";
 
 const IndexEN = () => {
   const location = useLocation();
@@ -63,6 +64,7 @@ const IndexEN = () => {
             <ActivitiesLinksSection lang="en" />
           </Suspense>
           <NewsHighlight lang="en" />
+          <PromoBanner lang="en" />
           <Features lang="en" />
         </main>
         <Footer lang="en" />
