@@ -1,71 +1,63 @@
 
 
-# Ajankohtaiset ilmoitukset — admin-hallittava järjestelmä
+# Promobannerin kehitys: kohde-URL pudotusvalikko, kieliversio-ohjaus ja automaattikäännökset
 
 ## Yhteenveto
-Luodaan tietokantapohjainen järjestelmä ajastettujen ilmoitusten hallintaan. Admin-paneelissa voi luoda ilmoituksia, valita kohdesivut ja asettaa ajanjakson. Ilmoitukset näkyvät ja poistuvat automaattisesti päivämäärien perusteella.
+Korvataan vapaamuotoinen kohde-URL-kenttä pudotusvalikolla joka listaa sivut routeConfigista. Lisätään valinta ohjataanko käyttäjä kielen mukaiseen URL-versioon. Lisätään "Käännä automaattisesti" -nappi joka kääntää suomenkieliset tekstit kaikille kielille AI:lla.
 
-## Tietokantamuutokset
+## Muutokset
 
-### Uusi taulu: `timed_notices`
-| Sarake | Tyyppi | Kuvaus |
-|--------|--------|--------|
-| id | uuid | PK |
-| title | text | Admin-tunniste (esim. "Rinteet auki toukokuulle") |
-| content_fi | text | Ilmoitusteksti suomeksi |
-| content_en | text | Englanniksi |
-| content_de | text | Saksaksi |
-| content_sv | text | Ruotsiksi |
-| content_fr | text | Ranskaksi |
-| content_es | text | Espanjaksi |
-| content_nl | text | Hollanniksi |
-| target_pages | text[] | Lista sivutunnisteita, esim. `['skiingInLevi', 'skiHolidayLevi']` |
-| starts_at | timestamptz | Milloin ilmoitus alkaa näkyä |
-| expires_at | timestamptz | Milloin ilmoitus poistuu |
-| is_active | boolean | Manuaalinen on/off |
-| style | text | Tyyli: 'info', 'highlight', 'warning' |
-| created_at | timestamptz | |
+### 1. PromoBannerAdmin.tsx — Kohde-URL pudotusvalikko + kieliohjaus
+- Korvataan `target_url` Input-kenttä Select-pudotusvalikolla joka listaa routeConfigin sivut (näytetään FI-polku + selkokielinen nimi)
+- Lisätään `redirect_localized` (boolean) -toggle: "Ohjaa kieliversioon" — kun päällä, bannerin linkki ohjaa käyttäjän kielen mukaiseen URL:iin routeConfigin avulla
+- Lisätään "Käännä suomesta" -nappi joka kutsuu uutta edge function -käännöstoimintoa ja täyttää heading/subtext/button_text kaikille kielille automaattisesti
 
-RLS: SELECT public (aktiiviset + voimassa olevat), write vain backend.
+### 2. Tietokantamuutos: `promo_banners`-tauluun 2 uutta saraketta
+- `route_key` (text, nullable) — routeConfig-avain (esim. "skiing", "vappuLevilla")
+- `redirect_localized` (boolean, default true) — ohjataanko kielen mukaiseen versioon
 
-## Koodimuutokset
+### 3. Edge Function: `manage-promo-banners` — lisätään `translate`-action
+- Uusi action `translate`: ottaa heading_fi, subtext_fi, button_text_fi → kutsuu Lovable AI Gatewayta (Gemini 2.5 Flash) → palauttaa käännökset EN, DE, SV, FR, ES, NL
+- Käyttää samaa patternea kuin `translate-booking-terms`
 
-### 1. Edge Function: `manage-timed-notices`
-CRUD-operaatiot ilmoituksille, admin-salasanasuojattu.
+### 4. usePromoBanner.ts — kieliversio-URL:n ratkaisu
+- Jos `redirect_localized` on true ja `route_key` on asetettu, käytetään routeConfigia palauttamaan oikea URL käyttäjän kielen perusteella
+- Fallback: `target_url` sellaisenaan
 
-### 2. Uusi hook: `src/hooks/useTimedNotices.ts`
-- Hakee `timed_notices` taulusta aktiiviset ilmoitukset joissa `starts_at <= now() <= expires_at`
-- Suodattaa `target_pages` perusteella sivukohtaisesti
-- Cachettaa 5 min
+### 5. PromoBanner.tsx — käytetään lokalisoitua URL:ia
+- Luetaan `route_key` ja `redirect_localized` bannerista
+- Jos lokalisointi päällä, haetaan routeConfigista kielen mukainen polku
 
-### 3. Uusi komponentti: `src/components/TimedNotice.tsx`
-- Ottaa propin `pageId` (esim. `"skiingInLevi"`)
-- Näyttää kaikki kyseiselle sivulle kohdennetut voimassaolevat ilmoitukset
-- Tyyliteltynä info-bannerina sivun yläosassa (ennen sisältöä)
-- Tukee kielen mukaan oikeaa sisältöä
+### 6. routeConfig — lisätään puuttuva `vappuLevilla`-avain
+- `vappuLevilla: { fi: "/opas/vappu-levilla" }` (vain FI toistaiseksi)
 
-### 4. Admin-paneeli: `src/components/admin/TimedNoticesAdmin.tsx`
-- Listaa kaikki ilmoitukset (aktiiviset, tulevat, vanhat)
-- Lomake uuden luomiseen: teksti per kieli, alkupäivä, loppupäivä, kohdesivut (multi-select)
-- Sivuvalinnan pudotusvalikko sisältää avainnimet kuten "Lasketteluopas (skiingInLevi)", "Rinteet (skiHolidayLevi)" jne.
-- Muokkaus ja poisto
+### 7. PromoBanner näkyviin kaikille kieliversioiden etusivuille
+- Lisätään `<PromoBanner lang="en" />` tiedostoon `src/pages/en/Index.tsx` (ja vastaavasti muille kielille jos niillä on omat Index-sivut)
 
-### 5. Integrointi sivuihin
-- Lisätään `<TimedNotice pageId="skiingInLevi" />` halutuille sivuille
-- Aluksi lisätään lasketteluaiheisiin sivuihin: SkiingInLevi, SkiHolidayLevi, CrossCountrySkiingInLevi, SpringSkiingLevi
+## Tekninen yksityiskohta: sivulista adminissa
 
-## Toimintalogiikka
+Generoidaan PAGE_OPTIONS-lista routeConfigista automaattisesti:
+```typescript
+const PAGE_OPTIONS = Object.entries(routeConfig).map(([key, routes]) => ({
+  key,
+  label: routes.fi, // näytetään FI-polku
+  langs: Object.keys(routes).filter(l => !routes[l].startsWith(routes.fi)) // kielet joilla oma versio
+}));
+```
+
+Adminissa näytetään pudotusvalikossa esim.:
+- `/opas/laskettelu-levi` (fi, en, sv, de, es, fr, nl)
+- `/opas/vappu-levilla` (fi)
+- `/majoitukset` (fi, en, sv, de, es, fr, nl)
+
+## Käännöstoiminnon flow
 ```text
-Admin luo ilmoituksen:
-  "Rinteet auki 15.5. saakka!"
-  Kohde: [skiingInLevi, skiHolidayLevi]
-  Alkaa: 2026-03-01
-  Päättyy: 2026-05-15
-
-Käyttäjä avaa /opas/laskettelu-levilla:
-  → useTimedNotices('skiingInLevi')
-  → Tarkistaa: now() >= starts_at && now() <= expires_at?
-  → Kyllä → Näyttää bannerin
-  → 16.5. → Ei näytä mitään
+Admin kirjoittaa suomeksi heading, subtext, button_text
+  → Painaa "Käännä suomesta"
+  → Frontend kutsuu manage-promo-banners { action: "translate", ... }
+  → Edge function kutsuu Lovable AI Gateway
+  → Palauttaa JSON: { en: {...}, de: {...}, ... }
+  → Frontend täyttää kentät automaattisesti
+  → Admin voi muokata ja tallentaa
 ```
 
