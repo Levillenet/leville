@@ -493,7 +493,7 @@ const VappuLevilla = () => {
                 Vappuviikolla Levin lavoilla nähdään tunnettuja artisteja. Showtime noin klo 23.30.
                 Tarkempi aikataulu ja esiintyjätiedot julkaistaan{" "}
                 <a
-                  href="https://www.levi.fi"
+                  href="https://www.levi.fi/tapahtumat/levi-mayday-2026/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary underline hover:text-primary/80 inline-flex items-center gap-1"
@@ -524,7 +524,7 @@ const VappuLevilla = () => {
           <p className="mt-6 text-muted-foreground">
             Lisätietoa kaikista tapahtumista:{" "}
             <a
-              href="https://www.levi.fi"
+              href="https://www.levi.fi/tapahtumat/levi-mayday-2026/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary underline hover:text-primary/80 inline-flex items-center gap-1"
