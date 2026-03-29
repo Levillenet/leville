@@ -121,7 +121,7 @@ const themes: Record<string, {
 };
 
 const PromoBanner = ({ lang = "fi" }: PromoBannerProps) => {
-  const { banner, loading, getHeading, getSubtext, getButtonText } = usePromoBanner(lang);
+  const { banner, loading, getHeading, getSubtext, getButtonText, getTargetUrl } = usePromoBanner(lang);
 
   if (loading || !banner) return null;
 
@@ -130,7 +130,8 @@ const PromoBanner = ({ lang = "fi" }: PromoBannerProps) => {
   const heading = getHeading(banner);
   const subtext = getSubtext(banner);
   const buttonText = getButtonText(banner);
-  const isExternal = banner.target_url.startsWith("http");
+  const targetUrl = getTargetUrl(banner);
+  const isExternal = targetUrl.startsWith("http");
 
   const content = (
     <div
@@ -163,7 +164,7 @@ const PromoBanner = ({ lang = "fi" }: PromoBannerProps) => {
   if (isExternal) {
     return (
       <section className="container mx-auto px-4 py-6">
-        <a href={banner.target_url} target="_blank" rel="noopener noreferrer" className="block">
+        <a href={targetUrl} target="_blank" rel="noopener noreferrer" className="block">
           {content}
         </a>
       </section>
@@ -172,7 +173,7 @@ const PromoBanner = ({ lang = "fi" }: PromoBannerProps) => {
 
   return (
     <section className="container mx-auto px-4 py-6">
-      <Link to={banner.target_url} className="block">
+      <Link to={targetUrl} className="block">
         {content}
       </Link>
     </section>
