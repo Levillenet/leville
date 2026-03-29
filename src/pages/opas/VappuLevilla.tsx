@@ -302,7 +302,7 @@ const VappuLevilla = () => {
   const breadcrumbItems = [
     { label: "Etusivu", href: "/" },
     { label: "Opas", href: "/opas/matkaopas-levi" },
-    { label: "Vappu Levillä" },
+    { label: "Vappu Levillä", href: "/opas/vappu-levilla" },
   ];
 
   const readNextLinks = [
