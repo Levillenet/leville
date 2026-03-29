@@ -454,7 +454,12 @@ const VappuLevilla = () => {
       <WavyDivider variant={0} />
 
       {/* ═══ EVENTS ═══ */}
-      <section className="container mx-auto px-4 pb-8">
+      <section className="relative container mx-auto px-4 pb-8 overflow-hidden">
+        {/* Section decorations */}
+        <Serpentine className="top-0 right-0 w-[40%] h-8 rotate-[2deg] opacity-40" variant={1} />
+        <Balloon color="#FACC15" className="top-4 right-[5%] animate-bounce [animation-delay:100ms]" size={28} />
+        <Balloon color="#EF4444" className="top-16 right-[2%] animate-bounce [animation-delay:400ms]" size={22} />
+        <ConfettiDots className="top-0 left-0 w-[30%] h-14 opacity-40" />
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-8 flex items-center gap-3">
             <Calendar className="w-8 h-8 text-yellow-500" />
