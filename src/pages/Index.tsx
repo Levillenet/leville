@@ -16,6 +16,7 @@ const ActivitiesLinksSection = lazy(() => import("@/components/ActivitiesLinksSe
 import WhatsAppChat from "@/components/WhatsAppChat";
 import HreflangTags from "@/components/HreflangTags";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
+import PromoBanner from "@/components/PromoBanner";
 import { Language, getTranslations } from "@/translations";
 
 interface IndexProps {
@@ -130,6 +131,7 @@ const Index = ({ lang = "fi" }: IndexProps) => {
           </Suspense>
           <Suspense fallback={<div className="min-h-[200px]" />}>
             <NewsHighlight lang={lang} />
+            <PromoBanner lang={lang} />
             <Features lang={lang} />
           </Suspense>
         </main>
