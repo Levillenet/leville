@@ -19,6 +19,7 @@ import springCrossCountry from "@/assets/seasons/spring-cross-country.jpg";
 import crossCountrySunny from "@/assets/seasons/cross-country-sunny.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import TimedNotice from "@/components/TimedNotice";
 import {
   Accordion,
   AccordionContent,
@@ -110,6 +111,7 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
         
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4 max-w-4xl">
+            <TimedNotice pageId="crossCountrySkiing" lang={lang} />
             {/* Hero */}
             <section className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">

@@ -26,6 +26,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import springSlopesSunny from "@/assets/seasons/spring-slopes-sunny.jpg";
 import springSkiingKid from "@/assets/seasons/spring-skiing-kid.jpg";
 import { springSkiingTranslations } from "./springSkiingTranslations";
+import TimedNotice from "@/components/TimedNotice";
 
 interface SpringSkiingLeviProps {
   lang?: Language;
@@ -101,6 +102,7 @@ const SpringSkiingLevi = ({ lang = "fi" }: SpringSkiingLeviProps) => {
 
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4 max-w-4xl">
+            <TimedNotice pageId="springSkiing" lang={lang} />
             <section className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.h1}</h1>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
