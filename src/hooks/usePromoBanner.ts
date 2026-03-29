@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Language } from "@/translations";
+import { Language, routeConfig } from "@/translations";
 
 export interface PromoBanner {
   id: string;
@@ -31,6 +31,8 @@ export interface PromoBanner {
   starts_at: string;
   expires_at: string;
   is_active: boolean;
+  route_key: string | null;
+  redirect_localized: boolean;
 }
 
 export function usePromoBanner(lang: Language = "fi") {
@@ -71,5 +73,15 @@ export function usePromoBanner(lang: Language = "fi") {
     return (b[key] as string) || (b.button_text_fi as string) || "Lue lisää";
   };
 
-  return { banner, loading, getHeading, getSubtext, getButtonText };
+  const getTargetUrl = (b: PromoBanner): string => {
+    if (b.redirect_localized && b.route_key) {
+      const routes = (routeConfig as Record<string, Record<string, string>>)[b.route_key];
+      if (routes) {
+        return routes[lang] || routes.fi || b.target_url;
+      }
+    }
+    return b.target_url;
+  };
+
+  return { banner, loading, getHeading, getSubtext, getButtonText, getTargetUrl };
 }
