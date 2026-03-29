@@ -1061,6 +1061,8 @@ export type Database = {
           heading_sv: string | null
           id: string
           is_active: boolean
+          redirect_localized: boolean
+          route_key: string | null
           starts_at: string
           subtext_de: string | null
           subtext_en: string | null
@@ -1092,6 +1094,8 @@ export type Database = {
           heading_sv?: string | null
           id?: string
           is_active?: boolean
+          redirect_localized?: boolean
+          route_key?: string | null
           starts_at?: string
           subtext_de?: string | null
           subtext_en?: string | null
@@ -1123,6 +1127,8 @@ export type Database = {
           heading_sv?: string | null
           id?: string
           is_active?: boolean
+          redirect_localized?: boolean
+          route_key?: string | null
           starts_at?: string
           subtext_de?: string | null
           subtext_en?: string | null

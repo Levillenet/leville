@@ -1,0 +1,1 @@
+ALTER TABLE public.promo_banners ADD COLUMN route_key text, ADD COLUMN redirect_localized boolean NOT NULL DEFAULT true;
