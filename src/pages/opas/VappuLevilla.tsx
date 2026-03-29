@@ -535,19 +535,26 @@ const VappuLevilla = () => {
         </div>
       </section>
 
-      <WavyDivider />
+      <WavyDivider variant={1} />
 
       {/* Mid-content discount banner */}
-      <section className="container mx-auto px-4 pb-4">
+      <section className="relative container mx-auto px-4 pb-4 overflow-hidden">
+        <BalloonCluster className="top-0 left-[5%]" colors={["#A855F7", "#FACC15", "#EF4444"]} />
+        <BalloonCluster className="top-2 right-[5%]" colors={["#3B82F6", "#22C55E", "#F97316"]} />
+        <Serpentine className="bottom-0 left-0 w-full h-8 opacity-30" variant={2} />
         <div className="max-w-3xl mx-auto">
           <DiscountBanner variant="mid" />
         </div>
       </section>
 
-      <WavyDivider />
+      <WavyDivider variant={2} />
 
       {/* ═══ WHY VAPPU IN LEVI ═══ */}
-      <section className="container mx-auto px-4 pb-8">
+      <section className="relative container mx-auto px-4 pb-8 overflow-hidden">
+        <Serpentine className="top-2 left-0 w-[45%] h-8 rotate-[-1deg] opacity-35" variant={0} />
+        <Balloon color="#22C55E" className="top-8 right-[3%] animate-bounce [animation-delay:200ms]" size={30} />
+        <Balloon color="#FACC15" className="bottom-4 left-[5%] animate-bounce [animation-delay:500ms]" size={26} />
+        <ConfettiDots className="bottom-0 right-0 w-[25%] h-12 opacity-35" />
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-8 flex items-center gap-3">
             <Trophy className="w-8 h-8 text-yellow-500" />
@@ -594,10 +601,13 @@ const VappuLevilla = () => {
         </div>
       </section>
 
-      <WavyDivider />
+      <WavyDivider variant={0} />
 
       {/* ═══ PRACTICAL TIPS ═══ */}
-      <section className="container mx-auto px-4 pb-8">
+      <section className="relative container mx-auto px-4 pb-8 overflow-hidden">
+        <Serpentine className="top-0 right-0 w-[50%] h-8 rotate-[1deg] opacity-30" variant={1} />
+        <BalloonCluster className="top-4 left-[2%]" colors={["#F97316", "#3B82F6", "#EC4899"]} />
+        <Balloon color="#A855F7" className="bottom-8 right-[4%] animate-bounce [animation-delay:300ms]" size={24} />
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-8 flex items-center gap-3">
             <Gift className="w-8 h-8 text-yellow-500" />
@@ -676,10 +686,14 @@ const VappuLevilla = () => {
         </div>
       </section>
 
-      <WavyDivider />
+      <WavyDivider variant={1} />
 
       {/* ═══ FAQ ═══ */}
-      <section className="container mx-auto px-4 pb-8">
+      <section className="relative container mx-auto px-4 pb-8 overflow-hidden">
+        <ConfettiDots className="top-0 right-[5%] w-[30%] h-14 opacity-40" />
+        <Serpentine className="bottom-2 left-0 w-[40%] h-6 opacity-30" variant={2} />
+        <Balloon color="#EF4444" className="top-6 left-[3%] animate-bounce [animation-delay:100ms]" size={26} />
+        <Balloon color="#14B8A6" className="bottom-4 right-[3%] animate-bounce [animation-delay:400ms]" size={22} />
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-8 flex items-center gap-3">
             <Calendar className="w-8 h-8 text-yellow-500" />
@@ -694,10 +708,15 @@ const VappuLevilla = () => {
         </div>
       </section>
 
-      <WavyDivider />
+      <WavyDivider variant={2} />
 
       {/* Final discount banner */}
-      <section className="container mx-auto px-4 pb-8">
+      <section className="relative container mx-auto px-4 pb-8 overflow-hidden">
+        <BalloonCluster className="top-0 left-[3%]" colors={["#FACC15", "#EF4444", "#22C55E"]} />
+        <BalloonCluster className="top-0 right-[3%]" colors={["#3B82F6", "#A855F7", "#F97316"]} />
+        <Serpentine className="top-0 left-0 w-full h-10 opacity-40" variant={0} />
+        <Serpentine className="bottom-0 left-0 w-full h-8 opacity-30" variant={1} />
+        <ConfettiDots className="top-4 left-[20%] w-[60%] h-16 opacity-50" />
         <div className="max-w-3xl mx-auto">
           <DiscountBanner variant="final" />
         </div>
