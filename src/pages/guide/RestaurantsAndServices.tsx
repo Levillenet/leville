@@ -258,6 +258,7 @@ const translations = {
   sv: restaurantsTranslationsSv,
   fr: restaurantsTranslationsFr,
   es: restaurantsTranslationsEs,
+  nl: restaurantsTranslationsNl,
 };
 
 const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) => {
