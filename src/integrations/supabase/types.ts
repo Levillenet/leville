@@ -1206,6 +1206,60 @@ export type Database = {
         }
         Relationships: []
       }
+      timed_notices: {
+        Row: {
+          content_de: string | null
+          content_en: string | null
+          content_es: string | null
+          content_fi: string | null
+          content_fr: string | null
+          content_nl: string | null
+          content_sv: string | null
+          created_at: string
+          expires_at: string
+          id: string
+          is_active: boolean
+          starts_at: string
+          style: string
+          target_pages: string[]
+          title: string
+        }
+        Insert: {
+          content_de?: string | null
+          content_en?: string | null
+          content_es?: string | null
+          content_fi?: string | null
+          content_fr?: string | null
+          content_nl?: string | null
+          content_sv?: string | null
+          created_at?: string
+          expires_at: string
+          id?: string
+          is_active?: boolean
+          starts_at?: string
+          style?: string
+          target_pages?: string[]
+          title: string
+        }
+        Update: {
+          content_de?: string | null
+          content_en?: string | null
+          content_es?: string | null
+          content_fi?: string | null
+          content_fr?: string | null
+          content_nl?: string | null
+          content_sv?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          is_active?: boolean
+          starts_at?: string
+          style?: string
+          target_pages?: string[]
+          title?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string | null
