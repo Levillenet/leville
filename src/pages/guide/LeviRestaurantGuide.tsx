@@ -9,6 +9,7 @@ import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema } from "@/utils/structuredData";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import OptimizedImage from "@/components/OptimizedImage";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
@@ -93,6 +94,12 @@ const translations: Record<"fi" | "en", {
   ctaButton: string;
   readNext: { title: string; links: { title: string; desc: string; href: string }[] };
   restaurants: RestaurantSection[];
+  priceGuide: {
+    title: string;
+    note: string;
+    headers: { category: string; price: string; details: string };
+    rows: { category: string; price: string; details: string }[];
+  };
 }> = {
   fi: {
     meta: {
@@ -121,6 +128,17 @@ const translations: Record<"fi" | "en", {
         { title: "Lapsiperheet Levillä", desc: "Perheystävälliset ravintolat", href: "/opas/lapsiperheet-levilla" },
         { title: "Après ski Levillä", desc: "Tunnelmaa rinteen jälkeen", href: "/opas/afterski-ja-yoelama-levilla" },
         { title: "Levin hinnat", desc: "Mitä maksaa Levillä?", href: "/opas/hinnat-levilla" },
+      ],
+    },
+    priceGuide: {
+      title: "Tyypilliset hinnat Levin ravintoloissa",
+      note: "Hinnat ovat suuntaa-antavia ja voivat vaihdella ravintolan mukaan.",
+      headers: { category: "Ateriatyyppi", price: "Hintataso", details: "Lisätiedot" },
+      rows: [
+        { category: "🥐 Aamupala", price: "10–20 €", details: "Buffet tai á la carte, sisältää kahvin" },
+        { category: "🍽️ Lounas", price: "~15 €", details: "Sis. alkusalaatti, leipä, juoma ja buffetpöytä" },
+        { category: "🍕 Pizza & burger", price: "15–25 €", details: "Casual-illallinen, take away mahdollinen" },
+        { category: "🥩 Fine dining", price: "25–60 €", details: "Menu, pihvi tai riista, á la carte" },
       ],
     },
     restaurants: [
@@ -300,6 +318,17 @@ const translations: Record<"fi" | "en", {
         { title: "Levi With Children", desc: "Family-friendly restaurants", href: "/guide/levi-with-children" },
         { title: "Après Ski in Levi", desc: "Atmosphere after the slopes", href: "/guide/apres-ski-and-nightlife-in-levi" },
         { title: "Prices in Levi", desc: "What does it cost in Levi?", href: "/guide/prices-in-levi" },
+      ],
+    },
+    priceGuide: {
+      title: "Typical restaurant prices in Levi",
+      note: "Prices are approximate and may vary by restaurant.",
+      headers: { category: "Meal type", price: "Price range", details: "Details" },
+      rows: [
+        { category: "🥐 Breakfast", price: "10–20 €", details: "Buffet or à la carte, includes coffee" },
+        { category: "🍽️ Lunch", price: "~15 €", details: "Incl. salad, bread, drink and buffet" },
+        { category: "🍕 Pizza & burger", price: "15–25 €", details: "Casual dinner, takeaway available" },
+        { category: "🥩 Fine dining", price: "25–60 €", details: "Set menu, steak or game, à la carte" },
       ],
     },
     restaurants: [
@@ -495,6 +524,32 @@ const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
           </header>
 
           <p className="mb-12 text-lg">{t.intro}</p>
+
+          {/* Price Guide Table */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold mb-4">💰 {t.priceGuide.title}</h2>
+            <div className="rounded-xl border bg-card overflow-hidden">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-muted/50">
+                    <TableHead className="font-semibold">{t.priceGuide.headers.category}</TableHead>
+                    <TableHead className="font-semibold text-right">{t.priceGuide.headers.price}</TableHead>
+                    <TableHead className="font-semibold hidden sm:table-cell">{t.priceGuide.headers.details}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {t.priceGuide.rows.map((row, i) => (
+                    <TableRow key={i}>
+                      <TableCell className="font-medium">{row.category}</TableCell>
+                      <TableCell className="text-right text-primary font-semibold whitespace-nowrap">{row.price}</TableCell>
+                      <TableCell className="text-muted-foreground text-sm hidden sm:table-cell">{row.details}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2 italic">{t.priceGuide.note}</p>
+          </section>
 
           {t.restaurants.map((restaurant, idx) => (
             <section key={idx} className="mb-16">

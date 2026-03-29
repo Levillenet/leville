@@ -44,6 +44,17 @@ export const restaurantsTranslationsDe = {
       ],
     },
   },
+  priceGuide: {
+    title: "Typische Restaurantpreise in Levi",
+    note: "Preise sind Richtwerte und können je nach Restaurant variieren.",
+    headers: { category: "Mahlzeit", price: "Preisniveau", details: "Details" },
+    rows: [
+      { category: "🥐 Frühstück", price: "10–20 €", details: "Buffet oder à la carte, inkl. Kaffee" },
+      { category: "🍽️ Mittagessen", price: "~15 €", details: "Inkl. Salat, Brot, Getränk und Buffet" },
+      { category: "🍕 Pizza & Burger", price: "15–25 €", details: "Casual Dinner, Take-away möglich" },
+      { category: "🥩 Fine Dining", price: "25–60 €", details: "Menü, Steak oder Wild, à la carte" },
+    ],
+  },
   linksTitle: "Empfohlene Restaurants und nützliche Links",
   breadcrumbs: [
     { label: "Startseite", href: "/de" },
@@ -108,6 +119,17 @@ export const restaurantsTranslationsSv = {
         "Barnvagnsuthyrning på vissa boenden",
       ],
     },
+  },
+  priceGuide: {
+    title: "Typiska restaurangpriser i Levi",
+    note: "Priserna är ungefärliga och kan variera beroende på restaurang.",
+    headers: { category: "Måltid", price: "Prisnivå", details: "Detaljer" },
+    rows: [
+      { category: "🥐 Frukost", price: "10–20 €", details: "Buffé eller à la carte, inkl. kaffe" },
+      { category: "🍽️ Lunch", price: "~15 €", details: "Inkl. sallad, bröd, dryck och buffé" },
+      { category: "🍕 Pizza & burgare", price: "15–25 €", details: "Casual middag, take-away möjlig" },
+      { category: "🥩 Fine dining", price: "25–60 €", details: "Meny, biff eller vilt, à la carte" },
+    ],
   },
   linksTitle: "Rekommenderade restauranger och nyttiga länkar",
   breadcrumbs: [
@@ -174,6 +196,17 @@ export const restaurantsTranslationsFr = {
       ],
     },
   },
+  priceGuide: {
+    title: "Prix typiques des restaurants à Levi",
+    note: "Les prix sont indicatifs et peuvent varier selon le restaurant.",
+    headers: { category: "Type de repas", price: "Niveau de prix", details: "Détails" },
+    rows: [
+      { category: "🥐 Petit-déjeuner", price: "10–20 €", details: "Buffet ou à la carte, café inclus" },
+      { category: "🍽️ Déjeuner", price: "~15 €", details: "Incl. salade, pain, boisson et buffet" },
+      { category: "🍕 Pizza & burger", price: "15–25 €", details: "Dîner décontracté, à emporter possible" },
+      { category: "🥩 Gastronomie", price: "25–60 €", details: "Menu, steak ou gibier, à la carte" },
+    ],
+  },
   linksTitle: "Restaurants recommandés et liens utiles",
   breadcrumbs: [
     { label: "Accueil", href: "/fr" },
@@ -239,6 +272,17 @@ export const restaurantsTranslationsEs = {
       ],
     },
   },
+  priceGuide: {
+    title: "Precios típicos de restaurantes en Levi",
+    note: "Los precios son orientativos y pueden variar según el restaurante.",
+    headers: { category: "Tipo de comida", price: "Nivel de precio", details: "Detalles" },
+    rows: [
+      { category: "🥐 Desayuno", price: "10–20 €", details: "Buffet o a la carta, incluye café" },
+      { category: "🍽️ Almuerzo", price: "~15 €", details: "Incl. ensalada, pan, bebida y buffet" },
+      { category: "🍕 Pizza y burger", price: "15–25 €", details: "Cena casual, para llevar disponible" },
+      { category: "🥩 Alta cocina", price: "25–60 €", details: "Menú, filete o caza, a la carta" },
+    ],
+  },
   linksTitle: "Restaurantes recomendados y enlaces útiles",
   breadcrumbs: [
     { label: "Inicio", href: "/es" },
@@ -254,6 +298,82 @@ export const restaurantsTranslationsEs = {
       { title: "Moverse en Levi", desc: "Cómo llegar a los restaurantes", href: "/es/guia/transporte-levi" },
       { title: "Levi con niños", desc: "Restaurantes familiares", href: "/es/guia/levi-con-ninos" },
       { title: "Sauna en Levi", desc: "Relájate después de cenar", href: "/es/guia/sauna-levi" },
+    ],
+  },
+};
+
+export const restaurantsTranslationsNl = {
+  meta: {
+    title: `Restaurants in Levi ${new Date().getFullYear()} — Aanbevelingen & openingstijden`,
+    description: "Beste pizza, Lapse specialiteiten en fine dining in Levi. Lokale restauranttips, prijsniveaus en openingstijden.",
+    canonical: "https://leville.net/nl/gids/restaurants-en-diensten-levi",
+  },
+  title: "Restaurants en diensten in Levi",
+  subtitle: "Eten, winkels, verhuur en praktische diensten",
+  intro: "Het centrum van Levi biedt alle belangrijke diensten. Restaurants voor elke smaak, goed gesorteerde supermarkten, sportuitrusting verhuur en gezondheidsdiensten. Deze gids vat de belangrijkste tips samen.",
+  sections: {
+    restaurants: {
+      title: "Restaurants in Levi",
+      intro: "Levi biedt een breed restaurantaanbod. Van fine dining tot traditionele Lapse keuken en snelle maaltijden bij de pistes.",
+      categories: [
+        { name: "Fine dining en belevingsrestaurants", places: ["Kammi", "Aurora Sky Restaurant", "King Crab House"], note: "Reserveer vooraf, vooral in weekenden en het hoogseizoen." },
+        { name: "Traditionele Lapse restaurants", places: ["Kotaravintola Kammi", "Pihvipirtti", "Myllyn Äijä"], note: "Probeer rendier, wild en lokale specialiteiten." },
+        { name: "Familievriendelijke restaurants", places: ["Kotipizza", "Pizza Kebab Levi", "Colorado"], note: "Kindermenu's en makkelijke toegang voor gezinnen." },
+        { name: "Fastfood en afhaal", places: ["Levin Grilli", "Pizza Factory Levi", "Burger King"], note: "Snelle optie tijdens de skidag." },
+        { name: "Après ski en bars", places: ["Hullu Poro Arena", "Tuikku", "Levin Panimo", "Vinkkari"], note: "Sfeer en livemuziek na het skiën." },
+      ],
+    },
+    groceries: {
+      title: "Supermarkten",
+      stores: [
+        { name: "K Market Levi", location: "Levintie, centrum", hours: "Ma–za 8–21, zo 10–21 in het seizoen" },
+        { name: "S Market Levi", location: "Levi Star-gebied", hours: "Ma–za 8–21, zo 10–21" },
+      ],
+    },
+    rental: {
+      title: "Sportuitrusting verhuur",
+      shops: ["Skigebied verhuur Zero Point en South Point", "Intersport Levi", "Elan Shop Levi"],
+    },
+    health: {
+      title: "Gezondheid en apotheek",
+      items: ["Levi apotheek in het centrum", "Kittilä gezondheidscentrum ca. 20 km", "Ski Patrol voor ongelukken op de piste"],
+    },
+    family: {
+      title: "Familiediensten",
+      items: [
+        "Kinderopvang apart beschikbaar",
+        "Kindermenu's in veel restaurants",
+        "Babyartikelen in de supermarkten",
+        "Kinderwagenverhuur bij sommige accommodaties",
+      ],
+    },
+  },
+  priceGuide: {
+    title: "Typische restaurantprijzen in Levi",
+    note: "Prijzen zijn indicatief en kunnen per restaurant variëren.",
+    headers: { category: "Maaltijdtype", price: "Prijsniveau", details: "Details" },
+    rows: [
+      { category: "🥐 Ontbijt", price: "10–20 €", details: "Buffet of à la carte, incl. koffie" },
+      { category: "🍽️ Lunch", price: "~15 €", details: "Incl. salade, brood, drankje en buffet" },
+      { category: "🍕 Pizza & burger", price: "15–25 €", details: "Casual diner, afhaal mogelijk" },
+      { category: "🥩 Fine dining", price: "25–60 €", details: "Menu, biefstuk of wild, à la carte" },
+    ],
+  },
+  linksTitle: "Aanbevolen restaurants en nuttige links",
+  breadcrumbs: [
+    { label: "Home", href: "/nl" },
+    { label: "Reisgids", href: "/nl/levi" },
+    { label: "Restaurants en diensten", href: "/nl/gids/restaurants-en-diensten-levi" },
+  ],
+  travelHubLink: "/nl/levi",
+  travelHubText: "Terug naar de reisgids",
+  accommodationsHref: "/nl/accommodaties",
+  readNext: {
+    title: "Lees ook",
+    links: [
+      { title: "Vervoer in Levi", desc: "Hoe bereik je de restaurants", href: "/nl/gids/vervoer-levi" },
+      { title: "Levi met kinderen", desc: "Familievriendelijke restaurants", href: "/nl/gids/levi-met-kinderen" },
+      { title: "Sauna in Levi", desc: "Ontspannen na het eten", href: "/nl/gids/sauna-levi" },
     ],
   },
 };
