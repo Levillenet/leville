@@ -130,6 +130,17 @@ const translations: Record<"fi" | "en", {
         { title: "Levin hinnat", desc: "Mitä maksaa Levillä?", href: "/opas/hinnat-levilla" },
       ],
     },
+    priceGuide: {
+      title: "Tyypilliset hinnat Levin ravintoloissa",
+      note: "Hinnat ovat suuntaa-antavia ja voivat vaihdella ravintolan mukaan.",
+      headers: { category: "Ateriatyyppi", price: "Hintataso", details: "Lisätiedot" },
+      rows: [
+        { category: "🥐 Aamupala", price: "10–20 €", details: "Buffet tai á la carte, sisältää kahvin" },
+        { category: "🍽️ Lounas", price: "~15 €", details: "Sis. alkusalaatti, leipä, juoma ja buffetpöytä" },
+        { category: "🍕 Pizza & burger", price: "15–25 €", details: "Casual-illallinen, take away mahdollinen" },
+        { category: "🥩 Fine dining", price: "25–60 €", details: "Menu, pihvi tai riista, á la carte" },
+      ],
+    },
     restaurants: [
       {
         emoji: "🍜",
@@ -307,6 +318,17 @@ const translations: Record<"fi" | "en", {
         { title: "Levi With Children", desc: "Family-friendly restaurants", href: "/guide/levi-with-children" },
         { title: "Après Ski in Levi", desc: "Atmosphere after the slopes", href: "/guide/apres-ski-and-nightlife-in-levi" },
         { title: "Prices in Levi", desc: "What does it cost in Levi?", href: "/guide/prices-in-levi" },
+      ],
+    },
+    priceGuide: {
+      title: "Typical restaurant prices in Levi",
+      note: "Prices are approximate and may vary by restaurant.",
+      headers: { category: "Meal type", price: "Price range", details: "Details" },
+      rows: [
+        { category: "🥐 Breakfast", price: "10–20 €", details: "Buffet or à la carte, includes coffee" },
+        { category: "🍽️ Lunch", price: "~15 €", details: "Incl. salad, bread, drink and buffet" },
+        { category: "🍕 Pizza & burger", price: "15–25 €", details: "Casual dinner, takeaway available" },
+        { category: "🥩 Fine dining", price: "25–60 €", details: "Set menu, steak or game, à la carte" },
       ],
     },
     restaurants: [
