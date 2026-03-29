@@ -13,6 +13,7 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UtensilsCrossed } from "lucide-react";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import OptimizedImage from "@/components/OptimizedImage";
 import groceryFishCounter from "@/assets/seasons/grocery-fish-counter.jpg";
 import reindeerDinnerSpread from "@/assets/seasons/reindeer-dinner-spread.jpg";
@@ -115,6 +116,17 @@ const translations = {
         ],
       },
     },
+    priceGuide: {
+      title: "Tyypilliset hinnat Levin ravintoloissa",
+      note: "Hinnat ovat suuntaa-antavia ja voivat vaihdella ravintolan mukaan.",
+      headers: { category: "Ateriatyyppi", price: "Hintataso", details: "Lisätiedot" },
+      rows: [
+        { category: "🥐 Aamupala", price: "10–20 €", details: "Buffet tai á la carte, sisältää kahvin" },
+        { category: "🍽️ Lounas", price: "~15 €", details: "Sis. alkusalaatti, leipä, juoma ja buffetpöytä" },
+        { category: "🍕 Pizza & burger", price: "15–25 €", details: "Casual-illallinen, take away mahdollinen" },
+        { category: "🥩 Fine dining", price: "25–60 €", details: "Menu, pihvi tai riista, á la carte" },
+      ],
+    },
     linksTitle: "Suositellut ravintolat ja hyödylliset linkit",
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
@@ -211,6 +223,17 @@ const translations = {
           "Stroller rental in some accommodations",
         ],
       },
+    },
+    priceGuide: {
+      title: "Typical restaurant prices in Levi",
+      note: "Prices are approximate and may vary by restaurant.",
+      headers: { category: "Meal type", price: "Price range", details: "Details" },
+      rows: [
+        { category: "🥐 Breakfast", price: "10–20 €", details: "Buffet or à la carte, includes coffee" },
+        { category: "🍽️ Lunch", price: "~15 €", details: "Incl. salad, bread, drink and buffet" },
+        { category: "🍕 Pizza & burger", price: "15–25 €", details: "Casual dinner, takeaway available" },
+        { category: "🥩 Fine dining", price: "25–60 €", details: "Set menu, steak or game, à la carte" },
+      ],
     },
     linksTitle: "Recommended Restaurants and Useful Links",
     breadcrumbs: [
