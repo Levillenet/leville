@@ -525,6 +525,32 @@ const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
 
           <p className="mb-12 text-lg">{t.intro}</p>
 
+          {/* Price Guide Table */}
+          <section className="mb-12">
+            <h2 className="text-2xl font-bold mb-4">💰 {t.priceGuide.title}</h2>
+            <div className="rounded-xl border bg-card overflow-hidden">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-muted/50">
+                    <TableHead className="font-semibold">{t.priceGuide.headers.category}</TableHead>
+                    <TableHead className="font-semibold text-right">{t.priceGuide.headers.price}</TableHead>
+                    <TableHead className="font-semibold hidden sm:table-cell">{t.priceGuide.headers.details}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {t.priceGuide.rows.map((row, i) => (
+                    <TableRow key={i}>
+                      <TableCell className="font-medium">{row.category}</TableCell>
+                      <TableCell className="text-right text-primary font-semibold whitespace-nowrap">{row.price}</TableCell>
+                      <TableCell className="text-muted-foreground text-sm hidden sm:table-cell">{row.details}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2 italic">{t.priceGuide.note}</p>
+          </section>
+
           {t.restaurants.map((restaurant, idx) => (
             <section key={idx} className="mb-16">
               <h2 className="text-2xl font-bold mb-1">
