@@ -18,94 +18,145 @@ import { useState } from "react";
 
 /* ─── Decorative SVG components ─── */
 
-const Serpentine = ({ className = "" }: { className?: string }) => (
-  <svg
-    className={`absolute pointer-events-none select-none ${className}`}
-    viewBox="0 0 200 60"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    preserveAspectRatio="none"
-  >
-    <path
-      d="M0 30 Q25 5 50 30 T100 30 T150 30 T200 30"
-      stroke="#FACC15"
-      strokeWidth="3"
-      strokeLinecap="round"
-      opacity="0.5"
-    />
-    <path
-      d="M0 40 Q25 15 50 40 T100 40 T150 40 T200 40"
-      stroke="#3B82F6"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      opacity="0.4"
-    />
-    <path
-      d="M0 20 Q25 -5 50 20 T100 20 T150 20 T200 20"
-      stroke="#EF4444"
-      strokeWidth="2"
-      strokeLinecap="round"
-      opacity="0.35"
-    />
-    <path
-      d="M0 50 Q25 25 50 50 T100 50 T150 50 T200 50"
-      stroke="#22C55E"
-      strokeWidth="2"
-      strokeLinecap="round"
-      opacity="0.35"
-    />
-  </svg>
-);
+const serpentineColors = [
+  { stroke: "#FACC15", width: 3, opacity: 0.55 },
+  { stroke: "#3B82F6", width: 2.5, opacity: 0.45 },
+  { stroke: "#EF4444", width: 2.2, opacity: 0.4 },
+  { stroke: "#22C55E", width: 2, opacity: 0.4 },
+  { stroke: "#A855F7", width: 2, opacity: 0.35 },
+  { stroke: "#F97316", width: 1.8, opacity: 0.35 },
+];
+
+const Serpentine = ({ className = "", variant = 0 }: { className?: string; variant?: number }) => {
+  const offsets = [10, 20, 30, 40, 50, 55];
+  return (
+    <svg
+      className={`absolute pointer-events-none select-none ${className}`}
+      viewBox="0 0 300 65"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="none"
+    >
+      {serpentineColors.slice(variant, variant + 4).map((c, i) => {
+        const y = offsets[i + variant] ?? 30;
+        return (
+          <path
+            key={i}
+            d={`M0 ${y} Q37 ${y - 20} 75 ${y} T150 ${y} T225 ${y} T300 ${y}`}
+            stroke={c.stroke}
+            strokeWidth={c.width}
+            strokeLinecap="round"
+            fill="none"
+            opacity={c.opacity}
+          />
+        );
+      })}
+    </svg>
+  );
+};
+
+const balloonColors = ["#FACC15", "#3B82F6", "#EF4444", "#22C55E", "#A855F7", "#F97316", "#EC4899", "#14B8A6"];
 
 const Balloon = ({
   color,
   className = "",
+  size = 36,
 }: {
   color: string;
   className?: string;
-}) => (
-  <svg
-    className={`absolute pointer-events-none select-none ${className}`}
-    width="36"
-    height="52"
-    viewBox="0 0 36 52"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <ellipse cx="18" cy="18" rx="16" ry="18" fill={color} opacity="0.7" />
-    <ellipse cx="18" cy="18" rx="16" ry="18" fill="white" opacity="0.18" />
-    <path d="M18 36 L16 38 L20 38 Z" fill={color} opacity="0.7" />
-    <path
-      d="M18 38 Q16 42 19 46 Q17 48 18 52"
-      stroke={color}
-      strokeWidth="1"
-      opacity="0.5"
-    />
+  size?: number;
+}) => {
+  const h = Math.round(size * 1.44);
+  const rx = Math.round(size * 0.44);
+  const ry = Math.round(size * 0.5);
+  const cx = Math.round(size / 2);
+  return (
+    <svg
+      className={`absolute pointer-events-none select-none ${className}`}
+      width={size}
+      height={h}
+      viewBox={`0 0 ${size} ${h}`}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <ellipse cx={cx} cy={ry} rx={rx} ry={ry} fill={color} opacity="0.75" />
+      <ellipse cx={cx} cy={ry} rx={rx} ry={ry} fill="white" opacity="0.2" />
+      <ellipse cx={cx - 4} cy={ry - 5} rx={Math.round(rx * 0.3)} ry={Math.round(ry * 0.25)} fill="white" opacity="0.3" />
+      <path d={`M${cx} ${ry * 2} L${cx - 2} ${ry * 2 + 3} L${cx + 2} ${ry * 2 + 3} Z`} fill={color} opacity="0.7" />
+      <path
+        d={`M${cx} ${ry * 2 + 3} Q${cx - 3} ${ry * 2 + 10} ${cx + 1} ${ry * 2 + 16} Q${cx - 1} ${ry * 2 + 20} ${cx} ${h}`}
+        stroke={color}
+        strokeWidth="1"
+        opacity="0.5"
+        fill="none"
+      />
+    </svg>
+  );
+};
+
+/** Cluster of 3 balloons */
+const BalloonCluster = ({ className = "", colors }: { className?: string; colors: string[] }) => (
+  <div className={`absolute pointer-events-none select-none ${className}`}>
+    <Balloon color={colors[0]} className="relative -left-3 -top-2" size={32} />
+    <Balloon color={colors[1]} className="relative left-4 -top-14" size={28} />
+    <Balloon color={colors[2]} className="relative left-0 -top-20" size={24} />
+  </div>
+);
+
+/** Confetti dots scattered */
+const ConfettiDots = ({ className = "" }: { className?: string }) => (
+  <svg className={`absolute pointer-events-none select-none ${className}`} viewBox="0 0 200 100" fill="none">
+    {[
+      { cx: 15, cy: 20, r: 3, fill: "#FACC15" },
+      { cx: 45, cy: 12, r: 2.5, fill: "#EF4444" },
+      { cx: 80, cy: 35, r: 3.5, fill: "#3B82F6" },
+      { cx: 120, cy: 15, r: 2, fill: "#22C55E" },
+      { cx: 150, cy: 40, r: 3, fill: "#A855F7" },
+      { cx: 170, cy: 10, r: 2.5, fill: "#F97316" },
+      { cx: 30, cy: 55, r: 2, fill: "#EC4899" },
+      { cx: 65, cy: 70, r: 3, fill: "#FACC15" },
+      { cx: 100, cy: 60, r: 2.5, fill: "#EF4444" },
+      { cx: 140, cy: 75, r: 2, fill: "#3B82F6" },
+      { cx: 185, cy: 55, r: 3, fill: "#22C55E" },
+      { cx: 10, cy: 85, r: 2, fill: "#F97316" },
+      { cx: 55, cy: 90, r: 3, fill: "#A855F7" },
+      { cx: 110, cy: 88, r: 2.5, fill: "#EC4899" },
+      { cx: 175, cy: 85, r: 2, fill: "#FACC15" },
+    ].map((d, i) => (
+      <circle key={i} cx={d.cx} cy={d.cy} r={d.r} fill={d.fill} opacity={0.5 + Math.random() * 0.3} />
+    ))}
+    {/* Small rectangle confetti */}
+    {[
+      { x: 25, y: 30, fill: "#FACC15", rotate: 25 },
+      { x: 90, y: 18, fill: "#EF4444", rotate: -15 },
+      { x: 135, y: 50, fill: "#22C55E", rotate: 40 },
+      { x: 60, y: 80, fill: "#3B82F6", rotate: -30 },
+      { x: 160, y: 65, fill: "#A855F7", rotate: 55 },
+    ].map((d, i) => (
+      <rect key={`r${i}`} x={d.x} y={d.y} width="6" height="3" rx="1" fill={d.fill} opacity="0.45"
+        transform={`rotate(${d.rotate} ${d.x + 3} ${d.y + 1.5})`} />
+    ))}
   </svg>
 );
 
-const WavyDivider = () => (
-  <div className="w-full overflow-hidden my-8 md:my-12">
+const WavyDivider = ({ variant = 0 }: { variant?: number }) => (
+  <div className="w-full overflow-hidden my-6 md:my-10 relative">
     <svg
-      className="w-full h-6"
-      viewBox="0 0 1200 24"
+      className="w-full h-8"
+      viewBox="0 0 1200 32"
       preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M0 12 Q75 0 150 12 T300 12 T450 12 T600 12 T750 12 T900 12 T1050 12 T1200 12"
-        stroke="#FACC15"
-        strokeWidth="2"
-        fill="none"
-        opacity="0.4"
-      />
-      <path
-        d="M0 18 Q75 6 150 18 T300 18 T450 18 T600 18 T750 18 T900 18 T1050 18 T1200 18"
-        stroke="#3B82F6"
-        strokeWidth="1.5"
-        fill="none"
-        opacity="0.3"
-      />
+      {serpentineColors.slice(variant % 3, variant % 3 + 3).map((c, i) => (
+        <path
+          key={i}
+          d={`M0 ${8 + i * 8} Q75 ${i * 4} 150 ${8 + i * 8} T300 ${8 + i * 8} T450 ${8 + i * 8} T600 ${8 + i * 8} T750 ${8 + i * 8} T900 ${8 + i * 8} T1050 ${8 + i * 8} T1200 ${8 + i * 8}`}
+          stroke={c.stroke}
+          strokeWidth={c.width * 0.7}
+          fill="none"
+          opacity={c.opacity * 0.8}
+        />
+      ))}
     </svg>
   </div>
 );
@@ -337,19 +388,37 @@ const VappuLevilla = () => {
       {/* ═══ HERO ═══ */}
       <section className="relative overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24">
         {/* Festive sky gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-sky-300/30 via-amber-100/20 to-transparent -z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-sky-300/40 via-amber-200/25 to-orange-100/10 -z-10" />
 
-        {/* Decorative serpentines */}
-        <Serpentine className="top-4 left-0 w-[60%] h-10 rotate-[-2deg]" />
-        <Serpentine className="top-12 right-0 w-[50%] h-8 rotate-[3deg]" />
-        <Serpentine className="bottom-8 left-[10%] w-[70%] h-8 rotate-[-1deg]" />
+        {/* LOTS of serpentines! */}
+        <Serpentine className="top-2 left-0 w-[70%] h-12 rotate-[-2deg]" variant={0} />
+        <Serpentine className="top-8 right-0 w-[65%] h-10 rotate-[3deg]" variant={1} />
+        <Serpentine className="top-20 left-[5%] w-[80%] h-10 rotate-[-1deg]" variant={2} />
+        <Serpentine className="top-32 right-[5%] w-[60%] h-8 rotate-[2deg]" variant={0} />
+        <Serpentine className="bottom-16 left-0 w-[75%] h-10 rotate-[-3deg]" variant={1} />
+        <Serpentine className="bottom-4 right-0 w-[55%] h-8 rotate-[1deg]" variant={2} />
+        <Serpentine className="top-[45%] left-[10%] w-[50%] h-8 rotate-[-2deg] opacity-50" variant={0} />
 
-        {/* Balloons */}
-        <Balloon color="#FACC15" className="top-16 left-[8%] w-8 h-12 md:w-10 md:h-14 animate-bounce" />
-        <Balloon color="#3B82F6" className="top-24 left-[15%] w-6 h-10 md:w-8 md:h-12 animate-bounce [animation-delay:200ms]" />
-        <Balloon color="#EF4444" className="top-20 right-[10%] w-9 h-13 md:w-11 md:h-16 animate-bounce [animation-delay:400ms]" />
-        <Balloon color="#22C55E" className="top-28 right-[18%] w-7 h-11 md:w-9 md:h-13 animate-bounce [animation-delay:600ms]" />
-        <Balloon color="#A855F7" className="top-12 right-[30%] w-6 h-10 md:w-8 md:h-12 animate-bounce [animation-delay:300ms]" />
+        {/* Confetti */}
+        <ConfettiDots className="top-4 left-0 w-[40%] h-20 opacity-70" />
+        <ConfettiDots className="top-10 right-0 w-[35%] h-16 opacity-60" />
+        <ConfettiDots className="bottom-10 left-[20%] w-[50%] h-20 opacity-50" />
+
+        {/* Balloon clusters */}
+        <BalloonCluster className="top-16 left-[3%] md:left-[6%]" colors={["#FACC15", "#EF4444", "#3B82F6"]} />
+        <BalloonCluster className="top-12 right-[3%] md:right-[8%]" colors={["#22C55E", "#A855F7", "#F97316"]} />
+        <BalloonCluster className="top-28 left-[20%] md:left-[18%]" colors={["#EC4899", "#FACC15", "#14B8A6"]} />
+        <BalloonCluster className="top-24 right-[22%] md:right-[20%]" colors={["#3B82F6", "#EF4444", "#22C55E"]} />
+
+        {/* Individual floating balloons */}
+        <Balloon color="#FACC15" className="top-40 left-[12%] animate-bounce [animation-delay:0ms]" size={40} />
+        <Balloon color="#3B82F6" className="top-48 left-[28%] animate-bounce [animation-delay:300ms]" size={30} />
+        <Balloon color="#EF4444" className="top-36 right-[15%] animate-bounce [animation-delay:150ms]" size={38} />
+        <Balloon color="#22C55E" className="top-52 right-[28%] animate-bounce [animation-delay:450ms]" size={26} />
+        <Balloon color="#A855F7" className="bottom-20 left-[8%] animate-bounce [animation-delay:600ms]" size={34} />
+        <Balloon color="#F97316" className="bottom-28 right-[10%] animate-bounce [animation-delay:200ms]" size={30} />
+        <Balloon color="#EC4899" className="top-20 left-[42%] animate-bounce [animation-delay:500ms]" size={24} />
+        <Balloon color="#14B8A6" className="bottom-12 left-[45%] animate-bounce [animation-delay:350ms]" size={28} />
 
         <div className="container mx-auto px-4 relative z-10">
           <Breadcrumbs items={breadcrumbItems} />
@@ -382,7 +451,7 @@ const VappuLevilla = () => {
         </div>
       </section>
 
-      <WavyDivider />
+      <WavyDivider variant={0} />
 
       {/* ═══ EVENTS ═══ */}
       <section className="container mx-auto px-4 pb-8">
