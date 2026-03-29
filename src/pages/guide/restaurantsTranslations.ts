@@ -301,3 +301,79 @@ export const restaurantsTranslationsEs = {
     ],
   },
 };
+
+export const restaurantsTranslationsNl = {
+  meta: {
+    title: `Restaurants in Levi ${new Date().getFullYear()} — Aanbevelingen & openingstijden`,
+    description: "Beste pizza, Lapse specialiteiten en fine dining in Levi. Lokale restauranttips, prijsniveaus en openingstijden.",
+    canonical: "https://leville.net/nl/gids/restaurants-en-diensten-levi",
+  },
+  title: "Restaurants en diensten in Levi",
+  subtitle: "Eten, winkels, verhuur en praktische diensten",
+  intro: "Het centrum van Levi biedt alle belangrijke diensten. Restaurants voor elke smaak, goed gesorteerde supermarkten, sportuitrusting verhuur en gezondheidsdiensten. Deze gids vat de belangrijkste tips samen.",
+  sections: {
+    restaurants: {
+      title: "Restaurants in Levi",
+      intro: "Levi biedt een breed restaurantaanbod. Van fine dining tot traditionele Lapse keuken en snelle maaltijden bij de pistes.",
+      categories: [
+        { name: "Fine dining en belevingsrestaurants", places: ["Kammi", "Aurora Sky Restaurant", "King Crab House"], note: "Reserveer vooraf, vooral in weekenden en het hoogseizoen." },
+        { name: "Traditionele Lapse restaurants", places: ["Kotaravintola Kammi", "Pihvipirtti", "Myllyn Äijä"], note: "Probeer rendier, wild en lokale specialiteiten." },
+        { name: "Familievriendelijke restaurants", places: ["Kotipizza", "Pizza Kebab Levi", "Colorado"], note: "Kindermenu's en makkelijke toegang voor gezinnen." },
+        { name: "Fastfood en afhaal", places: ["Levin Grilli", "Pizza Factory Levi", "Burger King"], note: "Snelle optie tijdens de skidag." },
+        { name: "Après ski en bars", places: ["Hullu Poro Arena", "Tuikku", "Levin Panimo", "Vinkkari"], note: "Sfeer en livemuziek na het skiën." },
+      ],
+    },
+    groceries: {
+      title: "Supermarkten",
+      stores: [
+        { name: "K Market Levi", location: "Levintie, centrum", hours: "Ma–za 8–21, zo 10–21 in het seizoen" },
+        { name: "S Market Levi", location: "Levi Star-gebied", hours: "Ma–za 8–21, zo 10–21" },
+      ],
+    },
+    rental: {
+      title: "Sportuitrusting verhuur",
+      shops: ["Skigebied verhuur Zero Point en South Point", "Intersport Levi", "Elan Shop Levi"],
+    },
+    health: {
+      title: "Gezondheid en apotheek",
+      items: ["Levi apotheek in het centrum", "Kittilä gezondheidscentrum ca. 20 km", "Ski Patrol voor ongelukken op de piste"],
+    },
+    family: {
+      title: "Familiediensten",
+      items: [
+        "Kinderopvang apart beschikbaar",
+        "Kindermenu's in veel restaurants",
+        "Babyartikelen in de supermarkten",
+        "Kinderwagenverhuur bij sommige accommodaties",
+      ],
+    },
+  },
+  priceGuide: {
+    title: "Typische restaurantprijzen in Levi",
+    note: "Prijzen zijn indicatief en kunnen per restaurant variëren.",
+    headers: { category: "Maaltijdtype", price: "Prijsniveau", details: "Details" },
+    rows: [
+      { category: "🥐 Ontbijt", price: "10–20 €", details: "Buffet of à la carte, incl. koffie" },
+      { category: "🍽️ Lunch", price: "~15 €", details: "Incl. salade, brood, drankje en buffet" },
+      { category: "🍕 Pizza & burger", price: "15–25 €", details: "Casual diner, afhaal mogelijk" },
+      { category: "🥩 Fine dining", price: "25–60 €", details: "Menu, biefstuk of wild, à la carte" },
+    ],
+  },
+  linksTitle: "Aanbevolen restaurants en nuttige links",
+  breadcrumbs: [
+    { label: "Home", href: "/nl" },
+    { label: "Reisgids", href: "/nl/levi" },
+    { label: "Restaurants en diensten", href: "/nl/gids/restaurants-en-diensten-levi" },
+  ],
+  travelHubLink: "/nl/levi",
+  travelHubText: "Terug naar de reisgids",
+  accommodationsHref: "/nl/accommodaties",
+  readNext: {
+    title: "Lees ook",
+    links: [
+      { title: "Vervoer in Levi", desc: "Hoe bereik je de restaurants", href: "/nl/gids/vervoer-levi" },
+      { title: "Levi met kinderen", desc: "Familievriendelijke restaurants", href: "/nl/gids/levi-met-kinderen" },
+      { title: "Sauna in Levi", desc: "Ontspannen na het eten", href: "/nl/gids/sauna-levi" },
+    ],
+  },
+};
