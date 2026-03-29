@@ -9,6 +9,7 @@ import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema } from "@/utils/structuredData";
 import WhatsAppChat from "@/components/WhatsAppChat";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import OptimizedImage from "@/components/OptimizedImage";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
@@ -93,6 +94,12 @@ const translations: Record<"fi" | "en", {
   ctaButton: string;
   readNext: { title: string; links: { title: string; desc: string; href: string }[] };
   restaurants: RestaurantSection[];
+  priceGuide: {
+    title: string;
+    note: string;
+    headers: { category: string; price: string; details: string };
+    rows: { category: string; price: string; details: string }[];
+  };
 }> = {
   fi: {
     meta: {
