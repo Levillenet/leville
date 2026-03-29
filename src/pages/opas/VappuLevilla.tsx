@@ -55,7 +55,7 @@ const Serpentine = ({ className = "", variant = 0 }: { className?: string; varia
   );
 };
 
-const balloonColors = ["#FACC15", "#3B82F6", "#EF4444", "#22C55E", "#A855F7", "#F97316", "#EC4899", "#14B8A6"];
+const _balloonColors = ["#FACC15", "#3B82F6", "#EF4444", "#22C55E", "#A855F7", "#F97316", "#EC4899", "#14B8A6"];
 
 const Balloon = ({
   color,
