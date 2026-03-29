@@ -20,7 +20,7 @@ import reindeerDinnerSpread from "@/assets/seasons/reindeer-dinner-spread.jpg";
 import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
-import { restaurantsTranslationsDe, restaurantsTranslationsSv, restaurantsTranslationsFr, restaurantsTranslationsEs } from "./restaurantsTranslations";
+import { restaurantsTranslationsDe, restaurantsTranslationsSv, restaurantsTranslationsFr, restaurantsTranslationsEs, restaurantsTranslationsNl } from "./restaurantsTranslations";
 
 interface RestaurantsAndServicesProps {
   lang?: Language;
