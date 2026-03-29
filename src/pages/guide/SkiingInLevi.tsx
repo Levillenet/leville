@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mountain, MapPin, Clock, Euro, Users, ArrowRight, Snowflake, Star, Cable } from "lucide-react";
 import OptimizedImage from "@/components/OptimizedImage";
+import TimedNotice from "@/components/TimedNotice";
 import sunsetSlopesTykky from "@/assets/seasons/sunset-slopes-tykky.jpg";
 import frontSlopesSpring from "@/assets/seasons/front-slopes-spring.jpg";
 import springSlopesWind from "@/assets/seasons/spring-slopes-wind.jpg";
@@ -377,6 +378,7 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
         
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4 max-w-4xl">
+            <TimedNotice pageId="skiingInLevi" lang={lang} />
             {/* Hero */}
             <section className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">

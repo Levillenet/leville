@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare, BookOpen, Bot, TrendingUp } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare, BookOpen, Bot, TrendingUp, Bell } from "lucide-react";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
@@ -22,6 +22,7 @@ import GuideAdmin from "@/components/admin/GuideAdmin";
 import SeoPageAdmin from "@/components/admin/SeoPageAdmin";
 import ChatbotStatsAdmin from "@/components/admin/ChatbotStatsAdmin";
 import PageViewsAdmin from "@/components/admin/PageViewsAdmin";
+import TimedNoticesAdmin from "@/components/admin/TimedNoticesAdmin";
 import {
   BarChart,
   Bar,
@@ -360,6 +361,10 @@ const Admin = () => {
               <TrendingUp className="w-4 h-4" />
               Analytiikka
             </TabsTrigger>
+            <TabsTrigger value="timed-notices" className="flex items-center gap-2">
+              <Bell className="w-4 h-4" />
+              Ilmoitukset
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="maintenance">
@@ -427,6 +432,10 @@ const Admin = () => {
 
           <TabsContent value="page-views">
             <PageViewsAdmin isViewer={isViewer} />
+          </TabsContent>
+
+          <TabsContent value="timed-notices">
+            <TimedNoticesAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="stats">
