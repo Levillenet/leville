@@ -325,7 +325,7 @@ const LeviSnowReport = ({ lang = "fi" }: LeviSnowReportProps) => {
                 <ExternalLink className="w-4 h-4 text-muted-foreground ml-auto shrink-0" />
               </a>
               <a
-                href="https://www.levi.fi/rinteet-ja-ladut/"
+                href="https://www.levi.fi/laskettelu-ja-hiihto/rinteet-ja-hissit/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 p-4 rounded-lg border border-border bg-card hover:bg-accent/50 transition-colors"
