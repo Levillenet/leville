@@ -14,7 +14,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign, CalendarDays, Send, AlertCircle, FileText, Tag, History, BarChart3, Settings } from "lucide-react";
+import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign, CalendarDays, Send, AlertCircle, FileText, Tag, History, BarChart3, Settings, Bell } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
@@ -401,6 +401,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showPropertyReportDialog, setShowPropertyReportDialog] = useState(false);
+  const [pendingReminderDate, setPendingReminderDate] = useState<string>("");
   const [exportFilters, setExportFilters] = useState({
     companyId: "all",
     apartmentIds: [] as string[],
@@ -567,7 +568,15 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
       const result = await callApi("create_ticket", { ticket: ticketData });
       
-      if (result?.emailResult) {
+      // Send pending reminder if a date was selected during creation
+      if (pendingReminderDate && result?.id) {
+        try {
+          await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate });
+          toast({ title: "Tiketti luotu", description: `Muistutus ajastettu päivälle ${new Date(pendingReminderDate).toLocaleDateString("fi-FI")}` });
+        } catch {
+          toast({ title: "Tiketti luotu", description: "⚠️ Muistutuksen lähetys epäonnistui", variant: "destructive" });
+        }
+      } else if (result?.emailResult) {
         if (result.emailResult.sent) {
           toast({ title: "Tiketti luotu", description: `Sähköposti lähetetty: ${result.emailResult.email}` });
         } else if (result.emailResult.error === "no_email_found") {
@@ -583,6 +592,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "" });
       setEmailPreview(null);
       setCreateFormAvailability(null);
+      setPendingReminderDate("");
       fetchTickets();
     } catch (e: any) {
       toast({ title: "Virhe", description: e.message, variant: "destructive" });
@@ -1855,6 +1865,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 if (!open) {
                   setEmailPreview(null);
                   setCreateFormAvailability(null);
+                  setPendingReminderDate("");
                   setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "" });
                 }
               }}>
@@ -1925,9 +1936,21 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                           <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="w-4 h-4 animate-spin" />Haetaan saatavuustietoja...</div>
                         ) : createFormAvailability ? (
                           <div className="space-y-2">
-                            <ImprovedCalendar availability={createFormAvailability} days={30} label="Saatavuus – seuraavat 30 päivää" />
-                            {createFormAvailability.backToBackWindows.length > 0 && (
-                              <p className="text-sm font-medium text-amber-700">Seuraava back-to-back ikkuna: {new Date(createFormAvailability.backToBackWindows[0]).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })}</p>
+                            <ImprovedCalendar 
+                              availability={createFormAvailability} 
+                              days={30} 
+                              label="Saatavuus – seuraavat 30 päivää (klikkaa päivää muistutusta varten)"
+                              onDateClick={(date) => {
+                                setPendingReminderDate(date);
+                                toast({ title: "Muistutuspäivä valittu", description: `${new Date(date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })} – muistutus lähetetään tiketin luonnin yhteydessä` });
+                              }}
+                            />
+                            {pendingReminderDate && (
+                              <div className="flex items-center gap-2 p-2 bg-blue-50 border border-blue-200 rounded text-sm">
+                                <Bell className="w-4 h-4 text-blue-600 shrink-0" />
+                                <span>Muistutus lähetetään: <strong>{new Date(pendingReminderDate).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}</strong></span>
+                                <Button variant="ghost" size="sm" className="h-auto p-0.5 ml-auto" onClick={() => setPendingReminderDate("")}>✕</Button>
+                              </div>
                             )}
                           </div>
                         ) : (
