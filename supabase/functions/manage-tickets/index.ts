@@ -98,6 +98,20 @@ Deno.serve(async (req) => {
         return json(result);
       }
 
+      // ── GET APARTMENT AVAILABILITY (day-by-day for calendars) ──
+      case "get_apartment_availability": {
+        const { apartment_id, days = 30, force_refresh = false } = body;
+        const result = await getApartmentAvailability(supabase, apartment_id, days, force_refresh);
+        return json(result);
+      }
+
+      // ── GET AVAILABILITY INDICATORS for ticket list ──
+      case "get_availability_indicators": {
+        const { apartment_ids } = body;
+        const result = await getAvailabilityIndicators(supabase, apartment_ids || []);
+        return json(result);
+      }
+
       // ── RESOLVE EMAIL ──
       case "resolve_email": {
         const { apartment_id } = body;
@@ -376,6 +390,175 @@ async function sendTicketEmail(
   }
 }
 
+// ── HELPER: Get apartment availability day-by-day ──
+async function getApartmentAvailability(
+  supabase: any,
+  apartmentId: string,
+  days: number,
+  forceRefresh: boolean
+): Promise<{ dates: Record<string, { booked: boolean; checkIn?: boolean; checkOut?: boolean }>; backToBackWindows: string[]; emptyNights: string[]; cachedAt: string | null }> {
+  const cacheKey = `ticket_avail_${apartmentId}`;
+  
+  // Check cache (1 hour)
+  if (!forceRefresh) {
+    const { data: cached } = await supabase
+      .from("beds24_cache")
+      .select("*")
+      .eq("id", cacheKey)
+      .maybeSingle();
+    
+    if (cached) {
+      const cacheAge = Date.now() - new Date(cached.fetched_at).getTime();
+      if (cacheAge < 60 * 60 * 1000) {
+        return { ...cached.data, cachedAt: cached.fetched_at };
+      }
+    }
+  }
+
+  const apiToken = Deno.env.get("BEDS24_API_TOKEN");
+  if (!apiToken) {
+    return { dates: {}, backToBackWindows: [], emptyNights: [], cachedAt: null };
+  }
+
+  try {
+    const today = new Date();
+    const endDate = new Date(today.getTime() + days * 24 * 60 * 60 * 1000);
+    const startStr = formatDate(today);
+    const endStr = formatDate(endDate);
+
+    // Fetch bookings for this room
+    const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrival=${startStr}&departure=${endStr}`;
+    const response = await fetch(bookingsUrl, {
+      headers: { token: apiToken, accept: "application/json" },
+    });
+
+    const dates: Record<string, { booked: boolean; checkIn?: boolean; checkOut?: boolean }> = {};
+    
+    // Initialize all dates as free
+    for (let i = 0; i < days; i++) {
+      const d = new Date(today);
+      d.setDate(d.getDate() + i);
+      dates[formatDate(d)] = { booked: false };
+    }
+
+    const bookings: Array<{ arrival: string; departure: string }> = [];
+
+    if (response.ok) {
+      const bookingsJson = await response.json();
+      const rawBookings = Array.isArray(bookingsJson) ? bookingsJson : bookingsJson?.data || [];
+
+      for (const booking of rawBookings) {
+        const checkIn = booking.arrival || booking.checkIn;
+        const checkOut = booking.departure || booking.checkOut;
+        if (!checkIn || !checkOut) continue;
+
+        bookings.push({ arrival: checkIn, departure: checkOut });
+
+        // Mark check-in/check-out dates
+        if (dates[checkIn]) dates[checkIn].checkIn = true;
+        if (dates[checkOut]) dates[checkOut].checkOut = true;
+
+        // Mark occupied nights
+        const start = new Date(checkIn);
+        const end = new Date(checkOut);
+        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+          const ds = formatDate(d);
+          if (dates[ds]) dates[ds].booked = true;
+        }
+      }
+    } else {
+      // Fallback to availability endpoint
+      const availUrl = `https://api.beds24.com/v2/inventory/rooms/availability?roomId=${apartmentId}&arrivalFrom=${startStr}&arrivalTo=${endStr}`;
+      const availResponse = await fetch(availUrl, {
+        headers: { token: apiToken, accept: "application/json" },
+      });
+
+      if (availResponse.ok) {
+        const availJson = await availResponse.json();
+        const rooms = Array.isArray(availJson) ? availJson : availJson?.data || [];
+        for (const room of rooms) {
+          const avail = room?.availability || {};
+          if (typeof avail === "object" && !Array.isArray(avail)) {
+            for (const [date, isAvailable] of Object.entries(avail)) {
+              if (dates[date]) {
+                dates[date].booked = isAvailable !== true;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Detect back-to-back windows (checkout + checkin on same date)
+    const backToBackWindows: string[] = [];
+    for (const [date, info] of Object.entries(dates)) {
+      if (info.checkIn && info.checkOut) {
+        backToBackWindows.push(date);
+      }
+    }
+
+    // Also detect from booking pairs
+    bookings.sort((a, b) => a.arrival.localeCompare(b.arrival));
+    for (let i = 0; i < bookings.length - 1; i++) {
+      const currentCheckout = bookings[i].departure;
+      const nextCheckin = bookings[i + 1].arrival;
+      if (currentCheckout === nextCheckin && !backToBackWindows.includes(currentCheckout)) {
+        backToBackWindows.push(currentCheckout);
+      }
+    }
+    backToBackWindows.sort();
+
+    // Empty nights
+    const emptyNights = Object.entries(dates)
+      .filter(([, info]) => !info.booked)
+      .map(([date]) => date)
+      .sort();
+
+    const result = { dates, backToBackWindows, emptyNights };
+
+    // Cache result
+    await supabase.from("beds24_cache").upsert({
+      id: cacheKey,
+      data: result,
+      fetched_at: new Date().toISOString(),
+    });
+
+    return { ...result, cachedAt: new Date().toISOString() };
+  } catch (err) {
+    console.error("getApartmentAvailability error:", err);
+    return { dates: {}, backToBackWindows: [], emptyNights: [], cachedAt: null };
+  }
+}
+
+// ── HELPER: Get availability indicators for multiple apartments ──
+async function getAvailabilityIndicators(
+  supabase: any,
+  apartmentIds: string[]
+): Promise<Record<string, { indicator: "back_to_back" | "empty" | "full" }>> {
+  const result: Record<string, { indicator: "back_to_back" | "empty" | "full" }> = {};
+  
+  // Process in parallel, max 5 at a time
+  const BATCH = 5;
+  for (let i = 0; i < apartmentIds.length; i += BATCH) {
+    const batch = apartmentIds.slice(i, i + BATCH);
+    const promises = batch.map(async (id) => {
+      const avail = await getApartmentAvailability(supabase, id, 7, false);
+      
+      // Check for back-to-back in next 7 days
+      if (avail.backToBackWindows.length > 0) {
+        result[id] = { indicator: "back_to_back" };
+      } else if (avail.emptyNights.length > 0) {
+        result[id] = { indicator: "empty" };
+      } else {
+        result[id] = { indicator: "full" };
+      }
+    });
+    await Promise.all(promises);
+  }
+  
+  return result;
+}
+
 // ── HELPER: Get next empty night from Beds24 ──
 async function getNextEmptyNight(
   apartmentId: string
@@ -391,28 +574,23 @@ async function getNextEmptyNight(
     const startDate = formatDate(today);
     const endDate = formatDate(twoWeeksLater);
 
-    // Get bookings for this room
     const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrival=${startDate}&departure=${endDate}`;
     const response = await fetch(bookingsUrl, {
       headers: { token: apiToken, accept: "application/json" },
     });
 
     if (!response.ok) {
-      // Fallback: try availability endpoint
       const availUrl = `https://api.beds24.com/v2/inventory/rooms/availability?roomId=${apartmentId}&arrivalFrom=${startDate}&arrivalTo=${endDate}`;
       const availResponse = await fetch(availUrl, {
         headers: { token: apiToken, accept: "application/json" },
       });
 
       if (!availResponse.ok) {
-        const text = await availResponse.text();
-        console.error("Beds24 availability error:", text);
         return { emptyNights: [], nextEmpty: null };
       }
 
       const availJson = await availResponse.json();
       const rooms = Array.isArray(availJson) ? availJson : availJson?.data || [];
-
       const emptyNights: string[] = [];
       for (const room of rooms) {
         const avail = room?.availability || {};
@@ -422,21 +600,17 @@ async function getNextEmptyNight(
           }
         }
       }
-
       emptyNights.sort();
       return { emptyNights, nextEmpty: emptyNights[0] || null };
     }
 
     const bookingsJson = await response.json();
-    const bookings = Array.isArray(bookingsJson) ? bookingsJson : bookingsJson?.data || [];
-
-    // Build set of occupied dates
+    const bookingsList = Array.isArray(bookingsJson) ? bookingsJson : bookingsJson?.data || [];
     const occupiedDates = new Set<string>();
-    for (const booking of bookings) {
+    for (const booking of bookingsList) {
       const checkIn = booking.arrival || booking.checkIn;
       const checkOut = booking.departure || booking.checkOut;
       if (!checkIn || !checkOut) continue;
-
       const start = new Date(checkIn);
       const end = new Date(checkOut);
       for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
@@ -444,17 +618,13 @@ async function getNextEmptyNight(
       }
     }
 
-    // Find empty nights in next 14 days
     const emptyNights: string[] = [];
     for (let i = 0; i < 14; i++) {
       const d = new Date(today);
       d.setDate(d.getDate() + i);
       const dateStr = formatDate(d);
-      if (!occupiedDates.has(dateStr)) {
-        emptyNights.push(dateStr);
-      }
+      if (!occupiedDates.has(dateStr)) emptyNights.push(dateStr);
     }
-
     return { emptyNights, nextEmpty: emptyNights[0] || null };
   } catch (err) {
     console.error("getNextEmptyNight error:", err);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -55,6 +55,13 @@ interface EmailLog {
   error_message: string | null;
 }
 
+interface AvailabilityData {
+  dates: Record<string, { booked: boolean; checkIn?: boolean; checkOut?: boolean }>;
+  backToBackWindows: string[];
+  emptyNights: string[];
+  cachedAt: string | null;
+}
+
 interface TicketAdminProps {
   isViewer: boolean;
 }
@@ -68,6 +75,66 @@ const apartmentList = Object.entries(apartments).map(([id, details]) => ({
 const getApartmentName = (id: string) => {
   const apt = apartmentList.find((a) => a.id === id);
   return apt?.name || id;
+};
+
+// ── Mini Calendar Component ──
+const MiniCalendar = ({ availability, days, label }: { availability: AvailabilityData; days: number; label?: string }) => {
+  const dateKeys = Object.keys(availability.dates).sort().slice(0, days);
+  const backToBackSet = new Set(availability.backToBackWindows);
+  const emptySet = new Set(availability.emptyNights);
+
+  return (
+    <div className="space-y-2">
+      {label && <Label className="text-xs text-muted-foreground">{label}</Label>}
+      <div className="flex flex-wrap gap-1">
+        {dateKeys.map((date) => {
+          const isBackToBack = backToBackSet.has(date);
+          const isEmpty = emptySet.has(date);
+          const d = new Date(date);
+          const dayNum = d.getDate();
+          const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+
+          let bg = "bg-muted/60 text-muted-foreground"; // booked = gray
+          let title = "Varattu";
+          if (isBackToBack) {
+            bg = "bg-amber-400 text-amber-900 ring-1 ring-amber-500";
+            title = "Back-to-back ikkuna";
+          } else if (isEmpty) {
+            bg = "bg-emerald-400/80 text-emerald-900";
+            title = "Vapaa yö";
+          }
+
+          return (
+            <div
+              key={date}
+              title={`${date} – ${title}`}
+              className={`w-7 h-7 rounded text-xs flex items-center justify-center font-medium ${bg} ${isWeekend ? "ring-1 ring-foreground/10" : ""}`}
+            >
+              {dayNum}
+            </div>
+          );
+        })}
+      </div>
+      <div className="flex gap-3 text-[10px] text-muted-foreground">
+        <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-muted/60 inline-block" /> Varattu</span>
+        <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-emerald-400/80 inline-block" /> Vapaa</span>
+        <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-amber-400 inline-block" /> Back-to-back</span>
+      </div>
+    </div>
+  );
+};
+
+// ── Availability Indicator Dot ──
+const AvailabilityDot = ({ indicator }: { indicator: "back_to_back" | "empty" | "full" | undefined }) => {
+  if (!indicator) return null;
+  switch (indicator) {
+    case "back_to_back":
+      return <span title="Back-to-back ikkuna 7pv sisällä" className="text-sm">🟡</span>;
+    case "empty":
+      return <span title="Vapaa yö 7pv sisällä" className="text-sm">🟢</span>;
+    case "full":
+      return <span title="Täysin varattu 7pv" className="text-sm">⚪</span>;
+  }
 };
 
 const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
@@ -86,6 +153,14 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [emptyNightData, setEmptyNightData] = useState<{ emptyNights: string[]; nextEmpty: string | null } | null>(null);
   const [loadingEmptyNights, setLoadingEmptyNights] = useState(false);
   const [sendingReminder, setSendingReminder] = useState(false);
+
+  // Availability data
+  const [ticketAvailability, setTicketAvailability] = useState<AvailabilityData | null>(null);
+  const [loadingAvailability, setLoadingAvailability] = useState(false);
+  const [createFormAvailability, setCreateFormAvailability] = useState<AvailabilityData | null>(null);
+  const [loadingCreateAvail, setLoadingCreateAvail] = useState(false);
+  const [availabilityIndicators, setAvailabilityIndicators] = useState<Record<string, { indicator: "back_to_back" | "empty" | "full" }>>({});
+  const [_loadingIndicators, setLoadingIndicators] = useState(false);
 
   // Email preview for new ticket
   const [emailPreview, setEmailPreview] = useState<{ email: string | null; source: string } | null>(null);
@@ -140,6 +215,19 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
   };
 
+  const fetchAvailabilityIndicators = useCallback(async (ticketList: Ticket[]) => {
+    const unresolvedApts = [...new Set(ticketList.filter(t => t.status !== "resolved").map(t => t.apartment_id))];
+    if (unresolvedApts.length === 0) return;
+    setLoadingIndicators(true);
+    try {
+      const data = await callApi("get_availability_indicators", { apartment_ids: unresolvedApts });
+      setAvailabilityIndicators(data || {});
+    } catch (e) {
+      console.error(e);
+    }
+    setLoadingIndicators(false);
+  }, []);
+
   const loadAll = async () => {
     setLoading(true);
     await Promise.all([fetchTickets(), fetchCompanies()]);
@@ -150,6 +238,13 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     loadAll();
   }, []);
 
+  // Fetch indicators after tickets load
+  useEffect(() => {
+    if (tickets.length > 0) {
+      fetchAvailabilityIndicators(tickets);
+    }
+  }, [tickets]);
+
   // Check email when apartment changes in new ticket form
   useEffect(() => {
     if (newTicket.apartment_id && newTicket.send_email) {
@@ -158,6 +253,27 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       setEmailPreview(null);
     }
   }, [newTicket.apartment_id, newTicket.send_email]);
+
+  // Fetch availability when apartment selected in create form for urgent tickets
+  useEffect(() => {
+    if (newTicket.apartment_id && newTicket.type === "urgent" && showCreateDialog) {
+      fetchCreateFormAvailability(newTicket.apartment_id);
+    } else {
+      setCreateFormAvailability(null);
+    }
+  }, [newTicket.apartment_id, newTicket.type, showCreateDialog]);
+
+  const fetchCreateFormAvailability = async (apartmentId: string) => {
+    setLoadingCreateAvail(true);
+    try {
+      const data = await callApi("get_apartment_availability", { apartment_id: apartmentId, days: 30 });
+      setCreateFormAvailability(data);
+    } catch (e) {
+      console.error(e);
+      setCreateFormAvailability(null);
+    }
+    setLoadingCreateAvail(false);
+  };
 
   const checkEmail = async (apartmentId: string) => {
     setLoadingEmailPreview(true);
@@ -194,6 +310,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       setShowCreateDialog(false);
       setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false });
       setEmailPreview(null);
+      setCreateFormAvailability(null);
       fetchTickets();
     } catch (e: any) {
       toast({ title: "Virhe", description: e.message, variant: "destructive" });
@@ -256,6 +373,19 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     setLoadingEmptyNights(false);
   };
 
+  const fetchTicketAvailability = async (apartmentId: string, forceRefresh = false) => {
+    setLoadingAvailability(true);
+    try {
+      const days = selectedTicket?.type === "urgent" ? 30 : 14;
+      const data = await callApi("get_apartment_availability", { apartment_id: apartmentId, days, force_refresh: forceRefresh });
+      setTicketAvailability(data);
+    } catch (e) {
+      console.error(e);
+      setTicketAvailability(null);
+    }
+    setLoadingAvailability(false);
+  };
+
   const handleSendReminder = async (ticketId: string) => {
     if (!confirm("Lähetetäänkö muistutus nyt?")) return;
     setSendingReminder(true);
@@ -278,7 +408,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const openTicketDetail = (ticket: Ticket) => {
     setSelectedTicket(ticket);
     setEmptyNightData(null);
+    setTicketAvailability(null);
     fetchEmailLog(ticket.id);
+    fetchTicketAvailability(ticket.apartment_id);
     if (ticket.priority === "2" && ticket.status !== "resolved") {
       fetchEmptyNights(ticket.apartment_id);
     }
@@ -405,7 +537,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" onClick={() => { setSelectedTicket(null); setEmptyNightData(null); }}>
+          <Button variant="ghost" size="sm" onClick={() => { setSelectedTicket(null); setEmptyNightData(null); setTicketAvailability(null); }}>
             <ArrowLeft className="w-4 h-4 mr-1" />
             Takaisin
           </Button>
@@ -465,6 +597,58 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     <Trash2 className="w-4 h-4 mr-1" />
                     Poista tiketti
                   </Button>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Availability calendar for ticket detail */}
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <CalendarDays className="w-4 h-4" />
+                    Huoneiston saatavuus
+                  </CardTitle>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => fetchTicketAvailability(selectedTicket.apartment_id, true)}
+                    disabled={loadingAvailability}
+                  >
+                    <RefreshCw className={`w-4 h-4 mr-1 ${loadingAvailability ? "animate-spin" : ""}`} />
+                    Päivitä
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {loadingAvailability ? (
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Haetaan saatavuustietoja...
+                  </div>
+                ) : ticketAvailability ? (
+                  <div className="space-y-3">
+                    <MiniCalendar
+                      availability={ticketAvailability}
+                      days={selectedTicket.type === "urgent" ? 30 : 14}
+                      label={selectedTicket.type === "urgent" ? "Seuraavat 30 päivää" : "Seuraavat 14 päivää"}
+                    />
+                    {ticketAvailability.backToBackWindows.length > 0 && (
+                      <div className="p-2 bg-amber-50 border border-amber-200 rounded text-sm">
+                        <span className="font-medium text-amber-800">Seuraava back-to-back ikkuna: </span>
+                        <span className="text-amber-700">
+                          {new Date(ticketAvailability.backToBackWindows[0]).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })}
+                        </span>
+                      </div>
+                    )}
+                    {ticketAvailability.cachedAt && (
+                      <p className="text-[10px] text-muted-foreground">
+                        Päivitetty: {new Date(ticketAvailability.cachedAt).toLocaleString("fi-FI")}
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">Saatavuustietoja ei voitu hakea</p>
                 )}
               </CardContent>
             </Card>
@@ -706,6 +890,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 setShowCreateDialog(open);
                 if (!open) {
                   setEmailPreview(null);
+                  setCreateFormAvailability(null);
                   setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false });
                 }
               }}>
@@ -715,7 +900,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     Uusi tiketti
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-lg">
+                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle>Uusi tiketti</DialogTitle>
                   </DialogHeader>
@@ -754,6 +939,34 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         </div>
                       </RadioGroup>
                     </div>
+
+                    {/* Back-to-back calendar for urgent tickets */}
+                    {newTicket.type === "urgent" && newTicket.apartment_id && (
+                      <div className="border rounded-lg p-3 bg-muted/30">
+                        {loadingCreateAvail ? (
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Haetaan saatavuustietoja...
+                          </div>
+                        ) : createFormAvailability ? (
+                          <div className="space-y-2">
+                            <MiniCalendar
+                              availability={createFormAvailability}
+                              days={30}
+                              label="Saatavuus – seuraavat 30 päivää"
+                            />
+                            {createFormAvailability.backToBackWindows.length > 0 && (
+                              <p className="text-sm font-medium text-amber-700">
+                                Seuraava back-to-back ikkuna: {new Date(createFormAvailability.backToBackWindows[0]).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })}
+                              </p>
+                            )}
+                          </div>
+                        ) : (
+                          <p className="text-sm text-muted-foreground">Saatavuustietoja ei saatavilla</p>
+                        )}
+                      </div>
+                    )}
+
                     <div>
                       <Label>Prioriteetti</Label>
                       <RadioGroup value={newTicket.priority} onValueChange={(val) => setNewTicket({ ...newTicket, priority: val as "1" | "2" })} className="flex gap-4 mt-1">
@@ -830,7 +1043,12 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   ) : (
                     filteredTickets.map((ticket) => (
                       <TableRow key={ticket.id} className="cursor-pointer" onClick={() => openTicketDetail(ticket)}>
-                        <TableCell className="font-medium">{getApartmentName(ticket.apartment_id)}</TableCell>
+                        <TableCell className="font-medium">
+                          <span className="flex items-center gap-1.5">
+                            <AvailabilityDot indicator={availabilityIndicators[ticket.apartment_id]?.indicator} />
+                            {getApartmentName(ticket.apartment_id)}
+                          </span>
+                        </TableCell>
                         <TableCell>{ticket.title}</TableCell>
                         <TableCell>{typeBadge(ticket.type)}</TableCell>
                         <TableCell>
