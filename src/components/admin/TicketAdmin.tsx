@@ -568,7 +568,15 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
       const result = await callApi("create_ticket", { ticket: ticketData });
       
-      if (result?.emailResult) {
+      // Send pending reminder if a date was selected during creation
+      if (pendingReminderDate && result?.id) {
+        try {
+          await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate });
+          toast({ title: "Tiketti luotu", description: `Muistutus ajastettu päivälle ${new Date(pendingReminderDate).toLocaleDateString("fi-FI")}` });
+        } catch {
+          toast({ title: "Tiketti luotu", description: "⚠️ Muistutuksen lähetys epäonnistui", variant: "destructive" });
+        }
+      } else if (result?.emailResult) {
         if (result.emailResult.sent) {
           toast({ title: "Tiketti luotu", description: `Sähköposti lähetetty: ${result.emailResult.email}` });
         } else if (result.emailResult.error === "no_email_found") {
@@ -584,6 +592,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "" });
       setEmailPreview(null);
       setCreateFormAvailability(null);
+      setPendingReminderDate("");
       fetchTickets();
     } catch (e: any) {
       toast({ title: "Virhe", description: e.message, variant: "destructive" });
