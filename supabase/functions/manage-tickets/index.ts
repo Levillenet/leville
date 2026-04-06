@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
       }
 
       case "create_ticket": {
-        const { ticket } = body;
+        const { ticket, changed_by } = body;
         const { data, error } = await supabase
           .from("tickets")
           .insert(ticket)
@@ -49,17 +49,27 @@ Deno.serve(async (req) => {
           .single();
         if (error) throw error;
 
+        // Log creation to history
+        await addHistory(supabase, data.id, changed_by || "admin", null, null, null, "created");
+
         // Send email if requested
         let emailResult = null;
         if (ticket.send_email) {
           emailResult = await sendTicketEmail(supabase, data, "creation");
+          if (emailResult.sent) {
+            await addHistory(supabase, data.id, changed_by || "admin", null, null, `Lähetetty: ${emailResult.email}`, "email_sent");
+          }
         }
 
         return json({ ticket: data, emailResult });
       }
 
       case "update_ticket": {
-        const { id, updates } = body;
+        const { id, updates, changed_by } = body;
+
+        // Get old values for history
+        const { data: oldTicket } = await supabase.from("tickets").select("*").eq("id", id).single();
+
         const { data, error } = await supabase
           .from("tickets")
           .update({ ...updates, updated_at: new Date().toISOString() })
@@ -67,6 +77,18 @@ Deno.serve(async (req) => {
           .select()
           .single();
         if (error) throw error;
+
+        // Log changes to history
+        if (oldTicket) {
+          const fields = ["status", "priority", "type", "category_id", "notes", "email_override", "target_type", "property_id"];
+          for (const field of fields) {
+            if (updates[field] !== undefined && String(oldTicket[field]) !== String(updates[field])) {
+              const actionType = field === "status" && updates[field] === "resolved" ? "resolved" : "updated";
+              await addHistory(supabase, id, changed_by || "admin", field, String(oldTicket[field] ?? ""), String(updates[field] ?? ""), actionType);
+            }
+          }
+        }
+
         return json(data);
       }
 
@@ -79,7 +101,7 @@ Deno.serve(async (req) => {
 
       // ── SEND REMINDER (manual) ──
       case "send_reminder": {
-        const { ticket_id } = body;
+        const { ticket_id, changed_by } = body;
         const { data: ticket, error } = await supabase
           .from("tickets")
           .select("*")
@@ -88,6 +110,9 @@ Deno.serve(async (req) => {
         if (error) throw error;
 
         const result = await sendTicketEmail(supabase, ticket, "reminder");
+        if (result.sent) {
+          await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Muistutus lähetetty: ${result.email}`, "email_sent");
+        }
         return json(result);
       }
 
@@ -98,14 +123,14 @@ Deno.serve(async (req) => {
         return json(result);
       }
 
-      // ── GET APARTMENT AVAILABILITY (day-by-day for calendars) ──
+      // ── GET APARTMENT AVAILABILITY ──
       case "get_apartment_availability": {
         const { apartment_id, days = 30, force_refresh = false } = body;
         const result = await getApartmentAvailability(supabase, apartment_id, days, force_refresh);
         return json(result);
       }
 
-      // ── GET AVAILABILITY INDICATORS for ticket list ──
+      // ── GET AVAILABILITY INDICATORS ──
       case "get_availability_indicators": {
         const { apartment_ids } = body;
         const result = await getAvailabilityIndicators(supabase, apartment_ids || []);
@@ -114,7 +139,11 @@ Deno.serve(async (req) => {
 
       // ── RESOLVE EMAIL ──
       case "resolve_email": {
-        const { apartment_id } = body;
+        const { apartment_id, ticket_email_override } = body;
+        // If ticket-level override exists, return it
+        if (ticket_email_override) {
+          return json({ email: ticket_email_override, source: "ticket_override" });
+        }
         const result = await resolveRecipientEmail(supabase, apartment_id);
         return json(result);
       }
@@ -213,6 +242,115 @@ Deno.serve(async (req) => {
         return json(data);
       }
 
+      // ── TICKET CATEGORIES ──
+      case "list_categories": {
+        const { data, error } = await supabase
+          .from("ticket_categories")
+          .select("*")
+          .order("name");
+        if (error) throw error;
+        return json(data);
+      }
+
+      case "create_category": {
+        const { category } = body;
+        const { data, error } = await supabase
+          .from("ticket_categories")
+          .insert(category)
+          .select()
+          .single();
+        if (error) throw error;
+        return json(data);
+      }
+
+      case "update_category": {
+        const { id, updates } = body;
+        const { data, error } = await supabase
+          .from("ticket_categories")
+          .update(updates)
+          .eq("id", id)
+          .select()
+          .single();
+        if (error) throw error;
+        return json(data);
+      }
+
+      case "delete_category": {
+        const { id } = body;
+        // Remove category_id from tickets that use it
+        await supabase.from("tickets").update({ category_id: null }).eq("category_id", id);
+        const { error } = await supabase.from("ticket_categories").delete().eq("id", id);
+        if (error) throw error;
+        return json({ success: true });
+      }
+
+      // ── PROPERTIES (KIINTEISTÖT) ──
+      case "list_properties": {
+        const { data, error } = await supabase
+          .from("properties")
+          .select("*")
+          .order("name");
+        if (error) throw error;
+        return json(data);
+      }
+
+      case "create_property": {
+        const { property } = body;
+        const { data, error } = await supabase
+          .from("properties")
+          .insert(property)
+          .select()
+          .single();
+        if (error) throw error;
+        return json(data);
+      }
+
+      case "update_property": {
+        const { id, updates } = body;
+        const { data, error } = await supabase
+          .from("properties")
+          .update(updates)
+          .eq("id", id)
+          .select()
+          .single();
+        if (error) throw error;
+        return json(data);
+      }
+
+      case "delete_property": {
+        const { id } = body;
+        // Remove property_id from apartments and tickets
+        await supabase.from("apartment_maintenance").update({ property_id: null }).eq("property_id", id);
+        await supabase.from("tickets").update({ property_id: null }).eq("property_id", id);
+        const { error } = await supabase.from("properties").delete().eq("id", id);
+        if (error) throw error;
+        return json({ success: true });
+      }
+
+      case "assign_apartment_to_property": {
+        const { assignment_id, property_id } = body;
+        const { data, error } = await supabase
+          .from("apartment_maintenance")
+          .update({ property_id })
+          .eq("id", assignment_id)
+          .select()
+          .single();
+        if (error) throw error;
+        return json(data);
+      }
+
+      // ── TICKET HISTORY ──
+      case "get_ticket_history": {
+        const { ticket_id } = body;
+        const { data, error } = await supabase
+          .from("ticket_history")
+          .select("*")
+          .eq("ticket_id", ticket_id)
+          .order("changed_at", { ascending: true });
+        if (error) throw error;
+        return json(data);
+      }
+
       default:
         return new Response(JSON.stringify({ error: "Unknown action" }), {
           status: 400,
@@ -231,12 +369,35 @@ Deno.serve(async (req) => {
   }
 });
 
+// ── HELPER: Add history entry ──
+async function addHistory(
+  supabase: any,
+  ticketId: string,
+  changedBy: string,
+  fieldChanged: string | null,
+  oldValue: string | null,
+  newValue: string | null,
+  actionType: string
+) {
+  try {
+    await supabase.from("ticket_history").insert({
+      ticket_id: ticketId,
+      changed_by: changedBy,
+      field_changed: fieldChanged,
+      old_value: oldValue,
+      new_value: newValue,
+      action_type: actionType,
+    });
+  } catch (e) {
+    console.error("Failed to add history:", e);
+  }
+}
+
 // ── HELPER: Resolve recipient email ──
 async function resolveRecipientEmail(
   supabase: any,
   apartmentId: string
 ): Promise<{ email: string | null; source: string }> {
-  // 1. Check apartment_maintenance for override
   const { data: assignment } = await supabase
     .from("apartment_maintenance")
     .select("contact_email_override, maintenance_company_id")
@@ -247,7 +408,6 @@ async function resolveRecipientEmail(
     return { email: assignment.contact_email_override, source: "override" };
   }
 
-  // 2. Check maintenance company email
   if (assignment?.maintenance_company_id) {
     const { data: company } = await supabase
       .from("maintenance_companies")
@@ -269,21 +429,34 @@ async function sendTicketEmail(
   ticket: any,
   emailType: "creation" | "reminder"
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
-  const { email, source } = await resolveRecipientEmail(
-    supabase,
-    ticket.apartment_id
-  );
+  // 1. Ticket-level override
+  if (ticket.email_override) {
+    const email = ticket.email_override;
+    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType);
+  }
+
+  // 2-3. Apartment/company fallback
+  const { email, source } = await resolveRecipientEmail(supabase, ticket.apartment_id);
 
   if (!email) {
     return { sent: false, error: "no_email_found" };
   }
 
+  return await doSendEmail(supabase, ticket, email, source, emailType);
+}
+
+async function doSendEmail(
+  supabase: any,
+  ticket: any,
+  email: string,
+  _source: string,
+  emailType: "creation" | "reminder"
+): Promise<{ sent: boolean; error?: string; email?: string }> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   if (!resendApiKey) {
     return { sent: false, error: "resend_api_key_missing" };
   }
 
-  // Get apartment name from moder_property_mapping or use ID
   const { data: mapping } = await supabase
     .from("moder_property_mapping")
     .select("property_name")
@@ -362,7 +535,6 @@ async function sendTicketEmail(
 
     const result = await response.json();
 
-    // Log to ticket_email_log
     await supabase.from("ticket_email_log").insert({
       ticket_id: ticket.id,
       sent_to: email,
@@ -399,7 +571,6 @@ async function getApartmentAvailability(
 ): Promise<{ dates: Record<string, { booked: boolean; checkIn?: boolean; checkOut?: boolean }>; backToBackWindows: string[]; emptyNights: string[]; cachedAt: string | null }> {
   const cacheKey = `ticket_avail_${apartmentId}`;
   
-  // Check cache (1 hour)
   if (!forceRefresh) {
     const { data: cached } = await supabase
       .from("beds24_cache")
@@ -426,7 +597,6 @@ async function getApartmentAvailability(
     const startStr = formatDate(today);
     const endStr = formatDate(endDate);
 
-    // Fetch bookings for this room
     const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrival=${startStr}&departure=${endStr}`;
     const response = await fetch(bookingsUrl, {
       headers: { token: apiToken, accept: "application/json" },
@@ -434,7 +604,6 @@ async function getApartmentAvailability(
 
     const dates: Record<string, { booked: boolean; checkIn?: boolean; checkOut?: boolean }> = {};
     
-    // Initialize all dates as free
     for (let i = 0; i < days; i++) {
       const d = new Date(today);
       d.setDate(d.getDate() + i);
@@ -454,11 +623,9 @@ async function getApartmentAvailability(
 
         bookings.push({ arrival: checkIn, departure: checkOut });
 
-        // Mark check-in/check-out dates
         if (dates[checkIn]) dates[checkIn].checkIn = true;
         if (dates[checkOut]) dates[checkOut].checkOut = true;
 
-        // Mark occupied nights
         const start = new Date(checkIn);
         const end = new Date(checkOut);
         for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
@@ -467,7 +634,6 @@ async function getApartmentAvailability(
         }
       }
     } else {
-      // Fallback to availability endpoint
       const availUrl = `https://api.beds24.com/v2/inventory/rooms/availability?roomId=${apartmentId}&arrivalFrom=${startStr}&arrivalTo=${endStr}`;
       const availResponse = await fetch(availUrl, {
         headers: { token: apiToken, accept: "application/json" },
@@ -489,7 +655,6 @@ async function getApartmentAvailability(
       }
     }
 
-    // Detect back-to-back windows (checkout + checkin on same date)
     const backToBackWindows: string[] = [];
     for (const [date, info] of Object.entries(dates)) {
       if (info.checkIn && info.checkOut) {
@@ -497,7 +662,6 @@ async function getApartmentAvailability(
       }
     }
 
-    // Also detect from booking pairs
     bookings.sort((a, b) => a.arrival.localeCompare(b.arrival));
     for (let i = 0; i < bookings.length - 1; i++) {
       const currentCheckout = bookings[i].departure;
@@ -508,7 +672,6 @@ async function getApartmentAvailability(
     }
     backToBackWindows.sort();
 
-    // Empty nights
     const emptyNights = Object.entries(dates)
       .filter(([, info]) => !info.booked)
       .map(([date]) => date)
@@ -516,7 +679,6 @@ async function getApartmentAvailability(
 
     const result = { dates, backToBackWindows, emptyNights };
 
-    // Cache result
     await supabase.from("beds24_cache").upsert({
       id: cacheKey,
       data: result,
@@ -537,14 +699,12 @@ async function getAvailabilityIndicators(
 ): Promise<Record<string, { indicator: "back_to_back" | "empty" | "full" }>> {
   const result: Record<string, { indicator: "back_to_back" | "empty" | "full" }> = {};
   
-  // Process in parallel, max 5 at a time
   const BATCH = 5;
   for (let i = 0; i < apartmentIds.length; i += BATCH) {
     const batch = apartmentIds.slice(i, i + BATCH);
     const promises = batch.map(async (id) => {
       const avail = await getApartmentAvailability(supabase, id, 7, false);
       
-      // Check for back-to-back in next 7 days
       if (avail.backToBackWindows.length > 0) {
         result[id] = { indicator: "back_to_back" };
       } else if (avail.emptyNights.length > 0) {
