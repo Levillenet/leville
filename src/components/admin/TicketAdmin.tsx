@@ -561,6 +561,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         category_id: newTicket.category_id || null,
         property_id: newTicket.target_type === "property" ? newTicket.property_id : null,
         email_override: newTicket.email_override || null,
+        recurrence_months: newTicket.recurrence_months > 0 ? newTicket.recurrence_months : null,
+        recurrence_note: newTicket.recurrence_note || null,
       };
 
       const result = await callApi("create_ticket", { ticket: ticketData });
