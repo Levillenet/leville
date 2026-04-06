@@ -1509,6 +1509,9 @@ export type Database = {
           notes: string | null
           priority: Database["public"]["Enums"]["ticket_priority"]
           property_id: string | null
+          recurrence_months: number | null
+          recurrence_note: string | null
+          recurrence_source_id: string | null
           send_email: boolean
           status: Database["public"]["Enums"]["ticket_status"]
           target_type: string
@@ -1526,6 +1529,9 @@ export type Database = {
           notes?: string | null
           priority?: Database["public"]["Enums"]["ticket_priority"]
           property_id?: string | null
+          recurrence_months?: number | null
+          recurrence_note?: string | null
+          recurrence_source_id?: string | null
           send_email?: boolean
           status?: Database["public"]["Enums"]["ticket_status"]
           target_type?: string
@@ -1543,6 +1549,9 @@ export type Database = {
           notes?: string | null
           priority?: Database["public"]["Enums"]["ticket_priority"]
           property_id?: string | null
+          recurrence_months?: number | null
+          recurrence_note?: string | null
+          recurrence_source_id?: string | null
           send_email?: boolean
           status?: Database["public"]["Enums"]["ticket_status"]
           target_type?: string
