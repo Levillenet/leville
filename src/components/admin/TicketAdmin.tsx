@@ -509,12 +509,12 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   }, [selectedApartmentIds, newTicket.send_email, newTicket.email_override]);
 
   useEffect(() => {
-    if (selectedApartmentIds.length === 1 && newTicket.type === "urgent" && showCreateDialog) {
+    if (selectedApartmentIds.length === 1 && showCreateDialog) {
       fetchCreateFormAvailability(selectedApartmentIds[0]);
     } else {
       setCreateFormAvailability(null);
     }
-  }, [selectedApartmentIds, newTicket.type, showCreateDialog]);
+  }, [selectedApartmentIds, showCreateDialog]);
 
   const fetchCreateFormAvailability = async (apartmentId: string) => {
     setLoadingCreateAvail(true);
