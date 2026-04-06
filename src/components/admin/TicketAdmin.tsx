@@ -212,17 +212,17 @@ const ImprovedCalendar = ({
 
                   const clickable = !!onDateClick;
 
-                  return (
+                    return (
                     <div
                       key={date}
                       title={`${d.toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })} – ${statusLabel}${clickable ? "\n🔔 Klikkaa lähettääksesi muistutus" : ""}`}
                       onClick={() => clickable && onDateClick(date)}
                       className={`
-                        h-8 flex items-center justify-center text-xs font-medium relative
+                        h-7 sm:h-8 flex items-center justify-center text-[10px] sm:text-xs font-medium relative
                         ${bgClass}
                         ${isWeekend ? "font-bold" : ""}
                         ${isToday ? "ring-2 ring-primary ring-inset" : ""}
-                        ${clickable ? "cursor-pointer hover:brightness-90 hover:ring-1 hover:ring-primary/50" : ""}
+                        ${clickable ? "cursor-pointer hover:brightness-90 active:brightness-75 hover:ring-1 hover:ring-primary/50" : ""}
                         border-t border-r last:border-r-0 border-muted/30
                       `}
                     >
