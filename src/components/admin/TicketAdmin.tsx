@@ -188,6 +188,16 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   // Company form
   const [companyForm, setCompanyForm] = useState({ name: "", email: "", phone: "" });
 
+  // PDF Export
+  const [showExportDialog, setShowExportDialog] = useState(false);
+  const [exportFilters, setExportFilters] = useState({
+    companyId: "all",
+    apartmentIds: [] as string[],
+    status: "both" as "open" | "in_progress" | "both",
+    dateFrom: "",
+    dateTo: "",
+  });
+
   const { toast } = useToast();
 
   const callApi = async (action: string, extra: Record<string, unknown> = {}) => {
