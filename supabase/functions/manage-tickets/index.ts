@@ -98,6 +98,20 @@ Deno.serve(async (req) => {
         return json(result);
       }
 
+      // ── GET APARTMENT AVAILABILITY (day-by-day for calendars) ──
+      case "get_apartment_availability": {
+        const { apartment_id, days = 30, force_refresh = false } = body;
+        const result = await getApartmentAvailability(supabase, apartment_id, days, force_refresh);
+        return json(result);
+      }
+
+      // ── GET AVAILABILITY INDICATORS for ticket list ──
+      case "get_availability_indicators": {
+        const { apartment_ids } = body;
+        const result = await getAvailabilityIndicators(supabase, apartment_ids || []);
+        return json(result);
+      }
+
       // ── RESOLVE EMAIL ──
       case "resolve_email": {
         const { apartment_id } = body;
