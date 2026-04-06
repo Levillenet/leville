@@ -401,6 +401,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showPropertyReportDialog, setShowPropertyReportDialog] = useState(false);
+  const [pendingReminderDate, setPendingReminderDate] = useState<string>("");
   const [exportFilters, setExportFilters] = useState({
     companyId: "all",
     apartmentIds: [] as string[],
