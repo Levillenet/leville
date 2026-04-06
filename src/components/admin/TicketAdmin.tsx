@@ -1583,16 +1583,18 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       days={selectedTicket.type === "urgent" ? 30 : 14} 
                       label={selectedTicket.type === "urgent" ? "Seuraavat 30 päivää" : "Seuraavat 14 päivää"}
                       onDateClick={!isViewer ? async (date) => {
-                        const dayBefore = new Date(new Date(date).getTime() - 86400000).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
-                        if (!confirm(`Lähetetäänkö muistutussähköposti tiketistä?\n\nVapaa yö: ${new Date(date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}\nMuistutus lähetetään nyt (huolto edellisenä päivänä: ${dayBefore})`)) return;
+                        const dayBeforeDate = new Date(new Date(date).getTime() - 86400000);
+                        const dayBefore = dayBeforeDate.toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
+                        if (!confirm(`Ajastetaanko muistutussähköposti?\n\nVapaa yö: ${new Date(date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}\nMuistutus lähetetään: ${dayBefore} klo 18:00`)) return;
                         try {
                           const result = await callApi("schedule_date_reminder", { ticket_id: selectedTicket.id, target_date: date, apartment_name: getApartmentName(selectedTicket.apartment_id) });
-                          if (result?.sent) {
-                            toast({ title: "Muistutus lähetetty", description: `Vastaanottaja: ${result.email}` });
+                          if (result?.scheduled) {
+                            const scheduledDate = new Date(result.scheduled_for).toLocaleString("fi-FI", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+                            toast({ title: "Muistutus ajastettu", description: `Lähetetään ${scheduledDate} → ${result.email}` });
                             fetchEmailLog(selectedTicket.id);
                             fetchTicketHistory(selectedTicket.id);
                           } else {
-                            toast({ title: "Virhe", description: result?.error === "no_email_found" ? "Sähköpostia ei löytynyt" : "Lähetys epäonnistui", variant: "destructive" });
+                            toast({ title: "Virhe", description: result?.error === "no_email_found" ? "Sähköpostia ei löytynyt" : "Ajastus epäonnistui", variant: "destructive" });
                           }
                         } catch (e: any) {
                           toast({ title: "Virhe", description: e.message, variant: "destructive" });
