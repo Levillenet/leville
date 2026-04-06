@@ -648,6 +648,7 @@ async function doSendEmail(
       sent_to: email,
       status: response.ok ? "sent" : "failed",
       error_message: response.ok ? null : JSON.stringify(result),
+      email_type: emailType,
     });
 
     if (!response.ok) {
