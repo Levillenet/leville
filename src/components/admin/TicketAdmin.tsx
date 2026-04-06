@@ -298,7 +298,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   });
 
   // Company form
-  const [companyForm, setCompanyForm] = useState({ name: "", email: "", phone: "", company_type: "kiinteistohuolto" });
+  const [companyForm, setCompanyForm] = useState({ name: "", email: "", phone: "", company_types: ["kiinteistohuolto"] as string[] });
 
   // Category form
   const [showCategoryDialog, setShowCategoryDialog] = useState(false);
