@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
       }
 
       case "create_ticket": {
-        const { ticket, changed_by } = body;
+        const { ticket, changed_by, apartment_name } = body;
         const { data, error } = await supabase
           .from("tickets")
           .insert(ticket)
@@ -55,7 +55,7 @@ Deno.serve(async (req) => {
         // Send email if requested
         let emailResult = null;
         if (ticket.send_email) {
-          emailResult = await sendTicketEmail(supabase, data, "creation");
+          emailResult = await sendTicketEmail(supabase, data, "creation", undefined, apartment_name);
           if (emailResult.sent) {
             await addHistory(supabase, data.id, changed_by || "admin", null, null, `Lähetetty: ${emailResult.email}`, "email_sent");
           }
