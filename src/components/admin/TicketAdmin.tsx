@@ -501,20 +501,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   }, [tickets]);
 
   useEffect(() => {
-    if (newTicket.apartment_id && newTicket.send_email) {
-      checkEmail(newTicket.apartment_id, newTicket.email_override);
+    if (selectedApartmentIds.length === 1 && newTicket.send_email) {
+      checkEmail(selectedApartmentIds[0], newTicket.email_override);
     } else {
       setEmailPreview(null);
     }
-  }, [newTicket.apartment_id, newTicket.send_email, newTicket.email_override]);
+  }, [selectedApartmentIds, newTicket.send_email, newTicket.email_override]);
 
   useEffect(() => {
-    if (newTicket.apartment_id && newTicket.type === "urgent" && showCreateDialog) {
-      fetchCreateFormAvailability(newTicket.apartment_id);
+    if (selectedApartmentIds.length === 1 && newTicket.type === "urgent" && showCreateDialog) {
+      fetchCreateFormAvailability(selectedApartmentIds[0]);
     } else {
       setCreateFormAvailability(null);
     }
-  }, [newTicket.apartment_id, newTicket.type, showCreateDialog]);
+  }, [selectedApartmentIds, newTicket.type, showCreateDialog]);
 
   const fetchCreateFormAvailability = async (apartmentId: string) => {
     setLoadingCreateAvail(true);
