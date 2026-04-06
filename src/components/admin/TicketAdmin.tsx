@@ -1808,8 +1808,17 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     </Select>
                   </div>
                   <div>
-                    <Label>Huoneistot</Label>
-                    <div className="max-h-32 overflow-y-auto border rounded p-2 space-y-1 mt-1">
+                    <div className="flex items-center justify-between">
+                      <Label>Huoneistot</Label>
+                      <div className="flex gap-2">
+                        <Button variant="link" size="sm" className="h-auto p-0 text-xs" onClick={() => setExportFilters(prev => ({ ...prev, apartmentIds: apartmentList.map(a => a.id) }))}>Valitse kaikki</Button>
+                        <Button variant="link" size="sm" className="h-auto p-0 text-xs" onClick={() => setExportFilters(prev => ({ ...prev, apartmentIds: [] }))}>Tyhjennä</Button>
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-0.5 mb-1">
+                      {exportFilters.apartmentIds.length === 0 ? "Kaikki huoneistot mukana (ei rajausta)" : `${exportFilters.apartmentIds.length} huoneistoa valittu`}
+                    </p>
+                    <div className="max-h-32 overflow-y-auto border rounded p-2 space-y-1">
                       {apartmentList.map((apt) => (
                         <label key={apt.id} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-muted/50 rounded px-1">
                           <Checkbox checked={exportFilters.apartmentIds.includes(apt.id)} onCheckedChange={(checked) => {
