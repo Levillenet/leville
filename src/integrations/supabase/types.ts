@@ -884,6 +884,7 @@ export type Database = {
       }
       maintenance_companies: {
         Row: {
+          company_type: string
           created_at: string
           email: string | null
           id: string
@@ -891,6 +892,7 @@ export type Database = {
           phone: string | null
         }
         Insert: {
+          company_type?: string
           created_at?: string
           email?: string | null
           id?: string
@@ -898,6 +900,7 @@ export type Database = {
           phone?: string | null
         }
         Update: {
+          company_type?: string
           created_at?: string
           email?: string | null
           id?: string
