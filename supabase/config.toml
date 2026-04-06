@@ -84,3 +84,9 @@ verify_jwt = false
 
 [functions.manage-timed-notices]
 verify_jwt = false
+
+[functions.manage-tickets]
+verify_jwt = false
+
+[functions.ticket-reminders]
+verify_jwt = false
