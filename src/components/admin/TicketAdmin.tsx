@@ -1989,7 +1989,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     </div>
 
                     {/* Back-to-back calendar for urgent */}
-                    {newTicket.type === "urgent" && newTicket.apartment_id && newTicket.target_type === "apartment" && (
+                    {newTicket.type === "urgent" && selectedApartmentIds.length === 1 && newTicket.target_type === "apartment" && (
                       <div className="border rounded-lg p-3 bg-muted/30">
                         {loadingCreateAvail ? (
                           <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="w-4 h-4 animate-spin" />Haetaan saatavuustietoja...</div>
