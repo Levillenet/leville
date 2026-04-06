@@ -137,7 +137,7 @@ Deno.serve(async (req) => {
 
       // ── SEND REMINDER (manual) ──
       case "send_reminder": {
-        const { ticket_id, changed_by } = body;
+        const { ticket_id, changed_by, apartment_name } = body;
         const { data: ticket, error } = await supabase
           .from("tickets")
           .select("*")
@@ -145,7 +145,7 @@ Deno.serve(async (req) => {
           .single();
         if (error) throw error;
 
-        const result = await sendTicketEmail(supabase, ticket, "reminder");
+        const result = await sendTicketEmail(supabase, ticket, "reminder", undefined, apartment_name);
         if (result.sent) {
           await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Muistutus lähetetty: ${result.email}`, "email_sent");
         }
