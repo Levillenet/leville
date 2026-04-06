@@ -699,7 +699,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     if (!confirm("Lähetetäänkö muistutus nyt?")) return;
     setSendingReminder(true);
     try {
-      const result = await callApi("send_reminder", { ticket_id: ticketId });
+      const result = await callApi("send_reminder", { ticket_id: ticketId, apartment_name: selectedTicket ? getApartmentName(selectedTicket.apartment_id) : undefined });
       if (result?.sent) {
         toast({ title: "Muistutus lähetetty", description: `Vastaanottaja: ${result.email}` });
       } else if (result?.error === "no_email_found") {
