@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,7 +14,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign, CalendarDays, Send, AlertCircle } from "lucide-react";
+import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign, CalendarDays, Send, AlertCircle, FileText } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
 
@@ -184,6 +187,16 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   // Company form
   const [companyForm, setCompanyForm] = useState({ name: "", email: "", phone: "" });
+
+  // PDF Export
+  const [showExportDialog, setShowExportDialog] = useState(false);
+  const [exportFilters, setExportFilters] = useState({
+    companyId: "all",
+    apartmentIds: [] as string[],
+    status: "both" as "open" | "in_progress" | "both",
+    dateFrom: "",
+    dateTo: "",
+  });
 
   const { toast } = useToast();
 
@@ -470,6 +483,218 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     } catch (e: any) {
       toast({ title: "Virhe", description: e.message, variant: "destructive" });
     }
+  };
+
+  // ── PDF EXPORT ──
+  const generatePdf = (openInNewTab = false) => {
+    // Filter seasonal tickets based on export filters
+    let exportTickets = tickets.filter((t) => t.type === "seasonal");
+
+    if (exportFilters.status === "open") {
+      exportTickets = exportTickets.filter((t) => t.status === "open");
+    } else if (exportFilters.status === "in_progress") {
+      exportTickets = exportTickets.filter((t) => t.status === "in_progress");
+    } else {
+      exportTickets = exportTickets.filter((t) => t.status !== "resolved");
+    }
+
+    if (exportFilters.companyId !== "all") {
+      const companyApts = assignments
+        .filter((a) => a.maintenance_company_id === exportFilters.companyId)
+        .map((a) => a.apartment_id);
+      exportTickets = exportTickets.filter((t) => companyApts.includes(t.apartment_id));
+    }
+
+    if (exportFilters.apartmentIds.length > 0) {
+      exportTickets = exportTickets.filter((t) => exportFilters.apartmentIds.includes(t.apartment_id));
+    }
+
+    if (exportFilters.dateFrom) {
+      exportTickets = exportTickets.filter((t) => t.created_at >= exportFilters.dateFrom);
+    }
+    if (exportFilters.dateTo) {
+      const toEnd = exportFilters.dateTo + "T23:59:59";
+      exportTickets = exportTickets.filter((t) => t.created_at <= toEnd);
+    }
+
+    if (exportTickets.length === 0) {
+      toast({ title: "Ei tikettejä", description: "Valituilla suodattimilla ei löytynyt kausihuoltotikettejä.", variant: "destructive" });
+      return;
+    }
+
+    // Group by apartment
+    const grouped: Record<string, Ticket[]> = {};
+    for (const t of exportTickets) {
+      if (!grouped[t.apartment_id]) grouped[t.apartment_id] = [];
+      grouped[t.apartment_id].push(t);
+    }
+
+    const sortedApts = Object.keys(grouped).sort((a, b) =>
+      getApartmentName(a).localeCompare(getApartmentName(b))
+    );
+
+    const getCompanyForApt = (aptId: string) => {
+      const assignment = assignments.find((a) => a.apartment_id === aptId);
+      if (!assignment) return "–";
+      const company = companies.find((c) => c.id === assignment.maintenance_company_id);
+      return company?.name || "–";
+    };
+
+    const statusLabel = (s: string) => {
+      switch (s) {
+        case "open": return "Avoin";
+        case "in_progress": return "Käsittelyssä";
+        case "resolved": return "Ratkaistu";
+        default: return s;
+      }
+    };
+
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 15;
+    const contentWidth = pageWidth - margin * 2;
+    let y = margin;
+    const currentYear = new Date().getFullYear();
+    let pageNum = 1;
+
+    const addFooter = () => {
+      doc.setFontSize(8);
+      doc.setTextColor(150);
+      doc.text(`Leville.net \u2013 Kausihuolto ${currentYear}`, margin, pageHeight - 8);
+      doc.text(`Sivu ${pageNum}`, pageWidth - margin, pageHeight - 8, { align: "right" });
+    };
+
+    const checkPage = (needed: number) => {
+      if (y + needed > pageHeight - 20) {
+        addFooter();
+        doc.addPage();
+        pageNum++;
+        y = margin;
+      }
+    };
+
+    // ── Header ──
+    doc.setFontSize(18);
+    doc.setTextColor(30);
+    doc.text("Leville \u2013 Kausihuoltoraportti", margin, y + 6);
+    y += 14;
+
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    const now = new Date();
+    doc.text(`Luotu: ${now.toLocaleDateString("fi-FI")} klo ${now.toLocaleTimeString("fi-FI", { hour: "2-digit", minute: "2-digit" })}`, margin, y);
+    y += 5;
+
+    // Filter summary
+    const filterParts: string[] = [];
+    if (exportFilters.companyId !== "all") {
+      const c = companies.find((co) => co.id === exportFilters.companyId);
+      filterParts.push(`Huoltoyhti\u00f6: ${c?.name || "?"}`);
+    }
+    if (exportFilters.apartmentIds.length > 0) {
+      filterParts.push(`Huoneistot: ${exportFilters.apartmentIds.length} valittu`);
+    }
+    const statusMap = { open: "Avoimet", in_progress: "K\u00e4sittelyss\u00e4", both: "Avoimet + K\u00e4sittelyss\u00e4" };
+    filterParts.push(`Tila: ${statusMap[exportFilters.status]}`);
+    if (exportFilters.dateFrom || exportFilters.dateTo) {
+      filterParts.push(`Ajanjakso: ${exportFilters.dateFrom || "..."} \u2013 ${exportFilters.dateTo || "..."}`);
+    }
+    doc.text(filterParts.join(" | "), margin, y);
+    y += 5;
+    doc.text(`Tikettej\u00e4 yhteens\u00e4: ${exportTickets.length}`, margin, y);
+    y += 10;
+
+    // ── Content grouped by apartment ──
+    for (const aptId of sortedApts) {
+      const aptTickets = grouped[aptId];
+      const aptName = getApartmentName(aptId);
+      const companyName = getCompanyForApt(aptId);
+
+      checkPage(25);
+
+      // Apartment header box
+      doc.setFillColor(37, 99, 235);
+      doc.rect(margin, y, contentWidth, 12, "F");
+      doc.setFontSize(11);
+      doc.setTextColor(255);
+      doc.text(`HUONEISTO: ${aptName}`, margin + 3, y + 5);
+      doc.setFontSize(9);
+      doc.text(`Huoltoyhti\u00f6: ${companyName}`, margin + 3, y + 10);
+      y += 16;
+
+      doc.setTextColor(30);
+
+      for (let i = 0; i < aptTickets.length; i++) {
+        const t = aptTickets[i];
+        checkPage(35);
+
+        // Checkbox + title
+        doc.setFontSize(10);
+        doc.setDrawColor(100);
+        doc.rect(margin + 1, y - 3, 3.5, 3.5); // empty checkbox
+        doc.setTextColor(30);
+        doc.text(t.title, margin + 7, y);
+        y += 6;
+
+        doc.setFontSize(8);
+        doc.setTextColor(80);
+
+        if (t.description) {
+          const descLines = doc.splitTextToSize(`Kuvaus: ${t.description}`, contentWidth - 10);
+          checkPage(descLines.length * 4 + 4);
+          doc.text(descLines, margin + 7, y);
+          y += descLines.length * 4 + 2;
+        }
+
+        doc.text(`Prioriteetti: ${t.priority === "1" ? "Normaali" : "Muistutus tarvitaan"}   |   Tila: ${statusLabel(t.status)}   |   Luotu: ${new Date(t.created_at).toLocaleDateString("fi-FI")}`, margin + 7, y);
+        y += 5;
+
+        if (t.notes) {
+          const noteLines = doc.splitTextToSize(`Muistiinpanot: ${t.notes}`, contentWidth - 10);
+          checkPage(noteLines.length * 4 + 2);
+          doc.text(noteLines, margin + 7, y);
+          y += noteLines.length * 4 + 2;
+        }
+
+        // Divider between tickets
+        if (i < aptTickets.length - 1) {
+          checkPage(4);
+          doc.setDrawColor(200);
+          doc.line(margin + 5, y, pageWidth - margin - 5, y);
+          y += 5;
+        }
+      }
+
+      y += 8;
+    }
+
+    addFooter();
+
+    // Update page numbers (replace placeholder)
+    const totalPages = pageNum;
+    for (let p = 1; p <= totalPages; p++) {
+      doc.setPage(p);
+      // Overwrite footer with correct total
+      doc.setFillColor(255, 255, 255);
+      doc.rect(pageWidth - margin - 30, pageHeight - 12, 30, 6, "F");
+      doc.setFontSize(8);
+      doc.setTextColor(150);
+      doc.text(`Sivu ${p} / ${totalPages}`, pageWidth - margin, pageHeight - 8, { align: "right" });
+    }
+
+    const dateStr = now.toISOString().split("T")[0];
+
+    if (openInNewTab) {
+      const blob = doc.output("blob");
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
+    } else {
+      doc.save(`kausihuolto_${dateStr}.pdf`);
+    }
+
+    setShowExportDialog(false);
+    toast({ title: "PDF luotu", description: `${exportTickets.length} tikettiä viety.` });
   };
 
   // Filtered tickets
@@ -884,6 +1109,100 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               <RefreshCw className="w-4 h-4 mr-1" />
               Päivitä
             </Button>
+
+            {/* PDF Export */}
+            <Dialog open={showExportDialog} onOpenChange={setShowExportDialog}>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <FileText className="w-4 h-4 mr-1" />
+                  Tulosta kausihuoltoraportti
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Kausihuoltoraportti – PDF</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div>
+                    <Label>Huoltoyhtiö</Label>
+                    <Select value={exportFilters.companyId} onValueChange={(val) => setExportFilters({ ...exportFilters, companyId: val })}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Kaikki huoltoyhtiöt</SelectItem>
+                        {companies.map((c) => (
+                          <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Huoneistot</Label>
+                    <div className="max-h-32 overflow-y-auto border rounded p-2 space-y-1 mt-1">
+                      {apartmentList.map((apt) => (
+                        <label key={apt.id} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-muted/50 rounded px-1">
+                          <Checkbox
+                            checked={exportFilters.apartmentIds.includes(apt.id)}
+                            onCheckedChange={(checked) => {
+                              setExportFilters((prev) => ({
+                                ...prev,
+                                apartmentIds: checked
+                                  ? [...prev.apartmentIds, apt.id]
+                                  : prev.apartmentIds.filter((id) => id !== apt.id),
+                              }));
+                            }}
+                          />
+                          {apt.name}
+                        </label>
+                      ))}
+                    </div>
+                    {exportFilters.apartmentIds.length > 0 && (
+                      <p className="text-xs text-muted-foreground mt-1">{exportFilters.apartmentIds.length} valittu</p>
+                    )}
+                  </div>
+                  <div>
+                    <Label>Tila</Label>
+                    <RadioGroup
+                      value={exportFilters.status}
+                      onValueChange={(val) => setExportFilters({ ...exportFilters, status: val as "open" | "in_progress" | "both" })}
+                      className="flex gap-4 mt-1"
+                    >
+                      <div className="flex items-center space-x-1">
+                        <RadioGroupItem value="both" id="exp-both" />
+                        <Label htmlFor="exp-both" className="text-sm">Molemmat</Label>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <RadioGroupItem value="open" id="exp-open" />
+                        <Label htmlFor="exp-open" className="text-sm">Avoimet</Label>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <RadioGroupItem value="in_progress" id="exp-ip" />
+                        <Label htmlFor="exp-ip" className="text-sm">Käsittelyssä</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label className="text-xs">Luotu alkaen</Label>
+                      <Input type="date" value={exportFilters.dateFrom} onChange={(e) => setExportFilters({ ...exportFilters, dateFrom: e.target.value })} />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Luotu saakka</Label>
+                      <Input type="date" value={exportFilters.dateTo} onChange={(e) => setExportFilters({ ...exportFilters, dateTo: e.target.value })} />
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button onClick={() => generatePdf(false)} className="flex-1">
+                      Lataa PDF
+                    </Button>
+                    <Button variant="outline" onClick={() => generatePdf(true)} className="flex-1">
+                      Avaa selaimessa
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
 
             {!isViewer && (
               <Dialog open={showCreateDialog} onOpenChange={(open) => {
