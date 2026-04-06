@@ -2037,7 +2037,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                             {ticket.target_type === "property" ? `🏢 ${getPropertyName(ticket.property_id)}` : getApartmentName(ticket.apartment_id)}
                           </span>
                         </TableCell>
-                        <TableCell>{ticket.title}</TableCell>
+                        <TableCell className="flex items-center gap-1">{ticket.recurrence_months ? <span title={`Toistuu ${ticket.recurrence_months} kk välein`}>🔄</span> : null}{ticket.title}</TableCell>
                         <TableCell><CategoryBadge category={categories.find(c => c.id === ticket.category_id)} /></TableCell>
                         <TableCell>{typeBadge(ticket.type)}</TableCell>
                         <TableCell>
