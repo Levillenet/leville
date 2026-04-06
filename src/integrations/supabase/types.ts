@@ -41,6 +41,38 @@ export type Database = {
         }
         Relationships: []
       }
+      apartment_maintenance: {
+        Row: {
+          apartment_id: string
+          contact_email_override: string | null
+          created_at: string
+          id: string
+          maintenance_company_id: string
+        }
+        Insert: {
+          apartment_id: string
+          contact_email_override?: string | null
+          created_at?: string
+          id?: string
+          maintenance_company_id: string
+        }
+        Update: {
+          apartment_id?: string
+          contact_email_override?: string | null
+          created_at?: string
+          id?: string
+          maintenance_company_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "apartment_maintenance_maintenance_company_id_fkey"
+            columns: ["maintenance_company_id"]
+            isOneToOne: false
+            referencedRelation: "maintenance_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       aurora_alerts: {
         Row: {
           created_at: string | null
@@ -840,6 +872,30 @@ export type Database = {
         }
         Relationships: []
       }
+      maintenance_companies: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
       maintenance_settings: {
         Row: {
           created_at: string | null
@@ -1308,6 +1364,83 @@ export type Database = {
         }
         Relationships: []
       }
+      ticket_email_log: {
+        Row: {
+          error_message: string | null
+          id: string
+          sent_at: string
+          sent_to: string
+          status: string
+          ticket_id: string
+        }
+        Insert: {
+          error_message?: string | null
+          id?: string
+          sent_at?: string
+          sent_to: string
+          status?: string
+          ticket_id: string
+        }
+        Update: {
+          error_message?: string | null
+          id?: string
+          sent_at?: string
+          sent_to?: string
+          status?: string
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_email_log_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tickets: {
+        Row: {
+          apartment_id: string
+          created_at: string
+          description: string | null
+          id: string
+          notes: string | null
+          priority: Database["public"]["Enums"]["ticket_priority"]
+          send_email: boolean
+          status: Database["public"]["Enums"]["ticket_status"]
+          title: string
+          type: Database["public"]["Enums"]["ticket_type"]
+          updated_at: string
+        }
+        Insert: {
+          apartment_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          notes?: string | null
+          priority?: Database["public"]["Enums"]["ticket_priority"]
+          send_email?: boolean
+          status?: Database["public"]["Enums"]["ticket_status"]
+          title: string
+          type?: Database["public"]["Enums"]["ticket_type"]
+          updated_at?: string
+        }
+        Update: {
+          apartment_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          notes?: string | null
+          priority?: Database["public"]["Enums"]["ticket_priority"]
+          send_email?: boolean
+          status?: Database["public"]["Enums"]["ticket_status"]
+          title?: string
+          type?: Database["public"]["Enums"]["ticket_type"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       timed_notices: {
         Row: {
           content_de: string | null
@@ -1399,6 +1532,9 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "super_admin"
+      ticket_priority: "1" | "2"
+      ticket_status: "open" | "in_progress" | "resolved"
+      ticket_type: "seasonal" | "urgent"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1527,6 +1663,9 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "super_admin"],
+      ticket_priority: ["1", "2"],
+      ticket_status: ["open", "in_progress", "resolved"],
+      ticket_type: ["seasonal", "urgent"],
     },
   },
 } as const
