@@ -380,6 +380,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     target_type: "apartment" as "apartment" | "property",
     property_id: "",
     email_override: "",
+    recurrence_months: 0,
+    recurrence_note: "",
   });
 
   // Company form
