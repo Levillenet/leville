@@ -1898,54 +1898,86 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           {companies.length === 0 ? (
             <Card><CardContent className="py-8 text-center text-muted-foreground"><Building2 className="w-12 h-12 mx-auto mb-3 opacity-50" /><p>Ei huoltoyhtiöitä</p></CardContent></Card>
           ) : (
-            <div className="space-y-4">
-              {companies.map((company) => {
-                const companyAssignments = assignments.filter((a) => a.maintenance_company_id === company.id);
-                const assignedAptIds = companyAssignments.map((a) => a.apartment_id);
-                const unassignedApts = apartmentList.filter((a) => !assignedAptIds.includes(a.id));
-
+            <div className="space-y-6">
+              {/* Group by company type */}
+              {(["kiinteistohuolto", "siivous"] as const).map((type) => {
+                const typeCompanies = companies.filter(c => (c.company_type || "kiinteistohuolto") === type);
+                if (typeCompanies.length === 0) return null;
                 return (
-                  <Card key={company.id}>
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-base flex items-center gap-2"><Building2 className="w-4 h-4" />{company.name}</CardTitle>
-                        {!isViewer && (
-                          <div className="flex gap-2">
-                            <Button variant="ghost" size="sm" onClick={() => { setEditingCompany(company); setCompanyForm({ name: company.name, email: company.email || "", phone: company.phone || "", company_type: company.company_type || "kiinteistohuolto" }); setShowCompanyDialog(true); }}>Muokkaa</Button>
-                            <Button variant="ghost" size="sm" onClick={() => handleDeleteCompany(company.id)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
-                          </div>
-                        )}
-                      </div>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      <div className="flex gap-4 text-sm text-muted-foreground">
-                        {company.email && <span className="flex items-center gap-1"><AtSign className="w-3 h-3" />{company.email}</span>}
-                        {company.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" />{company.phone}</span>}
-                      </div>
-                      <div>
-                        <Label className="text-xs text-muted-foreground">Liitetyt huoneistot</Label>
-                        {companyAssignments.length === 0 ? (
-                          <p className="text-sm text-muted-foreground mt-1">Ei liitettyjä huoneistoja</p>
-                        ) : (
-                          <div className="flex flex-wrap gap-2 mt-1">
-                            {companyAssignments.map((assignment) => (
-                              <Badge key={assignment.id} variant="secondary" className="gap-1">
-                                {getApartmentName(assignment.apartment_id)}
-                                {assignment.contact_email_override && <span className="text-xs opacity-70">({assignment.contact_email_override})</span>}
-                                {!isViewer && <button onClick={() => handleUnassignApartment(assignment.id)} className="ml-1 hover:text-destructive">×</button>}
-                              </Badge>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      {!isViewer && unassignedApts.length > 0 && (
-                        <Select onValueChange={(aptId) => handleAssignApartment(company.id, aptId)}>
-                          <SelectTrigger className="w-[200px]"><SelectValue placeholder="Lisää huoneisto..." /></SelectTrigger>
-                          <SelectContent>{unassignedApts.map((apt) => (<SelectItem key={apt.id} value={apt.id}>{apt.name}</SelectItem>))}</SelectContent>
-                        </Select>
-                      )}
-                    </CardContent>
-                  </Card>
+                  <div key={type}>
+                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                      {type === "kiinteistohuolto" ? "🔧 Kiinteistöhuolto" : "🧹 Siivous"}
+                    </h4>
+                    <div className="space-y-4">
+                      {typeCompanies.map((company) => {
+                        const companyAssignments = assignments.filter((a) => a.maintenance_company_id === company.id);
+                        const assignedAptIds = companyAssignments.map((a) => a.apartment_id);
+
+                        return (
+                          <Card key={company.id}>
+                            <CardHeader className="pb-3">
+                              <div className="flex items-center justify-between">
+                                <CardTitle className="text-base flex items-center gap-2">
+                                  <Building2 className="w-4 h-4" />{company.name}
+                                  <Badge variant="outline" className="text-xs">{type === "kiinteistohuolto" ? "Kiinteistöhuolto" : "Siivous"}</Badge>
+                                </CardTitle>
+                                {!isViewer && (
+                                  <div className="flex gap-2">
+                                    <Button variant="ghost" size="sm" onClick={() => { setEditingCompany(company); setCompanyForm({ name: company.name, email: company.email || "", phone: company.phone || "", company_type: company.company_type || "kiinteistohuolto" }); setShowCompanyDialog(true); }}>Muokkaa</Button>
+                                    <Button variant="ghost" size="sm" onClick={() => handleDeleteCompany(company.id)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
+                                  </div>
+                                )}
+                              </div>
+                            </CardHeader>
+                            <CardContent className="space-y-3">
+                              <div className="flex gap-4 text-sm text-muted-foreground">
+                                {company.email && <span className="flex items-center gap-1"><AtSign className="w-3 h-3" />{company.email}</span>}
+                                {company.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" />{company.phone}</span>}
+                              </div>
+                              <div>
+                                <Label className="text-xs text-muted-foreground">Liitetyt huoneistot</Label>
+                                {!isViewer ? (
+                                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2 max-h-48 overflow-y-auto border rounded-md p-2">
+                                    {apartmentList.map((apt) => {
+                                      const isAssigned = assignedAptIds.includes(apt.id);
+                                      return (
+                                        <label key={apt.id} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-muted/50 rounded p-1">
+                                          <input
+                                            type="checkbox"
+                                            checked={isAssigned}
+                                            onChange={async () => {
+                                              if (isAssigned) {
+                                                const rec = companyAssignments.find(a => a.apartment_id === apt.id);
+                                                if (rec) await handleUnassignApartment(rec.id);
+                                              } else {
+                                                await handleAssignApartment(company.id, apt.id);
+                                              }
+                                            }}
+                                            className="rounded"
+                                          />
+                                          <span className="truncate">{apt.name}</span>
+                                        </label>
+                                      );
+                                    })}
+                                  </div>
+                                ) : (
+                                  companyAssignments.length === 0 ? (
+                                    <p className="text-sm text-muted-foreground mt-1">Ei liitettyjä huoneistoja</p>
+                                  ) : (
+                                    <div className="flex flex-wrap gap-2 mt-1">
+                                      {companyAssignments.map((assignment) => (
+                                        <Badge key={assignment.id} variant="secondary">{getApartmentName(assignment.apartment_id)}</Badge>
+                                      ))}
+                                    </div>
+                                  )
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  </div>
                 );
               })}
             </div>
