@@ -340,12 +340,11 @@ Deno.serve(async (req) => {
       }
 
       case "assign_apartment_to_property_direct": {
-        // Create an apartment_maintenance record directly for property assignment (no company required)
         const { apartment_id, property_id } = body;
-        // Use a dummy maintenance_company_id — we'll create a placeholder record
+        // Create an apartment_maintenance record for property-only assignment (no company)
         const { data, error } = await supabase
           .from("apartment_maintenance")
-          .insert({ apartment_id, maintenance_company_id: "00000000-0000-0000-0000-000000000000", property_id })
+          .insert({ apartment_id, maintenance_company_id: null, property_id })
           .select()
           .single();
         if (error) throw error;
