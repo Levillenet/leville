@@ -362,6 +362,23 @@ Deno.serve(async (req) => {
         return json(data);
       }
 
+      // ── SCHEDULE DATE REMINDER ──
+      case "schedule_date_reminder": {
+        const { ticket_id, target_date, changed_by } = body;
+        const { data: ticket, error } = await supabase
+          .from("tickets")
+          .select("*")
+          .eq("id", ticket_id)
+          .single();
+        if (error) throw error;
+
+        const result = await sendTicketEmail(supabase, ticket, "reminder", target_date);
+        if (result.sent) {
+          await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Päivämäärämuistutus lähetetty (${target_date}): ${result.email}`, "email_sent");
+        }
+        return json(result);
+      }
+
       default:
         return new Response(JSON.stringify({ error: "Unknown action" }), {
           status: 400,
@@ -438,12 +455,13 @@ async function resolveRecipientEmail(
 async function sendTicketEmail(
   supabase: any,
   ticket: any,
-  emailType: "creation" | "reminder"
+  emailType: "creation" | "reminder",
+  targetDate?: string
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   // 1. Ticket-level override
   if (ticket.email_override) {
     const email = ticket.email_override;
-    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType);
+    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate);
   }
 
   // 2-3. Apartment/company fallback
@@ -453,7 +471,7 @@ async function sendTicketEmail(
     return { sent: false, error: "no_email_found" };
   }
 
-  return await doSendEmail(supabase, ticket, email, source, emailType);
+  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate);
 }
 
 async function doSendEmail(
@@ -461,7 +479,8 @@ async function doSendEmail(
   ticket: any,
   email: string,
   _source: string,
-  emailType: "creation" | "reminder"
+  emailType: "creation" | "reminder",
+  targetDate?: string
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   if (!resendApiKey) {
@@ -482,12 +501,17 @@ async function doSendEmail(
   });
 
   const isReminder = emailType === "reminder";
+  const targetDateFormatted = targetDate
+    ? new Date(targetDate).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Helsinki" })
+    : null;
   const subject = isReminder
-    ? `[Leville Muistutus] ${apartmentName} – ${ticket.title}`
+    ? `[Leville Muistutus] ${apartmentName} – ${ticket.title}${targetDate ? ` (${targetDateFormatted})` : ""}`
     : `[Leville Tiketti] ${apartmentName} – ${ticket.title}`;
 
   const reminderNote = isReminder
-    ? `<p style="color:#e65100;font-weight:bold;">⚠️ Tämä on muistutus avoimesta tiketistä. Huoneistossa on tyhjä yö lähiaikoina – huolto olisi hyvä suorittaa.</p>`
+    ? targetDate
+      ? `<p style="color:#e65100;font-weight:bold;">⚠️ Muistutus: huoneistossa on tyhjä yö <strong>${targetDateFormatted}</strong> – huolto olisi hyvä suorittaa huomenna.</p>`
+      : `<p style="color:#e65100;font-weight:bold;">⚠️ Tämä on muistutus avoimesta tiketistä. Huoneistossa on tyhjä yö lähiaikoina – huolto olisi hyvä suorittaa.</p>`
     : "";
 
   const adminUrl = `https://leville.net/admin`;

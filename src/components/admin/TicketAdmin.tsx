@@ -115,48 +115,130 @@ const getApartmentName = (id: string) => {
   return apt?.name || id;
 };
 
-// ── Mini Calendar Component ──
-const MiniCalendar = ({ availability, days, label }: { availability: AvailabilityData; days: number; label?: string }) => {
+// ── Improved Calendar Component ──
+const ImprovedCalendar = ({ 
+  availability, 
+  days, 
+  label, 
+  onDateClick 
+}: { 
+  availability: AvailabilityData; 
+  days: number; 
+  label?: string;
+  onDateClick?: (date: string) => void;
+}) => {
   const dateKeys = Object.keys(availability.dates).sort().slice(0, days);
   const backToBackSet = new Set(availability.backToBackWindows);
   const emptySet = new Set(availability.emptyNights);
 
+  if (dateKeys.length === 0) return null;
+
+  // Group dates by month
+  const months: { label: string; weeks: (string | null)[][] }[] = [];
+  let currentMonth = "";
+  let currentWeek: (string | null)[] = [];
+  
+  for (const date of dateKeys) {
+    const d = new Date(date);
+    const monthLabel = d.toLocaleDateString("fi-FI", { month: "long", year: "numeric" });
+    
+    if (monthLabel !== currentMonth) {
+      if (currentWeek.length > 0) {
+        while (currentWeek.length < 7) currentWeek.push(null);
+        months[months.length - 1].weeks.push(currentWeek);
+        currentWeek = [];
+      }
+      currentMonth = monthLabel;
+      months.push({ label: monthLabel, weeks: [] });
+      // Pad start of first week
+      const dayOfWeek = (d.getDay() + 6) % 7; // Mon=0
+      for (let i = 0; i < dayOfWeek; i++) currentWeek.push(null);
+    }
+    
+    const dayOfWeek = (d.getDay() + 6) % 7;
+    if (dayOfWeek === 0 && currentWeek.length > 0) {
+      while (currentWeek.length < 7) currentWeek.push(null);
+      months[months.length - 1].weeks.push(currentWeek);
+      currentWeek = [];
+    }
+    currentWeek.push(date);
+  }
+  if (currentWeek.length > 0) {
+    while (currentWeek.length < 7) currentWeek.push(null);
+    months[months.length - 1].weeks.push(currentWeek);
+  }
+
+  const weekDays = ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"];
+
   return (
-    <div className="space-y-2">
-      {label && <Label className="text-xs text-muted-foreground">{label}</Label>}
-      <div className="flex flex-wrap gap-1">
-        {dateKeys.map((date) => {
-          const isBackToBack = backToBackSet.has(date);
-          const isEmpty = emptySet.has(date);
-          const d = new Date(date);
-          const dayNum = d.getDate();
-          const isWeekend = d.getDay() === 0 || d.getDay() === 6;
-
-          let bg = "bg-muted/60 text-muted-foreground";
-          let title = "Varattu";
-          if (isBackToBack) {
-            bg = "bg-amber-400 text-amber-900 ring-1 ring-amber-500";
-            title = "Back-to-back ikkuna";
-          } else if (isEmpty) {
-            bg = "bg-emerald-400/80 text-emerald-900";
-            title = "Vapaa yö";
-          }
-
-          return (
-            <div
-              key={date}
-              title={`${date} – ${title}`}
-              className={`w-7 h-7 rounded text-xs flex items-center justify-center font-medium ${bg} ${isWeekend ? "ring-1 ring-foreground/10" : ""}`}
-            >
-              {dayNum}
+    <div className="space-y-3">
+      {label && <Label className="text-xs font-medium text-muted-foreground">{label}</Label>}
+      
+      {months.map((month) => (
+        <div key={month.label} className="space-y-1">
+          <p className="text-xs font-semibold text-foreground capitalize">{month.label}</p>
+          <div className="border rounded-lg overflow-hidden">
+            <div className="grid grid-cols-7 bg-muted/40">
+              {weekDays.map((wd) => (
+                <div key={wd} className="text-[10px] font-medium text-muted-foreground text-center py-1">{wd}</div>
+              ))}
             </div>
-          );
-        })}
-      </div>
-      <div className="flex gap-3 text-[10px] text-muted-foreground">
-        <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-muted/60 inline-block" /> Varattu</span>
-        <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-emerald-400/80 inline-block" /> Vapaa</span>
-        <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-amber-400 inline-block" /> Back-to-back</span>
+            {month.weeks.map((week, wi) => (
+              <div key={wi} className="grid grid-cols-7">
+                {week.map((date, di) => {
+                  if (!date) return <div key={di} className="h-8" />;
+                  
+                  const d = new Date(date);
+                  const dayNum = d.getDate();
+                  const isBackToBack = backToBackSet.has(date);
+                  const isEmpty = emptySet.has(date);
+                  const isWeekend = di >= 5;
+                  const isToday = date === new Date().toISOString().split("T")[0];
+
+                  let bgClass = "bg-red-100 text-red-800";
+                  let statusLabel = "Varattu";
+                  if (isBackToBack) {
+                    bgClass = "bg-amber-200 text-amber-900";
+                    statusLabel = "Back-to-back (vaihto)";
+                  } else if (isEmpty) {
+                    bgClass = "bg-emerald-100 text-emerald-800";
+                    statusLabel = "Vapaa yö";
+                  }
+
+                  const clickable = onDateClick && (isEmpty || isBackToBack);
+
+                  return (
+                    <div
+                      key={date}
+                      title={`${d.toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })} – ${statusLabel}${clickable ? "\n🔔 Klikkaa lähettääksesi muistutus edellisenä päivänä" : ""}`}
+                      onClick={() => clickable && onDateClick(date)}
+                      className={`
+                        h-8 flex items-center justify-center text-xs font-medium relative
+                        ${bgClass}
+                        ${isWeekend ? "font-bold" : ""}
+                        ${isToday ? "ring-2 ring-primary ring-inset" : ""}
+                        ${clickable ? "cursor-pointer hover:brightness-90 hover:ring-1 hover:ring-primary/50" : ""}
+                        border-t border-r last:border-r-0 border-muted/30
+                      `}
+                    >
+                      {dayNum}
+                      {clickable && (
+                        <span className="absolute -top-0.5 -right-0.5 text-[8px]">🔔</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div className="flex gap-4 text-[11px] text-muted-foreground pt-1">
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-red-100 border border-red-200 inline-block" /> Varattu</span>
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-emerald-100 border border-emerald-200 inline-block" /> Vapaa</span>
+        <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-amber-200 border border-amber-200 inline-block" /> Vaihto</span>
+        {onDateClick && <span className="flex items-center gap-1.5">🔔 Klikkaa → muistutus</span>}
       </div>
     </div>
   );
@@ -1425,7 +1507,27 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   </div>
                 ) : ticketAvailability ? (
                   <div className="space-y-3">
-                    <MiniCalendar availability={ticketAvailability} days={selectedTicket.type === "urgent" ? 30 : 14} label={selectedTicket.type === "urgent" ? "Seuraavat 30 päivää" : "Seuraavat 14 päivää"} />
+                    <ImprovedCalendar 
+                      availability={ticketAvailability} 
+                      days={selectedTicket.type === "urgent" ? 30 : 14} 
+                      label={selectedTicket.type === "urgent" ? "Seuraavat 30 päivää" : "Seuraavat 14 päivää"}
+                      onDateClick={!isViewer ? async (date) => {
+                        const dayBefore = new Date(new Date(date).getTime() - 86400000).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
+                        if (!confirm(`Lähetetäänkö muistutussähköposti tiketistä?\n\nVapaa yö: ${new Date(date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}\nMuistutus lähetetään nyt (huolto edellisenä päivänä: ${dayBefore})`)) return;
+                        try {
+                          const result = await callApi("schedule_date_reminder", { ticket_id: selectedTicket.id, target_date: date });
+                          if (result?.sent) {
+                            toast({ title: "Muistutus lähetetty", description: `Vastaanottaja: ${result.email}` });
+                            fetchEmailLog(selectedTicket.id);
+                            fetchTicketHistory(selectedTicket.id);
+                          } else {
+                            toast({ title: "Virhe", description: result?.error === "no_email_found" ? "Sähköpostia ei löytynyt" : "Lähetys epäonnistui", variant: "destructive" });
+                          }
+                        } catch (e: any) {
+                          toast({ title: "Virhe", description: e.message, variant: "destructive" });
+                        }
+                      } : undefined}
+                    />
                     {ticketAvailability.backToBackWindows.length > 0 && (
                       <div className="p-2 bg-amber-50 border border-amber-200 rounded text-sm">
                         <span className="font-medium text-amber-800">Seuraava back-to-back ikkuna: </span>
@@ -1754,7 +1856,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                           <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="w-4 h-4 animate-spin" />Haetaan saatavuustietoja...</div>
                         ) : createFormAvailability ? (
                           <div className="space-y-2">
-                            <MiniCalendar availability={createFormAvailability} days={30} label="Saatavuus – seuraavat 30 päivää" />
+                            <ImprovedCalendar availability={createFormAvailability} days={30} label="Saatavuus – seuraavat 30 päivää" />
                             {createFormAvailability.backToBackWindows.length > 0 && (
                               <p className="text-sm font-medium text-amber-700">Seuraava back-to-back ikkuna: {new Date(createFormAvailability.backToBackWindows[0]).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })}</p>
                             )}
