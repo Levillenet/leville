@@ -47,7 +47,7 @@ export type Database = {
           contact_email_override: string | null
           created_at: string
           id: string
-          maintenance_company_id: string
+          maintenance_company_id: string | null
           property_id: string | null
         }
         Insert: {
@@ -55,7 +55,7 @@ export type Database = {
           contact_email_override?: string | null
           created_at?: string
           id?: string
-          maintenance_company_id: string
+          maintenance_company_id?: string | null
           property_id?: string | null
         }
         Update: {
@@ -63,7 +63,7 @@ export type Database = {
           contact_email_override?: string | null
           created_at?: string
           id?: string
-          maintenance_company_id?: string
+          maintenance_company_id?: string | null
           property_id?: string | null
         }
         Relationships: [
