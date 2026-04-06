@@ -205,12 +205,12 @@ const ImprovedCalendar = ({
                     statusLabel = "Vapaa yö";
                   }
 
-                  const clickable = onDateClick && (isEmpty || isBackToBack);
+                  const clickable = !!onDateClick;
 
                   return (
                     <div
                       key={date}
-                      title={`${d.toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })} – ${statusLabel}${clickable ? "\n🔔 Klikkaa lähettääksesi muistutus edellisenä päivänä" : ""}`}
+                      title={`${d.toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })} – ${statusLabel}${clickable ? "\n🔔 Klikkaa lähettääksesi muistutus" : ""}`}
                       onClick={() => clickable && onDateClick(date)}
                       className={`
                         h-8 flex items-center justify-center text-xs font-medium relative
