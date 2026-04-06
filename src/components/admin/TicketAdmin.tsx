@@ -160,7 +160,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [createFormAvailability, setCreateFormAvailability] = useState<AvailabilityData | null>(null);
   const [loadingCreateAvail, setLoadingCreateAvail] = useState(false);
   const [availabilityIndicators, setAvailabilityIndicators] = useState<Record<string, { indicator: "back_to_back" | "empty" | "full" }>>({});
-  const [loadingIndicators, setLoadingIndicators] = useState(false);
+  const [_loadingIndicators, setLoadingIndicators] = useState(false);
 
   // Email preview for new ticket
   const [emailPreview, setEmailPreview] = useState<{ email: string | null; source: string } | null>(null);
