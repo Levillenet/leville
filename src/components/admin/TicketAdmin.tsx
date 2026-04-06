@@ -385,6 +385,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     recurrence_months: 0,
     recurrence_note: "",
   });
+  const [selectedApartmentIds, setSelectedApartmentIds] = useState<string[]>([]);
 
   // Company form
   const [companyForm, setCompanyForm] = useState({ name: "", email: "", phone: "", company_types: ["kiinteistohuolto"] as string[] });
