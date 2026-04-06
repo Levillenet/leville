@@ -102,11 +102,11 @@ interface TicketAdminProps {
 }
 
 const apartments = getAllDefaultPropertyDetails();
-const apartmentList = Object.entries(apartments)
-  .filter(([id]) => id && id.length > 0)
-  .map(([id, details]) => ({
-    id,
-    name: (details as any).name || id,
+const apartmentList = apartments
+  .filter((p) => p.id && p.id.length > 0)
+  .map((p) => ({
+    id: p.id,
+    name: p.name || p.id,
   }));
 
 const getApartmentName = (id: string) => {
