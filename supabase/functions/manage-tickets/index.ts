@@ -479,7 +479,8 @@ async function doSendEmail(
   ticket: any,
   email: string,
   _source: string,
-  emailType: "creation" | "reminder"
+  emailType: "creation" | "reminder",
+  targetDate?: string
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   if (!resendApiKey) {
