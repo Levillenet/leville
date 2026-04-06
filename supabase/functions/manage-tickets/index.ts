@@ -597,7 +597,7 @@ async function doSendEmail(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Leville.net Tiketöinti <noreply@leville.net>",
+        from: "Leville.net Tiketöinti <admin@m.leville.net>",
         to: [email],
         subject,
         html: htmlBody,
