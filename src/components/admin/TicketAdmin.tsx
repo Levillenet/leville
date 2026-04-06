@@ -1870,12 +1870,22 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold">Huoltoyhtiöt</h3>
             {!isViewer && (
-              <Dialog open={showCompanyDialog} onOpenChange={(open) => { setShowCompanyDialog(open); if (!open) { setEditingCompany(null); setCompanyForm({ name: "", email: "", phone: "" }); } }}>
+              <Dialog open={showCompanyDialog} onOpenChange={(open) => { setShowCompanyDialog(open); if (!open) { setEditingCompany(null); setCompanyForm({ name: "", email: "", phone: "", company_type: "kiinteistohuolto" }); } }}>
                 <DialogTrigger asChild><Button><Plus className="w-4 h-4 mr-1" />Lisää yritys</Button></DialogTrigger>
                 <DialogContent>
                   <DialogHeader><DialogTitle>{editingCompany ? "Muokkaa yritystä" : "Uusi yritys"}</DialogTitle></DialogHeader>
                   <div className="space-y-4">
                     <div><Label>Nimi *</Label><Input value={companyForm.name} onChange={(e) => setCompanyForm({ ...companyForm, name: e.target.value })} /></div>
+                    <div>
+                      <Label>Tyyppi *</Label>
+                      <Select value={companyForm.company_type} onValueChange={(val) => setCompanyForm({ ...companyForm, company_type: val })}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="kiinteistohuolto">Kiinteistöhuolto</SelectItem>
+                          <SelectItem value="siivous">Siivous</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                     <div><Label>Sähköposti</Label><Input type="email" value={companyForm.email} onChange={(e) => setCompanyForm({ ...companyForm, email: e.target.value })} /></div>
                     <div><Label>Puhelin</Label><Input value={companyForm.phone} onChange={(e) => setCompanyForm({ ...companyForm, phone: e.target.value })} /></div>
                     <Button onClick={handleSaveCompany} className="w-full">{editingCompany ? "Tallenna" : "Lisää"}</Button>
