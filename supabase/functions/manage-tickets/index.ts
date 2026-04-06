@@ -501,12 +501,17 @@ async function doSendEmail(
   });
 
   const isReminder = emailType === "reminder";
+  const targetDateFormatted = targetDate
+    ? new Date(targetDate).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Helsinki" })
+    : null;
   const subject = isReminder
-    ? `[Leville Muistutus] ${apartmentName} – ${ticket.title}`
+    ? `[Leville Muistutus] ${apartmentName} – ${ticket.title}${targetDate ? ` (${targetDateFormatted})` : ""}`
     : `[Leville Tiketti] ${apartmentName} – ${ticket.title}`;
 
   const reminderNote = isReminder
-    ? `<p style="color:#e65100;font-weight:bold;">⚠️ Tämä on muistutus avoimesta tiketistä. Huoneistossa on tyhjä yö lähiaikoina – huolto olisi hyvä suorittaa.</p>`
+    ? targetDate
+      ? `<p style="color:#e65100;font-weight:bold;">⚠️ Muistutus: huoneistossa on tyhjä yö <strong>${targetDateFormatted}</strong> – huolto olisi hyvä suorittaa huomenna.</p>`
+      : `<p style="color:#e65100;font-weight:bold;">⚠️ Tämä on muistutus avoimesta tiketistä. Huoneistossa on tyhjä yö lähiaikoina – huolto olisi hyvä suorittaa.</p>`
     : "";
 
   const adminUrl = `https://leville.net/admin`;
