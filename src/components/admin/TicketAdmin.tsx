@@ -1935,9 +1935,21 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                           <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="w-4 h-4 animate-spin" />Haetaan saatavuustietoja...</div>
                         ) : createFormAvailability ? (
                           <div className="space-y-2">
-                            <ImprovedCalendar availability={createFormAvailability} days={30} label="Saatavuus – seuraavat 30 päivää" />
-                            {createFormAvailability.backToBackWindows.length > 0 && (
-                              <p className="text-sm font-medium text-amber-700">Seuraava back-to-back ikkuna: {new Date(createFormAvailability.backToBackWindows[0]).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })}</p>
+                            <ImprovedCalendar 
+                              availability={createFormAvailability} 
+                              days={30} 
+                              label="Saatavuus – seuraavat 30 päivää (klikkaa päivää muistutusta varten)"
+                              onDateClick={(date) => {
+                                setPendingReminderDate(date);
+                                toast({ title: "Muistutuspäivä valittu", description: `${new Date(date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })} – muistutus lähetetään tiketin luonnin yhteydessä` });
+                              }}
+                            />
+                            {pendingReminderDate && (
+                              <div className="flex items-center gap-2 p-2 bg-blue-50 border border-blue-200 rounded text-sm">
+                                <Bell className="w-4 h-4 text-blue-600 shrink-0" />
+                                <span>Muistutus lähetetään: <strong>{new Date(pendingReminderDate).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}</strong></span>
+                                <Button variant="ghost" size="sm" className="h-auto p-0.5 ml-auto" onClick={() => setPendingReminderDate("")}>✕</Button>
+                              </div>
                             )}
                           </div>
                         ) : (
