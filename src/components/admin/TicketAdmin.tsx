@@ -1928,7 +1928,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                               <div className="flex items-center justify-between">
                                 <CardTitle className="text-base flex items-center gap-2">
                                   <Building2 className="w-4 h-4" />{company.name}
-                                  <Badge variant="outline" className="text-xs">{type === "kiinteistohuolto" ? "Kiinteistöhuolto" : "Siivous"}</Badge>
+                                  {company.company_types?.includes("kiinteistohuolto") && <Badge variant="outline" className="text-xs">🔧 Kiinteistöhuolto</Badge>}
+                                  {company.company_types?.includes("siivous") && <Badge variant="outline" className="text-xs">🧹 Siivous</Badge>}
                                 </CardTitle>
                                 {!isViewer && (
                                   <div className="flex gap-2">
