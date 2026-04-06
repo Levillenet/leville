@@ -80,12 +80,48 @@ Deno.serve(async (req) => {
 
         // Log changes to history
         if (oldTicket) {
-          const fields = ["status", "priority", "type", "category_id", "notes", "email_override", "target_type", "property_id"];
+          const fields = ["status", "priority", "type", "category_id", "notes", "email_override", "target_type", "property_id", "recurrence_months"];
           for (const field of fields) {
             if (updates[field] !== undefined && String(oldTicket[field]) !== String(updates[field])) {
               const actionType = field === "status" && updates[field] === "resolved" ? "resolved" : "updated";
               await addHistory(supabase, id, changed_by || "admin", field, String(oldTicket[field] ?? ""), String(updates[field] ?? ""), actionType);
             }
+          }
+        }
+
+        // Auto-create recurring ticket when resolved
+        if (updates.status === "resolved" && data.recurrence_months && data.recurrence_months > 0) {
+          const nextDate = new Date();
+          nextDate.setMonth(nextDate.getMonth() + data.recurrence_months);
+          const nextDateStr = nextDate.toLocaleDateString("fi-FI", { day: "numeric", month: "long", year: "numeric" });
+
+          const newTicketData = {
+            apartment_id: data.apartment_id,
+            title: data.title,
+            description: data.description,
+            type: data.type,
+            priority: data.priority,
+            send_email: false,
+            target_type: data.target_type,
+            category_id: data.category_id,
+            property_id: data.property_id,
+            email_override: data.email_override,
+            recurrence_months: data.recurrence_months,
+            recurrence_source_id: data.recurrence_source_id || data.id,
+            recurrence_note: data.recurrence_note,
+          };
+
+          const { data: newTicket, error: newErr } = await supabase
+            .from("tickets")
+            .insert(newTicketData)
+            .select()
+            .single();
+
+          if (!newErr && newTicket) {
+            await addHistory(supabase, newTicket.id, "system", null, null, 
+              `Toistuva tiketti luotu automaattisesti (${data.recurrence_months} kk välein). Edellinen: ${data.id.slice(0, 8)}`, "created");
+            await addHistory(supabase, id, "system", null, null, 
+              `Seuraava toistuva tiketti luotu: ${newTicket.id.slice(0, 8)} (ajastettu ${nextDateStr})`, "recurrence_created");
           }
         }
 
