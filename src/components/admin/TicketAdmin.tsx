@@ -1469,6 +1469,59 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   <p>{new Date(selectedTicket.created_at).toLocaleDateString("fi-FI")} {new Date(selectedTicket.created_at).toLocaleTimeString("fi-FI", { hour: "2-digit", minute: "2-digit" })}</p>
                 </div>
 
+                {/* Recurrence info */}
+                {(selectedTicket.recurrence_months || selectedTicket.recurrence_source_id) && (
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg space-y-1">
+                    <div className="flex items-center gap-2 text-sm font-medium text-blue-800">
+                      🔄 Toistuva tiketti
+                    </div>
+                    {selectedTicket.recurrence_months && (
+                      <p className="text-sm text-blue-700">Toistuu {selectedTicket.recurrence_months} kk välein</p>
+                    )}
+                    {selectedTicket.recurrence_note && (
+                      <p className="text-sm text-blue-600">{selectedTicket.recurrence_note}</p>
+                    )}
+                    {selectedTicket.recurrence_source_id && (
+                      <p className="text-xs text-blue-500">Alkuperäinen tiketti: {selectedTicket.recurrence_source_id.slice(0, 8)}...</p>
+                    )}
+                    {selectedTicket.status !== "resolved" && selectedTicket.recurrence_months && (
+                      <p className="text-xs text-blue-500 italic">Kun tiketti ratkaistaan, uusi luodaan automaattisesti</p>
+                    )}
+                  </div>
+                )}
+
+                {/* Recurrence edit - add to existing ticket */}
+                {!isViewer && !selectedTicket.recurrence_months && (
+                  <div className="space-y-2">
+                    <Label className="text-xs flex items-center gap-1">🔄 Lisää toistuvuus</Label>
+                    <Select 
+                      value="0" 
+                      onValueChange={async (val) => {
+                        if (Number(val) > 0) {
+                          try {
+                            await callApi("update_ticket", { id: selectedTicket.id, updates: { recurrence_months: Number(val) } });
+                            setSelectedTicket({ ...selectedTicket, recurrence_months: Number(val) });
+                            fetchTicketHistory(selectedTicket.id);
+                            toast({ title: "Toistuvuus lisätty" });
+                          } catch (e: any) {
+                            toast({ title: "Virhe", description: e.message, variant: "destructive" });
+                          }
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="text-sm"><SelectValue placeholder="Ei toistu" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="0">Ei toistu</SelectItem>
+                        <SelectItem value="1">1 kk</SelectItem>
+                        <SelectItem value="3">3 kk</SelectItem>
+                        <SelectItem value="6">6 kk</SelectItem>
+                        <SelectItem value="12">12 kk</SelectItem>
+                        <SelectItem value="24">24 kk</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
                 {!isViewer && (
                   <div className="pt-2 space-y-2">
                     <Label>Muuta tila</Label>
