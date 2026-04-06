@@ -14,7 +14,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign, CalendarDays, Send, AlertCircle, FileText, Tag, History, BarChart3, Settings } from "lucide-react";
+import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign, CalendarDays, Send, AlertCircle, FileText, Tag, History, BarChart3, Settings, Bell } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
