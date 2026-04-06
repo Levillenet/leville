@@ -1915,11 +1915,41 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
                     {newTicket.target_type === "apartment" ? (
                       <div>
-                        <Label>Huoneisto *</Label>
-                        <Select value={newTicket.apartment_id} onValueChange={(val) => setNewTicket({ ...newTicket, apartment_id: val })}>
-                          <SelectTrigger><SelectValue placeholder="Valitse huoneisto" /></SelectTrigger>
-                          <SelectContent>{apartmentList.map((apt) => (<SelectItem key={apt.id} value={apt.id}>{apt.name}</SelectItem>))}</SelectContent>
-                        </Select>
+                        <div className="flex items-center justify-between">
+                          <Label>Huoneistot * ({selectedApartmentIds.length} valittu)</Label>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="h-auto py-0.5 px-2 text-xs"
+                            onClick={() => {
+                              if (selectedApartmentIds.length === apartmentList.length) {
+                                setSelectedApartmentIds([]);
+                              } else {
+                                setSelectedApartmentIds(apartmentList.map(a => a.id));
+                              }
+                            }}
+                          >
+                            {selectedApartmentIds.length === apartmentList.length ? "Poista kaikki" : "Valitse kaikki"}
+                          </Button>
+                        </div>
+                        <div className="border rounded-md mt-1 max-h-48 overflow-y-auto p-2 space-y-1">
+                          {apartmentList.map((apt) => (
+                            <label key={apt.id} className="flex items-center gap-2 py-0.5 px-1 hover:bg-muted/50 rounded cursor-pointer text-sm">
+                              <Checkbox
+                                checked={selectedApartmentIds.includes(apt.id)}
+                                onCheckedChange={(checked) => {
+                                  if (checked) {
+                                    setSelectedApartmentIds(prev => [...prev, apt.id]);
+                                  } else {
+                                    setSelectedApartmentIds(prev => prev.filter(id => id !== apt.id));
+                                  }
+                                }}
+                              />
+                              {apt.name}
+                            </label>
+                          ))}
+                        </div>
                       </div>
                     ) : (
                       <div>
