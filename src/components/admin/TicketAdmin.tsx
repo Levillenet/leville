@@ -310,7 +310,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   // PDF Export
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showReportDialog, setShowReportDialog] = useState(false);
-  const [showPropertyReportDialog, setShowPropertyReportDialog] = useState(false);
+  const [_showPropertyReportDialog, _setShowPropertyReportDialog] = useState(false);
   const [exportFilters, setExportFilters] = useState({
     companyId: "all",
     apartmentIds: [] as string[],
