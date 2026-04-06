@@ -362,6 +362,23 @@ Deno.serve(async (req) => {
         return json(data);
       }
 
+      // ── SCHEDULE DATE REMINDER ──
+      case "schedule_date_reminder": {
+        const { ticket_id, target_date, changed_by } = body;
+        const { data: ticket, error } = await supabase
+          .from("tickets")
+          .select("*")
+          .eq("id", ticket_id)
+          .single();
+        if (error) throw error;
+
+        const result = await sendTicketEmail(supabase, ticket, "reminder", target_date);
+        if (result.sent) {
+          await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Päivämäärämuistutus lähetetty (${target_date}): ${result.email}`, "email_sent");
+        }
+        return json(result);
+      }
+
       default:
         return new Response(JSON.stringify({ error: "Unknown action" }), {
           status: 400,
