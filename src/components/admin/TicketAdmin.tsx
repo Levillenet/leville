@@ -79,7 +79,6 @@ const getApartmentName = (id: string) => {
 
 // ── Mini Calendar Component ──
 const MiniCalendar = ({ availability, days, label }: { availability: AvailabilityData; days: number; label?: string }) => {
-  const today = new Date();
   const dateKeys = Object.keys(availability.dates).sort().slice(0, days);
   const backToBackSet = new Set(availability.backToBackWindows);
   const emptySet = new Set(availability.emptyNights);
@@ -89,7 +88,6 @@ const MiniCalendar = ({ availability, days, label }: { availability: Availabilit
       {label && <Label className="text-xs text-muted-foreground">{label}</Label>}
       <div className="flex flex-wrap gap-1">
         {dateKeys.map((date) => {
-          const info = availability.dates[date];
           const isBackToBack = backToBackSet.has(date);
           const isEmpty = emptySet.has(date);
           const d = new Date(date);
