@@ -66,6 +66,8 @@ interface EmailLog {
   sent_at: string;
   status: string;
   error_message: string | null;
+  scheduled_for: string | null;
+  email_type: string | null;
 }
 
 interface TicketCategory {
