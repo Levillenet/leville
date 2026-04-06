@@ -212,17 +212,17 @@ const ImprovedCalendar = ({
 
                   const clickable = !!onDateClick;
 
-                  return (
+                    return (
                     <div
                       key={date}
                       title={`${d.toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })} – ${statusLabel}${clickable ? "\n🔔 Klikkaa lähettääksesi muistutus" : ""}`}
                       onClick={() => clickable && onDateClick(date)}
                       className={`
-                        h-8 flex items-center justify-center text-xs font-medium relative
+                        h-7 sm:h-8 flex items-center justify-center text-[10px] sm:text-xs font-medium relative
                         ${bgClass}
                         ${isWeekend ? "font-bold" : ""}
                         ${isToday ? "ring-2 ring-primary ring-inset" : ""}
-                        ${clickable ? "cursor-pointer hover:brightness-90 hover:ring-1 hover:ring-primary/50" : ""}
+                        ${clickable ? "cursor-pointer hover:brightness-90 active:brightness-75 hover:ring-1 hover:ring-primary/50" : ""}
                         border-t border-r last:border-r-0 border-muted/30
                       `}
                     >
@@ -509,12 +509,12 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   }, [selectedApartmentIds, newTicket.send_email, newTicket.email_override]);
 
   useEffect(() => {
-    if (selectedApartmentIds.length === 1 && newTicket.type === "urgent" && showCreateDialog) {
+    if (selectedApartmentIds.length === 1 && showCreateDialog) {
       fetchCreateFormAvailability(selectedApartmentIds[0]);
     } else {
       setCreateFormAvailability(null);
     }
-  }, [selectedApartmentIds, newTicket.type, showCreateDialog]);
+  }, [selectedApartmentIds, showCreateDialog]);
 
   const fetchCreateFormAvailability = async (apartmentId: string) => {
     setLoadingCreateAvail(true);
@@ -1901,7 +1901,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 <DialogTrigger asChild>
                   <Button><Plus className="w-4 h-4 mr-1" />Uusi tiketti</Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto w-[95vw]">
                   <DialogHeader><DialogTitle>Uusi tiketti</DialogTitle></DialogHeader>
                   <div className="space-y-4">
                     {/* Target type */}
@@ -1988,8 +1988,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       </RadioGroup>
                     </div>
 
-                    {/* Back-to-back calendar for urgent */}
-                    {newTicket.type === "urgent" && selectedApartmentIds.length === 1 && newTicket.target_type === "apartment" && (
+                    {/* Availability calendar */}
+                    {selectedApartmentIds.length === 1 && newTicket.target_type === "apartment" && (
                       <div className="border rounded-lg p-3 bg-muted/30">
                         {loadingCreateAvail ? (
                           <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="w-4 h-4 animate-spin" />Haetaan saatavuustietoja...</div>
