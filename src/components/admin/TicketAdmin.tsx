@@ -1507,7 +1507,27 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   </div>
                 ) : ticketAvailability ? (
                   <div className="space-y-3">
-                    <MiniCalendar availability={ticketAvailability} days={selectedTicket.type === "urgent" ? 30 : 14} label={selectedTicket.type === "urgent" ? "Seuraavat 30 päivää" : "Seuraavat 14 päivää"} />
+                    <ImprovedCalendar 
+                      availability={ticketAvailability} 
+                      days={selectedTicket.type === "urgent" ? 30 : 14} 
+                      label={selectedTicket.type === "urgent" ? "Seuraavat 30 päivää" : "Seuraavat 14 päivää"}
+                      onDateClick={!isViewer ? async (date) => {
+                        const dayBefore = new Date(new Date(date).getTime() - 86400000).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
+                        if (!confirm(`Lähetetäänkö muistutussähköposti tiketistä?\n\nVapaa yö: ${new Date(date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}\nMuistutus lähetetään nyt (huolto edellisenä päivänä: ${dayBefore})`)) return;
+                        try {
+                          const result = await callApi("schedule_date_reminder", { ticket_id: selectedTicket.id, target_date: date });
+                          if (result?.sent) {
+                            toast({ title: "Muistutus lähetetty", description: `Vastaanottaja: ${result.email}` });
+                            fetchEmailLog(selectedTicket.id);
+                            fetchTicketHistory(selectedTicket.id);
+                          } else {
+                            toast({ title: "Virhe", description: result?.error === "no_email_found" ? "Sähköpostia ei löytynyt" : "Lähetys epäonnistui", variant: "destructive" });
+                          }
+                        } catch (e: any) {
+                          toast({ title: "Virhe", description: e.message, variant: "destructive" });
+                        }
+                      } : undefined}
+                    />
                     {ticketAvailability.backToBackWindows.length > 0 && (
                       <div className="p-2 bg-amber-50 border border-amber-200 rounded text-sm">
                         <span className="font-medium text-amber-800">Seuraava back-to-back ikkuna: </span>
