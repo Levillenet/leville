@@ -608,7 +608,13 @@ async function getApartmentAvailability(
     const startStr = formatDate(today);
     const endStr = formatDate(endDate);
 
-    const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrival=${startStr}&departure=${endStr}`;
+    // Query bookings that overlap with our date range:
+    // - arrivalFrom: 60 days back to catch ongoing stays that started before today
+    // - arrivalTo: end of our range
+    // - departureFrom: today to only get bookings that haven't fully passed
+    const lookbackDate = new Date(today.getTime() - 60 * 24 * 60 * 60 * 1000);
+    const lookbackStr = formatDate(lookbackDate);
+    const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrivalFrom=${lookbackStr}&arrivalTo=${endStr}&departureFrom=${startStr}`;
     const response = await fetch(bookingsUrl, {
       headers: { token: apiToken, accept: "application/json" },
     });
@@ -745,7 +751,9 @@ async function getNextEmptyNight(
     const startDate = formatDate(today);
     const endDate = formatDate(twoWeeksLater);
 
-    const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrival=${startDate}&departure=${endDate}`;
+    const lookbackDate = new Date(today.getTime() - 60 * 24 * 60 * 60 * 1000);
+    const lookbackStr = formatDate(lookbackDate);
+    const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrivalFrom=${lookbackStr}&arrivalTo=${endDate}&departureFrom=${startDate}`;
     const response = await fetch(bookingsUrl, {
       headers: { token: apiToken, accept: "application/json" },
     });
