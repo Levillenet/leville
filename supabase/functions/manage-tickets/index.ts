@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
       }
 
       case "create_ticket": {
-        const { ticket, changed_by } = body;
+        const { ticket, changed_by, apartment_name } = body;
         const { data, error } = await supabase
           .from("tickets")
           .insert(ticket)
@@ -55,7 +55,7 @@ Deno.serve(async (req) => {
         // Send email if requested
         let emailResult = null;
         if (ticket.send_email) {
-          emailResult = await sendTicketEmail(supabase, data, "creation");
+          emailResult = await sendTicketEmail(supabase, data, "creation", undefined, apartment_name);
           if (emailResult.sent) {
             await addHistory(supabase, data.id, changed_by || "admin", null, null, `Lähetetty: ${emailResult.email}`, "email_sent");
           }
@@ -137,7 +137,7 @@ Deno.serve(async (req) => {
 
       // ── SEND REMINDER (manual) ──
       case "send_reminder": {
-        const { ticket_id, changed_by } = body;
+        const { ticket_id, changed_by, apartment_name } = body;
         const { data: ticket, error } = await supabase
           .from("tickets")
           .select("*")
@@ -145,7 +145,7 @@ Deno.serve(async (req) => {
           .single();
         if (error) throw error;
 
-        const result = await sendTicketEmail(supabase, ticket, "reminder");
+        const result = await sendTicketEmail(supabase, ticket, "reminder", undefined, apartment_name);
         if (result.sent) {
           await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Muistutus lähetetty: ${result.email}`, "email_sent");
         }
@@ -400,7 +400,7 @@ Deno.serve(async (req) => {
 
       // ── SCHEDULE DATE REMINDER ──
       case "schedule_date_reminder": {
-        const { ticket_id, target_date, changed_by } = body;
+        const { ticket_id, target_date, changed_by, apartment_name } = body;
         const { data: ticket, error } = await supabase
           .from("tickets")
           .select("*")
@@ -408,7 +408,7 @@ Deno.serve(async (req) => {
           .single();
         if (error) throw error;
 
-        const result = await sendTicketEmail(supabase, ticket, "reminder", target_date);
+        const result = await sendTicketEmail(supabase, ticket, "reminder", target_date, apartment_name);
         if (result.sent) {
           await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Päivämäärämuistutus lähetetty (${target_date}): ${result.email}`, "email_sent");
         }
@@ -492,12 +492,13 @@ async function sendTicketEmail(
   supabase: any,
   ticket: any,
   emailType: "creation" | "reminder",
-  targetDate?: string
+  targetDate?: string,
+  apartmentNameOverride?: string
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   // 1. Ticket-level override
   if (ticket.email_override) {
     const email = ticket.email_override;
-    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate);
+    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate, apartmentNameOverride);
   }
 
   // 2-3. Apartment/company fallback
@@ -507,7 +508,7 @@ async function sendTicketEmail(
     return { sent: false, error: "no_email_found" };
   }
 
-  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate);
+  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate, apartmentNameOverride);
 }
 
 async function doSendEmail(
@@ -516,20 +517,24 @@ async function doSendEmail(
   email: string,
   _source: string,
   emailType: "creation" | "reminder",
-  targetDate?: string
+  targetDate?: string,
+  apartmentNameOverride?: string
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   if (!resendApiKey) {
     return { sent: false, error: "resend_api_key_missing" };
   }
 
-  const { data: mapping } = await supabase
-    .from("moder_property_mapping")
-    .select("property_name")
-    .eq("beds24_room_id", ticket.apartment_id)
-    .maybeSingle();
-
-  const apartmentName = mapping?.property_name || ticket.apartment_id;
+  // Use the override name (from frontend) if provided, otherwise fall back to moder_property_mapping
+  let apartmentName = apartmentNameOverride;
+  if (!apartmentName) {
+    const { data: mapping } = await supabase
+      .from("moder_property_mapping")
+      .select("property_name")
+      .eq("beds24_room_id", ticket.apartment_id)
+      .maybeSingle();
+    apartmentName = mapping?.property_name || ticket.apartment_id;
+  }
   const typeLabel = ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
   const priorityLabel = ticket.priority === "1" ? "1 – Normaali" : "2 – Muistutus tarvitaan";
   const createdDate = new Date(ticket.created_at).toLocaleString("fi-FI", {

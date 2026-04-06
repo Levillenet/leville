@@ -566,12 +566,13 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         recurrence_note: newTicket.recurrence_note || null,
       };
 
-      const result = await callApi("create_ticket", { ticket: ticketData });
+      const aptName = getApartmentName(ticketData.apartment_id);
+      const result = await callApi("create_ticket", { ticket: ticketData, apartment_name: aptName });
       
       // Send pending reminder if a date was selected during creation
       if (pendingReminderDate && result?.id) {
         try {
-          await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate });
+          await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate, apartment_name: aptName });
           toast({ title: "Tiketti luotu", description: `Muistutus ajastettu päivälle ${new Date(pendingReminderDate).toLocaleDateString("fi-FI")}` });
         } catch {
           toast({ title: "Tiketti luotu", description: "⚠️ Muistutuksen lähetys epäonnistui", variant: "destructive" });
@@ -698,7 +699,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     if (!confirm("Lähetetäänkö muistutus nyt?")) return;
     setSendingReminder(true);
     try {
-      const result = await callApi("send_reminder", { ticket_id: ticketId });
+      const result = await callApi("send_reminder", { ticket_id: ticketId, apartment_name: selectedTicket ? getApartmentName(selectedTicket.apartment_id) : undefined });
       if (result?.sent) {
         toast({ title: "Muistutus lähetetty", description: `Vastaanottaja: ${result.email}` });
       } else if (result?.error === "no_email_found") {
@@ -1585,7 +1586,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         const dayBefore = new Date(new Date(date).getTime() - 86400000).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
                         if (!confirm(`Lähetetäänkö muistutussähköposti tiketistä?\n\nVapaa yö: ${new Date(date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}\nMuistutus lähetetään nyt (huolto edellisenä päivänä: ${dayBefore})`)) return;
                         try {
-                          const result = await callApi("schedule_date_reminder", { ticket_id: selectedTicket.id, target_date: date });
+                          const result = await callApi("schedule_date_reminder", { ticket_id: selectedTicket.id, target_date: date, apartment_name: getApartmentName(selectedTicket.apartment_id) });
                           if (result?.sent) {
                             toast({ title: "Muistutus lähetetty", description: `Vastaanottaja: ${result.email}` });
                             fetchEmailLog(selectedTicket.id);
