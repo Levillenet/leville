@@ -566,12 +566,13 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         recurrence_note: newTicket.recurrence_note || null,
       };
 
-      const result = await callApi("create_ticket", { ticket: ticketData });
+      const aptName = getApartmentName(ticketData.apartment_id);
+      const result = await callApi("create_ticket", { ticket: ticketData, apartment_name: aptName });
       
       // Send pending reminder if a date was selected during creation
       if (pendingReminderDate && result?.id) {
         try {
-          await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate });
+          await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate, apartment_name: aptName });
           toast({ title: "Tiketti luotu", description: `Muistutus ajastettu päivälle ${new Date(pendingReminderDate).toLocaleDateString("fi-FI")}` });
         } catch {
           toast({ title: "Tiketti luotu", description: "⚠️ Muistutuksen lähetys epäonnistui", variant: "destructive" });
