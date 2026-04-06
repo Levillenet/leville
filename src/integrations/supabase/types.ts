@@ -47,7 +47,7 @@ export type Database = {
           contact_email_override: string | null
           created_at: string
           id: string
-          maintenance_company_id: string
+          maintenance_company_id: string | null
           property_id: string | null
         }
         Insert: {
@@ -55,7 +55,7 @@ export type Database = {
           contact_email_override?: string | null
           created_at?: string
           id?: string
-          maintenance_company_id: string
+          maintenance_company_id?: string | null
           property_id?: string | null
         }
         Update: {
@@ -63,7 +63,7 @@ export type Database = {
           contact_email_override?: string | null
           created_at?: string
           id?: string
-          maintenance_company_id?: string
+          maintenance_company_id?: string | null
           property_id?: string | null
         }
         Relationships: [
@@ -884,6 +884,7 @@ export type Database = {
       }
       maintenance_companies: {
         Row: {
+          company_type: string
           created_at: string
           email: string | null
           id: string
@@ -891,6 +892,7 @@ export type Database = {
           phone: string | null
         }
         Insert: {
+          company_type?: string
           created_at?: string
           email?: string | null
           id?: string
@@ -898,6 +900,7 @@ export type Database = {
           phone?: string | null
         }
         Update: {
+          company_type?: string
           created_at?: string
           email?: string | null
           id?: string
