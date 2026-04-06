@@ -1882,6 +1882,38 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       </RadioGroup>
                     </div>
 
+                    {/* Recurrence */}
+                    <div className="border rounded-lg p-3 bg-muted/30 space-y-3">
+                      <Label className="text-sm font-medium flex items-center gap-2">🔄 Toistuvuus</Label>
+                      <div>
+                        <Label className="text-xs text-muted-foreground">Toistuu X kuukauden välein (0 = ei toistu)</Label>
+                        <Select value={String(newTicket.recurrence_months)} onValueChange={(val) => setNewTicket({ ...newTicket, recurrence_months: Number(val) })}>
+                          <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="0">Ei toistu</SelectItem>
+                            <SelectItem value="1">1 kk</SelectItem>
+                            <SelectItem value="2">2 kk</SelectItem>
+                            <SelectItem value="3">3 kk (neljännesvuosittain)</SelectItem>
+                            <SelectItem value="6">6 kk (puolivuosittain)</SelectItem>
+                            <SelectItem value="12">12 kk (vuosittain)</SelectItem>
+                            <SelectItem value="24">24 kk (joka 2. vuosi)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      {newTicket.recurrence_months > 0 && (
+                        <div>
+                          <Label className="text-xs text-muted-foreground">Toistuvuuden kuvaus (valinnainen)</Label>
+                          <Input
+                            value={newTicket.recurrence_note}
+                            onChange={(e) => setNewTicket({ ...newTicket, recurrence_note: e.target.value })}
+                            placeholder="esim. Paristojen vaihto, palovaroittimen tarkastus"
+                            className="text-sm mt-1"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">Uusi tiketti luodaan automaattisesti kun tämä ratkaistaan</p>
+                        </div>
+                      )}
+                    </div>
+
                     {/* Email override */}
                     <div>
                       <Label className="text-xs">Ohjaa tiketti sähköpostiin (valinnainen)</Label>
