@@ -492,12 +492,13 @@ async function sendTicketEmail(
   supabase: any,
   ticket: any,
   emailType: "creation" | "reminder",
-  targetDate?: string
+  targetDate?: string,
+  apartmentNameOverride?: string
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   // 1. Ticket-level override
   if (ticket.email_override) {
     const email = ticket.email_override;
-    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate);
+    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate, apartmentNameOverride);
   }
 
   // 2-3. Apartment/company fallback
@@ -507,7 +508,7 @@ async function sendTicketEmail(
     return { sent: false, error: "no_email_found" };
   }
 
-  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate);
+  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate, apartmentNameOverride);
 }
 
 async function doSendEmail(
@@ -516,20 +517,24 @@ async function doSendEmail(
   email: string,
   _source: string,
   emailType: "creation" | "reminder",
-  targetDate?: string
+  targetDate?: string,
+  apartmentNameOverride?: string
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   if (!resendApiKey) {
     return { sent: false, error: "resend_api_key_missing" };
   }
 
-  const { data: mapping } = await supabase
-    .from("moder_property_mapping")
-    .select("property_name")
-    .eq("beds24_room_id", ticket.apartment_id)
-    .maybeSingle();
-
-  const apartmentName = mapping?.property_name || ticket.apartment_id;
+  // Use the override name (from frontend) if provided, otherwise fall back to moder_property_mapping
+  let apartmentName = apartmentNameOverride;
+  if (!apartmentName) {
+    const { data: mapping } = await supabase
+      .from("moder_property_mapping")
+      .select("property_name")
+      .eq("beds24_room_id", ticket.apartment_id)
+      .maybeSingle();
+    apartmentName = mapping?.property_name || ticket.apartment_id;
+  }
   const typeLabel = ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
   const priorityLabel = ticket.priority === "1" ? "1 – Normaali" : "2 – Muistutus tarvitaan";
   const createdDate = new Date(ticket.created_at).toLocaleString("fi-FI", {
