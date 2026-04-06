@@ -1911,7 +1911,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         <CardTitle className="text-base flex items-center gap-2"><Building2 className="w-4 h-4" />{company.name}</CardTitle>
                         {!isViewer && (
                           <div className="flex gap-2">
-                            <Button variant="ghost" size="sm" onClick={() => { setEditingCompany(company); setCompanyForm({ name: company.name, email: company.email || "", phone: company.phone || "" }); setShowCompanyDialog(true); }}>Muokkaa</Button>
+                            <Button variant="ghost" size="sm" onClick={() => { setEditingCompany(company); setCompanyForm({ name: company.name, email: company.email || "", phone: company.phone || "", company_type: company.company_type || "kiinteistohuolto" }); setShowCompanyDialog(true); }}>Muokkaa</Button>
                             <Button variant="ghost" size="sm" onClick={() => handleDeleteCompany(company.id)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
                           </div>
                         )}
