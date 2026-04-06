@@ -230,7 +230,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   const loadAll = async () => {
     setLoading(true);
-    const [ticketData] = await Promise.all([fetchTickets(), fetchCompanies()]);
+    await Promise.all([fetchTickets(), fetchCompanies()]);
     setLoading(false);
   };
 
