@@ -1894,6 +1894,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   setEmailPreview(null);
                   setCreateFormAvailability(null);
                   setPendingReminderDate("");
+                  setSelectedApartmentIds([]);
                   setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "" });
                 }
               }}>
