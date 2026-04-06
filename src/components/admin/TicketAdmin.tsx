@@ -1856,7 +1856,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                           <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="w-4 h-4 animate-spin" />Haetaan saatavuustietoja...</div>
                         ) : createFormAvailability ? (
                           <div className="space-y-2">
-                            <MiniCalendar availability={createFormAvailability} days={30} label="Saatavuus – seuraavat 30 päivää" />
+                            <ImprovedCalendar availability={createFormAvailability} days={30} label="Saatavuus – seuraavat 30 päivää" />
                             {createFormAvailability.backToBackWindows.length > 0 && (
                               <p className="text-sm font-medium text-amber-700">Seuraava back-to-back ikkuna: {new Date(createFormAvailability.backToBackWindows[0]).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })}</p>
                             )}
