@@ -48,6 +48,7 @@ export type Database = {
           created_at: string
           id: string
           maintenance_company_id: string
+          property_id: string | null
         }
         Insert: {
           apartment_id: string
@@ -55,6 +56,7 @@ export type Database = {
           created_at?: string
           id?: string
           maintenance_company_id: string
+          property_id?: string | null
         }
         Update: {
           apartment_id?: string
@@ -62,6 +64,7 @@ export type Database = {
           created_at?: string
           id?: string
           maintenance_company_id?: string
+          property_id?: string | null
         }
         Relationships: [
           {
@@ -69,6 +72,13 @@ export type Database = {
             columns: ["maintenance_company_id"]
             isOneToOne: false
             referencedRelation: "maintenance_companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "apartment_maintenance_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
             referencedColumns: ["id"]
           },
         ]
@@ -1199,6 +1209,30 @@ export type Database = {
         }
         Relationships: []
       }
+      properties: {
+        Row: {
+          business_id: string | null
+          contact_email: string | null
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          business_id?: string | null
+          contact_email?: string | null
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          business_id?: string | null
+          contact_email?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       property_maintenance: {
         Row: {
           cleaning_email: string | null
@@ -1364,6 +1398,27 @@ export type Database = {
         }
         Relationships: []
       }
+      ticket_categories: {
+        Row: {
+          color: string
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          color?: string
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       ticket_email_log: {
         Row: {
           error_message: string | null
@@ -1399,47 +1454,115 @@ export type Database = {
           },
         ]
       }
+      ticket_history: {
+        Row: {
+          action_type: string
+          changed_at: string
+          changed_by: string | null
+          field_changed: string | null
+          id: string
+          new_value: string | null
+          old_value: string | null
+          ticket_id: string
+        }
+        Insert: {
+          action_type?: string
+          changed_at?: string
+          changed_by?: string | null
+          field_changed?: string | null
+          id?: string
+          new_value?: string | null
+          old_value?: string | null
+          ticket_id: string
+        }
+        Update: {
+          action_type?: string
+          changed_at?: string
+          changed_by?: string | null
+          field_changed?: string | null
+          id?: string
+          new_value?: string | null
+          old_value?: string | null
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_history_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tickets: {
         Row: {
           apartment_id: string
+          category_id: string | null
           created_at: string
           description: string | null
+          email_override: string | null
           id: string
           notes: string | null
           priority: Database["public"]["Enums"]["ticket_priority"]
+          property_id: string | null
           send_email: boolean
           status: Database["public"]["Enums"]["ticket_status"]
+          target_type: string
           title: string
           type: Database["public"]["Enums"]["ticket_type"]
           updated_at: string
         }
         Insert: {
           apartment_id: string
+          category_id?: string | null
           created_at?: string
           description?: string | null
+          email_override?: string | null
           id?: string
           notes?: string | null
           priority?: Database["public"]["Enums"]["ticket_priority"]
+          property_id?: string | null
           send_email?: boolean
           status?: Database["public"]["Enums"]["ticket_status"]
+          target_type?: string
           title: string
           type?: Database["public"]["Enums"]["ticket_type"]
           updated_at?: string
         }
         Update: {
           apartment_id?: string
+          category_id?: string | null
           created_at?: string
           description?: string | null
+          email_override?: string | null
           id?: string
           notes?: string | null
           priority?: Database["public"]["Enums"]["ticket_priority"]
+          property_id?: string | null
           send_email?: boolean
           status?: Database["public"]["Enums"]["ticket_status"]
+          target_type?: string
           title?: string
           type?: Database["public"]["Enums"]["ticket_type"]
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "tickets_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "ticket_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       timed_notices: {
         Row: {
