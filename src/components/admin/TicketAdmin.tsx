@@ -43,7 +43,7 @@ interface MaintenanceCompany {
   name: string;
   email: string | null;
   phone: string | null;
-  company_type: string;
+  company_types: string[];
   created_at: string;
 }
 
@@ -298,7 +298,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   });
 
   // Company form
-  const [companyForm, setCompanyForm] = useState({ name: "", email: "", phone: "", company_type: "kiinteistohuolto" });
+  const [companyForm, setCompanyForm] = useState({ name: "", email: "", phone: "", company_types: ["kiinteistohuolto"] as string[] });
 
   // Category form
   const [showCategoryDialog, setShowCategoryDialog] = useState(false);
@@ -646,7 +646,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       }
       setShowCompanyDialog(false);
       setEditingCompany(null);
-      setCompanyForm({ name: "", email: "", phone: "", company_type: "kiinteistohuolto" });
+      setCompanyForm({ name: "", email: "", phone: "", company_types: ["kiinteistohuolto"] });
       fetchCompanies();
     } catch (e: any) {
       toast({ title: "Virhe", description: e.message, variant: "destructive" });
@@ -1870,7 +1870,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold">Huoltoyhtiöt</h3>
             {!isViewer && (
-              <Dialog open={showCompanyDialog} onOpenChange={(open) => { setShowCompanyDialog(open); if (!open) { setEditingCompany(null); setCompanyForm({ name: "", email: "", phone: "", company_type: "kiinteistohuolto" }); } }}>
+              <Dialog open={showCompanyDialog} onOpenChange={(open) => { setShowCompanyDialog(open); if (!open) { setEditingCompany(null); setCompanyForm({ name: "", email: "", phone: "", company_types: ["kiinteistohuolto"] }); } }}>
                 <DialogTrigger asChild><Button><Plus className="w-4 h-4 mr-1" />Lisää yritys</Button></DialogTrigger>
                 <DialogContent>
                   <DialogHeader><DialogTitle>{editingCompany ? "Muokkaa yritystä" : "Uusi yritys"}</DialogTitle></DialogHeader>
@@ -1878,13 +1878,22 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     <div><Label>Nimi *</Label><Input value={companyForm.name} onChange={(e) => setCompanyForm({ ...companyForm, name: e.target.value })} /></div>
                     <div>
                       <Label>Tyyppi *</Label>
-                      <Select value={companyForm.company_type} onValueChange={(val) => setCompanyForm({ ...companyForm, company_type: val })}>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="kiinteistohuolto">Kiinteistöhuolto</SelectItem>
-                          <SelectItem value="siivous">Siivous</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <div className="flex gap-4 mt-1">
+                        <label className="flex items-center gap-2 text-sm cursor-pointer">
+                          <input type="checkbox" checked={companyForm.company_types.includes("kiinteistohuolto")} onChange={(e) => {
+                            const types = e.target.checked ? [...companyForm.company_types, "kiinteistohuolto"] : companyForm.company_types.filter(t => t !== "kiinteistohuolto");
+                            setCompanyForm({ ...companyForm, company_types: types });
+                          }} className="rounded" />
+                          🔧 Kiinteistöhuolto
+                        </label>
+                        <label className="flex items-center gap-2 text-sm cursor-pointer">
+                          <input type="checkbox" checked={companyForm.company_types.includes("siivous")} onChange={(e) => {
+                            const types = e.target.checked ? [...companyForm.company_types, "siivous"] : companyForm.company_types.filter(t => t !== "siivous");
+                            setCompanyForm({ ...companyForm, company_types: types });
+                          }} className="rounded" />
+                          🧹 Siivous
+                        </label>
+                      </div>
                     </div>
                     <div><Label>Sähköposti</Label><Input type="email" value={companyForm.email} onChange={(e) => setCompanyForm({ ...companyForm, email: e.target.value })} /></div>
                     <div><Label>Puhelin</Label><Input value={companyForm.phone} onChange={(e) => setCompanyForm({ ...companyForm, phone: e.target.value })} /></div>
@@ -1901,7 +1910,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <div className="space-y-6">
               {/* Group by company type */}
               {(["kiinteistohuolto", "siivous"] as const).map((type) => {
-                const typeCompanies = companies.filter(c => (c.company_type || "kiinteistohuolto") === type);
+                const typeCompanies = companies.filter(c => (c.company_types || ["kiinteistohuolto"]).includes(type));
                 if (typeCompanies.length === 0) return null;
                 return (
                   <div key={type}>
@@ -1919,11 +1928,12 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                               <div className="flex items-center justify-between">
                                 <CardTitle className="text-base flex items-center gap-2">
                                   <Building2 className="w-4 h-4" />{company.name}
-                                  <Badge variant="outline" className="text-xs">{type === "kiinteistohuolto" ? "Kiinteistöhuolto" : "Siivous"}</Badge>
+                                  {company.company_types?.includes("kiinteistohuolto") && <Badge variant="outline" className="text-xs">🔧 Kiinteistöhuolto</Badge>}
+                                  {company.company_types?.includes("siivous") && <Badge variant="outline" className="text-xs">🧹 Siivous</Badge>}
                                 </CardTitle>
                                 {!isViewer && (
                                   <div className="flex gap-2">
-                                    <Button variant="ghost" size="sm" onClick={() => { setEditingCompany(company); setCompanyForm({ name: company.name, email: company.email || "", phone: company.phone || "", company_type: company.company_type || "kiinteistohuolto" }); setShowCompanyDialog(true); }}>Muokkaa</Button>
+                                    <Button variant="ghost" size="sm" onClick={() => { setEditingCompany(company); setCompanyForm({ name: company.name, email: company.email || "", phone: company.phone || "", company_types: company.company_types || ["kiinteistohuolto"] }); setShowCompanyDialog(true); }}>Muokkaa</Button>
                                     <Button variant="ghost" size="sm" onClick={() => handleDeleteCompany(company.id)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
                                   </div>
                                 )}
