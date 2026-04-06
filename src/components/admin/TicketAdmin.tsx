@@ -1901,7 +1901,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 <DialogTrigger asChild>
                   <Button><Plus className="w-4 h-4 mr-1" />Uusi tiketti</Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto w-[95vw]">
                   <DialogHeader><DialogTitle>Uusi tiketti</DialogTitle></DialogHeader>
                   <div className="space-y-4">
                     {/* Target type */}
