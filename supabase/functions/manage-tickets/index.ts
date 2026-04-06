@@ -751,7 +751,9 @@ async function getNextEmptyNight(
     const startDate = formatDate(today);
     const endDate = formatDate(twoWeeksLater);
 
-    const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrival=${startDate}&departure=${endDate}`;
+    const lookbackDate = new Date(today.getTime() - 60 * 24 * 60 * 60 * 1000);
+    const lookbackStr = formatDate(lookbackDate);
+    const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrivalFrom=${lookbackStr}&arrivalTo=${endDate}&departureFrom=${startDate}`;
     const response = await fetch(bookingsUrl, {
       headers: { token: apiToken, accept: "application/json" },
     });
