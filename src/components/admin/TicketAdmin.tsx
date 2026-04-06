@@ -1586,7 +1586,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         const dayBefore = new Date(new Date(date).getTime() - 86400000).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
                         if (!confirm(`Lähetetäänkö muistutussähköposti tiketistä?\n\nVapaa yö: ${new Date(date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}\nMuistutus lähetetään nyt (huolto edellisenä päivänä: ${dayBefore})`)) return;
                         try {
-                          const result = await callApi("schedule_date_reminder", { ticket_id: selectedTicket.id, target_date: date });
+                          const result = await callApi("schedule_date_reminder", { ticket_id: selectedTicket.id, target_date: date, apartment_name: getApartmentName(selectedTicket.apartment_id) });
                           if (result?.sent) {
                             toast({ title: "Muistutus lähetetty", description: `Vastaanottaja: ${result.email}` });
                             fetchEmailLog(selectedTicket.id);
