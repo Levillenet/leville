@@ -646,7 +646,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       }
       setShowCompanyDialog(false);
       setEditingCompany(null);
-      setCompanyForm({ name: "", email: "", phone: "", company_type: "kiinteistohuolto" });
+      setCompanyForm({ name: "", email: "", phone: "", company_types: ["kiinteistohuolto"] });
       fetchCompanies();
     } catch (e: any) {
       toast({ title: "Virhe", description: e.message, variant: "destructive" });
