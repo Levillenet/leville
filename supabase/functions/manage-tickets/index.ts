@@ -400,7 +400,7 @@ Deno.serve(async (req) => {
 
       // ── SCHEDULE DATE REMINDER ──
       case "schedule_date_reminder": {
-        const { ticket_id, target_date, changed_by } = body;
+        const { ticket_id, target_date, changed_by, apartment_name } = body;
         const { data: ticket, error } = await supabase
           .from("tickets")
           .select("*")
@@ -408,7 +408,7 @@ Deno.serve(async (req) => {
           .single();
         if (error) throw error;
 
-        const result = await sendTicketEmail(supabase, ticket, "reminder", target_date);
+        const result = await sendTicketEmail(supabase, ticket, "reminder", target_date, apartment_name);
         if (result.sent) {
           await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Päivämäärämuistutus lähetetty (${target_date}): ${result.email}`, "email_sent");
         }
