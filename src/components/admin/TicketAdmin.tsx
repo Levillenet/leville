@@ -1110,6 +1110,100 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               Päivitä
             </Button>
 
+            {/* PDF Export */}
+            <Dialog open={showExportDialog} onOpenChange={setShowExportDialog}>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <FileText className="w-4 h-4 mr-1" />
+                  Tulosta kausihuoltoraportti
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Kausihuoltoraportti – PDF</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div>
+                    <Label>Huoltoyhtiö</Label>
+                    <Select value={exportFilters.companyId} onValueChange={(val) => setExportFilters({ ...exportFilters, companyId: val })}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Kaikki huoltoyhtiöt</SelectItem>
+                        {companies.map((c) => (
+                          <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Huoneistot</Label>
+                    <div className="max-h-32 overflow-y-auto border rounded p-2 space-y-1 mt-1">
+                      {apartmentList.map((apt) => (
+                        <label key={apt.id} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-muted/50 rounded px-1">
+                          <Checkbox
+                            checked={exportFilters.apartmentIds.includes(apt.id)}
+                            onCheckedChange={(checked) => {
+                              setExportFilters((prev) => ({
+                                ...prev,
+                                apartmentIds: checked
+                                  ? [...prev.apartmentIds, apt.id]
+                                  : prev.apartmentIds.filter((id) => id !== apt.id),
+                              }));
+                            }}
+                          />
+                          {apt.name}
+                        </label>
+                      ))}
+                    </div>
+                    {exportFilters.apartmentIds.length > 0 && (
+                      <p className="text-xs text-muted-foreground mt-1">{exportFilters.apartmentIds.length} valittu</p>
+                    )}
+                  </div>
+                  <div>
+                    <Label>Tila</Label>
+                    <RadioGroup
+                      value={exportFilters.status}
+                      onValueChange={(val) => setExportFilters({ ...exportFilters, status: val as "open" | "in_progress" | "both" })}
+                      className="flex gap-4 mt-1"
+                    >
+                      <div className="flex items-center space-x-1">
+                        <RadioGroupItem value="both" id="exp-both" />
+                        <Label htmlFor="exp-both" className="text-sm">Molemmat</Label>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <RadioGroupItem value="open" id="exp-open" />
+                        <Label htmlFor="exp-open" className="text-sm">Avoimet</Label>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <RadioGroupItem value="in_progress" id="exp-ip" />
+                        <Label htmlFor="exp-ip" className="text-sm">Käsittelyssä</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label className="text-xs">Luotu alkaen</Label>
+                      <Input type="date" value={exportFilters.dateFrom} onChange={(e) => setExportFilters({ ...exportFilters, dateFrom: e.target.value })} />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Luotu saakka</Label>
+                      <Input type="date" value={exportFilters.dateTo} onChange={(e) => setExportFilters({ ...exportFilters, dateTo: e.target.value })} />
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button onClick={() => generatePdf(false)} className="flex-1">
+                      Lataa PDF
+                    </Button>
+                    <Button variant="outline" onClick={() => generatePdf(true)} className="flex-1">
+                      Avaa selaimessa
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+
             {!isViewer && (
               <Dialog open={showCreateDialog} onOpenChange={(open) => {
                 setShowCreateDialog(open);
