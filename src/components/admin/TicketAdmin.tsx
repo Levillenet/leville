@@ -1721,10 +1721,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
                     <div>
                       <Label>Kategoria</Label>
-                      <Select value={newTicket.category_id} onValueChange={(val) => setNewTicket({ ...newTicket, category_id: val })}>
+                      <Select value={newTicket.category_id || "none"} onValueChange={(val) => setNewTicket({ ...newTicket, category_id: val === "none" ? "" : val })}>
                         <SelectTrigger><SelectValue placeholder="Valitse kategoria" /></SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">Ei kategoriaa</SelectItem>
+                          <SelectItem value="none">Ei kategoriaa</SelectItem>
                           {categories.map((cat) => (<SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>))}
                         </SelectContent>
                       </Select>
