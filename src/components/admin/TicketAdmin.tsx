@@ -43,6 +43,7 @@ interface MaintenanceCompany {
   name: string;
   email: string | null;
   phone: string | null;
+  company_type: string;
   created_at: string;
 }
 
