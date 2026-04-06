@@ -580,7 +580,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       }
       
       setShowCreateDialog(false);
-      setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "" });
+      setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "" });
       setEmailPreview(null);
       setCreateFormAvailability(null);
       fetchTickets();
@@ -1793,7 +1793,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 if (!open) {
                   setEmailPreview(null);
                   setCreateFormAvailability(null);
-                  setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "" });
+                  setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "" });
                 }
               }}>
                 <DialogTrigger asChild>
