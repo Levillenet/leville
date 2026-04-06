@@ -36,6 +36,9 @@ interface Ticket {
   property_id: string | null;
   email_override: string | null;
   target_type: string;
+  recurrence_months: number | null;
+  recurrence_source_id: string | null;
+  recurrence_note: string | null;
 }
 
 interface MaintenanceCompany {
