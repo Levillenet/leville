@@ -665,6 +665,7 @@ async function doSendEmail(
       sent_to: email,
       status: "failed",
       error_message: err.message,
+      email_type: emailType,
     });
 
     return { sent: false, error: err.message, email };
