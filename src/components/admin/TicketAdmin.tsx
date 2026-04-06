@@ -2070,7 +2070,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         <Label>Lähetä sähköposti-ilmoitus</Label>
                       </div>
                       
-                      {newTicket.send_email && (newTicket.apartment_id || newTicket.email_override) && (
+                      {newTicket.send_email && selectedApartmentIds.length > 1 && (
+                        <p className="text-xs text-muted-foreground ml-8">Sähköposti lähetetään jokaiselle huoneistolle erikseen ({selectedApartmentIds.length} kpl)</p>
+                      )}
+                      {newTicket.send_email && (selectedApartmentIds.length === 1 || newTicket.email_override) && (
                         <div className="ml-8">
                           {loadingEmailPreview ? (
                             <p className="text-xs text-muted-foreground flex items-center gap-1"><Loader2 className="w-3 h-3 animate-spin" />Tarkistetaan...</p>
@@ -2091,7 +2094,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         </div>
                       )}
                     </div>
-                    <Button onClick={handleCreateTicket} className="w-full">Luo tiketti</Button>
+                    <Button onClick={handleCreateTicket} className="w-full">
+                      {selectedApartmentIds.length > 1 ? `Luo ${selectedApartmentIds.length} tikettiä` : "Luo tiketti"}
+                    </Button>
                   </div>
                 </DialogContent>
               </Dialog>
