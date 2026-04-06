@@ -896,7 +896,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     return assignment?.property_id ? properties.find(p => p.id === assignment.property_id) : null;
   };
 
-  const createTicketsPdf = (exportTickets: Ticket[], title: string, filters: any) => {
+  const createTicketsPdf = (exportTickets: Ticket[], title: string, _filters?: any) => {
     const grouped: Record<string, Ticket[]> = {};
     for (const t of exportTickets) {
       if (!grouped[t.apartment_id]) grouped[t.apartment_id] = [];
