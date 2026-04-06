@@ -385,6 +385,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     recurrence_months: 0,
     recurrence_note: "",
   });
+  const [selectedApartmentIds, setSelectedApartmentIds] = useState<string[]>([]);
 
   // Company form
   const [companyForm, setCompanyForm] = useState({ name: "", email: "", phone: "", company_types: ["kiinteistohuolto"] as string[] });
@@ -500,20 +501,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   }, [tickets]);
 
   useEffect(() => {
-    if (newTicket.apartment_id && newTicket.send_email) {
-      checkEmail(newTicket.apartment_id, newTicket.email_override);
+    if (selectedApartmentIds.length === 1 && newTicket.send_email) {
+      checkEmail(selectedApartmentIds[0], newTicket.email_override);
     } else {
       setEmailPreview(null);
     }
-  }, [newTicket.apartment_id, newTicket.send_email, newTicket.email_override]);
+  }, [selectedApartmentIds, newTicket.send_email, newTicket.email_override]);
 
   useEffect(() => {
-    if (newTicket.apartment_id && newTicket.type === "urgent" && showCreateDialog) {
-      fetchCreateFormAvailability(newTicket.apartment_id);
+    if (selectedApartmentIds.length === 1 && newTicket.type === "urgent" && showCreateDialog) {
+      fetchCreateFormAvailability(selectedApartmentIds[0]);
     } else {
       setCreateFormAvailability(null);
     }
-  }, [newTicket.apartment_id, newTicket.type, showCreateDialog]);
+  }, [selectedApartmentIds, newTicket.type, showCreateDialog]);
 
   const fetchCreateFormAvailability = async (apartmentId: string) => {
     setLoadingCreateAvail(true);
@@ -540,8 +541,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   };
 
   const handleCreateTicket = async () => {
-    if (newTicket.target_type === "apartment" && !newTicket.apartment_id) {
-      toast({ title: "Virhe", description: "Valitse huoneisto", variant: "destructive" });
+    if (newTicket.target_type === "apartment" && selectedApartmentIds.length === 0) {
+      toast({ title: "Virhe", description: "Valitse vähintään yksi huoneisto", variant: "destructive" });
       return;
     }
     if (newTicket.target_type === "property" && !newTicket.property_id) {
@@ -553,46 +554,53 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       return;
     }
     try {
-      const ticketData: any = {
-        title: newTicket.title,
-        description: newTicket.description || null,
-        type: newTicket.type,
-        priority: newTicket.priority,
-        send_email: newTicket.send_email,
-        target_type: newTicket.target_type,
-        apartment_id: newTicket.target_type === "apartment" ? newTicket.apartment_id : (newTicket.apartment_id || apartmentList[0]?.id || "property"),
-        category_id: newTicket.category_id || null,
-        property_id: newTicket.target_type === "property" ? newTicket.property_id : null,
-        email_override: newTicket.email_override || null,
-        recurrence_months: newTicket.recurrence_months > 0 ? newTicket.recurrence_months : null,
-        recurrence_note: newTicket.recurrence_note || null,
-      };
-
-      const aptName = getApartmentName(ticketData.apartment_id);
-      const result = await callApi("create_ticket", { ticket: ticketData, apartment_name: aptName });
+      const apartmentIdsToCreate = newTicket.target_type === "apartment" 
+        ? selectedApartmentIds 
+        : [apartmentList[0]?.id || "property"];
       
-      // Send pending reminder if a date was selected during creation
-      if (pendingReminderDate && result?.id) {
-        try {
-          await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate, apartment_name: aptName });
-          toast({ title: "Tiketti luotu", description: `Muistutus ajastettu päivälle ${new Date(pendingReminderDate).toLocaleDateString("fi-FI")}` });
-        } catch {
-          toast({ title: "Tiketti luotu", description: "⚠️ Muistutuksen lähetys epäonnistui", variant: "destructive" });
+      let createdCount = 0;
+      let emailErrors = 0;
+
+      for (const aptId of apartmentIdsToCreate) {
+        const ticketData: any = {
+          title: newTicket.title,
+          description: newTicket.description || null,
+          type: newTicket.type,
+          priority: newTicket.priority,
+          send_email: newTicket.send_email,
+          target_type: newTicket.target_type,
+          apartment_id: aptId,
+          category_id: newTicket.category_id || null,
+          property_id: newTicket.target_type === "property" ? newTicket.property_id : null,
+          email_override: newTicket.email_override || null,
+          recurrence_months: newTicket.recurrence_months > 0 ? newTicket.recurrence_months : null,
+          recurrence_note: newTicket.recurrence_note || null,
+        };
+
+        const aptName = getApartmentName(aptId);
+        const result = await callApi("create_ticket", { ticket: ticketData, apartment_name: aptName });
+        createdCount++;
+        
+        if (pendingReminderDate && result?.id) {
+          try {
+            await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate, apartment_name: aptName });
+          } catch {
+            emailErrors++;
+          }
+        } else if (result?.emailResult && !result.emailResult.sent) {
+          emailErrors++;
         }
-      } else if (result?.emailResult) {
-        if (result.emailResult.sent) {
-          toast({ title: "Tiketti luotu", description: `Sähköposti lähetetty: ${result.emailResult.email}` });
-        } else if (result.emailResult.error === "no_email_found") {
-          toast({ title: "Tiketti luotu", description: "⚠️ Sähköpostia ei lähetetty: sähköpostia ei löytynyt", variant: "destructive" });
-        } else {
-          toast({ title: "Tiketti luotu", description: `⚠️ Sähköpostin lähetys epäonnistui`, variant: "destructive" });
-        }
+      }
+
+      if (createdCount > 1) {
+        toast({ title: `${createdCount} tikettiä luotu`, description: emailErrors > 0 ? `⚠️ ${emailErrors} sähköpostia epäonnistui` : undefined });
       } else {
         toast({ title: "Tiketti luotu" });
       }
       
       setShowCreateDialog(false);
       setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "" });
+      setSelectedApartmentIds([]);
       setEmailPreview(null);
       setCreateFormAvailability(null);
       setPendingReminderDate("");
@@ -1886,6 +1894,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   setEmailPreview(null);
                   setCreateFormAvailability(null);
                   setPendingReminderDate("");
+                  setSelectedApartmentIds([]);
                   setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "" });
                 }
               }}>
@@ -1906,11 +1915,41 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
                     {newTicket.target_type === "apartment" ? (
                       <div>
-                        <Label>Huoneisto *</Label>
-                        <Select value={newTicket.apartment_id} onValueChange={(val) => setNewTicket({ ...newTicket, apartment_id: val })}>
-                          <SelectTrigger><SelectValue placeholder="Valitse huoneisto" /></SelectTrigger>
-                          <SelectContent>{apartmentList.map((apt) => (<SelectItem key={apt.id} value={apt.id}>{apt.name}</SelectItem>))}</SelectContent>
-                        </Select>
+                        <div className="flex items-center justify-between">
+                          <Label>Huoneistot * ({selectedApartmentIds.length} valittu)</Label>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="h-auto py-0.5 px-2 text-xs"
+                            onClick={() => {
+                              if (selectedApartmentIds.length === apartmentList.length) {
+                                setSelectedApartmentIds([]);
+                              } else {
+                                setSelectedApartmentIds(apartmentList.map(a => a.id));
+                              }
+                            }}
+                          >
+                            {selectedApartmentIds.length === apartmentList.length ? "Poista kaikki" : "Valitse kaikki"}
+                          </Button>
+                        </div>
+                        <div className="border rounded-md mt-1 max-h-48 overflow-y-auto p-2 space-y-1">
+                          {apartmentList.map((apt) => (
+                            <label key={apt.id} className="flex items-center gap-2 py-0.5 px-1 hover:bg-muted/50 rounded cursor-pointer text-sm">
+                              <Checkbox
+                                checked={selectedApartmentIds.includes(apt.id)}
+                                onCheckedChange={(checked) => {
+                                  if (checked) {
+                                    setSelectedApartmentIds(prev => [...prev, apt.id]);
+                                  } else {
+                                    setSelectedApartmentIds(prev => prev.filter(id => id !== apt.id));
+                                  }
+                                }}
+                              />
+                              {apt.name}
+                            </label>
+                          ))}
+                        </div>
                       </div>
                     ) : (
                       <div>
@@ -1950,7 +1989,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     </div>
 
                     {/* Back-to-back calendar for urgent */}
-                    {newTicket.type === "urgent" && newTicket.apartment_id && newTicket.target_type === "apartment" && (
+                    {newTicket.type === "urgent" && selectedApartmentIds.length === 1 && newTicket.target_type === "apartment" && (
                       <div className="border rounded-lg p-3 bg-muted/30">
                         {loadingCreateAvail ? (
                           <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="w-4 h-4 animate-spin" />Haetaan saatavuustietoja...</div>
@@ -2031,7 +2070,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         <Label>Lähetä sähköposti-ilmoitus</Label>
                       </div>
                       
-                      {newTicket.send_email && (newTicket.apartment_id || newTicket.email_override) && (
+                      {newTicket.send_email && selectedApartmentIds.length > 1 && (
+                        <p className="text-xs text-muted-foreground ml-8">Sähköposti lähetetään jokaiselle huoneistolle erikseen ({selectedApartmentIds.length} kpl)</p>
+                      )}
+                      {newTicket.send_email && (selectedApartmentIds.length === 1 || newTicket.email_override) && (
                         <div className="ml-8">
                           {loadingEmailPreview ? (
                             <p className="text-xs text-muted-foreground flex items-center gap-1"><Loader2 className="w-3 h-3 animate-spin" />Tarkistetaan...</p>
@@ -2052,7 +2094,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         </div>
                       )}
                     </div>
-                    <Button onClick={handleCreateTicket} className="w-full">Luo tiketti</Button>
+                    <Button onClick={handleCreateTicket} className="w-full">
+                      {selectedApartmentIds.length > 1 ? `Luo ${selectedApartmentIds.length} tikettiä` : "Luo tiketti"}
+                    </Button>
                   </div>
                 </DialogContent>
               </Dialog>
