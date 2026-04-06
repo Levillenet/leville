@@ -339,7 +339,19 @@ Deno.serve(async (req) => {
         return json(data);
       }
 
-      // ── TICKET HISTORY ──
+      case "assign_apartment_to_property_direct": {
+        // Create an apartment_maintenance record directly for property assignment (no company required)
+        const { apartment_id, property_id } = body;
+        // Use a dummy maintenance_company_id — we'll create a placeholder record
+        const { data, error } = await supabase
+          .from("apartment_maintenance")
+          .insert({ apartment_id, maintenance_company_id: "00000000-0000-0000-0000-000000000000", property_id })
+          .select()
+          .single();
+        if (error) throw error;
+        return json(data);
+      }
+
       case "get_ticket_history": {
         const { ticket_id } = body;
         const { data, error } = await supabase
