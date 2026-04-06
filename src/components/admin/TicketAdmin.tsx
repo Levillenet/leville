@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign } from "lucide-react";
+import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign, CalendarDays, Send, AlertCircle } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
 
@@ -82,6 +82,15 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [showCompanyDialog, setShowCompanyDialog] = useState(false);
   const [editingCompany, setEditingCompany] = useState<MaintenanceCompany | null>(null);
 
+  // Empty night data for selected ticket
+  const [emptyNightData, setEmptyNightData] = useState<{ emptyNights: string[]; nextEmpty: string | null } | null>(null);
+  const [loadingEmptyNights, setLoadingEmptyNights] = useState(false);
+  const [sendingReminder, setSendingReminder] = useState(false);
+
+  // Email preview for new ticket
+  const [emailPreview, setEmailPreview] = useState<{ email: string | null; source: string } | null>(null);
+  const [loadingEmailPreview, setLoadingEmailPreview] = useState(false);
+
   // Filters
   const [filterApartment, setFilterApartment] = useState("all");
   const [filterType, setFilterType] = useState("all");
@@ -141,16 +150,50 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     loadAll();
   }, []);
 
+  // Check email when apartment changes in new ticket form
+  useEffect(() => {
+    if (newTicket.apartment_id && newTicket.send_email) {
+      checkEmail(newTicket.apartment_id);
+    } else {
+      setEmailPreview(null);
+    }
+  }, [newTicket.apartment_id, newTicket.send_email]);
+
+  const checkEmail = async (apartmentId: string) => {
+    setLoadingEmailPreview(true);
+    try {
+      const data = await callApi("resolve_email", { apartment_id: apartmentId });
+      setEmailPreview(data);
+    } catch (e) {
+      console.error(e);
+      setEmailPreview(null);
+    }
+    setLoadingEmailPreview(false);
+  };
+
   const handleCreateTicket = async () => {
     if (!newTicket.apartment_id || !newTicket.title.trim()) {
       toast({ title: "Virhe", description: "Täytä pakolliset kentät", variant: "destructive" });
       return;
     }
     try {
-      await callApi("create_ticket", { ticket: newTicket });
-      toast({ title: "Tiketti luotu" });
+      const result = await callApi("create_ticket", { ticket: newTicket });
+      
+      if (result?.emailResult) {
+        if (result.emailResult.sent) {
+          toast({ title: "Tiketti luotu", description: `Sähköposti lähetetty: ${result.emailResult.email}` });
+        } else if (result.emailResult.error === "no_email_found") {
+          toast({ title: "Tiketti luotu", description: "⚠️ Sähköpostia ei lähetetty: huoltoyhtiön sähköpostia ei löytynyt", variant: "destructive" });
+        } else {
+          toast({ title: "Tiketti luotu", description: `⚠️ Sähköpostin lähetys epäonnistui: ${result.emailResult.error}`, variant: "destructive" });
+        }
+      } else {
+        toast({ title: "Tiketti luotu" });
+      }
+      
       setShowCreateDialog(false);
       setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false });
+      setEmailPreview(null);
       fetchTickets();
     } catch (e: any) {
       toast({ title: "Virhe", description: e.message, variant: "destructive" });
@@ -201,9 +244,44 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
   };
 
+  const fetchEmptyNights = async (apartmentId: string) => {
+    setLoadingEmptyNights(true);
+    try {
+      const data = await callApi("get_next_empty_night", { apartment_id: apartmentId });
+      setEmptyNightData(data);
+    } catch (e) {
+      console.error(e);
+      setEmptyNightData(null);
+    }
+    setLoadingEmptyNights(false);
+  };
+
+  const handleSendReminder = async (ticketId: string) => {
+    if (!confirm("Lähetetäänkö muistutus nyt?")) return;
+    setSendingReminder(true);
+    try {
+      const result = await callApi("send_reminder", { ticket_id: ticketId });
+      if (result?.sent) {
+        toast({ title: "Muistutus lähetetty", description: `Vastaanottaja: ${result.email}` });
+      } else if (result?.error === "no_email_found") {
+        toast({ title: "Virhe", description: "Sähköpostiosoitetta ei löydy tälle huoneistolle", variant: "destructive" });
+      } else {
+        toast({ title: "Virhe", description: `Lähetys epäonnistui: ${result?.error}`, variant: "destructive" });
+      }
+      if (selectedTicket) fetchEmailLog(selectedTicket.id);
+    } catch (e: any) {
+      toast({ title: "Virhe", description: e.message, variant: "destructive" });
+    }
+    setSendingReminder(false);
+  };
+
   const openTicketDetail = (ticket: Ticket) => {
     setSelectedTicket(ticket);
+    setEmptyNightData(null);
     fetchEmailLog(ticket.id);
+    if (ticket.priority === "2" && ticket.status !== "resolved") {
+      fetchEmptyNights(ticket.apartment_id);
+    }
   };
 
   // Company CRUD
@@ -299,6 +377,21 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     );
   };
 
+  // Compute scheduled reminder time for priority 2 tickets
+  const getScheduledReminderText = () => {
+    if (!emptyNightData?.nextEmpty) return null;
+    const today = new Date().toISOString().split("T")[0];
+    const tomorrow = new Date(Date.now() + 86400000).toISOString().split("T")[0];
+    
+    if (emptyNightData.nextEmpty === today) {
+      return "Muistutus ajastettu: tänään klo 07:00";
+    }
+    if (emptyNightData.nextEmpty === tomorrow) {
+      return "Muistutus ajastettu: tänään klo 18:00";
+    }
+    return `Muistutus lähetetään kun tyhjä yö on lähempänä`;
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center p-12">
@@ -312,7 +405,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" onClick={() => setSelectedTicket(null)}>
+          <Button variant="ghost" size="sm" onClick={() => { setSelectedTicket(null); setEmptyNightData(null); }}>
             <ArrowLeft className="w-4 h-4 mr-1" />
             Takaisin
           </Button>
@@ -322,58 +415,133 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Tiketin tiedot</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <Label className="text-muted-foreground text-xs">Huoneisto</Label>
-                <p className="font-medium">{getApartmentName(selectedTicket.apartment_id)}</p>
-              </div>
-              <div>
-                <Label className="text-muted-foreground text-xs">Kuvaus</Label>
-                <p>{selectedTicket.description || "–"}</p>
-              </div>
-              <div className="flex gap-4">
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">Tiketin tiedot</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
                 <div>
-                  <Label className="text-muted-foreground text-xs">Prioriteetti</Label>
-                  <p>{selectedTicket.priority === "1" ? "Normaali" : "Muistutus tarvitaan"}</p>
+                  <Label className="text-muted-foreground text-xs">Huoneisto</Label>
+                  <p className="font-medium">{getApartmentName(selectedTicket.apartment_id)}</p>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground text-xs">Sähköposti</Label>
-                  <p>{selectedTicket.send_email ? "Kyllä" : "Ei"}</p>
+                  <Label className="text-muted-foreground text-xs">Kuvaus</Label>
+                  <p>{selectedTicket.description || "–"}</p>
                 </div>
-              </div>
-              <div>
-                <Label className="text-muted-foreground text-xs">Luotu</Label>
-                <p>{new Date(selectedTicket.created_at).toLocaleDateString("fi-FI")} {new Date(selectedTicket.created_at).toLocaleTimeString("fi-FI", { hour: "2-digit", minute: "2-digit" })}</p>
-              </div>
-
-              {!isViewer && (
-                <div className="pt-2 space-y-2">
-                  <Label>Muuta tila</Label>
-                  <Select value={selectedTicket.status} onValueChange={(val) => handleUpdateTicketStatus(selectedTicket.id, val)}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="open">Avoin</SelectItem>
-                      <SelectItem value="in_progress">Käsittelyssä</SelectItem>
-                      <SelectItem value="resolved">Ratkaistu</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <div className="flex gap-4">
+                  <div>
+                    <Label className="text-muted-foreground text-xs">Prioriteetti</Label>
+                    <p>{selectedTicket.priority === "1" ? "Normaali" : "Muistutus tarvitaan"}</p>
+                  </div>
+                  <div>
+                    <Label className="text-muted-foreground text-xs">Sähköposti</Label>
+                    <p>{selectedTicket.send_email ? "Kyllä" : "Ei"}</p>
+                  </div>
                 </div>
-              )}
+                <div>
+                  <Label className="text-muted-foreground text-xs">Luotu</Label>
+                  <p>{new Date(selectedTicket.created_at).toLocaleDateString("fi-FI")} {new Date(selectedTicket.created_at).toLocaleTimeString("fi-FI", { hour: "2-digit", minute: "2-digit" })}</p>
+                </div>
 
-              {!isViewer && (
-                <Button variant="destructive" size="sm" onClick={() => handleDeleteTicket(selectedTicket.id)}>
-                  <Trash2 className="w-4 h-4 mr-1" />
-                  Poista tiketti
-                </Button>
-              )}
-            </CardContent>
-          </Card>
+                {!isViewer && (
+                  <div className="pt-2 space-y-2">
+                    <Label>Muuta tila</Label>
+                    <Select value={selectedTicket.status} onValueChange={(val) => handleUpdateTicketStatus(selectedTicket.id, val)}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="open">Avoin</SelectItem>
+                        <SelectItem value="in_progress">Käsittelyssä</SelectItem>
+                        <SelectItem value="resolved">Ratkaistu</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+
+                {!isViewer && (
+                  <Button variant="destructive" size="sm" onClick={() => handleDeleteTicket(selectedTicket.id)}>
+                    <Trash2 className="w-4 h-4 mr-1" />
+                    Poista tiketti
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Priority 2: Empty night info & manual reminder */}
+            {selectedTicket.priority === "2" && selectedTicket.status !== "resolved" && (
+              <Card className="border-amber-200 bg-amber-50/50">
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <CalendarDays className="w-4 h-4 text-amber-600" />
+                    Muistutusjärjestelmä
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {loadingEmptyNights ? (
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Haetaan saatavuustietoja...
+                    </div>
+                  ) : emptyNightData ? (
+                    <>
+                      <div>
+                        <Label className="text-xs text-muted-foreground">Seuraava tyhjä yö</Label>
+                        <p className="font-medium text-amber-700">
+                          {emptyNightData.nextEmpty
+                            ? new Date(emptyNightData.nextEmpty).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })
+                            : "Ei tyhjiä öitä seuraavan 14 päivän sisällä"}
+                        </p>
+                      </div>
+                      {emptyNightData.emptyNights.length > 1 && (
+                        <div>
+                          <Label className="text-xs text-muted-foreground">Kaikki tyhjät yöt (14pv)</Label>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {emptyNightData.emptyNights.slice(0, 10).map((date) => (
+                              <Badge key={date} variant="outline" className="text-xs">
+                                {new Date(date).toLocaleDateString("fi-FI", { day: "numeric", month: "numeric" })}
+                              </Badge>
+                            ))}
+                            {emptyNightData.emptyNights.length > 10 && (
+                              <Badge variant="outline" className="text-xs">+{emptyNightData.emptyNights.length - 10}</Badge>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      {getScheduledReminderText() && (
+                        <div>
+                          <Label className="text-xs text-muted-foreground">Automaattinen muistutus</Label>
+                          <p className="text-sm text-amber-700 flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {getScheduledReminderText()}
+                          </p>
+                        </div>
+                      )}
+                      {!isViewer && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-amber-300 text-amber-700 hover:bg-amber-100"
+                          onClick={() => handleSendReminder(selectedTicket.id)}
+                          disabled={sendingReminder}
+                        >
+                          {sendingReminder ? (
+                            <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                          ) : (
+                            <Send className="w-4 h-4 mr-1" />
+                          )}
+                          Lähetä muistutus nyt
+                        </Button>
+                      )}
+                    </>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">Saatavuustietoja ei voitu hakea</p>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+          </div>
 
           <div className="space-y-6">
             <Card>
@@ -534,7 +702,13 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             </Button>
 
             {!isViewer && (
-              <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+              <Dialog open={showCreateDialog} onOpenChange={(open) => {
+                setShowCreateDialog(open);
+                if (!open) {
+                  setEmailPreview(null);
+                  setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false });
+                }
+              }}>
                 <DialogTrigger asChild>
                   <Button>
                     <Plus className="w-4 h-4 mr-1" />
@@ -593,9 +767,36 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         </div>
                       </RadioGroup>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Switch checked={newTicket.send_email} onCheckedChange={(val) => setNewTicket({ ...newTicket, send_email: val })} />
-                      <Label>Lähetä sähköposti-ilmoitus</Label>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Switch checked={newTicket.send_email} onCheckedChange={(val) => setNewTicket({ ...newTicket, send_email: val })} />
+                        <Label>Lähetä sähköposti-ilmoitus</Label>
+                      </div>
+                      
+                      {/* Email preview / warning */}
+                      {newTicket.send_email && newTicket.apartment_id && (
+                        <div className="ml-8">
+                          {loadingEmailPreview ? (
+                            <p className="text-xs text-muted-foreground flex items-center gap-1">
+                              <Loader2 className="w-3 h-3 animate-spin" />
+                              Tarkistetaan sähköpostiosoitetta...
+                            </p>
+                          ) : emailPreview?.email ? (
+                            <p className="text-xs text-green-600 flex items-center gap-1">
+                              <Mail className="w-3 h-3" />
+                              Lähetetään: {emailPreview.email}
+                              <span className="text-muted-foreground">
+                                ({emailPreview.source === "override" ? "ohitusasetus" : "huoltoyhtiö"})
+                              </span>
+                            </p>
+                          ) : (
+                            <p className="text-xs text-destructive flex items-center gap-1">
+                              <AlertCircle className="w-3 h-3" />
+                              ⚠️ Sähköpostia ei löydy! Liitä ensin huoltoyhtiö huoneistoon tai aseta sähköpostiosoite.
+                            </p>
+                          )}
+                        </div>
+                      )}
                     </div>
                     <Button onClick={handleCreateTicket} className="w-full">Luo tiketti</Button>
                   </div>
