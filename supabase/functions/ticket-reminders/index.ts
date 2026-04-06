@@ -43,6 +43,113 @@ Deno.serve(async (req) => {
       `Ticket reminders running at ${helsinkiTime.toISOString()} (Helsinki: ${currentHour}:${currentMinute}), morning=${isMorningRun}, evening=${isEveningRun}`
     );
 
+    // ── PART 1: Process manually scheduled reminders ──
+    const { data: scheduledReminders, error: schedErr } = await supabase
+      .from("ticket_email_log")
+      .select("*")
+      .eq("status", "scheduled")
+      .lte("scheduled_for", now.toISOString());
+
+    let scheduledSentCount = 0;
+    if (scheduledReminders && scheduledReminders.length > 0) {
+      console.log(`Found ${scheduledReminders.length} scheduled reminders to process`);
+      for (const reminder of scheduledReminders) {
+        try {
+          const { data: ticket } = await supabase
+            .from("tickets")
+            .select("*")
+            .eq("id", reminder.ticket_id)
+            .single();
+          
+          if (!ticket || ticket.status === "resolved") {
+            // Mark as cancelled if ticket is resolved
+            await supabase.from("ticket_email_log")
+              .update({ status: "cancelled", error_message: "Tiketti ratkaistu ennen lähetystä" })
+              .eq("id", reminder.id);
+            continue;
+          }
+
+          // Extract apartment name from error_message hack
+          let apartmentName: string | undefined;
+          if (reminder.error_message?.startsWith("__apt_name__:")) {
+            apartmentName = reminder.error_message.replace("__apt_name__:", "");
+          }
+          if (!apartmentName) {
+            const { data: mapping } = await supabase
+              .from("moder_property_mapping")
+              .select("property_name")
+              .eq("beds24_room_id", ticket.apartment_id)
+              .maybeSingle();
+            apartmentName = mapping?.property_name || ticket.apartment_id;
+          }
+
+          const typeLabel = ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
+          const targetDateFormatted = reminder.scheduled_for
+            ? new Date(new Date(reminder.scheduled_for).getTime() + 24 * 60 * 60 * 1000).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Helsinki" })
+            : "";
+
+          const htmlBody = `
+            <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
+              <h2 style="color:#e65100;border-bottom:2px solid #e65100;padding-bottom:10px;">
+                🔔 Huoltomuistutus – ${apartmentName}
+              </h2>
+              <p style="color:#e65100;font-weight:bold;">
+                Huoneistossa <strong>${apartmentName}</strong> on tyhjä yö ${targetDateFormatted}.
+                Avoin huoltotiketti olisi hyvä hoitaa tänä aikana.
+              </p>
+              <table style="width:100%;border-collapse:collapse;margin:20px 0;">
+                <tr><td style="padding:8px 12px;font-weight:bold;color:#666;width:140px;">Kohde:</td><td style="padding:8px 12px;">${apartmentName}</td></tr>
+                <tr style="background:#f9fafb;"><td style="padding:8px 12px;font-weight:bold;color:#666;">Tiketti:</td><td style="padding:8px 12px;">${ticket.title}</td></tr>
+                <tr><td style="padding:8px 12px;font-weight:bold;color:#666;">Tyyppi:</td><td style="padding:8px 12px;">${typeLabel}</td></tr>
+                <tr style="background:#f9fafb;"><td style="padding:8px 12px;font-weight:bold;color:#666;">Kuvaus:</td><td style="padding:8px 12px;">${ticket.description || "–"}</td></tr>
+                <tr><td style="padding:8px 12px;font-weight:bold;color:#666;">Tyhjä yö:</td><td style="padding:8px 12px;font-weight:bold;color:#e65100;">${targetDateFormatted}</td></tr>
+              </table>
+              <p style="margin-top:20px;">
+                <a href="https://leville.net/admin" style="background:#2563eb;color:white;padding:10px 20px;text-decoration:none;border-radius:6px;display:inline-block;">Avaa admin-paneeli</a>
+              </p>
+              <p style="color:#999;font-size:12px;margin-top:30px;">Tämä muistutus on lähetetty automaattisesti Leville.net-tikettijärjestelmästä.</p>
+            </div>
+          `;
+
+          const emailResponse = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
+            body: JSON.stringify({
+              from: "Leville.net Muistutus <admin@m.leville.net>",
+              to: [reminder.sent_to],
+              subject: `[Leville Muistutus] ${apartmentName} – ${ticket.title} (${targetDateFormatted})`,
+              html: htmlBody,
+            }),
+          });
+
+          const emailResult = await emailResponse.json();
+          await supabase.from("ticket_email_log")
+            .update({ 
+              status: emailResponse.ok ? "sent" : "failed", 
+              sent_at: new Date().toISOString(),
+              error_message: emailResponse.ok ? null : JSON.stringify(emailResult),
+            })
+            .eq("id", reminder.id);
+
+          if (emailResponse.ok) {
+            scheduledSentCount++;
+            await supabase.from("ticket_history").insert({
+              ticket_id: ticket.id,
+              changed_by: "system",
+              action_type: "email_sent",
+              new_value: `Ajastettu muistutus lähetetty: ${reminder.sent_to}`,
+            });
+          }
+        } catch (err) {
+          console.error(`Error processing scheduled reminder ${reminder.id}:`, err);
+          await supabase.from("ticket_email_log")
+            .update({ status: "failed", error_message: err.message })
+            .eq("id", reminder.id);
+        }
+      }
+    }
+
+    // ── PART 2: Auto-reminders for Priority 2 tickets ──
     // Fetch all open Priority 2 tickets
     const { data: tickets, error } = await supabase
       .from("tickets")
@@ -52,7 +159,7 @@ Deno.serve(async (req) => {
 
     if (error) throw error;
     if (!tickets || tickets.length === 0) {
-      return json({ message: "No priority 2 tickets found", sent: 0 });
+      return json({ message: "No priority 2 tickets found", scheduledSent: scheduledSentCount, autoSent: 0 });
     }
 
     console.log(`Found ${tickets.length} priority 2 open tickets`);
@@ -67,38 +174,19 @@ Deno.serve(async (req) => {
 
     for (const ticket of tickets) {
       try {
-        // Get empty nights for this apartment
-        const emptyNights = await getEmptyNightsForApartment(
-          beds24Token,
-          ticket.apartment_id
-        );
-
+        const emptyNights = await getEmptyNightsForApartment(beds24Token, ticket.apartment_id);
         const hasEmptyTonight = emptyNights.includes(today);
         const hasEmptyTomorrow = emptyNights.includes(tomorrow);
 
         let shouldSend = false;
-
-        // Morning run: send if tonight is empty
-        if (isMorningRun && hasEmptyTonight) {
-          shouldSend = true;
-        }
-
-        // Evening run: send if tomorrow is empty
-        if (isEveningRun && hasEmptyTomorrow) {
-          shouldSend = true;
-        }
+        if (isMorningRun && hasEmptyTonight) shouldSend = true;
+        if (isEveningRun && hasEmptyTomorrow) shouldSend = true;
 
         if (!shouldSend) {
-          results.push({
-            ticket_id: ticket.id,
-            apartment: ticket.apartment_id,
-            action: "skipped",
-            reason: `No matching empty night (tonight=${hasEmptyTonight}, tomorrow=${hasEmptyTomorrow})`,
-          });
+          results.push({ ticket_id: ticket.id, apartment: ticket.apartment_id, action: "skipped", reason: `No matching empty night` });
           continue;
         }
 
-        // Check if we already sent a reminder today for this ticket
         const todayStart = `${today}T00:00:00`;
         const todayEnd = `${today}T23:59:59`;
         const { data: recentLogs } = await supabase
@@ -110,32 +198,16 @@ Deno.serve(async (req) => {
           .eq("status", "sent");
 
         if (recentLogs && recentLogs.length > 0) {
-          results.push({
-            ticket_id: ticket.id,
-            apartment: ticket.apartment_id,
-            action: "skipped",
-            reason: "Already sent reminder today",
-          });
+          results.push({ ticket_id: ticket.id, action: "skipped", reason: "Already sent today" });
           continue;
         }
 
-        // Resolve recipient email
-        const { email } = await resolveRecipientEmail(
-          supabase,
-          ticket.apartment_id
-        );
-
+        const { email } = await resolveRecipientEmail(supabase, ticket.apartment_id);
         if (!email) {
-          results.push({
-            ticket_id: ticket.id,
-            apartment: ticket.apartment_id,
-            action: "skipped",
-            reason: "No email configured",
-          });
+          results.push({ ticket_id: ticket.id, action: "skipped", reason: "No email" });
           continue;
         }
 
-        // Get apartment name
         const { data: mapping } = await supabase
           .from("moder_property_mapping")
           .select("property_name")
@@ -144,55 +216,27 @@ Deno.serve(async (req) => {
 
         const apartmentName = mapping?.property_name || ticket.apartment_id;
         const emptyDate = isMorningRun ? today : tomorrow;
-        const typeLabel =
-          ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
+        const typeLabel = ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
 
         const htmlBody = `
           <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
-            <h2 style="color:#e65100;border-bottom:2px solid #e65100;padding-bottom:10px;">
-              🔔 Huoltomuistutus – Tyhjä yö ${emptyDate}
-            </h2>
-            <p style="color:#e65100;font-weight:bold;">
-              Huoneistossa <strong>${apartmentName}</strong> on tyhjä yö ${emptyDate}.
-              Avoin huoltotiketti olisi hyvä hoitaa tänä aikana.
-            </p>
+            <h2 style="color:#e65100;border-bottom:2px solid #e65100;padding-bottom:10px;">🔔 Huoltomuistutus – Tyhjä yö ${emptyDate}</h2>
+            <p style="color:#e65100;font-weight:bold;">Huoneistossa <strong>${apartmentName}</strong> on tyhjä yö ${emptyDate}.</p>
             <table style="width:100%;border-collapse:collapse;margin:20px 0;">
-              <tr>
-                <td style="padding:8px 12px;font-weight:bold;color:#666;width:140px;">Kohde:</td>
-                <td style="padding:8px 12px;">${apartmentName}</td>
-              </tr>
-              <tr style="background:#f9fafb;">
-                <td style="padding:8px 12px;font-weight:bold;color:#666;">Tiketti:</td>
-                <td style="padding:8px 12px;">${ticket.title}</td>
-              </tr>
-              <tr>
-                <td style="padding:8px 12px;font-weight:bold;color:#666;">Tyyppi:</td>
-                <td style="padding:8px 12px;">${typeLabel}</td>
-              </tr>
-              <tr style="background:#f9fafb;">
-                <td style="padding:8px 12px;font-weight:bold;color:#666;">Kuvaus:</td>
-                <td style="padding:8px 12px;">${ticket.description || "–"}</td>
-              </tr>
-              <tr>
-                <td style="padding:8px 12px;font-weight:bold;color:#666;">Tyhjä yö:</td>
-                <td style="padding:8px 12px;font-weight:bold;color:#e65100;">${emptyDate}</td>
-              </tr>
+              <tr><td style="padding:8px 12px;font-weight:bold;color:#666;width:140px;">Kohde:</td><td style="padding:8px 12px;">${apartmentName}</td></tr>
+              <tr style="background:#f9fafb;"><td style="padding:8px 12px;font-weight:bold;color:#666;">Tiketti:</td><td style="padding:8px 12px;">${ticket.title}</td></tr>
+              <tr><td style="padding:8px 12px;font-weight:bold;color:#666;">Tyyppi:</td><td style="padding:8px 12px;">${typeLabel}</td></tr>
+              <tr style="background:#f9fafb;"><td style="padding:8px 12px;font-weight:bold;color:#666;">Kuvaus:</td><td style="padding:8px 12px;">${ticket.description || "–"}</td></tr>
+              <tr><td style="padding:8px 12px;font-weight:bold;color:#666;">Tyhjä yö:</td><td style="padding:8px 12px;font-weight:bold;color:#e65100;">${emptyDate}</td></tr>
             </table>
-            <p style="margin-top:20px;">
-              <a href="https://leville.net/admin" style="background:#2563eb;color:white;padding:10px 20px;text-decoration:none;border-radius:6px;display:inline-block;">
-                Avaa admin-paneeli
-              </a>
-            </p>
+            <p style="margin-top:20px;"><a href="https://leville.net/admin" style="background:#2563eb;color:white;padding:10px 20px;text-decoration:none;border-radius:6px;display:inline-block;">Avaa admin-paneeli</a></p>
             <p style="color:#999;font-size:12px;margin-top:30px;">Tämä muistutus on lähetetty automaattisesti Leville.net-tikettijärjestelmästä.</p>
           </div>
         `;
 
         const emailResponse = await fetch("https://api.resend.com/emails", {
           method: "POST",
-          headers: {
-            Authorization: `Bearer ${resendApiKey}`,
-            "Content-Type": "application/json",
-          },
+          headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
           body: JSON.stringify({
             from: "Leville.net Muistutus <admin@m.leville.net>",
             to: [email],
@@ -202,47 +246,28 @@ Deno.serve(async (req) => {
         });
 
         const emailResult = await emailResponse.json();
-
         await supabase.from("ticket_email_log").insert({
           ticket_id: ticket.id,
           sent_to: email,
           status: emailResponse.ok ? "sent" : "failed",
           error_message: emailResponse.ok ? null : JSON.stringify(emailResult),
+          email_type: "auto_reminder",
         });
 
         if (emailResponse.ok) {
           sentCount++;
-          results.push({
-            ticket_id: ticket.id,
-            apartment: ticket.apartment_id,
-            action: "sent",
-            email,
-            emptyDate,
-          });
+          results.push({ ticket_id: ticket.id, action: "sent", email, emptyDate });
         } else {
-          results.push({
-            ticket_id: ticket.id,
-            apartment: ticket.apartment_id,
-            action: "failed",
-            error: emailResult,
-          });
+          results.push({ ticket_id: ticket.id, action: "failed", error: emailResult });
         }
       } catch (ticketErr) {
-        console.error(
-          `Error processing ticket ${ticket.id}:`,
-          ticketErr
-        );
-        results.push({
-          ticket_id: ticket.id,
-          apartment: ticket.apartment_id,
-          action: "error",
-          error: ticketErr.message,
-        });
+        console.error(`Error processing ticket ${ticket.id}:`, ticketErr);
+        results.push({ ticket_id: ticket.id, action: "error", error: ticketErr.message });
       }
     }
 
-    console.log(`Reminder run complete. Sent ${sentCount} reminders.`);
-    return json({ sent: sentCount, total: tickets.length, results });
+    console.log(`Reminder run complete. Scheduled: ${scheduledSentCount}, Auto: ${sentCount}`);
+    return json({ scheduledSent: scheduledSentCount, autoSent: sentCount, total: tickets.length, results });
   } catch (error) {
     console.error("Ticket reminders error:", error);
     return new Response(

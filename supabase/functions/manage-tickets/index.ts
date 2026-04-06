@@ -398,7 +398,7 @@ Deno.serve(async (req) => {
         return json(data);
       }
 
-      // ── SCHEDULE DATE REMINDER ──
+      // ── SCHEDULE DATE REMINDER (saves pending, sent by ticket-reminders cron) ──
       case "schedule_date_reminder": {
         const { ticket_id, target_date, changed_by, apartment_name } = body;
         const { data: ticket, error } = await supabase
@@ -408,11 +408,43 @@ Deno.serve(async (req) => {
           .single();
         if (error) throw error;
 
-        const result = await sendTicketEmail(supabase, ticket, "reminder", target_date, apartment_name);
-        if (result.sent) {
-          await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Päivämäärämuistutus lähetetty (${target_date}): ${result.email}`, "email_sent");
+        // Resolve email to show in the log
+        let recipientEmail = ticket.email_override || null;
+        if (!recipientEmail) {
+          const resolved = await resolveRecipientEmail(supabase, ticket.apartment_id);
+          recipientEmail = resolved.email;
         }
-        return json(result);
+        if (!recipientEmail) {
+          return json({ scheduled: false, error: "no_email_found" });
+        }
+
+        // Calculate scheduled_for: evening before target_date (18:00 Helsinki time)
+        const targetDateObj = new Date(target_date + "T18:00:00");
+        // Go back 1 day for "the evening before"
+        const scheduledFor = new Date(targetDateObj.getTime() - 24 * 60 * 60 * 1000);
+
+        // Insert a pending entry in email log
+        await supabase.from("ticket_email_log").insert({
+          ticket_id: ticket.id,
+          sent_to: recipientEmail,
+          status: "scheduled",
+          email_type: "scheduled_reminder",
+          scheduled_for: scheduledFor.toISOString(),
+          error_message: null,
+        });
+
+        const scheduledDateStr = scheduledFor.toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Helsinki" });
+        await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Muistutus ajastettu: ${scheduledDateStr} → ${recipientEmail}`, "reminder_scheduled");
+
+        // Store apartment_name override for later use
+        if (apartment_name) {
+          await supabase.from("ticket_email_log").update({ error_message: `__apt_name__:${apartment_name}` })
+            .eq("ticket_id", ticket.id)
+            .eq("status", "scheduled")
+            .eq("scheduled_for", scheduledFor.toISOString());
+        }
+
+        return json({ scheduled: true, email: recipientEmail, scheduled_for: scheduledFor.toISOString() });
       }
 
       default:
@@ -616,6 +648,7 @@ async function doSendEmail(
       sent_to: email,
       status: response.ok ? "sent" : "failed",
       error_message: response.ok ? null : JSON.stringify(result),
+      email_type: emailType,
     });
 
     if (!response.ok) {
@@ -632,6 +665,7 @@ async function doSendEmail(
       sent_to: email,
       status: "failed",
       error_message: err.message,
+      email_type: emailType,
     });
 
     return { sent: false, error: err.message, email };
