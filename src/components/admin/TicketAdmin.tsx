@@ -2004,18 +2004,39 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                           </div>
                         )}
                       </div>
-                      {/* Assign apartments to property */}
+                      {/* Assign apartments to property via checkboxes */}
                       {!isViewer && (
                         <div>
-                          <Label className="text-xs text-muted-foreground">Liitä huoneisto kiinteistöön</Label>
-                          <Select onValueChange={(assignmentId) => handleAssignApartmentToProperty(assignmentId, property.id)}>
-                            <SelectTrigger className="w-[200px] mt-1"><SelectValue placeholder="Valitse huoneisto..." /></SelectTrigger>
-                            <SelectContent>
-                              {assignments.filter(a => !a.property_id || a.property_id !== property.id).map((a) => (
-                                <SelectItem key={a.id} value={a.id}>{getApartmentName(a.apartment_id)}</SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
+                          <Label className="text-xs text-muted-foreground">Liitä huoneistoja kiinteistöön</Label>
+                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2 max-h-48 overflow-y-auto border rounded-md p-2">
+                            {apartmentList.map((apt) => {
+                              const isAssigned = propAssignments.some(a => a.apartment_id === apt.id);
+                              const assignmentRecord = assignments.find(a => a.apartment_id === apt.id);
+                              return (
+                                <label key={apt.id} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-muted/50 rounded p-1">
+                                  <input
+                                    type="checkbox"
+                                    checked={isAssigned}
+                                    onChange={async () => {
+                                      if (isAssigned) {
+                                        // Unassign: set property_id to null
+                                        const rec = propAssignments.find(a => a.apartment_id === apt.id);
+                                        if (rec) await handleAssignApartmentToProperty(rec.id, null);
+                                      } else if (assignmentRecord) {
+                                        // Assign existing assignment to this property
+                                        await handleAssignApartmentToProperty(assignmentRecord.id, property.id);
+                                      } else {
+                                        // No assignment record exists yet — create one first via assign_apartment, then link to property
+                                        toast({ title: "Huoneisto ei ole liitetty huoltoyhtiöön", description: "Liitä huoneisto ensin huoltoyhtiöön Huoltoyhtiöt-välilehdellä.", variant: "destructive" });
+                                      }
+                                    }}
+                                    className="rounded"
+                                  />
+                                  <span className="truncate">{apt.name}</span>
+                                </label>
+                              );
+                            })}
+                          </div>
                         </div>
                       )}
                     </CardContent>
