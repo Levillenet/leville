@@ -485,6 +485,218 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
   };
 
+  // ── PDF EXPORT ──
+  const generatePdf = (openInNewTab = false) => {
+    // Filter seasonal tickets based on export filters
+    let exportTickets = tickets.filter((t) => t.type === "seasonal");
+
+    if (exportFilters.status === "open") {
+      exportTickets = exportTickets.filter((t) => t.status === "open");
+    } else if (exportFilters.status === "in_progress") {
+      exportTickets = exportTickets.filter((t) => t.status === "in_progress");
+    } else {
+      exportTickets = exportTickets.filter((t) => t.status !== "resolved");
+    }
+
+    if (exportFilters.companyId !== "all") {
+      const companyApts = assignments
+        .filter((a) => a.maintenance_company_id === exportFilters.companyId)
+        .map((a) => a.apartment_id);
+      exportTickets = exportTickets.filter((t) => companyApts.includes(t.apartment_id));
+    }
+
+    if (exportFilters.apartmentIds.length > 0) {
+      exportTickets = exportTickets.filter((t) => exportFilters.apartmentIds.includes(t.apartment_id));
+    }
+
+    if (exportFilters.dateFrom) {
+      exportTickets = exportTickets.filter((t) => t.created_at >= exportFilters.dateFrom);
+    }
+    if (exportFilters.dateTo) {
+      const toEnd = exportFilters.dateTo + "T23:59:59";
+      exportTickets = exportTickets.filter((t) => t.created_at <= toEnd);
+    }
+
+    if (exportTickets.length === 0) {
+      toast({ title: "Ei tikettejä", description: "Valituilla suodattimilla ei löytynyt kausihuoltotikettejä.", variant: "destructive" });
+      return;
+    }
+
+    // Group by apartment
+    const grouped: Record<string, Ticket[]> = {};
+    for (const t of exportTickets) {
+      if (!grouped[t.apartment_id]) grouped[t.apartment_id] = [];
+      grouped[t.apartment_id].push(t);
+    }
+
+    const sortedApts = Object.keys(grouped).sort((a, b) =>
+      getApartmentName(a).localeCompare(getApartmentName(b))
+    );
+
+    const getCompanyForApt = (aptId: string) => {
+      const assignment = assignments.find((a) => a.apartment_id === aptId);
+      if (!assignment) return "–";
+      const company = companies.find((c) => c.id === assignment.maintenance_company_id);
+      return company?.name || "–";
+    };
+
+    const statusLabel = (s: string) => {
+      switch (s) {
+        case "open": return "Avoin";
+        case "in_progress": return "Käsittelyssä";
+        case "resolved": return "Ratkaistu";
+        default: return s;
+      }
+    };
+
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 15;
+    const contentWidth = pageWidth - margin * 2;
+    let y = margin;
+    const currentYear = new Date().getFullYear();
+    let pageNum = 1;
+
+    const addFooter = () => {
+      doc.setFontSize(8);
+      doc.setTextColor(150);
+      doc.text(`Leville.net \u2013 Kausihuolto ${currentYear}`, margin, pageHeight - 8);
+      doc.text(`Sivu ${pageNum}`, pageWidth - margin, pageHeight - 8, { align: "right" });
+    };
+
+    const checkPage = (needed: number) => {
+      if (y + needed > pageHeight - 20) {
+        addFooter();
+        doc.addPage();
+        pageNum++;
+        y = margin;
+      }
+    };
+
+    // ── Header ──
+    doc.setFontSize(18);
+    doc.setTextColor(30);
+    doc.text("Leville \u2013 Kausihuoltoraportti", margin, y + 6);
+    y += 14;
+
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    const now = new Date();
+    doc.text(`Luotu: ${now.toLocaleDateString("fi-FI")} klo ${now.toLocaleTimeString("fi-FI", { hour: "2-digit", minute: "2-digit" })}`, margin, y);
+    y += 5;
+
+    // Filter summary
+    const filterParts: string[] = [];
+    if (exportFilters.companyId !== "all") {
+      const c = companies.find((co) => co.id === exportFilters.companyId);
+      filterParts.push(`Huoltoyhti\u00f6: ${c?.name || "?"}`);
+    }
+    if (exportFilters.apartmentIds.length > 0) {
+      filterParts.push(`Huoneistot: ${exportFilters.apartmentIds.length} valittu`);
+    }
+    const statusMap = { open: "Avoimet", in_progress: "K\u00e4sittelyss\u00e4", both: "Avoimet + K\u00e4sittelyss\u00e4" };
+    filterParts.push(`Tila: ${statusMap[exportFilters.status]}`);
+    if (exportFilters.dateFrom || exportFilters.dateTo) {
+      filterParts.push(`Ajanjakso: ${exportFilters.dateFrom || "..."} \u2013 ${exportFilters.dateTo || "..."}`);
+    }
+    doc.text(filterParts.join(" | "), margin, y);
+    y += 5;
+    doc.text(`Tikettej\u00e4 yhteens\u00e4: ${exportTickets.length}`, margin, y);
+    y += 10;
+
+    // ── Content grouped by apartment ──
+    for (const aptId of sortedApts) {
+      const aptTickets = grouped[aptId];
+      const aptName = getApartmentName(aptId);
+      const companyName = getCompanyForApt(aptId);
+
+      checkPage(25);
+
+      // Apartment header box
+      doc.setFillColor(37, 99, 235);
+      doc.rect(margin, y, contentWidth, 12, "F");
+      doc.setFontSize(11);
+      doc.setTextColor(255);
+      doc.text(`HUONEISTO: ${aptName}`, margin + 3, y + 5);
+      doc.setFontSize(9);
+      doc.text(`Huoltoyhti\u00f6: ${companyName}`, margin + 3, y + 10);
+      y += 16;
+
+      doc.setTextColor(30);
+
+      for (let i = 0; i < aptTickets.length; i++) {
+        const t = aptTickets[i];
+        checkPage(35);
+
+        // Checkbox + title
+        doc.setFontSize(10);
+        doc.setDrawColor(100);
+        doc.rect(margin + 1, y - 3, 3.5, 3.5); // empty checkbox
+        doc.setTextColor(30);
+        doc.text(t.title, margin + 7, y);
+        y += 6;
+
+        doc.setFontSize(8);
+        doc.setTextColor(80);
+
+        if (t.description) {
+          const descLines = doc.splitTextToSize(`Kuvaus: ${t.description}`, contentWidth - 10);
+          checkPage(descLines.length * 4 + 4);
+          doc.text(descLines, margin + 7, y);
+          y += descLines.length * 4 + 2;
+        }
+
+        doc.text(`Prioriteetti: ${t.priority === "1" ? "Normaali" : "Muistutus tarvitaan"}   |   Tila: ${statusLabel(t.status)}   |   Luotu: ${new Date(t.created_at).toLocaleDateString("fi-FI")}`, margin + 7, y);
+        y += 5;
+
+        if (t.notes) {
+          const noteLines = doc.splitTextToSize(`Muistiinpanot: ${t.notes}`, contentWidth - 10);
+          checkPage(noteLines.length * 4 + 2);
+          doc.text(noteLines, margin + 7, y);
+          y += noteLines.length * 4 + 2;
+        }
+
+        // Divider between tickets
+        if (i < aptTickets.length - 1) {
+          checkPage(4);
+          doc.setDrawColor(200);
+          doc.line(margin + 5, y, pageWidth - margin - 5, y);
+          y += 5;
+        }
+      }
+
+      y += 8;
+    }
+
+    addFooter();
+
+    // Update page numbers (replace placeholder)
+    const totalPages = pageNum;
+    for (let p = 1; p <= totalPages; p++) {
+      doc.setPage(p);
+      // Overwrite footer with correct total
+      doc.setFillColor(255, 255, 255);
+      doc.rect(pageWidth - margin - 30, pageHeight - 12, 30, 6, "F");
+      doc.setFontSize(8);
+      doc.setTextColor(150);
+      doc.text(`Sivu ${p} / ${totalPages}`, pageWidth - margin, pageHeight - 8, { align: "right" });
+    }
+
+    const dateStr = now.toISOString().split("T")[0];
+
+    if (openInNewTab) {
+      const blob = doc.output("blob");
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
+    } else {
+      doc.save(`kausihuolto_${dateStr}.pdf`);
+    }
+
+    setShowExportDialog(false);
+    toast({ title: "PDF luotu", description: `${exportTickets.length} tikettiä viety.` });
+  };
+
   // Filtered tickets
   const filteredTickets = tickets.filter((t) => {
     if (filterApartment !== "all" && t.apartment_id !== filterApartment) return false;
