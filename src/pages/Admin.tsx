@@ -371,6 +371,10 @@ const Admin = () => {
               <Megaphone className="w-4 h-4" />
               Promobanneri
             </TabsTrigger>
+            <TabsTrigger value="tickets" className="flex items-center gap-2">
+              <ClipboardList className="w-4 h-4" />
+              Tiketöinti
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="maintenance">
