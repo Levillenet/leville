@@ -1424,24 +1424,30 @@ export type Database = {
       }
       ticket_email_log: {
         Row: {
+          email_type: string | null
           error_message: string | null
           id: string
+          scheduled_for: string | null
           sent_at: string
           sent_to: string
           status: string
           ticket_id: string
         }
         Insert: {
+          email_type?: string | null
           error_message?: string | null
           id?: string
+          scheduled_for?: string | null
           sent_at?: string
           sent_to: string
           status?: string
           ticket_id: string
         }
         Update: {
+          email_type?: string | null
           error_message?: string | null
           id?: string
+          scheduled_for?: string | null
           sent_at?: string
           sent_to?: string
           status?: string
