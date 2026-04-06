@@ -1690,13 +1690,28 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 ) : (
                   <div className="space-y-2">
                     {emailLog.map((log) => (
-                      <div key={log.id} className="text-sm border rounded p-2">
-                        <div className="flex justify-between">
-                          <span>{log.sent_to}</span>
-                          <Badge variant={log.status === "sent" ? "secondary" : "destructive"} className="text-xs">{log.status}</Badge>
+                      <div key={log.id} className={`text-sm border rounded p-2 ${log.status === "scheduled" ? "border-amber-300 bg-amber-50/50" : ""}`}>
+                        <div className="flex justify-between items-center">
+                          <span className="truncate">{log.sent_to}</span>
+                          <Badge 
+                            variant={log.status === "sent" ? "secondary" : log.status === "scheduled" ? "outline" : log.status === "cancelled" ? "secondary" : "destructive"} 
+                            className={`text-xs ${log.status === "scheduled" ? "border-amber-400 text-amber-700" : ""}`}
+                          >
+                            {log.status === "scheduled" ? "⏰ Ajastettu" : log.status === "cancelled" ? "Peruutettu" : log.status}
+                          </Badge>
                         </div>
+                        {log.status === "scheduled" && log.scheduled_for && (
+                          <p className="text-xs text-amber-700 font-medium mt-1">
+                            Lähetetään: {new Date(log.scheduled_for).toLocaleString("fi-FI", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" })}
+                          </p>
+                        )}
+                        {log.email_type && log.email_type !== "creation" && (
+                          <p className="text-[10px] text-muted-foreground">
+                            {log.email_type === "scheduled_reminder" ? "📅 Ajastettu muistutus" : log.email_type === "reminder" ? "🔔 Muistutus" : log.email_type === "auto_reminder" ? "🤖 Automaattinen muistutus" : log.email_type}
+                          </p>
+                        )}
                         <p className="text-xs text-muted-foreground">{new Date(log.sent_at).toLocaleString("fi-FI")}</p>
-                        {log.error_message && <p className="text-xs text-destructive">{log.error_message}</p>}
+                        {log.error_message && !log.error_message.startsWith("__apt_name__:") && <p className="text-xs text-destructive">{log.error_message}</p>}
                       </div>
                     ))}
                   </div>
