@@ -455,12 +455,13 @@ async function resolveRecipientEmail(
 async function sendTicketEmail(
   supabase: any,
   ticket: any,
-  emailType: "creation" | "reminder"
+  emailType: "creation" | "reminder",
+  targetDate?: string
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   // 1. Ticket-level override
   if (ticket.email_override) {
     const email = ticket.email_override;
-    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType);
+    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate);
   }
 
   // 2-3. Apartment/company fallback
@@ -470,7 +471,7 @@ async function sendTicketEmail(
     return { sent: false, error: "no_email_found" };
   }
 
-  return await doSendEmail(supabase, ticket, email, source, emailType);
+  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate);
 }
 
 async function doSendEmail(
