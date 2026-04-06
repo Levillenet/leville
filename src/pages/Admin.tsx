@@ -452,6 +452,10 @@ const Admin = () => {
             <PromoBannerAdmin isViewer={isViewer} />
           </TabsContent>
 
+          <TabsContent value="tickets">
+            <TicketAdmin isViewer={isViewer} />
+          </TabsContent>
+
           <TabsContent value="stats">
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
