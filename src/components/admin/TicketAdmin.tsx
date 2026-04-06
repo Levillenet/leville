@@ -1910,7 +1910,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <div className="space-y-6">
               {/* Group by company type */}
               {(["kiinteistohuolto", "siivous"] as const).map((type) => {
-                const typeCompanies = companies.filter(c => (c.company_type || "kiinteistohuolto") === type);
+                const typeCompanies = companies.filter(c => (c.company_types || ["kiinteistohuolto"]).includes(type));
                 if (typeCompanies.length === 0) return null;
                 return (
                   <div key={type}>
