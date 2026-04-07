@@ -174,7 +174,10 @@ const TimedNoticesAdmin = ({ isViewer }: TimedNoticesAdminProps) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold">Ajankohtaiset ilmoitukset</h2>
+        <div>
+          <h2 className="text-xl font-bold">Ajankohtaiset ilmoitukset</h2>
+          <p className="text-sm text-muted-foreground mt-1">Lisää ajastettuja ilmoitusbannereita sivuston alasivuille. Ilmoitus näkyy kävijöille valitulla aikavälillä.</p>
+        </div>
         {!isViewer && !showForm && (
           <Button onClick={() => { setShowForm(true); setEditingId(null); setForm(emptyNotice); }}>
             <Plus className="w-4 h-4 mr-2" /> Uusi ilmoitus
