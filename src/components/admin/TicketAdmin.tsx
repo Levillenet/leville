@@ -1988,7 +1988,15 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       <Label>Tyyppi</Label>
                       <RadioGroup value={newTicket.type} onValueChange={(val) => setNewTicket({ ...newTicket, type: val as any })} className="flex gap-4 mt-1">
                         <div className="flex items-center space-x-2"><RadioGroupItem value="seasonal" id="type-seasonal" /><Label htmlFor="type-seasonal">Kausihuolto</Label></div>
-                        <div className="flex items-center space-x-2"><RadioGroupItem value="urgent" id="type-urgent" /><Label htmlFor="type-urgent">Kiireellinen</Label></div>
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="urgent" id="type-urgent" /><Label htmlFor="type-urgent">Hoidettava mahdollisimman pian</Label></div>
+                      </RadioGroup>
+                    </div>
+
+                    <div>
+                      <Label>Ohjaa</Label>
+                      <RadioGroup value={newTicket.assignment_type} onValueChange={(val) => setNewTicket({ ...newTicket, assignment_type: val })} className="flex gap-4 mt-1">
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="kiinteistohuolto" id="assign-maint" /><Label htmlFor="assign-maint">Kiinteistöhuolto</Label></div>
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="siivous" id="assign-clean" /><Label htmlFor="assign-clean">Siivous</Label></div>
                       </RadioGroup>
                     </div>
 
