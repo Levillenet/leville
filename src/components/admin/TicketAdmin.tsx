@@ -2115,7 +2115,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       </div>
                       
                       {newTicket.send_email && selectedApartmentIds.length > 1 && (
-                        <p className="text-xs text-muted-foreground ml-8">Sähköposti lähetetään jokaiselle huoneistolle erikseen ({selectedApartmentIds.length} kpl)</p>
+                        <p className="text-xs text-muted-foreground ml-8">1 tiketti luodaan kaikille {selectedApartmentIds.length} huoneistolle, sähköpostissa listataan kohteet</p>
                       )}
                       {newTicket.send_email && (selectedApartmentIds.length === 1 || newTicket.email_override) && (
                         <div className="ml-8">
