@@ -775,10 +775,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
   };
 
-  const handleAssignApartment = async (companyId: string, apartmentId: string) => {
+  const handleAssignApartment = async (companyId: string, apartmentId: string, assignmentType: string = "kiinteistohuolto") => {
     try {
       await callApi("assign_apartment", {
-        assignment: { apartment_id: apartmentId, maintenance_company_id: companyId },
+        assignment: { apartment_id: apartmentId, maintenance_company_id: companyId, assignment_type: assignmentType },
       });
       toast({ title: "Huoneisto liitetty" });
       fetchCompanies();
