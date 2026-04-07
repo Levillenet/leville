@@ -83,7 +83,7 @@ Deno.serve(async (req) => {
             apartmentName = mapping?.property_name || ticket.apartment_id;
           }
 
-          const typeLabel = ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
+          const typeLabel = ticket.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto";
           const targetDateFormatted = reminder.scheduled_for
             ? new Date(new Date(reminder.scheduled_for).getTime() + 24 * 60 * 60 * 1000).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Helsinki" })
             : "";
@@ -202,7 +202,7 @@ Deno.serve(async (req) => {
           continue;
         }
 
-        const { email } = await resolveRecipientEmail(supabase, ticket.apartment_id);
+        const { email } = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
         if (!email) {
           results.push({ ticket_id: ticket.id, action: "skipped", reason: "No email" });
           continue;
@@ -216,7 +216,7 @@ Deno.serve(async (req) => {
 
         const apartmentName = mapping?.property_name || ticket.apartment_id;
         const emptyDate = isMorningRun ? today : tomorrow;
-        const typeLabel = ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
+        const typeLabel = ticket.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto";
 
         const htmlBody = `
           <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
@@ -329,12 +329,14 @@ async function getEmptyNightsForApartment(
 // ── HELPER: Resolve recipient email ──
 async function resolveRecipientEmail(
   supabase: any,
-  apartmentId: string
+  apartmentId: string,
+  assignmentType: string = "kiinteistohuolto"
 ): Promise<{ email: string | null; source: string }> {
   const { data: assignment } = await supabase
     .from("apartment_maintenance")
     .select("contact_email_override, maintenance_company_id")
     .eq("apartment_id", apartmentId)
+    .eq("assignment_type", assignmentType)
     .maybeSingle();
 
   if (assignment?.contact_email_override) {

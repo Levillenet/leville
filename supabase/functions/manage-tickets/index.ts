@@ -109,6 +109,7 @@ Deno.serve(async (req) => {
             recurrence_months: data.recurrence_months,
             recurrence_source_id: data.recurrence_source_id || data.id,
             recurrence_note: data.recurrence_note,
+            assignment_type: data.assignment_type || "kiinteistohuolto",
           };
 
           const { data: newTicket, error: newErr } = await supabase
@@ -175,12 +176,12 @@ Deno.serve(async (req) => {
 
       // ── RESOLVE EMAIL ──
       case "resolve_email": {
-        const { apartment_id, ticket_email_override } = body;
+        const { apartment_id, ticket_email_override, assignment_type } = body;
         // If ticket-level override exists, return it
         if (ticket_email_override) {
           return json({ email: ticket_email_override, source: "ticket_override" });
         }
-        const result = await resolveRecipientEmail(supabase, apartment_id);
+        const result = await resolveRecipientEmail(supabase, apartment_id, assignment_type || "kiinteistohuolto");
         return json(result);
       }
 
@@ -411,7 +412,7 @@ Deno.serve(async (req) => {
         // Resolve email to show in the log
         let recipientEmail = ticket.email_override || null;
         if (!recipientEmail) {
-          const resolved = await resolveRecipientEmail(supabase, ticket.apartment_id);
+          const resolved = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
           recipientEmail = resolved.email;
         }
         if (!recipientEmail) {
@@ -492,12 +493,14 @@ async function addHistory(
 // ── HELPER: Resolve recipient email ──
 async function resolveRecipientEmail(
   supabase: any,
-  apartmentId: string
+  apartmentId: string,
+  assignmentType: string = "kiinteistohuolto"
 ): Promise<{ email: string | null; source: string }> {
   const { data: assignment } = await supabase
     .from("apartment_maintenance")
     .select("contact_email_override, maintenance_company_id")
     .eq("apartment_id", apartmentId)
+    .eq("assignment_type", assignmentType)
     .maybeSingle();
 
   if (assignment?.contact_email_override) {
@@ -533,8 +536,8 @@ async function sendTicketEmail(
     return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate, apartmentNameOverride);
   }
 
-  // 2-3. Apartment/company fallback
-  const { email, source } = await resolveRecipientEmail(supabase, ticket.apartment_id);
+  // 2-3. Apartment/company fallback (use ticket's assignment_type)
+  const { email, source } = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
 
   if (!email) {
     return { sent: false, error: "no_email_found" };
@@ -567,7 +570,7 @@ async function doSendEmail(
       .maybeSingle();
     apartmentName = mapping?.property_name || ticket.apartment_id;
   }
-  const typeLabel = ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
+  const typeLabel = ticket.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto";
   const priorityLabel = ticket.priority === "1" ? "1 – Normaali" : "2 – Muistutus tarvitaan";
   const createdDate = new Date(ticket.created_at).toLocaleString("fi-FI", {
     timeZone: "Europe/Helsinki",

@@ -1510,6 +1510,7 @@ export type Database = {
       tickets: {
         Row: {
           apartment_id: string
+          assignment_type: string
           category_id: string | null
           created_at: string
           description: string | null
@@ -1530,6 +1531,7 @@ export type Database = {
         }
         Insert: {
           apartment_id: string
+          assignment_type?: string
           category_id?: string | null
           created_at?: string
           description?: string | null
@@ -1550,6 +1552,7 @@ export type Database = {
         }
         Update: {
           apartment_id?: string
+          assignment_type?: string
           category_id?: string | null
           created_at?: string
           description?: string | null

@@ -39,6 +39,7 @@ interface Ticket {
   recurrence_months: number | null;
   recurrence_source_id: string | null;
   recurrence_note: string | null;
+  assignment_type: string;
 }
 
 interface MaintenanceCompany {
@@ -385,6 +386,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     email_override: "",
     recurrence_months: 0,
     recurrence_note: "",
+    assignment_type: "kiinteistohuolto" as string,
   });
   const [selectedApartmentIds, setSelectedApartmentIds] = useState<string[]>([]);
 
@@ -503,11 +505,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   useEffect(() => {
     if (selectedApartmentIds.length === 1 && newTicket.send_email) {
-      checkEmail(selectedApartmentIds[0], newTicket.email_override);
+      checkEmail(selectedApartmentIds[0], newTicket.email_override, newTicket.assignment_type);
     } else {
       setEmailPreview(null);
     }
-  }, [selectedApartmentIds, newTicket.send_email, newTicket.email_override]);
+  }, [selectedApartmentIds, newTicket.send_email, newTicket.email_override, newTicket.assignment_type]);
 
   useEffect(() => {
     if (selectedApartmentIds.length === 1 && showCreateDialog) {
@@ -529,10 +531,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     setLoadingCreateAvail(false);
   };
 
-  const checkEmail = async (apartmentId: string, ticketOverride?: string) => {
+  const checkEmail = async (apartmentId: string, ticketOverride?: string, assignmentType?: string) => {
     setLoadingEmailPreview(true);
     try {
-      const data = await callApi("resolve_email", { apartment_id: apartmentId, ticket_email_override: ticketOverride || undefined });
+      const data = await callApi("resolve_email", { apartment_id: apartmentId, ticket_email_override: ticketOverride || undefined, assignment_type: assignmentType || "kiinteistohuolto" });
       setEmailPreview(data);
     } catch (e) {
       console.error(e);
@@ -576,6 +578,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           email_override: newTicket.email_override || null,
           recurrence_months: newTicket.recurrence_months > 0 ? newTicket.recurrence_months : null,
           recurrence_note: newTicket.recurrence_note || null,
+          assignment_type: newTicket.assignment_type,
         };
 
         const aptName = getApartmentName(aptId);
@@ -600,7 +603,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       }
       
       setShowCreateDialog(false);
-      setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "" });
+      setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "", assignment_type: "kiinteistohuolto" });
       setSelectedApartmentIds([]);
       setEmailPreview(null);
       setCreateFormAvailability(null);
@@ -1198,7 +1201,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       y += 4;
       doc.setFontSize(8);
       doc.setTextColor(100);
-      doc.text(`  ${t.type === "urgent" ? "Kiireellinen" : "Kausihuolto"} | P${t.priority} | ${statusLabel(t.status)} | ${new Date(t.created_at).toLocaleDateString("fi-FI")}${t.status === "resolved" ? ` \u2013 ${new Date(t.updated_at).toLocaleDateString("fi-FI")}` : ""}`, margin + 2, y);
+      doc.text(`  ${t.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto"} | P${t.priority} | ${statusLabel(t.status)} | ${new Date(t.created_at).toLocaleDateString("fi-FI")}${t.status === "resolved" ? ` \u2013 ${new Date(t.updated_at).toLocaleDateString("fi-FI")}` : ""}`, margin + 2, y);
       y += 6;
     }
 
@@ -1385,7 +1388,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   const typeBadge = (type: string) => {
     return type === "urgent" ? (
-      <Badge variant="destructive" className="gap-1"><AlertTriangle className="w-3 h-3" />Kiireellinen</Badge>
+      <Badge variant="destructive" className="gap-1"><AlertTriangle className="w-3 h-3" />Hoidettava mahdollisimman pian</Badge>
     ) : (
       <Badge variant="outline">Kausihuolto</Badge>
     );
@@ -1790,7 +1793,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               <SelectContent>
                 <SelectItem value="all">Kaikki tyypit</SelectItem>
                 <SelectItem value="seasonal">Kausihuolto</SelectItem>
-                <SelectItem value="urgent">Kiireellinen</SelectItem>
+                <SelectItem value="urgent">Hoidettava mahdollisimman pian</SelectItem>
               </SelectContent>
             </Select>
 
@@ -1896,7 +1899,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   setCreateFormAvailability(null);
                   setPendingReminderDate("");
                   setSelectedApartmentIds([]);
-                  setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "" });
+                  setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "", assignment_type: "kiinteistohuolto" });
                 }
               }}>
                 <DialogTrigger asChild>
@@ -1985,7 +1988,15 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       <Label>Tyyppi</Label>
                       <RadioGroup value={newTicket.type} onValueChange={(val) => setNewTicket({ ...newTicket, type: val as any })} className="flex gap-4 mt-1">
                         <div className="flex items-center space-x-2"><RadioGroupItem value="seasonal" id="type-seasonal" /><Label htmlFor="type-seasonal">Kausihuolto</Label></div>
-                        <div className="flex items-center space-x-2"><RadioGroupItem value="urgent" id="type-urgent" /><Label htmlFor="type-urgent">Kiireellinen</Label></div>
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="urgent" id="type-urgent" /><Label htmlFor="type-urgent">Hoidettava mahdollisimman pian</Label></div>
+                      </RadioGroup>
+                    </div>
+
+                    <div>
+                      <Label>Ohjaa</Label>
+                      <RadioGroup value={newTicket.assignment_type} onValueChange={(val) => setNewTicket({ ...newTicket, assignment_type: val })} className="flex gap-4 mt-1">
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="kiinteistohuolto" id="assign-maint" /><Label htmlFor="assign-maint">Kiinteistöhuolto</Label></div>
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="siivous" id="assign-clean" /><Label htmlFor="assign-clean">Siivous</Label></div>
                       </RadioGroup>
                     </div>
 
@@ -2496,7 +2507,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                           <SelectContent>
                             <SelectItem value="all">Kaikki</SelectItem>
                             <SelectItem value="seasonal">Kausihuolto</SelectItem>
-                            <SelectItem value="urgent">Kiireellinen</SelectItem>
+                            <SelectItem value="urgent">Hoidettava mahdollisimman pian</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
