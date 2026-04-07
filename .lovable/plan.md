@@ -1,38 +1,43 @@
 
-# Tiketöinnin sähköpostijärjestelmä
 
-## 1. manage-tickets Edge Function – sähköposti tiketin luonnissa
-- Uusi `send_ticket_email` action:
-  - Hakee `apartment_maintenance` → `contact_email_override` tai `maintenance_companies.email`
-  - Lähettää sähköpostin Resendillä (RESEND_API_KEY jo konfiguroitu)
-  - Kirjaa tuloksen `ticket_email_log`-tauluun
-  - Palauttaa varoituksen jos sähköpostia ei löydy
-- `create_ticket` action kutsuu `send_ticket_email` kun `send_email = true`
+# Huoltoyhtiöt – kohteiden liitoslogiikan korjaus
 
-## 2. ticket-reminders Edge Function – Priority 2 muistutukset
-- Uusi cron-ajettu Edge Function (06:50 ja 17:50)
-- Hakee avoimet Priority 2 tiketit
-- Jokaiselle: tarkistaa Beds24-saatavuus (tyhjät yöt 14pv sisällä)
-- Lähettää muistutuksen jos:
-  - Tyhjä yö TÄNÄÄN → 07:00 aamulla
-  - Tyhjä yö HUOMENNA → 18:00 illalla
-- Kirjaa loki `ticket_email_log`-tauluun
-- `get_next_empty_night` action palauttaa seuraavan tyhjän yön tiedot
+## Ongelma
 
-## 3. TicketAdmin.tsx – UI-päivitykset
-- Tiketin luontidialogi: varoitus jos sähköpostia ei löydy
-- Priority 2 tikettien detail-näkymä:
-  - "Seuraava tyhjä yö: {pvm}" (Beds24-data)
-  - Ajastetun muistutuksen aika
-  - "Lähetä muistutus nyt" -nappi
-- Sähköpostilokin parannukset (muistutus vs. alkuperäinen)
+Nykyinen `apartment_maintenance`-taulu linkittää huoneiston yritykseen **yhdellä rivillä** ilman tietoa roolista (kiinteistöhuolto / siivous). Kun yritys näkyy molemmissa kategorioissa, sama rivi näkyy kummassakin. Poistaminen yhdestä poistaa koko rivin → häviää molemmista.
 
-## 4. Cron-ajastus (supabase insert)
-- 06:50 ja 17:50 Helsinki-aikaa
-- Kutsuu ticket-reminders Edge Functionia
+Lisäksi ei ole estettä sille, että sama huoneisto olisi kahdella eri yrityksellä samassa roolissa.
 
-## Tekniset huomiot
-- RESEND_API_KEY on jo konfiguroitu
-- Beds24 API käytetään olemassa olevan integraation kautta
-- Sähköpostit suomeksi
-- config.toml: lisätään manage-tickets ja ticket-reminders verify_jwt = false
+## Ratkaisu
+
+### 1. Tietokantamuutos (migraatio)
+
+Lisätään `apartment_maintenance`-tauluun `assignment_type`-sarake:
+- Tyyppi: `text`, oletusarvo `'kiinteistohuolto'`
+- Nykyiset rivit saavat oletusarvon
+- Lisätään UNIQUE-rajoite: `(apartment_id, assignment_type)` → sama huoneisto voi olla vain yhdellä yrityksellä per rooli
+
+Kun yrityksellä on molemmat tyypit ja huoneisto liitetään, luodaan **erilliset rivit** molemmille rooleille.
+
+### 2. Edge Function (`manage-tickets/index.ts`)
+
+**`assign_apartment`**: Vastaanottaa uuden `assignment_type`-kentän ja tallentaa sen.
+
+**`unassign_apartment`**: Pysyy ennallaan (poistaa ID:n perusteella – nyt poistaa vain yhden roolin rivin).
+
+### 3. UI (`TicketAdmin.tsx`)
+
+Huoltoyhtiöt-välilehden renderöinti muuttuu:
+- Kun yritys näkyy "Kiinteistöhuolto"-osion alla, näytetään ja hallitaan vain `assignment_type = 'kiinteistohuolto'` rivejä
+- Kun sama yritys näkyy "Siivous"-osion alla, hallitaan vain `assignment_type = 'siivous'` rivejä
+- Checkbox-klikkaus luo/poistaa rivin oikealla `assignment_type`-arvolla
+- Jos huoneisto on **jo liitetty toiselle yritykselle samassa roolissa**, checkbox on disabloitu ja näyttää kenen alla se on
+
+### Yhteenveto muutoksista
+
+| Tiedosto | Muutos |
+|---|---|
+| Migraatio (SQL) | Lisää `assignment_type` sarake + UNIQUE constraint |
+| `manage-tickets/index.ts` | `assign_apartment` tallentaa `assignment_type` |
+| `TicketAdmin.tsx` | Suodattaa assignments `assignment_type`:n mukaan per osio, estää duplikaatit |
+
