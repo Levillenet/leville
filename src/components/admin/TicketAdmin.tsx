@@ -505,11 +505,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   useEffect(() => {
     if (selectedApartmentIds.length === 1 && newTicket.send_email) {
-      checkEmail(selectedApartmentIds[0], newTicket.email_override);
+      checkEmail(selectedApartmentIds[0], newTicket.email_override, newTicket.assignment_type);
     } else {
       setEmailPreview(null);
     }
-  }, [selectedApartmentIds, newTicket.send_email, newTicket.email_override]);
+  }, [selectedApartmentIds, newTicket.send_email, newTicket.email_override, newTicket.assignment_type]);
 
   useEffect(() => {
     if (selectedApartmentIds.length === 1 && showCreateDialog) {
