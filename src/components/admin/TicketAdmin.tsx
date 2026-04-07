@@ -504,8 +504,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   }, [tickets]);
 
   useEffect(() => {
-    if (selectedApartmentIds.length === 1) {
-      checkEmail(selectedApartmentIds[0], newTicket.email_override, newTicket.assignment_type);
+    if (newTicket.email_override && newTicket.email_override.trim()) {
+      setEmailPreview({ email: newTicket.email_override.trim(), source: "ticket_override" });
+      setLoadingEmailPreview(false);
+    } else if (selectedApartmentIds.length === 1) {
+      checkEmail(selectedApartmentIds[0], undefined, newTicket.assignment_type);
     } else {
       setEmailPreview(null);
     }
