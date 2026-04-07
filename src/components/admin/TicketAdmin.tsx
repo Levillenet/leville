@@ -2087,7 +2087,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     {/* Email override */}
                     <div>
                       <Label className="text-xs">Ohjaa tiketti sähköpostiin (valinnainen)</Label>
-                      <Input type="email" value={newTicket.email_override} onChange={(e) => setNewTicket({ ...newTicket, email_override: e.target.value })} placeholder="ohita oletussähköposti" className="text-sm" />
+                      <Input type="text" value={newTicket.email_override} onChange={(e) => setNewTicket({ ...newTicket, email_override: e.target.value })} placeholder="mikä tahansa sähköpostiosoite" className="text-sm" />
+                      {!newTicket.email_override && selectedApartmentIds.length === 1 && emailPreview?.email && (
+                        <p className="text-xs text-muted-foreground mt-1">Oletus: {emailPreview.email}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
