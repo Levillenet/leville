@@ -543,6 +543,15 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     setLoadingEmailPreview(false);
   };
 
+  const resolveEmailForApartment = async (aptId: string, assignmentType: string): Promise<string> => {
+    try {
+      const data = await callApi("resolve_email", { apartment_id: aptId, assignment_type: assignmentType });
+      return data?.email || "unknown";
+    } catch {
+      return "unknown";
+    }
+  };
+
   const handleCreateTicket = async () => {
     if (newTicket.target_type === "apartment" && selectedApartmentIds.length === 0) {
       toast({ title: "Virhe", description: "Valitse vähintään yksi huoneisto", variant: "destructive" });
@@ -560,46 +569,79 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       const apartmentIdsToCreate = newTicket.target_type === "apartment" 
         ? selectedApartmentIds 
         : [apartmentList[0]?.id || "property"];
-      
-      let createdCount = 0;
-      let emailErrors = 0;
 
-      for (const aptId of apartmentIdsToCreate) {
-        const ticketData: any = {
-          title: newTicket.title,
-          description: newTicket.description || null,
-          type: newTicket.type,
-          priority: newTicket.priority,
-          send_email: newTicket.send_email,
-          target_type: newTicket.target_type,
-          apartment_id: aptId,
-          category_id: newTicket.category_id || null,
-          property_id: newTicket.target_type === "property" ? newTicket.property_id : null,
-          email_override: newTicket.email_override || null,
-          recurrence_months: newTicket.recurrence_months > 0 ? newTicket.recurrence_months : null,
-          recurrence_note: newTicket.recurrence_note || null,
-          assignment_type: newTicket.assignment_type,
-        };
-
-        const aptName = getApartmentName(aptId);
-        const result = await callApi("create_ticket", { ticket: ticketData, apartment_name: aptName });
-        createdCount++;
-        
-        if (pendingReminderDate && result?.id) {
-          try {
-            await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate, apartment_name: aptName });
-          } catch {
-            emailErrors++;
-          }
-        } else if (result?.emailResult && !result.emailResult.sent) {
-          emailErrors++;
+      // If manual email_override or single apartment or property target → single ticket (old behavior)
+      if (newTicket.email_override || apartmentIdsToCreate.length <= 1 || newTicket.target_type === "property") {
+        let createdCount = 0;
+        let emailErrors = 0;
+        for (const aptId of apartmentIdsToCreate) {
+          const ticketData: any = {
+            title: newTicket.title,
+            description: newTicket.description || null,
+            type: newTicket.type,
+            priority: newTicket.priority,
+            send_email: newTicket.send_email,
+            target_type: newTicket.target_type,
+            apartment_id: aptId,
+            category_id: newTicket.category_id || null,
+            property_id: newTicket.target_type === "property" ? newTicket.property_id : null,
+            email_override: newTicket.email_override || null,
+            recurrence_months: newTicket.recurrence_months > 0 ? newTicket.recurrence_months : null,
+            recurrence_note: newTicket.recurrence_note || null,
+            assignment_type: newTicket.assignment_type,
+          };
+          const aptName = getApartmentName(aptId);
+          const result = await callApi("create_ticket", { ticket: ticketData, apartment_name: aptName });
+          createdCount++;
+          if (pendingReminderDate && result?.id) {
+            try { await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate, apartment_name: aptName }); } catch { emailErrors++; }
+          } else if (result?.emailResult && !result.emailResult.sent) { emailErrors++; }
         }
-      }
-
-      if (createdCount > 1) {
-        toast({ title: `${createdCount} tikettiä luotu`, description: emailErrors > 0 ? `⚠️ ${emailErrors} sähköpostia epäonnistui` : undefined });
+        if (createdCount > 1) {
+          toast({ title: `${createdCount} tikettiä luotu`, description: emailErrors > 0 ? `⚠️ ${emailErrors} sähköpostia epäonnistui` : undefined });
+        } else {
+          toast({ title: "Tiketti luotu" });
+        }
       } else {
-        toast({ title: "Tiketti luotu" });
+        // Group apartments by recipient company email
+        const emailMap: Record<string, string[]> = {};
+        for (const aptId of apartmentIdsToCreate) {
+          const recipientEmail = await resolveEmailForApartment(aptId, newTicket.assignment_type);
+          if (!emailMap[recipientEmail]) emailMap[recipientEmail] = [];
+          emailMap[recipientEmail].push(aptId);
+        }
+
+        let createdCount = 0;
+        let emailErrors = 0;
+        for (const [recipientEmail, aptIds] of Object.entries(emailMap)) {
+          const aptNames = aptIds.map(id => getApartmentName(id));
+          const groupDescription = (newTicket.description ? newTicket.description + "\n\n" : "") + 
+            `Huoneistot (${aptIds.length}): ${aptNames.join(", ")}`;
+          
+          const ticketData: any = {
+            title: newTicket.title,
+            description: groupDescription,
+            type: newTicket.type,
+            priority: newTicket.priority,
+            send_email: newTicket.send_email,
+            target_type: newTicket.target_type,
+            apartment_id: aptIds[0],
+            category_id: newTicket.category_id || null,
+            property_id: null,
+            email_override: recipientEmail !== "unknown" ? recipientEmail : null,
+            recurrence_months: newTicket.recurrence_months > 0 ? newTicket.recurrence_months : null,
+            recurrence_note: newTicket.recurrence_note || null,
+            assignment_type: newTicket.assignment_type,
+          };
+          const aptName = aptNames.join(", ");
+          const result = await callApi("create_ticket", { ticket: ticketData, apartment_name: aptName });
+          createdCount++;
+          if (pendingReminderDate && result?.id) {
+            try { await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate, apartment_name: aptName }); } catch { emailErrors++; }
+          } else if (result?.emailResult && !result.emailResult.sent) { emailErrors++; }
+        }
+        const companyCount = Object.keys(emailMap).length;
+        toast({ title: `${createdCount} tikettiä luotu (${apartmentIdsToCreate.length} huoneistoa, ${companyCount} yhtiölle)`, description: emailErrors > 0 ? `⚠️ ${emailErrors} sähköpostia epäonnistui` : undefined });
       }
       
       setShowCreateDialog(false);
@@ -2087,7 +2129,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     {/* Email override */}
                     <div>
                       <Label className="text-xs">Ohjaa tiketti sähköpostiin (valinnainen)</Label>
-                      <Input type="email" value={newTicket.email_override} onChange={(e) => setNewTicket({ ...newTicket, email_override: e.target.value })} placeholder="ohita oletussähköposti" className="text-sm" />
+                      <Input type="text" value={newTicket.email_override} onChange={(e) => setNewTicket({ ...newTicket, email_override: e.target.value })} placeholder="mikä tahansa sähköpostiosoite" className="text-sm" />
+                      {!newTicket.email_override && selectedApartmentIds.length === 1 && emailPreview?.email && (
+                        <p className="text-xs text-muted-foreground mt-1">Oletus: {emailPreview.email}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
@@ -2121,7 +2166,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       )}
                     </div>
                     <Button onClick={handleCreateTicket} className="w-full">
-                      {selectedApartmentIds.length > 1 ? `Luo ${selectedApartmentIds.length} tikettiä` : "Luo tiketti"}
+                      {selectedApartmentIds.length > 1 && !newTicket.email_override
+                        ? `Luo tiketti (${selectedApartmentIds.length} huoneistoa, ryhmitellään yhtiöittäin)`
+                        : selectedApartmentIds.length > 1
+                        ? `Luo tiketti (${selectedApartmentIds.length} huoneistoa)`
+                        : "Luo tiketti"}
                     </Button>
                   </div>
                 </DialogContent>
