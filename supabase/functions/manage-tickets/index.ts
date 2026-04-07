@@ -412,7 +412,7 @@ Deno.serve(async (req) => {
         // Resolve email to show in the log
         let recipientEmail = ticket.email_override || null;
         if (!recipientEmail) {
-          const resolved = await resolveRecipientEmail(supabase, ticket.apartment_id);
+          const resolved = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
           recipientEmail = resolved.email;
         }
         if (!recipientEmail) {
