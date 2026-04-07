@@ -174,7 +174,10 @@ const TimedNoticesAdmin = ({ isViewer }: TimedNoticesAdminProps) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold">Ajankohtaiset ilmoitukset</h2>
+        <div>
+          <h2 className="text-xl font-bold">Ajankohtaiset ilmoitukset</h2>
+          <p className="text-sm text-muted-foreground mt-1">Lisää ajastettuja ilmoitusbannereita sivuston alasivuille. Ilmoitus näkyy kävijöille valitulla aikavälillä.</p>
+        </div>
         {!isViewer && !showForm && (
           <Button onClick={() => { setShowForm(true); setEditingId(null); setForm(emptyNotice); }}>
             <Plus className="w-4 h-4 mr-2" /> Uusi ilmoitus
@@ -195,11 +198,11 @@ const TimedNoticesAdmin = ({ isViewer }: TimedNoticesAdminProps) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label>Alkaa</Label>
+                <Label>Näkyy alkaen</Label>
                 <Input type="datetime-local" value={form.starts_at} onChange={e => setForm(f => ({ ...f, starts_at: e.target.value }))} />
               </div>
               <div>
-                <Label>Päättyy *</Label>
+                <Label>Näkyy asti *</Label>
                 <Input type="datetime-local" value={form.expires_at} onChange={e => setForm(f => ({ ...f, expires_at: e.target.value }))} />
               </div>
             </div>
