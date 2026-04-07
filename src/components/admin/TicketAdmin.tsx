@@ -386,6 +386,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     email_override: "",
     recurrence_months: 0,
     recurrence_note: "",
+    assignment_type: "kiinteistohuolto" as string,
   });
   const [selectedApartmentIds, setSelectedApartmentIds] = useState<string[]>([]);
 
