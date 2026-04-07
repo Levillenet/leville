@@ -202,7 +202,7 @@ const TimedNoticesAdmin = ({ isViewer }: TimedNoticesAdminProps) => {
                 <Input type="datetime-local" value={form.starts_at} onChange={e => setForm(f => ({ ...f, starts_at: e.target.value }))} />
               </div>
               <div>
-                <Label>Päättyy *</Label>
+                <Label>Näkyy asti *</Label>
                 <Input type="datetime-local" value={form.expires_at} onChange={e => setForm(f => ({ ...f, expires_at: e.target.value }))} />
               </div>
             </div>
