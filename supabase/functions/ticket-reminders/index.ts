@@ -83,7 +83,7 @@ Deno.serve(async (req) => {
             apartmentName = mapping?.property_name || ticket.apartment_id;
           }
 
-          const typeLabel = ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
+          const typeLabel = ticket.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto";
           const targetDateFormatted = reminder.scheduled_for
             ? new Date(new Date(reminder.scheduled_for).getTime() + 24 * 60 * 60 * 1000).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Helsinki" })
             : "";
