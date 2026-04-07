@@ -1388,7 +1388,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   const typeBadge = (type: string) => {
     return type === "urgent" ? (
-      <Badge variant="destructive" className="gap-1"><AlertTriangle className="w-3 h-3" />Kiireellinen</Badge>
+      <Badge variant="destructive" className="gap-1"><AlertTriangle className="w-3 h-3" />Hoidettava mahdollisimman pian</Badge>
     ) : (
       <Badge variant="outline">Kausihuolto</Badge>
     );
