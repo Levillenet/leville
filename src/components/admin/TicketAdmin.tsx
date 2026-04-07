@@ -2139,9 +2139,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       )}
                     </div>
                     <Button onClick={handleCreateTicket} className="w-full">
-                      {selectedApartmentIds.length > 1 && !newTicket.email_override
-                        ? `Luo tiketti (${selectedApartmentIds.length} huoneistoa, ryhmitellään yhtiöittäin)`
-                        : selectedApartmentIds.length > 1
+                      {selectedApartmentIds.length > 1
                         ? `Luo tiketti (${selectedApartmentIds.length} huoneistoa)`
                         : "Luo tiketti"}
                     </Button>
