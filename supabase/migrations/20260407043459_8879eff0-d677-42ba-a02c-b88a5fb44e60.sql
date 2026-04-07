@@ -1,0 +1,1 @@
+ALTER TABLE public.tickets ADD COLUMN assignment_type text NOT NULL DEFAULT 'kiinteistohuolto';
