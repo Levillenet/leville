@@ -570,7 +570,7 @@ async function doSendEmail(
       .maybeSingle();
     apartmentName = mapping?.property_name || ticket.apartment_id;
   }
-  const typeLabel = ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
+  const typeLabel = ticket.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto";
   const priorityLabel = ticket.priority === "1" ? "1 – Normaali" : "2 – Muistutus tarvitaan";
   const createdDate = new Date(ticket.created_at).toLocaleString("fi-FI", {
     timeZone: "Europe/Helsinki",

@@ -216,7 +216,7 @@ Deno.serve(async (req) => {
 
         const apartmentName = mapping?.property_name || ticket.apartment_id;
         const emptyDate = isMorningRun ? today : tomorrow;
-        const typeLabel = ticket.type === "urgent" ? "Kiireellinen" : "Kausihuolto";
+        const typeLabel = ticket.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto";
 
         const htmlBody = `
           <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
