@@ -56,6 +56,7 @@ interface ApartmentAssignment {
   maintenance_company_id: string;
   contact_email_override: string | null;
   property_id: string | null;
+  assignment_type: string;
   created_at: string;
 }
 
