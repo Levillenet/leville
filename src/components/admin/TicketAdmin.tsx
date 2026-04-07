@@ -531,10 +531,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     setLoadingCreateAvail(false);
   };
 
-  const checkEmail = async (apartmentId: string, ticketOverride?: string) => {
+  const checkEmail = async (apartmentId: string, ticketOverride?: string, assignmentType?: string) => {
     setLoadingEmailPreview(true);
     try {
-      const data = await callApi("resolve_email", { apartment_id: apartmentId, ticket_email_override: ticketOverride || undefined });
+      const data = await callApi("resolve_email", { apartment_id: apartmentId, ticket_email_override: ticketOverride || undefined, assignment_type: assignmentType || "kiinteistohuolto" });
       setEmailPreview(data);
     } catch (e) {
       console.error(e);
