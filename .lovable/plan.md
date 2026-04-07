@@ -1,67 +1,49 @@
 
 
-# Tikettien ohjaus siivoukselle / kiinteistöhuollolle
+# Tiketin sähköpostikentän vapauttaminen ja tikettien ryhmittely yhtiöittäin
+
+## Ongelma 1: Sähköpostikenttä ei hyväksy vapaata syöttöä
+"Ohjaa tiketti sähköpostiin" -kenttä käyttää `type="email"` HTML5-validointia, joka estää vapaan sähköpostiosoitteen syöttämisen jos selain hylkää sen. Muutetaan `type="text"` ja lisätään vain kevyt visuaalinen validointi.
+
+## Ongelma 2: Monelle huoneistolle luodaan erillisiä tikettejä
+Nykyinen logiikka luo for-loopissa yhden tiketin per huoneisto. Muutetaan niin, että huoneistot **ryhmitellään** ensin vastaanottavan huolto-/siivousyhtiön mukaan, ja luodaan **1 tiketti per yhtiö**. Tiketin `apartment_id`-kenttään tallennetaan yhtiön ensimmäinen huoneisto, ja `description`-kenttään lisätään listaus kaikista ko. yhtiön huoneistoista.
+
+## Muutokset
+
+### 1. `TicketAdmin.tsx` – Sähköpostikenttä
+- Rivi 2090: Muutetaan `type="email"` → `type="text"` ja lisätään `placeholder="mikä tahansa sähköpostiosoite"`
+- Oletussähköposti näytetään kentän alla infotekstinä kun email_override on tyhjä
+
+### 2. `TicketAdmin.tsx` – `handleCreateTicket` ryhmittely
+Nykyinen logiikka (rivi 567):
+```
+for (const aptId of apartmentIdsToCreate) { ... create one ticket ... }
+```
+
+Uusi logiikka:
+1. Käydään kaikki valitut huoneistot läpi
+2. Jokaisen kohdalla haetaan oikea vastaanottajan sähköposti `apartment_maintenance` + `maintenance_companies` -taulusta `assignment_type`-kentän mukaan
+3. Ryhmitellään huoneistot vastaanottajan (company email / email_override) mukaan
+4. Jokaiselle ryhmälle (= eri yhtiö) luodaan **yksi tiketti**, jossa:
+   - `apartment_id` = ryhmän ensimmäinen huoneisto (tiketin pääkohde)
+   - `description` = alkuperäinen kuvaus + lista kaikista ryhmän huoneistoista
+   - Sähköposti menee kyseiselle yhtiölle
+5. Jos käyttäjä on antanut manuaalisen `email_override`, kaikki menevät samalle → 1 tiketti
+
+### 3. `TicketAdmin.tsx` – Luontipainikkeen teksti
+Päivitetään painikkeen teksti dynaamisesti: jos useita huoneistoja, näytetään ryhmitelty määrä, esim. "Luo tiketti (3 huoneistoa, 2 yhtiölle)".
+
+### 4. Edge function `manage-tickets/index.ts`
+Ei suuria muutoksia – `create_ticket` toimii ennallaan. Ryhmittely tapahtuu UI-puolella. Valinnainen: lisätään `apartment_ids`-kenttä tiketin kuvaukseen listatuiksi huoneistoiksi.
+
+## Tietokanta
+Ei tietokantamuutoksia tarvita.
 
 ## Yhteenveto
 
-Lisätään tikettiin `assignment_type`-kenttä (siivous / kiinteistöhuolto), joka ohjaa sähköpostin oikealle yritykselle per huoneisto. Samalla vaihdetaan "Kiireellinen" → "Hoidettava mahdollisimman pian".
-
-## 1. Tietokantamuutos
-
-Lisätään `tickets`-tauluun uusi sarake:
-```sql
-ALTER TABLE public.tickets 
-ADD COLUMN assignment_type text NOT NULL DEFAULT 'kiinteistohuolto';
-```
-
-## 2. UI-muutokset (`TicketAdmin.tsx`)
-
-**Tiketin luontilomake:**
-- Lisätään uusi radio-valinta **"Ohjaa"**: `Kiinteistöhuolto` / `Siivous` (oletus: kiinteistöhuolto)
-- Valinnan perusteella näytetään oletussähköposti. Haetaan `apartment_maintenance`-taulusta oikean `assignment_type`-rivin perusteella huoltoyhtiön email ja näytetään se "Oletussähköposti: xxx@yritys.fi" -tekstinä kentän alla
-- Jos tikettiin ei anneta manuaalista email_override -osoitetta, käytetään automaattisesti oikean tyypin (siivous/kiinteistöhuolto) yrityksen sähköpostia
-- Monelle huoneistolle luotaessa: jokaisen huoneiston kohdalla käytetään sen oman assignment_type-mukaisen yrityksen sähköpostia
-
-**Nimikkeen muutos:**
-- Kaikki "Kiireellinen"-tekstit → "Hoidettava mahdollisimman pian"
-- Koskee: radio-valintaa, badge-komponenttia, suodattimia, PDF-raportteja, sähköpostipohjia
-
-**`newTicket` state:**
-- Lisätään kenttä `assignment_type: "kiinteistohuolto"` oletusarvolla
-
-## 3. Edge Function: `manage-tickets/index.ts`
-
-**`resolveRecipientEmail`**: Vastaanottaa uuden parametrin `assignmentType` ja suodattaa `apartment_maintenance`-haun sen mukaan:
-```typescript
-async function resolveRecipientEmail(supabase, apartmentId, assignmentType = "kiinteistohuolto") {
-  const { data: assignment } = await supabase
-    .from("apartment_maintenance")
-    .select("contact_email_override, maintenance_company_id")
-    .eq("apartment_id", apartmentId)
-    .eq("assignment_type", assignmentType)
-    .maybeSingle();
-  // ... sama logiikka
-}
-```
-
-**`resolve_email` action**: Vastaanottaa `assignment_type`-parametrin ja välittää sen `resolveRecipientEmail`-funktiolle.
-
-**`create_ticket`**: Tallentaa `assignment_type`-kentän tikettiin.
-
-**`sendTicketEmail`**: Lukee `assignment_type`-kentän tiketistä ja välittää sen `resolveRecipientEmail`-funktiolle.
-
-**Toistuva tiketti**: Perii `assignment_type`-kentän edellisestä tiketistä.
-
-## 4. Edge Function: `ticket-reminders/index.ts`
-
-**`resolveRecipientEmail`**: Sama muutos – lukee tiketin `assignment_type`-kentän ja käyttää sitä suodattimena `apartment_maintenance`-haussa.
-
-## Muutosten yhteenveto
-
 | Kohde | Muutos |
 |---|---|
-| Migraatio | Lisää `assignment_type` sarake `tickets`-tauluun |
-| `TicketAdmin.tsx` | Lisää "Ohjaa" radio-valinta, näytä oletussähköposti, vaihda "Kiireellinen" → "Hoidettava mahdollisimman pian" |
-| `manage-tickets/index.ts` | `resolveRecipientEmail` suodattaa `assignment_type`:n mukaan, `create_ticket` tallentaa kentän |
-| `ticket-reminders/index.ts` | Sama `resolveRecipientEmail`-muutos |
+| `TicketAdmin.tsx` rivi 2090 | `type="email"` → `type="text"` |
+| `TicketAdmin.tsx` handleCreateTicket | Ryhmittely yhtiöittäin ennen luontia |
+| `TicketAdmin.tsx` painikkeen teksti | Dynaaminen "X huoneistoa, Y yhtiölle" |
 
