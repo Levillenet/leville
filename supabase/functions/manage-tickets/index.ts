@@ -175,12 +175,12 @@ Deno.serve(async (req) => {
 
       // ── RESOLVE EMAIL ──
       case "resolve_email": {
-        const { apartment_id, ticket_email_override } = body;
+        const { apartment_id, ticket_email_override, assignment_type } = body;
         // If ticket-level override exists, return it
         if (ticket_email_override) {
           return json({ email: ticket_email_override, source: "ticket_override" });
         }
-        const result = await resolveRecipientEmail(supabase, apartment_id);
+        const result = await resolveRecipientEmail(supabase, apartment_id, assignment_type || "kiinteistohuolto");
         return json(result);
       }
 
