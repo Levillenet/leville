@@ -198,7 +198,7 @@ const TimedNoticesAdmin = ({ isViewer }: TimedNoticesAdminProps) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label>Alkaa</Label>
+                <Label>Näkyy alkaen</Label>
                 <Input type="datetime-local" value={form.starts_at} onChange={e => setForm(f => ({ ...f, starts_at: e.target.value }))} />
               </div>
               <div>
