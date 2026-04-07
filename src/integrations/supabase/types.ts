@@ -44,6 +44,7 @@ export type Database = {
       apartment_maintenance: {
         Row: {
           apartment_id: string
+          assignment_type: string
           contact_email_override: string | null
           created_at: string
           id: string
@@ -52,6 +53,7 @@ export type Database = {
         }
         Insert: {
           apartment_id: string
+          assignment_type?: string
           contact_email_override?: string | null
           created_at?: string
           id?: string
@@ -60,6 +62,7 @@ export type Database = {
         }
         Update: {
           apartment_id?: string
+          assignment_type?: string
           contact_email_override?: string | null
           created_at?: string
           id?: string
