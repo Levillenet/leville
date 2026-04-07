@@ -578,6 +578,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           email_override: newTicket.email_override || null,
           recurrence_months: newTicket.recurrence_months > 0 ? newTicket.recurrence_months : null,
           recurrence_note: newTicket.recurrence_note || null,
+          assignment_type: newTicket.assignment_type,
         };
 
         const aptName = getApartmentName(aptId);
