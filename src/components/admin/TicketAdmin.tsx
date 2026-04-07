@@ -504,12 +504,12 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   }, [tickets]);
 
   useEffect(() => {
-    if (selectedApartmentIds.length === 1 && newTicket.send_email) {
+    if (selectedApartmentIds.length === 1) {
       checkEmail(selectedApartmentIds[0], newTicket.email_override, newTicket.assignment_type);
     } else {
       setEmailPreview(null);
     }
-  }, [selectedApartmentIds, newTicket.send_email, newTicket.email_override, newTicket.assignment_type]);
+  }, [selectedApartmentIds, newTicket.email_override, newTicket.assignment_type]);
 
   useEffect(() => {
     if (selectedApartmentIds.length === 1 && showCreateDialog) {
