@@ -329,12 +329,14 @@ async function getEmptyNightsForApartment(
 // ── HELPER: Resolve recipient email ──
 async function resolveRecipientEmail(
   supabase: any,
-  apartmentId: string
+  apartmentId: string,
+  assignmentType: string = "kiinteistohuolto"
 ): Promise<{ email: string | null; source: string }> {
   const { data: assignment } = await supabase
     .from("apartment_maintenance")
     .select("contact_email_override, maintenance_company_id")
     .eq("apartment_id", apartmentId)
+    .eq("assignment_type", assignmentType)
     .maybeSingle();
 
   if (assignment?.contact_email_override) {
