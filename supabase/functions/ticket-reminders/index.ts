@@ -202,7 +202,7 @@ Deno.serve(async (req) => {
           continue;
         }
 
-        const { email } = await resolveRecipientEmail(supabase, ticket.apartment_id);
+        const { email } = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
         if (!email) {
           results.push({ ticket_id: ticket.id, action: "skipped", reason: "No email" });
           continue;
