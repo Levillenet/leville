@@ -39,6 +39,7 @@ interface Ticket {
   recurrence_months: number | null;
   recurrence_source_id: string | null;
   recurrence_note: string | null;
+  assignment_type: string;
 }
 
 interface MaintenanceCompany {
