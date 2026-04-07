@@ -536,8 +536,8 @@ async function sendTicketEmail(
     return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate, apartmentNameOverride);
   }
 
-  // 2-3. Apartment/company fallback
-  const { email, source } = await resolveRecipientEmail(supabase, ticket.apartment_id);
+  // 2-3. Apartment/company fallback (use ticket's assignment_type)
+  const { email, source } = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
 
   if (!email) {
     return { sent: false, error: "no_email_found" };
