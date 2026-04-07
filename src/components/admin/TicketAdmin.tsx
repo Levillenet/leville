@@ -2004,6 +2004,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                                 toast({ title: "Muistutuspäivä valittu", description: `${new Date(date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })} – muistutus lähetetään tiketin luonnin yhteydessä` });
                               }}
                             />
+                            <div className="flex items-center gap-2">
+                              <Label className="text-xs whitespace-nowrap">Tai valitse vapaa päivä:</Label>
+                              <Input
+                                type="date"
+                                className="h-8 text-sm w-auto"
+                                value={pendingReminderDate}
+                                onChange={(e) => {
+                                  setPendingReminderDate(e.target.value);
+                                  if (e.target.value) {
+                                    toast({ title: "Muistutuspäivä valittu", description: `${new Date(e.target.value).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}` });
+                                  }
+                                }}
+                              />
+                            </div>
                             {pendingReminderDate && (
                               <div className="flex items-center gap-2 p-2 bg-blue-50 border border-blue-200 rounded text-sm">
                                 <Bell className="w-4 h-4 text-blue-600 shrink-0" />
