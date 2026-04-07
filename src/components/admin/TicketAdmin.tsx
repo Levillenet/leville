@@ -1793,7 +1793,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               <SelectContent>
                 <SelectItem value="all">Kaikki tyypit</SelectItem>
                 <SelectItem value="seasonal">Kausihuolto</SelectItem>
-                <SelectItem value="urgent">Kiireellinen</SelectItem>
+                <SelectItem value="urgent">Hoidettava mahdollisimman pian</SelectItem>
               </SelectContent>
             </Select>
 
