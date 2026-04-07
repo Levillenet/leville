@@ -109,6 +109,7 @@ Deno.serve(async (req) => {
             recurrence_months: data.recurrence_months,
             recurrence_source_id: data.recurrence_source_id || data.id,
             recurrence_note: data.recurrence_note,
+            assignment_type: data.assignment_type || "kiinteistohuolto",
           };
 
           const { data: newTicket, error: newErr } = await supabase
