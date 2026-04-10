@@ -121,30 +121,40 @@ Deno.serve(async (req) => {
 });
 
 function htmlResponse(title: string, message: string, status: number) {
+  const isSuccess = status === 200 && title.includes("✅");
+  const bgColor = isSuccess ? "#f0fdf4" : "#fef2f2";
+  const accentColor = isSuccess ? "#16a34a" : "#dc2626";
+  const emoji = isSuccess ? "🎉" : title.includes("ℹ️") ? "👍" : "⚠️";
+  
   const html = `<!DOCTYPE html>
 <html lang="fi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${title}</title>
+  <title>Leville.net</title>
   <style>
-    body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f9fafb; }
-    .card { background: white; border-radius: 12px; padding: 40px; max-width: 500px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-    h1 { font-size: 24px; color: #1a1a1a; margin-bottom: 12px; }
-    p { font-size: 16px; color: #666; line-height: 1.5; }
-    .logo { font-size: 14px; color: #999; margin-top: 30px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: ${bgColor}; padding: 20px; }
+    .card { background: white; border-radius: 16px; padding: 48px 32px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+    .emoji { font-size: 56px; margin-bottom: 16px; }
+    h1 { font-size: 22px; color: #1a1a1a; margin-bottom: 12px; font-weight: 700; }
+    p { font-size: 16px; color: #555; line-height: 1.6; margin-bottom: 8px; }
+    .thanks { font-size: 18px; color: ${accentColor}; font-weight: 600; margin-top: 16px; }
+    .logo { font-size: 13px; color: #bbb; margin-top: 32px; letter-spacing: 0.5px; }
   </style>
 </head>
 <body>
   <div class="card">
+    <div class="emoji">${emoji}</div>
     <h1>${title}</h1>
     <p>${message}</p>
+    ${isSuccess ? '<p class="thanks">Kiitos hyvästä työstä! Mukavaa päivää! ☀️</p>' : ''}
     <p class="logo">Leville.net</p>
   </div>
 </body>
 </html>`;
   return new Response(html, {
     status,
-    headers: { "Content-Type": "text/html; charset=utf-8" },
+    headers: { ...corsHeaders, "Content-Type": "text/html; charset=utf-8" },
   });
 }
