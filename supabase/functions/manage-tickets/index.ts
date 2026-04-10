@@ -153,6 +153,23 @@ Deno.serve(async (req) => {
         return json(result);
       }
 
+      // ── SEND URGENT "DO IT NOW" REMINDER ──
+      case "send_urgent_reminder": {
+        const { ticket_id, changed_by, apartment_name } = body;
+        const { data: ticket, error } = await supabase
+          .from("tickets")
+          .select("*")
+          .eq("id", ticket_id)
+          .single();
+        if (error) throw error;
+
+        const result = await sendTicketEmail(supabase, ticket, "urgent_reminder", undefined, apartment_name);
+        if (result.sent) {
+          await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Kiiremuistutus lähetetty: ${result.email}`, "email_sent");
+        }
+        return json(result);
+      }
+
       // ── GET NEXT EMPTY NIGHT ──
       case "get_next_empty_night": {
         const { apartment_id } = body;
