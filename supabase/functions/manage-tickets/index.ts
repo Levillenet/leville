@@ -568,7 +568,7 @@ async function doSendEmail(
   ticket: any,
   email: string,
   _source: string,
-  emailType: "creation" | "reminder",
+  emailType: "creation" | "reminder" | "urgent_reminder",
   targetDate?: string,
   apartmentNameOverride?: string
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
@@ -602,14 +602,19 @@ async function doSendEmail(
   });
 
   const isReminder = emailType === "reminder";
+  const isUrgentReminder = emailType === "urgent_reminder";
   const targetDateFormatted = targetDate
     ? new Date(targetDate).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Helsinki" })
     : null;
-  const subject = isReminder
+  const subject = isUrgentReminder
+    ? `[Leville KIIRE] ${apartmentName} – ${ticket.title} – hoida nyt`
+    : isReminder
     ? `[Leville Muistutus] ${apartmentName} – ${ticket.title}${targetDate ? ` (${targetDateFormatted})` : ""}`
     : `[Leville Tiketti] ${apartmentName} – ${ticket.title}`;
 
-  const reminderNote = isReminder
+  const reminderNote = isUrgentReminder
+    ? `<p style="color:#d32f2f;font-weight:bold;font-size:16px;">🚨 Tämä työ olisi hyvä hoitaa nyt! Muistathan kuitata tehdyksi alla olevasta napista kun työ on valmis.</p>`
+    : isReminder
     ? targetDate
       ? `<p style="color:#e65100;font-weight:bold;">⚠️ Muistutus: huoneistossa on tyhjä yö <strong>${targetDateFormatted}</strong> – huolto olisi hyvä suorittaa huomenna.</p>`
       : `<p style="color:#e65100;font-weight:bold;">⚠️ Tämä on muistutus avoimesta tiketistä. Huoneistossa on tyhjä yö lähiaikoina – huolto olisi hyvä suorittaa.</p>`
