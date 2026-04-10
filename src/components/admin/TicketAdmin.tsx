@@ -40,6 +40,9 @@ interface Ticket {
   recurrence_source_id: string | null;
   recurrence_note: string | null;
   assignment_type: string;
+  resolved_at: string | null;
+  resolved_by: string | null;
+  resolve_token: string | null;
 }
 
 interface MaintenanceCompany {
@@ -1560,6 +1563,50 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       </SelectContent>
                     </Select>
                   </div>
+                )}
+
+                {/* Resolved info */}
+                {selectedTicket.status === "resolved" && selectedTicket.resolved_at && (
+                  <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg space-y-1">
+                    <div className="flex items-center gap-2 text-sm font-medium text-emerald-800">
+                      <CheckCircle2 className="w-4 h-4" />
+                      Ratkaistu
+                    </div>
+                    <p className="text-sm text-emerald-700">
+                      {new Date(selectedTicket.resolved_at).toLocaleDateString("fi-FI")} klo{" "}
+                      {new Date(selectedTicket.resolved_at).toLocaleTimeString("fi-FI", { hour: "2-digit", minute: "2-digit" })}
+                    </p>
+                    <p className="text-sm text-emerald-600">
+                      Ratkaisija: {selectedTicket.resolved_by === "email_link" ? "Suorittaja (sähköpostilinkki)" : "Admin"}
+                    </p>
+                  </div>
+                )}
+
+                {!isViewer && selectedTicket.status !== "resolved" && (
+                  <Button 
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+                    onClick={async () => {
+                      try {
+                        await callApi("update_ticket", { 
+                          id: selectedTicket.id, 
+                          updates: { 
+                            status: "resolved",
+                            resolved_at: new Date().toISOString(),
+                            resolved_by: "admin"
+                          } 
+                        });
+                        toast({ title: "Tiketti merkitty tehdyksi" });
+                        setSelectedTicket({ ...selectedTicket, status: "resolved", resolved_at: new Date().toISOString(), resolved_by: "admin" });
+                        fetchTickets();
+                        fetchTicketHistory(selectedTicket.id);
+                      } catch (e: any) {
+                        toast({ title: "Virhe", description: e.message, variant: "destructive" });
+                      }
+                    }}
+                  >
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                    ✅ Merkitse tehdyksi
+                  </Button>
                 )}
 
                 {!isViewer && (

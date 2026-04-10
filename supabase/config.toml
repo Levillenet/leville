@@ -90,3 +90,6 @@ verify_jwt = false
 
 [functions.ticket-reminders]
 verify_jwt = false
+
+[functions.resolve-ticket-public]
+verify_jwt = false

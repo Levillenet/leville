@@ -1522,6 +1522,9 @@ export type Database = {
           recurrence_months: number | null
           recurrence_note: string | null
           recurrence_source_id: string | null
+          resolve_token: string | null
+          resolved_at: string | null
+          resolved_by: string | null
           send_email: boolean
           status: Database["public"]["Enums"]["ticket_status"]
           target_type: string
@@ -1543,6 +1546,9 @@ export type Database = {
           recurrence_months?: number | null
           recurrence_note?: string | null
           recurrence_source_id?: string | null
+          resolve_token?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
           send_email?: boolean
           status?: Database["public"]["Enums"]["ticket_status"]
           target_type?: string
@@ -1564,6 +1570,9 @@ export type Database = {
           recurrence_months?: number | null
           recurrence_note?: string | null
           recurrence_source_id?: string | null
+          resolve_token?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
           send_email?: boolean
           status?: Database["public"]["Enums"]["ticket_status"]
           target_type?: string
