@@ -33,6 +33,7 @@ Deno.serve(async (req) => {
   try {
     const url = new URL(req.url);
     const token = url.searchParams.get("token");
+    const isApartmentToken = url.searchParams.get("apt") === "1";
 
     if (!token || token.length < 10) {
       return redirectResponse("invalid");
@@ -43,6 +44,96 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
+    // Try per-apartment token first if apt=1
+    if (isApartmentToken) {
+      const { data: ta, error: taErr } = await supabase
+        .from("ticket_apartments")
+        .select("id, ticket_id, apartment_name, status")
+        .eq("resolve_token", token)
+        .maybeSingle();
+
+      if (taErr || !ta) {
+        return redirectResponse("invalid");
+      }
+
+      if (ta.status === "resolved") {
+        return redirectResponse("already", ta.apartment_name);
+      }
+
+      // Resolve this apartment
+      await supabase
+        .from("ticket_apartments")
+        .update({ status: "resolved", resolved_at: new Date().toISOString() })
+        .eq("id", ta.id);
+
+      // Log history
+      try {
+        await supabase.from("ticket_history").insert({
+          ticket_id: ta.ticket_id,
+          changed_by: "suorittaja (sähköposti)",
+          field_changed: "apartment_resolved",
+          old_value: null,
+          new_value: ta.apartment_name,
+          action_type: "resolved",
+        });
+      } catch (e) {
+        console.error("History log error:", e);
+      }
+
+      // Check if all apartments are resolved → auto-resolve ticket
+      const { data: allTa } = await supabase
+        .from("ticket_apartments")
+        .select("status")
+        .eq("ticket_id", ta.ticket_id);
+
+      if (allTa && allTa.every((a: any) => a.status === "resolved")) {
+        const { data: ticket } = await supabase
+          .from("tickets")
+          .select("id, status")
+          .eq("id", ta.ticket_id)
+          .single();
+
+        if (ticket && ticket.status !== "resolved") {
+          await supabase
+            .from("tickets")
+            .update({
+              status: "resolved",
+              resolved_at: new Date().toISOString(),
+              resolved_by: "email_link",
+              updated_at: new Date().toISOString(),
+            })
+            .eq("id", ta.ticket_id);
+
+          // Cancel scheduled reminders
+          try {
+            await supabase
+              .from("ticket_email_log")
+              .update({ status: "cancelled", error_message: "Kaikki kohteet kuitattu sähköpostista – tiketti ratkaistu" })
+              .eq("ticket_id", ta.ticket_id)
+              .eq("status", "scheduled");
+          } catch (e) {
+            console.error("Cancel error:", e);
+          }
+
+          try {
+            await supabase.from("ticket_history").insert({
+              ticket_id: ta.ticket_id,
+              changed_by: "suorittaja (sähköposti)",
+              field_changed: "status",
+              old_value: ticket.status,
+              new_value: "resolved",
+              action_type: "resolved",
+            });
+          } catch (e) {
+            console.error("History error:", e);
+          }
+        }
+      }
+
+      return redirectResponse("success", ta.apartment_name);
+    }
+
+    // Fallback: whole-ticket token resolution (single apartment tickets)
     const { data: ticket, error } = await supabase
       .from("tickets")
       .select("id, title, status")
@@ -81,6 +172,17 @@ Deno.serve(async (req) => {
         .eq("status", "scheduled");
     } catch (cancelErr) {
       console.error("Cancel scheduled emails error:", cancelErr);
+    }
+
+    // Also resolve all ticket_apartments
+    try {
+      await supabase
+        .from("ticket_apartments")
+        .update({ status: "resolved", resolved_at: new Date().toISOString() })
+        .eq("ticket_id", ticket.id)
+        .neq("status", "resolved");
+    } catch (e) {
+      console.error("Resolve apartments error:", e);
     }
 
     try {
