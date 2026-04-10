@@ -661,14 +661,38 @@ async function doSendEmail(
       : `<p style="color:#e65100;font-weight:bold;">⚠️ Tyhjä yö lähiaikoina – hoida nyt.</p>`
     : "";
 
+  // Guest changeover info for changeover tickets
+  let changeoverInfo = "";
+  if (ticket.guest_departure_date) {
+    const depDate = new Date(ticket.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
+    const arrDate = ticket.next_guest_arrival_date 
+      ? new Date(ticket.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })
+      : null;
+    changeoverInfo = `
+      <div style="background:#e3f2fd;border:1px solid #90caf9;border-radius:8px;padding:12px;margin:12px 0;">
+        <p style="margin:0 0 4px 0;font-weight:bold;color:#1565c0;">📅 Vaihtojakso</p>
+        <p style="margin:2px 0;font-size:14px;">Asiakas lähtee: <strong>${depDate}</strong></p>
+        ${arrDate ? `<p style="margin:2px 0;font-size:14px;">Seuraava asiakas saapuu: <strong>${arrDate}</strong></p>` : `<p style="margin:2px 0;font-size:14px;color:#388e3c;">Ei seuraavaa varausta – ei kiirettä.</p>`}
+      </div>
+    `;
+  }
+  
+  // Urgent ticket: note that it should be done even if guest is inside
+  let urgentNote = "";
+  if (ticket.type === "urgent") {
+    urgentNote = `<p style="color:#d32f2f;font-weight:bold;font-size:13px;margin:8px 0;">⚡ Hoidetaan heti, vaikka asiakas on sisällä.</p>`;
+  }
+
   const resolveUrl = `https://id-preview--965c8e14-cb63-4d51-9c89-2e41dfb8e866.lovable.app/tiketti-ratkaistu?token=${resolveToken}`;
 
   const htmlBody = `
     <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:16px;">
       <h2 style="margin:0 0 8px 0;font-size:18px;">${apartmentName}</h2>
       ${reminderNote}
+      ${urgentNote}
       <p style="margin:4px 0;font-size:15px;"><strong>${ticket.title}</strong></p>
       ${ticket.description ? `<p style="margin:4px 0;font-size:14px;color:#444;">${ticket.description}</p>` : ""}
+      ${changeoverInfo}
       <p style="margin:8px 0 20px 0;font-size:13px;color:#888;">Luotu: ${createdDate}</p>
       <div style="text-align:center;">
         <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:14px 28px;text-decoration:none;border-radius:8px;display:inline-block;font-size:16px;font-weight:bold;">
