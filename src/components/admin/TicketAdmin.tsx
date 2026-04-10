@@ -979,7 +979,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     if (reportFilters.propertyId !== "all") {
       reportTickets = reportTickets.filter(t => t.property_id === reportFilters.propertyId);
     }
-    }
     if (reportFilters.apartmentId !== "all") {
       reportTickets = reportTickets.filter(t => t.apartment_id === reportFilters.apartmentId);
     }
