@@ -822,7 +822,6 @@ async function doSendEmail(
   const siteBase = Deno.env.get("SITE_URL") || "https://leville.lovable.app";
 
   // Build resolve buttons: per-apartment if multi, single otherwise
-  const hasMultipleApartments = ticketApartments && ticketApartments.length > 1;
   let resolveButtons = "";
 
   if (hasMultipleApartments) {
