@@ -612,6 +612,42 @@ Deno.serve(async (req) => {
         return json(data);
       }
 
+      case "add_ticket_apartments": {
+        const { ticket_id, apartment_ids, apartment_names, changed_by } = body;
+        if (!ticket_id || !apartment_ids || !Array.isArray(apartment_ids) || apartment_ids.length === 0) {
+          return new Response(JSON.stringify({ error: "ticket_id and apartment_ids required" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+
+        // Get existing apartments for this ticket to skip duplicates
+        const { data: existing } = await supabase
+          .from("ticket_apartments")
+          .select("apartment_id")
+          .eq("ticket_id", ticket_id);
+        const existingIds = new Set((existing || []).map((e: any) => e.apartment_id));
+
+        const newIds = apartment_ids.filter((id: string) => !existingIds.has(id));
+        if (newIds.length === 0) {
+          return json({ added: 0, message: "Kaikki kohteet jo lisätty" });
+        }
+
+        const names = apartment_names || {};
+        const rows = newIds.map((id: string) => ({
+          ticket_id,
+          apartment_id: id,
+          apartment_name: names[id] || id,
+        }));
+        const { error: insertErr } = await supabase.from("ticket_apartments").insert(rows);
+        if (insertErr) throw insertErr;
+
+        // Log history
+        const addedNames = newIds.map((id: string) => names[id] || id).join(", ");
+        await addHistory(supabase, ticket_id, changed_by || "admin", null, null, `Lisätty kohteet: ${addedNames}`, "updated");
+
+        return json({ added: newIds.length });
+      }
+
       case "list_all_ticket_apartments": {
         const { data, error } = await supabase
           .from("ticket_apartments")

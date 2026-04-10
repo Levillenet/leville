@@ -456,6 +456,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   // Ticket apartments (per-apartment resolution)
   const [ticketApartments, setTicketApartments] = useState<TicketApartment[]>([]);
   const [allTicketApartments, setAllTicketApartments] = useState<{ id: string; ticket_id: string; apartment_id: string; apartment_name: string }[]>([]);
+  const [addApartmentIds, setAddApartmentIds] = useState<string[]>([]);
+  const [addingApartments, setAddingApartments] = useState(false);
 
   // Filters
   const [filterApartment, setFilterApartment] = useState("all");
@@ -886,6 +888,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     setTicketAvailability(null);
     setTicketHistory([]);
     setTicketApartments([]);
+    setAddApartmentIds([]);
     fetchEmailLog(ticket.id);
     fetchTicketHistory(ticket.id);
     fetchTicketApartments(ticket.id);
@@ -1726,7 +1729,75 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 </div>
                 <div>
                   <Label className="text-muted-foreground text-xs">Huoneisto</Label>
-                  <p className="font-medium">{ticketApartments.length > 1 ? `Useita (${ticketApartments.length})` : getSimpleApartmentName(selectedTicket.apartment_id)}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="font-medium">{ticketApartments.length > 1 ? `Useita (${ticketApartments.length})` : getSimpleApartmentName(selectedTicket.apartment_id)}</p>
+                    {!isViewer && selectedTicket.status !== "resolved" && (
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="outline" size="sm" className="h-6 w-6 p-0">
+                            <Plus className="h-3 w-3" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-64 p-3" align="start">
+                          <p className="text-xs font-semibold mb-2">Lisää kohteita</p>
+                          <div className="max-h-48 overflow-y-auto space-y-1">
+                            {apartmentList
+                              .sort((a, b) => getSimpleName(a.name).localeCompare(getSimpleName(b.name)))
+                              .map((apt) => {
+                                const alreadyAdded = ticketApartments.some(ta => ta.apartment_id === apt.id);
+                                return (
+                                  <label key={apt.id} className={`flex items-center gap-2 px-1 py-1 rounded text-xs ${alreadyAdded ? "opacity-50" : "hover:bg-accent cursor-pointer"}`}>
+                                    <Checkbox
+                                      disabled={alreadyAdded}
+                                      checked={alreadyAdded || addApartmentIds.includes(apt.id)}
+                                      onCheckedChange={(checked) => {
+                                        if (alreadyAdded) return;
+                                        setAddApartmentIds(prev =>
+                                          checked ? [...prev, apt.id] : prev.filter(id => id !== apt.id)
+                                        );
+                                      }}
+                                    />
+                                    {getSimpleName(apt.name)}
+                                  </label>
+                                );
+                              })}
+                          </div>
+                          {addApartmentIds.length > 0 && (
+                            <Button
+                              size="sm"
+                              className="w-full mt-2 h-7 text-xs"
+                              disabled={addingApartments}
+                              onClick={async () => {
+                                setAddingApartments(true);
+                                try {
+                                  const names: Record<string, string> = {};
+                                  addApartmentIds.forEach(id => {
+                                    names[id] = getSimpleApartmentName(id);
+                                  });
+                                  await callApi("add_ticket_apartments", {
+                                    ticket_id: selectedTicket.id,
+                                    apartment_ids: addApartmentIds,
+                                    apartment_names: names,
+                                  });
+                                  setAddApartmentIds([]);
+                                  fetchTicketApartments(selectedTicket.id);
+                                  fetchAllTicketApartments();
+                                  fetchTicketHistory(selectedTicket.id);
+                                  toast({ title: `${addApartmentIds.length} kohdetta lisätty` });
+                                } catch (err: any) {
+                                  toast({ title: "Virhe", description: err.message, variant: "destructive" });
+                                } finally {
+                                  setAddingApartments(false);
+                                }
+                              }}
+                            >
+                              {addingApartments ? <Loader2 className="h-3 w-3 animate-spin" /> : `Lisää (${addApartmentIds.length})`}
+                            </Button>
+                          )}
+                        </PopoverContent>
+                      </Popover>
+                    )}
+                  </div>
                 </div>
                 {selectedTicket.target_type === "property" && selectedTicket.property_id && (
                   <div>
