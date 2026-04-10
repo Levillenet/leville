@@ -93,3 +93,6 @@ verify_jwt = false
 
 [functions.resolve-ticket-public]
 verify_jwt = false
+
+[functions.check-booking-changes]
+verify_jwt = false
