@@ -1,37 +1,34 @@
 
 
-# Kiinteistöraportin multi-apartment-tikettien suodatus
+# WhatsApp-tikettiviestien linkki-esikatselu
 
 ## Ongelma
-
-Kun tiketti (esim. "Saunan kivien vaihto") koskee 14 huoneistoa kolmesta kiinteistöstä, raportti:
-1. Luo jokaiselle huoneistolle oman osion → 10 erillistä "Useita kohteita" -osiota Glacier-kiinteistön alle
-2. Jokaisen osion kuvauksessa listataan KAIKKI 14 huoneistoa, ei vain kyseisen kiinteistön huoneistoja
+Kun tiketti lähetetään WhatsAppilla, "Kuittaa tehdyksi" -linkit (esim. `leville.lovable.app/tiketti-ratkaistu?token=...`) generoivat WhatsAppissa rikkaan linkki-esikatselun (preview card), joka vie tilaa ja häiritsee viestin luettavuutta.
 
 ## Ratkaisu
+WhatsApp ei generoi linkki-esikatselua, jos URL-osoitteen edessä ei ole `https://`-protokollaa. Muutetaan viestin rakenne niin, että:
+1. Viestiteksti tulee ensin selkeästi
+2. Resolve-linkit ovat viestin lopussa ilman `https://`-etuliitettä → WhatsApp näyttää ne pelkkänä tekstinä ilman preview-korttia
+3. Käyttäjä voi silti kopioida linkin ja liittää selaimeen
 
-Muutetaan `createPropertyReportPdf`-funktion ryhmittelylogiikka niin, että multi-apartment-tiketit:
-- Näytetään **kerran per kiinteistö** (ei kerran per huoneisto)
-- Kuvauksessa listataan vain kyseisen kiinteistön huoneistot (intersection/leikkaus)
-- Tikettien lukumäärä lasketaan uniikkien tikettien mukaan (ei huoneisto × tiketti)
+## Muutos — `TicketAdmin.tsx`, rivit ~2060–2069
 
-## Muutokset — `TicketAdmin.tsx`, `createPropertyReportPdf` (~rivit 1378–1510)
+Nykyinen:
+```
+✅ Kuittaa tehdyksi:
+https://leville.lovable.app/tiketti-ratkaistu?token=abc123
+```
 
-### 1. Uusi tietorakenne
-Nykyinen: `propGroups[propKey].aptGroups[aptId] = Ticket[]`
-Uusi: lisätään `propGroups[propKey].multiAptTickets` — map tiketti-id → { ticket, aptIds[] }
+Uusi:
+```
+✅ Kuittaa tehdyksi:
+leville.lovable.app/tiketti-ratkaistu?token=abc123
+```
 
-Multi-apartment-tiketit menevät `multiAptTickets`-mappiin (yksi entry per tiketti per kiinteistö, sisältäen vain kyseisen kiinteistön huoneistot). Yksittäisen huoneiston tiketit menevät `aptGroups`-mappiin kuten ennenkin.
-
-### 2. Renderöinti
-- Ensin tulostetaan huoneistokohtaiset tiketit (aptGroups) kuten nykyään
-- Sitten tulostetaan multi-apartment-tiketit omana "Useita kohteita" -osiona, jossa kuvauksessa näkyy vain kyseisen kiinteistön huoneistonimet
-
-### 3. Tikettien lukumäärä
-`totalCount` lasketaan uniikkien tiketti-id:iden mukaan, ei rivien mukaan.
+Poistetaan `https://` resolve-linkeistä `siteBase`-muuttujasta tai viestin muodostuksessa. Tämä estää WhatsAppin automaattisen esikatselun mutta linkki on silti kopioitavissa.
 
 ## Muutettavat tiedostot
 | Tiedosto | Muutos |
 |---|---|
-| `src/components/admin/TicketAdmin.tsx` | `createPropertyReportPdf` — ryhmittely ja renderöinti |
+| `src/components/admin/TicketAdmin.tsx` | Poistetaan `https://` resolve-linkeistä WhatsApp-viesteissä |
 
