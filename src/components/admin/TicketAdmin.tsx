@@ -888,6 +888,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     setTicketAvailability(null);
     setTicketHistory([]);
     setTicketApartments([]);
+    setAddApartmentIds([]);
     fetchEmailLog(ticket.id);
     fetchTicketHistory(ticket.id);
     fetchTicketApartments(ticket.id);
