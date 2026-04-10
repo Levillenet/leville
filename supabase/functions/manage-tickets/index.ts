@@ -254,6 +254,7 @@ Deno.serve(async (req) => {
             // Calculate scheduled_for: evening before departure date (18:00 Helsinki time)
             const targetDateObj = new Date(oldTicket.guest_departure_date + "T18:00:00");
             const scheduledFor = new Date(targetDateObj.getTime() - 24 * 60 * 60 * 1000);
+            console.log(`[REACTIVATE] recipientEmail=${recipientEmail}, scheduledFor=${scheduledFor.toISOString()}, now=${new Date().toISOString()}, isFuture=${scheduledFor.getTime() > Date.now()}`);
 
             // Only schedule if the date is in the future
             if (scheduledFor.getTime() > Date.now()) {
