@@ -531,6 +531,7 @@ Deno.serve(async (req) => {
           .from("apartment_maintenance")
           .select("id")
           .eq("apartment_id", assignAptId)
+          .eq("assignment_type", "kiinteistohuolto")
           .maybeSingle();
         
         if (existing) {
@@ -542,7 +543,7 @@ Deno.serve(async (req) => {
         } else {
           const { error } = await supabase
             .from("apartment_maintenance")
-            .insert({ apartment_id: assignAptId, property_id: assignPropId });
+            .insert({ apartment_id: assignAptId, property_id: assignPropId, assignment_type: "kiinteistohuolto" });
           if (error) throw error;
         }
         return json({ success: true });
@@ -560,6 +561,7 @@ Deno.serve(async (req) => {
             .from("apartment_maintenance")
             .select("id")
             .eq("apartment_id", aptId)
+            .eq("assignment_type", "kiinteistohuolto")
             .maybeSingle();
           if (ex) {
             const { error } = await supabase
@@ -570,7 +572,7 @@ Deno.serve(async (req) => {
           } else {
             const { error } = await supabase
               .from("apartment_maintenance")
-              .insert({ apartment_id: aptId, property_id: bulkPropId });
+              .insert({ apartment_id: aptId, property_id: bulkPropId, assignment_type: "kiinteistohuolto" });
             if (error) throw error;
           }
         }
