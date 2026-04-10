@@ -323,6 +323,8 @@ const HistoryTimeline = ({ history }: { history: TicketHistoryEntry[] }) => {
       case "created": return "🆕";
       case "email_sent": return "📧";
       case "resolved": return "✅";
+      case "booking_updated": return "📅";
+      case "reminder_scheduled": return "⏰";
       default: return "✏️";
     }
   };
@@ -332,6 +334,8 @@ const HistoryTimeline = ({ history }: { history: TicketHistoryEntry[] }) => {
       case "created": return "Tiketti luotu";
       case "email_sent": return entry.new_value || "Sähköposti lähetetty";
       case "resolved": return "Ratkaistu";
+      case "booking_updated": return `📅 Varausmuutos: ${entry.old_value} → ${entry.new_value}`;
+      case "reminder_scheduled": return entry.new_value || "Muistutus ajastettu";
       default:
         if (entry.field_changed === "notes") return "Muistiinpanot päivitetty";
         return `${fieldLabel(entry.field_changed)}: ${entry.old_value || "–"} → ${entry.new_value || "–"}`;
@@ -399,9 +403,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   // Filters
   const [filterApartment, setFilterApartment] = useState("all");
   const [filterType, setFilterType] = useState("all");
-  const [filterPriority, setFilterPriority] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all");
+
+  // Bulk delete
+  const [selectedForDelete, setSelectedForDelete] = useState<string[]>([]);
 
   // New ticket form
   const [newTicket, setNewTicket] = useState({
@@ -1450,7 +1456,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const applyFilters = (t: Ticket) => {
     if (filterApartment !== "all" && t.apartment_id !== filterApartment) return false;
     if (filterType !== "all" && t.type !== filterType) return false;
-    if (filterPriority !== "all" && t.priority !== filterPriority) return false;
     if (filterStatus !== "all" && t.status !== filterStatus) return false;
     if (filterCategory !== "all" && t.category_id !== filterCategory) return false;
     return true;
@@ -1467,7 +1472,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   const openCount = tickets.filter((t) => t.status === "open").length;
   const urgentCount = tickets.filter((t) => t.type === "urgent" && t.status !== "resolved").length;
-  const reminderCount = tickets.filter((t) => t.priority === "2" && t.status !== "resolved").length;
+  const changeoverCount = tickets.filter((t) => t.type === "changeover" && t.status !== "resolved").length;
+
+  const handleBulkDelete = async () => {
+    if (selectedForDelete.length === 0) return;
+    if (!confirm(`Haluatko varmasti poistaa ${selectedForDelete.length} tikettiä?`)) return;
+    try {
+      await callApi("delete_tickets_bulk", { ids: selectedForDelete });
+      toast({ title: `${selectedForDelete.length} tikettiä poistettu` });
+      setSelectedForDelete([]);
+      fetchTickets();
+    } catch (e: any) {
+      toast({ title: "Virhe", description: e.message, variant: "destructive" });
+    }
+  };
 
   const statusBadge = (status: string) => {
     switch (status) {
@@ -1540,10 +1558,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   <p>{selectedTicket.description || "–"}</p>
                 </div>
                 <div className="flex gap-4">
-                  <div>
-                    <Label className="text-muted-foreground text-xs">Prioriteetti</Label>
-                    <p>{selectedTicket.priority === "1" ? "Normaali" : "Muistutus tarvitaan"}</p>
-                  </div>
                   <div>
                     <Label className="text-muted-foreground text-xs">Sähköposti</Label>
                     <p>{selectedTicket.send_email ? "Kyllä" : "Ei"}</p>
@@ -1971,8 +1985,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <Card>
               <CardContent className="pt-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"><CheckCircle2 className="w-6 h-6 text-primary" /></div>
-                  <div><p className="text-sm text-muted-foreground">Muistutus tarvitaan</p><p className="text-2xl font-bold">{reminderCount}</p></div>
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"><CalendarDays className="w-6 h-6 text-primary" /></div>
+                  <div><p className="text-sm text-muted-foreground">Vaihdon yhteydessä</p><p className="text-2xl font-bold">{changeoverCount}</p></div>
                 </div>
               </CardContent>
             </Card>
@@ -2006,14 +2020,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               </SelectContent>
             </Select>
 
-            <Select value={filterPriority} onValueChange={setFilterPriority}>
-              <SelectTrigger className="w-[130px]"><SelectValue placeholder="Prioriteetti" /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Kaikki</SelectItem>
-                <SelectItem value="1">Normaali</SelectItem>
-                <SelectItem value="2">Muistutus</SelectItem>
-              </SelectContent>
-            </Select>
 
             <Select value={filterStatus} onValueChange={setFilterStatus}>
               <SelectTrigger className="w-[140px]"><SelectValue placeholder="Tila" /></SelectTrigger>
@@ -2252,15 +2258,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       </div>
                     )}
 
-                    {newTicket.type !== "changeover" && (
-                    <div>
-                      <Label>Prioriteetti</Label>
-                      <RadioGroup value={newTicket.priority} onValueChange={(val) => setNewTicket({ ...newTicket, priority: val as any })} className="flex gap-4 mt-1">
-                        <div className="flex items-center space-x-2"><RadioGroupItem value="1" id="prio-1" /><Label htmlFor="prio-1">1 – Normaali</Label></div>
-                        <div className="flex items-center space-x-2"><RadioGroupItem value="2" id="prio-2" /><Label htmlFor="prio-2">2 – Muistutus tarvitaan</Label></div>
-                      </RadioGroup>
-                    </div>
-                    )}
 
                     {/* Recurrence */}
                     <div className="border rounded-lg p-3 bg-muted/30 space-y-3">
@@ -2373,16 +2370,39 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           </div>
 
           {/* Ticket table */}
+          {/* Bulk delete bar for resolved tab */}
+          {ticketListTab === "resolved" && !isViewer && (
+            <div className="flex items-center gap-3 px-2">
+              {selectedForDelete.length > 0 && (
+                <Button variant="destructive" size="sm" onClick={handleBulkDelete}>
+                  <Trash2 className="w-4 h-4 mr-1" />
+                  Poista {selectedForDelete.length} tikettiä
+                </Button>
+              )}
+              {resolvedTickets.length > 0 && (
+                <Button variant="ghost" size="sm" onClick={() => {
+                  if (selectedForDelete.length === resolvedTickets.length) {
+                    setSelectedForDelete([]);
+                  } else {
+                    setSelectedForDelete(resolvedTickets.map(t => t.id));
+                  }
+                }}>
+                  {selectedForDelete.length === resolvedTickets.length ? "Poista valinnat" : "Valitse kaikki"}
+                </Button>
+              )}
+            </div>
+          )}
+
           <Card>
             <CardContent className="p-0">
               <Table>
                 <TableHeader>
                   <TableRow>
+                    {ticketListTab === "resolved" && !isViewer && <TableHead className="w-8"></TableHead>}
                     <TableHead>Huoneisto</TableHead>
                     <TableHead>Otsikko</TableHead>
                     <TableHead>Kategoria</TableHead>
                     <TableHead>Tyyppi</TableHead>
-                    <TableHead>Prioriteetti</TableHead>
                     <TableHead>Tila</TableHead>
                     <TableHead>Luotu</TableHead>
                     <TableHead>Toiminnot</TableHead>
@@ -2391,11 +2411,23 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 <TableBody>
                   {filteredTickets.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={8} className="text-center text-muted-foreground py-8">Ei tikettejä</TableCell>
+                      <TableCell colSpan={ticketListTab === "resolved" && !isViewer ? 8 : 7} className="text-center text-muted-foreground py-8">Ei tikettejä</TableCell>
                     </TableRow>
                   ) : (
                     filteredTickets.map((ticket) => (
                       <TableRow key={ticket.id} className="cursor-pointer" onClick={() => openTicketDetail(ticket)}>
+                        {ticketListTab === "resolved" && !isViewer && (
+                          <TableCell onClick={(e) => e.stopPropagation()}>
+                            <Checkbox
+                              checked={selectedForDelete.includes(ticket.id)}
+                              onCheckedChange={(checked) => {
+                                setSelectedForDelete(prev => 
+                                  checked ? [...prev, ticket.id] : prev.filter(id => id !== ticket.id)
+                                );
+                              }}
+                            />
+                          </TableCell>
+                        )}
                         <TableCell className="font-medium">
                           <span className="flex items-center gap-1.5">
                             <AvailabilityDot indicator={availabilityIndicators[ticket.apartment_id]?.indicator} />
@@ -2405,11 +2437,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         <TableCell className="flex items-center gap-1">{ticket.recurrence_months ? <span title={`Toistuu ${ticket.recurrence_months} kk välein`}>🔄</span> : null}{ticket.title}</TableCell>
                         <TableCell><CategoryBadge category={categories.find(c => c.id === ticket.category_id)} /></TableCell>
                         <TableCell>{typeBadge(ticket.type)}</TableCell>
-                        <TableCell>
-                          <Badge variant={ticket.priority === "2" ? "default" : "outline"}>
-                            {ticket.priority === "1" ? "Normaali" : "Muistutus"}
-                          </Badge>
-                        </TableCell>
                         <TableCell>{statusBadge(ticket.status)}</TableCell>
                         <TableCell className="text-sm text-muted-foreground">{new Date(ticket.created_at).toLocaleDateString("fi-FI")}</TableCell>
                         <TableCell>

@@ -83,6 +83,29 @@ Deno.serve(async (req) => {
             `Vaihtojakso: lähtö ${data.guest_departure_date}, saapuminen ${data.next_guest_arrival_date || "–"}`, "updated");
         }
 
+        // For changeover tickets, schedule a reminder for departure morning
+        if (data.type === "changeover" && data.guest_departure_date) {
+          try {
+            const { email: reminderEmail } = await resolveRecipientEmail(supabase, data.apartment_id, data.assignment_type || "kiinteistohuolto");
+            const resolvedEmail = data.email_override || reminderEmail;
+            if (resolvedEmail) {
+              // Schedule for departure morning (06:50 Helsinki)
+              const reminderTime = new Date(data.guest_departure_date + "T03:50:00Z"); // ~06:50 Helsinki
+              await supabase.from("ticket_email_log").insert({
+                ticket_id: data.id,
+                sent_to: resolvedEmail,
+                status: "scheduled",
+                email_type: "changeover_reminder",
+                scheduled_for: reminderTime.toISOString(),
+              });
+              await addHistory(supabase, data.id, "system", null, null, 
+                `Vaihtomuistutus ajastettu: ${new Date(data.guest_departure_date).toLocaleDateString("fi-FI")}`, "reminder_scheduled");
+            }
+          } catch (e) {
+            console.error("Failed to schedule changeover reminder:", e);
+          }
+        }
+
         // Send email if requested
         let emailResult = null;
         if (ticket.send_email) {
@@ -188,6 +211,23 @@ Deno.serve(async (req) => {
         const { error } = await supabase.from("tickets").delete().eq("id", id);
         if (error) throw error;
         return json({ success: true });
+      }
+
+      case "delete_tickets_bulk": {
+        const { ids } = body;
+        if (!ids || !Array.isArray(ids) || ids.length === 0) {
+          return json({ error: "No ticket IDs provided" });
+        }
+        // Delete ticket_apartments first
+        await supabase.from("ticket_apartments").delete().in("ticket_id", ids);
+        // Delete email logs
+        await supabase.from("ticket_email_log").delete().in("ticket_id", ids);
+        // Delete history
+        await supabase.from("ticket_history").delete().in("ticket_id", ids);
+        // Delete tickets
+        const { error } = await supabase.from("tickets").delete().in("id", ids);
+        if (error) throw error;
+        return json({ success: true, deleted: ids.length });
       }
 
       // ── SEND REMINDER (manual) ──
