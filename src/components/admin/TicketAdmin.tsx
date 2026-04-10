@@ -1895,7 +1895,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               <SelectContent>
                 <SelectItem value="all">Kaikki tyypit</SelectItem>
                 <SelectItem value="seasonal">Kausihuolto</SelectItem>
-                <SelectItem value="urgent">Hoidettava mahdollisimman pian</SelectItem>
+                <SelectItem value="urgent">Hoidettava heti</SelectItem>
+                <SelectItem value="changeover">Vaihdon yhteydessä</SelectItem>
               </SelectContent>
             </Select>
 
@@ -2088,10 +2089,17 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     </div>
                     <div>
                       <Label>Tyyppi</Label>
-                      <RadioGroup value={newTicket.type} onValueChange={(val) => setNewTicket({ ...newTicket, type: val as any })} className="flex gap-4 mt-1">
+                      <RadioGroup value={newTicket.type} onValueChange={(val) => setNewTicket({ ...newTicket, type: val as any })} className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-1">
                         <div className="flex items-center space-x-2"><RadioGroupItem value="seasonal" id="type-seasonal" /><Label htmlFor="type-seasonal">Kausihuolto</Label></div>
-                        <div className="flex items-center space-x-2"><RadioGroupItem value="urgent" id="type-urgent" /><Label htmlFor="type-urgent">Hoidettava mahdollisimman pian</Label></div>
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="urgent" id="type-urgent" /><Label htmlFor="type-urgent">Hoidettava heti</Label></div>
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="changeover" id="type-changeover" /><Label htmlFor="type-changeover">Vaihdon yhteydessä</Label></div>
                       </RadioGroup>
+                      {newTicket.type === "changeover" && (
+                        <p className="text-xs text-muted-foreground mt-2">📅 Lähtö- ja saapumistiedot haetaan automaattisesti Beds24:stä. Muistutus lähetetään automaattisesti asiakkaan lähtöpäivän aamuna.</p>
+                      )}
+                      {newTicket.type === "urgent" && (
+                        <p className="text-xs text-muted-foreground mt-2">⚡ Hoidetaan heti, vaikka asiakas olisi sisällä.</p>
+                      )}
                     </div>
 
                     <div>
