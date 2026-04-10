@@ -527,12 +527,13 @@ Deno.serve(async (req) => {
           .single();
         if (error) throw error;
 
-        // Resolve email to show in the log
-        let recipientEmail = ticket.email_override || null;
-        if (!recipientEmail) {
-          const resolved = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
-          recipientEmail = resolved.email;
+        // Resolve email from ticket's maintenance_company_id
+        let recipientEmail: string | null = null;
+        if (ticket.maintenance_company_id) {
+          const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", ticket.maintenance_company_id).single();
+          recipientEmail = mc?.email || null;
         }
+        if (!recipientEmail && ticket.email_override) recipientEmail = ticket.email_override;
         if (!recipientEmail) {
           return json({ scheduled: false, error: "no_email_found" });
         }
