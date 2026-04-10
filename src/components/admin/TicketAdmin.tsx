@@ -1273,7 +1273,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     return doc;
   };
 
-  const createPropertyReportPdf = (allTickets: Ticket[]) => {
+  const createPropertyReportPdf = (allTickets: Ticket[], filterPropertyId = "all") => {
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
@@ -1304,23 +1304,41 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     y += 12;
     doc.setFontSize(9);
     doc.setTextColor(100);
-    doc.text(`Luotu: ${new Date().toLocaleDateString("fi-FI")}   |   Avoimet tiketit: ${allTickets.length}`, margin, y);
-    y += 10;
 
     // Group tickets by property → apartment → category
+    // For multi-apartment tickets, split each apartment under its own property
     const propGroups: Record<string, { property: Property | null; aptGroups: Record<string, Ticket[]> }> = {};
 
-    for (const t of allTickets) {
-      const prop = getPropertyForApt(t.apartment_id);
+    const addToGroup = (aptId: string, ticket: Ticket) => {
+      const prop = getPropertyForApt(aptId);
+      if (filterPropertyId !== "all" && prop?.id !== filterPropertyId) return;
+      if (filterPropertyId !== "all" && !prop) return; // skip unassigned when filtering
       const propKey = prop?.id || "__unassigned__";
       if (!propGroups[propKey]) {
         propGroups[propKey] = { property: prop || null, aptGroups: {} };
       }
-      if (!propGroups[propKey].aptGroups[t.apartment_id]) {
-        propGroups[propKey].aptGroups[t.apartment_id] = [];
+      if (!propGroups[propKey].aptGroups[aptId]) {
+        propGroups[propKey].aptGroups[aptId] = [];
       }
-      propGroups[propKey].aptGroups[t.apartment_id].push(t);
+      propGroups[propKey].aptGroups[aptId].push(ticket);
+    };
+
+    for (const t of allTickets) {
+      // Check if ticket has multiple apartments via ticket_apartments
+      const ta = ticketApartments.filter(ta => ta.ticket_id === t.id);
+      if (ta.length > 1) {
+        // Split: add this ticket under each apartment's property
+        for (const apt of ta) {
+          addToGroup(apt.apartment_id, t);
+        }
+      } else {
+        addToGroup(t.apartment_id, t);
+      }
     }
+
+    const totalTickets = Object.values(propGroups).reduce((sum, g) => sum + Object.values(g.aptGroups).flat().length, 0);
+    doc.text(`Luotu: ${new Date().toLocaleDateString("fi-FI")}   |   Avoimet tiketit: ${totalTickets}`, margin, y);
+    y += 10;
 
     // Sort: named properties first, then unassigned
     const sortedPropKeys = Object.keys(propGroups).sort((a, b) => {
