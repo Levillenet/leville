@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
       }
 
       case "create_ticket": {
-        const { ticket, changed_by, apartment_name } = body;
+        const { ticket, changed_by, apartment_name, apartment_ids, apartment_names } = body;
         
         // For changeover tickets, auto-fetch departure/arrival from Beds24
         if (ticket.type === "changeover" && ticket.apartment_id) {
@@ -63,6 +63,18 @@ Deno.serve(async (req) => {
           .single();
         if (error) throw error;
 
+        // Create ticket_apartments for multi-apartment tickets
+        const aptIds = apartment_ids || [data.apartment_id];
+        const aptNames = apartment_names || {};
+        if (aptIds.length > 0) {
+          const rows = aptIds.map((id: string) => ({
+            ticket_id: data.id,
+            apartment_id: id,
+            apartment_name: aptNames[id] || id,
+          }));
+          await supabase.from("ticket_apartments").insert(rows);
+        }
+
         // Log creation to history
         await addHistory(supabase, data.id, changed_by || "admin", null, null, null, "created");
         
@@ -74,7 +86,12 @@ Deno.serve(async (req) => {
         // Send email if requested
         let emailResult = null;
         if (ticket.send_email) {
-          emailResult = await sendTicketEmail(supabase, data, "creation", undefined, apartment_name);
+          // For multi-apartment tickets, pass the ticket_apartments for per-apartment links
+          const { data: ticketApts } = await supabase
+            .from("ticket_apartments")
+            .select("*")
+            .eq("ticket_id", data.id);
+          emailResult = await sendTicketEmail(supabase, data, "creation", undefined, apartment_name, ticketApts || []);
           if (emailResult.sent) {
             await addHistory(supabase, data.id, changed_by || "admin", null, null, `Lähetetty: ${emailResult.email}`, "email_sent");
           }
@@ -453,6 +470,63 @@ Deno.serve(async (req) => {
         return json(data);
       }
 
+      // ── TICKET APARTMENTS (per-apartment resolution) ──
+      case "list_ticket_apartments": {
+        const { ticket_id } = body;
+        const { data, error } = await supabase
+          .from("ticket_apartments")
+          .select("*")
+          .eq("ticket_id", ticket_id)
+          .order("apartment_name");
+        if (error) throw error;
+        return json(data);
+      }
+
+      case "resolve_apartment": {
+        const { ticket_apartment_id, changed_by: resolveBy } = body;
+        const { data: ta, error: taErr } = await supabase
+          .from("ticket_apartments")
+          .select("*")
+          .eq("id", ticket_apartment_id)
+          .single();
+        if (taErr || !ta) throw taErr || new Error("Not found");
+
+        if (ta.status === "resolved") {
+          return json({ already: true });
+        }
+
+        await supabase
+          .from("ticket_apartments")
+          .update({ status: "resolved", resolved_at: new Date().toISOString() })
+          .eq("id", ticket_apartment_id);
+
+        await addHistory(supabase, ta.ticket_id, resolveBy || "admin", "apartment_resolved", null, ta.apartment_name, "resolved");
+
+        // Check if all apartments are resolved → auto-resolve the ticket
+        const { data: allTa } = await supabase
+          .from("ticket_apartments")
+          .select("status")
+          .eq("ticket_id", ta.ticket_id);
+
+        if (allTa && allTa.every((a: any) => a.status === "resolved")) {
+          await supabase
+            .from("tickets")
+            .update({ status: "resolved", resolved_at: new Date().toISOString(), resolved_by: resolveBy || "admin", updated_at: new Date().toISOString() })
+            .eq("id", ta.ticket_id);
+
+          await addHistory(supabase, ta.ticket_id, resolveBy || "admin", "status", "open", "resolved", "resolved");
+
+          // Cancel scheduled reminders
+          await supabase
+            .from("ticket_email_log")
+            .update({ status: "cancelled", error_message: "Kaikki kohteet kuitattu – tiketti ratkaistu" })
+            .eq("ticket_id", ta.ticket_id)
+            .eq("status", "scheduled");
+        }
+
+        return json({ success: true });
+      }
+
       // ── SCHEDULE DATE REMINDER (saves pending, sent by ticket-reminders cron) ──
       case "schedule_date_reminder": {
         const { ticket_id, target_date, changed_by, apartment_name } = body;
@@ -582,12 +656,13 @@ async function sendTicketEmail(
   ticket: any,
   emailType: "creation" | "reminder" | "urgent_reminder",
   targetDate?: string,
-  apartmentNameOverride?: string
+  apartmentNameOverride?: string,
+  ticketApartments?: any[]
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   // 1. Ticket-level override
   if (ticket.email_override) {
     const email = ticket.email_override;
-    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate, apartmentNameOverride);
+    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate, apartmentNameOverride, ticketApartments);
   }
 
   // 2-3. Apartment/company fallback (use ticket's assignment_type)
@@ -597,7 +672,7 @@ async function sendTicketEmail(
     return { sent: false, error: "no_email_found" };
   }
 
-  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate, apartmentNameOverride);
+  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate, apartmentNameOverride, ticketApartments);
 }
 
 async function doSendEmail(
@@ -607,14 +682,15 @@ async function doSendEmail(
   _source: string,
   emailType: "creation" | "reminder" | "urgent_reminder",
   targetDate?: string,
-  apartmentNameOverride?: string
+  apartmentNameOverride?: string,
+  ticketApartments?: any[]
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   if (!resendApiKey) {
     return { sent: false, error: "resend_api_key_missing" };
   }
 
-  // Ensure ticket has a resolve_token
+  // Ensure ticket has a resolve_token (fallback for single-apartment)
   let resolveToken = ticket.resolve_token;
   if (!resolveToken) {
     const newToken = crypto.randomUUID();
@@ -683,7 +759,34 @@ async function doSendEmail(
     urgentNote = `<p style="color:#d32f2f;font-weight:bold;font-size:13px;margin:8px 0;">⚡ Hoidetaan heti, vaikka asiakas on sisällä.</p>`;
   }
 
-  const resolveUrl = `https://id-preview--965c8e14-cb63-4d51-9c89-2e41dfb8e866.lovable.app/tiketti-ratkaistu?token=${resolveToken}`;
+  const siteBase = "https://id-preview--965c8e14-cb63-4d51-9c89-2e41dfb8e866.lovable.app";
+
+  // Build resolve buttons: per-apartment if multi, single otherwise
+  const hasMultipleApartments = ticketApartments && ticketApartments.length > 1;
+  let resolveButtons = "";
+
+  if (hasMultipleApartments) {
+    resolveButtons = `
+      <p style="font-size:14px;font-weight:bold;margin:16px 0 8px 0;">Kuittaa kohteittain:</p>
+      ${ticketApartments.map((ta: any) => {
+        const resolveUrl = `${siteBase}/tiketti-ratkaistu?token=${ta.resolve_token}&apt=1`;
+        return `<div style="margin:6px 0;">
+          <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:10px 20px;text-decoration:none;border-radius:6px;display:inline-block;font-size:14px;font-weight:bold;">
+            ✅ ${ta.apartment_name}
+          </a>
+        </div>`;
+      }).join("")}
+    `;
+  } else {
+    const resolveUrl = `${siteBase}/tiketti-ratkaistu?token=${resolveToken}`;
+    resolveButtons = `
+      <div style="text-align:center;">
+        <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:14px 28px;text-decoration:none;border-radius:8px;display:inline-block;font-size:16px;font-weight:bold;">
+          ✅ Merkitse tehdyksi
+        </a>
+      </div>
+    `;
+  }
 
   const htmlBody = `
     <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:16px;">
@@ -694,11 +797,7 @@ async function doSendEmail(
       ${ticket.description ? `<p style="margin:4px 0;font-size:14px;color:#444;">${ticket.description}</p>` : ""}
       ${changeoverInfo}
       <p style="margin:8px 0 20px 0;font-size:13px;color:#888;">Luotu: ${createdDate}</p>
-      <div style="text-align:center;">
-        <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:14px 28px;text-decoration:none;border-radius:8px;display:inline-block;font-size:16px;font-weight:bold;">
-          ✅ Merkitse tehdyksi
-        </a>
-      </div>
+      ${resolveButtons}
       <p style="color:#aaa;font-size:11px;margin-top:24px;">Leville.net</p>
     </div>
   `;
