@@ -608,9 +608,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       };
       const aptName = aptNames.join(", ");
       const result = await callApi("create_ticket", { ticket: ticketData, apartment_name: aptName });
+      const createdTicketId = result?.ticket?.id || result?.id;
       let emailErrors = 0;
-      if (pendingReminderDate && result?.id) {
-        try { await callApi("schedule_date_reminder", { ticket_id: result.id, target_date: pendingReminderDate, apartment_name: aptName }); } catch { emailErrors++; }
+      if (pendingReminderDate && createdTicketId) {
+        try { await callApi("schedule_date_reminder", { ticket_id: createdTicketId, target_date: pendingReminderDate, apartment_name: aptName }); } catch { emailErrors++; }
       } else if (result?.emailResult && !result.emailResult.sent) { emailErrors++; }
       
       toast({ 
