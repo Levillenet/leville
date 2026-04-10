@@ -624,8 +624,7 @@ async function doSendEmail(
       : `<p style="color:#e65100;font-weight:bold;">⚠️ Tyhjä yö lähiaikoina – hoida nyt.</p>`
     : "";
 
-  const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
-  const resolveUrl = `${supabaseUrl}/functions/v1/resolve-ticket-public?token=${resolveToken}`;
+  const resolveUrl = `https://leville.net/functions/v1/resolve-ticket-public?token=${resolveToken}`;
 
   const htmlBody = `
     <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:16px;">
