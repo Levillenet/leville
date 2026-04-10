@@ -1222,7 +1222,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       y += 4;
       doc.setFontSize(8);
       doc.setTextColor(100);
-      doc.text(`  ${t.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto"} | P${t.priority} | ${statusLabel(t.status)} | ${new Date(t.created_at).toLocaleDateString("fi-FI")}${t.status === "resolved" ? ` \u2013 ${new Date(t.updated_at).toLocaleDateString("fi-FI")}` : ""}`, margin + 2, y);
+      const typeLabels: Record<string, string> = { urgent: "Hoidettava heti", seasonal: "Kausihuolto", changeover: "Vaihdon yhteydessä" };
+      doc.text(`  ${typeLabels[t.type] || t.type} | P${t.priority} | ${statusLabel(t.status)} | ${new Date(t.created_at).toLocaleDateString("fi-FI")}${t.status === "resolved" ? ` \u2013 ${new Date(t.updated_at).toLocaleDateString("fi-FI")}` : ""}`, margin + 2, y);
       y += 6;
     }
 
