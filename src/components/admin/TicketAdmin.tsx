@@ -931,10 +931,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
 
     if (exportFilters.companyId !== "all") {
-      const companyApts = assignments
-        .filter((a) => a.maintenance_company_id === exportFilters.companyId)
-        .map((a) => a.apartment_id);
-      exportTickets = exportTickets.filter((t) => companyApts.includes(t.apartment_id));
+      exportTickets = exportTickets.filter((t) => t.maintenance_company_id === exportFilters.companyId);
     }
 
     if (exportFilters.apartmentIds.length > 0) {
@@ -980,8 +977,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     reportTickets = reportTickets.filter((t) => t.created_at >= reportFilters.dateFrom && t.created_at <= reportFilters.dateTo + "T23:59:59");
 
     if (reportFilters.propertyId !== "all") {
-      const propApts = assignments.filter(a => a.property_id === reportFilters.propertyId).map(a => a.apartment_id);
-      reportTickets = reportTickets.filter(t => propApts.includes(t.apartment_id) || t.property_id === reportFilters.propertyId);
+      reportTickets = reportTickets.filter(t => t.property_id === reportFilters.propertyId);
+    }
     }
     if (reportFilters.apartmentId !== "all") {
       reportTickets = reportTickets.filter(t => t.apartment_id === reportFilters.apartmentId);
@@ -1043,14 +1040,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     switch (s) { case "open": return "Avoin"; case "in_progress": return "Käsittelyssä"; case "resolved": return "Ratkaistu"; default: return s; }
   };
   const getCompanyForApt = (aptId: string) => {
-    const assignment = assignments.find((a) => a.apartment_id === aptId);
-    if (!assignment) return "–";
-    const company = companies.find((c) => c.id === assignment.maintenance_company_id);
-    return company?.name || "–";
+    // No longer uses assignments — find from ticket's maintenance_company_id
+    return "–";
   };
-  const getPropertyForApt = (aptId: string) => {
-    const assignment = assignments.find(a => a.apartment_id === aptId);
-    return assignment?.property_id ? properties.find(p => p.id === assignment.property_id) : null;
+  const getPropertyForApt = (_aptId: string) => {
+    return null;
   };
 
   const createTicketsPdf = (exportTickets: Ticket[], title: string, _filters?: any) => {
