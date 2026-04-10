@@ -120,17 +120,20 @@ Deno.serve(async (req) => {
             `Vaihtojakso: lähtö ${data.guest_departure_date}, saapuminen ${data.next_guest_arrival_date || "–"}`, "updated");
         }
 
-        // For changeover tickets, schedule a reminder for departure morning
         if (data.type === "changeover" && data.guest_departure_date) {
           try {
-            const { email: reminderEmail } = await resolveRecipientEmail(supabase, data.apartment_id, data.assignment_type || "kiinteistohuolto");
-            const resolvedEmail = data.email_override || reminderEmail;
-            if (resolvedEmail) {
+            let reminderEmail: string | null = null;
+            if (data.maintenance_company_id) {
+              const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", data.maintenance_company_id).single();
+              reminderEmail = mc?.email || null;
+            }
+            if (!reminderEmail && data.email_override) reminderEmail = data.email_override;
+            if (reminderEmail) {
               // Schedule for departure morning (06:50 Helsinki)
               const reminderTime = new Date(data.guest_departure_date + "T03:50:00Z"); // ~06:50 Helsinki
               await supabase.from("ticket_email_log").insert({
                 ticket_id: data.id,
-                sent_to: resolvedEmail,
+                sent_to: reminderEmail,
                 status: "scheduled",
                 email_type: "changeover_reminder",
                 scheduled_for: reminderTime.toISOString(),
@@ -289,13 +292,17 @@ Deno.serve(async (req) => {
 
       // ── RESOLVE EMAIL ──
       case "resolve_email": {
-        const { apartment_id, ticket_email_override, assignment_type } = body;
+        const { apartment_id, ticket_email_override, assignment_type, maintenance_company_id } = body;
         // If ticket-level override exists, return it
         if (ticket_email_override) {
           return json({ email: ticket_email_override, source: "ticket_override" });
         }
-        const result = await resolveRecipientEmail(supabase, apartment_id, assignment_type || "kiinteistohuolto");
-        return json(result);
+        // Use maintenance_company_id directly
+        if (maintenance_company_id) {
+          const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", maintenance_company_id).single();
+          if (mc?.email) return json({ email: mc.email, source: "company" });
+        }
+        return json({ email: null, source: "none" });
       }
 
       // ── MAINTENANCE COMPANIES ──
@@ -305,12 +312,7 @@ Deno.serve(async (req) => {
           .select("*")
           .order("name");
         if (error) throw error;
-
-        const { data: assignments } = await supabase
-          .from("apartment_maintenance")
-          .select("*");
-
-        return json({ companies: data, assignments: assignments || [] });
+        return json({ companies: data, assignments: [] });
       }
 
       case "create_company": {
@@ -346,39 +348,7 @@ Deno.serve(async (req) => {
         return json({ success: true });
       }
 
-      // ── APARTMENT ASSIGNMENTS ──
-      case "assign_apartment": {
-        const { assignment } = body;
-        const { data, error } = await supabase
-          .from("apartment_maintenance")
-          .insert(assignment)
-          .select()
-          .single();
-        if (error) throw error;
-        return json(data);
-      }
-
-      case "unassign_apartment": {
-        const { id } = body;
-        const { error } = await supabase
-          .from("apartment_maintenance")
-          .delete()
-          .eq("id", id);
-        if (error) throw error;
-        return json({ success: true });
-      }
-
-      case "update_assignment": {
-        const { id, updates } = body;
-        const { data, error } = await supabase
-          .from("apartment_maintenance")
-          .update(updates)
-          .eq("id", id)
-          .select()
-          .single();
-        if (error) throw error;
-        return json(data);
-      }
+      // (apartment assignment endpoints removed — use dropdown on ticket)
 
       // ── EMAIL LOG ──
       case "get_email_log": {
@@ -477,29 +447,7 @@ Deno.serve(async (req) => {
         return json({ success: true });
       }
 
-      case "assign_apartment_to_property": {
-        const { assignment_id, property_id } = body;
-        const { data, error } = await supabase
-          .from("apartment_maintenance")
-          .update({ property_id })
-          .eq("id", assignment_id)
-          .select()
-          .single();
-        if (error) throw error;
-        return json(data);
-      }
-
-      case "assign_apartment_to_property_direct": {
-        const { apartment_id, property_id } = body;
-        // Create an apartment_maintenance record for property-only assignment (no company)
-        const { data, error } = await supabase
-          .from("apartment_maintenance")
-          .insert({ apartment_id, maintenance_company_id: null, property_id })
-          .select()
-          .single();
-        if (error) throw error;
-        return json(data);
-      }
+      // (assign_apartment_to_property endpoints removed)
 
       case "get_ticket_history": {
         const { ticket_id } = body;
@@ -579,12 +527,13 @@ Deno.serve(async (req) => {
           .single();
         if (error) throw error;
 
-        // Resolve email to show in the log
-        let recipientEmail = ticket.email_override || null;
-        if (!recipientEmail) {
-          const resolved = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
-          recipientEmail = resolved.email;
+        // Resolve email from ticket's maintenance_company_id
+        let recipientEmail: string | null = null;
+        if (ticket.maintenance_company_id) {
+          const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", ticket.maintenance_company_id).single();
+          recipientEmail = mc?.email || null;
         }
+        if (!recipientEmail && ticket.email_override) recipientEmail = ticket.email_override;
         if (!recipientEmail) {
           return json({ scheduled: false, error: "no_email_found" });
         }
@@ -701,20 +650,20 @@ async function sendTicketEmail(
   apartmentNameOverride?: string,
   ticketApartments?: any[]
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
-  // 1. Ticket-level override
-  if (ticket.email_override) {
-    const email = ticket.email_override;
-    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate, apartmentNameOverride, ticketApartments);
+  // 1. Use ticket's maintenance_company_id
+  let email: string | null = null;
+  if (ticket.maintenance_company_id) {
+    const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", ticket.maintenance_company_id).single();
+    email = mc?.email || null;
   }
-
-  // 2-3. Apartment/company fallback (use ticket's assignment_type)
-  const { email, source } = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
+  // 2. Fallback to email_override
+  if (!email && ticket.email_override) email = ticket.email_override;
 
   if (!email) {
     return { sent: false, error: "no_email_found" };
   }
 
-  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate, apartmentNameOverride, ticketApartments);
+  return await doSendEmail(supabase, ticket, email, "company", emailType, targetDate, apartmentNameOverride, ticketApartments);
 }
 
 async function doSendEmail(

@@ -95,6 +95,20 @@ Deno.serve(async (req) => {
             action_type: "booking_updated",
           });
 
+          // Resolve recipient email from ticket's maintenance_company_id
+          let recipientEmail: string | null = null;
+          if (ticket.maintenance_company_id) {
+            const { data: company } = await supabase
+              .from("maintenance_companies")
+              .select("email")
+              .eq("id", ticket.maintenance_company_id)
+              .single();
+            recipientEmail = company?.email || null;
+          }
+          if (!recipientEmail && ticket.email_override) {
+            recipientEmail = ticket.email_override;
+          }
+
           // Update scheduled changeover reminders if departure date changed
           if (departureChanged && newDeparture) {
             await supabase
@@ -104,12 +118,11 @@ Deno.serve(async (req) => {
               .eq("status", "scheduled")
               .eq("email_type", "changeover_reminder");
 
-            const { email } = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
-            if (email) {
+            if (recipientEmail) {
               const reminderTime = new Date(newDeparture + "T05:50:00Z");
               await supabase.from("ticket_email_log").insert({
                 ticket_id: ticket.id,
-                sent_to: email,
+                sent_to: recipientEmail,
                 status: "scheduled",
                 email_type: "changeover_reminder",
                 scheduled_for: reminderTime.toISOString(),
@@ -118,8 +131,7 @@ Deno.serve(async (req) => {
           }
 
           // Send email notification about the change
-          const { email } = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
-          if (email) {
+          if (recipientEmail) {
             const { data: mapping } = await supabase
               .from("moder_property_mapping")
               .select("property_name")
@@ -148,7 +160,7 @@ Deno.serve(async (req) => {
               headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
               body: JSON.stringify({
                 from: "leville.net tehtävä <admin@m.leville.net>",
-                to: [email],
+                to: [recipientEmail],
                 subject: `[Muutos] ${apartmentName} – ${ticket.title} – uusi aikataulu`,
                 html: htmlBody,
               }),
@@ -156,7 +168,7 @@ Deno.serve(async (req) => {
 
             await supabase.from("ticket_email_log").insert({
               ticket_id: ticket.id,
-              sent_to: email,
+              sent_to: recipientEmail,
               status: emailResponse.ok ? "sent" : "failed",
               email_type: "booking_change",
             });
@@ -256,36 +268,6 @@ async function getNextGuestChangeover(
   }
 }
 
-async function resolveRecipientEmail(
-  supabase: any,
-  apartmentId: string,
-  assignmentType: string = "kiinteistohuolto"
-): Promise<{ email: string | null; source: string }> {
-  const { data: assignment } = await supabase
-    .from("apartment_maintenance")
-    .select("contact_email_override, maintenance_company_id")
-    .eq("apartment_id", apartmentId)
-    .eq("assignment_type", assignmentType)
-    .maybeSingle();
-
-  if (assignment?.contact_email_override) {
-    return { email: assignment.contact_email_override, source: "override" };
-  }
-
-  if (assignment?.maintenance_company_id) {
-    const { data: company } = await supabase
-      .from("maintenance_companies")
-      .select("email")
-      .eq("id", assignment.maintenance_company_id)
-      .single();
-
-    if (company?.email) {
-      return { email: company.email, source: "company" };
-    }
-  }
-
-  return { email: null, source: "none" };
-}
 
 function formatDate(date: Date): string {
   return date.toISOString().split("T")[0];

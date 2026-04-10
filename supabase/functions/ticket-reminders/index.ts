@@ -167,8 +167,12 @@ Deno.serve(async (req) => {
                 .select("*")
                 .eq("ticket_id", newTicket.id);
 
-              const { email } = await resolveRecipientEmail(supabase, newTicket.apartment_id, newTicket.assignment_type || "kiinteistohuolto");
-              const recipientEmail = newTicket.email_override || email;
+              let recipientEmail: string | null = null;
+              if (newTicket.maintenance_company_id) {
+                const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", newTicket.maintenance_company_id).single();
+                recipientEmail = mc?.email || null;
+              }
+              if (!recipientEmail && newTicket.email_override) recipientEmail = newTicket.email_override;
 
               if (recipientEmail && newTicketApts) {
                 await sendRecurringEmail(supabase, resendApiKey, newTicket, recipientEmail, newTicketApts);
@@ -371,7 +375,12 @@ Deno.serve(async (req) => {
 
           if (recentLogs && recentLogs.length > 0) continue;
 
-          const { email } = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
+          let email: string | null = null;
+          if (ticket.maintenance_company_id) {
+            const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", ticket.maintenance_company_id).single();
+            email = mc?.email || null;
+          }
+          if (!email && ticket.email_override) email = ticket.email_override;
           if (!email) continue;
 
           const { data: mapping } = await supabase
@@ -657,37 +666,6 @@ async function getEmptyNightsForApartment(
   }
 }
 
-// ── HELPER: Resolve recipient email ──
-async function resolveRecipientEmail(
-  supabase: any,
-  apartmentId: string,
-  assignmentType: string = "kiinteistohuolto"
-): Promise<{ email: string | null; source: string }> {
-  const { data: assignment } = await supabase
-    .from("apartment_maintenance")
-    .select("contact_email_override, maintenance_company_id")
-    .eq("apartment_id", apartmentId)
-    .eq("assignment_type", assignmentType)
-    .maybeSingle();
-
-  if (assignment?.contact_email_override) {
-    return { email: assignment.contact_email_override, source: "override" };
-  }
-
-  if (assignment?.maintenance_company_id) {
-    const { data: company } = await supabase
-      .from("maintenance_companies")
-      .select("email")
-      .eq("id", assignment.maintenance_company_id)
-      .single();
-
-    if (company?.email) {
-      return { email: company.email, source: "company" };
-    }
-  }
-
-  return { email: null, source: "none" };
-}
 
 function formatDate(date: Date): string {
   return date.toISOString().split("T")[0];

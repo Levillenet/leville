@@ -68,15 +68,7 @@ interface MaintenanceCompany {
   created_at: string;
 }
 
-interface ApartmentAssignment {
-  id: string;
-  apartment_id: string;
-  maintenance_company_id: string;
-  contact_email_override: string | null;
-  property_id: string | null;
-  assignment_type: string;
-  created_at: string;
-}
+// ApartmentAssignment interface removed — no longer used
 
 interface EmailLog {
   id: string;
@@ -370,7 +362,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [activeTab, setActiveTab] = useState("tickets");
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [companies, setCompanies] = useState<MaintenanceCompany[]>([]);
-  const [assignments, setAssignments] = useState<ApartmentAssignment[]>([]);
+  const [_assignments, setAssignments] = useState<any[]>([]);
   const [categories, setCategories] = useState<TicketCategory[]>([]);
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
@@ -546,12 +538,19 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     if (newTicket.email_override && newTicket.email_override.trim()) {
       setEmailPreview({ email: newTicket.email_override.trim(), source: "ticket_override" });
       setLoadingEmailPreview(false);
-    } else if (selectedApartmentIds.length === 1) {
-      checkEmail(selectedApartmentIds[0], undefined, newTicket.assignment_type);
+    } else if (newTicket.maintenance_company_id) {
+      // Resolve email from selected company
+      const company = companies.find(c => c.id === newTicket.maintenance_company_id);
+      if (company?.email) {
+        setEmailPreview({ email: company.email, source: "company" });
+      } else {
+        setEmailPreview(null);
+      }
+      setLoadingEmailPreview(false);
     } else {
       setEmailPreview(null);
     }
-  }, [selectedApartmentIds, newTicket.email_override, newTicket.assignment_type]);
+  }, [selectedApartmentIds, newTicket.email_override, newTicket.assignment_type, newTicket.maintenance_company_id, companies]);
 
   useEffect(() => {
     if (selectedApartmentIds.length === 1 && showCreateDialog) {
@@ -573,26 +572,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     setLoadingCreateAvail(false);
   };
 
-  const checkEmail = async (apartmentId: string, ticketOverride?: string, assignmentType?: string) => {
-    setLoadingEmailPreview(true);
-    try {
-      const data = await callApi("resolve_email", { apartment_id: apartmentId, ticket_email_override: ticketOverride || undefined, assignment_type: assignmentType || "kiinteistohuolto" });
-      setEmailPreview(data);
-    } catch (e) {
-      console.error(e);
-      setEmailPreview(null);
-    }
-    setLoadingEmailPreview(false);
-  };
-
-  const resolveEmailForApartment = async (aptId: string, assignmentType: string): Promise<string> => {
-    try {
-      const data = await callApi("resolve_email", { apartment_id: aptId, assignment_type: assignmentType });
-      return data?.email || "unknown";
-    } catch {
-      return "unknown";
-    }
-  };
+  // (checkEmail and resolveEmailForApartment removed — email is resolved from selected company)
 
   const handleCreateTicket = async () => {
     if (newTicket.target_type === "apartment" && selectedApartmentIds.length === 0) {
@@ -620,11 +600,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           `Huoneistot (${apartmentIdsToCreate.length}): ${aptNames.join(", ")}`;
       }
 
-      // Resolve email: manual override > default from first apartment
+      // Resolve email from selected maintenance company
       let resolvedEmail = newTicket.email_override || null;
-      if (!resolvedEmail && apartmentIdsToCreate.length >= 1 && newTicket.target_type === "apartment") {
-        const defaultEmail = await resolveEmailForApartment(apartmentIdsToCreate[0], newTicket.assignment_type);
-        if (defaultEmail !== "unknown") resolvedEmail = defaultEmail;
+      if (!resolvedEmail && newTicket.maintenance_company_id) {
+        const company = companies.find(c => c.id === newTicket.maintenance_company_id);
+        if (company?.email) resolvedEmail = company.email;
       }
 
       const ticketData: any = {
@@ -866,27 +846,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
   };
 
-  const handleAssignApartment = async (companyId: string, apartmentId: string, assignmentType: string = "kiinteistohuolto") => {
-    try {
-      await callApi("assign_apartment", {
-        assignment: { apartment_id: apartmentId, maintenance_company_id: companyId, assignment_type: assignmentType },
-      });
-      toast({ title: "Huoneisto liitetty" });
-      fetchCompanies();
-    } catch (e: any) {
-      toast({ title: "Virhe", description: e.message, variant: "destructive" });
-    }
-  };
-
-  const handleUnassignApartment = async (assignmentId: string) => {
-    try {
-      await callApi("unassign_apartment", { id: assignmentId });
-      toast({ title: "Liitos poistettu" });
-      fetchCompanies();
-    } catch (e: any) {
-      toast({ title: "Virhe", description: e.message, variant: "destructive" });
-    }
-  };
+  // (handleAssignApartment and handleUnassignApartment removed — assignments managed via ticket dropdown)
 
   // Category CRUD
   const handleSaveCategory = async () => {
@@ -956,15 +916,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
   };
 
-  const handleAssignApartmentToProperty = async (assignmentId: string, propertyId: string | null) => {
-    try {
-      await callApi("assign_apartment_to_property", { assignment_id: assignmentId, property_id: propertyId });
-      toast({ title: "Kiinteistö päivitetty" });
-      fetchCompanies();
-    } catch (e: any) {
-      toast({ title: "Virhe", description: e.message, variant: "destructive" });
-    }
-  };
+  // (handleAssignApartmentToProperty removed — assignments managed via ticket dropdown)
 
   // ── PDF EXPORT (Kausihuolto) ──
   const generatePdf = (openInNewTab = false) => {
@@ -979,10 +931,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
 
     if (exportFilters.companyId !== "all") {
-      const companyApts = assignments
-        .filter((a) => a.maintenance_company_id === exportFilters.companyId)
-        .map((a) => a.apartment_id);
-      exportTickets = exportTickets.filter((t) => companyApts.includes(t.apartment_id));
+      exportTickets = exportTickets.filter((t) => t.maintenance_company_id === exportFilters.companyId);
     }
 
     if (exportFilters.apartmentIds.length > 0) {
@@ -1028,8 +977,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     reportTickets = reportTickets.filter((t) => t.created_at >= reportFilters.dateFrom && t.created_at <= reportFilters.dateTo + "T23:59:59");
 
     if (reportFilters.propertyId !== "all") {
-      const propApts = assignments.filter(a => a.property_id === reportFilters.propertyId).map(a => a.apartment_id);
-      reportTickets = reportTickets.filter(t => propApts.includes(t.apartment_id) || t.property_id === reportFilters.propertyId);
+      reportTickets = reportTickets.filter(t => t.property_id === reportFilters.propertyId);
+    }
     }
     if (reportFilters.apartmentId !== "all") {
       reportTickets = reportTickets.filter(t => t.apartment_id === reportFilters.apartmentId);
@@ -1091,14 +1040,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     switch (s) { case "open": return "Avoin"; case "in_progress": return "Käsittelyssä"; case "resolved": return "Ratkaistu"; default: return s; }
   };
   const getCompanyForApt = (aptId: string) => {
-    const assignment = assignments.find((a) => a.apartment_id === aptId);
-    if (!assignment) return "–";
-    const company = companies.find((c) => c.id === assignment.maintenance_company_id);
-    return company?.name || "–";
+    // No longer uses assignments — find from ticket's maintenance_company_id
+    return "–";
   };
-  const getPropertyForApt = (aptId: string) => {
-    const assignment = assignments.find(a => a.apartment_id === aptId);
-    return assignment?.property_id ? properties.find(p => p.id === assignment.property_id) : null;
+  const getPropertyForApt = (_aptId: string) => {
+    return null;
   };
 
   const createTicketsPdf = (exportTickets: Ticket[], title: string, _filters?: any) => {
@@ -2637,19 +2583,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       {type === "kiinteistohuolto" ? "🔧 Kiinteistöhuolto" : "🧹 Siivous"}
                     </h4>
                     <div className="space-y-4">
-                      {typeCompanies.map((company) => {
-                        // Filter assignments by both company AND assignment_type
-                        const companyAssignments = assignments.filter(
-                          (a) => a.maintenance_company_id === company.id && (a.assignment_type || "kiinteistohuolto") === type
-                        );
-                        const assignedAptIds = companyAssignments.map((a) => a.apartment_id);
-                        
-                        // Find all assignments of this type (any company) to detect conflicts
-                        const allTypeAssignments = assignments.filter(
-                          (a) => (a.assignment_type || "kiinteistohuolto") === type
-                        );
-
-                        return (
+                      {typeCompanies.map((company) => (
                           <Card key={company.id}>
                             <CardHeader className="pb-3">
                               <div className="flex items-center justify-between">
@@ -2666,70 +2600,14 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                                 )}
                               </div>
                             </CardHeader>
-                            <CardContent className="space-y-3">
+                            <CardContent>
                               <div className="flex gap-4 text-sm text-muted-foreground">
                                 {company.email && <span className="flex items-center gap-1"><AtSign className="w-3 h-3" />{company.email}</span>}
                                 {company.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" />{company.phone}</span>}
                               </div>
-                              <div>
-                                <Label className="text-xs text-muted-foreground">Liitetyt huoneistot ({type === "kiinteistohuolto" ? "kiinteistöhuolto" : "siivous"})</Label>
-                                {!isViewer ? (
-                                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2 max-h-48 overflow-y-auto border rounded-md p-2">
-                                    {apartmentList.map((apt) => {
-                                      const isAssigned = assignedAptIds.includes(apt.id);
-                                      // Check if another company already has this apartment for this type
-                                      const otherAssignment = allTypeAssignments.find(
-                                        (a) => a.apartment_id === apt.id && a.maintenance_company_id !== company.id
-                                      );
-                                      const otherCompanyName = otherAssignment
-                                        ? companies.find(c => c.id === otherAssignment.maintenance_company_id)?.name
-                                        : null;
-                                      const isDisabled = !!otherAssignment;
-                                      
-                                      return (
-                                        <label
-                                          key={apt.id}
-                                          className={`flex items-center gap-2 text-sm rounded p-1 ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-muted/50"}`}
-                                          title={otherCompanyName ? `Jo liitetty: ${otherCompanyName}` : undefined}
-                                        >
-                                          <input
-                                            type="checkbox"
-                                            checked={isAssigned}
-                                            disabled={isDisabled}
-                                            onChange={async () => {
-                                              if (isAssigned) {
-                                                const rec = companyAssignments.find(a => a.apartment_id === apt.id);
-                                                if (rec) await handleUnassignApartment(rec.id);
-                                              } else {
-                                                await handleAssignApartment(company.id, apt.id, type);
-                                              }
-                                            }}
-                                            className="rounded"
-                                          />
-                                          <span className="truncate">
-                                            {apt.name}
-                                            {otherCompanyName && <span className="text-xs text-muted-foreground ml-1">({otherCompanyName})</span>}
-                                          </span>
-                                        </label>
-                                      );
-                                    })}
-                                  </div>
-                                ) : (
-                                  companyAssignments.length === 0 ? (
-                                    <p className="text-sm text-muted-foreground mt-1">Ei liitettyjä huoneistoja</p>
-                                  ) : (
-                                    <div className="flex flex-wrap gap-2 mt-1">
-                                      {companyAssignments.map((assignment) => (
-                                        <Badge key={assignment.id} variant="secondary">{getApartmentName(assignment.apartment_id)}</Badge>
-                                      ))}
-                                    </div>
-                                  )
-                                )}
-                              </div>
                             </CardContent>
                           </Card>
-                        );
-                      })}
+                        ))}
                     </div>
                   </div>
                 );
@@ -2763,8 +2641,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           ) : (
             <div className="space-y-4">
               {properties.map((property) => {
-                const propAssignments = assignments.filter(a => a.property_id === property.id);
-                const propTickets = tickets.filter(t => t.property_id === property.id || propAssignments.some(a => a.apartment_id === t.apartment_id));
+                const propTickets = tickets.filter(t => t.property_id === property.id);
                 const openTicketCount = propTickets.filter(t => t.status !== "resolved").length;
 
                 return (
@@ -2785,64 +2662,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         )}
                       </div>
                     </CardHeader>
-                    <CardContent className="space-y-3">
+                    <CardContent>
                       {property.contact_email && (
                         <span className="flex items-center gap-1 text-sm text-muted-foreground"><AtSign className="w-3 h-3" />{property.contact_email}</span>
-                      )}
-                      <div>
-                        <Label className="text-xs text-muted-foreground">Liitetyt huoneistot</Label>
-                        {propAssignments.length === 0 ? (
-                          <p className="text-sm text-muted-foreground mt-1">Ei liitettyjä huoneistoja</p>
-                        ) : (
-                          <div className="flex flex-wrap gap-2 mt-1">
-                            {propAssignments.map((a) => (
-                              <Badge key={a.id} variant="secondary">{getApartmentName(a.apartment_id)}</Badge>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      {/* Assign apartments to property via checkboxes */}
-                      {!isViewer && (
-                        <div>
-                          <Label className="text-xs text-muted-foreground">Liitä huoneistoja kiinteistöön</Label>
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2 max-h-48 overflow-y-auto border rounded-md p-2">
-                            {apartmentList.map((apt) => {
-                              const isAssigned = propAssignments.some(a => a.apartment_id === apt.id);
-                              return (
-                                <label key={apt.id} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-muted/50 rounded p-1">
-                                  <input
-                                    type="checkbox"
-                                    checked={isAssigned}
-                                    onChange={async () => {
-                                      try {
-                                        if (isAssigned) {
-                                          // Remove property assignment
-                                          const rec = propAssignments.find(a => a.apartment_id === apt.id);
-                                          if (rec) await handleAssignApartmentToProperty(rec.id, null);
-                                        } else {
-                                          // Check if apartment has an existing assignment record
-                                          const existingRecord = assignments.find(a => a.apartment_id === apt.id);
-                                          if (existingRecord) {
-                                            await handleAssignApartmentToProperty(existingRecord.id, property.id);
-                                          } else {
-                                            // Create a placeholder assignment just for property linking
-                                            await callApi("assign_apartment_to_property_direct", { apartment_id: apt.id, property_id: property.id });
-                                            toast({ title: "Huoneisto liitetty kiinteistöön" });
-                                            fetchCompanies();
-                                          }
-                                        }
-                                      } catch (e: any) {
-                                        toast({ title: "Virhe", description: e.message, variant: "destructive" });
-                                      }
-                                    }}
-                                    className="rounded"
-                                  />
-                                  <span className="truncate">{apt.name}</span>
-                                </label>
-                              );
-                            })}
-                          </div>
-                        </div>
                       )}
                     </CardContent>
                   </Card>
