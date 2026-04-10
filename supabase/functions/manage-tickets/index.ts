@@ -582,6 +582,15 @@ Deno.serve(async (req) => {
         return json(data);
       }
 
+      case "list_all_ticket_apartments": {
+        const { data, error } = await supabase
+          .from("ticket_apartments")
+          .select("id, ticket_id, apartment_id, apartment_name")
+          .order("apartment_name");
+        if (error) throw error;
+        return json(data);
+      }
+
       case "resolve_apartment": {
         const { ticket_apartment_id, changed_by: resolveBy } = body;
         const { data: ta, error: taErr } = await supabase
