@@ -363,6 +363,63 @@ const HistoryTimeline = ({ history }: { history: TicketHistoryEntry[] }) => {
   );
 };
 
+const ApartmentBulkAssign = ({ availableApts, propertyId, callApi, fetchApartmentAssignments, getSimpleName, toast }: {
+  availableApts: { id: string; name: string }[];
+  propertyId: string;
+  callApi: (action: string, data?: any) => Promise<any>;
+  fetchApartmentAssignments: () => Promise<void>;
+  getSimpleName: (name: string) => string;
+  toast: (opts: any) => void;
+}) => {
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [saving, setSaving] = useState(false);
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" size="sm" className="h-8 text-xs gap-1">
+          <Plus className="w-3 h-3" />Lisää huoneistoja ({availableApts.length})
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-64 p-2 max-h-72 overflow-y-auto" align="start">
+        <div className="space-y-1">
+          <p className="text-xs font-medium text-muted-foreground px-1 mb-1">Valitse huoneistot</p>
+          {availableApts.sort((a, b) => getSimpleName(a.name).localeCompare(getSimpleName(b.name))).map(apt => (
+            <label key={apt.id} className="flex items-center gap-2 px-1 py-1 rounded hover:bg-accent cursor-pointer text-xs">
+              <Checkbox
+                checked={selectedIds.includes(apt.id)}
+                onCheckedChange={(checked) => {
+                  setSelectedIds(prev => checked ? [...prev, apt.id] : prev.filter(id => id !== apt.id));
+                }}
+              />
+              {getSimpleName(apt.name)}
+            </label>
+          ))}
+          <Button
+            size="sm"
+            className="w-full mt-2 h-7 text-xs"
+            disabled={selectedIds.length === 0 || saving}
+            onClick={async () => {
+              setSaving(true);
+              try {
+                await callApi("bulk_assign_apartments_to_property", {
+                  apartment_ids: selectedIds,
+                  property_id: propertyId
+                });
+                await fetchApartmentAssignments();
+                setSelectedIds([]);
+                toast({ title: `${selectedIds.length} huoneistoa allokoitu kiinteistölle` });
+              } catch (e) { console.error(e); }
+              setSaving(false);
+            }}
+          >
+            {saving ? "Tallennetaan..." : `Tallenna (${selectedIds.length})`}
+          </Button>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+};
+
 const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [activeTab, setActiveTab] = useState("tickets");
   const [tickets, setTickets] = useState<Ticket[]>([]);
