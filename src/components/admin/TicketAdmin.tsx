@@ -1382,15 +1382,27 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     return doc;
   };
 
+  // ── Ticket list sub-tab ──
+  const [ticketListTab, setTicketListTab] = useState<"operational" | "kiinteistohuolto" | "resolved">("operational");
+
   // ── Filtered tickets ──
-  const filteredTickets = tickets.filter((t) => {
+  const applyFilters = (t: Ticket) => {
     if (filterApartment !== "all" && t.apartment_id !== filterApartment) return false;
     if (filterType !== "all" && t.type !== filterType) return false;
     if (filterPriority !== "all" && t.priority !== filterPriority) return false;
     if (filterStatus !== "all" && t.status !== filterStatus) return false;
     if (filterCategory !== "all" && t.category_id !== filterCategory) return false;
     return true;
-  });
+  };
+
+  // Split tickets into 3 groups
+  const operationalTickets = tickets.filter(t => t.status !== "resolved" && t.assignment_type !== "kiinteistohuolto").filter(applyFilters);
+  const kiinteistohuoltoTickets = tickets.filter(t => t.assignment_type === "kiinteistohuolto" && t.status !== "resolved").filter(applyFilters);
+  const resolvedTickets = tickets.filter(t => t.status === "resolved").filter(applyFilters);
+
+  const filteredTickets = ticketListTab === "operational" ? operationalTickets 
+    : ticketListTab === "kiinteistohuolto" ? kiinteistohuoltoTickets 
+    : resolvedTickets;
 
   const openCount = tickets.filter((t) => t.status === "open").length;
   const urgentCount = tickets.filter((t) => t.type === "urgent" && t.status !== "resolved").length;
@@ -2222,6 +2234,34 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 </DialogContent>
               </Dialog>
             )}
+          </div>
+
+          {/* Ticket list sub-tabs */}
+          <div className="flex gap-1 border-b pb-0 mb-0">
+            <Button
+              variant={ticketListTab === "operational" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTicketListTab("operational")}
+              className="rounded-b-none"
+            >
+              Operatiivinen ({operationalTickets.length})
+            </Button>
+            <Button
+              variant={ticketListTab === "kiinteistohuolto" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTicketListTab("kiinteistohuolto")}
+              className="rounded-b-none"
+            >
+              🔧 Kiinteistöhuolto ({kiinteistohuoltoTickets.length})
+            </Button>
+            <Button
+              variant={ticketListTab === "resolved" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTicketListTab("resolved")}
+              className="rounded-b-none"
+            >
+              ✅ Ratkaistut ({resolvedTickets.length})
+            </Button>
           </div>
 
           {/* Ticket table */}
