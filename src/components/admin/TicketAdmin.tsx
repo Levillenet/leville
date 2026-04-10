@@ -1472,7 +1472,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   const openCount = tickets.filter((t) => t.status === "open").length;
   const urgentCount = tickets.filter((t) => t.type === "urgent" && t.status !== "resolved").length;
-  const reminderCount = tickets.filter((t) => t.priority === "2" && t.status !== "resolved").length;
+  const changeoverCount = tickets.filter((t) => t.type === "changeover" && t.status !== "resolved").length;
+
+  const handleBulkDelete = async () => {
+    if (selectedForDelete.length === 0) return;
+    if (!confirm(`Haluatko varmasti poistaa ${selectedForDelete.length} tikettiä?`)) return;
+    try {
+      await callApi("delete_tickets_bulk", { ids: selectedForDelete });
+      toast({ title: `${selectedForDelete.length} tikettiä poistettu` });
+      setSelectedForDelete([]);
+      fetchTickets();
+    } catch (e: any) {
+      toast({ title: "Virhe", description: e.message, variant: "destructive" });
+    }
+  };
 
   const statusBadge = (status: string) => {
     switch (status) {
