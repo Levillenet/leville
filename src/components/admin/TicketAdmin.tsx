@@ -2346,7 +2346,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <Button
               variant={ticketListTab === "siivous" ? "default" : "ghost"}
               size="sm"
-              onClick={() => setTicketListTab("siivous")}
+              onClick={() => { setTicketListTab("siivous"); setSelectedForDelete([]); }}
               className="rounded-b-none"
             >
               🧹 Siivous ({siivoTickets.length})
@@ -2354,7 +2354,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <Button
               variant={ticketListTab === "korjaus" ? "default" : "ghost"}
               size="sm"
-              onClick={() => setTicketListTab("korjaus")}
+              onClick={() => { setTicketListTab("korjaus"); setSelectedForDelete([]); }}
               className="rounded-b-none"
             >
               🔧 Korjaus ({korjausTickets.length})
@@ -2362,7 +2362,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <Button
               variant={ticketListTab === "resolved" ? "default" : "ghost"}
               size="sm"
-              onClick={() => setTicketListTab("resolved")}
+              onClick={() => { setTicketListTab("resolved"); setSelectedForDelete([]); }}
               className="rounded-b-none"
             >
               ✅ Ratkaistut ({resolvedTickets.length})
@@ -2370,8 +2370,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           </div>
 
           {/* Ticket table */}
-          {/* Bulk delete bar for resolved tab */}
-          {ticketListTab === "resolved" && !isViewer && (
+          {/* Bulk delete bar for all tabs */}
+          {!isViewer && (
             <div className="flex items-center gap-3 px-2">
               {selectedForDelete.length > 0 && (
                 <Button variant="destructive" size="sm" onClick={handleBulkDelete}>
@@ -2379,15 +2379,15 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   Poista {selectedForDelete.length} tikettiä
                 </Button>
               )}
-              {resolvedTickets.length > 0 && (
+              {filteredTickets.length > 0 && (
                 <Button variant="ghost" size="sm" onClick={() => {
-                  if (selectedForDelete.length === resolvedTickets.length) {
+                  if (selectedForDelete.length === filteredTickets.length) {
                     setSelectedForDelete([]);
                   } else {
-                    setSelectedForDelete(resolvedTickets.map(t => t.id));
+                    setSelectedForDelete(filteredTickets.map(t => t.id));
                   }
                 }}>
-                  {selectedForDelete.length === resolvedTickets.length ? "Poista valinnat" : "Valitse kaikki"}
+                  {selectedForDelete.length === filteredTickets.length ? "Poista valinnat" : "Valitse kaikki"}
                 </Button>
               )}
             </div>
@@ -2398,7 +2398,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    {ticketListTab === "resolved" && !isViewer && <TableHead className="w-8"></TableHead>}
+                    {!isViewer && <TableHead className="w-8"></TableHead>}
                     <TableHead>Huoneisto</TableHead>
                     <TableHead>Otsikko</TableHead>
                     <TableHead>Kategoria</TableHead>
@@ -2411,12 +2411,12 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 <TableBody>
                   {filteredTickets.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={ticketListTab === "resolved" && !isViewer ? 8 : 7} className="text-center text-muted-foreground py-8">Ei tikettejä</TableCell>
+                      <TableCell colSpan={!isViewer ? 8 : 7} className="text-center text-muted-foreground py-8">Ei tikettejä</TableCell>
                     </TableRow>
                   ) : (
                     filteredTickets.map((ticket) => (
                       <TableRow key={ticket.id} className="cursor-pointer" onClick={() => openTicketDetail(ticket)}>
-                        {ticketListTab === "resolved" && !isViewer && (
+                        {!isViewer && (
                           <TableCell onClick={(e) => e.stopPropagation()}>
                             <Checkbox
                               checked={selectedForDelete.includes(ticket.id)}
