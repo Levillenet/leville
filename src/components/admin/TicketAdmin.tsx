@@ -2236,6 +2236,34 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             )}
           </div>
 
+          {/* Ticket list sub-tabs */}
+          <div className="flex gap-1 border-b pb-0 mb-0">
+            <Button
+              variant={ticketListTab === "operational" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTicketListTab("operational")}
+              className="rounded-b-none"
+            >
+              Operatiivinen ({operationalTickets.length})
+            </Button>
+            <Button
+              variant={ticketListTab === "kiinteistohuolto" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTicketListTab("kiinteistohuolto")}
+              className="rounded-b-none"
+            >
+              🔧 Kiinteistöhuolto ({kiinteistohuoltoTickets.length})
+            </Button>
+            <Button
+              variant={ticketListTab === "resolved" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setTicketListTab("resolved")}
+              className="rounded-b-none"
+            >
+              ✅ Ratkaistut ({resolvedTickets.length})
+            </Button>
+          </div>
+
           {/* Ticket table */}
           <Card>
             <CardContent className="p-0">
