@@ -2398,7 +2398,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    {ticketListTab === "resolved" && !isViewer && <TableHead className="w-8"></TableHead>}
+                    {!isViewer && <TableHead className="w-8"></TableHead>}
                     <TableHead>Huoneisto</TableHead>
                     <TableHead>Otsikko</TableHead>
                     <TableHead>Kategoria</TableHead>
@@ -2411,12 +2411,12 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 <TableBody>
                   {filteredTickets.length === 0 ? (
                     <TableRow>
-                      <TableCell colSpan={ticketListTab === "resolved" && !isViewer ? 8 : 7} className="text-center text-muted-foreground py-8">Ei tikettejä</TableCell>
+                      <TableCell colSpan={!isViewer ? 8 : 7} className="text-center text-muted-foreground py-8">Ei tikettejä</TableCell>
                     </TableRow>
                   ) : (
                     filteredTickets.map((ticket) => (
                       <TableRow key={ticket.id} className="cursor-pointer" onClick={() => openTicketDetail(ticket)}>
-                        {ticketListTab === "resolved" && !isViewer && (
+                        {!isViewer && (
                           <TableCell onClick={(e) => e.stopPropagation()}>
                             <Checkbox
                               checked={selectedForDelete.includes(ticket.id)}
