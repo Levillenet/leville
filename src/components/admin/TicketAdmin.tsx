@@ -2370,8 +2370,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           </div>
 
           {/* Ticket table */}
-          {/* Bulk delete bar for resolved tab */}
-          {ticketListTab === "resolved" && !isViewer && (
+          {/* Bulk delete bar for all tabs */}
+          {!isViewer && (
             <div className="flex items-center gap-3 px-2">
               {selectedForDelete.length > 0 && (
                 <Button variant="destructive" size="sm" onClick={handleBulkDelete}>
@@ -2379,15 +2379,15 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   Poista {selectedForDelete.length} tikettiä
                 </Button>
               )}
-              {resolvedTickets.length > 0 && (
+              {filteredTickets.length > 0 && (
                 <Button variant="ghost" size="sm" onClick={() => {
-                  if (selectedForDelete.length === resolvedTickets.length) {
+                  if (selectedForDelete.length === filteredTickets.length) {
                     setSelectedForDelete([]);
                   } else {
-                    setSelectedForDelete(resolvedTickets.map(t => t.id));
+                    setSelectedForDelete(filteredTickets.map(t => t.id));
                   }
                 }}>
-                  {selectedForDelete.length === resolvedTickets.length ? "Poista valinnat" : "Valitse kaikki"}
+                  {selectedForDelete.length === filteredTickets.length ? "Poista valinnat" : "Valitse kaikki"}
                 </Button>
               )}
             </div>
