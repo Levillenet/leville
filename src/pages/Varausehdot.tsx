@@ -116,7 +116,10 @@ const Varausehdot = ({ lang = "fi" }: VarausehdotProps) => {
             {/* Hero Section */}
             <section className="text-center mb-16">
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">{meta.heading}</h1>
-              <p className="text-xl text-muted-foreground">LEVILLE.NET</p>
+              <p className="text-xl text-muted-foreground mb-6">LEVILLE.NET</p>
+              <div className="flex justify-center">
+                <BookingTermsPdfDownload currentLang={lang} />
+              </div>
             </section>
 
             <BookingTermsContent lang={lang} />
