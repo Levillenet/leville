@@ -68,7 +68,11 @@ interface MaintenanceCompany {
   created_at: string;
 }
 
-// ApartmentAssignment interface removed — no longer used
+interface ApartmentAssignment {
+  id: string;
+  apartment_id: string;
+  property_id: string;
+}
 
 interface EmailLog {
   id: string;
@@ -363,6 +367,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [companies, setCompanies] = useState<MaintenanceCompany[]>([]);
   const [_assignments, setAssignments] = useState<any[]>([]);
+  const [apartmentAssignments, setApartmentAssignments] = useState<ApartmentAssignment[]>([]);
   const [categories, setCategories] = useState<TicketCategory[]>([]);
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
@@ -438,6 +443,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showPropertyReportDialog, setShowPropertyReportDialog] = useState(false);
+  const [propertyReportPropertyId, setPropertyReportPropertyId] = useState("all");
   const [pendingReminderDate, setPendingReminderDate] = useState<string>("");
   const [exportFilters, setExportFilters] = useState({
     companyId: "all",
