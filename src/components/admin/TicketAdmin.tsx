@@ -1800,6 +1800,66 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       <Bell className="w-4 h-4 mr-2" />
                       🔔 Muistuta nyt
                     </Button>
+                    {/* WhatsApp link */}
+                    {(() => {
+                      const assignedCompany = selectedTicket.maintenance_company_id 
+                        ? companies.find(c => c.id === selectedTicket.maintenance_company_id) 
+                        : null;
+                      const phone = assignedCompany?.phone;
+                      if (!phone) return null;
+                      
+                      const aptName = getSimpleApartmentName(selectedTicket.apartment_id);
+                      const siteBase = "https://leville.lovable.app";
+                      
+                      // Build changeover info
+                      let changeoverText = "";
+                      if (ticketApartments.length > 1 && ticketApartments.some(ta => (ta as any).guest_departure_date)) {
+                        changeoverText = "\n\n📅 Vaihtojakso kohteittain:\n" + ticketApartments.map(ta => {
+                          const dep = (ta as any).guest_departure_date 
+                            ? new Date((ta as any).guest_departure_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+                            : null;
+                          const arr = (ta as any).next_guest_arrival_date
+                            ? new Date((ta as any).next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+                            : null;
+                          return `• ${ta.apartment_name}: ${dep ? `lähtö ${dep}` : "ei tietoja"}${arr ? `, seuraava ${arr}` : ""}`;
+                        }).join("\n");
+                      } else if (selectedTicket.guest_departure_date) {
+                        const dep = new Date(selectedTicket.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
+                        const arr = selectedTicket.next_guest_arrival_date 
+                          ? new Date(selectedTicket.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })
+                          : null;
+                        changeoverText = `\n\n📅 Vaihtojakso:\nAsiakas lähtee: ${dep}${arr ? `\nSeuraava saapuu: ${arr}` : "\nEi seuraavaa varausta"}`;
+                      }
+                      
+                      // Build resolve links
+                      let resolveText = "";
+                      if (ticketApartments.length > 1) {
+                        resolveText = "\n\nKuittaa tehdyksi:\n" + ticketApartments.map(ta => 
+                          `✅ ${ta.apartment_name}: ${siteBase}/tiketti-ratkaistu?token=${ta.resolve_token}&apt=1`
+                        ).join("\n");
+                      } else {
+                        const token = selectedTicket.resolve_token || "";
+                        resolveText = `\n\n✅ Kuittaa tehdyksi:\n${siteBase}/tiketti-ratkaistu?token=${token}`;
+                      }
+                      
+                      const urgentPrefix = selectedTicket.type === "urgent" ? "🚨 KIIRE – Hoida heti!\n\n" : "";
+                      const message = `${urgentPrefix}${aptName}\n*${selectedTicket.title}*${selectedTicket.description ? `\n${selectedTicket.description}` : ""}${changeoverText}${resolveText}`;
+                      
+                      // Clean phone number
+                      const cleanPhone = phone.replace(/[^+\d]/g, "");
+                      const waUrl = `https://wa.me/${cleanPhone.replace("+", "")}?text=${encodeURIComponent(message)}`;
+                      
+                      return (
+                        <Button
+                          variant="outline"
+                          className="w-full border-green-400 text-green-700 hover:bg-green-50"
+                          onClick={() => window.open(waUrl, "_blank")}
+                        >
+                          <Phone className="w-4 h-4 mr-2" />
+                          📱 Lähetä WhatsAppilla ({assignedCompany.name})
+                        </Button>
+                      );
+                    })()}
                   </div>
                 )}
 
