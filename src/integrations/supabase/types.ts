@@ -1409,7 +1409,9 @@ export type Database = {
           apartment_id: string
           apartment_name: string
           created_at: string
+          guest_departure_date: string | null
           id: string
+          next_guest_arrival_date: string | null
           resolve_token: string
           resolved_at: string | null
           status: string
@@ -1419,7 +1421,9 @@ export type Database = {
           apartment_id: string
           apartment_name?: string
           created_at?: string
+          guest_departure_date?: string | null
           id?: string
+          next_guest_arrival_date?: string | null
           resolve_token?: string
           resolved_at?: string | null
           status?: string
@@ -1429,7 +1433,9 @@ export type Database = {
           apartment_id?: string
           apartment_name?: string
           created_at?: string
+          guest_departure_date?: string | null
           id?: string
+          next_guest_arrival_date?: string | null
           resolve_token?: string
           resolved_at?: string | null
           status?: string
@@ -1559,6 +1565,7 @@ export type Database = {
           guest_departure_date: string | null
           id: string
           next_guest_arrival_date: string | null
+          next_recurrence_at: string | null
           notes: string | null
           priority: Database["public"]["Enums"]["ticket_priority"]
           property_id: string | null
@@ -1585,6 +1592,7 @@ export type Database = {
           guest_departure_date?: string | null
           id?: string
           next_guest_arrival_date?: string | null
+          next_recurrence_at?: string | null
           notes?: string | null
           priority?: Database["public"]["Enums"]["ticket_priority"]
           property_id?: string | null
@@ -1611,6 +1619,7 @@ export type Database = {
           guest_departure_date?: string | null
           id?: string
           next_guest_arrival_date?: string | null
+          next_recurrence_at?: string | null
           notes?: string | null
           priority?: Database["public"]["Enums"]["ticket_priority"]
           property_id?: string | null

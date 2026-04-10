@@ -56,6 +56,13 @@ Deno.serve(async (req) => {
           }
         }
 
+        // Set next_recurrence_at for recurring tickets
+        if (ticket.recurrence_months && ticket.recurrence_months > 0) {
+          const nextDate = new Date();
+          nextDate.setMonth(nextDate.getMonth() + ticket.recurrence_months);
+          ticket.next_recurrence_at = nextDate.toISOString();
+        }
+
         const { data, error } = await supabase
           .from("tickets")
           .insert(ticket)
@@ -66,13 +73,43 @@ Deno.serve(async (req) => {
         // Create ticket_apartments for multi-apartment tickets
         const aptIds = apartment_ids || [data.apartment_id];
         const aptNames = apartment_names || {};
-        if (aptIds.length > 0) {
-          const rows = aptIds.map((id: string) => ({
-            ticket_id: data.id,
-            apartment_id: id,
-            apartment_name: aptNames[id] || id,
-          }));
+        const rows = aptIds.map((id: string) => ({
+          ticket_id: data.id,
+          apartment_id: id,
+          apartment_name: aptNames[id] || id,
+        }));
+        if (rows.length > 0) {
           await supabase.from("ticket_apartments").insert(rows);
+        }
+
+        // For changeover tickets with multiple apartments, fetch per-apartment Beds24 data
+        if (data.type === "changeover" && aptIds.length > 0) {
+          let earliestDeparture: string | null = null;
+          for (const aptId of aptIds) {
+            try {
+              const schedule = await getNextGuestChangeover(aptId);
+              if (schedule) {
+                await supabase
+                  .from("ticket_apartments")
+                  .update({
+                    guest_departure_date: schedule.departure,
+                    next_guest_arrival_date: schedule.nextArrival,
+                  })
+                  .eq("ticket_id", data.id)
+                  .eq("apartment_id", aptId);
+                if (!earliestDeparture || schedule.departure < earliestDeparture) {
+                  earliestDeparture = schedule.departure;
+                }
+              }
+            } catch (e) {
+              console.error(`Failed to fetch changeover for apt ${aptId}:`, e);
+            }
+          }
+          // Update parent ticket with earliest departure if we got better data
+          if (earliestDeparture && !data.guest_departure_date) {
+            await supabase.from("tickets").update({ guest_departure_date: earliestDeparture }).eq("id", data.id);
+            data.guest_departure_date = earliestDeparture;
+          }
         }
 
         // Log creation to history
@@ -166,42 +203,7 @@ Deno.serve(async (req) => {
           }
         }
 
-        // Auto-create recurring ticket when resolved
-        if (updates.status === "resolved" && data.recurrence_months && data.recurrence_months > 0) {
-          const nextDate = new Date();
-          nextDate.setMonth(nextDate.getMonth() + data.recurrence_months);
-          const nextDateStr = nextDate.toLocaleDateString("fi-FI", { day: "numeric", month: "long", year: "numeric" });
-
-          const newTicketData = {
-            apartment_id: data.apartment_id,
-            title: data.title,
-            description: data.description,
-            type: data.type,
-            priority: data.priority,
-            send_email: false,
-            target_type: data.target_type,
-            category_id: data.category_id,
-            property_id: data.property_id,
-            email_override: data.email_override,
-            recurrence_months: data.recurrence_months,
-            recurrence_source_id: data.recurrence_source_id || data.id,
-            recurrence_note: data.recurrence_note,
-            assignment_type: data.assignment_type || "kiinteistohuolto",
-          };
-
-          const { data: newTicket, error: newErr } = await supabase
-            .from("tickets")
-            .insert(newTicketData)
-            .select()
-            .single();
-
-          if (!newErr && newTicket) {
-            await addHistory(supabase, newTicket.id, "system", null, null, 
-              `Toistuva tiketti luotu automaattisesti (${data.recurrence_months} kk välein). Edellinen: ${data.id.slice(0, 8)}`, "created");
-            await addHistory(supabase, id, "system", null, null, 
-              `Seuraava toistuva tiketti luotu: ${newTicket.id.slice(0, 8)} (ajastettu ${nextDateStr})`, "recurrence_created");
-          }
-        }
+        // Recurrence is now handled by the ticket-reminders cron — no longer on resolve
 
         return json(data);
       }
@@ -777,9 +779,27 @@ async function doSendEmail(
       : `<p style="color:#e65100;font-weight:bold;">⚠️ Tyhjä yö lähiaikoina – hoida nyt.</p>`
     : "";
 
-  // Guest changeover info for changeover tickets
+  // Guest changeover info — per-apartment if available, otherwise parent ticket
   let changeoverInfo = "";
-  if (ticket.guest_departure_date) {
+  const hasMultipleApartments = ticketApartments && ticketApartments.length > 1;
+  
+  if (hasMultipleApartments && ticketApartments.some((ta: any) => ta.guest_departure_date)) {
+    // Show per-apartment changeover schedule
+    const aptLines = ticketApartments.map((ta: any) => {
+      if (!ta.guest_departure_date) return `<p style="margin:2px 0;font-size:14px;"><strong>${ta.apartment_name}:</strong> Ei varaustietoja</p>`;
+      const dep = new Date(ta.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" });
+      const arr = ta.next_guest_arrival_date 
+        ? new Date(ta.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+        : null;
+      return `<p style="margin:2px 0;font-size:14px;"><strong>${ta.apartment_name}:</strong> lähtö ${dep}${arr ? `, seuraava ${arr}` : " – ei seuraavaa"}</p>`;
+    }).join("");
+    changeoverInfo = `
+      <div style="background:#e3f2fd;border:1px solid #90caf9;border-radius:8px;padding:12px;margin:12px 0;">
+        <p style="margin:0 0 4px 0;font-weight:bold;color:#1565c0;">📅 Vaihtojakso kohteittain</p>
+        ${aptLines}
+      </div>
+    `;
+  } else if (ticket.guest_departure_date) {
     const depDate = new Date(ticket.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
     const arrDate = ticket.next_guest_arrival_date 
       ? new Date(ticket.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })
@@ -799,10 +819,9 @@ async function doSendEmail(
     urgentNote = `<p style="color:#d32f2f;font-weight:bold;font-size:13px;margin:8px 0;">⚡ Hoidetaan heti, vaikka asiakas on sisällä.</p>`;
   }
 
-  const siteBase = "https://id-preview--965c8e14-cb63-4d51-9c89-2e41dfb8e866.lovable.app";
+  const siteBase = Deno.env.get("SITE_URL") || "https://leville.lovable.app";
 
   // Build resolve buttons: per-apartment if multi, single otherwise
-  const hasMultipleApartments = ticketApartments && ticketApartments.length > 1;
   let resolveButtons = "";
 
   if (hasMultipleApartments) {
