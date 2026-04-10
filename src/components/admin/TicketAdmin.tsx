@@ -2762,10 +2762,62 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         )}
                       </div>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="space-y-3">
                       {property.contact_email && (
                         <span className="flex items-center gap-1 text-sm text-muted-foreground"><AtSign className="w-3 h-3" />{property.contact_email}</span>
                       )}
+                      {/* Allocated apartments */}
+                      <div>
+                        <Label className="text-xs font-medium text-muted-foreground">Allokoidut huoneistot</Label>
+                        {(() => {
+                          const assigned = apartmentAssignments.filter(a => a.property_id === property.id);
+                          const assignedAptIds = new Set(apartmentAssignments.map(a => a.apartment_id));
+                          const availableApts = apartmentList.filter(a => !assignedAptIds.has(a.id));
+                          return (
+                            <div className="mt-1 space-y-2">
+                              {assigned.length === 0 ? (
+                                <p className="text-xs text-muted-foreground italic">Ei allokoituja huoneistoja</p>
+                              ) : (
+                                <div className="flex flex-wrap gap-1.5">
+                                  {assigned.sort((a, b) => getSimpleApartmentName(a.apartment_id).localeCompare(getSimpleApartmentName(b.apartment_id))).map((a) => (
+                                    <Badge key={a.apartment_id} variant="secondary" className="text-xs gap-1 pr-1">
+                                      {getSimpleApartmentName(a.apartment_id)}
+                                      {!isViewer && (
+                                        <button
+                                          className="ml-1 hover:text-destructive"
+                                          onClick={async () => {
+                                            try {
+                                              await callApi("unassign_apartment_from_property", { apartment_id: a.apartment_id });
+                                              await fetchApartmentAssignments();
+                                              toast({ title: "Huoneisto poistettu kiinteistöltä" });
+                                            } catch (e) { console.error(e); }
+                                          }}
+                                        >×</button>
+                                      )}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              )}
+                              {!isViewer && availableApts.length > 0 && (
+                                <Select onValueChange={async (aptId) => {
+                                  try {
+                                    await callApi("assign_apartment_to_property", { apartment_id: aptId, property_id: property.id });
+                                    await fetchApartmentAssignments();
+                                    toast({ title: "Huoneisto allokoitu kiinteistölle" });
+                                  } catch (e) { console.error(e); }
+                                }}>
+                                  <SelectTrigger className="w-[220px] h-8 text-xs"><SelectValue placeholder="+ Lisää huoneisto" /></SelectTrigger>
+                                  <SelectContent>
+                                    {availableApts.sort((a, b) => getSimpleName(a.name).localeCompare(getSimpleName(b.name))).map(apt => (
+                                      <SelectItem key={apt.id} value={apt.id}>{getSimpleName(apt.name)}</SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              )}
+                            </div>
+                          );
+                        })()}
+                      </div>
                     </CardContent>
                   </Card>
                 );
