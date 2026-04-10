@@ -650,20 +650,20 @@ async function sendTicketEmail(
   apartmentNameOverride?: string,
   ticketApartments?: any[]
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
-  // 1. Ticket-level override
-  if (ticket.email_override) {
-    const email = ticket.email_override;
-    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate, apartmentNameOverride, ticketApartments);
+  // 1. Use ticket's maintenance_company_id
+  let email: string | null = null;
+  if (ticket.maintenance_company_id) {
+    const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", ticket.maintenance_company_id).single();
+    email = mc?.email || null;
   }
-
-  // 2-3. Apartment/company fallback (use ticket's assignment_type)
-  const { email, source } = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
+  // 2. Fallback to email_override
+  if (!email && ticket.email_override) email = ticket.email_override;
 
   if (!email) {
     return { sent: false, error: "no_email_found" };
   }
 
-  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate, apartmentNameOverride, ticketApartments);
+  return await doSendEmail(supabase, ticket, email, "company", emailType, targetDate, apartmentNameOverride, ticketApartments);
 }
 
 async function doSendEmail(
