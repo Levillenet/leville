@@ -2641,8 +2641,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           ) : (
             <div className="space-y-4">
               {properties.map((property) => {
-                const propAssignments = assignments.filter(a => a.property_id === property.id);
-                const propTickets = tickets.filter(t => t.property_id === property.id || propAssignments.some(a => a.apartment_id === t.apartment_id));
+                const propTickets = tickets.filter(t => t.property_id === property.id);
                 const openTicketCount = propTickets.filter(t => t.status !== "resolved").length;
 
                 return (
@@ -2663,64 +2662,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         )}
                       </div>
                     </CardHeader>
-                    <CardContent className="space-y-3">
+                    <CardContent>
                       {property.contact_email && (
                         <span className="flex items-center gap-1 text-sm text-muted-foreground"><AtSign className="w-3 h-3" />{property.contact_email}</span>
-                      )}
-                      <div>
-                        <Label className="text-xs text-muted-foreground">Liitetyt huoneistot</Label>
-                        {propAssignments.length === 0 ? (
-                          <p className="text-sm text-muted-foreground mt-1">Ei liitettyjä huoneistoja</p>
-                        ) : (
-                          <div className="flex flex-wrap gap-2 mt-1">
-                            {propAssignments.map((a) => (
-                              <Badge key={a.id} variant="secondary">{getApartmentName(a.apartment_id)}</Badge>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                      {/* Assign apartments to property via checkboxes */}
-                      {!isViewer && (
-                        <div>
-                          <Label className="text-xs text-muted-foreground">Liitä huoneistoja kiinteistöön</Label>
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2 max-h-48 overflow-y-auto border rounded-md p-2">
-                            {apartmentList.map((apt) => {
-                              const isAssigned = propAssignments.some(a => a.apartment_id === apt.id);
-                              return (
-                                <label key={apt.id} className="flex items-center gap-2 text-sm cursor-pointer hover:bg-muted/50 rounded p-1">
-                                  <input
-                                    type="checkbox"
-                                    checked={isAssigned}
-                                    onChange={async () => {
-                                      try {
-                                        if (isAssigned) {
-                                          // Remove property assignment
-                                          const rec = propAssignments.find(a => a.apartment_id === apt.id);
-                                          if (rec) await handleAssignApartmentToProperty(rec.id, null);
-                                        } else {
-                                          // Check if apartment has an existing assignment record
-                                          const existingRecord = assignments.find(a => a.apartment_id === apt.id);
-                                          if (existingRecord) {
-                                            await handleAssignApartmentToProperty(existingRecord.id, property.id);
-                                          } else {
-                                            // Create a placeholder assignment just for property linking
-                                            await callApi("assign_apartment_to_property_direct", { apartment_id: apt.id, property_id: property.id });
-                                            toast({ title: "Huoneisto liitetty kiinteistöön" });
-                                            fetchCompanies();
-                                          }
-                                        }
-                                      } catch (e: any) {
-                                        toast({ title: "Virhe", description: e.message, variant: "destructive" });
-                                      }
-                                    }}
-                                    className="rounded"
-                                  />
-                                  <span className="truncate">{apt.name}</span>
-                                </label>
-                              );
-                            })}
-                          </div>
-                        </div>
                       )}
                     </CardContent>
                   </Card>
