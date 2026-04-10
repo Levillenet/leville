@@ -1346,7 +1346,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         doc.rect(margin + 2, y, contentWidth - 4, 8, "F");
         doc.setFontSize(10);
         doc.setTextColor(30);
-        doc.text(getApartmentName(aptId), margin + 5, y + 5.5);
+        const propAptLabel = aptTickets.some(t => t.description?.includes("Huoneistot (")) ? "Useita kohteita" : getApartmentName(aptId);
+        doc.text(propAptLabel, margin + 5, y + 5.5);
         y += 12;
 
         // Group by category
