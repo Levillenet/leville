@@ -543,7 +543,7 @@ async function resolveRecipientEmail(
 async function sendTicketEmail(
   supabase: any,
   ticket: any,
-  emailType: "creation" | "reminder",
+  emailType: "creation" | "reminder" | "urgent_reminder",
   targetDate?: string,
   apartmentNameOverride?: string
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
