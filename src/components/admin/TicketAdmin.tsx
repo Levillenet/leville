@@ -1613,7 +1613,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       className="w-full border-orange-400 text-orange-700 hover:bg-orange-50"
                       onClick={async () => {
                         try {
-                          const aptName = apartmentNames[selectedTicket.apartment_id] || selectedTicket.apartment_id;
+                          const aptName = getApartmentName(selectedTicket.apartment_id);
                           const result = await callApi("send_urgent_reminder", {
                             ticket_id: selectedTicket.id,
                             apartment_name: aptName,
