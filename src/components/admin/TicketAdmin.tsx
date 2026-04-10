@@ -425,6 +425,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     recurrence_months: 0,
     recurrence_note: "",
     assignment_type: "kiinteistohuolto" as string,
+    maintenance_company_id: "",
   });
   const [selectedApartmentIds, setSelectedApartmentIds] = useState<string[]>([]);
 
