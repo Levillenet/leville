@@ -1,49 +1,59 @@
 
 
-# Tiketin "Merkitse tehdyksi" -linkki sähköpostissa + admin-nappi
+# Plan: Fix Resolution Links + Recurrence + Per-Apartment Guest Schedules
 
-## Yhteenveto
+## Problems Found
 
-Kaksi muutosta:
-1. **Admin UI**: Lisätään selkeä "✅ Merkitse tehdyksi" -nappi tiketin yksityisnäkymään (Select-pudotusvalikon lisäksi)
-2. **Sähköposti**: Lisätään tiketin sähköposteihin "Merkitse tehdyksi" -linkki/nappi, jota painamalla huoltoyhtiö voi ratkaista tiketin ilman kirjautumista. Tiketille tallentuu tieto kuka ratkaisi (admin vai suorittaja sähköpostista).
+1. **Resolution links broken**: The `TicketResolved` page receives `token` and `apt` params from emails, but when redirecting to the edge function, it only passes `token` — the `apt=1` param is lost. This causes multi-apartment tokens to fail lookup (edge function looks in `tickets` table instead of `ticket_apartments`).
 
-## Tekniset muutokset
+2. **Recurrence only fires on resolution**: Currently new recurring tickets are created only when the previous ticket is marked resolved. User wants them created automatically on schedule regardless.
 
-### 1. Tietokantamigraatio
-- Lisätään `tickets`-tauluun:
-  - `resolved_at` (timestamptz, nullable) – ratkaisuhetki
-  - `resolved_by` (text, nullable) – "admin" tai "email_link"
-  - `resolve_token` (text, unique, default `gen_random_uuid()`) – salainen token sähköpostilinkkiä varten
+3. **Per-apartment guest schedule missing**: Changeover tickets only store departure/arrival on the parent ticket (for the first apartment). Multi-apartment tickets need individual schedules per unit.
 
-### 2. Uusi Edge Function: `resolve-ticket-public`
-- Julkinen endpoint (`verify_jwt = false`)
-- Vastaanottaa `token`-parametrin (GET-pyyntö)
-- Etsii tiketin tokenilla, tarkistaa ettei jo ratkaistu
-- Päivittää: `status = 'resolved'`, `resolved_at = now()`, `resolved_by = 'email_link'`
-- Kirjaa historian: `changed_by: "suorittaja (sähköposti)"`
-- Palauttaa yksinkertaisen HTML-sivun: "Tiketti merkitty tehdyksi ✅"
+4. **Email links use preview URL**: The `siteBase` in email templates points to the preview URL, which may not match production.
 
-### 3. Sähköpostipohja (`manage-tickets/index.ts`)
-- `doSendEmail`-funktiossa: haetaan/generoidaan tiketin `resolve_token`
-- Lisätään sähköpostin HTML-pohjaan vihreä nappi: **"✅ Merkitse tehdyksi"**
-- Linkki osoittaa: `https://jcvxklzcxngctyqmknax.supabase.co/functions/v1/resolve-ticket-public?token=XYZ`
+---
 
-### 4. Admin UI (`TicketAdmin.tsx`)
-- Lisätään tiketin yksityisnäkymään selkeä **"✅ Merkitse tehdyksi"** -nappi (kun tila ei ole "resolved")
-- Kun admin painaa nappia: päivitetään `resolved_by = "admin"`, `resolved_at = now()`
-- Näytetään ratkaisun jälkeen: "Ratkaisija: Admin" tai "Ratkaisija: Suorittaja (sähköpostilinkki)" + aikaleima
+## Changes
 
-### 5. Config (`supabase/config.toml`)
-- Lisätään `[functions.resolve-ticket-public]` ja `verify_jwt = false`
+### 1. Fix TicketResolved redirect (src/pages/TicketResolved.tsx)
+- Pass ALL search params (`apt`, `token`) through to the edge function URL
+- Fix: `const apt = searchParams.get("apt"); if (apt) url += "&apt=1";`
 
-## Tiedostot
+### 2. Database Migration
+- Add `guest_departure_date` (date) and `next_guest_arrival_date` (date) to `ticket_apartments`
+- Add `next_recurrence_at` (timestamptz) to `tickets` — stores when the next recurring instance should be created
 
-| Tiedosto | Muutos |
+### 3. manage-tickets Edge Function
+- **Per-apartment Beds24 fetch**: When creating a changeover ticket with multiple apartments, loop through each `apartment_id` and call `getNextGuestChangeover()` individually, storing results in `ticket_apartments` rows
+- **Set `next_recurrence_at`**: On ticket creation with `recurrence_months > 0`, calculate and store the next fire date
+- **Remove recurrence-on-resolve logic**: Stop creating new tickets when status changes to resolved
+
+### 4. ticket-reminders Edge Function
+- **New section: Auto-recurrence check**: Query tickets where `next_recurrence_at <= now()`, create a new ticket copy with fresh Beds24 data for each apartment, set new `next_recurrence_at` on the new ticket
+- **Changeover reminders**: Include per-apartment guest info from `ticket_apartments` (departure/arrival) in reminder emails
+- **Remove priority references**: Use ticket `type` instead
+
+### 5. check-booking-changes Edge Function
+- Update to also sync `ticket_apartments.guest_departure_date` and `next_guest_arrival_date` for each apartment row
+
+### 6. resolve-ticket-public Edge Function
+- Use `SITE_URL` env or default to published URL (`https://leville.lovable.app`) instead of preview URL
+
+### 7. Email template (manage-tickets doSendEmail)
+- For multi-apartment changeover tickets, show per-apartment guest schedule in the email body (each unit's departure/arrival)
+- Use `SITE_URL` env for email links instead of hardcoded preview URL
+
+---
+
+## Files Modified
+
+| File | Change |
 |---|---|
-| Migraatio (SQL) | `resolved_at`, `resolved_by`, `resolve_token` sarakkeet |
-| `supabase/functions/resolve-ticket-public/index.ts` | Uusi julkinen endpoint |
-| `supabase/functions/manage-tickets/index.ts` | Resolve-token + sähköpostin "Merkitse tehdyksi" -nappi |
-| `src/components/admin/TicketAdmin.tsx` | "Merkitse tehdyksi" -nappi + ratkaisijan tiedot |
-| `supabase/config.toml` | Uusi funktio-konfiguraatio |
+| `src/pages/TicketResolved.tsx` | Pass `apt` param to edge function redirect |
+| Migration SQL | Add columns to `ticket_apartments`, add `next_recurrence_at` to `tickets` |
+| `supabase/functions/manage-tickets/index.ts` | Per-apartment Beds24, set `next_recurrence_at`, remove resolve-triggered recurrence, per-apartment changeover in emails, fix siteBase |
+| `supabase/functions/ticket-reminders/index.ts` | Auto-recurrence cron, per-apartment guest info in reminders, remove priority |
+| `supabase/functions/check-booking-changes/index.ts` | Update per-apartment rows |
+| `supabase/functions/resolve-ticket-public/index.ts` | Fix redirect URL |
 
