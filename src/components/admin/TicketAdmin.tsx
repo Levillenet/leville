@@ -1735,10 +1735,12 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       <CheckCircle2 className="w-4 h-4" />
                       Ratkaistu
                     </div>
-                    <p className="text-sm text-emerald-700">
-                      {new Date(selectedTicket.resolved_at).toLocaleDateString("fi-FI")} klo{" "}
-                      {new Date(selectedTicket.resolved_at).toLocaleTimeString("fi-FI", { hour: "2-digit", minute: "2-digit" })}
-                    </p>
+                    {selectedTicket.resolved_at && (
+                      <p className="text-sm text-emerald-700">
+                        {new Date(selectedTicket.resolved_at).toLocaleDateString("fi-FI")} klo{" "}
+                        {new Date(selectedTicket.resolved_at).toLocaleTimeString("fi-FI", { hour: "2-digit", minute: "2-digit" })}
+                      </p>
+                    )}
                     <p className="text-sm text-emerald-600">
                       Ratkaisija: {selectedTicket.resolved_by === "email_link" ? "Suorittaja (sähköpostilinkki)" : "Admin"}
                     </p>
