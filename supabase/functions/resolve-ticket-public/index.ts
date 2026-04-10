@@ -72,6 +72,17 @@ Deno.serve(async (req) => {
       return redirectResponse("error", ticket.title);
     }
 
+    // Cancel any scheduled (future) email reminders
+    try {
+      await supabase
+        .from("ticket_email_log")
+        .update({ status: "cancelled", error_message: "Tiketti ratkaistu sähköpostilinkillä – ajastetut viestit peruttu" })
+        .eq("ticket_id", ticket.id)
+        .eq("status", "scheduled");
+    } catch (cancelErr) {
+      console.error("Cancel scheduled emails error:", cancelErr);
+    }
+
     try {
       await supabase.from("ticket_history").insert({
         ticket_id: ticket.id,
