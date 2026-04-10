@@ -779,9 +779,27 @@ async function doSendEmail(
       : `<p style="color:#e65100;font-weight:bold;">⚠️ Tyhjä yö lähiaikoina – hoida nyt.</p>`
     : "";
 
-  // Guest changeover info for changeover tickets
+  // Guest changeover info — per-apartment if available, otherwise parent ticket
   let changeoverInfo = "";
-  if (ticket.guest_departure_date) {
+  const hasMultipleApartments = ticketApartments && ticketApartments.length > 1;
+  
+  if (hasMultipleApartments && ticketApartments.some((ta: any) => ta.guest_departure_date)) {
+    // Show per-apartment changeover schedule
+    const aptLines = ticketApartments.map((ta: any) => {
+      if (!ta.guest_departure_date) return `<p style="margin:2px 0;font-size:14px;"><strong>${ta.apartment_name}:</strong> Ei varaustietoja</p>`;
+      const dep = new Date(ta.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" });
+      const arr = ta.next_guest_arrival_date 
+        ? new Date(ta.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+        : null;
+      return `<p style="margin:2px 0;font-size:14px;"><strong>${ta.apartment_name}:</strong> lähtö ${dep}${arr ? `, seuraava ${arr}` : " – ei seuraavaa"}</p>`;
+    }).join("");
+    changeoverInfo = `
+      <div style="background:#e3f2fd;border:1px solid #90caf9;border-radius:8px;padding:12px;margin:12px 0;">
+        <p style="margin:0 0 4px 0;font-weight:bold;color:#1565c0;">📅 Vaihtojakso kohteittain</p>
+        ${aptLines}
+      </div>
+    `;
+  } else if (ticket.guest_departure_date) {
     const depDate = new Date(ticket.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
     const arrDate = ticket.next_guest_arrival_date 
       ? new Date(ticket.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })
