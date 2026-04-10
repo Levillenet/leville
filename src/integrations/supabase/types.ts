@@ -1564,6 +1564,7 @@ export type Database = {
           email_override: string | null
           guest_departure_date: string | null
           id: string
+          maintenance_company_id: string | null
           next_guest_arrival_date: string | null
           next_recurrence_at: string | null
           notes: string | null
@@ -1591,6 +1592,7 @@ export type Database = {
           email_override?: string | null
           guest_departure_date?: string | null
           id?: string
+          maintenance_company_id?: string | null
           next_guest_arrival_date?: string | null
           next_recurrence_at?: string | null
           notes?: string | null
@@ -1618,6 +1620,7 @@ export type Database = {
           email_override?: string | null
           guest_departure_date?: string | null
           id?: string
+          maintenance_company_id?: string | null
           next_guest_arrival_date?: string | null
           next_recurrence_at?: string | null
           notes?: string | null
@@ -1642,6 +1645,13 @@ export type Database = {
             columns: ["category_id"]
             isOneToOne: false
             referencedRelation: "ticket_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tickets_maintenance_company_id_fkey"
+            columns: ["maintenance_company_id"]
+            isOneToOne: false
+            referencedRelation: "maintenance_companies"
             referencedColumns: ["id"]
           },
           {
