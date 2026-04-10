@@ -1558,6 +1558,47 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   <Label className="text-muted-foreground text-xs">Kuvaus</Label>
                   <p>{selectedTicket.description || "–"}</p>
                 </div>
+                {/* Assigned company */}
+                <div>
+                  <Label className="text-muted-foreground text-xs">Suorittaja</Label>
+                  {!isViewer ? (
+                    <Select
+                      value={selectedTicket.maintenance_company_id || "none"}
+                      onValueChange={async (val) => {
+                        const companyId = val === "none" ? null : val;
+                        try {
+                          await callApi("update_ticket", { id: selectedTicket.id, updates: { maintenance_company_id: companyId } });
+                          setSelectedTicket({ ...selectedTicket, maintenance_company_id: companyId });
+                          // If a company is selected, also set email_override to its email
+                          if (companyId) {
+                            const company = companies.find(c => c.id === companyId);
+                            if (company?.email) {
+                              await callApi("update_ticket", { id: selectedTicket.id, updates: { email_override: company.email } });
+                              setSelectedTicket(prev => prev ? { ...prev, maintenance_company_id: companyId, email_override: company.email! } : prev);
+                            }
+                          }
+                          toast({ title: "Suorittaja päivitetty" });
+                          fetchTicketHistory(selectedTicket.id);
+                        } catch (e: any) {
+                          toast({ title: "Virhe", description: e.message, variant: "destructive" });
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="text-sm"><SelectValue placeholder="Valitse suorittaja" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">– Ei valittu –</SelectItem>
+                        {companies.map((c) => (
+                          <SelectItem key={c.id} value={c.id}>
+                            {c.company_types?.includes("siivous") ? "🧹" : "🔧"} {c.name}
+                            {c.phone ? ` (${c.phone})` : ""}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <p className="font-medium">{selectedTicket.maintenance_company_id ? companies.find(c => c.id === selectedTicket.maintenance_company_id)?.name || "–" : "Ei valittu"}</p>
+                  )}
+                </div>
                 <div className="flex gap-4">
                   <div>
                     <Label className="text-muted-foreground text-xs">Sähköposti</Label>
