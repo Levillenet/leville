@@ -1,29 +1,39 @@
 
 
-# Plan: Aseta cron-ajastukset varaustilanteen tarkistukseen ja muistutuksiin
+# Yksinkertaista sähköpostin reititys: käytä aina tiketin suorittajaa
 
-## Nykytilanne
-- `check-booking-changes` ja `ticket-reminders` Edge Functionit ovat valmiit mutta niille ei ole asetettu cron-ajoa → ne eivät toimi automaattisesti.
+## Ongelma
+Nykyään sähköpostin vastaanottaja haetaan `apartment_maintenance`-taulusta (huoneiston oletusallokointi), mutta käyttäjä valitsee aina suorittajan alasvetovalikosta tiketille. Oletusallokoinnit aiheuttavat hämmennystä ja virheitä (esim. Fnffn-maili meni väärälle).
 
 ## Muutokset
 
-### 1. Lisää `check-booking-changes` config.toml:iin
-- `verify_jwt = false` jotta cron voi kutsua sitä
+### 1. Edge Functionien email-logiikan yksinkertaistaminen
+Kaikissa kolmessa Edge Functionissa (`manage-tickets`, `check-booking-changes`, `ticket-reminders`):
+- Poistetaan `resolveRecipientEmail`-funktio kokonaan
+- Sähköposti haetaan aina tiketin `maintenance_company_id` → `maintenance_companies.email`
+- Fallback: tiketin `email_override` (jos asetettu)
+- Jos kumpaakaan ei ole → ei lähetetä
 
-### 2. Aseta cron-ajastukset (SQL insert, ei migraatio)
-- **`check-booking-changes`**: Joka tunti klo 8–22 Suomen aikaa (`0 5-19 * * *` UTC) — tarkistaa varausmuutokset
-- **`ticket-reminders`**: Joka tunti (`0 * * * *`) — hoitaa muistutukset ja toistuvien tikettien luonnin
+### 2. Admin-UI: Poista huoneistoallokoinnit
+`src/components/admin/TicketAdmin.tsx`:
+- Poistetaan "Huoltoyhtiöt"-välilehdeltä huoneistojen allokointi-osio (assign/unassign apartment)
+- Jätetään vain yhtiöiden CRUD (nimi, email, puhelin, tyyppi)
+- Poistetaan `assignments`-state ja siihen liittyvä koodi
+- Poistetaan `handleAssignApartment`, `handleUnassignApartment`, `handleAssignApartmentToProperty` -funktiot
 
-### 3. Varmista pg_cron ja pg_net extensionit
-- Tarvitaan cron-kutsujen tekemiseen
-
-## Tulos
-- Varaustilanteen muutokset tarkistetaan **kerran tunnissa** klo 8–22
-- Muistutukset ja toistuvat tiketit käsitellään **kerran tunnissa** ympäri vuorokauden
+### 3. Backend: Poista allokointi-endpointit
+`supabase/functions/manage-tickets/index.ts`:
+- Poistetaan `assign_apartment`, `unassign_apartment`, `assign_apartment_to_property` -actionit
+- Poistetaan `resolve_email`-action (ei enää tarvita erillistä resolveria)
 
 ### Tiedostot
+
 | Tiedosto | Muutos |
 |---|---|
-| `supabase/config.toml` | Lisää `check-booking-changes` verify_jwt = false |
-| SQL (insert) | Cron-ajastukset molemmille funktioille |
+| `supabase/functions/check-booking-changes/index.ts` | Korvaa `resolveRecipientEmail` → hae suoraan `ticket.maintenance_company_id` |
+| `supabase/functions/ticket-reminders/index.ts` | Sama muutos |
+| `supabase/functions/manage-tickets/index.ts` | Sama muutos + poista allokointi-endpointit |
+| `src/components/admin/TicketAdmin.tsx` | Poista huoneistoallokointi-UI, pidä yhtiöiden CRUD |
+
+**Huom:** `apartment_maintenance`-taulua ei poisteta tietokannasta tässä vaiheessa (voidaan tehdä myöhemmin), mutta sitä ei enää käytetä missään.
 
