@@ -1583,30 +1583,57 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 )}
 
                 {!isViewer && selectedTicket.status !== "resolved" && (
-                  <Button 
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
-                    onClick={async () => {
-                      try {
-                        await callApi("update_ticket", { 
-                          id: selectedTicket.id, 
-                          updates: { 
-                            status: "resolved",
-                            resolved_at: new Date().toISOString(),
-                            resolved_by: "admin"
-                          } 
-                        });
-                        toast({ title: "Tiketti merkitty tehdyksi" });
-                        setSelectedTicket({ ...selectedTicket, status: "resolved", resolved_at: new Date().toISOString(), resolved_by: "admin" });
-                        fetchTickets();
-                        fetchTicketHistory(selectedTicket.id);
-                      } catch (e: any) {
-                        toast({ title: "Virhe", description: e.message, variant: "destructive" });
-                      }
-                    }}
-                  >
-                    <CheckCircle2 className="w-4 h-4 mr-2" />
-                    ✅ Merkitse tehdyksi
-                  </Button>
+                  <div className="space-y-2">
+                    <Button 
+                      className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
+                      onClick={async () => {
+                        try {
+                          await callApi("update_ticket", { 
+                            id: selectedTicket.id, 
+                            updates: { 
+                              status: "resolved",
+                              resolved_at: new Date().toISOString(),
+                              resolved_by: "admin"
+                            } 
+                          });
+                          toast({ title: "Tiketti merkitty tehdyksi" });
+                          setSelectedTicket({ ...selectedTicket, status: "resolved", resolved_at: new Date().toISOString(), resolved_by: "admin" });
+                          fetchTickets();
+                          fetchTicketHistory(selectedTicket.id);
+                        } catch (e: any) {
+                          toast({ title: "Virhe", description: e.message, variant: "destructive" });
+                        }
+                      }}
+                    >
+                      <CheckCircle2 className="w-4 h-4 mr-2" />
+                      ✅ Merkitse tehdyksi
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full border-orange-400 text-orange-700 hover:bg-orange-50"
+                      onClick={async () => {
+                        try {
+                          const aptName = getApartmentName(selectedTicket.apartment_id);
+                          const result = await callApi("send_urgent_reminder", {
+                            ticket_id: selectedTicket.id,
+                            apartment_name: aptName,
+                            changed_by: "admin",
+                          });
+                          if (result.sent) {
+                            toast({ title: "Muistutus lähetetty", description: `Lähetetty: ${result.email}` });
+                            fetchTicketHistory(selectedTicket.id);
+                          } else {
+                            toast({ title: "Virhe", description: result.error || "Sähköpostia ei voitu lähettää", variant: "destructive" });
+                          }
+                        } catch (e: any) {
+                          toast({ title: "Virhe", description: e.message, variant: "destructive" });
+                        }
+                      }}
+                    >
+                      <Bell className="w-4 h-4 mr-2" />
+                      🔔 Muistuta nyt
+                    </Button>
+                  </div>
                 )}
 
                 {!isViewer && (
