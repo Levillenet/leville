@@ -987,6 +987,54 @@ async function getNextEmptyNight(
   }
 }
 
+// ── HELPER: Get next guest changeover from Beds24 ──
+async function getNextGuestChangeover(
+  apartmentId: string
+): Promise<{ departure: string; nextArrival: string | null } | null> {
+  const apiToken = Deno.env.get("BEDS24_API_TOKEN");
+  if (!apiToken) return null;
+
+  try {
+    const today = new Date();
+    const endDate = new Date(today.getTime() + 60 * 24 * 60 * 60 * 1000);
+    const lookbackDate = new Date(today.getTime() - 60 * 24 * 60 * 60 * 1000);
+
+    const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrivalFrom=${formatDate(lookbackDate)}&arrivalTo=${formatDate(endDate)}&departureFrom=${formatDate(today)}`;
+    const response = await fetch(bookingsUrl, {
+      headers: { token: apiToken, accept: "application/json" },
+    });
+
+    if (!response.ok) return null;
+
+    const bookingsJson = await response.json();
+    const bookings = (Array.isArray(bookingsJson) ? bookingsJson : bookingsJson?.data || [])
+      .map((b: any) => ({
+        arrival: b.arrival || b.checkIn,
+        departure: b.departure || b.checkOut,
+      }))
+      .filter((b: any) => b.arrival && b.departure)
+      .sort((a: any, b: any) => a.departure.localeCompare(b.departure));
+
+    if (bookings.length === 0) return null;
+
+    // Find the current or next booking (departure >= today)
+    const todayStr = formatDate(today);
+    const currentBooking = bookings.find((b: any) => b.departure >= todayStr);
+    if (!currentBooking) return null;
+
+    // Find the next booking after this one
+    const nextBooking = bookings.find((b: any) => b.arrival >= currentBooking.departure && b !== currentBooking);
+
+    return {
+      departure: currentBooking.departure,
+      nextArrival: nextBooking?.arrival || null,
+    };
+  } catch (err) {
+    console.error("getNextGuestChangeover error:", err);
+    return null;
+  }
+}
+
 function formatDate(date: Date): string {
   return date.toISOString().split("T")[0];
 }
