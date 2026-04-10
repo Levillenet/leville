@@ -1095,7 +1095,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
     for (const aptId of sortedApts) {
       const aptTickets = grouped[aptId];
-      const aptName = getApartmentName(aptId);
+      const isMulti = aptTickets.some(t => t.description?.includes("Huoneistot ("));
+      const aptName = isMulti ? "Useita kohteita" : getApartmentName(aptId);
       const companyName = getCompanyForApt(aptId);
 
       checkPage(25);
@@ -1230,7 +1231,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       checkPage(20);
       doc.setFontSize(9);
       doc.setTextColor(30);
-      doc.text(`\u2022 ${getApartmentName(t.apartment_id)} | ${getCategoryName(t.category_id)} | ${t.title}`, margin, y);
+      const aptLabel = t.description?.includes("Huoneistot (") ? "Useita kohteita" : getApartmentName(t.apartment_id);
+      doc.text(`\u2022 ${aptLabel} | ${getCategoryName(t.category_id)} | ${t.title}`, margin, y);
       y += 4;
       doc.setFontSize(8);
       doc.setTextColor(100);
@@ -1344,7 +1346,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         doc.rect(margin + 2, y, contentWidth - 4, 8, "F");
         doc.setFontSize(10);
         doc.setTextColor(30);
-        doc.text(getApartmentName(aptId), margin + 5, y + 5.5);
+        const propAptLabel = aptTickets.some(t => t.description?.includes("Huoneistot (")) ? "Useita kohteita" : getApartmentName(aptId);
+        doc.text(propAptLabel, margin + 5, y + 5.5);
         y += 12;
 
         // Group by category
@@ -1492,8 +1495,33 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
+                  <Label className="text-muted-foreground text-xs">Otsikko</Label>
+                  {!isViewer ? (
+                    <Input
+                      defaultValue={selectedTicket.title}
+                      key={`title-${selectedTicket.id}`}
+                      onBlur={async (e) => {
+                        const newTitle = e.target.value.trim();
+                        if (newTitle && newTitle !== selectedTicket.title) {
+                          try {
+                            await callApi("update_ticket", { id: selectedTicket.id, updates: { title: newTitle } });
+                            setSelectedTicket({ ...selectedTicket, title: newTitle });
+                            fetchTickets();
+                            toast({ title: "Otsikko päivitetty" });
+                          } catch (err: any) {
+                            toast({ title: "Virhe", description: err.message, variant: "destructive" });
+                          }
+                        }
+                      }}
+                      onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
+                    />
+                  ) : (
+                    <p className="font-medium">{selectedTicket.title}</p>
+                  )}
+                </div>
+                <div>
                   <Label className="text-muted-foreground text-xs">Huoneisto</Label>
-                  <p className="font-medium">{getSimpleApartmentName(selectedTicket.apartment_id)}</p>
+                  <p className="font-medium">{ticketApartments.length > 1 ? `Useita (${ticketApartments.length})` : getSimpleApartmentName(selectedTicket.apartment_id)}</p>
                 </div>
                 {selectedTicket.target_type === "property" && selectedTicket.property_id && (
                   <div>
@@ -1503,7 +1531,28 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 )}
                 <div>
                   <Label className="text-muted-foreground text-xs">Kuvaus</Label>
-                  <p>{selectedTicket.description || "–"}</p>
+                  {!isViewer ? (
+                    <Textarea
+                      defaultValue={selectedTicket.description || ""}
+                      key={`desc-${selectedTicket.id}`}
+                      rows={3}
+                      onBlur={async (e) => {
+                        const newDesc = e.target.value.trim();
+                        if (newDesc !== (selectedTicket.description || "")) {
+                          try {
+                            await callApi("update_ticket", { id: selectedTicket.id, updates: { description: newDesc || null } });
+                            setSelectedTicket({ ...selectedTicket, description: newDesc || null });
+                            fetchTickets();
+                            toast({ title: "Kuvaus päivitetty" });
+                          } catch (err: any) {
+                            toast({ title: "Virhe", description: err.message, variant: "destructive" });
+                          }
+                        }
+                      }}
+                    />
+                  ) : (
+                    <p>{selectedTicket.description || "–"}</p>
+                  )}
                 </div>
                 {/* Assigned company */}
                 <div>
