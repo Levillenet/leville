@@ -40,6 +40,9 @@ interface Ticket {
   recurrence_source_id: string | null;
   recurrence_note: string | null;
   assignment_type: string;
+  resolved_at: string | null;
+  resolved_by: string | null;
+  resolve_token: string | null;
 }
 
 interface MaintenanceCompany {
