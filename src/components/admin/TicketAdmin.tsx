@@ -456,6 +456,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   // Ticket apartments (per-apartment resolution)
   const [ticketApartments, setTicketApartments] = useState<TicketApartment[]>([]);
   const [allTicketApartments, setAllTicketApartments] = useState<{ id: string; ticket_id: string; apartment_id: string; apartment_name: string }[]>([]);
+  const [addApartmentIds, setAddApartmentIds] = useState<string[]>([]);
+  const [addingApartments, setAddingApartments] = useState(false);
 
   // Filters
   const [filterApartment, setFilterApartment] = useState("all");
