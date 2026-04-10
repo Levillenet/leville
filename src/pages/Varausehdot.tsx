@@ -6,6 +6,7 @@ import SubpageBackground from "@/components/SubpageBackground";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { BookingTermsContent } from "@/components/BookingTermsContent";
+import { BookingTermsPdfDownload } from "@/components/BookingTermsPdfDownload";
 import type { Language } from "@/translations";
 
 interface VarausehdotProps {
