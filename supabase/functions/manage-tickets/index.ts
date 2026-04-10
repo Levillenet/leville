@@ -56,6 +56,13 @@ Deno.serve(async (req) => {
           }
         }
 
+        // Set next_recurrence_at for recurring tickets
+        if (ticket.recurrence_months && ticket.recurrence_months > 0) {
+          const nextDate = new Date();
+          nextDate.setMonth(nextDate.getMonth() + ticket.recurrence_months);
+          ticket.next_recurrence_at = nextDate.toISOString();
+        }
+
         const { data, error } = await supabase
           .from("tickets")
           .insert(ticket)
@@ -66,13 +73,43 @@ Deno.serve(async (req) => {
         // Create ticket_apartments for multi-apartment tickets
         const aptIds = apartment_ids || [data.apartment_id];
         const aptNames = apartment_names || {};
-        if (aptIds.length > 0) {
-          const rows = aptIds.map((id: string) => ({
-            ticket_id: data.id,
-            apartment_id: id,
-            apartment_name: aptNames[id] || id,
-          }));
+        const rows = aptIds.map((id: string) => ({
+          ticket_id: data.id,
+          apartment_id: id,
+          apartment_name: aptNames[id] || id,
+        }));
+        if (rows.length > 0) {
           await supabase.from("ticket_apartments").insert(rows);
+        }
+
+        // For changeover tickets with multiple apartments, fetch per-apartment Beds24 data
+        if (data.type === "changeover" && aptIds.length > 0) {
+          let earliestDeparture: string | null = null;
+          for (const aptId of aptIds) {
+            try {
+              const schedule = await getNextGuestChangeover(aptId);
+              if (schedule) {
+                await supabase
+                  .from("ticket_apartments")
+                  .update({
+                    guest_departure_date: schedule.departure,
+                    next_guest_arrival_date: schedule.nextArrival,
+                  })
+                  .eq("ticket_id", data.id)
+                  .eq("apartment_id", aptId);
+                if (!earliestDeparture || schedule.departure < earliestDeparture) {
+                  earliestDeparture = schedule.departure;
+                }
+              }
+            } catch (e) {
+              console.error(`Failed to fetch changeover for apt ${aptId}:`, e);
+            }
+          }
+          // Update parent ticket with earliest departure if we got better data
+          if (earliestDeparture && !data.guest_departure_date) {
+            await supabase.from("tickets").update({ guest_departure_date: earliestDeparture }).eq("id", data.id);
+            data.guest_departure_date = earliestDeparture;
+          }
         }
 
         // Log creation to history
