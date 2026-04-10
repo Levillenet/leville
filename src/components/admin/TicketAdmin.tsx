@@ -1492,6 +1492,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   </div>
                 </div>
 
+                {/* Changeover departure/arrival info */}
+                {selectedTicket.type === "changeover" && (selectedTicket.guest_departure_date || selectedTicket.next_guest_arrival_date) && (
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded space-y-1">
+                    <Label className="text-xs font-semibold text-blue-800">📅 Vaihtojakso</Label>
+                    {selectedTicket.guest_departure_date && (
+                      <p className="text-sm text-blue-700">Asiakas lähtee: <strong>{new Date(selectedTicket.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}</strong></p>
+                    )}
+                    {selectedTicket.next_guest_arrival_date && (
+                      <p className="text-sm text-blue-700">Seuraava asiakas saapuu: <strong>{new Date(selectedTicket.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}</strong></p>
+                    )}
+                    <p className="text-xs text-blue-600">Muistutus lähetetään automaattisesti lähtöpäivän aamuna</p>
+                  </div>
+                )}
+
                 {/* Email override display */}
                 {selectedTicket.email_override && (
                   <div className="p-2 bg-blue-50 border border-blue-200 rounded text-sm">
