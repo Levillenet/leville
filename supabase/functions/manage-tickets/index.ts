@@ -292,13 +292,17 @@ Deno.serve(async (req) => {
 
       // ── RESOLVE EMAIL ──
       case "resolve_email": {
-        const { apartment_id, ticket_email_override, assignment_type } = body;
+        const { apartment_id, ticket_email_override, assignment_type, maintenance_company_id } = body;
         // If ticket-level override exists, return it
         if (ticket_email_override) {
           return json({ email: ticket_email_override, source: "ticket_override" });
         }
-        const result = await resolveRecipientEmail(supabase, apartment_id, assignment_type || "kiinteistohuolto");
-        return json(result);
+        // Use maintenance_company_id directly
+        if (maintenance_company_id) {
+          const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", maintenance_company_id).single();
+          if (mc?.email) return json({ email: mc.email, source: "company" });
+        }
+        return json({ email: null, source: "none" });
       }
 
       // ── MAINTENANCE COMPANIES ──
@@ -308,12 +312,7 @@ Deno.serve(async (req) => {
           .select("*")
           .order("name");
         if (error) throw error;
-
-        const { data: assignments } = await supabase
-          .from("apartment_maintenance")
-          .select("*");
-
-        return json({ companies: data, assignments: assignments || [] });
+        return json({ companies: data, assignments: [] });
       }
 
       case "create_company": {
@@ -349,39 +348,7 @@ Deno.serve(async (req) => {
         return json({ success: true });
       }
 
-      // ── APARTMENT ASSIGNMENTS ──
-      case "assign_apartment": {
-        const { assignment } = body;
-        const { data, error } = await supabase
-          .from("apartment_maintenance")
-          .insert(assignment)
-          .select()
-          .single();
-        if (error) throw error;
-        return json(data);
-      }
-
-      case "unassign_apartment": {
-        const { id } = body;
-        const { error } = await supabase
-          .from("apartment_maintenance")
-          .delete()
-          .eq("id", id);
-        if (error) throw error;
-        return json({ success: true });
-      }
-
-      case "update_assignment": {
-        const { id, updates } = body;
-        const { data, error } = await supabase
-          .from("apartment_maintenance")
-          .update(updates)
-          .eq("id", id)
-          .select()
-          .single();
-        if (error) throw error;
-        return json(data);
-      }
+      // (apartment assignment endpoints removed — use dropdown on ticket)
 
       // ── EMAIL LOG ──
       case "get_email_log": {
