@@ -527,7 +527,6 @@ Deno.serve(async (req) => {
 
       case "assign_apartment_to_property": {
         const { apartment_id: assignAptId, property_id: assignPropId } = body;
-        // Upsert: check if row exists for this apartment
         const { data: existing } = await supabase
           .from("apartment_maintenance")
           .select("id")
@@ -545,6 +544,35 @@ Deno.serve(async (req) => {
             .from("apartment_maintenance")
             .insert({ apartment_id: assignAptId, property_id: assignPropId });
           if (error) throw error;
+        }
+        return json({ success: true });
+      }
+
+      case "bulk_assign_apartments_to_property": {
+        const { apartment_ids, property_id: bulkPropId } = body;
+        if (!Array.isArray(apartment_ids) || !bulkPropId) {
+          return new Response(JSON.stringify({ error: "apartment_ids array and property_id required" }), {
+            status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        for (const aptId of apartment_ids) {
+          const { data: ex } = await supabase
+            .from("apartment_maintenance")
+            .select("id")
+            .eq("apartment_id", aptId)
+            .maybeSingle();
+          if (ex) {
+            const { error } = await supabase
+              .from("apartment_maintenance")
+              .update({ property_id: bulkPropId })
+              .eq("id", ex.id);
+            if (error) throw error;
+          } else {
+            const { error } = await supabase
+              .from("apartment_maintenance")
+              .insert({ apartment_id: aptId, property_id: bulkPropId });
+            if (error) throw error;
+          }
         }
         return json({ success: true });
       }
