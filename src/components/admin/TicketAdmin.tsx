@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -17,6 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign, CalendarDays, Send, AlertCircle, FileText, Tag, History, BarChart3, Settings, Bell } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
 
 // ── Types ──
@@ -359,6 +360,63 @@ const HistoryTimeline = ({ history }: { history: TicketHistoryEntry[] }) => {
         </div>
       ))}
     </div>
+  );
+};
+
+const ApartmentBulkAssign = ({ availableApts, propertyId, callApi, fetchApartmentAssignments, getSimpleName, toast }: {
+  availableApts: { id: string; name: string }[];
+  propertyId: string;
+  callApi: (action: string, data?: any) => Promise<any>;
+  fetchApartmentAssignments: () => Promise<void>;
+  getSimpleName: (name: string) => string;
+  toast: (opts: any) => void;
+}) => {
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [saving, setSaving] = useState(false);
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" size="sm" className="h-8 text-xs gap-1">
+          <Plus className="w-3 h-3" />Lisää huoneistoja ({availableApts.length})
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-64 p-2 max-h-72 overflow-y-auto" align="start">
+        <div className="space-y-1">
+          <p className="text-xs font-medium text-muted-foreground px-1 mb-1">Valitse huoneistot</p>
+          {availableApts.sort((a, b) => getSimpleName(a.name).localeCompare(getSimpleName(b.name))).map(apt => (
+            <label key={apt.id} className="flex items-center gap-2 px-1 py-1 rounded hover:bg-accent cursor-pointer text-xs">
+              <Checkbox
+                checked={selectedIds.includes(apt.id)}
+                onCheckedChange={(checked) => {
+                  setSelectedIds(prev => checked ? [...prev, apt.id] : prev.filter(id => id !== apt.id));
+                }}
+              />
+              {getSimpleName(apt.name)}
+            </label>
+          ))}
+          <Button
+            size="sm"
+            className="w-full mt-2 h-7 text-xs"
+            disabled={selectedIds.length === 0 || saving}
+            onClick={async () => {
+              setSaving(true);
+              try {
+                await callApi("bulk_assign_apartments_to_property", {
+                  apartment_ids: selectedIds,
+                  property_id: propertyId
+                });
+                await fetchApartmentAssignments();
+                setSelectedIds([]);
+                toast({ title: `${selectedIds.length} huoneistoa allokoitu kiinteistölle` });
+              } catch (e) { console.error(e); }
+              setSaving(false);
+            }}
+          >
+            {saving ? "Tallennetaan..." : `Tallenna (${selectedIds.length})`}
+          </Button>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };
 
@@ -2828,20 +2886,14 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                                 </div>
                               )}
                               {!isViewer && availableApts.length > 0 && (
-                                <Select onValueChange={async (aptId) => {
-                                  try {
-                                    await callApi("assign_apartment_to_property", { apartment_id: aptId, property_id: property.id });
-                                    await fetchApartmentAssignments();
-                                    toast({ title: "Huoneisto allokoitu kiinteistölle" });
-                                  } catch (e) { console.error(e); }
-                                }}>
-                                  <SelectTrigger className="w-[220px] h-8 text-xs"><SelectValue placeholder="+ Lisää huoneisto" /></SelectTrigger>
-                                  <SelectContent>
-                                    {availableApts.sort((a, b) => getSimpleName(a.name).localeCompare(getSimpleName(b.name))).map(apt => (
-                                      <SelectItem key={apt.id} value={apt.id}>{getSimpleName(apt.name)}</SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
+                                <ApartmentBulkAssign
+                                  availableApts={availableApts}
+                                  propertyId={property.id}
+                                  callApi={callApi}
+                                  fetchApartmentAssignments={fetchApartmentAssignments}
+                                  getSimpleName={getSimpleName}
+                                  toast={toast}
+                                />
                               )}
                             </div>
                           );
