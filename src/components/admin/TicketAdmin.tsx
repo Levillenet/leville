@@ -1399,6 +1399,25 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         for (const apt of ta) {
           addToGroup(apt.apartment_id, t);
         }
+      } else if (ta.length === 0 && t.description?.includes("Huoneistot (")) {
+        // Fallback for old tickets without ticket_apartments rows:
+        // Parse apartment names from description "Huoneistot (N): Name1, Name2, ..."
+        const match = t.description.match(/Huoneistot \(\d+\):\s*(.+)/);
+        if (match) {
+          const names = match[1].split(",").map(n => n.trim()).filter(Boolean);
+          const matchedIds = names
+            .map(name => apartmentList.find(a => getSimpleName(a.name) === name)?.id)
+            .filter((id): id is string => !!id);
+          if (matchedIds.length > 1) {
+            for (const aptId of matchedIds) {
+              addToGroup(aptId, t);
+            }
+          } else {
+            addToGroup(t.apartment_id, t);
+          }
+        } else {
+          addToGroup(t.apartment_id, t);
+        }
       } else {
         addToGroup(t.apartment_id, t);
       }
