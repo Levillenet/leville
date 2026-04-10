@@ -1651,6 +1651,29 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   </div>
                 )}
 
+                {/* Per-apartment resolution */}
+                {ticketApartments.length > 1 && (
+                  <div className="space-y-2">
+                    <Label className="text-xs font-semibold">Kohteiden kuittaus ({ticketApartments.filter(a => a.status === "resolved").length}/{ticketApartments.length})</Label>
+                    <div className="space-y-1.5">
+                      {ticketApartments.map((ta) => (
+                        <div key={ta.id} className={`flex items-center justify-between p-2 rounded border text-sm ${ta.status === "resolved" ? "bg-emerald-50 border-emerald-200" : "bg-background border-border"}`}>
+                          <span className="font-medium">{ta.apartment_name}</span>
+                          {ta.status === "resolved" ? (
+                            <Badge variant="secondary" className="text-xs">✅ Kuitattu {ta.resolved_at ? new Date(ta.resolved_at).toLocaleDateString("fi-FI") : ""}</Badge>
+                          ) : !isViewer ? (
+                            <Button size="sm" variant="outline" className="h-7 text-xs border-emerald-400 text-emerald-700 hover:bg-emerald-50" onClick={() => handleResolveApartment(ta.id)}>
+                              ✅ Kuittaa
+                            </Button>
+                          ) : (
+                            <Badge variant="outline" className="text-xs">Avoin</Badge>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Resolved info */}
                 {selectedTicket.status === "resolved" && selectedTicket.resolved_at && (
                   <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg space-y-1">
@@ -1670,6 +1693,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
                 {!isViewer && selectedTicket.status !== "resolved" && (
                   <div className="space-y-2">
+                    {ticketApartments.length <= 1 && (
                     <Button 
                       className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
                       onClick={async () => {
@@ -1694,12 +1718,13 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       <CheckCircle2 className="w-4 h-4 mr-2" />
                       ✅ Merkitse tehdyksi
                     </Button>
+                    )}
                     <Button
                       variant="outline"
                       className="w-full border-orange-400 text-orange-700 hover:bg-orange-50"
                       onClick={async () => {
                         try {
-                          const aptName = getApartmentName(selectedTicket.apartment_id);
+                          const aptName = getSimpleApartmentName(selectedTicket.apartment_id);
                           const result = await callApi("send_urgent_reminder", {
                             ticket_id: selectedTicket.id,
                             apartment_name: aptName,
