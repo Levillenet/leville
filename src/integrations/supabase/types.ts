@@ -1404,6 +1404,47 @@ export type Database = {
         }
         Relationships: []
       }
+      ticket_apartments: {
+        Row: {
+          apartment_id: string
+          apartment_name: string
+          created_at: string
+          id: string
+          resolve_token: string
+          resolved_at: string | null
+          status: string
+          ticket_id: string
+        }
+        Insert: {
+          apartment_id: string
+          apartment_name?: string
+          created_at?: string
+          id?: string
+          resolve_token?: string
+          resolved_at?: string | null
+          status?: string
+          ticket_id: string
+        }
+        Update: {
+          apartment_id?: string
+          apartment_name?: string
+          created_at?: string
+          id?: string
+          resolve_token?: string
+          resolved_at?: string | null
+          status?: string
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_apartments_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ticket_categories: {
         Row: {
           color: string
