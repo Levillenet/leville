@@ -2035,7 +2035,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       if (!phone) return null;
                       
                       const aptName = getSimpleApartmentName(selectedTicket.apartment_id);
-                      const siteBase = "https://leville.lovable.app";
+                      const siteBase = "leville.lovable.app";
                       
                       // Build changeover info
                       let changeoverText = "";
