@@ -68,15 +68,7 @@ interface MaintenanceCompany {
   created_at: string;
 }
 
-interface ApartmentAssignment {
-  id: string;
-  apartment_id: string;
-  maintenance_company_id: string;
-  contact_email_override: string | null;
-  property_id: string | null;
-  assignment_type: string;
-  created_at: string;
-}
+// ApartmentAssignment interface removed — no longer used
 
 interface EmailLog {
   id: string;
@@ -370,7 +362,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [activeTab, setActiveTab] = useState("tickets");
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [companies, setCompanies] = useState<MaintenanceCompany[]>([]);
-  const [assignments, setAssignments] = useState<ApartmentAssignment[]>([]);
+  const [_assignments, setAssignments] = useState<any[]>([]);
   const [categories, setCategories] = useState<TicketCategory[]>([]);
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
@@ -546,12 +538,19 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     if (newTicket.email_override && newTicket.email_override.trim()) {
       setEmailPreview({ email: newTicket.email_override.trim(), source: "ticket_override" });
       setLoadingEmailPreview(false);
-    } else if (selectedApartmentIds.length === 1) {
-      checkEmail(selectedApartmentIds[0], undefined, newTicket.assignment_type);
+    } else if (newTicket.maintenance_company_id) {
+      // Resolve email from selected company
+      const company = companies.find(c => c.id === newTicket.maintenance_company_id);
+      if (company?.email) {
+        setEmailPreview({ email: company.email, source: "company" });
+      } else {
+        setEmailPreview(null);
+      }
+      setLoadingEmailPreview(false);
     } else {
       setEmailPreview(null);
     }
-  }, [selectedApartmentIds, newTicket.email_override, newTicket.assignment_type]);
+  }, [selectedApartmentIds, newTicket.email_override, newTicket.assignment_type, newTicket.maintenance_company_id, companies]);
 
   useEffect(() => {
     if (selectedApartmentIds.length === 1 && showCreateDialog) {
@@ -620,11 +619,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           `Huoneistot (${apartmentIdsToCreate.length}): ${aptNames.join(", ")}`;
       }
 
-      // Resolve email: manual override > default from first apartment
+      // Resolve email from selected maintenance company
       let resolvedEmail = newTicket.email_override || null;
-      if (!resolvedEmail && apartmentIdsToCreate.length >= 1 && newTicket.target_type === "apartment") {
-        const defaultEmail = await resolveEmailForApartment(apartmentIdsToCreate[0], newTicket.assignment_type);
-        if (defaultEmail !== "unknown") resolvedEmail = defaultEmail;
+      if (!resolvedEmail && newTicket.maintenance_company_id) {
+        const company = companies.find(c => c.id === newTicket.maintenance_company_id);
+        if (company?.email) resolvedEmail = company.email;
       }
 
       const ticketData: any = {
@@ -866,27 +865,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
   };
 
-  const handleAssignApartment = async (companyId: string, apartmentId: string, assignmentType: string = "kiinteistohuolto") => {
-    try {
-      await callApi("assign_apartment", {
-        assignment: { apartment_id: apartmentId, maintenance_company_id: companyId, assignment_type: assignmentType },
-      });
-      toast({ title: "Huoneisto liitetty" });
-      fetchCompanies();
-    } catch (e: any) {
-      toast({ title: "Virhe", description: e.message, variant: "destructive" });
-    }
-  };
-
-  const handleUnassignApartment = async (assignmentId: string) => {
-    try {
-      await callApi("unassign_apartment", { id: assignmentId });
-      toast({ title: "Liitos poistettu" });
-      fetchCompanies();
-    } catch (e: any) {
-      toast({ title: "Virhe", description: e.message, variant: "destructive" });
-    }
-  };
+  // (handleAssignApartment and handleUnassignApartment removed — assignments managed via ticket dropdown)
 
   // Category CRUD
   const handleSaveCategory = async () => {
@@ -956,15 +935,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
   };
 
-  const handleAssignApartmentToProperty = async (assignmentId: string, propertyId: string | null) => {
-    try {
-      await callApi("assign_apartment_to_property", { assignment_id: assignmentId, property_id: propertyId });
-      toast({ title: "Kiinteistö päivitetty" });
-      fetchCompanies();
-    } catch (e: any) {
-      toast({ title: "Virhe", description: e.message, variant: "destructive" });
-    }
-  };
+  // (handleAssignApartmentToProperty removed — assignments managed via ticket dropdown)
 
   // ── PDF EXPORT (Kausihuolto) ──
   const generatePdf = (openInNewTab = false) => {
