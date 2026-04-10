@@ -2154,6 +2154,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       </div>
                     )}
 
+                    {newTicket.type !== "changeover" && (
                     <div>
                       <Label>Prioriteetti</Label>
                       <RadioGroup value={newTicket.priority} onValueChange={(val) => setNewTicket({ ...newTicket, priority: val as any })} className="flex gap-4 mt-1">
@@ -2161,6 +2162,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         <div className="flex items-center space-x-2"><RadioGroupItem value="2" id="prio-2" /><Label htmlFor="prio-2">2 – Muistutus tarvitaan</Label></div>
                       </RadioGroup>
                     </div>
+                    )}
 
                     {/* Recurrence */}
                     <div className="border rounded-lg p-3 bg-muted/30 space-y-3">
@@ -2650,7 +2652,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                           <SelectContent>
                             <SelectItem value="all">Kaikki</SelectItem>
                             <SelectItem value="seasonal">Kausihuolto</SelectItem>
-                            <SelectItem value="urgent">Hoidettava mahdollisimman pian</SelectItem>
+                            <SelectItem value="urgent">Hoidettava heti</SelectItem>
+                            <SelectItem value="changeover">Vaihdon yhteydessä</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
