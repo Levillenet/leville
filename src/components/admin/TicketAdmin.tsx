@@ -2346,7 +2346,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <Button
               variant={ticketListTab === "siivous" ? "default" : "ghost"}
               size="sm"
-              onClick={() => setTicketListTab("siivous")}
+              onClick={() => { setTicketListTab("siivous"); setSelectedForDelete([]); }}
               className="rounded-b-none"
             >
               🧹 Siivous ({siivoTickets.length})
@@ -2354,7 +2354,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <Button
               variant={ticketListTab === "korjaus" ? "default" : "ghost"}
               size="sm"
-              onClick={() => setTicketListTab("korjaus")}
+              onClick={() => { setTicketListTab("korjaus"); setSelectedForDelete([]); }}
               className="rounded-b-none"
             >
               🔧 Korjaus ({korjausTickets.length})
@@ -2362,7 +2362,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <Button
               variant={ticketListTab === "resolved" ? "default" : "ghost"}
               size="sm"
-              onClick={() => setTicketListTab("resolved")}
+              onClick={() => { setTicketListTab("resolved"); setSelectedForDelete([]); }}
               className="rounded-b-none"
             >
               ✅ Ratkaistut ({resolvedTickets.length})
