@@ -1,30 +1,41 @@
 
 
-# Korjaus: Uudelleenaktivoinnin muistutusajastus ja loki
+# Huoneistojen allokointi kiinteistöille + kiinteistöittäin ryhmitelty raportti
 
-## Ongelma
-Kun tiketti aktivoidaan uudelleen, historiassa ei näy uudelleen ajastettuja muistutuksia eikä sähköpostilokissa näy uutta ajastettua viestiä. Syitä on kaksi:
-
-1. **Edellinen testi ajoi vanhaa koodia** — muistutusajastuslogiikka lisättiin edge functioniin, mutta se deployattiin vasta testin jälkeen
-2. **UI ei päivitä sähköpostilokia** — `fetchEmailLog` puuttuu reactivation-käsittelijästä
-3. **`changed_by` puuttuu** — kutsusta ei lähetetä tekijätietoa
+## Nykytila
+- `apartment_maintenance`-taulu on olemassa ja siinä on `property_id`-kenttä, mutta se ei ole käytössä
+- `getPropertyForApt()` palauttaa aina `null` → kiinteistöraportti laittaa kaiken "Määrittelemätön kiinteistö" alle
+- Kiinteistöt-välilehti näyttää vain kiinteistöjen tiedot, mutta huoneistojen allokointia ei ole
 
 ## Muutokset
 
-### 1. TicketAdmin.tsx — reactivation-käsittelijä (rivi ~1752)
-- Lisää `fetchEmailLog(selectedTicket.id)` kutsun jälkeen
-- Lisää `changed_by: "admin"` API-kutsuun
+### 1. Kiinteistöt-välilehti: huoneistoallokointi-UI
+- Jokaisen kiinteistökortin alle lisätään lista allokoiduista huoneistoista
+- Lisätään "Lisää huoneisto" -painike, joka avaa valikon vapaista (ei vielä allokoiduista) huoneistoista
+- Huoneiston voi poistaa kiinteistöltä roskakorikuvakkeella
+- Ladataan `apartment_maintenance`-taulun data frontendiin
 
-### 2. Edge function: lisää console.log debuggausta (manage-tickets/index.ts, reactivate_ticket case)
-- Lisää lokit jotta nähdään menikö muistutusajastus läpi vai ei
-- Varmistetaan logiikan oikeellisuus: aikavyöhykekorjaus `scheduledFor`-laskennassa (Deno käyttää UTC:tä, mutta `guest_departure_date + "T18:00:00"` parsitaan UTC:nä → OK tässä tapauksessa)
+### 2. Edge function: apartment_maintenance CRUD
+`manage-tickets`-funktioon lisätään kaksi uutta actionia:
+- `assign_apartment_to_property`: upsert `apartment_maintenance`-tauluun (apartment_id + property_id)
+- `unassign_apartment_from_property`: poistaa property_id:n apartment_maintenance-riviltä
 
-### 3. Redeploy edge function
-- Varmistetaan uusin koodi on ajossa
+### 3. getPropertyForApt() -funktio
+- Päivitetään käyttämään ladattua `apartment_maintenance`-dataa → palauttaa oikean kiinteistön
+- Tämä korjaa automaattisesti kiinteistöraportin ryhmittelyn
+
+### 4. Kausihuoltoraportti kiinteistöittäin
+- `createPropertyReportPdf` toimii jo nyt oikein rakenteeltaan (ryhmittelee kiinteistö → huoneisto → kategoria)
+- Kun `getPropertyForApt` alkaa palauttaa oikeita arvoja, multi-apartment-tiketit jakautuvat kiinteistöittäin oikein
+- **Lisämuutos**: multi-apartment-tiketeissä (esim. IV-koneiden puhdistus) raportti näyttää kunkin huoneiston oman kiinteistön alla, ei koko tikettiä yhtenä ryhmänä
+  - Luetaan `ticket_apartments`-data ja jaetaan tiketti kiinteistöittäin niin, että Glacier-huoneistot näkyvät Glacierin alla ja Skistar-huoneistot Skistarin alla
+
+### 5. Kausihuoltoraportin PDF-suodatin
+- Lisätään kiinteistösuodatin kausihuoltoraportin dialogiin (valitse kiinteistö → tulostaa vain sen kiinteistön huoneistojen tiketit)
 
 ## Muutettavat tiedostot
 | Tiedosto | Muutos |
 |---|---|
-| `src/components/admin/TicketAdmin.tsx` | Lisää `fetchEmailLog` + `changed_by` reactivation-kutsuun |
-| `supabase/functions/manage-tickets/index.ts` | Lisää debug-logit reactivate_ticket-haaraan |
+| `supabase/functions/manage-tickets/index.ts` | Uudet actionit: assign/unassign apartment to property + list_apartment_assignments |
+| `src/components/admin/TicketAdmin.tsx` | Kiinteistöt-tab: allokointiUI, fetchApartmentAssignments, getPropertyForApt korjaus, kausihuolto-PDF ryhmittely multi-apartment-tiketeille |
 
