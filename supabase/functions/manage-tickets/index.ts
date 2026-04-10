@@ -470,6 +470,63 @@ Deno.serve(async (req) => {
         return json(data);
       }
 
+      // ── TICKET APARTMENTS (per-apartment resolution) ──
+      case "list_ticket_apartments": {
+        const { ticket_id } = body;
+        const { data, error } = await supabase
+          .from("ticket_apartments")
+          .select("*")
+          .eq("ticket_id", ticket_id)
+          .order("apartment_name");
+        if (error) throw error;
+        return json(data);
+      }
+
+      case "resolve_apartment": {
+        const { ticket_apartment_id, changed_by: resolveBy } = body;
+        const { data: ta, error: taErr } = await supabase
+          .from("ticket_apartments")
+          .select("*")
+          .eq("id", ticket_apartment_id)
+          .single();
+        if (taErr || !ta) throw taErr || new Error("Not found");
+
+        if (ta.status === "resolved") {
+          return json({ already: true });
+        }
+
+        await supabase
+          .from("ticket_apartments")
+          .update({ status: "resolved", resolved_at: new Date().toISOString() })
+          .eq("id", ticket_apartment_id);
+
+        await addHistory(supabase, ta.ticket_id, resolveBy || "admin", "apartment_resolved", null, ta.apartment_name, "resolved");
+
+        // Check if all apartments are resolved → auto-resolve the ticket
+        const { data: allTa } = await supabase
+          .from("ticket_apartments")
+          .select("status")
+          .eq("ticket_id", ta.ticket_id);
+
+        if (allTa && allTa.every((a: any) => a.status === "resolved")) {
+          await supabase
+            .from("tickets")
+            .update({ status: "resolved", resolved_at: new Date().toISOString(), resolved_by: resolveBy || "admin", updated_at: new Date().toISOString() })
+            .eq("id", ta.ticket_id);
+
+          await addHistory(supabase, ta.ticket_id, resolveBy || "admin", "status", "open", "resolved", "resolved");
+
+          // Cancel scheduled reminders
+          await supabase
+            .from("ticket_email_log")
+            .update({ status: "cancelled", error_message: "Kaikki kohteet kuitattu – tiketti ratkaistu" })
+            .eq("ticket_id", ta.ticket_id)
+            .eq("status", "scheduled");
+        }
+
+        return json({ success: true });
+      }
+
       // ── SCHEDULE DATE REMINDER (saves pending, sent by ticket-reminders cron) ──
       case "schedule_date_reminder": {
         const { ticket_id, target_date, changed_by, apartment_name } = body;
