@@ -203,42 +203,7 @@ Deno.serve(async (req) => {
           }
         }
 
-        // Auto-create recurring ticket when resolved
-        if (updates.status === "resolved" && data.recurrence_months && data.recurrence_months > 0) {
-          const nextDate = new Date();
-          nextDate.setMonth(nextDate.getMonth() + data.recurrence_months);
-          const nextDateStr = nextDate.toLocaleDateString("fi-FI", { day: "numeric", month: "long", year: "numeric" });
-
-          const newTicketData = {
-            apartment_id: data.apartment_id,
-            title: data.title,
-            description: data.description,
-            type: data.type,
-            priority: data.priority,
-            send_email: false,
-            target_type: data.target_type,
-            category_id: data.category_id,
-            property_id: data.property_id,
-            email_override: data.email_override,
-            recurrence_months: data.recurrence_months,
-            recurrence_source_id: data.recurrence_source_id || data.id,
-            recurrence_note: data.recurrence_note,
-            assignment_type: data.assignment_type || "kiinteistohuolto",
-          };
-
-          const { data: newTicket, error: newErr } = await supabase
-            .from("tickets")
-            .insert(newTicketData)
-            .select()
-            .single();
-
-          if (!newErr && newTicket) {
-            await addHistory(supabase, newTicket.id, "system", null, null, 
-              `Toistuva tiketti luotu automaattisesti (${data.recurrence_months} kk välein). Edellinen: ${data.id.slice(0, 8)}`, "created");
-            await addHistory(supabase, id, "system", null, null, 
-              `Seuraava toistuva tiketti luotu: ${newTicket.id.slice(0, 8)} (ajastettu ${nextDateStr})`, "recurrence_created");
-          }
-        }
+        // Recurrence is now handled by the ticket-reminders cron — no longer on resolve
 
         return json(data);
       }
@@ -836,7 +801,7 @@ async function doSendEmail(
     urgentNote = `<p style="color:#d32f2f;font-weight:bold;font-size:13px;margin:8px 0;">⚡ Hoidetaan heti, vaikka asiakas on sisällä.</p>`;
   }
 
-  const siteBase = "https://id-preview--965c8e14-cb63-4d51-9c89-2e41dfb8e866.lovable.app";
+  const siteBase = Deno.env.get("SITE_URL") || "https://leville.lovable.app";
 
   // Build resolve buttons: per-apartment if multi, single otherwise
   const hasMultipleApartments = ticketApartments && ticketApartments.length > 1;
