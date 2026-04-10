@@ -641,6 +641,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         recurrence_months: newTicket.recurrence_months > 0 ? newTicket.recurrence_months : null,
         recurrence_note: newTicket.recurrence_note || null,
         assignment_type: newTicket.assignment_type,
+        maintenance_company_id: newTicket.maintenance_company_id || null,
       };
       const aptName = aptNames.join(", ");
       // Pass apartment_ids for per-apartment tracking
