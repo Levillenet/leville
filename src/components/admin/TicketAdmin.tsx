@@ -535,7 +535,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   const loadAll = async () => {
     setLoading(true);
-    await Promise.all([fetchTickets(), fetchCompanies(), fetchCategories(), fetchProperties()]);
+    await Promise.all([fetchTickets(), fetchCompanies(), fetchCategories(), fetchProperties(), fetchApartmentAssignments()]);
     setLoading(false);
   };
 
@@ -1057,8 +1057,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     // No longer uses assignments — find from ticket's maintenance_company_id
     return "–";
   };
-  const getPropertyForApt = (_aptId: string) => {
-    return null;
+  const getPropertyForApt = (aptId: string): Property | null => {
+    const assignment = apartmentAssignments.find(a => a.apartment_id === aptId);
+    if (!assignment) return null;
+    return properties.find(p => p.id === assignment.property_id) || null;
   };
 
   const createTicketsPdf = (exportTickets: Ticket[], title: string, _filters?: any) => {
