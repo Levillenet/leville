@@ -5,7 +5,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const siteUrl = Deno.env.get("SITE_URL") || "https://id-preview--965c8e14-cb63-4d51-9c89-2e41dfb8e866.lovable.app";
+const siteUrl = Deno.env.get("SITE_URL") || "https://leville.lovable.app";
 
 function redirectResponse(status: "success" | "already" | "invalid" | "error", title?: string) {
   const redirectUrl = new URL("/tiketti-ratkaistu", siteUrl);

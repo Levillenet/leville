@@ -69,12 +69,15 @@ export default function TicketResolved() {
       ? statusParam
       : "error";
 
+  const apt = searchParams.get("apt");
+
   useEffect(() => {
     if (!token) return;
 
-    const resolveUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/resolve-ticket-public?token=${encodeURIComponent(token)}`;
+    let resolveUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/resolve-ticket-public?token=${encodeURIComponent(token)}`;
+    if (apt) resolveUrl += `&apt=1`;
     window.location.replace(resolveUrl);
-  }, [token]);
+  }, [token, apt]);
 
   const content = contentMap[status];
   const Icon = content.icon;
