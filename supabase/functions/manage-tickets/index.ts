@@ -133,7 +133,7 @@ Deno.serve(async (req) => {
               const reminderTime = new Date(data.guest_departure_date + "T03:50:00Z"); // ~06:50 Helsinki
               await supabase.from("ticket_email_log").insert({
                 ticket_id: data.id,
-                sent_to: resolvedEmail,
+                sent_to: reminderEmail,
                 status: "scheduled",
                 email_type: "changeover_reminder",
                 scheduled_for: reminderTime.toISOString(),
