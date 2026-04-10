@@ -25,8 +25,10 @@ interface Ticket {
   apartment_id: string;
   title: string;
   description: string | null;
-  type: "seasonal" | "urgent";
+  type: "seasonal" | "urgent" | "changeover";
   priority: "1" | "2";
+  guest_departure_date: string | null;
+  next_guest_arrival_date: string | null;
   status: "open" | "in_progress" | "resolved";
   send_email: boolean;
   notes: string | null;
@@ -380,7 +382,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     apartment_id: "",
     title: "",
     description: "",
-    type: "seasonal" as "seasonal" | "urgent",
+    type: "seasonal" as "seasonal" | "urgent" | "changeover",
     priority: "1" as "1" | "2",
     send_email: false,
     category_id: "",
@@ -595,7 +597,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         title: newTicket.title,
         description: finalDescription || null,
         type: newTicket.type,
-        priority: newTicket.priority,
+        priority: newTicket.type === "changeover" ? "1" : newTicket.priority,
         send_email: newTicket.send_email,
         target_type: newTicket.target_type,
         apartment_id: apartmentIdsToCreate[0],
@@ -1220,7 +1222,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       y += 4;
       doc.setFontSize(8);
       doc.setTextColor(100);
-      doc.text(`  ${t.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto"} | P${t.priority} | ${statusLabel(t.status)} | ${new Date(t.created_at).toLocaleDateString("fi-FI")}${t.status === "resolved" ? ` \u2013 ${new Date(t.updated_at).toLocaleDateString("fi-FI")}` : ""}`, margin + 2, y);
+      const typeLabels: Record<string, string> = { urgent: "Hoidettava heti", seasonal: "Kausihuolto", changeover: "Vaihdon yhteydessä" };
+      doc.text(`  ${typeLabels[t.type] || t.type} | P${t.priority} | ${statusLabel(t.status)} | ${new Date(t.created_at).toLocaleDateString("fi-FI")}${t.status === "resolved" ? ` \u2013 ${new Date(t.updated_at).toLocaleDateString("fi-FI")}` : ""}`, margin + 2, y);
       y += 6;
     }
 
@@ -1418,11 +1421,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   };
 
   const typeBadge = (type: string) => {
-    return type === "urgent" ? (
-      <Badge variant="destructive" className="gap-1"><AlertTriangle className="w-3 h-3" />Hoidettava mahdollisimman pian</Badge>
-    ) : (
-      <Badge variant="outline">Kausihuolto</Badge>
-    );
+    if (type === "urgent") return <Badge variant="destructive" className="gap-1"><AlertTriangle className="w-3 h-3" />Hoidettava heti</Badge>;
+    if (type === "changeover") return <Badge className="bg-blue-600 text-white gap-1"><CalendarDays className="w-3 h-3" />Vaihdon yhteydessä</Badge>;
+    return <Badge variant="outline">Kausihuolto</Badge>;
   };
 
   const getScheduledReminderText = () => {
@@ -1490,6 +1491,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     <p>{selectedTicket.send_email ? "Kyllä" : "Ei"}</p>
                   </div>
                 </div>
+
+                {/* Changeover departure/arrival info */}
+                {selectedTicket.type === "changeover" && (selectedTicket.guest_departure_date || selectedTicket.next_guest_arrival_date) && (
+                  <div className="p-3 bg-blue-50 border border-blue-200 rounded space-y-1">
+                    <Label className="text-xs font-semibold text-blue-800">📅 Vaihtojakso</Label>
+                    {selectedTicket.guest_departure_date && (
+                      <p className="text-sm text-blue-700">Asiakas lähtee: <strong>{new Date(selectedTicket.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}</strong></p>
+                    )}
+                    {selectedTicket.next_guest_arrival_date && (
+                      <p className="text-sm text-blue-700">Seuraava asiakas saapuu: <strong>{new Date(selectedTicket.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })}</strong></p>
+                    )}
+                    <p className="text-xs text-blue-600">Muistutus lähetetään automaattisesti lähtöpäivän aamuna</p>
+                  </div>
+                )}
 
                 {/* Email override display */}
                 {selectedTicket.email_override && (
@@ -1895,7 +1910,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               <SelectContent>
                 <SelectItem value="all">Kaikki tyypit</SelectItem>
                 <SelectItem value="seasonal">Kausihuolto</SelectItem>
-                <SelectItem value="urgent">Hoidettava mahdollisimman pian</SelectItem>
+                <SelectItem value="urgent">Hoidettava heti</SelectItem>
+                <SelectItem value="changeover">Vaihdon yhteydessä</SelectItem>
               </SelectContent>
             </Select>
 
@@ -2088,10 +2104,17 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     </div>
                     <div>
                       <Label>Tyyppi</Label>
-                      <RadioGroup value={newTicket.type} onValueChange={(val) => setNewTicket({ ...newTicket, type: val as any })} className="flex gap-4 mt-1">
+                      <RadioGroup value={newTicket.type} onValueChange={(val) => setNewTicket({ ...newTicket, type: val as any })} className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-1">
                         <div className="flex items-center space-x-2"><RadioGroupItem value="seasonal" id="type-seasonal" /><Label htmlFor="type-seasonal">Kausihuolto</Label></div>
-                        <div className="flex items-center space-x-2"><RadioGroupItem value="urgent" id="type-urgent" /><Label htmlFor="type-urgent">Hoidettava mahdollisimman pian</Label></div>
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="urgent" id="type-urgent" /><Label htmlFor="type-urgent">Hoidettava heti</Label></div>
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="changeover" id="type-changeover" /><Label htmlFor="type-changeover">Vaihdon yhteydessä</Label></div>
                       </RadioGroup>
+                      {newTicket.type === "changeover" && (
+                        <p className="text-xs text-muted-foreground mt-2">📅 Lähtö- ja saapumistiedot haetaan automaattisesti Beds24:stä. Muistutus lähetetään automaattisesti asiakkaan lähtöpäivän aamuna.</p>
+                      )}
+                      {newTicket.type === "urgent" && (
+                        <p className="text-xs text-muted-foreground mt-2">⚡ Hoidetaan heti, vaikka asiakas olisi sisällä.</p>
+                      )}
                     </div>
 
                     <div>
@@ -2146,6 +2169,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       </div>
                     )}
 
+                    {newTicket.type !== "changeover" && (
                     <div>
                       <Label>Prioriteetti</Label>
                       <RadioGroup value={newTicket.priority} onValueChange={(val) => setNewTicket({ ...newTicket, priority: val as any })} className="flex gap-4 mt-1">
@@ -2153,6 +2177,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         <div className="flex items-center space-x-2"><RadioGroupItem value="2" id="prio-2" /><Label htmlFor="prio-2">2 – Muistutus tarvitaan</Label></div>
                       </RadioGroup>
                     </div>
+                    )}
 
                     {/* Recurrence */}
                     <div className="border rounded-lg p-3 bg-muted/30 space-y-3">
@@ -2642,7 +2667,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                           <SelectContent>
                             <SelectItem value="all">Kaikki</SelectItem>
                             <SelectItem value="seasonal">Kausihuolto</SelectItem>
-                            <SelectItem value="urgent">Hoidettava mahdollisimman pian</SelectItem>
+                            <SelectItem value="urgent">Hoidettava heti</SelectItem>
+                            <SelectItem value="changeover">Vaihdon yhteydessä</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>

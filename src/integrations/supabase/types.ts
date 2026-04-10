@@ -1515,7 +1515,9 @@ export type Database = {
           created_at: string
           description: string | null
           email_override: string | null
+          guest_departure_date: string | null
           id: string
+          next_guest_arrival_date: string | null
           notes: string | null
           priority: Database["public"]["Enums"]["ticket_priority"]
           property_id: string | null
@@ -1539,7 +1541,9 @@ export type Database = {
           created_at?: string
           description?: string | null
           email_override?: string | null
+          guest_departure_date?: string | null
           id?: string
+          next_guest_arrival_date?: string | null
           notes?: string | null
           priority?: Database["public"]["Enums"]["ticket_priority"]
           property_id?: string | null
@@ -1563,7 +1567,9 @@ export type Database = {
           created_at?: string
           description?: string | null
           email_override?: string | null
+          guest_departure_date?: string | null
           id?: string
+          next_guest_arrival_date?: string | null
           notes?: string | null
           priority?: Database["public"]["Enums"]["ticket_priority"]
           property_id?: string | null
@@ -1690,7 +1696,7 @@ export type Database = {
       app_role: "admin" | "super_admin"
       ticket_priority: "1" | "2"
       ticket_status: "open" | "in_progress" | "resolved"
-      ticket_type: "seasonal" | "urgent"
+      ticket_type: "seasonal" | "urgent" | "changeover"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1821,7 +1827,7 @@ export const Constants = {
       app_role: ["admin", "super_admin"],
       ticket_priority: ["1", "2"],
       ticket_status: ["open", "in_progress", "resolved"],
-      ticket_type: ["seasonal", "urgent"],
+      ticket_type: ["seasonal", "urgent", "changeover"],
     },
   },
 } as const

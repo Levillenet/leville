@@ -42,6 +42,20 @@ Deno.serve(async (req) => {
 
       case "create_ticket": {
         const { ticket, changed_by, apartment_name } = body;
+        
+        // For changeover tickets, auto-fetch departure/arrival from Beds24
+        if (ticket.type === "changeover" && ticket.apartment_id) {
+          try {
+            const guestSchedule = await getNextGuestChangeover(ticket.apartment_id);
+            if (guestSchedule) {
+              ticket.guest_departure_date = guestSchedule.departure;
+              ticket.next_guest_arrival_date = guestSchedule.nextArrival;
+            }
+          } catch (e) {
+            console.error("Failed to fetch changeover dates:", e);
+          }
+        }
+
         const { data, error } = await supabase
           .from("tickets")
           .insert(ticket)
@@ -51,6 +65,11 @@ Deno.serve(async (req) => {
 
         // Log creation to history
         await addHistory(supabase, data.id, changed_by || "admin", null, null, null, "created");
+        
+        if (data.type === "changeover" && data.guest_departure_date) {
+          await addHistory(supabase, data.id, "system", null, null, 
+            `Vaihtojakso: lähtö ${data.guest_departure_date}, saapuminen ${data.next_guest_arrival_date || "–"}`, "updated");
+        }
 
         // Send email if requested
         let emailResult = null;
@@ -642,14 +661,38 @@ async function doSendEmail(
       : `<p style="color:#e65100;font-weight:bold;">⚠️ Tyhjä yö lähiaikoina – hoida nyt.</p>`
     : "";
 
+  // Guest changeover info for changeover tickets
+  let changeoverInfo = "";
+  if (ticket.guest_departure_date) {
+    const depDate = new Date(ticket.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
+    const arrDate = ticket.next_guest_arrival_date 
+      ? new Date(ticket.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })
+      : null;
+    changeoverInfo = `
+      <div style="background:#e3f2fd;border:1px solid #90caf9;border-radius:8px;padding:12px;margin:12px 0;">
+        <p style="margin:0 0 4px 0;font-weight:bold;color:#1565c0;">📅 Vaihtojakso</p>
+        <p style="margin:2px 0;font-size:14px;">Asiakas lähtee: <strong>${depDate}</strong></p>
+        ${arrDate ? `<p style="margin:2px 0;font-size:14px;">Seuraava asiakas saapuu: <strong>${arrDate}</strong></p>` : `<p style="margin:2px 0;font-size:14px;color:#388e3c;">Ei seuraavaa varausta – ei kiirettä.</p>`}
+      </div>
+    `;
+  }
+  
+  // Urgent ticket: note that it should be done even if guest is inside
+  let urgentNote = "";
+  if (ticket.type === "urgent") {
+    urgentNote = `<p style="color:#d32f2f;font-weight:bold;font-size:13px;margin:8px 0;">⚡ Hoidetaan heti, vaikka asiakas on sisällä.</p>`;
+  }
+
   const resolveUrl = `https://id-preview--965c8e14-cb63-4d51-9c89-2e41dfb8e866.lovable.app/tiketti-ratkaistu?token=${resolveToken}`;
 
   const htmlBody = `
     <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:16px;">
       <h2 style="margin:0 0 8px 0;font-size:18px;">${apartmentName}</h2>
       ${reminderNote}
+      ${urgentNote}
       <p style="margin:4px 0;font-size:15px;"><strong>${ticket.title}</strong></p>
       ${ticket.description ? `<p style="margin:4px 0;font-size:14px;color:#444;">${ticket.description}</p>` : ""}
+      ${changeoverInfo}
       <p style="margin:8px 0 20px 0;font-size:13px;color:#888;">Luotu: ${createdDate}</p>
       <div style="text-align:center;">
         <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:14px 28px;text-decoration:none;border-radius:8px;display:inline-block;font-size:16px;font-weight:bold;">
@@ -941,6 +984,54 @@ async function getNextEmptyNight(
   } catch (err) {
     console.error("getNextEmptyNight error:", err);
     return { emptyNights: [], nextEmpty: null };
+  }
+}
+
+// ── HELPER: Get next guest changeover from Beds24 ──
+async function getNextGuestChangeover(
+  apartmentId: string
+): Promise<{ departure: string; nextArrival: string | null } | null> {
+  const apiToken = Deno.env.get("BEDS24_API_TOKEN");
+  if (!apiToken) return null;
+
+  try {
+    const today = new Date();
+    const endDate = new Date(today.getTime() + 60 * 24 * 60 * 60 * 1000);
+    const lookbackDate = new Date(today.getTime() - 60 * 24 * 60 * 60 * 1000);
+
+    const bookingsUrl = `https://api.beds24.com/v2/bookings?roomId=${apartmentId}&arrivalFrom=${formatDate(lookbackDate)}&arrivalTo=${formatDate(endDate)}&departureFrom=${formatDate(today)}`;
+    const response = await fetch(bookingsUrl, {
+      headers: { token: apiToken, accept: "application/json" },
+    });
+
+    if (!response.ok) return null;
+
+    const bookingsJson = await response.json();
+    const bookings = (Array.isArray(bookingsJson) ? bookingsJson : bookingsJson?.data || [])
+      .map((b: any) => ({
+        arrival: b.arrival || b.checkIn,
+        departure: b.departure || b.checkOut,
+      }))
+      .filter((b: any) => b.arrival && b.departure)
+      .sort((a: any, b: any) => a.departure.localeCompare(b.departure));
+
+    if (bookings.length === 0) return null;
+
+    // Find the current or next booking (departure >= today)
+    const todayStr = formatDate(today);
+    const currentBooking = bookings.find((b: any) => b.departure >= todayStr);
+    if (!currentBooking) return null;
+
+    // Find the next booking after this one
+    const nextBooking = bookings.find((b: any) => b.arrival >= currentBooking.departure && b !== currentBooking);
+
+    return {
+      departure: currentBooking.departure,
+      nextArrival: nextBooking?.arrival || null,
+    };
+  } catch (err) {
+    console.error("getNextGuestChangeover error:", err);
+    return null;
   }
 }
 

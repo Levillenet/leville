@@ -115,7 +115,7 @@ Deno.serve(async (req) => {
             method: "POST",
             headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
             body: JSON.stringify({
-              from: "Leville.net Muistutus <admin@m.leville.net>",
+              from: "leville.net tehtävä <admin@m.leville.net>",
               to: [reminder.sent_to],
               subject: `[Leville Muistutus] ${apartmentName} – ${ticket.title} (${targetDateFormatted})`,
               html: htmlBody,
@@ -149,7 +149,110 @@ Deno.serve(async (req) => {
       }
     }
 
-    // ── PART 2: Auto-reminders for Priority 2 tickets ──
+    // ── PART 2: Auto-reminders for changeover tickets (departure morning) ──
+    if (isMorningRun) {
+      const { data: changeoverTickets } = await supabase
+        .from("tickets")
+        .select("*")
+        .eq("type", "changeover")
+        .in("status", ["open", "in_progress"])
+        .eq("guest_departure_date", today);
+
+      if (changeoverTickets && changeoverTickets.length > 0) {
+        console.log(`Found ${changeoverTickets.length} changeover tickets with departure today`);
+        for (const ticket of changeoverTickets) {
+          try {
+            // Check if already sent today
+            const { data: recentLogs } = await supabase
+              .from("ticket_email_log")
+              .select("id")
+              .eq("ticket_id", ticket.id)
+              .gte("sent_at", `${today}T00:00:00`)
+              .lte("sent_at", `${today}T23:59:59`)
+              .eq("status", "sent");
+
+            if (recentLogs && recentLogs.length > 0) continue;
+
+            const { email } = await resolveRecipientEmail(supabase, ticket.apartment_id, ticket.assignment_type || "kiinteistohuolto");
+            if (!email) continue;
+
+            const { data: mapping } = await supabase
+              .from("moder_property_mapping")
+              .select("property_name")
+              .eq("beds24_room_id", ticket.apartment_id)
+              .maybeSingle();
+
+            const apartmentName = mapping?.property_name || ticket.apartment_id;
+            const depDate = new Date(ticket.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
+            const arrDate = ticket.next_guest_arrival_date 
+              ? new Date(ticket.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })
+              : null;
+
+            // Ensure resolve_token exists
+            let resolveToken = ticket.resolve_token;
+            if (!resolveToken) {
+              resolveToken = crypto.randomUUID();
+              await supabase.from("tickets").update({ resolve_token: resolveToken }).eq("id", ticket.id);
+            }
+            const resolveUrl = `https://id-preview--965c8e14-cb63-4d51-9c89-2e41dfb8e866.lovable.app/tiketti-ratkaistu?token=${resolveToken}`;
+
+            const htmlBody = `
+              <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:16px;">
+                <h2 style="margin:0 0 8px 0;font-size:18px;">${apartmentName}</h2>
+                <p style="color:#1565c0;font-weight:bold;font-size:15px;">📅 Asiakas lähtee tänään – tehtävä odottaa!</p>
+                <p style="margin:4px 0;font-size:15px;"><strong>${ticket.title}</strong></p>
+                ${ticket.description ? `<p style="margin:4px 0;font-size:14px;color:#444;">${ticket.description}</p>` : ""}
+                <div style="background:#e3f2fd;border:1px solid #90caf9;border-radius:8px;padding:12px;margin:12px 0;">
+                  <p style="margin:0 0 4px 0;font-weight:bold;color:#1565c0;">📅 Vaihtojakso</p>
+                  <p style="margin:2px 0;font-size:14px;">Asiakas lähtee: <strong>${depDate}</strong></p>
+                  ${arrDate ? `<p style="margin:2px 0;font-size:14px;">Seuraava asiakas saapuu: <strong>${arrDate}</strong></p>` : `<p style="margin:2px 0;font-size:14px;color:#388e3c;">Ei seuraavaa varausta.</p>`}
+                </div>
+                <div style="text-align:center;margin-top:20px;">
+                  <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:14px 28px;text-decoration:none;border-radius:8px;display:inline-block;font-size:16px;font-weight:bold;">
+                    ✅ Merkitse tehdyksi
+                  </a>
+                </div>
+                <p style="color:#aaa;font-size:11px;margin-top:24px;">Leville.net</p>
+              </div>
+            `;
+
+            const emailResponse = await fetch("https://api.resend.com/emails", {
+              method: "POST",
+              headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
+              body: JSON.stringify({
+                from: "leville.net tehtävä <admin@m.leville.net>",
+                to: [email],
+                subject: `[Vaihto tänään] ${apartmentName} – ${ticket.title}`,
+                html: htmlBody,
+              }),
+            });
+
+            const emailResult = await emailResponse.json();
+            await supabase.from("ticket_email_log").insert({
+              ticket_id: ticket.id,
+              sent_to: email,
+              status: emailResponse.ok ? "sent" : "failed",
+              error_message: emailResponse.ok ? null : JSON.stringify(emailResult),
+              email_type: "changeover_reminder",
+            });
+
+            if (emailResponse.ok) {
+              sentCount++;
+              await supabase.from("ticket_history").insert({
+                ticket_id: ticket.id,
+                changed_by: "system",
+                action_type: "email_sent",
+                new_value: `Vaihtomuistutus lähetetty: ${email}`,
+              });
+            }
+          } catch (err) {
+            console.error(`Error processing changeover ticket ${ticket.id}:`, err);
+          }
+        }
+      }
+    }
+
+    // ── PART 3: Auto-reminders for Priority 2 tickets ──
     // Fetch all open Priority 2 tickets
     const { data: tickets, error } = await supabase
       .from("tickets")
@@ -159,7 +262,7 @@ Deno.serve(async (req) => {
 
     if (error) throw error;
     if (!tickets || tickets.length === 0) {
-      return json({ message: "No priority 2 tickets found", scheduledSent: scheduledSentCount, autoSent: 0 });
+      return json({ message: "No priority 2 tickets found", scheduledSent: scheduledSentCount, autoSent: sentCount });
     }
 
     console.log(`Found ${tickets.length} priority 2 open tickets`);
@@ -238,7 +341,7 @@ Deno.serve(async (req) => {
           method: "POST",
           headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
           body: JSON.stringify({
-            from: "Leville.net Muistutus <admin@m.leville.net>",
+            from: "leville.net tehtävä <admin@m.leville.net>",
             to: [email],
             subject: `[Leville Muistutus] ${apartmentName} – ${ticket.title} (tyhjä yö ${emptyDate})`,
             html: htmlBody,
