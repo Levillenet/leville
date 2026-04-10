@@ -560,6 +560,14 @@ async function doSendEmail(
     return { sent: false, error: "resend_api_key_missing" };
   }
 
+  // Ensure ticket has a resolve_token
+  let resolveToken = ticket.resolve_token;
+  if (!resolveToken) {
+    const newToken = crypto.randomUUID();
+    await supabase.from("tickets").update({ resolve_token: newToken }).eq("id", ticket.id);
+    resolveToken = newToken;
+  }
+
   // Use the override name (from frontend) if provided, otherwise fall back to moder_property_mapping
   let apartmentName = apartmentNameOverride;
   if (!apartmentName) {
@@ -591,6 +599,8 @@ async function doSendEmail(
     : "";
 
   const adminUrl = `https://leville.net/admin`;
+  const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
+  const resolveUrl = `${supabaseUrl}/functions/v1/resolve-ticket-public?token=${resolveToken}`;
 
   const htmlBody = `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
@@ -620,6 +630,11 @@ async function doSendEmail(
           <td style="padding:8px 12px;">${createdDate}</td>
         </tr>
       </table>
+      <div style="margin:24px 0;text-align:center;">
+        <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:14px 28px;text-decoration:none;border-radius:8px;display:inline-block;font-size:16px;font-weight:bold;">
+          ✅ Merkitse tehdyksi
+        </a>
+      </div>
       <p style="margin-top:20px;">
         <a href="${adminUrl}" style="background:#2563eb;color:white;padding:10px 20px;text-decoration:none;border-radius:6px;display:inline-block;">
           Avaa admin-paneeli
