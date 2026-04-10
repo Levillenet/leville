@@ -516,7 +516,48 @@ Deno.serve(async (req) => {
         return json({ success: true });
       }
 
-      // (assign_apartment_to_property endpoints removed)
+      case "list_apartment_assignments": {
+        const { data, error } = await supabase
+          .from("apartment_maintenance")
+          .select("id, apartment_id, property_id")
+          .not("property_id", "is", null);
+        if (error) throw error;
+        return json(data);
+      }
+
+      case "assign_apartment_to_property": {
+        const { apartment_id: assignAptId, property_id: assignPropId } = body;
+        // Upsert: check if row exists for this apartment
+        const { data: existing } = await supabase
+          .from("apartment_maintenance")
+          .select("id")
+          .eq("apartment_id", assignAptId)
+          .maybeSingle();
+        
+        if (existing) {
+          const { error } = await supabase
+            .from("apartment_maintenance")
+            .update({ property_id: assignPropId })
+            .eq("id", existing.id);
+          if (error) throw error;
+        } else {
+          const { error } = await supabase
+            .from("apartment_maintenance")
+            .insert({ apartment_id: assignAptId, property_id: assignPropId });
+          if (error) throw error;
+        }
+        return json({ success: true });
+      }
+
+      case "unassign_apartment_from_property": {
+        const { apartment_id: unassignAptId } = body;
+        const { error } = await supabase
+          .from("apartment_maintenance")
+          .update({ property_id: null })
+          .eq("apartment_id", unassignAptId);
+        if (error) throw error;
+        return json({ success: true });
+      }
 
       case "get_ticket_history": {
         const { ticket_id } = body;
@@ -536,6 +577,15 @@ Deno.serve(async (req) => {
           .from("ticket_apartments")
           .select("*")
           .eq("ticket_id", ticket_id)
+          .order("apartment_name");
+        if (error) throw error;
+        return json(data);
+      }
+
+      case "list_all_ticket_apartments": {
+        const { data, error } = await supabase
+          .from("ticket_apartments")
+          .select("id, ticket_id, apartment_id, apartment_name")
           .order("apartment_name");
         if (error) throw error;
         return json(data);

@@ -68,7 +68,11 @@ interface MaintenanceCompany {
   created_at: string;
 }
 
-// ApartmentAssignment interface removed — no longer used
+interface ApartmentAssignment {
+  id: string;
+  apartment_id: string;
+  property_id: string;
+}
 
 interface EmailLog {
   id: string;
@@ -363,6 +367,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [companies, setCompanies] = useState<MaintenanceCompany[]>([]);
   const [_assignments, setAssignments] = useState<any[]>([]);
+  const [apartmentAssignments, setApartmentAssignments] = useState<ApartmentAssignment[]>([]);
   const [categories, setCategories] = useState<TicketCategory[]>([]);
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
@@ -392,6 +397,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   // Ticket apartments (per-apartment resolution)
   const [ticketApartments, setTicketApartments] = useState<TicketApartment[]>([]);
+  const [allTicketApartments, setAllTicketApartments] = useState<{ id: string; ticket_id: string; apartment_id: string; apartment_name: string }[]>([]);
 
   // Filters
   const [filterApartment, setFilterApartment] = useState("all");
@@ -438,6 +444,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showPropertyReportDialog, setShowPropertyReportDialog] = useState(false);
+  const [propertyReportPropertyId, setPropertyReportPropertyId] = useState("all");
   const [pendingReminderDate, setPendingReminderDate] = useState<string>("");
   const [exportFilters, setExportFilters] = useState({
     companyId: "all",
@@ -505,6 +512,24 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
   };
 
+  const fetchApartmentAssignments = async () => {
+    try {
+      const data = await callApi("list_apartment_assignments");
+      setApartmentAssignments(data || []);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const fetchAllTicketApartments = async () => {
+    try {
+      const data = await callApi("list_all_ticket_apartments");
+      setAllTicketApartments(data || []);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const fetchAvailabilityIndicators = useCallback(async (ticketList: Ticket[]) => {
     const unresolvedApts = [...new Set(ticketList.filter(t => t.status !== "resolved").map(t => t.apartment_id))];
     if (unresolvedApts.length === 0) return;
@@ -520,7 +545,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   const loadAll = async () => {
     setLoading(true);
-    await Promise.all([fetchTickets(), fetchCompanies(), fetchCategories(), fetchProperties()]);
+    await Promise.all([fetchTickets(), fetchCompanies(), fetchCategories(), fetchProperties(), fetchApartmentAssignments(), fetchAllTicketApartments()]);
     setLoading(false);
   };
 
@@ -1011,21 +1036,22 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   };
 
   // ── PDF: Kiinteistöraportti ──
-  const generatePropertyReportPdf = (openInNewTab = false) => {
-    const unresolvedTickets = tickets.filter(t => t.status !== "resolved");
+  const generatePropertyReportPdf = (openInNewTab = false, filterPropertyId = "all") => {
+    let unresolvedTickets = tickets.filter(t => t.status !== "resolved");
 
     if (unresolvedTickets.length === 0) {
       toast({ title: "Ei avoimia tikettejä", variant: "destructive" });
       return;
     }
 
-    const doc = createPropertyReportPdf(unresolvedTickets);
+    const doc = createPropertyReportPdf(unresolvedTickets, filterPropertyId);
     const dateStr = new Date().toISOString().split("T")[0];
+    const suffix = filterPropertyId !== "all" ? `_${properties.find(p => p.id === filterPropertyId)?.name || ""}` : "";
 
     if (openInNewTab) {
       window.open(URL.createObjectURL(doc.output("blob")), "_blank");
     } else {
-      doc.save(`kiinteistoraportti_${dateStr}.pdf`);
+      doc.save(`kiinteistoraportti${suffix}_${dateStr}.pdf`);
     }
 
     setShowPropertyReportDialog(false);
@@ -1042,8 +1068,10 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     // No longer uses assignments — find from ticket's maintenance_company_id
     return "–";
   };
-  const getPropertyForApt = (_aptId: string) => {
-    return null;
+  const getPropertyForApt = (aptId: string): Property | null => {
+    const assignment = apartmentAssignments.find(a => a.apartment_id === aptId);
+    if (!assignment) return null;
+    return properties.find(p => p.id === assignment.property_id) || null;
   };
 
   const createTicketsPdf = (exportTickets: Ticket[], title: string, _filters?: any) => {
@@ -1255,7 +1283,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     return doc;
   };
 
-  const createPropertyReportPdf = (allTickets: Ticket[]) => {
+  const createPropertyReportPdf = (allTickets: Ticket[], filterPropertyId = "all") => {
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
@@ -1286,23 +1314,41 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     y += 12;
     doc.setFontSize(9);
     doc.setTextColor(100);
-    doc.text(`Luotu: ${new Date().toLocaleDateString("fi-FI")}   |   Avoimet tiketit: ${allTickets.length}`, margin, y);
-    y += 10;
 
     // Group tickets by property → apartment → category
+    // For multi-apartment tickets, split each apartment under its own property
     const propGroups: Record<string, { property: Property | null; aptGroups: Record<string, Ticket[]> }> = {};
 
-    for (const t of allTickets) {
-      const prop = getPropertyForApt(t.apartment_id);
+    const addToGroup = (aptId: string, ticket: Ticket) => {
+      const prop = getPropertyForApt(aptId);
+      if (filterPropertyId !== "all" && prop?.id !== filterPropertyId) return;
+      if (filterPropertyId !== "all" && !prop) return; // skip unassigned when filtering
       const propKey = prop?.id || "__unassigned__";
       if (!propGroups[propKey]) {
         propGroups[propKey] = { property: prop || null, aptGroups: {} };
       }
-      if (!propGroups[propKey].aptGroups[t.apartment_id]) {
-        propGroups[propKey].aptGroups[t.apartment_id] = [];
+      if (!propGroups[propKey].aptGroups[aptId]) {
+        propGroups[propKey].aptGroups[aptId] = [];
       }
-      propGroups[propKey].aptGroups[t.apartment_id].push(t);
+      propGroups[propKey].aptGroups[aptId].push(ticket);
+    };
+
+    for (const t of allTickets) {
+      // Check if ticket has multiple apartments via ticket_apartments
+      const ta = allTicketApartments.filter(a => a.ticket_id === t.id);
+      if (ta.length > 1) {
+        // Split: add this ticket under each apartment's property
+        for (const apt of ta) {
+          addToGroup(apt.apartment_id, t);
+        }
+      } else {
+        addToGroup(t.apartment_id, t);
+      }
     }
+
+    const totalTickets = Object.values(propGroups).reduce((sum, g) => sum + Object.values(g.aptGroups).flat().length, 0);
+    doc.text(`Luotu: ${new Date().toLocaleDateString("fi-FI")}   |   Avoimet tiketit: ${totalTickets}`, margin, y);
+    y += 10;
 
     // Sort: named properties first, then unassigned
     const sortedPropKeys = Object.keys(propGroups).sort((a, b) => {
@@ -2745,10 +2791,62 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         )}
                       </div>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="space-y-3">
                       {property.contact_email && (
                         <span className="flex items-center gap-1 text-sm text-muted-foreground"><AtSign className="w-3 h-3" />{property.contact_email}</span>
                       )}
+                      {/* Allocated apartments */}
+                      <div>
+                        <Label className="text-xs font-medium text-muted-foreground">Allokoidut huoneistot</Label>
+                        {(() => {
+                          const assigned = apartmentAssignments.filter(a => a.property_id === property.id);
+                          const assignedAptIds = new Set(apartmentAssignments.map(a => a.apartment_id));
+                          const availableApts = apartmentList.filter(a => !assignedAptIds.has(a.id));
+                          return (
+                            <div className="mt-1 space-y-2">
+                              {assigned.length === 0 ? (
+                                <p className="text-xs text-muted-foreground italic">Ei allokoituja huoneistoja</p>
+                              ) : (
+                                <div className="flex flex-wrap gap-1.5">
+                                  {assigned.sort((a, b) => getSimpleApartmentName(a.apartment_id).localeCompare(getSimpleApartmentName(b.apartment_id))).map((a) => (
+                                    <Badge key={a.apartment_id} variant="secondary" className="text-xs gap-1 pr-1">
+                                      {getSimpleApartmentName(a.apartment_id)}
+                                      {!isViewer && (
+                                        <button
+                                          className="ml-1 hover:text-destructive"
+                                          onClick={async () => {
+                                            try {
+                                              await callApi("unassign_apartment_from_property", { apartment_id: a.apartment_id });
+                                              await fetchApartmentAssignments();
+                                              toast({ title: "Huoneisto poistettu kiinteistöltä" });
+                                            } catch (e) { console.error(e); }
+                                          }}
+                                        >×</button>
+                                      )}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              )}
+                              {!isViewer && availableApts.length > 0 && (
+                                <Select onValueChange={async (aptId) => {
+                                  try {
+                                    await callApi("assign_apartment_to_property", { apartment_id: aptId, property_id: property.id });
+                                    await fetchApartmentAssignments();
+                                    toast({ title: "Huoneisto allokoitu kiinteistölle" });
+                                  } catch (e) { console.error(e); }
+                                }}>
+                                  <SelectTrigger className="w-[220px] h-8 text-xs"><SelectValue placeholder="+ Lisää huoneisto" /></SelectTrigger>
+                                  <SelectContent>
+                                    {availableApts.sort((a, b) => getSimpleName(a.name).localeCompare(getSimpleName(b.name))).map(apt => (
+                                      <SelectItem key={apt.id} value={apt.id}>{getSimpleName(apt.name)}</SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              )}
+                            </div>
+                          );
+                        })()}
+                      </div>
                     </CardContent>
                   </Card>
                 );
@@ -2846,10 +2944,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <Card>
               <CardHeader><CardTitle className="text-base">Kiinteistöraportti</CardTitle></CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">Kaikki avoimet tiketit ryhmiteltynä kiinteistöittäin.</p>
+                <p className="text-sm text-muted-foreground">Avoimet tiketit ryhmiteltynä kiinteistöittäin.</p>
+                <div>
+                  <Label className="text-xs">Kiinteistö</Label>
+                  <Select value={propertyReportPropertyId} onValueChange={setPropertyReportPropertyId}>
+                    <SelectTrigger className="w-[220px]"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Kaikki kiinteistöt</SelectItem>
+                      {properties.map(p => (<SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>))}
+                    </SelectContent>
+                  </Select>
+                </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" onClick={() => generatePropertyReportPdf(false)}><FileText className="w-4 h-4 mr-1" />Lataa PDF</Button>
-                  <Button variant="outline" onClick={() => generatePropertyReportPdf(true)}>Avaa selaimessa</Button>
+                  <Button variant="outline" onClick={() => generatePropertyReportPdf(false, propertyReportPropertyId)}><FileText className="w-4 h-4 mr-1" />Lataa PDF</Button>
+                  <Button variant="outline" onClick={() => generatePropertyReportPdf(true, propertyReportPropertyId)}>Avaa selaimessa</Button>
                 </div>
               </CardContent>
             </Card>
