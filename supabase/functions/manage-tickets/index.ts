@@ -121,11 +121,14 @@ Deno.serve(async (req) => {
         }
 
         // For changeover tickets, schedule a reminder for departure morning
-        if (data.type === "changeover" && data.guest_departure_date) {
           try {
-            const { email: reminderEmail } = await resolveRecipientEmail(supabase, data.apartment_id, data.assignment_type || "kiinteistohuolto");
-            const resolvedEmail = data.email_override || reminderEmail;
-            if (resolvedEmail) {
+            let reminderEmail: string | null = null;
+            if (data.maintenance_company_id) {
+              const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", data.maintenance_company_id).single();
+              reminderEmail = mc?.email || null;
+            }
+            if (!reminderEmail && data.email_override) reminderEmail = data.email_override;
+            if (reminderEmail) {
               // Schedule for departure morning (06:50 Helsinki)
               const reminderTime = new Date(data.guest_departure_date + "T03:50:00Z"); // ~06:50 Helsinki
               await supabase.from("ticket_email_log").insert({
