@@ -2011,14 +2011,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               </SelectContent>
             </Select>
 
-            <Select value={filterPriority} onValueChange={setFilterPriority}>
-              <SelectTrigger className="w-[130px]"><SelectValue placeholder="Prioriteetti" /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Kaikki</SelectItem>
-                <SelectItem value="1">Normaali</SelectItem>
-                <SelectItem value="2">Muistutus</SelectItem>
-              </SelectContent>
-            </Select>
 
             <Select value={filterStatus} onValueChange={setFilterStatus}>
               <SelectTrigger className="w-[140px]"><SelectValue placeholder="Tila" /></SelectTrigger>
