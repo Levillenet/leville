@@ -1751,10 +1751,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         className="w-full mt-1 border-amber-400 text-amber-700 hover:bg-amber-50"
                         onClick={async () => {
                           try {
-                            const result = await callApi("reactivate_ticket", { id: selectedTicket.id });
+                            const result = await callApi("reactivate_ticket", { id: selectedTicket.id, changed_by: "admin" });
                             setSelectedTicket({ ...result, status: "open", resolved_at: null, resolved_by: null });
                             fetchTickets();
                             fetchTicketHistory(selectedTicket.id);
+                            fetchEmailLog(selectedTicket.id);
                             fetchTicketApartments(selectedTicket.id);
                             toast({ title: "Tiketti aktivoitu uudelleen" });
                           } catch (e: any) {

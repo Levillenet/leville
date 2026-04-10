@@ -240,6 +240,7 @@ Deno.serve(async (req) => {
           .eq("ticket_id", id);
 
         // Re-schedule changeover reminder if applicable
+        console.log(`[REACTIVATE] Ticket ${id}: type=${oldTicket?.type}, guest_departure_date=${oldTicket?.guest_departure_date}, maintenance_company_id=${oldTicket?.maintenance_company_id}`);
         if (oldTicket && oldTicket.type === "changeover" && oldTicket.guest_departure_date) {
           // Resolve email from ticket's maintenance_company_id
           let recipientEmail: string | null = null;
@@ -253,6 +254,7 @@ Deno.serve(async (req) => {
             // Calculate scheduled_for: evening before departure date (18:00 Helsinki time)
             const targetDateObj = new Date(oldTicket.guest_departure_date + "T18:00:00");
             const scheduledFor = new Date(targetDateObj.getTime() - 24 * 60 * 60 * 1000);
+            console.log(`[REACTIVATE] recipientEmail=${recipientEmail}, scheduledFor=${scheduledFor.toISOString()}, now=${new Date().toISOString()}, isFuture=${scheduledFor.getTime() > Date.now()}`);
 
             // Only schedule if the date is in the future
             if (scheduledFor.getTime() > Date.now()) {
