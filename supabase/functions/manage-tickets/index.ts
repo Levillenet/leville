@@ -240,6 +240,7 @@ Deno.serve(async (req) => {
           .eq("ticket_id", id);
 
         // Re-schedule changeover reminder if applicable
+        console.log(`[REACTIVATE] Ticket ${id}: type=${oldTicket?.type}, guest_departure_date=${oldTicket?.guest_departure_date}, maintenance_company_id=${oldTicket?.maintenance_company_id}`);
         if (oldTicket && oldTicket.type === "changeover" && oldTicket.guest_departure_date) {
           // Resolve email from ticket's maintenance_company_id
           let recipientEmail: string | null = null;
