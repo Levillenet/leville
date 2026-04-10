@@ -1,34 +1,29 @@
 
 
-# WhatsApp-tikettiviestien linkki-esikatselu
+# Tikettien kohteiden lisääminen jälkikäteen
 
-## Ongelma
-Kun tiketti lähetetään WhatsAppilla, "Kuittaa tehdyksi" -linkit (esim. `leville.lovable.app/tiketti-ratkaistu?token=...`) generoivat WhatsAppissa rikkaan linkki-esikatselun (preview card), joka vie tilaa ja häiritsee viestin luettavuutta.
+## Nykytila
+Tiketin kohteita (huoneistoja) voi valita vain luontivaiheessa. Tiketin yksityiskohtanäkymässä kohdelista on pelkkä teksti ilman muokkausmahdollisuutta.
 
 ## Ratkaisu
-WhatsApp ei generoi linkki-esikatselua, jos URL-osoitteen edessä ei ole `https://`-protokollaa. Muutetaan viestin rakenne niin, että:
-1. Viestiteksti tulee ensin selkeästi
-2. Resolve-linkit ovat viestin lopussa ilman `https://`-etuliitettä → WhatsApp näyttää ne pelkkänä tekstinä ilman preview-korttia
-3. Käyttäjä voi silti kopioida linkin ja liittää selaimeen
 
-## Muutos — `TicketAdmin.tsx`, rivit ~2060–2069
+### 1. Edge function — uusi `add_ticket_apartments` action (`manage-tickets/index.ts`)
+- Vastaanottaa `ticket_id` ja `apartment_ids` (lista lisättävistä)
+- Tarkistaa ettei duplikaatteja (ohittaa jo olemassa olevat)
+- Lisää rivit `ticket_apartments`-tauluun
+- Päivittää parent-tiketin `apartment_id`-kentän kuvausta tarvittaessa
+- Kirjaa historian ("Lisätty kohteet: X, Y")
 
-Nykyinen:
-```
-✅ Kuittaa tehdyksi:
-https://leville.lovable.app/tiketti-ratkaistu?token=abc123
-```
-
-Uusi:
-```
-✅ Kuittaa tehdyksi:
-leville.lovable.app/tiketti-ratkaistu?token=abc123
-```
-
-Poistetaan `https://` resolve-linkeistä `siteBase`-muuttujasta tai viestin muodostuksessa. Tämä estää WhatsAppin automaattisen esikatselun mutta linkki on silti kopioitavissa.
+### 2. UI — "Lisää kohteita" -nappi tikettinäkymään (`TicketAdmin.tsx`)
+- Lisätään "Huoneisto"-rivin (rivi ~1729) viereen/alle pieni "+" -nappi
+- Nappi avaa Popover/Dialog jossa on sama huoneistolista (apartmentList) checkboxeina
+- Jo tiketissä olevat kohteet näkyvät harmaina/disabloituina
+- "Lisää" -nappi tallentaa ja päivittää ticketApartments-listan
 
 ## Muutettavat tiedostot
+
 | Tiedosto | Muutos |
 |---|---|
-| `src/components/admin/TicketAdmin.tsx` | Poistetaan `https://` resolve-linkeistä WhatsApp-viesteissä |
+| `supabase/functions/manage-tickets/index.ts` | Uusi `add_ticket_apartments` action |
+| `src/components/admin/TicketAdmin.tsx` | "Lisää kohteita" -UI tikettinäkymässä |
 
