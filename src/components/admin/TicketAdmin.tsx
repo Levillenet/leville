@@ -1375,55 +1375,79 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
     // Group tickets by property → apartment → category
     // For multi-apartment tickets, split each apartment under its own property
-    const propGroups: Record<string, { property: Property | null; aptGroups: Record<string, Ticket[]> }> = {};
+    const propGroups: Record<string, {
+      property: Property | null;
+      aptGroups: Record<string, Ticket[]>;
+      multiAptTickets: Record<string, { ticket: Ticket; aptIds: string[] }>;
+    }> = {};
 
-    const addToGroup = (aptId: string, ticket: Ticket) => {
-      const prop = getPropertyForApt(aptId);
-      if (filterPropertyId !== "all" && prop?.id !== filterPropertyId) return;
-      if (filterPropertyId !== "all" && !prop) return; // skip unassigned when filtering
-      const propKey = prop?.id || "__unassigned__";
+    const ensurePropGroup = (propKey: string, prop: Property | null) => {
       if (!propGroups[propKey]) {
-        propGroups[propKey] = { property: prop || null, aptGroups: {} };
+        propGroups[propKey] = { property: prop || null, aptGroups: {}, multiAptTickets: {} };
       }
-      if (!propGroups[propKey].aptGroups[aptId]) {
-        propGroups[propKey].aptGroups[aptId] = [];
-      }
-      propGroups[propKey].aptGroups[aptId].push(ticket);
     };
 
-    for (const t of allTickets) {
-      // Check if ticket has multiple apartments via ticket_apartments
+    // Resolve all apartment IDs for each ticket
+    const getTicketAptIds = (t: Ticket): string[] => {
       const ta = allTicketApartments.filter(a => a.ticket_id === t.id);
-      if (ta.length > 1) {
-        // Split: add this ticket under each apartment's property
-        for (const apt of ta) {
-          addToGroup(apt.apartment_id, t);
-        }
-      } else if (ta.length === 0 && t.description?.includes("Huoneistot (")) {
-        // Fallback for old tickets without ticket_apartments rows:
-        // Parse apartment names from description "Huoneistot (N): Name1, Name2, ..."
+      if (ta.length > 1) return ta.map(a => a.apartment_id);
+      if (ta.length === 0 && t.description?.includes("Huoneistot (")) {
         const match = t.description.match(/Huoneistot \(\d+\):\s*(.+)/);
         if (match) {
           const names = match[1].split(",").map(n => n.trim()).filter(Boolean);
           const matchedIds = names
             .map(name => apartmentList.find(a => getSimpleName(a.name) === name)?.id)
             .filter((id): id is string => !!id);
-          if (matchedIds.length > 1) {
-            for (const aptId of matchedIds) {
-              addToGroup(aptId, t);
-            }
-          } else {
-            addToGroup(t.apartment_id, t);
-          }
-        } else {
-          addToGroup(t.apartment_id, t);
+          if (matchedIds.length > 1) return matchedIds;
+        }
+      }
+      return [t.apartment_id];
+    };
+
+    for (const t of allTickets) {
+      const aptIds = getTicketAptIds(t);
+      const isMultiApt = aptIds.length > 1;
+
+      if (isMultiApt) {
+        // Group by property — intersection of ticket's apts with each property's apts
+        const propMap: Record<string, string[]> = {};
+        for (const aptId of aptIds) {
+          const prop = getPropertyForApt(aptId);
+          if (filterPropertyId !== "all" && prop?.id !== filterPropertyId) continue;
+          if (filterPropertyId !== "all" && !prop) continue;
+          const propKey = prop?.id || "__unassigned__";
+          if (!propMap[propKey]) propMap[propKey] = [];
+          propMap[propKey].push(aptId);
+          ensurePropGroup(propKey, prop || null);
+        }
+        for (const [propKey, propAptIds] of Object.entries(propMap)) {
+          propGroups[propKey].multiAptTickets[t.id] = { ticket: t, aptIds: propAptIds };
         }
       } else {
-        addToGroup(t.apartment_id, t);
+        const aptId = aptIds[0];
+        const prop = getPropertyForApt(aptId);
+        if (filterPropertyId !== "all" && prop?.id !== filterPropertyId) continue;
+        if (filterPropertyId !== "all" && !prop) continue;
+        const propKey = prop?.id || "__unassigned__";
+        ensurePropGroup(propKey, prop || null);
+        if (!propGroups[propKey].aptGroups[aptId]) {
+          propGroups[propKey].aptGroups[aptId] = [];
+        }
+        propGroups[propKey].aptGroups[aptId].push(t);
       }
     }
 
-    const totalTickets = Object.values(propGroups).reduce((sum, g) => sum + Object.values(g.aptGroups).flat().length, 0);
+    // Count unique tickets per property
+    const countUniqueTickets = (g: typeof propGroups[string]) => {
+      const ids = new Set<string>();
+      for (const tickets of Object.values(g.aptGroups)) {
+        for (const t of tickets) ids.add(t.id);
+      }
+      for (const id of Object.keys(g.multiAptTickets)) ids.add(id);
+      return ids.size;
+    };
+
+    const totalTickets = Object.values(propGroups).reduce((sum, g) => sum + countUniqueTickets(g), 0);
     doc.text(`Luotu: ${new Date().toLocaleDateString("fi-FI")}   |   Avoimet tiketit: ${totalTickets}`, margin, y);
     y += 10;
 
@@ -1436,9 +1460,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
     for (let pi = 0; pi < sortedPropKeys.length; pi++) {
       const propKey = sortedPropKeys[pi];
-      const { property, aptGroups } = propGroups[propKey];
-      const propName = property?.name || "M\u00e4\u00e4rittelem\u00e4t\u00f6n kiinteist\u00f6";
-      const totalCount = Object.values(aptGroups).flat().length;
+      const { property, aptGroups, multiAptTickets } = propGroups[propKey];
+      const propName = property?.name || "Määrittelemätön kiinteistö";
+      const totalCount = countUniqueTickets(propGroups[propKey]);
 
       if (pi > 0) {
         addFooter();
@@ -1459,6 +1483,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       doc.text(`Avoimet tiketit: ${totalCount}`, pageWidth - margin - 3, y + 6, { align: "right" });
       y += 18;
 
+      // 1) Single-apartment tickets grouped by apartment
       const sortedApts = Object.keys(aptGroups).sort((a, b) => getApartmentName(a).localeCompare(getApartmentName(b)));
 
       for (const aptId of sortedApts) {
@@ -1469,8 +1494,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         doc.rect(margin + 2, y, contentWidth - 4, 8, "F");
         doc.setFontSize(10);
         doc.setTextColor(30);
-        const propAptLabel = aptTickets.some(t => t.description?.includes("Huoneistot (")) ? "Useita kohteita" : getApartmentName(aptId);
-        doc.text(propAptLabel, margin + 5, y + 5.5);
+        doc.text(getApartmentName(aptId), margin + 5, y + 5.5);
         y += 12;
 
         // Group by category
@@ -1485,7 +1509,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           checkPage(10);
           doc.setFontSize(8);
           doc.setTextColor(100);
-          doc.text(`\u25B8 ${cat}`, margin + 5, y);
+          doc.text(`▸ ${cat}`, margin + 5, y);
           y += 4;
 
           for (const t of catTickets) {
@@ -1501,6 +1525,62 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               checkPage(desc.length * 3.5);
               doc.text(desc, margin + 13, y);
               y += desc.length * 3.5 + 1;
+            }
+          }
+          y += 2;
+        }
+        y += 4;
+      }
+
+      // 2) Multi-apartment tickets — one entry per ticket, showing only this property's apartments
+      const multiEntries = Object.values(multiAptTickets);
+      if (multiEntries.length > 0) {
+        checkPage(15);
+        doc.setFillColor(229, 231, 235);
+        doc.rect(margin + 2, y, contentWidth - 4, 8, "F");
+        doc.setFontSize(10);
+        doc.setTextColor(30);
+        doc.text("Useita kohteita", margin + 5, y + 5.5);
+        y += 12;
+
+        // Group multi-apt tickets by category
+        const catGroups: Record<string, { ticket: Ticket; aptIds: string[] }[]> = {};
+        for (const entry of multiEntries) {
+          const cat = getCategoryName(entry.ticket.category_id);
+          if (!catGroups[cat]) catGroups[cat] = [];
+          catGroups[cat].push(entry);
+        }
+
+        for (const [cat, entries] of Object.entries(catGroups)) {
+          checkPage(10);
+          doc.setFontSize(8);
+          doc.setTextColor(100);
+          doc.text(`▸ ${cat}`, margin + 5, y);
+          y += 4;
+
+          for (const { ticket: t, aptIds } of entries) {
+            checkPage(12);
+            doc.setFontSize(8);
+            doc.setTextColor(30);
+            doc.rect(margin + 8, y - 2.5, 2.5, 2.5);
+            doc.text(`${t.title} (${statusLabel(t.status)})`, margin + 13, y);
+            y += 4;
+            // Show only this property's apartment names
+            const aptNames = aptIds.map(id => getApartmentName(id)).sort().join(", ");
+            doc.setTextColor(100);
+            const aptLine = doc.splitTextToSize(`Huoneistot: ${aptNames}`, contentWidth - 20);
+            checkPage(aptLine.length * 3.5);
+            doc.text(aptLine, margin + 13, y);
+            y += aptLine.length * 3.5 + 1;
+            // Show description without the full apartment list
+            if (t.description) {
+              const cleanDesc = t.description.replace(/Huoneistot \(\d+\):\s*.+/, "").trim();
+              if (cleanDesc) {
+                const desc = doc.splitTextToSize(cleanDesc, contentWidth - 20);
+                checkPage(desc.length * 3.5);
+                doc.text(desc, margin + 13, y);
+                y += desc.length * 3.5 + 1;
+              }
             }
           }
           y += 2;
