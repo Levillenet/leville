@@ -606,7 +606,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
       // Build description with apartment list if multiple
       let finalDescription = newTicket.description || "";
-      const aptNames = apartmentIdsToCreate.map(id => getApartmentName(id));
+      const aptNames = apartmentIdsToCreate.map(id => getSimpleApartmentName(id));
       if (apartmentIdsToCreate.length > 1) {
         finalDescription = (finalDescription ? finalDescription + "\n\n" : "") + 
           `Huoneistot (${apartmentIdsToCreate.length}): ${aptNames.join(", ")}`;
@@ -635,7 +635,13 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         assignment_type: newTicket.assignment_type,
       };
       const aptName = aptNames.join(", ");
-      const result = await callApi("create_ticket", { ticket: ticketData, apartment_name: aptName });
+      // Pass apartment_ids for per-apartment tracking
+      const result = await callApi("create_ticket", { 
+        ticket: ticketData, 
+        apartment_name: aptName,
+        apartment_ids: apartmentIdsToCreate.length > 1 ? apartmentIdsToCreate : undefined,
+        apartment_names: apartmentIdsToCreate.length > 1 ? Object.fromEntries(apartmentIdsToCreate.map(id => [id, getSimpleApartmentName(id)])) : undefined,
+      });
       const createdTicketId = result?.ticket?.id || result?.id;
       let emailErrors = 0;
       if (pendingReminderDate && createdTicketId) {
