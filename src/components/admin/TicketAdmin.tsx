@@ -20,6 +20,17 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
 
 // ── Types ──
+interface TicketApartment {
+  id: string;
+  ticket_id: string;
+  apartment_id: string;
+  apartment_name: string;
+  status: string;
+  resolve_token: string;
+  resolved_at: string | null;
+  created_at: string;
+}
+
 interface Ticket {
   id: string;
   apartment_id: string;
@@ -126,6 +137,18 @@ const getApartmentName = (id: string) => {
   const apt = apartmentList.find((a) => a.id === id);
   return apt?.name || id;
 };
+
+// Simplified name: strips size, guest count, and type descriptions
+const getSimpleName = (fullName: string): string => {
+  return fullName
+    .replace(/\s*\(.*?\)/g, '')
+    .replace(/\s*\d+m2\s*/g, ' ')
+    .replace(/\s*(Superior|One-Bedroom|Two-Bedroom|Penthouse|Studio|Apartment|House)\s*/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+};
+
+const getSimpleApartmentName = (id: string) => getSimpleName(getApartmentName(id));
 
 // ── Improved Calendar Component ──
 const ImprovedCalendar = ({ 
@@ -370,6 +393,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [emailPreview, setEmailPreview] = useState<{ email: string | null; source: string } | null>(null);
   const [loadingEmailPreview, setLoadingEmailPreview] = useState(false);
 
+  // Ticket apartments (per-apartment resolution)
+  const [ticketApartments, setTicketApartments] = useState<TicketApartment[]>([]);
+
   // Filters
   const [filterApartment, setFilterApartment] = useState("all");
   const [filterType, setFilterType] = useState("all");
@@ -580,7 +606,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
       // Build description with apartment list if multiple
       let finalDescription = newTicket.description || "";
-      const aptNames = apartmentIdsToCreate.map(id => getApartmentName(id));
+      const aptNames = apartmentIdsToCreate.map(id => getSimpleApartmentName(id));
       if (apartmentIdsToCreate.length > 1) {
         finalDescription = (finalDescription ? finalDescription + "\n\n" : "") + 
           `Huoneistot (${apartmentIdsToCreate.length}): ${aptNames.join(", ")}`;
@@ -609,7 +635,13 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         assignment_type: newTicket.assignment_type,
       };
       const aptName = aptNames.join(", ");
-      const result = await callApi("create_ticket", { ticket: ticketData, apartment_name: aptName });
+      // Pass apartment_ids for per-apartment tracking
+      const result = await callApi("create_ticket", { 
+        ticket: ticketData, 
+        apartment_name: aptName,
+        apartment_ids: apartmentIdsToCreate.length > 1 ? apartmentIdsToCreate : undefined,
+        apartment_names: apartmentIdsToCreate.length > 1 ? Object.fromEntries(apartmentIdsToCreate.map(id => [id, getSimpleApartmentName(id)])) : undefined,
+      });
       const createdTicketId = result?.ticket?.id || result?.id;
       let emailErrors = 0;
       if (pendingReminderDate && createdTicketId) {
@@ -752,13 +784,39 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     setSendingReminder(false);
   };
 
+  const fetchTicketApartments = async (ticketId: string) => {
+    try {
+      const data = await callApi("list_ticket_apartments", { ticket_id: ticketId });
+      setTicketApartments(data || []);
+    } catch (e) {
+      console.error(e);
+      setTicketApartments([]);
+    }
+  };
+
+  const handleResolveApartment = async (ticketApartmentId: string) => {
+    try {
+      await callApi("resolve_apartment", { ticket_apartment_id: ticketApartmentId });
+      toast({ title: "Kohde kuitattu tehdyksi" });
+      if (selectedTicket) {
+        fetchTicketApartments(selectedTicket.id);
+        fetchTicketHistory(selectedTicket.id);
+        fetchTickets();
+      }
+    } catch (e: any) {
+      toast({ title: "Virhe", description: e.message, variant: "destructive" });
+    }
+  };
+
   const openTicketDetail = (ticket: Ticket) => {
     setSelectedTicket(ticket);
     setEmptyNightData(null);
     setTicketAvailability(null);
     setTicketHistory([]);
+    setTicketApartments([]);
     fetchEmailLog(ticket.id);
     fetchTicketHistory(ticket.id);
+    fetchTicketApartments(ticket.id);
     fetchTicketAvailability(ticket.apartment_id);
     if (ticket.priority === "2" && ticket.status !== "resolved") {
       fetchEmptyNights(ticket.apartment_id);
