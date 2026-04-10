@@ -656,12 +656,13 @@ async function sendTicketEmail(
   ticket: any,
   emailType: "creation" | "reminder" | "urgent_reminder",
   targetDate?: string,
-  apartmentNameOverride?: string
+  apartmentNameOverride?: string,
+  ticketApartments?: any[]
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   // 1. Ticket-level override
   if (ticket.email_override) {
     const email = ticket.email_override;
-    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate, apartmentNameOverride);
+    return await doSendEmail(supabase, ticket, email, "ticket_override", emailType, targetDate, apartmentNameOverride, ticketApartments);
   }
 
   // 2-3. Apartment/company fallback (use ticket's assignment_type)
@@ -671,7 +672,7 @@ async function sendTicketEmail(
     return { sent: false, error: "no_email_found" };
   }
 
-  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate, apartmentNameOverride);
+  return await doSendEmail(supabase, ticket, email, source, emailType, targetDate, apartmentNameOverride, ticketApartments);
 }
 
 async function doSendEmail(
@@ -681,14 +682,15 @@ async function doSendEmail(
   _source: string,
   emailType: "creation" | "reminder" | "urgent_reminder",
   targetDate?: string,
-  apartmentNameOverride?: string
+  apartmentNameOverride?: string,
+  ticketApartments?: any[]
 ): Promise<{ sent: boolean; error?: string; email?: string }> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   if (!resendApiKey) {
     return { sent: false, error: "resend_api_key_missing" };
   }
 
-  // Ensure ticket has a resolve_token
+  // Ensure ticket has a resolve_token (fallback for single-apartment)
   let resolveToken = ticket.resolve_token;
   if (!resolveToken) {
     const newToken = crypto.randomUUID();
@@ -757,7 +759,34 @@ async function doSendEmail(
     urgentNote = `<p style="color:#d32f2f;font-weight:bold;font-size:13px;margin:8px 0;">⚡ Hoidetaan heti, vaikka asiakas on sisällä.</p>`;
   }
 
-  const resolveUrl = `https://id-preview--965c8e14-cb63-4d51-9c89-2e41dfb8e866.lovable.app/tiketti-ratkaistu?token=${resolveToken}`;
+  const siteBase = "https://id-preview--965c8e14-cb63-4d51-9c89-2e41dfb8e866.lovable.app";
+
+  // Build resolve buttons: per-apartment if multi, single otherwise
+  const hasMultipleApartments = ticketApartments && ticketApartments.length > 1;
+  let resolveButtons = "";
+
+  if (hasMultipleApartments) {
+    resolveButtons = `
+      <p style="font-size:14px;font-weight:bold;margin:16px 0 8px 0;">Kuittaa kohteittain:</p>
+      ${ticketApartments.map((ta: any) => {
+        const resolveUrl = `${siteBase}/tiketti-ratkaistu?token=${ta.resolve_token}&apt=1`;
+        return `<div style="margin:6px 0;">
+          <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:10px 20px;text-decoration:none;border-radius:6px;display:inline-block;font-size:14px;font-weight:bold;">
+            ✅ ${ta.apartment_name}
+          </a>
+        </div>`;
+      }).join("")}
+    `;
+  } else {
+    const resolveUrl = `${siteBase}/tiketti-ratkaistu?token=${resolveToken}`;
+    resolveButtons = `
+      <div style="text-align:center;">
+        <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:14px 28px;text-decoration:none;border-radius:8px;display:inline-block;font-size:16px;font-weight:bold;">
+          ✅ Merkitse tehdyksi
+        </a>
+      </div>
+    `;
+  }
 
   const htmlBody = `
     <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:16px;">
@@ -768,11 +797,7 @@ async function doSendEmail(
       ${ticket.description ? `<p style="margin:4px 0;font-size:14px;color:#444;">${ticket.description}</p>` : ""}
       ${changeoverInfo}
       <p style="margin:8px 0 20px 0;font-size:13px;color:#888;">Luotu: ${createdDate}</p>
-      <div style="text-align:center;">
-        <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:14px 28px;text-decoration:none;border-radius:8px;display:inline-block;font-size:16px;font-weight:bold;">
-          ✅ Merkitse tehdyksi
-        </a>
-      </div>
+      ${resolveButtons}
       <p style="color:#aaa;font-size:11px;margin-top:24px;">Leville.net</p>
     </div>
   `;
