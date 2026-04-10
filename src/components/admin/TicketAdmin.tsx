@@ -1989,8 +1989,8 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <Card>
               <CardContent className="pt-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"><CheckCircle2 className="w-6 h-6 text-primary" /></div>
-                  <div><p className="text-sm text-muted-foreground">Muistutus tarvitaan</p><p className="text-2xl font-bold">{reminderCount}</p></div>
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center"><CalendarDays className="w-6 h-6 text-primary" /></div>
+                  <div><p className="text-sm text-muted-foreground">Vaihdon yhteydessä</p><p className="text-2xl font-bold">{changeoverCount}</p></div>
                 </div>
               </CardContent>
             </Card>
