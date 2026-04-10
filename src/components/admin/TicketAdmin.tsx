@@ -2097,7 +2097,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     <div>
                       <Label>Ohjaa</Label>
                       <RadioGroup value={newTicket.assignment_type} onValueChange={(val) => setNewTicket({ ...newTicket, assignment_type: val })} className="flex gap-4 mt-1">
-                        <div className="flex items-center space-x-2"><RadioGroupItem value="kiinteistohuolto" id="assign-maint" /><Label htmlFor="assign-maint">Kiinteistöhuolto</Label></div>
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="kiinteistohuolto" id="assign-maint" /><Label htmlFor="assign-maint">Korjaus</Label></div>
                         <div className="flex items-center space-x-2"><RadioGroupItem value="siivous" id="assign-clean" /><Label htmlFor="assign-clean">Siivous</Label></div>
                       </RadioGroup>
                     </div>
@@ -2239,20 +2239,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           {/* Ticket list sub-tabs */}
           <div className="flex gap-1 border-b pb-0 mb-0">
             <Button
-              variant={ticketListTab === "operational" ? "default" : "ghost"}
+              variant={ticketListTab === "siivous" ? "default" : "ghost"}
               size="sm"
-              onClick={() => setTicketListTab("operational")}
+              onClick={() => setTicketListTab("siivous")}
               className="rounded-b-none"
             >
-              Operatiivinen ({operationalTickets.length})
+              🧹 Siivous ({siivoTickets.length})
             </Button>
             <Button
-              variant={ticketListTab === "kiinteistohuolto" ? "default" : "ghost"}
+              variant={ticketListTab === "korjaus" ? "default" : "ghost"}
               size="sm"
-              onClick={() => setTicketListTab("kiinteistohuolto")}
+              onClick={() => setTicketListTab("korjaus")}
               className="rounded-b-none"
             >
-              🔧 Kiinteistöhuolto ({kiinteistohuoltoTickets.length})
+              🔧 Korjaus ({korjausTickets.length})
             </Button>
             <Button
               variant={ticketListTab === "resolved" ? "default" : "ghost"}
