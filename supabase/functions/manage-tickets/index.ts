@@ -89,6 +89,24 @@ Deno.serve(async (req) => {
           }
         }
 
+        // Cancel any scheduled (future) email reminders when resolved
+        if (updates.status === "resolved") {
+          try {
+            const { data: cancelled } = await supabase
+              .from("ticket_email_log")
+              .update({ status: "cancelled", error_message: "Tiketti ratkaistu – ajastettu viesti peruttu" })
+              .eq("ticket_id", id)
+              .eq("status", "scheduled")
+              .select("id");
+            if (cancelled && cancelled.length > 0) {
+              await addHistory(supabase, id, changed_by || "admin", null, null, 
+                `${cancelled.length} ajastettua muistutusta peruttu`, "updated");
+            }
+          } catch (cancelErr) {
+            console.error("Cancel scheduled emails error:", cancelErr);
+          }
+        }
+
         // Auto-create recurring ticket when resolved
         if (updates.status === "resolved" && data.recurrence_months && data.recurrence_months > 0) {
           const nextDate = new Date();
@@ -650,7 +668,7 @@ async function doSendEmail(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Leville.net Tiketöinti <admin@m.leville.net>",
+        from: "leville.net tehtävä <admin@m.leville.net>",
         to: [email],
         subject,
         html: htmlBody,

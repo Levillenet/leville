@@ -1383,7 +1383,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   };
 
   // ── Ticket list sub-tab ──
-  const [ticketListTab, setTicketListTab] = useState<"operational" | "kiinteistohuolto" | "resolved">("operational");
+  const [ticketListTab, setTicketListTab] = useState<"siivous" | "korjaus" | "resolved">("siivous");
 
   // ── Filtered tickets ──
   const applyFilters = (t: Ticket) => {
@@ -1395,13 +1395,13 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     return true;
   };
 
-  // Split tickets into 3 groups
-  const operationalTickets = tickets.filter(t => t.status !== "resolved" && t.assignment_type !== "kiinteistohuolto").filter(applyFilters);
-  const kiinteistohuoltoTickets = tickets.filter(t => t.assignment_type === "kiinteistohuolto" && t.status !== "resolved").filter(applyFilters);
+  // Split tickets into 3 groups: siivous (cleaning), korjaus (maintenance/repair), resolved
+  const siivoTickets = tickets.filter(t => t.status !== "resolved" && t.assignment_type !== "kiinteistohuolto").filter(applyFilters);
+  const korjausTickets = tickets.filter(t => t.assignment_type === "kiinteistohuolto" && t.status !== "resolved").filter(applyFilters);
   const resolvedTickets = tickets.filter(t => t.status === "resolved").filter(applyFilters);
 
-  const filteredTickets = ticketListTab === "operational" ? operationalTickets 
-    : ticketListTab === "kiinteistohuolto" ? kiinteistohuoltoTickets 
+  const filteredTickets = ticketListTab === "siivous" ? siivoTickets 
+    : ticketListTab === "korjaus" ? korjausTickets 
     : resolvedTickets;
 
   const openCount = tickets.filter((t) => t.status === "open").length;
@@ -2097,7 +2097,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     <div>
                       <Label>Ohjaa</Label>
                       <RadioGroup value={newTicket.assignment_type} onValueChange={(val) => setNewTicket({ ...newTicket, assignment_type: val })} className="flex gap-4 mt-1">
-                        <div className="flex items-center space-x-2"><RadioGroupItem value="kiinteistohuolto" id="assign-maint" /><Label htmlFor="assign-maint">Kiinteistöhuolto</Label></div>
+                        <div className="flex items-center space-x-2"><RadioGroupItem value="kiinteistohuolto" id="assign-maint" /><Label htmlFor="assign-maint">Korjaus</Label></div>
                         <div className="flex items-center space-x-2"><RadioGroupItem value="siivous" id="assign-clean" /><Label htmlFor="assign-clean">Siivous</Label></div>
                       </RadioGroup>
                     </div>
@@ -2239,20 +2239,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           {/* Ticket list sub-tabs */}
           <div className="flex gap-1 border-b pb-0 mb-0">
             <Button
-              variant={ticketListTab === "operational" ? "default" : "ghost"}
+              variant={ticketListTab === "siivous" ? "default" : "ghost"}
               size="sm"
-              onClick={() => setTicketListTab("operational")}
+              onClick={() => setTicketListTab("siivous")}
               className="rounded-b-none"
             >
-              Operatiivinen ({operationalTickets.length})
+              🧹 Siivous ({siivoTickets.length})
             </Button>
             <Button
-              variant={ticketListTab === "kiinteistohuolto" ? "default" : "ghost"}
+              variant={ticketListTab === "korjaus" ? "default" : "ghost"}
               size="sm"
-              onClick={() => setTicketListTab("kiinteistohuolto")}
+              onClick={() => setTicketListTab("korjaus")}
               className="rounded-b-none"
             >
-              🔧 Kiinteistöhuolto ({kiinteistohuoltoTickets.length})
+              🔧 Korjaus ({korjausTickets.length})
             </Button>
             <Button
               variant={ticketListTab === "resolved" ? "default" : "ghost"}
