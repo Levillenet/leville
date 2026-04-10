@@ -56,6 +56,7 @@ interface Ticket {
   resolved_at: string | null;
   resolved_by: string | null;
   resolve_token: string | null;
+  maintenance_company_id: string | null;
 }
 
 interface MaintenanceCompany {
