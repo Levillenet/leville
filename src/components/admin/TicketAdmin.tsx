@@ -572,26 +572,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     setLoadingCreateAvail(false);
   };
 
-  const checkEmail = async (apartmentId: string, ticketOverride?: string, assignmentType?: string) => {
-    setLoadingEmailPreview(true);
-    try {
-      const data = await callApi("resolve_email", { apartment_id: apartmentId, ticket_email_override: ticketOverride || undefined, assignment_type: assignmentType || "kiinteistohuolto" });
-      setEmailPreview(data);
-    } catch (e) {
-      console.error(e);
-      setEmailPreview(null);
-    }
-    setLoadingEmailPreview(false);
-  };
-
-  const resolveEmailForApartment = async (aptId: string, assignmentType: string): Promise<string> => {
-    try {
-      const data = await callApi("resolve_email", { apartment_id: aptId, assignment_type: assignmentType });
-      return data?.email || "unknown";
-    } catch {
-      return "unknown";
-    }
-  };
+  // (checkEmail and resolveEmailForApartment removed — email is resolved from selected company)
 
   const handleCreateTicket = async () => {
     if (newTicket.target_type === "apartment" && selectedApartmentIds.length === 0) {
