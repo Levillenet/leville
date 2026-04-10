@@ -1527,7 +1527,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               <CardContent className="space-y-4">
                 <div>
                   <Label className="text-muted-foreground text-xs">Huoneisto</Label>
-                  <p className="font-medium">{getApartmentName(selectedTicket.apartment_id)}</p>
+                  <p className="font-medium">{getSimpleApartmentName(selectedTicket.apartment_id)}</p>
                 </div>
                 {selectedTicket.target_type === "property" && selectedTicket.property_id && (
                   <div>
