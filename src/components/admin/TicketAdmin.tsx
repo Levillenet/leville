@@ -1420,11 +1420,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   };
 
   const typeBadge = (type: string) => {
-    return type === "urgent" ? (
-      <Badge variant="destructive" className="gap-1"><AlertTriangle className="w-3 h-3" />Hoidettava mahdollisimman pian</Badge>
-    ) : (
-      <Badge variant="outline">Kausihuolto</Badge>
-    );
+    if (type === "urgent") return <Badge variant="destructive" className="gap-1"><AlertTriangle className="w-3 h-3" />Hoidettava heti</Badge>;
+    if (type === "changeover") return <Badge className="bg-blue-600 text-white gap-1"><CalendarDays className="w-3 h-3" />Vaihdon yhteydessä</Badge>;
+    return <Badge variant="outline">Kausihuolto</Badge>;
   };
 
   const getScheduledReminderText = () => {
