@@ -393,6 +393,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const [emailPreview, setEmailPreview] = useState<{ email: string | null; source: string } | null>(null);
   const [loadingEmailPreview, setLoadingEmailPreview] = useState(false);
 
+  // Ticket apartments (per-apartment resolution)
+  const [ticketApartments, setTicketApartments] = useState<TicketApartment[]>([]);
+
   // Filters
   const [filterApartment, setFilterApartment] = useState("all");
   const [filterType, setFilterType] = useState("all");
