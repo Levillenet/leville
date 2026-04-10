@@ -2316,7 +2316,36 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       </RadioGroup>
                     </div>
 
-                    {/* Availability calendar */}
+                    {/* Company selector */}
+                    <div>
+                      <Label>Suorittaja *</Label>
+                      <Select
+                        value={newTicket.maintenance_company_id || "none"}
+                        onValueChange={(val) => {
+                          const companyId = val === "none" ? "" : val;
+                          const company = companies.find(c => c.id === companyId);
+                          setNewTicket({ 
+                            ...newTicket, 
+                            maintenance_company_id: companyId,
+                            email_override: company?.email || newTicket.email_override,
+                          });
+                        }}
+                      >
+                        <SelectTrigger className="text-sm"><SelectValue placeholder="Valitse suorittaja" /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="none">– Valitse –</SelectItem>
+                          {companies
+                            .filter(c => (c.company_types || []).includes(newTicket.assignment_type))
+                            .map((c) => (
+                              <SelectItem key={c.id} value={c.id}>
+                                {c.company_types?.includes("siivous") ? "🧹" : "🔧"} {c.name}
+                                {c.phone ? ` (${c.phone})` : ""}
+                              </SelectItem>
+                            ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
                     {selectedApartmentIds.length === 1 && newTicket.target_type === "apartment" && (
                       <div className="border rounded-lg p-3 bg-muted/30">
                         {loadingCreateAvail ? (
