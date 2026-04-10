@@ -120,7 +120,7 @@ Deno.serve(async (req) => {
             `Vaihtojakso: lähtö ${data.guest_departure_date}, saapuminen ${data.next_guest_arrival_date || "–"}`, "updated");
         }
 
-        // For changeover tickets, schedule a reminder for departure morning
+        if (data.type === "changeover" && data.guest_departure_date) {
           try {
             let reminderEmail: string | null = null;
             if (data.maintenance_company_id) {
