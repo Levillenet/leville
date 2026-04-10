@@ -511,6 +511,15 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
   };
 
+  const fetchApartmentAssignments = async () => {
+    try {
+      const data = await callApi("list_apartment_assignments");
+      setApartmentAssignments(data || []);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const fetchAvailabilityIndicators = useCallback(async (ticketList: Ticket[]) => {
     const unresolvedApts = [...new Set(ticketList.filter(t => t.status !== "resolved").map(t => t.apartment_id))];
     if (unresolvedApts.length === 0) return;
