@@ -784,13 +784,39 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     setSendingReminder(false);
   };
 
+  const fetchTicketApartments = async (ticketId: string) => {
+    try {
+      const data = await callApi("list_ticket_apartments", { ticket_id: ticketId });
+      setTicketApartments(data || []);
+    } catch (e) {
+      console.error(e);
+      setTicketApartments([]);
+    }
+  };
+
+  const handleResolveApartment = async (ticketApartmentId: string) => {
+    try {
+      await callApi("resolve_apartment", { ticket_apartment_id: ticketApartmentId });
+      toast({ title: "Kohde kuitattu tehdyksi" });
+      if (selectedTicket) {
+        fetchTicketApartments(selectedTicket.id);
+        fetchTicketHistory(selectedTicket.id);
+        fetchTickets();
+      }
+    } catch (e: any) {
+      toast({ title: "Virhe", description: e.message, variant: "destructive" });
+    }
+  };
+
   const openTicketDetail = (ticket: Ticket) => {
     setSelectedTicket(ticket);
     setEmptyNightData(null);
     setTicketAvailability(null);
     setTicketHistory([]);
+    setTicketApartments([]);
     fetchEmailLog(ticket.id);
     fetchTicketHistory(ticket.id);
+    fetchTicketApartments(ticket.id);
     fetchTicketAvailability(ticket.apartment_id);
     if (ticket.priority === "2" && ticket.status !== "resolved") {
       fetchEmptyNights(ticket.apartment_id);
