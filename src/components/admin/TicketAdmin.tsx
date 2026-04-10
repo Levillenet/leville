@@ -2399,7 +2399,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         <TableCell className="font-medium">
                           <span className="flex items-center gap-1.5">
                             <AvailabilityDot indicator={availabilityIndicators[ticket.apartment_id]?.indicator} />
-                            {ticket.target_type === "property" ? `🏢 ${getPropertyName(ticket.property_id)}` : ticket.description?.includes("Huoneistot (") ? "Useita" : getApartmentName(ticket.apartment_id)}
+                            {ticket.target_type === "property" ? `🏢 ${getPropertyName(ticket.property_id)}` : ticket.description?.includes("Huoneistot (") ? "Useita" : getSimpleApartmentName(ticket.apartment_id)}
                           </span>
                         </TableCell>
                         <TableCell className="flex items-center gap-1">{ticket.recurrence_months ? <span title={`Toistuu ${ticket.recurrence_months} kk välein`}>🔄</span> : null}{ticket.title}</TableCell>
