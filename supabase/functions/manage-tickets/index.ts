@@ -595,10 +595,13 @@ async function doSendEmail(
       .maybeSingle();
     apartmentName = mapping?.property_name || ticket.apartment_id;
   }
-  const typeLabel = ticket.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto";
-  const priorityLabel = ticket.priority === "1" ? "1 – Normaali" : "2 – Muistutus tarvitaan";
   const createdDate = new Date(ticket.created_at).toLocaleString("fi-FI", {
     timeZone: "Europe/Helsinki",
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   });
 
   const isReminder = emailType === "reminder";
@@ -606,63 +609,37 @@ async function doSendEmail(
   const targetDateFormatted = targetDate
     ? new Date(targetDate).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Helsinki" })
     : null;
+
   const subject = isUrgentReminder
-    ? `[Leville KIIRE] ${apartmentName} – ${ticket.title} – hoida nyt`
+    ? `[KIIRE] ${apartmentName} – ${ticket.title}`
     : isReminder
-    ? `[Leville Muistutus] ${apartmentName} – ${ticket.title}${targetDate ? ` (${targetDateFormatted})` : ""}`
-    : `[Leville Tiketti] ${apartmentName} – ${ticket.title}`;
+    ? `[Muistutus] ${apartmentName} – ${ticket.title}`
+    : `${apartmentName} – ${ticket.title}`;
 
   const reminderNote = isUrgentReminder
-    ? `<p style="color:#d32f2f;font-weight:bold;font-size:16px;">🚨 Tämä työ olisi hyvä hoitaa nyt! Muistathan kuitata tehdyksi alla olevasta napista kun työ on valmis.</p>`
+    ? `<p style="color:#d32f2f;font-weight:bold;font-size:16px;">🚨 Hoida nyt! Kuittaa tehdyksi alla olevasta napista.</p>`
     : isReminder
     ? targetDate
-      ? `<p style="color:#e65100;font-weight:bold;">⚠️ Muistutus: huoneistossa on tyhjä yö <strong>${targetDateFormatted}</strong> – huolto olisi hyvä suorittaa huomenna.</p>`
-      : `<p style="color:#e65100;font-weight:bold;">⚠️ Tämä on muistutus avoimesta tiketistä. Huoneistossa on tyhjä yö lähiaikoina – huolto olisi hyvä suorittaa.</p>`
+      ? `<p style="color:#e65100;font-weight:bold;">⚠️ Tyhjä yö <strong>${targetDateFormatted}</strong> – hoida huomenna.</p>`
+      : `<p style="color:#e65100;font-weight:bold;">⚠️ Tyhjä yö lähiaikoina – hoida nyt.</p>`
     : "";
 
-  const adminUrl = `https://leville.net/admin`;
   const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
   const resolveUrl = `${supabaseUrl}/functions/v1/resolve-ticket-public?token=${resolveToken}`;
 
   const htmlBody = `
-    <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
-      <h2 style="color:#1a1a1a;border-bottom:2px solid #2563eb;padding-bottom:10px;">
-        ${isReminder ? "🔔 Huoltomuistutus" : "📋 Uusi huoltotiketti"}
-      </h2>
+    <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:16px;">
+      <h2 style="margin:0 0 8px 0;font-size:18px;">${apartmentName}</h2>
       ${reminderNote}
-      <table style="width:100%;border-collapse:collapse;margin:20px 0;">
-        <tr>
-          <td style="padding:8px 12px;font-weight:bold;color:#666;width:140px;">Kohde:</td>
-          <td style="padding:8px 12px;">${apartmentName}</td>
-        </tr>
-        <tr style="background:#f9fafb;">
-          <td style="padding:8px 12px;font-weight:bold;color:#666;">Tyyppi:</td>
-          <td style="padding:8px 12px;">${typeLabel}</td>
-        </tr>
-        <tr>
-          <td style="padding:8px 12px;font-weight:bold;color:#666;">Prioriteetti:</td>
-          <td style="padding:8px 12px;">${priorityLabel}</td>
-        </tr>
-        <tr style="background:#f9fafb;">
-          <td style="padding:8px 12px;font-weight:bold;color:#666;">Kuvaus:</td>
-          <td style="padding:8px 12px;">${ticket.description || "–"}</td>
-        </tr>
-        <tr>
-          <td style="padding:8px 12px;font-weight:bold;color:#666;">Luotu:</td>
-          <td style="padding:8px 12px;">${createdDate}</td>
-        </tr>
-      </table>
-      <div style="margin:24px 0;text-align:center;">
+      <p style="margin:4px 0;font-size:15px;"><strong>${ticket.title}</strong></p>
+      ${ticket.description ? `<p style="margin:4px 0;font-size:14px;color:#444;">${ticket.description}</p>` : ""}
+      <p style="margin:8px 0 20px 0;font-size:13px;color:#888;">Luotu: ${createdDate}</p>
+      <div style="text-align:center;">
         <a href="${resolveUrl}" style="background:#16a34a;color:white;padding:14px 28px;text-decoration:none;border-radius:8px;display:inline-block;font-size:16px;font-weight:bold;">
           ✅ Merkitse tehdyksi
         </a>
       </div>
-      <p style="margin-top:20px;">
-        <a href="${adminUrl}" style="background:#2563eb;color:white;padding:10px 20px;text-decoration:none;border-radius:6px;display:inline-block;">
-          Avaa admin-paneeli
-        </a>
-      </p>
-      <p style="color:#999;font-size:12px;margin-top:30px;">Tämä viesti on lähetetty automaattisesti Leville.net-järjestelmästä.</p>
+      <p style="color:#aaa;font-size:11px;margin-top:24px;">Leville.net</p>
     </div>
   `;
 
