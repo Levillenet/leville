@@ -160,7 +160,7 @@ Deno.serve(async (req) => {
               headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
               body: JSON.stringify({
                 from: "leville.net tehtävä <admin@m.leville.net>",
-                to: [email],
+                to: [recipientEmail],
                 subject: `[Muutos] ${apartmentName} – ${ticket.title} – uusi aikataulu`,
                 html: htmlBody,
               }),
@@ -168,7 +168,7 @@ Deno.serve(async (req) => {
 
             await supabase.from("ticket_email_log").insert({
               ticket_id: ticket.id,
-              sent_to: email,
+              sent_to: recipientEmail,
               status: emailResponse.ok ? "sent" : "failed",
               email_type: "booking_change",
             });
