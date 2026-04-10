@@ -2589,19 +2589,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       {type === "kiinteistohuolto" ? "🔧 Kiinteistöhuolto" : "🧹 Siivous"}
                     </h4>
                     <div className="space-y-4">
-                      {typeCompanies.map((company) => {
-                        // Filter assignments by both company AND assignment_type
-                        const companyAssignments = assignments.filter(
-                          (a) => a.maintenance_company_id === company.id && (a.assignment_type || "kiinteistohuolto") === type
-                        );
-                        const assignedAptIds = companyAssignments.map((a) => a.apartment_id);
-                        
-                        // Find all assignments of this type (any company) to detect conflicts
-                        const allTypeAssignments = assignments.filter(
-                          (a) => (a.assignment_type || "kiinteistohuolto") === type
-                        );
-
-                        return (
+                      {typeCompanies.map((company) => (
                           <Card key={company.id}>
                             <CardHeader className="pb-3">
                               <div className="flex items-center justify-between">
@@ -2618,70 +2606,14 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                                 )}
                               </div>
                             </CardHeader>
-                            <CardContent className="space-y-3">
+                            <CardContent>
                               <div className="flex gap-4 text-sm text-muted-foreground">
                                 {company.email && <span className="flex items-center gap-1"><AtSign className="w-3 h-3" />{company.email}</span>}
                                 {company.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" />{company.phone}</span>}
                               </div>
-                              <div>
-                                <Label className="text-xs text-muted-foreground">Liitetyt huoneistot ({type === "kiinteistohuolto" ? "kiinteistöhuolto" : "siivous"})</Label>
-                                {!isViewer ? (
-                                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2 max-h-48 overflow-y-auto border rounded-md p-2">
-                                    {apartmentList.map((apt) => {
-                                      const isAssigned = assignedAptIds.includes(apt.id);
-                                      // Check if another company already has this apartment for this type
-                                      const otherAssignment = allTypeAssignments.find(
-                                        (a) => a.apartment_id === apt.id && a.maintenance_company_id !== company.id
-                                      );
-                                      const otherCompanyName = otherAssignment
-                                        ? companies.find(c => c.id === otherAssignment.maintenance_company_id)?.name
-                                        : null;
-                                      const isDisabled = !!otherAssignment;
-                                      
-                                      return (
-                                        <label
-                                          key={apt.id}
-                                          className={`flex items-center gap-2 text-sm rounded p-1 ${isDisabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-muted/50"}`}
-                                          title={otherCompanyName ? `Jo liitetty: ${otherCompanyName}` : undefined}
-                                        >
-                                          <input
-                                            type="checkbox"
-                                            checked={isAssigned}
-                                            disabled={isDisabled}
-                                            onChange={async () => {
-                                              if (isAssigned) {
-                                                const rec = companyAssignments.find(a => a.apartment_id === apt.id);
-                                                if (rec) await handleUnassignApartment(rec.id);
-                                              } else {
-                                                await handleAssignApartment(company.id, apt.id, type);
-                                              }
-                                            }}
-                                            className="rounded"
-                                          />
-                                          <span className="truncate">
-                                            {apt.name}
-                                            {otherCompanyName && <span className="text-xs text-muted-foreground ml-1">({otherCompanyName})</span>}
-                                          </span>
-                                        </label>
-                                      );
-                                    })}
-                                  </div>
-                                ) : (
-                                  companyAssignments.length === 0 ? (
-                                    <p className="text-sm text-muted-foreground mt-1">Ei liitettyjä huoneistoja</p>
-                                  ) : (
-                                    <div className="flex flex-wrap gap-2 mt-1">
-                                      {companyAssignments.map((assignment) => (
-                                        <Badge key={assignment.id} variant="secondary">{getApartmentName(assignment.apartment_id)}</Badge>
-                                      ))}
-                                    </div>
-                                  )
-                                )}
-                              </div>
                             </CardContent>
                           </Card>
-                        );
-                      })}
+                        ))}
                     </div>
                   </div>
                 );
