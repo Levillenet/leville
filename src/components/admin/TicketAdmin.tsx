@@ -323,6 +323,8 @@ const HistoryTimeline = ({ history }: { history: TicketHistoryEntry[] }) => {
       case "created": return "🆕";
       case "email_sent": return "📧";
       case "resolved": return "✅";
+      case "booking_updated": return "📅";
+      case "reminder_scheduled": return "⏰";
       default: return "✏️";
     }
   };
@@ -332,6 +334,8 @@ const HistoryTimeline = ({ history }: { history: TicketHistoryEntry[] }) => {
       case "created": return "Tiketti luotu";
       case "email_sent": return entry.new_value || "Sähköposti lähetetty";
       case "resolved": return "Ratkaistu";
+      case "booking_updated": return `📅 Varausmuutos: ${entry.old_value} → ${entry.new_value}`;
+      case "reminder_scheduled": return entry.new_value || "Muistutus ajastettu";
       default:
         if (entry.field_changed === "notes") return "Muistiinpanot päivitetty";
         return `${fieldLabel(entry.field_changed)}: ${entry.old_value || "–"} → ${entry.new_value || "–"}`;
@@ -399,9 +403,11 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   // Filters
   const [filterApartment, setFilterApartment] = useState("all");
   const [filterType, setFilterType] = useState("all");
-  const [filterPriority, setFilterPriority] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterCategory, setFilterCategory] = useState("all");
+
+  // Bulk delete
+  const [selectedForDelete, setSelectedForDelete] = useState<string[]>([]);
 
   // New ticket form
   const [newTicket, setNewTicket] = useState({
