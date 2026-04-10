@@ -447,29 +447,7 @@ Deno.serve(async (req) => {
         return json({ success: true });
       }
 
-      case "assign_apartment_to_property": {
-        const { assignment_id, property_id } = body;
-        const { data, error } = await supabase
-          .from("apartment_maintenance")
-          .update({ property_id })
-          .eq("id", assignment_id)
-          .select()
-          .single();
-        if (error) throw error;
-        return json(data);
-      }
-
-      case "assign_apartment_to_property_direct": {
-        const { apartment_id, property_id } = body;
-        // Create an apartment_maintenance record for property-only assignment (no company)
-        const { data, error } = await supabase
-          .from("apartment_maintenance")
-          .insert({ apartment_id, maintenance_company_id: null, property_id })
-          .select()
-          .single();
-        if (error) throw error;
-        return json(data);
-      }
+      // (assign_apartment_to_property endpoints removed)
 
       case "get_ticket_history": {
         const { ticket_id } = body;
