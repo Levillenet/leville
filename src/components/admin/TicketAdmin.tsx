@@ -1026,21 +1026,22 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   };
 
   // ── PDF: Kiinteistöraportti ──
-  const generatePropertyReportPdf = (openInNewTab = false) => {
-    const unresolvedTickets = tickets.filter(t => t.status !== "resolved");
+  const generatePropertyReportPdf = (openInNewTab = false, filterPropertyId = "all") => {
+    let unresolvedTickets = tickets.filter(t => t.status !== "resolved");
 
     if (unresolvedTickets.length === 0) {
       toast({ title: "Ei avoimia tikettejä", variant: "destructive" });
       return;
     }
 
-    const doc = createPropertyReportPdf(unresolvedTickets);
+    const doc = createPropertyReportPdf(unresolvedTickets, filterPropertyId);
     const dateStr = new Date().toISOString().split("T")[0];
+    const suffix = filterPropertyId !== "all" ? `_${properties.find(p => p.id === filterPropertyId)?.name || ""}` : "";
 
     if (openInNewTab) {
       window.open(URL.createObjectURL(doc.output("blob")), "_blank");
     } else {
-      doc.save(`kiinteistoraportti_${dateStr}.pdf`);
+      doc.save(`kiinteistoraportti${suffix}_${dateStr}.pdf`);
     }
 
     setShowPropertyReportDialog(false);
