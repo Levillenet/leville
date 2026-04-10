@@ -42,6 +42,20 @@ Deno.serve(async (req) => {
 
       case "create_ticket": {
         const { ticket, changed_by, apartment_name } = body;
+        
+        // For changeover tickets, auto-fetch departure/arrival from Beds24
+        if (ticket.type === "changeover" && ticket.apartment_id) {
+          try {
+            const guestSchedule = await getNextGuestChangeover(ticket.apartment_id);
+            if (guestSchedule) {
+              ticket.guest_departure_date = guestSchedule.departure;
+              ticket.next_guest_arrival_date = guestSchedule.nextArrival;
+            }
+          } catch (e) {
+            console.error("Failed to fetch changeover dates:", e);
+          }
+        }
+
         const { data, error } = await supabase
           .from("tickets")
           .insert(ticket)
@@ -51,6 +65,11 @@ Deno.serve(async (req) => {
 
         // Log creation to history
         await addHistory(supabase, data.id, changed_by || "admin", null, null, null, "created");
+        
+        if (data.type === "changeover" && data.guest_departure_date) {
+          await addHistory(supabase, data.id, "system", null, null, 
+            `Vaihtojakso: lähtö ${data.guest_departure_date}, saapuminen ${data.next_guest_arrival_date || "–"}`, "updated");
+        }
 
         // Send email if requested
         let emailResult = null;
