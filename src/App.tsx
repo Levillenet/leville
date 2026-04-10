@@ -31,6 +31,7 @@ const Akkilahdot = lazy(() => import("./pages/Akkilahdot"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Asiakaspalvelu = lazy(() => import("./pages/Asiakaspalvelu"));
 const Unsubscribe = lazy(() => import("./pages/Unsubscribe"));
+const TicketResolved = lazy(() => import("./pages/TicketResolved"));
 const LeviPronounce = lazy(() => import("./pages/LeviPronounce"));
 const Latuinfo = lazy(() => import("./pages/Latuinfo"));
 const MyyLomaAsuntosi = lazy(() => import("./pages/MyyLomaAsuntosi"));
@@ -462,6 +463,7 @@ const App = () => {
               
               {/* Utility routes */}
               <Route path="/unsubscribe" element={<Unsubscribe />} />
+              <Route path="/tiketti-ratkaistu" element={<TicketResolved />} />
               <Route path="/levi-pronounce" element={<LeviPronounce />} />
               <Route path="/latuinfo" element={<Latuinfo />} />
               <Route path="/myy-loma-asuntosi" element={<MyyLomaAsuntosi />} />

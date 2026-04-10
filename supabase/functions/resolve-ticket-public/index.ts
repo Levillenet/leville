@@ -5,6 +5,26 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const siteUrl = Deno.env.get("SITE_URL") || "https://leville.net";
+
+function redirectResponse(status: "success" | "already" | "invalid" | "error", title?: string) {
+  const redirectUrl = new URL("/tiketti-ratkaistu", siteUrl);
+  redirectUrl.searchParams.set("status", status);
+
+  if (title) {
+    redirectUrl.searchParams.set("title", title);
+  }
+
+  return new Response(null, {
+    status: 303,
+    headers: {
+      ...corsHeaders,
+      "Cache-Control": "no-store",
+      Location: redirectUrl.toString(),
+    },
+  });
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -15,30 +35,28 @@ Deno.serve(async (req) => {
     const token = url.searchParams.get("token");
 
     if (!token || token.length < 10) {
-      return htmlResponse("❌ Virheellinen linkki", "Token puuttuu tai on virheellinen.", 400);
+      return redirectResponse("invalid");
     }
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
-    // Find ticket by resolve_token
     const { data: ticket, error } = await supabase
       .from("tickets")
-      .select("id, title, status, apartment_id, resolve_token")
+      .select("id, title, status")
       .eq("resolve_token", token)
       .maybeSingle();
 
     if (error || !ticket) {
-      return htmlResponse("❌ Tikettiä ei löytynyt", "Linkki on vanhentunut tai virheellinen.", 404);
+      return redirectResponse("invalid");
     }
 
     if (ticket.status === "resolved") {
-      return htmlResponse("ℹ️ Tiketti on jo merkitty tehdyksi", `Tiketti "${ticket.title}" on jo ratkaistu.`, 200);
+      return redirectResponse("already", ticket.title);
     }
 
-    // Update ticket status
     const { error: updateError } = await supabase
       .from("tickets")
       .update({
@@ -51,10 +69,9 @@ Deno.serve(async (req) => {
 
     if (updateError) {
       console.error("Update error:", updateError);
-      return htmlResponse("❌ Virhe", "Tiketin päivitys epäonnistui.", 500);
+      return redirectResponse("error", ticket.title);
     }
 
-    // Log to history
     try {
       await supabase.from("ticket_history").insert({
         ticket_id: ticket.id,
@@ -64,11 +81,10 @@ Deno.serve(async (req) => {
         new_value: "resolved",
         action_type: "resolved",
       });
-    } catch (e) {
-      console.error("History log error:", e);
+    } catch (historyError) {
+      console.error("History log error:", historyError);
     }
 
-    // Handle recurrence (same logic as manage-tickets)
     try {
       const { data: fullTicket } = await supabase
         .from("tickets")
@@ -109,52 +125,13 @@ Deno.serve(async (req) => {
           });
         }
       }
-    } catch (e) {
-      console.error("Recurrence error:", e);
+    } catch (recurrenceError) {
+      console.error("Recurrence error:", recurrenceError);
     }
 
-    return htmlResponse("✅ Tiketti merkitty tehdyksi!", `Tiketti "${ticket.title}" on nyt ratkaistu. Kiitos!`, 200);
+    return redirectResponse("success", ticket.title);
   } catch (error) {
     console.error("Error:", error);
-    return htmlResponse("❌ Virhe", "Jotain meni pieleen.", 500);
+    return redirectResponse("error");
   }
 });
-
-function htmlResponse(title: string, message: string, status: number) {
-  const isSuccess = status === 200 && title.includes("✅");
-  const bgColor = isSuccess ? "#f0fdf4" : "#fef2f2";
-  const accentColor = isSuccess ? "#16a34a" : "#dc2626";
-  const emoji = isSuccess ? "🎉" : title.includes("ℹ️") ? "👍" : "⚠️";
-  
-  const html = `<!DOCTYPE html>
-<html lang="fi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leville.net</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: ${bgColor}; padding: 20px; }
-    .card { background: white; border-radius: 16px; padding: 48px 32px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
-    .emoji { font-size: 56px; margin-bottom: 16px; }
-    h1 { font-size: 22px; color: #1a1a1a; margin-bottom: 12px; font-weight: 700; }
-    p { font-size: 16px; color: #555; line-height: 1.6; margin-bottom: 8px; }
-    .thanks { font-size: 18px; color: ${accentColor}; font-weight: 600; margin-top: 16px; }
-    .logo { font-size: 13px; color: #bbb; margin-top: 32px; letter-spacing: 0.5px; }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <div class="emoji">${emoji}</div>
-    <h1>${title}</h1>
-    <p>${message}</p>
-    ${isSuccess ? '<p class="thanks">Kiitos hyvästä työstä! Mukavaa päivää! ☀️</p>' : ''}
-    <p class="logo">Leville.net</p>
-  </div>
-</body>
-</html>`;
-  return new Response(html, {
-    status,
-    headers: { ...corsHeaders, "Content-Type": "text/html; charset=utf-8" },
-  });
-}
