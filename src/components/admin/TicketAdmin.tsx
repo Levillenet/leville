@@ -1401,7 +1401,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   };
 
   // ── Ticket list sub-tab ──
-  const [ticketListTab, setTicketListTab] = useState<"siivous" | "korjaus" | "resolved">("siivous");
+  const [ticketListTab, setTicketListTab] = useState<"siivous" | "korjaus" | "kausihuolto" | "resolved">("siivous");
 
   // ── Filtered tickets ──
   const applyFilters = (t: Ticket) => {
@@ -1412,13 +1412,15 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     return true;
   };
 
-  // Split tickets into 3 groups: siivous (cleaning), korjaus (maintenance/repair), resolved
-  const siivoTickets = tickets.filter(t => t.status !== "resolved" && t.assignment_type !== "kiinteistohuolto").filter(applyFilters);
-  const korjausTickets = tickets.filter(t => t.assignment_type === "kiinteistohuolto" && t.status !== "resolved").filter(applyFilters);
+  // Split tickets into 4 groups: siivous (cleaning), korjaus (repair), kausihuolto (seasonal), resolved
+  const siivoTickets = tickets.filter(t => t.status !== "resolved" && t.type !== "seasonal" && t.assignment_type !== "kiinteistohuolto").filter(applyFilters);
+  const korjausTickets = tickets.filter(t => t.status !== "resolved" && t.type !== "seasonal" && t.assignment_type === "kiinteistohuolto").filter(applyFilters);
+  const kausihuoltoTickets = tickets.filter(t => t.status !== "resolved" && t.type === "seasonal").filter(applyFilters);
   const resolvedTickets = tickets.filter(t => t.status === "resolved").filter(applyFilters);
 
   const filteredTickets = ticketListTab === "siivous" ? siivoTickets 
     : ticketListTab === "korjaus" ? korjausTickets 
+    : ticketListTab === "kausihuolto" ? kausihuoltoTickets
     : resolvedTickets;
 
   const openCount = tickets.filter((t) => t.status === "open").length;
@@ -2507,6 +2509,14 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               className="rounded-b-none"
             >
               🔧 Korjaus ({korjausTickets.length})
+            </Button>
+            <Button
+              variant={ticketListTab === "kausihuolto" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => { setTicketListTab("kausihuolto"); setSelectedForDelete([]); }}
+              className="rounded-b-none"
+            >
+              📋 Kausihuolto ({kausihuoltoTickets.length})
             </Button>
             <Button
               variant={ticketListTab === "resolved" ? "default" : "ghost"}
