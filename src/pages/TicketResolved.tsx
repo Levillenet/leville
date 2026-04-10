@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, ClipboardCheck, AlertTriangle, Wrench } from "lucide-react";
+import { CheckCircle2, ClipboardCheck, AlertTriangle, Wrench, Loader2 } from "lucide-react";
 
-type ViewState = "success" | "already" | "invalid" | "error";
+type ViewState = "loading" | "success" | "already" | "invalid" | "error";
 
 const contentMap: Record<ViewState, {
   title: string;
@@ -12,9 +13,15 @@ const contentMap: Record<ViewState, {
   note?: string;
   icon: typeof CheckCircle2;
   iconClassName: string;
-  buttonHref: string;
-  buttonLabel: string;
+  buttonHref?: string;
+  buttonLabel?: string;
 }> = {
+  loading: {
+    title: "Käsitellään kuittausta",
+    description: "Odota hetki, työ merkitään tehdyksi.",
+    icon: Loader2,
+    iconClassName: "bg-primary/15 text-primary",
+  },
   success: {
     title: "Kiitos, työ hoidettu",
     description: "Tiketti on merkitty tehdyksi.",
@@ -53,11 +60,21 @@ const contentMap: Record<ViewState, {
 export default function TicketResolved() {
   const [searchParams] = useSearchParams();
   const statusParam = searchParams.get("status");
+  const token = searchParams.get("token");
   const titleParam = searchParams.get("title");
 
-  const status: ViewState = statusParam === "success" || statusParam === "already" || statusParam === "invalid" || statusParam === "error"
-    ? statusParam
-    : "error";
+  const status: ViewState = token
+    ? "loading"
+    : statusParam === "success" || statusParam === "already" || statusParam === "invalid" || statusParam === "error"
+      ? statusParam
+      : "error";
+
+  useEffect(() => {
+    if (!token) return;
+
+    const resolveUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/resolve-ticket-public?token=${encodeURIComponent(token)}`;
+    window.location.replace(resolveUrl);
+  }, [token]);
 
   const content = contentMap[status];
   const Icon = content.icon;
@@ -79,7 +96,7 @@ export default function TicketResolved() {
           <Card className="relative w-full max-w-md border-border/50 bg-card/95 shadow-elegant backdrop-blur-sm">
             <CardContent className="flex flex-col items-center px-6 py-10 text-center sm:px-10">
               <div className={`mb-6 flex h-20 w-20 items-center justify-center rounded-full ${content.iconClassName}`}>
-                <Icon className="h-10 w-10" />
+                <Icon className={`h-10 w-10 ${status === "loading" ? "animate-spin" : ""}`} />
               </div>
 
               <h1 className="text-3xl font-semibold text-foreground">{content.title}</h1>
@@ -94,9 +111,11 @@ export default function TicketResolved() {
                 <p className="mt-2 text-lg font-medium text-foreground">{content.note}</p>
               ) : null}
 
-              <Button asChild size="lg" className="mt-8 min-w-40">
-                <a href={content.buttonHref}>{content.buttonLabel}</a>
-              </Button>
+              {content.buttonHref && content.buttonLabel ? (
+                <Button asChild size="lg" className="mt-8 min-w-40">
+                  <a href={content.buttonHref}>{content.buttonLabel}</a>
+                </Button>
+              ) : null}
             </CardContent>
           </Card>
         </div>
