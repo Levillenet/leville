@@ -1,41 +1,37 @@
 
 
-# Kausihuoltoraportti kiinteistöittäin — tilanne
+# Kiinteistöraportin multi-apartment-tikettien suodatus
 
-## Nykytila
+## Ongelma
 
-Koodi toteuttaa jo halutun toiminnallisuuden:
+Kun tiketti (esim. "Saunan kivien vaihto") koskee 14 huoneistoa kolmesta kiinteistöstä, raportti:
+1. Luo jokaiselle huoneistolle oman osion → 10 erillistä "Useita kohteita" -osiota Glacier-kiinteistön alle
+2. Jokaisen osion kuvauksessa listataan KAIKKI 14 huoneistoa, ei vain kyseisen kiinteistön huoneistoja
 
-1. **Kiinteistösuodatin** on raporttidialogissa (Select: "Kaikki kiinteistöt" / yksittäinen kiinteistö)
-2. **Multi-apartment-tikettien jakaminen**: jos tiketti (esim. "saunan kivien vaihto") sisältää huoneistoja 2 eri kiinteistöstä, raportti näyttää sen **molempien** kiinteistöjen alla erikseen
-3. **Ryhmittely**: Kiinteistön nimi → huoneistot → kategoriat → tiketit
+## Ratkaisu
 
-## Mahdollinen ongelma
+Muutetaan `createPropertyReportPdf`-funktion ryhmittelylogiikka niin, että multi-apartment-tiketit:
+- Näytetään **kerran per kiinteistö** (ei kerran per huoneisto)
+- Kuvauksessa listataan vain kyseisen kiinteistön huoneistot (intersection/leikkaus)
+- Tikettien lukumäärä lasketaan uniikkien tikettien mukaan (ei huoneisto × tiketti)
 
-Vanhat tiketit (luotu ennen `ticket_apartments`-järjestelmää) eivät välttämättä sisällä rivejä `ticket_apartments`-taulussa. Tällöin multi-apartment-tiketti näkyy vain yhden huoneiston (`t.apartment_id`) alla eikä jakaudu kiinteistöittäin.
+## Muutokset — `TicketAdmin.tsx`, `createPropertyReportPdf` (~rivit 1378–1510)
 
-## Suositeltava korjaus
+### 1. Uusi tietorakenne
+Nykyinen: `propGroups[propKey].aptGroups[aptId] = Ticket[]`
+Uusi: lisätään `propGroups[propKey].multiAptTickets` — map tiketti-id → { ticket, aptIds[] }
 
-Lisätään backfill-logiikka: jos `allTicketApartments` ei sisällä rivejä tietyn tiketin osalta, mutta tiketin kuvauksessa on listattuna useita huoneistoja (esim. "Huoneistot (5): ..."), parsitaan huoneistonimet ja käytetään niitä ryhmittelyyn.
+Multi-apartment-tiketit menevät `multiAptTickets`-mappiin (yksi entry per tiketti per kiinteistö, sisältäen vain kyseisen kiinteistön huoneistot). Yksittäisen huoneiston tiketit menevät `aptGroups`-mappiin kuten ennenkin.
 
-## Muutokset
+### 2. Renderöinti
+- Ensin tulostetaan huoneistokohtaiset tiketit (aptGroups) kuten nykyään
+- Sitten tulostetaan multi-apartment-tiketit omana "Useita kohteita" -osiona, jossa kuvauksessa näkyy vain kyseisen kiinteistön huoneistonimet
 
-### TicketAdmin.tsx — `createPropertyReportPdf`
-
-Muutetaan rivi ~1394-1404:
-- Jos `ta.length === 0` JA tiketti on tyyppiä "kausihuolto" JA `apartment_ids` löytyy, käytetään `apartment_ids`-listaa jakamiseen
-- Varasuunnitelmana parsitaan tiketin kuvauksesta huoneistonimet
-
-### Vaihtoehto: backfill ticket_apartments
-
-Lisätään edge function -actio `backfill_ticket_apartments`, joka:
-- Hakee kaikki tiketit joilla `apartment_ids` on useampi kuin 1
-- Tarkistaa onko `ticket_apartments`-rivit jo olemassa
-- Luo puuttuvat rivit
+### 3. Tikettien lukumäärä
+`totalCount` lasketaan uniikkien tiketti-id:iden mukaan, ei rivien mukaan.
 
 ## Muutettavat tiedostot
 | Tiedosto | Muutos |
 |---|---|
-| `src/components/admin/TicketAdmin.tsx` | Fallback-logiikka vanhoille tiketeille `createPropertyReportPdf`-funktiossa |
-| `supabase/functions/manage-tickets/index.ts` | Uusi `backfill_ticket_apartments` action (valinnainen) |
+| `src/components/admin/TicketAdmin.tsx` | `createPropertyReportPdf` — ryhmittely ja renderöinti |
 
