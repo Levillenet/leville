@@ -1559,10 +1559,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 </div>
                 <div className="flex gap-4">
                   <div>
-                    <Label className="text-muted-foreground text-xs">Prioriteetti</Label>
-                    <p>{selectedTicket.priority === "1" ? "Normaali" : "Muistutus tarvitaan"}</p>
-                  </div>
-                  <div>
                     <Label className="text-muted-foreground text-xs">Sähköposti</Label>
                     <p>{selectedTicket.send_email ? "Kyllä" : "Ei"}</p>
                   </div>
