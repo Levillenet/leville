@@ -1728,7 +1728,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
                 {/* Resolved info */}
                 {selectedTicket.status === "resolved" && selectedTicket.resolved_at && (
-                  <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg space-y-1">
+                  <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg space-y-2">
                     <div className="flex items-center gap-2 text-sm font-medium text-emerald-800">
                       <CheckCircle2 className="w-4 h-4" />
                       Ratkaistu
@@ -1740,6 +1740,28 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     <p className="text-sm text-emerald-600">
                       Ratkaisija: {selectedTicket.resolved_by === "email_link" ? "Suorittaja (sähköpostilinkki)" : "Admin"}
                     </p>
+                    {!isViewer && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full mt-1 border-amber-400 text-amber-700 hover:bg-amber-50"
+                        onClick={async () => {
+                          try {
+                            const result = await callApi("reactivate_ticket", { id: selectedTicket.id });
+                            setSelectedTicket({ ...result, status: "open", resolved_at: null, resolved_by: null });
+                            fetchTickets();
+                            fetchTicketHistory(selectedTicket.id);
+                            fetchTicketApartments(selectedTicket.id);
+                            toast({ title: "Tiketti aktivoitu uudelleen" });
+                          } catch (e: any) {
+                            toast({ title: "Virhe", description: e.message, variant: "destructive" });
+                          }
+                        }}
+                      >
+                        <RefreshCw className="w-4 h-4 mr-2" />
+                        Aktivoi uudelleen
+                      </Button>
+                    )}
                   </div>
                 )}
 

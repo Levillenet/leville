@@ -211,6 +211,34 @@ Deno.serve(async (req) => {
         return json(data);
       }
 
+      case "reactivate_ticket": {
+        const { id, changed_by: reactivateBy } = body;
+
+        // Reset the ticket to open
+        const { data, error } = await supabase
+          .from("tickets")
+          .update({ 
+            status: "open", 
+            resolved_at: null, 
+            resolved_by: null, 
+            updated_at: new Date().toISOString() 
+          })
+          .eq("id", id)
+          .select()
+          .single();
+        if (error) throw error;
+
+        await addHistory(supabase, id, reactivateBy || "admin", "status", "resolved", "open", "updated");
+
+        // Reset all ticket_apartments back to open
+        await supabase
+          .from("ticket_apartments")
+          .update({ status: "open", resolved_at: null })
+          .eq("ticket_id", id);
+
+        return json(data);
+      }
+
       case "delete_ticket": {
         const { id } = body;
         const { error } = await supabase.from("tickets").delete().eq("id", id);
