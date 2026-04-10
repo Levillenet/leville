@@ -1335,7 +1335,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
     for (const t of allTickets) {
       // Check if ticket has multiple apartments via ticket_apartments
-      const ta = ticketApartments.filter(ta => ta.ticket_id === t.id);
+      const ta = allTicketApartments.filter(a => a.ticket_id === t.id);
       if (ta.length > 1) {
         // Split: add this ticket under each apartment's property
         for (const apt of ta) {
