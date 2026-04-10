@@ -1729,16 +1729,18 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                 )}
 
                 {/* Resolved info */}
-                {selectedTicket.status === "resolved" && selectedTicket.resolved_at && (
+                {selectedTicket.status === "resolved" && (
                   <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg space-y-2">
                     <div className="flex items-center gap-2 text-sm font-medium text-emerald-800">
                       <CheckCircle2 className="w-4 h-4" />
                       Ratkaistu
                     </div>
-                    <p className="text-sm text-emerald-700">
-                      {new Date(selectedTicket.resolved_at).toLocaleDateString("fi-FI")} klo{" "}
-                      {new Date(selectedTicket.resolved_at).toLocaleTimeString("fi-FI", { hour: "2-digit", minute: "2-digit" })}
-                    </p>
+                    {selectedTicket.resolved_at && (
+                      <p className="text-sm text-emerald-700">
+                        {new Date(selectedTicket.resolved_at).toLocaleDateString("fi-FI")} klo{" "}
+                        {new Date(selectedTicket.resolved_at).toLocaleTimeString("fi-FI", { hour: "2-digit", minute: "2-digit" })}
+                      </p>
+                    )}
                     <p className="text-sm text-emerald-600">
                       Ratkaisija: {selectedTicket.resolved_by === "email_link" ? "Suorittaja (sähköpostilinkki)" : "Admin"}
                     </p>
