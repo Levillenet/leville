@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
       }
 
       case "create_ticket": {
-        const { ticket, changed_by, apartment_name } = body;
+        const { ticket, changed_by, apartment_name, apartment_ids, apartment_names } = body;
         
         // For changeover tickets, auto-fetch departure/arrival from Beds24
         if (ticket.type === "changeover" && ticket.apartment_id) {
@@ -63,6 +63,18 @@ Deno.serve(async (req) => {
           .single();
         if (error) throw error;
 
+        // Create ticket_apartments for multi-apartment tickets
+        const aptIds = apartment_ids || [data.apartment_id];
+        const aptNames = apartment_names || {};
+        if (aptIds.length > 0) {
+          const rows = aptIds.map((id: string) => ({
+            ticket_id: data.id,
+            apartment_id: id,
+            apartment_name: aptNames[id] || id,
+          }));
+          await supabase.from("ticket_apartments").insert(rows);
+        }
+
         // Log creation to history
         await addHistory(supabase, data.id, changed_by || "admin", null, null, null, "created");
         
@@ -74,7 +86,12 @@ Deno.serve(async (req) => {
         // Send email if requested
         let emailResult = null;
         if (ticket.send_email) {
-          emailResult = await sendTicketEmail(supabase, data, "creation", undefined, apartment_name);
+          // For multi-apartment tickets, pass the ticket_apartments for per-apartment links
+          const { data: ticketApts } = await supabase
+            .from("ticket_apartments")
+            .select("*")
+            .eq("ticket_id", data.id);
+          emailResult = await sendTicketEmail(supabase, data, "creation", undefined, apartment_name, ticketApts || []);
           if (emailResult.sent) {
             await addHistory(supabase, data.id, changed_by || "admin", null, null, `Lähetetty: ${emailResult.email}`, "email_sent");
           }
