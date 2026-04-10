@@ -1456,7 +1456,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const applyFilters = (t: Ticket) => {
     if (filterApartment !== "all" && t.apartment_id !== filterApartment) return false;
     if (filterType !== "all" && t.type !== filterType) return false;
-    if (filterPriority !== "all" && t.priority !== filterPriority) return false;
     if (filterStatus !== "all" && t.status !== filterStatus) return false;
     if (filterCategory !== "all" && t.category_id !== filterCategory) return false;
     return true;
