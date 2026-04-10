@@ -214,6 +214,9 @@ Deno.serve(async (req) => {
       case "reactivate_ticket": {
         const { id, changed_by: reactivateBy } = body;
 
+        // Get the ticket first to check type and dates
+        const { data: oldTicket } = await supabase.from("tickets").select("*").eq("id", id).single();
+
         // Reset the ticket to open
         const { data, error } = await supabase
           .from("tickets")
@@ -235,6 +238,42 @@ Deno.serve(async (req) => {
           .from("ticket_apartments")
           .update({ status: "open", resolved_at: null })
           .eq("ticket_id", id);
+
+        // Re-schedule changeover reminder if applicable
+        if (oldTicket && oldTicket.type === "changeover" && oldTicket.guest_departure_date) {
+          // Resolve email from ticket's maintenance_company_id
+          let recipientEmail: string | null = null;
+          if (oldTicket.maintenance_company_id) {
+            const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", oldTicket.maintenance_company_id).single();
+            recipientEmail = mc?.email || null;
+          }
+          if (!recipientEmail && oldTicket.email_override) recipientEmail = oldTicket.email_override;
+
+          if (recipientEmail) {
+            // Calculate scheduled_for: evening before departure date (18:00 Helsinki time)
+            const targetDateObj = new Date(oldTicket.guest_departure_date + "T18:00:00");
+            const scheduledFor = new Date(targetDateObj.getTime() - 24 * 60 * 60 * 1000);
+
+            // Only schedule if the date is in the future
+            if (scheduledFor.getTime() > Date.now()) {
+              // Get apartment name for the reminder
+              const { data: ticketApts } = await supabase.from("ticket_apartments").select("apartment_name").eq("ticket_id", id);
+              const aptNames = ticketApts?.map((a: any) => a.apartment_name).join(", ") || "";
+
+              await supabase.from("ticket_email_log").insert({
+                ticket_id: id,
+                sent_to: recipientEmail,
+                status: "scheduled",
+                email_type: "changeover_reminder",
+                scheduled_for: scheduledFor.toISOString(),
+                error_message: aptNames ? `__apt_name__:${aptNames}` : null,
+              });
+
+              const scheduledDateStr = scheduledFor.toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Helsinki" });
+              await addHistory(supabase, id, reactivateBy || "admin", null, null, `Vaihtomuistutus ajastettu uudelleen: ${scheduledDateStr} → ${recipientEmail}`, "reminder_scheduled");
+            }
+          }
+        }
 
         return json(data);
       }
