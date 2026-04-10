@@ -56,6 +56,7 @@ interface Ticket {
   resolved_at: string | null;
   resolved_by: string | null;
   resolve_token: string | null;
+  maintenance_company_id: string | null;
 }
 
 interface MaintenanceCompany {
@@ -424,6 +425,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     recurrence_months: 0,
     recurrence_note: "",
     assignment_type: "kiinteistohuolto" as string,
+    maintenance_company_id: "",
   });
   const [selectedApartmentIds, setSelectedApartmentIds] = useState<string[]>([]);
 
@@ -639,6 +641,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         recurrence_months: newTicket.recurrence_months > 0 ? newTicket.recurrence_months : null,
         recurrence_note: newTicket.recurrence_note || null,
         assignment_type: newTicket.assignment_type,
+        maintenance_company_id: newTicket.maintenance_company_id || null,
       };
       const aptName = aptNames.join(", ");
       // Pass apartment_ids for per-apartment tracking
@@ -662,7 +665,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
       });
       
       setShowCreateDialog(false);
-      setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "", assignment_type: "kiinteistohuolto" });
+      setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "", assignment_type: "kiinteistohuolto", maintenance_company_id: "" });
       setSelectedApartmentIds([]);
       setEmailPreview(null);
       setCreateFormAvailability(null);
@@ -1557,6 +1560,47 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   <Label className="text-muted-foreground text-xs">Kuvaus</Label>
                   <p>{selectedTicket.description || "–"}</p>
                 </div>
+                {/* Assigned company */}
+                <div>
+                  <Label className="text-muted-foreground text-xs">Suorittaja</Label>
+                  {!isViewer ? (
+                    <Select
+                      value={selectedTicket.maintenance_company_id || "none"}
+                      onValueChange={async (val) => {
+                        const companyId = val === "none" ? null : val;
+                        try {
+                          await callApi("update_ticket", { id: selectedTicket.id, updates: { maintenance_company_id: companyId } });
+                          setSelectedTicket({ ...selectedTicket, maintenance_company_id: companyId });
+                          // If a company is selected, also set email_override to its email
+                          if (companyId) {
+                            const company = companies.find(c => c.id === companyId);
+                            if (company?.email) {
+                              await callApi("update_ticket", { id: selectedTicket.id, updates: { email_override: company.email } });
+                              setSelectedTicket(prev => prev ? { ...prev, maintenance_company_id: companyId, email_override: company.email! } : prev);
+                            }
+                          }
+                          toast({ title: "Suorittaja päivitetty" });
+                          fetchTicketHistory(selectedTicket.id);
+                        } catch (e: any) {
+                          toast({ title: "Virhe", description: e.message, variant: "destructive" });
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="text-sm"><SelectValue placeholder="Valitse suorittaja" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">– Ei valittu –</SelectItem>
+                        {companies.map((c) => (
+                          <SelectItem key={c.id} value={c.id}>
+                            {c.company_types?.includes("siivous") ? "🧹" : "🔧"} {c.name}
+                            {c.phone ? ` (${c.phone})` : ""}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <p className="font-medium">{selectedTicket.maintenance_company_id ? companies.find(c => c.id === selectedTicket.maintenance_company_id)?.name || "–" : "Ei valittu"}</p>
+                  )}
+                </div>
                 <div className="flex gap-4">
                   <div>
                     <Label className="text-muted-foreground text-xs">Sähköposti</Label>
@@ -1758,6 +1802,66 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       <Bell className="w-4 h-4 mr-2" />
                       🔔 Muistuta nyt
                     </Button>
+                    {/* WhatsApp link */}
+                    {(() => {
+                      const assignedCompany = selectedTicket.maintenance_company_id 
+                        ? companies.find(c => c.id === selectedTicket.maintenance_company_id) 
+                        : null;
+                      const phone = assignedCompany?.phone;
+                      if (!phone) return null;
+                      
+                      const aptName = getSimpleApartmentName(selectedTicket.apartment_id);
+                      const siteBase = "https://leville.lovable.app";
+                      
+                      // Build changeover info
+                      let changeoverText = "";
+                      if (ticketApartments.length > 1 && ticketApartments.some(ta => (ta as any).guest_departure_date)) {
+                        changeoverText = "\n\n📅 Vaihtojakso kohteittain:\n" + ticketApartments.map(ta => {
+                          const dep = (ta as any).guest_departure_date 
+                            ? new Date((ta as any).guest_departure_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+                            : null;
+                          const arr = (ta as any).next_guest_arrival_date
+                            ? new Date((ta as any).next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+                            : null;
+                          return `• ${ta.apartment_name}: ${dep ? `lähtö ${dep}` : "ei tietoja"}${arr ? `, seuraava ${arr}` : ""}`;
+                        }).join("\n");
+                      } else if (selectedTicket.guest_departure_date) {
+                        const dep = new Date(selectedTicket.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" });
+                        const arr = selectedTicket.next_guest_arrival_date 
+                          ? new Date(selectedTicket.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "long", day: "numeric", month: "long" })
+                          : null;
+                        changeoverText = `\n\n📅 Vaihtojakso:\nAsiakas lähtee: ${dep}${arr ? `\nSeuraava saapuu: ${arr}` : "\nEi seuraavaa varausta"}`;
+                      }
+                      
+                      // Build resolve links
+                      let resolveText = "";
+                      if (ticketApartments.length > 1) {
+                        resolveText = "\n\nKuittaa tehdyksi:\n" + ticketApartments.map(ta => 
+                          `✅ ${ta.apartment_name}: ${siteBase}/tiketti-ratkaistu?token=${ta.resolve_token}&apt=1`
+                        ).join("\n");
+                      } else {
+                        const token = selectedTicket.resolve_token || "";
+                        resolveText = `\n\n✅ Kuittaa tehdyksi:\n${siteBase}/tiketti-ratkaistu?token=${token}`;
+                      }
+                      
+                      const urgentPrefix = selectedTicket.type === "urgent" ? "🚨 KIIRE – Hoida heti!\n\n" : "";
+                      const message = `${urgentPrefix}${aptName}\n*${selectedTicket.title}*${selectedTicket.description ? `\n${selectedTicket.description}` : ""}${changeoverText}${resolveText}`;
+                      
+                      // Clean phone number
+                      const cleanPhone = phone.replace(/[^+\d]/g, "");
+                      const waUrl = `https://wa.me/${cleanPhone.replace("+", "")}?text=${encodeURIComponent(message)}`;
+                      
+                      return (
+                        <Button
+                          variant="outline"
+                          className="w-full border-green-400 text-green-700 hover:bg-green-50"
+                          onClick={() => window.open(waUrl, "_blank")}
+                        >
+                          <Phone className="w-4 h-4 mr-2" />
+                          📱 Lähetä WhatsAppilla ({assignedCompany.name})
+                        </Button>
+                      );
+                    })()}
                   </div>
                 )}
 
@@ -2106,7 +2210,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   setCreateFormAvailability(null);
                   setPendingReminderDate("");
                   setSelectedApartmentIds([]);
-                  setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "", assignment_type: "kiinteistohuolto" });
+                  setNewTicket({ apartment_id: "", title: "", description: "", type: "seasonal", priority: "1", send_email: false, category_id: "", target_type: "apartment", property_id: "", email_override: "", recurrence_months: 0, recurrence_note: "", assignment_type: "kiinteistohuolto", maintenance_company_id: "" });
                 }
               }}>
                 <DialogTrigger asChild>
@@ -2214,7 +2318,36 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       </RadioGroup>
                     </div>
 
-                    {/* Availability calendar */}
+                    {/* Company selector */}
+                    <div>
+                      <Label>Suorittaja *</Label>
+                      <Select
+                        value={newTicket.maintenance_company_id || "none"}
+                        onValueChange={(val) => {
+                          const companyId = val === "none" ? "" : val;
+                          const company = companies.find(c => c.id === companyId);
+                          setNewTicket({ 
+                            ...newTicket, 
+                            maintenance_company_id: companyId,
+                            email_override: company?.email || newTicket.email_override,
+                          });
+                        }}
+                      >
+                        <SelectTrigger className="text-sm"><SelectValue placeholder="Valitse suorittaja" /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="none">– Valitse –</SelectItem>
+                          {companies
+                            .filter(c => (c.company_types || []).includes(newTicket.assignment_type))
+                            .map((c) => (
+                              <SelectItem key={c.id} value={c.id}>
+                                {c.company_types?.includes("siivous") ? "🧹" : "🔧"} {c.name}
+                                {c.phone ? ` (${c.phone})` : ""}
+                              </SelectItem>
+                            ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
                     {selectedApartmentIds.length === 1 && newTicket.target_type === "apartment" && (
                       <div className="border rounded-lg p-3 bg-muted/30">
                         {loadingCreateAvail ? (
