@@ -2944,10 +2944,20 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
             <Card>
               <CardHeader><CardTitle className="text-base">Kiinteistöraportti</CardTitle></CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground">Kaikki avoimet tiketit ryhmiteltynä kiinteistöittäin.</p>
+                <p className="text-sm text-muted-foreground">Avoimet tiketit ryhmiteltynä kiinteistöittäin.</p>
+                <div>
+                  <Label className="text-xs">Kiinteistö</Label>
+                  <Select value={propertyReportPropertyId} onValueChange={setPropertyReportPropertyId}>
+                    <SelectTrigger className="w-[220px]"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Kaikki kiinteistöt</SelectItem>
+                      {properties.map(p => (<SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>))}
+                    </SelectContent>
+                  </Select>
+                </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" onClick={() => generatePropertyReportPdf(false)}><FileText className="w-4 h-4 mr-1" />Lataa PDF</Button>
-                  <Button variant="outline" onClick={() => generatePropertyReportPdf(true)}>Avaa selaimessa</Button>
+                  <Button variant="outline" onClick={() => generatePropertyReportPdf(false, propertyReportPropertyId)}><FileText className="w-4 h-4 mr-1" />Lataa PDF</Button>
+                  <Button variant="outline" onClick={() => generatePropertyReportPdf(true, propertyReportPropertyId)}>Avaa selaimessa</Button>
                 </div>
               </CardContent>
             </Card>
