@@ -25,8 +25,10 @@ interface Ticket {
   apartment_id: string;
   title: string;
   description: string | null;
-  type: "seasonal" | "urgent";
+  type: "seasonal" | "urgent" | "changeover";
   priority: "1" | "2";
+  guest_departure_date: string | null;
+  next_guest_arrival_date: string | null;
   status: "open" | "in_progress" | "resolved";
   send_email: boolean;
   notes: string | null;
@@ -380,7 +382,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     apartment_id: "",
     title: "",
     description: "",
-    type: "seasonal" as "seasonal" | "urgent",
+    type: "seasonal" as "seasonal" | "urgent" | "changeover",
     priority: "1" as "1" | "2",
     send_email: false,
     category_id: "",
@@ -595,7 +597,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
         title: newTicket.title,
         description: finalDescription || null,
         type: newTicket.type,
-        priority: newTicket.priority,
+        priority: newTicket.type === "changeover" ? "1" : newTicket.priority,
         send_email: newTicket.send_email,
         target_type: newTicket.target_type,
         apartment_id: apartmentIdsToCreate[0],
