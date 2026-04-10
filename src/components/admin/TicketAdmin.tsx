@@ -20,6 +20,17 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
 
 // ── Types ──
+interface TicketApartment {
+  id: string;
+  ticket_id: string;
+  apartment_id: string;
+  apartment_name: string;
+  status: string;
+  resolve_token: string;
+  resolved_at: string | null;
+  created_at: string;
+}
+
 interface Ticket {
   id: string;
   apartment_id: string;
@@ -126,6 +137,18 @@ const getApartmentName = (id: string) => {
   const apt = apartmentList.find((a) => a.id === id);
   return apt?.name || id;
 };
+
+// Simplified name: strips size, guest count, and type descriptions
+const getSimpleName = (fullName: string): string => {
+  return fullName
+    .replace(/\s*\(.*?\)/g, '')
+    .replace(/\s*\d+m2\s*/g, ' ')
+    .replace(/\s*(Superior|One-Bedroom|Two-Bedroom|Penthouse|Studio|Apartment|House)\s*/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+};
+
+const getSimpleApartmentName = (id: string) => getSimpleName(getApartmentName(id));
 
 // ── Improved Calendar Component ──
 const ImprovedCalendar = ({ 
