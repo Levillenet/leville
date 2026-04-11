@@ -19,7 +19,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign, CalendarDays, Send, AlertCircle, FileText, Tag, History, BarChart3, Settings, Bell } from "lucide-react";
+import { Loader2, Plus, AlertTriangle, Clock, CheckCircle2, RefreshCw, ArrowLeft, Mail, Trash2, Building2, Phone, AtSign, CalendarDays, Send, AlertCircle, FileText, Tag, History, BarChart3, Settings, Bell, Info } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -1612,7 +1613,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   };
 
   // ── Ticket list sub-tab ──
-  const [ticketListTab, setTicketListTab] = useState<"siivous" | "korjaus" | "kausihuolto" | "resolved">("siivous");
+  const [ticketListTab, setTicketListTab] = useState<"avoimet" | "kausihuolto" | "resolved">("avoimet");
 
   // ── Filtered tickets ──
   const applyFilters = (t: Ticket) => {
@@ -1623,14 +1624,12 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     return true;
   };
 
-  // Split tickets into 4 groups: siivous (cleaning), korjaus (repair), kausihuolto (seasonal), resolved
-  const siivoTickets = tickets.filter(t => t.status !== "resolved" && t.type !== "seasonal" && t.assignment_type !== "kiinteistohuolto").filter(applyFilters);
-  const korjausTickets = tickets.filter(t => t.status !== "resolved" && t.type !== "seasonal" && t.assignment_type === "kiinteistohuolto").filter(applyFilters);
+  // Split tickets into 3 groups: avoimet (open non-seasonal), kausihuolto (seasonal), resolved
+  const avoimetTickets = tickets.filter(t => t.status !== "resolved" && t.type !== "seasonal").filter(applyFilters);
   const kausihuoltoTickets = tickets.filter(t => t.status !== "resolved" && t.type === "seasonal").filter(applyFilters);
   const resolvedTickets = tickets.filter(t => t.status === "resolved").filter(applyFilters);
 
-  const filteredTickets = ticketListTab === "siivous" ? siivoTickets 
-    : ticketListTab === "korjaus" ? korjausTickets 
+  const filteredTickets = ticketListTab === "avoimet" ? avoimetTickets 
     : ticketListTab === "kausihuolto" ? kausihuoltoTickets
     : resolvedTickets;
 
@@ -2596,7 +2595,21 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       <Textarea value={newTicket.description} onChange={(e) => setNewTicket({ ...newTicket, description: e.target.value })} rows={3} />
                     </div>
                     <div>
-                      <Label>Tyyppi</Label>
+                      <div className="flex items-center gap-1.5">
+                        <Label>Tyyppi</Label>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Info className="w-4 h-4 text-muted-foreground cursor-help" />
+                            </TooltipTrigger>
+                            <TooltipContent side="right" className="max-w-xs text-sm space-y-2 p-3">
+                              <p><strong>Kausihuolto:</strong> Tehdään kauden vaihtuessa. Ei automaattisia muistutuksia.</p>
+                              <p><strong>Hoidettava heti:</strong> Muistutussähköposti joka aamu kunnes kuitattu.</p>
+                              <p><strong>Vaihdon yhteydessä:</strong> Muistutus asiakkaan lähtöpäivän aamusta eteenpäin, joka tyhjän päivän aamu ennen uuden asiakkaan saapumista.</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
                       <RadioGroup value={newTicket.type} onValueChange={(val) => setNewTicket({ ...newTicket, type: val as any })} className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-1">
                         <div className="flex items-center space-x-2"><RadioGroupItem value="seasonal" id="type-seasonal" /><Label htmlFor="type-seasonal">Kausihuolto</Label></div>
                         <div className="flex items-center space-x-2"><RadioGroupItem value="urgent" id="type-urgent" /><Label htmlFor="type-urgent">Hoidettava heti</Label></div>
@@ -2608,14 +2621,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                       {newTicket.type === "urgent" && (
                         <p className="text-xs text-muted-foreground mt-2">⚡ Hoidetaan heti, vaikka asiakas olisi sisällä.</p>
                       )}
-                    </div>
-
-                    <div>
-                      <Label>Ohjaa</Label>
-                      <RadioGroup value={newTicket.assignment_type} onValueChange={(val) => setNewTicket({ ...newTicket, assignment_type: val })} className="flex gap-4 mt-1">
-                        <div className="flex items-center space-x-2"><RadioGroupItem value="kiinteistohuolto" id="assign-maint" /><Label htmlFor="assign-maint">Korjaus</Label></div>
-                        <div className="flex items-center space-x-2"><RadioGroupItem value="siivous" id="assign-clean" /><Label htmlFor="assign-clean">Siivous</Label></div>
-                      </RadioGroup>
                     </div>
 
                     {/* Company selector */}
@@ -2636,11 +2641,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         <SelectTrigger className="text-sm"><SelectValue placeholder="Valitse suorittaja" /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="none">– Valitse –</SelectItem>
-                          {companies
-                            .filter(c => (c.company_types || []).includes(newTicket.assignment_type))
-                            .map((c) => (
+                          {companies.map((c) => (
                               <SelectItem key={c.id} value={c.id}>
-                                {c.company_types?.includes("siivous") ? "🧹" : "🔧"} {c.name}
+                                {c.name}
                                 {c.phone ? ` (${c.phone})` : ""}
                               </SelectItem>
                             ))}
@@ -2777,20 +2780,12 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           {/* Ticket list sub-tabs */}
           <div className="flex gap-1 border-b pb-0 mb-0">
             <Button
-              variant={ticketListTab === "siivous" ? "default" : "ghost"}
+              variant={ticketListTab === "avoimet" ? "default" : "ghost"}
               size="sm"
-              onClick={() => { setTicketListTab("siivous"); setSelectedForDelete([]); }}
+              onClick={() => { setTicketListTab("avoimet"); setSelectedForDelete([]); }}
               className="rounded-b-none"
             >
-              🧹 Siivous ({siivoTickets.length})
-            </Button>
-            <Button
-              variant={ticketListTab === "korjaus" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => { setTicketListTab("korjaus"); setSelectedForDelete([]); }}
-              className="rounded-b-none"
-            >
-              🔧 Korjaus ({korjausTickets.length})
+              📋 Avoimet ({avoimetTickets.length})
             </Button>
             <Button
               variant={ticketListTab === "kausihuolto" ? "default" : "ghost"}
@@ -2798,7 +2793,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
               onClick={() => { setTicketListTab("kausihuolto"); setSelectedForDelete([]); }}
               className="rounded-b-none"
             >
-              📋 Kausihuolto ({kausihuoltoTickets.length})
+              🔧 Kausihuolto ({kausihuoltoTickets.length})
             </Button>
             <Button
               variant={ticketListTab === "resolved" ? "default" : "ghost"}
@@ -2903,25 +2898,6 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                   <DialogHeader><DialogTitle>{editingCompany ? "Muokkaa yritystä" : "Uusi yritys"}</DialogTitle></DialogHeader>
                   <div className="space-y-4">
                     <div><Label>Nimi *</Label><Input value={companyForm.name} onChange={(e) => setCompanyForm({ ...companyForm, name: e.target.value })} /></div>
-                    <div>
-                      <Label>Tyyppi *</Label>
-                      <div className="flex gap-4 mt-1">
-                        <label className="flex items-center gap-2 text-sm cursor-pointer">
-                          <input type="checkbox" checked={companyForm.company_types.includes("kiinteistohuolto")} onChange={(e) => {
-                            const types = e.target.checked ? [...companyForm.company_types, "kiinteistohuolto"] : companyForm.company_types.filter(t => t !== "kiinteistohuolto");
-                            setCompanyForm({ ...companyForm, company_types: types });
-                          }} className="rounded" />
-                          🔧 Kiinteistöhuolto
-                        </label>
-                        <label className="flex items-center gap-2 text-sm cursor-pointer">
-                          <input type="checkbox" checked={companyForm.company_types.includes("siivous")} onChange={(e) => {
-                            const types = e.target.checked ? [...companyForm.company_types, "siivous"] : companyForm.company_types.filter(t => t !== "siivous");
-                            setCompanyForm({ ...companyForm, company_types: types });
-                          }} className="rounded" />
-                          🧹 Siivous
-                        </label>
-                      </div>
-                    </div>
                     <div><Label>Sähköposti</Label><Input type="email" value={companyForm.email} onChange={(e) => setCompanyForm({ ...companyForm, email: e.target.value })} /></div>
                     <div><Label>Puhelin</Label><Input value={companyForm.phone} onChange={(e) => setCompanyForm({ ...companyForm, phone: e.target.value })} /></div>
                     <Button onClick={handleSaveCompany} className="w-full">{editingCompany ? "Tallenna" : "Lisää"}</Button>
@@ -2934,46 +2910,30 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
           {companies.length === 0 ? (
             <Card><CardContent className="py-8 text-center text-muted-foreground"><Building2 className="w-12 h-12 mx-auto mb-3 opacity-50" /><p>Ei huoltoyhtiöitä</p></CardContent></Card>
           ) : (
-            <div className="space-y-6">
-              {/* Group by company type */}
-              {(["kiinteistohuolto", "siivous"] as const).map((type) => {
-                const typeCompanies = companies.filter(c => (c.company_types || ["kiinteistohuolto"]).includes(type));
-                if (typeCompanies.length === 0) return null;
-                return (
-                  <div key={type}>
-                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-                      {type === "kiinteistohuolto" ? "🔧 Kiinteistöhuolto" : "🧹 Siivous"}
-                    </h4>
-                    <div className="space-y-4">
-                      {typeCompanies.map((company) => (
-                          <Card key={company.id}>
-                            <CardHeader className="pb-3">
-                              <div className="flex items-center justify-between">
-                                <CardTitle className="text-base flex items-center gap-2">
-                                  <Building2 className="w-4 h-4" />{company.name}
-                                  {company.company_types?.includes("kiinteistohuolto") && <Badge variant="outline" className="text-xs">🔧 Kiinteistöhuolto</Badge>}
-                                  {company.company_types?.includes("siivous") && <Badge variant="outline" className="text-xs">🧹 Siivous</Badge>}
-                                </CardTitle>
-                                {!isViewer && (
-                                  <div className="flex gap-2">
-                                    <Button variant="ghost" size="sm" onClick={() => { setEditingCompany(company); setCompanyForm({ name: company.name, email: company.email || "", phone: company.phone || "", company_types: company.company_types || ["kiinteistohuolto"] }); setShowCompanyDialog(true); }}>Muokkaa</Button>
-                                    <Button variant="ghost" size="sm" onClick={() => handleDeleteCompany(company.id)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
-                                  </div>
-                                )}
-                              </div>
-                            </CardHeader>
-                            <CardContent>
-                              <div className="flex gap-4 text-sm text-muted-foreground">
-                                {company.email && <span className="flex items-center gap-1"><AtSign className="w-3 h-3" />{company.email}</span>}
-                                {company.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" />{company.phone}</span>}
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
+            <div className="space-y-4">
+              {companies.map((company) => (
+                <Card key={company.id}>
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-base flex items-center gap-2">
+                        <Building2 className="w-4 h-4" />{company.name}
+                      </CardTitle>
+                      {!isViewer && (
+                        <div className="flex gap-2">
+                          <Button variant="ghost" size="sm" onClick={() => { setEditingCompany(company); setCompanyForm({ name: company.name, email: company.email || "", phone: company.phone || "", company_types: company.company_types || [] }); setShowCompanyDialog(true); }}>Muokkaa</Button>
+                          <Button variant="ghost" size="sm" onClick={() => handleDeleteCompany(company.id)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                );
-              })}
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex gap-4 text-sm text-muted-foreground">
+                      {company.email && <span className="flex items-center gap-1"><AtSign className="w-3 h-3" />{company.email}</span>}
+                      {company.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" />{company.phone}</span>}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           )}
         </TabsContent>
