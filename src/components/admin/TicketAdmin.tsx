@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { format } from "date-fns";
-import { fi } from "date-fns/locale";
+
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
