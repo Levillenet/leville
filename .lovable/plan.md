@@ -1,24 +1,26 @@
 
 
-# Tekijä-sarake: näytä email_override kun huoltoyhtiötä ei ole
+# Tikettiraportin päivämäärävalinnan korjaus
 
-## Muutos
-Rivillä 2877 Tekijä-sarake näyttää tällä hetkellä vain `companies.find(...)?.name || "–"`. Muutetaan logiikka niin, että jos `maintenance_company_id` löytyy, näytetään yhtiön nimi. Muussa tapauksessa näytetään `email_override` (manuaalinen sähköpostiosoitus), ja jos sekään ei ole, näytetään "–".
+## Ongelma
+`<Input type="date">` ei toimi Radix Dialog -komponentin sisällä (pointer events -ongelma). Lisäksi päivämääräväli on pakollinen, vaikka käyttäjä haluaisi kaikki tiketit.
 
-## Toteutus — `TicketAdmin.tsx`, rivi 2877
+## Ratkaisu
 
-Nykyinen:
-```tsx
-{companies.find(c => c.id === ticket.maintenance_company_id)?.name || "–"}
-```
+### 1. Vaihdetaan `<Input type="date">` → Shadcn Calendar/Popover -datepickeriin
+- Korvataan molemmat päivämääräkentät (Alkaen, Saakka) Popover + Calendar -komponenteilla
+- Lisätään `pointer-events-auto` Calendariin (Radix Dialog -yhteensopivuus)
+- Muutetaan `reportFilters.dateFrom` ja `dateTo` tyypiksi `string` (säilytetään sama formaatti) tai `Date | null`
 
-Uusi:
-```tsx
-{companies.find(c => c.id === ticket.maintenance_company_id)?.name || ticket.email_override || "–"}
-```
+### 2. Tehdään päivämääristä valinnaisia
+- Poistetaan `*`-merkintä pakollisesta kentästä
+- Lisätään "Tyhjennä" -nappi kumpaankin päivämääräkenttään
+- Muutetaan `generateReportPdf`: jos dateFrom/dateTo puuttuu, ei suodateta päivämäärän mukaan
+- PDF:n otsikossa näytetään "Kaikki ajat" jos päivämääriä ei ole valittu
 
-## Muutettavat tiedostot
+### Muutettavat tiedostot
+
 | Tiedosto | Muutos |
 |---|---|
-| `src/components/admin/TicketAdmin.tsx` | Rivi 2877: lisätään `email_override` fallback Tekijä-sarakkeeseen |
+| `src/components/admin/TicketAdmin.tsx` | Rivit 3097–3099: Input→Popover+Calendar datepicker; rivit 1055–1063: päivämääräsuodatus valinnainen; rivi 1087/1293: PDF-otsikon fallback |
 
