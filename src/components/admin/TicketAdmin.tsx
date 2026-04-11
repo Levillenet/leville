@@ -1295,7 +1295,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     y += 12;
     doc.setFontSize(9);
     doc.setTextColor(100);
-    doc.text(`Ajanjakso: ${filters.dateFrom} \u2013 ${filters.dateTo}`, margin, y);
+    doc.text(`Ajanjakso: ${filters.dateFrom || "alku"} \u2013 ${filters.dateTo || "loppu"}${!filters.dateFrom && !filters.dateTo ? " (kaikki)" : ""}`, margin, y);
     y += 5;
     doc.text(`Tikettej\u00e4: ${reportTickets.length}`, margin, y);
     y += 10;
