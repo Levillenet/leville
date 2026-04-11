@@ -658,7 +658,7 @@ Deno.serve(async (req) => {
     }
 
     console.log(`Reminder run complete. Recurrence: ${recurrenceCreated}, Scheduled: ${scheduledSentCount}, Digest: ${digestSentCount}`);
-    return json({ recurrenceCreated, scheduledSent: scheduledSentCount, autoSent: sentCount });
+    return json({ recurrenceCreated, scheduledSent: scheduledSentCount, digestSent: digestSentCount });
   } catch (error) {
     console.error("Ticket reminders error:", error);
     return new Response(
