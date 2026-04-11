@@ -2874,7 +2874,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         <TableCell><CategoryBadge category={categories.find(c => c.id === ticket.category_id)} /></TableCell>
                         <TableCell>{statusBadge(ticket.status)}</TableCell>
                         <TableCell className="text-sm text-muted-foreground">{new Date(ticket.created_at).toLocaleDateString("fi-FI")}</TableCell>
-                        <TableCell className="text-sm text-muted-foreground">{companies.find(c => c.id === ticket.maintenance_company_id)?.name || "–"}</TableCell>
+                        <TableCell className="text-sm text-muted-foreground">{companies.find(c => c.id === ticket.maintenance_company_id)?.name || ticket.email_override || "–"}</TableCell>
                         <TableCell>
                           <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); openTicketDetail(ticket); }}>Avaa</Button>
                         </TableCell>
