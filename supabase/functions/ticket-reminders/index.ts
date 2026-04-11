@@ -216,17 +216,36 @@ Deno.serve(async (req) => {
             continue;
           }
 
+          // Skip reminders for seasonal tickets
+          if (ticket.type === "seasonal") {
+            await supabase.from("ticket_email_log")
+              .update({ status: "cancelled", error_message: "Kausihuoltotiketeille ei lähetetä muistutuksia" })
+              .eq("id", reminder.id);
+            continue;
+          }
+
           let apartmentName: string | undefined;
           if (reminder.error_message?.startsWith("__apt_name__:")) {
             apartmentName = reminder.error_message.replace("__apt_name__:", "");
           }
           if (!apartmentName) {
-            const { data: mapping } = await supabase
-              .from("moder_property_mapping")
-              .select("property_name")
-              .eq("beds24_room_id", ticket.apartment_id)
+            // Try ticket_apartments first for the friendly name
+            const { data: ticketAptForName } = await supabase
+              .from("ticket_apartments")
+              .select("apartment_name")
+              .eq("ticket_id", ticket.id)
+              .limit(1)
               .maybeSingle();
-            apartmentName = mapping?.property_name || ticket.apartment_id;
+            if (ticketAptForName?.apartment_name) {
+              apartmentName = ticketAptForName.apartment_name;
+            } else {
+              const { data: mapping } = await supabase
+                .from("moder_property_mapping")
+                .select("property_name")
+                .eq("beds24_room_id", ticket.apartment_id)
+                .maybeSingle();
+              apartmentName = mapping?.property_name || ticket.apartment_id;
+            }
           }
 
           // Fetch per-apartment changeover info for the email
@@ -335,10 +354,11 @@ Deno.serve(async (req) => {
 
     // ── PART 2: Auto-reminders for open tickets with empty nights ──
     // Fetch open non-changeover tickets (seasonal, urgent)
+    // Only urgent tickets get auto-reminders (not seasonal/kausihuolto)
     const { data: tickets, error } = await supabase
       .from("tickets")
       .select("*")
-      .in("type", ["seasonal", "urgent"])
+      .in("type", ["urgent"])
       .in("status", ["open", "in_progress"]);
 
     let sentCount = 0;
