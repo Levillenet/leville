@@ -403,13 +403,24 @@ Deno.serve(async (req) => {
           if (!email && ticket.email_override) email = ticket.email_override;
           if (!email) continue;
 
-          const { data: mapping } = await supabase
-            .from("moder_property_mapping")
-            .select("property_name")
-            .eq("beds24_room_id", ticket.apartment_id)
+          // Try ticket_apartments first for friendly name
+          const { data: ticketAptName } = await supabase
+            .from("ticket_apartments")
+            .select("apartment_name")
+            .eq("ticket_id", ticket.id)
+            .limit(1)
             .maybeSingle();
-
-          const apartmentName = mapping?.property_name || ticket.apartment_id;
+          let apartmentName: string;
+          if (ticketAptName?.apartment_name) {
+            apartmentName = ticketAptName.apartment_name;
+          } else {
+            const { data: mapping } = await supabase
+              .from("moder_property_mapping")
+              .select("property_name")
+              .eq("beds24_room_id", ticket.apartment_id)
+              .maybeSingle();
+            apartmentName = mapping?.property_name || ticket.apartment_id;
+          }
           const emptyDate = isMorningRun ? today : tomorrow;
           const typeLabel = ticket.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto";
 
