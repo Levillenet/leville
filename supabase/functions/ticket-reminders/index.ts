@@ -352,123 +352,313 @@ Deno.serve(async (req) => {
       }
     }
 
-    // ── PART 2: Auto-reminders for open tickets with empty nights ──
-    // Fetch open non-changeover tickets (seasonal, urgent)
-    // Only urgent tickets get auto-reminders (not seasonal/kausihuolto)
-    const { data: tickets, error } = await supabase
-      .from("tickets")
-      .select("*")
-      .in("type", ["urgent"])
-      .in("status", ["open", "in_progress"]);
+    // ── PART 2: Daily digest reminders (urgent + changeover) ──
+    // Only run in the morning
+    let digestSentCount = 0;
 
-    let sentCount = 0;
-
-    if (tickets && tickets.length > 0) {
-      console.log(`Found ${tickets.length} open seasonal/urgent tickets`);
-
+    if (isMorningRun) {
+      const siteBase = Deno.env.get("SITE_URL") || "https://leville.lovable.app";
       const today = formatDate(helsinkiTime);
-      const tomorrow = formatDate(
-        new Date(helsinkiTime.getTime() + 24 * 60 * 60 * 1000)
-      );
 
-      for (const ticket of tickets) {
-        try {
-          const emptyNights = await getEmptyNightsForApartment(beds24Token, ticket.apartment_id);
-          const hasEmptyTonight = emptyNights.includes(today);
-          const hasEmptyTomorrow = emptyNights.includes(tomorrow);
+      // Fetch all open urgent and changeover tickets
+      const { data: allTickets } = await supabase
+        .from("tickets")
+        .select("*")
+        .in("type", ["urgent", "changeover"])
+        .in("status", ["open", "in_progress"]);
 
-          let shouldSend = false;
-          if (isMorningRun && hasEmptyTonight) shouldSend = true;
-          if (isEveningRun && hasEmptyTomorrow) shouldSend = true;
+      if (allTickets && allTickets.length > 0) {
+        console.log(`Found ${allTickets.length} open urgent/changeover tickets for digest`);
 
-          if (!shouldSend) continue;
+        // For each ticket, determine if it should be reminded today
+        interface DigestTicket {
+          ticket: any;
+          apartments: any[];
+          apartmentName: string;
+        }
+        // Map: recipientEmail -> DigestTicket[]
+        const digestMap: Record<string, { urgent: DigestTicket[]; changeover: DigestTicket[] }> = {};
 
+        for (const ticket of allTickets) {
+          try {
+            // Get recipient email
+            let email: string | null = null;
+            if (ticket.maintenance_company_id) {
+              const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", ticket.maintenance_company_id).single();
+              email = mc?.email || null;
+            }
+            if (!email && ticket.email_override) email = ticket.email_override;
+            if (!email) continue;
+
+            // Get ticket apartments
+            const { data: ticketApts } = await supabase
+              .from("ticket_apartments")
+              .select("*")
+              .eq("ticket_id", ticket.id);
+
+            // Get friendly name
+            let apartmentName: string;
+            if (ticketApts && ticketApts.length === 1) {
+              apartmentName = ticketApts[0].apartment_name;
+            } else if (ticketApts && ticketApts.length > 1) {
+              apartmentName = `${ticketApts.length} kohdetta`;
+            } else {
+              const { data: mapping } = await supabase
+                .from("moder_property_mapping")
+                .select("property_name")
+                .eq("beds24_room_id", ticket.apartment_id)
+                .maybeSingle();
+              apartmentName = mapping?.property_name || ticket.apartment_id;
+            }
+
+            if (ticket.type === "urgent") {
+              // Urgent: always remind every morning
+              if (!digestMap[email]) digestMap[email] = { urgent: [], changeover: [] };
+              digestMap[email].urgent.push({ ticket, apartments: ticketApts || [], apartmentName });
+            } else if (ticket.type === "changeover") {
+              // Changeover: remind if today >= guest_departure_date AND today < next_guest_arrival_date
+              // Check per-apartment if multiple
+              let shouldRemind = false;
+
+              if (ticketApts && ticketApts.length > 0) {
+                // Check if any apartment is in the changeover window
+                for (const apt of ticketApts) {
+                  if (apt.status === "resolved") continue; // skip resolved apartments
+                  if (!apt.guest_departure_date) continue;
+                  const depDate = apt.guest_departure_date; // YYYY-MM-DD
+                  const arrDate = apt.next_guest_arrival_date; // YYYY-MM-DD or null
+                  if (today >= depDate && (!arrDate || today < arrDate)) {
+                    shouldRemind = true;
+                    break;
+                  }
+                }
+              } else {
+                // Fallback to ticket-level dates
+                if (ticket.guest_departure_date) {
+                  const depDate = ticket.guest_departure_date;
+                  const arrDate = ticket.next_guest_arrival_date;
+                  if (today >= depDate && (!arrDate || today < arrDate)) {
+                    shouldRemind = true;
+                  }
+                }
+              }
+
+              if (shouldRemind) {
+                if (!digestMap[email]) digestMap[email] = { urgent: [], changeover: [] };
+                digestMap[email].changeover.push({ ticket, apartments: ticketApts || [], apartmentName });
+              }
+            }
+          } catch (err) {
+            console.error(`Error processing ticket ${ticket.id} for digest:`, err);
+          }
+        }
+
+        // Now send one digest email per recipient
+        for (const [recipientEmail, groups] of Object.entries(digestMap)) {
+          const totalTickets = groups.urgent.length + groups.changeover.length;
+          if (totalTickets === 0) continue;
+
+          // Check if we already sent a digest to this recipient today
           const todayStart = `${today}T00:00:00`;
           const todayEnd = `${today}T23:59:59`;
-          const { data: recentLogs } = await supabase
+          const { data: recentDigest } = await supabase
             .from("ticket_email_log")
             .select("id")
-            .eq("ticket_id", ticket.id)
+            .eq("sent_to", recipientEmail)
+            .eq("email_type", "daily_digest")
             .gte("sent_at", todayStart)
             .lte("sent_at", todayEnd)
-            .eq("status", "sent");
+            .eq("status", "sent")
+            .limit(1);
 
-          if (recentLogs && recentLogs.length > 0) continue;
-
-          let email: string | null = null;
-          if (ticket.maintenance_company_id) {
-            const { data: mc } = await supabase.from("maintenance_companies").select("email").eq("id", ticket.maintenance_company_id).single();
-            email = mc?.email || null;
+          if (recentDigest && recentDigest.length > 0) {
+            console.log(`Digest already sent to ${recipientEmail} today, skipping`);
+            continue;
           }
-          if (!email && ticket.email_override) email = ticket.email_override;
-          if (!email) continue;
 
-          // Try ticket_apartments first for friendly name
-          const { data: ticketAptName } = await supabase
-            .from("ticket_apartments")
-            .select("apartment_name")
-            .eq("ticket_id", ticket.id)
-            .limit(1)
-            .maybeSingle();
-          let apartmentName: string;
-          if (ticketAptName?.apartment_name) {
-            apartmentName = ticketAptName.apartment_name;
-          } else {
-            const { data: mapping } = await supabase
-              .from("moder_property_mapping")
-              .select("property_name")
-              .eq("beds24_room_id", ticket.apartment_id)
-              .maybeSingle();
-            apartmentName = mapping?.property_name || ticket.apartment_id;
+          // Build digest HTML
+          let urgentSection = "";
+          if (groups.urgent.length > 0) {
+            const urgentRows = groups.urgent.map((dt) => {
+              // Ensure resolve_token
+              const resolveUrl = dt.apartments.length === 1 && dt.apartments[0].resolve_token
+                ? `${siteBase}/tiketti-ratkaistu?token=${dt.apartments[0].resolve_token}&apt=1`
+                : dt.ticket.resolve_token
+                  ? `${siteBase}/tiketti-ratkaistu?token=${dt.ticket.resolve_token}`
+                  : null;
+
+              const resolveLink = resolveUrl
+                ? `<a href="${resolveUrl}" style="color:#16a34a;font-weight:bold;text-decoration:none;">✅ Kuittaa</a>`
+                : "";
+
+              // Multi-apartment resolve links
+              let multiResolve = "";
+              if (dt.apartments.length > 1) {
+                multiResolve = dt.apartments
+                  .filter((a: any) => a.status !== "resolved")
+                  .map((a: any) => {
+                    const url = `${siteBase}/tiketti-ratkaistu?token=${a.resolve_token}&apt=1`;
+                    return `<a href="${url}" style="color:#16a34a;font-size:13px;text-decoration:none;margin-right:8px;">✅ ${a.apartment_name}</a>`;
+                  }).join(" ");
+              }
+
+              return `
+                <tr style="border-bottom:1px solid #eee;">
+                  <td style="padding:10px 8px;font-weight:bold;">${dt.apartmentName}</td>
+                  <td style="padding:10px 8px;">${dt.ticket.title}</td>
+                  <td style="padding:10px 8px;font-size:13px;color:#666;">${dt.ticket.description || "–"}</td>
+                  <td style="padding:10px 8px;">${dt.apartments.length > 1 ? multiResolve : resolveLink}</td>
+                </tr>
+              `;
+            }).join("");
+
+            urgentSection = `
+              <div style="margin-bottom:24px;">
+                <h3 style="color:#dc2626;margin:0 0 8px 0;font-size:16px;">🔴 HOIDETTAVA HETI</h3>
+                <p style="color:#dc2626;font-size:14px;margin:0 0 12px 0;">Nämä tehtävät tulee hoitaa mahdollisimman pian.</p>
+                <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                  <tr style="background:#fef2f2;border-bottom:2px solid #dc2626;">
+                    <th style="padding:8px;text-align:left;">Kohde</th>
+                    <th style="padding:8px;text-align:left;">Tehtävä</th>
+                    <th style="padding:8px;text-align:left;">Kuvaus</th>
+                    <th style="padding:8px;text-align:left;">Kuittaus</th>
+                  </tr>
+                  ${urgentRows}
+                </table>
+              </div>
+            `;
           }
-          const emptyDate = isMorningRun ? today : tomorrow;
-          const typeLabel = ticket.type === "urgent" ? "Hoidettava mahdollisimman pian" : "Kausihuolto";
 
-          const htmlBody = `
-            <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px;">
-              <h2 style="color:#e65100;border-bottom:2px solid #e65100;padding-bottom:10px;">🔔 Huoltomuistutus – Tyhjä yö ${emptyDate}</h2>
-              <p style="color:#e65100;font-weight:bold;">Huoneistossa <strong>${apartmentName}</strong> on tyhjä yö ${emptyDate}.</p>
-              <table style="width:100%;border-collapse:collapse;margin:20px 0;">
-                <tr><td style="padding:8px 12px;font-weight:bold;color:#666;width:140px;">Kohde:</td><td style="padding:8px 12px;">${apartmentName}</td></tr>
-                <tr style="background:#f9fafb;"><td style="padding:8px 12px;font-weight:bold;color:#666;">Tiketti:</td><td style="padding:8px 12px;">${ticket.title}</td></tr>
-                <tr><td style="padding:8px 12px;font-weight:bold;color:#666;">Tyyppi:</td><td style="padding:8px 12px;">${typeLabel}</td></tr>
-                <tr style="background:#f9fafb;"><td style="padding:8px 12px;font-weight:bold;color:#666;">Kuvaus:</td><td style="padding:8px 12px;">${ticket.description || "–"}</td></tr>
-                <tr><td style="padding:8px 12px;font-weight:bold;color:#666;">Tyhjä yö:</td><td style="padding:8px 12px;font-weight:bold;color:#e65100;">${emptyDate}</td></tr>
-              </table>
-              <p style="margin-top:20px;"><a href="https://leville.net/admin" style="background:#2563eb;color:white;padding:10px 20px;text-decoration:none;border-radius:6px;display:inline-block;">Avaa admin-paneeli</a></p>
-              <p style="color:#999;font-size:12px;margin-top:30px;">Tämä muistutus on lähetetty automaattisesti Leville.net-tikettijärjestelmästä.</p>
+          let changeoverSection = "";
+          if (groups.changeover.length > 0) {
+            const changeoverRows = groups.changeover.map((dt) => {
+              // Build departure/arrival info
+              let scheduleInfo = "";
+              if (dt.apartments.length > 1) {
+                scheduleInfo = dt.apartments
+                  .filter((a: any) => a.status !== "resolved")
+                  .map((a: any) => {
+                    const dep = a.guest_departure_date
+                      ? new Date(a.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+                      : "?";
+                    const arr = a.next_guest_arrival_date
+                      ? new Date(a.next_guest_arrival_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+                      : "ei seuraavaa";
+                    return `${a.apartment_name}: lähtö ${dep}, saapuu ${arr}`;
+                  }).join("<br>");
+              } else {
+                const dep = dt.ticket.guest_departure_date
+                  ? new Date(dt.ticket.guest_departure_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+                  : (dt.apartments[0]?.guest_departure_date
+                    ? new Date(dt.apartments[0].guest_departure_date).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+                    : "?");
+                const arrSrc = dt.ticket.next_guest_arrival_date || dt.apartments[0]?.next_guest_arrival_date;
+                const arr = arrSrc
+                  ? new Date(arrSrc).toLocaleDateString("fi-FI", { weekday: "short", day: "numeric", month: "numeric" })
+                  : "ei seuraavaa";
+                scheduleInfo = `Lähtö: ${dep}<br>Saapuu: ${arr}`;
+              }
+
+              // Resolve links
+              let resolveLink = "";
+              if (dt.apartments.length > 1) {
+                resolveLink = dt.apartments
+                  .filter((a: any) => a.status !== "resolved")
+                  .map((a: any) => {
+                    const url = `${siteBase}/tiketti-ratkaistu?token=${a.resolve_token}&apt=1`;
+                    return `<a href="${url}" style="color:#16a34a;font-size:13px;text-decoration:none;margin-right:8px;">✅ ${a.apartment_name}</a>`;
+                  }).join(" ");
+              } else {
+                const token = dt.apartments[0]?.resolve_token || dt.ticket.resolve_token;
+                if (token) {
+                  const url = dt.apartments.length === 1
+                    ? `${siteBase}/tiketti-ratkaistu?token=${token}&apt=1`
+                    : `${siteBase}/tiketti-ratkaistu?token=${token}`;
+                  resolveLink = `<a href="${url}" style="color:#16a34a;font-weight:bold;text-decoration:none;">✅ Kuittaa</a>`;
+                }
+              }
+
+              return `
+                <tr style="border-bottom:1px solid #eee;">
+                  <td style="padding:10px 8px;font-weight:bold;">${dt.apartmentName}</td>
+                  <td style="padding:10px 8px;">${dt.ticket.title}</td>
+                  <td style="padding:10px 8px;font-size:13px;">${scheduleInfo}</td>
+                  <td style="padding:10px 8px;">${resolveLink}</td>
+                </tr>
+              `;
+            }).join("");
+
+            changeoverSection = `
+              <div style="margin-bottom:24px;">
+                <h3 style="color:#1565c0;margin:0 0 8px 0;font-size:16px;">🔄 VAIHDON YHTEYDESSÄ</h3>
+                <p style="color:#1565c0;font-size:14px;margin:0 0 12px 0;">Nämä tehtävät tulee hoitaa asiakasvaihdon aikana.</p>
+                <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                  <tr style="background:#e3f2fd;border-bottom:2px solid #1565c0;">
+                    <th style="padding:8px;text-align:left;">Kohde</th>
+                    <th style="padding:8px;text-align:left;">Tehtävä</th>
+                    <th style="padding:8px;text-align:left;">Lähtö / Saapuminen</th>
+                    <th style="padding:8px;text-align:left;">Kuittaus</th>
+                  </tr>
+                  ${changeoverRows}
+                </table>
+              </div>
+            `;
+          }
+
+          const digestHtml = `
+            <div style="font-family:Arial,sans-serif;max-width:650px;margin:0 auto;padding:20px;">
+              <h2 style="color:#333;border-bottom:2px solid #e65100;padding-bottom:10px;margin-bottom:20px;">
+                🔔 Leville – ${totalTickets} avointa tehtävää
+              </h2>
+              ${urgentSection}
+              ${changeoverSection}
+              <p style="color:#999;font-size:12px;margin-top:30px;">Tämä muistutus lähetetään joka aamu kunnes tehtävät on kuitattu. – Leville.net</p>
             </div>
           `;
 
-          const emailResponse = await fetch("https://api.resend.com/emails", {
-            method: "POST",
-            headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-              from: "leville.net tehtävä <admin@m.leville.net>",
-              to: [email],
-              subject: `[Leville Muistutus] ${apartmentName} – ${ticket.title} (tyhjä yö ${emptyDate})`,
-              html: htmlBody,
-            }),
-          });
+          try {
+            const emailResponse = await fetch("https://api.resend.com/emails", {
+              method: "POST",
+              headers: { Authorization: `Bearer ${resendApiKey}`, "Content-Type": "application/json" },
+              body: JSON.stringify({
+                from: "leville.net tehtävä <admin@m.leville.net>",
+                to: [recipientEmail],
+                subject: `[Leville Muistutus] ${totalTickets} avointa tehtävää`,
+                html: digestHtml,
+              }),
+            });
 
-          const emailResult = await emailResponse.json();
-          await supabase.from("ticket_email_log").insert({
-            ticket_id: ticket.id,
-            sent_to: email,
-            status: emailResponse.ok ? "sent" : "failed",
-            error_message: emailResponse.ok ? null : JSON.stringify(emailResult),
-            email_type: "auto_reminder",
-          });
+            const emailResult = await emailResponse.json();
+            const allTicketIds = [...groups.urgent, ...groups.changeover].map(dt => dt.ticket.id);
 
-          if (emailResponse.ok) sentCount++;
-        } catch (ticketErr) {
-          console.error(`Error processing ticket ${ticket.id}:`, ticketErr);
+            // Log one entry per ticket in the digest
+            for (const ticketId of allTicketIds) {
+              await supabase.from("ticket_email_log").insert({
+                ticket_id: ticketId,
+                sent_to: recipientEmail,
+                status: emailResponse.ok ? "sent" : "failed",
+                error_message: emailResponse.ok ? null : JSON.stringify(emailResult),
+                email_type: "daily_digest",
+              });
+            }
+
+            if (emailResponse.ok) {
+              digestSentCount++;
+              console.log(`Digest sent to ${recipientEmail}: ${groups.urgent.length} urgent, ${groups.changeover.length} changeover`);
+            } else {
+              console.error(`Digest email failed for ${recipientEmail}:`, emailResult);
+            }
+          } catch (emailErr) {
+            console.error(`Error sending digest to ${recipientEmail}:`, emailErr);
+          }
         }
       }
+    } else {
+      console.log("Not morning run, skipping daily digest");
     }
 
-    console.log(`Reminder run complete. Recurrence: ${recurrenceCreated}, Scheduled: ${scheduledSentCount}, Auto: ${sentCount}`);
-    return json({ recurrenceCreated, scheduledSent: scheduledSentCount, autoSent: sentCount });
+    console.log(`Reminder run complete. Recurrence: ${recurrenceCreated}, Scheduled: ${scheduledSentCount}, Digest: ${digestSentCount}`);
+    return json({ recurrenceCreated, scheduledSent: scheduledSentCount, digestSent: digestSentCount });
   } catch (error) {
     console.error("Ticket reminders error:", error);
     return new Response(
