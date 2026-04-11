@@ -1,50 +1,31 @@
 
 
-# Muistutuslogiikan uudistus
+# Tikettiluonnin ja huoltoyhtiövälilehden yksinkertaistaminen
 
-## Nykytila
-Nykyinen logiikka perustuu "tyhjiin öihin" (Beds24 availability) ja lähettää yksittäisiä muistutuksia per tiketti. Ei kokoa samalle suorittajalle meneviä viestejä yhteen.
+## Muutokset
 
-## Uusi logiikka
+### 1. Info-ikoni (ℹ) tiketin tyyppi -valintaan
+Lisätään `Tooltip`-komponentti (Shadcn) Tyyppi-labeliin, jossa selitetään:
+- **Kausihuolto**: Tehdään kauden vaihtuessa, ei muistutuksia
+- **Hoidettava heti**: Muistutus joka aamu kunnes kuitattu
+- **Vaihdon yhteydessä**: Muistutus asiakkaan lähtöpäivän aamusta eteenpäin, joka tyhjän päivän aamu ennen uuden asiakkaan saapumista
 
-### Muistutussäännöt
+### 2. Poista "Ohjaa" (Korjaus/Siivous) -radionapit tikettiluonnista
+Rivit 2613–2619: Poistetaan kokonaan assignment_type RadioGroup. Suorittajan alasvetovalikko näyttää kaikki yritykset ilman suodatusta.
 
-1. **Hoidettava heti (urgent)**: Muistutus joka aamu klo ~07:00 kunnes kuitattu. Ei tarvitse tarkistaa tyhjiä öitä — muistutetaan aina.
+### 3. Suorittajan dropdown näyttää kaikki yritykset
+Rivi 2640: Poistetaan `.filter(c => ...)` joka suodattaa company_types mukaan. Näytetään kaikki yritykset ilman 🧹/🔧-ikonia (tai säilytetään molemmat ikonit jos yrityksellä on tyyppejä).
 
-2. **Vaihdon yhteydessä (changeover)**: Ensimmäinen muistutus samana aamuna kun asiakas lähtee (`guest_departure_date`). Sen jälkeen joka aamu (tyhjät päivät ennen seuraavan asiakkaan saapumista). Loppuu kun kuitattu tai uusi asiakas saapuu. Jatkuu uudelleen seuraavassa vaihdossa.
+### 4. Poista Siivous/Korjaus -välilehdet tikettilistasta
+Rivit 1615, 1627–1635, 2778–2794: Yhdistetään siivous ja korjaus yhdeksi "Avoimet"-välilehdeksi. Välilehdet: **Avoimet**, **Kausihuolto**, **Ratkaistut**.
 
-3. **Kausihuolto (seasonal)**: Ei muistutuksia (jo toteutettu).
-
-### Viestien kokoaminen (digest)
-
-Samalle vastaanottajalle (sama `maintenance_company_id` tai sama `email_override`) menevät tiketit kootaan yhteen sähköpostiin:
-
-- Viestissä selkeä jako: **🔴 HOIDETTAVA HETI** -osio ja **🔄 VAIHDON YHTEYDESSÄ** -osio
-- Jokaiselle tiketille näytetään: kohde, otsikko, kuvaus, kuittauslinkki
-- Changeover-tiketeille: asiakkaan lähtöpäivä ja seuraavan saapumispäivä
-- Urgent-tiketeille: korostettu "Hoidettava mahdollisimman pian"
-
-### Toteutus — `ticket-reminders/index.ts`
-
-**PART 2 kirjoitetaan kokonaan uusiksi:**
-
-1. Hae kaikki avoimet `urgent` ja `changeover` -tiketit (ei seasonal)
-2. Urgent: muistutetaan aina aamuajossa (ei Beds24-tarkistusta)
-3. Changeover: tarkista onko tänään >= `guest_departure_date` JA tänään < `next_guest_arrival_date` (tai ei seuraavaa saapumista). Jos useita kohteita (`ticket_apartments`), tarkista per-apartment.
-4. Ryhmittele muistutettavat tiketit vastaanottajan mukaan (`email` → tickets[])
-5. Tarkista ettei samalle vastaanottajalle ole jo lähetetty tänään (yksi rivi per vastaanottaja riittää)
-6. Lähetä yksi koostettu sähköposti per vastaanottaja
-7. Sähköpostin rakenne:
-   - Otsikko: `[Leville Muistutus] X avointa tehtävää`
-   - 🔴 HOIDETTAVA HETI -osio (urgent-tiketit)
-   - 🔄 VAIHDON YHTEYDESSÄ -osio (changeover-tiketit) + lähtö/saapumistiedot
-   - Kuittauslinkit per tiketti/kohde
-
-**PART 1 (scheduled reminders)**: Säilytetään manuaaliset ajastetut muistutukset ennallaan.
+### 5. Yksinkertaista Huoltoyhtiöt-välilehti
+Rivit 2907–2923: Poistetaan Tyyppi-checkboxit (kiinteistöhuolto/siivous) yrityslomakkeesta.
+Rivit 2938–2976: Poistetaan tyyppiryhmittely – näytetään kaikki yritykset yhdessä flat-listassa.
 
 ## Muutettavat tiedostot
 
 | Tiedosto | Muutos |
 |---|---|
-| `supabase/functions/ticket-reminders/index.ts` | PART 2 uusiksi: urgent=joka aamu, changeover=vaihdon aamusta eteenpäin, digest per vastaanottaja |
+| `src/components/admin/TicketAdmin.tsx` | Info-tooltip tyyppivalintaan; poistetaan Ohjaa-radiot ja company_type-suodatus; yhdistetään välilehdet; yksinkertaistetaan companies-tab |
 
