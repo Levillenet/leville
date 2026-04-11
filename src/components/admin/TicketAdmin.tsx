@@ -2838,9 +2838,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     <TableHead>Huoneisto</TableHead>
                     <TableHead>Otsikko</TableHead>
                     <TableHead>Kategoria</TableHead>
-                    <TableHead>Tyyppi</TableHead>
                     <TableHead>Tila</TableHead>
                     <TableHead>Luotu</TableHead>
+                    <TableHead>Tekijä</TableHead>
                     <TableHead>Toiminnot</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -2872,9 +2872,9 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                         </TableCell>
                         <TableCell className="flex items-center gap-1">{ticket.recurrence_months ? <span title={`Toistuu ${ticket.recurrence_months} kk välein`}>🔄</span> : null}{ticket.title}</TableCell>
                         <TableCell><CategoryBadge category={categories.find(c => c.id === ticket.category_id)} /></TableCell>
-                        <TableCell>{typeBadge(ticket.type)}</TableCell>
                         <TableCell>{statusBadge(ticket.status)}</TableCell>
                         <TableCell className="text-sm text-muted-foreground">{new Date(ticket.created_at).toLocaleDateString("fi-FI")}</TableCell>
+                        <TableCell className="text-sm text-muted-foreground">{companies.find(c => c.id === ticket.maintenance_company_id)?.name || "–"}</TableCell>
                         <TableCell>
                           <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); openTicketDetail(ticket); }}>Avaa</Button>
                         </TableCell>
