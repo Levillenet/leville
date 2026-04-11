@@ -1,23 +1,24 @@
 
 
-# Tikettilistauksen sarakkeiden päivitys
+# Tekijä-sarake: näytä email_override kun huoltoyhtiötä ei ole
 
 ## Muutos
-Poistetaan "Tyyppi"-sarake (redundantti koska välilehdet suodattavat jo tyypin mukaan) ja lisätään "Tekijä"-sarake joka näyttää tiketille osoitetun huoltoyhtiön nimen.
+Rivillä 2877 Tekijä-sarake näyttää tällä hetkellä vain `companies.find(...)?.name || "–"`. Muutetaan logiikka niin, että jos `maintenance_company_id` löytyy, näytetään yhtiön nimi. Muussa tapauksessa näytetään `email_override` (manuaalinen sähköpostiosoitus), ja jos sekään ei ole, näytetään "–".
 
-## Toteutus — `TicketAdmin.tsx`
+## Toteutus — `TicketAdmin.tsx`, rivi 2877
 
-### Taulun otsikkorivi (~rivit 2838–2844)
-Nykyinen: Huoneisto | Otsikko | Kategoria | **Tyyppi** | Tila | Luotu | Toiminnot
-Uusi: Huoneisto | Otsikko | Kategoria | Tila | Luotu | **Tekijä** | Toiminnot
+Nykyinen:
+```tsx
+{companies.find(c => c.id === ticket.maintenance_company_id)?.name || "–"}
+```
 
-### Taulun datarivit (~rivit 2867–2880)
-- Poistetaan `typeBadge(ticket.type)` -solu
-- Lisätään uusi solu joka näyttää huoltoyhtiön nimen: `companies.find(c => c.id === ticket.maintenance_company_id)?.name || "–"`
-- Päivitetään `colSpan` tyhjä-ilmoituksessa (rivi 2850) vastaamaan uutta sarakemäärää
+Uusi:
+```tsx
+{companies.find(c => c.id === ticket.maintenance_company_id)?.name || ticket.email_override || "–"}
+```
 
 ## Muutettavat tiedostot
 | Tiedosto | Muutos |
 |---|---|
-| `src/components/admin/TicketAdmin.tsx` | Sarakkeiden vaihto: Tyyppi pois, Tekijä tilalle |
+| `src/components/admin/TicketAdmin.tsx` | Rivi 2877: lisätään `email_override` fallback Tekijä-sarakkeeseen |
 
