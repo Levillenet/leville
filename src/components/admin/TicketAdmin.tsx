@@ -1,4 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { format } from "date-fns";
+import { fi } from "date-fns/locale";
+import { Calendar } from "@/components/ui/calendar";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -1053,14 +1058,14 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
 
   // ── PDF REPORT (Tikettiraportti) ──
   const generateReportPdf = (openInNewTab = false) => {
-    if (!reportFilters.dateFrom || !reportFilters.dateTo) {
-      toast({ title: "Virhe", description: "Valitse ajanjakso", variant: "destructive" });
-      return;
-    }
-
     let reportTickets = [...tickets];
 
-    reportTickets = reportTickets.filter((t) => t.created_at >= reportFilters.dateFrom && t.created_at <= reportFilters.dateTo + "T23:59:59");
+    if (reportFilters.dateFrom) {
+      reportTickets = reportTickets.filter((t) => t.created_at >= reportFilters.dateFrom);
+    }
+    if (reportFilters.dateTo) {
+      reportTickets = reportTickets.filter((t) => t.created_at <= reportFilters.dateTo + "T23:59:59");
+    }
 
     if (reportFilters.propertyId !== "all") {
       reportTickets = reportTickets.filter(t => t.property_id === reportFilters.propertyId);
@@ -1084,7 +1089,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
     }
 
     const doc = createReportPdf(reportTickets, reportFilters);
-    const fn = `tikettiraportti_${reportFilters.dateFrom}_${reportFilters.dateTo}.pdf`;
+    const fn = `tikettiraportti_${reportFilters.dateFrom || "alku"}_${reportFilters.dateTo || "loppu"}.pdf`;
 
     if (openInNewTab) {
       window.open(URL.createObjectURL(doc.output("blob")), "_blank");
@@ -3095,8 +3100,56 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
                     <DialogHeader><DialogTitle>Tikettiraportti – PDF</DialogTitle></DialogHeader>
                     <div className="space-y-4">
                       <div className="grid grid-cols-2 gap-3">
-                        <div><Label className="text-xs">Alkaen *</Label><Input type="date" value={reportFilters.dateFrom} onChange={(e) => setReportFilters({ ...reportFilters, dateFrom: e.target.value })} /></div>
-                        <div><Label className="text-xs">Saakka *</Label><Input type="date" value={reportFilters.dateTo} onChange={(e) => setReportFilters({ ...reportFilters, dateTo: e.target.value })} /></div>
+                        <div>
+                          <Label className="text-xs">Alkaen</Label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button variant="outline" className={cn("w-full justify-start text-left font-normal text-xs h-9", !reportFilters.dateFrom && "text-muted-foreground")}>
+                                <CalendarIcon className="mr-1 h-3 w-3" />
+                                {reportFilters.dateFrom ? reportFilters.dateFrom : "Valitse..."}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="start">
+                              <Calendar
+                                mode="single"
+                                selected={reportFilters.dateFrom ? new Date(reportFilters.dateFrom) : undefined}
+                                onSelect={(date) => setReportFilters({ ...reportFilters, dateFrom: date ? format(date, "yyyy-MM-dd") : "" })}
+                                initialFocus
+                                className="p-3 pointer-events-auto"
+                              />
+                              {reportFilters.dateFrom && (
+                                <div className="p-2 border-t">
+                                  <Button variant="ghost" size="sm" className="w-full text-xs" onClick={() => setReportFilters({ ...reportFilters, dateFrom: "" })}>Tyhjennä</Button>
+                                </div>
+                              )}
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                        <div>
+                          <Label className="text-xs">Saakka</Label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button variant="outline" className={cn("w-full justify-start text-left font-normal text-xs h-9", !reportFilters.dateTo && "text-muted-foreground")}>
+                                <CalendarIcon className="mr-1 h-3 w-3" />
+                                {reportFilters.dateTo ? reportFilters.dateTo : "Valitse..."}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0" align="start">
+                              <Calendar
+                                mode="single"
+                                selected={reportFilters.dateTo ? new Date(reportFilters.dateTo) : undefined}
+                                onSelect={(date) => setReportFilters({ ...reportFilters, dateTo: date ? format(date, "yyyy-MM-dd") : "" })}
+                                initialFocus
+                                className="p-3 pointer-events-auto"
+                              />
+                              {reportFilters.dateTo && (
+                                <div className="p-2 border-t">
+                                  <Button variant="ghost" size="sm" className="w-full text-xs" onClick={() => setReportFilters({ ...reportFilters, dateTo: "" })}>Tyhjennä</Button>
+                                </div>
+                              )}
+                            </PopoverContent>
+                          </Popover>
+                        </div>
                       </div>
                       <div>
                         <Label>Kiinteistö</Label>
