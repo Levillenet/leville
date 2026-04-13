@@ -39,11 +39,11 @@ interface SummerInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: `Kesä Levillä ${new Date().getFullYear()} — vaellus, pyöräily ja yötön yö`,
-      description: "Tunturivaellukset, sähköpyörävuokraus, kalastus ja keskiyön aurinko. Edullisemmat majoitushinnat kesäkaudella.",
+      title: `Tekemistä Levillä kesällä ${new Date().getFullYear()} — 15 parasta aktiviteettia`,
+      description: "Mitä tehdä Levillä kesällä? Vaellus, pyöräily, golf, kalastus, kesäkelkkarata ja yötön yö. Paikallisen vinkit ja edullisemmat majoitushinnat.",
       canonical: "https://leville.net/opas/kesa-levi"
     },
-    title: "Kesä Levillä",
+    title: "Tekemistä Levillä kesällä",
     subtitle: "Yöttömän yön taika ja arktinen luonto parhaimmillaan",
     intro: "Levin kesä on rauhoittumisen ja luonnon aikaa. Yötön yö tuo aivan erityisen tunnelman, kun aurinko ei laske lainkaan kesäkuun ja heinäkuun aikana. Tunturimaisemat vihertävät, vaellusreitit kutsuvat ja luonto tarjoaa ainutlaatuisen pakopaikan arjesta.",
     sections: {
@@ -134,11 +134,11 @@ const translations = {
   },
   en: {
     meta: {
-      title: `Summer in Levi ${new Date().getFullYear()} — Hiking, Biking & Midnight Sun`,
-      description: "Fell hiking, e-bike rentals, fishing and midnight sun. Lower accommodation prices during summer season.",
+      title: `Things to Do in Levi in Summer ${new Date().getFullYear()} — 15 Best Activities`,
+      description: "What to do in Levi in summer? Hiking, biking, golf, fishing, summer toboggan and midnight sun. Local tips and affordable accommodation rates.",
       canonical: "https://leville.net/guide/summer-in-levi"
     },
-    title: "Summer in Levi",
+    title: "Things to Do in Levi in Summer",
     subtitle: "Midnight sun magic and arctic nature at its finest",
     intro: "Summer in Levi is a time for relaxation and nature. The midnight sun brings a very special atmosphere, as the sun doesn't set at all during June and July. The fell landscapes turn green, hiking trails beckon, and nature offers a unique escape from everyday life.",
     sections: {
