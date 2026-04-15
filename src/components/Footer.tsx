@@ -236,7 +236,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
             <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{c.trustTitle}</h3>
             <div className="space-y-5">
               {/* Booking.com */}
-              <div className="rounded-xl border border-border/50 p-4">
+              <div className="rounded-xl border border-border/50 p-4 flex flex-col items-center text-center">
                 <div className="mb-3">
                   <img src={bookingLogo} alt="Booking.com" width={400} height={64} className="h-8 w-auto" loading="lazy" decoding="async" />
                 </div>
@@ -249,7 +249,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
               </div>
 
               {/* Airbnb */}
-              <div className="rounded-xl border border-border/50 p-4">
+              <div className="rounded-xl border border-border/50 p-4 flex flex-col items-center text-center">
                 <div className="mb-3">
                   <img src={airbnbLogo} alt="Airbnb" width={600} height={190} className="h-8 w-auto" loading="lazy" decoding="async" />
                 </div>
