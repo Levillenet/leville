@@ -266,9 +266,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
               </div>
 
               {/* Levi Partner */}
-              <div className="rounded-xl border border-border/50 p-4 flex items-center gap-3">
-                <img src={leviPartnerLogo} alt="Levi Partner" width={200} height={200} className="h-10 w-10 rounded-full object-cover" loading="lazy" decoding="async" />
-                <span className="text-sm text-muted-foreground font-medium">Official Levi Partner</span>
+              <div className="rounded-xl border border-border/50 p-4 flex items-center justify-center">
+                <img src={leviPartnerLogo} alt="Levi Partner" width={200} height={200} className="h-20 w-auto object-contain" loading="lazy" decoding="async" />
               </div>
             </div>
           </div>
