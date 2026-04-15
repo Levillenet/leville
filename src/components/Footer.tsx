@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import levilleLogo from "@/assets/leville-logo.png";
 import bookingLogo from "@/assets/booking-logo.png";
 import airbnbLogo from "@/assets/airbnb-logo.png";
+import leviPartnerLogo from "@/assets/levi-partner-logo.png";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
 import { Language, routeConfig } from "@/translations";
 
@@ -262,6 +263,12 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
                   </div>
                   <span className="text-sm text-muted-foreground font-medium">Exceptional</span>
                 </div>
+              </div>
+
+              {/* Levi Partner */}
+              <div className="rounded-xl border border-border/50 p-4 flex items-center gap-3">
+                <img src={leviPartnerLogo} alt="Levi Partner" width={200} height={200} className="h-10 w-10 rounded-full object-cover" loading="lazy" decoding="async" />
+                <span className="text-sm text-muted-foreground font-medium">Official Levi Partner</span>
               </div>
             </div>
           </div>
