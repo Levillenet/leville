@@ -42,7 +42,21 @@ interface PromoBannerData {
   is_active: boolean;
   route_key: string;
   redirect_localized: boolean;
+  placement: "hero" | "below_hero";
 }
+
+const PLACEMENT_OPTIONS = [
+  {
+    value: "below_hero",
+    label: "📢 Iso banneri (Heron alla)",
+    hint: "Värikäs koko leveydeltä Heron alla — paras tarjouksille ja kampanjoille.",
+  },
+  {
+    value: "hero",
+    label: "🎿 Pieni badge (Heron sisällä)",
+    hint: "Korvaa Heron \"Kevään tarjous\" -badgen. Lyhyt teksti, ei alatekstiä eikä nappia.",
+  },
+];
 
 const THEME_OPTIONS = [
   { value: "vappu", label: "🎉 Vappu", icon: PartyPopper },
@@ -87,6 +101,7 @@ const emptyBanner: PromoBannerData = {
   is_active: true,
   route_key: "",
   redirect_localized: true,
+  placement: "below_hero",
 };
 
 interface PromoBannerAdminProps {
@@ -235,6 +250,28 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
         <Card>
           <CardHeader><CardTitle>{(editing as any).id ? "Muokkaa banneria" : "Uusi banneri"}</CardTitle></CardHeader>
           <CardContent className="space-y-4">
+            <div>
+              <Label>Sijainti etusivulla *</Label>
+              <Select
+                value={editing.placement}
+                onValueChange={(v) => setEditing({ ...editing, placement: v as "hero" | "below_hero" })}
+              >
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {PLACEMENT_OPTIONS.map((p) => (
+                    <SelectItem key={p.value} value={p.value}>{p.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground mt-1">
+                {PLACEMENT_OPTIONS.find((p) => p.value === editing.placement)?.hint}
+              </p>
+              {editing.placement === "hero" && (
+                <p className="text-xs text-amber-600 mt-1">
+                  Hero-badgessa näytetään vain otsikko (ei alatekstiä eikä nappia). Pidä teksti lyhyenä, esim. "Kevään tarjous: -20% maaliskuussa".
+                </p>
+              )}
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label>Admin-tunniste *</Label>
@@ -366,10 +403,13 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
                 <CardContent className="flex items-center gap-4 py-4">
                   <div className="text-2xl">{themeOpt?.label.split(" ")[0] || "📢"}</div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-semibold truncate">{b.title}</span>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${status.color}`}>
                         {status.label}
+                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-leville-turquoise/15 text-leville-turquoise border border-leville-turquoise/30">
+                        {(b as any).placement === "hero" ? "🎿 Hero-badge" : "📢 Iso banneri"}
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground truncate">

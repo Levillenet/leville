@@ -121,7 +121,7 @@ const themes: Record<string, {
 };
 
 const PromoBanner = ({ lang = "fi" }: PromoBannerProps) => {
-  const { banner, loading, getHeading, getSubtext, getButtonText, getTargetUrl } = usePromoBanner(lang);
+  const { banner, loading, getHeading, getSubtext, getButtonText, getTargetUrl } = usePromoBanner(lang, "below_hero");
 
   if (loading || !banner) return null;
 
