@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { MapPin, CreditCard, Home } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
+import HeroPromoBadge from "@/components/HeroPromoBadge";
 import heroCabin from "@/assets/hero-cabin.jpg";
 import heroChalet from "@/assets/hero-chalet.jpg";
 import heroVillage from "@/assets/hero-village.jpg";
@@ -231,15 +232,12 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             })}
           </div>
 
-          {/* Campaign badge - Leville turquoise accent */}
-          <div 
-            className="inline-flex items-center gap-2.5 bg-leville-turquoise/15 border border-leville-turquoise/30 rounded-full px-5 py-2.5 mb-6 animate-fade-in backdrop-blur-sm"
+          {/* Campaign badge - admin-manageable via promo_banners (placement = "hero") */}
+          <div
+            className="animate-fade-in mb-6"
             style={{ animationDelay: '0.3s' }}
           >
-            <span className="text-xl">🎿</span>
-            <span className="text-sm sm:text-base font-medium text-foreground">
-              {t.discount}
-            </span>
+            <HeroPromoBadge lang={lang} fallbackText={t.discount} />
           </div>
 
           {/* Moder Booking Widget - embedded in hero */}
