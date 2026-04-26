@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Language, routeConfig } from "@/translations";
 
+export type BannerPlacement = "hero" | "below_hero";
+
 export interface PromoBanner {
   id: string;
   title: string;
@@ -33,9 +35,13 @@ export interface PromoBanner {
   is_active: boolean;
   route_key: string | null;
   redirect_localized: boolean;
+  placement: BannerPlacement;
 }
 
-export function usePromoBanner(lang: Language = "fi") {
+export function usePromoBanner(
+  lang: Language = "fi",
+  placement: BannerPlacement = "below_hero"
+) {
   const [banner, setBanner] = useState<PromoBanner | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -45,6 +51,7 @@ export function usePromoBanner(lang: Language = "fi") {
         .from("promo_banners" as any)
         .select("*")
         .eq("is_active", true)
+        .eq("placement", placement)
         .lte("starts_at", new Date().toISOString())
         .gte("expires_at", new Date().toISOString())
         .order("created_at", { ascending: false })
@@ -52,11 +59,13 @@ export function usePromoBanner(lang: Language = "fi") {
 
       if (data && data.length > 0) {
         setBanner(data[0] as unknown as PromoBanner);
+      } else {
+        setBanner(null);
       }
       setLoading(false);
     };
     fetch();
-  }, []);
+  }, [placement]);
 
   const getHeading = (b: PromoBanner): string => {
     const key = `heading_${lang}` as keyof PromoBanner;
