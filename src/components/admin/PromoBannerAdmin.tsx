@@ -42,7 +42,21 @@ interface PromoBannerData {
   is_active: boolean;
   route_key: string;
   redirect_localized: boolean;
+  placement: "hero" | "below_hero";
 }
+
+const PLACEMENT_OPTIONS = [
+  {
+    value: "below_hero",
+    label: "📢 Iso banneri (Heron alla)",
+    hint: "Värikäs koko leveydeltä Heron alla — paras tarjouksille ja kampanjoille.",
+  },
+  {
+    value: "hero",
+    label: "🎿 Pieni badge (Heron sisällä)",
+    hint: "Korvaa Heron \"Kevään tarjous\" -badgen. Lyhyt teksti, ei alatekstiä eikä nappia.",
+  },
+];
 
 const THEME_OPTIONS = [
   { value: "vappu", label: "🎉 Vappu", icon: PartyPopper },
@@ -87,6 +101,7 @@ const emptyBanner: PromoBannerData = {
   is_active: true,
   route_key: "",
   redirect_localized: true,
+  placement: "below_hero",
 };
 
 interface PromoBannerAdminProps {
