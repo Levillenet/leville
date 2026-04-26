@@ -33,16 +33,9 @@ const themeMap: Record<string, { emoji: string; icon: React.ElementType }> = {
 const HeroPromoBadge = ({ lang = "fi", fallbackText }: HeroPromoBadgeProps) => {
   const { banner, loading, getHeading, getTargetUrl } = usePromoBanner(lang, "hero");
 
-  // While loading, render the static fallback so layout doesn't shift.
+  // No active hero banner → render nothing (badge fully removed).
   if (loading || !banner) {
-    return (
-      <div className="inline-flex items-center gap-2.5 bg-leville-turquoise/15 border border-leville-turquoise/30 rounded-full px-5 py-2.5 backdrop-blur-sm">
-        <span className="text-xl">🎿</span>
-        <span className="text-sm sm:text-base font-medium text-foreground">
-          {fallbackText}
-        </span>
-      </div>
-    );
+    return null;
   }
 
   const theme = themeMap[banner.theme] || themeMap.vappu;
