@@ -69,7 +69,7 @@ export const restaurantsTranslationsDe = {
     links: [
       { title: "Fortbewegung in Levi", desc: "Wie Sie zu den Restaurants gelangen", href: "/de/ratgeber/fortbewegung-levi" },
       { title: "Levi mit Kindern", desc: "Familienfreundliche Restaurants", href: "/de/ratgeber/levi-mit-kindern" },
-      { title: "Sauna in Levi", desc: "Entspannen nach dem Essen", href: "/de/ratgeber/sauna-levi" },
+      { title: "Sauna in Levi", desc: "Entspannen nach dem Essen", href: "/guide/finnish-sauna-in-levi" },
     ],
   },
 };
@@ -219,7 +219,7 @@ export const restaurantsTranslationsFr = {
   readNext: {
     title: "À lire aussi",
     links: [
-      { title: "Se déplacer à Levi", desc: "Comment rejoindre les restaurants", href: "/fr/guide/transport-levi" },
+      { title: "Se déplacer à Levi", desc: "Comment rejoindre les restaurants", href: "/guide/getting-around-in-levi" },
       { title: "Levi avec enfants", desc: "Restaurants familiaux", href: "/fr/guide/levi-avec-enfants" },
       { title: "Sauna à Levi", desc: "Se détendre après le dîner", href: "/fr/guide/sauna-levi" },
     ],

@@ -281,7 +281,6 @@ Usein paras paikka on aivan majoituksen lähellä — tuttu, turvallinen ja help
       title: "Lee también",
       links: [
         { title: "Auroras boreales en Levi", desc: "Guía completa de aurora", href: "/es/guia/auroras-boreales-levi" },
-        { title: "Fotografía de aurora", desc: "Ajustes de cámara y consejos", href: "/es/guia/fotografia-auroras-boreales-levi" },
         { title: "Alojamiento", desc: "Ve auroras desde tu terraza", href: "/es/alojamiento" }
       ]
     }

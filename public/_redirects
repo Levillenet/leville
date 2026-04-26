@@ -6,9 +6,9 @@
 /majoituksemme              /majoitukset          301
 /levin-keskustahuoneistot/  /majoitukset          301
 /levin-keskustahuoneistot   /majoitukset          301
-/kysymykset/                /ukk                  301
+/kysymykset/                /                     301
 /kysymykset                 /ukk                  301
-/yritysasiakkaille/         /yhteystiedot         301
+/yritysasiakkaille/         /yritys               301
 /yritysasiakkaille          /yhteystiedot         301
 /yrityksemme/               /yritys               301
 /yrityksemme                /yritys               301
@@ -18,19 +18,19 @@
 # Old WordPress pages (English)
 /our-accommodations/        /en/accommodations    301
 /our-accommodations         /en/accommodations    301
-/business-clients/          /en/contact           301
+/business-clients/          /yritys               301
 /business-clients           /en/contact           301
 /about-us/                  /yritys               301
 /about-us                   /yritys               301
-/booking-terms/             /varausehdot          301
+/booking-terms/             /en/terms             301
 /booking-terms              /varausehdot          301
-/latest-news/               /levi                 301
+/latest-news/               /                     301
 /latest-news                /levi                 301
-/faq/                       /en/faq               301
+/faq/                       /                     301
 /faq                        /en/faq               301
 
 # Old blog archive URLs
-/2020/                      /levi                 301
+/2020/                      /                     301
 /2020/11/                   /levi                 301
 /2020/*                     /levi                 301
 
@@ -39,11 +39,11 @@
 /skistar-levi-104           /majoitukset          301
 
 # Wrong language path patterns
-/sv/boenden                 /sv/boende            301
-/sv/aktuellt                /sv                   301
+/sv/boenden                 /majoitukset          301
+/sv/aktuellt                /                     301
 /en/majoitukset             /en/accommodations    301
-/en/yhteystiedot            /en/contact           301
-/en/terms                   /en/booking-terms     301
+/en/yhteystiedot            /yritys               301
+/en/terms                   /yritys               301
 
 # Vanhat polkumuutokset
 /opas/esteetomyys-levilla        /opas/esteetton-levi              301
