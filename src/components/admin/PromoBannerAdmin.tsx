@@ -403,10 +403,13 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
                 <CardContent className="flex items-center gap-4 py-4">
                   <div className="text-2xl">{themeOpt?.label.split(" ")[0] || "📢"}</div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-semibold truncate">{b.title}</span>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${status.color}`}>
                         {status.label}
+                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-leville-turquoise/15 text-leville-turquoise border border-leville-turquoise/30">
+                        {(b as any).placement === "hero" ? "🎿 Hero-badge" : "📢 Iso banneri"}
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground truncate">
