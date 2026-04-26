@@ -250,6 +250,28 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
         <Card>
           <CardHeader><CardTitle>{(editing as any).id ? "Muokkaa banneria" : "Uusi banneri"}</CardTitle></CardHeader>
           <CardContent className="space-y-4">
+            <div>
+              <Label>Sijainti etusivulla *</Label>
+              <Select
+                value={editing.placement}
+                onValueChange={(v) => setEditing({ ...editing, placement: v as "hero" | "below_hero" })}
+              >
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {PLACEMENT_OPTIONS.map((p) => (
+                    <SelectItem key={p.value} value={p.value}>{p.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground mt-1">
+                {PLACEMENT_OPTIONS.find((p) => p.value === editing.placement)?.hint}
+              </p>
+              {editing.placement === "hero" && (
+                <p className="text-xs text-amber-600 mt-1">
+                  Hero-badgessa näytetään vain otsikko (ei alatekstiä eikä nappia). Pidä teksti lyhyenä, esim. "Kevään tarjous: -20% maaliskuussa".
+                </p>
+              )}
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label>Admin-tunniste *</Label>
