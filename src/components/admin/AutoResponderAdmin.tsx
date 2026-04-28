@@ -104,6 +104,9 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   const [newTopic, setNewTopic] = useState("");
   const [editingRule, setEditingRule] = useState<Rule | null>(null);
   const [ruleDialogOpen, setRuleDialogOpen] = useState(false);
+  // Local string buffer for keyword input so commas/spaces aren't eaten while typing
+  const [keywordsDraft, setKeywordsDraft] = useState<string>("");
+  const [translatingAway, setTranslatingAway] = useState(false);
 
   // Draft editor state
   const [draftEdits, setDraftEdits] = useState<Record<string, { subject: string; body: string }>>({});
@@ -117,6 +120,8 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   const [testSending, setTestSending] = useState(false);
   const [testPreviewOnly, setTestPreviewOnly] = useState(true);
   const [testResult, setTestResult] = useState<{ subject: string; body: string; sent: boolean; routing?: any; mode?: string } | null>(null);
+  const [savingLearned, setSavingLearned] = useState(false);
+  const [learnedEdit, setLearnedEdit] = useState<{ subject: string; body: string } | null>(null);
 
   const invoke = async (action: string, extra: Record<string, unknown> = {}) => {
     const { data, error } = await supabase.functions.invoke("autoresponder-manage", {
@@ -238,14 +243,19 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
     await saveSettings({ test_recipients: settings.test_recipients.filter((e) => e !== email) });
   };
 
-  const openNewRule = () => { setEditingRule({ ...EMPTY_RULE }); setRuleDialogOpen(true); };
-  const openEditRule = (r: Rule) => { setEditingRule({ ...r, ai_extra_instructions: r.ai_extra_instructions || "" }); setRuleDialogOpen(true); };
+  const openNewRule = () => { setEditingRule({ ...EMPTY_RULE }); setKeywordsDraft(""); setRuleDialogOpen(true); };
+  const openEditRule = (r: Rule) => { setEditingRule({ ...r, ai_extra_instructions: r.ai_extra_instructions || "" }); setKeywordsDraft((r.match_keywords || []).join(", ")); setRuleDialogOpen(true); };
 
   const saveRule = async () => {
     if (!editingRule) return;
     if (!editingRule.name.trim()) { toast({ title: "Nimi puuttuu", variant: "destructive" }); return; }
+    const parsedKeywords = keywordsDraft
+      .split(/[,\n;]+/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const ruleToSave = { ...editingRule, match_keywords: parsedKeywords };
     try {
-      await invoke("upsert_rule", { rule: editingRule });
+      await invoke("upsert_rule", { rule: ruleToSave });
       toast({ title: "Sääntö tallennettu" });
       setRuleDialogOpen(false);
       setEditingRule(null);
@@ -253,6 +263,44 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
       setRules(r.rules || []);
     } catch (e: any) {
       toast({ title: "Tallennus epäonnistui", description: e.message, variant: "destructive" });
+    }
+  };
+
+  const translateAway = async () => {
+    setTranslatingAway(true);
+    try {
+      const res = await invoke("translate_away", { source_lang: "fi", target_langs: ["en", "sv", "de", "fr", "es", "nl"] });
+      if (res?.settings) setSettings(res.settings);
+      toast({ title: "Käännökset päivitetty", description: `Kielet: ${(res?.translated || []).join(", ")}` });
+    } catch (e: any) {
+      toast({ title: "Käännös epäonnistui", description: e.message, variant: "destructive" });
+    } finally {
+      setTranslatingAway(false);
+    }
+  };
+
+  const saveTestAsLearned = async () => {
+    if (!testResult) return;
+    setSavingLearned(true);
+    try {
+      const subj = learnedEdit?.subject ?? testResult.subject;
+      const bod = learnedEdit?.body ?? testResult.body;
+      await invoke("save_test_as_learned", {
+        incoming_subject: testSubject,
+        incoming_body: testMessage,
+        approved_subject: subj,
+        approved_body: bod,
+        topic: testResult.routing?.detectedTopic || null,
+        language: testResult.routing?.detectedLang || "en",
+      });
+      toast({ title: "Tallennettu opitukseen", description: "AI käyttää tätä esimerkkinä jatkossa." });
+      const le = await invoke("list_learned", { limit: 100 });
+      setLearned(le.learned || []);
+      setLearnedEdit(null);
+    } catch (e: any) {
+      toast({ title: "Tallennus epäonnistui", description: e.message, variant: "destructive" });
+    } finally {
+      setSavingLearned(false);
     }
   };
 
@@ -282,6 +330,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
     const sendReal = overrideSend !== undefined ? overrideSend : !testPreviewOnly;
     setTestSending(true);
     setTestResult(null);
+    setLearnedEdit(null);
     try {
       const { data, error } = await supabase.functions.invoke("autoresponder-test", {
         body: {
@@ -359,8 +408,11 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
             <CardContent className="space-y-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <Label>Auto-vastaaja päällä</Label>
-                  <p className="text-xs text-muted-foreground">Polling pyörii 5 min välein.</p>
+                  <Label>Auto-vastaaja päällä (master-kytkin)</Label>
+                  <p className="text-xs text-muted-foreground">
+                    <strong>ON</strong> = järjestelmä lukee Gmailia 5 min välein ja vastaa/luonnostelee asetusten mukaan.{" "}
+                    <strong>OFF</strong> = mitään ei haeta eikä lähetetä, vaikka muut asetukset olisivat päällä. Tämä on hätäkatkaisin.
+                  </p>
                 </div>
                 <Switch checked={settings.enabled} onCheckedChange={(v) => saveSettings({ enabled: v })} disabled={isViewer} />
               </div>
@@ -594,7 +646,18 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
                 </div>
               )}
 
-              {(["fi","en","sv","de"] as const).map((lang) => (
+              <div className="border-t pt-3 flex items-center justify-between gap-3 flex-wrap">
+                <div>
+                  <Label>Generoi käännökset suomenkielisestä versiosta</Label>
+                  <p className="text-xs text-muted-foreground">Täytä ensin FI-versio, paina nappia → AI kääntää muut kielet ja tallentaa ne.</p>
+                </div>
+                <Button onClick={translateAway} disabled={isViewer || translatingAway || !(settings.away_subject?.fi || settings.away_body?.fi)}>
+                  {translatingAway ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+                  Käännä FI → EN/SV/DE/FR/ES/NL
+                </Button>
+              </div>
+
+              {(["fi","en","sv","de","fr","es","nl"] as const).map((lang) => (
                 <div key={lang} className="border rounded p-3 space-y-2">
                   <Label className="uppercase text-xs">{lang}</Label>
                   <Input placeholder="Aihe"
@@ -835,8 +898,34 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
                     </CardTitle>
                     <CardDescription className="font-medium text-foreground">{testResult.subject}</CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <pre className="whitespace-pre-wrap text-sm font-sans">{testResult.body}</pre>
+                  <CardContent className="space-y-3">
+                    <div>
+                      <Label className="text-xs">Vastauksen aihe (muokattavissa ennen tallennusta)</Label>
+                      <Input
+                        value={learnedEdit?.subject ?? testResult.subject}
+                        onChange={(e) => setLearnedEdit({ subject: e.target.value, body: learnedEdit?.body ?? testResult.body })}
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Vastauksen sisältö (muokattavissa)</Label>
+                      <Textarea
+                        rows={10}
+                        value={learnedEdit?.body ?? testResult.body}
+                        onChange={(e) => setLearnedEdit({ subject: learnedEdit?.subject ?? testResult.subject, body: e.target.value })}
+                      />
+                    </div>
+                    <div className="flex flex-wrap gap-2 items-center border-t pt-3">
+                      <Button onClick={saveTestAsLearned} disabled={savingLearned || isViewer}>
+                        {savingLearned ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <GraduationCap className="w-4 h-4 mr-2" />}
+                        Opeta tämä vastaus AI:lle
+                      </Button>
+                      {learnedEdit && (
+                        <Button variant="ghost" size="sm" onClick={() => setLearnedEdit(null)}>Palauta alkuperäinen</Button>
+                      )}
+                      <p className="text-xs text-muted-foreground">
+                        Tallennus lisää vastauksen "Opitut"-listaan. AI saa tämän esimerkkinä jokaiselle saman aiheen viestille.
+                      </p>
+                    </div>
                   </CardContent>
                 </Card>
               )}
@@ -911,12 +1000,13 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
               </div>
 
               <div>
-                <Label>Avainsanat (pilkulla erotettuna, valinnainen)</Label>
+                <Label>Avainsanat (erottimet: pilkku, rivinvaihto tai puolipiste — valinnainen)</Label>
                 <Input
-                  value={editingRule.match_keywords.join(", ")}
-                  onChange={(e) => setEditingRule({ ...editingRule, match_keywords: e.target.value.split(",").map((s) => s.trim()).filter(Boolean) })}
-                  placeholder="sauna, check-in"
+                  value={keywordsDraft}
+                  onChange={(e) => setKeywordsDraft(e.target.value)}
+                  placeholder="sauna, check-in, wifi"
                 />
+                <p className="text-xs text-muted-foreground mt-1">Tallennetaan vasta kun painat "Tallenna". Tyhjä = sääntö osuu kaikkiin viesteihin (domain/aika sallien).</p>
               </div>
 
               <div>
