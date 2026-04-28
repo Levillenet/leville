@@ -115,6 +115,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   const [testMessage, setTestMessage] = useState("Hei, miten saunan saa päälle huoneistossa? Kiitos!");
   const [testRuleId, setTestRuleId] = useState<string>("__none__");
   const [testSending, setTestSending] = useState(false);
+  const [testPreviewOnly, setTestPreviewOnly] = useState(true);
   const [testResult, setTestResult] = useState<{ subject: string; body: string; sent: boolean; routing?: any; mode?: string } | null>(null);
 
   const invoke = async (action: string, extra: Record<string, unknown> = {}) => {
@@ -276,8 +277,9 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
     }
   };
 
-  const runTest = async () => {
+  const runTest = async (overrideSend?: boolean) => {
     if (!testFrom) { toast({ title: "Lähettäjä puuttuu", variant: "destructive" }); return; }
+    const sendReal = overrideSend !== undefined ? overrideSend : !testPreviewOnly;
     setTestSending(true);
     setTestResult(null);
     try {
@@ -288,7 +290,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
           subject: testSubject,
           message: testMessage,
           rule_id: testRuleId === "__none__" ? null : testRuleId,
-          send_real_email: true,
+          send_real_email: sendReal,
         },
       });
       if (error) throw error;
@@ -297,11 +299,15 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
         toast({ title: "AI ohitti viestin", description: "AI tunnisti viestin spämmiksi/bounceksi" });
       } else {
         setTestResult({ subject: data.reply.subject, body: data.reply.body, sent: !!data.sent, routing: data.routing, mode: data.mode });
-        toast({
-          title: data.sent ? `Vastaus lähetetty osoitteeseen ${testFrom}` : "Vastaus generoitu mutta lähetys epäonnistui",
-          description: data.send_error || undefined,
-          variant: data.sent ? "default" : "destructive",
-        });
+        if (sendReal) {
+          toast({
+            title: data.sent ? `Vastaus lähetetty osoitteeseen ${testFrom}` : "Vastaus generoitu mutta lähetys epäonnistui",
+            description: data.send_error || undefined,
+            variant: data.sent ? "default" : "destructive",
+          });
+        } else {
+          toast({ title: "Esikatselu valmis", description: "Vastausta ei lähetetty sähköpostilla." });
+        }
       }
       const l = await invoke("list_log", { limit: 100 });
       setLog(l.log || []);
@@ -795,10 +801,24 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
                 <Button variant="outline" size="sm" onClick={() => { setTestSubject("Husky safari"); setTestMessage("Hola, dónde puedo reservar un safari de huskies?"); }}>Husky (ES)</Button>
               </div>
 
-              <Button onClick={runTest} disabled={testSending || !testFrom || isViewer}>
-                {testSending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
-                Lähetä testivastaus
-              </Button>
+              <div className="flex items-center justify-between border rounded p-3">
+                <div>
+                  <Label>Lähetä myös oikeasti sähköpostilla</Label>
+                  <p className="text-xs text-muted-foreground">Pois päältä = vain esikatselu Lovablessa, ei Gmail-lähetystä. Nopein tapa testata vastauksia.</p>
+                </div>
+                <Switch checked={!testPreviewOnly} onCheckedChange={(v) => setTestPreviewOnly(!v)} />
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <Button variant="outline" onClick={() => runTest(false)} disabled={testSending || !testFrom || isViewer}>
+                  {testSending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+                  Esikatsele vastaus (ei lähetä)
+                </Button>
+                <Button onClick={() => runTest(true)} disabled={testSending || !testFrom || isViewer}>
+                  {testSending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
+                  Generoi & lähetä sähköpostilla
+                </Button>
+              </div>
 
               {testResult && (
                 <Card className="border-primary/40 bg-muted/30">

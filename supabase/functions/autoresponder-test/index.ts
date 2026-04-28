@@ -93,14 +93,6 @@ Deno.serve(async (req) => {
       body: message,
     };
 
-    const reply = await generateReply(rule, incoming, settings?.default_language || "en", settings?.ai_system_prompt);
-    if (!reply) {
-      return json({ ok: true, skipped: "ai_returned_skip", reply: null });
-    }
-
-    const finalSubject = /^re:/i.test(reply.subject) ? reply.subject : `Re: ${reply.subject}`;
-    const finalBody = reply.body + (settings?.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
-
     const detectedLang = detectLanguage(message || subject) || settings?.default_language || "en";
     const detectedTopic = detectTopic(`${subject}\n${message}`);
     const autoSendTopics: string[] = (settings?.auto_send_topics || []).map((t: string) => t.toLowerCase());
