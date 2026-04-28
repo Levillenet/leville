@@ -150,6 +150,20 @@ Deno.serve(async (req) => {
         const { email: fromEmail, domain: fromDomain, name: fromName } = parseFromAddress(fromHeader);
         const body = extractPlainTextBody(full.payload).slice(0, 8000);
 
+        // Hard guard: skip (and LOG) anything that arrived BEFORE the auto-responder was enabled.
+        const internalMs = parseInt(full.internalDate || "0", 10);
+        if (internalMs && internalMs < enabledAtMs) {
+          await supabase.from("autoresponder_log").insert({
+            gmail_message_id: m.id,
+            gmail_thread_id: m.threadId,
+            from_email: fromEmail || "(unknown)",
+            from_domain: fromDomain || "(unknown)",
+            subject,
+            action: "skipped_before_enabled",
+          });
+          continue;
+        }
+
         if (!fromEmail || isSkippableSender(fromEmail)) {
           await supabase.from("autoresponder_log").insert({
             gmail_message_id: m.id,
