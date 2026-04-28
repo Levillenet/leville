@@ -104,6 +104,9 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   const [newTopic, setNewTopic] = useState("");
   const [editingRule, setEditingRule] = useState<Rule | null>(null);
   const [ruleDialogOpen, setRuleDialogOpen] = useState(false);
+  // Local string buffer for keyword input so commas/spaces aren't eaten while typing
+  const [keywordsDraft, setKeywordsDraft] = useState<string>("");
+  const [translatingAway, setTranslatingAway] = useState(false);
 
   // Draft editor state
   const [draftEdits, setDraftEdits] = useState<Record<string, { subject: string; body: string }>>({});
@@ -117,6 +120,8 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   const [testSending, setTestSending] = useState(false);
   const [testPreviewOnly, setTestPreviewOnly] = useState(true);
   const [testResult, setTestResult] = useState<{ subject: string; body: string; sent: boolean; routing?: any; mode?: string } | null>(null);
+  const [savingLearned, setSavingLearned] = useState(false);
+  const [learnedEdit, setLearnedEdit] = useState<{ subject: string; body: string } | null>(null);
 
   const invoke = async (action: string, extra: Record<string, unknown> = {}) => {
     const { data, error } = await supabase.functions.invoke("autoresponder-manage", {
