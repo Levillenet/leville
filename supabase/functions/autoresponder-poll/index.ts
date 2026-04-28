@@ -196,8 +196,10 @@ Deno.serve(async (req) => {
     // Gmail's `after:` operator uses unix seconds.
     const enabledAtMs = new Date(settings.enabled_at).getTime();
     const enabledAtSec = Math.floor(enabledAtMs / 1000);
-    const gmailQuery = `is:unread after:${enabledAtSec}`;
-    const messages = await listUnreadMessages(gmailQuery, 20);
+    // Use in:inbox (not is:unread) — sometimes Gmail marks messages read via preview/sync
+    // before we poll. alreadyHandled() in the loop dedupes already-processed messages.
+    const gmailQuery = `in:inbox after:${enabledAtSec}`;
+    const messages = await listUnreadMessages(gmailQuery, 30);
 
     const results: any[] = [];
 
