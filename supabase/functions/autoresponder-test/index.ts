@@ -1,0 +1,133 @@
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.89.0";
+import { sendReply } from "../_shared/gmail.ts";
+import { generateReply, type AutoResponderRule, type IncomingEmail } from "../_shared/autoresponderEngine.ts";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
+
+function json(body: unknown, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
+  });
+}
+
+Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+
+  try {
+    const body = await req.json();
+    const { password, rule_id, send_real_email = true } = body;
+    const subject: string = body.subject || "(test)";
+    const message: string = body.message || "";
+    const fromEmail: string = (body.from_email || "").toLowerCase().trim();
+
+    const adminPw = Deno.env.get("ADMIN_PASSWORD");
+    if (!adminPw || password !== adminPw) return json({ error: "Unauthorized" }, 401);
+    if (!fromEmail || !fromEmail.includes("@")) return json({ error: "from_email required" }, 400);
+    if (!message.trim()) return json({ error: "message required" }, 400);
+
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    );
+
+    const { data: settings } = await supabase
+      .from("autoresponder_settings")
+      .select("*")
+      .eq("id", 1)
+      .maybeSingle();
+
+    // Whitelist enforcement: from_email must be in test_recipients (safety net)
+    const whitelist = (settings?.test_recipients || []).map((s: string) => s.toLowerCase());
+    if (whitelist.length > 0 && !whitelist.includes(fromEmail)) {
+      return json({ error: `from_email must be in test_recipients whitelist. Current: ${whitelist.join(", ") || "(empty)"}` }, 400);
+    }
+
+    let rule: AutoResponderRule | null = null;
+    if (rule_id) {
+      const { data } = await supabase
+        .from("autoresponder_rules")
+        .select("*")
+        .eq("id", rule_id)
+        .maybeSingle();
+      rule = data as AutoResponderRule | null;
+    }
+    // Synthetic fallback rule if none specified - pure AI with no extra instructions
+    if (!rule) {
+      rule = {
+        id: "00000000-0000-0000-0000-000000000000",
+        name: "(ad-hoc test rule)",
+        is_active: true,
+        priority: 999,
+        match_domain: "*",
+        match_keywords: [],
+        active_days: [0,1,2,3,4,5,6],
+        active_hours_start: "00:00",
+        active_hours_end: "23:59",
+        response_mode: "ai",
+        template_subject: {},
+        template_body: {},
+        ai_extra_instructions: body.ai_extra_instructions || null,
+        cooldown_hours: 0,
+      };
+    }
+
+    const fromDomain = fromEmail.split("@")[1] || "";
+    const incoming: IncomingEmail = {
+      from_email: fromEmail,
+      from_domain: fromDomain,
+      from_name: body.from_name || "",
+      subject,
+      body: message,
+    };
+
+    const reply = await generateReply(rule, incoming, settings?.default_language || "en", settings?.ai_system_prompt);
+    if (!reply) {
+      return json({ ok: true, skipped: "ai_returned_skip", reply: null });
+    }
+
+    const finalSubject = /^re:/i.test(reply.subject) ? reply.subject : `Re: ${reply.subject}`;
+    const finalBody = reply.body + (settings?.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
+
+    let sent = false;
+    let sendError: string | null = null;
+    if (send_real_email) {
+      try {
+        await sendReply({ to: fromEmail, subject: finalSubject, bodyText: finalBody });
+        sent = true;
+      } catch (e) {
+        sendError = e instanceof Error ? e.message : String(e);
+      }
+    }
+
+    // Log it (test row). Use a unique synthetic Gmail message id.
+    const fakeId = `test-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    await supabase.from("autoresponder_log").insert({
+      gmail_message_id: fakeId,
+      from_email: fromEmail,
+      from_domain: fromDomain,
+      subject,
+      matched_rule_id: rule.id === "00000000-0000-0000-0000-000000000000" ? null : rule.id,
+      matched_rule_name: rule.name,
+      action: sent ? "test_replied" : (send_real_email ? "test_send_failed" : "test_preview"),
+      reply_subject: finalSubject,
+      reply_body: finalBody,
+      reply_sent_at: sent ? new Date().toISOString() : null,
+      is_test: true,
+      error_message: sendError,
+    });
+
+    return json({
+      ok: true,
+      sent,
+      send_error: sendError,
+      reply: { subject: finalSubject, body: finalBody },
+    });
+  } catch (err) {
+    console.error("autoresponder-test error", err);
+    return json({ error: err instanceof Error ? err.message : String(err) }, 500);
+  }
+});
