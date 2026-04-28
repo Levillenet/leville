@@ -249,8 +249,13 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   const saveRule = async () => {
     if (!editingRule) return;
     if (!editingRule.name.trim()) { toast({ title: "Nimi puuttuu", variant: "destructive" }); return; }
+    const parsedKeywords = keywordsDraft
+      .split(/[,\n;]+/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const ruleToSave = { ...editingRule, match_keywords: parsedKeywords };
     try {
-      await invoke("upsert_rule", { rule: editingRule });
+      await invoke("upsert_rule", { rule: ruleToSave });
       toast({ title: "Sääntö tallennettu" });
       setRuleDialogOpen(false);
       setEditingRule(null);
@@ -258,6 +263,44 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
       setRules(r.rules || []);
     } catch (e: any) {
       toast({ title: "Tallennus epäonnistui", description: e.message, variant: "destructive" });
+    }
+  };
+
+  const translateAway = async () => {
+    setTranslatingAway(true);
+    try {
+      const res = await invoke("translate_away", { source_lang: "fi", target_langs: ["en", "sv", "de", "fr", "es", "nl"] });
+      if (res?.settings) setSettings(res.settings);
+      toast({ title: "Käännökset päivitetty", description: `Kielet: ${(res?.translated || []).join(", ")}` });
+    } catch (e: any) {
+      toast({ title: "Käännös epäonnistui", description: e.message, variant: "destructive" });
+    } finally {
+      setTranslatingAway(false);
+    }
+  };
+
+  const saveTestAsLearned = async () => {
+    if (!testResult) return;
+    setSavingLearned(true);
+    try {
+      const subj = learnedEdit?.subject ?? testResult.subject;
+      const bod = learnedEdit?.body ?? testResult.body;
+      await invoke("save_test_as_learned", {
+        incoming_subject: testSubject,
+        incoming_body: testMessage,
+        approved_subject: subj,
+        approved_body: bod,
+        topic: testResult.routing?.detectedTopic || null,
+        language: testResult.routing?.detectedLang || "en",
+      });
+      toast({ title: "Tallennettu opitukseen", description: "AI käyttää tätä esimerkkinä jatkossa." });
+      const le = await invoke("list_learned", { limit: 100 });
+      setLearned(le.learned || []);
+      setLearnedEdit(null);
+    } catch (e: any) {
+      toast({ title: "Tallennus epäonnistui", description: e.message, variant: "destructive" });
+    } finally {
+      setSavingLearned(false);
     }
   };
 
