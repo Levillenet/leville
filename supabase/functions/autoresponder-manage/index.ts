@@ -45,13 +45,20 @@ Deno.serve(async (req) => {
         const allowed = (({
           enabled, mailbox_label, poll_interval_minutes, signature_html,
           default_language, test_mode, test_recipients, ai_system_prompt,
+          auto_send_hours_start, auto_send_hours_end, auto_send_topics,
+          always_require_approval, away_subject, away_body, away_send_outside_topics,
         }) => ({
           enabled, mailbox_label, poll_interval_minutes, signature_html,
           default_language, test_mode, test_recipients, ai_system_prompt,
+          auto_send_hours_start, auto_send_hours_end, auto_send_topics,
+          always_require_approval, away_subject, away_body, away_send_outside_topics,
         }))(settings || {});
+        // strip undefined keys so we don't blank out unrelated fields
+        const clean: Record<string, unknown> = {};
+        for (const [k, v] of Object.entries(allowed)) if (v !== undefined) clean[k] = v;
         const { data, error } = await supabase
           .from("autoresponder_settings")
-          .update(allowed)
+          .update(clean)
           .eq("id", 1)
           .select("*")
           .maybeSingle();
