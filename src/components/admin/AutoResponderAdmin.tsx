@@ -277,8 +277,9 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
     }
   };
 
-  const runTest = async () => {
+  const runTest = async (overrideSend?: boolean) => {
     if (!testFrom) { toast({ title: "Lähettäjä puuttuu", variant: "destructive" }); return; }
+    const sendReal = overrideSend !== undefined ? overrideSend : !testPreviewOnly;
     setTestSending(true);
     setTestResult(null);
     try {
@@ -289,7 +290,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
           subject: testSubject,
           message: testMessage,
           rule_id: testRuleId === "__none__" ? null : testRuleId,
-          send_real_email: true,
+          send_real_email: sendReal,
         },
       });
       if (error) throw error;
@@ -298,11 +299,15 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
         toast({ title: "AI ohitti viestin", description: "AI tunnisti viestin spämmiksi/bounceksi" });
       } else {
         setTestResult({ subject: data.reply.subject, body: data.reply.body, sent: !!data.sent, routing: data.routing, mode: data.mode });
-        toast({
-          title: data.sent ? `Vastaus lähetetty osoitteeseen ${testFrom}` : "Vastaus generoitu mutta lähetys epäonnistui",
-          description: data.send_error || undefined,
-          variant: data.sent ? "default" : "destructive",
-        });
+        if (sendReal) {
+          toast({
+            title: data.sent ? `Vastaus lähetetty osoitteeseen ${testFrom}` : "Vastaus generoitu mutta lähetys epäonnistui",
+            description: data.send_error || undefined,
+            variant: data.sent ? "default" : "destructive",
+          });
+        } else {
+          toast({ title: "Esikatselu valmis", description: "Vastausta ei lähetetty sähköpostilla." });
+        }
       }
       const l = await invoke("list_log", { limit: 100 });
       setLog(l.log || []);
