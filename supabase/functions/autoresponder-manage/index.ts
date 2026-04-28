@@ -43,13 +43,13 @@ Deno.serve(async (req) => {
       case "update_settings": {
         const { settings } = body;
         const allowed = (({
-          enabled, mailbox_label, poll_interval_minutes, signature_html,
+          enabled, enabled_at, mailbox_label, poll_interval_minutes, signature_html,
           default_language, test_mode, test_recipients, ai_system_prompt,
           auto_send_hours_start, auto_send_hours_end, auto_send_topics,
           always_require_approval, away_subject, away_body, away_send_outside_topics,
           away_hours_start, away_hours_end, away_only_in_window,
         }) => ({
-          enabled, mailbox_label, poll_interval_minutes, signature_html,
+          enabled, enabled_at, mailbox_label, poll_interval_minutes, signature_html,
           default_language, test_mode, test_recipients, ai_system_prompt,
           auto_send_hours_start, auto_send_hours_end, auto_send_topics,
           always_require_approval, away_subject, away_body, away_send_outside_topics,

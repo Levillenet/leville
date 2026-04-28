@@ -716,13 +716,25 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
                   <Label className="uppercase text-xs">{lang}</Label>
                   <Input placeholder="Aihe"
                     value={settings.away_subject?.[lang] || ""}
-                    onChange={(e) => setSettings({ ...settings, away_subject: { ...settings.away_subject, [lang]: e.target.value } })}
-                    onBlur={() => saveSettings({ away_subject: settings.away_subject })}
+                    onChange={(e) => {
+                      const next = { ...(settings.away_subject || {}), [lang]: e.target.value };
+                      setSettings({ ...settings, away_subject: next });
+                    }}
+                    onBlur={(e) => {
+                      const next = { ...(settings.away_subject || {}), [lang]: e.target.value };
+                      saveSettings({ away_subject: next });
+                    }}
                     disabled={isViewer} />
                   <Textarea rows={5} placeholder="Viesti"
                     value={settings.away_body?.[lang] || ""}
-                    onChange={(e) => setSettings({ ...settings, away_body: { ...settings.away_body, [lang]: e.target.value } })}
-                    onBlur={() => saveSettings({ away_body: settings.away_body })}
+                    onChange={(e) => {
+                      const next = { ...(settings.away_body || {}), [lang]: e.target.value };
+                      setSettings({ ...settings, away_body: next });
+                    }}
+                    onBlur={(e) => {
+                      const next = { ...(settings.away_body || {}), [lang]: e.target.value };
+                      saveSettings({ away_body: next });
+                    }}
                     disabled={isViewer} />
                 </div>
               ))}
