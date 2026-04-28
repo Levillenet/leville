@@ -43,6 +43,25 @@ export const EMERGENCY_GUIDANCE =
 export const OFFICE_HOURS_NOTE =
   "Our office is staffed Monday to Friday between 09:00 and 17:00 Helsinki time (EET/EEST).";
 
+// Detect which whitelisted topic (if any) the email is about.
+// Returns the topic key (e.g. "sauna") or null.
+export function detectTopic(text: string): string | null {
+  const t = (text || "").toLowerCase();
+  let bestTopic: string | null = null;
+  let bestHits = 0;
+  for (const k of KNOWLEDGE_LINKS) {
+    let hits = 0;
+    for (const kw of k.keywords) {
+      if (kw && t.includes(kw.toLowerCase())) hits++;
+    }
+    if (hits > bestHits) {
+      bestHits = hits;
+      bestTopic = k.topic;
+    }
+  }
+  return bestHits > 0 ? bestTopic : null;
+}
+
 export function buildKnowledgeContext(): string {
   const lines = KNOWLEDGE_LINKS.map(
     (k) => `- ${k.topic} (keywords: ${k.keywords.join(", ")}) -> ${k.url}\n  ${k.summary}`,
