@@ -54,6 +54,16 @@ export async function markAsRead(id: string) {
   }
 }
 
+function encodeMimeHeader(value: string): string {
+  // RFC 2047: only encode if non-ASCII present
+  // eslint-disable-next-line no-control-regex
+  if (!/[^\x00-\x7F]/.test(value)) return value;
+  const utf8 = new TextEncoder().encode(value);
+  let binary = "";
+  for (let i = 0; i < utf8.length; i++) binary += String.fromCharCode(utf8[i]);
+  return `=?UTF-8?B?${btoa(binary)}?=`;
+}
+
 export async function sendReply(opts: {
   to: string;
   subject: string;
@@ -64,10 +74,10 @@ export async function sendReply(opts: {
 }) {
   const headers: string[] = [
     `To: ${opts.to}`,
-    `Subject: ${opts.subject}`,
+    `Subject: ${encodeMimeHeader(opts.subject)}`,
     "MIME-Version: 1.0",
     'Content-Type: text/plain; charset="UTF-8"',
-    "Content-Transfer-Encoding: 7bit",
+    "Content-Transfer-Encoding: 8bit",
   ];
   if (opts.inReplyTo) headers.push(`In-Reply-To: ${opts.inReplyTo}`);
   if (opts.references) headers.push(`References: ${opts.references}`);
