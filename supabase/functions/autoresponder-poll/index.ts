@@ -242,7 +242,7 @@ Deno.serve(async (req) => {
             continue;
           }
           // create AI draft for approval
-          const reply = await generateReply(rule, incoming, settings.default_language, settings.ai_system_prompt, learned).catch(() => null);
+          const reply = await generateReply(rule, incoming, settings.default_language, settings.ai_system_prompt, learned, propertyFacts).catch(() => null);
           await supabase.from("autoresponder_drafts").insert({
             gmail_message_id: m.id,
             gmail_thread_id: m.threadId,
