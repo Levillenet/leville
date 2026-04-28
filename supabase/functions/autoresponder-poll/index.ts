@@ -458,6 +458,7 @@ Deno.serve(async (req) => {
             ai_body: finalBody,
             status: "pending",
           });
+          await notifyApprovalQueue(supabase, { from_email: fromEmail, subject, topic: detectedTopic });
           results.push({ id: m.id, action: "draft_created", topic: detectedTopic });
         }
       } catch (innerErr) {
