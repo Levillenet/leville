@@ -281,21 +281,36 @@ Deno.serve(async (req) => {
         const srcSubject = cur?.away_subject?.[source_lang] || "";
         const srcBody = cur?.away_body?.[source_lang] || "";
         if (!srcSubject.trim() && !srcBody.trim()) {
-          return json({ error: `No ${source_lang} content to translate` }, 400);
+          return json({ error: `No ${source_lang} content to translate. Fill in the ${source_lang.toUpperCase()} version first and click outside the field to save.` }, 400);
         }
         const apiKey = Deno.env.get("LOVABLE_API_KEY");
         if (!apiKey) return json({ error: "LOVABLE_API_KEY missing" }, 500);
 
         const langNames: Record<string, string> = { en: "English", sv: "Swedish", de: "German", fr: "French", es: "Spanish", nl: "Dutch", fi: "Finnish" };
         const targets = (target_langs as string[]).filter((l) => l !== source_lang);
-        const prompt = `You translate hospitality out-of-office email templates. Keep tone warm and professional, keep paragraph structure, do NOT translate URLs, brand names, phone numbers, or "Leville". Output via the tool call.
 
-SOURCE LANGUAGE: ${langNames[source_lang] || source_lang}
-SOURCE SUBJECT: ${srcSubject}
+        // Build per-language explicit fields (Gemini handles named keys far better than additionalProperties)
+        const properties: Record<string, any> = {};
+        const required: string[] = [];
+        for (const lang of targets) {
+          properties[`${lang}_subject`] = { type: "string", description: `Translation of subject in ${langNames[lang] || lang}` };
+          properties[`${lang}_body`] = { type: "string", description: `Translation of body in ${langNames[lang] || lang}, preserve paragraph breaks` };
+          required.push(`${lang}_subject`, `${lang}_body`);
+        }
+
+        const prompt = `Translate the following hospitality out-of-office email from ${langNames[source_lang] || source_lang} to ALL of these target languages: ${targets.map((t) => `${t} (${langNames[t] || t})`).join(", ")}.
+
+Rules:
+- Keep tone warm, professional, concise.
+- Preserve paragraph breaks (\\n\\n).
+- Do NOT translate URLs, brand names ("Leville", "Leville.net"), or phone numbers.
+- Return ALL languages via the save_translations tool. Do not skip any.
+
+SOURCE SUBJECT:
+${srcSubject}
+
 SOURCE BODY:
-${srcBody}
-
-TARGET LANGUAGES: ${targets.map((t) => `${t} (${langNames[t] || t})`).join(", ")}`;
+${srcBody}`;
 
         const aiResp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
           method: "POST",
@@ -303,49 +318,56 @@ TARGET LANGUAGES: ${targets.map((t) => `${t} (${langNames[t] || t})`).join(", ")
           body: JSON.stringify({
             model: "google/gemini-2.5-flash",
             messages: [
-              { role: "system", content: "You translate text accurately and concisely. Use the provided tool to return translations." },
+              { role: "system", content: "You are a professional translator. Always call save_translations with ALL requested target languages filled in." },
               { role: "user", content: prompt },
             ],
             tools: [{
               type: "function",
               function: {
                 name: "save_translations",
-                description: "Save translations keyed by ISO 639-1 language code.",
-                parameters: {
-                  type: "object",
-                  properties: {
-                    translations: {
-                      type: "object",
-                      additionalProperties: {
-                        type: "object",
-                        properties: { subject: { type: "string" }, body: { type: "string" } },
-                        required: ["subject", "body"],
-                      },
-                    },
-                  },
-                  required: ["translations"],
-                },
+                description: "Save translations for every requested target language. All fields are required.",
+                parameters: { type: "object", properties, required, additionalProperties: false },
               },
             }],
             tool_choice: { type: "function", function: { name: "save_translations" } },
           }),
         });
-        if (!aiResp.ok) return json({ error: `AI gateway ${aiResp.status}: ${await aiResp.text()}` }, 500);
+        if (!aiResp.ok) {
+          const errTxt = await aiResp.text();
+          console.error("translate_away AI gateway error", aiResp.status, errTxt);
+          return json({ error: `AI gateway ${aiResp.status}: ${errTxt}` }, 500);
+        }
         const aiData = await aiResp.json();
         const args = aiData.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments;
-        if (!args) return json({ error: "AI returned no translations" }, 500);
-        const parsed = JSON.parse(args) as { translations: Record<string, { subject: string; body: string }> };
+        if (!args) {
+          console.error("translate_away no tool call", JSON.stringify(aiData));
+          return json({ error: "AI returned no translations (no tool call)" }, 500);
+        }
+        let parsed: Record<string, string> = {};
+        try { parsed = JSON.parse(args); } catch (e) {
+          console.error("translate_away parse error", args);
+          return json({ error: "AI returned invalid JSON" }, 500);
+        }
 
         const newSubject = { ...(cur?.away_subject || {}) };
         const newBody = { ...(cur?.away_body || {}) };
-        for (const [lang, t] of Object.entries(parsed.translations || {})) {
-          if (t?.subject) newSubject[lang] = t.subject;
-          if (t?.body) newBody[lang] = t.body;
+        const translatedLangs: string[] = [];
+        for (const lang of targets) {
+          const subj = parsed[`${lang}_subject`];
+          const bod = parsed[`${lang}_body`];
+          if (subj && bod) {
+            newSubject[lang] = subj;
+            newBody[lang] = bod;
+            translatedLangs.push(lang);
+          }
+        }
+        if (translatedLangs.length === 0) {
+          return json({ error: "AI did not return any translations. Try again or use a longer source text.", debug: parsed }, 500);
         }
         const { data: updated } = await supabase.from("autoresponder_settings")
           .update({ away_subject: newSubject, away_body: newBody })
           .eq("id", 1).select("*").maybeSingle();
-        return json({ ok: true, settings: updated, translated: Object.keys(parsed.translations || {}) });
+        return json({ ok: true, settings: updated, translated: translatedLangs });
       }
 
       case "save_test_as_learned": {
