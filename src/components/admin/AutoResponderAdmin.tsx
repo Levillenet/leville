@@ -444,6 +444,221 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
               </div>
             </CardContent>
           </Card>
+
+          {/* AUTO-SEND WINDOW + WHITELIST TOPICS */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Aikataulutus ja auto-lähetys</CardTitle>
+              <CardDescription>
+                Aikaikkunan sisällä tunnistetut "selkeät" aiheet (sauna, wifi, check-in jne.) lähtevät automaattisesti.
+                Aikaikkunan ulkopuolella ne menevät <strong>Hyväksyntä</strong>-välilehdelle luonnoksena. Aika Helsinki-ajassa.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label>Auto-lähetys alkaen</Label>
+                  <Input type="time" value={settings.auto_send_hours_start.slice(0,5)}
+                    onChange={(e) => setSettings({ ...settings, auto_send_hours_start: e.target.value })}
+                    onBlur={(e) => saveSettings({ auto_send_hours_start: e.target.value })}
+                    disabled={isViewer} />
+                </div>
+                <div>
+                  <Label>Auto-lähetys päättyen</Label>
+                  <Input type="time" value={settings.auto_send_hours_end.slice(0,5)}
+                    onChange={(e) => setSettings({ ...settings, auto_send_hours_end: e.target.value })}
+                    onBlur={(e) => saveSettings({ auto_send_hours_end: e.target.value })}
+                    disabled={isViewer} />
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Esimerkki: 22:00–07:00 = yöllä lähetään automaattisesti, päivällä luonnos ihmisen tarkistettavaksi.
+              </p>
+
+              <div className="border-t pt-4 flex items-center justify-between">
+                <div>
+                  <Label>Vaadi aina hyväksyntä</Label>
+                  <p className="text-xs text-muted-foreground">Kun päällä, mikään ei lähde itsestään – kaikki menee Hyväksyntä-jonoon.</p>
+                </div>
+                <Switch checked={settings.always_require_approval}
+                  onCheckedChange={(v) => saveSettings({ always_require_approval: v })}
+                  disabled={isViewer} />
+              </div>
+
+              <div className="border-t pt-4 space-y-2">
+                <Label>Auto-lähetettävät aiheet ({settings.auto_send_topics.length})</Label>
+                <p className="text-xs text-muted-foreground">
+                  Vain nämä aiheet lähtevät ilman ihmisen hyväksyntää (kun aikaikkuna on päällä). Kaikki muut menevät luonnokseksi tai poissaoloviestiksi.
+                  Tunnistetut aiheet: sauna, wifi, checkin, checkout, fireplace, heating, support, directions, activities, restaurants, weather, ski-passes, accommodations, booking-terms, company.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {settings.auto_send_topics.map((t) => (
+                    <Badge key={t} variant="secondary" className="gap-1">
+                      {t}
+                      {!isViewer && (
+                        <button type="button" onClick={() => saveSettings({ auto_send_topics: settings.auto_send_topics.filter((x) => x !== t) })} className="hover:text-destructive">
+                          <X className="w-3 h-3" />
+                        </button>
+                      )}
+                    </Badge>
+                  ))}
+                  {settings.auto_send_topics.length === 0 && (
+                    <p className="text-xs text-muted-foreground">Ei aiheita – mikään ei lähde automaattisesti.</p>
+                  )}
+                </div>
+                {!isViewer && (
+                  <div className="flex gap-2 pt-2">
+                    <Input placeholder="esim. sauna" value={newTopic}
+                      onChange={(e) => setNewTopic(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          const v = newTopic.trim().toLowerCase();
+                          if (v && !settings.auto_send_topics.includes(v)) {
+                            saveSettings({ auto_send_topics: [...settings.auto_send_topics, v] });
+                          }
+                          setNewTopic("");
+                        }
+                      }} />
+                    <Button onClick={() => {
+                      const v = newTopic.trim().toLowerCase();
+                      if (v && !settings.auto_send_topics.includes(v)) {
+                        saveSettings({ auto_send_topics: [...settings.auto_send_topics, v] });
+                      }
+                      setNewTopic("");
+                    }} disabled={!newTopic.trim()}>
+                      <Plus className="w-4 h-4 mr-1" />Lisää
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* AWAY MESSAGE */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Poissaoloviesti</CardTitle>
+              <CardDescription>
+                Kun viesti EI osu auto-lähetettäviin aiheisiin, järjestelmä voi lähettää automaattisesti yleisen
+                poissaoloviestin (joka ei yritä vastata varsinaiseen kysymykseen). Muuten viesti menee luonnoksena hyväksyntään.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label>Lähetä poissaoloviesti automaattisesti tuntemattomista aiheista</Label>
+                  <p className="text-xs text-muted-foreground">Pois päältä = kaikki tuntemattomat aiheet menevät luonnoksena hyväksyntään.</p>
+                </div>
+                <Switch checked={settings.away_send_outside_topics}
+                  onCheckedChange={(v) => saveSettings({ away_send_outside_topics: v })}
+                  disabled={isViewer} />
+              </div>
+
+              {(["fi","en","sv","de"] as const).map((lang) => (
+                <div key={lang} className="border rounded p-3 space-y-2">
+                  <Label className="uppercase text-xs">{lang}</Label>
+                  <Input placeholder="Aihe"
+                    value={settings.away_subject?.[lang] || ""}
+                    onChange={(e) => setSettings({ ...settings, away_subject: { ...settings.away_subject, [lang]: e.target.value } })}
+                    onBlur={() => saveSettings({ away_subject: settings.away_subject })}
+                    disabled={isViewer} />
+                  <Textarea rows={5} placeholder="Viesti"
+                    value={settings.away_body?.[lang] || ""}
+                    onChange={(e) => setSettings({ ...settings, away_body: { ...settings.away_body, [lang]: e.target.value } })}
+                    onBlur={() => saveSettings({ away_body: settings.away_body })}
+                    disabled={isViewer} />
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* APPROVE QUEUE */}
+        <TabsContent value="approve" className="space-y-3">
+          <div className="flex justify-between items-center">
+            <p className="text-sm text-muted-foreground">{drafts.length} odottavaa luonnosta. Muokkaa tarvittaessa ja paina Hyväksy &amp; lähetä.</p>
+            <Button variant="outline" size="sm" onClick={reloadDrafts}><Loader2 className="w-3 h-3 mr-1" />Päivitä</Button>
+          </div>
+          {drafts.length === 0 && (
+            <Card><CardContent className="pt-6 text-muted-foreground">Ei odottavia luonnoksia. 🎉</CardContent></Card>
+          )}
+          {drafts.map((d) => {
+            const edit = draftEdits[d.id] || { subject: d.ai_subject || "", body: d.ai_body || "" };
+            return (
+              <Card key={d.id}>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Badge variant="outline">{d.detected_topic || "tuntematon aihe"}</Badge>
+                    <Badge variant="outline">{d.detected_language || "?"}</Badge>
+                    {d.matched_rule_name && <Badge variant="secondary">{d.matched_rule_name}</Badge>}
+                    <span className="text-xs text-muted-foreground ml-auto">{new Date(d.created_at).toLocaleString("fi-FI")}</span>
+                  </div>
+                  <CardTitle className="text-base mt-2">{d.from_name || d.from_email}</CardTitle>
+                  <CardDescription>{d.from_email} · {d.incoming_subject}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <details>
+                    <summary className="text-xs cursor-pointer text-muted-foreground">Alkuperäinen viesti</summary>
+                    <pre className="whitespace-pre-wrap text-xs font-sans mt-2 p-3 bg-muted rounded max-h-40 overflow-y-auto">{d.incoming_body}</pre>
+                  </details>
+                  <div>
+                    <Label className="text-xs">Vastauksen aihe</Label>
+                    <Input value={edit.subject}
+                      onChange={(e) => setDraftEdits((p) => ({ ...p, [d.id]: { ...edit, subject: e.target.value } }))} />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Vastauksen sisältö</Label>
+                    <Textarea rows={10} value={edit.body}
+                      onChange={(e) => setDraftEdits((p) => ({ ...p, [d.id]: { ...edit, body: e.target.value } }))} />
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <Button onClick={() => approveDraft(d.id)} disabled={draftActioning === d.id || isViewer}>
+                      {draftActioning === d.id ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Check className="w-4 h-4 mr-2" />}
+                      {edit.subject !== d.ai_subject || edit.body !== d.ai_body ? "Hyväksy muokattuna & lähetä" : "Hyväksy & lähetä"}
+                    </Button>
+                    <Button variant="outline" onClick={() => discardDraft(d.id)} disabled={draftActioning === d.id || isViewer}>
+                      <Trash2 className="w-4 h-4 mr-2" />Hylkää
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </TabsContent>
+
+        {/* LEARNED */}
+        <TabsContent value="learned" className="space-y-3">
+          <p className="text-sm text-muted-foreground">
+            Hyväksytyt ja muokatut vastaukset – AI käyttää näitä esimerkkeinä jatkossa. Voit poistaa huonot esimerkit tai poistaa käytöstä.
+          </p>
+          {learned.length === 0 && (
+            <Card><CardContent className="pt-6 text-muted-foreground">Ei vielä opittuja vastauksia.</CardContent></Card>
+          )}
+          {learned.map((l) => (
+            <Card key={l.id} className={!l.is_active ? "opacity-60" : ""}>
+              <CardContent className="pt-4">
+                <div className="flex items-center gap-2 flex-wrap mb-2">
+                  <Badge variant="outline">{l.topic || "general"}</Badge>
+                  <Badge variant="outline">{l.language}</Badge>
+                  {l.was_edited && <Badge variant="secondary"><Edit3 className="w-3 h-3 mr-1" />muokattu</Badge>}
+                  <span className="text-xs text-muted-foreground">käytetty {l.use_count}x · {new Date(l.created_at).toLocaleDateString("fi-FI")}</span>
+                  {!isViewer && (
+                    <div className="ml-auto flex items-center gap-2">
+                      <Switch checked={l.is_active} onCheckedChange={(v) => toggleLearned(l.id, v)} />
+                      <Button variant="ghost" size="sm" onClick={() => deleteLearned(l.id)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
+                    </div>
+                  )}
+                </div>
+                <p className="text-sm font-medium">{l.approved_subject}</p>
+                {l.source_subject && <p className="text-xs text-muted-foreground mt-1">Alkup. kysymys: {l.source_subject}</p>}
+                <details className="mt-2">
+                  <summary className="text-xs cursor-pointer text-muted-foreground">Näytä vastaus</summary>
+                  <pre className="whitespace-pre-wrap text-xs font-sans mt-1 p-2 bg-muted rounded">{l.approved_body}</pre>
+                </details>
+              </CardContent>
+            </Card>
+          ))}
         </TabsContent>
 
         {/* RULES */}
