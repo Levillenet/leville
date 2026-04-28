@@ -318,14 +318,37 @@ Deno.serve(async (req) => {
 
         const rule = findMatchingRule(rules as AutoResponderRule[], incoming);
         if (!rule) {
+          // No matching rule → create a draft for manual approval (no AI body)
+          const detectedLangNoRule = detectLanguage(`${subject}\n${body}`) || settings.default_language || "en";
+          const detectedTopicNoRule = detectTopic(`${subject}\n${body}`);
+          await supabase.from("autoresponder_drafts").insert({
+            gmail_message_id: m.id,
+            gmail_thread_id: m.threadId,
+            in_reply_to: messageIdHeader || null,
+            references_header: referencesHeader || null,
+            from_email: fromEmail,
+            from_domain: fromDomain,
+            from_name: fromName || null,
+            incoming_subject: subject,
+            incoming_body: body,
+            detected_topic: detectedTopicNoRule,
+            detected_language: detectedLangNoRule,
+            matched_rule_id: null,
+            matched_rule_name: null,
+            ai_subject: null,
+            ai_body: null,
+            status: "pending",
+          });
           await supabase.from("autoresponder_log").insert({
             gmail_message_id: m.id,
             gmail_thread_id: m.threadId,
             from_email: fromEmail,
             from_domain: fromDomain,
             subject,
-            action: "skipped_no_matching_rule",
+            action: "draft_created_no_rule",
           });
+          await notifyApprovalQueue(supabase, { from_email: fromEmail, subject, topic: detectedTopicNoRule });
+          results.push({ id: m.id, action: "draft_created_no_rule" });
           continue;
         }
 
