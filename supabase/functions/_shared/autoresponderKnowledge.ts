@@ -28,8 +28,8 @@ export const KNOWLEDGE_LINKS = [
     summary: "Live weather and snow depth from Levi." },
   { topic: "ski-passes", keywords: ["ski pass", "hissilippu", "lift ticket"], url: `${SITE_URL}/asiakaspalvelu`,
     summary: "Discounted ski pass packages bookable via guest support." },
-  { topic: "accommodations", keywords: ["apartment", "huoneisto", "cabin", "mokki", "mökki", "majoitus", "accommodation"], url: `${SITE_URL}/majoitukset`,
-    summary: "All Leville apartments and cabins overview." },
+  { topic: "accommodations", keywords: ["apartment", "huoneisto", "cabin", "mokki", "mökki", "majoitus", "accommodation", "vapaa", "vapaita", "saatavuus", "availability", "varaus", "varata", "book", "booking", "hinta", "price", "rates"], url: `https://app.moder.fi/levillenet`,
+    summary: "PRIMARY booking & availability link: send guests to https://app.moder.fi/levillenet for live availability, prices and per-apartment details. Only link to https://leville.net/majoitukset if the question is purely descriptive (overview/list of properties), not about booking, price or availability." },
   { topic: "booking-terms", keywords: ["terms", "ehdot", "varausehdot", "cancellation", "peruutus"], url: `${SITE_URL}/varausehdot`,
     summary: "Booking and cancellation terms." },
   { topic: "company", keywords: ["company", "yritys", "leville", "about us"], url: `${SITE_URL}/yritys`,
@@ -146,5 +146,7 @@ ABSOLUTE RULES:
 8. Never mention that you are an AI or an automated reply - write as a human team member.
 9. Never promise refunds, discounts, or anything that requires a human decision.
 10. If the message looks like spam, marketing, an automated bounce, or a no-reply notification, return the literal word: SKIP
+
+11. For ANY question about availability, prices, booking, free dates, or specific apartment details, ALWAYS direct the guest to the live booking engine: https://app.moder.fi/levillenet (NOT https://leville.net/majoitukset). The booking engine shows real-time availability and per-apartment details. Only link to /majoitukset for general "what apartments do you have" overview questions.
 
 Use the knowledge base context that follows to find the right link for each topic.`;
