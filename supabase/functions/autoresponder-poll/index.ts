@@ -99,6 +99,27 @@ Deno.serve(async (req) => {
       return json({ ok: true, skipped: "autoresponder_disabled" });
     }
 
+    // Adaptive polling cadence (cron fires every minute):
+    // - Night (Helsinki 22:00–06:59): run every minute → ~1 min latency
+    // - Day  (Helsinki 07:00–21:59): run every 2 minutes → ~2 min latency, half the load
+    // Manual / non-cron invocations always run.
+    const isCronTrigger = (() => {
+      try { /* body may be empty for manual invokes */ return true; } catch { return false; }
+    })();
+    let bodyTrigger: string | null = null;
+    try {
+      const bodyText = await req.clone().text();
+      if (bodyText) bodyTrigger = JSON.parse(bodyText)?.trigger ?? null;
+    } catch (_) { /* ignore */ }
+    if (bodyTrigger === "cron") {
+      const helsinkiHour = parseInt(new Intl.DateTimeFormat("fi-FI", { timeZone: "Europe/Helsinki", hour: "2-digit", hour12: false }).format(new Date()), 10);
+      const helsinkiMin = parseInt(new Intl.DateTimeFormat("fi-FI", { timeZone: "Europe/Helsinki", minute: "2-digit" }).format(new Date()), 10);
+      const isNight = helsinkiHour >= 22 || helsinkiHour < 7;
+      if (!isNight && helsinkiMin % 2 !== 0) {
+        return json({ ok: true, skipped: "daytime_2min_cadence", helsinkiHour, helsinkiMin });
+      }
+    }
+
     // Backfill enabled_at if missing (e.g. enabled before this column existed)
     if (!settings.enabled_at) {
       const nowIso = new Date().toISOString();
@@ -185,9 +206,10 @@ Deno.serve(async (req) => {
         };
 
         // Test mode: only respond to whitelisted addresses
+        const whitelist = (settings.test_recipients || []).map((s: string) => s.toLowerCase());
+        const isTestRecipient = whitelist.includes(fromEmail.toLowerCase());
         if (settings.test_mode) {
-          const whitelist = (settings.test_recipients || []).map((s: string) => s.toLowerCase());
-          if (!whitelist.includes(fromEmail.toLowerCase())) {
+          if (!isTestRecipient) {
             await supabase.from("autoresponder_log").insert({
               gmail_message_id: m.id,
               gmail_thread_id: m.threadId,
@@ -203,7 +225,7 @@ Deno.serve(async (req) => {
         // GLOBAL AWAY: if enabled and inside the away window, send away message to EVERYONE.
         // No rule matching, no topic detection, no AI reply.
         if (globalAwayActive) {
-          if (await inCooldown(supabase, fromEmail, settings.global_cooldown_hours || 24)) {
+          if (!isTestRecipient && await inCooldown(supabase, fromEmail, settings.global_cooldown_hours || 24)) {
             await supabase.from("autoresponder_log").insert({
               gmail_message_id: m.id,
               gmail_thread_id: m.threadId,
@@ -253,7 +275,7 @@ Deno.serve(async (req) => {
           continue;
         }
 
-        if (await inCooldown(supabase, fromEmail, rule.cooldown_hours)) {
+        if (!isTestRecipient && await inCooldown(supabase, fromEmail, rule.cooldown_hours)) {
           await supabase.from("autoresponder_log").insert({
             gmail_message_id: m.id,
             gmail_thread_id: m.threadId,
