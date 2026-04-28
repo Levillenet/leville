@@ -199,6 +199,10 @@ Deno.serve(async (req) => {
 
         const detectedLang = detectLanguage(body || subject) || settings.default_language || "en";
         const detectedTopic = detectTopic(`${subject}\n${body}`);
+        const detectedProperty = detectProperty(`${subject}\n${body}`);
+        const propertyFacts: PropertyFacts | null = detectedProperty
+          ? await loadPropertyFacts(supabase, detectedProperty.slug)
+          : null;
         const isWhitelistTopic = !!detectedTopic && autoSendTopics.includes(detectedTopic);
 
         // Decide path:
@@ -209,7 +213,7 @@ Deno.serve(async (req) => {
 
         // Path 3: not a whitelisted topic
         if (!isWhitelistTopic) {
-          if (sendAwayOutsideTopics && !requireApprovalAlways && awayWindowOk) {
+          if (sendAwayOutsideTopics && !requireApprovalAlways && awayWindowOk && !propertyFacts) {
             const away = buildAwayReply(settings.away_subject || {}, settings.away_body || {}, incoming, settings.default_language);
             const finalBody = away.body + (settings.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
             await sendReply({
