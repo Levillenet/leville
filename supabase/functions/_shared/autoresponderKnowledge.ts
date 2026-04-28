@@ -4,15 +4,15 @@
 export const SITE_URL = "https://leville.net";
 
 export const KNOWLEDGE_LINKS = [
-  { topic: "sauna", keywords: ["sauna", "kiuas", "loyly", "löyly"], url: `${SITE_URL}/sauna`,
+  { topic: "sauna", keywords: ["sauna", "kiuas", "loyly", "löyly", "bastu", "saune"], url: `${SITE_URL}/sauna`,
     summary: "Sauna instructions: heating time 30-45 min, electric stove with timer (zone A immediate, zone B delayed start)." },
-  { topic: "fireplace", keywords: ["fireplace", "takka", "wood", "puut"], url: `${SITE_URL}/takkaohjeet`,
+  { topic: "fireplace", keywords: ["fireplace", "takka", "takan", "takkaa", "puulla", "puut", "polttopuu", "halko", "halot", "kamin", "kamine", "cheminée", "chimenea", "haard", "openhaard", "wood stove", "puuhella", "tuli"], url: `${SITE_URL}/takkaohjeet`,
     summary: "Fireplace lighting instructions with safety video." },
-  { topic: "heating", keywords: ["heating", "lammitys", "lämmitys", "warm", "kylma", "cold", "heat pump", "lampopumppu", "lämpöpumppu", "floor heating", "lattialammitys", "lattialämmitys"], url: `${SITE_URL}/asiakaspalvelu`,
+  { topic: "heating", keywords: ["heating", "lammitys", "lämmitys", "warm", "kylma", "kylmä", "cold", "heat pump", "lampopumppu", "lämpöpumppu", "floor heating", "lattialammitys", "lattialämmitys", "heizung", "kalt", "chauffage", "froid", "calefacción", "frío", "verwarming", "koud"], url: `${SITE_URL}/asiakaspalvelu`,
     summary: "Heating is centrally managed; if your apartment feels cold contact us via the support page." },
-  { topic: "wifi", keywords: ["wifi", "wi-fi", "internet", "salasana", "password"], url: `${SITE_URL}/asiakaspalvelu`,
+  { topic: "wifi", keywords: ["wifi", "wi-fi", "internet", "salasana", "password", "passwort", "mot de passe", "contraseña", "wachtwoord", "lösenord"], url: `${SITE_URL}/asiakaspalvelu`,
     summary: "Wi-Fi network and password are printed in the welcome letter inside the apartment." },
-  { topic: "checkin", keywords: ["check-in", "check in", "checkin", "sisaankirjautuminen", "sisäänkirjautuminen", "saapuminen", "arrival", "ovi", "door", "code", "koodi", "key", "avain"], url: `${SITE_URL}/asiakaspalvelu`,
+  { topic: "checkin", keywords: ["check-in", "check in", "checkin", "sisaankirjautuminen", "sisäänkirjautuminen", "saapuminen", "arrival", "ovi", "door", "code", "koodi", "key", "avain", "ankunft", "schlüssel", "tür", "arrivée", "porte", "clé", "llegada", "puerta", "llave", "aankomst", "deur", "sleutel"], url: `${SITE_URL}/asiakaspalvelu`,
     summary: "Self-check-in with a door code sent by SMS/email on arrival day. Standard check-in from 16:00, check-out by 11:00. If you arrive after office hours and have no code, the code is delivered automatically — check spam folder. Door codes work for the entire stay." },
   { topic: "checkout", keywords: ["check-out", "checkout", "lahto", "lähtö", "departure"], url: `${SITE_URL}/asiakaspalvelu`,
     summary: "Check-out by 11:00. Leave dishes washed, take trash to the building's waste room, lock the door behind you." },
