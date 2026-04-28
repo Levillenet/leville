@@ -225,7 +225,7 @@ Deno.serve(async (req) => {
         // GLOBAL AWAY: if enabled and inside the away window, send away message to EVERYONE.
         // No rule matching, no topic detection, no AI reply.
         if (globalAwayActive) {
-          if (await inCooldown(supabase, fromEmail, settings.global_cooldown_hours || 24)) {
+          if (!isTestRecipient && await inCooldown(supabase, fromEmail, settings.global_cooldown_hours || 24)) {
             await supabase.from("autoresponder_log").insert({
               gmail_message_id: m.id,
               gmail_thread_id: m.threadId,
