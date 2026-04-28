@@ -134,14 +134,14 @@ export interface LearnedExample {
 
 function buildLearnedBlock(examples: LearnedExample[]): string {
   if (!examples?.length) return "";
-  const lines = examples.slice(0, 6).map((ex, i) => {
+  const lines = examples.slice(0, 8).map((ex, i) => {
     return `Example ${i + 1} (topic: ${ex.topic || "general"}, language: ${ex.language}):
 INCOMING: ${(ex.source_body || ex.source_subject || "").slice(0, 400)}
 APPROVED REPLY SUBJECT: ${ex.approved_subject}
 APPROVED REPLY BODY:
 ${ex.approved_body}`;
   });
-  return `\n\nLEARNED EXAMPLES (these were approved or human-edited replies — match their style and accuracy):\n\n${lines.join("\n\n---\n\n")}`;
+  return `\n\nLEARNED EXAMPLES — HIGHEST PRIORITY (these were approved or human-edited replies). If the incoming email matches any of these in topic or intent, REUSE the approved reply's facts, links and wording almost verbatim (translate to the sender's language if different). Do NOT ignore them in favor of generic knowledge-base text.\n\n${lines.join("\n\n---\n\n")}`;
 }
 
 export async function generateAiReply(

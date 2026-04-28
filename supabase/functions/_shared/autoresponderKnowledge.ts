@@ -34,6 +34,13 @@ export const KNOWLEDGE_LINKS = [
     summary: "Booking and cancellation terms." },
   { topic: "company", keywords: ["company", "yritys", "leville", "about us"], url: `${SITE_URL}/yritys`,
     summary: "About Leville Oy (Business ID 3178413-5)." },
+  // Property-specific guides (each maps to its own guest guide page)
+  { topic: "skistar", keywords: ["skistar", "skiestar", "ski star"], url: `${SITE_URL}/opas/skistar`,
+    summary: "Skistar Lodge guest guide: door code arrives by SMS/email on arrival day, building entrance and apartment door use the same code, parking instructions, sauna and check-out steps." },
+  { topic: "bearlodge", keywords: ["bearlodge", "bear lodge", "karhu"], url: `${SITE_URL}/opas/bearlodge`,
+    summary: "Bearlodge guest guide: arrival, door code, parking, sauna, fireplace and check-out instructions." },
+  { topic: "frontslope", keywords: ["frontslope", "front slope", "etu rinne", "etu-rinne"], url: `${SITE_URL}/opas/front-slope`,
+    summary: "Front Slope guest guide: arrival, door code, parking, sauna and check-out instructions." },
 ];
 
 export const EMERGENCY_GUIDANCE =
