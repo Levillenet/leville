@@ -556,10 +556,10 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
           {/* AUTO-SEND WINDOW + WHITELIST TOPICS */}
           <Card>
             <CardHeader>
-              <CardTitle>Aikataulutus ja auto-lähetys</CardTitle>
+              <CardTitle>AI-vastaukset — aikaikkuna ja sallitut aiheet</CardTitle>
               <CardDescription>
-                Aikaikkunan sisällä tunnistetut "selkeät" aiheet (sauna, wifi, check-in jne.) lähtevät automaattisesti.
-                Aikaikkunan ulkopuolella ne menevät <strong>Hyväksyntä</strong>-välilehdelle luonnoksena. Aika Helsinki-ajassa.
+                Koskee <strong>AI-vastauksia</strong> (älykkäät, kysymykseen vastaavat). Aikaikkunan sisällä tunnistetut aiheet (sauna, wifi, check-in jne.) lähtevät automaattisesti.
+                Aikaikkunan ulkopuolella ne menevät <strong>Hyväksyntä</strong>-välilehdelle luonnoksena. Kenelle: <em>Säännöt</em>-välilehden domain-suodattimien mukaan. Aika Helsinki-ajassa.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
