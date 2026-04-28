@@ -119,7 +119,10 @@ Deno.serve(async (req) => {
     const awayWindowOk = !awayOnlyInWindow || inAwayWindow;
     const autoSendTopics: string[] = (settings.auto_send_topics || []).map((t: string) => t.toLowerCase());
     const requireApprovalAlways = !!settings.always_require_approval;
-    const sendAwayOutsideTopics = !!settings.away_send_outside_topics;
+    const awayEnabled = !!settings.away_send_outside_topics;
+    // GLOBAL AWAY MODE: if away message is enabled AND we're inside the away window,
+    // send the away message to EVERYONE and do NOT send AI replies at all.
+    const globalAwayActive = awayEnabled && awayWindowOk;
 
     for (const m of messages) {
       try {
