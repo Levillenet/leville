@@ -132,8 +132,8 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
     return data;
   };
 
-  const loadAll = async () => {
-    setLoading(true);
+  const loadAll = async ({ silent = false }: { silent?: boolean } = {}) => {
+    if (!silent) setLoading(true);
     try {
       const [s, r, l, d, le] = await Promise.all([
         invoke("get_settings"),
@@ -147,11 +147,11 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
       setLog(l.log || []);
       setDrafts(d.drafts || []);
       setLearned(le.learned || []);
-      if (s.settings?.test_recipients?.[0]) setTestFrom(s.settings.test_recipients[0]);
+      if (!silent && s.settings?.test_recipients?.[0]) setTestFrom(s.settings.test_recipients[0]);
     } catch (e: any) {
       toast({ title: "Lataus epäonnistui", description: e.message, variant: "destructive" });
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   };
 
@@ -218,7 +218,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   useEffect(() => {
     loadAll();
     // Refresh every 30s so "Viimeisin tarkistus" pysyy ajantasalla
-    const interval = setInterval(() => { loadAll(); }, 30000);
+    const interval = setInterval(() => { void loadAll({ silent: true }); }, 30000);
     return () => clearInterval(interval);
   }, []);
 
