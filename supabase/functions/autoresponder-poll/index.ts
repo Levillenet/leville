@@ -266,7 +266,7 @@ Deno.serve(async (req) => {
         }
 
         // Whitelisted topic → generate AI reply
-        const reply = await generateReply(rule, incoming, settings.default_language, settings.ai_system_prompt, learned);
+        const reply = await generateReply(rule, incoming, settings.default_language, settings.ai_system_prompt, learned, propertyFacts);
         if (!reply) {
           // Fall back to away
           const away = buildAwayReply(settings.away_subject || {}, settings.away_body || {}, incoming, settings.default_language);
