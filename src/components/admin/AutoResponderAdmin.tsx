@@ -327,10 +327,15 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
         </div>
       </div>
 
-      <Tabs defaultValue="settings" className="space-y-4">
-        <TabsList>
+      <Tabs defaultValue={drafts.length > 0 ? "approve" : "settings"} className="space-y-4">
+        <TabsList className="flex-wrap h-auto">
           <TabsTrigger value="settings"><SettingsIcon className="w-4 h-4 mr-2" />Asetukset</TabsTrigger>
+          <TabsTrigger value="approve">
+            <Inbox className="w-4 h-4 mr-2" />
+            Hyväksyntä {drafts.length > 0 && <Badge className="ml-2" variant="destructive">{drafts.length}</Badge>}
+          </TabsTrigger>
           <TabsTrigger value="rules"><ListChecks className="w-4 h-4 mr-2" />Säännöt ({rules.length})</TabsTrigger>
+          <TabsTrigger value="learned"><GraduationCap className="w-4 h-4 mr-2" />Opitut ({learned.length})</TabsTrigger>
           <TabsTrigger value="test"><FlaskConical className="w-4 h-4 mr-2" />Testaus</TabsTrigger>
           <TabsTrigger value="log"><ScrollText className="w-4 h-4 mr-2" />Loki</TabsTrigger>
         </TabsList>
