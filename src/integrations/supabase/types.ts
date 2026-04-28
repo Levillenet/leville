@@ -386,6 +386,7 @@ export type Database = {
           created_at: string
           default_language: string
           enabled: boolean
+          enabled_at: string | null
           id: number
           last_poll_at: string | null
           mailbox_label: string
@@ -410,6 +411,7 @@ export type Database = {
           created_at?: string
           default_language?: string
           enabled?: boolean
+          enabled_at?: string | null
           id?: number
           last_poll_at?: string | null
           mailbox_label?: string
@@ -434,6 +436,7 @@ export type Database = {
           created_at?: string
           default_language?: string
           enabled?: boolean
+          enabled_at?: string | null
           id?: number
           last_poll_at?: string | null
           mailbox_label?: string
