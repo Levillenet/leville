@@ -408,34 +408,41 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
               <div className="rounded border p-3">
-                <p className="font-medium">1) AI-vastaus (älykäs)</p>
+                <p className="font-medium">1) Poissaoloviesti (yleinen) — ETUSIJALLA</p>
                 <p className="text-xs text-muted-foreground mt-1">
                   <strong>Kenelle:</strong> {settings.test_mode
-                    ? <>vain testilistalle ({settings.test_recipients.join(", ") || "tyhjä"}). Lähetysdomain-rajauksen tekevät <em>Säännöt</em>-välilehden säännöt (kentässä <code>match_domain</code>, esim. <code>*</code>=kaikki tai <code>gmail.com</code>).</>
-                    : <>kaikki sähköpostit jotka osuvat <em>Säännöt</em>-välilehden domain-suodattimiin (oletus <code>*</code> = kaikki).</>}
+                    ? <>vain testilistalle ({settings.test_recipients.join(", ") || "tyhjä"}).</>
+                    : <><strong>KAIKILLE</strong> saapuville sähköposteille (ei domain-rajausta, ei aiherajaus). Säännöt-välilehden domain-suodattimet eivät päde poissaoloviestiin.</>}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  <strong>Milloin lähtee automaattisesti:</strong> kun aihe on <em>auto-lähetettävien aiheiden</em> listalla JA Helsingin aika on välillä{" "}
-                  <strong>{settings.auto_send_hours_start.slice(0,5)}–{settings.auto_send_hours_end.slice(0,5)}</strong>
-                  {settings.always_require_approval && <> (mutta <strong>"Vaadi aina hyväksyntä"</strong> on päällä → mikään ei lähde itsestään, kaikki menee Hyväksyntä-jonoon)</>}.
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  <strong>Aikaikkunan ulkopuolella tai tuntemattomista aiheista:</strong> AI luonnostelee vastauksen, joka menee <em>Hyväksyntä</em>-välilehdelle ihmisen tarkastettavaksi.
+                  <strong>Milloin lähtee:</strong> {settings.away_send_outside_topics
+                    ? (settings.away_only_in_window
+                        ? <>kun Helsingin aika on välillä <strong>{(settings.away_hours_start || "22:00").slice(0,5)}–{(settings.away_hours_end || "07:00").slice(0,5)}</strong>. Tällöin AI-viestejä EI lähetetä lainkaan.</>
+                        : <><strong>24/7</strong> kaikille viesteille. AI-viestejä EI lähetetä lainkaan kun tämä on päällä ilman aikarajaa.</>)
+                    : <>EI lähetetä (kytkin pois päältä).</>}
                 </p>
               </div>
 
               <div className="rounded border p-3">
-                <p className="font-medium">2) Poissaoloviesti (yleinen, ei vastaa kysymykseen)</p>
+                <p className="font-medium">2) AI-vastaus (älykäs) — vain kun poissaolo EI ole aktiivinen</p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  <strong>Kenelle:</strong> samat domain-säännöt kuin AI-vastauksella (testitilassa vain testilistalle).
+                  <strong>Kenelle:</strong> {settings.test_mode
+                    ? <>vain testilistalle.</>
+                    : <>sähköpostit jotka osuvat <em>Säännöt</em>-välilehden domain-suodattimiin (oletus <code>*</code> = kaikki).</>}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
-                  <strong>Milloin lähtee:</strong> {settings.away_send_outside_topics
-                    ? <>vain kun viesti EI osu auto-lähetettäviin aiheisiin{settings.away_only_in_window
-                        ? <> JA Helsingin aika on välillä <strong>{(settings.away_hours_start || "22:00").slice(0,5)}–{(settings.away_hours_end || "07:00").slice(0,5)}</strong></>
-                        : <> (24/7, ei aikarajoitusta)</>}{settings.always_require_approval && <> ja <strong>"Vaadi aina hyväksyntä"</strong> ei ole päällä</>}.</>
-                    : <>EI lähetetä — tuntemattomat aiheet menevät aina luonnoksena hyväksyntään.</>}
+                  <strong>Milloin lähtee automaattisesti:</strong> kun aihe on <em>auto-lähetettävien aiheiden</em> listalla JA Helsingin aika on välillä{" "}
+                  <strong>{settings.auto_send_hours_start.slice(0,5)}–{settings.auto_send_hours_end.slice(0,5)}</strong>
+                  {settings.always_require_approval && <> (mutta <strong>"Vaadi aina hyväksyntä"</strong> on päällä → kaikki menee Hyväksyntä-jonoon)</>}.
                 </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  <strong>Muulloin:</strong> AI luonnostelee vastauksen <em>Hyväksyntä</em>-jonoon ihmisen tarkastettavaksi.
+                </p>
+                {settings.away_send_outside_topics && (!settings.away_only_in_window) && (
+                  <p className="text-xs text-destructive mt-2">
+                    ⚠ Huom: poissaoloviesti on päällä 24/7 → AI-vastauksia EI tällä hetkellä lähetetä lainkaan.
+                  </p>
+                )}
               </div>
 
               <div className="rounded border p-3 bg-muted/30">
