@@ -897,8 +897,34 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
                     </CardTitle>
                     <CardDescription className="font-medium text-foreground">{testResult.subject}</CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <pre className="whitespace-pre-wrap text-sm font-sans">{testResult.body}</pre>
+                  <CardContent className="space-y-3">
+                    <div>
+                      <Label className="text-xs">Vastauksen aihe (muokattavissa ennen tallennusta)</Label>
+                      <Input
+                        value={learnedEdit?.subject ?? testResult.subject}
+                        onChange={(e) => setLearnedEdit({ subject: e.target.value, body: learnedEdit?.body ?? testResult.body })}
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Vastauksen sisältö (muokattavissa)</Label>
+                      <Textarea
+                        rows={10}
+                        value={learnedEdit?.body ?? testResult.body}
+                        onChange={(e) => setLearnedEdit({ subject: learnedEdit?.subject ?? testResult.subject, body: e.target.value })}
+                      />
+                    </div>
+                    <div className="flex flex-wrap gap-2 items-center border-t pt-3">
+                      <Button onClick={saveTestAsLearned} disabled={savingLearned || isViewer}>
+                        {savingLearned ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <GraduationCap className="w-4 h-4 mr-2" />}
+                        Opeta tämä vastaus AI:lle
+                      </Button>
+                      {learnedEdit && (
+                        <Button variant="ghost" size="sm" onClick={() => setLearnedEdit(null)}>Palauta alkuperäinen</Button>
+                      )}
+                      <p className="text-xs text-muted-foreground">
+                        Tallennus lisää vastauksen "Opitut"-listaan. AI saa tämän esimerkkinä jokaiselle saman aiheen viestille.
+                      </p>
+                    </div>
                   </CardContent>
                 </Card>
               )}
