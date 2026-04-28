@@ -112,6 +112,9 @@ Deno.serve(async (req) => {
     const results: any[] = [];
 
     const inAutoWindow = isInAutoSendWindow(settings.auto_send_hours_start || "22:00", settings.auto_send_hours_end || "07:00");
+    const inAwayWindow = isInAutoSendWindow(settings.away_hours_start || "22:00", settings.away_hours_end || "07:00");
+    const awayOnlyInWindow = !!settings.away_only_in_window;
+    const awayWindowOk = !awayOnlyInWindow || inAwayWindow;
     const autoSendTopics: string[] = (settings.auto_send_topics || []).map((t: string) => t.toLowerCase());
     const requireApprovalAlways = !!settings.always_require_approval;
     const sendAwayOutsideTopics = !!settings.away_send_outside_topics;
