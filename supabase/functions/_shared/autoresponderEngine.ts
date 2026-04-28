@@ -84,8 +84,8 @@ export function findMatchingRule(rules: AutoResponderRule[], email: IncomingEmai
   return null;
 }
 
-function detectLanguage(text: string): string {
-  const t = text.toLowerCase();
+export function detectLanguage(text: string): string {
+  const t = (text || "").toLowerCase();
   // Crude heuristics
   if (/\b(hei|moi|kiitos|terveisin|tervetuloa|sauna|huoneisto|asunto|saunan|löyly|päivä)\b/.test(t)) return "fi";
   if (/\b(hej|tack|hälsningar|stuga|lägenhet|vänligen)\b/.test(t)) return "sv";
@@ -123,21 +123,44 @@ export function generateTemplateReply(
   };
 }
 
+export interface LearnedExample {
+  topic: string | null;
+  language: string;
+  source_subject: string | null;
+  source_body: string | null;
+  approved_subject: string;
+  approved_body: string;
+}
+
+function buildLearnedBlock(examples: LearnedExample[]): string {
+  if (!examples?.length) return "";
+  const lines = examples.slice(0, 6).map((ex, i) => {
+    return `Example ${i + 1} (topic: ${ex.topic || "general"}, language: ${ex.language}):
+INCOMING: ${(ex.source_body || ex.source_subject || "").slice(0, 400)}
+APPROVED REPLY SUBJECT: ${ex.approved_subject}
+APPROVED REPLY BODY:
+${ex.approved_body}`;
+  });
+  return `\n\nLEARNED EXAMPLES (these were approved or human-edited replies — match their style and accuracy):\n\n${lines.join("\n\n---\n\n")}`;
+}
+
 export async function generateAiReply(
   rule: AutoResponderRule,
   email: IncomingEmail,
   customSystemPrompt?: string,
+  learnedExamples: LearnedExample[] = [],
 ): Promise<{ subject: string; body: string } | null> {
   const apiKey = Deno.env.get("LOVABLE_API_KEY");
   if (!apiKey) throw new Error("LOVABLE_API_KEY missing");
 
   const systemBase = (customSystemPrompt && customSystemPrompt.trim()) || BASE_SYSTEM_PROMPT;
   const knowledge = buildKnowledgeContext();
+  const learned = buildLearnedBlock(learnedExamples);
   const ruleExtras = rule.ai_extra_instructions
     ? `\n\nRULE-SPECIFIC INSTRUCTIONS:\n${rule.ai_extra_instructions}`
     : "";
 
-  const systemMessage = `${systemBase}\n\n${knowledge}${ruleExtras}`;
+  const systemMessage = `${systemBase}\n\n${knowledge}${learned}${ruleExtras}`;
 
   const userMessage = `Incoming email:
 From: ${email.from_name ? `${email.from_name} <${email.from_email}>` : email.from_email}
@@ -208,9 +231,32 @@ export async function generateReply(
   email: IncomingEmail,
   defaultLang: string,
   globalAiSystemPrompt?: string,
+  learnedExamples: LearnedExample[] = [],
 ): Promise<{ subject: string; body: string } | null> {
   if (rule.response_mode === "template") {
     return generateTemplateReply(rule, email, defaultLang);
   }
-  return await generateAiReply(rule, email, globalAiSystemPrompt);
+  return await generateAiReply(rule, email, globalAiSystemPrompt, learnedExamples);
+}
+
+// Build an away/out-of-office reply from settings (no AI involved)
+export function buildAwayReply(
+  awaySubject: Record<string, string>,
+  awayBody: Record<string, string>,
+  email: IncomingEmail,
+  defaultLang: string,
+): { subject: string; body: string } {
+  const lang = detectLanguage(email.body || email.subject) || defaultLang || "en";
+  const subject = awaySubject[lang] || awaySubject[defaultLang] || awaySubject["en"] || `Re: ${email.subject}`;
+  const body = awayBody[lang] || awayBody[defaultLang] || awayBody["en"] || "Thank you for your message — we will follow up soon.";
+  return {
+    subject: /^re:/i.test(subject) ? subject : `Re: ${subject}`,
+    body,
+  };
+}
+
+// Returns true if current Helsinki time is inside the [start, end] auto-send window
+export function isInAutoSendWindow(start: string, end: string): boolean {
+  const { hhmm } = helsinkiNow();
+  return isInHourWindow(hhmm, start, end);
 }
