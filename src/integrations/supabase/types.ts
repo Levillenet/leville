@@ -116,6 +116,138 @@ export type Database = {
         }
         Relationships: []
       }
+      autoresponder_drafts: {
+        Row: {
+          ai_body: string | null
+          ai_subject: string | null
+          created_at: string
+          decided_at: string | null
+          decided_by: string | null
+          detected_language: string | null
+          detected_topic: string | null
+          edited_body: string | null
+          edited_subject: string | null
+          error_message: string | null
+          from_domain: string
+          from_email: string
+          from_name: string | null
+          gmail_message_id: string
+          gmail_thread_id: string | null
+          id: string
+          in_reply_to: string | null
+          incoming_body: string | null
+          incoming_subject: string | null
+          matched_rule_id: string | null
+          matched_rule_name: string | null
+          references_header: string | null
+          sent_at: string | null
+          status: string
+          updated_at: string
+          was_edited: boolean
+        }
+        Insert: {
+          ai_body?: string | null
+          ai_subject?: string | null
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          detected_language?: string | null
+          detected_topic?: string | null
+          edited_body?: string | null
+          edited_subject?: string | null
+          error_message?: string | null
+          from_domain: string
+          from_email: string
+          from_name?: string | null
+          gmail_message_id: string
+          gmail_thread_id?: string | null
+          id?: string
+          in_reply_to?: string | null
+          incoming_body?: string | null
+          incoming_subject?: string | null
+          matched_rule_id?: string | null
+          matched_rule_name?: string | null
+          references_header?: string | null
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+          was_edited?: boolean
+        }
+        Update: {
+          ai_body?: string | null
+          ai_subject?: string | null
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          detected_language?: string | null
+          detected_topic?: string | null
+          edited_body?: string | null
+          edited_subject?: string | null
+          error_message?: string | null
+          from_domain?: string
+          from_email?: string
+          from_name?: string | null
+          gmail_message_id?: string
+          gmail_thread_id?: string | null
+          id?: string
+          in_reply_to?: string | null
+          incoming_body?: string | null
+          incoming_subject?: string | null
+          matched_rule_id?: string | null
+          matched_rule_name?: string | null
+          references_header?: string | null
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+          was_edited?: boolean
+        }
+        Relationships: []
+      }
+      autoresponder_learned: {
+        Row: {
+          approved_body: string
+          approved_subject: string
+          created_at: string
+          id: string
+          is_active: boolean
+          language: string
+          source_body: string | null
+          source_subject: string | null
+          topic: string | null
+          updated_at: string
+          use_count: number
+          was_edited: boolean
+        }
+        Insert: {
+          approved_body: string
+          approved_subject: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          language?: string
+          source_body?: string | null
+          source_subject?: string | null
+          topic?: string | null
+          updated_at?: string
+          use_count?: number
+          was_edited?: boolean
+        }
+        Update: {
+          approved_body?: string
+          approved_subject?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          language?: string
+          source_body?: string | null
+          source_subject?: string | null
+          topic?: string | null
+          updated_at?: string
+          use_count?: number
+          was_edited?: boolean
+        }
+        Relationships: []
+      }
       autoresponder_log: {
         Row: {
           action: string
@@ -241,6 +373,13 @@ export type Database = {
       autoresponder_settings: {
         Row: {
           ai_system_prompt: string
+          always_require_approval: boolean
+          auto_send_hours_end: string
+          auto_send_hours_start: string
+          auto_send_topics: string[]
+          away_body: Json
+          away_send_outside_topics: boolean
+          away_subject: Json
           created_at: string
           default_language: string
           enabled: boolean
@@ -255,6 +394,13 @@ export type Database = {
         }
         Insert: {
           ai_system_prompt?: string
+          always_require_approval?: boolean
+          auto_send_hours_end?: string
+          auto_send_hours_start?: string
+          auto_send_topics?: string[]
+          away_body?: Json
+          away_send_outside_topics?: boolean
+          away_subject?: Json
           created_at?: string
           default_language?: string
           enabled?: boolean
@@ -269,6 +415,13 @@ export type Database = {
         }
         Update: {
           ai_system_prompt?: string
+          always_require_approval?: boolean
+          auto_send_hours_end?: string
+          auto_send_hours_start?: string
+          auto_send_topics?: string[]
+          away_body?: Json
+          away_send_outside_topics?: boolean
+          away_subject?: Json
           created_at?: string
           default_language?: string
           enabled?: boolean

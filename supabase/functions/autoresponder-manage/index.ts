@@ -45,13 +45,20 @@ Deno.serve(async (req) => {
         const allowed = (({
           enabled, mailbox_label, poll_interval_minutes, signature_html,
           default_language, test_mode, test_recipients, ai_system_prompt,
+          auto_send_hours_start, auto_send_hours_end, auto_send_topics,
+          always_require_approval, away_subject, away_body, away_send_outside_topics,
         }) => ({
           enabled, mailbox_label, poll_interval_minutes, signature_html,
           default_language, test_mode, test_recipients, ai_system_prompt,
+          auto_send_hours_start, auto_send_hours_end, auto_send_topics,
+          always_require_approval, away_subject, away_body, away_send_outside_topics,
         }))(settings || {});
+        // strip undefined keys so we don't blank out unrelated fields
+        const clean: Record<string, unknown> = {};
+        for (const [k, v] of Object.entries(allowed)) if (v !== undefined) clean[k] = v;
         const { data, error } = await supabase
           .from("autoresponder_settings")
-          .update(allowed)
+          .update(clean)
           .eq("id", 1)
           .select("*")
           .maybeSingle();
@@ -137,6 +144,132 @@ Deno.serve(async (req) => {
         const { data, error } = await q;
         if (error) throw error;
         return json({ log: data });
+      }
+
+      case "list_drafts": {
+        const { status = "pending", limit = 100 } = body;
+        let q = supabase
+          .from("autoresponder_drafts")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(Math.min(500, Math.max(10, limit)));
+        if (status && status !== "all") q = q.eq("status", status);
+        const { data, error } = await q;
+        if (error) throw error;
+        return json({ drafts: data });
+      }
+
+      case "approve_draft": {
+        const { id, edited_subject, edited_body, decided_by } = body;
+        if (!id) return json({ error: "id required" }, 400);
+        const { data: draft, error: dErr } = await supabase
+          .from("autoresponder_drafts")
+          .select("*")
+          .eq("id", id)
+          .maybeSingle();
+        if (dErr) throw dErr;
+        if (!draft) return json({ error: "Draft not found" }, 404);
+        if (draft.status !== "pending") return json({ error: `Draft is ${draft.status}` }, 400);
+
+        const { data: settings } = await supabase
+          .from("autoresponder_settings").select("*").eq("id", 1).maybeSingle();
+
+        const finalSubject = (edited_subject ?? draft.ai_subject ?? `Re: ${draft.incoming_subject || ""}`).trim();
+        const finalBodyRaw = (edited_body ?? draft.ai_body ?? "").trim();
+        if (!finalBodyRaw) return json({ error: "Reply body is empty" }, 400);
+        const finalBody = finalBodyRaw + (settings?.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
+        const wasEdited =
+          (edited_subject !== undefined && edited_subject !== draft.ai_subject) ||
+          (edited_body !== undefined && edited_body !== draft.ai_body);
+
+        // Send via Gmail
+        const { sendReply, markAsRead } = await import("../_shared/gmail.ts");
+        await sendReply({
+          to: draft.from_email,
+          subject: /^re:/i.test(finalSubject) ? finalSubject : `Re: ${finalSubject}`,
+          bodyText: finalBody,
+          threadId: draft.gmail_thread_id || undefined,
+          inReplyTo: draft.in_reply_to || undefined,
+          references: draft.references_header
+            ? `${draft.references_header} ${draft.in_reply_to || ""}`.trim()
+            : (draft.in_reply_to || undefined),
+        });
+        try { await markAsRead(draft.gmail_message_id); } catch (_) {}
+
+        await supabase.from("autoresponder_drafts").update({
+          edited_subject: edited_subject ?? null,
+          edited_body: edited_body ?? null,
+          status: wasEdited ? "edited_sent" : "approved_sent",
+          was_edited: wasEdited,
+          decided_by: decided_by || "admin",
+          decided_at: new Date().toISOString(),
+          sent_at: new Date().toISOString(),
+        }).eq("id", id);
+
+        await supabase.from("autoresponder_log").insert({
+          gmail_message_id: draft.gmail_message_id,
+          gmail_thread_id: draft.gmail_thread_id,
+          from_email: draft.from_email,
+          from_domain: draft.from_domain,
+          subject: draft.incoming_subject,
+          matched_rule_id: draft.matched_rule_id,
+          matched_rule_name: draft.matched_rule_name,
+          action: wasEdited ? "edited_sent" : "approved_sent",
+          reply_subject: finalSubject,
+          reply_body: finalBody,
+          reply_sent_at: new Date().toISOString(),
+        });
+
+        // Persist as learned example so AI improves over time
+        await supabase.from("autoresponder_learned").insert({
+          topic: draft.detected_topic,
+          language: draft.detected_language || "en",
+          source_subject: draft.incoming_subject,
+          source_body: (draft.incoming_body || "").slice(0, 2000),
+          approved_subject: finalSubject,
+          approved_body: finalBodyRaw,
+          was_edited: wasEdited,
+        });
+
+        return json({ ok: true, edited: wasEdited });
+      }
+
+      case "discard_draft": {
+        const { id, decided_by } = body;
+        if (!id) return json({ error: "id required" }, 400);
+        const { error } = await supabase.from("autoresponder_drafts").update({
+          status: "discarded",
+          decided_by: decided_by || "admin",
+          decided_at: new Date().toISOString(),
+        }).eq("id", id);
+        if (error) throw error;
+        return json({ ok: true });
+      }
+
+      case "list_learned": {
+        const { limit = 200 } = body;
+        const { data, error } = await supabase
+          .from("autoresponder_learned")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(Math.min(500, Math.max(10, limit)));
+        if (error) throw error;
+        return json({ learned: data });
+      }
+
+      case "delete_learned": {
+        const { id } = body;
+        if (!id) return json({ error: "id required" }, 400);
+        const { error } = await supabase.from("autoresponder_learned").delete().eq("id", id);
+        if (error) throw error;
+        return json({ ok: true });
+      }
+
+      case "toggle_learned": {
+        const { id, is_active } = body;
+        const { error } = await supabase.from("autoresponder_learned").update({ is_active }).eq("id", id);
+        if (error) throw error;
+        return json({ ok: true });
       }
 
       default:

@@ -1,6 +1,15 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.89.0";
 import { sendReply } from "../_shared/gmail.ts";
-import { generateReply, type AutoResponderRule, type IncomingEmail } from "../_shared/autoresponderEngine.ts";
+import {
+  generateReply,
+  buildAwayReply,
+  isInAutoSendWindow,
+  detectLanguage,
+  type AutoResponderRule,
+  type IncomingEmail,
+  type LearnedExample,
+} from "../_shared/autoresponderEngine.ts";
+import { detectTopic } from "../_shared/autoresponderKnowledge.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -92,6 +101,37 @@ Deno.serve(async (req) => {
     const finalSubject = /^re:/i.test(reply.subject) ? reply.subject : `Re: ${reply.subject}`;
     const finalBody = reply.body + (settings?.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
 
+    const detectedLang = detectLanguage(message || subject) || settings?.default_language || "en";
+    const detectedTopic = detectTopic(`${subject}\n${message}`);
+    const autoSendTopics: string[] = (settings?.auto_send_topics || []).map((t: string) => t.toLowerCase());
+    const isWhitelistTopic = !!detectedTopic && autoSendTopics.includes(detectedTopic);
+    const inAutoWindow = settings ? isInAutoSendWindow(settings.auto_send_hours_start || "22:00", settings.auto_send_hours_end || "07:00") : false;
+    const wouldAutoSend = !settings?.always_require_approval && isWhitelistTopic && inAutoWindow;
+    const wouldSendAway = !isWhitelistTopic && !!settings?.away_send_outside_topics && !settings?.always_require_approval;
+
+    // Load learned examples
+    const { data: learnedRows } = await supabase
+      .from("autoresponder_learned")
+      .select("topic,language,source_subject,source_body,approved_subject,approved_body")
+      .eq("is_active", true)
+      .limit(20);
+    const learned = (learnedRows || []) as LearnedExample[];
+
+    let reply: { subject: string; body: string } | null = null;
+    let mode: "ai" | "away" = "ai";
+    if (wouldSendAway) {
+      reply = buildAwayReply(settings.away_subject || {}, settings.away_body || {}, incoming, settings.default_language);
+      mode = "away";
+    } else {
+      reply = await generateReply(rule, incoming, settings?.default_language || "en", settings?.ai_system_prompt, learned);
+    }
+    if (!reply) {
+      return json({ ok: true, skipped: "ai_returned_skip", reply: null, routing: { detectedTopic, detectedLang, isWhitelistTopic, inAutoWindow, wouldAutoSend, wouldSendAway } });
+    }
+
+    const finalSubject = /^re:/i.test(reply.subject) ? reply.subject : `Re: ${reply.subject}`;
+    const finalBody = reply.body + (settings?.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
+
     let sent = false;
     let sendError: string | null = null;
     if (send_real_email) {
@@ -103,7 +143,6 @@ Deno.serve(async (req) => {
       }
     }
 
-    // Log it (test row). Use a unique synthetic Gmail message id.
     const fakeId = `test-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     await supabase.from("autoresponder_log").insert({
       gmail_message_id: fakeId,
@@ -124,6 +163,8 @@ Deno.serve(async (req) => {
       ok: true,
       sent,
       send_error: sendError,
+      mode,
+      routing: { detectedTopic, detectedLang, isWhitelistTopic, inAutoWindow, wouldAutoSend, wouldSendAway },
       reply: { subject: finalSubject, body: finalBody },
     });
   } catch (err) {
