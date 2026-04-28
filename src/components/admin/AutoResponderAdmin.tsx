@@ -400,6 +400,53 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
 
         {/* SETTINGS */}
         <TabsContent value="settings" className="space-y-4">
+          {/* SUMMARY: who gets what, when */}
+          <Card className="border-primary/40">
+            <CardHeader>
+              <CardTitle className="text-base">Lähetyslogiikka — yhteenveto</CardTitle>
+              <CardDescription>Tämä on selkokielinen kuvaus mitä lähetetään, milloin ja kenelle. Asetukset alla muuttavat tätä.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <div className="rounded border p-3">
+                <p className="font-medium">1) AI-vastaus (älykäs)</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  <strong>Kenelle:</strong> {settings.test_mode
+                    ? <>vain testilistalle ({settings.test_recipients.join(", ") || "tyhjä"}). Lähetysdomain-rajauksen tekevät <em>Säännöt</em>-välilehden säännöt (kentässä <code>match_domain</code>, esim. <code>*</code>=kaikki tai <code>gmail.com</code>).</>
+                    : <>kaikki sähköpostit jotka osuvat <em>Säännöt</em>-välilehden domain-suodattimiin (oletus <code>*</code> = kaikki).</>}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  <strong>Milloin lähtee automaattisesti:</strong> kun aihe on <em>auto-lähetettävien aiheiden</em> listalla JA Helsingin aika on välillä{" "}
+                  <strong>{settings.auto_send_hours_start.slice(0,5)}–{settings.auto_send_hours_end.slice(0,5)}</strong>
+                  {settings.always_require_approval && <> (mutta <strong>"Vaadi aina hyväksyntä"</strong> on päällä → mikään ei lähde itsestään, kaikki menee Hyväksyntä-jonoon)</>}.
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  <strong>Aikaikkunan ulkopuolella tai tuntemattomista aiheista:</strong> AI luonnostelee vastauksen, joka menee <em>Hyväksyntä</em>-välilehdelle ihmisen tarkastettavaksi.
+                </p>
+              </div>
+
+              <div className="rounded border p-3">
+                <p className="font-medium">2) Poissaoloviesti (yleinen, ei vastaa kysymykseen)</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  <strong>Kenelle:</strong> samat domain-säännöt kuin AI-vastauksella (testitilassa vain testilistalle).
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  <strong>Milloin lähtee:</strong> {settings.away_send_outside_topics
+                    ? <>vain kun viesti EI osu auto-lähetettäviin aiheisiin{settings.away_only_in_window
+                        ? <> JA Helsingin aika on välillä <strong>{(settings.away_hours_start || "22:00").slice(0,5)}–{(settings.away_hours_end || "07:00").slice(0,5)}</strong></>
+                        : <> (24/7, ei aikarajoitusta)</>}{settings.always_require_approval && <> ja <strong>"Vaadi aina hyväksyntä"</strong> ei ole päällä</>}.</>
+                    : <>EI lähetetä — tuntemattomat aiheet menevät aina luonnoksena hyväksyntään.</>}
+                </p>
+              </div>
+
+              <div className="rounded border p-3 bg-muted/30">
+                <p className="font-medium">Master-kytkin: <Badge variant={settings.enabled ? "default" : "outline"}>{settings.enabled ? "ON" : "OFF"}</Badge></p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Kun OFF, mitään ei haeta eikä lähetetä — tämä yhteenveto kuvaa mitä TAPAHTUISI jos master olisi päällä.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card>
             <CardHeader>
               <CardTitle>Yleisasetukset</CardTitle>
@@ -509,10 +556,10 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
           {/* AUTO-SEND WINDOW + WHITELIST TOPICS */}
           <Card>
             <CardHeader>
-              <CardTitle>Aikataulutus ja auto-lähetys</CardTitle>
+              <CardTitle>AI-vastaukset — aikaikkuna ja sallitut aiheet</CardTitle>
               <CardDescription>
-                Aikaikkunan sisällä tunnistetut "selkeät" aiheet (sauna, wifi, check-in jne.) lähtevät automaattisesti.
-                Aikaikkunan ulkopuolella ne menevät <strong>Hyväksyntä</strong>-välilehdelle luonnoksena. Aika Helsinki-ajassa.
+                Koskee <strong>AI-vastauksia</strong> (älykkäät, kysymykseen vastaavat). Aikaikkunan sisällä tunnistetut aiheet (sauna, wifi, check-in jne.) lähtevät automaattisesti.
+                Aikaikkunan ulkopuolella ne menevät <strong>Hyväksyntä</strong>-välilehdelle luonnoksena. Kenelle: <em>Säännöt</em>-välilehden domain-suodattimien mukaan. Aika Helsinki-ajassa.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
@@ -599,10 +646,10 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
           {/* AWAY MESSAGE */}
           <Card>
             <CardHeader>
-              <CardTitle>Poissaoloviesti</CardTitle>
+              <CardTitle>Poissaoloviesti — perinteinen, ei vastaa kysymykseen</CardTitle>
               <CardDescription>
-                Kun viesti EI osu auto-lähetettäviin aiheisiin, järjestelmä voi lähettää automaattisesti yleisen
-                poissaoloviestin (joka ei yritä vastata varsinaiseen kysymykseen). Muuten viesti menee luonnoksena hyväksyntään.
+                Yleinen "olemme tavoitettavissa myöhemmin" -tyyppinen viesti. Käytetään KUN viesti EI osu auto-lähetettäviin AI-aiheisiin
+                (esim. monimutkainen tiedustelu). Kenelle lähtee: samat domain-säännöt kuin AI:lla. Aikaikkuna alla on erillinen AI:n aikaikkunasta.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
