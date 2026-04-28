@@ -126,19 +126,83 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   const loadAll = async () => {
     setLoading(true);
     try {
-      const [s, r, l] = await Promise.all([
+      const [s, r, l, d, le] = await Promise.all([
         invoke("get_settings"),
         invoke("list_rules"),
         invoke("list_log", { limit: 100 }),
+        invoke("list_drafts", { status: "pending", limit: 100 }),
+        invoke("list_learned", { limit: 100 }),
       ]);
       setSettings(s.settings);
       setRules(r.rules || []);
       setLog(l.log || []);
+      setDrafts(d.drafts || []);
+      setLearned(le.learned || []);
       if (s.settings?.test_recipients?.[0]) setTestFrom(s.settings.test_recipients[0]);
     } catch (e: any) {
       toast({ title: "Lataus epäonnistui", description: e.message, variant: "destructive" });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const reloadDrafts = async () => {
+    try {
+      const d = await invoke("list_drafts", { status: "pending", limit: 100 });
+      setDrafts(d.drafts || []);
+    } catch (_) {}
+  };
+
+  const approveDraft = async (draftId: string) => {
+    setDraftActioning(draftId);
+    try {
+      const edit = draftEdits[draftId];
+      await invoke("approve_draft", {
+        id: draftId,
+        edited_subject: edit?.subject,
+        edited_body: edit?.body,
+      });
+      toast({ title: "Vastaus lähetetty ja tallennettu opetukseen" });
+      setDraftEdits((prev) => { const n = { ...prev }; delete n[draftId]; return n; });
+      await reloadDrafts();
+      const le = await invoke("list_learned", { limit: 100 });
+      setLearned(le.learned || []);
+    } catch (e: any) {
+      toast({ title: "Lähetys epäonnistui", description: e.message, variant: "destructive" });
+    } finally {
+      setDraftActioning(null);
+    }
+  };
+
+  const discardDraft = async (draftId: string) => {
+    if (!confirm("Hylätäänkö tämä luonnos?")) return;
+    setDraftActioning(draftId);
+    try {
+      await invoke("discard_draft", { id: draftId });
+      await reloadDrafts();
+    } catch (e: any) {
+      toast({ title: "Hylkäys epäonnistui", description: e.message, variant: "destructive" });
+    } finally {
+      setDraftActioning(null);
+    }
+  };
+
+  const deleteLearned = async (id: string) => {
+    if (!confirm("Poistetaanko opittu vastaus?")) return;
+    try {
+      await invoke("delete_learned", { id });
+      setLearned((prev) => prev.filter((x) => x.id !== id));
+    } catch (e: any) {
+      toast({ title: "Poisto epäonnistui", description: e.message, variant: "destructive" });
+    }
+  };
+
+  const toggleLearned = async (id: string, is_active: boolean) => {
+    try {
+      await invoke("toggle_learned", { id, is_active });
+      setLearned((prev) => prev.map((x) => x.id === id ? { ...x, is_active } : x));
+    } catch (e: any) {
+      toast({ title: "Päivitys epäonnistui", description: e.message, variant: "destructive" });
     }
   };
 
