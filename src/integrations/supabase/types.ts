@@ -378,6 +378,9 @@ export type Database = {
           auto_send_hours_start: string
           auto_send_topics: string[]
           away_body: Json
+          away_hours_end: string
+          away_hours_start: string
+          away_only_in_window: boolean
           away_send_outside_topics: boolean
           away_subject: Json
           created_at: string
@@ -399,6 +402,9 @@ export type Database = {
           auto_send_hours_start?: string
           auto_send_topics?: string[]
           away_body?: Json
+          away_hours_end?: string
+          away_hours_start?: string
+          away_only_in_window?: boolean
           away_send_outside_topics?: boolean
           away_subject?: Json
           created_at?: string
@@ -420,6 +426,9 @@ export type Database = {
           auto_send_hours_start?: string
           auto_send_topics?: string[]
           away_body?: Json
+          away_hours_end?: string
+          away_hours_start?: string
+          away_only_in_window?: boolean
           away_send_outside_topics?: boolean
           away_subject?: Json
           created_at?: string
