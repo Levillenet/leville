@@ -464,7 +464,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
                 <div>
                   <Label>Auto-vastaaja päällä (master-kytkin)</Label>
                   <p className="text-xs text-muted-foreground">
-                    <strong>ON</strong> = järjestelmä lukee Gmailia 5 min välein ja vastaa/luonnostelee asetusten mukaan.{" "}
+                    <strong>ON</strong> = järjestelmä lukee Gmailia <strong>1 min välein öisin (Helsinki 22–07)</strong> ja <strong>2 min välein päivällä</strong>, ja vastaa/luonnostelee asetusten mukaan. Testilistan osoitteet ohittavat cooldownin (saavat aina vastauksen).{" "}
                     <strong>OFF</strong> = mitään ei haeta eikä lähetetä, vaikka muut asetukset olisivat päällä. Tämä on hätäkatkaisin.
                   </p>
                 </div>
