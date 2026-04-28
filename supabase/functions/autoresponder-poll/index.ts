@@ -248,43 +248,14 @@ Deno.serve(async (req) => {
           : null;
         const isWhitelistTopic = !!detectedTopic && autoSendTopics.includes(detectedTopic);
 
-        // Decide path:
-        // 1) If whitelist topic AND in auto-window AND approval not always required → send AI reply automatically
-        // 2) Else if whitelist topic but outside auto-window → create draft for approval (AI generated)
-        // 3) Else (no whitelist topic) → send away message (or draft if requireApprovalAlways)
+        // Decide path (away mode is handled globally above before rule matching):
+        // 1) Whitelist topic + in auto-window + no force-approval → send AI reply automatically
+        // 2) Whitelist topic but outside auto-window → AI draft for approval
+        // 3) Non-whitelist topic → AI draft for approval
         const learned = await loadLearnedExamples(supabase, detectedTopic, detectedLang);
 
-        // Path 3: not a whitelisted topic
+        // Path 3: not a whitelisted topic → always create AI draft for approval
         if (!isWhitelistTopic) {
-          if (sendAwayOutsideTopics && !requireApprovalAlways && awayWindowOk && !propertyFacts) {
-            const away = buildAwayReply(settings.away_subject || {}, settings.away_body || {}, incoming, settings.default_language);
-            const finalBody = away.body + (settings.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
-            await sendReply({
-              to: fromEmail,
-              subject: away.subject,
-              bodyText: finalBody,
-              threadId: m.threadId,
-              inReplyTo: messageIdHeader || undefined,
-              references: referencesHeader ? `${referencesHeader} ${messageIdHeader}` : (messageIdHeader || undefined),
-            });
-            try { await markAsRead(m.id); } catch (_) {}
-            await supabase.from("autoresponder_log").insert({
-              gmail_message_id: m.id,
-              gmail_thread_id: m.threadId,
-              from_email: fromEmail,
-              from_domain: fromDomain,
-              subject,
-              matched_rule_id: rule.id,
-              matched_rule_name: rule.name,
-              action: "auto_away_sent",
-              reply_subject: away.subject,
-              reply_body: finalBody,
-              reply_sent_at: new Date().toISOString(),
-            });
-            results.push({ id: m.id, action: "auto_away_sent", to: fromEmail });
-            continue;
-          }
-          // create AI draft for approval
           const reply = await generateReply(rule, incoming, settings.default_language, settings.ai_system_prompt, learned, propertyFacts).catch(() => null);
           await supabase.from("autoresponder_drafts").insert({
             gmail_message_id: m.id,
