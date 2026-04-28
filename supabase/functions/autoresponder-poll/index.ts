@@ -99,6 +99,13 @@ Deno.serve(async (req) => {
       return json({ ok: true, skipped: "autoresponder_disabled" });
     }
 
+    // Backfill enabled_at if missing (e.g. enabled before this column existed)
+    if (!settings.enabled_at) {
+      const nowIso = new Date().toISOString();
+      await supabase.from("autoresponder_settings").update({ enabled_at: nowIso }).eq("id", 1);
+      settings.enabled_at = nowIso;
+    }
+
     await supabase.from("autoresponder_settings").update({ last_poll_at: new Date().toISOString() }).eq("id", 1);
 
     const { data: rules, error: rErr } = await supabase
@@ -110,7 +117,13 @@ Deno.serve(async (req) => {
       return json({ ok: true, processed: 0, note: "no_active_rules" });
     }
 
-    const messages = await listUnreadMessages("is:unread newer_than:1d", 20);
+    // Only fetch messages that arrived AFTER the auto-responder was enabled.
+    // Gmail's `after:` operator uses unix seconds.
+    const enabledAtMs = new Date(settings.enabled_at).getTime();
+    const enabledAtSec = Math.floor(enabledAtMs / 1000);
+    const gmailQuery = `is:unread after:${enabledAtSec}`;
+    const messages = await listUnreadMessages(gmailQuery, 20);
+
     const results: any[] = [];
 
     const inAutoWindow = isInAutoSendWindow(settings.auto_send_hours_start || "22:00", settings.auto_send_hours_end || "07:00");
