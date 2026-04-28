@@ -558,6 +558,36 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
                   disabled={isViewer} />
               </div>
 
+              <div className="flex items-center justify-between border-t pt-3">
+                <div>
+                  <Label>Lähetä poissaoloviesti vain tiettynä aikana (esim. öisin)</Label>
+                  <p className="text-xs text-muted-foreground">Pois päältä = poissaoloviesti voidaan lähettää milloin tahansa. Päällä = vain alla olevassa aikaikkunassa, muulloin viesti menee luonnoksena hyväksyntään.</p>
+                </div>
+                <Switch checked={settings.away_only_in_window}
+                  onCheckedChange={(v) => saveSettings({ away_only_in_window: v })}
+                  disabled={isViewer} />
+              </div>
+
+              {settings.away_only_in_window && (
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label className="text-xs">Aikaikkuna alkaa</Label>
+                    <Input type="time" value={(settings.away_hours_start || "22:00").slice(0,5)}
+                      onChange={(e) => setSettings({ ...settings, away_hours_start: e.target.value })}
+                      onBlur={(e) => saveSettings({ away_hours_start: e.target.value })}
+                      disabled={isViewer} />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Aikaikkuna päättyy</Label>
+                    <Input type="time" value={(settings.away_hours_end || "07:00").slice(0,5)}
+                      onChange={(e) => setSettings({ ...settings, away_hours_end: e.target.value })}
+                      onBlur={(e) => saveSettings({ away_hours_end: e.target.value })}
+                      disabled={isViewer} />
+                  </div>
+                  <p className="col-span-2 text-xs text-muted-foreground">Helsingin aikaa. Voi olla yön yli, esim. 22:00 → 07:00.</p>
+                </div>
+              )}
+
               {(["fi","en","sv","de"] as const).map((lang) => (
                 <div key={lang} className="border rounded p-3 space-y-2">
                   <Label className="uppercase text-xs">{lang}</Label>
