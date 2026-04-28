@@ -56,6 +56,60 @@ async function inCooldown(supabase: any, fromEmail: string, cooldownHours: numbe
   return Array.isArray(data) && data.length > 0;
 }
 
+const APPROVAL_NOTIFY_TO = "info@leville.net";
+const APPROVAL_NOTIFY_COOLDOWN_MIN = 30;
+
+async function notifyApprovalQueue(supabase: any, draftInfo: { from_email: string; subject: string; topic: string | null }) {
+  try {
+    // Throttle: only one notification per cooldown window
+    const since = new Date(Date.now() - APPROVAL_NOTIFY_COOLDOWN_MIN * 60 * 1000).toISOString();
+    const { data: recent } = await supabase
+      .from("autoresponder_log")
+      .select("id")
+      .eq("action", "approval_notification")
+      .gte("created_at", since)
+      .limit(1);
+    if (Array.isArray(recent) && recent.length > 0) return;
+
+    // Count pending drafts for context
+    const { count } = await supabase
+      .from("autoresponder_drafts")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "pending");
+
+    const pendingCount = count ?? 1;
+    const subject = `Autoresponder: ${pendingCount} käsittelemätön${pendingCount === 1 ? "" : "tä"} viesti${pendingCount === 1 ? "" : "ä"} hyväksynnässä`;
+    const bodyText = [
+      `Hei,`,
+      ``,
+      `Autoresponderin hyväksyntäjonossa on ${pendingCount} käsittelemätön${pendingCount === 1 ? "" : "tä"} viesti${pendingCount === 1 ? "" : "ä"}.`,
+      ``,
+      `Viimeisin uusi viesti:`,
+      `  Lähettäjä: ${draftInfo.from_email}`,
+      `  Aihe: ${draftInfo.subject}`,
+      `  Tunnistettu aihe: ${draftInfo.topic || "(ei tunnistettu)"}`,
+      ``,
+      `Käsittele jonossa olevat viestit admin-paneelissa:`,
+      `https://leville.net/admin`,
+      ``,
+      `(Tämä on automaattinen ilmoitus. Lähetetään korkeintaan kerran ${APPROVAL_NOTIFY_COOLDOWN_MIN} minuutissa.)`,
+    ].join("\n");
+
+    await sendReply({ to: APPROVAL_NOTIFY_TO, subject, bodyText });
+
+    await supabase.from("autoresponder_log").insert({
+      gmail_message_id: `approval-notify-${Date.now()}`,
+      gmail_thread_id: "(approval-notify)",
+      from_email: draftInfo.from_email,
+      from_domain: "(approval-notify)",
+      subject,
+      action: "approval_notification",
+    });
+  } catch (e) {
+    console.error("notifyApprovalQueue failed:", e);
+  }
+}
+
 async function loadLearnedExamples(supabase: any, topic: string | null, language: string): Promise<LearnedExample[]> {
   // Prefer same-topic+lang, then same-topic any-lang, then same-lang general
   let q = supabase
@@ -324,6 +378,7 @@ Deno.serve(async (req) => {
             ai_body: reply?.body || null,
             status: "pending",
           });
+          await notifyApprovalQueue(supabase, { from_email: fromEmail, subject, topic: detectedTopic });
           results.push({ id: m.id, action: "draft_created", topic: detectedTopic });
           continue;
         }
@@ -351,6 +406,7 @@ Deno.serve(async (req) => {
             ai_body: away.body,
             status: "pending",
           });
+          await notifyApprovalQueue(supabase, { from_email: fromEmail, subject, topic: detectedTopic });
           continue;
         }
 
@@ -402,6 +458,7 @@ Deno.serve(async (req) => {
             ai_body: finalBody,
             status: "pending",
           });
+          await notifyApprovalQueue(supabase, { from_email: fromEmail, subject, topic: detectedTopic });
           results.push({ id: m.id, action: "draft_created", topic: detectedTopic });
         }
       } catch (innerErr) {
