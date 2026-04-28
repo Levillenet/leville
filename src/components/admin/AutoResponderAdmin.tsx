@@ -95,9 +95,16 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [rules, setRules] = useState<Rule[]>([]);
   const [log, setLog] = useState<LogRow[]>([]);
+  const [drafts, setDrafts] = useState<any[]>([]);
+  const [learned, setLearned] = useState<any[]>([]);
   const [newRecipient, setNewRecipient] = useState("");
+  const [newTopic, setNewTopic] = useState("");
   const [editingRule, setEditingRule] = useState<Rule | null>(null);
   const [ruleDialogOpen, setRuleDialogOpen] = useState(false);
+
+  // Draft editor state
+  const [draftEdits, setDraftEdits] = useState<Record<string, { subject: string; body: string }>>({});
+  const [draftActioning, setDraftActioning] = useState<string | null>(null);
 
   // Test form
   const [testFrom, setTestFrom] = useState("");
@@ -105,7 +112,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   const [testMessage, setTestMessage] = useState("Hei, miten saunan saa päälle huoneistossa? Kiitos!");
   const [testRuleId, setTestRuleId] = useState<string>("__none__");
   const [testSending, setTestSending] = useState(false);
-  const [testResult, setTestResult] = useState<{ subject: string; body: string; sent: boolean } | null>(null);
+  const [testResult, setTestResult] = useState<{ subject: string; body: string; sent: boolean; routing?: any; mode?: string } | null>(null);
 
   const invoke = async (action: string, extra: Record<string, unknown> = {}) => {
     const { data, error } = await supabase.functions.invoke("autoresponder-manage", {
