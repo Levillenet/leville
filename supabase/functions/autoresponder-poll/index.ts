@@ -318,9 +318,35 @@ Deno.serve(async (req) => {
 
         const rule = findMatchingRule(rules as AutoResponderRule[], incoming);
         if (!rule) {
-          // No matching rule → create a draft for manual approval (no AI body)
+          // No matching rule → still try to generate a best-effort AI draft for approval
           const detectedLangNoRule = detectLanguage(`${subject}\n${body}`) || settings.default_language || "en";
           const detectedTopicNoRule = detectTopic(`${subject}\n${body}`);
+          const detectedPropertyNoRule = detectProperty(`${subject}\n${body}`);
+          const propertyFactsNoRule: PropertyFacts | null = detectedPropertyNoRule
+            ? await loadPropertyFacts(supabase, detectedPropertyNoRule.slug)
+            : null;
+          const learnedNoRule = await loadLearnedExamples(supabase, detectedTopicNoRule, detectedLangNoRule);
+          // Synthetic rule so AI generator works without a real DB rule
+          const syntheticRule: AutoResponderRule = {
+            id: "no-rule",
+            name: "(no matching rule)",
+            is_active: true,
+            priority: 0,
+            match_domain: "",
+            match_keywords: [],
+            active_days: [0,1,2,3,4,5,6],
+            active_hours_start: "00:00",
+            active_hours_end: "23:59",
+            response_mode: "ai",
+            template_subject: {},
+            template_body: {},
+            ai_extra_instructions: "No specific rule matched this message. Read the email carefully and craft the best possible reply based on general knowledge of Leville.net (apartment rentals in Levi, Finland). If the question is unclear, ask politely for clarification.",
+            cooldown_hours: 0,
+          };
+          const reply = await generateReply(syntheticRule, incoming, settings.default_language, settings.ai_system_prompt, learnedNoRule, propertyFactsNoRule).catch((e) => {
+            console.error("no-rule AI generation failed:", e);
+            return null;
+          });
           await supabase.from("autoresponder_drafts").insert({
             gmail_message_id: m.id,
             gmail_thread_id: m.threadId,
@@ -335,8 +361,8 @@ Deno.serve(async (req) => {
             detected_language: detectedLangNoRule,
             matched_rule_id: null,
             matched_rule_name: null,
-            ai_subject: null,
-            ai_body: null,
+            ai_subject: reply?.subject || null,
+            ai_body: reply?.body || null,
             status: "pending",
           });
           await supabase.from("autoresponder_log").insert({
