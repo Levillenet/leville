@@ -407,8 +407,11 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
             <CardContent className="space-y-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <Label>Auto-vastaaja päällä</Label>
-                  <p className="text-xs text-muted-foreground">Polling pyörii 5 min välein.</p>
+                  <Label>Auto-vastaaja päällä (master-kytkin)</Label>
+                  <p className="text-xs text-muted-foreground">
+                    <strong>ON</strong> = järjestelmä lukee Gmailia 5 min välein ja vastaa/luonnostelee asetusten mukaan.{" "}
+                    <strong>OFF</strong> = mitään ei haeta eikä lähetetä, vaikka muut asetukset olisivat päällä. Tämä on hätäkatkaisin.
+                  </p>
                 </div>
                 <Switch checked={settings.enabled} onCheckedChange={(v) => saveSettings({ enabled: v })} disabled={isViewer} />
               </div>
