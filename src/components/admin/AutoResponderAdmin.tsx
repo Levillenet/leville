@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Plus, Trash2, Send, Loader2, FlaskConical, ListChecks, Settings as SettingsIcon, ScrollText, X } from "lucide-react";
+import { Mail, Plus, Trash2, Send, Loader2, FlaskConical, ListChecks, Settings as SettingsIcon, ScrollText, X, Inbox, GraduationCap, Check, Edit3 } from "lucide-react";
 
 interface Settings {
   enabled: boolean;
@@ -23,6 +23,13 @@ interface Settings {
   test_mode: boolean;
   test_recipients: string[];
   ai_system_prompt: string;
+  auto_send_hours_start: string;
+  auto_send_hours_end: string;
+  auto_send_topics: string[];
+  always_require_approval: boolean;
+  away_subject: Record<string, string>;
+  away_body: Record<string, string>;
+  away_send_outside_topics: boolean;
 }
 
 interface Rule {
