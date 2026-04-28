@@ -95,7 +95,7 @@ Deno.serve(async (req) => {
       body: message,
     };
 
-    const detectedLang = detectLanguage(message || subject) || settings?.default_language || "en";
+    const detectedLang = detectLanguage(`${subject}\n${message}`) || settings?.default_language || "en";
     const detectedTopic = detectTopic(`${subject}\n${message}`);
     const detectedProperty = detectProperty(`${subject}\n${message}`);
     const propertyFacts: PropertyFacts | null = detectedProperty
