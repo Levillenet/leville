@@ -962,12 +962,13 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
               </div>
 
               <div>
-                <Label>Avainsanat (pilkulla erotettuna, valinnainen)</Label>
+                <Label>Avainsanat (erottimet: pilkku, rivinvaihto tai puolipiste — valinnainen)</Label>
                 <Input
-                  value={editingRule.match_keywords.join(", ")}
-                  onChange={(e) => setEditingRule({ ...editingRule, match_keywords: e.target.value.split(",").map((s) => s.trim()).filter(Boolean) })}
-                  placeholder="sauna, check-in"
+                  value={keywordsDraft}
+                  onChange={(e) => setKeywordsDraft(e.target.value)}
+                  placeholder="sauna, check-in, wifi"
                 />
+                <p className="text-xs text-muted-foreground mt-1">Tallennetaan vasta kun painat "Tallenna". Tyhjä = sääntö osuu kaikkiin viesteihin (domain/aika sallien).</p>
               </div>
 
               <div>
