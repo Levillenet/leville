@@ -243,8 +243,8 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
     await saveSettings({ test_recipients: settings.test_recipients.filter((e) => e !== email) });
   };
 
-  const openNewRule = () => { setEditingRule({ ...EMPTY_RULE }); setRuleDialogOpen(true); };
-  const openEditRule = (r: Rule) => { setEditingRule({ ...r, ai_extra_instructions: r.ai_extra_instructions || "" }); setRuleDialogOpen(true); };
+  const openNewRule = () => { setEditingRule({ ...EMPTY_RULE }); setKeywordsDraft(""); setRuleDialogOpen(true); };
+  const openEditRule = (r: Rule) => { setEditingRule({ ...r, ai_extra_instructions: r.ai_extra_instructions || "" }); setKeywordsDraft((r.match_keywords || []).join(", ")); setRuleDialogOpen(true); };
 
   const saveRule = async () => {
     if (!editingRule) return;
