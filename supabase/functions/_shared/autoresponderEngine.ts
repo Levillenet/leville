@@ -84,17 +84,102 @@ export function findMatchingRule(rules: AutoResponderRule[], email: IncomingEmai
   return null;
 }
 
+/**
+ * Detect the language of an incoming email body.
+ * - Strips quoted/forwarded history (lines starting with ">", "On ... wrote:", "From: ...")
+ *   and common signatures so the *new* user content dominates.
+ * - Scores each language by counting marker hits, picks the highest.
+ * - Falls back to "en" only when no markers match.
+ */
 export function detectLanguage(text: string): string {
-  const t = (text || "").toLowerCase();
-  // Crude heuristics
-  if (/\b(hei|moi|kiitos|terveisin|tervetuloa|sauna|huoneisto|asunto|saunan|löyly|päivä)\b/.test(t)) return "fi";
-  if (/\b(hej|tack|hälsningar|stuga|lägenhet|vänligen)\b/.test(t)) return "sv";
-  if (/\b(hallo|danke|grüße|wohnung|ferienwohnung|mit freundlichen)\b/.test(t)) return "de";
-  if (/\b(bonjour|merci|salutations|appartement|cordialement)\b/.test(t)) return "fr";
-  if (/\b(hola|gracias|saludos|apartamento|cabaña)\b/.test(t)) return "es";
-  if (/\b(hallo|dank|groeten|appartement|hartelijk)\b/.test(t)) return "nl";
-  return "en";
+  if (!text) return "en";
+
+  // 1) Strip quoted reply history & forwarded blocks
+  let cleaned = text
+    .split("\n")
+    .filter((line) => {
+      const l = line.trim();
+      if (!l) return true;
+      if (l.startsWith(">")) return false;
+      if (/^(on .+ wrote:|le .+ a écrit\s*:|am .+ schrieb|el .+ escribió|den .+ skrev)/i.test(l)) return false;
+      if (/^(from|lähettäjä|von|de|från|van)\s*:/i.test(l)) return false;
+      if (/^(sent|lähetetty|gesendet|enviado|skickat|verzonden)\s*:/i.test(l)) return false;
+      if (/^(subject|aihe|betreff|asunto|ämne|onderwerp)\s*:/i.test(l)) return false;
+      if (/^(to|vastaanottaja|an|para|till|aan)\s*:/i.test(l)) return false;
+      if (/^-{3,}\s*(original message|forwarded message|alkuperäinen viesti)/i.test(l)) return false;
+      return true;
+    })
+    .join("\n")
+    .toLowerCase();
+
+  // Cap length so signatures don't dominate
+  cleaned = cleaned.slice(0, 2000);
+
+  // 2) Per-language markers (word-boundary matches). Order matters only on ties.
+  const markers: Record<string, RegExp[]> = {
+    fi: [
+      /\b(moi|hei|moikka|terve|heippa|kiitos|kiitti|terveisin|ystävällisin terveisin|tervetuloa)\b/g,
+      /\b(sauna|saunan|löyly|huoneisto|asunto|mökki|varaus|varata|majoitus|hinta|vapaa|vapaana)\b/g,
+      /\b(onko|mikä|miten|milloin|missä|voinko|voisiko|voisitteko|haluaisin|tarvitsen)\b/g,
+      /\b(päivä|päivää|huomenta|iltaa|aamulla|illalla|viikonloppu)\b/g,
+      /[äö]/g, // Finnish-specific characters as a soft signal
+    ],
+    sv: [
+      /\b(hej|hejsan|tjena|tack|tackar|hälsningar|vänliga hälsningar|välkommen)\b/g,
+      /\b(stuga|lägenhet|bastu|bokning|boka|pris|ledig)\b/g,
+      /\b(vänligen|gärna|kanske|skulle|kunde)\b/g,
+    ],
+    de: [
+      /\b(hallo|guten tag|guten morgen|guten abend|servus|moin|danke|vielen dank|grüße|mit freundlichen grüßen)\b/g,
+      /\b(wohnung|ferienwohnung|sauna|buchung|buchen|preis|frei|verfügbar)\b/g,
+      /\b(können|könnte|möchte|brauche|wann|wie|wo|warum)\b/g,
+      /[äöüß]/g,
+    ],
+    fr: [
+      /\b(bonjour|bonsoir|salut|merci|cordialement|salutations|bienvenue)\b/g,
+      /\b(appartement|chalet|sauna|réservation|réserver|prix|libre|disponible)\b/g,
+      /\b(pourriez|voudrais|puis-je|quand|comment|où)\b/g,
+    ],
+    es: [
+      /\b(hola|buenos días|buenas tardes|gracias|saludos|cordialmente|bienvenido)\b/g,
+      /\b(apartamento|cabaña|sauna|reserva|reservar|precio|libre|disponible)\b/g,
+      /\b(podría|quisiera|puedo|cuándo|cómo|dónde)\b/g,
+    ],
+    nl: [
+      /\b(hallo|hoi|dag|dank|bedankt|groeten|hartelijk|welkom)\b/g,
+      /\b(appartement|chalet|sauna|reservering|boeken|prijs|vrij|beschikbaar)\b/g,
+      /\b(zou|wil|kan|wanneer|hoe|waar)\b/g,
+    ],
+    en: [
+      /\b(hi|hello|hey|good morning|good afternoon|good evening|thanks|thank you|regards|kind regards|best regards|welcome)\b/g,
+      /\b(apartment|cabin|sauna|booking|book|price|free|available|reservation)\b/g,
+      /\b(could|would|can i|when|how|where|why|please)\b/g,
+    ],
+  };
+
+  // 3) Score each language
+  const scores: Record<string, number> = { fi: 0, sv: 0, de: 0, fr: 0, es: 0, nl: 0, en: 0 };
+  for (const [lang, regs] of Object.entries(markers)) {
+    for (const re of regs) {
+      const matches = cleaned.match(re);
+      if (matches) scores[lang] += matches.length;
+    }
+  }
+
+  // 4) Pick top score; tie-break: prefer non-English when tied
+  let best = "en";
+  let bestScore = 0;
+  for (const lang of ["fi", "sv", "de", "fr", "es", "nl", "en"]) {
+    if (scores[lang] > bestScore) {
+      best = lang;
+      bestScore = scores[lang];
+    }
+  }
+
+  // 5) No markers at all → English fallback
+  return bestScore > 0 ? best : "en";
 }
+
 
 function fillTemplate(tpl: string, vars: Record<string, string>): string {
   return tpl.replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] ?? "");
