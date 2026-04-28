@@ -293,7 +293,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
       if (data.skipped) {
         toast({ title: "AI ohitti viestin", description: "AI tunnisti viestin spämmiksi/bounceksi" });
       } else {
-        setTestResult({ subject: data.reply.subject, body: data.reply.body, sent: !!data.sent });
+        setTestResult({ subject: data.reply.subject, body: data.reply.body, sent: !!data.sent, routing: data.routing, mode: data.mode });
         toast({
           title: data.sent ? `Vastaus lähetetty osoitteeseen ${testFrom}` : "Vastaus generoitu mutta lähetys epäonnistui",
           description: data.send_error || undefined,
