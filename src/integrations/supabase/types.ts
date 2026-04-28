@@ -116,6 +116,173 @@ export type Database = {
         }
         Relationships: []
       }
+      autoresponder_log: {
+        Row: {
+          action: string
+          created_at: string
+          error_message: string | null
+          from_domain: string
+          from_email: string
+          gmail_message_id: string
+          gmail_thread_id: string | null
+          id: string
+          is_test: boolean
+          matched_rule_id: string | null
+          matched_rule_name: string | null
+          received_at: string
+          reply_body: string | null
+          reply_sent_at: string | null
+          reply_subject: string | null
+          subject: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          error_message?: string | null
+          from_domain: string
+          from_email: string
+          gmail_message_id: string
+          gmail_thread_id?: string | null
+          id?: string
+          is_test?: boolean
+          matched_rule_id?: string | null
+          matched_rule_name?: string | null
+          received_at?: string
+          reply_body?: string | null
+          reply_sent_at?: string | null
+          reply_subject?: string | null
+          subject?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          error_message?: string | null
+          from_domain?: string
+          from_email?: string
+          gmail_message_id?: string
+          gmail_thread_id?: string | null
+          id?: string
+          is_test?: boolean
+          matched_rule_id?: string | null
+          matched_rule_name?: string | null
+          received_at?: string
+          reply_body?: string | null
+          reply_sent_at?: string | null
+          reply_subject?: string | null
+          subject?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "autoresponder_log_matched_rule_id_fkey"
+            columns: ["matched_rule_id"]
+            isOneToOne: false
+            referencedRelation: "autoresponder_rules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      autoresponder_rules: {
+        Row: {
+          active_days: number[]
+          active_hours_end: string
+          active_hours_start: string
+          ai_extra_instructions: string | null
+          cooldown_hours: number
+          created_at: string
+          id: string
+          is_active: boolean
+          match_domain: string
+          match_keywords: string[]
+          name: string
+          priority: number
+          response_mode: string
+          template_body: Json
+          template_subject: Json
+          updated_at: string
+        }
+        Insert: {
+          active_days?: number[]
+          active_hours_end?: string
+          active_hours_start?: string
+          ai_extra_instructions?: string | null
+          cooldown_hours?: number
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          match_domain?: string
+          match_keywords?: string[]
+          name: string
+          priority?: number
+          response_mode?: string
+          template_body?: Json
+          template_subject?: Json
+          updated_at?: string
+        }
+        Update: {
+          active_days?: number[]
+          active_hours_end?: string
+          active_hours_start?: string
+          ai_extra_instructions?: string | null
+          cooldown_hours?: number
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          match_domain?: string
+          match_keywords?: string[]
+          name?: string
+          priority?: number
+          response_mode?: string
+          template_body?: Json
+          template_subject?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      autoresponder_settings: {
+        Row: {
+          ai_system_prompt: string
+          created_at: string
+          default_language: string
+          enabled: boolean
+          id: number
+          last_poll_at: string | null
+          mailbox_label: string
+          poll_interval_minutes: number
+          signature_html: string
+          test_mode: boolean
+          test_recipients: string[]
+          updated_at: string
+        }
+        Insert: {
+          ai_system_prompt?: string
+          created_at?: string
+          default_language?: string
+          enabled?: boolean
+          id?: number
+          last_poll_at?: string | null
+          mailbox_label?: string
+          poll_interval_minutes?: number
+          signature_html?: string
+          test_mode?: boolean
+          test_recipients?: string[]
+          updated_at?: string
+        }
+        Update: {
+          ai_system_prompt?: string
+          created_at?: string
+          default_language?: string
+          enabled?: boolean
+          id?: number
+          last_poll_at?: string | null
+          mailbox_label?: string
+          poll_interval_minutes?: number
+          signature_html?: string
+          test_mode?: boolean
+          test_recipients?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       beds24_cache: {
         Row: {
           data: Json
