@@ -101,13 +101,25 @@ Deno.serve(async (req) => {
     const wouldAutoSend = !settings?.always_require_approval && isWhitelistTopic && inAutoWindow;
     const wouldSendAway = !isWhitelistTopic && !!settings?.away_send_outside_topics && !settings?.always_require_approval;
 
-    // Load learned examples
+    // Load learned examples — score by topic+language match (same logic as poll)
     const { data: learnedRows } = await supabase
       .from("autoresponder_learned")
-      .select("topic,language,source_subject,source_body,approved_subject,approved_body")
+      .select("topic,language,source_subject,source_body,approved_subject,approved_body,use_count")
       .eq("is_active", true)
-      .limit(20);
-    const learned = (learnedRows || []) as LearnedExample[];
+      .order("use_count", { ascending: false })
+      .limit(30);
+    const allLearned = (learnedRows || []) as LearnedExample[];
+    const scoreEx = (ex: LearnedExample) => {
+      let s = 0;
+      if (detectedTopic && ex.topic === detectedTopic) s += 10;
+      if (ex.language === detectedLang) s += 3;
+      return s;
+    };
+    const learned = allLearned
+      .map((ex) => ({ ex, s: scoreEx(ex) }))
+      .sort((a, b) => b.s - a.s)
+      .slice(0, 6)
+      .map((x) => x.ex);
 
     let reply: { subject: string; body: string } | null = null;
     let mode: "ai" | "away" = "ai";
