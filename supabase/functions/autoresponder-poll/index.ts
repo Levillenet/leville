@@ -206,9 +206,10 @@ Deno.serve(async (req) => {
         };
 
         // Test mode: only respond to whitelisted addresses
+        const whitelist = (settings.test_recipients || []).map((s: string) => s.toLowerCase());
+        const isTestRecipient = whitelist.includes(fromEmail.toLowerCase());
         if (settings.test_mode) {
-          const whitelist = (settings.test_recipients || []).map((s: string) => s.toLowerCase());
-          if (!whitelist.includes(fromEmail.toLowerCase())) {
+          if (!isTestRecipient) {
             await supabase.from("autoresponder_log").insert({
               gmail_message_id: m.id,
               gmail_thread_id: m.threadId,
