@@ -15,11 +15,13 @@ import {
   buildAwayReply,
   isInAutoSendWindow,
   detectLanguage,
+  loadPropertyFacts,
   type AutoResponderRule,
   type IncomingEmail,
   type LearnedExample,
+  type PropertyFacts,
 } from "../_shared/autoresponderEngine.ts";
-import { detectTopic } from "../_shared/autoresponderKnowledge.ts";
+import { detectTopic, detectProperty } from "../_shared/autoresponderKnowledge.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
