@@ -96,3 +96,12 @@ verify_jwt = false
 
 [functions.check-booking-changes]
 verify_jwt = false
+
+[functions.autoresponder-poll]
+verify_jwt = false
+
+[functions.autoresponder-manage]
+verify_jwt = false
+
+[functions.autoresponder-test]
+verify_jwt = false
