@@ -645,7 +645,18 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
                 </div>
               )}
 
-              {(["fi","en","sv","de"] as const).map((lang) => (
+              <div className="border-t pt-3 flex items-center justify-between gap-3 flex-wrap">
+                <div>
+                  <Label>Generoi käännökset suomenkielisestä versiosta</Label>
+                  <p className="text-xs text-muted-foreground">Täytä ensin FI-versio, paina nappia → AI kääntää muut kielet ja tallentaa ne.</p>
+                </div>
+                <Button onClick={translateAway} disabled={isViewer || translatingAway || !(settings.away_subject?.fi || settings.away_body?.fi)}>
+                  {translatingAway ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
+                  Käännä FI → EN/SV/DE/FR/ES/NL
+                </Button>
+              </div>
+
+              {(["fi","en","sv","de","fr","es","nl"] as const).map((lang) => (
                 <div key={lang} className="border rounded p-3 space-y-2">
                   <Label className="uppercase text-xs">{lang}</Label>
                   <Input placeholder="Aihe"
