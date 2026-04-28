@@ -406,6 +406,7 @@ Deno.serve(async (req) => {
             ai_body: away.body,
             status: "pending",
           });
+          await notifyApprovalQueue(supabase, { from_email: fromEmail, subject, topic: detectedTopic });
           continue;
         }
 
