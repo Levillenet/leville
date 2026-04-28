@@ -207,7 +207,7 @@ Deno.serve(async (req) => {
 
         // Path 3: not a whitelisted topic
         if (!isWhitelistTopic) {
-          if (sendAwayOutsideTopics && !requireApprovalAlways) {
+          if (sendAwayOutsideTopics && !requireApprovalAlways && awayWindowOk) {
             const away = buildAwayReply(settings.away_subject || {}, settings.away_body || {}, incoming, settings.default_language);
             const finalBody = away.body + (settings.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
             await sendReply({
