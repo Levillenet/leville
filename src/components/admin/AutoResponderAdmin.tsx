@@ -30,6 +30,9 @@ interface Settings {
   away_subject: Record<string, string>;
   away_body: Record<string, string>;
   away_send_outside_topics: boolean;
+  away_hours_start: string;
+  away_hours_end: string;
+  away_only_in_window: boolean;
 }
 
 interface Rule {
