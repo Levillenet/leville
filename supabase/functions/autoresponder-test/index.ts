@@ -174,7 +174,7 @@ Deno.serve(async (req) => {
       sent,
       send_error: sendError,
       mode,
-      routing: { detectedTopic, detectedLang, isWhitelistTopic, inAutoWindow, wouldAutoSend, wouldSendAway },
+      routing: { detectedTopic, detectedProperty, detectedPropertyFacts: propertyFacts ? { name: propertyFacts.name, slug: propertyFacts.slug, has_wifi: !!propertyFacts.wifi_name } : null, detectedLang, isWhitelistTopic, inAutoWindow, wouldAutoSend, wouldSendAway },
       reply: { subject: finalSubject, body: finalBody },
     });
   } catch (err) {
