@@ -215,7 +215,12 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
     }
   };
 
-  useEffect(() => { loadAll(); }, []);
+  useEffect(() => {
+    loadAll();
+    // Refresh every 30s so "Viimeisin tarkistus" pysyy ajantasalla
+    const interval = setInterval(() => { loadAll(); }, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const saveSettings = async (patch: Partial<Settings>) => {
     if (!settings) return;
