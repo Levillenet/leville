@@ -275,7 +275,7 @@ Deno.serve(async (req) => {
           continue;
         }
 
-        if (await inCooldown(supabase, fromEmail, rule.cooldown_hours)) {
+        if (!isTestRecipient && await inCooldown(supabase, fromEmail, rule.cooldown_hours)) {
           await supabase.from("autoresponder_log").insert({
             gmail_message_id: m.id,
             gmail_thread_id: m.threadId,
