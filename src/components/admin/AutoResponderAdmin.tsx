@@ -646,10 +646,10 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
           {/* AWAY MESSAGE */}
           <Card>
             <CardHeader>
-              <CardTitle>Poissaoloviesti</CardTitle>
+              <CardTitle>Poissaoloviesti — perinteinen, ei vastaa kysymykseen</CardTitle>
               <CardDescription>
-                Kun viesti EI osu auto-lähetettäviin aiheisiin, järjestelmä voi lähettää automaattisesti yleisen
-                poissaoloviestin (joka ei yritä vastata varsinaiseen kysymykseen). Muuten viesti menee luonnoksena hyväksyntään.
+                Yleinen "olemme tavoitettavissa myöhemmin" -tyyppinen viesti. Käytetään KUN viesti EI osu auto-lähetettäviin AI-aiheisiin
+                (esim. monimutkainen tiedustelu). Kenelle lähtee: samat domain-säännöt kuin AI:lla. Aikaikkuna alla on erillinen AI:n aikaikkunasta.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
