@@ -770,9 +770,15 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
               {testResult && (
                 <Card className="border-primary/40 bg-muted/30">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-base flex items-center gap-2">
+                    <CardTitle className="text-base flex items-center gap-2 flex-wrap">
                       Generoitu vastaus
                       {testResult.sent && <Badge>Lähetetty</Badge>}
+                      {testResult.mode && <Badge variant="outline">mode: {testResult.mode}</Badge>}
+                      {testResult.routing?.detectedTopic && <Badge variant="outline">aihe: {testResult.routing.detectedTopic}</Badge>}
+                      {testResult.routing?.isWhitelistTopic && <Badge variant="default">whitelist ✓</Badge>}
+                      {testResult.routing?.inAutoWindow && <Badge variant="default">auto-ikkuna ✓</Badge>}
+                      {testResult.routing?.wouldAutoSend && <Badge variant="default">auto-lähetys ✓</Badge>}
+                      {testResult.routing?.wouldSendAway && <Badge variant="secondary">poissaolo</Badge>}
                     </CardTitle>
                     <CardDescription className="font-medium text-foreground">{testResult.subject}</CardDescription>
                   </CardHeader>
