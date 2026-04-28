@@ -468,7 +468,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
                     <strong>OFF</strong> = mitään ei haeta eikä lähetetä, vaikka muut asetukset olisivat päällä. Tämä on hätäkatkaisin.
                   </p>
                 </div>
-                <Switch checked={settings.enabled} onCheckedChange={(v) => saveSettings({ enabled: v })} disabled={isViewer} />
+                <Switch checked={settings.enabled} onCheckedChange={(v) => saveSettings({ enabled: v, enabled_at: v ? new Date().toISOString() : null } as any)} disabled={isViewer} />
               </div>
 
               <div className="flex items-center justify-between border-t pt-4">
