@@ -330,6 +330,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
     const sendReal = overrideSend !== undefined ? overrideSend : !testPreviewOnly;
     setTestSending(true);
     setTestResult(null);
+    setLearnedEdit(null);
     try {
       const { data, error } = await supabase.functions.invoke("autoresponder-test", {
         body: {
