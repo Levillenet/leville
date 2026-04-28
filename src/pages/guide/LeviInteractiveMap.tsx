@@ -78,6 +78,10 @@ function distToCenter(coords: [number, number]) {
 // ── Marker HTML builders ───────────────────────────────────
 
 type MarkerLabelPosition = "top" | "right" | "bottom" | "left";
+type LineStringGeometry = {
+  type: "LineString";
+  coordinates: [number, number][];
+};
 
 function createCenterMarkerEl(name: string, labelPosition: MarkerLabelPosition = "right") {
   const el = document.createElement("div");
@@ -125,7 +129,7 @@ function createUserMarkerEl(label: string) {
 
 // ── Routing helper ─────────────────────────────────────────
 
-async function fetchRoute(a: [number, number], b: [number, number]): Promise<{ distance_km: number; geometry: GeoJSON.LineString } | null> {
+async function fetchRoute(a: [number, number], b: [number, number]): Promise<{ distance_km: number; geometry: LineStringGeometry } | null> {
   try {
     const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${a[0]},${a[1]};${b[0]},${b[1]}?geometries=geojson&overview=full&access_token=${MAPBOX_TOKEN}`;
     const res = await fetch(url);
