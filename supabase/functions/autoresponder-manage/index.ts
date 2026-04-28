@@ -274,6 +274,96 @@ Deno.serve(async (req) => {
         return json({ ok: true });
       }
 
+      case "translate_away": {
+        const { source_lang = "fi", target_langs = ["en", "sv", "de", "fr", "es", "nl"] } = body;
+        const { data: cur } = await supabase
+          .from("autoresponder_settings").select("away_subject, away_body").eq("id", 1).maybeSingle();
+        const srcSubject = cur?.away_subject?.[source_lang] || "";
+        const srcBody = cur?.away_body?.[source_lang] || "";
+        if (!srcSubject.trim() && !srcBody.trim()) {
+          return json({ error: `No ${source_lang} content to translate` }, 400);
+        }
+        const apiKey = Deno.env.get("LOVABLE_API_KEY");
+        if (!apiKey) return json({ error: "LOVABLE_API_KEY missing" }, 500);
+
+        const langNames: Record<string, string> = { en: "English", sv: "Swedish", de: "German", fr: "French", es: "Spanish", nl: "Dutch", fi: "Finnish" };
+        const targets = (target_langs as string[]).filter((l) => l !== source_lang);
+        const prompt = `You translate hospitality out-of-office email templates. Keep tone warm and professional, keep paragraph structure, do NOT translate URLs, brand names, phone numbers, or "Leville". Output via the tool call.
+
+SOURCE LANGUAGE: ${langNames[source_lang] || source_lang}
+SOURCE SUBJECT: ${srcSubject}
+SOURCE BODY:
+${srcBody}
+
+TARGET LANGUAGES: ${targets.map((t) => `${t} (${langNames[t] || t})`).join(", ")}`;
+
+        const aiResp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            model: "google/gemini-2.5-flash",
+            messages: [
+              { role: "system", content: "You translate text accurately and concisely. Use the provided tool to return translations." },
+              { role: "user", content: prompt },
+            ],
+            tools: [{
+              type: "function",
+              function: {
+                name: "save_translations",
+                description: "Save translations keyed by ISO 639-1 language code.",
+                parameters: {
+                  type: "object",
+                  properties: {
+                    translations: {
+                      type: "object",
+                      additionalProperties: {
+                        type: "object",
+                        properties: { subject: { type: "string" }, body: { type: "string" } },
+                        required: ["subject", "body"],
+                      },
+                    },
+                  },
+                  required: ["translations"],
+                },
+              },
+            }],
+            tool_choice: { type: "function", function: { name: "save_translations" } },
+          }),
+        });
+        if (!aiResp.ok) return json({ error: `AI gateway ${aiResp.status}: ${await aiResp.text()}` }, 500);
+        const aiData = await aiResp.json();
+        const args = aiData.choices?.[0]?.message?.tool_calls?.[0]?.function?.arguments;
+        if (!args) return json({ error: "AI returned no translations" }, 500);
+        const parsed = JSON.parse(args) as { translations: Record<string, { subject: string; body: string }> };
+
+        const newSubject = { ...(cur?.away_subject || {}) };
+        const newBody = { ...(cur?.away_body || {}) };
+        for (const [lang, t] of Object.entries(parsed.translations || {})) {
+          if (t?.subject) newSubject[lang] = t.subject;
+          if (t?.body) newBody[lang] = t.body;
+        }
+        const { data: updated } = await supabase.from("autoresponder_settings")
+          .update({ away_subject: newSubject, away_body: newBody })
+          .eq("id", 1).select("*").maybeSingle();
+        return json({ ok: true, settings: updated, translated: Object.keys(parsed.translations || {}) });
+      }
+
+      case "save_test_as_learned": {
+        const { incoming_subject, incoming_body, approved_subject, approved_body, topic, language } = body;
+        if (!approved_body || !approved_subject) return json({ error: "approved_subject and approved_body required" }, 400);
+        const { data, error } = await supabase.from("autoresponder_learned").insert({
+          topic: topic || null,
+          language: language || "en",
+          source_subject: incoming_subject || null,
+          source_body: (incoming_body || "").slice(0, 2000),
+          approved_subject,
+          approved_body,
+          was_edited: false,
+        }).select("*").maybeSingle();
+        if (error) throw error;
+        return json({ ok: true, learned: data });
+      }
+
       default:
         return json({ error: `Unknown action: ${action}` }, 400);
     }
