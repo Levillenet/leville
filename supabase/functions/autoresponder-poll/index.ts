@@ -240,7 +240,7 @@ Deno.serve(async (req) => {
           continue;
         }
 
-        const detectedLang = detectLanguage(body || subject) || settings.default_language || "en";
+        const detectedLang = detectLanguage(`${subject}\n${body}`) || settings.default_language || "en";
         const detectedTopic = detectTopic(`${subject}\n${body}`);
         const detectedProperty = detectProperty(`${subject}\n${body}`);
         const propertyFacts: PropertyFacts | null = detectedProperty
