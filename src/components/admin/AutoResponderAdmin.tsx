@@ -115,6 +115,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
   const [testMessage, setTestMessage] = useState("Hei, miten saunan saa päälle huoneistossa? Kiitos!");
   const [testRuleId, setTestRuleId] = useState<string>("__none__");
   const [testSending, setTestSending] = useState(false);
+  const [testPreviewOnly, setTestPreviewOnly] = useState(true);
   const [testResult, setTestResult] = useState<{ subject: string; body: string; sent: boolean; routing?: any; mode?: string } | null>(null);
 
   const invoke = async (action: string, extra: Record<string, unknown> = {}) => {
