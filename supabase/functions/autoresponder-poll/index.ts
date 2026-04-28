@@ -173,6 +173,46 @@ Deno.serve(async (req) => {
           }
         }
 
+        // GLOBAL AWAY: if enabled and inside the away window, send away message to EVERYONE.
+        // No rule matching, no topic detection, no AI reply.
+        if (globalAwayActive) {
+          if (await inCooldown(supabase, fromEmail, settings.global_cooldown_hours || 24)) {
+            await supabase.from("autoresponder_log").insert({
+              gmail_message_id: m.id,
+              gmail_thread_id: m.threadId,
+              from_email: fromEmail,
+              from_domain: fromDomain,
+              subject,
+              action: "skipped_cooldown",
+            });
+            continue;
+          }
+          const away = buildAwayReply(settings.away_subject || {}, settings.away_body || {}, incoming, settings.default_language);
+          const finalBody = away.body + (settings.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
+          await sendReply({
+            to: fromEmail,
+            subject: away.subject,
+            bodyText: finalBody,
+            threadId: m.threadId,
+            inReplyTo: messageIdHeader || undefined,
+            references: referencesHeader ? `${referencesHeader} ${messageIdHeader}` : (messageIdHeader || undefined),
+          });
+          try { await markAsRead(m.id); } catch (_) {}
+          await supabase.from("autoresponder_log").insert({
+            gmail_message_id: m.id,
+            gmail_thread_id: m.threadId,
+            from_email: fromEmail,
+            from_domain: fromDomain,
+            subject,
+            action: "auto_away_sent",
+            reply_subject: away.subject,
+            reply_body: finalBody,
+            reply_sent_at: new Date().toISOString(),
+          });
+          results.push({ id: m.id, action: "auto_away_sent_global", to: fromEmail });
+          continue;
+        }
+
         const rule = findMatchingRule(rules as AutoResponderRule[], incoming);
         if (!rule) {
           await supabase.from("autoresponder_log").insert({
