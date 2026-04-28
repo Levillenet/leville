@@ -15,11 +15,13 @@ import {
   buildAwayReply,
   isInAutoSendWindow,
   detectLanguage,
+  loadPropertyFacts,
   type AutoResponderRule,
   type IncomingEmail,
   type LearnedExample,
+  type PropertyFacts,
 } from "../_shared/autoresponderEngine.ts";
-import { detectTopic } from "../_shared/autoresponderKnowledge.ts";
+import { detectTopic, detectProperty } from "../_shared/autoresponderKnowledge.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -197,6 +199,10 @@ Deno.serve(async (req) => {
 
         const detectedLang = detectLanguage(body || subject) || settings.default_language || "en";
         const detectedTopic = detectTopic(`${subject}\n${body}`);
+        const detectedProperty = detectProperty(`${subject}\n${body}`);
+        const propertyFacts: PropertyFacts | null = detectedProperty
+          ? await loadPropertyFacts(supabase, detectedProperty.slug)
+          : null;
         const isWhitelistTopic = !!detectedTopic && autoSendTopics.includes(detectedTopic);
 
         // Decide path:
@@ -207,7 +213,7 @@ Deno.serve(async (req) => {
 
         // Path 3: not a whitelisted topic
         if (!isWhitelistTopic) {
-          if (sendAwayOutsideTopics && !requireApprovalAlways && awayWindowOk) {
+          if (sendAwayOutsideTopics && !requireApprovalAlways && awayWindowOk && !propertyFacts) {
             const away = buildAwayReply(settings.away_subject || {}, settings.away_body || {}, incoming, settings.default_language);
             const finalBody = away.body + (settings.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
             await sendReply({
@@ -236,7 +242,7 @@ Deno.serve(async (req) => {
             continue;
           }
           // create AI draft for approval
-          const reply = await generateReply(rule, incoming, settings.default_language, settings.ai_system_prompt, learned).catch(() => null);
+          const reply = await generateReply(rule, incoming, settings.default_language, settings.ai_system_prompt, learned, propertyFacts).catch(() => null);
           await supabase.from("autoresponder_drafts").insert({
             gmail_message_id: m.id,
             gmail_thread_id: m.threadId,
@@ -260,7 +266,7 @@ Deno.serve(async (req) => {
         }
 
         // Whitelisted topic → generate AI reply
-        const reply = await generateReply(rule, incoming, settings.default_language, settings.ai_system_prompt, learned);
+        const reply = await generateReply(rule, incoming, settings.default_language, settings.ai_system_prompt, learned, propertyFacts);
         if (!reply) {
           // Fall back to away
           const away = buildAwayReply(settings.away_subject || {}, settings.away_body || {}, incoming, settings.default_language);

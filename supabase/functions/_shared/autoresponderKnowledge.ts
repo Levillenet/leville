@@ -50,6 +50,57 @@ export const EMERGENCY_GUIDANCE =
 export const OFFICE_HOURS_NOTE =
   "Our office is staffed Monday to Friday between 09:00 and 17:00 Helsinki time (EET/EEST).";
 
+// Property detection — maps free-text mentions to a guide_properties slug.
+// Used so we can answer property-specific questions (Wi-Fi, codes, etc.) with
+// exact facts loaded from the backend instead of generic fallback text.
+export interface PropertyMatch {
+  slug: string;          // guide_properties.slug to look up
+  key: string;           // short identifier ("skistar", "bearlodge", "frontslope")
+  matched: string;       // keyword that matched (for logging)
+}
+
+const PROPERTY_ALIASES: { slug: string; key: string; aliases: string[] }[] = [
+  {
+    slug: "skistar-studios",
+    key: "skistar",
+    aliases: [
+      "skistar", "ski star", "skiestar", "ski-star",
+      "skistar studios", "skistar studio",
+      "postintie 3", "postintie 3 b",
+      "hotelli / vieras22", "hotelli/vieras22",
+    ],
+  },
+  {
+    slug: "bearlodge",
+    key: "bearlodge",
+    aliases: ["bearlodge", "bear lodge", "karhupirtti", "karhu pirtti"],
+  },
+  {
+    slug: "front-slope",
+    key: "frontslope",
+    aliases: [
+      "front slope", "frontslope", "front-slope",
+      "etu-rinne", "eturinne",
+      "hiihtajankuja", "hiihtäjänkuja",
+    ],
+  },
+];
+
+export function detectProperty(text: string): PropertyMatch | null {
+  const t = (text || "").toLowerCase();
+  let best: PropertyMatch | null = null;
+  let bestLen = 0;
+  for (const p of PROPERTY_ALIASES) {
+    for (const a of p.aliases) {
+      if (t.includes(a) && a.length > bestLen) {
+        best = { slug: p.slug, key: p.key, matched: a };
+        bestLen = a.length;
+      }
+    }
+  }
+  return best;
+}
+
 // Detect which whitelisted topic (if any) the email is about.
 // Returns the topic key (e.g. "sauna") or null.
 export function detectTopic(text: string): string | null {

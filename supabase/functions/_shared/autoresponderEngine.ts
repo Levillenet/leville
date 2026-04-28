@@ -144,11 +144,37 @@ ${ex.approved_body}`;
   return `\n\nLEARNED EXAMPLES — HIGHEST PRIORITY (these were approved or human-edited replies). If the incoming email matches any of these in topic or intent, REUSE the approved reply's facts, links and wording almost verbatim (translate to the sender's language if different). Do NOT ignore them in favor of generic knowledge-base text.\n\n${lines.join("\n\n---\n\n")}`;
 }
 
+export interface PropertyFacts {
+  name: string;
+  slug: string;
+  wifi_name?: string | null;
+  wifi_password?: string | null;
+  check_in_time?: string | null;
+  check_out_time?: string | null;
+  contact_phone?: string | null;
+  contact_email?: string | null;
+  address?: string | null;
+}
+
+function buildPropertyFactsBlock(facts: PropertyFacts | null): string {
+  if (!facts) return "";
+  const lines: string[] = [];
+  lines.push(`Property: ${facts.name} (https://leville.net/opas/${facts.slug})`);
+  if (facts.wifi_name) lines.push(`Wi-Fi network: ${facts.wifi_name}`);
+  if (facts.wifi_password) lines.push(`Wi-Fi password: ${facts.wifi_password}`);
+  if (facts.check_in_time) lines.push(`Check-in: from ${facts.check_in_time}`);
+  if (facts.check_out_time) lines.push(`Check-out: by ${facts.check_out_time}`);
+  if (facts.address) lines.push(`Address: ${facts.address}`);
+  if (facts.contact_phone) lines.push(`Phone: ${facts.contact_phone}`);
+  return `\n\nPROPERTY-SPECIFIC FACTS — ABSOLUTE HIGHEST PRIORITY. The sender mentioned this specific property. Answer their question DIRECTLY using these exact values (e.g. give the actual Wi-Fi network name and password verbatim). Do NOT say "see the welcome letter" or "printed in the apartment" when the value is given here. Only fall back to the generic knowledge base if the requested fact is not in this list.\n${lines.join("\n")}`;
+}
+
 export async function generateAiReply(
   rule: AutoResponderRule,
   email: IncomingEmail,
   customSystemPrompt?: string,
   learnedExamples: LearnedExample[] = [],
+  propertyFacts: PropertyFacts | null = null,
 ): Promise<{ subject: string; body: string } | null> {
   const apiKey = Deno.env.get("LOVABLE_API_KEY");
   if (!apiKey) throw new Error("LOVABLE_API_KEY missing");
@@ -156,11 +182,12 @@ export async function generateAiReply(
   const systemBase = (customSystemPrompt && customSystemPrompt.trim()) || BASE_SYSTEM_PROMPT;
   const knowledge = buildKnowledgeContext();
   const learned = buildLearnedBlock(learnedExamples);
+  const propertyBlock = buildPropertyFactsBlock(propertyFacts);
   const ruleExtras = rule.ai_extra_instructions
     ? `\n\nRULE-SPECIFIC INSTRUCTIONS:\n${rule.ai_extra_instructions}`
     : "";
 
-  const systemMessage = `${systemBase}\n\n${knowledge}${learned}${ruleExtras}`;
+  const systemMessage = `${systemBase}\n\n${knowledge}${propertyBlock}${learned}${ruleExtras}`;
 
   const userMessage = `Incoming email:
 From: ${email.from_name ? `${email.from_name} <${email.from_email}>` : email.from_email}
@@ -232,11 +259,25 @@ export async function generateReply(
   defaultLang: string,
   globalAiSystemPrompt?: string,
   learnedExamples: LearnedExample[] = [],
+  propertyFacts: PropertyFacts | null = null,
 ): Promise<{ subject: string; body: string } | null> {
   if (rule.response_mode === "template") {
     return generateTemplateReply(rule, email, defaultLang);
   }
-  return await generateAiReply(rule, email, globalAiSystemPrompt, learnedExamples);
+  return await generateAiReply(rule, email, globalAiSystemPrompt, learnedExamples, propertyFacts);
+}
+
+// Load property-specific facts (Wi-Fi, times, contact) from guide_properties by slug.
+export async function loadPropertyFacts(supabase: any, slug: string): Promise<PropertyFacts | null> {
+  if (!slug) return null;
+  const { data } = await supabase
+    .from("guide_properties")
+    .select("name,slug,wifi_name,wifi_password,check_in_time,check_out_time,contact_phone,contact_email,address,is_published")
+    .eq("slug", slug)
+    .eq("is_published", true)
+    .maybeSingle();
+  if (!data) return null;
+  return data as PropertyFacts;
 }
 
 // Build an away/out-of-office reply from settings (no AI involved)

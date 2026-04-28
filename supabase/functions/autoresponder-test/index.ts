@@ -5,11 +5,13 @@ import {
   buildAwayReply,
   isInAutoSendWindow,
   detectLanguage,
+  loadPropertyFacts,
   type AutoResponderRule,
   type IncomingEmail,
   type LearnedExample,
+  type PropertyFacts,
 } from "../_shared/autoresponderEngine.ts";
-import { detectTopic } from "../_shared/autoresponderKnowledge.ts";
+import { detectTopic, detectProperty } from "../_shared/autoresponderKnowledge.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -95,6 +97,10 @@ Deno.serve(async (req) => {
 
     const detectedLang = detectLanguage(message || subject) || settings?.default_language || "en";
     const detectedTopic = detectTopic(`${subject}\n${message}`);
+    const detectedProperty = detectProperty(`${subject}\n${message}`);
+    const propertyFacts: PropertyFacts | null = detectedProperty
+      ? await loadPropertyFacts(supabase, detectedProperty.slug)
+      : null;
     const autoSendTopics: string[] = (settings?.auto_send_topics || []).map((t: string) => t.toLowerCase());
     const isWhitelistTopic = !!detectedTopic && autoSendTopics.includes(detectedTopic);
     const inAutoWindow = settings ? isInAutoSendWindow(settings.auto_send_hours_start || "22:00", settings.auto_send_hours_end || "07:00") : false;
@@ -123,14 +129,14 @@ Deno.serve(async (req) => {
 
     let reply: { subject: string; body: string } | null = null;
     let mode: "ai" | "away" = "ai";
-    if (wouldSendAway) {
+    if (wouldSendAway && !propertyFacts) {
       reply = buildAwayReply(settings.away_subject || {}, settings.away_body || {}, incoming, settings.default_language);
       mode = "away";
     } else {
-      reply = await generateReply(rule, incoming, settings?.default_language || "en", settings?.ai_system_prompt, learned);
+      reply = await generateReply(rule, incoming, settings?.default_language || "en", settings?.ai_system_prompt, learned, propertyFacts);
     }
     if (!reply) {
-      return json({ ok: true, skipped: "ai_returned_skip", reply: null, routing: { detectedTopic, detectedLang, isWhitelistTopic, inAutoWindow, wouldAutoSend, wouldSendAway } });
+      return json({ ok: true, skipped: "ai_returned_skip", reply: null, routing: { detectedTopic, detectedProperty, detectedLang, isWhitelistTopic, inAutoWindow, wouldAutoSend, wouldSendAway } });
     }
 
     const finalSubject = /^re:/i.test(reply.subject) ? reply.subject : `Re: ${reply.subject}`;
@@ -168,7 +174,7 @@ Deno.serve(async (req) => {
       sent,
       send_error: sendError,
       mode,
-      routing: { detectedTopic, detectedLang, isWhitelistTopic, inAutoWindow, wouldAutoSend, wouldSendAway },
+      routing: { detectedTopic, detectedProperty, detectedPropertyFacts: propertyFacts ? { name: propertyFacts.name, slug: propertyFacts.slug, has_wifi: !!propertyFacts.wifi_name } : null, detectedLang, isWhitelistTopic, inAutoWindow, wouldAutoSend, wouldSendAway },
       reply: { subject: finalSubject, body: finalBody },
     });
   } catch (err) {
