@@ -58,7 +58,7 @@ export const fi = {
     meta: {
       title: `Majoitus Levillä ${new Date().getFullYear()} — huoneistot ja mökit keskustassa`,
       description: "27 huoneistoa ja mökkiä Levin keskustassa rinteiden vieressä. Varaa suoraan meiltä paras hinta — samat kohteet kuin Booking.comissa.",
-      keywords: "Levi majoitus, majoitus levillä, Levi huoneistot, Levi mökit, Levin majoitus",
+      keywords: "Levi majoitus, majoitus levillä, Levi huoneistot, Levi mökit, Levin majoitus, mökki Levi, mökit Leviltä, vuokramökki Levi, hirsimökki Levi, loma-asunto Levi",
       canonical: "https://leville.net/majoitukset"
     },
     title: "Majoitus Levillä – Huoneistot ja mökit Levin keskustassa",

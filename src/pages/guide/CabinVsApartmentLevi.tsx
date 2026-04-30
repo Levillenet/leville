@@ -119,6 +119,7 @@ const translations = {
     readNext: {
       title: "Lue myös",
       links: [
+        { title: "Mökit Leviltä", desc: "Vuokramökit ja loma-asunnot keskustassa", href: "/mokit-levilla" },
         { title: "Majoitukset Levillä", desc: "Kaikki mökkimme ja huoneistomme", href: "/majoitukset" },
         { title: "Hinnat Levillä", desc: "Mitä Lapin loma maksaa?", href: "/opas/hinnat-levilla" },
         { title: "Liikkuminen Levillä", desc: "Skibussit, taksit ja autot", href: "/opas/liikkuminen-levilla" },
