@@ -24,6 +24,7 @@ export const searchPages: SearchPage[] = [
   // General
   { title: "Etusivu", description: "Leville.net – Majoitus Levin keskustassa", path: "/", lang: "fi", category: "general" },
   { title: "Majoitukset", description: "Huoneistot ja mökit Levin keskustassa", path: "/majoitukset", lang: "fi", category: "accommodation" },
+  { title: "Mökit Leviltä", description: "Vuokramökit ja loma-asunnot Levin keskustassa – hirsimökit, sauna ja takka", path: "/mokit-levilla", lang: "fi", category: "accommodation" },
   { title: "Ajankohtaista", description: "Uutiset ja ajankohtaiset asiat", path: "/ajankohtaista", lang: "fi", category: "general" },
   { title: "Levi-info", description: "Tietoa Levin hiihtokeskuksesta", path: "/levi", lang: "fi", category: "general" },
   { title: "Revontulet", description: "Revontuliopas ja ennuste Levillä", path: "/revontulet", lang: "fi", category: "northernLights" },
