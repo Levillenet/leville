@@ -426,6 +426,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     { title: "Last-Minute Deals in Levi", href: "/en/last-minute" },
                     { title: "How to Get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
                   ] : [
+                    { title: "Mökit Leviltä – vuokramökit keskustassa", href: "/mokit-levilla" },
                     { title: "Mökki vai huoneisto? Näin valitset oikean majoituksen", href: "/opas/mokki-vai-huoneisto-levi" },
                     { title: "Äkkilähdöt Levi – Viime hetken tarjoukset", href: "/akkilahdot" },
                     { title: "Miten pääsee Leville?", href: "/matka/miten-paasee-leville-helsingista" },
