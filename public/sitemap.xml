@@ -4607,4 +4607,20 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://leville.net/levi/ukk</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/levi/ukk" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/levi/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/levi/faq" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://leville.net/en/levi/faq</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/levi/ukk" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/levi/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/levi/faq" />
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
