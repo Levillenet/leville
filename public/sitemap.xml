@@ -3915,6 +3915,15 @@
   </url>
 
   <url>
+    <loc>https://leville.net/mokit-levilla</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/mokit-levilla" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/mokit-levilla" />
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://leville.net/opas/mokki-vai-huoneisto-levi</loc>
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/mokki-vai-huoneisto-levi" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cabin-vs-apartment-in-levi" />
