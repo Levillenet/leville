@@ -56,8 +56,8 @@ export const en = {
   },
   majoitukset: {
     meta: {
-      title: "Accommodation in Levi – Apartments & Cabins in Levi Center | Leville.net",
-      description: "Book accommodation in Levi center. Modern apartments, cozy cabins and family homes within walking distance of slopes and services. Check availability and prices.",
+      title: `Levi Accommodation ${new Date().getFullYear()} — Apartments & Cabins in Levi Centre`,
+      description: "27 apartments and cabins in Levi centre next to slopes. Book directly for the best price — same properties as on Booking.com.",
       keywords: "Levi accommodation, Levi apartments, Levi cabins, accommodation in Levi",
       canonical: "https://leville.net/en/accommodations"
     },
