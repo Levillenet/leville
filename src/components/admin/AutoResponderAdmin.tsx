@@ -410,7 +410,7 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
           {/* MASTER CONTROL PANEL — clear at-a-glance toggles */}
           <Card className="border-primary/40">
             <CardHeader>
-              <CardTitle className="text-base">Päähallinta — mitä on käytössä</Cantml:CardTitle>
+              <CardTitle className="text-base">Päähallinta — mitä on käytössä</CardTitle>
               <CardDescription>Neljä erillistä kytkintä määrittävät mitä autovastaaja tekee. Tila-merkit kertovat heti onko ominaisuus aktiivinen.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
