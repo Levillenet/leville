@@ -33,6 +33,8 @@ interface Settings {
   away_hours_start: string;
   away_hours_end: string;
   away_only_in_window: boolean;
+  ai_replies_enabled: boolean;
+  ai_drafts_enabled: boolean;
 }
 
 interface Rule {
