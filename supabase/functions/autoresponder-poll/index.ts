@@ -210,6 +210,9 @@ Deno.serve(async (req) => {
     const autoSendTopics: string[] = (settings.auto_send_topics || []).map((t: string) => t.toLowerCase());
     const requireApprovalAlways = !!settings.always_require_approval;
     const awayEnabled = !!settings.away_send_outside_topics;
+    // New explicit master switches for AI behavior
+    const aiRepliesEnabled = settings.ai_replies_enabled !== false; // default true
+    const aiDraftsEnabled = settings.ai_drafts_enabled !== false;   // default true
     // GLOBAL AWAY MODE: if away message is enabled AND we're inside the away window,
     // send the away message to EVERYONE and do NOT send AI replies at all.
     const globalAwayActive = awayEnabled && awayWindowOk;
@@ -320,7 +323,18 @@ Deno.serve(async (req) => {
 
         const rule = findMatchingRule(rules as AutoResponderRule[], incoming);
         if (!rule) {
-          // No matching rule → still try to generate a best-effort AI draft for approval
+          // No matching rule → AI draft for approval (only if drafts allowed)
+          if (!aiDraftsEnabled) {
+            await supabase.from("autoresponder_log").insert({
+              gmail_message_id: m.id,
+              gmail_thread_id: m.threadId,
+              from_email: fromEmail,
+              from_domain: fromDomain,
+              subject,
+              action: "skipped_ai_drafts_disabled",
+            });
+            continue;
+          }
           const detectedLangNoRule = detectLanguage(`${subject}\n${body}`) || settings.default_language || "en";
           const detectedTopicNoRule = detectTopic(`${subject}\n${body}`);
           const detectedPropertyNoRule = detectProperty(`${subject}\n${body}`);
@@ -410,6 +424,19 @@ Deno.serve(async (req) => {
 
         // Path 3: not a whitelisted topic → always create AI draft for approval
         if (!isWhitelistTopic) {
+          if (!aiDraftsEnabled) {
+            await supabase.from("autoresponder_log").insert({
+              gmail_message_id: m.id,
+              gmail_thread_id: m.threadId,
+              from_email: fromEmail,
+              from_domain: fromDomain,
+              subject,
+              matched_rule_id: rule.id,
+              matched_rule_name: rule.name,
+              action: "skipped_ai_drafts_disabled",
+            });
+            continue;
+          }
           const reply = await generateReply(rule, incoming, settings.default_language, settings.ai_system_prompt, learned, propertyFacts).catch(() => null);
           await supabase.from("autoresponder_drafts").insert({
             gmail_message_id: m.id,
@@ -464,8 +491,8 @@ Deno.serve(async (req) => {
         const finalSubject = /^re:/i.test(reply.subject) ? reply.subject : `Re: ${reply.subject}`;
         const finalBody = reply.body + (settings.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
 
-        if (!requireApprovalAlways && inAutoWindow) {
-          // Path 1: send automatically
+        const canAutoSendReply = aiRepliesEnabled && !requireApprovalAlways && inAutoWindow;
+        if (canAutoSendReply) {
           await sendReply({
             to: fromEmail,
             subject: finalSubject,
@@ -490,7 +517,20 @@ Deno.serve(async (req) => {
           });
           results.push({ id: m.id, action: "auto_sent", to: fromEmail, topic: detectedTopic });
         } else {
-          // Path 2: create draft for approval
+          // Path 2: create draft for approval (only if drafts allowed)
+          if (!aiDraftsEnabled) {
+            await supabase.from("autoresponder_log").insert({
+              gmail_message_id: m.id,
+              gmail_thread_id: m.threadId,
+              from_email: fromEmail,
+              from_domain: fromDomain,
+              subject,
+              matched_rule_id: rule.id,
+              matched_rule_name: rule.name,
+              action: "skipped_ai_drafts_disabled",
+            });
+            continue;
+          }
           await supabase.from("autoresponder_drafts").insert({
             gmail_message_id: m.id,
             gmail_thread_id: m.threadId,

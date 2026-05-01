@@ -48,12 +48,14 @@ Deno.serve(async (req) => {
           auto_send_hours_start, auto_send_hours_end, auto_send_topics,
           always_require_approval, away_subject, away_body, away_send_outside_topics,
           away_hours_start, away_hours_end, away_only_in_window,
+          ai_replies_enabled, ai_drafts_enabled,
         }) => ({
           enabled, enabled_at, mailbox_label, poll_interval_minutes, signature_html,
           default_language, test_mode, test_recipients, ai_system_prompt,
           auto_send_hours_start, auto_send_hours_end, auto_send_topics,
           always_require_approval, away_subject, away_body, away_send_outside_topics,
           away_hours_start, away_hours_end, away_only_in_window,
+          ai_replies_enabled, ai_drafts_enabled,
         }))(settings || {});
         // strip undefined keys so we don't blank out unrelated fields
         const clean: Record<string, unknown> = {};

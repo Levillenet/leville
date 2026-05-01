@@ -33,6 +33,8 @@ interface Settings {
   away_hours_start: string;
   away_hours_end: string;
   away_only_in_window: boolean;
+  ai_replies_enabled: boolean;
+  ai_drafts_enabled: boolean;
 }
 
 interface Rule {
@@ -405,85 +407,135 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
 
         {/* SETTINGS */}
         <TabsContent value="settings" className="space-y-4">
-          {/* SUMMARY: who gets what, when */}
+          {/* MASTER CONTROL PANEL — clear at-a-glance toggles */}
           <Card className="border-primary/40">
             <CardHeader>
-              <CardTitle className="text-base">Lähetyslogiikka — yhteenveto</CardTitle>
-              <CardDescription>Tämä on selkokielinen kuvaus mitä lähetetään, milloin ja kenelle. Asetukset alla muuttavat tätä.</CardDescription>
+              <CardTitle className="text-base">Päähallinta — mitä on käytössä</CardTitle>
+              <CardDescription>Neljä erillistä kytkintä määrittävät mitä autovastaaja tekee. Tila-merkit kertovat heti onko ominaisuus aktiivinen.</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-3 text-sm">
-              <div className="rounded border p-3">
-                <p className="font-medium">1) Poissaoloviesti (yleinen) — ETUSIJALLA</p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  <strong>Kenelle:</strong> {settings.test_mode
-                    ? <>vain testilistalle ({settings.test_recipients.join(", ") || "tyhjä"}).</>
-                    : <><strong>KAIKILLE</strong> saapuville sähköposteille (ei domain-rajausta, ei aiherajaus). Säännöt-välilehden domain-suodattimet eivät päde poissaoloviestiin.</>}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  <strong>Milloin lähtee:</strong> {settings.away_send_outside_topics
-                    ? (settings.away_only_in_window
-                        ? <>kun Helsingin aika on välillä <strong>{(settings.away_hours_start || "22:00").slice(0,5)}–{(settings.away_hours_end || "07:00").slice(0,5)}</strong>. Tällöin AI-viestejä EI lähetetä lainkaan.</>
-                        : <><strong>24/7</strong> kaikille viesteille. AI-viestejä EI lähetetä lainkaan kun tämä on päällä ilman aikarajaa.</>)
-                    : <>EI lähetetä (kytkin pois päältä).</>}
-                </p>
-              </div>
-
-              <div className="rounded border p-3">
-                <p className="font-medium">2) AI-vastaus (älykäs) — vain kun poissaolo EI ole aktiivinen</p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  <strong>Kenelle:</strong> {settings.test_mode
-                    ? <>vain testilistalle.</>
-                    : <>sähköpostit jotka osuvat <em>Säännöt</em>-välilehden domain-suodattimiin (oletus <code>*</code> = kaikki).</>}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  <strong>Milloin lähtee automaattisesti:</strong> kun aihe on <em>auto-lähetettävien aiheiden</em> listalla JA Helsingin aika on välillä{" "}
-                  <strong>{settings.auto_send_hours_start.slice(0,5)}–{settings.auto_send_hours_end.slice(0,5)}</strong>
-                  {settings.always_require_approval && <> (mutta <strong>"Vaadi aina hyväksyntä"</strong> on päällä → kaikki menee Hyväksyntä-jonoon)</>}.
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  <strong>Muulloin:</strong> AI luonnostelee vastauksen <em>Hyväksyntä</em>-jonoon ihmisen tarkastettavaksi.
-                </p>
-                {settings.away_send_outside_topics && (!settings.away_only_in_window) && (
-                  <p className="text-xs text-destructive mt-2">
-                    ⚠ Huom: poissaoloviesti on päällä 24/7 → AI-vastauksia EI tällä hetkellä lähetetä lainkaan.
+            <CardContent className="space-y-3">
+              {/* 1. MASTER */}
+              <div className="flex items-start justify-between gap-4 rounded border p-3">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Label className="text-sm font-semibold">1. Master-kytkin</Label>
+                    <Badge variant={settings.enabled ? "default" : "outline"}>{settings.enabled ? "PÄÄLLÄ" : "POIS"}</Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Hätäkatkaisin. Kun pois, mitään ei haeta eikä lähetetä — kaikki muut kytkimet ovat merkityksettömiä.
                   </p>
-                )}
+                </div>
+                <Switch checked={settings.enabled} onCheckedChange={(v) => saveSettings({ enabled: v, enabled_at: v ? new Date().toISOString() : null } as any)} disabled={isViewer} />
               </div>
 
-              <div className="rounded border p-3 bg-muted/30">
-                <p className="font-medium">Master-kytkin: <Badge variant={settings.enabled ? "default" : "outline"}>{settings.enabled ? "ON" : "OFF"}</Badge></p>
-                <p className="text-xs text-muted-foreground mt-1">
-                  Kun OFF, mitään ei haeta eikä lähetetä — tämä yhteenveto kuvaa mitä TAPAHTUISI jos master olisi päällä.
-                </p>
+              {/* 2. TEST MODE */}
+              <div className="flex items-start justify-between gap-4 rounded border p-3">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Label className="text-sm font-semibold">2. Testitila</Label>
+                    <Badge variant={settings.test_mode ? "secondary" : "outline"}>{settings.test_mode ? "PÄÄLLÄ" : "POIS"}</Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Kun päällä, vastauksia lähetetään vain alla olevalle testilistalle. Suositellaan kunnes kaikki on testattu.
+                  </p>
+                </div>
+                <Switch checked={settings.test_mode} onCheckedChange={(v) => saveSettings({ test_mode: v })} disabled={isViewer} />
+              </div>
+
+              {/* 3. AWAY GENERIC RESPONSES */}
+              <div className="flex items-start justify-between gap-4 rounded border p-3">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Label className="text-sm font-semibold">3. Geneeriset poissaolovastaukset</Label>
+                    <Badge variant={settings.away_send_outside_topics ? "default" : "outline"}>
+                      {settings.away_send_outside_topics
+                        ? (settings.away_only_in_window
+                            ? `PÄÄLLÄ ${(settings.away_hours_start||"22:00").slice(0,5)}–${(settings.away_hours_end||"07:00").slice(0,5)}`
+                            : "PÄÄLLÄ 24/7")
+                        : "POIS"}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Kun päällä (ja aikaikkunan sisällä), <strong>kaikki</strong> saapuvat viestit saavat geneerisen poissaoloviestin.
+                    Asiakkaan kieli tunnistetaan automaattisesti viestistä ja vastaus lähetetään samalla kielellä (FI/EN/SV/DE/FR/ES/NL).
+                    AI-vastauksia EI lähetetä silloin lainkaan. Aikaikkunaa ja viestin sisältöä muokataan alempana.
+                  </p>
+                </div>
+                <Switch
+                  checked={settings.away_send_outside_topics}
+                  onCheckedChange={(v) => saveSettings({ away_send_outside_topics: v })}
+                  disabled={isViewer}
+                />
+              </div>
+
+              {/* 4. AI REPLIES */}
+              <div className="flex items-start justify-between gap-4 rounded border p-3">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Label className="text-sm font-semibold">4. AI-vastaukset (automaattinen lähetys)</Label>
+                    <Badge variant={settings.ai_replies_enabled ? "default" : "outline"}>{settings.ai_replies_enabled ? "PÄÄLLÄ" : "POIS"}</Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Kun pois, AI-vastauksia <strong>EI koskaan</strong> lähetetä automaattisesti — myöskään aikaikkunassa eikä whitelist-aiheille.
+                    Kun päällä, AI lähettää vastauksen automaattisesti tunnistetuille whitelist-aiheille auto-lähetysikkunan sisällä.
+                  </p>
+                </div>
+                <Switch
+                  checked={settings.ai_replies_enabled ?? true}
+                  onCheckedChange={(v) => saveSettings({ ai_replies_enabled: v })}
+                  disabled={isViewer}
+                />
+              </div>
+
+              {/* 5. AI DRAFTS */}
+              <div className="flex items-start justify-between gap-4 rounded border p-3">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <Label className="text-sm font-semibold">5. AI-luonnokset hyväksyntään</Label>
+                    <Badge variant={settings.ai_drafts_enabled ? "default" : "outline"}>{settings.ai_drafts_enabled ? "PÄÄLLÄ" : "POIS"}</Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Kun päällä, AI luo <em>luonnokset</em> Hyväksyntä-jonoon ihmisen tarkastettavaksi (mutta ei lähetä mitään automaattisesti).
+                    Tämän voi pitää päällä vaikka kohta 4 (AI-vastaukset) on pois — saat AI-ehdotuksia ilman automaattista lähettämistä.
+                    Kun pois, AI ei luo luonnoksia lainkaan.
+                  </p>
+                </div>
+                <Switch
+                  checked={settings.ai_drafts_enabled ?? true}
+                  onCheckedChange={(v) => saveSettings({ ai_drafts_enabled: v })}
+                  disabled={isViewer}
+                />
+              </div>
+
+              {/* Effective behavior summary */}
+              <div className="rounded border border-dashed p-3 bg-muted/40 text-xs space-y-1">
+                <p className="font-semibold text-sm mb-1">Lopputulos juuri nyt:</p>
+                {!settings.enabled ? (
+                  <p>🛑 Master pois — autovastaaja ei tee mitään.</p>
+                ) : (
+                  <>
+                    <p>📬 {settings.test_mode ? <>Vastauksia lähetetään <strong>vain testilistalle</strong>.</> : <>Vastauksia lähetetään <strong>kaikille</strong> saapuville viesteille (ei testitilaa).</>}</p>
+                    {settings.away_send_outside_topics && (
+                      <p>💤 Geneerinen poissaoloviesti aktiivinen {settings.away_only_in_window ? <>aikana <strong>{(settings.away_hours_start||"22:00").slice(0,5)}–{(settings.away_hours_end||"07:00").slice(0,5)}</strong></> : <><strong>24/7</strong></>} — silloin AI-vastauksia/luonnoksia ei luoda lainkaan.</p>
+                    )}
+                    {settings.ai_replies_enabled
+                      ? <p>🤖 AI-vastaukset auto-lähetetään whitelist-aiheille välillä <strong>{settings.auto_send_hours_start.slice(0,5)}–{settings.auto_send_hours_end.slice(0,5)}</strong>{settings.always_require_approval ? <> (mutta "Vaadi aina hyväksyntä" pakottaa kaiken jonoon)</> : null}.</p>
+                      : <p>🚫 AI-vastauksia ei koskaan lähetetä automaattisesti.</p>}
+                    {settings.ai_drafts_enabled
+                      ? <p>📝 AI luo luonnoksia Hyväksyntä-jonoon viesteistä jotka eivät lähde automaattisesti.</p>
+                      : <p>🚫 AI ei luo luonnoksia — viestit jätetään käsittelemättä (paitsi mahdollinen poissaolo).</p>}
+                  </>
+                )}
               </div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>Yleisasetukset</CardTitle>
-              <CardDescription>Pää-on/off ja testitila. Testitilassa botti vastaa vain alla listattuihin osoitteisiin.</CardDescription>
+              <CardTitle>Testilista ja muut asetukset</CardTitle>
+              <CardDescription>Kun testitila on päällä (kohta 2 yläpuolella), botti vastaa vain alla listattuihin osoitteisiin.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>Auto-vastaaja päällä (master-kytkin)</Label>
-                  <p className="text-xs text-muted-foreground">
-                    <strong>ON</strong> = järjestelmä lukee Gmailia <strong>1 min välein öisin (Helsinki 22–07)</strong> ja <strong>2 min välein päivällä</strong>, ja vastaa/luonnostelee asetusten mukaan. Testilistan osoitteet ohittavat cooldownin (saavat aina vastauksen).{" "}
-                    <strong>OFF</strong> = mitään ei haeta eikä lähetetä, vaikka muut asetukset olisivat päällä. Tämä on hätäkatkaisin.
-                  </p>
-                </div>
-                <Switch checked={settings.enabled} onCheckedChange={(v) => saveSettings({ enabled: v, enabled_at: v ? new Date().toISOString() : null } as any)} disabled={isViewer} />
-              </div>
-
-              <div className="flex items-center justify-between border-t pt-4">
-                <div>
-                  <Label>Testitila</Label>
-                  <p className="text-xs text-muted-foreground">Kun päällä, vastataan vain testilistalle. Suosittelemme jättämään päälle kunnes olet varma.</p>
-                </div>
-                <Switch checked={settings.test_mode} onCheckedChange={(v) => saveSettings({ test_mode: v })} disabled={isViewer} />
-              </div>
-
               <div className="border-t pt-4 space-y-2">
                 <Label>Testisähköpostit ({settings.test_recipients.length})</Label>
                 <div className="flex flex-wrap gap-2">
@@ -665,15 +717,9 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>Lähetä poissaoloviesti automaattisesti tuntemattomista aiheista</Label>
-                  <p className="text-xs text-muted-foreground">Pois päältä = kaikki tuntemattomat aiheet menevät luonnoksena hyväksyntään.</p>
-                </div>
-                <Switch checked={settings.away_send_outside_topics}
-                  onCheckedChange={(v) => saveSettings({ away_send_outside_topics: v })}
-                  disabled={isViewer} />
-              </div>
+              <p className="text-xs text-muted-foreground">
+                💡 Pää-kytkin tälle on Päähallinnassa kohta 3 ("Geneeriset poissaolovastaukset"). Alla säädät aikaikkunan ja viestin sisällön kullekin kielelle. Asiakkaan kieli tunnistetaan automaattisesti viestistä.
+              </p>
 
               <div className="flex items-center justify-between border-t pt-3">
                 <div>
