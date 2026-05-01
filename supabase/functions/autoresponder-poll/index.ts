@@ -517,7 +517,20 @@ Deno.serve(async (req) => {
           });
           results.push({ id: m.id, action: "auto_sent", to: fromEmail, topic: detectedTopic });
         } else {
-          // Path 2: create draft for approval
+          // Path 2: create draft for approval (only if drafts allowed)
+          if (!aiDraftsEnabled) {
+            await supabase.from("autoresponder_log").insert({
+              gmail_message_id: m.id,
+              gmail_thread_id: m.threadId,
+              from_email: fromEmail,
+              from_domain: fromDomain,
+              subject,
+              matched_rule_id: rule.id,
+              matched_rule_name: rule.name,
+              action: "skipped_ai_drafts_disabled",
+            });
+            continue;
+          }
           await supabase.from("autoresponder_drafts").insert({
             gmail_message_id: m.id,
             gmail_thread_id: m.threadId,
