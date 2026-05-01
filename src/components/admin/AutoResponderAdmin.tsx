@@ -532,29 +532,10 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
 
           <Card>
             <CardHeader>
-              <CardTitle>Yleisasetukset</CardTitle>
-              <CardDescription>Pää-on/off ja testitila. Testitilassa botti vastaa vain alla listattuihin osoitteisiin.</CardDescription>
+              <CardTitle>Testilista ja muut asetukset</CardTitle>
+              <CardDescription>Kun testitila on päällä (kohta 2 yläpuolella), botti vastaa vain alla listattuihin osoitteisiin.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>Auto-vastaaja päällä (master-kytkin)</Label>
-                  <p className="text-xs text-muted-foreground">
-                    <strong>ON</strong> = järjestelmä lukee Gmailia <strong>1 min välein öisin (Helsinki 22–07)</strong> ja <strong>2 min välein päivällä</strong>, ja vastaa/luonnostelee asetusten mukaan. Testilistan osoitteet ohittavat cooldownin (saavat aina vastauksen).{" "}
-                    <strong>OFF</strong> = mitään ei haeta eikä lähetetä, vaikka muut asetukset olisivat päällä. Tämä on hätäkatkaisin.
-                  </p>
-                </div>
-                <Switch checked={settings.enabled} onCheckedChange={(v) => saveSettings({ enabled: v, enabled_at: v ? new Date().toISOString() : null } as any)} disabled={isViewer} />
-              </div>
-
-              <div className="flex items-center justify-between border-t pt-4">
-                <div>
-                  <Label>Testitila</Label>
-                  <p className="text-xs text-muted-foreground">Kun päällä, vastataan vain testilistalle. Suosittelemme jättämään päälle kunnes olet varma.</p>
-                </div>
-                <Switch checked={settings.test_mode} onCheckedChange={(v) => saveSettings({ test_mode: v })} disabled={isViewer} />
-              </div>
-
               <div className="border-t pt-4 space-y-2">
                 <Label>Testisähköpostit ({settings.test_recipients.length})</Label>
                 <div className="flex flex-wrap gap-2">
