@@ -491,8 +491,8 @@ Deno.serve(async (req) => {
         const finalSubject = /^re:/i.test(reply.subject) ? reply.subject : `Re: ${reply.subject}`;
         const finalBody = reply.body + (settings.signature_html ? `\n\n${settings.signature_html.replace(/<[^>]+>/g, "")}` : "");
 
-        if (!requireApprovalAlways && inAutoWindow) {
-          // Path 1: send automatically
+        const canAutoSendReply = aiRepliesEnabled && !requireApprovalAlways && inAutoWindow;
+        if (canAutoSendReply) {
           await sendReply({
             to: fromEmail,
             subject: finalSubject,
