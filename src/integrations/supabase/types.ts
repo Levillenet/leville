@@ -372,6 +372,8 @@ export type Database = {
       }
       autoresponder_settings: {
         Row: {
+          ai_drafts_enabled: boolean
+          ai_replies_enabled: boolean
           ai_system_prompt: string
           always_require_approval: boolean
           auto_send_hours_end: string
@@ -397,6 +399,8 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          ai_drafts_enabled?: boolean
+          ai_replies_enabled?: boolean
           ai_system_prompt?: string
           always_require_approval?: boolean
           auto_send_hours_end?: string
@@ -422,6 +426,8 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          ai_drafts_enabled?: boolean
+          ai_replies_enabled?: boolean
           ai_system_prompt?: string
           always_require_approval?: boolean
           auto_send_hours_end?: string
