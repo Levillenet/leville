@@ -323,7 +323,18 @@ Deno.serve(async (req) => {
 
         const rule = findMatchingRule(rules as AutoResponderRule[], incoming);
         if (!rule) {
-          // No matching rule → still try to generate a best-effort AI draft for approval
+          // No matching rule → AI draft for approval (only if drafts allowed)
+          if (!aiDraftsEnabled) {
+            await supabase.from("autoresponder_log").insert({
+              gmail_message_id: m.id,
+              gmail_thread_id: m.threadId,
+              from_email: fromEmail,
+              from_domain: fromDomain,
+              subject,
+              action: "skipped_ai_drafts_disabled",
+            });
+            continue;
+          }
           const detectedLangNoRule = detectLanguage(`${subject}\n${body}`) || settings.default_language || "en";
           const detectedTopicNoRule = detectTopic(`${subject}\n${body}`);
           const detectedPropertyNoRule = detectProperty(`${subject}\n${body}`);
