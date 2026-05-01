@@ -717,15 +717,9 @@ export default function AutoResponderAdmin({ isViewer }: Props) {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>Lähetä poissaoloviesti automaattisesti tuntemattomista aiheista</Label>
-                  <p className="text-xs text-muted-foreground">Pois päältä = kaikki tuntemattomat aiheet menevät luonnoksena hyväksyntään.</p>
-                </div>
-                <Switch checked={settings.away_send_outside_topics}
-                  onCheckedChange={(v) => saveSettings({ away_send_outside_topics: v })}
-                  disabled={isViewer} />
-              </div>
+              <p className="text-xs text-muted-foreground">
+                💡 Pää-kytkin tälle on Päähallinnassa kohta 3 ("Geneeriset poissaolovastaukset"). Alla säädät aikaikkunan ja viestin sisällön kullekin kielelle. Asiakkaan kieli tunnistetaan automaattisesti viestistä.
+              </p>
 
               <div className="flex items-center justify-between border-t pt-3">
                 <div>
