@@ -6,6 +6,8 @@ export interface SearchPage {
   path: string;
   lang: Language;
   category: string;
+  /** Vapaamuotoiset avainsanat sisällöstä — auttavat hakua löytämään sivun esim. ravintolan, paikan tai aiheen nimellä. */
+  keywords?: string[];
 }
 
 // Category labels per language
