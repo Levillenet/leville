@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight, ArrowLeft, Plane, Shirt, Bus, UtensilsCrossed, Baby, Footprints,
   Thermometer, Flame, BookOpen, Euro, Droplets, Calendar, ListChecks, Wine,
-  Compass, Ticket, Gift, Heart, Map, Home, Mountain, MapPin, Accessibility
+  Compass, Ticket, Gift, Heart, Map, Home, Mountain, MapPin, Accessibility, Car
 } from "lucide-react";
 import { Language } from "@/translations";
 import { travelHubContent, type GuideItem, type CategoryGroup } from "@/data/travelHubContent";
