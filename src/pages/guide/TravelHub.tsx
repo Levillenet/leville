@@ -51,6 +51,7 @@ const iconMap: Record<string, typeof Plane> = {
   mapPin: MapPin,
   accessibility: Accessibility,
   ski: Footprints,
+  car: Car,
 };
 
 const localeMap: Record<Language, string> = {
