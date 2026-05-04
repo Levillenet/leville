@@ -141,7 +141,7 @@ export const searchPages: SearchPage[] = [
   { title: "Summer in Levi", description: "Summer activities and midnight sun", path: "/guide/summer-in-levi", lang: "en", category: "guide" },
   { title: "Autumn & Ruska", description: "Autumn foliage season in Levi", path: "/guide/autumn-ruska-in-levi", lang: "en", category: "guide" },
   { title: "Getting Around Levi", description: "Public transport and getting around", path: "/guide/getting-around-in-levi", lang: "en", category: "travel" },
-  { title: "Restaurants & Services", description: "Restaurants, shops and services", path: "/guide/restaurants-and-services-in-levi", lang: "en", category: "guide" },
+  { title: "Restaurants & Services", description: "Restaurants, shops and services", path: "/guide/restaurants-and-services-in-levi", lang: "en", category: "guide", keywords: ["restaurant", "food", "cafe", "bar", "shop", "Hullu Poro", "Colorado", "King Crab", "Sapuska", "Niliporo", "Ämmilä", "Saaga", "Pannukakkutalo", "Restaurant Asia", "Aurora Sky", "grocery", "pharmacy"] },
   { title: "Levi with Children", description: "Tips for families with kids", path: "/guide/levi-with-children", lang: "en", category: "guide" },
   { title: "Levi without a Car", description: "How to enjoy Levi without a car", path: "/guide/levi-without-a-car", lang: "en", category: "travel" },
   { title: "Heating Systems", description: "Heating guide for Levi accommodations", path: "/guide/heating-systems-in-levi", lang: "en", category: "guide" },
