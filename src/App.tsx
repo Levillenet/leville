@@ -63,6 +63,7 @@ const ComparisonHub = lazy(() => import("./pages/guide/ComparisonHub"));
 
 // Travel HUB Child Pages
 const GettingAroundLevi = lazy(() => import("./pages/guide/GettingAroundLevi"));
+const DrivingInLapland = lazy(() => import("./pages/guide/DrivingInLapland"));
 const RestaurantsAndServices = lazy(() => import("./pages/guide/RestaurantsAndServices"));
 const LeviWithChildren = lazy(() => import("./pages/guide/LeviWithChildren"));
 const LeviWithoutCar = lazy(() => import("./pages/guide/LeviWithoutCar"));
