@@ -60,6 +60,7 @@ export const travelHubContent: Record<Language, TravelHubContent> = {
       subtitle: "Kun olet saapunut – näin nautit lomastasi",
       guides: [
         { id: "transport", title: "Liikkuminen Levillä", description: "Skibussit, taksit ja autonvuokraus. Miten liikut kätevästi Levillä.", href: "/opas/liikkuminen-levilla", iconKey: "bus" },
+        { id: "driving-lapland", title: "Autolla ajaminen Lapissa", description: "Talvirenkaat, porot tiellä, pakkasvinkit ja etäisyydet — turvallinen autoilu Lapissa.", href: "/opas/autolla-ajaminen-lapissa", iconKey: "car" },
         { id: "services", title: "Ravintolat ja palvelut", description: "Ravintolat, kaupat, vuokraamot ja muut palvelut Levin keskustassa.", href: "/opas/ravintolat-ja-palvelut-levilla", iconKey: "utensils" },
         { id: "apres-ski", title: "Afterski ja yöelämä", description: "Levin parhaat afterski-baarit ja illanviettokohteet.", href: "/opas/afterski-ja-yoelama-levilla", iconKey: "glass" },
         { id: "rental", title: "Välinevuokraus", description: "Sukset, lumikengät, moottorikelkat – mistä vuokraat välineet Levillä.", href: "/opas/valinevuokraus-levilla", iconKey: "ski" },
