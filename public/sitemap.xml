@@ -3924,6 +3924,15 @@
   </url>
 
   <url>
+    <loc>https://leville.net/opas/autolla-ajaminen-lapissa</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/autolla-ajaminen-lapissa" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/autolla-ajaminen-lapissa" />
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://leville.net/opas/mokki-vai-huoneisto-levi</loc>
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/mokki-vai-huoneisto-levi" />
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/cabin-vs-apartment-in-levi" />

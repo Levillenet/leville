@@ -63,6 +63,7 @@ const ComparisonHub = lazy(() => import("./pages/guide/ComparisonHub"));
 
 // Travel HUB Child Pages
 const GettingAroundLevi = lazy(() => import("./pages/guide/GettingAroundLevi"));
+const DrivingInLapland = lazy(() => import("./pages/guide/DrivingInLapland"));
 const RestaurantsAndServices = lazy(() => import("./pages/guide/RestaurantsAndServices"));
 const LeviWithChildren = lazy(() => import("./pages/guide/LeviWithChildren"));
 const LeviWithoutCar = lazy(() => import("./pages/guide/LeviWithoutCar"));
@@ -214,6 +215,7 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/majoitukset" element={<Majoitukset />} />
               <Route path="/mokit-levilla" element={<MokitLevilla />} />
+              <Route path="/opas/autolla-ajaminen-lapissa" element={<DrivingInLapland />} />
               <Route path="/ajankohtaista" element={<Ajankohtaista />} />
               <Route path="/levi" element={<Levi />} />
               <Route path="/levi/joulu-lapissa" element={<JouluLapissa />} />
