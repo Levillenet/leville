@@ -215,6 +215,7 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/majoitukset" element={<Majoitukset />} />
               <Route path="/mokit-levilla" element={<MokitLevilla />} />
+              <Route path="/opas/autolla-ajaminen-lapissa" element={<DrivingInLapland />} />
               <Route path="/ajankohtaista" element={<Ajankohtaista />} />
               <Route path="/levi" element={<Levi />} />
               <Route path="/levi/joulu-lapissa" element={<JouluLapissa />} />
