@@ -169,7 +169,7 @@ export const searchPages: SearchPage[] = [
   { title: "Accessible Levi", description: "Accessibility information", path: "/guide/accessible-levi", lang: "en", category: "guide" },
   { title: "Sami Culture", description: "Sami people and indigenous culture", path: "/guide/sami-culture-in-levi", lang: "en", category: "guide" },
   { title: "Interactive Map", description: "Levi interactive map", path: "/guide/levi-interactive-map", lang: "en", category: "guide" },
-  { title: "Restaurant Guide", description: "Best restaurants in Levi", path: "/guide/restaurant-guide-levi", lang: "en", category: "guide" },
+  { title: "Restaurant Guide", description: "Best restaurants in Levi", path: "/guide/restaurant-guide-levi", lang: "en", category: "guide", keywords: ["Colorado", "Hullu Poro", "King Crab", "Niliporo", "Ämmilä", "Sapuska", "Restaurant Asia", "Pannukakkutalo", "Aurora Sky", "Saaga", "burger", "pizza", "fajitas", "ribs", "tex-mex", "fine dining", "Lappish food", "reindeer"] },
   { title: "Monthly Guide", description: "What to do each month in Levi", path: "/guide/monthly-guide-levi", lang: "en", category: "guide" },
 
   // EN Northern Lights
