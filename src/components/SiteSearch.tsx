@@ -106,13 +106,23 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
     return () => document.removeEventListener("keydown", down);
   }, [open, onOpenChange]);
 
+  // Match query against title, description and keywords. Multi-word queries
+  // require ALL tokens to be present somewhere in the value.
   const customFilter = useCallback((value: string, search: string) => {
-    const s = search.toLowerCase();
-    const [title, desc] = value.toLowerCase().split('|');
+    const s = search.toLowerCase().trim();
+    if (!s) return 0;
+    const [title = "", desc = "", kw = ""] = value.toLowerCase().split("|");
+    const haystack = `${title} ${desc} ${kw}`;
+    const tokens = s.split(/\s+/).filter(Boolean);
+    const allMatch = tokens.every((t) => haystack.includes(t));
+    if (!allMatch) return 0;
+    // Scoring: title prefix > title contains > keyword/desc contains
     if (title.startsWith(s)) return 1;
-    if (title.includes(s)) return 0.8;
-    if (desc?.includes(s)) return 0.5;
-    return 0;
+    if (title.includes(s)) return 0.85;
+    if (kw.includes(s)) return 0.7;
+    if (desc.includes(s)) return 0.55;
+    // multi-word match across fields
+    return 0.4;
   }, []);
 
   return (
@@ -123,7 +133,7 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
         {langPages.map((page) => (
           <CommandItem
             key={page.path}
-            value={`${page.title}|${page.description}`}
+            value={`${page.title}|${page.description}|${(page.keywords || []).join(" ")}`}
             onSelect={() => handleSelect(page.path)}
             className="cursor-pointer"
           >

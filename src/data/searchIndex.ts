@@ -6,6 +6,8 @@ export interface SearchPage {
   path: string;
   lang: Language;
   category: string;
+  /** Vapaamuotoiset avainsanat sisällöstä — auttavat hakua löytämään sivun esim. ravintolan, paikan tai aiheen nimellä. */
+  keywords?: string[];
 }
 
 // Category labels per language
@@ -55,16 +57,17 @@ export const searchPages: SearchPage[] = [
   { title: "Kesä Levillä", description: "Kesäaktiviteetit ja yötön yö", path: "/opas/kesa-levi", lang: "fi", category: "guide" },
   { title: "Syksy ja ruska Levillä", description: "Ruskakausi ja syysaktiviteetit", path: "/opas/syksy-ruska-levi", lang: "fi", category: "guide" },
   { title: "Liikkuminen Levillä", description: "Julkinen liikenne ja kulkuyhteydet", path: "/opas/liikkuminen-levilla", lang: "fi", category: "travel" },
-  { title: "Ravintolat ja palvelut", description: "Ravintolat, kaupat ja palvelut Levillä", path: "/opas/ravintolat-ja-palvelut-levilla", lang: "fi", category: "guide" },
+  { title: "Ravintolat ja palvelut", description: "Ravintolat, kaupat ja palvelut Levillä", path: "/opas/ravintolat-ja-palvelut-levilla", lang: "fi", category: "guide", keywords: ["ravintola", "ruoka", "kahvila", "baari", "kauppa", "apteekki", "K-Market", "S-Market", "Hullu Poro", "Colorado", "King Crab", "Sapuska", "Niliporo", "Ämmilä", "Saaga", "Pannukakkutalo", "Restaurant Asia", "Aurora Sky", "Kekäle", "Tuikku"] },
+  { title: "Levin ravintolat ja annokset", description: "Kuvallinen ravintolaopas Levin ravintoloihin – Colorado, Hullu Poro, Niliporo, King Crab ja muut", path: "/opas/levin-ravintolat-ja-annokset", lang: "fi", category: "guide", keywords: ["Colorado", "Hullu Poro", "King Crab", "Niliporo", "Ämmilä", "Sapuska", "Restaurant Asia", "Pannukakkutalo", "Aurora Sky", "Saaga", "ravintola", "annos", "ruoka", "fine dining", "burger", "pizza", "fajitas", "ribsit", "poronkäristys", "tex-mex", "lappilainen ruoka"] },
   { title: "Lapsiperheet Levillä", description: "Vinkit lapsiperheille Levillä", path: "/opas/lapsiperheet-levilla", lang: "fi", category: "guide" },
   { title: "Levi ilman autoa", description: "Miten pärjää Levillä ilman autoa", path: "/opas/levi-ilman-autoa", lang: "fi", category: "travel" },
   { title: "Lämmitysjärjestelmät", description: "Ilmalämpöpumput ja lämmitys Levillä", path: "/opas/lammitysjarjestelmat-levi", lang: "fi", category: "guide" },
   { title: "Levi vs Ylläs vs Ruka", description: "Vertailu: Levi, Ylläs vai Ruka?", path: "/opas/levi-vs-yllas-vs-ruka", lang: "fi", category: "comparison" },
   { title: "Levi vs Rovaniemi", description: "Vertailu: Levi vai Rovaniemi?", path: "/opas/levi-vs-rovaniemi", lang: "fi", category: "comparison" },
-  { title: "Sauna Levillä", description: "Saunaopas ja saunakulttuuri", path: "/opas/sauna-levilla", lang: "fi", category: "guide" },
-  { title: "Levi UKK", description: "Usein kysytyt kysymykset Levistä — 60+ vastausta", path: "/levi/ukk", lang: "fi", category: "guide" },
-  { title: "Lapin sanasto", description: "Hyödyllisiä sanoja ja termejä", path: "/opas/lapin-sanasto", lang: "fi", category: "guide" },
-  { title: "Hinnat Levillä", description: "Hintatasot ja budjettivinkit", path: "/opas/hinnat-levilla", lang: "fi", category: "guide" },
+  { title: "Sauna Levillä", description: "Saunaopas ja saunakulttuuri", path: "/opas/sauna-levilla", lang: "fi", category: "guide", keywords: ["sauna", "savusauna", "palju", "kylpytynnyri", "avantouinti", "saunakulttuuri", "hot tub"] },
+  { title: "Levi UKK", description: "Usein kysytyt kysymykset Levistä — 60+ vastausta", path: "/levi/ukk", lang: "fi", category: "guide", keywords: ["ukk", "faq", "kysymys", "vastaus", "kysy", "info"] },
+  { title: "Lapin sanasto", description: "Hyödyllisiä sanoja ja termejä", path: "/opas/lapin-sanasto", lang: "fi", category: "guide", keywords: ["sanasto", "tykky", "kuksa", "poronkäristys", "ruska", "kaamos"] },
+  { title: "Hinnat Levillä", description: "Hintatasot ja budjettivinkit", path: "/opas/hinnat-levilla", lang: "fi", category: "guide", keywords: ["hinta", "hissilippu", "ravintola", "ruoka", "budjetti", "kulut"] },
   { title: "Paras aika matkustaa Leville", description: "Milloin kannattaa matkustaa Leville", path: "/opas/paras-aika-matkustaa-leville", lang: "fi", category: "guide" },
   { title: "Mökki vai huoneisto", description: "Mökki- ja huoneistomajoitus vertailussa", path: "/opas/mokki-vai-huoneisto-levi", lang: "fi", category: "guide" },
   { title: "Pakkauslista Lapin lomalle", description: "Mitä pakata mukaan Levi-lomalle", path: "/opas/pakkauslista-lapin-lomalle", lang: "fi", category: "guide" },
@@ -138,7 +141,7 @@ export const searchPages: SearchPage[] = [
   { title: "Summer in Levi", description: "Summer activities and midnight sun", path: "/guide/summer-in-levi", lang: "en", category: "guide" },
   { title: "Autumn & Ruska", description: "Autumn foliage season in Levi", path: "/guide/autumn-ruska-in-levi", lang: "en", category: "guide" },
   { title: "Getting Around Levi", description: "Public transport and getting around", path: "/guide/getting-around-in-levi", lang: "en", category: "travel" },
-  { title: "Restaurants & Services", description: "Restaurants, shops and services", path: "/guide/restaurants-and-services-in-levi", lang: "en", category: "guide" },
+  { title: "Restaurants & Services", description: "Restaurants, shops and services", path: "/guide/restaurants-and-services-in-levi", lang: "en", category: "guide", keywords: ["restaurant", "food", "cafe", "bar", "shop", "Hullu Poro", "Colorado", "King Crab", "Sapuska", "Niliporo", "Ämmilä", "Saaga", "Pannukakkutalo", "Restaurant Asia", "Aurora Sky", "grocery", "pharmacy"] },
   { title: "Levi with Children", description: "Tips for families with kids", path: "/guide/levi-with-children", lang: "en", category: "guide" },
   { title: "Levi without a Car", description: "How to enjoy Levi without a car", path: "/guide/levi-without-a-car", lang: "en", category: "travel" },
   { title: "Heating Systems", description: "Heating guide for Levi accommodations", path: "/guide/heating-systems-in-levi", lang: "en", category: "guide" },
@@ -166,7 +169,7 @@ export const searchPages: SearchPage[] = [
   { title: "Accessible Levi", description: "Accessibility information", path: "/guide/accessible-levi", lang: "en", category: "guide" },
   { title: "Sami Culture", description: "Sami people and indigenous culture", path: "/guide/sami-culture-in-levi", lang: "en", category: "guide" },
   { title: "Interactive Map", description: "Levi interactive map", path: "/guide/levi-interactive-map", lang: "en", category: "guide" },
-  { title: "Restaurant Guide", description: "Best restaurants in Levi", path: "/guide/restaurant-guide-levi", lang: "en", category: "guide" },
+  { title: "Restaurant Guide", description: "Best restaurants in Levi", path: "/guide/restaurant-guide-levi", lang: "en", category: "guide", keywords: ["Colorado", "Hullu Poro", "King Crab", "Niliporo", "Ämmilä", "Sapuska", "Restaurant Asia", "Pannukakkutalo", "Aurora Sky", "Saaga", "burger", "pizza", "fajitas", "ribs", "tex-mex", "fine dining", "Lappish food", "reindeer"] },
   { title: "Monthly Guide", description: "What to do each month in Levi", path: "/guide/monthly-guide-levi", lang: "en", category: "guide" },
 
   // EN Northern Lights
