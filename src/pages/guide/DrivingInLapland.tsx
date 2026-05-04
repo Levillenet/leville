@@ -243,15 +243,16 @@ const DrivingInLapland = () => {
       <JsonLd data={getFAQSchema(faqs)} />
 
       <SubpageBackground />
-      <Header lang="fi" />
+      <Header />
 
       <main className="relative pt-24 pb-16">
         <div className="container max-w-4xl mx-auto px-4">
           <Breadcrumbs
+            lang="fi"
             items={[
               { label: "Etusivu", href: "/" },
               { label: "Opas", href: "/opas/matkaopas-levi" },
-              { label: "Autolla ajaminen Lapissa" },
+              { label: "Autolla ajaminen Lapissa", href: "/opas/autolla-ajaminen-lapissa" },
             ]}
           />
 
