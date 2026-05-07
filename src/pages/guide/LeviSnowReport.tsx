@@ -71,7 +71,7 @@ const translations = {
     cta: {
       title: "Varaa lumilomasi Levillä",
       text: "Kaikki kohteemme sijaitsevat rinteiden ja latujen välittömässä läheisyydessä. Varaa suoraan meiltä ja saat parhaan hinnan.",
-      button: "Katso vapaat majoitukset →",
+      button: "Katso huoneistot ja mökit →",
       secondary: "Kysy tarjous majoitus + hissiliput -paketista!",
       phone: "+358 44 13 13 13",
     },
@@ -150,7 +150,7 @@ const translations = {
     cta: {
       title: "Book Your Snow Holiday in Levi",
       text: "All our properties are located next to slopes and ski trails. Book directly with us for the best price.",
-      button: "Check Available Accommodation →",
+      button: "View apartments & cabins →",
       secondary: "Ask about accommodation + ski pass packages!",
       phone: "+358 44 13 13 13",
     },

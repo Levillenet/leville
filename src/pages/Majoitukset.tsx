@@ -159,6 +159,30 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </div>
             </ScrollReveal>
 
+            {/* Section heading */}
+            <ScrollReveal>
+              <div className="text-center mb-8 md:mb-10 px-2">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
+                  {lang === "fi" ? "Mökit ja huoneistot Levillä"
+                    : lang === "en" ? "Cabins and apartments in Levi"
+                    : lang === "sv" ? "Stugor och lägenheter i Levi"
+                    : lang === "de" ? "Hütten und Apartments in Levi"
+                    : lang === "es" ? "Cabañas y apartamentos en Levi"
+                    : lang === "fr" ? "Chalets et appartements à Levi"
+                    : "Hutten en appartementen in Levi"}
+                </h2>
+                <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
+                  {lang === "fi" ? "Valitse studiosta tilavaan hirsimökkiin — kaikki kohteet rinteiden ja palveluiden välittömässä läheisyydessä."
+                    : lang === "en" ? "From cozy studios to spacious log cabins — all properties next to the slopes and services."
+                    : lang === "sv" ? "Från studio till rymliga timmerstugor — alla nära pisterna och servicen."
+                    : lang === "de" ? "Vom Studio bis zur geräumigen Blockhütte — alle Objekte direkt an Pisten und Services."
+                    : lang === "es" ? "Desde estudios hasta amplias cabañas de madera — todos junto a las pistas y servicios."
+                    : lang === "fr" ? "Du studio aux vastes chalets en rondins — tous proches des pistes et des services."
+                    : "Van studio's tot ruime blokhutten — allemaal naast de pistes en voorzieningen."}
+                </p>
+              </div>
+            </ScrollReveal>
+
             {/* Accommodations Grid */}
             <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16 md:mb-20">
               {t.accommodations.map((acc, index) => {

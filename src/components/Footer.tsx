@@ -14,7 +14,7 @@ interface FooterProps {
 const Footer = ({ lang = "fi" }: FooterProps) => {
   const content = {
     fi: {
-      description: "Laadukasta majoitusta Levin keskustassa. Varaa suoraan meiltä parhaaseen hintaan.",
+      description: "Laadukkaita huoneistoja ja mökkejä Levin keskustassa. Varaa suoraan meiltä — sama kohde kuin Booking.comissa.",
       siteTitle: "Sivusto",
       trustTitle: "Arvioitu erinomaiseksi",
       links: [
@@ -36,7 +36,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       paymentInfo: "Turvallisen maksamisen takaa Paytrail"
     },
     en: {
-      description: "Quality accommodation in Levi center. Book directly from us for the best price.",
+      description: "Quality apartments and cabins in Levi center. Book directly from us — same property as on Booking.com.",
       siteTitle: "Site",
       trustTitle: "Rated Excellent",
       links: [
@@ -64,7 +64,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       paymentInfo: "Secure payments powered by Paytrail"
     },
     sv: {
-      description: "Kvalitetsboende i Levi centrum. Boka direkt från oss för bästa pris.",
+      description: "Lägenheter och stugor av hög kvalitet i Levi centrum. Boka direkt hos oss.",
       siteTitle: "Webbplats",
       trustTitle: "Utmärkt betyg",
       links: [
@@ -85,7 +85,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       paymentInfo: "Säkra betalningar via Paytrail"
     },
     de: {
-      description: "Qualitätsunterkünfte im Zentrum von Levi. Buchen Sie direkt bei uns zum besten Preis.",
+      description: "Hochwertige Apartments und Hütten im Zentrum von Levi. Buchen Sie direkt bei uns.",
       siteTitle: "Seite",
       trustTitle: "Hervorragend bewertet",
       links: [
@@ -106,7 +106,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       paymentInfo: "Sichere Zahlungen über Paytrail"
     },
     es: {
-      description: "Alojamiento de calidad en el centro de Levi. Reserva directamente con nosotros al mejor precio.",
+      description: "Apartamentos y cabañas de calidad en el centro de Levi. Reserva directamente con nosotros.",
       siteTitle: "Sitio",
       trustTitle: "Calificación excelente",
       links: [
@@ -127,7 +127,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       paymentInfo: "Pagos seguros a través de Paytrail"
     },
     fr: {
-      description: "Hébergement de qualité au centre de Levi. Réservez directement chez nous au meilleur prix.",
+      description: "Appartements et chalets de qualité au centre de Levi. Réservez directement chez nous.",
       siteTitle: "Site",
       trustTitle: "Noté excellent",
       links: [
@@ -148,7 +148,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       paymentInfo: "Paiements sécurisés via Paytrail"
     },
     nl: {
-      description: "Kwaliteitsaccommodatie in het centrum van Levi. Boek direct bij ons voor de beste prijs.",
+      description: "Kwaliteitsappartementen en blokhutten in het centrum van Levi. Boek direct bij ons.",
       siteTitle: "Website",
       trustTitle: "Uitstekend beoordeeld",
       links: [

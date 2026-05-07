@@ -57,7 +57,7 @@ export const crossCountrySkiingTranslations = {
         { q: "Tarvitseeko latumaksun?", a: "Levin ladut ovat maksuttomia. Välineet voi vuokrata paikan päältä." }
       ]
     },
-    cta: { hub: "Takaisin Levi-oppaaseen", hubLink: "/levi", accommodation: "Varaa majoitus Leviltä", accommodationLink: "/majoitukset" },
+    cta: { hub: "Takaisin Levi-oppaaseen", hubLink: "/levi", accommodation: "Katso huoneistot ja mökit", accommodationLink: "/majoitukset" },
     readNext: {
       title: "Lue myös",
       links: [
@@ -127,7 +127,7 @@ export const crossCountrySkiingTranslations = {
         { q: "Is there a trail fee?", a: "Levi's trails are free of charge. Equipment can be rented on site." }
       ]
     },
-    cta: { hub: "Back to Levi Travel Guide", hubLink: "/en/levi", accommodation: "Book accommodation in Levi", accommodationLink: "/en/accommodations" },
+    cta: { hub: "Back to Levi Travel Guide", hubLink: "/en/levi", accommodation: "View apartments & cabins", accommodationLink: "/en/accommodations" },
     readNext: {
       title: "Read Next",
       links: [
