@@ -307,7 +307,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
 
       {/* Period selector */}
       <div className="flex gap-2 flex-wrap">
-        {(["today", "week", "month", "30days"] as Period[]).map((p) => (
+        {(["today", "week", "month", "30days", "90days", "180days"] as Period[]).map((p) => (
           <Button
             key={p}
             variant={period === p ? "default" : "outline"}
