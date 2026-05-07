@@ -181,7 +181,7 @@ const translations = {
     cta: {
       hub: "Takaisin Levi-oppaaseen",
       hubLink: "/levi",
-      accommodation: "Varaa majoitus Leviltä",
+      accommodation: "Katso huoneistot ja mökit",
       accommodationLink: "/majoitukset"
     },
     breadcrumbLabel: "Säätietoa Leviltä",
@@ -348,7 +348,7 @@ const translations = {
     cta: {
       hub: "Back to Levi Travel Guide",
       hubLink: "/en/levi",
-      accommodation: "Book Accommodation in Levi",
+      accommodation: "View apartments & cabins",
       accommodationLink: "/en/accommodations"
     },
     breadcrumbLabel: "Weather in Levi",
