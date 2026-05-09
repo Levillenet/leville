@@ -444,6 +444,17 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
                           href={moderUrl}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() => {
+                            import("@/lib/logPromoClick").then(({ logPromoClick }) =>
+                              logPromoClick({
+                                banner_id: null,
+                                banner_title: "Summer campaign – SUMMER 10%",
+                                placement: "summer_page",
+                                language: lang,
+                                target_url: moderUrl,
+                              })
+                            );
+                          }}
                           className="inline-flex items-center gap-2 bg-white text-emerald-700 hover:bg-emerald-50 transition-colors font-bold rounded-xl px-6 py-3 shadow-lg"
                         >
                           {c.cta}
