@@ -503,6 +503,38 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
           })}
         </div>
       )}
+
+      {/* Static (hardcoded) banner click stats */}
+      {staticStats.length > 0 && (
+        <div className="mt-8">
+          <h3 className="text-base font-semibold mb-3">
+            Staattiset bannerit (kovakoodatut sivut) – {statsDays} pv
+          </h3>
+          <div className="space-y-2">
+            {staticStats.map((s, i) => (
+              <Card key={`static-${i}`}>
+                <CardContent className="py-3">
+                  <div className="flex items-center gap-2 flex-wrap mb-1">
+                    <span className="font-medium">{s.banner_title || "–"}</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-muted">
+                      📍 {s.placement || "unknown"}
+                    </span>
+                    <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-primary/10 text-primary border border-primary/20">
+                      👆 {s.total} klikkiä
+                    </span>
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Kielet: {Object.entries(s.by_language).map(([l, n]) => `${l}: ${n}`).join(", ") || "–"}
+                  </div>
+                  <div className="text-xs text-muted-foreground truncate">
+                    Kohde: {Object.entries(s.by_target_url).map(([u, n]) => `${u} (${n})`).join(", ") || s.target_url || "–"}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
