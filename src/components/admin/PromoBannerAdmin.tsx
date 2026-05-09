@@ -143,12 +143,23 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
       });
       if (data?.summary && Array.isArray(data.summary)) {
         const map: Record<string, { total: number; by_language: Record<string, number> }> = {};
+        const statics: typeof staticStats = [];
         for (const row of data.summary) {
           if (row.banner_id) {
             map[row.banner_id] = { total: row.total, by_language: row.by_language || {} };
+          } else {
+            statics.push({
+              banner_title: row.banner_title,
+              placement: row.placement,
+              target_url: row.target_url,
+              total: row.total,
+              by_language: row.by_language || {},
+              by_target_url: row.by_target_url || {},
+            });
           }
         }
         setClickStats(map);
+        setStaticStats(statics);
       }
     } catch (e) {
       console.error(e);
