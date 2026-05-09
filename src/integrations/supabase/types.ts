@@ -1451,6 +1451,42 @@ export type Database = {
         }
         Relationships: []
       }
+      promo_banner_clicks: {
+        Row: {
+          banner_id: string | null
+          banner_title: string | null
+          created_at: string
+          id: string
+          language: string | null
+          placement: string | null
+          referrer: string | null
+          session_id: string | null
+          target_url: string | null
+        }
+        Insert: {
+          banner_id?: string | null
+          banner_title?: string | null
+          created_at?: string
+          id?: string
+          language?: string | null
+          placement?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          target_url?: string | null
+        }
+        Update: {
+          banner_id?: string | null
+          banner_title?: string | null
+          created_at?: string
+          id?: string
+          language?: string | null
+          placement?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          target_url?: string | null
+        }
+        Relationships: []
+      }
       promo_banners: {
         Row: {
           button_text_de: string | null

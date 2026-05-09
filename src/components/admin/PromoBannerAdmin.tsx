@@ -114,6 +114,8 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
   const [editing, setEditing] = useState<PromoBannerData | null>(null);
   const [saving, setSaving] = useState(false);
   const [translating, setTranslating] = useState(false);
+  const [clickStats, setClickStats] = useState<Record<string, { total: number; by_language: Record<string, number> }>>({});
+  const [statsDays, setStatsDays] = useState<number>(30);
   const { toast } = useToast();
 
   const password = localStorage.getItem("admin_password") || "";
@@ -133,7 +135,27 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
     setLoading(false);
   };
 
-  useEffect(() => { fetchBanners(); }, []);
+  const fetchClickStats = async (days: number = statsDays) => {
+    try {
+      const { data } = await supabase.functions.invoke("get-promo-click-stats", {
+        body: { password, days },
+      });
+      if (data?.summary && Array.isArray(data.summary)) {
+        const map: Record<string, { total: number; by_language: Record<string, number> }> = {};
+        for (const row of data.summary) {
+          if (row.banner_id) {
+            map[row.banner_id] = { total: row.total, by_language: row.by_language || {} };
+          }
+        }
+        setClickStats(map);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => { fetchBanners(); fetchClickStats(statsDays); }, []);
+  useEffect(() => { fetchClickStats(statsDays); }, [statsDays]);
 
   const handlePageSelect = (routeKey: string) => {
     if (!editing) return;
@@ -236,13 +258,24 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <h2 className="text-xl font-bold">Etusivun promobanneri</h2>
-        {!editing && (
-          <Button onClick={() => setEditing({ ...emptyBanner })} size="sm">
-            <Plus className="w-4 h-4 mr-1" /> Uusi banneri
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          <Select value={String(statsDays)} onValueChange={(v) => setStatsDays(Number(v))}>
+            <SelectTrigger className="h-9 w-[140px]"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="7">Klikit: 7 pv</SelectItem>
+              <SelectItem value="30">Klikit: 30 pv</SelectItem>
+              <SelectItem value="90">Klikit: 90 pv</SelectItem>
+              <SelectItem value="180">Klikit: 180 pv</SelectItem>
+            </SelectContent>
+          </Select>
+          {!editing && (
+            <Button onClick={() => setEditing({ ...emptyBanner })} size="sm">
+              <Plus className="w-4 h-4 mr-1" /> Uusi banneri
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Edit form */}
@@ -428,6 +461,13 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
                       </span>
                       <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-leville-turquoise/15 text-leville-turquoise border border-leville-turquoise/30">
                         {(b as any).placement === "hero" ? "🎿 Hero-badge" : "📢 Iso banneri"}
+                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-primary/10 text-primary border border-primary/20" title={
+                        clickStats[b.id]
+                          ? Object.entries(clickStats[b.id].by_language).map(([l, n]) => `${l}: ${n}`).join(", ")
+                          : "Ei klikkejä"
+                      }>
+                        👆 {clickStats[b.id]?.total || 0} klikkiä ({statsDays} pv)
                       </span>
                     </div>
                     <p className="text-sm text-muted-foreground truncate">

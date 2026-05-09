@@ -133,6 +133,18 @@ const PromoBanner = ({ lang = "fi" }: PromoBannerProps) => {
   const targetUrl = getTargetUrl(banner);
   const isExternal = targetUrl.startsWith("http");
 
+  const handleClick = () => {
+    import("@/lib/logPromoClick").then(({ logPromoClick }) =>
+      logPromoClick({
+        banner_id: banner.id,
+        banner_title: banner.title,
+        placement: "below_hero",
+        language: lang,
+        target_url: targetUrl,
+      })
+    );
+  };
+
   const content = (
     <div
       className={`relative overflow-hidden rounded-2xl bg-gradient-to-r ${theme.gradient} shadow-xl hover:shadow-2xl transition-shadow`}
@@ -164,7 +176,7 @@ const PromoBanner = ({ lang = "fi" }: PromoBannerProps) => {
   if (isExternal) {
     return (
       <section className="container mx-auto px-4 py-6">
-        <a href={targetUrl} target="_blank" rel="noopener noreferrer" className="block">
+        <a href={targetUrl} target="_blank" rel="noopener noreferrer" className="block" onClick={handleClick}>
           {content}
         </a>
       </section>
@@ -173,7 +185,7 @@ const PromoBanner = ({ lang = "fi" }: PromoBannerProps) => {
 
   return (
     <section className="container mx-auto px-4 py-6">
-      <Link to={targetUrl} className="block">
+      <Link to={targetUrl} className="block" onClick={handleClick}>
         {content}
       </Link>
     </section>
