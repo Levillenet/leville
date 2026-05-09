@@ -10,7 +10,7 @@ import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sun, TreePine, Mountain, ArrowRight, Star, Bike, Fish, Thermometer } from "lucide-react";
+import { Sun, TreePine, Mountain, ArrowRight, Star, Bike, Fish, Thermometer, Tag, Sparkles } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import OptimizedImage from "@/components/OptimizedImage";
