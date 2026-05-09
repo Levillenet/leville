@@ -114,6 +114,8 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
   const [editing, setEditing] = useState<PromoBannerData | null>(null);
   const [saving, setSaving] = useState(false);
   const [translating, setTranslating] = useState(false);
+  const [clickStats, setClickStats] = useState<Record<string, { total: number; by_language: Record<string, number> }>>({});
+  const [statsDays, setStatsDays] = useState<number>(30);
   const { toast } = useToast();
 
   const password = localStorage.getItem("admin_password") || "";
@@ -133,7 +135,27 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
     setLoading(false);
   };
 
-  useEffect(() => { fetchBanners(); }, []);
+  const fetchClickStats = async (days: number = statsDays) => {
+    try {
+      const { data } = await supabase.functions.invoke("get-promo-click-stats", {
+        body: { password, days },
+      });
+      if (data?.summary && Array.isArray(data.summary)) {
+        const map: Record<string, { total: number; by_language: Record<string, number> }> = {};
+        for (const row of data.summary) {
+          if (row.banner_id) {
+            map[row.banner_id] = { total: row.total, by_language: row.by_language || {} };
+          }
+        }
+        setClickStats(map);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => { fetchBanners(); fetchClickStats(statsDays); }, []);
+  useEffect(() => { fetchClickStats(statsDays); }, [statsDays]);
 
   const handlePageSelect = (routeKey: string) => {
     if (!editing) return;
