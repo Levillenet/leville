@@ -43,6 +43,18 @@ const HeroPromoBadge = ({ lang = "fi", fallbackText }: HeroPromoBadgeProps) => {
   const targetUrl = getTargetUrl(banner);
   const isExternal = targetUrl.startsWith("http");
 
+  const handleClick = () => {
+    import("@/lib/logPromoClick").then(({ logPromoClick }) =>
+      logPromoClick({
+        banner_id: banner.id,
+        banner_title: banner.title,
+        placement: "hero",
+        language: lang,
+        target_url: targetUrl,
+      })
+    );
+  };
+
   const pill = (
     <div className="inline-flex items-center gap-2.5 bg-leville-turquoise/15 border border-leville-turquoise/30 hover:bg-leville-turquoise/25 transition-colors rounded-full px-5 py-2.5 backdrop-blur-sm cursor-pointer">
       <span className="text-xl">{theme.emoji}</span>
@@ -58,13 +70,13 @@ const HeroPromoBadge = ({ lang = "fi", fallbackText }: HeroPromoBadgeProps) => {
 
   if (isExternal) {
     return (
-      <a href={targetUrl} target="_blank" rel="noopener noreferrer">
+      <a href={targetUrl} target="_blank" rel="noopener noreferrer" onClick={handleClick}>
         {pill}
       </a>
     );
   }
 
-  return <Link to={targetUrl}>{pill}</Link>;
+  return <Link to={targetUrl} onClick={handleClick}>{pill}</Link>;
 };
 
 export default HeroPromoBadge;
