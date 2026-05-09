@@ -258,13 +258,24 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <h2 className="text-xl font-bold">Etusivun promobanneri</h2>
-        {!editing && (
-          <Button onClick={() => setEditing({ ...emptyBanner })} size="sm">
-            <Plus className="w-4 h-4 mr-1" /> Uusi banneri
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          <Select value={String(statsDays)} onValueChange={(v) => setStatsDays(Number(v))}>
+            <SelectTrigger className="h-9 w-[140px]"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="7">Klikit: 7 pv</SelectItem>
+              <SelectItem value="30">Klikit: 30 pv</SelectItem>
+              <SelectItem value="90">Klikit: 90 pv</SelectItem>
+              <SelectItem value="180">Klikit: 180 pv</SelectItem>
+            </SelectContent>
+          </Select>
+          {!editing && (
+            <Button onClick={() => setEditing({ ...emptyBanner })} size="sm">
+              <Plus className="w-4 h-4 mr-1" /> Uusi banneri
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Edit form */}
