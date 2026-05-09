@@ -292,10 +292,28 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
               </div>
             </div>
 
+            <div>
+              <Label>Linkki (URL tai polku) *</Label>
+              <Input
+                value={editing.target_url}
+                onChange={(e) => setEditing({ ...editing, target_url: e.target.value })}
+                placeholder="/majoitukset tai https://..."
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                Voit valita yllä valmiin sivun tai kirjoittaa tähän oman linkin (sisäinen polku /jotain tai ulkoinen https://...).
+              </p>
+            </div>
+
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Switch checked={editing.redirect_localized} onCheckedChange={(v) => setEditing({ ...editing, redirect_localized: v })} />
-                <Label>Ohjaa kielen mukaiseen versioon</Label>
+                <Switch
+                  checked={editing.redirect_localized}
+                  onCheckedChange={(v) => setEditing({ ...editing, redirect_localized: v })}
+                  disabled={editing.target_url.startsWith("http")}
+                />
+                <Label className={editing.target_url.startsWith("http") ? "opacity-50" : ""}>
+                  Ohjaa kielen mukaiseen versioon
+                </Label>
               </div>
               {editing.route_key && (
                 <span className="text-xs text-muted-foreground">

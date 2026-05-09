@@ -96,7 +96,7 @@ Return ONLY a valid JSON object with this exact structure (no markdown, no expla
   "nl": { "heading": "...", "subtext": "...", "button_text": "..." }
 }`;
 
-      const aiResponse = await fetch("https://ai.gateway.lovable.dev/chat/completions", {
+      const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -113,7 +113,18 @@ Return ONLY a valid JSON object with this exact structure (no markdown, no expla
       });
 
       if (!aiResponse.ok) {
-        throw new Error(`AI Gateway error: ${aiResponse.status}`);
+        const errText = await aiResponse.text();
+        if (aiResponse.status === 429) {
+          return new Response(JSON.stringify({ error: "Liian monta pyyntöä, yritä hetken kuluttua uudelleen." }), {
+            status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        if (aiResponse.status === 402) {
+          return new Response(JSON.stringify({ error: "AI-krediitit loppu. Lisää krediittejä työtilaan." }), {
+            status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        throw new Error(`AI Gateway error: ${aiResponse.status} ${errText}`);
       }
 
       const aiData = await aiResponse.json();
