@@ -10,7 +10,7 @@ import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sun, TreePine, Mountain, ArrowRight, Star, Bike, Fish, Thermometer } from "lucide-react";
+import { Sun, TreePine, Mountain, ArrowRight, Star, Bike, Fish, Thermometer, Tag, Sparkles } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -384,6 +384,77 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               <p className="text-lg text-primary font-medium mb-4">{t.subtitle}</p>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
             </section>
+
+            {/* Summer campaign banner */}
+            {(() => {
+              const moderUrl = lang === "fi"
+                ? "https://app.moder.fi/levillenet"
+                : lang === "nl"
+                ? "https://app.moder.fi/levillenet?lang=en"
+                : "https://app.moder.fi/levillenet?lang=en";
+              const copy = {
+                fi: {
+                  badge: "Kesäkampanja",
+                  title: "Varaa kesän loma Levillä – 10 % alennus",
+                  desc: "Käytä koodia SUMMER varauksen yhteydessä ja saat 10 % alennuksen kesämajoituksista. Etu on voimassa rajoitetun ajan – varaa suoraan meiltä.",
+                  code: "Alennuskoodi",
+                  cta: "Varaa kesäloma",
+                },
+                en: {
+                  badge: "Summer campaign",
+                  title: "Book your Levi summer holiday – 10% off",
+                  desc: "Use code SUMMER at checkout and get 10% off summer accommodations. Limited-time offer – book directly with us.",
+                  code: "Promo code",
+                  cta: "Book summer stay",
+                },
+                nl: {
+                  badge: "Zomercampagne",
+                  title: "Boek je zomervakantie in Levi – 10% korting",
+                  desc: "Gebruik code SUMMER bij het boeken en ontvang 10% korting op zomeraccommodaties. Aanbieding voor beperkte tijd – boek direct bij ons.",
+                  code: "Kortingscode",
+                  cta: "Boek zomerverblijf",
+                },
+              } as const;
+              const c = (copy as any)[lang] || copy.en;
+              return (
+                <section className="mb-12">
+                  <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-500 to-sky-500 shadow-xl">
+                    <div className="absolute inset-0 opacity-20 pointer-events-none">
+                      <Sun className="absolute top-4 right-6 w-24 h-24 text-white" />
+                      <Sparkles className="absolute bottom-4 left-6 w-16 h-16 text-white" />
+                    </div>
+                    <div className="relative z-10 p-6 md:p-10 text-white">
+                      <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 text-xs font-semibold mb-4">
+                        <Sparkles className="w-3.5 h-3.5" /> {c.badge}
+                      </div>
+                      <h2 className="text-2xl md:text-3xl font-extrabold mb-3 leading-tight">
+                        {c.title}
+                      </h2>
+                      <p className="text-white/90 mb-6 max-w-2xl">{c.desc}</p>
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div className="flex items-center gap-3 bg-white text-foreground rounded-xl px-4 py-3 shadow-md">
+                          <Tag className="w-5 h-5 text-emerald-600" />
+                          <div>
+                            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">{c.code}</div>
+                            <div className="text-lg font-extrabold tracking-widest text-emerald-700">SUMMER</div>
+                          </div>
+                          <div className="ml-2 px-2 py-1 rounded-md bg-emerald-100 text-emerald-800 text-sm font-bold">-10%</div>
+                        </div>
+                        <a
+                          href={moderUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 bg-white text-emerald-700 hover:bg-emerald-50 transition-colors font-bold rounded-xl px-6 py-3 shadow-lg"
+                        >
+                          {c.cta}
+                          <ArrowRight className="w-4 h-4" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              );
+            })()}
 
             {/* Hero image */}
             <section className="mb-12 rounded-xl overflow-hidden">
