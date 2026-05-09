@@ -462,6 +462,13 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
                       <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-leville-turquoise/15 text-leville-turquoise border border-leville-turquoise/30">
                         {(b as any).placement === "hero" ? "🎿 Hero-badge" : "📢 Iso banneri"}
                       </span>
+                      <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-primary/10 text-primary border border-primary/20" title={
+                        clickStats[b.id]
+                          ? Object.entries(clickStats[b.id].by_language).map(([l, n]) => `${l}: ${n}`).join(", ")
+                          : "Ei klikkejä"
+                      }>
+                        👆 {clickStats[b.id]?.total || 0} klikkiä ({statsDays} pv)
+                      </span>
                     </div>
                     <p className="text-sm text-muted-foreground truncate">
                       {b.heading_fi || "–"} → {b.target_url}
