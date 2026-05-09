@@ -115,6 +115,7 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
   const [saving, setSaving] = useState(false);
   const [translating, setTranslating] = useState(false);
   const [clickStats, setClickStats] = useState<Record<string, { total: number; by_language: Record<string, number> }>>({});
+  const [staticStats, setStaticStats] = useState<Array<{ banner_title: string | null; placement: string | null; target_url: string | null; total: number; by_language: Record<string, number>; by_target_url: Record<string, number> }>>([]);
   const [statsDays, setStatsDays] = useState<number>(30);
   const { toast } = useToast();
 
@@ -142,12 +143,23 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
       });
       if (data?.summary && Array.isArray(data.summary)) {
         const map: Record<string, { total: number; by_language: Record<string, number> }> = {};
+        const statics: typeof staticStats = [];
         for (const row of data.summary) {
           if (row.banner_id) {
             map[row.banner_id] = { total: row.total, by_language: row.by_language || {} };
+          } else {
+            statics.push({
+              banner_title: row.banner_title,
+              placement: row.placement,
+              target_url: row.target_url,
+              total: row.total,
+              by_language: row.by_language || {},
+              by_target_url: row.by_target_url || {},
+            });
           }
         }
         setClickStats(map);
+        setStaticStats(statics);
       }
     } catch (e) {
       console.error(e);
@@ -489,6 +501,38 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
               </Card>
             );
           })}
+        </div>
+      )}
+
+      {/* Static (hardcoded) banner click stats */}
+      {staticStats.length > 0 && (
+        <div className="mt-8">
+          <h3 className="text-base font-semibold mb-3">
+            Staattiset bannerit (kovakoodatut sivut) – {statsDays} pv
+          </h3>
+          <div className="space-y-2">
+            {staticStats.map((s, i) => (
+              <Card key={`static-${i}`}>
+                <CardContent className="py-3">
+                  <div className="flex items-center gap-2 flex-wrap mb-1">
+                    <span className="font-medium">{s.banner_title || "–"}</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-muted">
+                      📍 {s.placement || "unknown"}
+                    </span>
+                    <span className="text-xs px-2 py-0.5 rounded-full font-medium bg-primary/10 text-primary border border-primary/20">
+                      👆 {s.total} klikkiä
+                    </span>
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Kielet: {Object.entries(s.by_language).map(([l, n]) => `${l}: ${n}`).join(", ") || "–"}
+                  </div>
+                  <div className="text-xs text-muted-foreground truncate">
+                    Kohde: {Object.entries(s.by_target_url).map(([u, n]) => `${u} (${n})`).join(", ") || s.target_url || "–"}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       )}
     </div>
