@@ -35,24 +35,30 @@ Deno.serve(async (req) => {
 
     if (error) throw error;
 
-    // Aggregate by banner_id
+    // Aggregate by banner_id, or by placement+title for static (hardcoded) banners
     const byBanner: Record<string, any> = {};
     for (const c of data || []) {
-      const key = c.banner_id || "unknown";
+      const isStatic = !c.banner_id;
+      const key = c.banner_id || `static:${c.placement || "unknown"}|${c.banner_title || "untitled"}`;
       if (!byBanner[key]) {
         byBanner[key] = {
           banner_id: c.banner_id,
+          static_key: isStatic ? key : null,
+          is_static: isStatic,
           banner_title: c.banner_title,
           placement: c.placement,
           target_url: c.target_url,
           total: 0,
           by_language: {} as Record<string, number>,
+          by_target_url: {} as Record<string, number>,
           last_click_at: c.created_at,
         };
       }
       byBanner[key].total += 1;
       const lang = c.language || "unknown";
       byBanner[key].by_language[lang] = (byBanner[key].by_language[lang] || 0) + 1;
+      const turl = c.target_url || "unknown";
+      byBanner[key].by_target_url[turl] = (byBanner[key].by_target_url[turl] || 0) + 1;
     }
 
     const summary = Object.values(byBanner).sort((a: any, b: any) => b.total - a.total);
