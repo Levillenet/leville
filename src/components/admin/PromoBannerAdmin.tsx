@@ -115,6 +115,7 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
   const [saving, setSaving] = useState(false);
   const [translating, setTranslating] = useState(false);
   const [clickStats, setClickStats] = useState<Record<string, { total: number; by_language: Record<string, number> }>>({});
+  const [staticStats, setStaticStats] = useState<Array<{ banner_title: string | null; placement: string | null; target_url: string | null; total: number; by_language: Record<string, number>; by_target_url: Record<string, number> }>>([]);
   const [statsDays, setStatsDays] = useState<number>(30);
   const { toast } = useToast();
 
