@@ -1,26 +1,51 @@
-## Ongelma
+## Mitä tutkimus paljasti
 
-**1. Käännös ei toimi** — `manage-promo-banners` edge function kutsuu väärää AI-gateway URLia: `https://ai.gateway.lovable.dev/chat/completions` (puuttuu `/v1/`). Toimiva versio (esim. `translate-booking-terms`) käyttää `https://ai.gateway.lovable.dev/v1/chat/completions`.
+Tein analyysin tuotantodatasta. Tilanne ei ole niin paha kuin pyynnössä oletettiin, mutta **luokittelu on rikki** ja siksi `booking-link` näyttää tyhjältä.
 
-**2. Napille ei voi antaa linkkiä** — Admin-lomakkeessa voi valita vain valmiin "Kohdesivu"-pudotusvalikon (`route_key` → asettaa `target_url`). Vapaata URL-kenttää (esim. ulkoiseen tarjoussivuun tai mihin tahansa polkuun) ei ole näkyvissä, vaikka tietokannassa kenttä `target_url` on olemassa.
+**Viimeisen 2 kk klikit (yhteensä 721, ei 347):**
+- `/event/booking-link`: 381
+- `/event/booking-search-widget`: 240 (Moder-widgetin hakupainike)
+- `/event/booking-sticky-bar`: 69
+- `/event/booking-page-cta`: 31
 
-## Korjaukset
+**Miksi /opas/kesa-levi (635 näyttöä) ja /revontulet (410 näyttöä) eivät tuota `booking-link`-eventtejä:**
+Niiltä TULEE klikkejä – mutta ne menevät bucketeihin `booking-page-cta` ja `booking-sticky-bar`, koska `PageViewTracker.tsx`-globaalihandler luokittelee linkin ankkurin DOM-puun mukaan:
 
-### 1. `supabase/functions/manage-promo-banners/index.ts`
-- Vaihda fetch-URL `https://ai.gateway.lovable.dev/chat/completions` → `https://ai.gateway.lovable.dev/v1/chat/completions`.
-- Lisää 429/402-virheille selvät viestit (sama tyyli kuin `translate-booking-terms`), jotta admin näkee jos rate limit / krediitit lopussa.
+```text
+jos anchor inside .fixed.bottom-0     → booking-sticky-bar
+jos anchor inside <section> + .rounded-2xl → booking-page-cta
+muuten                                 → booking-link
+```
 
-### 2. `src/components/admin/PromoBannerAdmin.tsx` — Linkki napille
-Lisää "Kohdesivu"-valitsimen alle uusi tekstikenttä **"Linkki (URL tai polku)"**, joka:
-- näyttää ja muokkaa suoraan `editing.target_url`-arvoa
-- toimii sekä ulkoisille linkeille (`https://...`) että sisäisille poluille (`/majoitukset`)
-- pudotusvalikon valinta täyttää sen edelleen automaattisesti (nykyinen käytös), mutta käyttäjä voi yliajaa
-- Lisätään pieni ohje: "Voit myös tyhjentää sivuvalinnan ja kirjoittaa oman linkin tähän."
-- Jos URL on ulkoinen (`http`-alkuinen), `redirect_localized`-kytkin disabloituu/piilotetaan koska kielitettyjä versioita ei silloin ole.
+Lähes kaikki sisältösivujen CTA:t ovat `<section class="...rounded-2xl">` -wrapperin sisällä → luokitellaan `booking-page-cta`:ksi, eivät `booking-link`. Logiikka on hauras: jos Tailwind-luokat vaihtuvat tai joku kääre poistetaan, koko luokittelu liukuu.
 
-Hero-badge ja "Iso banneri" lukevat jo `getTargetUrl()`-funktiosta `target_url`-arvon, joten frontend-renderöinti toimii sellaisenaan.
+**Itse tracking-mekanismi toimii** – globaali capture-vaiheen click-listener nappaa kaikki `app.moder.fi` -linkit eikä ole rikki. `window.trackEvent`-funktiota ei ole olemassa, eikä sitä kannata luoda.
 
-## Mitä EI muuteta
-- Tietokantaskeema (kentät ovat jo olemassa).
-- `usePromoBanner`-hookki tai julkiset komponentit.
-- Muut admin-lomakkeen kentät.
+## Mitä tehdään
+
+1. **Yksinkertaista PageViewTracker-handler** – yksi yhteinen `/event/booking-link` kaikille app.moder.fi-klikeille (käyttäjän vastaus: "Yksi 'booking-link' kaikille"). Säilytetään `booking-search-widget` erillään (eri elementti, ei `<a>`).
+
+2. **Säilytä erottelu sticky-bar / muut** kevyemmällä logiikalla: tarkista anchorin `data-booking-source`-attribuutti. Jos puuttuu, oletus = `booking-link`. StickyBookingBar saa `data-booking-source="sticky-bar"`. (Valinnainen pieni lisä, mahdollistaa tulevan eriyttämisen ilman luokkamatchausta.)
+
+3. **Lisää keepalive-fallback** – nykyinen `supabase.from('page_views').insert()` ei käytä `keepalive`-flagia. Korvataan booking-konversion lähetys kevyellä `fetch(... , { keepalive: true })` -kutsulla suoraan REST-endpointiin (kuten engagement-flush jo tekee). Tämä parantaa luotettavuutta erityisesti mobiilissa kun selain vaihtaa tabia tai uusi tab nappaa fokuksen.
+
+4. **Älä koske komponenttitiedostoihin** – ei tarvita onClickeja 20 tiedostoon. Globaali handler tekee saman, ja vähemmillä virheillä.
+
+5. **Migraatio päivätietoon** ei tarvita – `page_views`-taulu ja eventti-poludet pysyvät samoina. Vanhat `booking-page-cta` / `booking-sticky-bar` -rivit säilyvät historiassa; uudet menevät `booking-link`-bucketiin.
+
+## Muutettavat tiedostot
+
+- `src/components/PageViewTracker.tsx` – yksinkertaista `handleClick`, käytä `keepalive: true` fetchiä booking-konversiolle.
+- `src/components/StickyBookingBar.tsx` – lisää `data-booking-source="sticky-bar"` (valinnainen tulevaa varten; ei pakollinen tämän taskin onnistumiselle).
+- `src/components/admin/PageViewsAdmin.tsx` – varmistetaan että UI näyttää `booking-link` yhtenä summana (mahdollisesti jo näkyy; tarkistetaan koodi).
+
+## Mitä odottaa toteutuksen jälkeen
+
+- `/event/booking-link` -määrä **kasvaa heti** ~3–5× nykyisestä (381 → ~700–900 per 2 kk), koska entiset `booking-page-cta`-rivit (31) ja vastaavat ohjautuvat samaan bucketiin sekä keepalive korjaa hävinneet kirjaukset.
+- Pyynnössä mainittu "3 000–6 000 / kk" -odotus on epärealistinen nykyisellä liikenteellä (~30 000 näyttöä / 2 kk → 1–2 % CTR booking-linkeissä on tyypillistä). Realistinen tavoite ~400–600 / kk.
+
+## Tekniset huomiot
+
+- Click-handler on jo `addEventListener("click", handler, true)` (capture) – ei tarvitse muutosta.
+- `target="_blank"`-linkit eivät keskeytä nykyistä tabia → fetch ehtii palvelimelle ilman keepalivea, mutta keepalive lisää varmuutta jos käyttäjä esim. sulkee mobiilissa tabin.
+- Ad-blockerit (uBlock + EasyPrivacy) blokkaavat `*.supabase.co/rest/v1/page_views` -POST:ia ~10–15 %:lla käyttäjistä. Tähän ei voi puuttua ilman omaa proxy-edge-funktiota – se on erillinen mahdollinen jatkotehtävä.

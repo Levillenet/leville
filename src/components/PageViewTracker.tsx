@@ -67,20 +67,32 @@ const trackEvent = async (path: string, referrer?: string | null): Promise<strin
   }
 };
 
-// Fire-and-forget event (conversions) — no id needed
-const trackEventNoId = async (path: string, referrer?: string | null) => {
+// Fire-and-forget event (conversions) — keepalive fetch so it survives tab/window changes
+const trackEventNoId = (path: string, referrer?: string | null) => {
   try {
     const utm = getUtmParams();
-    await supabase.from("page_views").insert({
-      path,
-      referrer: referrer ?? null,
-      device_type: getDeviceType(),
-      language: navigator.language?.split("-")[0] || null,
-      session_id: getSessionId(),
-      utm_source: utm.utm_source,
-      utm_medium: utm.utm_medium,
-      utm_campaign: utm.utm_campaign,
-    });
+    const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/page_views`;
+    const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": anonKey,
+        "Authorization": `Bearer ${anonKey}`,
+        "Prefer": "return=minimal",
+      },
+      body: JSON.stringify({
+        path,
+        referrer: referrer ?? null,
+        device_type: getDeviceType(),
+        language: navigator.language?.split("-")[0] || null,
+        session_id: getSessionId(),
+        utm_source: utm.utm_source,
+        utm_medium: utm.utm_medium,
+        utm_campaign: utm.utm_campaign,
+      }),
+      keepalive: true,
+    }).catch(() => {});
   } catch {
     // Silent fail
   }
@@ -232,7 +244,7 @@ const PageViewTracker = () => {
     };
   }, []);
 
-  // Track outbound clicks to app.moder.fi with specific event types
+  // Track outbound clicks to app.moder.fi — single unified booking-link event
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -244,16 +256,7 @@ const PageViewTracker = () => {
       }
 
       if (anchor?.href?.includes("app.moder.fi")) {
-        const isStickyBar = !!anchor.closest(".fixed.bottom-0");
-        const isPageCTA = !!anchor.closest("section");
-        
-        if (isStickyBar) {
-          trackConversion("/event/booking-sticky-bar", location.pathname);
-        } else if (isPageCTA && anchor.closest(".rounded-2xl")) {
-          trackConversion("/event/booking-page-cta", location.pathname);
-        } else {
-          trackConversion("/event/booking-link", location.pathname);
-        }
+        trackConversion("/event/booking-link", location.pathname);
         return;
       }
     };
