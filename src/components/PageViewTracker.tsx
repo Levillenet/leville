@@ -244,7 +244,7 @@ const PageViewTracker = () => {
     };
   }, []);
 
-  // Track outbound clicks to app.moder.fi with specific event types
+  // Track outbound clicks to app.moder.fi — single unified booking-link event
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -256,16 +256,7 @@ const PageViewTracker = () => {
       }
 
       if (anchor?.href?.includes("app.moder.fi")) {
-        const isStickyBar = !!anchor.closest(".fixed.bottom-0");
-        const isPageCTA = !!anchor.closest("section");
-        
-        if (isStickyBar) {
-          trackConversion("/event/booking-sticky-bar", location.pathname);
-        } else if (isPageCTA && anchor.closest(".rounded-2xl")) {
-          trackConversion("/event/booking-page-cta", location.pathname);
-        } else {
-          trackConversion("/event/booking-link", location.pathname);
-        }
+        trackConversion("/event/booking-link", location.pathname);
         return;
       }
     };
