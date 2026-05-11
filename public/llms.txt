@@ -1,44 +1,262 @@
 # Leville.net
 
-> Holiday accommodation rental service in Levi, Finnish Lapland. We offer apartments, chalets and cabins for 1–14 guests in the heart of Levi ski resort.
+> Holiday accommodation rental service in Levi, Finnish Lapland. We offer apartments, chalets and cabins for 1–14 guests in the heart of Levi ski resort. Direct bookings, no middleman, GDPR-free analytics.
 
-## Basic Info
+## Core Information
 
-- Website: https://leville.net
-- Primary language: Finnish (fi)
-- Supported languages: en, sv, de, es, fr, nl
-- Contact email: info@leville.net
-- Contact phone / WhatsApp: +358 44 131 313
-- Location: Levi, Kittilä, Finnish Lapland
-- Booking platform: https://app.moder.fi/levillenet
+- **Website:** https://leville.net
+- **Business:** Direct vacation rental (apartments, chalets, cabins)
+- **Primary Language:** Finnish (fi) — default language
+- **Supported Languages:** English (en), Swedish (sv), German (de), French (fr), Spanish (es), Dutch (nl)
+- **Location:** Levi, Kittilä, Finnish Lapland, 67°N (Arctic Circle)
+- **Nearest Airport:** Kittilä (KTT), 15 km away
+- **Email:** info@leville.net
+- **Phone / WhatsApp:** +358 44 131 313
+- **Booking Platform:** Moder (https://app.moder.fi/levillenet)
+- **Payment:** Paytrail (card, bank transfer, Apple Pay, Google Pay)
+- **Response Time:** Same day, including holidays
 
-## Main Sections
+## Main Navigation
 
-- [Accommodations](https://leville.net/majoitukset): All rental properties with availability search
-- [Levi Guide](https://leville.net/levi): Destination info, activities and seasonal highlights
-- [Northern Lights](https://leville.net/revontulet): Aurora borealis forecasts and tips
-- [FAQ](https://leville.net/ukk): Frequently asked questions about stays
-- [Booking Terms](https://leville.net/varausehdot): Terms and conditions
-- [Contact](https://leville.net/yhteystiedot): Contact information
+- [Accommodations](https://leville.net/majoitukset) — All properties with availability search
+- [Levi Guide](https://leville.net/levi) — Destination info, activities, seasonal guides
+- [Northern Lights](https://leville.net/revontulet) — Aurora forecasts, photography tips, timing
+- [Activities](https://leville.net/aktiviteetit) — Husky, reindeer, snowmobile, summer activities
+- [How to Get Here](https://leville.net/opas/kuinka-leviin) — Travel guides, routes
+- [FAQ](https://leville.net/ukk) — Common questions answered
+- [Blog/News](https://leville.net/uutiset) — Latest updates
+- [Contact](https://leville.net/yhteystiedot) — Direct messaging
 
-## Accommodation Categories
+## Accommodation Properties
 
-- **Skistar Apartments** — Modern studios & suites in Levi center (2–6 guests)
-- **Front Slope Chalets** (Hiihtäjänkuja) — Spacious apartments with fireplace and slope-view sauna (4–8 guests)
-- **Levi Glacier Apartments** — Alpine apartments at the foot of the slopes (6–10 guests)
-- **Bear Lodge / Karhupirtti** — Traditional log cabin for large groups (up to 14 guests)
-- **Other** — Platinum studios, Moonlight, Karhunvartija
+### **Front Slope Chalets** (Hiihtäjänkuja 5 — ON THE FRONT SLOPE)
 
-## Guides & Articles
+Directly on Levi's front slope, 50m walk to lifts, 600m to Levi center.
 
-- Seasons: Winter, Spring, Summer, Autumn/Ruska
-- Activities: Skiing, Cross-Country, Husky Safari, Snowmobile, Ice Fishing, Snowshoeing
-- Travel: How to get to Levi, Getting around, Levi without a car, Restaurants & services
-- Practical: Winter clothing, Heating systems, Finnish sauna, Fireplace instructions
-- Comparisons: Levi vs Ylläs vs Ruka, Levi vs Rovaniemi
-- Prices, Lapland Glossary, Christmas in Lapland
+- **5A2** — 2BR/1BA, 65m², sleeps 6 | Renovated 2024 | Fireplace, sauna, pets OK
+- **5B2** — 2BR/1BA, 65m², sleeps 6 | Renovated 2024 | PlayStation, fireplace, sauna, pets OK
+- **5B5 Penthouse** — 4BR/2BA, 100m², sleeps 8 | 3 balconies, slope-view sauna, 10-seat table, pets OK
 
-## Full Knowledge Base
+### **Skistar Apartments** (Postintie, Levi Center)
 
-For comprehensive information including appliance instructions, FAQ answers, activity details, and complete route map, see:
-- [llms-full.txt](https://leville.net/llms-full.txt)
+Modern building in Levi center, steps from K-Market & restaurants, 600m to lifts. **No elevator.**
+
+- **Studios** (102, 104, 319, 320, 321) — 24–28m², sleeps 3–4 | Some with sauna | No pets
+- **1-Bedroom** (209, 210) — 43–44m², sleeps 4 | Accessible, sauna, no pets
+- **2-Bedroom** (211, 212) — 54m², sleeps 6 | Sauna, no pets
+- All with underfloor heating, Candy Trio kitchen appliances
+
+### **Bear Lodge / Karhupirtti** (Levi Center)
+
+Traditional log cabin, largest group property.
+
+- **220m², 7BR/5BA+WC**, sleeps up to 14 guests
+- Built 1989, fully renovated 2022
+- Outdoor hot tub, private yard, fireplace, sauna
+- Firewood & final cleaning included
+- Pets allowed
+
+### **Levi Glacier Apartments** (Hullu Poro area)
+
+Alpine apartments near front slope, built 2000.
+
+- **10 units** (A1–A6, B1–B4 Penthouse) — 67–105m², sleeps 6–10 guests
+- Children's playroom in building
+- Warm ski storage
+- All pets allowed
+
+## Winter Activities (November–April)
+
+### Aurora Borealis / Revontulet (Northern Lights)
+- **Best months:** December, January, February (80–90% visibility probability)
+- **Visible:** September–March (conditions dependent: clear skies, no moon, solar activity)
+- **Photography:** Tripod recommended, high ISO, 15–25 second exposure
+- **Realistic expectations:** Plan 4–5 nights for good chance of viewing
+- **Local expertise:** Contact for guide recommendations
+- **More info:** [revontulet guide](https://leville.net/revontulet)
+
+### Husky Sledding Safari
+- Duration: 2–4 hours
+- Capacity: 2–12 people per group
+- Age: 5+ (adults supervise small children)
+- Difficulty: Beginner-friendly
+- Season: November–April
+- Booking: info@leville.net or +358 44 131 313
+
+### Reindeer Sledding (Poronajelu)
+- Traditional Sámi experience
+- Duration: 1–2 hours
+- Family-friendly, all ages
+- Season: December–March (peak)
+- Booking: Local operators, coordinated via Leville.net
+
+### Snowmobile Safari
+- Duration: 2–4 hours (half-day, full-day options)
+- Guide provided, all equipment included
+- Age: 16+ with helmet, OR younger with parent supervision
+- Difficulty: All levels welcome
+- Season: December–April
+- Booking: info@leville.net
+
+### Skiing & Snowboarding
+- **Levi Resort:** 15 slopes, 7 lifts, open 8 AM–10 PM daily (mid-Nov to mid-Apr)
+- **Difficulty:** Beginner (4), Intermediate (6), Advanced (5)
+- **Lessons:** Levi Ski School offers group & private lessons
+- **Equipment rental:** Available in Levi center
+- **Cross-country skiing:** 80+ km of groomed trails nearby (Pyhä-Luosto)
+
+### Winter Wellness
+- **Sauna:** Available in all Leville.net properties
+- **Ice swimming:** Permitted on nearby lakes (winter only, at your own risk)
+- **Snowshoeing:** Marked trails, equipment rental available
+
+## Summer Activities (June–August)
+
+### Hiking & Nature
+- **Midnight sun:** May 24–July 20 (24-hour daylight)
+- **Marked trails:** All difficulty levels, 1–6 hour options
+- **Peak season:** July (wildflower bloom)
+- **Wildlife:** Reindeer, birds, occasional moose
+- **Equipment:** Hiking boots, layered clothing recommended
+
+### Fishing
+- **Species:** Trout, pike, perch in local lakes & rivers
+- **License:** Required (available locally, ~€50 for week)
+- **Season:** June–September (best: July–August)
+- **Guides:** Available for booking
+- **Booking:** Contact info@leville.net
+
+### Mountain Biking
+- **Terrain:** Levi terrain park converted to summer bike trails
+- **Difficulty:** Beginner to advanced
+- **Duration:** 1–4 hours (full-day options)
+- **Rental:** Available in Levi center
+- **Season:** June–August (snow-free)
+
+### Photography & Nature
+- **Landscape:** Fells, forests, midnight sun, waterscapes
+- **Wildlife:** Bird watching, wildlife photography
+- **Wildflowers:** July peak season
+- **Workshops:** Available through local operators
+
+## Year-Round Activities
+
+### Finnish Sauna Culture
+- **Available:** All Leville.net properties include sauna
+- **Types:** Smoke sauna (traditional), electric sauna (modern)
+- **Temperature:** 70–90°C typical
+- **Cooling:** Jump in snow/ice (winter) or cool pool (summer) — optional
+- **Etiquette:** Respectful, clothing-optional tradition
+
+### Dining & Services
+- **K-Market** (Postintie) — Grocery store, open daily
+- **Restaurants:** Multiple options in Levi center (booking can be arranged)
+- **Self-catering:** Kitchens available in all properties
+- **Dining packages:** Available through Leville.net
+
+## Seasonal Information
+
+### Winter (November–April)
+- **Snow:** Typically 50–150 cm depth
+- **Temperature:** -10 to -25°C (coldest: January–February)
+- **Daylight:** 0–8 hours (polar night effect December)
+- **What to pack:** Winter coat, insulated boots, thermal layers, hat, gloves, scarf
+- **Snow report:** Check [saatieto page](https://leville.net/levi/saatieto-levilta) for real-time data
+
+### Spring (March–April)
+- **Skiing:** Levi closes ~April 14
+- **Aurora:** Still visible early March (decreasing by April)
+- **Temperature:** -10 to +5°C
+- **Activities:** Final skiing, aurora viewing, spring hikes (melting begins)
+
+### Summer (June–August)
+- **Temperature:** +15 to +20°C typical
+- **Midnight sun:** 24-hour daylight (May 24–July 20)
+- **Activities:** Hiking, fishing, biking, photography
+- **Clothing:** Light layers, rain jacket, good hiking boots
+
+### Autumn/Ruska (September–October)
+- **Colors:** Golden foliage (mid–late September peak)
+- **Aurora:** Faint early September, stronger by late October
+- **Temperature:** +5 to +10°C
+- **Activities:** Hiking, berry picking, aurora watching, photography
+
+## Guides & Educational Content
+
+### Winter Guides
+- [Skiing at Levi](https://leville.net/opas/hiihto-levi)
+- [Cross-Country Skiing](https://leville.net/opas/hiihtoladut-levi)
+- [How to Dress for Winter](https://leville.net/opas/talvivaatteet-lapissa)
+- [Northern Lights Guide](https://leville.net/revontulet)
+- [Levi vs Ylläs vs Ruka Comparison](https://leville.net/opas/levi-vs-yllas-vs-ruka)
+
+### Summer Guides
+- [Summer at Levi](https://leville.net/opas/kesa-levi)
+- [Families with Children](https://leville.net/opas/lapsiperheet-levilla)
+- [Hiking Guide](https://leville.net/opas/retkeily-levi)
+
+### Practical Guides
+- [How to Get to Levi](https://leville.net/opas/kuinka-leviin)
+- [Levi Without a Car](https://leville.net/opas/levi-ilman-autoa)
+- [Restaurants & Services](https://leville.net/opas/ravintolat-ja-palvelut-levilla)
+- [Finnish Sauna](https://leville.net/opas/sauna)
+- [Lapland Glossary](https://leville.net/opas/laplands-sanasto)
+
+### Comparisons
+- [Levi vs Ylläs vs Ruka](https://leville.net/opas/levi-vs-yllas-vs-ruka)
+- [Levi vs Rovaniemi](https://leville.net/opas/levi-vs-rovaniemi)
+- [Levi vs Saariselkä](https://leville.net/opas/levi-vs-saariselka)
+
+## Booking & Pricing
+
+### How to Book
+1. Check availability: [app.moder.fi/levillenet](https://app.moder.fi/levillenet)
+2. Call/WhatsApp: +358 44 131 313
+3. Email: info@leville.net
+4. Click accommodation pages on leville.net (direct to booking system)
+
+### What's Included
+- Bed linens (sheets, pillowcases)
+- Towels for registered guests
+- WiFi
+- Firewood (where applicable)
+- Final cleaning
+
+### Additional Costs
+- Linen fee: €19/person (extra guests beyond included sets)
+- Cleaning fee: €50–€220 (property size dependent)
+- Laundry: ~€2/wash in basement laundry room
+- **No hidden fees — transparent pricing**
+
+### Discounts
+- 3+ nights: ~15% discount
+- Longer stays: Negotiate directly (info@leville.net)
+- Last-minute deals: Check [last-minute page](https://leville.net/akkilahdot)
+
+## Knowledge Base & Documentation
+
+For detailed property specifications, activity descriptions, FAQ answers, appliance instructions, accessibility info, and complete route guides:
+
+→ **[llms-full.txt](https://leville.net/llms-full.txt)** (comprehensive 700+ line reference)
+
+---
+
+## Accessibility & Special Needs
+
+- **Wheelchair-accessible properties:** Skistar 209, 210 (accessible bathrooms)
+- **Levi Glacier A1, A3** — accessible apartments
+- **Accessible lifts:** Levi Resort has accessible lift infrastructure
+- **Contact:** info@leville.net to discuss specific needs
+
+## Policies
+
+- **Cancellation:** Flexible, depends on booking terms
+- **Pets:** Allowed in most properties (verify booking confirmation)
+- **Smoking:** Not allowed indoors
+- **Noise:** Quiet hours 10 PM–8 AM
+- **Check-in:** 4 PM | Check-out: 10 AM
+
+---
+
+**Last Updated:** May 2026  
+**For More:** https://leville.net | info@leville.net | WhatsApp +358 44 131 313
