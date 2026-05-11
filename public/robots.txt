@@ -1,23 +1,116 @@
+# Leville.net robots.txt
+# AI Bots & Web Crawlers Configuration
+
+# ============================================
+# GOOGLE & BING
+# ============================================
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 2
 
+# ============================================
+# AI MODEL CRAWLERS (LLM Training)
+# ============================================
+
+# OpenAI GPT Training
+User-agent: GPTBot
+Allow: /
+Crawl-delay: 1
+
+# Anthropic Claude Web
+User-agent: Claude-Web
+Allow: /
+Crawl-delay: 1
+
+# Anthropic Claude
+User-agent: anthropic-ai
+Allow: /
+Crawl-delay: 1
+
+# Google Gemini / Bard
+User-agent: Gemini-Web
+Allow: /
+Crawl-delay: 1
+
+User-agent: AdsBot-Google-ER
+Allow: /
+Crawl-delay: 2
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 1
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+Crawl-delay: 1
+
+# Meta AI
+User-agent: facebookexternalhit
+Allow: /
+Crawl-delay: 2
+
+# Apple Siri / Intelligence
+User-agent: AppleBot
+Allow: /
+Crawl-delay: 2
+
+# OpenAI GPT-4 & ChatGPT
+User-agent: OpenAI-SearchBot
+Allow: /
+Crawl-delay: 1
+
+# ============================================
+# SOCIAL MEDIA CRAWLERS
+# ============================================
 User-agent: Twitterbot
 Allow: /
+Crawl-delay: 5
 
 User-agent: facebookexternalhit
 Allow: /
+Crawl-delay: 2
 
+User-agent: LinkedInBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: WhatsApp
+Allow: /
+Crawl-delay: 5
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 3
+
+# ============================================
+# DEFAULT / ALL OTHER BOTS
+# ============================================
 User-agent: *
 Allow: /
 
+# Disallow admin paths
 Disallow: /admin
+Disallow: /admin/*
+Disallow: /.env
+Disallow: /.git
 
-# Sitemap
+# ============================================
+# SITEMAP
+# ============================================
 Sitemap: https://leville.net/sitemap.xml
 
-# AI Knowledge Base (llms.txt standard)
-# https://leville.net/llms.txt
-# https://leville.net/llms-full.txt
+# ============================================
+# AI KNOWLEDGE BASE
+# ============================================
+# These files are optimized for AI model training & querying
+# Available at:
+# https://leville.net/llms.txt (quick reference)
+# https://leville.net/llms-full.txt (comprehensive knowledge base)
+
+# Both files are CC0 (public domain) for AI training use
