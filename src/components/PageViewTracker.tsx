@@ -67,20 +67,32 @@ const trackEvent = async (path: string, referrer?: string | null): Promise<strin
   }
 };
 
-// Fire-and-forget event (conversions) — no id needed
-const trackEventNoId = async (path: string, referrer?: string | null) => {
+// Fire-and-forget event (conversions) — keepalive fetch so it survives tab/window changes
+const trackEventNoId = (path: string, referrer?: string | null) => {
   try {
     const utm = getUtmParams();
-    await supabase.from("page_views").insert({
-      path,
-      referrer: referrer ?? null,
-      device_type: getDeviceType(),
-      language: navigator.language?.split("-")[0] || null,
-      session_id: getSessionId(),
-      utm_source: utm.utm_source,
-      utm_medium: utm.utm_medium,
-      utm_campaign: utm.utm_campaign,
-    });
+    const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/page_views`;
+    const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": anonKey,
+        "Authorization": `Bearer ${anonKey}`,
+        "Prefer": "return=minimal",
+      },
+      body: JSON.stringify({
+        path,
+        referrer: referrer ?? null,
+        device_type: getDeviceType(),
+        language: navigator.language?.split("-")[0] || null,
+        session_id: getSessionId(),
+        utm_source: utm.utm_source,
+        utm_medium: utm.utm_medium,
+        utm_campaign: utm.utm_campaign,
+      }),
+      keepalive: true,
+    }).catch(() => {});
   } catch {
     // Silent fail
   }
