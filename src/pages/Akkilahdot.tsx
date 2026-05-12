@@ -656,6 +656,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 </p>
                 
                 {/* Night filter */}
+                {dealsEnabled && (
                 <div className="mt-6 flex justify-center">
                   <ToggleGroup 
                     type="single" 
@@ -683,8 +684,35 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
+                )}
               </section>
             </ScrollReveal>
+
+            {/* Disabled state: high-season info + direct booking link */}
+            {!isLoading && !dealsEnabled && (
+              <ScrollReveal>
+                <section className="max-w-2xl mx-auto mb-16">
+                  <div className="glass-card border-primary/30 rounded-xl p-8 md:p-10 text-center">
+                    <Sparkles className="w-10 h-10 text-primary mx-auto mb-4" />
+                    <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-3">
+                      {disabledContent[lang].heading}
+                    </h2>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      {disabledContent[lang].body}
+                    </p>
+                    <a
+                      href="https://app.moder.fi/levillenet"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-lg px-6 py-3 font-medium"
+                    >
+                      {disabledContent[lang].cta}
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
+                </section>
+              </ScrollReveal>
+            )}
 
             {/* Loading state */}
             {isLoading && (
