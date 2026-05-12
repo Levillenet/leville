@@ -46,22 +46,60 @@ const getUtmParams = () => ({
   utm_campaign: sessionStorage.getItem("_lv_utm_campaign") || null,
 });
 
+// Derive page language from URL prefix (matches site i18n routing)
+const SUPPORTED_LANGS = new Set(["en", "sv", "de", "fr", "es", "nl"]);
+const getPageLanguage = (path: string): string => {
+  const seg = path.split("/").filter(Boolean)[0]?.toLowerCase();
+  if (seg && SUPPORTED_LANGS.has(seg)) return seg;
+  return "fi";
+};
+
+// Bot detection on the client — drops headless browsers and known crawlers
+const BOT_RE = /bot|crawl|spider|slurp|bingpreview|prerender|headless|lighthouse|pagespeed|facebookexternalhit|whatsapp|telegrambot|discordbot|embedly|pinterest|skypeuripreview|node-fetch|axios|python-requests|curl|wget/i;
+const isLikelyBot = (): boolean => {
+  if (typeof navigator === "undefined") return true;
+  const ua = navigator.userAgent || "";
+  if (!ua) return true;
+  if (BOT_RE.test(ua)) return true;
+  // @ts-ignore — webdriver flag is widely set in automation
+  if (navigator.webdriver) return true;
+  return false;
+};
+
+const LOG_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/log-page-view`;
+const ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+const buildPayload = (path: string, referrer?: string | null, id?: string) => {
+  const utm = getUtmParams();
+  return {
+    ...(id ? { id } : {}),
+    path,
+    referrer: referrer ?? null,
+    device_type: getDeviceType(),
+    language: getPageLanguage(path),
+    session_id: getSessionId(),
+    utm_source: utm.utm_source,
+    utm_medium: utm.utm_medium,
+    utm_campaign: utm.utm_campaign,
+  };
+};
+
 const trackEvent = async (path: string, referrer?: string | null): Promise<string | null> => {
+  if (isLikelyBot()) return null;
   try {
     const id = crypto.randomUUID();
-    const utm = getUtmParams();
-    const { error } = await supabase.from("page_views").insert({
-      id,
-      path,
-      referrer: referrer ?? null,
-      device_type: getDeviceType(),
-      language: navigator.language?.split("-")[0] || null,
-      session_id: getSessionId(),
-      utm_source: utm.utm_source,
-      utm_medium: utm.utm_medium,
-      utm_campaign: utm.utm_campaign,
+    const res = await fetch(LOG_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": ANON_KEY,
+        "Authorization": `Bearer ${ANON_KEY}`,
+      },
+      body: JSON.stringify(buildPayload(path, referrer, id)),
     });
-    return error ? null : id;
+    if (!res.ok) return null;
+    const data = await res.json().catch(() => ({}));
+    return data?.id ?? id;
   } catch {
     return null;
   }
@@ -69,34 +107,23 @@ const trackEvent = async (path: string, referrer?: string | null): Promise<strin
 
 // Fire-and-forget event (conversions) — keepalive fetch so it survives tab/window changes
 const trackEventNoId = (path: string, referrer?: string | null) => {
+  if (isLikelyBot()) return;
   try {
-    const utm = getUtmParams();
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/page_views`;
-    const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-    fetch(url, {
+    fetch(LOG_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "apikey": anonKey,
-        "Authorization": `Bearer ${anonKey}`,
-        "Prefer": "return=minimal",
+        "apikey": ANON_KEY,
+        "Authorization": `Bearer ${ANON_KEY}`,
       },
-      body: JSON.stringify({
-        path,
-        referrer: referrer ?? null,
-        device_type: getDeviceType(),
-        language: navigator.language?.split("-")[0] || null,
-        session_id: getSessionId(),
-        utm_source: utm.utm_source,
-        utm_medium: utm.utm_medium,
-        utm_campaign: utm.utm_campaign,
-      }),
+      body: JSON.stringify(buildPayload(path, referrer)),
       keepalive: true,
     }).catch(() => {});
   } catch {
     // Silent fail
   }
 };
+
 
 const DEBOUNCE_MS = 3000;
 
