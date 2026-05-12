@@ -13,18 +13,23 @@ interface SiteSettingsAdminProps {
 const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const { settings, isLoading, updateSiteSetting, isSaving } = useAdminSettingsManager();
   const [dealsDaysAhead, setDealsDaysAhead] = useState<number>(14);
+  const [dealsEnabled, setDealsEnabled] = useState<boolean>(true);
   
-  // Load current value from settings
+  // Load current values from settings
   useEffect(() => {
     if (settings?.siteSettings) {
-      const setting = settings.siteSettings.find(s => s.id === 'deals_days_ahead');
-      if (setting?.value !== undefined) {
-        const value = typeof setting.value === 'number' 
-          ? setting.value 
-          : parseInt(String(setting.value), 10);
+      const daysSetting = settings.siteSettings.find(s => s.id === 'deals_days_ahead');
+      if (daysSetting?.value !== undefined) {
+        const value = typeof daysSetting.value === 'number' 
+          ? daysSetting.value 
+          : parseInt(String(daysSetting.value), 10);
         if (!isNaN(value)) {
           setDealsDaysAhead(value);
         }
+      }
+      const enabledSetting = settings.siteSettings.find(s => s.id === 'deals_enabled');
+      if (enabledSetting?.value !== undefined) {
+        setDealsEnabled(enabledSetting.value !== false);
       }
     }
   }, [settings?.siteSettings]);
@@ -32,6 +37,11 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const handleQuickSelect = (days: number) => {
     setDealsDaysAhead(days);
     updateSiteSetting({ settingId: 'deals_days_ahead', value: days });
+  };
+
+  const handleToggleEnabled = (checked: boolean) => {
+    setDealsEnabled(checked);
+    updateSiteSetting({ settingId: 'deals_enabled', value: checked });
   };
 
   if (isLoading) {
