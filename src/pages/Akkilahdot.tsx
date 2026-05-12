@@ -735,7 +735,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* Beds24 Deals Grid */}
-            {!isLoading && filteredDeals.length > 0 && (
+            {dealsEnabled && !isLoading && filteredDeals.length > 0 && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 {filteredDeals.map((deal, index) => {
                   const isSameDay = isToday(deal.checkIn);
