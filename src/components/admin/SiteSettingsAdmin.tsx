@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Loader2, CalendarDays, Save } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Loader2, CalendarDays, Eye } from 'lucide-react';
 import { useAdminSettingsManager } from '@/hooks/useAdminSettings';
 
 interface SiteSettingsAdminProps {
