@@ -1382,6 +1382,7 @@ export type Database = {
           utm_campaign: string | null
           utm_medium: string | null
           utm_source: string | null
+          viewport_w: number | null
         }
         Insert: {
           country?: string | null
@@ -1397,6 +1398,7 @@ export type Database = {
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
+          viewport_w?: number | null
         }
         Update: {
           country?: string | null
@@ -1412,6 +1414,7 @@ export type Database = {
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
+          viewport_w?: number | null
         }
         Relationships: []
       }

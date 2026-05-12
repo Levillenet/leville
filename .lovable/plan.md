@@ -1,37 +1,70 @@
 ## Tavoite
 
-CSV-raportti ja sen ihmisluettava kuvaus (REPORT_DESCRIPTION) vastaavat nyt UI-analytiikan loogista tilaa: maa, sivun kieli URL:sta, bottifiltteri ja yhtenäinen booking-link-seuranta.
+Lisätä kolme korkean arvon analytiikkalisäystä, jotka näkyvät sekä admin-UI:ssa että CSV-raportissa:
 
-## Nykytila
+1. **Viewport-leveys** (uusi sarake page_viewsiin)
+2. **Sisääntulosivut** (landing pages — aggregaatti, ei uutta saraketta)
+3. **Poistumissivut** (exit pages — aggregaatti, ei uutta saraketta)
 
-- `get-page-view-stats` edge-funktio palauttaa jo `country`-sarakkeen sekä CSV:hen että JSON-aggregaatteihin (lisättiin edellisessä muutoksessa).
-- `PageViewTracker` lähettää nyt kaikki rivit `log-page-view`-edge-funktion kautta — IP-pohjainen maa, bottifiltteri, ja `language` tulee URL-prefiksistä (fi/en/sv/de/fr/es/nl).
-- `REPORT_DESCRIPTION`-teksti (`src/components/admin/PageViewsAdmin.tsx`, rivit ~64–126) on jäänyt vanhaan tilaan: ei mainitse `country`-saraketta, kuvaa `language`:n vielä selaimen kielenä, eikä mainitse bottifiltteriä.
+Lisäksi varauskonversion seurantaa parannetaan UTM-parametrien avulla (todellinen "varaus toteutui" -vahvistus vaatisi Moder-puolen webhookin — rajataan ulkopuolelle, mainitaan).
 
 ## Muutokset
 
-### `src/components/admin/PageViewsAdmin.tsx` — `REPORT_DESCRIPTION`
+### 1. Tietokanta
 
-**SARAKKEET-osio**
-- Lisätään uusi rivi `country`-sarakkeelle ennen `device_type`:n jälkeistä `language`-riviä:
-  - `- country: Kävijän maa (ISO 3166-1 alpha-2 -koodi, esim. "FI", "DE", "SE"). Päätellään IP-osoitteesta palvelinpuolella. Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.`
-- Korvataan vanha `language`-kuvaus:
-  - **Uusi**: `- language: Sivun kieliversio URL-polusta pääteltynä (esim. /en/... → "en", /sv/... → "sv", muuten "fi"). Kertoo mitä kieliversiota katsottiin, ei selaimen UI-kieltä.`
-- Lisätään huomautus `time`-rivin jälkeen tai BOTTILIIKENNE-osana: bottiliikenne suodatetaan pois jo kirjauksessa (Googlebot, crawler-UA, headless, prerender, jne.) eikä näy CSV:ssä.
+Migraatio:
+- `ALTER TABLE page_views ADD COLUMN viewport_w INTEGER` (nullable, vanhoilla riveillä tyhjä).
+- Indeksi `idx_page_views_session_created` jos sitä ei vielä ole — landing/exit-haku tarvitsee `(session_id, created_at)`.
 
-**TAPAHTUMATYYPIT-osio**
-- Päivitetään kohta 5 ("booking-link"):
-  - Selvennetään, että kaikki klikkaukset `app.moder.fi`-linkkeihin (paitsi hakuwidget ja sticky bar) tallentuvat yhtenäisesti `booking-link`-tapahtumana globaalin click-handlerin kautta — ei vaadi onClick-handlereita yksittäisillä linkeillä. `referrer` = sivu jolla linkkiä klikattiin.
+Landing ja exit eivät vaadi omaa saraketta: ne lasketaan istuntodatasta (first/last row per `session_id`).
 
-**MAA-ANALYYSI (uusi osio konversioanalyysin jälkeen)**
-- Lyhyt kuvaus: maita voi ryhmitellä `country`-sarakkeen perusteella; vertaa kotimaisen (FI) ja kansainvälisen liikenteen konversioprosentteja, ja vertaa `country` vs `language` ristikkäin nähdäksesi esim. suomalaiset selaavatko englanninkielistä versiota.
+### 2. Frontend — `src/components/PageViewTracker.tsx`
 
-### `supabase/functions/get-page-view-stats/index.ts`
-- CSV-header ja rivirakenne on jo kohdallaan (`...language,country,session_id,...`). Ei muutoksia.
-- Tarkistetaan ettei CSV-jonotusta tarvitse päivittää erikseen — ei tarvitse.
+- Lisätään `viewport_w: window.innerWidth` jokaiseen `log-page-view`-kutsuun (sekä pageview että event).
+- Ei muita muutoksia.
+
+### 3. Edge — `supabase/functions/log-page-view/index.ts`
+
+- Hyväksytään `viewport_w` request bodysta (Zod-validointi, valinnainen int 200–10000).
+- Tallennetaan `page_views`-tauluun.
+
+### 4. Edge — `supabase/functions/get-page-view-stats/index.ts`
+
+**CSV**
+- Lisätään `viewport_w` sarake header- ja rivirakenteeseen.
+
+**JSON-aggregaatit** (UI:lle)
+- `byViewport`: bucket-jaottelu: `<640` (mobile-S), `640–1023` (mobile-L/tablet-S), `1024–1439` (tablet-L/laptop), `≥1440` (desktop).
+- `topLandingPages`: ryhmitä rivit `session_id`:n mukaan, ota kunkin istunnon ensimmäinen pageview-polku, laske top 15.
+- `topExitPages`: vastaavasti viimeinen pageview-polku per istunto, top 15.
+- Suoritetaan vain riveille joilla on `session_id`.
+
+### 5. UI — `src/components/admin/PageViewsAdmin.tsx`
+
+Lisätään kolme uutta korttia olemassa olevien jälkeen:
+
+- **"Sisääntulosivut"** — top 15 sivua joilta istunnot alkavat (taulukko, polku + count + %)
+- **"Poistumissivut"** — top 15 sivua joilta istunnot päättyvät (taulukko, polku + count + %)
+- **"Näytön leveys"** — BarChart 4 bucketilla, mobiili/tabletti/laptop/desktop-jaottelu
+
+### 6. CSV REPORT_DESCRIPTION päivitys
+
+- Lisätään `viewport_w` sarakkeen kuvaus (selainikkunan leveys pikseleinä, hyödyllinen responsiivisuusongelmien jäljitykseen).
+- Lisätään uusi osio **SISÄÄNTULO- JA POISTUMISSIVUT**: selitetään että nämä lasketaan CSV-datasta `session_id`-ryhmittelyllä (eivät erillinen sarake), ja että UI näyttää ne valmiiksi aggregoituna.
+
+### 7. Varauskonversio — kevyt UTM-vahvistus
+
+- Käydään läpi keskeiset Moder-linkit (BookingStickyBar, hero-widget, page-CTA:t) ja lisätään niihin `?utm_source=leville-direct&utm_medium=<event_type>&utm_content=<source_path>` -parametrit, JOS niitä ei vielä ole. Tämä mahdollistaa Moder/GA-puolella konversion attribuution.
+- **Rajaus**: todellinen "varaus syntyi" -takaisinkutsu vaatisi Moder-webhookin tai pixel-pingauksen Moder-puolelta. Tämä ei kuulu tähän iteraatioon — mainitaan käyttäjälle jatkokehityskohteena.
+
+## Tekninen huomio
+
+- Kaikki uudet datapisteet ovat anonyymeja eikä riko evästeetöntä linjaa.
+- Vanhoissa riveissä `viewport_w` on `NULL`; UI näyttää bucketissa "Tuntematon".
+- Landing/exit lasketaan vain rivieiltä joissa `session_id` on olemassa (vanhat 13.3.2026 edeltävät rivit jäävät pois — sama rajaus kuin nykyisissä istuntomittareissa).
 
 ## Vaikutus
 
-- CSV:n datakentät pysyvät samoina (jo päivitetyt).
-- Vain ihmisluettava sarakekuvaus + analyysiohjeet päivittyvät, jolloin "Kopioi raportin kuvaus" -nappi antaa LLM:lle/lukijalle ajan tasalla olevan selityksen.
-- Ei tietokantamuutoksia, ei muutoksia tracking-logiikkaan.
+- 1 schema-migraatio, 4 koodimuutosta (tracker, 2 edge funktiota, admin UI), 1 dokumentaatiopäivitys.
+- CSV:hen yksi uusi sarake; UI:hin kolme uutta korttia.
+- Ei rikkovia muutoksia olemassa olevaan dataan.
