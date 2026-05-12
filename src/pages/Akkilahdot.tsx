@@ -1043,7 +1043,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* No deals available */}
-            {!isLoading && !hasDeals && (
+            {dealsEnabled && !isLoading && !hasDeals && (
               <ScrollReveal>
                 <div className="text-center py-12 text-muted-foreground">
                   <Clock className="w-12 h-12 mx-auto mb-4 opacity-50" />
