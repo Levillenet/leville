@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { Loader2, CalendarDays, Save } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Loader2, CalendarDays, Eye } from 'lucide-react';
 import { useAdminSettingsManager } from '@/hooks/useAdminSettings';
 
 interface SiteSettingsAdminProps {
@@ -12,18 +13,23 @@ interface SiteSettingsAdminProps {
 const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const { settings, isLoading, updateSiteSetting, isSaving } = useAdminSettingsManager();
   const [dealsDaysAhead, setDealsDaysAhead] = useState<number>(14);
+  const [dealsEnabled, setDealsEnabled] = useState<boolean>(true);
   
-  // Load current value from settings
+  // Load current values from settings
   useEffect(() => {
     if (settings?.siteSettings) {
-      const setting = settings.siteSettings.find(s => s.id === 'deals_days_ahead');
-      if (setting?.value !== undefined) {
-        const value = typeof setting.value === 'number' 
-          ? setting.value 
-          : parseInt(String(setting.value), 10);
+      const daysSetting = settings.siteSettings.find(s => s.id === 'deals_days_ahead');
+      if (daysSetting?.value !== undefined) {
+        const value = typeof daysSetting.value === 'number' 
+          ? daysSetting.value 
+          : parseInt(String(daysSetting.value), 10);
         if (!isNaN(value)) {
           setDealsDaysAhead(value);
         }
+      }
+      const enabledSetting = settings.siteSettings.find(s => s.id === 'deals_enabled');
+      if (enabledSetting?.value !== undefined) {
+        setDealsEnabled(enabledSetting.value !== false);
       }
     }
   }, [settings?.siteSettings]);
@@ -31,6 +37,11 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const handleQuickSelect = (days: number) => {
     setDealsDaysAhead(days);
     updateSiteSetting({ settingId: 'deals_days_ahead', value: days });
+  };
+
+  const handleToggleEnabled = (checked: boolean) => {
+    setDealsEnabled(checked);
+    updateSiteSetting({ settingId: 'deals_enabled', value: checked });
   };
 
   if (isLoading) {
@@ -43,6 +54,38 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
 
   return (
     <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Eye className="w-5 h-5" />
+            Äkkilähtöjen näkyvyys
+          </CardTitle>
+          <CardDescription>
+            Kytke äkkilähtötarjousten näyttäminen sivustolla päälle tai pois
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between gap-4">
+            <div className="space-y-1">
+              <Label htmlFor="deals-enabled-toggle" className="text-base font-medium">
+                Näytä äkkilähdöt sivustolla
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                {dealsEnabled
+                  ? 'Päällä: /akkilahdot näyttää kaikki saatavilla olevat tarjoukset.'
+                  : 'Pois: sivulla näkyy tiedote pääsesongista ja suora varauslinkki.'}
+              </p>
+            </div>
+            <Switch
+              id="deals-enabled-toggle"
+              checked={dealsEnabled}
+              onCheckedChange={handleToggleEnabled}
+              disabled={isSaving}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">

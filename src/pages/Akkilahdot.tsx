@@ -314,6 +314,44 @@ const content = {
   }
 };
 
+const disabledContent: Record<Language, { heading: string; body: string; cta: string }> = {
+  fi: {
+    heading: "Äkkilähtöjä julkaistaan pääsesongin aikana",
+    body: "Tällä hetkellä erillisiä äkkilähtötarjouksia ei ole julkaistu. Voit kuitenkin varata majoituksesi suoraan – tarkista vapaat huoneistot ja parhaat hinnat varausjärjestelmästämme.",
+    cta: "Varaa majoitus"
+  },
+  en: {
+    heading: "Last-minute deals are published during peak season",
+    body: "No separate last-minute deals are currently published. You can still book your accommodation directly — check availability and the best rates in our booking system.",
+    cta: "Book accommodation"
+  },
+  sv: {
+    heading: "Sista minuten-erbjudanden publiceras under högsäsong",
+    body: "Just nu finns inga separata sista minuten-erbjudanden. Du kan ändå boka ditt boende direkt – kolla tillgänglighet och bästa priser i vårt bokningssystem.",
+    cta: "Boka boende"
+  },
+  de: {
+    heading: "Last-Minute-Angebote werden in der Hauptsaison veröffentlicht",
+    body: "Derzeit sind keine separaten Last-Minute-Angebote verfügbar. Sie können Ihre Unterkunft jedoch direkt buchen – prüfen Sie Verfügbarkeit und beste Preise in unserem Buchungssystem.",
+    cta: "Unterkunft buchen"
+  },
+  es: {
+    heading: "Las ofertas de última hora se publican en temporada alta",
+    body: "Actualmente no hay ofertas de última hora publicadas. Aun así, puedes reservar tu alojamiento directamente — consulta disponibilidad y mejores precios en nuestro sistema de reservas.",
+    cta: "Reservar alojamiento"
+  },
+  fr: {
+    heading: "Les offres de dernière minute sont publiées en haute saison",
+    body: "Aucune offre de dernière minute n'est actuellement publiée. Vous pouvez néanmoins réserver votre hébergement directement — vérifiez la disponibilité et les meilleurs tarifs dans notre système de réservation.",
+    cta: "Réserver un hébergement"
+  },
+  nl: {
+    heading: "Last-minute aanbiedingen verschijnen in het hoogseizoen",
+    body: "Op dit moment zijn er geen aparte last-minute aanbiedingen gepubliceerd. U kunt uw accommodatie wel direct boeken — bekijk beschikbaarheid en de beste prijzen in ons boekingssysteem.",
+    cta: "Boek accommodatie"
+  }
+};
+
 type NightFilter = "all" | "short" | "long";
 
 const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
@@ -333,6 +371,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   
   const propertySettings = adminSettings?.propertySettings || [];
   const periodSettings = adminSettings?.periodSettings || [];
+  const dealsEnabled = (adminSettings?.siteSettings?.find(s => s.id === 'deals_enabled')?.value) !== false;
   
   const isLoading = isLoadingDeals || isLoadingSettings;
 
@@ -617,6 +656,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 </p>
                 
                 {/* Night filter */}
+                {dealsEnabled && (
                 <div className="mt-6 flex justify-center">
                   <ToggleGroup 
                     type="single" 
@@ -644,11 +684,38 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
+                )}
               </section>
             </ScrollReveal>
 
+            {/* Disabled state: high-season info + direct booking link */}
+            {!isLoading && !dealsEnabled && (
+              <ScrollReveal>
+                <section className="max-w-2xl mx-auto mb-16">
+                  <div className="glass-card border-primary/30 rounded-xl p-8 md:p-10 text-center">
+                    <Sparkles className="w-10 h-10 text-primary mx-auto mb-4" />
+                    <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-3">
+                      {disabledContent[lang].heading}
+                    </h2>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      {disabledContent[lang].body}
+                    </p>
+                    <a
+                      href="https://app.moder.fi/levillenet"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-lg px-6 py-3 font-medium"
+                    >
+                      {disabledContent[lang].cta}
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
+                </section>
+              </ScrollReveal>
+            )}
+
             {/* Loading state */}
-            {isLoading && (
+            {dealsEnabled && isLoading && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 {[1, 2, 3].map((i) => (
                   <Card key={i} className="glass-card border-border/30">
@@ -668,7 +735,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* Beds24 Deals Grid */}
-            {!isLoading && filteredDeals.length > 0 && (
+            {dealsEnabled && !isLoading && filteredDeals.length > 0 && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 {filteredDeals.map((deal, index) => {
                   const isSameDay = isToday(deal.checkIn);
@@ -903,7 +970,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* Manual Deals Grid (if any) */}
-            {!isLoading && manualDeals.length > 0 && (
+            {dealsEnabled && !isLoading && manualDeals.length > 0 && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 {manualDeals.map((deal, index) => {
                   const pricePerPerson = Math.round(deal.price / deal.persons);
@@ -976,7 +1043,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* No deals available */}
-            {!isLoading && !hasDeals && (
+            {dealsEnabled && !isLoading && !hasDeals && (
               <ScrollReveal>
                 <div className="text-center py-12 text-muted-foreground">
                   <Clock className="w-12 h-12 mx-auto mb-4 opacity-50" />
