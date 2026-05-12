@@ -333,6 +333,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   
   const propertySettings = adminSettings?.propertySettings || [];
   const periodSettings = adminSettings?.periodSettings || [];
+  const dealsEnabled = (adminSettings?.siteSettings?.find(s => s.id === 'deals_enabled')?.value) !== false;
   
   const isLoading = isLoadingDeals || isLoadingSettings;
 
