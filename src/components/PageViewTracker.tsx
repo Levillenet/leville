@@ -78,6 +78,7 @@ const buildPayload = (path: string, referrer?: string | null, id?: string) => {
     device_type: getDeviceType(),
     language: getPageLanguage(path),
     session_id: getSessionId(),
+    viewport_w: typeof window !== "undefined" ? window.innerWidth : null,
     utm_source: utm.utm_source,
     utm_medium: utm.utm_medium,
     utm_campaign: utm.utm_campaign,

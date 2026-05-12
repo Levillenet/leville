@@ -126,7 +126,7 @@ Deno.serve(async (req) => {
     while (true) {
       const { data: batch, error: batchErr } = await supabase
         .from("page_views")
-        .select("path, referrer, device_type, language, country, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page")
+        .select("path, referrer, device_type, language, country, viewport_w, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page")
         .gte("created_at", since)
         .order("created_at", { ascending: false })
         .range(from, from + PAGE_SIZE - 1);
@@ -146,7 +146,7 @@ Deno.serve(async (req) => {
 
     // CSV format: return raw rows
     if (format === "csv") {
-      const csvHeader = "date,time,path,type,referrer,device_type,language,country,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page";
+      const csvHeader = "date,time,path,type,referrer,device_type,language,country,viewport_w,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page";
       const csvRows = (views || []).map((v: any) => {
         const dt = new Date(v.created_at);
         const date = dt.toISOString().split("T")[0];
@@ -158,6 +158,7 @@ Deno.serve(async (req) => {
         const device = v.device_type || "unknown";
         const lang = v.language || "unknown";
         const country = v.country || "unknown";
+        const vw = v.viewport_w != null ? String(v.viewport_w) : "";
         const sid = v.session_id || "";
         const utmSrc = v.utm_source || "";
         const utmMed = v.utm_medium || "";
@@ -165,7 +166,7 @@ Deno.serve(async (req) => {
         const scrollD = v.scroll_depth != null ? String(v.scroll_depth) : "";
         const timeP = v.time_on_page != null ? String(v.time_on_page) : "";
         const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
-        return [date, time, esc(path), type, esc(ref), device, lang, country, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP].join(",");
+        return [date, time, esc(path), type, esc(ref), device, lang, country, vw, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP].join(",");
       });
 
       return new Response([csvHeader, ...csvRows].join("\n"), {
@@ -184,6 +185,7 @@ Deno.serve(async (req) => {
     const byDevice: Record<string, number> = {};
     const byLanguage: Record<string, number> = {};
     const byCountry: Record<string, number> = {};
+    const byViewport: Record<string, number> = { "mobile-s (<640)": 0, "mobile-l (640-1023)": 0, "laptop (1024-1439)": 0, "desktop (≥1440)": 0, "unknown": 0 };
     const conversionMap: Record<string, { count: number; sources: Record<string, number> }> = {};
     const byUtmSource: Record<string, number> = {};
     const byUtmMedium: Record<string, number> = {};
@@ -194,8 +196,8 @@ Deno.serve(async (req) => {
     let timeOnPageSum = 0;
     let timeOnPageCount = 0;
 
-    // Session tracking
-    const sessionPages: Record<string, { timestamps: number[]; pageCount: number }> = {};
+    // Session tracking — also collect first/last pageview path per session
+    const sessionPages: Record<string, { timestamps: number[]; pageCount: number; firstPath?: string; firstTs?: number; lastPath?: string; lastTs?: number }> = {};
     const dailySessions: Record<string, Set<string>> = {};
 
     for (const v of views || []) {
@@ -228,6 +230,16 @@ Deno.serve(async (req) => {
         if (sid && sessionPages[sid]) {
           sessionPages[sid].timestamps.push(ts);
           sessionPages[sid].pageCount++;
+          // Track first (earliest) pageview path for landing pages
+          if (sessionPages[sid].firstTs === undefined || ts < sessionPages[sid].firstTs!) {
+            sessionPages[sid].firstTs = ts;
+            sessionPages[sid].firstPath = v.path;
+          }
+          // Track last (latest) pageview path for exit pages
+          if (sessionPages[sid].lastTs === undefined || ts > sessionPages[sid].lastTs!) {
+            sessionPages[sid].lastTs = ts;
+            sessionPages[sid].lastPath = v.path;
+          }
         }
 
         const date = v.created_at.split("T")[0];
@@ -257,6 +269,14 @@ Deno.serve(async (req) => {
         byLanguage[lang] = (byLanguage[lang] || 0) + 1;
         const country = v.country || "unknown";
         byCountry[country] = (byCountry[country] || 0) + 1;
+
+        // Viewport bucketing
+        const vw = typeof v.viewport_w === "number" ? v.viewport_w : null;
+        if (vw === null) byViewport["unknown"]++;
+        else if (vw < 640) byViewport["mobile-s (<640)"]++;
+        else if (vw < 1024) byViewport["mobile-l (640-1023)"]++;
+        else if (vw < 1440) byViewport["laptop (1024-1439)"]++;
+        else byViewport["desktop (≥1440)"]++;
 
         // UTM aggregation
         if (v.utm_source) byUtmSource[v.utm_source] = (byUtmSource[v.utm_source] || 0) + 1;
@@ -323,11 +343,28 @@ Deno.serve(async (req) => {
     const avgScrollDepth = scrollDepthCount > 0 ? Math.round(scrollDepthSum / scrollDepthCount) : null;
     const avgTimeOnPage = timeOnPageCount > 0 ? Math.round(timeOnPageSum / timeOnPageCount) : null;
 
+    // Landing & exit pages — first/last pageview path per session
+    const landingCounts: Record<string, number> = {};
+    const exitCounts: Record<string, number> = {};
+    for (const s of Object.values(sessionPages)) {
+      if (s.firstPath) landingCounts[s.firstPath] = (landingCounts[s.firstPath] || 0) + 1;
+      if (s.lastPath) exitCounts[s.lastPath] = (exitCounts[s.lastPath] || 0) + 1;
+    }
+    const topLandingPages = Object.entries(landingCounts)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 15)
+      .map(([path, count]) => ({ path, count }));
+    const topExitPages = Object.entries(exitCounts)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 15)
+      .map(([path, count]) => ({ path, count }));
+
     return new Response(
       JSON.stringify({
-        total, byDate, topPages, byReferrer, byDevice, byLanguage, byCountry, conversionEvents,
+        total, byDate, topPages, byReferrer, byDevice, byLanguage, byCountry, byViewport, conversionEvents,
         totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
         byUtmSource, byUtmMedium, byUtmCampaign, avgScrollDepth, avgTimeOnPage,
+        topLandingPages, topExitPages,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );

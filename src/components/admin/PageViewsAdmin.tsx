@@ -41,11 +41,14 @@ interface Stats {
   byDevice: Record<string, number>;
   byLanguage: Record<string, number>;
   byCountry?: Record<string, number>;
+  byViewport?: Record<string, number>;
   conversionEvents?: ConversionEvent[];
   totalSessions?: number;
   bounceRate?: number;
   avgSessionDurationSec?: number;
   byDateSessions?: Record<string, number>;
+  topLandingPages?: Array<{ path: string; count: number }>;
+  topExitPages?: Array<{ path: string; count: number }>;
 }
 
 interface PageViewsAdminProps {
@@ -76,7 +79,14 @@ SARAKKEET:
 - device_type: "mobile", "tablet" tai "desktop"
 - language: Sivun kieliversio URL-polusta pääteltynä (esim. /en/... → "en", /sv/... → "sv", muuten "fi"). Kertoo mitä kieliversiota käyttäjä katsoi, EI selaimen UI-kieltä. HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tämä oli selaimen kieli, jolloin esim. iPhone-käyttäjät näyttivät usein virheellisesti "en-US".
 - country: Kävijän maa ISO 3166-1 alpha-2 -koodina (esim. "FI", "DE", "SE"). Päätellään palvelinpuolella IP-osoitteen perusteella (CDN-otsakkeet). HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
+- viewport_w: Selainikkunan leveys pikseleinä (esim. 390, 768, 1440). Hyödyllinen responsiivisuusongelmien jäljitykseen — vertaa esim. mobiilibucket <640px konversioon. HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
 - session_id: Istunnon tunniste (UUID). Sama käyttäjä samassa selainikkunassa/välilehdessä saa saman session_id:n. Uusi välilehti tai selaimen sulkeminen luo uuden istunnon. HUOM: Vanhoilla riveillä (ennen 13.3.2026) session_id on tyhjä.
+
+SISÄÄNTULO- JA POISTUMISSIVUT (LASKETUT):
+- Eivät ole erillinen sarake CSV:ssä, vaan lasketaan istuntodatasta: ryhmittele rivit session_id:n mukaan, järjestä created_at-nousevasti, ja ensimmäisen pageview-rivin path on istunnon sisääntulosivu (landing), viimeisen pageview-rivin path on poistumissivu (exit).
+- Sisääntulosivu kertoo mille sivulle kävijät päätyvät (SEO/orgaaninen liikenne, kampanjasivut).
+- Poistumissivu kertoo missä kävijät jättävät sivuston — usein konversiosivu (hyvä) tai turhautumissivu (huono).
+- Lasketaan vain riveistä joissa session_id on olemassa. Admin-UI näyttää nämä valmiiksi aggregoituna top 15 -listana.
 
 BOTTILIIKENNE:
 - Bottiliikenne (Googlebot, Bingbot, GPTBot, prerender, headless-selaimet, Lighthouse, WhatsApp/Telegram-linkkiesikatselut, curl, jne.) suodatetaan pois jo kirjausvaiheessa sekä asiakas- että palvelinpuolella. CSV:ssä näkyvät vain todelliset ihmiskävijät.
@@ -279,6 +289,13 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
       name: name === "unknown" ? "Tuntematon" : (COUNTRY_NAMES[name] || name),
       value,
     }));
+
+  const viewportData = Object.entries(stats.byViewport || {})
+    .filter(([, v]) => v > 0)
+    .map(([name, value]) => ({ name, value }));
+
+  const landingTotal = (stats.topLandingPages || []).reduce((s, p) => s + p.count, 0);
+  const exitTotal = (stats.topExitPages || []).reduce((s, p) => s + p.count, 0);
 
   const referrerData = Object.entries(stats.byReferrer)
     .sort(([, a], [, b]) => b - a)
@@ -554,6 +571,82 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
                 </ResponsiveContainer>
               )}
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Viewport distribution */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Näytön leveys</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px]">
+              {viewportData.length === 0 ? (
+                <div className="h-full flex items-center justify-center text-sm text-muted-foreground">
+                  Ei vielä viewport-tietoa — tieto tallentuu uusilta käynneiltä.
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={viewportData} layout="vertical">
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                    <XAxis type="number" tick={{ fontSize: 12 }} />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={160} />
+                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Landing pages */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Sisääntulosivut (istuntojen alkupisteet)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {!stats.topLandingPages || stats.topLandingPages.length === 0 ? (
+              <div className="text-sm text-muted-foreground py-8 text-center">
+                Ei vielä istuntodataa.
+              </div>
+            ) : (
+              <div className="space-y-1 max-h-[280px] overflow-y-auto">
+                {stats.topLandingPages.map((p, i) => (
+                  <div key={i} className="flex items-center justify-between text-sm py-1 border-b border-border/40 last:border-0">
+                    <span className="truncate font-mono text-xs">{p.path}</span>
+                    <span className="text-muted-foreground tabular-nums ml-2">
+                      {p.count} ({landingTotal > 0 ? Math.round((p.count / landingTotal) * 100) : 0}%)
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Exit pages */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Poistumissivut (istuntojen päätepisteet)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {!stats.topExitPages || stats.topExitPages.length === 0 ? (
+              <div className="text-sm text-muted-foreground py-8 text-center">
+                Ei vielä istuntodataa.
+              </div>
+            ) : (
+              <div className="space-y-1 max-h-[280px] overflow-y-auto">
+                {stats.topExitPages.map((p, i) => (
+                  <div key={i} className="flex items-center justify-between text-sm py-1 border-b border-border/40 last:border-0">
+                    <span className="truncate font-mono text-xs">{p.path}</span>
+                    <span className="text-muted-foreground tabular-nums ml-2">
+                      {p.count} ({exitTotal > 0 ? Math.round((p.count / exitTotal) * 100) : 0}%)
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

@@ -78,6 +78,7 @@ Deno.serve(async (req) => {
     utm_source: typeof body.utm_source === "string" ? body.utm_source.slice(0, 100) : null,
     utm_medium: typeof body.utm_medium === "string" ? body.utm_medium.slice(0, 100) : null,
     utm_campaign: typeof body.utm_campaign === "string" ? body.utm_campaign.slice(0, 100) : null,
+    viewport_w: typeof body.viewport_w === "number" && body.viewport_w >= 200 && body.viewport_w <= 10000 ? Math.round(body.viewport_w) : null,
     country,
   };
   if (typeof body.id === "string") row.id = body.id;
