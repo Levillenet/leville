@@ -79,7 +79,14 @@ SARAKKEET:
 - device_type: "mobile", "tablet" tai "desktop"
 - language: Sivun kieliversio URL-polusta pääteltynä (esim. /en/... → "en", /sv/... → "sv", muuten "fi"). Kertoo mitä kieliversiota käyttäjä katsoi, EI selaimen UI-kieltä. HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tämä oli selaimen kieli, jolloin esim. iPhone-käyttäjät näyttivät usein virheellisesti "en-US".
 - country: Kävijän maa ISO 3166-1 alpha-2 -koodina (esim. "FI", "DE", "SE"). Päätellään palvelinpuolella IP-osoitteen perusteella (CDN-otsakkeet). HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
+- viewport_w: Selainikkunan leveys pikseleinä (esim. 390, 768, 1440). Hyödyllinen responsiivisuusongelmien jäljitykseen — vertaa esim. mobiilibucket <640px konversioon. HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
 - session_id: Istunnon tunniste (UUID). Sama käyttäjä samassa selainikkunassa/välilehdessä saa saman session_id:n. Uusi välilehti tai selaimen sulkeminen luo uuden istunnon. HUOM: Vanhoilla riveillä (ennen 13.3.2026) session_id on tyhjä.
+
+SISÄÄNTULO- JA POISTUMISSIVUT (LASKETUT):
+- Eivät ole erillinen sarake CSV:ssä, vaan lasketaan istuntodatasta: ryhmittele rivit session_id:n mukaan, järjestä created_at-nousevasti, ja ensimmäisen pageview-rivin path on istunnon sisääntulosivu (landing), viimeisen pageview-rivin path on poistumissivu (exit).
+- Sisääntulosivu kertoo mille sivulle kävijät päätyvät (SEO/orgaaninen liikenne, kampanjasivut).
+- Poistumissivu kertoo missä kävijät jättävät sivuston — usein konversiosivu (hyvä) tai turhautumissivu (huono).
+- Lasketaan vain riveistä joissa session_id on olemassa. Admin-UI näyttää nämä valmiiksi aggregoituna top 15 -listana.
 
 BOTTILIIKENNE:
 - Bottiliikenne (Googlebot, Bingbot, GPTBot, prerender, headless-selaimet, Lighthouse, WhatsApp/Telegram-linkkiesikatselut, curl, jne.) suodatetaan pois jo kirjausvaiheessa sekä asiakas- että palvelinpuolella. CSV:ssä näkyvät vain todelliset ihmiskävijät.
