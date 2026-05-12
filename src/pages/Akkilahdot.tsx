@@ -970,7 +970,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* Manual Deals Grid (if any) */}
-            {!isLoading && manualDeals.length > 0 && (
+            {dealsEnabled && !isLoading && manualDeals.length > 0 && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 {manualDeals.map((deal, index) => {
                   const pricePerPerson = Math.round(deal.price / deal.persons);
