@@ -40,6 +40,7 @@ interface Stats {
   byReferrer: Record<string, number>;
   byDevice: Record<string, number>;
   byLanguage: Record<string, number>;
+  byCountry?: Record<string, number>;
   conversionEvents?: ConversionEvent[];
   totalSessions?: number;
   bounceRate?: number;
@@ -250,6 +251,22 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
     .slice(0, 8)
     .map(([name, value]) => ({
       name: name === "fi" ? "Suomi" : name === "en" ? "Englanti" : name === "sv" ? "Ruotsi" : name === "de" ? "Saksa" : name === "es" ? "Espanja" : name === "fr" ? "Ranska" : name === "nl" ? "Hollanti" : name,
+      value,
+    }));
+
+  const COUNTRY_NAMES: Record<string, string> = {
+    FI: "Suomi", SE: "Ruotsi", NO: "Norja", DK: "Tanska", DE: "Saksa",
+    GB: "Iso-Britannia", US: "Yhdysvallat", FR: "Ranska", ES: "Espanja",
+    NL: "Alankomaat", BE: "Belgia", CH: "Sveitsi", AT: "Itävalta",
+    IT: "Italia", PL: "Puola", EE: "Viro", LV: "Latvia", LT: "Liettua",
+    RU: "Venäjä", CN: "Kiina", JP: "Japani", IL: "Israel", IE: "Irlanti",
+    CZ: "Tšekki", HU: "Unkari", PT: "Portugali", CA: "Kanada", AU: "Australia",
+  };
+  const countryData = Object.entries(stats.byCountry || {})
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 10)
+    .map(([name, value]) => ({
+      name: name === "unknown" ? "Tuntematon" : (COUNTRY_NAMES[name] || name),
       value,
     }));
 
@@ -500,6 +517,32 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
                   <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Country distribution */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Maajakauma</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px]">
+              {countryData.length === 0 ? (
+                <div className="h-full flex items-center justify-center text-sm text-muted-foreground">
+                  Ei vielä maatietoa — tieto tallentuu uusilta käynneiltä.
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={countryData} layout="vertical">
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                    <XAxis type="number" tick={{ fontSize: 12 }} />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 12 }} width={110} />
+                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
             </div>
           </CardContent>
         </Card>
