@@ -715,7 +715,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* Loading state */}
-            {isLoading && (
+            {dealsEnabled && isLoading && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 {[1, 2, 3].map((i) => (
                   <Card key={i} className="glass-card border-border/30">
