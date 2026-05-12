@@ -185,6 +185,7 @@ Deno.serve(async (req) => {
     const byDevice: Record<string, number> = {};
     const byLanguage: Record<string, number> = {};
     const byCountry: Record<string, number> = {};
+    const byViewport: Record<string, number> = { "mobile-s (<640)": 0, "mobile-l (640-1023)": 0, "laptop (1024-1439)": 0, "desktop (≥1440)": 0, "unknown": 0 };
     const conversionMap: Record<string, { count: number; sources: Record<string, number> }> = {};
     const byUtmSource: Record<string, number> = {};
     const byUtmMedium: Record<string, number> = {};
@@ -195,8 +196,8 @@ Deno.serve(async (req) => {
     let timeOnPageSum = 0;
     let timeOnPageCount = 0;
 
-    // Session tracking
-    const sessionPages: Record<string, { timestamps: number[]; pageCount: number }> = {};
+    // Session tracking — also collect first/last pageview path per session
+    const sessionPages: Record<string, { timestamps: number[]; pageCount: number; firstPath?: string; firstTs?: number; lastPath?: string; lastTs?: number }> = {};
     const dailySessions: Record<string, Set<string>> = {};
 
     for (const v of views || []) {
