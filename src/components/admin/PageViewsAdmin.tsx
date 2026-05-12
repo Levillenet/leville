@@ -573,6 +573,82 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Viewport distribution */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Näytön leveys</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px]">
+              {viewportData.length === 0 ? (
+                <div className="h-full flex items-center justify-center text-sm text-muted-foreground">
+                  Ei vielä viewport-tietoa — tieto tallentuu uusilta käynneiltä.
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={viewportData} layout="vertical">
+                    <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                    <XAxis type="number" tick={{ fontSize: 12 }} />
+                    <YAxis type="category" dataKey="name" tick={{ fontSize: 11 }} width={160} />
+                    <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Landing pages */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Sisääntulosivut (istuntojen alkupisteet)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {!stats.topLandingPages || stats.topLandingPages.length === 0 ? (
+              <div className="text-sm text-muted-foreground py-8 text-center">
+                Ei vielä istuntodataa.
+              </div>
+            ) : (
+              <div className="space-y-1 max-h-[280px] overflow-y-auto">
+                {stats.topLandingPages.map((p, i) => (
+                  <div key={i} className="flex items-center justify-between text-sm py-1 border-b border-border/40 last:border-0">
+                    <span className="truncate font-mono text-xs">{p.path}</span>
+                    <span className="text-muted-foreground tabular-nums ml-2">
+                      {p.count} ({landingTotal > 0 ? Math.round((p.count / landingTotal) * 100) : 0}%)
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Exit pages */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Poistumissivut (istuntojen päätepisteet)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {!stats.topExitPages || stats.topExitPages.length === 0 ? (
+              <div className="text-sm text-muted-foreground py-8 text-center">
+                Ei vielä istuntodataa.
+              </div>
+            ) : (
+              <div className="space-y-1 max-h-[280px] overflow-y-auto">
+                {stats.topExitPages.map((p, i) => (
+                  <div key={i} className="flex items-center justify-between text-sm py-1 border-b border-border/40 last:border-0">
+                    <span className="truncate font-mono text-xs">{p.path}</span>
+                    <span className="text-muted-foreground tabular-nums ml-2">
+                      {p.count} ({exitTotal > 0 ? Math.round((p.count / exitTotal) * 100) : 0}%)
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
