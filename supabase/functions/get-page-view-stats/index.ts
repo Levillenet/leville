@@ -343,11 +343,28 @@ Deno.serve(async (req) => {
     const avgScrollDepth = scrollDepthCount > 0 ? Math.round(scrollDepthSum / scrollDepthCount) : null;
     const avgTimeOnPage = timeOnPageCount > 0 ? Math.round(timeOnPageSum / timeOnPageCount) : null;
 
+    // Landing & exit pages — first/last pageview path per session
+    const landingCounts: Record<string, number> = {};
+    const exitCounts: Record<string, number> = {};
+    for (const s of Object.values(sessionPages)) {
+      if (s.firstPath) landingCounts[s.firstPath] = (landingCounts[s.firstPath] || 0) + 1;
+      if (s.lastPath) exitCounts[s.lastPath] = (exitCounts[s.lastPath] || 0) + 1;
+    }
+    const topLandingPages = Object.entries(landingCounts)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 15)
+      .map(([path, count]) => ({ path, count }));
+    const topExitPages = Object.entries(exitCounts)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 15)
+      .map(([path, count]) => ({ path, count }));
+
     return new Response(
       JSON.stringify({
-        total, byDate, topPages, byReferrer, byDevice, byLanguage, byCountry, conversionEvents,
+        total, byDate, topPages, byReferrer, byDevice, byLanguage, byCountry, byViewport, conversionEvents,
         totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
         byUtmSource, byUtmMedium, byUtmCampaign, avgScrollDepth, avgTimeOnPage,
+        topLandingPages, topExitPages,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
