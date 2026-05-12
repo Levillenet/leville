@@ -314,6 +314,44 @@ const content = {
   }
 };
 
+const disabledContent: Record<Language, { heading: string; body: string; cta: string }> = {
+  fi: {
+    heading: "Äkkilähtöjä julkaistaan pääsesongin aikana",
+    body: "Tällä hetkellä erillisiä äkkilähtötarjouksia ei ole julkaistu. Voit kuitenkin varata majoituksesi suoraan – tarkista vapaat huoneistot ja parhaat hinnat varausjärjestelmästämme.",
+    cta: "Varaa majoitus"
+  },
+  en: {
+    heading: "Last-minute deals are published during peak season",
+    body: "No separate last-minute deals are currently published. You can still book your accommodation directly — check availability and the best rates in our booking system.",
+    cta: "Book accommodation"
+  },
+  sv: {
+    heading: "Sista minuten-erbjudanden publiceras under högsäsong",
+    body: "Just nu finns inga separata sista minuten-erbjudanden. Du kan ändå boka ditt boende direkt – kolla tillgänglighet och bästa priser i vårt bokningssystem.",
+    cta: "Boka boende"
+  },
+  de: {
+    heading: "Last-Minute-Angebote werden in der Hauptsaison veröffentlicht",
+    body: "Derzeit sind keine separaten Last-Minute-Angebote verfügbar. Sie können Ihre Unterkunft jedoch direkt buchen – prüfen Sie Verfügbarkeit und beste Preise in unserem Buchungssystem.",
+    cta: "Unterkunft buchen"
+  },
+  es: {
+    heading: "Las ofertas de última hora se publican en temporada alta",
+    body: "Actualmente no hay ofertas de última hora publicadas. Aun así, puedes reservar tu alojamiento directamente — consulta disponibilidad y mejores precios en nuestro sistema de reservas.",
+    cta: "Reservar alojamiento"
+  },
+  fr: {
+    heading: "Les offres de dernière minute sont publiées en haute saison",
+    body: "Aucune offre de dernière minute n'est actuellement publiée. Vous pouvez néanmoins réserver votre hébergement directement — vérifiez la disponibilité et les meilleurs tarifs dans notre système de réservation.",
+    cta: "Réserver un hébergement"
+  },
+  nl: {
+    heading: "Last-minute aanbiedingen verschijnen in het hoogseizoen",
+    body: "Op dit moment zijn er geen aparte last-minute aanbiedingen gepubliceerd. U kunt uw accommodatie wel direct boeken — bekijk beschikbaarheid en de beste prijzen in ons boekingssysteem.",
+    cta: "Boek accommodatie"
+  }
+};
+
 type NightFilter = "all" | "short" | "long";
 
 const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
