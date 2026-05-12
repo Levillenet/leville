@@ -290,6 +290,13 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
       value,
     }));
 
+  const viewportData = Object.entries(stats.byViewport || {})
+    .filter(([, v]) => v > 0)
+    .map(([name, value]) => ({ name, value }));
+
+  const landingTotal = (stats.topLandingPages || []).reduce((s, p) => s + p.count, 0);
+  const exitTotal = (stats.topExitPages || []).reduce((s, p) => s + p.count, 0);
+
   const referrerData = Object.entries(stats.byReferrer)
     .sort(([, a], [, b]) => b - a)
     .slice(0, 8)
