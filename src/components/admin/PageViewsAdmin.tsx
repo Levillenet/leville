@@ -99,7 +99,7 @@ TAPAHTUMATYYPIT (type-sarake):
 
 4. "booking-page-cta" — Käyttäjä painoi sivun lopussa olevaa "Katso vapaat majoitukset" -toimintakehotuspainiketta (CTA = Call to Action). Tämä painike on pyöristetyssä laatikossa sivun alaosassa monilla sisältösivuilla. referrer = sivu jolta painettiin.
 
-5. "booking-link" — Käyttäjä painoi muuta linkkiä joka johtaa varausjärjestelmään (app.moder.fi). Esim. yksittäisen majoituskohteen varauslinkki. referrer = sivu jolta painettiin.
+5. "booking-link" — Käyttäjä painoi muuta linkkiä joka johtaa varausjärjestelmään (app.moder.fi). Kaikki tällaiset klikkaukset tallentuvat yhtenäisesti tämän nimen alle globaalin click-handlerin kautta — yksittäisten linkkien ei tarvitse rekisteröidä omaa onClick-tapahtumaa. referrer = sivu jolta painettiin.
 
 KONVERSIOANALYYSI:
 - Konversioprosentti = (booking-tapahtumien määrä / pageview-tapahtumien määrä) × 100
