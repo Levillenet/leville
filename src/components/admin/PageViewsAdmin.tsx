@@ -108,6 +108,12 @@ KONVERSIOANALYYSI:
 - Kieliversioiden tehokkuus: vertaa fi vs en vs de kävijöiden konversiota
 - Istuntokohtainen konversio: kuinka moni istunto johti varausklikkiin?
 
+MAA-ANALYYSI:
+- Ryhmittele country-sarake nähdäksesi mistä maista kävijät tulevat (FI = Suomi, DE = Saksa, SE = Ruotsi, GB = Iso-Britannia jne.)
+- Vertaa kotimaisen (FI) ja kansainvälisen liikenteen konversioprosentteja: tuottavatko ulkomaalaiset kävijät enemmän vai vähemmän varausklikkejä?
+- Vertaa country vs language ristikkäin: esim. kuinka moni FI-kävijä selasi /en/-versiota, tai kuinka moni DE-kävijä päätyi suomenkieliselle sivulle.
+- Tunnista markkinointimahdollisuuksia: maat joista on paljon liikennettä mutta vähän konversioita kaipaavat ehkä omaa kieliversiota tai kohdennettua sisältöä.
+
 HAKUTAPAHTUMAT:
 
 6. "site-search" — Käyttäjä haki sivustolta ja valitsi hakutuloksen. referrer = hakusana (esim. "sauna", "northern lights"), utm_source = valittu sivu (esim. "/sauna", "/guide/northern-lights-levi"). Analysoi suosituimmat hakusanat ja mitkä sivut valitaan useimmin.
