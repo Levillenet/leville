@@ -230,6 +230,16 @@ Deno.serve(async (req) => {
         if (sid && sessionPages[sid]) {
           sessionPages[sid].timestamps.push(ts);
           sessionPages[sid].pageCount++;
+          // Track first (earliest) pageview path for landing pages
+          if (sessionPages[sid].firstTs === undefined || ts < sessionPages[sid].firstTs!) {
+            sessionPages[sid].firstTs = ts;
+            sessionPages[sid].firstPath = v.path;
+          }
+          // Track last (latest) pageview path for exit pages
+          if (sessionPages[sid].lastTs === undefined || ts > sessionPages[sid].lastTs!) {
+            sessionPages[sid].lastTs = ts;
+            sessionPages[sid].lastPath = v.path;
+          }
         }
 
         const date = v.created_at.split("T")[0];
@@ -259,6 +269,14 @@ Deno.serve(async (req) => {
         byLanguage[lang] = (byLanguage[lang] || 0) + 1;
         const country = v.country || "unknown";
         byCountry[country] = (byCountry[country] || 0) + 1;
+
+        // Viewport bucketing
+        const vw = typeof v.viewport_w === "number" ? v.viewport_w : null;
+        if (vw === null) byViewport["unknown"]++;
+        else if (vw < 640) byViewport["mobile-s (<640)"]++;
+        else if (vw < 1024) byViewport["mobile-l (640-1023)"]++;
+        else if (vw < 1440) byViewport["laptop (1024-1439)"]++;
+        else byViewport["desktop (≥1440)"]++;
 
         // UTM aggregation
         if (v.utm_source) byUtmSource[v.utm_source] = (byUtmSource[v.utm_source] || 0) + 1;
