@@ -126,7 +126,7 @@ Deno.serve(async (req) => {
     while (true) {
       const { data: batch, error: batchErr } = await supabase
         .from("page_views")
-        .select("path, referrer, device_type, language, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page")
+        .select("path, referrer, device_type, language, country, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page")
         .gte("created_at", since)
         .order("created_at", { ascending: false })
         .range(from, from + PAGE_SIZE - 1);
@@ -146,7 +146,7 @@ Deno.serve(async (req) => {
 
     // CSV format: return raw rows
     if (format === "csv") {
-      const csvHeader = "date,time,path,type,referrer,device_type,language,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page";
+      const csvHeader = "date,time,path,type,referrer,device_type,language,country,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page";
       const csvRows = (views || []).map((v: any) => {
         const dt = new Date(v.created_at);
         const date = dt.toISOString().split("T")[0];
@@ -157,6 +157,7 @@ Deno.serve(async (req) => {
         const ref = v.referrer || "";
         const device = v.device_type || "unknown";
         const lang = v.language || "unknown";
+        const country = v.country || "unknown";
         const sid = v.session_id || "";
         const utmSrc = v.utm_source || "";
         const utmMed = v.utm_medium || "";
@@ -164,7 +165,7 @@ Deno.serve(async (req) => {
         const scrollD = v.scroll_depth != null ? String(v.scroll_depth) : "";
         const timeP = v.time_on_page != null ? String(v.time_on_page) : "";
         const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
-        return [date, time, esc(path), type, esc(ref), device, lang, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP].join(",");
+        return [date, time, esc(path), type, esc(ref), device, lang, country, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP].join(",");
       });
 
       return new Response([csvHeader, ...csvRows].join("\n"), {
@@ -182,6 +183,7 @@ Deno.serve(async (req) => {
     const byReferrer: Record<string, number> = {};
     const byDevice: Record<string, number> = {};
     const byLanguage: Record<string, number> = {};
+    const byCountry: Record<string, number> = {};
     const conversionMap: Record<string, { count: number; sources: Record<string, number> }> = {};
     const byUtmSource: Record<string, number> = {};
     const byUtmMedium: Record<string, number> = {};
@@ -253,6 +255,8 @@ Deno.serve(async (req) => {
         byDevice[dev] = (byDevice[dev] || 0) + 1;
         const lang = v.language || "unknown";
         byLanguage[lang] = (byLanguage[lang] || 0) + 1;
+        const country = v.country || "unknown";
+        byCountry[country] = (byCountry[country] || 0) + 1;
 
         // UTM aggregation
         if (v.utm_source) byUtmSource[v.utm_source] = (byUtmSource[v.utm_source] || 0) + 1;
@@ -321,7 +325,7 @@ Deno.serve(async (req) => {
 
     return new Response(
       JSON.stringify({
-        total, byDate, topPages, byReferrer, byDevice, byLanguage, conversionEvents,
+        total, byDate, topPages, byReferrer, byDevice, byLanguage, byCountry, conversionEvents,
         totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
         byUtmSource, byUtmMedium, byUtmCampaign, avgScrollDepth, avgTimeOnPage,
       }),
