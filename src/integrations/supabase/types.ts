@@ -1369,6 +1369,7 @@ export type Database = {
       }
       page_views: {
         Row: {
+          country: string | null
           created_at: string
           device_type: string | null
           id: string
@@ -1383,6 +1384,7 @@ export type Database = {
           utm_source: string | null
         }
         Insert: {
+          country?: string | null
           created_at?: string
           device_type?: string | null
           id?: string
@@ -1397,6 +1399,7 @@ export type Database = {
           utm_source?: string | null
         }
         Update: {
+          country?: string | null
           created_at?: string
           device_type?: string | null
           id?: string
