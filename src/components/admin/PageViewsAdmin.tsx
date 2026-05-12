@@ -41,11 +41,14 @@ interface Stats {
   byDevice: Record<string, number>;
   byLanguage: Record<string, number>;
   byCountry?: Record<string, number>;
+  byViewport?: Record<string, number>;
   conversionEvents?: ConversionEvent[];
   totalSessions?: number;
   bounceRate?: number;
   avgSessionDurationSec?: number;
   byDateSessions?: Record<string, number>;
+  topLandingPages?: Array<{ path: string; count: number }>;
+  topExitPages?: Array<{ path: string; count: number }>;
 }
 
 interface PageViewsAdminProps {
