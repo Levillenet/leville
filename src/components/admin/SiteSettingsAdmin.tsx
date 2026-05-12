@@ -57,6 +57,38 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
+            <Eye className="w-5 h-5" />
+            Äkkilähtöjen näkyvyys
+          </CardTitle>
+          <CardDescription>
+            Kytke äkkilähtötarjousten näyttäminen sivustolla päälle tai pois
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between gap-4">
+            <div className="space-y-1">
+              <Label htmlFor="deals-enabled-toggle" className="text-base font-medium">
+                Näytä äkkilähdöt sivustolla
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                {dealsEnabled
+                  ? 'Päällä: /akkilahdot näyttää kaikki saatavilla olevat tarjoukset.'
+                  : 'Pois: sivulla näkyy tiedote pääsesongista ja suora varauslinkki.'}
+              </p>
+            </div>
+            <Switch
+              id="deals-enabled-toggle"
+              checked={dealsEnabled}
+              onCheckedChange={handleToggleEnabled}
+              disabled={isSaving}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
             <CalendarDays className="w-5 h-5" />
             Äkkilähdöt
           </CardTitle>
