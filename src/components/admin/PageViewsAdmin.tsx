@@ -74,8 +74,12 @@ SARAKKEET:
 - type: "pageview" tai konversiotapahtuman tyyppi (ks. alla)
 - referrer: Ulkoinen lähde (sivukatseluilla) TAI sisäinen lähtösivu (konversiotapahtumilla)
 - device_type: "mobile", "tablet" tai "desktop"
-- language: Selaimen kieli (fi, en, de, sv, es, fr, nl jne.)
+- language: Sivun kieliversio URL-polusta pääteltynä (esim. /en/... → "en", /sv/... → "sv", muuten "fi"). Kertoo mitä kieliversiota käyttäjä katsoi, EI selaimen UI-kieltä. HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tämä oli selaimen kieli, jolloin esim. iPhone-käyttäjät näyttivät usein virheellisesti "en-US".
+- country: Kävijän maa ISO 3166-1 alpha-2 -koodina (esim. "FI", "DE", "SE"). Päätellään palvelinpuolella IP-osoitteen perusteella (CDN-otsakkeet). HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
 - session_id: Istunnon tunniste (UUID). Sama käyttäjä samassa selainikkunassa/välilehdessä saa saman session_id:n. Uusi välilehti tai selaimen sulkeminen luo uuden istunnon. HUOM: Vanhoilla riveillä (ennen 13.3.2026) session_id on tyhjä.
+
+BOTTILIIKENNE:
+- Bottiliikenne (Googlebot, Bingbot, GPTBot, prerender, headless-selaimet, Lighthouse, WhatsApp/Telegram-linkkiesikatselut, curl, jne.) suodatetaan pois jo kirjausvaiheessa sekä asiakas- että palvelinpuolella. CSV:ssä näkyvät vain todelliset ihmiskävijät.
 
 ISTUNTOANALYYSI:
 - session_id yhdistää saman käyttäjän sivukatselut yhdeksi istunnoksi (evästeetön, sessionStorage-pohjainen)
@@ -95,7 +99,7 @@ TAPAHTUMATYYPIT (type-sarake):
 
 4. "booking-page-cta" — Käyttäjä painoi sivun lopussa olevaa "Katso vapaat majoitukset" -toimintakehotuspainiketta (CTA = Call to Action). Tämä painike on pyöristetyssä laatikossa sivun alaosassa monilla sisältösivuilla. referrer = sivu jolta painettiin.
 
-5. "booking-link" — Käyttäjä painoi muuta linkkiä joka johtaa varausjärjestelmään (app.moder.fi). Esim. yksittäisen majoituskohteen varauslinkki. referrer = sivu jolta painettiin.
+5. "booking-link" — Käyttäjä painoi muuta linkkiä joka johtaa varausjärjestelmään (app.moder.fi). Kaikki tällaiset klikkaukset tallentuvat yhtenäisesti tämän nimen alle globaalin click-handlerin kautta — yksittäisten linkkien ei tarvitse rekisteröidä omaa onClick-tapahtumaa. referrer = sivu jolta painettiin.
 
 KONVERSIOANALYYSI:
 - Konversioprosentti = (booking-tapahtumien määrä / pageview-tapahtumien määrä) × 100
@@ -103,6 +107,12 @@ KONVERSIOANALYYSI:
 - Analysoi referrer-sarake konversiotapahtumissa: mitkä sivut tuottavat eniten varausklikkauksia?
 - Kieliversioiden tehokkuus: vertaa fi vs en vs de kävijöiden konversiota
 - Istuntokohtainen konversio: kuinka moni istunto johti varausklikkiin?
+
+MAA-ANALYYSI:
+- Ryhmittele country-sarake nähdäksesi mistä maista kävijät tulevat (FI = Suomi, DE = Saksa, SE = Ruotsi, GB = Iso-Britannia jne.)
+- Vertaa kotimaisen (FI) ja kansainvälisen liikenteen konversioprosentteja: tuottavatko ulkomaalaiset kävijät enemmän vai vähemmän varausklikkejä?
+- Vertaa country vs language ristikkäin: esim. kuinka moni FI-kävijä selasi /en/-versiota, tai kuinka moni DE-kävijä päätyi suomenkieliselle sivulle.
+- Tunnista markkinointimahdollisuuksia: maat joista on paljon liikennettä mutta vähän konversioita kaipaavat ehkä omaa kieliversiota tai kohdennettua sisältöä.
 
 HAKUTAPAHTUMAT:
 
