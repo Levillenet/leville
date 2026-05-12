@@ -306,7 +306,7 @@ const Admin = () => {
             </TabsTrigger>
             <TabsTrigger value="settings" className="flex items-center gap-2">
               <Settings className="w-4 h-4" />
-              Yleiset asetukset
+              Äkkilähtöasetukset
             </TabsTrigger>
             <TabsTrigger value="properties" className="flex items-center gap-2">
               <Building className="w-4 h-4" />

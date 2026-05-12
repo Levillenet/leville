@@ -90,7 +90,7 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <CalendarDays className="w-5 h-5" />
-            Yleiset asetukset
+            Äkkilähdöt
           </CardTitle>
           <CardDescription>
             Hallitse, kuinka monta päivää eteenpäin äkkilähtöjä näytetään sivulla
