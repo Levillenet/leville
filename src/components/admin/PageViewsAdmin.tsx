@@ -74,8 +74,12 @@ SARAKKEET:
 - type: "pageview" tai konversiotapahtuman tyyppi (ks. alla)
 - referrer: Ulkoinen lähde (sivukatseluilla) TAI sisäinen lähtösivu (konversiotapahtumilla)
 - device_type: "mobile", "tablet" tai "desktop"
-- language: Selaimen kieli (fi, en, de, sv, es, fr, nl jne.)
+- language: Sivun kieliversio URL-polusta pääteltynä (esim. /en/... → "en", /sv/... → "sv", muuten "fi"). Kertoo mitä kieliversiota käyttäjä katsoi, EI selaimen UI-kieltä. HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tämä oli selaimen kieli, jolloin esim. iPhone-käyttäjät näyttivät usein virheellisesti "en-US".
+- country: Kävijän maa ISO 3166-1 alpha-2 -koodina (esim. "FI", "DE", "SE"). Päätellään palvelinpuolella IP-osoitteen perusteella (CDN-otsakkeet). HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
 - session_id: Istunnon tunniste (UUID). Sama käyttäjä samassa selainikkunassa/välilehdessä saa saman session_id:n. Uusi välilehti tai selaimen sulkeminen luo uuden istunnon. HUOM: Vanhoilla riveillä (ennen 13.3.2026) session_id on tyhjä.
+
+BOTTILIIKENNE:
+- Bottiliikenne (Googlebot, Bingbot, GPTBot, prerender, headless-selaimet, Lighthouse, WhatsApp/Telegram-linkkiesikatselut, curl, jne.) suodatetaan pois jo kirjausvaiheessa sekä asiakas- että palvelinpuolella. CSV:ssä näkyvät vain todelliset ihmiskävijät.
 
 ISTUNTOANALYYSI:
 - session_id yhdistää saman käyttäjän sivukatselut yhdeksi istunnoksi (evästeetön, sessionStorage-pohjainen)
