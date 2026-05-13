@@ -1,70 +1,67 @@
-## Tavoite
+## Tilanne
 
-Lisätä kolme korkean arvon analytiikkalisäystä, jotka näkyvät sekä admin-UI:ssa että CSV-raportissa:
+Google Search Console on nyt kytketty ja **leville.net on jo verifioitu** (sc-domain-tasolla, omistajatason oikeudet). API toimii — testihaku palautti viimeiseltä 90 päivältä mm. `saatieto-levilta` 1 023 klikkiä / 19 356 näyttöä.
 
-1. **Viewport-leveys** (uusi sarake page_viewsiin)
-2. **Sisääntulosivut** (landing pages — aggregaatti, ei uutta saraketta)
-3. **Poistumissivut** (exit pages — aggregaatti, ei uutta saraketta)
+## Tärkeä rajoitus: levi.fi-linkin klikkejä ei näy GSC API:sta
 
-Lisäksi varauskonversion seurantaa parannetaan UTM-parametrien avulla (todellinen "varaus toteutui" -vahvistus vaatisi Moder-puolen webhookin — rajataan ulkopuolelle, mainitaan).
+Search Console -**API** antaa vain **orgaaniset Google-hakutulokset** (klikit, näytöt, CTR, positio per haku/sivu/maa). Se ei kerro mitään muiden sivustojen viittausliikenteestä. **Ulkoiset linkit (levi.fi → leville.net) näkyvät GSC:n "Linkit"-osiossa vain web-käyttöliittymässä**, eivät API:n kautta.
 
-## Muutokset
+Eli levi.fi:n tuomat **klikit** (oikeat kävijät) saa selville vain:
+- (a) leville.netin omasta analytiikasta `referrer = levi.fi` — tämä teillä on jo `page_views`-taulussa, ei tarvitse uutta integraatiota
+- (b) GSC UI:sta (Search Console → Links → Top linking sites → levi.fi → top linked pages) — ei automatisoitavissa API:lla
 
-### 1. Tietokanta
+Search Console -integraation aito hyöty on **orgaanisen näkyvyyden** seuranta: paljonko Google näyttää teitä, mihin hakuihin, missä positioissa, ja kuinka trendi liikkuu.
 
-Migraatio:
-- `ALTER TABLE page_views ADD COLUMN viewport_w INTEGER` (nullable, vanhoilla riveillä tyhjä).
-- Indeksi `idx_page_views_session_created` jos sitä ei vielä ole — landing/exit-haku tarvitsee `(session_id, created_at)`.
+## Mitä rakennetaan
 
-Landing ja exit eivät vaadi omaa saraketta: ne lasketaan istuntodatasta (first/last row per `session_id`).
+### 1. Admin-välilehti "Search Console" (`/admin`)
 
-### 2. Frontend — `src/components/PageViewTracker.tsx`
+Uusi komponentti `src/components/admin/SearchConsoleAdmin.tsx`, lisätään olemassa olevaan adminin tabbinavigaatioon (samaan tyyliin kuin `PageViewsAdmin`).
 
-- Lisätään `viewport_w: window.innerWidth` jokaiseen `log-page-view`-kutsuun (sekä pageview että event).
-- Ei muita muutoksia.
+Aikavälivalitsin: 7 / 28 / 90 päivää (oletus 28). Filtteri: kieli (kaikki / fi / en / de / sv / fr / es / nl) johdettuna URL-prefiksistä.
 
-### 3. Edge — `supabase/functions/log-page-view/index.ts`
+Näkymät (kortteja):
+- **Yhteenveto**: kokonaisklikit, kokonaisnäytöt, keskimääräinen CTR, keskimääräinen positio + edellisen vastaavan jakson vertailu (Δ%)
+- **Trendi**: päivätason aikasarja klikit + näytöt (Recharts LineChart)
+- **Top haut** (top 25): haku, klikit, näytöt, CTR, positio
+- **Top sivut** (top 25): URL, klikit, näytöt, CTR, positio
+- **Top maat** (top 15)
+- **Top laitteet**: mobile / desktop / tablet -jakauma
 
-- Hyväksytään `viewport_w` request bodysta (Zod-validointi, valinnainen int 200–10000).
-- Tallennetaan `page_views`-tauluun.
+CSV-export samaan tyyliin kuin nykyisessä PageViews-raportissa (otsikko + REPORT_DESCRIPTION + datarivit), jotta data sopii LLM-analyysiin.
 
-### 4. Edge — `supabase/functions/get-page-view-stats/index.ts`
+### 2. Edge function `get-search-console-stats`
 
-**CSV**
-- Lisätään `viewport_w` sarake header- ja rivirakenteeseen.
+Uusi `supabase/functions/get-search-console-stats/index.ts`:
+- Suojataan adminin salasanalla (sama `ADMIN_PASSWORD`-malli kuin `get-page-view-stats`)
+- Validoi inputit Zodilla (startDate, endDate, dimension)
+- Kutsuu gateway-URL:ää `https://connector-gateway.lovable.dev/google_search_console/webmasters/v3/sites/sc-domain%3Aleville.net/searchAnalytics/query` kahdella headerilla (`Authorization: Bearer LOVABLE_API_KEY`, `X-Connection-Api-Key: GOOGLE_SEARCH_CONSOLE_API_KEY`)
+- Tekee kuusi rinnakkaista kyselyä (yhteenveto, päivä, query, page, country, device) yhden kutsun aikana ja palauttaa yhdistetyn JSON:in
+- Lyhyt in-memory cache (5 min) jotta GSC-kiintiötä ei kuluteta turhaan
 
-**JSON-aggregaatit** (UI:lle)
-- `byViewport`: bucket-jaottelu: `<640` (mobile-S), `640–1023` (mobile-L/tablet-S), `1024–1439` (tablet-L/laptop), `≥1440` (desktop).
-- `topLandingPages`: ryhmitä rivit `session_id`:n mukaan, ota kunkin istunnon ensimmäinen pageview-polku, laske top 15.
-- `topExitPages`: vastaavasti viimeinen pageview-polku per istunto, top 15.
-- Suoritetaan vain riveille joilla on `session_id`.
+### 3. Verkkomemo `levi.fi`-vaikutuksen seurantaan
 
-### 5. UI — `src/components/admin/PageViewsAdmin.tsx`
+Lisätään SearchConsoleAdmin-näkymään pieni ohjeteksti / linkki: "Nähdäksesi tarkat klikit levi.fi-linkistä, katso oman PageViews-adminin referrer-taulukko (`page_views.referrer LIKE '%levi.fi%'`) tai Search Console UI → Links."
 
-Lisätään kolme uutta korttia olemassa olevien jälkeen:
+Voin samalla lisätä **PageViewsAdminiin uuden kortin "Top referrers"** joka aggregoi `referrer`-kentän (top 10) — tämä näyttää _todelliset_ klikit levi.fi:stä ja muista lähteistä. Onko `referrer` tällä hetkellä jo kerätty? Pitää varmistaa edge functionissa `log-page-view` ennen kortin tekoa. Jos ei, lisätään se samaan migraatioon (`document.referrer` clientiltä).
 
-- **"Sisääntulosivut"** — top 15 sivua joilta istunnot alkavat (taulukko, polku + count + %)
-- **"Poistumissivut"** — top 15 sivua joilta istunnot päättyvät (taulukko, polku + count + %)
-- **"Näytön leveys"** — BarChart 4 bucketilla, mobiili/tabletti/laptop/desktop-jaottelu
+## Tekniset huomiot
 
-### 6. CSV REPORT_DESCRIPTION päivitys
+- GSC API:n rate limit: 1 200 kyselyä/min/projekti — ei lähellä rajaa
+- API palauttaa max 25 000 riviä per kysely; käytetään `rowLimit: 1000` ja sivutusta vain jos tarpeen
+- Päivämääräformaatti: `YYYY-MM-DD`, UTC
+- Site URL pathissa pitää URL-enkoodata: `sc-domain%3Aleville.net`
+- Cache invalidoituu jos käyttäjä vaihtaa aikaväliä
 
-- Lisätään `viewport_w` sarakkeen kuvaus (selainikkunan leveys pikseleinä, hyödyllinen responsiivisuusongelmien jäljitykseen).
-- Lisätään uusi osio **SISÄÄNTULO- JA POISTUMISSIVUT**: selitetään että nämä lasketaan CSV-datasta `session_id`-ryhmittelyllä (eivät erillinen sarake), ja että UI näyttää ne valmiiksi aggregoituna.
+## Jälkeen toteutuksen
 
-### 7. Varauskonversio — kevyt UTM-vahvistus
+Voitte heti nähdä:
+- Onko orgaaninen näkyvyys jatkuvasti nousussa (klikit/näytöt päivätasolla)
+- Mihin hakuihin Google nostaa positioita
+- Mitkä sivut vetävät eniten ja missä positio on lähellä top-10 → "low-hanging fruit"
 
-- Käydään läpi keskeiset Moder-linkit (BookingStickyBar, hero-widget, page-CTA:t) ja lisätään niihin `?utm_source=leville-direct&utm_medium=<event_type>&utm_content=<source_path>` -parametrit, JOS niitä ei vielä ole. Tämä mahdollistaa Moder/GA-puolella konversion attribuution.
-- **Rajaus**: todellinen "varaus syntyi" -takaisinkutsu vaatisi Moder-webhookin tai pixel-pingauksen Moder-puolelta. Tämä ei kuulu tähän iteraatioon — mainitaan käyttäjälle jatkokehityskohteena.
+Levi.fi:n klikit kannattaa katsoa joko sisäisestä referrer-datasta (PageViews-admin uusi kortti) tai GSC UI:sta käsin — API:lla ei voi.
 
-## Tekninen huomio
+## Hyväksyntä
 
-- Kaikki uudet datapisteet ovat anonyymeja eikä riko evästeetöntä linjaa.
-- Vanhoissa riveissä `viewport_w` on `NULL`; UI näyttää bucketissa "Tuntematon".
-- Landing/exit lasketaan vain rivieiltä joissa `session_id` on olemassa (vanhat 13.3.2026 edeltävät rivit jäävät pois — sama rajaus kuin nykyisissä istuntomittareissa).
-
-## Vaikutus
-
-- 1 schema-migraatio, 4 koodimuutosta (tracker, 2 edge funktiota, admin UI), 1 dokumentaatiopäivitys.
-- CSV:hen yksi uusi sarake; UI:hin kolme uutta korttia.
-- Ei rikkovia muutoksia olemassa olevaan dataan.
+Aloitanko (a) pelkän SearchConsoleAdmin-välilehden rakentamisesta, vai (b) samalla myös referrer-kortin lisäämisestä PageViewsAdminiin levi.fi-mittausta varten?
