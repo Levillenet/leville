@@ -68,6 +68,156 @@ const RichText = ({ text }: { text: string }) => {
   );
 };
 
+const HeroGallery = ({ images, alt }: { images: string[]; alt: string }) => {
+  const [index, setIndex] = useState(0);
+  const [lightbox, setLightbox] = useState(false);
+  const total = images.length;
+  const prev = () => setIndex((i) => (i - 1 + total) % total);
+  const next = () => setIndex((i) => (i + 1) % total);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(false);
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lightbox, total]);
+
+  // Touch swipe
+  let touchStartX = 0;
+  const onTouchStart = (e: React.TouchEvent) => { touchStartX = e.touches[0].clientX; };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (dx > 40) prev();
+    else if (dx < -40) next();
+  };
+
+  if (total === 0) {
+    return (
+      <div className="rounded-xl overflow-hidden border border-border/40 aspect-[16/9] bg-gradient-to-br from-primary/15 via-muted to-secondary/15 flex items-center justify-center text-primary/40">
+        <Mountain className="w-20 h-20" aria-hidden="true" />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="relative rounded-xl overflow-hidden border border-border/40 aspect-[16/9] bg-muted group">
+        <button
+          type="button"
+          onClick={() => setLightbox(true)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+          className="block w-full h-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          aria-label="Avaa kuva isona"
+        >
+          <OptimizedImage
+            src={images[index]}
+            alt={`${alt} – kuva ${index + 1}/${total}`}
+            className="w-full h-full object-cover"
+          />
+        </button>
+        {total > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={prev}
+              aria-label="Edellinen kuva"
+              className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 opacity-80 hover:opacity-100 transition"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={next}
+              aria-label="Seuraava kuva"
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 opacity-80 hover:opacity-100 transition"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/50 text-white text-xs px-2.5 py-1 rounded-full">
+              {index + 1} / {total}
+            </div>
+          </>
+        )}
+      </div>
+      {total > 1 && (
+        <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+          {images.map((src, i) => (
+            <button
+              key={src}
+              type="button"
+              onClick={() => setIndex(i)}
+              aria-label={`Näytä kuva ${i + 1}`}
+              className={`shrink-0 w-20 h-14 rounded-md overflow-hidden border-2 transition ${i === index ? "border-primary" : "border-transparent opacity-70 hover:opacity-100"}`}
+            >
+              <OptimizedImage src={src} alt="" className="w-full h-full object-cover" />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center"
+          onClick={() => setLightbox(false)}
+        >
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setLightbox(false); }}
+            aria-label="Sulje"
+            className="absolute top-4 right-4 text-white/90 hover:text-white p-2"
+          >
+            <X className="w-7 h-7" />
+          </button>
+          {total > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); prev(); }}
+                aria-label="Edellinen kuva"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-3"
+              >
+                <ChevronLeft className="w-7 h-7" />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); next(); }}
+                aria-label="Seuraava kuva"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-3"
+              >
+                <ChevronRight className="w-7 h-7" />
+              </button>
+            </>
+          )}
+          <img
+            src={images[index]}
+            alt={`${alt} – kuva ${index + 1}/${total}`}
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            className="max-w-[95vw] max-h-[90vh] object-contain"
+          />
+          {total > 1 && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm">
+              {index + 1} / {total}
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
+};
+
 const groupOf = (p: Property): string => {
   if (p.id.startsWith("5")) return "front-slope";
   if (p.id === "karhupirtti") return "karhupirtti";
