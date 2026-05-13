@@ -190,8 +190,8 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               <div className="space-y-12 mb-16 md:mb-20">
                 {[
                   {
-                    title: "Hiihtäjänkujan rinnerivitalot",
-                    subtitle: "Suoraan etelärinteellä, n. 50 m hisseille — 3 kohdetta",
+                    title: "Hiihtäjänkujan alppihuoneistot",
+                    subtitle: "Levin Eturinne, Zero Point -alueella, n. 200 m Eturinteeltä — 3 kohdetta",
                     items: properties.filter((p) => ["5a2", "5b2", "5b5"].includes(p.id)),
                   },
                   {
@@ -229,6 +229,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                             detailHref={`/majoitukset/${p.slug}`}
                             detailLabel="Lue lisää"
                             bookLabel="Tarkista saatavuus"
+                            lang="fi"
                           />
                         ))}
                       </div>
