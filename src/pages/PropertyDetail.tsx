@@ -69,6 +69,8 @@ const PropertyDetail = () => {
   const ctx = groupContext[group];
   const totalBeds = property.beds + property.extraBeds;
   const canonical = `https://leville.net/majoitukset/${property.slug}`;
+  const roomTypeIdMatch = property.bookingUrl.match(/levillenet\/(\d+)/);
+  const roomTypeId = roomTypeIdMatch ? Number(roomTypeIdMatch[1]) : null;
   const fi = propertyFi[property.slug];
   const displayName = fi?.name ?? property.name;
   const displayDescription = fi?.shortDescription ?? property.shortDescription;
