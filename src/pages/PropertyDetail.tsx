@@ -24,6 +24,49 @@ const PHONE = "+35844131313";
 const PHONE_DISPLAY = "+358 44 13 13 13";
 const WHATSAPP_URL = `https://wa.me/${PHONE.replace(/[^0-9]/g, "")}`;
 
+// Lightweight Markdown-ish renderer for property long descriptions.
+// Supports paragraphs (blank-line separated), **bold**, and "- " bullet lists.
+const renderInline = (text: string, keyPrefix: string) => {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={`${keyPrefix}-${i}`} className="font-semibold text-foreground">{part.slice(2, -2)}</strong>;
+    }
+    return <span key={`${keyPrefix}-${i}`}>{part}</span>;
+  });
+};
+
+const RichText = ({ text }: { text: string }) => {
+  const blocks = text.trim().split(/\n\s*\n/);
+  return (
+    <div className="space-y-4 text-base text-muted-foreground leading-relaxed">
+      {blocks.map((block, bi) => {
+        const lines = block.split("\n");
+        const isList = lines.every((l) => l.trim().startsWith("- "));
+        if (isList) {
+          return (
+            <ul key={bi} className="list-disc pl-6 space-y-1.5">
+              {lines.map((l, li) => (
+                <li key={li}>{renderInline(l.replace(/^-\s+/, ""), `${bi}-${li}`)}</li>
+              ))}
+            </ul>
+          );
+        }
+        // Heading-like block: a single line that is fully wrapped in ** **
+        const trimmed = block.trim();
+        if (/^\*\*[^*]+\*\*$/.test(trimmed) && !trimmed.includes("\n")) {
+          return (
+            <h3 key={bi} className="text-lg font-semibold text-foreground mt-2">
+              {trimmed.slice(2, -2)}
+            </h3>
+          );
+        }
+        return <p key={bi}>{renderInline(block, String(bi))}</p>;
+      })}
+    </div>
+  );
+};
+
 const groupOf = (p: Property): string => {
   if (p.id.startsWith("5")) return "front-slope";
   if (p.id === "karhupirtti") return "karhupirtti";
