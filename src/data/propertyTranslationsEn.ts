@@ -21,9 +21,64 @@ const TODO: PropertyEnTranslation = {
 };
 
 export const propertyEn: Record<string, PropertyEnTranslation> = {
-  "front-slope-5a2": { ...TODO },
-  "front-slope-5b2": { ...TODO },
-  "front-slope-5b5-penthouse": { ...TODO },
+  "front-slope-5a2": {
+    name: "Front Slope 5A2 — Alpine Apartment in Levi Center",
+    shortDescription:
+      "Fully renovated (June 2024) 2-bedroom alpine apartment in Levi Center, in the Zero Point area, ~200 m from the Front Slope (Eturinne). Sleeps 6, with private sauna, drying room, heat-storing fireplace, balcony and air-source heat pump. Pets welcome.",
+    longDescription: `**Front Slope 5A2 — a 65 m² alpine apartment for 6, fully renovated June 2024**
+
+This is a 2-bedroom apartment on Hiihtäjänkuja, in the Zero Point area of Levi Center — about 200 m from the Front Slope (Eturinne) lifts and a short walk from restaurants, shops and the trails. A practical base for a family or a group of friends who want to ski straight from the door without driving.
+
+**Sleeps up to 6 across 2 bedrooms + sofa bed** Two bedrooms, each with two single beds, plus a quality sofa bed in the living area. The living room opens onto a balcony for fresh air between runs.
+
+**Renovated June 2024 — both bathrooms redone** The June 2024 renovation was a full refresh: both bathrooms rebuilt from scratch, and nearly every surface in the apartment renewed. Modern finishes throughout, but the alpine character of the building is kept.
+
+**Private sauna, drying room and heat-storing fireplace** After a day on the slopes there's your own electric sauna, plus a separate drying room downstairs — come in through the lower entrance, leave skis and wet kit to dry, and head straight to the sauna. The heat-storing fireplace in the living room holds warmth for hours, which matters on the cold evenings.
+
+An air-source heat pump handles steady warmth in winter and cooling in summer.
+
+**Step-free arrival** Access is via a single low step, which makes arriving with skis, bags and small children straightforward. Free on-site parking with an electric outlet.
+
+**What's included** Fully equipped kitchen with dishwasher, oven, microwave and coffee machine. Private sauna. Heat-storing fireplace. Drying room and drying cupboard. Balcony. Free WiFi and TV. Highchair and child safety gates available on request. Pets welcome.`,
+  },
+
+  "front-slope-5b2": {
+    name: "Front Slope 5B2 — Two-Floor Alpine Apartment, Levi Center",
+    shortDescription:
+      "65 m² two-floor alpine apartment on Hiihtäjänkuja, ~200 m from the Front Slope (Eturinne). Two bedrooms upstairs plus a downstairs lounge with PlayStation and 150 cm sofa bed. Private sauna, drying room and heat-storing fireplace. Renovated 2024. Pets welcome.",
+    longDescription: `**Front Slope 5B2 — 65 m² two-floor alpine apartment for 6**
+
+A two-floor layout in the centre of Levi is rare, and that's the practical USP here: 2 bedrooms upstairs with two single beds each, plus a separate downstairs lounge that works as either a kids' den or a private space for the extra two guests. Sleeps up to 6 in total. About 200 m from the Front Slope (Eturinne) lifts and Zero Point.
+
+**Two floors, two living spaces** Upstairs you have an open kitchen-living area and the two bedrooms. Downstairs there's a separate lounge with a large TV, a PlayStation and a 150 cm sofa bed — useful when the kids want their own space, or when you have two guests who'd rather not sleep in the main living area.
+
+**Private sauna, fireplace and drying room** Own electric sauna and a heat-storing fireplace that keeps the apartment warm well after the fire dies down. The downstairs drying room is the practical bit: come in from the cold, leave skis and wet gear to dry, walk straight into the sauna.
+
+**200 m from the lifts** The Front Slope and Zero Point lifts are essentially on your doorstep. Restaurants, the K-Market, après-ski venues and cross-country trails are all within an easy walk. Free on-site parking with an electric outlet.
+
+**What's included** Fully equipped kitchen with dishwasher, oven, microwave, coffee machine and ice maker. Private sauna. Heat-storing fireplace. Drying room and drying cupboard. Balcony. Free WiFi and TV. PlayStation downstairs. Highchair and child safety gates available on request. Pets welcome.`,
+  },
+
+  "front-slope-5b5-penthouse": {
+    name: "Front Slope 5B5 Penthouse — 4-Bedroom, Levi Center",
+    shortDescription:
+      "100 m² penthouse on Hiihtäjänkuja, ~200 m from the Front Slope (Eturinne). 4 bedrooms, 9 beds, 3 balconies, slope-view sauna and a 10-person dining table. Heat-storing fireplace with firewood included. Renovated 2024. Pets welcome.",
+    longDescription: `**Front Slope 5B5 — 100 m² top-floor penthouse for groups of up to 9**
+
+This is the biggest of the three Front Slope apartments: a 100 m² top-floor penthouse with 4 bedrooms, 3 balconies and a sauna with a window facing the slope. About 200 m from the Front Slope (Eturinne) lifts and Zero Point, in the centre of Levi. Built for groups who want one shared space rather than two apartments.
+
+**Sleeps up to 9 across 4 bedrooms** Four bedrooms with 9 beds in total, plus a sofa bed in the living room — flexible for families or larger groups. The dining table seats 10, which is the point: this is a place where the whole group eats together. The open-plan living area has a comfortable sofa, a large TV and a sound system.
+
+**Three balconies — two facing the slope** The living room and one bedroom open onto balconies with views of the Front Slope. You can watch the floodlit evening skiing from inside.
+
+**Private slope-view sauna and fireplace** The sauna has a window facing the Front Slope — a quiet place to wind down after a day skiing. The heat-storing fireplace in the living room holds warmth into the evening; firewood is included.
+
+**Renovated 2024 — fully kitted out** The penthouse was renovated in 2024 with new furniture and modern finishes throughout. Air conditioning and a heat pump keep the apartment comfortable year-round. The building has private parking, a ski storage room and a ski waxing room in the basement.
+
+**200 m from the lifts** Front Slope and Zero Point are about 200 m away. Restaurants, shops and services are all walkable. Cross-country trails start nearby.
+
+**What's included** Fully equipped kitchen with dishwasher, oven, microwave and coffee machine. Slope-view sauna. Heat-storing fireplace with firewood included. 3 balconies. Air conditioning and heat pump. Free WiFi, TV and sound system. Cot, highchair, children's books and toys, and child safety gates available on request. Pets welcome.`,
+  },
 
   "karhupirtti": {
     name: "Karhupirtti — The Bear Lodge in Levi Center",
