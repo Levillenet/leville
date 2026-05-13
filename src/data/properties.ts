@@ -385,7 +385,7 @@ export const properties: Property[] = [
     tags: ["studio", "budget", "center"],
     petsAllowed: false,
     sauna: false,
-    accessible: true,
+    accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
     highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
