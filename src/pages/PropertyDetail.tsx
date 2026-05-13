@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PropertyCard from "@/components/PropertyCard";
+import PropertyBookingWidget from "@/components/PropertyBookingWidget";
 import { properties, type Property } from "@/data/properties";
 import { propertyFi, locationFi, translateYearFi } from "@/data/propertyTranslationsFi";
 
