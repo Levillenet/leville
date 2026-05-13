@@ -32,6 +32,13 @@ const groupOf = (p: Property): string => {
   return "glacier";
 };
 
+const groupAddress: Record<string, { label: string; query: string }> = {
+  "front-slope": { label: "Hiihtäjänkuja 5, Levi", query: "Hiihtäjänkuja 5, 99130 Levi" },
+  "skistar": { label: "Postintie 3 B, Levi", query: "Postintie 3 B, 99130 Levi" },
+  "glacier": { label: "Ratsastajankuja 2, Levi", query: "Ratsastajankuja 2, 99130 Levi" },
+  "karhupirtti": { label: "Skimbaajankuja 3, Levi", query: "Skimbaajankuja 3, 99130 Levi" },
+};
+
 const groupContext: Record<string, { fi: string; distance: string }> = {
   "front-slope": {
     fi: "Alppityyliset talot Levin keskustassa Zero Point -alueella — n. 200 m kävelymatka Eturinteelle ja hisseille, askelten päässä K-Marketille ja ravintoloihin.",
