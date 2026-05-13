@@ -201,8 +201,8 @@ const PropertyDetail = () => {
                 <SpecBox icon={Users} label="Vieraita" value={property.guestRange} />
                 <SpecBox icon={Bath} label="Kylpyhuoneet" value={property.bathrooms} />
                 {property.wc !== "-" && <SpecBox icon={Bath} label="Erillinen WC" value={property.wc} />}
-                <SpecBox icon={Calendar} label="Rakennusvuosi / remontti" value={property.yearBuiltOrRenovated} />
-                <SpecBox icon={MapPin} label="Sijainti" value={property.location} />
+                {displayYear && <SpecBox icon={Calendar} label="Rakennusvuosi / remontti" value={displayYear} />}
+                <SpecBox icon={MapPin} label="Sijainti" value={displayLocation} />
               </div>
             </section>
 
