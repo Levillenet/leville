@@ -99,6 +99,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: true,
     yearBuiltOrRenovated: "Fully renovated 2024",
+    highlights: ["Erittäin hieno alppihuoneisto Levin ytimessä"],
     shortDescription: "65 m² alpine apartment near front slopes and Zero Point. Fully renovated 2024. Downstairs living room with PlayStation and 150cm sofa bed. Private sauna, drying room, and heat-storing fireplace. Pets allowed."
   },
   {
