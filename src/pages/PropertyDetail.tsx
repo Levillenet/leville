@@ -281,6 +281,20 @@ const PropertyDetail = () => {
   const title = `${displayName} — Levi | Leville.net`;
   const description = truncate(displayDescription);
 
+  // Build gallery images: hero first (if set), then the rest, deduped
+  const galleryImages = (() => {
+    const seen = new Set<string>();
+    const list: string[] = [];
+    if (property.heroImage) { list.push(property.heroImage); seen.add(property.heroImage); }
+    for (const src of property.images || []) {
+      if (!seen.has(src)) { list.push(src); seen.add(src); }
+    }
+    return list;
+  })();
+  const mapsHref = groupAddress[group]
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(groupAddress[group].query)}`
+    : null;
+
   const related = properties
     .filter((p) => groupOf(p) === group && p.id !== property.id)
     .slice(0, 3);
