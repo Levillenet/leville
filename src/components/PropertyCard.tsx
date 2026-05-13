@@ -90,11 +90,18 @@ const PropertyCard = ({
       {/* Hero image / gallery */}
       <div className="relative w-full aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/15 via-muted to-secondary/15">
         {gallery.length > 0 ? (
-          <OptimizedImage
-            src={gallery[imgIdx]}
-            alt={`${displayName}${hasMultiple ? ` – ${imgIdx + 1}/${gallery.length}` : ""}`}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <button
+            type="button"
+            onClick={openLightbox}
+            aria-label={L.openGallery}
+            className="block w-full h-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            <OptimizedImage
+              src={gallery[imgIdx]}
+              alt={`${displayName}${hasMultiple ? ` – ${imgIdx + 1}/${gallery.length}` : ""}`}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </button>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-primary/40">
             <Mountain className="w-14 h-14" aria-hidden="true" />
