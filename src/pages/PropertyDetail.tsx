@@ -68,8 +68,13 @@ const PropertyDetail = () => {
   const ctx = groupContext[group];
   const totalBeds = property.beds + property.extraBeds;
   const canonical = `https://leville.net/majoitukset/${property.slug}`;
-  const title = `${property.name} — Levi | Leville.net`;
-  const description = truncate(property.shortDescription);
+  const fi = propertyFi[property.slug];
+  const displayName = fi?.name ?? property.name;
+  const displayDescription = fi?.shortDescription ?? property.shortDescription;
+  const displayLocation = locationFi[property.location] ?? property.location;
+  const displayYear = translateYearFi(property.yearBuiltOrRenovated);
+  const title = `${displayName} — Levi | Leville.net`;
+  const description = truncate(displayDescription);
 
   const related = properties
     .filter((p) => groupOf(p) === group && p.id !== property.id)
