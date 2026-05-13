@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import OptimizedImage from "@/components/OptimizedImage";
 import type { Property } from "@/data/properties";
+import { propertyFi, locationFi, locationFiBySlug, translateYearFi } from "@/data/propertyTranslationsFi";
 
 interface PropertyCardProps {
   property: Property;
@@ -14,17 +15,33 @@ interface PropertyCardProps {
   detailLabel?: string;
   /** Localised label for the booking CTA. Defaults to "Check availability". */
   bookLabel?: string;
+  /** Language for card content. Defaults to English. */
+  lang?: "fi" | "en";
 }
+
+const LABELS = {
+  en: { studio: "Studio", br: "BR", beds: "beds", sauna: "Sauna", fireplace: "Fireplace", pets: "Pets", accessible: "Accessible" },
+  fi: { studio: "Studio", br: "MH", beds: "vuodetta", sauna: "Sauna", fireplace: "Takka", pets: "Lemmikit", accessible: "Esteetön" },
+} as const;
 
 const PropertyCard = ({
   property,
   detailHref,
   detailLabel = "Learn more",
   bookLabel = "Check availability",
+  lang = "en",
 }: PropertyCardProps) => {
   const totalBeds = property.beds + property.extraBeds;
   const titleHref = detailHref ?? property.bookingUrl;
   const isInternalTitle = Boolean(detailHref);
+  const fi = lang === "fi" ? propertyFi[property.slug] : undefined;
+  const displayName = fi?.name ?? property.name;
+  const displayDescription = fi?.shortDescription ?? property.shortDescription;
+  const displayLocation = lang === "fi"
+    ? (locationFiBySlug[property.slug] ?? locationFi[property.location] ?? property.location)
+    : property.location;
+  const displayYear = lang === "fi" ? translateYearFi(property.yearBuiltOrRenovated) : property.yearBuiltOrRenovated;
+  const L = LABELS[lang];
 
   return (
     <Card className="group relative overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10 border-border/60 flex flex-col">
