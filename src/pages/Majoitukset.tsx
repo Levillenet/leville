@@ -327,7 +327,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                       },
                       {
                         title: "Levi Glacier — alpine apartments",
-                        subtitle: "Apartments and penthouses next to Hullu Poro — 10 properties",
+                        subtitle: "Apartments and penthouses at the foot of the Front Slope (Eturinne), Zero Point area — 10 properties",
                         items: properties.filter((p) => p.id.startsWith("glacier-")),
                       },
                     ]
