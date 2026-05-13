@@ -16,6 +16,7 @@ import StructuredData from "./components/StructuredData";
 const Index = lazy(() => import("./pages/Index"));
 const IndexEN = lazy(() => import("./pages/en/Index"));
 const Majoitukset = lazy(() => import("./pages/Majoitukset"));
+const PropertyDetail = lazy(() => import("./pages/PropertyDetail"));
 const MokitLevilla = lazy(() => import("./pages/MokitLevilla"));
 const Ajankohtaista = lazy(() => import("./pages/Ajankohtaista"));
 const Levi = lazy(() => import("./pages/Levi"));
