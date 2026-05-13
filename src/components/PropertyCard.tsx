@@ -49,6 +49,7 @@ const PropertyCard = ({
     ? property.images
     : (property.heroImage ? [property.heroImage] : []);
   const [imgIdx, setImgIdx] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const hasMultiple = gallery.length > 1;
   const goPrev = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -60,6 +61,29 @@ const PropertyCard = ({
     e.stopPropagation();
     setImgIdx((i) => (i + 1) % gallery.length);
   };
+  const openLightbox = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (gallery.length === 0) return;
+    setLightboxOpen(true);
+  };
+  const closeLightbox = () => setLightboxOpen(false);
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxOpen(false);
+      else if (e.key === "ArrowLeft") setImgIdx((i) => (i - 1 + gallery.length) % gallery.length);
+      else if (e.key === "ArrowRight") setImgIdx((i) => (i + 1) % gallery.length);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [lightboxOpen, gallery.length]);
 
   return (
     <Card className="group relative overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10 border-border/60 flex flex-col">
