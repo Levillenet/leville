@@ -90,12 +90,12 @@ export const propertyFi: Record<string, PropertyFiTranslation> = {
   "glacier-a1": {
     name: "Levi Glacier A1 – alppihuoneisto",
     shortDescription:
-      "92 m² perinteinen alppihuoneisto etelärinteen juurella. 4 makuuhuonetta. Katutaso + kellari helpolla ulkoyhteydellä. Lämmin suksivarasto. Lasten leikkihuone rakennuksessa. Lemmikit sallittu.",
+      "92 m² perinteinen alppihuoneisto Eturinteen juurella, Zero Point -alueella. 4 makuuhuonetta. Katutaso + kellari helpolla ulkoyhteydellä. Lämmin suksivarasto. Lasten leikkihuone rakennuksessa. Lemmikit sallittu.",
   },
   "glacier-a2": {
     name: "Levi Glacier A2 – alppihuoneisto",
     shortDescription:
-      "67 m² huoneisto kolmella makuuhuoneella etelärinteen juurella. Koko huoneiston levyinen parveke. 5 vuodetta + vuodesohva. Lemmikit sallittu.",
+      "67 m² huoneisto kolmella makuuhuoneella Eturinteen juurella, Zero Point -alueella. Koko huoneiston levyinen parveke. 5 vuodetta + vuodesohva. Lemmikit sallittu.",
   },
   "glacier-a3": {
     name: "Levi Glacier A3 – alppihuoneisto",
@@ -105,7 +105,7 @@ export const propertyFi: Record<string, PropertyFiTranslation> = {
   "glacier-a4": {
     name: "Levi Glacier A4 – alppihuoneisto",
     shortDescription:
-      "72 m² toisen kerroksen huoneisto, 2 makuuhuonetta + 2 alkovipaikkaa yläkerrassa. Parveke Hullu Poro Areenan suuntaan. Etelärinteen juurella. Lemmikit sallittu.",
+      "72 m² toisen kerroksen huoneisto, 2 makuuhuonetta + 2 alkovipaikkaa yläkerrassa. Parveke Eturinteelle päin. Etelärinteen juurella. Lemmikit sallittu.",
   },
   "glacier-a5-penthouse": {
     name: "Levi Glacier Penthouse A5",
@@ -120,17 +120,17 @@ export const propertyFi: Record<string, PropertyFiTranslation> = {
   "glacier-b1": {
     name: "Levi Glacier B1 – alppihuoneisto",
     shortDescription:
-      "105 m² ensimmäisen kerroksen huoneisto viidellä makuuhuoneella (kussakin 2 vuodetta). Koko huoneiston levyinen parveke etelärinteelle. Lasten leikkihuone. Liinavaatteet lisäpalveluna. Lemmikit sallittu.",
+      "105 m² ensimmäisen kerroksen huoneisto viidellä makuuhuoneella (kussakin 2 vuodetta). Koko huoneiston levyinen parveke Eturinteelle. Lasten leikkihuone. Liinavaatteet lisäpalveluna. Lemmikit sallittu.",
   },
   "glacier-b2": {
     name: "Levi Glacier B2 – alppihuoneisto",
     shortDescription:
-      "105 m² ensimmäisen kerroksen huoneisto viidellä makuuhuoneella. B1:n kaksonen – varaa molemmat jopa 20 hengelle. Koko huoneiston levyinen parveke, näkymä etelärinteelle. Lemmikit sallittu.",
+      "105 m² ensimmäisen kerroksen huoneisto viidellä makuuhuoneella. B1:n kaksonen – varaa molemmat jopa 20 hengelle. Koko huoneiston levyinen parveke, näkymä Eturinteelle. Lemmikit sallittu.",
   },
   "glacier-b3-penthouse": {
     name: "Levi Glacier Penthouse B3",
     shortDescription:
-      "87 m² penthouse, 3 makuuhuonetta + 2 alkovipaikkaa yläkerrassa. Parveke molemmissa kerroksissa, ylempi etelärinteelle. Lasten leikkihuone. Lemmikit sallittu.",
+      "87 m² penthouse, 3 makuuhuonetta + 2 alkovipaikkaa yläkerrassa. Parveke molemmissa kerroksissa, ylempi Eturinteelle. Lasten leikkihuone. Lemmikit sallittu.",
   },
   "glacier-b4-penthouse": {
     name: "Levi Glacier Penthouse B4",
@@ -142,7 +142,7 @@ export const propertyFi: Record<string, PropertyFiTranslation> = {
 export const locationFi: Record<string, string> = {
   "Levi Center": "Levin keskusta",
   "Front Slope": "Levin Eturinne, Zero Point -alue",
-  "Glacier": "Glacier-alue",
+  "Glacier": "Eturinteen juurella, Zero Point -alue",
 };
 
 // Per-slug location overrides (Finnish), used when the generic location label is misleading.

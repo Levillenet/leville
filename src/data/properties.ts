@@ -17,6 +17,7 @@ export interface Property {
   sauna: boolean;
   accessible: boolean;
   fireplace: boolean;
+  hotTub?: boolean;
   yearBuiltOrRenovated: string;
   shortDescription: string;
   slug: string;
@@ -136,6 +137,7 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: true,
+    hotTub: true,
     yearBuiltOrRenovated: "Built 1989, fully renovated 2022",
     shortDescription: "220 m² traditional log cabin in Levi center with 7 bedrooms, outdoor hot tub, private yard, and fireplace. 3 ensuite bedrooms downstairs. Fully renovated 2022. Firewood and cleaning included. Pets allowed."
   },
@@ -443,6 +445,7 @@ export const properties: Property[] = [
     id: "glacier-a1",
     slug: "glacier-a1",
     images: [
+      "/glacier/exterior-a.jpg",
       "/glacier/a3-a1/01.jpg",
       "/glacier/a3-a1/02.jpg",
       "/glacier/a3-a1/03.jpg",
@@ -457,7 +460,7 @@ export const properties: Property[] = [
       "/glacier/a3-a1/12.jpg",
       "/glacier/a3-a1/13.jpg"
     ],
-    heroImage: "/glacier/a3-a1/01.jpg",
+    heroImage: "/glacier/exterior-a.jpg",
     name: "Levi Glacier Apartments A1",
     bookingUrl: "https://app.moder.fi/levillenet/3504?step=1",
     sqm: 92,
@@ -476,12 +479,13 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "92 m² traditional alpine apartment at the foot of the front slope. 4 bedrooms. Street level + basement with easy outdoor access. Warm ski storage. Children's playroom in building. Pets allowed."
+    shortDescription: "92 m² traditional alpine apartment at the foot of Eturinne, Zero Point area. 4 bedrooms. Street level + basement with easy outdoor access. Warm ski storage. Children's playroom in building. Pets allowed."
   },
   {
     id: "glacier-a2",
     slug: "glacier-a2",
     images: [
+      "/glacier/exterior-a.jpg",
       "/glacier/a2/01.jpg",
       "/glacier/a2/02.jpg",
       "/glacier/a2/03.jpg",
@@ -492,7 +496,7 @@ export const properties: Property[] = [
       "/glacier/a2/08.jpg",
       "/glacier/a2/09.jpg"
     ],
-    heroImage: "/glacier/a2/01.jpg",
+    heroImage: "/glacier/exterior-a.jpg",
     name: "Levi Glacier Apartments A2",
     bookingUrl: "https://app.moder.fi/levillenet/3897?step=1",
     sqm: 67,
@@ -511,12 +515,13 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "67 m² apartment with 3 bedrooms at the foot of the front slope. Full-width balcony. 5 beds + sofa bed. Pets allowed."
+    shortDescription: "67 m² apartment with 3 bedrooms at the foot of Eturinne, Zero Point area. Full-width balcony. 5 beds + sofa bed. Pets allowed."
   },
   {
     id: "glacier-a3",
     slug: "glacier-a3",
     images: [
+      "/glacier/exterior-a.jpg",
       "/glacier/a3-a1/01.jpg",
       "/glacier/a3-a1/02.jpg",
       "/glacier/a3-a1/03.jpg",
@@ -531,7 +536,7 @@ export const properties: Property[] = [
       "/glacier/a3-a1/12.jpg",
       "/glacier/a3-a1/13.jpg"
     ],
-    heroImage: "/glacier/a3-a1/01.jpg",
+    heroImage: "/glacier/exterior-a.jpg",
     name: "Levi Glacier Apartments A3",
     bookingUrl: "https://app.moder.fi/levillenet/3898?step=1",
     sqm: 92,
@@ -556,6 +561,7 @@ export const properties: Property[] = [
     id: "glacier-a4",
     slug: "glacier-a4",
     images: [
+      "/glacier/exterior-a.jpg",
       "/glacier/a4-a6/01.jpg",
       "/glacier/a4-a6/02.jpg",
       "/glacier/a4-a6/03.jpg",
@@ -570,7 +576,7 @@ export const properties: Property[] = [
       "/glacier/a4-a6/12.jpg",
       "/glacier/a4-a6/13.jpg"
     ],
-    heroImage: "/glacier/a4-a6/01.jpg",
+    heroImage: "/glacier/exterior-a.jpg",
     name: "Levi Glacier Apartments A4",
     bookingUrl: "https://app.moder.fi/levillenet/3899?step=1",
     sqm: 72,
@@ -589,12 +595,13 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "72 m² second-floor apartment with 2 bedrooms + 2 alcove beds upstairs. Balcony facing Hullu Poro arena. At the foot of the front slope. Pets allowed."
+    shortDescription: "72 m² second-floor apartment with 2 bedrooms + 2 alcove beds upstairs. Balcony facing Eturinne. At the foot of the front slope. Pets allowed."
   },
   {
     id: "glacier-a5",
     slug: "glacier-a5-penthouse",
     images: [
+      "/glacier/exterior-a.jpg",
       "/glacier/a5/01.jpg",
       "/glacier/a5/02.jpg",
       "/glacier/a5/03.jpg",
@@ -605,7 +612,7 @@ export const properties: Property[] = [
       "/glacier/a5/08.jpg",
       "/glacier/a5/09.jpg"
     ],
-    heroImage: "/glacier/a5/01.jpg",
+    heroImage: "/glacier/exterior-a.jpg",
     name: "Levi Glacier Penthouse A5",
     bookingUrl: "https://app.moder.fi/levillenet/3900?step=1",
     sqm: 84,
@@ -630,6 +637,7 @@ export const properties: Property[] = [
     id: "glacier-a6",
     slug: "glacier-a6",
     images: [
+      "/glacier/exterior-a.jpg",
       "/glacier/a4-a6/01.jpg",
       "/glacier/a4-a6/02.jpg",
       "/glacier/a4-a6/03.jpg",
@@ -644,7 +652,7 @@ export const properties: Property[] = [
       "/glacier/a4-a6/12.jpg",
       "/glacier/a4-a6/13.jpg"
     ],
-    heroImage: "/glacier/a4-a6/01.jpg",
+    heroImage: "/glacier/exterior-a.jpg",
     name: "Levi Glacier Apartments A6",
     bookingUrl: "https://app.moder.fi/levillenet/3901?step=1",
     sqm: 72,
@@ -669,6 +677,8 @@ export const properties: Property[] = [
     id: "glacier-b1",
     slug: "glacier-b1",
     images: [
+      "/glacier/exterior-b.jpg",
+      "/glacier/exterior-b2.jpg",
       "/glacier/b1-b2/01.jpg",
       "/glacier/b1-b2/02.jpg",
       "/glacier/b1-b2/03.jpg",
@@ -679,7 +689,7 @@ export const properties: Property[] = [
       "/glacier/b1-b2/08.jpg",
       "/glacier/b1-b2/09.jpg"
     ],
-    heroImage: "/glacier/b1-b2/01.jpg",
+    heroImage: "/glacier/exterior-b.jpg",
     name: "Levi Glacier Apartments B1",
     bookingUrl: "https://app.moder.fi/levillenet/3902?step=1",
     sqm: 105,
@@ -698,12 +708,14 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "105 m² first-floor apartment with 5 bedrooms (2 beds each). Full-width balcony with front slope view. Children's playroom. Bed linen available as extra service. Pets allowed."
+    shortDescription: "105 m² first-floor apartment with 5 bedrooms (2 beds each). Full-width balcony with Eturinne view. Children's playroom. Bed linen available as extra service. Pets allowed."
   },
   {
     id: "glacier-b2",
     slug: "glacier-b2",
     images: [
+      "/glacier/exterior-b.jpg",
+      "/glacier/exterior-b2.jpg",
       "/glacier/b1-b2/01.jpg",
       "/glacier/b1-b2/02.jpg",
       "/glacier/b1-b2/03.jpg",
@@ -714,7 +726,7 @@ export const properties: Property[] = [
       "/glacier/b1-b2/08.jpg",
       "/glacier/b1-b2/09.jpg"
     ],
-    heroImage: "/glacier/b1-b2/01.jpg",
+    heroImage: "/glacier/exterior-b.jpg",
     name: "Levi Glacier Apartments B2",
     bookingUrl: "https://app.moder.fi/levillenet/3903?step=1",
     sqm: 105,
@@ -733,12 +745,14 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "105 m² first-floor apartment with 5 bedrooms. Twin of B1 – book both for up to 20 guests. Full-width balcony, front slope view. Pets allowed."
+    shortDescription: "105 m² first-floor apartment with 5 bedrooms. Twin of B1 – book both for up to 20 guests. Full-width balcony, Eturinne view. Pets allowed."
   },
   {
     id: "glacier-b3",
     slug: "glacier-b3-penthouse",
     images: [
+      "/glacier/exterior-b.jpg",
+      "/glacier/exterior-b2.jpg",
       "/glacier/b3-b4/01.jpg",
       "/glacier/b3-b4/02.jpg",
       "/glacier/b3-b4/03.jpg",
@@ -750,7 +764,7 @@ export const properties: Property[] = [
       "/glacier/b3-b4/09.jpg",
       "/glacier/b3-b4/10.jpg"
     ],
-    heroImage: "/glacier/b3-b4/01.jpg",
+    heroImage: "/glacier/exterior-b.jpg",
     name: "Levi Glacier Penthouse B3",
     bookingUrl: "https://app.moder.fi/levillenet/3904?step=1",
     sqm: 87,
@@ -769,12 +783,14 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "87 m² penthouse with 3 bedrooms + 2 alcove beds upstairs. Balcony on both floors, upper facing front slope. Children's playroom. Pets allowed."
+    shortDescription: "87 m² penthouse with 3 bedrooms + 2 alcove beds upstairs. Balcony on both floors, upper facing Eturinne. Children's playroom. Pets allowed."
   },
   {
     id: "glacier-b4",
     slug: "glacier-b4-penthouse",
     images: [
+      "/glacier/exterior-b.jpg",
+      "/glacier/exterior-b2.jpg",
       "/glacier/b3-b4/01.jpg",
       "/glacier/b3-b4/02.jpg",
       "/glacier/b3-b4/03.jpg",
@@ -786,7 +802,7 @@ export const properties: Property[] = [
       "/glacier/b3-b4/09.jpg",
       "/glacier/b3-b4/10.jpg"
     ],
-    heroImage: "/glacier/b3-b4/01.jpg",
+    heroImage: "/glacier/exterior-b.jpg",
     name: "Levi Glacier Penthouse B4",
     bookingUrl: "https://app.moder.fi/levillenet/3905?step=1",
     sqm: 87,

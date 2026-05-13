@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useParams, Link, Navigate } from "react-router-dom";
 import {
   Maximize, DoorOpen, Bed, Users, MapPin, ExternalLink, PawPrint, Flame,
-  Accessibility, Droplets, Bath, Calendar, ArrowRight, Mountain, Phone, MessageCircle,
+  Accessibility, Droplets, Bath, Calendar, ArrowRight, Mountain, Phone, MessageCircle, Waves,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -255,6 +255,7 @@ const PropertyDetail = () => {
               <div className="flex flex-wrap gap-2">
                 {property.sauna && <Badge variant="secondary" className="gap-1.5 bg-primary/15 text-primary border-primary/30 text-sm py-1.5 px-3"><Droplets className="w-4 h-4" /> Oma sauna</Badge>}
                 {property.fireplace && <Badge variant="secondary" className="gap-1.5 text-sm py-1.5 px-3"><Flame className="w-4 h-4" /> Takka</Badge>}
+                {property.hotTub && <Badge variant="secondary" className="gap-1.5 bg-primary/15 text-primary border-primary/30 text-sm py-1.5 px-3"><Waves className="w-4 h-4" /> Ulkoporeallas</Badge>}
                 {property.petsAllowed && <Badge variant="secondary" className="gap-1.5 text-sm py-1.5 px-3"><PawPrint className="w-4 h-4" /> Lemmikit sallittu</Badge>}
                 {property.accessible && <Badge variant="secondary" className="gap-1.5 text-sm py-1.5 px-3"><Accessibility className="w-4 h-4" /> Esteetön</Badge>}
                 <Badge variant="outline" className="text-sm py-1.5 px-3">WiFi</Badge>
