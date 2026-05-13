@@ -56,13 +56,13 @@ export const fi = {
   },
   majoitukset: {
     meta: {
-      title: `Majoitus Levillä ${new Date().getFullYear()} — huoneistot ja mökit keskustassa`,
-      description: "27 huoneistoa ja mökkiä Levin keskustassa rinteiden vieressä. Varaa suoraan meiltä paras hinta — samat kohteet kuin Booking.comissa.",
-      keywords: "Levi majoitus, majoitus levillä, Levi huoneistot, Levi mökit, Levin majoitus, mökki Levi, mökit Leviltä, vuokramökki Levi, hirsimökki Levi, loma-asunto Levi",
+      title: `Majoitus Levillä ${new Date().getFullYear()} – vuokramökit ja huoneistot keskustassa`,
+      description: "Vuokraa majoitus Levin keskustasta: vuokramökit ja huoneistot Hiihtäjänkujalla, Skimbaajankujalla ja Ratsastajankujalla. Saunat, lähellä rinteitä – varaa suoraan.",
+      keywords: "majoitus Levi, vuokramökit Levi, vuokramökki Levi, mökki Levi keskusta, huoneisto Levin keskusta, Levi majoitus, hirsimökki Levi, loma-asunto Levi, Hiihtäjänkuja Levi, Ratsastajankuja Levi",
       canonical: "https://leville.net/majoitukset"
     },
-    title: "Majoitus Levillä – Huoneistot ja mökit Levin keskustassa",
-    subtitle: "Laadukkaat majoitusvaihtoehdot Levin sydämessä. Valitse sinulle sopiva kohde ja nauti Lapin taianomaisesta luonnosta.",
+    title: "Majoitus Levillä – vuokramökit ja huoneistot Levin keskustassa",
+    subtitle: "Vuokramökit ja saunalliset huoneistot Levin ydinkeskustassa, askelten päässä rinteistä ja palveluista. Varaa suoraan ilman välityspalkkioita.",
     bookCta: "Varaa heti lomasi",
     amenitiesTitle: "Kaikissa majoituksissamme",
     accommodations: [

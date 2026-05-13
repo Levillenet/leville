@@ -22,6 +22,7 @@ import { supabase } from "@/integrations/supabase/client";
 import PropertyCard from "@/components/PropertyCard";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
 import { properties } from "@/data/properties";
+import { streetHubs } from "@/data/street-hubs";
 
 // Import accommodation background images
 import karhupirttiImg from "@/assets/accommodations/karhupirtti.jpg";
@@ -146,6 +147,32 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </section>
             </ScrollReveal>
 
+            {lang === "fi" && (
+              <ScrollReveal>
+                <section className="max-w-3xl mx-auto mb-10 md:mb-12 px-2 text-center">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    Etsitkö <strong className="text-foreground">majoitusta Leviltä</strong>? Tarjoamme
+                    saunallisia <strong className="text-foreground">vuokramökkejä</strong> ja moderneja
+                    huoneistoja Levin ydinkeskustassa kolmessa eri kohteessa: Front Slope -alppihuoneistot
+                    {" "}
+                    <Link to="/vuokramokit/hiihtajankuja-levi" className="text-primary hover:underline">
+                      Hiihtäjänkujalla
+                    </Link>
+                    , Karhupirtti-hirsihuvila{" "}
+                    <Link to="/vuokramokit/skimbaajankuja-levi" className="text-primary hover:underline">
+                      Skimbaajankujalla
+                    </Link>{" "}
+                    sekä Glacier-alppitalo{" "}
+                    <Link to="/vuokramokit/ratsastajankuja-levi" className="text-primary hover:underline">
+                      Ratsastajankuja 2:ssa
+                    </Link>
+                    . Kaikki kohteet ovat lyhyen kävelymatkan päässä rinteiltä, ravintoloista ja Levin
+                    keskustan palveluista – ja varaat suoraan meiltä ilman välityspalkkioita.
+                  </p>
+                </section>
+              </ScrollReveal>
+            )}
+
             {/* Moder Booking Widget – check availability across all properties */}
             <ScrollReveal>
               <section className="mb-10 md:mb-12 relative z-[9990]">
@@ -212,6 +239,39 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                 </p>
               </div>
             </ScrollReveal>
+
+            {/* Selaa kaduittain (FI only) */}
+            {lang === "fi" && (
+              <ScrollReveal>
+                <section className="mb-12 md:mb-16">
+                  <div className="text-center mb-5">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Selaa majoitusta kaduittain</h2>
+                    <p className="text-sm text-muted-foreground mt-1">Vuokramökit ja huoneistot Levin keskustan kolmella kadulla.</p>
+                  </div>
+                  <div className="grid sm:grid-cols-3 gap-4">
+                    {streetHubs.map((s) => (
+                      <Link
+                        key={s.slug}
+                        to={`/vuokramokit/${s.slug}`}
+                        className="group glass-card border border-border/30 rounded-xl p-5 hover:border-primary/50 transition-colors"
+                      >
+                        <div className="inline-flex items-center gap-2 text-xs uppercase tracking-wide text-primary mb-2">
+                          <MapPin className="w-3.5 h-3.5" />
+                          {s.address ?? s.street}
+                        </div>
+                        <div className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {s.street}, Levi
+                        </div>
+                        <p className="text-sm text-muted-foreground mt-1 mb-3">{s.subtitle}</p>
+                        <span className="inline-flex items-center gap-1 text-sm text-primary font-medium">
+                          Katso kohteet <ArrowRight className="w-3.5 h-3.5" />
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              </ScrollReveal>
+            )}
 
             {/* Accommodations */}
             {lang === "fi" ? (

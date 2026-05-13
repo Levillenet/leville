@@ -1,90 +1,85 @@
 ## Tavoite
 
-Parantaa SEO:ta luomalla jokaiselle 26 majoituskohteelle oma indeksoitava landing-sivu, ja korvata `/majoitukset`-sivun 4 kategoriakorttia 26 yksittäisellä kohdekortilla. Kuvat liitetään myöhemmin Google Drive -kansiosta (alikansio per kohde, kansion nimi = kohteen tunniste).
+Parantaa /majoitukset-sivun sijoittumista hakuihin "majoitus Levi" ja "vuokramökit Levi", ja luoda katuosoite-pohjaiset SEO-sivut Hiihtäjänkujalle (Front Slope), Skimbaajankujalle (Karhupirtti) ja Ratsastajankujalle 2 (Glacier A & B).
 
-## Mitä rakennetaan
+---
 
-### 1. Slug + kuvakenttä `properties.ts`:ään
+## URL-muoto: päätös
 
-Lisätään jokaiselle kohteelle:
-- `slug` — URL-pala (esim. `karhupirtti`, `front-slope-5a2`, `glacier-a3`, `skistar-studio-104`)
-- `images: string[]` — placeholder-tyhjä lista nyt; täytetään Drive-integraation yhteydessä
-- `heroImage: string | null` — ensimmäisen kuvan polku tai null (näytetään placeholder)
+**Suositus: `/vuokramokit/<katu>-levi`** (esim. `/vuokramokit/hiihtajankuja-levi`).
 
-Slug-konventio vastaa Drive-alikansion nimeä, jotta automaattinen mappaus onnistuu.
+Perustelut:
+- "vuokramökit" on iso transaktionaalinen hakusana – kilpailija `levillas.fi` rankkaa juuri tähän.
+- Slug-keyword URL antaa relevanssisignaalin Googlelle ja näkyy SERPin URL-leivänmuruissa.
+- "majoitus + Levi" jää H1:een ja meta-tekstiin, joten emme menetä toistakaan termiä.
+- Ei törmäysriskiä olemassa olevien `/majoitukset/<slug>` -reittien kanssa.
 
-### 2. Dynaaminen landing-page `/majoitukset/:slug`
+---
 
-Uusi tiedosto `src/pages/PropertyDetail.tsx` + reitti `App.tsx`:ssä. Sisältö per sivu:
+## 1) /majoitukset – on-page SEO
 
-- **Hero** — kohteen nimi (H1), sijainti, tagit, "Tarkista saatavuus" -CTA → `bookingUrl`
-- **Kuvagalleria** — kaikki kuvat tai placeholder kunnes Drive on liitetty
-- **Specs** — m², BR, sängyt, vieraat, kylpyhuoneet, rakennus-/remontti-vuosi
-- **Ominaisuudet** — sauna, takka, lemmikit OK, esteetön, parkki, WiFi (badget)
-- **Pitkä kuvaus** — `shortDescription` + sijaintiteksti (mitä ympärillä, etäisyys hisseille per ryhmä)
-- **Sijainti-osio** — kartta-linkki, etäisyys Levin keskustaan, lähimmät palvelut
-- **Booking-blokki** — Moder-deeplink + WhatsApp + puhelin
-- **Read next** — 3 muuta saman ryhmän kohdetta + linkki `/majoitukset`-listalle
-- **JSON-LD** — `LodgingBusiness` per kohde (nimi, sijainti, ominaisuudet, mainEntityOfPage)
-- **Hreflang** — vain `fi` aluksi, laajennus myöhemmin
-- **Canonical** — `https://leville.net/majoitukset/{slug}`
-- **SEO meta** — title `"{Kohteen nimi} — Levi | Leville.net"`, description shortDescriptionista (rajaa 155 merkkiä)
+`src/pages/Majoitukset.tsx`:
 
-### 3. `/majoitukset`-sivun listanäkymä
+- **H1:** "Majoitus Levillä – vuokramökit ja huoneistot Levin keskustassa"
+- **`<title>`:** "Majoitus Levillä – vuokramökit ja huoneistot keskustassa | Leville"
+- **Meta description (≤155 mrk):** "Vuokraa majoitus Levin keskustasta: vuokramökit ja huoneistot Hiihtäjänkujalla, Skimbaajankujalla ja Ratsastajankujalla. Saunat, lähellä rinteitä – varaa suoraan."
+- Intro-kappale (~150 sanaa) H1:n alle: termit *majoitus Levi*, *vuokramökit Levi*, *huoneisto Levin keskusta*. Linkit kolmelle uudelle katu-hubille.
+- JSON-LD: `CollectionPage` + `BreadcrumbList`.
+- Näkyvä "Selaa kaduittain" -osio (3 korttia).
 
-- Poistetaan nykyinen 4-kategoriakortin grid
-- Korvataan ryhmitellyllä PropertyCard-listalla (FI-käännetyin teksti):
-  - **Hiihtäjänkujan rinnerivitalot** (3 kohdetta)
-  - **Skistar-keskustahuoneistot** (9 kohdetta)
-  - **Karhupirtti — hirsihuvila** (1 kohde)
-  - **Muut keskustakohteet** (Levi Platinum A2, Moonlight 415, Karhunvartija 3)
-  - **Levi Glacier -alppihuoneistot** (10 kohdetta)
-- Jokainen kortti linkittää `/majoitukset/{slug}`-sivulle (otsikko ja "Lue lisää")
-- "Tarkista saatavuus" -CTA pysyy suorana Moder-linkkinä
-- Säilytetään kartta-linkki, FAQ, info-kortit ja booking-kuvaukset alaosassa
+---
 
-### 4. PropertyCard-päivitys
+## 2) Katu-pohjaiset hub-sivut
 
-- Lisätään valinnainen `heroImage` (tai placeholder gradientti kunnes kuvia)
-- Otsikko ja "Lue lisää" -linkki sisäiselle `/majoitukset/{slug}`-reitille
-- "Tarkista saatavuus" -nappi pysyy ulkoisena Moder-linkkinä (`target="_blank"`)
-- Pidetään spec-grid ja badget
+Yksi jaettu `src/pages/StreetHub.tsx` + dataobjekti `src/data/street-hubs.ts` (kadut → property-slugit + kuvausteksti). Sivu renderöi: H1, 200–300 sanaa paikallista kontekstia (etäisyys gondoliin, palvelut, kadun luonne), kohdegridin (linkit `/majoitukset/<slug>`), BreadcrumbList + ItemList JSON-LD, canonical itseensä.
 
-### 5. Sitemap + sisäinen linkitys
+| Uusi URL | Osoite | Kohteet |
+|---|---|---|
+| `/vuokramokit/hiihtajankuja-levi` | Hiihtäjänkuja | front-slope-5a2, front-slope-5b2, front-slope-5b5-penthouse |
+| `/vuokramokit/skimbaajankuja-levi` | Skimbaajankuja | karhupirtti |
+| `/vuokramokit/ratsastajankuja-levi` | Ratsastajankuja 2 | glacier-a1…a6, glacier-b1…b4 (11 kohdetta) |
 
-- Lisätään 26 uutta `/majoitukset/{slug}`-URL:ää sitemap-generaattoriin
-- Lisätään footer-linkki "Kaikki majoitukset" → `/majoitukset`
-- Olemassa olevat ryhmäoppaat (Karhupirtti, Skistar, Frontslope) saavat "Tutustu kohteisiin"-linkin → suodatettu `/majoitukset`
+Karhunvartija jätetään pois.
 
-### 6. Google Drive -kuvien tuonti (myöhemmin, valmistellaan)
+Reitit lisätään `src/App.tsx`:ään.
 
-Kun annat Drive-kansion linkin:
-- Yhdistetään Google Drive -konnektori
-- Edge function `import-property-images` listaa alikansiot, mätsää nimet `slug`-kenttään, lataa kuvat ja tallentaa ne **Lovable Cloud Storage** -bucketiin `property-images/{slug}/{n}.jpg` (julkinen)
-- Päivittää `properties.ts`:n `images`- ja `heroImage`-kentät
-- Optimointi: WebP-konversio + leveyden cap 1600px (tehdään selaimessa kun ladataan, käyttää OptimizedImagea)
+---
 
-Tätä vaihetta ei tehdä nyt — placeholdereilla mennään julkaisuun ja lisätään kuvat heti kun linkki tulee.
+## 3) Yksittäisten kohteiden meta-päivitykset
 
-## Ulkopuolelle jätetään
+`PropertyDetail`-Helmetiin katuosoite ja "Levi keskusta":
 
-- Käännökset muille kuin suomeksi (lisätään myöhemmin pyydettäessä — hreflang ei toistaiseksi)
-- Live-saatavuuskalenteri kortille (vaatisi Beds24-integraation jokaiselle kohteelle)
-- Hintatieto kortille (price parity -säännön mukaisesti emme näytä hintaa)
+- Front Slope A2/B2/B5 → "… – Hiihtäjänkuja, Levi keskusta | Leville"
+- Karhupirtti → "Karhupirtti – Skimbaajankuja, Levi | Leville"
+- Glacier A1…B4 → "Glacier <X> – Ratsastajankuja 2, Levi | Leville"
 
-## Tekninen sivu
+Lyhyt katumainita näkyvään tekstiin jos puuttuu.
 
-```text
-Tiedostot:
-  src/data/properties.ts          (laajennetaan: slug, images, heroImage)
-  src/components/PropertyCard.tsx (heroImage, sisäinen Lue lisää -linkki)
-  src/pages/PropertyDetail.tsx    (UUSI, dynaaminen :slug-route)
-  src/pages/Majoitukset.tsx       (korvaa 4 kategoriakorttia 26 PropertyCardilla)
-  src/App.tsx                     (lisää reitti /majoitukset/:slug)
-  public/sitemap.xml-generaattori (lisää 26 URL)
-  src/components/Footer.tsx       (lisää "Kaikki majoitukset" -linkki tarvittaessa)
+---
 
-Ei muutoksia DB:hen tässä vaiheessa — kuvabucket luodaan vasta kun Drive-linkki tulee.
-```
+## 4) Sisäinen linkitys
 
-Onko OK aloittaa tällä? Kun Drive-linkki on valmis, jatkan kuvien tuonnilla erillisenä askeleena.
+- /majoitukset → 3 katuhubia + suosituimmat kohteet
+- Katuhub → ko. kadun kohteet ja takaisin /majoitukset
+- Property-sivu → "Muut huoneistot samalla kadulla" (max 3) + linkki katuhubille
+- Footer "Suosittua majoitusta": 3 katuhub-linkkiä
+
+---
+
+## 5) Sitemap
+
+`public/sitemap.xml`: lisätään 3 uutta hub-URL:ia (FI). Ei hreflangia (vain FI). Lastmod 2026-05-13.
+
+---
+
+## 6) Mittaaminen
+
+GSC-seuranta: "majoitus levi", "vuokramökit levi", "huoneisto hiihtäjänkuja levi", "mökki ratsastajankuja levi", "karhupirtti skimbaajankuja". Tulokset näkyvät 2–6 viikossa.
+
+---
+
+## Tekniset huomiot
+
+- Ei muuteta olemassa olevia `/majoitukset/<slug>`-reittejä.
+- Yksi jaettu `StreetHub`-komponentti pitää koodin DRY:nä; uusi katu = yksi rivi `street-hubs.ts`:ään.
+- Canonical-domain `https://leville.net`.

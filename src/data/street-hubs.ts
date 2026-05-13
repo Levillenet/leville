@@ -1,0 +1,113 @@
+// Katu-pohjaiset SEO-hubit Levin keskustan vuokramökeille ja huoneistoille.
+// Jokainen hub kerää tietyn kadun omat kohteet (slug-viitteinä properties.ts:ään).
+
+export interface StreetHub {
+  /** URL-segmentti: /vuokramokit/<slug> */
+  slug: string;
+  /** Kadun nimi, esim. "Hiihtäjänkuja" */
+  street: string;
+  /** Tarkka osoite jos on (esim. "Ratsastajankuja 2") */
+  address?: string;
+  /** Sivun H1 */
+  h1: string;
+  /** <title> */
+  metaTitle: string;
+  /** Meta description (≤155 mrk) */
+  metaDescription: string;
+  /** Lyhyt 1-rivin yhteenveto sivulle (subtitle) */
+  subtitle: string;
+  /** Pidempi paikalliskuvaus (200–300 sanaa) */
+  intro: string[];
+  /** Property slugit /majoitukset/<slug> -sivuille */
+  propertySlugs: string[];
+  /** Lähimmät palvelut / etäisyydet info-listaan */
+  facts: { label: string; value: string }[];
+}
+
+export const streetHubs: StreetHub[] = [
+  {
+    slug: "hiihtajankuja-levi",
+    street: "Hiihtäjänkuja",
+    h1: "Vuokramökit ja huoneistot Hiihtäjänkujalla, Levi",
+    metaTitle: `Vuokramökit Hiihtäjänkuja Levi ${new Date().getFullYear()} – Front Slope -alppihuoneistot`,
+    metaDescription:
+      "Front Slope -alppihuoneistot Hiihtäjänkujalla, Levin Eturinteellä. Saunalliset huoneistot 200 m Eturinteen rinteiltä – varaa suoraan ilman välityspalkkioita.",
+    subtitle:
+      "Levin Eturinne, Zero Point -alueella – noin 200 metriä Eturinteen rinteiltä.",
+    intro: [
+      "Hiihtäjänkuja sijaitsee Levin Eturinteen juurella Zero Point -alueella, noin 200 metrin päässä Eturinteen rinteiltä ja hisseiltä. Katu on yksi Levin halutuimmista majoituskaduista, koska rinteille pääsee suksilla suoraan ovelta ja Levin keskustan palvelut ovat parin sadan metrin kävelymatkan päässä.",
+      "Hiihtäjänkujan Front Slope -alppihuoneistot ovat moderneja, saunallisia ja täysin varusteltuja. Huoneistot sopivat sekä pariskunnille, perheille että pienille kaveriporukoille – Penthouse-asunnossa on tilaa jopa kymmenelle hengelle. Jokaisesta huoneistosta on lyhyt kävelymatka Hullu Poro -alueen ravintoloihin, K-Marketiin ja Levin keskustaan.",
+      "Kaikki Leville.netin Hiihtäjänkujan kohteet voi varata suoraan ilman välityspalkkioita. Vapaat ajat ja hinnat näkyvät reaaliaikaisesti.",
+    ],
+    propertySlugs: [
+      "front-slope-5a2",
+      "front-slope-5b2",
+      "front-slope-5b5-penthouse",
+    ],
+    facts: [
+      { label: "Eturinteen rinteille", value: "n. 200 m" },
+      { label: "Levin keskustaan", value: "n. 400 m" },
+      { label: "Lähin ruokakauppa", value: "n. 250 m (K-Market Levi)" },
+      { label: "Gondoli (Levi 2)", value: "n. 600 m" },
+    ],
+  },
+  {
+    slug: "skimbaajankuja-levi",
+    street: "Skimbaajankuja",
+    h1: "Vuokramökki Skimbaajankujalla, Levi – Karhupirtti hirsihuvila",
+    metaTitle: `Vuokramökki Skimbaajankuja Levi ${new Date().getFullYear()} – Karhupirtti, hirsihuvila 14 hengelle`,
+    metaDescription:
+      "Karhupirtti on perinteinen hirsihuvila Skimbaajankujalla, Levin keskustassa. Ulkoporeallas, takka, 7 makuuhuonetta – varaa suoraan ilman välityspalkkioita.",
+    subtitle:
+      "Tunnelmallinen hirsihuvila ulkoporealtaalla Levin keskustassa.",
+    intro: [
+      "Skimbaajankuja on rauhallinen sivukatu Levin keskustassa, lyhyen kävelymatkan päässä Hullu Poro -ravintoloista ja Levin pääkadulta. Kadulla sijaitsee Karhupirtti – perinteinen, tilava hirsihuvila joka sopii suurille perheille, ystäväporukoille ja yritysryhmille.",
+      "Karhupirtissä on 7 makuuhuonetta, takka, täysin varusteltu keittiö ja oma ulkoporeallas pihalla. Mökki majoittaa enintään 14 henkeä ja tarjoaa aidon lappilaisen hirsimökkikokemuksen ilman että keskustan palveluista täytyy tinkiä. Lähimmät rinteet (Front Slope) ovat parin sadan metrin päässä.",
+      "Skimbaajankujan Karhupirtti voi varata suoraan Leville.netin kautta – ilman välityspalkkioita ja samat hinnat kuin Booking.comissa.",
+    ],
+    propertySlugs: ["karhupirtti"],
+    facts: [
+      { label: "Levin keskustaan", value: "n. 300 m" },
+      { label: "Front Slope -rinteille", value: "n. 350 m" },
+      { label: "Lähin ravintola", value: "n. 200 m (Hullu Poro)" },
+      { label: "Makuupaikkoja", value: "14" },
+    ],
+  },
+  {
+    slug: "ratsastajankuja-levi",
+    street: "Ratsastajankuja",
+    address: "Ratsastajankuja 2",
+    h1: "Vuokramökit ja huoneistot Ratsastajankuja 2, Levi – Glacier-alppitalo",
+    metaTitle: `Vuokramökit Ratsastajankuja 2 Levi ${new Date().getFullYear()} – Glacier A & B -alppihuoneistot`,
+    metaDescription:
+      "Glacier A & B -alppihuoneistot Ratsastajankuja 2:ssa, Levin Hullu Poro -alueella. 11 saunallista huoneistoa – varaa kokonaisen talon kerrallaan tai yksittäin.",
+    subtitle:
+      "Glacier-alppitalo Hullu Poro -alueella – 11 saunallista huoneistoa, sopii myös ryhmille.",
+    intro: [
+      "Ratsastajankuja 2 sijaitsee Levin Hullu Poro -alueella, askelten päässä ravintoloista ja Front Slope -rinteistä. Osoitteessa sijaitsee Levi Glacier -alppitalo, jossa on yhteensä 11 modernia huoneistoa kahdessa rakennuksessa (A- ja B-talot).",
+      "Glacier-huoneistot on suunniteltu erityisesti perheille, urheiluseuroille ja yritysryhmille. Jokaisessa huoneistossa on oma sauna, parveke ja täysin varusteltu keittiö. Huoneistoja on kahdesta neljään makuuhuonetta, ja kattohuoneistoissa on tilaa jopa kymmenelle hengelle. Talossa on myös pelihuone lapsille.",
+      "Kun haluat majoittaa koko seurueen samaan rakennukseen, voit varata 4–10 huoneistoa kerrallaan ja saada koko talon yksityiskäyttöön. Kaikki Glacierin huoneistot voi varata suoraan Leville.netin kautta ilman välityspalkkioita.",
+    ],
+    propertySlugs: [
+      "glacier-a1",
+      "glacier-a2",
+      "glacier-a3",
+      "glacier-a4",
+      "glacier-a5-penthouse",
+      "glacier-a6",
+      "glacier-b1",
+      "glacier-b2",
+      "glacier-b3-penthouse",
+      "glacier-b4-penthouse",
+    ],
+    facts: [
+      { label: "Hullu Poro -ravintolaan", value: "n. 100 m" },
+      { label: "Front Slope -rinteille", value: "n. 250 m" },
+      { label: "Levin keskustaan", value: "n. 400 m" },
+      { label: "Huoneistoja yhteensä", value: "11 (A & B)" },
+    ],
+  },
+];
+
+export const getStreetHub = (slug: string) =>
+  streetHubs.find((h) => h.slug === slug);
