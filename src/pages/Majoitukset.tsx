@@ -22,6 +22,7 @@ import { supabase } from "@/integrations/supabase/client";
 import PropertyCard from "@/components/PropertyCard";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
 import { properties } from "@/data/properties";
+import { streetHubs } from "@/data/street-hubs";
 
 // Import accommodation background images
 import karhupirttiImg from "@/assets/accommodations/karhupirtti.jpg";
