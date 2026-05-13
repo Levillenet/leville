@@ -4,6 +4,8 @@
 export interface PropertyFiTranslation {
   name?: string;
   shortDescription: string;
+  /** Optional long-form description (Markdown-lite: paragraphs separated by blank lines, **bold**, bullets with "- "). */
+  longDescription?: string;
 }
 
 export const propertyFi: Record<string, PropertyFiTranslation> = {
@@ -11,6 +13,32 @@ export const propertyFi: Record<string, PropertyFiTranslation> = {
     name: "Alppihuoneisto 5A2 – Hiihtäjänkuja",
     shortDescription:
       "Täysin remontoitu (kesäkuu 2024) kahden makuuhuoneen alppityylinen huoneisto Levin keskustassa Zero Point -alueella, n. 200 m Eturinteeltä. Varaava takka, kaksi uusittua kylpyhuonetta, kuivaushuone ja parveke. Ilmalämpöpumppu. Lemmikit sallittu.",
+    longDescription: `**Tilava ja tyylikäs huoneisto Levin sydämessä – täydellinen 6 hengelle**
+
+Tervetuloa unelmiesi Levin lomalle! Tämä **täysin remontoitu kahden makuuhuoneen huoneisto** sijaitsee aivan Levin keskustassa, askelten päässä rinteiltä, hiihtoladuilta, ravintoloista ja kaupoista. Täydellinen tukikohta huolettomalle Lapin lomalle.
+
+**Mukava pohjaratkaisu ja modernit varusteet**
+
+Huoneistossa on kaksi makuuhuonetta, joissa kummassakin kaksi erillistä vuodetta, sekä laadukas vuodesohva alakerran oleskelutilassa – mukavasti tilaa kuudelle vieraalle. Olohuoneesta pääset parvekkeelle nauttimaan raikkaasta tunturi-ilmasta.
+
+Kesäkuussa 2024 tehty mittava remontti antoi huoneistolle raikkaan ja modernin ilmeen. **Molemmat kylpyhuoneet** uusittiin täysin ja lähes kaikki pinnat pinnoitettiin uudelleen.
+
+**Oma sauna, kuivaushuone ja takka**
+
+Rinnepäivän jälkeen rentoudu omassa saunassa. Erillinen kuivaushuone helpottaa talvivarusteiden hoitoa – tule sisään alakerran ovesta, jätä sukset ja märät vaatteet kuivumaan ja siirry suoraan saunaan. **Varaava takka** olohuoneessa luo lämpimän tunnelman ja pitää huoneiston miellyttävän lämpimänä tunteja.
+
+**Kaikki mitä tarvitset mukavaan lomaan**
+
+- Varaava takka tunnelmaan ja lämpöön
+- Oma parkkipaikka sähkötolpalla
+- Tilava kellari sukksien säilytykseen ja huoltoon
+- Ilmalämpöpumppu tasaiseen lämpöön talvella ja viilennykseen kesällä
+- Iso TV ja mukava oleskelutila
+- Täysin varusteltu keittiö kotiruoan laittoon
+
+**Erinomainen sijainti Levillä**
+
+Kun kaikki on lähellä, lomasta tulee helpompi ja nautittavampi. Rinteet, hiihtoladut, kaupat ja ravintolat ovat kaikki kävelymatkan päässä. Sisäänkäynti on esteetön – vain yksi matala porras huoneistoon.`,
   },
   "front-slope-5b2": {
     name: "Alppihuoneisto 5B2 – Hiihtäjänkuja",
