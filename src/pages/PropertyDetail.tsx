@@ -145,15 +145,15 @@ const PropertyDetail = () => {
             <section className="mb-8 md:mb-12">
               <div className="flex flex-wrap items-center gap-2 mb-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary" />
-                <span>{property.location}</span>
+                <span>{displayLocation}</span>
                 <span>·</span>
                 <span>{ctx.distance}</span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-                {property.name}
+                {displayName}
               </h1>
               <p className="text-base sm:text-lg text-muted-foreground max-w-3xl leading-relaxed">
-                {property.shortDescription}
+                {displayDescription}
               </p>
 
               {/* Hero image / placeholder */}
@@ -161,7 +161,7 @@ const PropertyDetail = () => {
                 {property.heroImage ? (
                   <OptimizedImage
                     src={property.heroImage}
-                    alt={property.name}
+                    alt={displayName}
                     className="w-full h-full object-cover"
                   />
                 ) : (
