@@ -32,6 +32,13 @@ const groupOf = (p: Property): string => {
   return "glacier";
 };
 
+const groupAddress: Record<string, { label: string; query: string }> = {
+  "front-slope": { label: "Hiihtäjänkuja 5, Levi", query: "Hiihtäjänkuja 5, 99130 Levi" },
+  "skistar": { label: "Postintie 3 B, Levi", query: "Postintie 3 B, 99130 Levi" },
+  "glacier": { label: "Ratsastajankuja 2, Levi", query: "Ratsastajankuja 2, 99130 Levi" },
+  "karhupirtti": { label: "Skimbaajankuja 3, Levi", query: "Skimbaajankuja 3, 99130 Levi" },
+};
+
 const groupContext: Record<string, { fi: string; distance: string }> = {
   "front-slope": {
     fi: "Alppityyliset talot Levin keskustassa Zero Point -alueella — n. 200 m kävelymatka Eturinteelle ja hisseille, askelten päässä K-Marketille ja ravintoloihin.",
@@ -191,6 +198,17 @@ const PropertyDetail = () => {
                     <Phone className="w-4 h-4" /> {PHONE_DISPLAY}
                   </a>
                 </Button>
+                {groupAddress[group] && (
+                  <Button asChild size="lg" variant="outline" className="gap-2">
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(groupAddress[group].query)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="w-4 h-4" /> {groupAddress[group].label}
+                    </a>
+                  </Button>
+                )}
               </div>
             </section>
 
