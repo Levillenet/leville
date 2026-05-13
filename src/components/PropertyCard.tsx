@@ -62,12 +62,12 @@ const PropertyCard = ({
 
   return (
     <Card className="group relative overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10 border-border/60 flex flex-col">
-      {/* Hero image or placeholder */}
+      {/* Hero image / gallery */}
       <div className="relative w-full aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/15 via-muted to-secondary/15">
-        {property.heroImage ? (
+        {gallery.length > 0 ? (
           <OptimizedImage
-            src={property.heroImage}
-            alt={displayName}
+            src={gallery[imgIdx]}
+            alt={`${displayName}${hasMultiple ? ` – ${imgIdx + 1}/${gallery.length}` : ""}`}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
@@ -78,6 +78,29 @@ const PropertyCard = ({
         <span className="absolute top-3 left-3 inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-background/90 text-foreground backdrop-blur">
           <MapPin className="w-3 h-3 text-primary" /> {displayLocation}
         </span>
+        {hasMultiple && (
+          <>
+            <button
+              type="button"
+              onClick={goPrev}
+              aria-label={L.prev}
+              className="absolute left-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-background/85 text-foreground backdrop-blur hover:bg-background transition-opacity opacity-0 group-hover:opacity-100 focus:opacity-100"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={goNext}
+              aria-label={L.next}
+              className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-background/85 text-foreground backdrop-blur hover:bg-background transition-opacity opacity-0 group-hover:opacity-100 focus:opacity-100"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+            <span className="absolute bottom-2 right-2 text-[10px] font-medium px-2 py-0.5 rounded-full bg-background/85 text-foreground backdrop-blur">
+              {imgIdx + 1} / {gallery.length}
+            </span>
+          </>
+        )}
       </div>
 
       <CardContent className="p-5 sm:p-6 flex flex-col gap-4 flex-grow">
