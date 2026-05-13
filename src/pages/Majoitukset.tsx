@@ -147,6 +147,32 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </section>
             </ScrollReveal>
 
+            {lang === "fi" && (
+              <ScrollReveal>
+                <section className="max-w-3xl mx-auto mb-10 md:mb-12 px-2 text-center">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    Etsitkö <strong className="text-foreground">majoitusta Leviltä</strong>? Tarjoamme
+                    saunallisia <strong className="text-foreground">vuokramökkejä</strong> ja moderneja
+                    huoneistoja Levin ydinkeskustassa kolmessa eri kohteessa: Front Slope -alppihuoneistot
+                    {" "}
+                    <Link to="/vuokramokit/hiihtajankuja-levi" className="text-primary hover:underline">
+                      Hiihtäjänkujalla
+                    </Link>
+                    , Karhupirtti-hirsihuvila{" "}
+                    <Link to="/vuokramokit/skimbaajankuja-levi" className="text-primary hover:underline">
+                      Skimbaajankujalla
+                    </Link>{" "}
+                    sekä Glacier-alppitalo{" "}
+                    <Link to="/vuokramokit/ratsastajankuja-levi" className="text-primary hover:underline">
+                      Ratsastajankuja 2:ssa
+                    </Link>
+                    . Kaikki kohteet ovat lyhyen kävelymatkan päässä rinteiltä, ravintoloista ja Levin
+                    keskustan palveluista – ja varaat suoraan meiltä ilman välityspalkkioita.
+                  </p>
+                </section>
+              </ScrollReveal>
+            )}
+
             {/* Moder Booking Widget – check availability across all properties */}
             <ScrollReveal>
               <section className="mb-10 md:mb-12 relative z-[9990]">
