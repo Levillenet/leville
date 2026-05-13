@@ -23,6 +23,7 @@ import GuideAdmin from "@/components/admin/GuideAdmin";
 import SeoPageAdmin from "@/components/admin/SeoPageAdmin";
 import ChatbotStatsAdmin from "@/components/admin/ChatbotStatsAdmin";
 import PageViewsAdmin from "@/components/admin/PageViewsAdmin";
+import SearchConsoleAdmin from "@/components/admin/SearchConsoleAdmin";
 import TimedNoticesAdmin from "@/components/admin/TimedNoticesAdmin";
 import PromoBannerAdmin from "@/components/admin/PromoBannerAdmin";
 import TicketAdmin from "@/components/admin/TicketAdmin";
