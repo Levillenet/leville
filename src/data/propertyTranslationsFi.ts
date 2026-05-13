@@ -141,8 +141,15 @@ export const propertyFi: Record<string, PropertyFiTranslation> = {
 
 export const locationFi: Record<string, string> = {
   "Levi Center": "Levin keskusta",
-  "Front Slope": "Etelärinne",
+  "Front Slope": "Levin Eturinne, Zero Point -alue",
   "Glacier": "Glacier-alue",
+};
+
+// Per-slug location overrides (Finnish), used when the generic location label is misleading.
+export const locationFiBySlug: Record<string, string> = {
+  "front-slope-5a2": "Levin Eturinne, Zero Point -alue",
+  "front-slope-5b2": "Levin Eturinne, Zero Point -alue",
+  "front-slope-5b5-penthouse": "Levin Eturinne, Zero Point -alue",
 };
 
 export const translateYearFi = (s: string): string => {
