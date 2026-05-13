@@ -451,7 +451,6 @@ const PropertyDetail = () => {
                 {property.petsAllowed && <Badge variant="secondary" className="gap-1.5 text-sm py-1.5 px-3"><PawPrint className="w-4 h-4" /> Lemmikit sallittu</Badge>}
                 {property.accessible && <Badge variant="secondary" className="gap-1.5 text-sm py-1.5 px-3"><Accessibility className="w-4 h-4" /> Esteetön</Badge>}
                 <Badge variant="outline" className="text-sm py-1.5 px-3">WiFi</Badge>
-                <Badge variant="outline" className="text-sm py-1.5 px-3">Loppusiivous sisältyy</Badge>
                 <Badge variant="outline" className="text-sm py-1.5 px-3">Kuivaushuone</Badge>
               </div>
             </section>

@@ -71,7 +71,7 @@ Tämä 100 m²:n kattohuoneisto sijaitsee Levin sydämessä, vain 200 metrin pä
   "karhupirtti": {
     name: "Karhupirtti – hirsihuvila Levin keskustassa",
     shortDescription:
-      "220 m² perinteinen hirsihuvila Levin keskustassa: 7 makuuhuonetta, ulkoporeallas, oma piha ja takka. 3 ensuite-makuuhuonetta alakerrassa. Täysin remontoitu 2022. Takkapuut ja loppusiivous sisältyvät. Lemmikit sallittu.",
+      "220 m² perinteinen hirsihuvila Levin keskustassa: 7 makuuhuonetta, ulkoporeallas, oma piha ja takka. 3 ensuite-makuuhuonetta alakerrassa. Täysin remontoitu 2022. Takkapuut sisältyvät. Lemmikit sallittu.",
     longDescription: `**Karhupirtti – Ainutlaatuinen 220 m² hirsihuvila Levin sydämessä**
 
 Levin majoitusvaihtoehdoista Karhupirtti on vertaansa vailla. Tämä perinteinen pyöröhirsihuvila sijaitsee aivan Levin keskustassa, vain kolmen minuutin kävelymatkan päässä eturinteistä, ravintoloista ja kaupoista. Sen 220 m² asuintilalla, seitsemällä makuuhuoneella ja ulkoporeammeella, se majoittaa jopa 14 vierasta, mikä tekee siitä täydellisen tukikohdan ryhmämatkailuun Lapissa. Lemmikit ovat tervetulleita.
@@ -255,7 +255,7 @@ Näppärä, tyylikäs ja täydellisellä sijainnilla. Tämä moderni 28 m²:n yk
   "karhunvartija-3": {
     name: "Karhunvartija 3 – keskustahuoneisto",
     shortDescription:
-      "42 m² huoneisto kahdella makuuhuoneella, luonnonkivitakalla, omalla saunalla ja aidatulla pihalla. Oma sisäänkäynti Ratsastajankujalta. Takkapuut ja loppusiivous sisältyvät. Lemmikit sallittu.",
+      "42 m² huoneisto kahdella makuuhuoneella, luonnonkivitakalla, omalla saunalla ja aidatulla pihalla. Oma sisäänkäynti Ratsastajankujalta. Takkapuut sisältyvät. Lemmikit sallittu.",
     longDescription: `Tämä viihtyisä ja hyvin varusteltu huoneisto sijaitsee aivan Levin keskustassa, arkkitehtonisesti vaikuttavan Karhunvartija-rakennuksen 2B puolella. Sijainti ei voisi olla parempi – kaikki Levin ravintolat, kaupat ja aktiviteetit ovat kävelyetäisyydellä, ja niin laskettelurinteet kuin hiihtoladutkin alkavat vain lyhyen kävelymatkan päästä ovelta.
 
 42 m²:n huoneisto on yhdessä tasossa ja tarjoaa miellyttävät puitteet jopa neljälle vieraalle. Siinä on eteinen, avoin oleskelutila keittiöllä, kaksi makuuhuonetta (toisessa makuuhuoneessa vuodesohva kahdelle), kylpyhuone, erillinen wc ja oma sauna. Luonnonkivitakka luo lämpimän ja kutsuvan tunnelman, ja huoneistolla on oma sisäänkäynti Ratsastajankujalta.
@@ -376,7 +376,7 @@ Toisen kerroksen alppihuoneisto uniikilla pohjaratkaisulla ja näkymällä Hullu
 
 **200 m rinteistä** Eturinne ja Glacier Express -hissi ovat käytännöllisesti katsoen kotiovella. Maastohiihtoladut kulkevat lähistöllä. Kaikki ravintolat, kaupat ja palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
 
-**Alppitunnelmaa, edulliseen hintaan** Rakennettu vuonna 2000 ja päivitetty vuosien varrella. Perinteinen alppihuoneisto Levin parhaalla sijainnilla ilman korkeaa hintaa. Loppusiivous sisältyy varauksen hintaan.
+**Alppitunnelmaa, edulliseen hintaan** Rakennettu vuonna 2000 ja päivitetty vuosien varrella. Perinteinen alppihuoneisto Levin parhaalla sijainnilla ilman korkeaa hintaa.
 
 **Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone ilmakiekolla, parvekkeet kahdessa tasossa, WiFi, TV. Lemmikit sallittuja.
 
@@ -424,7 +424,7 @@ Toisen kerroksen alppiasunto ainutlaatuisella pohjaratkaisulla ja näkymällä H
 
 **200 m rinteistä** Eturinne ja Glacier Express -hissi ovat käytännössä oven edessä. Hiihtoladut kulkevat lähistöllä. Kaikki ravintolat, kaupat ja palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
 
-**Alppitunnelmaa edulliseen hintaan** Rakennettu vuonna 2000 ja vuosien mittaan päivitetty. Perinteinen alppiasunto Levin parhaalla paikalla ilman premium-hintaa. Loppusiivous sisältyy varauksen hintaan.
+**Alppitunnelmaa edulliseen hintaan** Rakennettu vuonna 2000 ja vuosien mittaan päivitetty. Perinteinen alppiasunto Levin parhaalla paikalla ilman premium-hintaa.
 
 **Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone ilmakiekkopöydällä, parvekkeet kahdessa kerroksessa, WiFi, TV. Lemmikkieläimet ovat tervetulleita.
 
@@ -451,7 +451,7 @@ Suurin huoneisto Glacier-rakennuksessa ja yksi parhaista ryhmämajoituksista Lev
 
 **200 m rinteiltä** Eturinne ja Glacier Express -hissi ovat aivan ulkopuolella. Maastohiihtoladut lähellä. Ravintolat, kaupat ja kaikki palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
 
-**Suuren ryhmän mukavuutta edulliseen hintaan** Rakennettu vuonna 2000 ja huollettu vuosien varrella. 10 vuodetta 5 huoneessa rinteiden juurella – vaikea löytää näin paljon tilaa tällä sijainnilla ja hinnalla mistään Levilta. Siivous sisältyy hintaan. Liinavaatteet saatavilla lisäpalveluna, tai voit tuoda omasi.
+**Suuren ryhmän mukavuutta edulliseen hintaan** Rakennettu vuonna 2000 ja huollettu vuosien varrella. 10 vuodetta 5 huoneessa rinteiden juurella – vaikea löytää näin paljon tilaa tällä sijainnilla ja hinnalla mistään Levilta. Liinavaatteet saatavilla lisäpalveluna, tai voit tuoda omasi.
 
 **Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone, täysleveä parveke rinne näkymin, WiFi, TV. Lemmikit ovat tervetulleita.
 
@@ -476,7 +476,7 @@ Toinen kahdesta identtisestä suuresta huoneistosta Glacier-rakennuksessa – ja
 
 **200 m rinteistä** Eturinne ja Glacier Express -hissi aivan ulko-oven edessä. Hiihtoladut lähellä. Kaikki ravintolat, kaupat ja palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
 
-**Suuren ryhmän mukavuutta edulliseen hintaan** Rakennettu vuonna 2000 ja ylläpidetty vuosien varrella. 10 vuodetta 5 huoneessa rinteiden juurella – poikkeuksellinen hinta-laatusuhde. Siivous sisältyy hintaan. Liinavaatteet saatavilla lisäpalveluna.
+**Suuren ryhmän mukavuutta edulliseen hintaan** Rakennettu vuonna 2000 ja ylläpidetty vuosien varrella. 10 vuodetta 5 huoneessa rinteiden juurella – poikkeuksellinen hinta-laatusuhde. Liinavaatteet saatavilla lisäpalveluna.
 
 **Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksisäilö, pelihuone, täysleveä parveke rinne näkymillä, WiFi, TV. Lemmikit ovat tervetulleita.
 
@@ -501,7 +501,7 @@ Tilava kattohuoneisto Glacier-rakennuksen ylimmässä kerroksessa, aivan Levin e
 
 **200 m rinteistä** Eturinne ja Glacier Express -hissi aivan oven edessä. Latupolut lähistöllä. Kaikki palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
 
-**Kattohuoneistoa edulliseen hintaan** Rakennettu vuonna 2000, huollettu vuosien varrella. Ylimmän kerroksen sijainti rinne-maisemapalkoineen, perinteisen Alppi-talon asunnon hintatasoa. Siivous sisältyy hintaan.
+**Kattohuoneistoa edulliseen hintaan** Rakennettu vuonna 2000, huollettu vuosien varrella. Ylimmän kerroksen sijainti rinne-maisemapalkoineen, perinteisen Alppi-talon asunnon hintatasoa.
 
 **Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone, parvekkeet kahdessa kerroksessa, WiFi, TV. Lemmikit ovat tervetulleita.
 
@@ -526,7 +526,7 @@ Toinen kahdesta samanlaisesta kattohuoneistosta Glacier-rakennuksen yläkerrassa
 
 **200 m rinteistä** Eturinne ja Glacier Express -hissi aivan ovesi edessä. Hiihtoladut lähellä. Kaikki palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
 
-**Kattohuoneistotasoinen asuminen edulliseen hintaan** Rakennettu vuonna 2000, huollettu vuosien varrella. Yläkerran sijainti rinteeseen päin avautuvalla parvekkeella, perinteisellä alppiasuntojen hinnoittelulla. Siivous sisältyy hintaan.
+**Kattohuoneistotasoinen asuminen edulliseen hintaan** Rakennettu vuonna 2000, huollettu vuosien varrella. Yläkerran sijainti rinteeseen päin avautuvalla parvekkeella, perinteisellä alppiasuntojen hinnoittelulla.
 
 **Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone, parvekkeet kahdessa kerroksessa, WiFi, TV. Lemmikit tervetulleita.
 

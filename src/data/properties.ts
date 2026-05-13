@@ -185,7 +185,7 @@ export const properties: Property[] = [
     hotTub: true,
     yearBuiltOrRenovated: "Built 1989, fully renovated 2022",
     highlights: ["Ainutlaatuinen – ainoa Levin keskustan hirsimökki"],
-    shortDescription: "220 m² traditional log cabin in Levi center with 7 bedrooms, outdoor hot tub, private yard, and fireplace. 3 ensuite bedrooms downstairs. Fully renovated 2022. Firewood and cleaning included. Pets allowed."
+    shortDescription: "220 m² traditional log cabin in Levi center with 7 bedrooms, outdoor hot tub, private yard, and fireplace. 3 ensuite bedrooms downstairs. Fully renovated 2022. Pets allowed."
   },
   {
     id: "211",
@@ -607,7 +607,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: true,
     yearBuiltOrRenovated: "",
-    shortDescription: "42 m² apartment with 2 bedrooms, natural stone fireplace, private sauna, and enclosed yard. Own entrance from Ratsastajankuja. Firewood and cleaning included. Pets allowed."
+    shortDescription: "42 m² apartment with 2 bedrooms, natural stone fireplace, private sauna, and enclosed yard. Own entrance from Ratsastajankuja. Pets allowed."
   },
   {
     id: "platinum-a2",
