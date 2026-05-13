@@ -217,6 +217,7 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/majoitukset" element={<Majoitukset />} />
               <Route path="/majoitukset/:slug" element={<PropertyDetail />} />
+              <Route path="/en/accommodations/:slug" element={<PropertyDetail lang="en" />} />
               <Route path="/vuokramokit/:streetSlug" element={<StreetHub />} />
               <Route path="/mokit-levilla" element={<MokitLevilla />} />
               <Route path="/opas/autolla-ajaminen-lapissa" element={<DrivingInLapland />} />

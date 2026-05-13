@@ -39,6 +39,9 @@ export const languageConfig: Record<Language, { label: string; flag: string; pre
 export const routeConfig = {
   home: { fi: "/", en: "/en", sv: "/sv", de: "/de", es: "/es", fr: "/fr", nl: "/nl" },
   accommodations: { fi: "/majoitukset", en: "/en/accommodations", sv: "/sv/boende", de: "/de/unterkuenfte", es: "/es/alojamientos", fr: "/fr/hebergements", nl: "/nl/accommodaties" },
+  // Symbolic entry — actual property slugs are dynamic.
+  // Helps the language switcher map between FI and EN listings of /majoitukset/:slug ↔ /en/accommodations/:slug.
+  propertyDetail: { fi: "/majoitukset", en: "/en/accommodations", sv: "/sv/boende", de: "/de/unterkuenfte", es: "/es/alojamientos", fr: "/fr/hebergements", nl: "/nl/accommodaties" },
   news: { fi: "/ajankohtaista", en: "/en/news", sv: "/sv/nyheter", de: "/de/aktuelles", es: "/es/noticias", fr: "/fr/actualites", nl: "/nl/nieuws" },
   levi: { fi: "/levi", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi", nl: "/nl/levi" },
   northernLights: { fi: "/revontulet", en: "/en/northern-lights", sv: "/sv/norrsken", de: "/de/nordlichter", es: "/es/auroras-boreales", fr: "/fr/aurores-boreales", nl: "/nl/noorderlicht" },
