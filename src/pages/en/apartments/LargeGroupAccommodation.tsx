@@ -23,7 +23,7 @@ const largeGroupProps = properties.filter(p => ["karhupirtti", "glacier-b1", "gl
 const faqs = [
   {
     q: "What makes Bear Lodge special for large groups?",
-    a: (<>{linkProp("Bear Lodge", "karhupirtti")} is a 220 m² log cabin – one of the only ones this size in central Levi. Fully renovated in 2022. It has 7 bedrooms (3 ensuite downstairs, 4 upstairs), an outdoor hot tub, private yard, and fireplace. 3 minutes' walk to all services. About 150m to the nearest snowmobile track. Firewood and final cleaning are included.</>),
+    a: (<>{linkProp("Bear Lodge", "karhupirtti")} is a 220 m² log cabin – one of the only ones this size in central Levi. Fully renovated in 2022. It has 7 bedrooms (3 ensuite downstairs, 4 upstairs), an outdoor hot tub, private yard, and fireplace. 3 minutes' walk to all services. About 150m to the nearest snowmobile track.</>),
   },
   {
     q: "Can I book the entire Glacier building?",
@@ -92,7 +92,7 @@ const LargeGroupAccommodation = () => {
               Finding accommodation for 10+ people in a ski resort is hard. Hotels split you across rooms with no shared space. Most apartments max out at 6–8. Here's what works in Levi:
             </p>
             <p>
-              <strong className="text-foreground">{linkProp("Bear Lodge (Karhupirtti)", "karhupirtti")}</strong> is a 220 m² traditional log cabin built in 1989, fully renovated in 2022 – one of the few, if not the only, log cabin of this size in central Levi. 7 bedrooms (3 ensuite with shower downstairs, 4 with connecting doors and toilet upstairs), outdoor hot tub, private yard, and fireplace. Water-circulated radiator heating keeps it warm. 3 minutes' walk to restaurants and shops, about 150 meters to the nearest snowmobile track. Firewood and final cleaning included in the price. Pets allowed.
+              <strong className="text-foreground">{linkProp("Bear Lodge (Karhupirtti)", "karhupirtti")}</strong> is a 220 m² traditional log cabin built in 1989, fully renovated in 2022 – one of the few, if not the only, log cabin of this size in central Levi. 7 bedrooms (3 ensuite with shower downstairs, 4 with connecting doors and toilet upstairs), outdoor hot tub, private yard, and fireplace. Water-circulated radiator heating keeps it warm. 3 minutes' walk to restaurants and shops, about 150 meters to the nearest snowmobile track. Pets allowed.
             </p>
             <p>
               <strong className="text-foreground">{linkProp("Glacier B1", "glacier-b1")} and {linkProp("B2", "glacier-b2")}</strong> are each 105 m² with 5 bedrooms sleeping 10 guests. They're next to each other on the first floor of the Glacier building, with full-width balconies facing the front slope. Book both for up to 20 people. The building is right at the foot of the front slope – chairlift steps away. Children's playroom with air hockey. Pets allowed. Bed linen available as additional service.

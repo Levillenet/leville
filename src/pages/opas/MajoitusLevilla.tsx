@@ -89,7 +89,7 @@ const checklistItems = [
   "Etäisyys rinteisiin ja keskustaan (Google Maps, ei 'linnuntietä')",
   "Onko pysäköinti mukana vai maksullinen?",
   "Liinavaatteet ja pyyhkeet – eivät aina kuulu hintaan (kysy!)",
-  "Loppusiivous – sisältyykö vai erikseen (yleensä 60–120 €)? Leville.net-kohteissa sisältyy aina",
+  "Loppusiivous – sisältyykö vai erikseen (yleensä 60–120 €)? Tarkista kohdekohtaisesti varausehdoista",
   "Kuivaushuone hiihtovaatteille – lähes välttämätön talvella",
   "Sauna – yleensä on, pienissä asunnoissa ei välttämättä",
   "Panttijärjestelmä: monissa kohteissa maksetaan 100–300 € takuumaksu (pantti), joka palautuu",

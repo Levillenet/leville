@@ -99,7 +99,7 @@ export const fi = {
     infoCards: [
       { icon: "ShieldCheck", title: "Turvallinen maksu", description: "Maksu Paytrailin kautta luottokortilla tai verkkopankissa. Suomen suurin maksuvälittäjä." },
       { icon: "KeyRound", title: "Sisäänkirjautuminen", description: "Viimeistään klo 17:00. Avaintiedot ja ohjeet lähetetään sähköpostiin varauspäivänä." },
-      { icon: "LogOut", title: "Uloskirjautuminen", description: "Klo 11:00 mennessä. Loppusiivous kuuluu useimpiin kohteisiin." },
+      { icon: "LogOut", title: "Uloskirjautuminen", description: "Klo 11:00 mennessä." },
       { icon: "Bed", title: "Liinavaatteet", description: "Liinavaatteet voi varata tarpeen mukaan varausprosessissa. Tarkista kohdekohtaisesti." },
       { icon: "Car", title: "Pysäköinti", description: "Kaikissa kohteissamme ilmainen pysäköintipaikka. Useimmissa lämmitystolppa." }
     ],
@@ -111,7 +111,7 @@ export const fi = {
       { question: "Miten pääsen Leville?", answer: "Leville pääsee lentämällä Kittilän lentokentälle (15 min bussilla) tai junalla Kolariin (1 h bussilla). Omalla autolla Helsinki–Levi on noin 1 100 km.", link: "/matka/miten-paasee-leville-helsingista", linkText: "Lue lisää Miten pääsee Leville -sivultamme" },
       { question: "Sopiiko Levi lapsiperheille?", answer: "Ehdottomasti. Levillä on omat lastenrinteet, hiihtokoulu, perheravintolat ja runsaasti lapsiystävällisiä aktiviteetteja.", link: "/opas/lapsiperheet-levilla", linkText: "Lue lisää Lapsiperheet Levillä -oppaastamme" },
       { question: "Onko maksaminen turvallista?", answer: "Kyllä. Kaikki maksut käsitellään Paytrailin kautta, joka on Suomen suurin maksuvälittäjä. Voit maksaa Visa- ja Mastercard-luottokortilla tai suomalaisella verkkopankkimaksulla. Emme käsittele tai tallenna korttitietojasi." },
-      { question: "Millaiset varausehtonne ovat?", answer: "Varausehtomme ovat joustavat ja asiakasystävälliset. Alle 3 000 € varaukset voi peruuttaa ilmaiseksi 60 päivää ennen saapumista. Yli 3 000 € arvoiset varaukset eivät ole peruutettavissa. Varaus vahvistuu maksun jälkeen ja saat varausvahvistuksen sähköpostiisi. Maksaminen tapahtuu turvallisesti Paytrailin kautta. Loppusiivous sisältyy hintaan. Sisäänkirjautuminen viimeistään klo 17:00 ja uloskirjautuminen klo 11:00 mennessä.", link: "/varausehdot", linkText: "Lue kaikki varausehdot täältä" },
+      { question: "Millaiset varausehtonne ovat?", answer: "Varausehtomme ovat joustavat ja asiakasystävälliset. Alle 3 000 € varaukset voi peruuttaa ilmaiseksi 60 päivää ennen saapumista. Yli 3 000 € arvoiset varaukset eivät ole peruutettavissa. Varaus vahvistuu maksun jälkeen ja saat varausvahvistuksen sähköpostiisi. Maksaminen tapahtuu turvallisesti Paytrailin kautta. Sisäänkirjautuminen viimeistään klo 17:00 ja uloskirjautuminen klo 11:00 mennessä.", link: "/varausehdot", linkText: "Lue kaikki varausehdot täältä" },
       { question: "Oletteko luotettava yritys?", answer: "Kyllä. Olemme toimineet Levillä noin 15 vuotta ja olemme tunnettu majoitustoimija alueella. Kaikki kohteemme löytyvät myös Booking.com-palvelusta nimellämme, ja jokaisella kohteella on yleensä satoja asiakasarvioita. Olemme palvelleet vuosien saatossa tuhansia tyytyväisiä asiakkaita.", link: "/yritys", linkText: "Lue lisää yrityksestämme" }
     ]
   },
