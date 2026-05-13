@@ -3,10 +3,12 @@ import { MapPin, CreditCard, Home } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import HeroPromoBadge from "@/components/HeroPromoBadge";
 import heroCabin from "@/assets/hero-cabin.jpg";
-import heroChalet from "@/assets/hero-chalet.jpg";
 import heroVillage from "@/assets/hero-village.jpg";
 import heroApartment from "@/assets/hero-apartment.jpg";
 import heroLodge from "@/assets/hero-lodge.jpg";
+
+// LCP image: served from /public so the <link rel="preload"> in index.html matches the actual request
+const heroChalet = "/hero-chalet.jpg";
 
 const heroImages = [
   { src: heroChalet, w: 1536, h: 1024 },
