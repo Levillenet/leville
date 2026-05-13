@@ -34,8 +34,8 @@ const groupOf = (p: Property): string => {
 
 const groupContext: Record<string, { fi: string; distance: string }> = {
   "front-slope": {
-    fi: "Sijaitsee suoraan Levin etelärinteellä — n. 50 m kävelymatka hisseille ja 600 m Levin keskustaan, K-Marketille ja ravintoloihin.",
-    distance: "50 m hisseille · 600 m keskustaan",
+    fi: "Alppityyliset talot Levin keskustassa Zero Point -alueella — n. 200 m kävelymatka Eturinteelle ja hisseille, askelten päässä K-Marketille ja ravintoloihin.",
+    distance: "Levin keskusta · Zero Point · 200 m Eturinteelle",
   },
   "skistar": {
     fi: "Postintien moderni rakennus aivan Levin keskustassa. Askelia K-Marketille, ravintoloihin ja kahviloihin, n. 600 m gondolille. Huom. ei hissiä.",
