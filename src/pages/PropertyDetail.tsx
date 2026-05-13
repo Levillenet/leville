@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, Link, Navigate } from "react-router-dom";
 import {
   Maximize, DoorOpen, Bed, Users, MapPin, ExternalLink, PawPrint, Flame,
   Accessibility, Droplets, Bath, Calendar, ArrowRight, Mountain, Phone, MessageCircle, Waves,
+  ChevronLeft, ChevronRight, X,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
