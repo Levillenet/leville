@@ -100,8 +100,8 @@ const buildContent = (lang: Lang): { categories: Category[]; readNext: { title: 
         {
           q: isFi ? "Sisältyykö liinavaatteet ja pyyhkeet?" : "Are bed linen and towels included?",
           a: isFi
-            ? "Loppusiivous sisältyy hintaan kaikissa kohteissamme. Liinavaatteet ja pyyhkeet ovat lisäpalvelu – voit varata ne varauksen yhteydessä tai tuoda omasi. Tarkista kohdekohtaiset tiedot varausvahvistuksesta."
-            : "Final cleaning is included at all our properties. Bed linen and towels are an optional add-on – you can book them during booking or bring your own. See your booking confirmation for details.",
+            ? "Liinavaatteet, pyyhkeet ja loppusiivous ovat lisäpalveluja – voit varata ne varauksen yhteydessä tai tuoda omasi. Tarkista kohdekohtaiset tiedot varausvahvistuksesta."
+            : "Bed linen, towels and final cleaning are optional add-ons – you can book them during booking or bring your own. See your booking confirmation for property-specific details.",
         },
         {
           q: isFi ? "Miten saan avaimet?" : "How do I get the keys?",
