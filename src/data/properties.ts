@@ -17,6 +17,7 @@ export interface Property {
   sauna: boolean;
   accessible: boolean;
   fireplace: boolean;
+  hotTub?: boolean;
   yearBuiltOrRenovated: string;
   shortDescription: string;
   slug: string;
@@ -136,6 +137,7 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: true,
+    hotTub: true,
     yearBuiltOrRenovated: "Built 1989, fully renovated 2022",
     shortDescription: "220 m² traditional log cabin in Levi center with 7 bedrooms, outdoor hot tub, private yard, and fireplace. 3 ensuite bedrooms downstairs. Fully renovated 2022. Firewood and cleaning included. Pets allowed."
   },
