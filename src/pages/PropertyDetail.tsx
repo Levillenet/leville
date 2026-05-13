@@ -18,7 +18,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyBookingWidget from "@/components/PropertyBookingWidget";
 import { properties, type Property } from "@/data/properties";
-import { propertyFi, locationFi, translateYearFi } from "@/data/propertyTranslationsFi";
+import { propertyFi, locationFi, locationFiBySlug, translateYearFi } from "@/data/propertyTranslationsFi";
 
 const PHONE = "+35844131313";
 const PHONE_DISPLAY = "+358 44 13 13 13";
@@ -34,8 +34,8 @@ const groupOf = (p: Property): string => {
 
 const groupContext: Record<string, { fi: string; distance: string }> = {
   "front-slope": {
-    fi: "Sijaitsee suoraan Levin etelärinteellä — n. 50 m kävelymatka hisseille ja 600 m Levin keskustaan, K-Marketille ja ravintoloihin.",
-    distance: "50 m hisseille · 600 m keskustaan",
+    fi: "Alppityyliset talot Levin keskustassa Zero Point -alueella — n. 200 m kävelymatka Eturinteelle ja hisseille, askelten päässä K-Marketille ja ravintoloihin.",
+    distance: "Levin keskusta · Zero Point · 200 m Eturinteelle",
   },
   "skistar": {
     fi: "Postintien moderni rakennus aivan Levin keskustassa. Askelia K-Marketille, ravintoloihin ja kahviloihin, n. 600 m gondolille. Huom. ei hissiä.",
@@ -74,7 +74,7 @@ const PropertyDetail = () => {
   const fi = propertyFi[property.slug];
   const displayName = fi?.name ?? property.name;
   const displayDescription = fi?.shortDescription ?? property.shortDescription;
-  const displayLocation = locationFi[property.location] ?? property.location;
+  const displayLocation = locationFiBySlug[property.slug] ?? locationFi[property.location] ?? property.location;
   const displayYear = translateYearFi(property.yearBuiltOrRenovated);
   const title = `${displayName} — Levi | Leville.net`;
   const description = truncate(displayDescription);
@@ -283,6 +283,7 @@ const PropertyDetail = () => {
                       detailHref={`/majoitukset/${p.slug}`}
                       detailLabel="Lue lisää"
                       bookLabel="Tarkista saatavuus"
+                      lang="fi"
                     />
                   ))}
                 </div>
