@@ -18,7 +18,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyBookingWidget from "@/components/PropertyBookingWidget";
 import { properties, type Property } from "@/data/properties";
-import { propertyFi, locationFi, translateYearFi } from "@/data/propertyTranslationsFi";
+import { propertyFi, locationFi, locationFiBySlug, translateYearFi } from "@/data/propertyTranslationsFi";
 
 const PHONE = "+35844131313";
 const PHONE_DISPLAY = "+358 44 13 13 13";
