@@ -369,7 +369,7 @@ export const properties: Property[] = [
       "/skistar/yksio/03.jpg",
       "/skistar/yksio/04.jpg",
       "/skistar/yksio/05.jpg",
-      "/skistar/yksio/06.jpg",
+      
       "/skistar/yksio/07.jpg",
       "/skistar/yksio/08.jpg",
       "/skistar/yksio/09.jpg",
@@ -411,7 +411,7 @@ export const properties: Property[] = [
       "/skistar/yksio/03.jpg",
       "/skistar/yksio/04.jpg",
       "/skistar/yksio/05.jpg",
-      "/skistar/yksio/06.jpg",
+      
       "/skistar/yksio/07.jpg",
       "/skistar/yksio/08.jpg",
       "/skistar/yksio/09.jpg",
@@ -453,7 +453,7 @@ export const properties: Property[] = [
       "/skistar/yksio/03.jpg",
       "/skistar/yksio/04.jpg",
       "/skistar/yksio/05.jpg",
-      "/skistar/yksio/06.jpg",
+      
       "/skistar/yksio/07.jpg",
       "/skistar/yksio/08.jpg",
       "/skistar/yksio/09.jpg",
@@ -463,7 +463,7 @@ export const properties: Property[] = [
       "/skistar/yksio/13.jpg",
       "/skistar/yksio/14.jpg",
     ],
-    heroImage: "/skistar/yksio/06.jpg",
+    heroImage: 
     name: "Levi Centre Superior Studio 319",
     bookingUrl: "https://app.moder.fi/levillenet/8440?step=1",
     sqm: 28,
@@ -495,7 +495,7 @@ export const properties: Property[] = [
       "/skistar/yksio/03.jpg",
       "/skistar/yksio/04.jpg",
       "/skistar/yksio/05.jpg",
-      "/skistar/yksio/06.jpg",
+      
       "/skistar/yksio/07.jpg",
       "/skistar/yksio/08.jpg",
       "/skistar/yksio/09.jpg",
@@ -537,7 +537,7 @@ export const properties: Property[] = [
       "/skistar/yksio/03.jpg",
       "/skistar/yksio/04.jpg",
       "/skistar/yksio/05.jpg",
-      "/skistar/yksio/06.jpg",
+      
       "/skistar/yksio/07.jpg",
       "/skistar/yksio/08.jpg",
       "/skistar/yksio/09.jpg",
