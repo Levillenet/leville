@@ -19,6 +19,8 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
+import PropertyCard from "@/components/PropertyCard";
+import { properties } from "@/data/properties";
 
 // Import accommodation background images
 import karhupirttiImg from "@/assets/accommodations/karhupirtti.jpg";
@@ -183,67 +185,117 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </div>
             </ScrollReveal>
 
-            {/* Accommodations Grid */}
-            <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16 md:mb-20">
-              {t.accommodations.map((acc, index) => {
-                const Icon = accommodationIcons[index];
-                return (
-                  <ScrollReveal key={acc.title} delay={index * 0.15} direction="up">
-                    <TiltCard className="h-full">
-                      <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 flex flex-col h-full relative overflow-hidden group">
-                        {/* Background image */}
-                        <div className={`absolute -right-4 sm:-right-6 w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 overflow-hidden pointer-events-none z-0 ${index === 2 ? 'bottom-12 sm:bottom-16' : '-bottom-4 sm:-bottom-8'}`}>
-                          <OptimizedImage 
-                            src={accommodationImages[index]} 
-                            alt=""
-                            className={`w-full h-full opacity-35 sm:opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-xl sm:rounded-2xl ${index === 2 ? 'object-top' : ''}`}
-                            style={{
-                              maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
-                              WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
-                            }}
+            {/* Accommodations */}
+            {lang === "fi" ? (
+              <div className="space-y-12 mb-16 md:mb-20">
+                {[
+                  {
+                    title: "Hiihtäjänkujan rinnerivitalot",
+                    subtitle: "Suoraan etelärinteellä, n. 50 m hisseille — 3 kohdetta",
+                    items: properties.filter((p) => ["5a2", "5b2", "5b5"].includes(p.id)),
+                  },
+                  {
+                    title: "Skistar — keskustahuoneistot Postintiellä",
+                    subtitle: "Levin ydinkeskustassa, askelia palveluille — 9 kohdetta",
+                    items: properties.filter((p) => ["211", "212", "209", "210", "102", "104", "319", "320", "321"].includes(p.id)),
+                  },
+                  {
+                    title: "Karhupirtti — hirsihuvila 14:lle",
+                    subtitle: "Perinteinen hirsihuvila ulkoporealtaalla, Levin keskustassa",
+                    items: properties.filter((p) => p.id === "karhupirtti"),
+                  },
+                  {
+                    title: "Muut keskustakohteet",
+                    subtitle: "Levi Platinum, Moonlight ja Karhunvartija — 3 kohdetta",
+                    items: properties.filter((p) => ["karhunvartija3", "platinum-a2", "moonlight-415"].includes(p.id)),
+                  },
+                  {
+                    title: "Levi Glacier — alppihuoneistot",
+                    subtitle: "Hullu Poro -alueen huoneistot ja kattohuoneistot — 10 kohdetta",
+                    items: properties.filter((p) => p.id.startsWith("glacier-")),
+                  },
+                ].map((group) => (
+                  <ScrollReveal key={group.title}>
+                    <section>
+                      <div className="mb-5">
+                        <h3 className="text-xl sm:text-2xl font-bold text-foreground">{group.title}</h3>
+                        <p className="text-sm text-muted-foreground mt-1">{group.subtitle}</p>
+                      </div>
+                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {group.items.map((p) => (
+                          <PropertyCard
+                            key={p.id}
+                            property={p}
+                            detailHref={`/majoitukset/${p.slug}`}
+                            detailLabel="Lue lisää"
+                            bookLabel="Tarkista saatavuus"
                           />
-                        </div>
-                        
-                        <CardHeader className="relative z-10 p-4 sm:p-6">
-                          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-3 sm:mb-4">
-                            <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-primary" />
-                          </div>
-                          <CardTitle className="text-lg sm:text-xl text-foreground">{acc.title}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="flex flex-col flex-grow relative z-10">
-                          <p className="text-muted-foreground mb-4">{acc.description}</p>
-                          <ul className="space-y-2 mb-6 flex-grow">
-                            {acc.features.map((feature) => (
-                              <li key={feature} className="text-sm text-muted-foreground flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                          <a
-                            href={bookingLinks[index]}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block w-full text-center py-2.5 sm:py-3 px-3 sm:px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm sm:text-base hover:bg-primary/90 transition-colors mt-auto"
-                          >
-                            {t.bookCta}
-                          </a>
-                          {index === 2 && (
-                            <Link
-                              to={isEnglish ? "/accommodations/guides/bearlodge" : "/majoitukset/oppaat/karhupirtti"}
-                              className="inline-flex items-center justify-center gap-1.5 w-full text-center py-2 px-3 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
-                            >
-                              {isEnglish ? "Learn more" : "Tutustu tarkemmin"}
-                              <ArrowRight className="w-3.5 h-3.5" />
-                            </Link>
-                          )}
-                        </CardContent>
-                      </Card>
-                    </TiltCard>
+                        ))}
+                      </div>
+                    </section>
                   </ScrollReveal>
-                );
-              })}
-            </section>
+                ))}
+              </div>
+            ) : (
+              <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16 md:mb-20">
+                {t.accommodations.map((acc, index) => {
+                  const Icon = accommodationIcons[index];
+                  return (
+                    <ScrollReveal key={acc.title} delay={index * 0.15} direction="up">
+                      <TiltCard className="h-full">
+                        <Card className="glass-card border-border/30 hover:border-primary/50 transition-all duration-300 flex flex-col h-full relative overflow-hidden group">
+                          <div className={`absolute -right-4 sm:-right-6 w-40 h-40 sm:w-52 sm:h-52 md:w-60 md:h-60 lg:w-72 lg:h-72 overflow-hidden pointer-events-none z-0 ${index === 2 ? 'bottom-12 sm:bottom-16' : '-bottom-4 sm:-bottom-8'}`}>
+                            <OptimizedImage
+                              src={accommodationImages[index]}
+                              alt=""
+                              className={`w-full h-full opacity-35 sm:opacity-45 group-hover:opacity-55 transition-opacity duration-500 rounded-xl sm:rounded-2xl ${index === 2 ? 'object-top' : ''}`}
+                              style={{
+                                maskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
+                                WebkitMaskImage: 'radial-gradient(ellipse at bottom right, black 25%, transparent 80%)',
+                              }}
+                            />
+                          </div>
+                          <CardHeader className="relative z-10 p-4 sm:p-6">
+                            <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-lg bg-primary/20 flex items-center justify-center mb-3 sm:mb-4">
+                              <Icon className="w-5 h-5 sm:w-7 sm:h-7 text-primary" />
+                            </div>
+                            <CardTitle className="text-lg sm:text-xl text-foreground">{acc.title}</CardTitle>
+                          </CardHeader>
+                          <CardContent className="flex flex-col flex-grow relative z-10">
+                            <p className="text-muted-foreground mb-4">{acc.description}</p>
+                            <ul className="space-y-2 mb-6 flex-grow">
+                              {acc.features.map((feature) => (
+                                <li key={feature} className="text-sm text-muted-foreground flex items-center gap-2">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                  {feature}
+                                </li>
+                              ))}
+                            </ul>
+                            <a
+                              href={bookingLinks[index]}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-block w-full text-center py-2.5 sm:py-3 px-3 sm:px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm sm:text-base hover:bg-primary/90 transition-colors mt-auto"
+                            >
+                              {t.bookCta}
+                            </a>
+                            {index === 2 && (
+                              <Link
+                                to={isEnglish ? "/accommodations/guides/bearlodge" : "/majoitukset/oppaat/karhupirtti"}
+                                className="inline-flex items-center justify-center gap-1.5 w-full text-center py-2 px-3 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
+                              >
+                                {isEnglish ? "Learn more" : "Tutustu tarkemmin"}
+                                <ArrowRight className="w-3.5 h-3.5" />
+                              </Link>
+                            )}
+                          </CardContent>
+                        </Card>
+                      </TiltCard>
+                    </ScrollReveal>
+                  );
+                })}
+              </section>
+            )}
 
             {/* Map Link */}
             <ScrollReveal>

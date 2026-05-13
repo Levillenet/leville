@@ -19,11 +19,17 @@ export interface Property {
   fireplace: boolean;
   yearBuiltOrRenovated: string;
   shortDescription: string;
+  slug: string;
+  images: string[];
+  heroImage: string | null;
 }
 
 export const properties: Property[] = [
   {
     id: "5a2",
+    slug: "front-slope-5a2",
+    images: [],
+    heroImage: null,
     name: "Alpine Apartment on Front Slope 5A2",
     bookingUrl: "https://app.moder.fi/levillenet/304?step=1",
     sqm: 65,
@@ -46,6 +52,9 @@ export const properties: Property[] = [
   },
   {
     id: "5b2",
+    slug: "front-slope-5b2",
+    images: [],
+    heroImage: null,
     name: "Alpine Apartment at Levi Centre 5B2",
     bookingUrl: "https://app.moder.fi/levillenet/449?step=1",
     sqm: 65,
@@ -68,6 +77,9 @@ export const properties: Property[] = [
   },
   {
     id: "5b5",
+    slug: "front-slope-5b5-penthouse",
+    images: [],
+    heroImage: null,
     name: "Penthouse on Front Slope 5B5",
     bookingUrl: "https://app.moder.fi/levillenet/306?step=1",
     sqm: 100,
@@ -90,6 +102,9 @@ export const properties: Property[] = [
   },
   {
     id: "karhupirtti",
+    slug: "karhupirtti",
+    images: [],
+    heroImage: null,
     name: "Bear Lodge – Log Cabin in Levi Center",
     bookingUrl: "https://app.moder.fi/levillenet/303?step=1",
     sqm: 220,
@@ -112,6 +127,9 @@ export const properties: Property[] = [
   },
   {
     id: "211",
+    slug: "skistar-211",
+    images: [],
+    heroImage: null,
     name: "Superior Suite 211",
     bookingUrl: "https://app.moder.fi/levillenet/308?step=1",
     sqm: 54,
@@ -134,6 +152,9 @@ export const properties: Property[] = [
   },
   {
     id: "212",
+    slug: "skistar-212",
+    images: [],
+    heroImage: null,
     name: "Superior Suite 212",
     bookingUrl: "https://app.moder.fi/levillenet/451?step=1",
     sqm: 54,
@@ -156,6 +177,9 @@ export const properties: Property[] = [
   },
   {
     id: "209",
+    slug: "skistar-209",
+    images: [],
+    heroImage: null,
     name: "Levi Centre Superior 209",
     bookingUrl: "https://app.moder.fi/levillenet/450?step=1",
     sqm: 43,
@@ -178,6 +202,9 @@ export const properties: Property[] = [
   },
   {
     id: "210",
+    slug: "skistar-210",
+    images: [],
+    heroImage: null,
     name: "Levi Centre Superior 210",
     bookingUrl: "https://app.moder.fi/levillenet/307?step=1",
     sqm: 44,
@@ -200,6 +227,9 @@ export const properties: Property[] = [
   },
   {
     id: "102",
+    slug: "skistar-studio-102",
+    images: [],
+    heroImage: null,
     name: "Levi Center Studio 102",
     bookingUrl: "https://app.moder.fi/levillenet/2896?step=1",
     sqm: 24,
@@ -222,6 +252,9 @@ export const properties: Property[] = [
   },
   {
     id: "104",
+    slug: "skistar-studio-104",
+    images: [],
+    heroImage: null,
     name: "Skistar Superior Studio with Sauna 104",
     bookingUrl: "https://app.moder.fi/levillenet/305?step=1",
     sqm: 28,
@@ -244,6 +277,9 @@ export const properties: Property[] = [
   },
   {
     id: "319",
+    slug: "skistar-studio-319",
+    images: [],
+    heroImage: null,
     name: "Levi Centre Superior Studio 319",
     bookingUrl: "https://app.moder.fi/levillenet/8440?step=1",
     sqm: 28,
@@ -266,6 +302,9 @@ export const properties: Property[] = [
   },
   {
     id: "320",
+    slug: "skistar-studio-320",
+    images: [],
+    heroImage: null,
     name: "Levi Centre Studio 320",
     bookingUrl: "https://app.moder.fi/levillenet/452?step=1",
     sqm: 28,
@@ -288,6 +327,9 @@ export const properties: Property[] = [
   },
   {
     id: "321",
+    slug: "skistar-studio-321",
+    images: [],
+    heroImage: null,
     name: "Levi Centre Studio 321",
     bookingUrl: "https://app.moder.fi/levillenet/1435?step=1",
     sqm: 28,
@@ -310,6 +352,9 @@ export const properties: Property[] = [
   },
   {
     id: "karhunvartija3",
+    slug: "karhunvartija-3",
+    images: [],
+    heroImage: null,
     name: "Karhunvartija 3",
     bookingUrl: "https://app.moder.fi/levillenet/8898?step=1",
     sqm: 42,
@@ -332,6 +377,9 @@ export const properties: Property[] = [
   },
   {
     id: "platinum-a2",
+    slug: "levi-platinum-a2",
+    images: [],
+    heroImage: null,
     name: "Levi Platinum Superior Studio A2",
     bookingUrl: "https://app.moder.fi/levillenet/1204?step=1",
     sqm: 37,
@@ -354,6 +402,9 @@ export const properties: Property[] = [
   },
   {
     id: "moonlight-415",
+    slug: "moonlight-415",
+    images: [],
+    heroImage: null,
     name: "Moonlight 415 Studio Apartment",
     bookingUrl: "https://app.moder.fi/levillenet/2215?step=1",
     sqm: 28,
@@ -376,6 +427,9 @@ export const properties: Property[] = [
   },
   {
     id: "glacier-a1",
+    slug: "glacier-a1",
+    images: [],
+    heroImage: null,
     name: "Levi Glacier Apartments A1",
     bookingUrl: "https://app.moder.fi/levillenet/3504?step=1",
     sqm: 92,
@@ -398,6 +452,9 @@ export const properties: Property[] = [
   },
   {
     id: "glacier-a2",
+    slug: "glacier-a2",
+    images: [],
+    heroImage: null,
     name: "Levi Glacier Apartments A2",
     bookingUrl: "https://app.moder.fi/levillenet/3897?step=1",
     sqm: 67,
@@ -420,6 +477,9 @@ export const properties: Property[] = [
   },
   {
     id: "glacier-a3",
+    slug: "glacier-a3",
+    images: [],
+    heroImage: null,
     name: "Levi Glacier Apartments A3",
     bookingUrl: "https://app.moder.fi/levillenet/3898?step=1",
     sqm: 92,
@@ -442,6 +502,9 @@ export const properties: Property[] = [
   },
   {
     id: "glacier-a4",
+    slug: "glacier-a4",
+    images: [],
+    heroImage: null,
     name: "Levi Glacier Apartments A4",
     bookingUrl: "https://app.moder.fi/levillenet/3899?step=1",
     sqm: 72,
@@ -464,6 +527,9 @@ export const properties: Property[] = [
   },
   {
     id: "glacier-a5",
+    slug: "glacier-a5-penthouse",
+    images: [],
+    heroImage: null,
     name: "Levi Glacier Penthouse A5",
     bookingUrl: "https://app.moder.fi/levillenet/3900?step=1",
     sqm: 84,
@@ -486,6 +552,9 @@ export const properties: Property[] = [
   },
   {
     id: "glacier-a6",
+    slug: "glacier-a6",
+    images: [],
+    heroImage: null,
     name: "Levi Glacier Apartments A6",
     bookingUrl: "https://app.moder.fi/levillenet/3901?step=1",
     sqm: 72,
@@ -508,6 +577,9 @@ export const properties: Property[] = [
   },
   {
     id: "glacier-b1",
+    slug: "glacier-b1",
+    images: [],
+    heroImage: null,
     name: "Levi Glacier Apartments B1",
     bookingUrl: "https://app.moder.fi/levillenet/3902?step=1",
     sqm: 105,
@@ -530,6 +602,9 @@ export const properties: Property[] = [
   },
   {
     id: "glacier-b2",
+    slug: "glacier-b2",
+    images: [],
+    heroImage: null,
     name: "Levi Glacier Apartments B2",
     bookingUrl: "https://app.moder.fi/levillenet/3903?step=1",
     sqm: 105,
@@ -552,6 +627,9 @@ export const properties: Property[] = [
   },
   {
     id: "glacier-b3",
+    slug: "glacier-b3-penthouse",
+    images: [],
+    heroImage: null,
     name: "Levi Glacier Penthouse B3",
     bookingUrl: "https://app.moder.fi/levillenet/3904?step=1",
     sqm: 87,
@@ -574,6 +652,9 @@ export const properties: Property[] = [
   },
   {
     id: "glacier-b4",
+    slug: "glacier-b4-penthouse",
+    images: [],
+    heroImage: null,
     name: "Levi Glacier Penthouse B4",
     bookingUrl: "https://app.moder.fi/levillenet/3905?step=1",
     sqm: 87,

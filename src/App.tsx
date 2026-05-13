@@ -16,6 +16,7 @@ import StructuredData from "./components/StructuredData";
 const Index = lazy(() => import("./pages/Index"));
 const IndexEN = lazy(() => import("./pages/en/Index"));
 const Majoitukset = lazy(() => import("./pages/Majoitukset"));
+const PropertyDetail = lazy(() => import("./pages/PropertyDetail"));
 const MokitLevilla = lazy(() => import("./pages/MokitLevilla"));
 const Ajankohtaista = lazy(() => import("./pages/Ajankohtaista"));
 const Levi = lazy(() => import("./pages/Levi"));
@@ -214,6 +215,7 @@ const App = () => {
               {/* Finnish routes (default) */}
               <Route path="/" element={<Index />} />
               <Route path="/majoitukset" element={<Majoitukset />} />
+              <Route path="/majoitukset/:slug" element={<PropertyDetail />} />
               <Route path="/mokit-levilla" element={<MokitLevilla />} />
               <Route path="/opas/autolla-ajaminen-lapissa" element={<DrivingInLapland />} />
               <Route path="/ajankohtaista" element={<Ajankohtaista />} />

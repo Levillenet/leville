@@ -1,67 +1,90 @@
-## Tilanne
+## Tavoite
 
-Google Search Console on nyt kytketty ja **leville.net on jo verifioitu** (sc-domain-tasolla, omistajatason oikeudet). API toimii — testihaku palautti viimeiseltä 90 päivältä mm. `saatieto-levilta` 1 023 klikkiä / 19 356 näyttöä.
-
-## Tärkeä rajoitus: levi.fi-linkin klikkejä ei näy GSC API:sta
-
-Search Console -**API** antaa vain **orgaaniset Google-hakutulokset** (klikit, näytöt, CTR, positio per haku/sivu/maa). Se ei kerro mitään muiden sivustojen viittausliikenteestä. **Ulkoiset linkit (levi.fi → leville.net) näkyvät GSC:n "Linkit"-osiossa vain web-käyttöliittymässä**, eivät API:n kautta.
-
-Eli levi.fi:n tuomat **klikit** (oikeat kävijät) saa selville vain:
-- (a) leville.netin omasta analytiikasta `referrer = levi.fi` — tämä teillä on jo `page_views`-taulussa, ei tarvitse uutta integraatiota
-- (b) GSC UI:sta (Search Console → Links → Top linking sites → levi.fi → top linked pages) — ei automatisoitavissa API:lla
-
-Search Console -integraation aito hyöty on **orgaanisen näkyvyyden** seuranta: paljonko Google näyttää teitä, mihin hakuihin, missä positioissa, ja kuinka trendi liikkuu.
+Parantaa SEO:ta luomalla jokaiselle 26 majoituskohteelle oma indeksoitava landing-sivu, ja korvata `/majoitukset`-sivun 4 kategoriakorttia 26 yksittäisellä kohdekortilla. Kuvat liitetään myöhemmin Google Drive -kansiosta (alikansio per kohde, kansion nimi = kohteen tunniste).
 
 ## Mitä rakennetaan
 
-### 1. Admin-välilehti "Search Console" (`/admin`)
+### 1. Slug + kuvakenttä `properties.ts`:ään
 
-Uusi komponentti `src/components/admin/SearchConsoleAdmin.tsx`, lisätään olemassa olevaan adminin tabbinavigaatioon (samaan tyyliin kuin `PageViewsAdmin`).
+Lisätään jokaiselle kohteelle:
+- `slug` — URL-pala (esim. `karhupirtti`, `front-slope-5a2`, `glacier-a3`, `skistar-studio-104`)
+- `images: string[]` — placeholder-tyhjä lista nyt; täytetään Drive-integraation yhteydessä
+- `heroImage: string | null` — ensimmäisen kuvan polku tai null (näytetään placeholder)
 
-Aikavälivalitsin: 7 / 28 / 90 päivää (oletus 28). Filtteri: kieli (kaikki / fi / en / de / sv / fr / es / nl) johdettuna URL-prefiksistä.
+Slug-konventio vastaa Drive-alikansion nimeä, jotta automaattinen mappaus onnistuu.
 
-Näkymät (kortteja):
-- **Yhteenveto**: kokonaisklikit, kokonaisnäytöt, keskimääräinen CTR, keskimääräinen positio + edellisen vastaavan jakson vertailu (Δ%)
-- **Trendi**: päivätason aikasarja klikit + näytöt (Recharts LineChart)
-- **Top haut** (top 25): haku, klikit, näytöt, CTR, positio
-- **Top sivut** (top 25): URL, klikit, näytöt, CTR, positio
-- **Top maat** (top 15)
-- **Top laitteet**: mobile / desktop / tablet -jakauma
+### 2. Dynaaminen landing-page `/majoitukset/:slug`
 
-CSV-export samaan tyyliin kuin nykyisessä PageViews-raportissa (otsikko + REPORT_DESCRIPTION + datarivit), jotta data sopii LLM-analyysiin.
+Uusi tiedosto `src/pages/PropertyDetail.tsx` + reitti `App.tsx`:ssä. Sisältö per sivu:
 
-### 2. Edge function `get-search-console-stats`
+- **Hero** — kohteen nimi (H1), sijainti, tagit, "Tarkista saatavuus" -CTA → `bookingUrl`
+- **Kuvagalleria** — kaikki kuvat tai placeholder kunnes Drive on liitetty
+- **Specs** — m², BR, sängyt, vieraat, kylpyhuoneet, rakennus-/remontti-vuosi
+- **Ominaisuudet** — sauna, takka, lemmikit OK, esteetön, parkki, WiFi (badget)
+- **Pitkä kuvaus** — `shortDescription` + sijaintiteksti (mitä ympärillä, etäisyys hisseille per ryhmä)
+- **Sijainti-osio** — kartta-linkki, etäisyys Levin keskustaan, lähimmät palvelut
+- **Booking-blokki** — Moder-deeplink + WhatsApp + puhelin
+- **Read next** — 3 muuta saman ryhmän kohdetta + linkki `/majoitukset`-listalle
+- **JSON-LD** — `LodgingBusiness` per kohde (nimi, sijainti, ominaisuudet, mainEntityOfPage)
+- **Hreflang** — vain `fi` aluksi, laajennus myöhemmin
+- **Canonical** — `https://leville.net/majoitukset/{slug}`
+- **SEO meta** — title `"{Kohteen nimi} — Levi | Leville.net"`, description shortDescriptionista (rajaa 155 merkkiä)
 
-Uusi `supabase/functions/get-search-console-stats/index.ts`:
-- Suojataan adminin salasanalla (sama `ADMIN_PASSWORD`-malli kuin `get-page-view-stats`)
-- Validoi inputit Zodilla (startDate, endDate, dimension)
-- Kutsuu gateway-URL:ää `https://connector-gateway.lovable.dev/google_search_console/webmasters/v3/sites/sc-domain%3Aleville.net/searchAnalytics/query` kahdella headerilla (`Authorization: Bearer LOVABLE_API_KEY`, `X-Connection-Api-Key: GOOGLE_SEARCH_CONSOLE_API_KEY`)
-- Tekee kuusi rinnakkaista kyselyä (yhteenveto, päivä, query, page, country, device) yhden kutsun aikana ja palauttaa yhdistetyn JSON:in
-- Lyhyt in-memory cache (5 min) jotta GSC-kiintiötä ei kuluteta turhaan
+### 3. `/majoitukset`-sivun listanäkymä
 
-### 3. Verkkomemo `levi.fi`-vaikutuksen seurantaan
+- Poistetaan nykyinen 4-kategoriakortin grid
+- Korvataan ryhmitellyllä PropertyCard-listalla (FI-käännetyin teksti):
+  - **Hiihtäjänkujan rinnerivitalot** (3 kohdetta)
+  - **Skistar-keskustahuoneistot** (9 kohdetta)
+  - **Karhupirtti — hirsihuvila** (1 kohde)
+  - **Muut keskustakohteet** (Levi Platinum A2, Moonlight 415, Karhunvartija 3)
+  - **Levi Glacier -alppihuoneistot** (10 kohdetta)
+- Jokainen kortti linkittää `/majoitukset/{slug}`-sivulle (otsikko ja "Lue lisää")
+- "Tarkista saatavuus" -CTA pysyy suorana Moder-linkkinä
+- Säilytetään kartta-linkki, FAQ, info-kortit ja booking-kuvaukset alaosassa
 
-Lisätään SearchConsoleAdmin-näkymään pieni ohjeteksti / linkki: "Nähdäksesi tarkat klikit levi.fi-linkistä, katso oman PageViews-adminin referrer-taulukko (`page_views.referrer LIKE '%levi.fi%'`) tai Search Console UI → Links."
+### 4. PropertyCard-päivitys
 
-Voin samalla lisätä **PageViewsAdminiin uuden kortin "Top referrers"** joka aggregoi `referrer`-kentän (top 10) — tämä näyttää _todelliset_ klikit levi.fi:stä ja muista lähteistä. Onko `referrer` tällä hetkellä jo kerätty? Pitää varmistaa edge functionissa `log-page-view` ennen kortin tekoa. Jos ei, lisätään se samaan migraatioon (`document.referrer` clientiltä).
+- Lisätään valinnainen `heroImage` (tai placeholder gradientti kunnes kuvia)
+- Otsikko ja "Lue lisää" -linkki sisäiselle `/majoitukset/{slug}`-reitille
+- "Tarkista saatavuus" -nappi pysyy ulkoisena Moder-linkkinä (`target="_blank"`)
+- Pidetään spec-grid ja badget
 
-## Tekniset huomiot
+### 5. Sitemap + sisäinen linkitys
 
-- GSC API:n rate limit: 1 200 kyselyä/min/projekti — ei lähellä rajaa
-- API palauttaa max 25 000 riviä per kysely; käytetään `rowLimit: 1000` ja sivutusta vain jos tarpeen
-- Päivämääräformaatti: `YYYY-MM-DD`, UTC
-- Site URL pathissa pitää URL-enkoodata: `sc-domain%3Aleville.net`
-- Cache invalidoituu jos käyttäjä vaihtaa aikaväliä
+- Lisätään 26 uutta `/majoitukset/{slug}`-URL:ää sitemap-generaattoriin
+- Lisätään footer-linkki "Kaikki majoitukset" → `/majoitukset`
+- Olemassa olevat ryhmäoppaat (Karhupirtti, Skistar, Frontslope) saavat "Tutustu kohteisiin"-linkin → suodatettu `/majoitukset`
 
-## Jälkeen toteutuksen
+### 6. Google Drive -kuvien tuonti (myöhemmin, valmistellaan)
 
-Voitte heti nähdä:
-- Onko orgaaninen näkyvyys jatkuvasti nousussa (klikit/näytöt päivätasolla)
-- Mihin hakuihin Google nostaa positioita
-- Mitkä sivut vetävät eniten ja missä positio on lähellä top-10 → "low-hanging fruit"
+Kun annat Drive-kansion linkin:
+- Yhdistetään Google Drive -konnektori
+- Edge function `import-property-images` listaa alikansiot, mätsää nimet `slug`-kenttään, lataa kuvat ja tallentaa ne **Lovable Cloud Storage** -bucketiin `property-images/{slug}/{n}.jpg` (julkinen)
+- Päivittää `properties.ts`:n `images`- ja `heroImage`-kentät
+- Optimointi: WebP-konversio + leveyden cap 1600px (tehdään selaimessa kun ladataan, käyttää OptimizedImagea)
 
-Levi.fi:n klikit kannattaa katsoa joko sisäisestä referrer-datasta (PageViews-admin uusi kortti) tai GSC UI:sta käsin — API:lla ei voi.
+Tätä vaihetta ei tehdä nyt — placeholdereilla mennään julkaisuun ja lisätään kuvat heti kun linkki tulee.
 
-## Hyväksyntä
+## Ulkopuolelle jätetään
 
-Aloitanko (a) pelkän SearchConsoleAdmin-välilehden rakentamisesta, vai (b) samalla myös referrer-kortin lisäämisestä PageViewsAdminiin levi.fi-mittausta varten?
+- Käännökset muille kuin suomeksi (lisätään myöhemmin pyydettäessä — hreflang ei toistaiseksi)
+- Live-saatavuuskalenteri kortille (vaatisi Beds24-integraation jokaiselle kohteelle)
+- Hintatieto kortille (price parity -säännön mukaisesti emme näytä hintaa)
+
+## Tekninen sivu
+
+```text
+Tiedostot:
+  src/data/properties.ts          (laajennetaan: slug, images, heroImage)
+  src/components/PropertyCard.tsx (heroImage, sisäinen Lue lisää -linkki)
+  src/pages/PropertyDetail.tsx    (UUSI, dynaaminen :slug-route)
+  src/pages/Majoitukset.tsx       (korvaa 4 kategoriakorttia 26 PropertyCardilla)
+  src/App.tsx                     (lisää reitti /majoitukset/:slug)
+  public/sitemap.xml-generaattori (lisää 26 URL)
+  src/components/Footer.tsx       (lisää "Kaikki majoitukset" -linkki tarvittaessa)
+
+Ei muutoksia DB:hen tässä vaiheessa — kuvabucket luodaan vasta kun Drive-linkki tulee.
+```
+
+Onko OK aloittaa tällä? Kun Drive-linkki on valmis, jatkan kuvien tuonnilla erillisenä askeleena.
