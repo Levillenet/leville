@@ -20,6 +20,7 @@ import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
 import PropertyCard from "@/components/PropertyCard";
+import ModerBookingWidget from "@/components/ModerBookingWidget";
 import { properties } from "@/data/properties";
 
 // Import accommodation background images
