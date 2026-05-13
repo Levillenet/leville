@@ -59,9 +59,9 @@ export const properties: Property[] = [
     tags: ["family", "ski-in", "for-6", "2-bedroom", "center"],
     petsAllowed: true,
     sauna: true,
-    accessible: true,
+    accessible: false,
     fireplace: true,
-    yearBuiltOrRenovated: "",
+    yearBuiltOrRenovated: "Renovated 2024",
     highlights: ["Erittäin hieno alppihuoneisto Levin ytimessä"],
     shortDescription: "Fully renovated (June 2024) 2-bedroom alpine apartment in Levi center. Heat-storing fireplace, two renewed bathrooms, drying room, and balcony. Air source heat pump. Pets allowed."
   },
@@ -98,7 +98,7 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: true,
-    yearBuiltOrRenovated: "",
+    yearBuiltOrRenovated: "Renovated 2024",
     highlights: ["Erittäin hieno alppihuoneisto Levin ytimessä"],
     shortDescription: "65 m² alpine apartment near front slopes and Zero Point. Fully renovated 2024. Downstairs living room with PlayStation and 150cm sofa bed. Private sauna, drying room, and heat-storing fireplace. Pets allowed."
   },
