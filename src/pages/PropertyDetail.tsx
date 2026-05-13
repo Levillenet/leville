@@ -115,7 +115,7 @@ const uiStrings = {
   },
 } as const;
 
-type UiStrings = typeof uiStrings.fi;
+type UiStrings = (typeof uiStrings)[keyof typeof uiStrings];
 
 // Lightweight Markdown-ish renderer for property long descriptions.
 // Supports paragraphs (blank-line separated), **bold**, and "- " bullet lists.
