@@ -283,6 +283,7 @@ const PropertyDetail = () => {
                       detailHref={`/majoitukset/${p.slug}`}
                       detailLabel="Lue lisää"
                       bookLabel="Tarkista saatavuus"
+                      lang="fi"
                     />
                   ))}
                 </div>
