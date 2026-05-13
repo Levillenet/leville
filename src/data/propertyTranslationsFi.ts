@@ -8,19 +8,19 @@ export interface PropertyFiTranslation {
 
 export const propertyFi: Record<string, PropertyFiTranslation> = {
   "front-slope-5a2": {
-    name: "Rinnehuoneisto 5A2 – Hiihtäjänkuja",
+    name: "Alppihuoneisto 5A2 – Hiihtäjänkuja",
     shortDescription:
-      "Täysin remontoitu (kesäkuu 2024) kahden makuuhuoneen rinnehuoneisto Levin keskustassa. Varaava takka, kaksi uusittua kylpyhuonetta, kuivaushuone ja parveke. Ilmalämpöpumppu. Lemmikit sallittu.",
+      "Täysin remontoitu (kesäkuu 2024) kahden makuuhuoneen alppityylinen huoneisto Levin keskustassa Zero Point -alueella, n. 200 m Eturinteeltä. Varaava takka, kaksi uusittua kylpyhuonetta, kuivaushuone ja parveke. Ilmalämpöpumppu. Lemmikit sallittu.",
   },
   "front-slope-5b2": {
-    name: "Rinnehuoneisto 5B2 – Hiihtäjänkuja",
+    name: "Alppihuoneisto 5B2 – Hiihtäjänkuja",
     shortDescription:
-      "65 m² rinnehuoneisto etelärinteen ja Zero Pointin tuntumassa. Täysin remontoitu 2024. Alakerran olohuoneessa PlayStation ja 150 cm vuodesohva. Oma sauna, kuivaushuone ja varaava takka. Lemmikit sallittu.",
+      "65 m² alppityylinen huoneisto Levin keskustassa Zero Point -alueella, n. 200 m Eturinteeltä. Täysin remontoitu 2024. Alakerran olohuoneessa PlayStation ja 150 cm vuodesohva. Oma sauna, kuivaushuone ja varaava takka. Lemmikit sallittu.",
   },
   "front-slope-5b5-penthouse": {
     name: "Penthouse 5B5 – Hiihtäjänkuja",
     shortDescription:
-      "100 m² penthouse, jossa 4 makuuhuonetta, 3 parveketta ja sauna rinnenäkymin. Varaava takka, 10 hengen ruokapöytä. Remontoitu 2021. Lemmikit sallittu.",
+      "100 m² penthouse alppityylisessä talossa Levin keskustassa Zero Point -alueella, n. 200 m Eturinteeltä. 4 makuuhuonetta, 3 parveketta ja sauna. Varaava takka, 10 hengen ruokapöytä. Remontoitu 2021. Lemmikit sallittu.",
   },
   "karhupirtti": {
     name: "Karhupirtti – hirsihuvila Levin keskustassa",
