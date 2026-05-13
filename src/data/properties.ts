@@ -66,8 +66,8 @@ export const properties: Property[] = [
     id: "5b2",
     slug: "front-slope-5b2",
     images: [
-      "/hiihtajankuja/exterior.jpg",
       "/hiihtajankuja/05.jpg",
+      "/hiihtajankuja/exterior.jpg",
       "/hiihtajankuja/01.jpg",
       "/hiihtajankuja/02.jpg",
       "/hiihtajankuja/03.jpg",
@@ -77,7 +77,7 @@ export const properties: Property[] = [
       "/hiihtajankuja/08.jpg",
       "/hiihtajankuja/09.jpg",
     ],
-    heroImage: "/hiihtajankuja/exterior.jpg",
+    heroImage: "/hiihtajankuja/05.jpg",
     name: "Alpine Apartment at Levi Centre 5B2",
     bookingUrl: "https://app.moder.fi/levillenet/449?step=1",
     sqm: 65,
