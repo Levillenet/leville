@@ -1,5 +1,6 @@
-import { Maximize, DoorOpen, Bed, Users, MapPin, ExternalLink, PawPrint, Flame, Accessibility, Droplets, ArrowRight, Mountain } from "lucide-react";
+import { Maximize, DoorOpen, Bed, Users, MapPin, ExternalLink, PawPrint, Flame, Accessibility, Droplets, ArrowRight, Mountain, Waves, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,8 +21,8 @@ interface PropertyCardProps {
 }
 
 const LABELS = {
-  en: { studio: "Studio", br: "BR", beds: "beds", sauna: "Sauna", fireplace: "Fireplace", pets: "Pets", accessible: "Accessible" },
-  fi: { studio: "Studio", br: "MH", beds: "vuodetta", sauna: "Sauna", fireplace: "Takka", pets: "Lemmikit", accessible: "Esteetön" },
+  en: { studio: "Studio", br: "BR", beds: "beds", sauna: "Sauna", fireplace: "Fireplace", pets: "Pets", accessible: "Accessible", hotTub: "Hot tub", prev: "Previous image", next: "Next image" },
+  fi: { studio: "Studio", br: "MH", beds: "vuodetta", sauna: "Sauna", fireplace: "Takka", pets: "Lemmikit", accessible: "Esteetön", hotTub: "Ulkoporeallas", prev: "Edellinen kuva", next: "Seuraava kuva" },
 } as const;
 
 const PropertyCard = ({
