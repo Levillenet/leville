@@ -1151,8 +1151,8 @@
 - **Damage:** Tenant responsible for damage beyond normal wear
 
 **Linen:**
-- **Included:** Initial bed linens (sheets, pillowcases), towels for registered guests
-- **Extra guest fee:** €19/person (additional linens)
+- **Optional add-on:** Bed linens (sheets, pillowcases) and towels are an add-on service – book during reservation or bring your own. Not included in the nightly price by default.
+- **Extra guest fee:** €19/person (when linens are booked)
 - **Laundry:** €2 per wash (basement facility, card payment)
 
 **Trash/Recycling:**
