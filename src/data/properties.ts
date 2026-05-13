@@ -479,7 +479,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "92 m² traditional alpine apartment at the foot of the front slope. 4 bedrooms. Street level + basement with easy outdoor access. Warm ski storage. Children's playroom in building. Pets allowed."
+    shortDescription: "92 m² traditional alpine apartment at the foot of Eturinne, Zero Point area. 4 bedrooms. Street level + basement with easy outdoor access. Warm ski storage. Children's playroom in building. Pets allowed."
   },
   {
     id: "glacier-a2",
@@ -515,7 +515,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "67 m² apartment with 3 bedrooms at the foot of the front slope. Full-width balcony. 5 beds + sofa bed. Pets allowed."
+    shortDescription: "67 m² apartment with 3 bedrooms at the foot of Eturinne, Zero Point area. Full-width balcony. 5 beds + sofa bed. Pets allowed."
   },
   {
     id: "glacier-a3",
@@ -595,7 +595,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "72 m² second-floor apartment with 2 bedrooms + 2 alcove beds upstairs. Balcony facing Hullu Poro arena. At the foot of the front slope. Pets allowed."
+    shortDescription: "72 m² second-floor apartment with 2 bedrooms + 2 alcove beds upstairs. Balcony facing Eturinne. At the foot of the front slope. Pets allowed."
   },
   {
     id: "glacier-a5",
@@ -708,7 +708,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "105 m² first-floor apartment with 5 bedrooms (2 beds each). Full-width balcony with front slope view. Children's playroom. Bed linen available as extra service. Pets allowed."
+    shortDescription: "105 m² first-floor apartment with 5 bedrooms (2 beds each). Full-width balcony with Eturinne view. Children's playroom. Bed linen available as extra service. Pets allowed."
   },
   {
     id: "glacier-b2",
@@ -745,7 +745,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "105 m² first-floor apartment with 5 bedrooms. Twin of B1 – book both for up to 20 guests. Full-width balcony, front slope view. Pets allowed."
+    shortDescription: "105 m² first-floor apartment with 5 bedrooms. Twin of B1 – book both for up to 20 guests. Full-width balcony, Eturinne view. Pets allowed."
   },
   {
     id: "glacier-b3",
@@ -783,7 +783,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2000",
-    shortDescription: "87 m² penthouse with 3 bedrooms + 2 alcove beds upstairs. Balcony on both floors, upper facing front slope. Children's playroom. Pets allowed."
+    shortDescription: "87 m² penthouse with 3 bedrooms + 2 alcove beds upstairs. Balcony on both floors, upper facing Eturinne. Children's playroom. Pets allowed."
   },
   {
     id: "glacier-b4",
