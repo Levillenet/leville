@@ -62,6 +62,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: true,
     yearBuiltOrRenovated: "Fully renovated June 2024",
+    highlights: ["Erittäin hieno alppihuoneisto Levin ytimessä"],
     shortDescription: "Fully renovated (June 2024) 2-bedroom alpine apartment in Levi center. Heat-storing fireplace, two renewed bathrooms, drying room, and balcony. Air source heat pump. Pets allowed."
   },
   {
