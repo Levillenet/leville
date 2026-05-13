@@ -454,6 +454,10 @@ const Admin = () => {
             <PageViewsAdmin isViewer={isViewer} />
           </TabsContent>
 
+          <TabsContent value="search-console">
+            <SearchConsoleAdmin isViewer={isViewer} />
+          </TabsContent>
+
           <TabsContent value="timed-notices">
             <TimedNoticesAdmin isViewer={isViewer} />
           </TabsContent>
