@@ -19,6 +19,8 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
+import PropertyCard from "@/components/PropertyCard";
+import { properties } from "@/data/properties";
 
 // Import accommodation background images
 import karhupirttiImg from "@/assets/accommodations/karhupirtti.jpg";
