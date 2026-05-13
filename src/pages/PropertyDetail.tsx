@@ -367,19 +367,9 @@ const PropertyDetail = () => {
                 {displayDescription}
               </p>
 
-              {/* Hero image / placeholder */}
-              <div className="mt-6 rounded-xl overflow-hidden border border-border/40 aspect-[16/9] bg-gradient-to-br from-primary/15 via-muted to-secondary/15">
-                {property.heroImage ? (
-                  <OptimizedImage
-                    src={property.heroImage}
-                    alt={displayName}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-primary/40">
-                    <Mountain className="w-20 h-20" aria-hidden="true" />
-                  </div>
-                )}
+              {/* Top swipeable gallery */}
+              <div className="mt-6">
+                <HeroGallery images={galleryImages} alt={displayName} />
               </div>
 
               {/* Primary CTAs */}
