@@ -1,6 +1,6 @@
-import { Maximize, DoorOpen, Bed, Users, MapPin, ExternalLink, PawPrint, Flame, Accessibility, Droplets, ArrowRight, Mountain, Waves, ChevronLeft, ChevronRight } from "lucide-react";
+import { Maximize, DoorOpen, Bed, Users, MapPin, ExternalLink, PawPrint, Flame, Accessibility, Droplets, ArrowRight, Mountain, Waves, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,17 +21,18 @@ interface PropertyCardProps {
 }
 
 const LABELS = {
-  en: { studio: "Studio", br: "BR", beds: "beds", sauna: "Sauna", fireplace: "Fireplace", pets: "Pets", accessible: "Accessible", hotTub: "Hot tub", prev: "Previous image", next: "Next image" },
-  fi: { studio: "Studio", br: "MH", beds: "vuodetta", sauna: "Sauna", fireplace: "Takka", pets: "Lemmikit", accessible: "Esteetön", hotTub: "Ulkoporeallas", prev: "Edellinen kuva", next: "Seuraava kuva" },
+  en: { studio: "Studio", br: "BR", beds: "beds", sauna: "Sauna", fireplace: "Fireplace", pets: "Pets", accessible: "Accessible", hotTub: "Hot tub", prev: "Previous image", next: "Next image", close: "Close gallery", openGallery: "Open gallery" },
+  fi: { studio: "Studio", br: "MH", beds: "vuodetta", sauna: "Sauna", fireplace: "Takka", pets: "Lemmikit", accessible: "Esteetön", hotTub: "Ulkoporeallas", prev: "Edellinen kuva", next: "Seuraava kuva", close: "Sulje galleria", openGallery: "Avaa kuvagalleria" },
 } as const;
 
 const PropertyCard = ({
   property,
   detailHref,
   detailLabel = "Learn more",
-  bookLabel = "Check availability",
+  bookLabel,
   lang = "en",
 }: PropertyCardProps) => {
+  const resolvedBookLabel = bookLabel ?? (lang === "fi" ? "Varaa tästä" : "Book now");
   const totalBeds = property.beds + property.extraBeds;
   const titleHref = detailHref ?? property.bookingUrl;
   const isInternalTitle = Boolean(detailHref);
@@ -48,6 +49,7 @@ const PropertyCard = ({
     ? property.images
     : (property.heroImage ? [property.heroImage] : []);
   const [imgIdx, setImgIdx] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const hasMultiple = gallery.length > 1;
   const goPrev = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -59,17 +61,47 @@ const PropertyCard = ({
     e.stopPropagation();
     setImgIdx((i) => (i + 1) % gallery.length);
   };
+  const openLightbox = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (gallery.length === 0) return;
+    setLightboxOpen(true);
+  };
+  const closeLightbox = () => setLightboxOpen(false);
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxOpen(false);
+      else if (e.key === "ArrowLeft") setImgIdx((i) => (i - 1 + gallery.length) % gallery.length);
+      else if (e.key === "ArrowRight") setImgIdx((i) => (i + 1) % gallery.length);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [lightboxOpen, gallery.length]);
 
   return (
     <Card className="group relative overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10 border-border/60 flex flex-col">
       {/* Hero image / gallery */}
       <div className="relative w-full aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/15 via-muted to-secondary/15">
         {gallery.length > 0 ? (
-          <OptimizedImage
-            src={gallery[imgIdx]}
-            alt={`${displayName}${hasMultiple ? ` – ${imgIdx + 1}/${gallery.length}` : ""}`}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <button
+            type="button"
+            onClick={openLightbox}
+            aria-label={L.openGallery}
+            className="block w-full h-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            <OptimizedImage
+              src={gallery[imgIdx]}
+              alt={`${displayName}${hasMultiple ? ` – ${imgIdx + 1}/${gallery.length}` : ""}`}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </button>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-primary/40">
             <Mountain className="w-14 h-14" aria-hidden="true" />
@@ -184,7 +216,7 @@ const PropertyCard = ({
         <div className="mt-auto flex flex-col sm:flex-row gap-2 pt-2">
           <Button asChild className="gap-2 flex-1">
             <a href={property.bookingUrl} target="_blank" rel="noopener noreferrer">
-              {bookLabel} <ExternalLink className="w-4 h-4" />
+              {resolvedBookLabel} <ExternalLink className="w-4 h-4" />
             </a>
           </Button>
           {detailHref && (
@@ -196,6 +228,53 @@ const PropertyCard = ({
           )}
         </div>
       </CardContent>
+      {lightboxOpen && gallery.length > 0 && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center"
+          onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label={displayName}
+        >
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
+            aria-label={L.close}
+            className="absolute top-4 right-4 z-10 inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white/20 backdrop-blur"
+          >
+            <X className="w-5 h-5" />
+          </button>
+          {hasMultiple && (
+            <>
+              <button
+                type="button"
+                onClick={goPrev}
+                aria-label={L.prev}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 backdrop-blur"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label={L.next}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 backdrop-blur"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+              <span className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-white/90 px-3 py-1 rounded-full bg-white/10 backdrop-blur">
+                {imgIdx + 1} / {gallery.length}
+              </span>
+            </>
+          )}
+          <img
+            src={gallery[imgIdx]}
+            alt={`${displayName} – ${imgIdx + 1}/${gallery.length}`}
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-[95vw] max-h-[90vh] object-contain select-none"
+          />
+        </div>
+      )}
     </Card>
   );
 };

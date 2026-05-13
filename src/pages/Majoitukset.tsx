@@ -228,7 +228,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                             property={p}
                             detailHref={`/majoitukset/${p.slug}`}
                             detailLabel="Lue lisää"
-                            bookLabel="Tarkista saatavuus"
+                            bookLabel="Varaa tästä"
                             lang="fi"
                           />
                         ))}
