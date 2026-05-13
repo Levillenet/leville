@@ -18,7 +18,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import PropertyCard from "@/components/PropertyCard";
 import { properties, type Property } from "@/data/properties";
 
-const PHONE = "+358441313131";
+const PHONE = "+35844131313";
 const PHONE_DISPLAY = "+358 44 13 13 13";
 const WHATSAPP_URL = `https://wa.me/${PHONE.replace(/[^0-9]/g, "")}`;
 
