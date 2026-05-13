@@ -1,33 +1,44 @@
-## Karhupirtin kylpyhuonetietojen korjaus
+## Fixes for Karhupirtti EN translation + truncate utility
 
-Käyttäjän tarkennus: **2 erillistä WC:tä** + **3 ensuite-makuuhuonetta** (oma WC ja suihku).
+### 1. Fix renovation year (2023 → 2022) in `src/data/propertyTranslationsEn.ts`
 
-Nykytilanne `src/data/properties.ts` (rivit 174–175):
-- `bathrooms: "5"` (epäselvä – ei vastaa muiden kohteiden konventiota, joissa `bathrooms` = suihkulliset kylpyhuoneet ja `wc` = erilliset WC:t)
-- `wc: "1"` (väärä)
+In the `karhupirtti.longDescription`, replace the heading and the first sentence of the renovation paragraph:
 
-### Muutokset
+- `**Fully renovated in 2023 with quality materials**` → `**Fully renovated in 2022 with quality materials**`
+- `Karhupirtti went through a full renovation in 2023:` → `Karhupirtti went through a full renovation in 2022:`
 
-**1. `src/data/properties.ts` (Karhupirtti, rivit 174–175)**
-- `bathrooms: "3"` (3 ensuite-suihkukylpyhuonetta)
-- `wc: "2"` (2 erillistä WC:tä)
+No other text in that paragraph or anywhere else in the file changes.
 
-**2. `src/data/propertyTranslationsFi.ts` – Karhupirtin `longDescription` (rivi 79)**
-Päivitetään "Tilaa jopa 14 vieraalle 7 makuuhuoneessa" -kappale niin, että se mainitsee selkeästi:
-- Alakerrassa 3 ensuite-makuuhuonetta (oma suihku + WC kussakin)
-- **Lisäksi 2 erillistä WC:tä** yhteiskäyttöön (yksi yläkerrassa, toinen alakerrassa – tarkka sijainti tarvittaessa)
-- Yhteensä siis 3 suihkukylpyhuonetta + 2 erillistä WC:tä
+### 2. Confirm "geothermal" is absent
 
-**3. `src/data/properties.ts` – `shortDescription` (rivi 188, EN)**
-Tarkennetaan: "...3 ensuite bedrooms downstairs **plus 2 separate WCs**..."
+Run `rg -ni "geothermal|ground.?source" src/data/propertyTranslationsEn.ts` (and the FI file for completeness) and report the result. Based on the verification report just produced, the term does not appear — expected to be a no-op confirmation. No edits unless a hit is found. "Air conditioning and heat pump" stays as-is.
 
-**4. `src/data/propertyTranslationsFi.ts` – `shortDescription` (rivi 74, FI)**
-Tarkennetaan vastaavasti: "...3 ensuite-makuuhuonetta alakerrassa **ja 2 erillistä WC:tä**..."
+### 3. Replace `truncate` in `src/pages/PropertyDetail.tsx`
 
-### Mitä EI muuteta
-- Hinnoittelu, kuvat, slug, varauslinkki – ei muutoksia.
-- Muiden kielten käännöstiedostoja ei vielä ole Karhupirtille (samaa rakennetta kuin muissa property-käännöksissä), joten odottavat erillistä käännösvaihetta.
+Replace the one-line `truncate` (around line 259) with the word-boundary-aware version from the prompt:
 
-### Vahvistus tarvitaan
-1. Tulkitsenko `bathrooms`/`wc` -kentät oikein (bathrooms = suihkulliset kph, wc = erilliset WC:t)? Voin tarkistaa muiden kohteiden datasta jos haluat.
-2. Onko 2 erillisen WC:n sijainnit tärkeää mainita tekstissä, vai riittääkö yleinen maininta?
+```ts
+const truncate = (s: string, max = 155) => {
+  if (s.length <= max) return s;
+  const hard = s.slice(0, max - 1);
+  const lastSpace = hard.lastIndexOf(" ");
+  const safe = lastSpace > max * 0.6 ? hard.slice(0, lastSpace) : hard;
+  return safe.trimEnd() + "…";
+};
+```
+
+Pure utility change; affects all meta descriptions for FI/EN/future languages. No call sites change.
+
+### 4. Verification report (no further code changes)
+
+1. Paste the corrected Karhupirtti EN `longDescription` in full, so both `2023→2022` swaps are visible and nothing else moved.
+2. Explicit confirmation of `rg` search for `geothermal` — appeared / did not appear, removed / no-op.
+3. Recompute and quote the rendered `<meta name="description">` for both `/en/accommodations/karhupirtti` and `/majoitukset/karhupirtti` using the new `truncate`. Verify neither ends mid-word.
+4. Re-run `npx tsc --noEmit` and confirm exit 0.
+
+### Out of scope (explicitly not touched)
+
+- Other 25 stub slugs in `propertyTranslationsEn.ts`
+- `propertyTranslationsFi.ts`, `properties.ts`
+- `uiStrings`, JSON-LD, hreflang, sitemap, routing
+- Tone/structure of Karhupirtti EN copy beyond the year fix

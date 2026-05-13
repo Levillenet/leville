@@ -407,7 +407,16 @@ const groupContext: Record<string, Record<Language, GroupCopy>> = {
   },
 };
 
-const truncate = (s: string, max = 155) => (s.length <= max ? s : s.slice(0, max - 1).trimEnd() + "…");
+const truncate = (s: string, max = 155) => {
+  if (s.length <= max) return s;
+  // Hard-cut to max - 1 to leave room for the ellipsis.
+  const hard = s.slice(0, max - 1);
+  // Walk back to the last whitespace so we don't break mid-word.
+  const lastSpace = hard.lastIndexOf(" ");
+  // If the last space is too early (e.g. the first word is itself > max-1 chars), fall back to hard cut.
+  const safe = lastSpace > max * 0.6 ? hard.slice(0, lastSpace) : hard;
+  return safe.trimEnd() + "…";
+};
 
 interface PropertyDetailProps {
   lang?: Language;
