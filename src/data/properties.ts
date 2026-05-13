@@ -227,7 +227,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa"],
+    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
     shortDescription: "54 m² Superior suite with 2 bedrooms, sauna, and balcony. End apartment with forest views. Accessible. Ski storage with rack and ventilation. Pets not allowed."
   },
   {
@@ -270,7 +270,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa"],
+    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
     shortDescription: "54 m² Superior suite with 2 bedrooms, sauna, balcony, and underfloor heating. Walking distance to all Levi services. Pets not allowed."
   },
   {
@@ -313,7 +313,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa"],
+    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
     shortDescription: "43 m² renovated 1-bedroom Superior apartment with sauna. Accessible (no stairs). Carefully designed interior. Pets not allowed."
   },
   {
@@ -356,7 +356,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa"],
+    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
     shortDescription: "44 m² renovated 1-bedroom Superior apartment with sauna. Accessible (no stairs). Luggage drop-off available. Pets not allowed."
   },
   {
@@ -398,7 +398,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa"],
+    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
     shortDescription: "24 m² studio on Postintie in Levi center. Built 2020. The most compact option – no sauna, but affordable and accessible (no stairs). Just steps from K-Market. Pets not allowed."
   },
   {
@@ -440,7 +440,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa"],
+    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
     shortDescription: "28 m² Superior studio with private sauna on Postintie. Built 2020. Tiled feature wall, underfloor heating. Fully equipped kitchen with dishwasher. Accessible. Pets not allowed."
   },
   {
@@ -482,7 +482,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa"],
+    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
     shortDescription: "28 m² Superior studio with private sauna in Skistar building on Postintie. Washing machine in apartment, drying cabinet. Steps from K-Market. About 600m to slopes. Pets not allowed."
   },
   {
@@ -524,7 +524,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa"],
+    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
     shortDescription: "28 m² studio with sauna in Skistar building on Postintie. Underfloor heating. Steps from K-Market. Pets not allowed."
   },
   {
@@ -566,7 +566,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa"],
+    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
     shortDescription: "28 m² studio with sauna in Skistar building on Postintie. Underfloor heating. Steps from K-Market. About 600m to slopes. Pets not allowed."
   },
   {
