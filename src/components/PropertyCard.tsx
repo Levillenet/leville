@@ -21,17 +21,18 @@ interface PropertyCardProps {
 }
 
 const LABELS = {
-  en: { studio: "Studio", br: "BR", beds: "beds", sauna: "Sauna", fireplace: "Fireplace", pets: "Pets", accessible: "Accessible", hotTub: "Hot tub", prev: "Previous image", next: "Next image" },
-  fi: { studio: "Studio", br: "MH", beds: "vuodetta", sauna: "Sauna", fireplace: "Takka", pets: "Lemmikit", accessible: "Esteetön", hotTub: "Ulkoporeallas", prev: "Edellinen kuva", next: "Seuraava kuva" },
+  en: { studio: "Studio", br: "BR", beds: "beds", sauna: "Sauna", fireplace: "Fireplace", pets: "Pets", accessible: "Accessible", hotTub: "Hot tub", prev: "Previous image", next: "Next image", close: "Close gallery", openGallery: "Open gallery" },
+  fi: { studio: "Studio", br: "MH", beds: "vuodetta", sauna: "Sauna", fireplace: "Takka", pets: "Lemmikit", accessible: "Esteetön", hotTub: "Ulkoporeallas", prev: "Edellinen kuva", next: "Seuraava kuva", close: "Sulje galleria", openGallery: "Avaa kuvagalleria" },
 } as const;
 
 const PropertyCard = ({
   property,
   detailHref,
   detailLabel = "Learn more",
-  bookLabel = "Check availability",
+  bookLabel,
   lang = "en",
 }: PropertyCardProps) => {
+  const resolvedBookLabel = bookLabel ?? (lang === "fi" ? "Varaa tästä" : "Book now");
   const totalBeds = property.beds + property.extraBeds;
   const titleHref = detailHref ?? property.bookingUrl;
   const isInternalTitle = Boolean(detailHref);
