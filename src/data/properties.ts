@@ -735,7 +735,7 @@ export const properties: Property[] = [
       "/glacier/a2/08.jpg",
       "/glacier/a2/09.jpg"
     ],
-    heroImage: "/glacier/exterior-a.jpg",
+    heroImage: "/glacier/a2/01.jpg",
     name: "Levi Glacier Apartments A2",
     bookingUrl: "https://app.moder.fi/levillenet/3897?step=1",
     sqm: 67,
@@ -817,7 +817,7 @@ export const properties: Property[] = [
       "/glacier/a4-a6/12.jpg",
       "/glacier/a4-a6/13.jpg"
     ],
-    heroImage: "/glacier/exterior-a.jpg",
+    heroImage: "/glacier/a4-a6/01.jpg",
     name: "Levi Glacier Apartments A4",
     bookingUrl: "https://app.moder.fi/levillenet/3899?step=1",
     sqm: 72,
@@ -895,7 +895,7 @@ export const properties: Property[] = [
       "/glacier/a4-a6/12.jpg",
       "/glacier/a4-a6/13.jpg"
     ],
-    heroImage: "/glacier/exterior-a.jpg",
+    heroImage: "/glacier/a4-a6/02.jpg",
     name: "Levi Glacier Apartments A6",
     bookingUrl: "https://app.moder.fi/levillenet/3901?step=1",
     sqm: 72,
@@ -971,7 +971,7 @@ export const properties: Property[] = [
       "/glacier/b1-b2/08.jpg",
       "/glacier/b1-b2/09.jpg"
     ],
-    heroImage: "/glacier/exterior-b.jpg",
+    heroImage: "/glacier/b1-b2/01.jpg",
     name: "Levi Glacier Apartments B2",
     bookingUrl: "https://app.moder.fi/levillenet/3903?step=1",
     sqm: 105,
@@ -1049,7 +1049,7 @@ export const properties: Property[] = [
       "/glacier/b3-b4/09.jpg",
       "/glacier/b3-b4/10.jpg"
     ],
-    heroImage: "/glacier/exterior-b.jpg",
+    heroImage: "/glacier/b3-b4/01.jpg",
     name: "Levi Glacier Penthouse B4",
     bookingUrl: "https://app.moder.fi/levillenet/3905?step=1",
     sqm: 87,
