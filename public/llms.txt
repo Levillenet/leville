@@ -216,11 +216,13 @@ Alpine apartments near front slope, built 2000.
 4. Click accommodation pages on leville.net (direct to booking system)
 
 ### What's Included
-- Bed linens (sheets, pillowcases)
-- Towels for registered guests
 - WiFi
 - Firewood (where applicable)
 - Final cleaning
+
+### Optional Add-ons (not included by default)
+- Bed linens (sheets, pillowcases)
+- Towels
 
 ### Additional Costs
 - Linen fee: €19/person (extra guests beyond included sets)

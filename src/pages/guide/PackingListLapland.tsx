@@ -78,7 +78,7 @@ const translations = {
         icon: "x",
         items: [
           { label: "Lasketteluvälineet", desc: "Vuokraa paikan päältä — helpompaa kuin raahata lennossa" },
-          { label: "Pyyhkeet ja liinavaatteet", desc: "Sisältyvät kaikkiin majoituksiimme" },
+          { label: "Pyyhkeet ja liinavaatteet", desc: "Lisäpalvelu – voit varata varauksen yhteydessä tai tuoda omasi" },
           { label: "Hiustenkuivaaja", desc: "Löytyy useimmista huoneistoista" },
           { label: "Liikaa ruokaa", desc: "Levin kaupat ovat hyvin varusteltuja" }
         ]
@@ -163,7 +163,7 @@ const translations = {
         icon: "x",
         items: [
           { label: "Ski equipment", desc: "Rent on site — easier than dragging it on a flight" },
-          { label: "Towels & bed linen", desc: "Included in all our accommodations" },
+          { label: "Towels & bed linen", desc: "Optional add-on – book during reservation or bring your own" },
           { label: "Hair dryer", desc: "Found in most apartments" },
           { label: "Too much food", desc: "Levi's shops are well-stocked" }
         ]

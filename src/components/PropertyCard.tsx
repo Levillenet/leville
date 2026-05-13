@@ -186,6 +186,11 @@ const PropertyCard = ({
         </div>
 
         <div className="flex flex-wrap gap-1.5">
+          {property.highlights?.map((h) => (
+            <Badge key={h} variant="secondary" className="bg-primary/15 text-primary border-primary/30 text-xs">
+              {h}
+            </Badge>
+          ))}
           {property.sauna && (
             <Badge variant="secondary" className="gap-1 bg-primary/15 text-primary border-primary/30 text-xs">
               <Droplets className="w-3 h-3" /> {L.sauna}

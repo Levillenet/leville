@@ -442,13 +442,15 @@ const PropertyDetail = () => {
             <section className="mb-10">
               <h2 className="text-2xl font-bold text-foreground mb-4">Mukavuudet</h2>
               <div className="flex flex-wrap gap-2">
+                {property.highlights?.map((h) => (
+                  <Badge key={h} variant="secondary" className="bg-primary/15 text-primary border-primary/30 text-sm py-1.5 px-3">{h}</Badge>
+                ))}
                 {property.sauna && <Badge variant="secondary" className="gap-1.5 bg-primary/15 text-primary border-primary/30 text-sm py-1.5 px-3"><Droplets className="w-4 h-4" /> Oma sauna</Badge>}
                 {property.fireplace && <Badge variant="secondary" className="gap-1.5 text-sm py-1.5 px-3"><Flame className="w-4 h-4" /> Takka</Badge>}
                 {property.hotTub && <Badge variant="secondary" className="gap-1.5 bg-primary/15 text-primary border-primary/30 text-sm py-1.5 px-3"><Waves className="w-4 h-4" /> Ulkoporeallas</Badge>}
                 {property.petsAllowed && <Badge variant="secondary" className="gap-1.5 text-sm py-1.5 px-3"><PawPrint className="w-4 h-4" /> Lemmikit sallittu</Badge>}
                 {property.accessible && <Badge variant="secondary" className="gap-1.5 text-sm py-1.5 px-3"><Accessibility className="w-4 h-4" /> Esteetön</Badge>}
                 <Badge variant="outline" className="text-sm py-1.5 px-3">WiFi</Badge>
-                <Badge variant="outline" className="text-sm py-1.5 px-3">Liinavaatteet sisältyvät</Badge>
                 <Badge variant="outline" className="text-sm py-1.5 px-3">Loppusiivous sisältyy</Badge>
                 <Badge variant="outline" className="text-sm py-1.5 px-3">Kuivaushuone</Badge>
               </div>
