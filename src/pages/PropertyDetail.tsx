@@ -83,9 +83,9 @@ const PropertyDetail = () => {
   const lodgingSchema = {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
-    name: property.name,
+    name: displayName,
     url: canonical,
-    description: property.shortDescription,
+    description: displayDescription,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Levi",
