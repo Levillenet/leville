@@ -164,6 +164,11 @@ const PropertyCard = ({
               <Flame className="w-3 h-3" /> {L.fireplace}
             </Badge>
           )}
+          {property.hotTub && (
+            <Badge variant="secondary" className="gap-1 bg-primary/15 text-primary border-primary/30 text-xs">
+              <Waves className="w-3 h-3" /> {L.hotTub}
+            </Badge>
+          )}
           {property.petsAllowed && (
             <Badge variant="secondary" className="gap-1 text-xs">
               <PawPrint className="w-3 h-3" /> {L.pets}
