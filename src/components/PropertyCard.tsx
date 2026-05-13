@@ -50,7 +50,7 @@ const PropertyCard = ({
         {property.heroImage ? (
           <OptimizedImage
             src={property.heroImage}
-            alt={property.name}
+            alt={displayName}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
@@ -59,14 +59,14 @@ const PropertyCard = ({
           </div>
         )}
         <span className="absolute top-3 left-3 inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-background/90 text-foreground backdrop-blur">
-          <MapPin className="w-3 h-3 text-primary" /> {property.location}
+          <MapPin className="w-3 h-3 text-primary" /> {displayLocation}
         </span>
       </div>
 
       <CardContent className="p-5 sm:p-6 flex flex-col gap-4 flex-grow">
-        {property.yearBuiltOrRenovated && (
+        {displayYear && (
           <span className="inline-block self-start text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/15 text-primary">
-            {property.yearBuiltOrRenovated}
+            {displayYear}
           </span>
         )}
 
@@ -76,7 +76,7 @@ const PropertyCard = ({
               to={titleHref}
               className="hover:underline decoration-primary/40 underline-offset-2 transition-colors hover:text-primary"
             >
-              {property.name}
+              {displayName}
             </Link>
           ) : (
             <a
@@ -85,13 +85,13 @@ const PropertyCard = ({
               rel="noopener noreferrer"
               className="hover:underline decoration-primary/40 underline-offset-2 transition-colors hover:text-primary"
             >
-              {property.name}
+              {displayName}
             </a>
           )}
         </h3>
 
         <p className="text-sm text-muted-foreground leading-relaxed">
-          {property.shortDescription}
+          {displayDescription}
         </p>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
@@ -101,11 +101,11 @@ const PropertyCard = ({
           </div>
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <DoorOpen className="w-4 h-4 text-primary" />
-            <span>{property.bedrooms === 0 ? "Studio" : `${property.bedrooms} BR`}</span>
+            <span>{property.bedrooms === 0 ? L.studio : `${property.bedrooms} ${L.br}`}</span>
           </div>
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <Bed className="w-4 h-4 text-primary" />
-            <span>{totalBeds} beds</span>
+            <span>{totalBeds} {L.beds}</span>
           </div>
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <Users className="w-4 h-4 text-primary" />
@@ -116,22 +116,22 @@ const PropertyCard = ({
         <div className="flex flex-wrap gap-1.5">
           {property.sauna && (
             <Badge variant="secondary" className="gap-1 bg-primary/15 text-primary border-primary/30 text-xs">
-              <Droplets className="w-3 h-3" /> Sauna
+              <Droplets className="w-3 h-3" /> {L.sauna}
             </Badge>
           )}
           {property.fireplace && (
             <Badge variant="secondary" className="gap-1 text-xs">
-              <Flame className="w-3 h-3" /> Fireplace
+              <Flame className="w-3 h-3" /> {L.fireplace}
             </Badge>
           )}
           {property.petsAllowed && (
             <Badge variant="secondary" className="gap-1 text-xs">
-              <PawPrint className="w-3 h-3" /> Pets
+              <PawPrint className="w-3 h-3" /> {L.pets}
             </Badge>
           )}
           {property.accessible && (
             <Badge variant="secondary" className="gap-1 text-xs">
-              <Accessibility className="w-3 h-3" /> Accessible
+              <Accessibility className="w-3 h-3" /> {L.accessible}
             </Badge>
           )}
         </div>
