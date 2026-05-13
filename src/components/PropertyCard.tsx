@@ -44,6 +44,22 @@ const PropertyCard = ({
   const displayYear = lang === "fi" ? translateYearFi(property.yearBuiltOrRenovated) : property.yearBuiltOrRenovated;
   const L = LABELS[lang];
 
+  const gallery = property.images && property.images.length > 0
+    ? property.images
+    : (property.heroImage ? [property.heroImage] : []);
+  const [imgIdx, setImgIdx] = useState(0);
+  const hasMultiple = gallery.length > 1;
+  const goPrev = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setImgIdx((i) => (i - 1 + gallery.length) % gallery.length);
+  };
+  const goNext = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setImgIdx((i) => (i + 1) % gallery.length);
+  };
+
   return (
     <Card className="group relative overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10 border-border/60 flex flex-col">
       {/* Hero image or placeholder */}
