@@ -256,9 +256,48 @@ Smart, stylish and perfectly located. This modern 28 m² studio in the Skistar b
 **Please note:** The building has several similar studios with small differences in interior. Some of the apartments have a washing machine.`,
   },
 
-  "karhunvartija-3": { ...TODO },
-  "levi-platinum-a2": { ...TODO },
-  "moonlight-415": { ...TODO },
+  "karhunvartija-3": {
+    name: "Karhunvartija 3 — central apartment in Levi village",
+    shortDescription:
+      "42 m² apartment with 2 bedrooms, a natural-stone fireplace, private sauna and an enclosed yard. Own entrance from Ratsastajankuja. Firewood included. Pets welcome.",
+    longDescription: `**Cosy 2-bedroom apartment in the heart of Levi — own entrance, sauna and yard**
+
+This well-equipped apartment sits right in the centre of Levi, on the 2B side of the architecturally striking Karhunvartija building. The location couldn't be better — all of Levi's restaurants, shops and activities are within walking distance, and both the ski slopes and cross-country trails start a short walk from the door.
+
+**Single-level layout for up to 4 guests** The 42 m² apartment is on one level and comfortably hosts up to four guests. It has a hallway, an open living area with kitchen, two bedrooms (the second bedroom has a sofa bed for two), a bathroom, a separate WC and a private sauna. A natural-stone fireplace gives the space a warm, welcoming feel, and the apartment has its own entrance from Ratsastajankuja.
+
+**Easy with kids** Staying here is especially easy with children — the entrance opens straight outside, and the building has its own yard where kids can play safely in the snow. Everything is close: the ski slopes, trails, playgrounds and all the services in Levi village. You won't need a car during your stay; the whole family can walk everywhere, from daytime activities to evenings out.
+
+**What's included** Private sauna, natural-stone fireplace (firewood included), fully equipped kitchen, free WiFi and TV. Own entrance and enclosed yard. Pets welcome.`,
+  },
+  "levi-platinum-a2": {
+    name: "Levi Platinum Superior Studio A2 — newest apartment, foot of the Front Slope",
+    shortDescription:
+      "37 m² Platinum-grade studio opened in 2023 — our newest apartment. At the foot of the Front Slope (Eturinne). Washing machine, drying cupboard, underfloor heating. No pets.",
+    longDescription: `**Brand-new Platinum studio at the foot of the Front Slope**
+
+This Levi Platinum Studio sits right in the centre of Levi, at the foot of the Front Slope (Eturinne). It's a short walk to everywhere in the village, and the apartment comes with its own parking space in the yard. Opened in 2023, it's our newest apartment and is well equipped for a comfortable stay.
+
+**Home-like fit-out** The studio has a full home-style kitchen so cooking and relaxing work just as they would at home. Underfloor heating throughout. The bathroom has a washing machine and drying cupboard for ski gear. No pets in this apartment.
+
+**What's included** Fully equipped kitchen, washing machine, drying cupboard, underfloor heating, free WiFi and TV. Own parking space in the yard.`,
+  },
+  "moonlight-415": {
+    name: "Moonlight 415 — loft studio with sauna next to Hullu Poro",
+    shortDescription:
+      "28 m² loft studio next to the Hullu Poro hotel. Loft above with 3 beds (steep stairs) plus a sofa bed downstairs. Private sauna. About 400 m to the slopes and trails, 150 m to the shop. No pets.",
+    longDescription: `**Moonlight studio with sauna and loft — next to Hullu Poro in central Levi**
+
+A one-of-a-kind studio in one of Levi's best locations — right next to the legendary Hullu Poro hotel, in the heart of the village. This 28 m² apartment has a loft for three plus a sofa bed downstairs, sleeping up to 4 guests. Fully renovated and refurnished in 2026, with a striking exposed-log wall that gives the apartment a warm, authentic Lapland character. Ski slopes, cross-country trails and the sledging hill are all just a few steps away, and the nearest shop is only 150 m from the door. Have a look at the photos for a clearer picture of the interior.
+
+**Loft beds and a snug living area** The apartment has a clever layout with a sleeping loft for three and a sofa bed in the living area for an extra guest. Downstairs you'll find a dining table, sofa and a well-equipped kitchenette with dishwasher, oven, microwave, coffee machine and toaster. The 2026 renovation brought all-new furniture and a fresh, modern look — alongside the beautiful exposed-log wall. Please note that the stairs to the loft are steep. A safety gate is fitted for children. The stairs may be challenging for older guests.
+
+**Private sauna, washing machine and drying cupboard** The apartment has its own sauna, washing machine and drying cupboard — all in one compact package. After a day on the slopes you can dry your gear overnight and have everything warm and ready by morning. The building also has a ski storage and waxing room.
+
+**A central spot in Levi** You couldn't be more central. Hullu Poro, Levi's best-known entertainment venue, is right next door. Slopes and trails start within a short walk, and the sledging hill runs past the building. The shop is 150 m away. One parking space with an electric outlet is included.
+
+**What's included** Kitchenette with dishwasher, oven, microwave, coffee machine and toaster. Private sauna. Own washing machine and drying cupboard. Free WiFi and TV. Bed linen and towels available as an add-on, or you can bring your own.`,
+  },
   "glacier-a1": {
     name: "Levi Glacier A1 — 4-Bedroom Alpine Apartment, Foot of the Front Slope",
     shortDescription:
