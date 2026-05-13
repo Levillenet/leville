@@ -463,7 +463,7 @@ export const properties: Property[] = [
       "/skistar/yksio/13.jpg",
       "/skistar/yksio/14.jpg",
     ],
-    heroImage: 
+    heroImage: "/skistar/yksio/07.jpg",
     name: "Levi Centre Superior Studio 319",
     bookingUrl: "https://app.moder.fi/levillenet/8440?step=1",
     sqm: 28,
