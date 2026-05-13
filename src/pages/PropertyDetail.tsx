@@ -81,6 +81,7 @@ const PropertyDetail = () => {
   const fi = propertyFi[property.slug];
   const displayName = fi?.name ?? property.name;
   const displayDescription = fi?.shortDescription ?? property.shortDescription;
+  const longDescription = fi?.longDescription;
   const displayLocation = locationFiBySlug[property.slug] ?? locationFi[property.location] ?? property.location;
   const displayYear = translateYearFi(property.yearBuiltOrRenovated);
   const title = `${displayName} — Levi | Leville.net`;
