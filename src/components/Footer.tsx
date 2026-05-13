@@ -334,7 +334,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
 
         {/* Payment info */}
         <div className="pt-4 text-center">
-          <p className="text-muted-foreground/70 text-xs">
+          <p className="text-muted-foreground text-xs">
             {c.paymentInfo}
           </p>
         </div>
