@@ -259,16 +259,209 @@ Smart, stylish and perfectly located. This modern 28 m² studio in the Skistar b
   "karhunvartija-3": { ...TODO },
   "levi-platinum-a2": { ...TODO },
   "moonlight-415": { ...TODO },
-  "glacier-a1": { ...TODO },
-  "glacier-a2": { ...TODO },
-  "glacier-a3": { ...TODO },
-  "glacier-a4": { ...TODO },
-  "glacier-a5-penthouse": { ...TODO },
-  "glacier-a6": { ...TODO },
-  "glacier-b1": { ...TODO },
-  "glacier-b2": { ...TODO },
-  "glacier-b3-penthouse": { ...TODO },
-  "glacier-b4-penthouse": { ...TODO },
+  "glacier-a1": {
+    name: "Levi Glacier A1 — 4-Bedroom Alpine Apartment, Foot of the Front Slope",
+    shortDescription:
+      "92 m² traditional alpine apartment at the foot of the Front Slope (Eturinne), Zero Point area. 4 bedrooms for up to 8, two-floor layout with private sauna and own ski locker. Heated ski waxing room and children's playroom in the building. Pets welcome.",
+    longDescription: `**Levi Glacier A1 — 92 m² alpine apartment for 8, at the foot of the Front Slope**
+
+One of the largest apartments in our portfolio and one of the closest to the lifts in Levi. This 92 m² apartment sits at the foot of the Front Slope (Eturinne), about 200 m from the Glacier Express chairlift, in the Zero Point area. 4 bedrooms with 8 beds — built for families, groups of friends, or sports teams who want space without paying penthouse prices. Pets welcome.
+
+**Sleeps 8 across two floors** Four bedrooms with two beds each. The main living area is on street level; downstairs has its own outdoor entrance and a route to the building's ski waxing room. There is one step at the door. The open-plan kitchen-living room is large enough for the whole group to eat together.
+
+**Private sauna, own ski locker, drying cupboard** Own electric sauna, a washing machine and a drying cupboard. Each apartment has its own ski locker by the front door, plus access to the building's shared heated ski waxing room. Fully equipped kitchen.
+
+**200 m from the lifts** The Front Slope and the Glacier Express chairlift are essentially next door. Cross-country trails start nearby. Restaurants, shops and services are all within walking distance. Free on-site parking.
+
+**Honest about what it is** The building was constructed in 2000 and updated over the years. This is a traditional alpine apartment in a great location at a fair price — not a brand-new luxury build, and we don't pretend otherwise. It works particularly well for longer stays where space and location matter more than designer finishes.
+
+**What's included** Fully equipped kitchen, washing machine, private sauna, drying cupboard, own ski locker, shared heated ski waxing room, children's playroom in the building, free WiFi, TV. Pets welcome.`,
+  },
+
+  "glacier-a2": {
+    name: "Levi Glacier A2 — 3-Bedroom Apartment with Full-Width Balcony",
+    shortDescription:
+      "67 m² apartment with 3 bedrooms at the foot of the Front Slope (Eturinne), Zero Point area. Full-width balcony, private sauna, 5 beds + sofa bed for up to 6. Two-floor layout with own outdoor entrance downstairs. Pets welcome.",
+    longDescription: `**Levi Glacier A2 — 67 m² apartment for 6, with a full-width balcony**
+
+A mid-sized alpine apartment at the foot of the Front Slope (Eturinne), about 200 m from the Glacier Express chairlift. 3 bedrooms and a sofa bed sleep up to 6, which makes this a sensible middle option between the smaller 2-bedroom layouts and the bigger 4- and 5-bedroom apartments in the same building. Pets welcome.
+
+**3 bedrooms across two floors** Five beds across three bedrooms, plus a sofa bed that suits one adult or two children. The main living area is on street level; downstairs has its own outdoor entrance and a route through to the ski waxing room. One step at the door. The full-width balcony faces the street — useful in the evenings when there's something happening in the village.
+
+**Private sauna and own ski locker** Own electric sauna, a washing machine and a drying cupboard. Each apartment has its own ski locker by the front door, plus access to the building's shared heated ski waxing room. Fully equipped kitchen.
+
+**200 m from the lifts** The Front Slope and Glacier Express are essentially next door. Cross-country trails start nearby. Restaurants, shops and services are all within walking distance. Free on-site parking.
+
+**Honest about what it is** Built in 2000 and updated over the years. A traditional alpine apartment in a great location at a fair price. The selling point is the location and the layout, not luxury finishes — and that's a fair trade for the price.
+
+**Need more space?** A4 and A6 are the same total size with a different 2-bedroom-plus-mezzanine layout, and A1 and A3 are larger 4-bedroom apartments in the same building.
+
+**What's included** Fully equipped kitchen, washing machine, private sauna, drying cupboard, own ski locker, full-width balcony, free WiFi, TV. Pets welcome.`,
+  },
+
+  "glacier-a3": {
+    name: "Levi Glacier A3 — 4-Bedroom Alpine Apartment for 8",
+    shortDescription:
+      "92 m² alpine apartment with 4 bedrooms — same layout as A1, in the same building. Two-floor layout, private sauna and own ski locker. Heated ski waxing room and children's playroom in the building. Pets welcome.",
+    longDescription: `**Levi Glacier A3 — 92 m² alpine apartment for 8 (same layout as A1)**
+
+The twin of A1: a 92 m² apartment at the foot of the Front Slope (Eturinne), about 200 m from the Glacier Express chairlift. 4 bedrooms with 8 beds — built for families, groups of friends, or sports teams. Pets welcome. If A1 is booked when you need it, A3 is the same apartment in the same building.
+
+**Sleeps 8 across two floors** Four bedrooms with two beds each. The main living area is on street level; downstairs has its own outdoor entrance and a route to the ski waxing room. One step at the door. The open-plan kitchen-living room seats the whole group.
+
+**Private sauna, own ski locker, drying cupboard** Own electric sauna, a washing machine and a drying cupboard. Each apartment has its own ski locker by the front door, plus access to the building's shared heated ski waxing room. Fully equipped kitchen.
+
+**200 m from the lifts** The Front Slope and Glacier Express are essentially next door. Cross-country trails start nearby. Restaurants, shops and services are all within walking distance. Free on-site parking.
+
+**Honest about what it is** The building was constructed in 2000 and updated over the years. This is a traditional alpine apartment in a great location at a fair price. Particularly good for longer stays.
+
+**What's included** Fully equipped kitchen, washing machine, private sauna, drying cupboard, own ski locker, shared heated ski waxing room, children's playroom in the building, free WiFi, TV. Pets welcome.`,
+  },
+
+  "glacier-a4": {
+    name: "Levi Glacier A4 — 2-Bedroom + Mezzanine Alcove Beds",
+    shortDescription:
+      "72 m² second-floor apartment at the foot of the Front Slope (Eturinne). 2 bedrooms downstairs plus 2 open mezzanine alcove beds upstairs — a layout kids love. Sleeps 6, private sauna, balconies on two levels. Pets welcome.",
+    longDescription: `**Levi Glacier A4 — 72 m² apartment for 6, with mezzanine alcove beds**
+
+A second-floor apartment with a slightly unusual layout: 2 proper bedrooms downstairs plus open mezzanine alcove beds on the upper level. Sleeps up to 6. About 200 m from the Glacier Express chairlift, at the foot of the Front Slope (Eturinne). Pets welcome.
+
+**2 bedrooms + mezzanine alcoves for 6** Two bedrooms downstairs with four beds in total, plus two extra beds in the open mezzanine alcoves upstairs — a layout families with children tend to like, because the kids get their own space without being shut behind a door. The full-width balcony faces the street and the Hullu Poro Arena, and the upstairs bedroom has its own balcony in the same direction.
+
+**Private sauna, own ski locker, shared games room** Own electric sauna. Each apartment has its own ski locker by the front door, plus access to the building's shared heated ski waxing room. The building also has a shared games room with an air hockey table — useful on a snowy evening with kids in the group.
+
+**200 m from the lifts** The Front Slope and Glacier Express are essentially next door. Cross-country trails start nearby. Restaurants, shops and services are all within walking distance. Free on-site parking.
+
+**Honest about what it is** Built in 2000 and updated over the years. A traditional alpine apartment in a great location at a fair price.
+
+**Looking for the same size with closed bedrooms?** A2 is 67 m² with 3 closed bedrooms and a similar capacity, in the same building.
+
+**What's included** Fully equipped kitchen, private sauna, own ski locker, shared games room with air hockey, balconies on two levels, free WiFi, TV. Pets welcome.`,
+  },
+
+  "glacier-a5-penthouse": {
+    name: "Levi Glacier Penthouse A5 — 4-Bedroom Top-Floor Apartment for 8",
+    shortDescription:
+      "84 m² top-floor penthouse at the foot of the Front Slope (Eturinne). 4 bedrooms for up to 8, with two balconies (street and Hullu Poro Arena side). Private sauna and own ski locker. Pets welcome.",
+    longDescription: `**Levi Glacier Penthouse A5 — 84 m² top-floor apartment for 8**
+
+The largest penthouse in the Glacier A building. 84 m² on the top floor, two balconies, about 200 m from the Front Slope (Eturinne) and the Glacier Express chairlift. 4 bedrooms with 8 beds — works well for larger families, two families travelling together or a group of friends. Pets welcome.
+
+**4 bedrooms for up to 8** Each of the four bedrooms has two beds that can be split apart or pushed together depending on the group — flexible for couples, families or sports teams. The top-floor position gives the apartment a bit of extra light and a better feel than the lower flats. Two balconies open towards the street and the Hullu Poro Arena.
+
+**Private sauna, own ski locker, shared games room** Own electric sauna. Each apartment has its own ski locker by the front door, plus access to the building's shared heated ski waxing room. The building has a shared games room with an air hockey table and other activities for the kids.
+
+**200 m from the lifts** The Front Slope and Glacier Express are essentially next door. Cross-country trails start nearby. Restaurants, shops and après-ski venues are all within walking distance. Free on-site parking.
+
+**Honest about what it is** Built in 2000 and updated over the years. A top-floor apartment in a great location at a fair price — not a brand-new build, but the layout and the location are the point.
+
+**What's included** Fully equipped kitchen, private sauna, own ski locker, shared games room, two balconies, children's playroom in the building, free WiFi, TV. Pets welcome.`,
+  },
+
+  "glacier-a6": {
+    name: "Levi Glacier A6 — 2-Bedroom + Mezzanine, Same Layout as A4",
+    shortDescription:
+      "72 m² second-floor apartment with the same layout as A4. 2 bedrooms downstairs plus 2 open mezzanine alcove beds upstairs. Sleeps 6, private sauna, balconies on two levels. Pets welcome.",
+    longDescription: `**Levi Glacier A6 — 72 m² apartment for 6, twin of A4**
+
+The mirror of A4: a second-floor apartment at the foot of the Front Slope (Eturinne), with 2 bedrooms downstairs plus 2 extra beds in open mezzanine alcoves upstairs. Sleeps up to 6. About 200 m from the Glacier Express chairlift. Pets welcome. If A4 is booked when you need it, A6 is the same apartment.
+
+**2 bedrooms + mezzanine alcoves for 6** Two bedrooms downstairs with four beds in total, plus two more in the open mezzanine alcoves upstairs — a layout kids tend to like, because they get their own corner without being shut away. The full-width balcony faces the street and the Hullu Poro Arena, and the upstairs bedroom has its own balcony in the same direction.
+
+**Private sauna, own ski locker, shared games room** Own electric sauna. Each apartment has its own ski locker by the front door, plus access to the building's shared heated ski waxing room. The building has a shared games room with an air hockey table — useful on a snowy evening.
+
+**200 m from the lifts** The Front Slope and Glacier Express are essentially next door. Cross-country trails start nearby. Restaurants, shops and services are all within walking distance. Free on-site parking.
+
+**Honest about what it is** Built in 2000 and updated over the years. A traditional alpine apartment in a great location at a fair price.
+
+**Prefer closed bedrooms instead of mezzanine?** A2 is 67 m² with 3 closed bedrooms and similar capacity, in the same building.
+
+**What's included** Fully equipped kitchen, private sauna, own ski locker, shared games room with air hockey, balconies on two levels, free WiFi, TV. Pets welcome.`,
+  },
+
+  "glacier-b1": {
+    name: "Levi Glacier B1 — 5-Bedroom Apartment for 10, Front Slope View",
+    shortDescription:
+      "105 m² first-floor apartment with 5 separate bedrooms (2 beds each), full-width balcony with Front Slope (Eturinne) view. The largest single apartment in the Glacier building. Twin of B2 — book both for groups up to 20. Pets welcome.",
+    longDescription: `**Levi Glacier B1 — 105 m², 5 bedrooms for 10, at the foot of the Front Slope**
+
+The largest single apartment in the Glacier building, and one of the best group options near the Levi lifts. 105 m², 5 separate bedrooms with 10 beds, full-width balcony, about 200 m from the Glacier Express chairlift. Built for larger families, sports teams or groups of friends who want space and one of the best locations in Levi at a fair price. Pets welcome.
+
+**Note:** We have two identical 105 m² apartments (B1 and B2) in this building. If this one is booked, check B2 — or book both for a group of up to 20.
+
+**5 bedrooms for up to 10** Five separate bedrooms, each with two beds — every couple gets their own room and proper privacy, which is the actual reason groups book this one. The apartment is on the first floor with a full-width side-street balcony that has a clear view of the Front Slope (Eturinne). The open living area is large enough for group meals, board games or just decompressing after a day on the slopes.
+
+**Private sauna, own ski locker, shared games room** Private sauna for the whole group. Each apartment has its own ski locker by the front door, plus access to the building's shared heated ski waxing room. The building has a shared games room with air hockey and other activities — useful with kids in the group or on a stormy evening.
+
+**200 m from the lifts** The Front Slope and Glacier Express are essentially next door. Cross-country trails start nearby. Restaurants, shops and services are all within walking distance. Free on-site parking.
+
+**Honest about what it is** Built in 2000 and maintained over the years. 10 beds across 5 closed bedrooms at the foot of the slopes — this much space at this location is genuinely hard to find in Levi at this price point. Bed linen is available as an add-on, or you can bring your own.
+
+**What's included** Fully equipped kitchen, private sauna, own ski locker, shared games room, full-width balcony with slope view, free WiFi, TV. Pets welcome. Bed linen as an extra service.`,
+  },
+
+  "glacier-b2": {
+    name: "Levi Glacier B2 — 5-Bedroom Apartment for 10, Twin of B1",
+    shortDescription:
+      "105 m² first-floor apartment with 5 separate bedrooms — identical to B1, in the same building. Full-width balcony with Front Slope (Eturinne) view. Book both B1 and B2 for groups up to 20. Pets welcome.",
+    longDescription: `**Levi Glacier B2 — 105 m², 5 bedrooms for 10 (twin of B1)**
+
+The second of two identical 105 m² apartments in the Glacier building. 5 separate bedrooms with 10 beds, full-width balcony with a clear view of the Front Slope (Eturinne), about 200 m from the Glacier Express chairlift. Pets welcome. If B1 is booked when you need it, B2 is the same apartment in the same building.
+
+**Note:** We have two identical 105 m² apartments (B1 and B2). Book both together for a group of up to 20.
+
+**5 bedrooms for up to 10** Five separate bedrooms, each with two beds. First-floor position with a full-width side-street balcony facing the Front Slope. Large open living area for group meals and evenings together.
+
+**Private sauna, own ski locker, shared games room** Private sauna for the group. Own ski locker by the front door, plus access to the building's shared heated ski waxing room. Shared games room with air hockey and other activities in the building.
+
+**200 m from the lifts** The Front Slope and Glacier Express are essentially next door. Cross-country trails start nearby. Restaurants, shops and services are all within walking distance. Free on-site parking.
+
+**Honest about what it is** Built in 2000 and maintained over the years. The selling point is the layout, the size and the location — not designer finishes — and that's a fair trade at this price.
+
+**What's included** Fully equipped kitchen, private sauna, own ski locker, shared games room, full-width balcony with slope view, free WiFi, TV. Pets welcome. Bed linen as an extra service.`,
+  },
+
+  "glacier-b3-penthouse": {
+    name: "Levi Glacier Penthouse B3 — Top-Floor with Slope-View Balcony",
+    shortDescription:
+      "87 m² top-floor penthouse at the foot of the Front Slope (Eturinne). 3 bedrooms plus 2 mezzanine alcove beds for up to 8. Balconies on both floors — upper one faces the slope. Twin of B4 — book both for groups up to 16. Pets welcome.",
+    longDescription: `**Levi Glacier Penthouse B3 — 87 m² top-floor apartment with mezzanine alcoves and a slope-view balcony**
+
+A top-floor apartment in the Glacier building, at the foot of the Front Slope (Eturinne). 87 m² with 3 closed bedrooms downstairs plus 2 extra beds in open mezzanine alcoves upstairs — sleeps up to 8. The upper balcony faces the slope, so you can watch the floodlit evening skiing from your own balcony. About 200 m from the Glacier Express chairlift. Pets welcome.
+
+**Note:** We have two identical 87 m² penthouses (B3 and B4) in this building. If this one is booked, check B4 — or book both for a group of up to 16.
+
+**3 bedrooms + mezzanine alcoves for 8** Three closed bedrooms on the main floor plus 2 beds in open mezzanine alcoves upstairs — a layout kids tend to like. The main-floor full-width balcony faces the street; the upper balcony faces the Front Slope, which is the actual selling point of this apartment.
+
+**Private sauna, own ski locker, shared games room** Private sauna. Own ski locker by the front door, plus access to the building's shared heated ski waxing room. Shared games room with air hockey and other activities in the building.
+
+**200 m from the lifts** The Front Slope and Glacier Express are essentially next door. Cross-country trails start nearby. Restaurants, shops and services are all within walking distance. Free on-site parking.
+
+**Honest about what it is** Built in 2000 and maintained over the years. A top-floor apartment with a slope-view balcony at a fair price — that combination is hard to find in Levi without paying significantly more.
+
+**What's included** Fully equipped kitchen, private sauna, own ski locker, shared games room, balconies on two levels, free WiFi, TV. Pets welcome.`,
+  },
+
+  "glacier-b4-penthouse": {
+    name: "Levi Glacier Penthouse B4 — Top-Floor, Mirror Layout of B3",
+    shortDescription:
+      "87 m² top-floor penthouse — identical to B3, in the same building. 3 bedrooms plus 2 mezzanine alcove beds for up to 8. Upper balcony faces the Front Slope (Eturinne). Book both B3 and B4 for groups up to 16. Pets welcome.",
+    longDescription: `**Levi Glacier Penthouse B4 — 87 m² top-floor, mirror of B3**
+
+The second of two identical top-floor penthouses in the Glacier building, at the foot of the Front Slope (Eturinne). 87 m² with 3 closed bedrooms plus 2 mezzanine alcove beds — sleeps up to 8. The upper balcony faces the slope, so you can watch the floodlit evening skiing from your own balcony. About 200 m from the Glacier Express chairlift. Pets welcome. If B3 is booked when you need it, B4 is the same apartment.
+
+**Note:** We have two identical 87 m² penthouses (B3 and B4) in this building. Book both for a group of up to 16.
+
+**3 bedrooms + mezzanine alcoves for 8** Three closed bedrooms downstairs plus 2 beds in open mezzanine alcoves upstairs — a layout kids tend to like. The main-floor full-width balcony faces the street; the upper balcony faces the Front Slope.
+
+**Private sauna, own ski locker, shared games room** Private sauna. Own ski locker by the front door, plus access to the building's shared heated ski waxing room. Shared games room with air hockey in the building.
+
+**200 m from the lifts** The Front Slope and Glacier Express are essentially next door. Cross-country trails start nearby. Restaurants, shops and services are all within walking distance. Free on-site parking.
+
+**Honest about what it is** Built in 2000 and maintained over the years. A top-floor penthouse-style apartment with a slope-view balcony at the price point of a traditional alpine flat.
+
+**What's included** Fully equipped kitchen, private sauna, own ski locker, shared games room, balconies on two levels, free WiFi, TV. Pets welcome.`,
+  },
 };
 
 export const locationEn: Record<string, string> = {
