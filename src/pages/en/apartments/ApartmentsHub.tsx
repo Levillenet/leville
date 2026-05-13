@@ -108,7 +108,7 @@ const faqs = [
     q: "Is final cleaning included?",
     a: (
       <>
-        Yes, final cleaning is always included in the price for all our apartments and cabins. You don't need to clean before departure. At {linkProperty("Karhunvartija 3", "karhunvartija3")}, {linkProperty("Bear Lodge", "karhupirtti")}, and the Hiihtäjänkuja apartments ({linkProperty("5A2", "5a2")}, {linkProperty("5B2", "5b2")}, {linkProperty("5B5", "5b5")}), firewood is also included.
+        Final cleaning is an optional add-on – you can book it during reservation. Check property-specific terms in your booking confirmation. At {linkProperty("Karhunvartija 3", "karhunvartija3")}, {linkProperty("Bear Lodge", "karhupirtti")}, and the Hiihtäjänkuja apartments ({linkProperty("5A2", "5a2")}, {linkProperty("5B2", "5b2")}, {linkProperty("5B5", "5b5")}), firewood is included.
       </>
     ),
   },
