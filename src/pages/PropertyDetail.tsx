@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, Link, Navigate } from "react-router-dom";
 import {
   Maximize, DoorOpen, Bed, Users, MapPin, ExternalLink, PawPrint, Flame,
   Accessibility, Droplets, Bath, Calendar, ArrowRight, Mountain, Phone, MessageCircle, Waves,
+  ChevronLeft, ChevronRight, X,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -64,6 +65,156 @@ const RichText = ({ text }: { text: string }) => {
         return <p key={bi}>{renderInline(block, String(bi))}</p>;
       })}
     </div>
+  );
+};
+
+const HeroGallery = ({ images, alt }: { images: string[]; alt: string }) => {
+  const [index, setIndex] = useState(0);
+  const [lightbox, setLightbox] = useState(false);
+  const total = images.length;
+  const prev = () => setIndex((i) => (i - 1 + total) % total);
+  const next = () => setIndex((i) => (i + 1) % total);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(false);
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lightbox, total]);
+
+  // Touch swipe
+  let touchStartX = 0;
+  const onTouchStart = (e: React.TouchEvent) => { touchStartX = e.touches[0].clientX; };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (dx > 40) prev();
+    else if (dx < -40) next();
+  };
+
+  if (total === 0) {
+    return (
+      <div className="rounded-xl overflow-hidden border border-border/40 aspect-[16/9] bg-gradient-to-br from-primary/15 via-muted to-secondary/15 flex items-center justify-center text-primary/40">
+        <Mountain className="w-20 h-20" aria-hidden="true" />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="relative rounded-xl overflow-hidden border border-border/40 aspect-[16/9] bg-muted group">
+        <button
+          type="button"
+          onClick={() => setLightbox(true)}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+          className="block w-full h-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          aria-label="Avaa kuva isona"
+        >
+          <OptimizedImage
+            src={images[index]}
+            alt={`${alt} – kuva ${index + 1}/${total}`}
+            className="w-full h-full object-cover"
+          />
+        </button>
+        {total > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={prev}
+              aria-label="Edellinen kuva"
+              className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 opacity-80 hover:opacity-100 transition"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              type="button"
+              onClick={next}
+              aria-label="Seuraava kuva"
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 opacity-80 hover:opacity-100 transition"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/50 text-white text-xs px-2.5 py-1 rounded-full">
+              {index + 1} / {total}
+            </div>
+          </>
+        )}
+      </div>
+      {total > 1 && (
+        <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+          {images.map((src, i) => (
+            <button
+              key={src}
+              type="button"
+              onClick={() => setIndex(i)}
+              aria-label={`Näytä kuva ${i + 1}`}
+              className={`shrink-0 w-20 h-14 rounded-md overflow-hidden border-2 transition ${i === index ? "border-primary" : "border-transparent opacity-70 hover:opacity-100"}`}
+            >
+              <OptimizedImage src={src} alt="" className="w-full h-full object-cover" />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center"
+          onClick={() => setLightbox(false)}
+        >
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setLightbox(false); }}
+            aria-label="Sulje"
+            className="absolute top-4 right-4 text-white/90 hover:text-white p-2"
+          >
+            <X className="w-7 h-7" />
+          </button>
+          {total > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); prev(); }}
+                aria-label="Edellinen kuva"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-3"
+              >
+                <ChevronLeft className="w-7 h-7" />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); next(); }}
+                aria-label="Seuraava kuva"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/90 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-3"
+              >
+                <ChevronRight className="w-7 h-7" />
+              </button>
+            </>
+          )}
+          <img
+            src={images[index]}
+            alt={`${alt} – kuva ${index + 1}/${total}`}
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            className="max-w-[95vw] max-h-[90vh] object-contain"
+          />
+          {total > 1 && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/80 text-sm">
+              {index + 1} / {total}
+            </div>
+          )}
+        </div>
+      )}
+    </>
   );
 };
 
@@ -129,6 +280,20 @@ const PropertyDetail = () => {
   const displayYear = translateYearFi(property.yearBuiltOrRenovated);
   const title = `${displayName} — Levi | Leville.net`;
   const description = truncate(displayDescription);
+
+  // Build gallery images: hero first (if set), then the rest, deduped
+  const galleryImages = (() => {
+    const seen = new Set<string>();
+    const list: string[] = [];
+    if (property.heroImage) { list.push(property.heroImage); seen.add(property.heroImage); }
+    for (const src of property.images || []) {
+      if (!seen.has(src)) { list.push(src); seen.add(src); }
+    }
+    return list;
+  })();
+  const mapsHref = groupAddress[group]
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(groupAddress[group].query)}`
+    : null;
 
   const related = properties
     .filter((p) => groupOf(p) === group && p.id !== property.id)
@@ -216,19 +381,9 @@ const PropertyDetail = () => {
                 {displayDescription}
               </p>
 
-              {/* Hero image / placeholder */}
-              <div className="mt-6 rounded-xl overflow-hidden border border-border/40 aspect-[16/9] bg-gradient-to-br from-primary/15 via-muted to-secondary/15">
-                {property.heroImage ? (
-                  <OptimizedImage
-                    src={property.heroImage}
-                    alt={displayName}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-primary/40">
-                    <Mountain className="w-20 h-20" aria-hidden="true" />
-                  </div>
-                )}
+              {/* Top swipeable gallery */}
+              <div className="mt-6">
+                <HeroGallery images={galleryImages} alt={displayName} />
               </div>
 
               {/* Primary CTAs */}
@@ -269,29 +424,6 @@ const PropertyDetail = () => {
               </section>
             )}
 
-            {/* Gallery */}
-            {property.images && property.images.length > 1 && (
-              <section className="mb-10">
-                <h2 className="text-2xl font-bold text-foreground mb-4">Kuvagalleria</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {property.images.slice(1).map((src, i) => (
-                    <a
-                      key={src}
-                      href={src}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block rounded-lg overflow-hidden border border-border/40 aspect-[4/3] bg-muted hover:opacity-90 transition-opacity"
-                    >
-                      <OptimizedImage
-                        src={src}
-                        alt={`${displayName} – kuva ${i + 2}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </a>
-                  ))}
-                </div>
-              </section>
-            )}
             <section className="mb-10">
               <h2 className="text-2xl font-bold text-foreground mb-4">Kohteen tiedot</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -328,14 +460,18 @@ const PropertyDetail = () => {
               <Card className="border-border/40">
                 <CardContent className="p-6">
                   <p className="text-foreground leading-relaxed">{ctx.fi}</p>
-                  <div className="mt-4">
-                    <Link
-                      to="/levi-map"
-                      className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
-                    >
-                      <MapPin className="w-4 h-4" /> Katso kohteet kartalla <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
+                  {mapsHref && (
+                    <div className="mt-4">
+                      <a
+                        href={mapsHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
+                      >
+                        <MapPin className="w-4 h-4" /> Avaa {groupAddress[group].label} Google Mapsissa <ArrowRight className="w-4 h-4" />
+                      </a>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </section>
