@@ -20,6 +20,7 @@ import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
 import PropertyCard from "@/components/PropertyCard";
+import ModerBookingWidget from "@/components/ModerBookingWidget";
 import { properties } from "@/data/properties";
 
 // Import accommodation background images
@@ -145,7 +146,34 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </section>
             </ScrollReveal>
 
-            {/* Discount code banner */}
+            {/* Moder Booking Widget – check availability across all properties */}
+            <ScrollReveal>
+              <section className="mb-10 md:mb-12">
+                <div className="max-w-5xl mx-auto glass-card border border-border/30 rounded-xl p-4 sm:p-6">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2 text-center">
+                    {lang === "fi" ? "Tarkista varaustilanne"
+                      : lang === "sv" ? "Kontrollera tillgänglighet"
+                      : lang === "de" ? "Verfügbarkeit prüfen"
+                      : lang === "es" ? "Comprobar disponibilidad"
+                      : lang === "fr" ? "Vérifier la disponibilité"
+                      : lang === "nl" ? "Beschikbaarheid controleren"
+                      : "Check availability"}
+                  </h2>
+                  <p className="text-sm text-muted-foreground text-center mb-4">
+                    {lang === "fi" ? "Selaa kaikkien kohteiden vapaita aikoja ja tee varaus suoraan."
+                      : lang === "sv" ? "Bläddra bland alla objekts lediga tider och boka direkt."
+                      : lang === "de" ? "Durchsuchen Sie die Verfügbarkeit aller Objekte und buchen Sie direkt."
+                      : lang === "es" ? "Consulta la disponibilidad de todos los alojamientos y reserva directamente."
+                      : lang === "fr" ? "Parcourez les disponibilités de tous les hébergements et réservez directement."
+                      : lang === "nl" ? "Bekijk de beschikbaarheid van alle accommodaties en boek direct."
+                      : "Browse availability across all properties and book directly."}
+                  </p>
+                  <div id="moder-embed" />
+                </div>
+              </section>
+            </ScrollReveal>
+            <ModerBookingWidget lang={lang} />
+
             <ScrollReveal>
               <div className="text-center mb-10 md:mb-16">
                 <a 
