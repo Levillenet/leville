@@ -143,6 +143,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: true,
     yearBuiltOrRenovated: "Largely renovated 2021",
+    highlights: ["Erittäin hieno alppihuoneisto Levin ytimessä"],
     shortDescription: "100 m² penthouse with 4 bedrooms, 3 balconies, and slope-view sauna. Heat-storing fireplace, 10-person dining table. Renovated 2021. Pets allowed."
   },
   {
