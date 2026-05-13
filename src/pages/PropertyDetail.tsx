@@ -212,7 +212,29 @@ const PropertyDetail = () => {
               </div>
             </section>
 
-            {/* Specs */}
+            {/* Gallery */}
+            {property.images && property.images.length > 1 && (
+              <section className="mb-10">
+                <h2 className="text-2xl font-bold text-foreground mb-4">Kuvagalleria</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {property.images.slice(1).map((src, i) => (
+                    <a
+                      key={src}
+                      href={src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block rounded-lg overflow-hidden border border-border/40 aspect-[4/3] bg-muted hover:opacity-90 transition-opacity"
+                    >
+                      <OptimizedImage
+                        src={src}
+                        alt={`${displayName} – kuva ${i + 2}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
             <section className="mb-10">
               <h2 className="text-2xl font-bold text-foreground mb-4">Kohteen tiedot</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
