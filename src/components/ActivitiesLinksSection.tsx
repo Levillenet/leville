@@ -146,7 +146,7 @@ const ActivitiesLinksSection = ({ lang = "fi" }: ActivitiesLinksSectionProps) =>
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-muted-foreground/60">{card.meta}</span>
+                  <span className="text-xs text-muted-foreground">{card.meta}</span>
                   <span className="inline-flex items-center gap-1 text-sm text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                     <ArrowRight className="w-3.5 h-3.5" />
                   </span>
