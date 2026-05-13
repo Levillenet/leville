@@ -251,7 +251,7 @@ const PropertyDetail = () => {
                     Tarkista vapaat päivät ja varaa suoraan järjestelmästämme. Vastaamme samana päivänä — myös pyhäpäivinä.
                   </p>
                   {roomTypeId && (
-                    <div className="mb-5 rounded-lg overflow-hidden bg-background">
+                    <div className="mb-5 rounded-xl overflow-hidden shadow-2xl bg-white text-neutral-900">
                       <PropertyBookingWidget roomTypeId={roomTypeId} />
                     </div>
                   )}
