@@ -219,6 +219,13 @@ const PropertyDetail = () => {
               </div>
             </section>
 
+            {/* Long description */}
+            {longDescription && (
+              <section className="mb-10 max-w-3xl">
+                <RichText text={longDescription} />
+              </section>
+            )}
+
             {/* Gallery */}
             {property.images && property.images.length > 1 && (
               <section className="mb-10">
