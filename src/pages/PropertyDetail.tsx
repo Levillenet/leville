@@ -198,6 +198,17 @@ const PropertyDetail = () => {
                     <Phone className="w-4 h-4" /> {PHONE_DISPLAY}
                   </a>
                 </Button>
+                {groupAddress[group] && (
+                  <Button asChild size="lg" variant="outline" className="gap-2">
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(groupAddress[group].query)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MapPin className="w-4 h-4" /> {groupAddress[group].label}
+                    </a>
+                  </Button>
+                )}
               </div>
             </section>
 
