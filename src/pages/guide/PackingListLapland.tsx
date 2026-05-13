@@ -78,7 +78,7 @@ const translations = {
         icon: "x",
         items: [
           { label: "Lasketteluvälineet", desc: "Vuokraa paikan päältä — helpompaa kuin raahata lennossa" },
-          { label: "Pyyhkeet ja liinavaatteet", desc: "Sisältyvät kaikkiin majoituksiimme" },
+          { label: "Pyyhkeet ja liinavaatteet", desc: "Lisäpalvelu – voit varata varauksen yhteydessä tai tuoda omasi" },
           { label: "Hiustenkuivaaja", desc: "Löytyy useimmista huoneistoista" },
           { label: "Liikaa ruokaa", desc: "Levin kaupat ovat hyvin varusteltuja" }
         ]
