@@ -148,8 +148,8 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
 
             {/* Moder Booking Widget – check availability across all properties */}
             <ScrollReveal>
-              <section className="mb-10 md:mb-12">
-                <div className="max-w-5xl mx-auto glass-card border border-border/30 rounded-xl p-4 sm:p-6">
+              <section className="mb-10 md:mb-12 relative z-[9990]">
+                <div className="max-w-5xl mx-auto glass-card border border-border/30 rounded-xl p-4 sm:p-6 relative z-[9990]" style={{ overflow: "visible" }}>
                   <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2 text-center">
                     {lang === "fi" ? "Tarkista varaustilanne"
                       : lang === "sv" ? "Kontrollera tillgänglighet"
@@ -168,7 +168,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                       : lang === "nl" ? "Bekijk de beschikbaarheid van alle accommodaties en boek direct."
                       : "Browse availability across all properties and book directly."}
                   </p>
-                  <div id="moder-embed" />
+                  <div id="moder-embed" className="relative z-[9990]" style={{ position: "relative", zIndex: 9990 }} />
                 </div>
               </section>
             </ScrollReveal>
