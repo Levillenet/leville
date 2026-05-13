@@ -215,6 +215,7 @@ const App = () => {
               {/* Finnish routes (default) */}
               <Route path="/" element={<Index />} />
               <Route path="/majoitukset" element={<Majoitukset />} />
+              <Route path="/majoitukset/:slug" element={<PropertyDetail />} />
               <Route path="/mokit-levilla" element={<MokitLevilla />} />
               <Route path="/opas/autolla-ajaminen-lapissa" element={<DrivingInLapland />} />
               <Route path="/ajankohtaista" element={<Ajankohtaista />} />
