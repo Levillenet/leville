@@ -250,10 +250,15 @@ const PropertyDetail = () => {
                   <p className="text-muted-foreground mb-5">
                     Tarkista vapaat päivät ja varaa suoraan järjestelmästämme. Vastaamme samana päivänä — myös pyhäpäivinä.
                   </p>
+                  {roomTypeId && (
+                    <div className="mb-5 rounded-lg overflow-hidden bg-background">
+                      <PropertyBookingWidget roomTypeId={roomTypeId} />
+                    </div>
+                  )}
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Button asChild size="lg" className="gap-2">
                       <a href={property.bookingUrl} target="_blank" rel="noopener noreferrer">
-                        Tarkista saatavuus <ExternalLink className="w-4 h-4" />
+                        Avaa varaus uudessa välilehdessä <ExternalLink className="w-4 h-4" />
                       </a>
                     </Button>
                     <Button asChild size="lg" variant="outline" className="gap-2">
