@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare, BookOpen, Bot, TrendingUp, Bell, Megaphone, ClipboardList, Mail } from "lucide-react";
+import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare, BookOpen, Bot, TrendingUp, Bell, Megaphone, ClipboardList, Mail, Search } from "lucide-react";
 import AutoResponderAdmin from "@/components/admin/AutoResponderAdmin";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
@@ -23,6 +23,7 @@ import GuideAdmin from "@/components/admin/GuideAdmin";
 import SeoPageAdmin from "@/components/admin/SeoPageAdmin";
 import ChatbotStatsAdmin from "@/components/admin/ChatbotStatsAdmin";
 import PageViewsAdmin from "@/components/admin/PageViewsAdmin";
+import SearchConsoleAdmin from "@/components/admin/SearchConsoleAdmin";
 import TimedNoticesAdmin from "@/components/admin/TimedNoticesAdmin";
 import PromoBannerAdmin from "@/components/admin/PromoBannerAdmin";
 import TicketAdmin from "@/components/admin/TicketAdmin";
@@ -364,6 +365,10 @@ const Admin = () => {
               <TrendingUp className="w-4 h-4" />
               Analytiikka
             </TabsTrigger>
+            <TabsTrigger value="search-console" className="flex items-center gap-2">
+              <Search className="w-4 h-4" />
+              Search Console
+            </TabsTrigger>
             <TabsTrigger value="timed-notices" className="flex items-center gap-2">
               <Bell className="w-4 h-4" />
               Ilmoitukset
@@ -447,6 +452,10 @@ const Admin = () => {
 
           <TabsContent value="page-views">
             <PageViewsAdmin isViewer={isViewer} />
+          </TabsContent>
+
+          <TabsContent value="search-console">
+            <SearchConsoleAdmin isViewer={isViewer} />
           </TabsContent>
 
           <TabsContent value="timed-notices">
