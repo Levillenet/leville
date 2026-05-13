@@ -148,7 +148,13 @@ const PropertyDetail = () => {
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />
         <Header />
-        <Breadcrumbs lang="fi" />
+        <Breadcrumbs
+          lang="fi"
+          items={[
+            { label: "Majoitukset", href: "/majoitukset" },
+            { label: displayName, href: `/majoitukset/${property.slug}` },
+          ]}
+        />
         <main className="pt-6 pb-20">
           <div className="container mx-auto px-4 max-w-5xl">
             {/* Hero */}
