@@ -216,7 +216,7 @@ const PropertyCard = ({
         <div className="mt-auto flex flex-col sm:flex-row gap-2 pt-2">
           <Button asChild className="gap-2 flex-1">
             <a href={property.bookingUrl} target="_blank" rel="noopener noreferrer">
-              {bookLabel} <ExternalLink className="w-4 h-4" />
+              {resolvedBookLabel} <ExternalLink className="w-4 h-4" />
             </a>
           </Button>
           {detailHref && (
@@ -228,6 +228,53 @@ const PropertyCard = ({
           )}
         </div>
       </CardContent>
+      {lightboxOpen && gallery.length > 0 && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center"
+          onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label={displayName}
+        >
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
+            aria-label={L.close}
+            className="absolute top-4 right-4 z-10 inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white hover:bg-white/20 backdrop-blur"
+          >
+            <X className="w-5 h-5" />
+          </button>
+          {hasMultiple && (
+            <>
+              <button
+                type="button"
+                onClick={goPrev}
+                aria-label={L.prev}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 backdrop-blur"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label={L.next}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 backdrop-blur"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+              <span className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-white/90 px-3 py-1 rounded-full bg-white/10 backdrop-blur">
+                {imgIdx + 1} / {gallery.length}
+              </span>
+            </>
+          )}
+          <img
+            src={gallery[imgIdx]}
+            alt={`${displayName} – ${imgIdx + 1}/${gallery.length}`}
+            onClick={(e) => e.stopPropagation()}
+            className="max-w-[95vw] max-h-[90vh] object-contain select-none"
+          />
+        </div>
+      )}
     </Card>
   );
 };
