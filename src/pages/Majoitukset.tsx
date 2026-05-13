@@ -274,35 +274,64 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
             )}
 
             {/* Accommodations */}
-            {lang === "fi" ? (
+            {lang === "fi" || lang === "en" ? (
               <div className="space-y-12 mb-16 md:mb-20">
-                {[
-                  {
-                    title: "Hiihtäjänkujan alppihuoneistot",
-                    subtitle: "Levin Eturinne, Zero Point -alueella, n. 200 m Eturinteeltä — 3 kohdetta",
-                    items: properties.filter((p) => ["5a2", "5b2", "5b5"].includes(p.id)),
-                  },
-                  {
-                    title: "Skistar — keskustahuoneistot Postintiellä",
-                    subtitle: "Levin ydinkeskustassa, askelia palveluille — 9 kohdetta",
-                    items: properties.filter((p) => ["211", "212", "209", "210", "102", "104", "319", "320", "321"].includes(p.id)),
-                  },
-                  {
-                    title: "Karhupirtti — hirsihuvila 14:lle",
-                    subtitle: "Perinteinen hirsihuvila ulkoporealtaalla, Levin keskustassa",
-                    items: properties.filter((p) => p.id === "karhupirtti"),
-                  },
-                  {
-                    title: "Muut keskustakohteet",
-                    subtitle: "Levi Platinum, Moonlight ja Karhunvartija — 3 kohdetta",
-                    items: properties.filter((p) => ["karhunvartija3", "platinum-a2", "moonlight-415"].includes(p.id)),
-                  },
-                  {
-                    title: "Levi Glacier — alppihuoneistot",
-                    subtitle: "Hullu Poro -alueen huoneistot ja kattohuoneistot — 10 kohdetta",
-                    items: properties.filter((p) => p.id.startsWith("glacier-")),
-                  },
-                ].map((group) => (
+                {(lang === "fi"
+                  ? [
+                      {
+                        title: "Hiihtäjänkujan alppihuoneistot",
+                        subtitle: "Levin Eturinne, Zero Point -alueella, n. 200 m Eturinteeltä — 3 kohdetta",
+                        items: properties.filter((p) => ["5a2", "5b2", "5b5"].includes(p.id)),
+                      },
+                      {
+                        title: "Skistar — keskustahuoneistot Postintiellä",
+                        subtitle: "Levin ydinkeskustassa, askelia palveluille — 9 kohdetta",
+                        items: properties.filter((p) => ["211", "212", "209", "210", "102", "104", "319", "320", "321"].includes(p.id)),
+                      },
+                      {
+                        title: "Karhupirtti — hirsihuvila 14:lle",
+                        subtitle: "Perinteinen hirsihuvila ulkoporealtaalla, Levin keskustassa",
+                        items: properties.filter((p) => p.id === "karhupirtti"),
+                      },
+                      {
+                        title: "Muut keskustakohteet",
+                        subtitle: "Levi Platinum, Moonlight ja Karhunvartija — 3 kohdetta",
+                        items: properties.filter((p) => ["karhunvartija3", "platinum-a2", "moonlight-415"].includes(p.id)),
+                      },
+                      {
+                        title: "Levi Glacier — alppihuoneistot",
+                        subtitle: "Hullu Poro -alueen huoneistot ja kattohuoneistot — 10 kohdetta",
+                        items: properties.filter((p) => p.id.startsWith("glacier-")),
+                      },
+                    ]
+                  : [
+                      {
+                        title: "Front Slope alpine apartments",
+                        subtitle: "Levi Eturinne, Zero Point area, ~200 m from the front slope — 3 properties",
+                        items: properties.filter((p) => ["5a2", "5b2", "5b5"].includes(p.id)),
+                      },
+                      {
+                        title: "Skistar — central apartments on Postintie",
+                        subtitle: "In the heart of Levi, steps from the services — 9 properties",
+                        items: properties.filter((p) => ["211", "212", "209", "210", "102", "104", "319", "320", "321"].includes(p.id)),
+                      },
+                      {
+                        title: "Karhupirtti — log villa for 14",
+                        subtitle: "Traditional log villa with outdoor hot tub, in Levi centre",
+                        items: properties.filter((p) => p.id === "karhupirtti"),
+                      },
+                      {
+                        title: "Other central properties",
+                        subtitle: "Levi Platinum, Moonlight and Karhunvartija — 3 properties",
+                        items: properties.filter((p) => ["karhunvartija3", "platinum-a2", "moonlight-415"].includes(p.id)),
+                      },
+                      {
+                        title: "Levi Glacier — alpine apartments",
+                        subtitle: "Apartments and penthouses next to Hullu Poro — 10 properties",
+                        items: properties.filter((p) => p.id.startsWith("glacier-")),
+                      },
+                    ]
+                ).map((group) => (
                   <ScrollReveal key={group.title}>
                     <section>
                       <div className="mb-5">
@@ -314,10 +343,10 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                           <PropertyCard
                             key={p.id}
                             property={p}
-                            detailHref={`/majoitukset/${p.slug}`}
-                            detailLabel="Lue lisää"
-                            bookLabel="Varaa tästä"
-                            lang="fi"
+                            detailHref={lang === "fi" ? `/majoitukset/${p.slug}` : `/en/accommodations/${p.slug}`}
+                            detailLabel={lang === "fi" ? "Lue lisää" : "Learn more"}
+                            bookLabel={lang === "fi" ? "Varaa tästä" : "Book now"}
+                            lang={lang}
                           />
                         ))}
                       </div>
