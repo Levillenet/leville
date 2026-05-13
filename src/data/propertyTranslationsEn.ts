@@ -36,7 +36,7 @@ Karhupirtti — The Bear Lodge — is one of a kind in Levi: the only traditiona
 
 **Outdoor hot tub and private yard** The hot tub sits on your own large private yard. On a clear winter night you can watch for the northern lights from the water. There's also a fire pit on the yard for evenings outside.
 
-**Fully renovated in 2023 with quality materials** Karhupirtti went through a full renovation in 2023: Pukkila tiles, Kährs wood floors, walnut ceilings, a striking black kitchen and Miele appliances throughout. The result is the character of a real log villa with the comfort of a modern home — not a generic ski apartment dressed up. The design fireplace adds warmth and atmosphere.
+**Fully renovated in 2022 with quality materials** Karhupirtti went through a full renovation in 2022: Pukkila tiles, Kährs wood floors, walnut ceilings, a striking black kitchen and Miele appliances throughout. The result is the character of a real log villa with the comfort of a modern home — not a generic ski apartment dressed up. The design fireplace adds warmth and atmosphere.
 
 **Walk-everywhere location in Levi Center** From the door it's a short walk to the Front Slope, Lastenmaa children's slope, the K-Market (small grocery store), souvenir shops, restaurants and after-ski venues. The nearest snowmobile route starts about 250 m away. There's plenty of parking on site. The villa has a ski storage and waxing room and a utility room with laundry — so wet gear has somewhere to go.
 
