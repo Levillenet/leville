@@ -19,6 +19,8 @@ export interface Property {
   fireplace: boolean;
   hotTub?: boolean;
   yearBuiltOrRenovated: string;
+  /** Short Finnish marketing badges shown on listings + detail page (e.g. "Tilava perheasunto"). */
+  highlights?: string[];
   shortDescription: string;
   slug: string;
   images: string[];
