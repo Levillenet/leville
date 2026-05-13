@@ -45,9 +45,13 @@ const PropertyCard = ({
   const displayYear = lang === "fi" ? translateYearFi(property.yearBuiltOrRenovated) : property.yearBuiltOrRenovated;
   const L = LABELS[lang];
 
-  const gallery = property.images && property.images.length > 0
+  const baseImages = property.images && property.images.length > 0
     ? property.images
     : (property.heroImage ? [property.heroImage] : []);
+  // Ensure heroImage (if set) is the first image shown on the card
+  const gallery = property.heroImage
+    ? [property.heroImage, ...baseImages.filter((img) => img !== property.heroImage)]
+    : baseImages;
   const [imgIdx, setImgIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const hasMultiple = gallery.length > 1;
