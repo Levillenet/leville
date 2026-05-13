@@ -111,7 +111,7 @@ const PropertyDetail = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Etusivu", item: "https://leville.net/" },
       { "@type": "ListItem", position: 2, name: "Majoitukset", item: "https://leville.net/majoitukset" },
-      { "@type": "ListItem", position: 3, name: property.name, item: canonical },
+      { "@type": "ListItem", position: 3, name: displayName, item: canonical },
     ],
   };
 
