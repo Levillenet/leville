@@ -460,14 +460,18 @@ const PropertyDetail = () => {
               <Card className="border-border/40">
                 <CardContent className="p-6">
                   <p className="text-foreground leading-relaxed">{ctx.fi}</p>
-                  <div className="mt-4">
-                    <Link
-                      to="/levi-map"
-                      className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
-                    >
-                      <MapPin className="w-4 h-4" /> Katso kohteet kartalla <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
+                  {mapsHref && (
+                    <div className="mt-4">
+                      <a
+                        href={mapsHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
+                      >
+                        <MapPin className="w-4 h-4" /> Avaa {groupAddress[group].label} Google Mapsissa <ArrowRight className="w-4 h-4" />
+                      </a>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </section>
