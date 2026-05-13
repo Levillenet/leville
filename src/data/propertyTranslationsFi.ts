@@ -71,12 +71,12 @@ Tämä 100 m²:n kattohuoneisto sijaitsee Levin sydämessä, vain 200 metrin pä
   "karhupirtti": {
     name: "Karhupirtti – hirsihuvila Levin keskustassa",
     shortDescription:
-      "220 m² perinteinen hirsihuvila Levin keskustassa: 7 makuuhuonetta, ulkoporeallas, oma piha ja takka. 3 ensuite-makuuhuonetta alakerrassa. Täysin remontoitu 2022. Takkapuut sisältyvät. Lemmikit sallittu.",
+      "220 m² perinteinen hirsihuvila Levin keskustassa: 7 makuuhuonetta, ulkoporeallas, oma piha ja takka. 3 ensuite-makuuhuonetta alakerrassa (oma suihku + WC) ja lisäksi 2 erillistä WC:tä. Täysin remontoitu 2022. Takkapuut sisältyvät. Lemmikit sallittu.",
     longDescription: `**Karhupirtti – Ainutlaatuinen 220 m² hirsihuvila Levin sydämessä**
 
 Levin majoitusvaihtoehdoista Karhupirtti on vertaansa vailla. Tämä perinteinen pyöröhirsihuvila sijaitsee aivan Levin keskustassa, vain kolmen minuutin kävelymatkan päässä eturinteistä, ravintoloista ja kaupoista. Sen 220 m² asuintilalla, seitsemällä makuuhuoneella ja ulkoporeammeella, se majoittaa jopa 14 vierasta, mikä tekee siitä täydellisen tukikohdan ryhmämatkailuun Lapissa. Lemmikit ovat tervetulleita.
 
-**Tilaa jopa 14 vieraalle 7 makuuhuoneessa** Alakerrassa on kolme omalla kylpyhuoneella varustettua makuuhuonetta, jokaisessa oma suihku ja WC – täydellistä yksityisyyttä arvostaville. Yläkerrassa on neljä makuuhuonetta väliovilla, ihanteellinen lapsiperheille. Tilava olohuone ja ruokailutila istuttavat koko ryhmän mukavasti, tehden yhteisistä aterioista ja illoista loman kohokohtia.
+**Tilaa jopa 14 vieraalle 7 makuuhuoneessa** Alakerrassa on kolme omalla kylpyhuoneella varustettua makuuhuonetta, jokaisessa oma suihku ja WC – täydellistä yksityisyyttä arvostaville. Yläkerrassa on neljä makuuhuonetta väliovilla, ihanteellinen lapsiperheille. Lisäksi huvilassa on **2 erillistä WC:tä** yhteiskäyttöön, joten ruuhkaa ei pääse syntymään isonkaan ryhmän kanssa. Yhteensä kylpytiloja on siis 3 suihkukylpyhuonetta + 2 erillistä WC:tä. Tilava olohuone ja ruokailutila istuttavat koko ryhmän mukavasti, tehden yhteisistä aterioista ja illoista loman kohokohtia.
 
 **Ulkoporeamme** Astu ulkoporeammeeseen omalla suurella yksityisellä pihallasi. Selkeinä iltoina voit jopa bongata revontulet poreammeesta käsin. Pihalla on myös grillipaikka iltoja varten avotulen äärellä.
 
