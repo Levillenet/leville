@@ -242,7 +242,7 @@ const MokitLevilla = () => {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-primary font-medium hover:underline"
                       >
-                        Tarkista saatavuus <ArrowRight className="w-4 h-4" />
+                        Varaa tästä <ArrowRight className="w-4 h-4" />
                       </a>
                     </CardContent>
                   </Card>

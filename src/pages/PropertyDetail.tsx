@@ -185,7 +185,7 @@ const PropertyDetail = () => {
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
                 <Button asChild size="lg" className="gap-2 flex-1 sm:flex-initial">
                   <a href={property.bookingUrl} target="_blank" rel="noopener noreferrer">
-                    Tarkista saatavuus <ExternalLink className="w-4 h-4" />
+                    Varaa tästä <ExternalLink className="w-4 h-4" />
                   </a>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="gap-2">
@@ -323,7 +323,7 @@ const PropertyDetail = () => {
                       property={p}
                       detailHref={`/majoitukset/${p.slug}`}
                       detailLabel="Lue lisää"
-                      bookLabel="Tarkista saatavuus"
+                      bookLabel="Varaa tästä"
                       lang="fi"
                     />
                   ))}
