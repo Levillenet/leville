@@ -365,6 +365,10 @@ const Admin = () => {
               <TrendingUp className="w-4 h-4" />
               Analytiikka
             </TabsTrigger>
+            <TabsTrigger value="search-console" className="flex items-center gap-2">
+              <Search className="w-4 h-4" />
+              Search Console
+            </TabsTrigger>
             <TabsTrigger value="timed-notices" className="flex items-center gap-2">
               <Bell className="w-4 h-4" />
               Ilmoitukset
