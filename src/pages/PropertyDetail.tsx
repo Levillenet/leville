@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PropertyCard from "@/components/PropertyCard";
 import { properties, type Property } from "@/data/properties";
+import { propertyFi, locationFi, translateYearFi } from "@/data/propertyTranslationsFi";
 
 const PHONE = "+35844131313";
 const PHONE_DISPLAY = "+358 44 13 13 13";
@@ -67,8 +68,13 @@ const PropertyDetail = () => {
   const ctx = groupContext[group];
   const totalBeds = property.beds + property.extraBeds;
   const canonical = `https://leville.net/majoitukset/${property.slug}`;
-  const title = `${property.name} — Levi | Leville.net`;
-  const description = truncate(property.shortDescription);
+  const fi = propertyFi[property.slug];
+  const displayName = fi?.name ?? property.name;
+  const displayDescription = fi?.shortDescription ?? property.shortDescription;
+  const displayLocation = locationFi[property.location] ?? property.location;
+  const displayYear = translateYearFi(property.yearBuiltOrRenovated);
+  const title = `${displayName} — Levi | Leville.net`;
+  const description = truncate(displayDescription);
 
   const related = properties
     .filter((p) => groupOf(p) === group && p.id !== property.id)
@@ -77,9 +83,9 @@ const PropertyDetail = () => {
   const lodgingSchema = {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
-    name: property.name,
+    name: displayName,
     url: canonical,
-    description: property.shortDescription,
+    description: displayDescription,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Levi",
@@ -105,7 +111,7 @@ const PropertyDetail = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Etusivu", item: "https://leville.net/" },
       { "@type": "ListItem", position: 2, name: "Majoitukset", item: "https://leville.net/majoitukset" },
-      { "@type": "ListItem", position: 3, name: property.name, item: canonical },
+      { "@type": "ListItem", position: 3, name: displayName, item: canonical },
     ],
   };
 
@@ -139,15 +145,15 @@ const PropertyDetail = () => {
             <section className="mb-8 md:mb-12">
               <div className="flex flex-wrap items-center gap-2 mb-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 text-primary" />
-                <span>{property.location}</span>
+                <span>{displayLocation}</span>
                 <span>·</span>
                 <span>{ctx.distance}</span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-                {property.name}
+                {displayName}
               </h1>
               <p className="text-base sm:text-lg text-muted-foreground max-w-3xl leading-relaxed">
-                {property.shortDescription}
+                {displayDescription}
               </p>
 
               {/* Hero image / placeholder */}
@@ -155,7 +161,7 @@ const PropertyDetail = () => {
                 {property.heroImage ? (
                   <OptimizedImage
                     src={property.heroImage}
-                    alt={property.name}
+                    alt={displayName}
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -195,8 +201,8 @@ const PropertyDetail = () => {
                 <SpecBox icon={Users} label="Vieraita" value={property.guestRange} />
                 <SpecBox icon={Bath} label="Kylpyhuoneet" value={property.bathrooms} />
                 {property.wc !== "-" && <SpecBox icon={Bath} label="Erillinen WC" value={property.wc} />}
-                <SpecBox icon={Calendar} label="Rakennusvuosi / remontti" value={property.yearBuiltOrRenovated} />
-                <SpecBox icon={MapPin} label="Sijainti" value={property.location} />
+                {displayYear && <SpecBox icon={Calendar} label="Rakennusvuosi / remontti" value={displayYear} />}
+                <SpecBox icon={MapPin} label="Sijainti" value={displayLocation} />
               </div>
             </section>
 
