@@ -21,7 +21,7 @@ const TODO: PropertyEnTranslation = {
 };
 
 export const propertyEn: Record<string, PropertyEnTranslation> = {
-  "front-slope-5a2": {
+  "zero-point-5a2": {
     name: "Front Slope 5A2 — Alpine Apartment in Levi Center",
     shortDescription:
       "Fully renovated (June 2024) 2-bedroom alpine apartment in Levi Center, in the Zero Point area, ~200 m from the Front Slope (Eturinne). Sleeps 6, with private sauna, drying room, heat-storing fireplace, balcony and air-source heat pump. Pets welcome.",
@@ -42,7 +42,7 @@ An air-source heat pump handles steady warmth in winter and cooling in summer.
 **What's included** Fully equipped kitchen with dishwasher, oven, microwave and coffee machine. Private sauna. Heat-storing fireplace. Drying room and drying cupboard. Balcony. Free WiFi and TV. Highchair and child safety gates available on request. Pets welcome.`,
   },
 
-  "front-slope-5b2": {
+  "zero-point-5b2": {
     name: "Front Slope 5B2 — Two-Floor Alpine Apartment, Levi Center",
     shortDescription:
       "65 m² two-floor alpine apartment on Hiihtäjänkuja, ~200 m from the Front Slope (Eturinne). Two bedrooms upstairs plus a downstairs lounge with PlayStation and 150 cm sofa bed. Private sauna, drying room and heat-storing fireplace. Renovated 2024. Pets welcome.",
@@ -59,7 +59,7 @@ A two-floor layout in the centre of Levi is rare, and that's the practical USP h
 **What's included** Fully equipped kitchen with dishwasher, oven, microwave, coffee machine and ice maker. Private sauna. Heat-storing fireplace. Drying room and drying cupboard. Balcony. Free WiFi and TV. PlayStation downstairs. Highchair and child safety gates available on request. Pets welcome.`,
   },
 
-  "front-slope-5b5-penthouse": {
+  "zero-point-5b5-penthouse": {
     name: "Front Slope 5B5 Penthouse — 4-Bedroom, Levi Center",
     shortDescription:
       "100 m² penthouse on Hiihtäjänkuja, ~200 m from the Front Slope (Eturinne). 4 bedrooms, 9 beds, 3 balconies, slope-view sauna and a 10-person dining table. Heat-storing fireplace with firewood included. Renovated 2024. Pets welcome.",
@@ -511,9 +511,9 @@ export const locationEn: Record<string, string> = {
 
 // Per-slug location overrides (English), used when the generic location label is misleading.
 export const locationEnBySlug: Record<string, string> = {
-  "front-slope-5a2": "Levi Front Slope, Zero Point area",
-  "front-slope-5b2": "Levi Front Slope, Zero Point area",
-  "front-slope-5b5-penthouse": "Levi Front Slope, Zero Point area",
+  "zero-point-5a2": "Levi Front Slope, Zero Point area",
+  "zero-point-5b2": "Levi Front Slope, Zero Point area",
+  "zero-point-5b5-penthouse": "Levi Front Slope, Zero Point area",
 };
 
 export const translateYearEn = (s: string): string => {

@@ -15,9 +15,9 @@ import type { Language } from "@/translations";
  * Do NOT add a language code here unless a real translation file exists.
  */
 export const propertyTranslationAvailability: Record<string, Language[]> = {
-  "front-slope-5a2": ["fi", "en"],
-  "front-slope-5b2": ["fi", "en"],
-  "front-slope-5b5-penthouse": ["fi", "en"],
+  "zero-point-5a2": ["fi", "en"],
+  "zero-point-5b2": ["fi", "en"],
+  "zero-point-5b5-penthouse": ["fi", "en"],
   "karhupirtti": ["fi", "en"],
   "skistar-211": ["fi", "en"],
   "skistar-212": ["fi", "en"],
