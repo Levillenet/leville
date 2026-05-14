@@ -715,6 +715,12 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
                 </div>
               </section>
             )}
+
+            <PropertyCrossLinks
+              location={property.location}
+              currentPropertyId={property.id}
+              lang={activeLang}
+            />
           </div>
         </main>
         <Footer />
