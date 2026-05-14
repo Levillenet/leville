@@ -81,6 +81,7 @@ const LeviVsSaariselka = lazy(() => import("./pages/opas/LeviVsSaariselka"));
 const LeviVsSaariselkaComparison = lazy(() => import("./pages/guide/LeviVsSaariselkaComparison"));
 const SaunaLevilla = lazy(() => import("./pages/opas/SaunaLevilla"));
 const MajoitusLevilla = lazy(() => import("./pages/opas/MajoitusLevilla"));
+const VuokraMokitLevi = lazy(() => import("./pages/opas/VuokraMokitLevi"));
 const LeviFAQ = lazy(() => import("./pages/guide/LeviFAQ"));
 const VappuLevilla = lazy(() => import("./pages/opas/VappuLevilla"));
 const FinnishSaunaLevi = lazy(() => import("./pages/guide/FinnishSaunaLevi"));
@@ -417,6 +418,8 @@ const App = () => {
               <Route path="/opas/levi-vs-saariselka" element={<LeviVsSaariselka />} />
               <Route path="/opas/sauna-levilla" element={<SaunaLevilla />} />
               <Route path="/opas/majoitus-levilla" element={<MajoitusLevilla />} />
+              <Route path="/opas/vuokramokit-levi" element={<VuokraMokitLevi lang="fi" />} />
+              <Route path="/en/guides/cabins-in-levi" element={<VuokraMokitLevi lang="en" />} />
               <Route path="/levi/ukk" element={<LeviFAQ lang="fi" />} />
               <Route path="/en/levi/faq" element={<LeviFAQ lang="en" />} />
               <Route path="/opas/lapin-sanasto" element={<LaplandGlossary />} />

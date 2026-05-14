@@ -56,13 +56,13 @@ export const en = {
   },
   majoitukset: {
     meta: {
-      title: `Levi Accommodation ${new Date().getFullYear()} — Apartments & Cabins in Levi Centre`,
-      description: "27 apartments and cabins in Levi centre next to slopes. Book directly for the best price — same properties as on Booking.com.",
-      keywords: "Levi accommodation, Levi apartments, Levi cabins, accommodation in Levi",
+      title: `Levi Accommodation ${new Date().getFullYear()} — 27 Apartments & Cabins in Levi Centre`,
+      description: "Accommodation in Levi centre: 27 cabins and apartments within walking distance of slopes and services. Book directly without booking fees.",
+      keywords: "Levi accommodation, Levi apartments, Levi cabins, accommodation in Levi, cabin rental Levi, Levi cabins for rent",
       canonical: "https://leville.net/en/accommodations"
     },
-    title: "Accommodation in Levi – Apartments & Cabins in Levi Center",
-    subtitle: "Quality accommodation options in the heart of Levi. Choose your perfect destination and enjoy the magical nature of Lapland.",
+    title: "Accommodation in Levi Centre – 27 Apartments and Cabins, Book Direct",
+    subtitle: "27 quality cabins and apartments in the heart of Levi, walking distance from slopes and services. Book directly without booking fees.",
     bookCta: "Book your holiday now",
     amenitiesTitle: "In all our accommodations",
     accommodations: [
