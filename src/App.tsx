@@ -217,6 +217,13 @@ const App = () => {
               {/* Finnish routes (default) */}
               <Route path="/" element={<Index />} />
               <Route path="/majoitukset" element={<Majoitukset />} />
+              {/* SEO: 301 redirects from old front-slope-* slugs to new zero-point-* slugs */}
+              <Route path="/majoitukset/front-slope-5a2" element={<Navigate to="/majoitukset/zero-point-5a2" replace />} />
+              <Route path="/majoitukset/front-slope-5b2" element={<Navigate to="/majoitukset/zero-point-5b2" replace />} />
+              <Route path="/majoitukset/front-slope-5b5-penthouse" element={<Navigate to="/majoitukset/zero-point-5b5-penthouse" replace />} />
+              <Route path="/en/accommodations/front-slope-5a2" element={<Navigate to="/en/accommodations/zero-point-5a2" replace />} />
+              <Route path="/en/accommodations/front-slope-5b2" element={<Navigate to="/en/accommodations/zero-point-5b2" replace />} />
+              <Route path="/en/accommodations/front-slope-5b5-penthouse" element={<Navigate to="/en/accommodations/zero-point-5b5-penthouse" replace />} />
               <Route path="/majoitukset/:slug" element={<PropertyDetail />} />
               <Route path="/en/accommodations/:slug" element={<PropertyDetail lang="en" />} />
               <Route path="/vuokramokit/:streetSlug" element={<StreetHub />} />

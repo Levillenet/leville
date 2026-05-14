@@ -30,7 +30,7 @@ export interface Property {
 export const properties: Property[] = [
   {
     id: "5a2",
-    slug: "front-slope-5a2",
+    slug: "zero-point-5a2",
     images: [
       "/hiihtajankuja/exterior.jpg",
       "/hiihtajankuja/01.jpg",
@@ -67,7 +67,7 @@ export const properties: Property[] = [
   },
   {
     id: "5b2",
-    slug: "front-slope-5b2",
+    slug: "zero-point-5b2",
     images: [
       "/hiihtajankuja/05.jpg",
       "/hiihtajankuja/exterior.jpg",
@@ -104,7 +104,7 @@ export const properties: Property[] = [
   },
   {
     id: "5b5",
-    slug: "front-slope-5b5-penthouse",
+    slug: "zero-point-5b5-penthouse",
     images: [
       "/hiihtajankuja/exterior.jpg",
       "/hiihtajankuja/b5/01.jpg",

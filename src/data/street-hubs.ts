@@ -40,9 +40,9 @@ export const streetHubs: StreetHub[] = [
       "Kaikki Leville.netin Hiihtäjänkujan kohteet voi varata suoraan ilman välityspalkkioita. Vapaat ajat ja hinnat näkyvät reaaliaikaisesti.",
     ],
     propertySlugs: [
-      "front-slope-5a2",
-      "front-slope-5b2",
-      "front-slope-5b5-penthouse",
+      "zero-point-5a2",
+      "zero-point-5b2",
+      "zero-point-5b5-penthouse",
     ],
     facts: [
       { label: "Eturinteen rinteille", value: "n. 200 m" },

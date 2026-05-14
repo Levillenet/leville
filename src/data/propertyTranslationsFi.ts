@@ -9,7 +9,7 @@ export interface PropertyFiTranslation {
 }
 
 export const propertyFi: Record<string, PropertyFiTranslation> = {
-  "front-slope-5a2": {
+  "zero-point-5a2": {
     name: "Alppihuoneisto 5A2 – Hiihtäjänkuja",
     shortDescription:
       "Täysin remontoitu (kesäkuu 2024) kahden makuuhuoneen alppityylinen huoneisto Levin keskustassa Zero Point -alueella, n. 200 m Eturinteeltä. Varaava takka, kaksi uusittua kylpyhuonetta, kuivaushuone ja parveke. Ilmalämpöpumppu. Lemmikit sallittu.",
@@ -30,7 +30,7 @@ Ilmalämpöpumppu tasaiseen lämpöön talvella ja viilennykseen kesällä.
 **Erinomainen sijainti Levillä**
 Kun kaikki on lähellä, lomastasi tulee helpompi ja nautinnollisempi. Laskettelurinteet, hiihtoladut, kaupat ja ravintolat ovat kaikki kävelyetäisyydellä. Saapuminen on myös helppoa – huoneistoon pääsee vain yhden matalan portaan kautta.`,
   },
-  "front-slope-5b2": {
+  "zero-point-5b2": {
     name: "Alppihuoneisto 5B2 – Hiihtäjänkuja",
     shortDescription:
       "65 m² alppityylinen huoneisto Levin keskustassa Zero Point -alueella, n. 200 m Eturinteeltä. Täysin remontoitu 2024. Alakerran olohuoneessa PlayStation ja 150 cm vuodesohva. Oma sauna, kuivaushuone ja varaava takka. Lemmikit sallittu.",
@@ -47,7 +47,7 @@ Harvinainen löytö Levin keskustasta: tämä tilava 65 m²:n alppityylinen huon
 **Kaikki mukavan oleskelun takaamiseksi sisältyy hintaan** Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja jääpalakone. Oma sauna ja takka. Oma kuivaushuone ja kuivauskaappi. Parveke. Ilmainen WiFi ja TV. Syöttötuoli ja vauvan turvaportit saatavilla perheille.`,
   
   },
-  "front-slope-5b5-penthouse": {
+  "zero-point-5b5-penthouse": {
     name: "Penthouse 5B5 – Hiihtäjänkuja",
     shortDescription:
       "100 m² penthouse alppityylisessä talossa Levin keskustassa Zero Point -alueella, n. 200 m Eturinteeltä. 4 makuuhuonetta, 3 parveketta ja sauna. Varaava takka, 10 hengen ruokapöytä. Remontoitu 2021. Lemmikit sallittu.",
@@ -543,9 +543,9 @@ export const locationFi: Record<string, string> = {
 
 // Per-slug location overrides (Finnish), used when the generic location label is misleading.
 export const locationFiBySlug: Record<string, string> = {
-  "front-slope-5a2": "Levin Eturinne, Zero Point -alue",
-  "front-slope-5b2": "Levin Eturinne, Zero Point -alue",
-  "front-slope-5b5-penthouse": "Levin Eturinne, Zero Point -alue",
+  "zero-point-5a2": "Levin Eturinne, Zero Point -alue",
+  "zero-point-5b2": "Levin Eturinne, Zero Point -alue",
+  "zero-point-5b5-penthouse": "Levin Eturinne, Zero Point -alue",
 };
 
 export const translateYearFi = (s: string): string => {
