@@ -307,7 +307,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                   : [
                       {
                         title: "Front Slope alpine apartments",
-                        subtitle: "Levi Eturinne, Zero Point area, ~200 m from the front slope — 3 properties",
+                        subtitle: "Front Slope (Eturinne), Zero Point area, ~200 m from the lifts — 3 properties",
                         items: properties.filter((p) => ["5a2", "5b2", "5b5"].includes(p.id)),
                       },
                       {
