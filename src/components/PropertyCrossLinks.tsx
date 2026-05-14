@@ -68,8 +68,8 @@ const ui = {
 // Per-location pick of 2 concrete properties to cross-link to.
 const similarPicksByLocation: Record<Location, string[]> = {
   "Front Slope": ["glacier-a1", "karhupirtti"],
-  "Glacier": ["front-slope-5a2", "karhupirtti"],
-  "Levi Center": ["front-slope-5a2", "glacier-a1"],
+  "Glacier": ["zero-point-5a2", "karhupirtti"],
+  "Levi Center": ["zero-point-5a2", "glacier-a1"],
 };
 
 const PropertyCrossLinks = ({ location, currentPropertyId, lang }: Props) => {
@@ -78,7 +78,7 @@ const PropertyCrossLinks = ({ location, currentPropertyId, lang }: Props) => {
 
   // Resolve concrete similar properties; filter out current; fall back if needed.
   const picks = similarPicksByLocation[location].filter((id) => id !== currentPropertyId);
-  const fallback = ["front-slope-5a2", "glacier-a1", "karhupirtti"].filter(
+  const fallback = ["zero-point-5a2", "glacier-a1", "karhupirtti"].filter(
     (id) => id !== currentPropertyId && !picks.includes(id),
   );
   const finalPicks = [...picks, ...fallback].slice(0, 2);
