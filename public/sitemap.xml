@@ -5121,4 +5121,41 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/accommodations/glacier-b4-penthouse" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/accommodations/glacier-b4-penthouse" />
   </url>
+
+  <url>
+    <loc>https://leville.net/varausehdot</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/booking-terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/booking-terms" />
+  </url>
+  <url>
+    <loc>https://leville.net/en/booking-terms</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/varausehdot" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/booking-terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/booking-terms" />
+  </url>
+  <url>
+    <loc>https://leville.net/tietosuoja</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/tietosuoja" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/privacy" />
+  </url>
+  <url>
+    <loc>https://leville.net/en/privacy</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/tietosuoja" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/privacy" />
+  </url>
 </urlset>
