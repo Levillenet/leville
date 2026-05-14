@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PropertyCard from "@/components/PropertyCard";
+import PropertyCrossLinks from "@/components/PropertyCrossLinks";
 import PropertyBookingWidget from "@/components/PropertyBookingWidget";
 import { properties, type Property } from "@/data/properties";
 import { propertyFi, locationFi, locationFiBySlug, translateYearFi } from "@/data/propertyTranslationsFi";
@@ -714,6 +715,12 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
                 </div>
               </section>
             )}
+
+            <PropertyCrossLinks
+              location={property.location}
+              currentPropertyId={property.id}
+              lang={activeLang}
+            />
           </div>
         </main>
         <Footer />
