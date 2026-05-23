@@ -881,7 +881,7 @@ export const properties: Property[] = [
       "/glacier/a4-a6/12.jpg",
       "/glacier/a4-a6/13.jpg"
     ],
-    heroImage: "/glacier/a4-a6/02.jpg",
+    heroImage: "/glacier/exterior-a.jpg",
     name: "Levi Glacier Apartments A6",
     bookingUrl: "https://app.moder.fi/levillenet/3901?step=1",
     sqm: 72,

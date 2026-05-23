@@ -1,49 +1,25 @@
-## Yhteenveto
+## Ongelma
 
-Lisätään `PropertyDetail`-sivun alaosaan kontekstuaalinen ristilinkkilohko, joka jakaa SEO-arvoa Levi-oppaaseen, aktiviteetteihin ja muihin majoituksiin. Tukee FI ja EN.
+Kuvakaappauksessa Levi Glacier A6:n pääkuva on pesuhuone (`/glacier/a4-a6/02.jpg`). A4:n pääkuva on saunan kuva (`/glacier/a4-a6/01.jpg`) — myös vähemmän myyvä. Pääkuva tulee kentästä `heroImage` `src/data/properties.ts`-tiedostossa, jota `PropertyCard` näyttää listauksissa.
 
-## Mitä rakennetaan
+## Korjaus
 
-**Uusi komponentti:** `src/components/PropertyCrossLinks.tsx` — renderöityy `PropertyDetail.tsx`-sivun loppuun ennen footeria. Saa propsit `location` ja `currentPropertyId`.
+1. **Vaihda A6:n heroImage** (`properties.ts` rivi 884) — pois pesuhuoneesta `/glacier/a4-a6/02.jpg`. Vaihtoehdot samasta kuvasarjasta: jokin oleskelutilan/keittiön kuva (esim. `/glacier/a4-a6/03.jpg`–`13.jpg`), tai turvallinen ulkokuva `/glacier/exterior-a.jpg` (jota A1/A3/A5 jo käyttävät).
 
-### Lohko 1 — Suunnittele Levi-lomasi (4 linkkiä)
-- Miten Leville pääsee
-- Levi-opas / Levi Guide -hub
-- Lomaplanneri
-- Sää & lumitiedot
+2. **Vaihda A4:n heroImage samalla** (rivi 806) — nykyinen `01.jpg` on sauna. Käytä esim. oleskelutilan kuvaa tai `/glacier/exterior-a.jpg`. (Sauna ei ole pesuhuone, mutta käyttäjän käsky on selvä: korttien pitäisi näyttää myyvä pääkuva — varmistetaan että pesuhuonetta ei käytetä missään.)
 
-### Lohko 2 — Tekemistä Levillä (4 linkkiä)
-- Top winter activities
-- Husky safari -vinkit
-- Moottorikelkkasafari -vinkit
-- Hiihto- ja patikkareitit
+3. **Tarkista loput hero-kuvat** käymällä läpi kaikki `heroImage`-rivit. Tunnistettavat riskit:
+   - `/skistar/kolmio/02.jpg`, `/skistar/kaksio/02.jpg`, `/skistar/yksio/02.jpg` jne. — avaan ne tarkistaakseni, onko kyseessä pesuhuone. Jos on, vaihdan oleskelu-/keittiö-/ulkokuvaan.
+   - `/glacier/a2/01.jpg`, `/glacier/b1-b2/01.jpg`, `/glacier/b3-b4/01.jpg`, `/hiihtajankuja/05.jpg` — sama tarkistus.
 
-### Lohko 3 — Samankaltaisia majoituksia (sekoitus, 3 linkkiä)
-Jokaiseen huoneistoon **1 hub-linkki + 2 konkreettista huoneistoa**, jotka vaihtuvat `location`:n mukaan:
+4. **Sääntö muistiin** (`mem://`): "Älä koskaan käytä pesuhuone-/kylpyhuonekuvaa majoituksen pääkuvana (heroImage) propertyCard-listauksissa. Suosi ulko-, oleskelu- tai keittiökuvaa."
 
-- **Front Slope -huoneisto** → hub: Apartments-hub · konkreetit: 1 Glacier + Karhupirtti
-- **Glacier-huoneisto** → hub: Penthouse-hub · konkreetit: 1 Front Slope + 1 toinen Glacier
-- **Levi Center -huoneisto** → hub: Large groups -hub · konkreetit: 1 Front Slope + 1 Glacier
+## Tekninen kuvaus
 
-Lisäksi nykyinen huoneisto (`currentPropertyId`) suodatetaan pois ettei linkki osoita itseensä.
+- Tiedosto: `src/data/properties.ts` — vain `heroImage`-kentän arvon vaihto kohteilla, joiden hero osoittaa pesuhuonekuvaan.
+- Ei muutoksia `PropertyCard`-komponenttiin eikä `images[]`-järjestykseen — pesuhuonekuva pysyy galleriassa, vain pääkuva vaihtuu.
+- Tarkistus tapahtuu avaamalla epäselvät hero-kuvat (`code--view public/...`) ja vaihtamalla heroImage tarpeen mukaan.
 
-## Tekniset yksityiskohdat
+## Vahvistettavaa
 
-```text
-UUSI:    src/components/PropertyCrossLinks.tsx   (~150 riviä, FI/EN, semantic tokenit)
-MUOKKAA: src/pages/PropertyDetail.tsx            (1 import + 1 komponenttitag ennen Footeria)
-```
-
-- **i18n**: kielitunnistus samalla logiikalla kuin `PropertyDetail`-sivulla nyt (FI vs EN locale).
-- **Linkit kunnioittavat hreflangia**: FI-sivulla FI-URLit, EN-sivulla EN-URLit. Ei ghost-URLeja.
-- **Tyyli**: 3 saraketta desktopilla / 1 mobilella, samat semantic tokenit kuin `ReadNextSection`. Ei kovakoodattuja värejä.
-- **Ei sitemap-, JSON-LD- eikä properties.ts-muutoksia.**
-- **Ei ulkoisia linkkejä** → ei `target="_blank"`.
-
-## Mihin EI kosketa
-
-- `properties.ts` (datatasolla ei muutoksia)
-- käännöstiedostot `src/translations/*` (komponentin sisäinen FI/EN)
-- `sitemap.xml`, `robots.txt`
-- JSON-LD-generointi
-- muut sivut kuin `PropertyDetail.tsx`
+Onko ok että vaihdan A4:n hero-kuvan myös (saunasta esim. ulkokuvaan tai oleskelutilaan), vai haluatko että vain pesuhuonekuvat (A6 + mahd. muut) vaihdetaan?
