@@ -1,29 +1,40 @@
-# Korvataan Winter10-pilleri Levi Golf -bannerilla
+## Toteutus: vaiheet 1 ja 2
 
-**Tiedosto:** `src/pages/Majoitukset.tsx` (rivit 204–217)
+Tehdään pelkkiä on-page-tekstimuutoksia (otsikot, meta, title, H1) suomenkieliseen versioon. Ei uusia sivuja, ei reittimuutoksia, ei uusia komponentteja.
 
-Poistetaan nykyinen pieni "Käytä koodia winter10 – 10% alennus keväälle 2026!" -pilleri ja korvataan se isommalla kortti-bannerilla.
+### Muutos 1 — `/majoitukset` (FI) `src/translations/fi.ts` rivit 57–66
 
-## Bannerin sisältö
+- **Meta title** lyhennetään alle 60 merkkiin ja kohdistetaan rahaa tuovaan hakuun: `"Majoitus Levillä {vuosi} | Mökit & huoneistot keskustassa"`
+- **Meta description** alkaa "Majoitus Levillä —" ja sisältää saunalliset, vuokramökit, keskusta, ilman välityspalkkioita
+- **Keywords** lisätään "levi huoneistot" ja "levi hotelli vaihtoehto"
+- **H1 (title)**: `"Majoitus Levillä — mökit ja huoneistot Levin keskustassa"` (lyhyempi, money keyword alussa, ei "27" jonka pitää päivittää käsin)
+- **Subtitle**: vahvistetaan mainitsemaan saunalliset + ravintolat/palvelut
+- Sivun olemassa oleva 300 sanan intro (Majoitukset.tsx rivit 150–174) on jo hyvä — säilytetään
 
-- **Otsikko:** "Etua asiakkaillemme!" (käännetty 7 kielelle)
-- **Teksti:** "Tarjoamme majoitusasiakkaillemme Levi Golf -kierrokset hintaan 25 € / kierros. Varaukset ja tiedustelut: info@leville.net"
-- **CTA-nappi:** "Ota yhteyttä" → `mailto:info@leville.net`
-- Sähköpostiosoite myös klikattavana linkkinä leipätekstissä
+### Muutos 2 — Etusivu (FI)
 
-## Tyyli
+**`src/translations/fi.ts` rivit 2–14** (Hero):
+- title: `"Majoitus Levillä —"` (oli "Huoneistot Levin")
+- titleHighlight: `"mökit ja huoneistot keskustassa"` (oli "parhailla paikoilla")
+- subtitle: vahvistetaan mainitsemaan "vuokramökit" ja "huoneistot" eksplisiittisesti
 
-- `max-w-3xl mx-auto`, `rounded-2xl`, gradient-tausta `from-primary/15 to-aurora-green/15`, reuna `border-primary/30`, padding `p-6 md:p-8`
-- Vasemmalla pyöreä ikoni-tausta + lucide `Flag`-ikoni primary-värillä
-- Oikealla otsikko, kuvaus ja CTA-nappi
-- Säilytetään `ScrollReveal`-wrapperi samalla paikalla kuin nykyinen pilleri
-- Vain semanttiset design-tokenit (primary, aurora-green, foreground, muted-foreground)
+**`src/pages/Index.tsx` rivit 34–40** (FI SEO-meta):
+- title: `"Majoitus Levillä — mökit & huoneistot keskustassa | Leville"` (alle 60 merkkiä, money keyword alussa)
+- description: alkaa "Majoitus Levillä suoraan omistajalta", sisältää saunalliset, vuokramökit, ilman välityspalkkioita
+- keywords: laajennetaan: levi mökit, mökki Levi, vuokramökit Levi, levi huoneisto, levi hotelli, levin keskusta majoitus
 
-## Käännökset
+### Mitä EI muuteta
 
-Kaikki tekstit upotetaan paikallisesti `lang === "xx" ? ... : ...` -kaavalla (fi, sv, en, de, es, fr, nl) — sama tyyli kuin viereisillä lohkoilla samalla sivulla. Käännöstiedostoihin ei kosketa.
+- Muut kielet (en/sv/de/es/fr/nl) — niissä volyymit ovat pieniä, fokus FI:hen ensin
+- Sivustorakenne, reitit, komponentit, kuvat
+- /majoitukset-sivun intro-kappale (jo riittävän vahva)
+- Hero-kuvat, animaatiot, varauswidget
 
-## Mitä EI muuteta
+### Odotettu vaikutus
 
-- `Tag`-ikonin import voidaan jättää (käytössä muualla) — varmistetaan tarvittaessa, että `Flag` lisätään lucide-importteihin.
-- Hero-promo (`HeroPromoBadge`) ja admin-hallittava `PromoBanner` säilyvät ennallaan.
+- Etusivu rankkaa jo #10 haulla "majoitus levi" (12 100/kk). H1- ja title-muutos kohdistaa sivun selkeämmin tähän hakuun → odotettavissa siirtymä top 5:een 4–8 viikon sisällä uudelleenindeksoinnin jälkeen.
+- /majoitukset (joka ei tällä hetkellä rankkaa mistään) saa selkeän kohdistuksen ja alkaa kerätä pitkän hännän hakuja kuten "vuokramökit Levi", "levi mökit", "huoneisto Levin keskusta".
+
+### Jatkotoimet (eivät kuulu tähän vaiheeseen)
+
+Vaihe 3 (suomenkieliset majoitustyyppi-hubit) ja vaihe 6 (sisäinen linkitys oppaista majoitukseen) ovat seuraavat tehokkaimmat liikkeet. Tehdään, kun vaiheen 1+2 vaikutus on nähty SEO-skannissa.
