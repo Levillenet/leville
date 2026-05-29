@@ -474,6 +474,23 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
               <Link to={t.accommodationsHref}>Katso majoitukset</Link>
             </Button>
           </section>
+
+          {(lang === "fi" || lang === "en") && (
+            <MajoitusCallout
+              lang={lang === "en" ? "en" : "fi"}
+              variant="compact"
+              title={
+                lang === "en"
+                  ? "Want to be within walking distance of these restaurants?"
+                  : "Haluatko majoittua kävelymatkan päässä näistä ravintoloista?"
+              }
+              body={
+                lang === "en"
+                  ? "Our apartments are right in Levi Center — most restaurants are 2–5 minutes on foot."
+                  : "Huoneistomme sijaitsevat Levin keskustassa — useimmat ravintolat ovat 2–5 minuutin kävelymatkan päässä."
+              }
+            />
+          )}
         </div>
       </main>
 
