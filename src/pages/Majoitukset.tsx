@@ -10,7 +10,7 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building, ShieldCheck, KeyRound, LogOut, Bed, MapPin } from "lucide-react";
+import { Home, Users, Mountain, Wifi, Car, Snowflake, Download, LucideIcon, Tag, ArrowRight, Building, ShieldCheck, KeyRound, LogOut, Bed, MapPin, Flag } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
@@ -202,19 +202,51 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
             <ModerBookingWidget lang={lang} />
 
             <ScrollReveal>
-              <div className="text-center mb-10 md:mb-16">
-                <a 
-                  href={lang === "fi" ? "/ajankohtaista" : lang === "en" ? "/en/news" : lang === "nl" ? "/nl/nieuws" : `/${lang}/news`}
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/20 to-aurora-green/20 backdrop-blur-sm border border-primary/40 rounded-full px-4 py-2 hover:border-primary/60 transition-colors group"
-                >
-                  <Tag className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-semibold text-foreground">
-                    {lang === "nl" ? "Gebruik code" : isEnglish ? "Use code" : "Käytä koodia"} <span className="text-primary">winter10</span> {lang === "nl" ? "– 10% korting op voorjaar 2026!" : isEnglish ? "– 10% off spring 2026!" : "– 10% alennus keväälle 2026!"}
-                  </span>
-                  <ArrowRight className="w-3.5 h-3.5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
+              <div className="max-w-3xl mx-auto mb-10 md:mb-16 px-2">
+                <div className="rounded-2xl bg-gradient-to-br from-primary/15 to-aurora-green/15 border border-primary/30 p-6 md:p-8 shadow-sm">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                    <div className="shrink-0 w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center">
+                      <Flag className="w-7 h-7 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+                        {lang === "fi" ? "Etua asiakkaillemme!"
+                          : lang === "sv" ? "Förmån för våra gäster!"
+                          : lang === "de" ? "Vorteil für unsere Gäste!"
+                          : lang === "es" ? "¡Ventaja para nuestros huéspedes!"
+                          : lang === "fr" ? "Avantage pour nos clients !"
+                          : lang === "nl" ? "Voordeel voor onze gasten!"
+                          : "A perk for our guests!"}
+                      </h3>
+                      <p className="text-sm sm:text-base text-muted-foreground mb-4">
+                        {lang === "fi" ? "Tarjoamme majoitusasiakkaillemme Levi Golf -kierrokset hintaan 25 € / kierros. Varaukset ja tiedustelut: "
+                          : lang === "sv" ? "Vi erbjuder våra boendegäster Levi Golf-rundor för 25 € / runda. Bokning och förfrågningar: "
+                          : lang === "de" ? "Wir bieten unseren Unterkunftsgästen Levi Golf-Runden für 25 € / Runde. Buchungen und Anfragen: "
+                          : lang === "es" ? "Ofrecemos a nuestros huéspedes rondas de Levi Golf por 25 € / ronda. Reservas y consultas: "
+                          : lang === "fr" ? "Nous proposons à nos clients des parcours Levi Golf à 25 € / parcours. Réservations et demandes : "
+                          : lang === "nl" ? "Wij bieden onze gasten Levi Golf-rondes voor 25 € / ronde. Reserveringen en aanvragen: "
+                          : "We offer our accommodation guests Levi Golf rounds for €25 / round. Bookings and inquiries: "}
+                        <a href="mailto:info@leville.net" className="text-primary font-semibold hover:underline">info@leville.net</a>
+                      </p>
+                      <a
+                        href="mailto:info@leville.net"
+                        className="inline-flex items-center gap-2 bg-primary text-primary-foreground rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-primary/90 transition-colors"
+                      >
+                        {lang === "fi" ? "Ota yhteyttä"
+                          : lang === "sv" ? "Kontakta oss"
+                          : lang === "de" ? "Kontaktieren Sie uns"
+                          : lang === "es" ? "Contáctanos"
+                          : lang === "fr" ? "Contactez-nous"
+                          : lang === "nl" ? "Neem contact op"
+                          : "Contact us"}
+                        <ArrowRight className="w-4 h-4" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </ScrollReveal>
+
 
             {/* Section heading */}
             <ScrollReveal>
