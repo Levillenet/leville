@@ -504,7 +504,7 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
     image: property.heroImage ? `https://leville.net${property.heroImage}` : "https://leville.net/og-image.png",
     numberOfRooms: property.bedrooms || undefined,
     ...(property.bedrooms ? { numberOfBedrooms: property.bedrooms } : {}),
-    ...(property.size ? { floorSize: { "@type": "QuantitativeValue", value: property.size, unitCode: "MTK" } } : {}),
+    ...(property.sqm ? { floorSize: { "@type": "QuantitativeValue", value: property.sqm, unitCode: "MTK" } } : {}),
     occupancy: { "@type": "QuantitativeValue", maxValue: property.maxGuests },
     petsAllowed: !!property.petsAllowed,
     amenityFeature: [
