@@ -601,6 +601,24 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
           </div>
         </main>
 
+        {(lang === "fi" || lang === "en") && (
+          <div className="container mx-auto px-4">
+            <MajoitusCallout
+              lang={lang === "en" ? "en" : "fi"}
+              title={
+                lang === "en"
+                  ? "Best chance to see auroras: stay overnight in Levi"
+                  : "Paras tilaisuus nähdä revontulet: yövy Levillä"
+              }
+              body={
+                lang === "en"
+                  ? "Auroras appear unpredictably between 9 PM and 2 AM. Staying overnight in our Levi apartments gives you the time window to actually see them — no driving back to a hotel."
+                  : "Revontulet näkyvät arvaamattomasti ilta-yhdeksän ja kahden välillä. Yöpyminen Levin huoneistossamme antaa aikaikkunan oikeasti nähdä ne — ei tarvitse ajaa takaisin hotelliin."
+              }
+            />
+          </div>
+        )}
+
         <PageCTA lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
