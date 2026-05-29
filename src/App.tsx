@@ -19,6 +19,7 @@ const Majoitukset = lazy(() => import("./pages/Majoitukset"));
 const PropertyDetail = lazy(() => import("./pages/PropertyDetail"));
 const StreetHub = lazy(() => import("./pages/StreetHub"));
 const MokitLevilla = lazy(() => import("./pages/MokitLevilla"));
+const LevinKeskustahuoneistot = lazy(() => import("./pages/LevinKeskustahuoneistot"));
 const Ajankohtaista = lazy(() => import("./pages/Ajankohtaista"));
 const Levi = lazy(() => import("./pages/Levi"));
 const JouluLapissa = lazy(() => import("./pages/JouluLapissa"));
@@ -228,6 +229,7 @@ const App = () => {
               <Route path="/en/accommodations/:slug" element={<PropertyDetail lang="en" />} />
               <Route path="/vuokramokit/:streetSlug" element={<StreetHub />} />
               <Route path="/mokit-levilla" element={<MokitLevilla />} />
+              <Route path="/majoitus/levin-keskustahuoneistot" element={<LevinKeskustahuoneistot />} />
               <Route path="/opas/autolla-ajaminen-lapissa" element={<DrivingInLapland />} />
               <Route path="/ajankohtaista" element={<Ajankohtaista />} />
               <Route path="/levi" element={<Levi />} />
