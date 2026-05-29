@@ -452,8 +452,19 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
   const longDescription = tr?.longDescription;
   const displayLocation = locationBySlug[property.slug] ?? locationMap[property.location] ?? property.location;
   const displayYear = yearFn(property.yearBuiltOrRenovated);
-  const title = `${displayName} — Levi | Leville.net`;
+  // Parse "Hiihtäjänkuja 5, 99130 Levi" → { street, postalCode }
+  const addressQuery = groupAddress[group]?.query ?? "";
+  const addressMatch = addressQuery.match(/^(.+?),\s*(\d{5})\s+(.+)$/);
+  const streetAddress = addressMatch?.[1] ?? groupAddress[group]?.label ?? "";
+  const postalCode = addressMatch?.[2] ?? "99130";
+  const streetShort = streetAddress.split(",")[0].trim();
+  const guestLabel = activeLang === "en" ? "guests" : "hlö";
+  const titleSuffix = streetShort
+    ? `${streetShort}, Levi · ${property.maxGuests} ${guestLabel}`
+    : `Levi · ${property.maxGuests} ${guestLabel}`;
+  const title = `${displayName} — ${titleSuffix} | Leville.net`;
   const description = truncate(displayDescription);
+
 
   // Build gallery images: hero first (if set), then the rest, deduped
   const galleryImages = (() => {
