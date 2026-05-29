@@ -171,6 +171,13 @@ const Sauna = () => {
               </CardContent>
             </Card>
 
+
+          <MajoitusCallout
+            lang="fi"
+            title="Saunallinen majoitus Leviltä"
+            body="Kaikissa keskustahuoneistoissamme on oma sauna — useimmissa myös takka. Selaa saunallisia mökkejä ja huoneistoja Levin keskustassa."
+          />
+
           </div>
         </main>
         <Footer lang="fi" />
