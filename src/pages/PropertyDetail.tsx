@@ -452,8 +452,19 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
   const longDescription = tr?.longDescription;
   const displayLocation = locationBySlug[property.slug] ?? locationMap[property.location] ?? property.location;
   const displayYear = yearFn(property.yearBuiltOrRenovated);
-  const title = `${displayName} — Levi | Leville.net`;
+  // Parse "Hiihtäjänkuja 5, 99130 Levi" → { street, postalCode }
+  const addressQuery = groupAddress[group]?.query ?? "";
+  const addressMatch = addressQuery.match(/^(.+?),\s*(\d{5})\s+(.+)$/);
+  const streetAddress = addressMatch?.[1] ?? groupAddress[group]?.label ?? "";
+  const postalCode = addressMatch?.[2] ?? "99130";
+  const streetShort = streetAddress.split(",")[0].trim();
+  const guestLabel = activeLang === "en" ? "guests" : "hlö";
+  const titleSuffix = streetShort
+    ? `${streetShort}, Levi · ${property.maxGuests} ${guestLabel}`
+    : `Levi · ${property.maxGuests} ${guestLabel}`;
+  const title = `${displayName} — ${titleSuffix} | Leville.net`;
   const description = truncate(displayDescription);
+
 
   // Build gallery images: hero first (if set), then the rest, deduped
   const galleryImages = (() => {
@@ -483,22 +494,30 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
     description: displayDescription,
     address: {
       "@type": "PostalAddress",
+      ...(streetAddress ? { streetAddress } : {}),
       addressLocality: "Levi",
+      postalCode,
       addressRegion: "Lappi",
       addressCountry: "FI",
     },
     telephone: PHONE,
     image: property.heroImage ? `https://leville.net${property.heroImage}` : "https://leville.net/og-image.png",
     numberOfRooms: property.bedrooms || undefined,
+    ...(property.bedrooms ? { numberOfBedrooms: property.bedrooms } : {}),
+    ...(property.sqm ? { floorSize: { "@type": "QuantitativeValue", value: property.sqm, unitCode: "MTK" } } : {}),
     occupancy: { "@type": "QuantitativeValue", maxValue: property.maxGuests },
+    petsAllowed: !!property.petsAllowed,
     amenityFeature: [
       property.sauna && { "@type": "LocationFeatureSpecification", name: "Sauna", value: true },
       property.fireplace && { "@type": "LocationFeatureSpecification", name: "Fireplace", value: true },
       property.petsAllowed && { "@type": "LocationFeatureSpecification", name: "Pets allowed", value: true },
       property.accessible && { "@type": "LocationFeatureSpecification", name: "Wheelchair accessible", value: true },
       { "@type": "LocationFeatureSpecification", name: "WiFi", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Free parking", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Kitchen", value: true },
     ].filter(Boolean),
   };
+
 
   const homeUrl = activeLang === "en" ? "https://leville.net/en" : "https://leville.net/";
   const accommodationsUrl = `https://leville.net${t.accommodationsHref}`;
