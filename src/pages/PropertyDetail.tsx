@@ -494,22 +494,30 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
     description: displayDescription,
     address: {
       "@type": "PostalAddress",
+      ...(streetAddress ? { streetAddress } : {}),
       addressLocality: "Levi",
+      postalCode,
       addressRegion: "Lappi",
       addressCountry: "FI",
     },
     telephone: PHONE,
     image: property.heroImage ? `https://leville.net${property.heroImage}` : "https://leville.net/og-image.png",
     numberOfRooms: property.bedrooms || undefined,
+    ...(property.bedrooms ? { numberOfBedrooms: property.bedrooms } : {}),
+    ...(property.size ? { floorSize: { "@type": "QuantitativeValue", value: property.size, unitCode: "MTK" } } : {}),
     occupancy: { "@type": "QuantitativeValue", maxValue: property.maxGuests },
+    petsAllowed: !!property.petsAllowed,
     amenityFeature: [
       property.sauna && { "@type": "LocationFeatureSpecification", name: "Sauna", value: true },
       property.fireplace && { "@type": "LocationFeatureSpecification", name: "Fireplace", value: true },
       property.petsAllowed && { "@type": "LocationFeatureSpecification", name: "Pets allowed", value: true },
       property.accessible && { "@type": "LocationFeatureSpecification", name: "Wheelchair accessible", value: true },
       { "@type": "LocationFeatureSpecification", name: "WiFi", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Free parking", value: true },
+      { "@type": "LocationFeatureSpecification", name: "Kitchen", value: true },
     ].filter(Boolean),
   };
+
 
   const homeUrl = activeLang === "en" ? "https://leville.net/en" : "https://leville.net/";
   const accommodationsUrl = `https://leville.net${t.accommodationsHref}`;
