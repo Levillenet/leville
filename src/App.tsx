@@ -19,6 +19,7 @@ const Majoitukset = lazy(() => import("./pages/Majoitukset"));
 const PropertyDetail = lazy(() => import("./pages/PropertyDetail"));
 const StreetHub = lazy(() => import("./pages/StreetHub"));
 const MokitLevilla = lazy(() => import("./pages/MokitLevilla"));
+const LevinKeskustahuoneistot = lazy(() => import("./pages/LevinKeskustahuoneistot"));
 const Ajankohtaista = lazy(() => import("./pages/Ajankohtaista"));
 const Levi = lazy(() => import("./pages/Levi"));
 const JouluLapissa = lazy(() => import("./pages/JouluLapissa"));
