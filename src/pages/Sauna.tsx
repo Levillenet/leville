@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SubpageBackground from "@/components/SubpageBackground";
+import MajoitusCallout from "@/components/MajoitusCallout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Flame, Clock, Timer, Download, ThermometerSun } from "lucide-react";
