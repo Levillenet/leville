@@ -3945,6 +3945,16 @@
   </url>
 
   <url>
+    <loc>https://leville.net/majoitus/levin-keskustahuoneistot</loc>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/majoitus/levin-keskustahuoneistot" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/majoitus/levin-keskustahuoneistot" />
+    <lastmod>2026-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
     <loc>https://leville.net/opas/autolla-ajaminen-lapissa</loc>
     <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/autolla-ajaminen-lapissa" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/opas/autolla-ajaminen-lapissa" />
