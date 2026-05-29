@@ -1,25 +1,29 @@
-## Ongelma
+# Korvataan Winter10-pilleri Levi Golf -bannerilla
 
-Kuvakaappauksessa Levi Glacier A6:n pääkuva on pesuhuone (`/glacier/a4-a6/02.jpg`). A4:n pääkuva on saunan kuva (`/glacier/a4-a6/01.jpg`) — myös vähemmän myyvä. Pääkuva tulee kentästä `heroImage` `src/data/properties.ts`-tiedostossa, jota `PropertyCard` näyttää listauksissa.
+**Tiedosto:** `src/pages/Majoitukset.tsx` (rivit 204–217)
 
-## Korjaus
+Poistetaan nykyinen pieni "Käytä koodia winter10 – 10% alennus keväälle 2026!" -pilleri ja korvataan se isommalla kortti-bannerilla.
 
-1. **Vaihda A6:n heroImage** (`properties.ts` rivi 884) — pois pesuhuoneesta `/glacier/a4-a6/02.jpg`. Vaihtoehdot samasta kuvasarjasta: jokin oleskelutilan/keittiön kuva (esim. `/glacier/a4-a6/03.jpg`–`13.jpg`), tai turvallinen ulkokuva `/glacier/exterior-a.jpg` (jota A1/A3/A5 jo käyttävät).
+## Bannerin sisältö
 
-2. **Vaihda A4:n heroImage samalla** (rivi 806) — nykyinen `01.jpg` on sauna. Käytä esim. oleskelutilan kuvaa tai `/glacier/exterior-a.jpg`. (Sauna ei ole pesuhuone, mutta käyttäjän käsky on selvä: korttien pitäisi näyttää myyvä pääkuva — varmistetaan että pesuhuonetta ei käytetä missään.)
+- **Otsikko:** "Etua asiakkaillemme!" (käännetty 7 kielelle)
+- **Teksti:** "Tarjoamme majoitusasiakkaillemme Levi Golf -kierrokset hintaan 25 € / kierros. Varaukset ja tiedustelut: info@leville.net"
+- **CTA-nappi:** "Ota yhteyttä" → `mailto:info@leville.net`
+- Sähköpostiosoite myös klikattavana linkkinä leipätekstissä
 
-3. **Tarkista loput hero-kuvat** käymällä läpi kaikki `heroImage`-rivit. Tunnistettavat riskit:
-   - `/skistar/kolmio/02.jpg`, `/skistar/kaksio/02.jpg`, `/skistar/yksio/02.jpg` jne. — avaan ne tarkistaakseni, onko kyseessä pesuhuone. Jos on, vaihdan oleskelu-/keittiö-/ulkokuvaan.
-   - `/glacier/a2/01.jpg`, `/glacier/b1-b2/01.jpg`, `/glacier/b3-b4/01.jpg`, `/hiihtajankuja/05.jpg` — sama tarkistus.
+## Tyyli
 
-4. **Sääntö muistiin** (`mem://`): "Älä koskaan käytä pesuhuone-/kylpyhuonekuvaa majoituksen pääkuvana (heroImage) propertyCard-listauksissa. Suosi ulko-, oleskelu- tai keittiökuvaa."
+- `max-w-3xl mx-auto`, `rounded-2xl`, gradient-tausta `from-primary/15 to-aurora-green/15`, reuna `border-primary/30`, padding `p-6 md:p-8`
+- Vasemmalla pyöreä ikoni-tausta + lucide `Flag`-ikoni primary-värillä
+- Oikealla otsikko, kuvaus ja CTA-nappi
+- Säilytetään `ScrollReveal`-wrapperi samalla paikalla kuin nykyinen pilleri
+- Vain semanttiset design-tokenit (primary, aurora-green, foreground, muted-foreground)
 
-## Tekninen kuvaus
+## Käännökset
 
-- Tiedosto: `src/data/properties.ts` — vain `heroImage`-kentän arvon vaihto kohteilla, joiden hero osoittaa pesuhuonekuvaan.
-- Ei muutoksia `PropertyCard`-komponenttiin eikä `images[]`-järjestykseen — pesuhuonekuva pysyy galleriassa, vain pääkuva vaihtuu.
-- Tarkistus tapahtuu avaamalla epäselvät hero-kuvat (`code--view public/...`) ja vaihtamalla heroImage tarpeen mukaan.
+Kaikki tekstit upotetaan paikallisesti `lang === "xx" ? ... : ...` -kaavalla (fi, sv, en, de, es, fr, nl) — sama tyyli kuin viereisillä lohkoilla samalla sivulla. Käännöstiedostoihin ei kosketa.
 
-## Vahvistettavaa
+## Mitä EI muuteta
 
-Onko ok että vaihdan A4:n hero-kuvan myös (saunasta esim. ulkokuvaan tai oleskelutilaan), vai haluatko että vain pesuhuonekuvat (A6 + mahd. muut) vaihdetaan?
+- `Tag`-ikonin import voidaan jättää (käytössä muualla) — varmistetaan tarvittaessa, että `Flag` lisätään lucide-importteihin.
+- Hero-promo (`HeroPromoBadge`) ja admin-hallittava `PromoBanner` säilyvät ennallaan.
