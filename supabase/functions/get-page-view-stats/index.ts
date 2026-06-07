@@ -418,7 +418,8 @@ Deno.serve(async (req) => {
         total, byDate, topPages, byReferrer, byDevice, byLanguage, byCountry, byViewport, conversionEvents,
         totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
         byUtmSource, byUtmMedium, byUtmCampaign, avgScrollDepth, avgTimeOnPage,
-        topLandingPages, topExitPages,
+        topLandingPages, topExitPages, bookingClicksBySource,
+
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
