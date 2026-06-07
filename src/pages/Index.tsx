@@ -10,6 +10,8 @@ import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredDa
 const About = lazy(() => import("@/components/About"));
 const Features = lazy(() => import("@/components/Features"));
 const NewsHighlight = lazy(() => import("@/components/NewsHighlight"));
+const HomeSeoBlock = lazy(() => import("@/components/HomeSeoBlock"));
+const HomeFaq = lazy(() => import("@/components/HomeFaq"));
 // GuideTeaser replaced by GuideLinksSection + ActivitiesLinksSection for all languages
 const GuideLinksSection = lazy(() => import("@/components/GuideLinksSection"));
 const ActivitiesLinksSection = lazy(() => import("@/components/ActivitiesLinksSection"));
