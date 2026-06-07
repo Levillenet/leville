@@ -228,9 +228,9 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     <Link to="/vuokramokit/skimbaajankuja-levi" className="text-primary hover:underline">
                       Skimbaajankujalla
                     </Link>
-                    , Glacier-alppitalo{" "}
-                    <Link to="/vuokramokit/ratsastajankuja-levi" className="text-primary hover:underline">
-                      Ratsastajankuja 2:ssa
+                    , Levin keskustan suurin 10 huoneiston{" "}
+                    <Link to="/vuokramokit/glacier-apartments-levi" className="text-primary hover:underline">
+                      Glacier Apartments -alppitalo
                     </Link>{" "}
                     sekä Skistar-talon kolmiot ja studiot{" "}
                     <Link to="/vuokramokit/postintie-levi" className="text-primary hover:underline">
