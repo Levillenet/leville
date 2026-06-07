@@ -219,6 +219,17 @@ const App = () => {
               {/* Finnish routes (default) */}
               <Route path="/" element={<Index />} />
               <Route path="/majoitukset" element={<Majoitukset />} />
+              {/* SEO 200-aliases for accommodation long-tail (rewrite, not redirect) */}
+              <Route path="/majoitus" element={<Majoitukset />} />
+              <Route path="/majoitus-levi" element={<Majoitukset />} />
+              <Route path="/loma-asunto-levi" element={<Majoitukset />} />
+              <Route path="/huoneisto-levi" element={<Majoitukset />} />
+              <Route path="/vuokra-asunto-levi" element={<Majoitukset />} />
+              <Route path="/levi-majoitus-keskusta" element={<Majoitukset />} />
+              <Route path="/en/accommodation" element={<Majoitukset lang="en" />} />
+              <Route path="/en/apartment-levi" element={<Majoitukset lang="en" />} />
+              <Route path="/en/ski-in-ski-out-levi" element={<Majoitukset lang="en" />} />
+
               {/* SEO: 301 redirects from old front-slope-* slugs to new zero-point-* slugs */}
               <Route path="/majoitukset/front-slope-5a2" element={<Navigate to="/majoitukset/zero-point-5a2" replace />} />
               <Route path="/majoitukset/front-slope-5b2" element={<Navigate to="/majoitukset/zero-point-5b2" replace />} />
