@@ -26,6 +26,7 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { howToGetToLeviTranslations } from "./howToGetToLeviTranslations";
+import MajoitusCallout from "@/components/MajoitusCallout";
 import {
   Accordion,
   AccordionContent,
@@ -852,6 +853,7 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
       </main>
 
       <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />

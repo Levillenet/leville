@@ -19,6 +19,7 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { leviWithChildrenTranslationsDe, leviWithChildrenTranslationsSv, leviWithChildrenTranslationsFr, leviWithChildrenTranslationsEs } from "./leviWithChildrenTranslations";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 interface LeviWithChildrenProps {
   lang?: Language;
 }
@@ -906,6 +907,7 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
       </main>
 
       <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />

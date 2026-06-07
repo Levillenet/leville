@@ -18,6 +18,7 @@ import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 interface GettingAroundLeviProps {
   lang?: Language;
 }
@@ -429,6 +430,7 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
       </main>
 
       <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />

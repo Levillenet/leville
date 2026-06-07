@@ -26,6 +26,7 @@ interface ReindeerSafariLeviProps {
 }
 
 import { reindeerSafariTranslations } from "./reindeerSafariTranslations";
+import MajoitusCallout from "@/components/MajoitusCallout";
 const translations = reindeerSafariTranslations;
 
 const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
@@ -295,6 +296,7 @@ const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
       </main>
 
       <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} variant="compact" />
 
       <Footer />
       <WhatsAppChat lang={lang} />

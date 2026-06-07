@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft, Mountain, MapPin, Home, Calendar, Thermometer, Scale } from "lucide-react";
 import { Language } from "@/translations";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 interface ComparisonHubProps {
   lang?: Language;
 }
@@ -330,6 +331,7 @@ const ComparisonHub = ({ lang = "fi" }: ComparisonHubProps) => {
         </main>
 
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

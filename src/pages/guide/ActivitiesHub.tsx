@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft, Mountain, Snowflake, Sun, Sparkles, Dog, TreePine, BookOpen, Bike, Baby } from "lucide-react";
 import { Language } from "@/translations";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 interface ActivitiesHubProps {
   lang?: Language;
 }
@@ -431,6 +432,7 @@ const ActivitiesHub = ({ lang = "fi" }: ActivitiesHubProps) => {
         </main>
 
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

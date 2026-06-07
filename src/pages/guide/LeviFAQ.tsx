@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/accordion";
 import { ArrowRight } from "lucide-react";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 type Lang = "fi" | "en";
 
 interface QA {
@@ -626,6 +627,7 @@ const LeviFAQ = ({ lang = "fi" }: LeviFAQProps) => {
 
         <PageCTA lang={lang} />
       </main>
+<MajoitusCallout lang={lang} />
 
       <Footer lang={lang} />
       <StickyBookingBar lang={lang} />

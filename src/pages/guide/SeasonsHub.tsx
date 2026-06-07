@@ -23,6 +23,7 @@ import autumnImg from "@/assets/seasons/autumn.jpg";
 import summerImg from "@/assets/seasons/summer.jpg";
 import springImg from "@/assets/seasons/spring.jpg";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 interface SeasonsHubProps {
   lang?: Language;
 }
@@ -509,6 +510,7 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
         </main>
 
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

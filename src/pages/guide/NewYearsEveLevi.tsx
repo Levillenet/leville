@@ -18,6 +18,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 interface NewYearsEveLeviProps {
   lang?: Language;
 }
@@ -364,6 +365,7 @@ const NewYearsEveLevi = ({ lang = "fi" }: NewYearsEveLeviProps) => {
         </main>
 
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />

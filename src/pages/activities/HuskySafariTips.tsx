@@ -26,6 +26,7 @@ interface HuskySafariTipsProps {
 }
 
 import { huskySafariTranslations } from "./huskySafariTranslations";
+import MajoitusCallout from "@/components/MajoitusCallout";
 const translations = huskySafariTranslations;
 
 const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
@@ -365,6 +366,7 @@ const HuskySafariTips = ({ lang = "fi" }: HuskySafariTipsProps) => {
       </main>
 
       <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} variant="compact" />
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />

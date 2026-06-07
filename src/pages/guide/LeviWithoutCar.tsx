@@ -18,6 +18,7 @@ import { Language } from "@/translations";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 interface LeviWithoutCarProps {
   lang?: Language;
 }
@@ -573,6 +574,7 @@ const LeviWithoutCar = ({ lang = "fi" }: LeviWithoutCarProps) => {
         </main>
 
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
         
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />

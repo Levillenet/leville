@@ -25,6 +25,7 @@ import palovartijaSummer from "@/assets/summer/palovartija-summer.jpg";
 import adventureParkRopes from "@/assets/summer/adventure-park-ropes.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import MajoitusCallout from "@/components/MajoitusCallout";
 import {
   Accordion,
   AccordionContent,
@@ -703,6 +704,7 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
         </main>
 
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />

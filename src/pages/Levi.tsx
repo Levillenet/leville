@@ -23,6 +23,7 @@ import leviSunsetSlope from "@/assets/levi-sunset-slope.jpg";
 import leviSlopes from "@/assets/levi-slopes.jpg";
 import leviCampfire from "@/assets/levi-campfire.jpg";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 interface LeviProps {
   lang?: Language;
 }
@@ -795,6 +796,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
           </div>
         </main>
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />

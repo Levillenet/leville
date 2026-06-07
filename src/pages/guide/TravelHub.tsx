@@ -22,6 +22,7 @@ import {
 import { Language } from "@/translations";
 import { travelHubContent, type GuideItem, type CategoryGroup } from "@/data/travelHubContent";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 interface TravelHubProps {
   lang?: Language;
 }
@@ -251,6 +252,7 @@ const TravelHub = ({ lang = "fi" }: TravelHubProps) => {
         </main>
 
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
