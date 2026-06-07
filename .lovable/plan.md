@@ -1,35 +1,32 @@
-## Vaiheet A + B: suorituskykyoptimointi
+## Tavoite
 
-Tehdään valitsemasi laajuus: nopeat voitot (A) + kiinteistödatan eristys omaan chunkkiin (B). Ei UI-muutoksia, ei toiminnallisuuden poistoja.
+Analytiikka jo tallentaa app.moder.fi -klikkaukset (DB:ssä 148 `booking-link`-tapahtumaa viim. 30 vrk, mm. `/opas/kesa-levi` = 47). Ongelma on **näkyvyys**: admin-UI näyttää vain top 5 lähtösivua per tapahtuma ja CSV sisältää vain raakarivit ilman koottua varauslinkki-yhteenvetoa. Korjataan molemmat.
 
-### Vaihe A — initial-bundlen kevennys
+### Mitä tehdään
 
-1. **`index.html`** — yhdistä kaksi Google Fonts -pyyntöä yhdeksi linkiksi (säästää 1 RTT mobiilissa). `display=swap` molemmille fonteille.
-2. **`src/App.tsx`** — poista turha `PageTransition`-wrapper (`<>{children}</>`). Suora `<Suspense>` riittää.
-3. **`src/App.tsx`** — muuta `PageViewTracker` ja `StructuredData` `React.lazy()`-ladatuiksi, kääri kevyeen `<Suspense fallback={null}>`. Nämä eivät vaikuta ensirenderiin → pois critical pathilta (~10 kB JS + 1 verkko­pyyntö viivästyy).
-4. **`src/components/PageTransition.tsx`** — poista tiedosto (käyttämätön muutoksen jälkeen).
+**1. `supabase/functions/get-page-view-stats/index.ts`**
+- Nosta `topSources`-raja varaustapahtumille (`/event/booking-*`) **5 → 50** lähtösivua per tapahtumatyyppi. Muut tapahtumat (esim. `site-search`) pysyvät 5:ssä.
+- Lisää JSON-vastaukseen uusi koottu kenttä `bookingClicksBySource`: lista muotoa `{ source, total, bySearchWidget, byStickyBar, byPageCta, byLink }`, järjestettynä `total`-laskevasti, kaikki varauslähteet mukana. Tämä on yksi taulukko jossa näkyy heti, miltä sivulta on klikattu mihinkin varauspolkuun.
+- CSV-haaraan (`format === "csv"`) lisää nykyisten raakarivien JÄLKEEN tyhjä rivi + toinen lohko `BOOKING CLICKS BY SOURCE`:
+  ```
+  source_page,total,search_widget,sticky_bar,page_cta,other_link
+  /opas/kesa-levi,47,12,2,0,33
+  ...
+  ```
+  Kaikki lähtösivut, joilla ≥1 varausklikkaus, järjestettynä laskevasti.
 
-### Vaihe B — kiinteistödata omaksi chunkiksi
+**2. `src/components/admin/PageViewsAdmin.tsx`**
+- Nykyinen "Konversiot — lähtösivut" -ruutu: näyttää nyt 5 → näytetään kaikki palautetut (max 50) per tapahtuma, scroll-bar `max-h`-rajalla.
+- Lisää uusi kortti **"Varauslinkit lähtösivuittain"** (`bookingClicksBySource`): taulukko sarakkeilla *Lähtösivu · Yhteensä · Hakuwidget · Sticky-palkki · Sivun CTA · Muu linkki*. Tämä on käyttäjän pyytämä päänäkymä — koostaa yhdellä silmäyksellä, miltä sivulta varauksia tulee.
+- Päivitä CSV-kuvausteksti (`copyDescription` / `CSV_DESCRIPTION`-blokki) mainitsemaan uusi `BOOKING CLICKS BY SOURCE` -lohko ja sen sarakkeet.
 
-5. **`vite.config.ts`** — laajenna `manualChunks` funktiomuotoon:
-   - `'translations'` → kaikki `src/translations/*`
-   - `'properties-data'` → `src/data/properties.ts`, `propertyTranslationsFi.ts`, `propertyTranslationsEn.ts`, `propertyDetails.ts`
-   - `'icons'` → `lucide-react`
-   - säilytetään olemassa olevat react/ui/supabase-vendor-chunkit
+### Mitä EI muuteta
 
-Tämä takaa, että:
-- Etusivu ei lataa kiinteistödataa (jo nyt lazy, mutta nyt jaettu yhdeksi shared chunkiksi useamman lazy-sivun kesken → ei duplikoinnista).
-- Käännöspaketti pysyy yhtenä chunkkina, jonka selain voi cachetä erikseen sisällön muutoksista.
-- Lucide-ikonit eivät päädy joka sivun komponenttichunkkiin.
+- Tracking-logiikka (`PageViewTracker.tsx`): `app.moder.fi`-linkit ja `.moder-bar__search-button` napataan jo globaalisti, ei tarvitse koskea. Tracker toimii oikein — todistuksena Levi-kesäsivun 47 klikkausta kannassa.
+- Sticky bar / PageCTA / Header eivät edelleenkään lähetä omia event-tyyppejään; ne menevät `booking-link`-yleisluokkaan. Tämä on tietoinen valinta nykyisessä koodissa, eikä user pyydä muutosta.
+- Iframe-pohjaisia widget-klikkauksia ei voi domista napata — ei tämän tehtävän laajuudessa.
 
-### Mitä EI tehdä tässä vaiheessa
+### Lopputulos käyttäjälle
 
-- Käännösten kielikohtaista lazy-latausta (Vaihe C) — vaatisi hookin muutoksia 107 tiedostossa.
-- Guide-sivujen tekstidatan eristystä (Vaihe D).
-- Ei kosketa Supabaseen, SEO:hon, RLS:ään, sisältöön eikä UI:hin.
-
-### Odotettu vaikutus
-
-- Initial JS −20–40 kB (PageTransition pois, tracker/structured-data deferred, font-RTT pois).
-- Property-sivujen toinen lataus nopeampi (jaettu chunk cachettyy).
-- Etusivun TTI ~100–300 ms nopeampi mobiilissa.
+- Admin-näkymässä uusi "Varauslinkit lähtösivuittain" -taulukko näyttää suoraan että esim. `/opas/kesa-levi` on tuottanut 47 app.moder.fi -klikkausta, eriteltynä reittien mukaan.
+- CSV-tiedostossa sama tieto omana lohkonaan analyysiä varten.
