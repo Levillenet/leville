@@ -31,10 +31,40 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         assetFileNames: 'assets/[hash][extname]',
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['framer-motion', 'recharts', '@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs', '@radix-ui/react-accordion'],
-          'supabase': ['@supabase/supabase-js'],
+        manualChunks: (id) => {
+          if (!id.includes('node_modules') && !id.includes('/src/')) return;
+
+          // App-side chunks (data + translations isolated from page code)
+          if (id.includes('/src/translations/')) return 'translations';
+          if (
+            id.includes('/src/data/properties.ts') ||
+            id.includes('/src/data/propertyTranslationsFi') ||
+            id.includes('/src/data/propertyTranslationsEn') ||
+            id.includes('/src/data/propertyDetails')
+          ) {
+            return 'properties-data';
+          }
+
+          // Vendor chunks
+          if (id.includes('node_modules')) {
+            if (
+              id.includes('/react/') ||
+              id.includes('/react-dom/') ||
+              id.includes('/react-router') ||
+              id.includes('/scheduler/')
+            ) {
+              return 'react-vendor';
+            }
+            if (id.includes('/@supabase/')) return 'supabase';
+            if (id.includes('/lucide-react/')) return 'icons';
+            if (
+              id.includes('/framer-motion/') ||
+              id.includes('/recharts/') ||
+              id.includes('/@radix-ui/')
+            ) {
+              return 'ui-vendor';
+            }
+          }
         },
       },
     },
