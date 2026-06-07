@@ -566,6 +566,9 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
                   </Card>
                 ))}
               </div>
+              <p className="text-sm text-muted-foreground mt-5">
+                {ic.activities.lead} <InlineLink placement="activities">{ic.activities.link}</InlineLink>
+              </p>
             </section>
 
             {/* Summer toboggan image */}
