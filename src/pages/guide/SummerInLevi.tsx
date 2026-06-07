@@ -681,18 +681,21 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
             {/* Read Next */}
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
-            {/* CTA */}
-            <section className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* CTA — soft inline version */}
+            <section className="mt-8 flex flex-col items-center gap-4 text-center">
+              <p className="text-base text-muted-foreground max-w-2xl">
+                {ic.footer.lead}{" "}
+                <InlineLink placement="footer">{ic.footer.link}</InlineLink>{" "}
+                {ic.footer.tail}{" "}
+                <Link to={browseHref} className="text-primary underline underline-offset-4 hover:text-primary/80 font-medium">
+                  {ic.footer.browse}
+                </Link>
+                {ic.footer.dot}
+              </p>
               <Button asChild variant="outline">
                 <Link to={t.cta.hubLink}>
                   <ArrowRight className="w-4 h-4 mr-2 rotate-180" />
                   {t.cta.hub}
-                </Link>
-              </Button>
-              <Button asChild>
-                <Link to={t.cta.accommodationLink}>
-                  {t.cta.accommodation}
-                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
             </section>
