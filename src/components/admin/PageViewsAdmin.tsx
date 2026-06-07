@@ -180,7 +180,7 @@ LISÄLOHKO CSV:N LOPUSSA — "INLINE & PROMO BANNER CLICKS":
 - Sarakkeet: placement, link_type, total, fi, en, nl, sv, de, fr, es, target_url, last_click_at
 - link_type = "inline" merkitsee sisältöön upotetut inline-linkit (placement sisältää "_inline_", esim. summer_page_inline_intro / _activities / _hiking / _footer).
 - link_type = "banner" on perinteisten kampanjabannereiden klikit (esim. placement="summer_page").
-- HUOM: sama klikki kirjautuu myös ylläolevaan BOOKING CLICKS BY SOURCE -lohkoon (yleensä "other_link"-sarakkeeseen), koska globaali click-handler nappaa kaikki app.moder.fi-linkit. Tämä lohko erittelee ne placement-tasolla, jotta voi vertailla esim. inline-linkin ja kovan napin tehokkuutta samalla sivulla.`,
+- HUOM: sama klikki kirjautuu myös ylläolevaan BOOKING CLICKS BY SOURCE -lohkoon (yleensä "other_link"-sarakkeeseen), koska globaali click-handler nappaa kaikki app.moder.fi-linkit. Tämä lohko erittelee ne placement-tasolla, jotta voi vertailla esim. inline-linkin ja kovan napin tehokkuutta samalla sivulla.`;
 
 
 
