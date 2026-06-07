@@ -456,16 +456,42 @@ Deno.serve(async (req) => {
       .slice(0, 15)
       .map(([path, count]) => ({ path, count }));
 
+    // Inline & promo banner clicks aggregation (from promo_banner_clicks table)
+    const { data: promoClicksJson } = await supabase
+      .from("promo_banner_clicks")
+      .select("placement, language, target_url, created_at")
+      .gte("created_at", since);
+
+    const promoAggJson: Record<string, { link_type: string; total: number; by_language: Record<string, number>; target_url: string; last_click_at: string }> = {};
+    for (const c of promoClicksJson || []) {
+      const placement = c.placement || "(unknown)";
+      const linkType = placement.includes("_inline_") ? "inline" : "banner";
+      if (!promoAggJson[placement]) {
+        promoAggJson[placement] = { link_type: linkType, total: 0, by_language: {}, target_url: c.target_url || "", last_click_at: c.created_at };
+      }
+      promoAggJson[placement].total++;
+      const lang = c.language || "unknown";
+      promoAggJson[placement].by_language[lang] = (promoAggJson[placement].by_language[lang] || 0) + 1;
+      if (c.created_at > promoAggJson[placement].last_click_at) promoAggJson[placement].last_click_at = c.created_at;
+    }
+    const inlinePromoClicks = Object.entries(promoAggJson)
+      .map(([placement, d]) => ({ placement, ...d }))
+      .sort((a, b) => {
+        if (a.link_type !== b.link_type) return a.link_type === "inline" ? -1 : 1;
+        return b.total - a.total;
+      });
+
     return new Response(
       JSON.stringify({
         total, byDate, topPages, byReferrer, byDevice, byLanguage, byCountry, byViewport, conversionEvents,
         totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
         byUtmSource, byUtmMedium, byUtmCampaign, avgScrollDepth, avgTimeOnPage,
-        topLandingPages, topExitPages, bookingClicksBySource,
+        topLandingPages, topExitPages, bookingClicksBySource, inlinePromoClicks,
 
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
+
   } catch (error) {
     console.error("Error:", error);
     return new Response(JSON.stringify({ error: "Internal error" }), {
