@@ -706,7 +706,74 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </ScrollReveal>
             )}
 
-            {/* Read Also / Lue myös */}
+            {/* SEO: per-building accommodation overview (FI only) */}
+            {lang === "fi" && (
+              <ScrollReveal delay={0.2}>
+                <section className="mt-12 md:mt-16 mb-8 max-w-4xl mx-auto px-2" aria-labelledby="majoitus-yleiskatsaus">
+                  <h2 id="majoitus-yleiskatsaus" className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                    Majoitus Levillä – kaikki {properties.length} huoneistoamme
+                  </h2>
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
+                    Leville.net vuokraa {properties.length} omaa loma-asuntoa Levin keskustasta ja rinteiden välittömästä
+                    läheisyydestä – studioista penthouseihin. Kaikki kohteet sijaitsevat Sirkan kylässä Kittilässä,
+                    kävelymatkan päässä hisseiltä, ravintoloista ja Levin palveluista. Varaat suoraan meiltä ilman
+                    välityspalkkioita. Alla yhteenveto kohteistamme rakennuksittain – jokainen huoneisto on linkitetty
+                    omalle sivulleen, jossa näet kuvat, varustelun ja varauskalenterin.
+                  </p>
+
+                  <div className="space-y-6">
+                    {buildingGroups.map((g) => (
+                      <article key={g.id} id={g.id} className="glass-card border border-border/30 rounded-xl p-5">
+                        <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-1">{g.name}</h3>
+                        {g.items[0].address && (
+                          <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">
+                            <MapPin className="w-3.5 h-3.5" />
+                            <address className="not-italic">
+                              {g.items[0].address.street}, {g.items[0].address.postalCode} {g.items[0].address.city}
+                            </address>
+                          </p>
+                        )}
+                        <p className="text-sm text-muted-foreground mb-3">{g.description}</p>
+                        <ul className="flex flex-wrap gap-2">
+                          {g.items.map((p) => (
+                            <li key={p.slug}>
+                              <Link
+                                to={propertyPath(p.slug)}
+                                className="inline-block text-sm text-primary hover:underline border border-primary/30 rounded-full px-3 py-1"
+                              >
+                                {p.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </article>
+                    ))}
+                  </div>
+
+                  <p className="text-sm text-muted-foreground leading-relaxed mt-6">
+                    Vertaile tarkemmin{" "}
+                    <Link to="/opas/mokki-vai-huoneisto-levi" className="text-primary hover:underline">
+                      mökin ja huoneiston eroja
+                    </Link>
+                    , tutustu{" "}
+                    <Link to="/mokit-levilla" className="text-primary hover:underline">
+                      mökkeihin Levillä
+                    </Link>{" "}
+                    tai katso{" "}
+                    <Link to="/akkilahdot" className="text-primary hover:underline">
+                      äkkilähtöjen tarjouksia
+                    </Link>
+                    . Et löydä sopivaa? Ota yhteyttä:{" "}
+                    <a href="mailto:info@leville.net" className="text-primary hover:underline">
+                      info@leville.net
+                    </a>
+                    .
+                  </p>
+                </section>
+              </ScrollReveal>
+            )}
+
+
             <ScrollReveal delay={0.2}>
               <section className="mt-16 md:mt-20 mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">
