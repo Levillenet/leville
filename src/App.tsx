@@ -923,6 +923,25 @@ const App = () => {
               <Route path="/opas/mokki-vai-huoneisto-levi" element={<CabinVsApartmentLevi />} />
               <Route path="/guide/cabin-vs-apartment-in-levi" element={<CabinVsApartmentLevi lang="en" />} />
 
+              {/* Soft 404 -korjaukset: vanhojen/typotettujen URL:ien uudelleenohjaukset (GSC 2026-06) */}
+              <Route path="/sv/guide/basta-tid-norrsken-levi" element={<Navigate to="/sv/guide/basta-tiden-norrsken-levi" replace />} />
+              <Route path="/de/aktivitaeten/schneemobilsafari-levi" element={<Navigate to="/de/aktivitaeten/schneemobil-safari-levi" replace />} />
+              <Route path="/nl/activiteiten/sneeuwscootersafari-levi" element={<Navigate to="/nl/activiteiten/sneeuwscooter-safari-levi" replace />} />
+              <Route path="/nl/gids/skien-in-levi" element={<Navigate to="/nl/gids/skieen-in-levi" replace />} />
+              <Route path="/nl/gids/noorderlicht-fotografie-levi" element={<Navigate to="/nl/gids/noorderlicht-fotograferen-levi" replace />} />
+              <Route path="/de/news" element={<Navigate to="/de/aktuelles" replace />} />
+              <Route path="/fr/hebergement" element={<Navigate to="/fr/hebergements" replace />} />
+              <Route path="/sv/guide/activities-in-levi" element={<Navigate to="/sv/guide/aktiviteter-i-levi" replace />} />
+              <Route path="/es/guide/activities-in-levi" element={<Navigate to="/es/guia/actividades-en-levi" replace />} />
+              <Route path="/fr/guide/activities-in-levi" element={<Navigate to="/fr/guide/activites-a-levi" replace />} />
+              <Route path="/de/guide/seasons-in-levi" element={<Navigate to="/de/ratgeber/jahreszeiten-in-levi" replace />} />
+              <Route path="/es/guide/seasons-in-levi" element={<Navigate to="/es/guia/estaciones-en-levi" replace />} />
+              <Route path="/guide/winter-clothing-guide-levi" element={<Navigate to="/guide/how-to-dress-for-winter-in-levi-lapland" replace />} />
+              <Route path="/opas/miten-paasee-leville" element={<Navigate to="/matka/miten-paasee-leville-helsingista" replace />} />
+              <Route path="/guide/levi-vs-yllas-vs-ruka" element={<Navigate to="/guide/levi-vs-yllas-vs-ruka-comparison" replace />} />
+              <Route path="/guide/christmas-dinner-in-levi" element={<Navigate to="/en/guide/christmas-dinner-in-levi" replace />} />
+              <Route path="/accommodations/guides" element={<Navigate to="/en/accommodations" replace />} />
+
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
