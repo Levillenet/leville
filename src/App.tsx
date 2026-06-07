@@ -940,7 +940,7 @@ const App = () => {
               <Route path="/opas/miten-paasee-leville" element={<Navigate to="/matka/miten-paasee-leville-helsingista" replace />} />
               <Route path="/guide/levi-vs-yllas-vs-ruka" element={<Navigate to="/guide/levi-vs-yllas-vs-ruka-comparison" replace />} />
               <Route path="/guide/christmas-dinner-in-levi" element={<Navigate to="/en/guide/christmas-dinner-in-levi" replace />} />
-              <Route path="/accommodations/guides" element={<Navigate to="/accommodations" replace />} />
+              <Route path="/accommodations/guides" element={<Navigate to="/en/accommodations" replace />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
