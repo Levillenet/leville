@@ -534,6 +534,61 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
         </CardContent>
       </Card>
 
+      {/* Inline & promo banner clicks (placement-level, from promo_banner_clicks) */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">
+            Inline-linkit & kampanjabannerit (sijoittelukohtaiset klikit)
+          </CardTitle>
+          <p className="text-xs text-muted-foreground mt-1">
+            Erittelee app.moder.fi-klikit sijoittelutunnisteen mukaan. "Inline"-tyyppi = sisältöön upotetut tekstilinkit (esim. kesäsivun intro/aktiviteetit/hiking/footer). "Banneri" = perinteiset kampanjabannerit.
+          </p>
+        </CardHeader>
+        <CardContent>
+          {(stats.inlinePromoClicks || []).length === 0 ? (
+            <p className="text-sm text-muted-foreground">Ei vielä inline- tai banneriklikkauksia valitulla ajanjaksolla.</p>
+          ) : (
+            <div className="max-h-[28rem] overflow-y-auto">
+              <table className="w-full text-xs">
+                <thead className="sticky top-0 bg-background border-b">
+                  <tr className="text-left text-muted-foreground">
+                    <th className="py-2 pr-2 font-medium">Sijoittelu (placement)</th>
+                    <th className="py-2 px-2 font-medium">Tyyppi</th>
+                    <th className="py-2 px-2 font-medium text-right">Yhteensä</th>
+                    <th className="py-2 px-2 font-medium">Kielet</th>
+                    <th className="py-2 pl-2 font-medium">Viimeisin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(stats.inlinePromoClicks || []).map((r) => (
+                    <tr key={r.placement} className="border-b border-border/40 last:border-0">
+                      <td className="py-1.5 pr-2 font-mono truncate max-w-[260px]">{r.placement}</td>
+                      <td className="py-1.5 px-2">
+                        <span className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-medium ${r.link_type === "inline" ? "bg-primary/15 text-primary" : "bg-muted text-muted-foreground"}`}>
+                          {r.link_type === "inline" ? "inline" : "banneri"}
+                        </span>
+                      </td>
+                      <td className="py-1.5 px-2 text-right font-semibold text-primary">{r.total}</td>
+                      <td className="py-1.5 px-2 text-muted-foreground">
+                        {Object.entries(r.by_language || {})
+                          .sort(([, a], [, b]) => (b as number) - (a as number))
+                          .map(([lang, n]) => `${lang}:${n}`)
+                          .join(" · ")}
+                      </td>
+                      <td className="py-1.5 pl-2 text-muted-foreground whitespace-nowrap">
+                        {new Date(r.last_click_at).toLocaleDateString("fi-FI")}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+
+
 
       {/* Daily views chart */}
       <Card>
