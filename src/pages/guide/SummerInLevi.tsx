@@ -607,10 +607,10 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
                   </div>
                 ))}
               </div>
+              <p className="text-sm text-muted-foreground mt-5">
+                {ic.hiking.lead} <InlineLink placement="hiking">{ic.hiking.link}</InlineLink>
+              </p>
             </section>
-
-            {/* Beach families image */}
-            <section className="mb-12 rounded-xl overflow-hidden">
               <OptimizedImage src={beachFamilies} alt={lang === "fi" ? "Perheitä uimarannalla Immeljärvellä Levillä" : "Families at the beach at Immeljärvi lake in Levi"} className="w-full h-64 sm:h-80 md:h-96" />
               <p className="text-xs text-muted-foreground mt-2 text-center italic">
                 {lang === "fi" ? "Immeljärven uimaranta täyttyy perheistä aurinkoisina kesäpäivinä — vesi lämpenee heinäkuussa jopa yli 20 asteeseen" : "Immeljärvi beach fills with families on sunny summer days — the water warms up to over 20°C in July"}
