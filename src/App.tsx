@@ -7,10 +7,10 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollToTop from "./components/ScrollToTop";
-import PageTransition from "./components/PageTransition";
 
-import PageViewTracker from "./components/PageViewTracker";
-import StructuredData from "./components/StructuredData";
+// Deferred — these don't affect first paint, lazy-load them off the critical path
+const PageViewTracker = lazy(() => import("./components/PageViewTracker"));
+const StructuredData = lazy(() => import("./components/StructuredData"));
 
 // Lazy-loaded page components
 const Index = lazy(() => import("./pages/Index"));
@@ -210,10 +210,11 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <PageViewTracker />
-          <StructuredData />
-          <PageTransition>
-            <Suspense fallback={<div className="min-h-screen" />}>
+          <Suspense fallback={null}>
+            <PageViewTracker />
+            <StructuredData />
+          </Suspense>
+          <Suspense fallback={<div className="min-h-screen" />}>
             <Routes>
               {/* Finnish routes (default) */}
               <Route path="/" element={<Index />} />
@@ -1017,7 +1018,6 @@ const App = () => {
               <Route path="*" element={<NotFound />} />
             </Routes>
             </Suspense>
-          </PageTransition>
           
         </BrowserRouter>
       </TooltipProvider>
