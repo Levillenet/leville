@@ -334,6 +334,58 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
     tree: <TreePine className="w-5 h-5 text-primary" />
   };
 
+  // Inline booking link helper — soft contextual CTA tracked separately per placement
+  const moderUrl = lang === "fi"
+    ? "https://app.moder.fi/levillenet"
+    : "https://app.moder.fi/levillenet?lang=en";
+
+  const inlineCopy = {
+    fi: {
+      intro: { lead: "Suunnitteletko kesälomaa Levillä?", link: "Tarkista vapaat majoitukset ja ajantasaiset hintamme tästä →" },
+      activities: { lead: "Useimmat majoituksemme sijaitsevat askelten päässä näistä aktiviteeteista —", link: "katso saatavuus ja hinnat." },
+      hiking: { lead: "Reittien lähtöpisteille pääsee kävellen useimmista huoneistoistamme.", link: "Katso vapaat viikot ja hinnat tästä." },
+      footer: { lead: "Kiinnostuitko?", link: "Tarkista vapaat majoitukset ja hintamme", tail: "tai selaa kaikki", browse: "kesän huoneistot ja mökit", dot: "." },
+    },
+    en: {
+      intro: { lead: "Planning a summer trip to Levi?", link: "Check live availability and our latest prices here →" },
+      activities: { lead: "Most of our apartments are a short walk from these activities —", link: "see availability and rates." },
+      hiking: { lead: "Most trailheads are within walking distance from our apartments.", link: "Check open weeks and prices here." },
+      footer: { lead: "Interested?", link: "Check live availability and prices", tail: "or browse all", browse: "summer apartments and cabins", dot: "." },
+    },
+    nl: {
+      intro: { lead: "Plan je een zomerreis naar Levi?", link: "Bekijk beschikbaarheid en actuele prijzen hier →" },
+      activities: { lead: "Onze accommodaties liggen op loopafstand van deze activiteiten —", link: "bekijk beschikbaarheid en prijzen." },
+      hiking: { lead: "De startpunten van de routes zijn vanaf onze appartementen te belopen.", link: "Bekijk vrije weken en prijzen hier." },
+      footer: { lead: "Interesse?", link: "Bekijk beschikbaarheid en prijzen", tail: "of bekijk alle", browse: "zomerappartementen en chalets", dot: "." },
+    },
+  } as const;
+  const ic = (inlineCopy as any)[lang] || inlineCopy.en;
+  const browseHref = lang === "fi" ? "/majoitukset" : lang === "nl" ? "/nl/accommodaties" : "/en/accommodations";
+
+  const trackInline = (placement: string) => {
+    import("@/lib/logPromoClick").then(({ logPromoClick }) =>
+      logPromoClick({
+        banner_id: null,
+        banner_title: `Summer page inline — ${placement}`,
+        placement: `summer_page_inline_${placement}`,
+        language: lang,
+        target_url: moderUrl,
+      })
+    );
+  };
+
+  const InlineLink = ({ placement, children }: { placement: string; children: React.ReactNode }) => (
+    <a
+      href={moderUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => trackInline(placement)}
+      className="text-primary underline underline-offset-4 hover:text-primary/80 font-medium"
+    >
+      {children}
+    </a>
+  );
+
   return (
     <>
       <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={customUrls} />
@@ -383,7 +435,11 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               </h1>
               <p className="text-lg text-primary font-medium mb-4">{t.subtitle}</p>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+              <p className="text-sm text-muted-foreground max-w-2xl mx-auto mt-4">
+                {ic.intro.lead} <InlineLink placement="intro">{ic.intro.link}</InlineLink>
+              </p>
             </section>
+
 
             {/* Summer campaign banner */}
             {(() => {
@@ -510,6 +566,9 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
                   </Card>
                 ))}
               </div>
+              <p className="text-sm text-muted-foreground mt-5">
+                {ic.activities.lead} <InlineLink placement="activities">{ic.activities.link}</InlineLink>
+              </p>
             </section>
 
             {/* Summer toboggan image */}
@@ -548,6 +607,9 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
                   </div>
                 ))}
               </div>
+              <p className="text-sm text-muted-foreground mt-5">
+                {ic.hiking.lead} <InlineLink placement="hiking">{ic.hiking.link}</InlineLink>
+              </p>
             </section>
 
             {/* Beach families image */}
@@ -619,18 +681,21 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
             {/* Read Next */}
             <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
-            {/* CTA */}
-            <section className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* CTA — soft inline version */}
+            <section className="mt-8 flex flex-col items-center gap-4 text-center">
+              <p className="text-base text-muted-foreground max-w-2xl">
+                {ic.footer.lead}{" "}
+                <InlineLink placement="footer">{ic.footer.link}</InlineLink>{" "}
+                {ic.footer.tail}{" "}
+                <Link to={browseHref} className="text-primary underline underline-offset-4 hover:text-primary/80 font-medium">
+                  {ic.footer.browse}
+                </Link>
+                {ic.footer.dot}
+              </p>
               <Button asChild variant="outline">
                 <Link to={t.cta.hubLink}>
                   <ArrowRight className="w-4 h-4 mr-2 rotate-180" />
                   {t.cta.hub}
-                </Link>
-              </Button>
-              <Button asChild>
-                <Link to={t.cta.accommodationLink}>
-                  {t.cta.accommodation}
-                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
             </section>
