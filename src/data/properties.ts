@@ -25,12 +25,15 @@ export interface Property {
   slug: string;
   images: string[];
   heroImage: string | null;
+  /** Building street address used in LodgingBusiness JSON-LD. */
+  address?: { street: string; postalCode: string; city: string };
 }
 
 export const properties: Property[] = [
   {
     id: "5a2",
     slug: "zero-point-5a2",
+    address: { street: "Hiihtäjänkuja 5", postalCode: "99130", city: "Sirkka" },
     images: [
       "/hiihtajankuja/exterior.jpg",
       "/hiihtajankuja/01.jpg",
@@ -68,6 +71,7 @@ export const properties: Property[] = [
   {
     id: "5b2",
     slug: "zero-point-5b2",
+    address: { street: "Hiihtäjänkuja 5", postalCode: "99130", city: "Sirkka" },
     images: [
       "/hiihtajankuja/05.jpg",
       "/hiihtajankuja/exterior.jpg",
@@ -105,6 +109,7 @@ export const properties: Property[] = [
   {
     id: "5b5",
     slug: "zero-point-5b5-penthouse",
+    address: { street: "Hiihtäjänkuja 5", postalCode: "99130", city: "Sirkka" },
     images: [
       "/hiihtajankuja/exterior.jpg",
       "/hiihtajankuja/b5/01.jpg",
@@ -149,6 +154,7 @@ export const properties: Property[] = [
   {
     id: "karhupirtti",
     slug: "karhupirtti",
+    address: { street: "Skimbaajankuja 3", postalCode: "99130", city: "Sirkka" },
     images: [
       "/karhupirtti/13.jpg",
       "/karhupirtti/01.jpg",
@@ -190,6 +196,7 @@ export const properties: Property[] = [
   {
     id: "211",
     slug: "skistar-211",
+    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.jpg",
       "/skistar/kolmio/01.jpg",
@@ -233,6 +240,7 @@ export const properties: Property[] = [
   {
     id: "212",
     slug: "skistar-212",
+    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.jpg",
       "/skistar/kolmio/01.jpg",
@@ -276,6 +284,7 @@ export const properties: Property[] = [
   {
     id: "209",
     slug: "skistar-209",
+    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.jpg",
       "/skistar/kaksio/01.jpg",
@@ -319,6 +328,7 @@ export const properties: Property[] = [
   {
     id: "210",
     slug: "skistar-210",
+    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.jpg",
       "/skistar/kaksio/01.jpg",
@@ -362,6 +372,7 @@ export const properties: Property[] = [
   {
     id: "102",
     slug: "skistar-studio-102",
+    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.jpg",
       "/skistar/studio-102/01.jpg",
@@ -394,6 +405,7 @@ export const properties: Property[] = [
   {
     id: "104",
     slug: "skistar-studio-104",
+    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.jpg",
       "/skistar/yksio/01.jpg",
@@ -436,6 +448,7 @@ export const properties: Property[] = [
   {
     id: "319",
     slug: "skistar-studio-319",
+    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.jpg",
       "/skistar/yksio/01.jpg",
@@ -478,6 +491,7 @@ export const properties: Property[] = [
   {
     id: "320",
     slug: "skistar-studio-320",
+    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.jpg",
       "/skistar/yksio/01.jpg",
@@ -520,6 +534,7 @@ export const properties: Property[] = [
   {
     id: "321",
     slug: "skistar-studio-321",
+    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.jpg",
       "/skistar/yksio/01.jpg",
@@ -562,6 +577,7 @@ export const properties: Property[] = [
   {
     id: "karhunvartija3",
     slug: "karhunvartija-3",
+    address: { street: "Skimbaajankuja 4", postalCode: "99130", city: "Sirkka" },
     images: [
       "/karhunvartija/exterior.jpg",
       "/karhunvartija/01-living.jpg",
@@ -598,6 +614,7 @@ export const properties: Property[] = [
   {
     id: "platinum-a2",
     slug: "levi-platinum-a2",
+    address: { street: "Hiihtäjänkuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/platinum/exterior.jpg",
       "/platinum/01-living.jpg",
@@ -633,6 +650,7 @@ export const properties: Property[] = [
   {
     id: "moonlight-415",
     slug: "moonlight-415",
+    address: { street: "Leviraitti", postalCode: "99130", city: "Sirkka" },
     images: [
       "/moonlight/exterior.jpg",
       "/moonlight/01-living.jpg",
@@ -668,6 +686,7 @@ export const properties: Property[] = [
   {
     id: "glacier-a1",
     slug: "glacier-a1",
+    address: { street: "Ratsastajankuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/glacier/exterior-a.jpg",
       "/glacier/a3-a1/01.jpg",
@@ -709,6 +728,7 @@ export const properties: Property[] = [
   {
     id: "glacier-a2",
     slug: "glacier-a2",
+    address: { street: "Ratsastajankuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/glacier/exterior-a.jpg",
       "/glacier/a2/01.jpg",
@@ -746,6 +766,7 @@ export const properties: Property[] = [
   {
     id: "glacier-a3",
     slug: "glacier-a3",
+    address: { street: "Ratsastajankuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/glacier/exterior-a.jpg",
       "/glacier/a3-a1/01.jpg",
@@ -787,6 +808,7 @@ export const properties: Property[] = [
   {
     id: "glacier-a4",
     slug: "glacier-a4",
+    address: { street: "Ratsastajankuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/glacier/exterior-a.jpg",
       "/glacier/a4-a6/01.jpg",
@@ -828,6 +850,7 @@ export const properties: Property[] = [
   {
     id: "glacier-a5",
     slug: "glacier-a5-penthouse",
+    address: { street: "Ratsastajankuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/glacier/exterior-a.jpg",
       "/glacier/a5/01.jpg",
@@ -865,6 +888,7 @@ export const properties: Property[] = [
   {
     id: "glacier-a6",
     slug: "glacier-a6",
+    address: { street: "Ratsastajankuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/glacier/exterior-a.jpg",
       "/glacier/a4-a6/01.jpg",
@@ -906,6 +930,7 @@ export const properties: Property[] = [
   {
     id: "glacier-b1",
     slug: "glacier-b1",
+    address: { street: "Ratsastajankuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/glacier/exterior-b.jpg",
       "/glacier/exterior-b2.jpg",
@@ -944,6 +969,7 @@ export const properties: Property[] = [
   {
     id: "glacier-b2",
     slug: "glacier-b2",
+    address: { street: "Ratsastajankuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/glacier/exterior-b.jpg",
       "/glacier/exterior-b2.jpg",
@@ -982,6 +1008,7 @@ export const properties: Property[] = [
   {
     id: "glacier-b3",
     slug: "glacier-b3-penthouse",
+    address: { street: "Ratsastajankuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/glacier/exterior-b.jpg",
       "/glacier/exterior-b2.jpg",
@@ -1021,6 +1048,7 @@ export const properties: Property[] = [
   {
     id: "glacier-b4",
     slug: "glacier-b4-penthouse",
+    address: { street: "Ratsastajankuja 2", postalCode: "99130", city: "Sirkka" },
     images: [
       "/glacier/exterior-b.jpg",
       "/glacier/exterior-b2.jpg",
