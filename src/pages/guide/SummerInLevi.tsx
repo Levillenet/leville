@@ -435,6 +435,17 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               </h1>
               <p className="text-lg text-primary font-medium mb-4">{t.subtitle}</p>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+              <p className="text-sm text-muted-foreground max-w-2xl mx-auto mt-4">
+                {ic.intro.lead} <InlineLink placement="intro">{ic.intro.link}</InlineLink>
+              </p>
+            </section>
+
+            {/* (placeholder replaced) */}
+            <section className="hidden" aria-hidden="true">{/* spacer */}</section>
+            {/* placeholder */}
+            <section className="hidden" aria-hidden="true">{/* spacer */}</section>
+            <section className="hidden" aria-hidden="true">{/* spacer */}</section>
+            <section className="hidden" aria-hidden="true">{/* spacer */}</section>
             </section>
 
             {/* Summer campaign banner */}
