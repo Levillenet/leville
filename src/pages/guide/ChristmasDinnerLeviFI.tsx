@@ -17,6 +17,7 @@ import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import MajoitusCallout from "@/components/MajoitusCallout";
 import {
   Accordion,
   AccordionContent,
@@ -233,6 +234,7 @@ const ChristmasDinnerLeviFI = () => {
         </main>
 
         <PageCTA lang="fi" />
+<MajoitusCallout lang={lang} />
 
         <Footer />
         <WhatsAppChat />

@@ -38,6 +38,7 @@ interface TopWinterActivitiesProps {
 
 import { topWinterActivitiesTranslations as translations } from "./topWinterActivitiesTranslations";
 
+import MajoitusCallout from "@/components/MajoitusCallout";
 const TopWinterActivities = ({ lang = "fi" }: TopWinterActivitiesProps) => {
   const location = useLocation();
   const t = translations[lang] || translations.fi;
@@ -367,6 +368,7 @@ const TopWinterActivities = ({ lang = "fi" }: TopWinterActivitiesProps) => {
       </main>
 
       <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} variant="compact" />
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />

@@ -1,71 +1,51 @@
-## Plan A: Majoitus-sivun SEO-optimointi
+## Plan D: MajoitusCallout-laajennus oppaisiin
 
-### Osoitteet (vahvistettu)
+Komponentti `src/components/MajoitusCallout.tsx` on jo olemassa (default + compact -variantit, fi/en). Käytössä vain 3 sivulla: `Sauna.tsx`, `Revontulet.tsx`, `guide/RestaurantsAndServices.tsx`.
 
-| # | Rakennus | Osoite | Huoneistot |
-|---|---|---|---|
-| 1 | Zero Point | Hiihtäjänkuja 5, 99130 Sirkka | 5A2, 5B2, 5B5 penthouse |
-| 2 | Karhupirtti | Skimbaajankuja 3, 99130 Sirkka | karhupirtti |
-| 3 | Skistar Levi Centre | Postintie 3, 99130 Sirkka | 102, 104, 209, 210, 211, 212, 319, 320, 321 |
-| 4 | Karhunvartija 3 | Skimbaajankuja 4, 99130 Sirkka | karhunvartija-3 |
-| 5 | Levi Platinum A2 | Hiihtäjänkuja 2, 99130 Sirkka | levi-platinum-a2 |
-| 6 | Moonlight 415 | Leviraitti ?, 99130 Sirkka | moonlight-415 |
-| 7 | Glacier A-talo | Ratsastajankuja 2, 99130 Sirkka | A1–A6 |
-| 8 | Glacier B-talo | Ratsastajankuja 2, 99130 Sirkka | B1–B4 |
+### Lisätään callout (default-variantti, ennen Read-Also-osiota)
 
-Huom: Leviraitin katunumero puuttuu — käytän pelkkää "Leviraitti, 99130 Sirkka" ellei toimiteta tarkennusta.
+**Hub-sivut (korkein liikenne):**
+1. `src/pages/Levi.tsx` — pääinfosivu
+2. `src/pages/guide/ActivitiesHub.tsx`
+3. `src/pages/guide/SeasonsHub.tsx`
+4. `src/pages/guide/TravelHub.tsx`
+5. `src/pages/guide/ComparisonHub.tsx`
 
-### Toteutettavat muutokset
+**Korkean konversiopotentiaalin oppaat:**
+6. `src/pages/guide/CabinVsApartmentLevi.tsx` (suora vertailu → majoitus)
+7. `src/pages/guide/SkiHolidayLevi.tsx`
+8. `src/pages/guide/SkiingInLevi.tsx`
+9. `src/pages/guide/BestTimeToVisitLevi.tsx`
+10. `src/pages/guide/PackingListLapland.tsx`
+11. `src/pages/guide/LeviFAQ.tsx`
+12. `src/pages/guide/LeviWithChildren.tsx`
+13. `src/pages/guide/RomanticLeviGetaway.tsx`
 
-**1. `src/data/properties.ts`**
-- Lisää `Property`-tyyppiin valinnainen `address?: { street: string; postalCode: string; city: string }` -kenttä.
-- Täytä osoite jokaiseen 27 huoneistoon yllä olevan taulukon mukaisesti.
+**Kausiopassit:**
+14. `src/pages/guide/WinterInLevi.tsx`
+15. `src/pages/guide/SummerInLevi.tsx`
+16. `src/pages/guide/SpringInLevi.tsx`
+17. `src/pages/guide/AutumnRuskaInLevi.tsx`
+18. `src/pages/guide/ChristmasDinnerLeviFI.tsx`
+19. `src/pages/guide/NewYearsEveLevi.tsx`
 
-**2. `src/pages/Accommodation.tsx` (tai vastaava majoituslistaussivu)**
-- **Meta-tagit** (Helmet):
-  - `<title>`: "Majoitus Levillä – 27 huoneistoa ski-in/ski-out | Leville.net" (62 merkkiä)
-  - `<meta description>`: "Vuokraa loma-asunto Levin keskustasta: 27 huoneistoa Zero Pointissa, Skistarissa, Glacierissa, Karhupirtissä. Suora varaus ilman välikäsiä." (158 merkkiä)
-  - `<link rel="canonical">` → `https://leville.net/majoitus`
-  - `og:title`, `og:description`, `og:url`, `og:type=website`
-  - Hreflang: fi/en/sv/de/no/ru/x-default
-- **JSON-LD `ItemList`**: 27 huoneistoa, jokainen `ListItem` osoittaa kohteen URL:iin
-- **JSON-LD `LodgingBusiness`** × 8: yksi per rakennus, sisältäen:
-  - `name`, `address` (PostalAddress: streetAddress, postalCode, addressLocality=Sirkka, addressRegion=Lappi, addressCountry=FI)
-  - `geo` (lat/lon, lisätään myöhemmin tarvittaessa)
-  - `url` rakennuksen ankkuriin
-  - `containsPlace` viittaa huoneistoihin
-- **SEO-tekstilohko (~350 sanaa)** sivun alaosaan:
-  - H2: "Majoitus Levillä – kaikki 27 huoneistoamme"
-  - Lyhyt esittely Levin keskustasta + ski-in/ski-out
-  - 8 alaotsikkoa (H3) per rakennus, jokaisessa osoite, etäisyys rinteille/keskustaan, lyhyt kuvaus, linkit huoneistoihin
-  - Sisäiset linkit: vertailusivu, alueoppaat (Sirkka, Levi-keskusta)
+**Travel/Practical:**
+20. `src/pages/travel/HowToGetToLevi.tsx`
+21. `src/pages/guide/GettingAroundLevi.tsx`
+22. `src/pages/guide/LeviWithoutCar.tsx`
 
-**3. 200-alias URL:t (rewrite App.tsx:ssä)**
-Lisää seuraavat aliakset jotka palvelevat samaa `Accommodation`-komponenttia (parantaa long-tail-näkyvyyttä):
-- `/majoitus-levi`
-- `/loma-asunto-levi`
-- `/huoneisto-levi`
-- `/vuokra-asunto-levi`
-- `/levi-majoitus-keskusta`
-- (englanniksi) `/levi-accommodation`, `/apartment-levi`, `/ski-in-ski-out-levi`
+**Aktiviteetit (compact-variantti) — vain top 3:**
+23. `src/pages/activities/TopWinterActivities.tsx`
+24. `src/pages/activities/HuskySafariTips.tsx`
+25. `src/pages/activities/ReindeerSafariLevi.tsx`
 
-Jokaiselle canonical osoittaa pää-URLiin `/majoitus` → ei ghost-URL-ongelmaa, ei sitemap-merkintää.
+Yhteensä **25 sivua**. Käytetään olemassa olevaa default-tekstiä eli ei tarvita uutta kopiointia – komponentti hoitaa fi/en automaattisesti `lang`-propin perusteella.
 
-**4. Sitemap**
-- Lisätään vain pää-URL `/majoitus` (jos puuttuu). Aliakset EIVÄT mene sitemappiin (memory: ghost-URL-prevention).
+### Toteutus
+- Import: `import MajoitusCallout from "@/components/MajoitusCallout";`
+- Sijoitus: ennen "Lue myös" / "Read also" -osiota, tai jos sellaista ei ole, ennen Footeria
+- Default-variantti hub- ja oppaissivuilla, compact aktiviteeteissa
+- `lang`-propi välitetään sivun nykyisestä lang-arvosta
 
-### Tekniset yksityiskohdat
-
-- Helmet-tagit dynamic year: `${new Date().getFullYear()}` titlessä jos relevanttia
-- JSON-LD generoidaan loopilla `properties`-arraysta → ylläpidettävä
-- Kaikki ulkoiset linkit `target="_blank"` (memory)
-- Ei hintalupauksia (price parity policy)
-- Domain `leville.net` ilman trailing slashia
-
-### Plan D (callout-laajennus oppaisiin) — toteutetaan tämän jälkeen
-Lisätään `<AccommodationCallout />`-komponentti seuraaviin oppaisiin: Levi-opas-hub, Sirkka-opas, ravintolaopas, aktiviteettihub, kausioppaat. Komponentti linkittää `/majoitus`-sivulle ja näyttää "27 huoneistoa keskustassa".
-
-### Vahvistuspyyntö
-- OK osoitelistaukseen? (erityisesti Leviraitin numero puuttuu — käytetäänkö ilman vai onko numero?)
-- OK title-ehdotus "27 huoneistoa ski-in/ski-out"?
-- OK 200-alias-listaan vai haluatko lisätä/poistaa joitain?
+### Vahvistus
+OK 25 sivua, vai haluatko karsia (esim. vain hub-sivut + top-oppaat = ~12) tai laajentaa (kaikki ~50 opassivua)?

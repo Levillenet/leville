@@ -22,6 +22,7 @@ import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { skiingInLeviTranslations } from "./skiingInLeviTranslations";
+import MajoitusCallout from "@/components/MajoitusCallout";
 import {
   Accordion,
   AccordionContent,
@@ -533,6 +534,7 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
         </main>
 
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />

@@ -20,6 +20,7 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import MajoitusCallout from "@/components/MajoitusCallout";
 import {
   Accordion,
   AccordionContent,
@@ -573,6 +574,7 @@ const BestTimeToVisitLevi = ({ lang = "fi" }: BestTimeToVisitLeviProps) => {
         </main>
 
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />

@@ -20,6 +20,7 @@ import hikingTrailSummer from "@/assets/summer/hiking-trail-summer.jpg";
 import ruskaMarshPond from "@/assets/summer/ruska-marsh-pond.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import MajoitusCallout from "@/components/MajoitusCallout";
 import {
   Accordion,
   AccordionContent,
@@ -546,6 +547,7 @@ const AutumnRuskaInLevi = ({ lang = "fi" }: AutumnRuskaProps) => {
         </main>
 
         <PageCTA lang={lang} />
+<MajoitusCallout lang={lang} />
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
