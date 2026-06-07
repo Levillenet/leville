@@ -1,40 +1,35 @@
-## Toteutus: vaiheet 1 ja 2
+## Vaiheet A + B: suorituskykyoptimointi
 
-Tehdään pelkkiä on-page-tekstimuutoksia (otsikot, meta, title, H1) suomenkieliseen versioon. Ei uusia sivuja, ei reittimuutoksia, ei uusia komponentteja.
+Tehdään valitsemasi laajuus: nopeat voitot (A) + kiinteistödatan eristys omaan chunkkiin (B). Ei UI-muutoksia, ei toiminnallisuuden poistoja.
 
-### Muutos 1 — `/majoitukset` (FI) `src/translations/fi.ts` rivit 57–66
+### Vaihe A — initial-bundlen kevennys
 
-- **Meta title** lyhennetään alle 60 merkkiin ja kohdistetaan rahaa tuovaan hakuun: `"Majoitus Levillä {vuosi} | Mökit & huoneistot keskustassa"`
-- **Meta description** alkaa "Majoitus Levillä —" ja sisältää saunalliset, vuokramökit, keskusta, ilman välityspalkkioita
-- **Keywords** lisätään "levi huoneistot" ja "levi hotelli vaihtoehto"
-- **H1 (title)**: `"Majoitus Levillä — mökit ja huoneistot Levin keskustassa"` (lyhyempi, money keyword alussa, ei "27" jonka pitää päivittää käsin)
-- **Subtitle**: vahvistetaan mainitsemaan saunalliset + ravintolat/palvelut
-- Sivun olemassa oleva 300 sanan intro (Majoitukset.tsx rivit 150–174) on jo hyvä — säilytetään
+1. **`index.html`** — yhdistä kaksi Google Fonts -pyyntöä yhdeksi linkiksi (säästää 1 RTT mobiilissa). `display=swap` molemmille fonteille.
+2. **`src/App.tsx`** — poista turha `PageTransition`-wrapper (`<>{children}</>`). Suora `<Suspense>` riittää.
+3. **`src/App.tsx`** — muuta `PageViewTracker` ja `StructuredData` `React.lazy()`-ladatuiksi, kääri kevyeen `<Suspense fallback={null}>`. Nämä eivät vaikuta ensirenderiin → pois critical pathilta (~10 kB JS + 1 verkko­pyyntö viivästyy).
+4. **`src/components/PageTransition.tsx`** — poista tiedosto (käyttämätön muutoksen jälkeen).
 
-### Muutos 2 — Etusivu (FI)
+### Vaihe B — kiinteistödata omaksi chunkiksi
 
-**`src/translations/fi.ts` rivit 2–14** (Hero):
-- title: `"Majoitus Levillä —"` (oli "Huoneistot Levin")
-- titleHighlight: `"mökit ja huoneistot keskustassa"` (oli "parhailla paikoilla")
-- subtitle: vahvistetaan mainitsemaan "vuokramökit" ja "huoneistot" eksplisiittisesti
+5. **`vite.config.ts`** — laajenna `manualChunks` funktiomuotoon:
+   - `'translations'` → kaikki `src/translations/*`
+   - `'properties-data'` → `src/data/properties.ts`, `propertyTranslationsFi.ts`, `propertyTranslationsEn.ts`, `propertyDetails.ts`
+   - `'icons'` → `lucide-react`
+   - säilytetään olemassa olevat react/ui/supabase-vendor-chunkit
 
-**`src/pages/Index.tsx` rivit 34–40** (FI SEO-meta):
-- title: `"Majoitus Levillä — mökit & huoneistot keskustassa | Leville"` (alle 60 merkkiä, money keyword alussa)
-- description: alkaa "Majoitus Levillä suoraan omistajalta", sisältää saunalliset, vuokramökit, ilman välityspalkkioita
-- keywords: laajennetaan: levi mökit, mökki Levi, vuokramökit Levi, levi huoneisto, levi hotelli, levin keskusta majoitus
+Tämä takaa, että:
+- Etusivu ei lataa kiinteistödataa (jo nyt lazy, mutta nyt jaettu yhdeksi shared chunkiksi useamman lazy-sivun kesken → ei duplikoinnista).
+- Käännöspaketti pysyy yhtenä chunkkina, jonka selain voi cachetä erikseen sisällön muutoksista.
+- Lucide-ikonit eivät päädy joka sivun komponenttichunkkiin.
 
-### Mitä EI muuteta
+### Mitä EI tehdä tässä vaiheessa
 
-- Muut kielet (en/sv/de/es/fr/nl) — niissä volyymit ovat pieniä, fokus FI:hen ensin
-- Sivustorakenne, reitit, komponentit, kuvat
-- /majoitukset-sivun intro-kappale (jo riittävän vahva)
-- Hero-kuvat, animaatiot, varauswidget
+- Käännösten kielikohtaista lazy-latausta (Vaihe C) — vaatisi hookin muutoksia 107 tiedostossa.
+- Guide-sivujen tekstidatan eristystä (Vaihe D).
+- Ei kosketa Supabaseen, SEO:hon, RLS:ään, sisältöön eikä UI:hin.
 
 ### Odotettu vaikutus
 
-- Etusivu rankkaa jo #10 haulla "majoitus levi" (12 100/kk). H1- ja title-muutos kohdistaa sivun selkeämmin tähän hakuun → odotettavissa siirtymä top 5:een 4–8 viikon sisällä uudelleenindeksoinnin jälkeen.
-- /majoitukset (joka ei tällä hetkellä rankkaa mistään) saa selkeän kohdistuksen ja alkaa kerätä pitkän hännän hakuja kuten "vuokramökit Levi", "levi mökit", "huoneisto Levin keskusta".
-
-### Jatkotoimet (eivät kuulu tähän vaiheeseen)
-
-Vaihe 3 (suomenkieliset majoitustyyppi-hubit) ja vaihe 6 (sisäinen linkitys oppaista majoitukseen) ovat seuraavat tehokkaimmat liikkeet. Tehdään, kun vaiheen 1+2 vaikutus on nähty SEO-skannissa.
+- Initial JS −20–40 kB (PageTransition pois, tracker/structured-data deferred, font-RTT pois).
+- Property-sivujen toinen lataus nopeampi (jaettu chunk cachettyy).
+- Etusivun TTI ~100–300 ms nopeampi mobiilissa.
