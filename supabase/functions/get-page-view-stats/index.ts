@@ -365,12 +365,37 @@ Deno.serve(async (req) => {
         count: data.count,
         topSources: Object.entries(data.sources)
           .sort(([, a], [, b]) => b - a)
-          .slice(0, 5)
+          .slice(0, type.startsWith("/event/booking-") ? 50 : 5)
           .map(([source, count]) => ({ source, count })),
       }));
 
+    // Aggregate booking clicks by source page across ALL booking-* event types
+    const bookingBySource: Record<string, { search: number; sticky: number; cta: number; link: number }> = {};
+    for (const [eventType, data] of Object.entries(conversionMap)) {
+      if (!eventType.startsWith("/event/booking-")) continue;
+      for (const [source, count] of Object.entries(data.sources)) {
+        if (!bookingBySource[source]) bookingBySource[source] = { search: 0, sticky: 0, cta: 0, link: 0 };
+        if (eventType === "/event/booking-search-widget") bookingBySource[source].search += count;
+        else if (eventType === "/event/booking-sticky-bar") bookingBySource[source].sticky += count;
+        else if (eventType === "/event/booking-page-cta") bookingBySource[source].cta += count;
+        else if (eventType === "/event/booking-link") bookingBySource[source].link += count;
+      }
+    }
+    const bookingClicksBySource = Object.entries(bookingBySource)
+      .map(([source, c]) => ({
+        source,
+        total: c.search + c.sticky + c.cta + c.link,
+        bySearchWidget: c.search,
+        byStickyBar: c.sticky,
+        byPageCta: c.cta,
+        byLink: c.link,
+      }))
+      .filter((r) => r.total > 0)
+      .sort((a, b) => b.total - a.total);
+
     const avgScrollDepth = scrollDepthCount > 0 ? Math.round(scrollDepthSum / scrollDepthCount) : null;
     const avgTimeOnPage = timeOnPageCount > 0 ? Math.round(timeOnPageSum / timeOnPageCount) : null;
+
 
     // Landing & exit pages — first/last pageview path per session
     const landingCounts: Record<string, number> = {};
