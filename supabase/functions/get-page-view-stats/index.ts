@@ -144,7 +144,7 @@ Deno.serve(async (req) => {
       from += PAGE_SIZE;
     }
 
-    // CSV format: return raw rows
+    // CSV format: return raw rows + aggregated booking-clicks-by-source block
     if (format === "csv") {
       const csvHeader = "date,time,path,type,referrer,device_type,language,country,viewport_w,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page";
       const csvRows = (views || []).map((v: any) => {
@@ -169,7 +169,35 @@ Deno.serve(async (req) => {
         return [date, time, esc(path), type, esc(ref), device, lang, country, vw, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP].join(",");
       });
 
-      return new Response([csvHeader, ...csvRows].join("\n"), {
+      // Aggregate booking clicks by source page (only /event/booking-* events).
+      // This is the section that answers "from which page were app.moder.fi links clicked, and how many times".
+      const bookingAgg: Record<string, { search: number; sticky: number; cta: number; link: number }> = {};
+      for (const v of views || []) {
+        if (!v.path?.startsWith("/event/booking-")) continue;
+        // Skip dev/preview referrers to match JSON-aggregation filtering
+        if (v.referrer && (v.referrer.includes("lovable.app") || v.referrer.includes("lovable.dev") || v.referrer.includes("lovableproject.com") || v.referrer.includes("localhost"))) continue;
+        const source = v.referrer || "unknown";
+        if (!bookingAgg[source]) bookingAgg[source] = { search: 0, sticky: 0, cta: 0, link: 0 };
+        if (v.path === "/event/booking-search-widget") bookingAgg[source].search++;
+        else if (v.path === "/event/booking-sticky-bar") bookingAgg[source].sticky++;
+        else if (v.path === "/event/booking-page-cta") bookingAgg[source].cta++;
+        else if (v.path === "/event/booking-link") bookingAgg[source].link++;
+      }
+      const escCsv = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
+      const bookingRows = Object.entries(bookingAgg)
+        .map(([source, c]) => ({ source, total: c.search + c.sticky + c.cta + c.link, ...c }))
+        .filter((r) => r.total > 0)
+        .sort((a, b) => b.total - a.total)
+        .map((r) => [escCsv(r.source), r.total, r.search, r.sticky, r.cta, r.link].join(","));
+
+      const bookingBlock = [
+        "",
+        "BOOKING CLICKS BY SOURCE — app.moder.fi clicks aggregated by source page over the selected period",
+        "source_page,total,search_widget,sticky_bar,page_cta,other_link",
+        ...bookingRows,
+      ];
+
+      return new Response([csvHeader, ...csvRows, ...bookingBlock].join("\n"), {
         headers: {
           ...corsHeaders,
           "Content-Type": "text/csv; charset=utf-8",
@@ -177,6 +205,7 @@ Deno.serve(async (req) => {
         },
       });
     }
+
 
     // JSON aggregated format
     const byDate: Record<string, number> = {};
