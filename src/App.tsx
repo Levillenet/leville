@@ -678,12 +678,6 @@ const App = () => {
 
               {/* ===== 200-ALIAS STATIC ROUTES (Activities) ===== */}
               {/* CanoeingAndSUPLevi */}
-              <Route path="/de/aktivitaeten/kanufahren-und-sup-levi" element={<CanoeingAndSUPLevi lang="de" />} />
-              <Route path="/sv/aktiviteter/kanot-och-sup-levi" element={<CanoeingAndSUPLevi lang="sv" />} />
-              <Route path="/es/actividades/canoa-y-sup-levi" element={<CanoeingAndSUPLevi lang="es" />} />
-              <Route path="/fr/activites/canoe-et-sup-levi" element={<CanoeingAndSUPLevi lang="fr" />} />
-              <Route path="/nl/activiteiten/kanoen-en-sup-levi" element={<CanoeingAndSUPLevi lang="nl" />} />
-
               {/* HuskySafariTips - DE */}
               <Route path="/de/aktivitaeten/husky-safari-levi" element={<HuskySafariTips lang="de" />} />
               {/* SnowmobileSafariTips - DE */}
@@ -723,30 +717,12 @@ const App = () => {
               {/* GolfLevi */}
               <Route path="/aktiviteetit/golf-levi" element={<GolfLevi />} />
               <Route path="/activities/golf-in-levi" element={<GolfLevi lang="en" />} />
-              <Route path="/de/aktivitaeten/golf-levi" element={<GolfLevi lang="de" />} />
-              <Route path="/sv/aktiviteter/golf-levi" element={<GolfLevi lang="sv" />} />
-              <Route path="/es/actividades/golf-levi" element={<GolfLevi lang="es" />} />
-              <Route path="/fr/activites/golf-levi" element={<GolfLevi lang="fr" />} />
-              <Route path="/nl/activiteiten/golf-levi" element={<GolfLevi lang="nl" />} />
-
               {/* HorseRidingLevi */}
               <Route path="/aktiviteetit/ratsastus-levi" element={<HorseRidingLevi />} />
               <Route path="/activities/horse-riding-in-levi" element={<HorseRidingLevi lang="en" />} />
-              <Route path="/de/aktivitaeten/reiten-levi" element={<HorseRidingLevi lang="de" />} />
-              <Route path="/sv/aktiviteter/ridning-levi" element={<HorseRidingLevi lang="sv" />} />
-              <Route path="/es/actividades/equitacion-levi" element={<HorseRidingLevi lang="es" />} />
-              <Route path="/fr/activites/equitation-levi" element={<HorseRidingLevi lang="fr" />} />
-              <Route path="/nl/activiteiten/paardrijden-levi" element={<HorseRidingLevi lang="nl" />} />
-
               {/* IceFishingLevi */}
               <Route path="/aktiviteetit/pilkkiminen-ja-kalastus-levi" element={<IceFishingLevi />} />
               <Route path="/activities/ice-fishing-and-fishing-levi" element={<IceFishingLevi lang="en" />} />
-              <Route path="/de/aktivitaeten/eisfischen-levi" element={<IceFishingLevi lang="de" />} />
-              <Route path="/sv/aktiviteter/isfiske-levi" element={<IceFishingLevi lang="sv" />} />
-              <Route path="/es/actividades/pesca-en-hielo-levi" element={<IceFishingLevi lang="es" />} />
-              <Route path="/fr/activites/peche-sur-glace-levi" element={<IceFishingLevi lang="fr" />} />
-              <Route path="/nl/activiteiten/ijsvissen-levi" element={<IceFishingLevi lang="nl" />} />
-
               {/* IceSwimmingLevi */}
               <Route path="/aktiviteetit/avantouinti-levi" element={<IceSwimmingLevi />} />
               <Route path="/activities/ice-swimming-in-levi" element={<IceSwimmingLevi lang="en" />} />
@@ -758,12 +734,6 @@ const App = () => {
 
               {/* LeviForKids */}
               <Route path="/aktiviteetit/levi-lapsille" element={<LeviForKids />} />
-              <Route path="/de/aktivitaeten/levi-fuer-kinder" element={<LeviForKids lang="de" />} />
-              <Route path="/sv/aktiviteter/levi-for-barn" element={<LeviForKids lang="sv" />} />
-              <Route path="/es/actividades/levi-para-ninos" element={<LeviForKids lang="es" />} />
-              <Route path="/fr/activites/levi-pour-enfants" element={<LeviForKids lang="fr" />} />
-              <Route path="/nl/activiteiten/levi-voor-kinderen" element={<LeviForKids lang="nl" />} />
-
               {/* SnowshoeingLevi */}
               <Route path="/aktiviteetit/lumikenkaily-levi" element={<SnowshoeingLevi />} />
               <Route path="/activities/snowshoeing-in-levi" element={<SnowshoeingLevi lang="en" />} />
@@ -784,11 +754,6 @@ const App = () => {
               {/* AccessibleLevi */}
               <Route path="/opas/esteetton-levi" element={<AccessibleLevi />} />
               <Route path="/guide/accessible-levi" element={<AccessibleLevi lang="en" />} />
-              <Route path="/de/ratgeber/barrierefreies-levi" element={<AccessibleLevi lang="de" />} />
-              <Route path="/sv/guide/tillgangligt-levi" element={<AccessibleLevi lang="sv" />} />
-              <Route path="/es/guia/levi-accesible" element={<AccessibleLevi lang="es" />} />
-              <Route path="/fr/guide/levi-accessible" element={<AccessibleLevi lang="fr" />} />
-              <Route path="/nl/gids/toegankelijk-levi" element={<AccessibleLevi lang="nl" />} />
               {/* SkiingInLevi - DE/SV/FR/ES */}
               <Route path="/de/ratgeber/skifahren-in-levi" element={<SkiingInLevi lang="de" />} />
               <Route path="/sv/guide/skidakning-i-levi" element={<SkiingInLevi lang="sv" />} />
@@ -817,8 +782,6 @@ const App = () => {
               <Route path="/es/viaje/como-llegar-a-levi" element={<HowToGetToLevi lang="es" />} />
 
               {/* ApresSkiLevi - missing DE/ES */}
-              <Route path="/de/ratgeber/apres-ski-levi" element={<ApresSkiLevi lang="de" />} />
-              <Route path="/es/guia/apres-ski-levi" element={<ApresSkiLevi lang="es" />} />
               <Route path="/guide/apres-ski-and-nightlife-in-levi" element={<ApresSkiLevi lang="en" />} />
 
               {/* ChristmasDinnerLeviFI */}
@@ -827,82 +790,28 @@ const App = () => {
               {/* DayTripsFromLevi */}
               <Route path="/opas/paivaretket-levilla" element={<DayTripsFromLevi />} />
               <Route path="/guide/day-trips-from-levi" element={<DayTripsFromLevi lang="en" />} />
-              <Route path="/de/ratgeber/tagesausfluege-von-levi" element={<DayTripsFromLevi lang="de" />} />
-              <Route path="/sv/guide/dagsutflykter-fran-levi" element={<DayTripsFromLevi lang="sv" />} />
-              <Route path="/es/guia/excursiones-desde-levi" element={<DayTripsFromLevi lang="es" />} />
-              <Route path="/fr/guide/excursions-depuis-levi" element={<DayTripsFromLevi lang="fr" />} />
-              <Route path="/nl/gids/dagtrips-vanuit-levi" element={<DayTripsFromLevi lang="nl" />} />
-
               {/* EquipmentRentalLevi */}
               <Route path="/opas/valinevuokraus-levilla" element={<EquipmentRentalLevi />} />
               <Route path="/guide/equipment-rental-in-levi" element={<EquipmentRentalLevi lang="en" />} />
-              <Route path="/de/ratgeber/ausruestungsverleih-levi" element={<EquipmentRentalLevi lang="de" />} />
-              <Route path="/sv/guide/utrustningsuthyrning-levi" element={<EquipmentRentalLevi lang="sv" />} />
-              <Route path="/es/guia/alquiler-equipos-levi" element={<EquipmentRentalLevi lang="es" />} />
-              <Route path="/fr/guide/location-equipement-levi" element={<EquipmentRentalLevi lang="fr" />} />
-              <Route path="/nl/gids/materiaalverhuur-levi" element={<EquipmentRentalLevi lang="nl" />} />
-
               {/* EventsInLevi */}
               <Route path="/opas/tapahtumat-levilla" element={<EventsInLevi />} />
               <Route path="/guide/events-in-levi" element={<EventsInLevi lang="en" />} />
-              <Route path="/de/ratgeber/veranstaltungen-levi" element={<EventsInLevi lang="de" />} />
-              <Route path="/sv/guide/evenemang-levi" element={<EventsInLevi lang="sv" />} />
-              <Route path="/es/guia/eventos-levi" element={<EventsInLevi lang="es" />} />
-              <Route path="/fr/guide/evenements-levi" element={<EventsInLevi lang="fr" />} />
-              <Route path="/nl/gids/evenementen-levi" element={<EventsInLevi lang="nl" />} />
-
               {/* NewYearsEveLevi */}
               <Route path="/opas/uusivuosi-levilla" element={<NewYearsEveLevi />} />
               <Route path="/guide/new-years-eve-in-levi" element={<NewYearsEveLevi lang="en" />} />
-              <Route path="/de/ratgeber/silvester-levi" element={<NewYearsEveLevi lang="de" />} />
-              <Route path="/sv/guide/nyarsafton-levi" element={<NewYearsEveLevi lang="sv" />} />
-              <Route path="/es/guia/nochevieja-levi" element={<NewYearsEveLevi lang="es" />} />
-              <Route path="/fr/guide/reveillon-levi" element={<NewYearsEveLevi lang="fr" />} />
-              <Route path="/nl/gids/oudejaarsavond-levi" element={<NewYearsEveLevi lang="nl" />} />
-
               {/* PackingListLapland */}
               <Route path="/guide/packing-list-for-lapland" element={<PackingListLapland lang="en" />} />
-              <Route path="/de/ratgeber/packliste-lappland" element={<PackingListLapland lang="de" />} />
-              <Route path="/sv/guide/packlista-lappland" element={<PackingListLapland lang="sv" />} />
-              <Route path="/es/guia/lista-equipaje-laponia" element={<PackingListLapland lang="es" />} />
-              <Route path="/fr/guide/liste-bagages-laponie" element={<PackingListLapland lang="fr" />} />
-              <Route path="/nl/gids/paklijst-lapland" element={<PackingListLapland lang="nl" />} />
-
               {/* RomanticLeviGetaway */}
               <Route path="/opas/romanttinen-loma-levilla" element={<RomanticLeviGetaway />} />
               <Route path="/guide/romantic-getaway-in-levi" element={<RomanticLeviGetaway lang="en" />} />
-              <Route path="/de/ratgeber/romantischer-urlaub-levi" element={<RomanticLeviGetaway lang="de" />} />
-              <Route path="/sv/guide/romantisk-semester-levi" element={<RomanticLeviGetaway lang="sv" />} />
-              <Route path="/es/guia/escapada-romantica-levi" element={<RomanticLeviGetaway lang="es" />} />
-              <Route path="/fr/guide/escapade-romantique-levi" element={<RomanticLeviGetaway lang="fr" />} />
-              <Route path="/nl/gids/romantisch-uitje-levi" element={<RomanticLeviGetaway lang="nl" />} />
-
               {/* SamiCultureLevi */}
               <Route path="/opas/saamelaiset-levilla" element={<SamiCultureLevi />} />
               <Route path="/guide/sami-culture-in-levi" element={<SamiCultureLevi lang="en" />} />
-              <Route path="/de/ratgeber/samische-kultur-levi" element={<SamiCultureLevi lang="de" />} />
-              <Route path="/sv/guide/samisk-kultur-levi" element={<SamiCultureLevi lang="sv" />} />
-              <Route path="/es/guia/cultura-sami-levi" element={<SamiCultureLevi lang="es" />} />
-              <Route path="/fr/guide/culture-sami-levi" element={<SamiCultureLevi lang="fr" />} />
-              <Route path="/nl/gids/samische-cultuur-levi" element={<SamiCultureLevi lang="nl" />} />
-
               {/* SantaClausLevi */}
               <Route path="/guide/santa-claus-in-levi" element={<SantaClausLevi lang="en" />} />
-              <Route path="/de/ratgeber/weihnachtsmann-levi" element={<SantaClausLevi lang="de" />} />
-              <Route path="/sv/guide/jultomten-levi" element={<SantaClausLevi lang="sv" />} />
-              <Route path="/es/guia/papa-noel-levi" element={<SantaClausLevi lang="es" />} />
-              <Route path="/fr/guide/pere-noel-levi" element={<SantaClausLevi lang="fr" />} />
-              <Route path="/nl/gids/kerstman-levi" element={<SantaClausLevi lang="nl" />} />
-
               {/* SkiHolidayLevi */}
               <Route path="/opas/hiihtoloma-levilla" element={<SkiHolidayLevi />} />
               <Route path="/guide/ski-holiday-in-levi" element={<SkiHolidayLevi lang="en" />} />
-              <Route path="/de/ratgeber/skiurlaub-levi" element={<SkiHolidayLevi lang="de" />} />
-              <Route path="/sv/guide/skidsemester-levi" element={<SkiHolidayLevi lang="sv" />} />
-              <Route path="/es/guia/vacaciones-esqui-levi" element={<SkiHolidayLevi lang="es" />} />
-              <Route path="/fr/guide/vacances-ski-levi" element={<SkiHolidayLevi lang="fr" />} />
-              <Route path="/nl/gids/skivakantie-levi" element={<SkiHolidayLevi lang="nl" />} />
-
               {/* SpringSkiingLevi */}
               <Route path="/opas/kevatlaskettelu-levi" element={<SpringSkiingLevi />} />
               <Route path="/guide/spring-skiing-in-levi" element={<SpringSkiingLevi lang="en" />} />
