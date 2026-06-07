@@ -293,6 +293,13 @@ export const fi = {
     bookCta: "Tutustu vapaisiin ajankohtiin ja varaa",
     items: [
       {
+        badge: "☀️ Kesä 2026",
+        date: "7.6.2026",
+        title: "Kesä Levillä tarjoaa elämyksiä ja uudistumisen aikaa",
+        description: "Monelle Levi tunnetaan talven lumivarmoista rinteistä, mutta myös kesä tarjoaa tunturissa runsaasti tekemistä ja nähtävää. Keskiyön aurinko, puhdas luonto ja väljät maisemat houkuttelevat vuosittain yhä enemmän matkailijoita nauttimaan Lapin kesästä.\n\nLevin alueella voi viettää aktiivista lomaa esimerkiksi patikoiden, maastopyöräillen, kalastaen tai golfaten. Tunturipolut tarjoavat upeita maisemia kaiken tasoisille liikkujille, ja kesän valoisat yöt mahdollistavat retkeilyn lähes mihin vuorokaudenaikaan tahansa. Myös perheille löytyy runsaasti tekemistä erilaisista aktiviteeteista luontoelämyksiin.\n\nKesä on samalla tärkeää aikaa myös meille majoituskohteiden omistajina. Talvikauden jälkeen kohteissamme on käynnissä huolelliset suursiivoukset, vuosihuollot sekä erilaiset korjaus- ja kunnostustyöt. Lisäksi toteutamme useissa kohteissamme saneerauksia ja uudistuksia, joiden tavoitteena on parantaa viihtyvyyttä, toimivuutta ja asumismukavuutta entisestään.\n\nHyvin hoidettu majoitus syntyy jatkuvasta ylläpidosta ja kehittämisestä. Siksi käytämme kesäkauden tehokkaasti siihen, että huoneistot ovat jälleen parhaassa mahdollisessa kunnossa tulevaa talvikautta varten. Haluamme, että vieraamme voivat saapua Leviin luottavaisin mielin ja nauttia lomastaan viihtyisässä sekä laadukkaasti ylläpidetyssä majoituksessa.\n\nVaikka katse on jo osittain tulevassa talvessa, kannattaa myös Levin kesä kokea itse. Tunturin rauha, luonnon kauneus ja monipuoliset aktiviteetit tekevät kesäisestä Levistä elämyksen, joka yllättää monet ensikertalaisetkin.\n\nTervetuloa nauttimaan Levin kesästä ja seuraamaan, kuinka kohteemme valmistautuvat jälleen uuteen talvikauteen!",
+        highlight: "Kesä on myös aktiivista kehitysaikaa – kohteemme kunnostetaan ja uudistetaan joka kesä entistä parempikuntoisiksi."
+      },
+      {
         badge: "🌤️ Kevät 2026",
         date: "19.3.2026",
         title: "Kevät etenee Levillä – poikkeuksellinen talvi takana, parhaat kelit edessä",
