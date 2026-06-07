@@ -1,123 +1,83 @@
-# Suunnitelma: Levillas.fi:n ohitus orgaanisessa haussa
+## Vastaus: ei vielä täysin
 
-**Tilanne tänään (Semrush, FI-tietokanta):**
-- levillas.fi: 239 avainsanaa, ~2 344 käyntiä/kk — 87 % yhdeltä sivulta (etusivu)
-- leville.net: 591 avainsanaa, ~2 814 käyntiä/kk — liikenne pirstaloitunut oppaisiin
+Etusivu (`/`) on **hyvällä tasolla** (title, description, keywords, H1, JSON-LD LodgingBusiness/VacationRental/WebSite, hreflang, Hero + About + GuideLinks + Activities), mutta **muutama kärkihakusana ja tekninen vipu puuttuu** vielä — eli "kaikkia mahdollisia hakusanoja" se ei vielä tarjoile. Alla mitä on jäljellä.
 
-Olet jo edellä liikenteessä, mutta **häviät 5 kategorian ydintermissä** (~25 000 hakua/kk yhteensä):
+## Mitä etusivulta puuttuu hakukoneen näkökulmasta
 
-| Termi | Volyymi | Levillas | Leville |
-|---|---:|---:|---:|
-| majoitus levi | 12 100 | #3 | ei top 10 |
-| levi majoitus | 6 600 | #4 | ei top 10 |
-| levi mökit | 2 400 | #4 | ei top 10 |
-| levi mökkimajoitus | 2 400 | #4 | ei top 10 |
-| vuokramökit levi | 1 300 | #5 | ei top 10 |
+**1. Avainsanaklusterit, joita H1/teksti ei vielä mainitse näkyvänä tekstinä**
+Title/keywords-meta sisältää ne, mutta Google painottaa **näkyvää H1- ja leipätekstiä**:
+- "loma-asunto Levi" / "lomahuoneisto Levi" (n. 1 500 hakua/kk)
+- "majoitus Levin keskusta" (eksakti fraasi puuttuu H1:stä)
+- "mökkivuokraus Levi" / "levin mökkivuokraus" (vain metassa)
+- "huoneisto Levi keskusta" (vain alaotsikossa hajallaan)
+- "Levi Booking.com vaihtoehto" / "Levi suoraan omistajalta"
+- "Levi majoitus edullisesti" / "halpa majoitus Levi"
+- "Levi sauna mökki" / "saunamökki Levi"
+- Ryhmäkokoa kuvaavat: "majoitus Levi 4 hengelle / 6 / 8 / 10 / 14"
 
-Suunnitelma on rakennettu näiden valloittamiseen ilman, että menetämme nykyistä pitkän hännän etua.
+**2. Sisäisten linkkien ankkureista puuttuu hub-/tyyppikohtaisia avainsanoja etusivulla**
+Tällä hetkellä etusivulla linkit menevät pääosin oppaisiin ja aktiviteetteihin. Pitäisi olla **näkyvä hub-grid tai SEO-tekstipalkki**, jossa ankkurit:
+- "Skistar-huoneistot Postintie 3:lla" → `/vuokramokit/postintie-levi`
+- "Glacier-alppihuoneistot keskustassa" → `/vuokramokit/glacier-apartments-levi`
+- "Bearlodge — hirsihuvilat Levin keskustassa" → kohde
+- "Hiihtäjänkujan mökit" / "Ratsastajankujan mökit" → hubit
+- "Mökit Leviltä 10 hengelle" / "...14 hengelle" → tyyppisivut
+- "Studiohuoneistot Leviltä" / "Penthouse-huoneistot Leviltä"
 
----
+**3. FAQPage-skeema puuttuu etusivulta**
+`Majoitukset.tsx`-sivun FAQ:t (8 kpl) ovat olemassa mutta etusivulla ei ole FAQ-sektiota eikä FAQPage JSON-LD:tä. 3–5 huolella valittua kysymystä etusivulle tuo SERP-rich-resulteja avainsanoille "majoitus levi hinta", "mikä on paras majoitus Levillä", "Levi mökki vai huoneisto".
 
-## Vaihe 1 — Etusivun "ydintermien valtaus" (viikko 1)
+**4. BreadcrumbList puuttuu etusivulta** (kuuluu kotisivulle vain triviaalisti, mutta hreflang x-default ok). Tämä on pieni.
 
-Tavoite: nostaa leville.net etusivu top 5:een termeillä "majoitus levi" ja "levi majoitus".
+**5. Vertailu-/päätösankkurit puuttuvat**
+- "Levi vs Rovaniemi" / "Levi vs Saariselkä" -kortit on /opas-puolella, mutta etusivulla ei ole linkkiä → menetetään "missä yöpyä Lapissa" -tyyppinen liikenne.
 
-**Mitä tehdään:**
-- Kirjoitetaan `index.html` title + meta description uudelleen niin, että "majoitus Levi" on ensimmäisten 60 merkin sisällä
-- Etusivun H1 muutetaan muotoon, joka sisältää "Majoitus Levi" + brändi (esim. *"Majoitus Levillä — premium-huoneistot ja mökit Levin keskustassa"*)
-- Lisätään etusivulle 200–300 sanan SEO-tekstiosio (näkyvä, ei piilotettu): kattaa termit *majoitus levi, levi mökit, levi mökkimajoitus, vuokramökit levi, levi huoneistot, levi suites*
-- Sisäisten linkkien ankkuritekstit kotisivulta huoneistoihin: vaihdetaan "Katso lisää" → "majoitus Levillä – {kiinteistön nimi}"
-- LodgingBusiness JSON-LD etusivulle (aggregateRating + areaServed: Levi)
+**6. Hintainformaatio puuttuu näkyvästä tekstistä**
+Google nostaa "majoitus Levi hinta"-hakuihin sivuja, joissa on hintahaarukka näkyvissä. FAQ:ssa Majoitukset-sivulla on, mutta etusivulla ei.
 
-**Mittari:** seuranta `serp_analysis`-työkalulla 2 viikon välein 5 ydintermille.
+**7. Tekninen pikku-asia**
+`<meta name="keywords">` on edelleen mukana — Google ei käytä sitä, ei haittaa, mutta päällekkäisiä avainsanoja kannattaa siirtää pikemminkin **näkyvään leipätekstiin** kuin keywordsiin.
 
----
+**8. `index.html` `<title>` on edelleen pelkkä "Leville.net"**
+React-Helmet kirjoittaa sen yli, mutta **prerender/social crawlers** näkevät hetken raakaversion. Pitäisi olla heti suomenkielinen brändi+kärki: `"Majoitus Levillä — mökit & huoneistot keskustassa | Leville.net"`.
 
-## Vaihe 2 — Kiinteistösivujen osoitepohjainen optimointi (viikko 1–2)
+## Ehdotettu paketti (1 iteraatio)
 
-Tavoite: napata kaikki "{katuosoite}" + "{rakennusnimi}" -haut, joissa levillas rankkaa #1.
+**Vaihe A — index.html-fallback (5 min)**
+- Päivitä `<title>` ja lisää staattinen `<meta name="description">` index.html:ään fallbackiksi.
 
-Sinulla on jo `properties.ts`:ssä `address: { street, postalCode, city }` joka kiinteistölle. Tämä on raakamateriaali — pitää vain saada title-tageihin ja H1:iin.
+**Vaihe B — Etusivun SEO-tekstipalkki (uusi komponentti)**
+- Luodaan `src/components/HomeSeoBlock.tsx`: 250–400 sanaa näkyvää tekstiä, joka kattaa:
+  - "majoitus Levillä", "vuokramökit Levi", "lomahuoneisto Levi", "mökkivuokraus Levi", "huoneisto Levin keskustassa", "saunamökki Levi", hintahaarukat, ryhmäkoot 2–14.
+  - H2: "Majoitus Levillä — kaikki vaihtoehdot keskustassa".
+- Sijoitetaan `Index.tsx`-sivulle About:n ja GuideLinks:n väliin.
+- Sisältää **6–10 hub-linkkiä** ankkuriteksteillä (Skistar Postintie 3, Glacier, Bearlodge, Hiihtäjänkuja, Ratsastajankuja, Studiot, Penthouset, 10 hengelle, 14 hengelle, vertailu Saariselkä/Rovaniemi).
 
-**Mitä tehdään huoneistosivuille (`/majoitus/{slug}`):**
-- Title-tag template: `{Huoneiston nimi} – {katuosoite}, Levi | Leville`
-- H1 sisältää katuosoitteen näkyvänä tekstinä
-- Slug-tarkistus: jos slugissa ei ole katuosoitetta, lisätään 301-aliakset (esim. `/majoitus/hissitie-15-a4` → kanoninen sivu). 200-Alias-strategia on jo käytössä projektissa.
-- Meta description sisältää osoitteen, makuuhuoneiden määrän ja etäisyyden Zero Pointiin
-- LodgingBusiness JSON-LD per kiinteistö (address + geo + numberOfRooms)
-- Lisätään kiinteistösivun loppuun "Lähistöllä myös" -gridi → linkit muihin saman rakennuksen huoneistoihin
+**Vaihe C — FAQ-sektio etusivulle + FAQPage JSON-LD**
+- Lisätään `HomeFaq.tsx`, 4 kysymystä (hinta, paras sijainti, mökki vs huoneisto, suoraan omistajalta -säästö).
+- Vastaava `FAQPage` schema `JsonLd`-komponentin kautta.
 
-**Mittari:** kuukauden päästä `top_pages(leville.net)` — onko huoneistosivuja noussut top 10:een?
+**Vaihe D — Localized fallback muille kielille**
+- Sama HomeSeoBlock tekee kielikohtaisen tekstin `getTranslations(lang)`-kautta (vain FI-teksti ensin, muut käännetään jälkikäteen, jotta ei syntyy ghost-sisältöä englanniksi käännösten odottaessa).
 
----
+**Tekniset tiedostot, joita muutos koskee:**
+- `index.html` (title + description fallback)
+- `src/pages/Index.tsx` (lisää HomeSeoBlock + HomeFaq + FAQPage JSON-LD)
+- `src/pages/en/Index.tsx` (vastaavasti EN — vain jos tekstit ovat käännetty; muuten skipataan)
+- `src/components/HomeSeoBlock.tsx` (uusi)
+- `src/components/HomeFaq.tsx` (uusi)
+- `src/translations/fi.ts` (uudet avaimet `home.seoBlock`, `home.faq`)
 
-## Vaihe 3 — Rakennusklusteri-hubit (viikko 2–3)
+## Realistinen vaikutus
 
-Tavoite: dominoida rakennusten brändinimi-hakuja (Skistar, Zero Point, Hissitie, Tunturinlaita-tyyliin).
+- 5 puuttuvaa core-klusteria etusivulla → odotettavissa +10–25 % orgaanista liikennettä etusivulle 4–8 viikossa.
+- FAQ-rich-resultit → CTR-nousu n. +10–15 % näytöistä.
+- Sisäisten ankkurien parannus → hub-sivut (Postintie, Glacier) saavat lisää linkkivoimaa etusivulta = nopeampi nousu Skistar/Glacier-hauissa.
 
-Levillas tekee tätä Skimbaajankujalla, Tunturinlaita -tyyliin — heillä on useita huoneistosivuja samasta rakennuksesta, jotka linkittävät toisiinsa. Sinulla on **enemmän** huoneistoja per rakennus (esim. 8 Skistar-yksikköä Postintie 3:ssa) mutta ei hub-sivua.
+## Mitä **ei** tehdä tässä
 
-**Mitä tehdään:**
-- Uusi reitti `/majoitus/rakennus/{rakennus-slug}` per rakennus, joissa ≥2 huoneistoa
-  - skistar-postintie-3 (8 yksikköä)
-  - zero-point-hiihtajankuja-5 (3 yksikköä)
-  - mahdolliset muut, joita kerätään `properties.ts`:stä groupBy address.street
-- Hub-sivu sisältää: rakennuksen esittely, sijaintikartta (jo olemassa Mapbox), kaikki huoneistot gridissä, FAQ rakennuksesta
-- Title: `{Rakennuksen nimi} – Levi | Huoneistot ja varaus`
-- CollectionPage + ItemList JSON-LD
-- Linkitetään etusivun listausgridistä rakennushub-sivuille (uusi navigaatiotasaus)
+- Ei muuteta `Hero`-komponenttia tai sen kuvaa (LCP-riski).
+- Ei lisätä `<meta name="keywords">`-kenttiä lisää.
+- Ei muiden kielten käännöksiä samassa iteraatiossa (vältetään puolivalmis sisältö → ghost-URL-riski).
 
----
-
-## Vaihe 4 — Pitkän hännän vahvistus (jatkuva)
-
-Tämä on jo käynnissä — oppaat ja kausi-hubit tuovat sinulle 591 avainsanaa vs. levillaksen 239. Älä hidasta.
-
-**Pieni täsmälisäys:** sisäiset linkit oppaista huoneistosivuille kategoriaohjeen "Where to stay" -osiosta. Käytä ankkureita kuten *"majoitus Levin keskustassa"* → linkki etusivulle, ja *"huoneistot Zero Pointin vieressä"* → linkki Zero Point -klusterihubille.
-
----
-
-## Tekninen kohta — toteutuksen sijainnit
-
-```text
-Vaihe 1:
-  index.html                          // title, description, JSON-LD
-  src/pages/Levi.tsx tai Index.tsx    // H1, SEO-tekstiosio, ankkuritekstit
-
-Vaihe 2:
-  src/pages/PropertyDetail.tsx        // title/H1/meta template
-  src/data/properties.ts              // ei muutoksia, lukutiedot
-  src/App.tsx                         // 301/200-aliakset osoiteslugeille
-
-Vaihe 3:
-  src/data/properties.ts              // groupBy address.street
-  src/pages/BuildingHub.tsx (uusi)    // hub-sivun komponentti
-  src/App.tsx                         // /majoitus/rakennus/:slug -reitti
-  public/sitemap.xml                  // uudet hub-URLit
-```
-
-Hreflang-säännön mukaisesti: hub-sivut julkaistaan ensin **vain suomeksi**. Käännöksiä ei lisätä sitemappiin/hreflangiin ennen kuin sisältö on käännetty.
-
----
-
-## Aikataulu ja tulosodotukset
-
-| Viikko | Tehdään | Tulokset näkyvät |
-|---|---|---|
-| 1 | Vaihe 1 (etusivu) | 4–8 viikkoa |
-| 1–2 | Vaihe 2 (kiinteistösivut) | 2–6 viikkoa (osoitehaut ovat helppoja) |
-| 2–3 | Vaihe 3 (rakennushubit) | 6–12 viikkoa |
-| jatkuva | Vaihe 4 | jo voitetut, ylläpito |
-
-**Realistinen tavoite 3 kk:** leville.net top 5:ssä termille *majoitus levi*, top 3:ssa termille *levi mökkimajoitus*, ja kokonaisliikenne 4 500–6 000/kk (vs. levillaksen 2 344).
-
----
-
-## Mitä **ei** tehdä
-
-- Ei pirstaloida geneerisiä termejä useille laskeutumissivuille — yksi vahva etusivu voittaa
-- Ei kopioida levillaksen sisältöä; tehdään parempi (oppaat + osoitepohjainen syvyys)
-- Ei luvata "halvinta hintaa" (price parity -sääntö)
-- Ei lisätä hreflang-aliaksia kääntämättömille sivuille
-
-Hyväksy suunnitelma, niin aloitan Vaiheesta 1.
+Hyväksytkö, niin toteutan A–D?

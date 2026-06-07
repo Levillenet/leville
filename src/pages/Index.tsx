@@ -10,6 +10,8 @@ import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredDa
 const About = lazy(() => import("@/components/About"));
 const Features = lazy(() => import("@/components/Features"));
 const NewsHighlight = lazy(() => import("@/components/NewsHighlight"));
+const HomeSeoBlock = lazy(() => import("@/components/HomeSeoBlock"));
+const HomeFaq = lazy(() => import("@/components/HomeFaq"));
 // GuideTeaser replaced by GuideLinksSection + ActivitiesLinksSection for all languages
 const GuideLinksSection = lazy(() => import("@/components/GuideLinksSection"));
 const ActivitiesLinksSection = lazy(() => import("@/components/ActivitiesLinksSection"));
@@ -126,10 +128,20 @@ const Index = ({ lang = "fi" }: IndexProps) => {
           <Suspense fallback={<div className="min-h-[200px]" />}>
             <About lang={lang} />
           </Suspense>
+          {lang === "fi" && (
+            <Suspense fallback={<div className="min-h-[200px]" />}>
+              <HomeSeoBlock />
+            </Suspense>
+          )}
           <Suspense fallback={<div className="min-h-[200px]" />}>
             <GuideLinksSection lang={lang} />
             <ActivitiesLinksSection lang={lang} />
           </Suspense>
+          {lang === "fi" && (
+            <Suspense fallback={<div className="min-h-[200px]" />}>
+              <HomeFaq />
+            </Suspense>
+          )}
           <Suspense fallback={<div className="min-h-[200px]" />}>
             <NewsHighlight lang={lang} />
             <Features lang={lang} />
