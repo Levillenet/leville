@@ -80,11 +80,11 @@ export const streetHubs: StreetHub[] = [
     h1: "Vuokramökit ja huoneistot Ratsastajankuja 2, Levi – Glacier-alppitalo",
     metaTitle: `Vuokramökit Ratsastajankuja 2 Levi ${new Date().getFullYear()} – Glacier A & B -alppihuoneistot`,
     metaDescription:
-      "Glacier A & B -alppihuoneistot Ratsastajankuja 2:ssa, Levin Hullu Poro -alueella. 11 saunallista huoneistoa – varaa kokonaisen talon kerrallaan tai yksittäin.",
+      "Glacier A & B -alppihuoneistot Ratsastajankuja 2:ssa, Levin Hullu Poro -alueella. 10 saunallista huoneistoa – varaa kokonaisen talon kerrallaan tai yksittäin.",
     subtitle:
-      "Glacier-alppitalo Hullu Poro -alueella – 11 saunallista huoneistoa, sopii myös ryhmille.",
+      "Glacier-alppitalo Hullu Poro -alueella – 10 saunallista huoneistoa, sopii myös ryhmille.",
     intro: [
-      "Ratsastajankuja 2 sijaitsee Levin Hullu Poro -alueella, askelten päässä ravintoloista ja Front Slope -rinteistä. Osoitteessa sijaitsee Levi Glacier -alppitalo, jossa on yhteensä 11 modernia huoneistoa kahdessa rakennuksessa (A- ja B-talot).",
+      "Ratsastajankuja 2 sijaitsee Levin Hullu Poro -alueella, askelten päässä ravintoloista ja Front Slope -rinteistä. Osoitteessa sijaitsee Levi Glacier -alppitalo, jossa on yhteensä 10 modernia huoneistoa kahdessa rakennuksessa (A- ja B-talot).",
       "Glacier-huoneistot on suunniteltu erityisesti perheille, urheiluseuroille ja yritysryhmille. Jokaisessa huoneistossa on oma sauna, parveke ja täysin varusteltu keittiö. Huoneistoja on kahdesta neljään makuuhuonetta, ja kattohuoneistoissa on tilaa jopa kymmenelle hengelle. Talossa on myös pelihuone lapsille.",
       "Kun haluat majoittaa koko seurueen samaan rakennukseen, voit varata 4–10 huoneistoa kerrallaan ja saada koko talon yksityiskäyttöön. Kaikki Glacierin huoneistot voi varata suoraan Leville.netin kautta ilman välityspalkkioita.",
     ],
@@ -104,7 +104,42 @@ export const streetHubs: StreetHub[] = [
       { label: "Hullu Poro -ravintolaan", value: "n. 100 m" },
       { label: "Front Slope -rinteille", value: "n. 250 m" },
       { label: "Levin keskustaan", value: "n. 400 m" },
-      { label: "Huoneistoja yhteensä", value: "11 (A & B)" },
+      { label: "Huoneistoja yhteensä", value: "10 (A & B)" },
+    ],
+  },
+  {
+    slug: "glacier-apartments-levi",
+    street: "Glacier Apartments",
+    address: "Ratsastajankuja 2",
+    h1: "Glacier Apartments Levi – Levin keskustan suurin 10 huoneiston alppitalo",
+    metaTitle: `Glacier Apartments Levi ${new Date().getFullYear()} – 10 saunallista huoneistoa keskustassa`,
+    metaDescription:
+      "Levi Glacier Apartments – Levin keskustan suurin 10 huoneiston alppitalo Ratsastajankuja 2:ssa, Hullu Poro -alueella. Saunalliset huoneistot 2–10 hengelle, varaa suoraan.",
+    subtitle:
+      "Levin keskustan suurin alppitalo – 10 saunallista Glacier-huoneistoa Hullu Poro -alueella.",
+    intro: [
+      "Levi Glacier Apartments on Levin keskustan suurin yksittäinen huoneistokokonaisuus: 10 modernia saunallista alppihuoneistoa samassa osoitteessa, Ratsastajankuja 2:ssa. Glacier-talo sijaitsee aivan Hullu Poro -alueen vieressä, vain noin 100 metrin päässä ravintoloista ja 250 metrin päässä Front Slope -rinteistä.",
+      "Glacier Apartments jakautuu kahteen rakennukseen (A- ja B-talo), joissa on yhteensä kuusi A-puolen ja neljä B-puolen huoneistoa. Huoneistoissa on 2–4 makuuhuonetta ja kattohuoneistoissa (A5, B3, B4 Penthouse) tilaa jopa kymmenelle hengelle. Jokaisessa huoneistossa on oma sauna, parveke, täysin varusteltu keittiö ja WiFi. Talossa on myös lasten pelihuone.",
+      "Glacier Apartments on Levin suosituin valinta isoille ryhmille, urheiluseuroille, yritystapahtumille ja sukujuhlille – voit varata jopa koko 10 huoneiston talon samalle ajalle ja saada sen yksityiskäyttöön. Kaikki Glacier-huoneistot voi varata suoraan Leville.netin kautta ilman välityspalkkioita.",
+    ],
+    propertySlugs: [
+      "glacier-a1",
+      "glacier-a2",
+      "glacier-a3",
+      "glacier-a4",
+      "glacier-a5-penthouse",
+      "glacier-a6",
+      "glacier-b1",
+      "glacier-b2",
+      "glacier-b3-penthouse",
+      "glacier-b4-penthouse",
+    ],
+    facts: [
+      { label: "Huoneistoja yhteensä", value: "10 (A & B)" },
+      { label: "Hullu Poro -ravintolaan", value: "n. 100 m" },
+      { label: "Front Slope -rinteille", value: "n. 250 m" },
+      { label: "Levin keskustaan", value: "n. 400 m" },
+      { label: "Suurin huoneisto", value: "10 hengelle (Penthouse)" },
     ],
   },
   {
