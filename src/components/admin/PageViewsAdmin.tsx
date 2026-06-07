@@ -33,6 +33,15 @@ interface ConversionEvent {
   topSources: Array<{ source: string; count: number }>;
 }
 
+interface BookingSourceRow {
+  source: string;
+  total: number;
+  bySearchWidget: number;
+  byStickyBar: number;
+  byPageCta: number;
+  byLink: number;
+}
+
 interface Stats {
   total: number;
   byDate: Record<string, number>;
@@ -49,7 +58,9 @@ interface Stats {
   byDateSessions?: Record<string, number>;
   topLandingPages?: Array<{ path: string; count: number }>;
   topExitPages?: Array<{ path: string; count: number }>;
+  bookingClicksBySource?: BookingSourceRow[];
 }
+
 
 interface PageViewsAdminProps {
   isViewer: boolean;
@@ -143,7 +154,16 @@ SIVUSTON RAKENNE:
 - /en/ = englanninkieliset sivut (esim. /en/levi, /en/accommodations)
 - /opas/ = oppaat ja artikkelit
 - /guide/ = englanninkieliset oppaat
-- /sauna, /revontulet, /latuinfo jne. = erikoissivut`;
+- /sauna, /revontulet, /latuinfo jne. = erikoissivut
+
+LISÄLOHKO CSV:N LOPUSSA — "BOOKING CLICKS BY SOURCE":
+- Raakarivien jälkeen CSV sisältää aggregoidun lohkon, jossa on yhteenveto kaikista app.moder.fi-varauslinkkien klikkauksista lähtösivuittain.
+- Sarakkeet: source_page, total, search_widget, sticky_bar, page_cta, other_link
+- source_page = sivu jolta klikkaus tehtiin (esim. /opas/kesa-levi)
+- total = kaikki varausklikkaukset tältä sivulta (kaikki neljä event-tyyppiä yhteensä)
+- search_widget / sticky_bar / page_cta / other_link = klikkaukset per painike-tyyppi
+- Lohko on järjestetty total-laskevasti ja sisältää vain sivut joilla on vähintään yksi varausklikkaus.`;
+
 
 type Period = "today" | "week" | "month" | "30days" | "90days" | "180days";
 
@@ -438,7 +458,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
                 {event.topSources.length > 0 ? (
                   <div>
                     <p className="text-xs text-muted-foreground mb-2">Suosituimmat lähtösivut:</p>
-                    <ul className="space-y-1">
+                    <ul className="space-y-1 max-h-72 overflow-y-auto pr-1">
                       {event.topSources.map((s) => (
                         <li key={s.source} className="flex justify-between text-xs">
                           <span className="font-mono truncate mr-2">{s.source}</span>
@@ -455,6 +475,46 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Booking clicks by source — aggregated across all booking-* event types */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Varauslinkit lähtösivuittain (app.moder.fi)</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {(stats.bookingClicksBySource || []).length === 0 ? (
+            <p className="text-sm text-muted-foreground">Ei vielä varausklikkauksia valitulla ajanjaksolla.</p>
+          ) : (
+            <div className="max-h-[28rem] overflow-y-auto">
+              <table className="w-full text-xs">
+                <thead className="sticky top-0 bg-background border-b">
+                  <tr className="text-left text-muted-foreground">
+                    <th className="py-2 pr-2 font-medium">Lähtösivu</th>
+                    <th className="py-2 px-2 font-medium text-right">Yhteensä</th>
+                    <th className="py-2 px-2 font-medium text-right">Hakuwidget</th>
+                    <th className="py-2 px-2 font-medium text-right">Sticky-palkki</th>
+                    <th className="py-2 px-2 font-medium text-right">Sivun CTA</th>
+                    <th className="py-2 pl-2 font-medium text-right">Muu linkki</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(stats.bookingClicksBySource || []).map((r) => (
+                    <tr key={r.source} className="border-b border-border/40 last:border-0">
+                      <td className="py-1.5 pr-2 font-mono truncate max-w-[260px]">{r.source}</td>
+                      <td className="py-1.5 px-2 text-right font-semibold text-primary">{r.total}</td>
+                      <td className="py-1.5 px-2 text-right text-muted-foreground">{r.bySearchWidget || "-"}</td>
+                      <td className="py-1.5 px-2 text-right text-muted-foreground">{r.byStickyBar || "-"}</td>
+                      <td className="py-1.5 px-2 text-right text-muted-foreground">{r.byPageCta || "-"}</td>
+                      <td className="py-1.5 pl-2 text-right text-muted-foreground">{r.byLink || "-"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
 
       {/* Daily views chart */}
       <Card>
