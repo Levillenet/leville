@@ -1,69 +1,49 @@
-# Miksi sivut eivät ole indeksoituneet
+# Korjaus: GSC "Alternative page with proper canonical tag" -ongelma
 
 ## Diagnoosi
 
-Google Search Console -raportin syy on **"Alternative page with proper canonical tag"** (Vaihtoehtoinen sivu, jolla on oikea canonical-tagi). Tämä tarkoittaa, että Google löysi sivun, mutta jätti sen indeksoimatta, koska sivu itse osoittaa canonical-tagilla **toiseen URL-osoitteeseen** — Google kunnioittaa tätä signaalia ja indeksoi vain "alkuperäisen".
+18 opas-/aktiviteettisivua on rekisteröity App.tsx:ssä reiteille `/sv/...`, `/de/...`, `/es/...`, `/fr/...` ja `/nl/...`, mutta niiden `translations`-objekti sisältää vain `fi` ja `en`. Käyttäjän käydessä esim. `/de/aktivitaeten/golf-levi`-osoitteessa renderöityy suomenkielinen sisältö ja canonical osoittaa suomeen — Google näkee duplikaatin ja jättää sivun indeksoimatta.
 
-81 raportoidusta URL-osoitteesta **80 on käännettyjä sivuja** (de / es / fr / nl / sv). Syy löytyy heti koodista: monikieliset opas- ja vertailusivut sisältävät **kovakoodatun canonical-tagin**, joka osoittaa aina suomen- tai englanninkieliseen versioon kielestä riippumatta.
+Sisältö on jo tarkistettu: hreflang näillä sivuilla on rajattu oikein (`customUrls = { fi, en }`), eikä sitemap sisällä rikkinäisiä URL:eja. Ongelma on vain App.tsx-reiteissä ja `translations/index.ts`-kartassa.
 
-Esimerkkejä (sama tiedosto renderöi 5–7 kielen sivut):
+## Korjattavat sivut (vain fi/en olemassa)
 
-```text
-src/pages/guide/LeviVsRovaniemiComparison.tsx:90
-  <link rel="canonical" href="https://leville.net/guide/levi-vs-rovaniemi-comparison" />
+Aktiviteetit: GolfLevi, LeviForKids, HorseRidingLevi, IceFishingLevi, CanoeingAndSUPLevi, HikingAndBikingLevi.
 
-src/pages/guide/LeviVsSaariselkaComparison.tsx:83
-  <link rel="canonical" href="https://leville.net/guide/levi-vs-saariselka-comparison" />
+Oppaat: DayTripsFromLevi, ApresSkiLevi, EquipmentRentalLevi, EventsInLevi, SamiCultureLevi, AccessibleLevi, CabinVsApartmentLevi, NewYearsEveLevi, PackingListLapland, RomanticLeviGetaway, SkiHolidayLevi, SantaClausLevi.
 
-src/pages/guide/LeviVsYllasVsRuka.tsx:73
-  <link rel="canonical" href="https://leville.net/opas/levi-vs-yllas-vs-ruka" />
+Yhteensä noin 80–90 poistettavaa reittiä App.tsx:stä (HikingAndBikingLevi ja CabinVsApartmentLevi näyttävät jo nyt olevan ilman käännösreittejä — varmistetaan kartoituksen yhteydessä).
 
-src/pages/guide/LeviVsYllasVsRukaEN.tsx:87
-  <link rel="canonical" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison" />
+## Toimenpiteet
 
-src/pages/guide/FinnishSaunaLevi.tsx:186
-  <link rel="canonical" href="https://leville.net/guide/finnish-sauna-in-levi" />
-```
+### 1. Poista käännösreitit `src/App.tsx`:stä
+Poistetaan kaikki `<Route path="/{sv|de|es|fr|nl}/..." element={<X lang="..." />}>` -rivit yllä listatuille 18 komponentille.
 
-Esim. käyttäjä menee osoitteeseen `https://leville.net/de/guide/levi-vs-rovaniemi` → sivu lähettää `<link rel="canonical" href="https://leville.net/guide/levi-vs-rovaniemi-comparison">` → Google: "OK, saksankielinen versio on duplikaatti EN-sivusta, en indeksoi sitä." Sama logiikka selittää kaikki 80 käännettyä URL-osoitetta raportissa.
+### 2. Päivitä `src/translations/index.ts` -reittikartta
+Näiden 18 sivun osalta `sv`, `de`, `es`, `fr` ja `nl` -arvot vaihdetaan osoittamaan englanninkieliseen vastineeseen (esim. `sv: "/en/activities/golf-in-levi"`), jotta:
+- Kielenvaihtaja ohjaa muut kielet englantilaiseen versioon (paras saatavilla oleva sisältö).
+- Mahdolliset sisäiset linkit eivät päädy poistettuihin reitteihin.
 
-Hreflang-tagit ovat itse asiassa kunnossa (`HreflangTags`-komponentti tuottaa oikeat per-kieli alternate-linkit), mutta canonical voittaa hreflangin indeksointipäätöksessä.
+### 3. Pidä koskemattomina (näillä on aidot käännökset)
+- Hub-sivut: SeasonsHub, ActivitiesHub, ComparisonHub, TravelHub
+- Vertailut: LeviVsRovaniemiComparison, LeviVsYllasVsRukaEN (kaikki kielet)
+- Revontuli-sivut: BestTimeNorthernLightsLevi, NorthernLightsSeasonLevi, NorthernLightsForecastLevi, WhereToSeeNorthernLightsLevi, NorthernLightsPhotographyLevi, HowNorthernLightsForm, NorthernLightsColorsExplained
+- Aktiviteetit ulkoisilla käännöstiedostoilla: FatbikeLevi, HuskySafariTips, SnowmobileSafariTips, ReindeerSafariLevi, IceSwimmingLevi, SnowshoeingLevi, CrossCountrySkiingInLevi, TopWinterActivities
+- Päämajoitus-/info-sivut (Majoitukset, Yritys, FAQ, Akkilahdot, jne.)
 
-## Korjaussuunnitelma
+### 4. Ei muutoksia
+- HreflangTags-komponenttiin (toimii jo oikein)
+- public/sitemap.xml (ei sisällä rikkinäisiä URL:eja)
+- robots.txt
+- Kanonisten tagien logiikkaan (jo aiemmin korjattu)
 
-Jokaisen monikielisen sivun canonical-tagi pitää tehdä **per-kieli itseviittaavaksi** (canonical osoittaa juuri siihen URL-osoitteeseen, jossa käyttäjä on). Käytännössä rakennetaan canonical samasta `customUrls`-objektista / kielikartasta, jota `HreflangTags` jo käyttää.
+## Vaikutus
 
-### Tiedostot, joissa kovakoodattu canonical pitää muuttaa per-kieliseksi
+- Poistuneet reitit alkavat palauttaa 404 → Google poistaa "Alternative page" -merkinnät indeksin terveydestä raporteissa.
+- Hreflang ja canonical pysyvät yhtenäisinä jäljellä olevien sivujen osalta.
+- Käyttäjäkokemus muiden kielten käyttäjille paranee: he päätyvät oikeasti englantilaiseen sivuun "rikkonaisen suomenkielisen" sijaan.
 
-1. `src/pages/guide/LeviVsRovaniemiComparison.tsx`
-2. `src/pages/guide/LeviVsSaariselkaComparison.tsx`
-3. `src/pages/guide/LeviVsYllasVsRuka.tsx`
-4. `src/pages/guide/LeviVsYllasVsRukaEN.tsx`
-5. `src/pages/guide/FinnishSaunaLevi.tsx`
+## Ei tämän suunnitelman piirissä
 
-Lisäksi käyn läpi `src/pages/guide/`, `src/pages/activities/` ja `src/pages/travel/` ja varmistan, että kaikki tiedostot, jotka renderöivät usean kielen (saavat `lang`-propin tai useita reittejä `App.tsx`:ssä) käyttävät kielisidonnaista canonicalia. Käytän raportin URL-listaa (de/es/fr/nl/sv) ohjenuorana siitä, mitkä komponentit ovat osallisia.
-
-### Muutosmalli (esimerkki LeviVsRovaniemiComparison)
-
-```tsx
-// Käytetään samaa customUrls-karttaa, joka jo annetaan HreflangTagsille
-const canonicalPath = customUrls[lang] ?? customUrls.en;
-const canonicalUrl = canonicalPath.startsWith("http")
-  ? canonicalPath
-  : `https://leville.net${canonicalPath}`;
-
-// Helmetissä:
-<link rel="canonical" href={canonicalUrl} />
-```
-
-Jos sivulla ei ole `customUrls`-objektia (esim. `FinnishSaunaLevi`), rakennetaan vastaava kartta tai johdetaan canonical `getRouteForLanguage(currentPath, lang)` -apurista, jota `HreflangTags` jo käyttää.
-
-### Mitä EI muuteta
-
-- `HreflangTags`-komponentti — toimii oikein.
-- Sitemap / robots.txt — ei liity tähän virheeseen.
-- Yksikielisten sivujen canonicalit (esim. `ChristmasDinnerLeviFI.tsx`, joka palvelee vain FI-reittiä) ovat OK ja jätetään ennalleen.
-
-## Aikataulu indeksointiin
-
-Kun korjaus on julkaistu, Google tarvitsee uuden indeksoinnin (yleensä 1–4 viikkoa). Voit nopeuttaa pyytämällä uudelleen­indeksointia Search Consolen URL Inspection -työkalulla muutamalle avain­sivulle per kieli.
+- Aitojen käännösten lisääminen kyseisille 18 sivulle (erillinen, paljon laajempi työ).
+- A/B-testit, visuaaliset muutokset tai muut SEO-säädöt.
