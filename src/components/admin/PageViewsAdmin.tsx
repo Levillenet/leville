@@ -173,7 +173,15 @@ LISÄLOHKO CSV:N LOPUSSA — "BOOKING CLICKS BY SOURCE":
 - source_page = sivu jolta klikkaus tehtiin (esim. /opas/kesa-levi)
 - total = kaikki varausklikkaukset tältä sivulta (kaikki neljä event-tyyppiä yhteensä)
 - search_widget / sticky_bar / page_cta / other_link = klikkaukset per painike-tyyppi
-- Lohko on järjestetty total-laskevasti ja sisältää vain sivut joilla on vähintään yksi varausklikkaus.`;
+- Lohko on järjestetty total-laskevasti ja sisältää vain sivut joilla on vähintään yksi varausklikkaus.
+
+LISÄLOHKO CSV:N LOPUSSA — "INLINE & PROMO BANNER CLICKS":
+- Aivan CSV:n lopussa on toinen aggregoitu lohko, jossa näkyy inline-linkkien ja kampanjabannereiden klikit sijoittelukohtaisesti (lähde: promo_banner_clicks-taulu, logPromoClick).
+- Sarakkeet: placement, link_type, total, fi, en, nl, sv, de, fr, es, target_url, last_click_at
+- link_type = "inline" merkitsee sisältöön upotetut inline-linkit (placement sisältää "_inline_", esim. summer_page_inline_intro / _activities / _hiking / _footer).
+- link_type = "banner" on perinteisten kampanjabannereiden klikit (esim. placement="summer_page").
+- HUOM: sama klikki kirjautuu myös ylläolevaan BOOKING CLICKS BY SOURCE -lohkoon (yleensä "other_link"-sarakkeeseen), koska globaali click-handler nappaa kaikki app.moder.fi-linkit. Tämä lohko erittelee ne placement-tasolla, jotta voi vertailla esim. inline-linkin ja kovan napin tehokkuutta samalla sivulla.`,
+
 
 
 type Period = "today" | "week" | "month" | "30days" | "90days" | "180days";
