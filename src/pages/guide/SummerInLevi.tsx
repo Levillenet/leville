@@ -440,13 +440,6 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               </p>
             </section>
 
-            {/* (placeholder replaced) */}
-            <section className="hidden" aria-hidden="true">{/* spacer */}</section>
-            {/* placeholder */}
-            <section className="hidden" aria-hidden="true">{/* spacer */}</section>
-            <section className="hidden" aria-hidden="true">{/* spacer */}</section>
-            <section className="hidden" aria-hidden="true">{/* spacer */}</section>
-            </section>
 
             {/* Summer campaign banner */}
             {(() => {
