@@ -107,6 +107,39 @@ export const streetHubs: StreetHub[] = [
       { label: "Huoneistoja yhteensä", value: "11 (A & B)" },
     ],
   },
+  {
+    slug: "postintie-levi",
+    street: "Postintie",
+    address: "Postintie 3",
+    h1: "Vuokrahuoneistot Postintie 3, Levi – Skistar-talon kolmiot ja studiot",
+    metaTitle: `Vuokrahuoneistot Postintie 3 Levi ${new Date().getFullYear()} – Skistar-talon majoitus keskustassa`,
+    metaDescription:
+      "Skistar-talon kolmiot ja studiot Postintie 3:ssa, aivan Levin keskustassa. 9 huoneistoa kävelymatkan päässä rinteistä, ravintoloista ja palveluista – varaa suoraan.",
+    subtitle:
+      "Skistar-talo Levin keskustassa – 9 huoneistoa kävelymatkan päässä rinteistä ja palveluista.",
+    intro: [
+      "Postintie 3 sijaitsee aivan Levin ydinkeskustassa, askelten päässä K-Marketista, ravintoloista ja Levin pääkadun palveluista. Osoitteessa sijaitsee Skistar-talo, jossa Leville.netillä on yhteensä 9 huoneistoa: neljä kolmiota (kerrokset 2 ja 3) ja viisi studiota (kerrokset 1 ja 3).",
+      "Skistar-talon kolmiot sopivat perheille ja pienille kaveriporukoille, kun taas modernit studiot ovat erinomainen valinta pariskunnille tai yksin matkustaville Leville. Jokaisessa huoneistossa on täysin varusteltu keittiö ja WiFi. Talossa ei ole hissiä, mutta sijainti hyvittää: gondolille (Levi 2) on noin 600 metriä ja Front Slope -rinteille hieman pidempi kävely.",
+      "Kun haluat ryhmämajoitusta keskustassa, voit varata useamman Skistar-huoneiston samasta talosta yhdellä kertaa. Kaikki Postintie 3:n huoneistot voi varata suoraan Leville.netin kautta – ilman välityspalkkioita ja samat hinnat kuin Booking.comissa.",
+    ],
+    propertySlugs: [
+      "skistar-211",
+      "skistar-212",
+      "skistar-209",
+      "skistar-210",
+      "skistar-studio-102",
+      "skistar-studio-104",
+      "skistar-studio-319",
+      "skistar-studio-320",
+      "skistar-studio-321",
+    ],
+    facts: [
+      { label: "Levin keskustaan", value: "askelmatka" },
+      { label: "Gondolille (Levi 2)", value: "n. 600 m" },
+      { label: "Lähin ruokakauppa", value: "n. 150 m (K-Market Levi)" },
+      { label: "Huoneistoja yhteensä", value: "9 (kolmiot & studiot)" },
+    ],
+  },
 ];
 
 export const getStreetHub = (slug: string) =>

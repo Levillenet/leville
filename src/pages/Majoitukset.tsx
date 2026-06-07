@@ -219,7 +219,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     Etsitkö <strong className="text-foreground">majoitusta Leviltä</strong>? Tarjoamme
                     saunallisia <strong className="text-foreground">vuokramökkejä</strong> ja moderneja
-                    huoneistoja Levin ydinkeskustassa kolmessa eri kohteessa: Front Slope -alppihuoneistot
+                    huoneistoja Levin ydinkeskustassa neljässä eri kohteessa: Front Slope -alppihuoneistot
                     {" "}
                     <Link to="/vuokramokit/hiihtajankuja-levi" className="text-primary hover:underline">
                       Hiihtäjänkujalla
@@ -227,10 +227,14 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     , Karhupirtti-hirsihuvila{" "}
                     <Link to="/vuokramokit/skimbaajankuja-levi" className="text-primary hover:underline">
                       Skimbaajankujalla
-                    </Link>{" "}
-                    sekä Glacier-alppitalo{" "}
+                    </Link>
+                    , Glacier-alppitalo{" "}
                     <Link to="/vuokramokit/ratsastajankuja-levi" className="text-primary hover:underline">
                       Ratsastajankuja 2:ssa
+                    </Link>{" "}
+                    sekä Skistar-talon kolmiot ja studiot{" "}
+                    <Link to="/vuokramokit/postintie-levi" className="text-primary hover:underline">
+                      Postintie 3:ssa
                     </Link>
                     . Kaikki kohteet ovat lyhyen kävelymatkan päässä rinteiltä, ravintoloista ja Levin
                     keskustan palveluista – ja varaat suoraan meiltä ilman välityspalkkioita.
