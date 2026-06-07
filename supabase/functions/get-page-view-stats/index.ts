@@ -197,7 +197,49 @@ Deno.serve(async (req) => {
         ...bookingRows,
       ];
 
-      return new Response([csvHeader, ...csvRows, ...bookingBlock].join("\n"), {
+      // Inline & promo banner clicks (from promo_banner_clicks table — logPromoClick)
+      // Inline-linkit erottuvat placement-kentästä, joka sisältää "_inline_" (esim. summer_page_inline_intro).
+      const { data: promoClicks } = await supabase
+        .from("promo_banner_clicks")
+        .select("placement, language, target_url, created_at")
+        .gte("created_at", since);
+
+      const promoAgg: Record<string, { link_type: string; total: number; by_lang: Record<string, number>; target_url: string; last_click_at: string }> = {};
+      for (const c of promoClicks || []) {
+        const placement = c.placement || "(unknown)";
+        const linkType = placement.includes("_inline_") ? "inline" : "banner";
+        if (!promoAgg[placement]) {
+          promoAgg[placement] = { link_type: linkType, total: 0, by_lang: {}, target_url: c.target_url || "", last_click_at: c.created_at };
+        }
+        promoAgg[placement].total++;
+        const lang = c.language || "unknown";
+        promoAgg[placement].by_lang[lang] = (promoAgg[placement].by_lang[lang] || 0) + 1;
+        if (c.created_at > promoAgg[placement].last_click_at) promoAgg[placement].last_click_at = c.created_at;
+      }
+      const langCols = ["fi", "en", "nl", "sv", "de", "fr", "es"];
+      const promoRows = Object.entries(promoAgg)
+        .map(([placement, d]) => ({ placement, ...d }))
+        .sort((a, b) => {
+          if (a.link_type !== b.link_type) return a.link_type === "inline" ? -1 : 1;
+          return b.total - a.total;
+        })
+        .map((r) => [
+          escCsv(r.placement),
+          r.link_type,
+          r.total,
+          ...langCols.map((l) => r.by_lang[l] || 0),
+          escCsv(r.target_url || ""),
+          r.last_click_at,
+        ].join(","));
+
+      const promoBlock = [
+        "",
+        "INLINE & PROMO BANNER CLICKS (promo_banner_clicks) — link_type=inline merkitsee sisältöön upotetut inline-linkit (esim. summer_page_inline_intro), link_type=banner on kampanjabannereiden klikit. HUOM: sama klikki näkyy myös yllä BOOKING CLICKS BY SOURCE -lohkossa.",
+        `placement,link_type,total,${langCols.join(",")},target_url,last_click_at`,
+        ...promoRows,
+      ];
+
+      return new Response([csvHeader, ...csvRows, ...bookingBlock, ...promoBlock].join("\n"), {
         headers: {
           ...corsHeaders,
           "Content-Type": "text/csv; charset=utf-8",
@@ -205,6 +247,7 @@ Deno.serve(async (req) => {
         },
       });
     }
+
 
 
     // JSON aggregated format
@@ -413,16 +456,42 @@ Deno.serve(async (req) => {
       .slice(0, 15)
       .map(([path, count]) => ({ path, count }));
 
+    // Inline & promo banner clicks aggregation (from promo_banner_clicks table)
+    const { data: promoClicksJson } = await supabase
+      .from("promo_banner_clicks")
+      .select("placement, language, target_url, created_at")
+      .gte("created_at", since);
+
+    const promoAggJson: Record<string, { link_type: string; total: number; by_language: Record<string, number>; target_url: string; last_click_at: string }> = {};
+    for (const c of promoClicksJson || []) {
+      const placement = c.placement || "(unknown)";
+      const linkType = placement.includes("_inline_") ? "inline" : "banner";
+      if (!promoAggJson[placement]) {
+        promoAggJson[placement] = { link_type: linkType, total: 0, by_language: {}, target_url: c.target_url || "", last_click_at: c.created_at };
+      }
+      promoAggJson[placement].total++;
+      const lang = c.language || "unknown";
+      promoAggJson[placement].by_language[lang] = (promoAggJson[placement].by_language[lang] || 0) + 1;
+      if (c.created_at > promoAggJson[placement].last_click_at) promoAggJson[placement].last_click_at = c.created_at;
+    }
+    const inlinePromoClicks = Object.entries(promoAggJson)
+      .map(([placement, d]) => ({ placement, ...d }))
+      .sort((a, b) => {
+        if (a.link_type !== b.link_type) return a.link_type === "inline" ? -1 : 1;
+        return b.total - a.total;
+      });
+
     return new Response(
       JSON.stringify({
         total, byDate, topPages, byReferrer, byDevice, byLanguage, byCountry, byViewport, conversionEvents,
         totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
         byUtmSource, byUtmMedium, byUtmCampaign, avgScrollDepth, avgTimeOnPage,
-        topLandingPages, topExitPages, bookingClicksBySource,
+        topLandingPages, topExitPages, bookingClicksBySource, inlinePromoClicks,
 
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
+
   } catch (error) {
     console.error("Error:", error);
     return new Response(JSON.stringify({ error: "Internal error" }), {
