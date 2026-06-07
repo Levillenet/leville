@@ -1,80 +1,71 @@
-# Korjaus: GSC "Soft 404" -ongelma (45 URL:a)
+## Plan A: Majoitus-sivun SEO-optimointi
 
-## Diagnoosi
+### Osoitteet (vahvistettu)
 
-GSC raportoi 45 URL:a Soft 404 -tilassa. Syyt jakautuvat kolmeen ryhmään:
+| # | Rakennus | Osoite | Huoneistot |
+|---|---|---|---|
+| 1 | Zero Point | Hiihtäjänkuja 5, 99130 Sirkka | 5A2, 5B2, 5B5 penthouse |
+| 2 | Karhupirtti | Skimbaajankuja 3, 99130 Sirkka | karhupirtti |
+| 3 | Skistar Levi Centre | Postintie 3, 99130 Sirkka | 102, 104, 209, 210, 211, 212, 319, 320, 321 |
+| 4 | Karhunvartija 3 | Skimbaajankuja 4, 99130 Sirkka | karhunvartija-3 |
+| 5 | Levi Platinum A2 | Hiihtäjänkuja 2, 99130 Sirkka | levi-platinum-a2 |
+| 6 | Moonlight 415 | Leviraitti ?, 99130 Sirkka | moonlight-415 |
+| 7 | Glacier A-talo | Ratsastajankuja 2, 99130 Sirkka | A1–A6 |
+| 8 | Glacier B-talo | Ratsastajankuja 2, 99130 Sirkka | B1–B4 |
 
-**A. Vääriä/vanhoja slugeja, joille on olemassa oikea sivu** (~22 URL)
-Google on indeksoinut vanhoja tai kirjoitusvirheellisiä polkuja, esim.:
-- `/sv/guide/basta-tid-norrsken-levi` → oikea `/sv/guide/basta-tiden-norrsken-levi`
-- `/de/aktivitaeten/schneemobilsafari-levi` → oikea `/de/aktivitaeten/schneemobil-safari-levi`
-- `/nl/activiteiten/sneeuwscootersafari-levi` → oikea `/nl/activiteiten/sneeuwscooter-safari-levi`
-- `/nl/gids/skien-in-levi` → oikea `/nl/gids/skieen-in-levi`
-- `/nl/gids/noorderlicht-fotografie-levi` → `/nl/gids/noorderlicht-fotograferen-levi`
-- `/de/news` → `/de/aktuelles`
-- `/fr/hebergement` → `/fr/hebergements`
-- `/sv/guide/activities-in-levi`, `/es/guide/activities-in-levi`, `/fr/guide/activities-in-levi`, `/de/guide/seasons-in-levi`, `/es/guide/seasons-in-levi` → kielikohtaiset hub-polut
-- `/guide/winter-clothing-guide-levi` → `/guide/how-to-dress-for-winter-in-levi-lapland`
-- `/opas/miten-paasee-leville` → `/matka/miten-paasee-leville-helsingista`
-- `/guide/levi-vs-yllas-vs-ruka` → `/guide/levi-vs-yllas-vs-ruka-comparison`
-- `/guide/christmas-dinner-in-levi` → `/en/guide/christmas-dinner-in-levi`
-- `/accommodations/guides` → `/accommodations`
+Huom: Leviraitin katunumero puuttuu — käytän pelkkää "Leviraitti, 99130 Sirkka" ellei toimiteta tarkennusta.
 
-**B. Vanhoja WordPress-aikaisia URL:ja, joille ei vastinetta** (~5 URL)
-- `/2020/`, `/hiihtajankuja-5-b-2/`, `/tietoa`, `/opas`, `/latukartta`
+### Toteutettavat muutokset
 
-**C. Googlen "arvauksia" käännösslugeista** (~18 URL)
-Polut, joita Google on luonut vanhasta sisällöstä tai automaattikäännöksistä, eikä niille koskaan luotu sivua. Esim. `/de/ratgeber/nordlichter-levi`, `/es/guia/auroras-boreales-levi`, `/sv/aktiviteter/snoskovandring-levi`, `/de/ratgeber/sauna-levi`, `/nl/gids/sauna-levi`, jne.
+**1. `src/data/properties.ts`**
+- Lisää `Property`-tyyppiin valinnainen `address?: { street: string; postalCode: string; city: string }` -kenttä.
+- Täytä osoite jokaiseen 27 huoneistoon yllä olevan taulukon mukaisesti.
 
-**Juurisyy ryhmissä B ja C**: SPA-fallback palauttaa HTTP 200 + `NotFound`-komponentin, joka ei sisällä `noindex`-metatagia. Google luokittelee tämän Soft 404:ksi ja säilyttää URL:t indeksin "discovery"-tilassa.
+**2. `src/pages/Accommodation.tsx` (tai vastaava majoituslistaussivu)**
+- **Meta-tagit** (Helmet):
+  - `<title>`: "Majoitus Levillä – 27 huoneistoa ski-in/ski-out | Leville.net" (62 merkkiä)
+  - `<meta description>`: "Vuokraa loma-asunto Levin keskustasta: 27 huoneistoa Zero Pointissa, Skistarissa, Glacierissa, Karhupirtissä. Suora varaus ilman välikäsiä." (158 merkkiä)
+  - `<link rel="canonical">` → `https://leville.net/majoitus`
+  - `og:title`, `og:description`, `og:url`, `og:type=website`
+  - Hreflang: fi/en/sv/de/no/ru/x-default
+- **JSON-LD `ItemList`**: 27 huoneistoa, jokainen `ListItem` osoittaa kohteen URL:iin
+- **JSON-LD `LodgingBusiness`** × 8: yksi per rakennus, sisältäen:
+  - `name`, `address` (PostalAddress: streetAddress, postalCode, addressLocality=Sirkka, addressRegion=Lappi, addressCountry=FI)
+  - `geo` (lat/lon, lisätään myöhemmin tarvittaessa)
+  - `url` rakennuksen ankkuriin
+  - `containsPlace` viittaa huoneistoihin
+- **SEO-tekstilohko (~350 sanaa)** sivun alaosaan:
+  - H2: "Majoitus Levillä – kaikki 27 huoneistoamme"
+  - Lyhyt esittely Levin keskustasta + ski-in/ski-out
+  - 8 alaotsikkoa (H3) per rakennus, jokaisessa osoite, etäisyys rinteille/keskustaan, lyhyt kuvaus, linkit huoneistoihin
+  - Sisäiset linkit: vertailusivu, alueoppaat (Sirkka, Levi-keskusta)
 
-## Toimenpiteet
+**3. 200-alias URL:t (rewrite App.tsx:ssä)**
+Lisää seuraavat aliakset jotka palvelevat samaa `Accommodation`-komponenttia (parantaa long-tail-näkyvyyttä):
+- `/majoitus-levi`
+- `/loma-asunto-levi`
+- `/huoneisto-levi`
+- `/vuokra-asunto-levi`
+- `/levi-majoitus-keskusta`
+- (englanniksi) `/levi-accommodation`, `/apartment-levi`, `/ski-in-ski-out-levi`
 
-### 1. Lisää NotFound-sivulle noindex (kriittinen)
-Päivitä `src/pages/NotFound.tsx` käyttämään `react-helmet-async`ia:
-- `<meta name="robots" content="noindex, follow" />`
-- Vaihda `<title>` muotoon "404 — Sivua ei löytynyt | Leville"
-- Aseta canonical osoittamaan `https://leville.net/` (juureen)
-- Tämä on yleisin Soft 404 -korjaus SPA:ssa: kerrotaan Googlelle "tämä todella on 404, pudota indeksistä".
+Jokaiselle canonical osoittaa pää-URLiin `/majoitus` → ei ghost-URL-ongelmaa, ei sitemap-merkintää.
 
-### 2. Lisää 301-tyyliset uudelleenohjaukset App.tsx:ään (~22 reittiä)
-React Router `<Route>` + `<Navigate to="..." replace />`. Tämä palauttaa selaimelle 200 + oikean kanonisen URL:n, ja Google siirtää URL:n korvautuneeksi.
+**4. Sitemap**
+- Lisätään vain pää-URL `/majoitus` (jos puuttuu). Aliakset EIVÄT mene sitemappiin (memory: ghost-URL-prevention).
 
-Lisättävät uudelleenohjaukset:
-```
-/sv/guide/basta-tid-norrsken-levi          → /sv/guide/basta-tiden-norrsken-levi
-/de/aktivitaeten/schneemobilsafari-levi    → /de/aktivitaeten/schneemobil-safari-levi
-/nl/activiteiten/sneeuwscootersafari-levi  → /nl/activiteiten/sneeuwscooter-safari-levi
-/nl/gids/skien-in-levi                     → /nl/gids/skieen-in-levi
-/nl/gids/noorderlicht-fotografie-levi      → /nl/gids/noorderlicht-fotograferen-levi
-/de/news                                   → /de/aktuelles
-/fr/hebergement                            → /fr/hebergements
-/sv/guide/activities-in-levi               → /sv/guide/aktiviteter-i-levi
-/es/guide/activities-in-levi               → /es/guia/actividades-en-levi
-/fr/guide/activities-in-levi               → /fr/guide/activites-a-levi
-/de/guide/seasons-in-levi                  → /de/ratgeber/jahreszeiten-in-levi
-/es/guide/seasons-in-levi                  → /es/guia/estaciones-en-levi
-/guide/winter-clothing-guide-levi          → /guide/how-to-dress-for-winter-in-levi-lapland
-/opas/miten-paasee-leville                 → /matka/miten-paasee-leville-helsingista
-/guide/levi-vs-yllas-vs-ruka               → /guide/levi-vs-yllas-vs-ruka-comparison
-/guide/christmas-dinner-in-levi            → /en/guide/christmas-dinner-in-levi
-/accommodations/guides                     → /accommodations
-```
+### Tekniset yksityiskohdat
 
-### 3. Loput URL:t (~23 kpl ryhmissä B ja C)
-Ei tarvitse erillistä reittiä. Ne osuvat `*`-jokerireitille → uudistettu NotFound näyttää 404-sivun `noindex`-tagilla → Google pudottaa ne seuraavissa indeksointikierroksissa.
+- Helmet-tagit dynamic year: `${new Date().getFullYear()}` titlessä jos relevanttia
+- JSON-LD generoidaan loopilla `properties`-arraysta → ylläpidettävä
+- Kaikki ulkoiset linkit `target="_blank"` (memory)
+- Ei hintalupauksia (price parity policy)
+- Domain `leville.net` ilman trailing slashia
 
-### 4. Käyttäjälle ohjeistus
-Pyydetään käyttäjää `Validate fix`-painikkeen kautta Search Consolessa kun muutokset on julkaistu, jotta Google priorisoi uudelleentarkistuksen.
+### Plan D (callout-laajennus oppaisiin) — toteutetaan tämän jälkeen
+Lisätään `<AccommodationCallout />`-komponentti seuraaviin oppaisiin: Levi-opas-hub, Sirkka-opas, ravintolaopas, aktiviteettihub, kausioppaat. Komponentti linkittää `/majoitus`-sivulle ja näyttää "27 huoneistoa keskustassa".
 
-## Vaikutus
-
-- Soft 404 -merkinnät katoavat 1–3 viikossa, kun Google indeksoi URL:t uudelleen.
-- Vanhojen URL:ien link equity siirtyy nykyisille polkuille uudelleenohjauksen kautta.
-- Ei vaikutusta muihin sivuihin tai käyttäjäkokemukseen.
-
-## Ei tämän suunnitelman piirissä
-
-- Lisäkäännösten luominen englanninkielisille sivuille
-- Uusi sitemap-rakenne (nykyinen on jo puhdas)
-- WordPress-aikaisten kuva-URL:ien siivous (eri ongelma)
+### Vahvistuspyyntö
+- OK osoitelistaukseen? (erityisesti Leviraitin numero puuttuu — käytetäänkö ilman vai onko numero?)
+- OK title-ehdotus "27 huoneistoa ski-in/ski-out"?
+- OK 200-alias-listaan vai haluatko lisätä/poistaa joitain?
