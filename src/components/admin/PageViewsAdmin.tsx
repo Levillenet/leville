@@ -42,6 +42,15 @@ interface BookingSourceRow {
   byLink: number;
 }
 
+interface InlinePromoClickRow {
+  placement: string;
+  link_type: "inline" | "banner" | string;
+  total: number;
+  by_language: Record<string, number>;
+  target_url: string;
+  last_click_at: string;
+}
+
 interface Stats {
   total: number;
   byDate: Record<string, number>;
@@ -59,7 +68,9 @@ interface Stats {
   topLandingPages?: Array<{ path: string; count: number }>;
   topExitPages?: Array<{ path: string; count: number }>;
   bookingClicksBySource?: BookingSourceRow[];
+  inlinePromoClicks?: InlinePromoClickRow[];
 }
+
 
 
 interface PageViewsAdminProps {
