@@ -1,49 +1,80 @@
-# Korjaus: GSC "Alternative page with proper canonical tag" -ongelma
+# Korjaus: GSC "Soft 404" -ongelma (45 URL:a)
 
 ## Diagnoosi
 
-18 opas-/aktiviteettisivua on rekisteröity App.tsx:ssä reiteille `/sv/...`, `/de/...`, `/es/...`, `/fr/...` ja `/nl/...`, mutta niiden `translations`-objekti sisältää vain `fi` ja `en`. Käyttäjän käydessä esim. `/de/aktivitaeten/golf-levi`-osoitteessa renderöityy suomenkielinen sisältö ja canonical osoittaa suomeen — Google näkee duplikaatin ja jättää sivun indeksoimatta.
+GSC raportoi 45 URL:a Soft 404 -tilassa. Syyt jakautuvat kolmeen ryhmään:
 
-Sisältö on jo tarkistettu: hreflang näillä sivuilla on rajattu oikein (`customUrls = { fi, en }`), eikä sitemap sisällä rikkinäisiä URL:eja. Ongelma on vain App.tsx-reiteissä ja `translations/index.ts`-kartassa.
+**A. Vääriä/vanhoja slugeja, joille on olemassa oikea sivu** (~22 URL)
+Google on indeksoinut vanhoja tai kirjoitusvirheellisiä polkuja, esim.:
+- `/sv/guide/basta-tid-norrsken-levi` → oikea `/sv/guide/basta-tiden-norrsken-levi`
+- `/de/aktivitaeten/schneemobilsafari-levi` → oikea `/de/aktivitaeten/schneemobil-safari-levi`
+- `/nl/activiteiten/sneeuwscootersafari-levi` → oikea `/nl/activiteiten/sneeuwscooter-safari-levi`
+- `/nl/gids/skien-in-levi` → oikea `/nl/gids/skieen-in-levi`
+- `/nl/gids/noorderlicht-fotografie-levi` → `/nl/gids/noorderlicht-fotograferen-levi`
+- `/de/news` → `/de/aktuelles`
+- `/fr/hebergement` → `/fr/hebergements`
+- `/sv/guide/activities-in-levi`, `/es/guide/activities-in-levi`, `/fr/guide/activities-in-levi`, `/de/guide/seasons-in-levi`, `/es/guide/seasons-in-levi` → kielikohtaiset hub-polut
+- `/guide/winter-clothing-guide-levi` → `/guide/how-to-dress-for-winter-in-levi-lapland`
+- `/opas/miten-paasee-leville` → `/matka/miten-paasee-leville-helsingista`
+- `/guide/levi-vs-yllas-vs-ruka` → `/guide/levi-vs-yllas-vs-ruka-comparison`
+- `/guide/christmas-dinner-in-levi` → `/en/guide/christmas-dinner-in-levi`
+- `/accommodations/guides` → `/accommodations`
 
-## Korjattavat sivut (vain fi/en olemassa)
+**B. Vanhoja WordPress-aikaisia URL:ja, joille ei vastinetta** (~5 URL)
+- `/2020/`, `/hiihtajankuja-5-b-2/`, `/tietoa`, `/opas`, `/latukartta`
 
-Aktiviteetit: GolfLevi, LeviForKids, HorseRidingLevi, IceFishingLevi, CanoeingAndSUPLevi, HikingAndBikingLevi.
+**C. Googlen "arvauksia" käännösslugeista** (~18 URL)
+Polut, joita Google on luonut vanhasta sisällöstä tai automaattikäännöksistä, eikä niille koskaan luotu sivua. Esim. `/de/ratgeber/nordlichter-levi`, `/es/guia/auroras-boreales-levi`, `/sv/aktiviteter/snoskovandring-levi`, `/de/ratgeber/sauna-levi`, `/nl/gids/sauna-levi`, jne.
 
-Oppaat: DayTripsFromLevi, ApresSkiLevi, EquipmentRentalLevi, EventsInLevi, SamiCultureLevi, AccessibleLevi, CabinVsApartmentLevi, NewYearsEveLevi, PackingListLapland, RomanticLeviGetaway, SkiHolidayLevi, SantaClausLevi.
-
-Yhteensä noin 80–90 poistettavaa reittiä App.tsx:stä (HikingAndBikingLevi ja CabinVsApartmentLevi näyttävät jo nyt olevan ilman käännösreittejä — varmistetaan kartoituksen yhteydessä).
+**Juurisyy ryhmissä B ja C**: SPA-fallback palauttaa HTTP 200 + `NotFound`-komponentin, joka ei sisällä `noindex`-metatagia. Google luokittelee tämän Soft 404:ksi ja säilyttää URL:t indeksin "discovery"-tilassa.
 
 ## Toimenpiteet
 
-### 1. Poista käännösreitit `src/App.tsx`:stä
-Poistetaan kaikki `<Route path="/{sv|de|es|fr|nl}/..." element={<X lang="..." />}>` -rivit yllä listatuille 18 komponentille.
+### 1. Lisää NotFound-sivulle noindex (kriittinen)
+Päivitä `src/pages/NotFound.tsx` käyttämään `react-helmet-async`ia:
+- `<meta name="robots" content="noindex, follow" />`
+- Vaihda `<title>` muotoon "404 — Sivua ei löytynyt | Leville"
+- Aseta canonical osoittamaan `https://leville.net/` (juureen)
+- Tämä on yleisin Soft 404 -korjaus SPA:ssa: kerrotaan Googlelle "tämä todella on 404, pudota indeksistä".
 
-### 2. Päivitä `src/translations/index.ts` -reittikartta
-Näiden 18 sivun osalta `sv`, `de`, `es`, `fr` ja `nl` -arvot vaihdetaan osoittamaan englanninkieliseen vastineeseen (esim. `sv: "/en/activities/golf-in-levi"`), jotta:
-- Kielenvaihtaja ohjaa muut kielet englantilaiseen versioon (paras saatavilla oleva sisältö).
-- Mahdolliset sisäiset linkit eivät päädy poistettuihin reitteihin.
+### 2. Lisää 301-tyyliset uudelleenohjaukset App.tsx:ään (~22 reittiä)
+React Router `<Route>` + `<Navigate to="..." replace />`. Tämä palauttaa selaimelle 200 + oikean kanonisen URL:n, ja Google siirtää URL:n korvautuneeksi.
 
-### 3. Pidä koskemattomina (näillä on aidot käännökset)
-- Hub-sivut: SeasonsHub, ActivitiesHub, ComparisonHub, TravelHub
-- Vertailut: LeviVsRovaniemiComparison, LeviVsYllasVsRukaEN (kaikki kielet)
-- Revontuli-sivut: BestTimeNorthernLightsLevi, NorthernLightsSeasonLevi, NorthernLightsForecastLevi, WhereToSeeNorthernLightsLevi, NorthernLightsPhotographyLevi, HowNorthernLightsForm, NorthernLightsColorsExplained
-- Aktiviteetit ulkoisilla käännöstiedostoilla: FatbikeLevi, HuskySafariTips, SnowmobileSafariTips, ReindeerSafariLevi, IceSwimmingLevi, SnowshoeingLevi, CrossCountrySkiingInLevi, TopWinterActivities
-- Päämajoitus-/info-sivut (Majoitukset, Yritys, FAQ, Akkilahdot, jne.)
+Lisättävät uudelleenohjaukset:
+```
+/sv/guide/basta-tid-norrsken-levi          → /sv/guide/basta-tiden-norrsken-levi
+/de/aktivitaeten/schneemobilsafari-levi    → /de/aktivitaeten/schneemobil-safari-levi
+/nl/activiteiten/sneeuwscootersafari-levi  → /nl/activiteiten/sneeuwscooter-safari-levi
+/nl/gids/skien-in-levi                     → /nl/gids/skieen-in-levi
+/nl/gids/noorderlicht-fotografie-levi      → /nl/gids/noorderlicht-fotograferen-levi
+/de/news                                   → /de/aktuelles
+/fr/hebergement                            → /fr/hebergements
+/sv/guide/activities-in-levi               → /sv/guide/aktiviteter-i-levi
+/es/guide/activities-in-levi               → /es/guia/actividades-en-levi
+/fr/guide/activities-in-levi               → /fr/guide/activites-a-levi
+/de/guide/seasons-in-levi                  → /de/ratgeber/jahreszeiten-in-levi
+/es/guide/seasons-in-levi                  → /es/guia/estaciones-en-levi
+/guide/winter-clothing-guide-levi          → /guide/how-to-dress-for-winter-in-levi-lapland
+/opas/miten-paasee-leville                 → /matka/miten-paasee-leville-helsingista
+/guide/levi-vs-yllas-vs-ruka               → /guide/levi-vs-yllas-vs-ruka-comparison
+/guide/christmas-dinner-in-levi            → /en/guide/christmas-dinner-in-levi
+/accommodations/guides                     → /accommodations
+```
 
-### 4. Ei muutoksia
-- HreflangTags-komponenttiin (toimii jo oikein)
-- public/sitemap.xml (ei sisällä rikkinäisiä URL:eja)
-- robots.txt
-- Kanonisten tagien logiikkaan (jo aiemmin korjattu)
+### 3. Loput URL:t (~23 kpl ryhmissä B ja C)
+Ei tarvitse erillistä reittiä. Ne osuvat `*`-jokerireitille → uudistettu NotFound näyttää 404-sivun `noindex`-tagilla → Google pudottaa ne seuraavissa indeksointikierroksissa.
+
+### 4. Käyttäjälle ohjeistus
+Pyydetään käyttäjää `Validate fix`-painikkeen kautta Search Consolessa kun muutokset on julkaistu, jotta Google priorisoi uudelleentarkistuksen.
 
 ## Vaikutus
 
-- Poistuneet reitit alkavat palauttaa 404 → Google poistaa "Alternative page" -merkinnät indeksin terveydestä raporteissa.
-- Hreflang ja canonical pysyvät yhtenäisinä jäljellä olevien sivujen osalta.
-- Käyttäjäkokemus muiden kielten käyttäjille paranee: he päätyvät oikeasti englantilaiseen sivuun "rikkonaisen suomenkielisen" sijaan.
+- Soft 404 -merkinnät katoavat 1–3 viikossa, kun Google indeksoi URL:t uudelleen.
+- Vanhojen URL:ien link equity siirtyy nykyisille polkuille uudelleenohjauksen kautta.
+- Ei vaikutusta muihin sivuihin tai käyttäjäkokemukseen.
 
 ## Ei tämän suunnitelman piirissä
 
-- Aitojen käännösten lisääminen kyseisille 18 sivulle (erillinen, paljon laajempi työ).
-- A/B-testit, visuaaliset muutokset tai muut SEO-säädöt.
+- Lisäkäännösten luominen englanninkielisille sivuille
+- Uusi sitemap-rakenne (nykyinen on jo puhdas)
+- WordPress-aikaisten kuva-URL:ien siivous (eri ongelma)
