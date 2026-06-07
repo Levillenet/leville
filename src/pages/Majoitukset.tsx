@@ -162,6 +162,11 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
       <JsonLd data={getWebsiteSchema()} />
       <JsonLd data={getLodgingBusinessSchema(lang)} />
       <JsonLd data={getFAQSchema(faqItems)} />
+      <JsonLd data={itemListSchema} />
+      {buildingSchemas.map((s, i) => (
+        <JsonLd key={`bldg-${i}`} data={s} />
+      ))}
+
       <HreflangTags currentPath={location.pathname} currentLang={lang} />
       <Helmet>
         <html lang={lang} />
