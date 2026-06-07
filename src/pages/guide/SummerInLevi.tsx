@@ -334,6 +334,58 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
     tree: <TreePine className="w-5 h-5 text-primary" />
   };
 
+  // Inline booking link helper — soft contextual CTA tracked separately per placement
+  const moderUrl = lang === "fi"
+    ? "https://app.moder.fi/levillenet"
+    : "https://app.moder.fi/levillenet?lang=en";
+
+  const inlineCopy = {
+    fi: {
+      intro: { lead: "Suunnitteletko kesälomaa Levillä?", link: "Tarkista vapaat majoitukset ja ajantasaiset hintamme tästä →" },
+      activities: { lead: "Useimmat majoituksemme sijaitsevat askelten päässä näistä aktiviteeteista —", link: "katso saatavuus ja hinnat." },
+      hiking: { lead: "Reittien lähtöpisteille pääsee kävellen useimmista huoneistoistamme.", link: "Katso vapaat viikot ja hinnat tästä." },
+      footer: { lead: "Kiinnostuitko?", link: "Tarkista vapaat majoitukset ja hintamme", tail: "tai selaa kaikki", browse: "kesän huoneistot ja mökit", dot: "." },
+    },
+    en: {
+      intro: { lead: "Planning a summer trip to Levi?", link: "Check live availability and our latest prices here →" },
+      activities: { lead: "Most of our apartments are a short walk from these activities —", link: "see availability and rates." },
+      hiking: { lead: "Most trailheads are within walking distance from our apartments.", link: "Check open weeks and prices here." },
+      footer: { lead: "Interested?", link: "Check live availability and prices", tail: "or browse all", browse: "summer apartments and cabins", dot: "." },
+    },
+    nl: {
+      intro: { lead: "Plan je een zomerreis naar Levi?", link: "Bekijk beschikbaarheid en actuele prijzen hier →" },
+      activities: { lead: "Onze accommodaties liggen op loopafstand van deze activiteiten —", link: "bekijk beschikbaarheid en prijzen." },
+      hiking: { lead: "De startpunten van de routes zijn vanaf onze appartementen te belopen.", link: "Bekijk vrije weken en prijzen hier." },
+      footer: { lead: "Interesse?", link: "Bekijk beschikbaarheid en prijzen", tail: "of bekijk alle", browse: "zomerappartementen en chalets", dot: "." },
+    },
+  } as const;
+  const ic = (inlineCopy as any)[lang] || inlineCopy.en;
+  const browseHref = lang === "fi" ? "/majoitukset" : lang === "nl" ? "/nl/accommodaties" : "/en/accommodations";
+
+  const trackInline = (placement: string) => {
+    import("@/lib/logPromoClick").then(({ logPromoClick }) =>
+      logPromoClick({
+        banner_id: null,
+        banner_title: `Summer page inline — ${placement}`,
+        placement: `summer_page_inline_${placement}`,
+        language: lang,
+        target_url: moderUrl,
+      })
+    );
+  };
+
+  const InlineLink = ({ placement, children }: { placement: string; children: React.ReactNode }) => (
+    <a
+      href={moderUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => trackInline(placement)}
+      className="text-primary underline underline-offset-4 hover:text-primary/80 font-medium"
+    >
+      {children}
+    </a>
+  );
+
   return (
     <>
       <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={customUrls} />
