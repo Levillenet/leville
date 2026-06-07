@@ -1,51 +1,29 @@
-## Plan D: MajoitusCallout-laajennus oppaisiin
+## Korjaa buildivirheet + aja SEO review
 
-Komponentti `src/components/MajoitusCallout.tsx` on jo olemassa (default + compact -variantit, fi/en). Käytössä vain 3 sivulla: `Sauna.tsx`, `Revontulet.tsx`, `guide/RestaurantsAndServices.tsx`.
+### 1. Laajenna MajoitusCallout `Lang`-tyyppi
+`src/components/MajoitusCallout.tsx` hyväksyy vain `"fi" | "en"`, mutta sivut välittävät `Language`-tyypin (fi/en/sv/de/es/fr/nl). Tämä aiheuttaa 23 TS2322-virhettä.
 
-### Lisätään callout (default-variantti, ennen Read-Also-osiota)
+Korjaus: laajennetaan `Lang` kattamaan kaikki 7 kieltä. COPY-mapissa vain fi ja en käännökset – muut kielet fallbackataan englantiin (käytännössä yleisin valinta ulkomaisille kävijöille, ja kohderyhmien hreflang on jo paikoillaan).
 
-**Hub-sivut (korkein liikenne):**
-1. `src/pages/Levi.tsx` — pääinfosivu
-2. `src/pages/guide/ActivitiesHub.tsx`
-3. `src/pages/guide/SeasonsHub.tsx`
-4. `src/pages/guide/TravelHub.tsx`
-5. `src/pages/guide/ComparisonHub.tsx`
+```ts
+type Lang = "fi" | "en" | "sv" | "de" | "es" | "fr" | "nl";
+// resolver
+const t = COPY[lang === "fi" ? "fi" : "en"];
+const primaryHref = href ?? (lang === "fi" ? "/majoitukset" : lang === "en" ? "/en/accommodations" : ...);
+```
 
-**Korkean konversiopotentiaalin oppaat:**
-6. `src/pages/guide/CabinVsApartmentLevi.tsx` (suora vertailu → majoitus)
-7. `src/pages/guide/SkiHolidayLevi.tsx`
-8. `src/pages/guide/SkiingInLevi.tsx`
-9. `src/pages/guide/BestTimeToVisitLevi.tsx`
-10. `src/pages/guide/PackingListLapland.tsx`
-11. `src/pages/guide/LeviFAQ.tsx`
-12. `src/pages/guide/LeviWithChildren.tsx`
-13. `src/pages/guide/RomanticLeviGetaway.tsx`
+Käytetään olemassa olevia per-kielen reittejä `/sv/boende`, `/de/unterkuenfte`, `/es/alojamientos`, `/fr/hebergements`, `/nl/accommodaties` primary-CTA:n kohteena, jotta kävijä päätyy oman kielen majoitussivulle.
 
-**Kausiopassit:**
-14. `src/pages/guide/WinterInLevi.tsx`
-15. `src/pages/guide/SummerInLevi.tsx`
-16. `src/pages/guide/SpringInLevi.tsx`
-17. `src/pages/guide/AutumnRuskaInLevi.tsx`
-18. `src/pages/guide/ChristmasDinnerLeviFI.tsx`
-19. `src/pages/guide/NewYearsEveLevi.tsx`
+### 2. Korjaa `ChristmasDinnerLeviFI.tsx` puuttuva `lang`
+TS2304: `lang` ei ole määritelty (sivu on Finnish-only). Poistetaan `lang={lang}`-propi – komponentti defaultaa fi:hen.
 
-**Travel/Practical:**
-20. `src/pages/travel/HowToGetToLevi.tsx`
-21. `src/pages/guide/GettingAroundLevi.tsx`
-22. `src/pages/guide/LeviWithoutCar.tsx`
+### 3. SEO review
+Kun buildi on puhdas, listataan olemassaolevat findingit ja käynnistetään uusi skannaus.
 
-**Aktiviteetit (compact-variantti) — vain top 3:**
-23. `src/pages/activities/TopWinterActivities.tsx`
-24. `src/pages/activities/HuskySafariTips.tsx`
-25. `src/pages/activities/ReindeerSafariLevi.tsx`
-
-Yhteensä **25 sivua**. Käytetään olemassa olevaa default-tekstiä eli ei tarvita uutta kopiointia – komponentti hoitaa fi/en automaattisesti `lang`-propin perusteella.
-
-### Toteutus
-- Import: `import MajoitusCallout from "@/components/MajoitusCallout";`
-- Sijoitus: ennen "Lue myös" / "Read also" -osiota, tai jos sellaista ei ole, ennen Footeria
-- Default-variantti hub- ja oppaissivuilla, compact aktiviteeteissa
-- `lang`-propi välitetään sivun nykyisestä lang-arvosta
+### Tekniset yksityiskohdat
+- `MajoitusCallout.tsx`: laajennetaan `Lang`-union, lisätään primaryHref-mappi 7 kielelle, COPY pidetään fi/en
+- `ChristmasDinnerLeviFI.tsx`: muutetaan `<MajoitusCallout lang={lang} />` → `<MajoitusCallout />`
+- Ei muutoksia 23 muuhun sivuun – ne lähettävät Languagen, joka nyt validi
 
 ### Vahvistus
-OK 25 sivua, vai haluatko karsia (esim. vain hub-sivut + top-oppaat = ~12) tai laajentaa (kaikki ~50 opassivua)?
+OK aloittaa? Skannaus vie n. 1 minuutin ja vaatii käyttäjän hyväksynnän.

@@ -234,7 +234,7 @@ const ChristmasDinnerLeviFI = () => {
         </main>
 
         <PageCTA lang="fi" />
-<MajoitusCallout lang={lang} />
+<MajoitusCallout />
 
         <Footer />
         <WhatsAppChat />

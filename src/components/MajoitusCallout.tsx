@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Home, MapPin } from "lucide-react";
 
-type Lang = "fi" | "en";
+type Lang = "fi" | "en" | "sv" | "de" | "es" | "fr" | "nl";
 
 interface Props {
   lang?: Lang;
@@ -16,7 +16,7 @@ interface Props {
   body?: string;
 }
 
-const COPY: Record<Lang, { title: string; body: string; cta: string; secondary: string; secondaryHref: string }> = {
+const COPY: Record<"fi" | "en", { title: string; body: string; cta: string; secondary: string; secondaryHref: string }> = {
   fi: {
     title: "Etsitkö majoitusta Leviltä?",
     body: "Vuokraamme suoraan omistajalta saunallisia huoneistoja ja mökkejä Levin keskustassa. Ei välityskuluja, henkilökohtainen palvelu, kävelymatka rinteille.",
@@ -33,6 +33,16 @@ const COPY: Record<Lang, { title: string; body: string; cta: string; secondary: 
   },
 };
 
+const PRIMARY_HREF_BY_LANG: Record<Lang, string> = {
+  fi: "/majoitukset",
+  en: "/en/accommodations",
+  sv: "/sv/boende",
+  de: "/de/unterkuenfte",
+  es: "/es/alojamientos",
+  fr: "/fr/hebergements",
+  nl: "/nl/accommodaties",
+};
+
 const MajoitusCallout = ({
   lang = "fi",
   variant = "default",
@@ -41,8 +51,9 @@ const MajoitusCallout = ({
   title,
   body,
 }: Props) => {
-  const t = COPY[lang];
-  const primaryHref = href ?? (lang === "en" ? "/en/accommodations" : "/majoitukset");
+  const copyLang: "fi" | "en" = lang === "fi" ? "fi" : "en";
+  const t = COPY[copyLang];
+  const primaryHref = href ?? PRIMARY_HREF_BY_LANG[lang];
   const secHref = secondaryHref ?? t.secondaryHref;
   const heading = title ?? t.title;
   const text = body ?? t.body;
