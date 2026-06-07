@@ -33,6 +33,15 @@ interface ConversionEvent {
   topSources: Array<{ source: string; count: number }>;
 }
 
+interface BookingSourceRow {
+  source: string;
+  total: number;
+  bySearchWidget: number;
+  byStickyBar: number;
+  byPageCta: number;
+  byLink: number;
+}
+
 interface Stats {
   total: number;
   byDate: Record<string, number>;
@@ -49,7 +58,9 @@ interface Stats {
   byDateSessions?: Record<string, number>;
   topLandingPages?: Array<{ path: string; count: number }>;
   topExitPages?: Array<{ path: string; count: number }>;
+  bookingClicksBySource?: BookingSourceRow[];
 }
+
 
 interface PageViewsAdminProps {
   isViewer: boolean;
