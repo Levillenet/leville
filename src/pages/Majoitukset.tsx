@@ -96,6 +96,67 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
     answer: faq.answer,
   })), [t.faqs]);
 
+  // SEO: Build per-building groups for LodgingBusiness JSON-LD and SEO text block.
+  const propertyPath = (slug: string) =>
+    lang === "fi" ? `/majoitukset/${slug}` : lang === "en" ? `/en/accommodations/${slug}` : `/majoitukset/${slug}`;
+  const BASE = "https://leville.net";
+
+  const buildingGroups = useMemo(() => {
+    const groups: { id: string; name: string; slugPrefix: (slug: string) => boolean; description: string }[] = [
+      { id: "zero-point", name: "Zero Point (Hiihtäjänkuja 5)", slugPrefix: (s) => s.startsWith("zero-point"), description: "Saunalliset 2 makuuhuoneen alppihuoneistot Levin ydinkeskustassa, kävelymatka rinteille ja keskustaan." },
+      { id: "karhupirtti", name: "Karhupirtti (Skimbaajankuja 3)", slugPrefix: (s) => s === "karhupirtti", description: "Tilava hirsihuvila isoille ryhmille – oma sauna, takka ja paljulle varattu piha." },
+      { id: "skistar", name: "Skistar Levi Centre (Postintie 3)", slugPrefix: (s) => s.startsWith("skistar"), description: "Modernit huoneistot ja studiot rinteen vieressä – ski-in/ski-out ja yhteissauna." },
+      { id: "karhunvartija", name: "Karhunvartija 3 (Skimbaajankuja 4)", slugPrefix: (s) => s === "karhunvartija-3", description: "Tilava perhehuoneisto Levin keskustassa, oma sauna ja takka." },
+      { id: "levi-platinum", name: "Levi Platinum A2 (Hiihtäjänkuja 2)", slugPrefix: (s) => s === "levi-platinum-a2", description: "Edustava studio Levin keskustassa – kävelymatka rinteille, ravintoloihin ja palveluihin." },
+      { id: "moonlight", name: "Moonlight 415 (Leviraitti)", slugPrefix: (s) => s === "moonlight-415", description: "Tunnelmallinen studio Levin sydämessä – nopea pääsy rinteille ja Levin palveluihin." },
+      { id: "glacier-a", name: "Levi Glacier Apartments A-talo (Ratsastajankuja 2)", slugPrefix: (s) => /^glacier-a\d/.test(s), description: "Uudet alppitalon huoneistot ja penthouse rinteen yläpäässä – sauna, takka ja näköalat." },
+      { id: "glacier-b", name: "Levi Glacier Apartments B-talo (Ratsastajankuja 2)", slugPrefix: (s) => /^glacier-b\d/.test(s), description: "Glacier B-talon huoneistot ja penthouset – sauna, takka ja rauhallinen sijainti." },
+    ];
+    return groups.map((g) => ({
+      ...g,
+      items: properties.filter((p) => g.slugPrefix(p.slug)),
+    })).filter((g) => g.items.length > 0);
+  }, []);
+
+  const itemListSchema = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: lang === "fi" ? "Majoitus Levillä – kaikki huoneistot" : "Accommodation in Levi – all apartments",
+    numberOfItems: properties.length,
+    itemListElement: properties.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${BASE}${propertyPath(p.slug)}`,
+      name: p.name,
+    })),
+  }), [lang]);
+
+  const buildingSchemas = useMemo(() => buildingGroups.map((g) => {
+    const first = g.items[0];
+    const addr = first.address;
+    return {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      name: g.name,
+      url: `${BASE}${lang === "fi" ? "/majoitukset" : lang === "en" ? "/en/accommodations" : "/majoitukset"}#${g.id}`,
+      description: g.description,
+      address: addr ? {
+        "@type": "PostalAddress",
+        streetAddress: addr.street,
+        postalCode: addr.postalCode,
+        addressLocality: addr.city,
+        addressRegion: "Lappi",
+        addressCountry: "FI",
+      } : undefined,
+      containsPlace: g.items.map((p) => ({
+        "@type": "Accommodation",
+        name: p.name,
+        url: `${BASE}${propertyPath(p.slug)}`,
+      })),
+    };
+  }), [buildingGroups, lang]);
+
+
   return (
     <>
       <JsonLd data={getWebsiteSchema()} />
