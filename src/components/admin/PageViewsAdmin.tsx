@@ -154,7 +154,16 @@ SIVUSTON RAKENNE:
 - /en/ = englanninkieliset sivut (esim. /en/levi, /en/accommodations)
 - /opas/ = oppaat ja artikkelit
 - /guide/ = englanninkieliset oppaat
-- /sauna, /revontulet, /latuinfo jne. = erikoissivut`;
+- /sauna, /revontulet, /latuinfo jne. = erikoissivut
+
+LISÄLOHKO CSV:N LOPUSSA — "BOOKING CLICKS BY SOURCE":
+- Raakarivien jälkeen CSV sisältää aggregoidun lohkon, jossa on yhteenveto kaikista app.moder.fi-varauslinkkien klikkauksista lähtösivuittain.
+- Sarakkeet: source_page, total, search_widget, sticky_bar, page_cta, other_link
+- source_page = sivu jolta klikkaus tehtiin (esim. /opas/kesa-levi)
+- total = kaikki varausklikkaukset tältä sivulta (kaikki neljä event-tyyppiä yhteensä)
+- search_widget / sticky_bar / page_cta / other_link = klikkaukset per painike-tyyppi
+- Lohko on järjestetty total-laskevasti ja sisältää vain sivut joilla on vähintään yksi varausklikkaus.`;
+
 
 type Period = "today" | "week" | "month" | "30days" | "90days" | "180days";
 
