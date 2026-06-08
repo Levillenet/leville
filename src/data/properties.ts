@@ -486,7 +486,7 @@ export const properties: Property[] = [
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
     highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
-    shortDescription: "28 m² Superior studio with private sauna in Skistar building on Postintie. Washing machine in apartment, drying cabinet. Steps from K-Market. About 600m to slopes. Pets not allowed."
+    shortDescription: "28 m² Superior studio with private sauna in Skistar building on Postintie. Washing machine in apartment, drying cabinet. Steps from K-Market. About 700 m to lifts. Pets not allowed."
   },
   {
     id: "320",
@@ -572,7 +572,7 @@ export const properties: Property[] = [
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
     highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
-    shortDescription: "28 m² studio with sauna in Skistar building on Postintie. Underfloor heating. Steps from K-Market. About 600m to slopes. Pets not allowed."
+    shortDescription: "28 m² studio with sauna in Skistar building on Postintie. Underfloor heating. Steps from K-Market. About 700 m to lifts. Pets not allowed."
   },
   {
     id: "karhunvartija3",
