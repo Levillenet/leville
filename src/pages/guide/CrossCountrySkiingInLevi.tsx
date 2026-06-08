@@ -122,6 +122,7 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
               <div className="max-w-2xl mx-auto text-left">
                 <InlineBookingLink variant="tip" intent="trackside" lang={lang} />
+                <InlineBookingLink variant="tip" intent="glacierPrime" lang={lang} />
                 <InlineBookingLink variant="tip" intent="directNoFees" lang={lang} />
               </div>
             </section>
