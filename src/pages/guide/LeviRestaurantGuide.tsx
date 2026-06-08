@@ -523,7 +523,9 @@ const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
             <p className="text-muted-foreground">{t.subtitle}</p>
           </header>
 
-          <p className="mb-12 text-lg">{t.intro}</p>
+          <p className="mb-6 text-lg">{t.intro}</p>
+          <InlineBookingLink variant="tip" intent="stayCentre" lang={lang} />
+          <InlineBookingLink variant="tip" intent="directNoFees" lang={lang} />
 
           {/* Price Guide Table */}
           <section className="mb-12">

@@ -417,6 +417,10 @@ const SeasonsHub = ({ lang = "fi" }: SeasonsHubProps) => {
               <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
                 {c.intro}
               </p>
+              <div className="max-w-2xl mx-auto text-left">
+                <InlineBookingLink variant="tip" intent="stayCentre" lang={lang} />
+                <InlineBookingLink variant="tip" intent="directNoFees" lang={lang} />
+              </div>
             </section>
 
             {/* Season Cards */}

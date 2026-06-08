@@ -145,6 +145,9 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
               <p className="text-muted-foreground max-w-3xl mx-auto">
                 Levi and Rovaniemi are both popular Lapland destinations, but they offer very different experiences. Levi is a fell village in Kittilä, built at the base of Levi Fell – a place of snow, nature and ski resort life. Rovaniemi is the capital of Lapland near the Arctic Circle, known especially for Santa Claus Village and its city services. Both are excellent destinations, but for entirely different things. In this comparison, we help you choose which one suits your holiday.
               </p>
+              <div className="max-w-3xl mx-auto text-left">
+                <InlineBookingLink variant="tip" intent="stayCentre" lang={lang} />
+              </div>
             </section>
 
             {/* At a Glance */}

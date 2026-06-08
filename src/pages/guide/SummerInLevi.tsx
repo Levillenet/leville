@@ -436,6 +436,10 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
               </h1>
               <p className="text-lg text-primary font-medium mb-4">{t.subtitle}</p>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+              <div className="max-w-2xl mx-auto text-left">
+                <InlineBookingLink variant="tip" intent="summerStay" lang={lang} />
+                <InlineBookingLink variant="tip" intent="groupCabin" lang={lang} />
+              </div>
               <p className="text-sm text-muted-foreground max-w-2xl mx-auto mt-4">
                 {ic.intro.lead} <InlineLink placement="intro">{ic.intro.link}</InlineLink>
               </p>

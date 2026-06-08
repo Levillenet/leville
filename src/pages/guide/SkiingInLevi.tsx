@@ -387,6 +387,10 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
               </h1>
               <p className="text-lg text-primary font-medium mb-4">{t.subtitle}</p>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+              <div className="max-w-2xl mx-auto text-left">
+                <InlineBookingLink variant="tip" intent="skiSlopeside" lang={lang} />
+                <InlineBookingLink variant="tip" intent="familySpace" lang={lang} />
+              </div>
             </section>
 
             {/* Package Deal Callout */}
