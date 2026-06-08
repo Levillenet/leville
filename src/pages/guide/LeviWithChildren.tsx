@@ -708,6 +708,7 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
           {/* Introduction */}
           <p className="text-lg text-foreground/90 mb-6 leading-relaxed">{t.intro}</p>
           <InlineBookingLink variant="tip" intent="familySpace" lang={lang} />
+          <InlineBookingLink variant="tip" intent="glacierPrime" lang={lang} />
           <InlineBookingLink variant="tip" intent="groupCabin" lang={lang} />
 
           {/* Kids' Slopes */}

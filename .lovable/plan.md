@@ -1,32 +1,39 @@
-## Korjataan SkiStar-huoneistojen sijaintikuvaukset
+## Glacier Apartments: korostetaan huippusijaintia, poistetaan "Hullu Poro -alue" -termi
 
-Tavoite: Poistetaan kaikki virheelliset viittaukset siihen, että SkiStar-huoneistot olisivat hissien vieressä. Korvataan tarkalla tiedolla: noin 700 metriä hisseille, keskeinen sijainti Levin keskustassa palveluiden ja kauppojen lähellä.
+**Fakta:** Glacier Apartments (Ratsastajankuja 2) sijaitsee **Eturinteen Alppikylässä** — vain n. **20 m hiihtoladulta**, n. **150 m päärinteestä** ja kaikki keskustan palvelut askelmatkan päässä. Lähistöllä myös **Hullu Poro -hotelli** ja **Hullu Poro Areena**, mutta aluetta EI kutsuta "Hullu Poro -alueeksi".
 
-### 1. InlineBookingLink.tsx — skiSlopeside-intentin teksti
-Nykyinen teksti viittaa "hissien vieressä" / "right next to the lifts". Korjataan:
-- FI: "Vinkki: nauti laskettelupäivästä – majoitu keskustan modernissa SkiStar-rakennuksessa, noin 700 metriä hisseiltä"
-- EN: "Tip: enjoy your ski day — stay in a modern downtown apartment at Skistar Postintie 3, about 700 metres from the lifts"
+### 1. `src/components/InlineBookingLink.tsx`
+- Lisätään uusi intent **`glacierPrime`** (FI + EN), emoji 🏔️
+  - FI: "Vinkki: vain n. 20 m hiihtoladulta ja n. 150 m päärinteestä, palvelut askelmatkan päässä —" → "katso Glacier Apartments Eturinteen Alppikylässä" → `/kadut/glacier-apartments-levi`
+  - EN: vastaava käännös, linkki `/en/accommodations`
+- Päivitetään **`trackside`** intent osoittamaan Glacieriin (n. 20 m hiihtoladulta) Hiihtäjänkujan sijaan — säilytetään tip-tyyli.
 
-### 2. SkistarGuide.tsx — aboutP3 (FI + EN)
-Nykyinen teksti: "eturinteet ja lastenalue ovat vain muutaman minuutin kävelyn päässä" / "front slopes and kids' land are just a few minutes on foot".
-Korjataan:
-- FI: "Kaikki Levin keskustan palvelut ovat kävelymatkan päässä — kauppa, ravintolat, matkamuistomyymälät ja lastenalue ovat vain muutaman minuutin kävelyn päässä. Päärinteet ja hissit ovat noin 700 metrin päässä (noin 8–10 minuutin kävely). Lähin moottorikelkkareitti on noin 200 metrin päässä."
-- EN: "All Levi centre services are within walking distance — supermarket, restaurants, souvenir shops and kids' land are just a few minutes on foot. The front slopes and lifts are about 700 metres away (approx. 8–10 min walk). The closest snowmobile track is approximately 200 metres away."
+### 2. `src/data/street-hubs.ts` — Glacier-hubit
+**`ratsastajankuja-levi`** ja **`glacier-apartments-levi`**:
+- Korvataan kaikki "Hullu Poro -alue" → "**Eturinteen Alppikylä**" (metaDescription, subtitle, intro).
+- Päivitetään intro mainitsemaan ensimmäisessä kappaleessa: ~20 m hiihtoladulta, ~150 m päärinteestä, palvelut askelmatkan päässä.
+- Glacierin intron loppuun: "Lähistöllä ovat myös Hullu Poro -hotelli ja Hullu Poro Areena" (säilyttää maamerkit ilman aluenimeä).
+- Päivitetään `facts`:
+  - Poistetaan "Hullu Poro -ravintolaan / n. 100 m" ja "Front Slope -rinteille / n. 250 m"
+  - Lisätään "Hiihtoladulle / n. 20 m" ja "Päärinteelle / n. 150 m"
 
-### 3. SkiingInLevi.tsx — inline-linkkien tarkistus
-Tarkistetaan, etteivät Skistariin viittaavat inline-linkit väitä hissien vieressä olemista. Korjataan tarvittaessa.
+### 3. `public/llms-full.txt` — B4 Glacier-osio
+- Otsikko: "Levi Glacier Apartments (Front Slope Alpine Village)" — pois "Hullu Poro area".
+- Location-rivi: "Front Slope Alpine Village, Levi centre. ~20 m to cross-country track, ~150 m to main slope, walking distance to all services. Hullu Poro hotel & Hullu Poro Areena nearby."
 
-### 4. street-hubs.ts — Skistar Postintie 3 hub
-Tarkistetaan hubin intro ja subtitle. Poistetaan mahdolliset viittaukset hissien välittömään läheisyyteen. Lisätään "noin 700 metriä hisseille".
+### 4. Top-guide-sivut — `glacierPrime`-tip lisäys
+Yksi `<InlineBookingLink variant="tip" intent="glacierPrime" lang={lang} />` per sivu, intro-kappaleen jälkeen:
+- `src/pages/guide/SummerInLevi.tsx` (kesän aktiivisille — ladut & palvelut)
+- `src/pages/guide/CrossCountrySkiingInLevi.tsx` (n. 20 m ladulta)
+- `src/pages/guide/SkiingInLevi.tsx` (n. 150 m päärinteestä)
+- `src/pages/guide/LeviWithChildren.tsx` (tilavat huoneistot + lasten pelihuone)
+- `src/pages/guide/RestaurantsAndServices.tsx` (palvelut askelmatkan päässä)
 
-### 5. properties.ts — Skistar-kohteiden shortDescription
-Tarkistetaan, että shortDescription-kentissä ei ole "ski-in" tai "hissien vieressä" -tyyppisiä väitteitä. Korjataan tarvittaessa.
+### Ei muutoksia
+- `properties.ts` shortDescriptioneihin ei kosketa tässä iteraatiossa (paitsi jos tarkistuksessa löytyy "Hullu Poro -alue"-viittauksia — silloin korvataan "Eturinteen Alppikylä").
+- Muut osoitteet (Hiihtäjänkuja, Skimbaajankuja) eivät muutu — Hullu Poro -ravintola mainintana naapurustossa on OK.
 
-### 6. Majoitukset.tsx / LevinKeskustahuoneistot.tsx
-Etsitään Skistar-viittaukset ja varmistetaan, että sijainti kuvataan oikein (~700 m hisseille).
-
-### 7. propertyTranslationsFi.ts / propertyTranslationsEn.ts
-Tarkistetaan, että longDescription-kuvaukset ovat jo oikein (nykyisellään jo sanotaan "noin 700 metrin päässä").
-
-### 8. llms.txt ja llms-full.txt
-Tarkistetaan, etteivät knowledge-base-tiedostot sisällä virheellistä tietoa SkiStarin sijainnista.
+### Tekniset huomiot
+- SEO/hreflang ei muutu, vain copy ja yksi uusi intent.
+- Hinta-paritetti-sääntö säilyy.
+- Ei uusia komponentteja.
