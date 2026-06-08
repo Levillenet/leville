@@ -10,7 +10,8 @@ type Intent =
   | "trackside"         // cross-country — by the trails
   | "familySpace"       // family-friendly apartments
   | "groupCabin"        // cabins for groups
-  | "directNoFees";     // pricing — book direct
+  | "directNoFees"      // pricing — book direct
+  | "glacierPrime";     // Glacier Apartments — ~20 m to track, ~150 m to main slope
 
 interface Preset {
   text: string;
@@ -33,8 +34,8 @@ const PRESETS: Record<Intent, Partial<Record<Lang, Preset>>> = {
     en: { text: "Tip: central location next to all services, about 700 m to the lifts —", linkText: "see Skistar Postintie 3 apartments", href: "/en/apartments/levi-center-apartments", emoji: "⛷️" },
   },
   trackside: {
-    fi: { text: "Vinkki: hiihtoladuille pääsee suoraan ovelta —", linkText: "katso huoneistot Hiihtäjänkujalla", href: "/kadut/hiihtajankuja", emoji: "🎿" },
-    en: { text: "Tip: ski straight from the door onto the trails —", linkText: "see our apartments next to the tracks", href: "/en/accommodations", emoji: "🎿" },
+    fi: { text: "Vinkki: hiihtoladulle vain n. 20 m ovelta —", linkText: "katso Glacier Apartments Eturinteen Alppikylässä", href: "/kadut/glacier-apartments-levi", emoji: "🎿" },
+    en: { text: "Tip: cross-country track just ~20 m from the door —", linkText: "see Glacier Apartments in the Front Slope Alpine Village", href: "/en/accommodations", emoji: "🎿" },
   },
   familySpace: {
     fi: { text: "Vinkki: lapsiperheelle tilaa, sauna ja oma keittiö —", linkText: "katso 4–8 hengen huoneistot keskustassa", href: "/majoitukset", emoji: "👨‍👩‍👧‍👦" },
@@ -47,6 +48,10 @@ const PRESETS: Record<Intent, Partial<Record<Lang, Preset>>> = {
   directNoFees: {
     fi: { text: "Säästä välityskuluissa —", linkText: "varaa majoitus suoraan omistajalta", href: "/majoitukset", emoji: "💶" },
     en: { text: "Skip the booking fees —", linkText: "book directly from the owner", href: "/en/accommodations", emoji: "💶" },
+  },
+  glacierPrime: {
+    fi: { text: "Vinkki: vain n. 20 m hiihtoladulta ja n. 150 m päärinteestä, palvelut askelmatkan päässä —", linkText: "katso Glacier Apartments Eturinteen Alppikylässä", href: "/kadut/glacier-apartments-levi", emoji: "🏔️" },
+    en: { text: "Tip: just ~20 m to the cross-country track and ~150 m to the main slope, services on your doorstep —", linkText: "see Glacier Apartments in the Front Slope Alpine Village", href: "/en/accommodations", emoji: "🏔️" },
   },
 };
 

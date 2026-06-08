@@ -80,11 +80,11 @@ export const streetHubs: StreetHub[] = [
     h1: "Vuokramökit ja huoneistot Ratsastajankuja 2, Levi – Glacier-alppitalo",
     metaTitle: `Vuokramökit Ratsastajankuja 2 Levi ${new Date().getFullYear()} – Glacier A & B -alppihuoneistot`,
     metaDescription:
-      "Glacier A & B -alppihuoneistot Ratsastajankuja 2:ssa, Levin Hullu Poro -alueella. 10 saunallista huoneistoa – varaa kokonaisen talon kerrallaan tai yksittäin.",
+      "Glacier A & B -alppihuoneistot Ratsastajankuja 2:ssa, Levin Eturinteen Alppikylässä. Vain n. 20 m hiihtoladulta ja n. 150 m päärinteestä – 10 saunallista huoneistoa.",
     subtitle:
-      "Glacier-alppitalo Hullu Poro -alueella – 10 saunallista huoneistoa, sopii myös ryhmille.",
+      "Glacier-alppitalo Eturinteen Alppikylässä – n. 20 m hiihtoladulta ja n. 150 m päärinteestä.",
     intro: [
-      "Ratsastajankuja 2 sijaitsee Levin Hullu Poro -alueella, askelten päässä ravintoloista ja Front Slope -rinteistä. Osoitteessa sijaitsee Levi Glacier -alppitalo, jossa on yhteensä 10 modernia huoneistoa kahdessa rakennuksessa (A- ja B-talot).",
+      "Ratsastajankuja 2 sijaitsee Levin Eturinteen Alppikylässä loistavalla sijainnilla: hiihtoladulle on vain noin 20 metriä ja päärinteelle noin 150 metriä. Kaikki keskustan palvelut, ravintolat ja kaupat ovat askelmatkan päässä. Osoitteessa sijaitsee Levi Glacier -alppitalo, jossa on yhteensä 10 modernia huoneistoa kahdessa rakennuksessa (A- ja B-talot).",
       "Glacier-huoneistot on suunniteltu erityisesti perheille, urheiluseuroille ja yritysryhmille. Jokaisessa huoneistossa on oma sauna, parveke ja täysin varusteltu keittiö. Huoneistoja on kahdesta neljään makuuhuonetta, ja kattohuoneistoissa on tilaa jopa kymmenelle hengelle. Talossa on myös pelihuone lapsille.",
       "Kun haluat majoittaa koko seurueen samaan rakennukseen, voit varata 4–10 huoneistoa kerrallaan ja saada koko talon yksityiskäyttöön. Kaikki Glacierin huoneistot voi varata suoraan Leville.netin kautta ilman välityspalkkioita.",
     ],
@@ -101,8 +101,8 @@ export const streetHubs: StreetHub[] = [
       "glacier-b4-penthouse",
     ],
     facts: [
-      { label: "Hullu Poro -ravintolaan", value: "n. 100 m" },
-      { label: "Front Slope -rinteille", value: "n. 250 m" },
+      { label: "Hiihtoladulle", value: "n. 20 m" },
+      { label: "Päärinteelle", value: "n. 150 m" },
       { label: "Levin keskustaan", value: "n. 400 m" },
       { label: "Huoneistoja yhteensä", value: "10 (A & B)" },
     ],
@@ -114,11 +114,11 @@ export const streetHubs: StreetHub[] = [
     h1: "Glacier Apartments Levi – Levin keskustan suurin 10 huoneiston alppitalo",
     metaTitle: `Glacier Apartments Levi ${new Date().getFullYear()} – 10 saunallista huoneistoa keskustassa`,
     metaDescription:
-      "Levi Glacier Apartments – Levin keskustan suurin 10 huoneiston alppitalo Ratsastajankuja 2:ssa, Hullu Poro -alueella. Saunalliset huoneistot 2–10 hengelle, varaa suoraan.",
+      "Levi Glacier Apartments – 10 saunallisen huoneiston alppitalo Ratsastajankuja 2:ssa Levin Eturinteen Alppikylässä. Vain n. 20 m hiihtoladulta ja n. 150 m päärinteestä.",
     subtitle:
-      "Levin keskustan suurin alppitalo – 10 saunallista Glacier-huoneistoa Hullu Poro -alueella.",
+      "Levin keskustan suurin alppitalo Eturinteen Alppikylässä – n. 20 m hiihtoladulta ja n. 150 m päärinteestä.",
     intro: [
-      "Levi Glacier Apartments on Levin keskustan suurin yksittäinen huoneistokokonaisuus: 10 modernia saunallista alppihuoneistoa samassa osoitteessa, Ratsastajankuja 2:ssa. Glacier-talo sijaitsee aivan Hullu Poro -alueen vieressä, vain noin 100 metrin päässä ravintoloista ja 250 metrin päässä Front Slope -rinteistä.",
+      "Levi Glacier Apartments on Levin keskustan suurin yksittäinen huoneistokokonaisuus: 10 modernia saunallista alppihuoneistoa samassa osoitteessa, Ratsastajankuja 2:ssa Eturinteen Alppikylässä. Sijainti on huippuluokkaa – hiihtoladulle on vain noin 20 metriä ja päärinteelle noin 150 metriä, ja kaikki Levin keskustan palvelut, ravintolat ja kaupat löytyvät askelmatkan päästä. Lähistöllä ovat myös Hullu Poro -hotelli ja Hullu Poro Areena.",
       "Glacier Apartments jakautuu kahteen rakennukseen (A- ja B-talo), joissa on yhteensä kuusi A-puolen ja neljä B-puolen huoneistoa. Huoneistoissa on 2–4 makuuhuonetta ja kattohuoneistoissa (A5, B3, B4 Penthouse) tilaa jopa kymmenelle hengelle. Jokaisessa huoneistossa on oma sauna, parveke, täysin varusteltu keittiö ja WiFi. Talossa on myös lasten pelihuone.",
       "Glacier Apartments on Levin suosituin valinta isoille ryhmille, urheiluseuroille, yritystapahtumille ja sukujuhlille – voit varata jopa koko 10 huoneiston talon samalle ajalle ja saada sen yksityiskäyttöön. Kaikki Glacier-huoneistot voi varata suoraan Leville.netin kautta ilman välityspalkkioita.",
     ],
@@ -136,8 +136,8 @@ export const streetHubs: StreetHub[] = [
     ],
     facts: [
       { label: "Huoneistoja yhteensä", value: "10 (A & B)" },
-      { label: "Hullu Poro -ravintolaan", value: "n. 100 m" },
-      { label: "Front Slope -rinteille", value: "n. 250 m" },
+      { label: "Hiihtoladulle", value: "n. 20 m" },
+      { label: "Päärinteelle", value: "n. 150 m" },
       { label: "Levin keskustaan", value: "n. 400 m" },
       { label: "Suurin huoneisto", value: "10 hengelle (Penthouse)" },
     ],
