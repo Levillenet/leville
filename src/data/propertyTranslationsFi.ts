@@ -198,7 +198,7 @@ Fiksu, tyylikäs ja täydellisellä sijainnilla. Tämä moderni, vuonna 2020 val
   "skistar-studio-319": {
     name: "Levin keskusta Superior Studio 319",
     shortDescription:
-      "28 m² Superior-studio omalla saunalla Skistar-rakennuksessa Postintiellä. Pesukone huoneistossa, kuivauskaappi. Askelten päässä K-Marketista. Noin 600 m rinteille. Ei lemmikkejä.",
+      "28 m² Superior-studio omalla saunalla Skistar-rakennuksessa Postintiellä. Pesukone huoneistossa, kuivauskaappi. Askelten päässä K-Marketista. Noin 700 m hisseille. Ei lemmikkejä.",
     longDescription: `**Majoitus ja pohjaratkaisu**
 Jokaisessa studiossa on yhdistetty oleskelu- ja makuutila:
 
@@ -236,7 +236,7 @@ Näppärä, tyylikäs ja täydellisellä sijainnilla. Tämä moderni 28 m²:n yk
   "skistar-studio-321": {
     name: "Levin keskusta Studio 321",
     shortDescription:
-      "28 m² studio saunalla Skistar-rakennuksessa Postintiellä. Lattialämmitys. Askelten päässä K-Marketista. Noin 600 m rinteille. Ei lemmikkejä.",
+      "28 m² studio saunalla Skistar-rakennuksessa Postintiellä. Lattialämmitys. Askelten päässä K-Marketista. Noin 700 m hisseille. Ei lemmikkejä.",
     longDescription: `**Moderni yksiö saunalla Levin keskustassa – SkiStar-rakennus**
 
 Älykäs, tyylikäs ja täydellisellä sijainnilla. Tämä moderni 28 m²:n yksiö SkiStar-rakennuksessa valmistui vuonna 2020 ja tarjoaa kaiken, mitä tarvitset mukavaan Levin lomaan. Yksiöön mahtuu mukavasti jopa 3 aikuista tai perhe, jossa on 2 aikuista ja 2 lasta – mikä tekee siitä erinomaisen valinnan niin pariskunnille kuin pienille perheillekin. Päärinteet ovat noin 700 metrin päässä ja kaikki palvelut kävelyetäisyydellä.

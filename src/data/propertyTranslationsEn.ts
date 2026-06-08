@@ -240,7 +240,7 @@ Smart, stylish and perfectly located. This modern 28 m² studio in the Skistar b
   "skistar-studio-321": {
     name: "Skistar Studio 321 with Sauna — Levi Center",
     shortDescription:
-      "28 m² studio with private sauna in the Skistar building, Postintie. Underfloor heating. About 600 m to the slopes. No pets.",
+      "28 m² studio with private sauna in the Skistar building, Postintie. Underfloor heating. About 700 m to the lifts. No pets.",
     longDescription: `**Modern studio with sauna in Levi Center — Skistar building**
 
 Smart, stylish and perfectly located. This modern 28 m² studio in the Skistar building was completed in 2020 and offers everything you need for a comfortable Levi holiday. The studio comfortably sleeps up to 3 adults or a family of 2 adults and 2 children — making it an excellent choice for couples and small families alike. The main slopes are about 700 m away and all services are within walking distance.
