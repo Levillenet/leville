@@ -20,6 +20,7 @@ import crossCountrySunny from "@/assets/seasons/cross-country-sunny.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import TimedNotice from "@/components/TimedNotice";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import {
   Accordion,
   AccordionContent,
@@ -119,6 +120,10 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
               </h1>
               <p className="text-lg text-primary font-medium mb-4">{t.subtitle}</p>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+              <div className="max-w-2xl mx-auto text-left">
+                <InlineBookingLink variant="tip" intent="trackside" lang={lang} />
+                <InlineBookingLink variant="tip" intent="directNoFees" lang={lang} />
+              </div>
             </section>
 
             {/* Cross-country trail image */}

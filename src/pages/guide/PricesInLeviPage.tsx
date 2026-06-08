@@ -14,6 +14,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import {
   Euro,
   Mountain,
@@ -173,6 +174,8 @@ const PricesInLeviPage = () => {
           <p className="text-muted-foreground text-lg">
             A complete price guide from ski passes to restaurants, activities to groceries. Plan your Levi holiday budget before you go. Finland uses the euro (€) and card payments are accepted virtually everywhere — you rarely need cash. Tipping is not customary in Finland.
           </p>
+          <InlineBookingLink variant="tip" intent="directNoFees" lang="en" />
+          <InlineBookingLink variant="tip" intent="stayCentre" lang="en" />
         </div>
 
         {/* Disclaimer */}

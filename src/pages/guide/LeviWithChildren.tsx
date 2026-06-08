@@ -20,6 +20,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { leviWithChildrenTranslationsDe, leviWithChildrenTranslationsSv, leviWithChildrenTranslationsFr, leviWithChildrenTranslationsEs } from "./leviWithChildrenTranslations";
 
 import MajoitusCallout from "@/components/MajoitusCallout";
+import InlineBookingLink from "@/components/InlineBookingLink";
 interface LeviWithChildrenProps {
   lang?: Language;
 }
@@ -705,7 +706,9 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
           </header>
 
           {/* Introduction */}
-          <p className="text-lg text-foreground/90 mb-10 leading-relaxed">{t.intro}</p>
+          <p className="text-lg text-foreground/90 mb-6 leading-relaxed">{t.intro}</p>
+          <InlineBookingLink variant="tip" intent="familySpace" lang={lang} />
+          <InlineBookingLink variant="tip" intent="groupCabin" lang={lang} />
 
           {/* Kids' Slopes */}
           <section className="mb-12">

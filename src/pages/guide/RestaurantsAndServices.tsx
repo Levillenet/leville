@@ -11,6 +11,7 @@ import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema }
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import MajoitusCallout from "@/components/MajoitusCallout";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UtensilsCrossed } from "lucide-react";
@@ -332,7 +333,9 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
             <p className="text-muted-foreground">{t.subtitle}</p>
           </header>
 
-          <p className="mb-10 text-lg">{t.intro}</p>
+          <p className="mb-6 text-lg">{t.intro}</p>
+          <InlineBookingLink variant="tip" intent="stayCentre" lang={lang} />
+          <InlineBookingLink variant="tip" intent="directNoFees" lang={lang} />
 
           {/* Price Guide Table */}
           {t.priceGuide && (

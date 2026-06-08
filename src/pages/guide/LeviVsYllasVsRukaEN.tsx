@@ -22,6 +22,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import InlineBookingLink from "@/components/InlineBookingLink";
 
 import type { Language } from "@/translations";
 import { routeConfig } from "@/translations";
@@ -137,6 +138,9 @@ const LeviVsYllasVsRukaEN = ({ lang = "en" }: LeviVsYllasVsRukaENProps) => {
               <p className="text-muted-foreground max-w-3xl mx-auto">
                 Levi, Ylläs and Ruka are Finland's three largest and most popular ski resorts. Levi and Ylläs are located in Lapland, just 55 km apart, while Ruka is in Kuusamo – technically in the North Ostrobothnia region rather than Lapland, but very Lappish in atmosphere and nature. All three offer excellent conditions, but they differ significantly in atmosphere, services and terrain. In this comparison, we break down which one might suit your holiday best. We are locals and know all three resorts well.
               </p>
+              <div className="max-w-3xl mx-auto text-left">
+                <InlineBookingLink variant="tip" intent="stayCentre" lang={lang} />
+              </div>
             </section>
 
             {/* Slopes & Downhill Skiing */}
