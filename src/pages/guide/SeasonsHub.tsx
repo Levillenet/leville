@@ -24,6 +24,7 @@ import summerImg from "@/assets/seasons/summer.jpg";
 import springImg from "@/assets/seasons/spring.jpg";
 
 import MajoitusCallout from "@/components/MajoitusCallout";
+import InlineBookingLink from "@/components/InlineBookingLink";
 interface SeasonsHubProps {
   lang?: Language;
 }

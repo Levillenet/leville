@@ -11,6 +11,7 @@ import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema }
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import MajoitusCallout from "@/components/MajoitusCallout";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UtensilsCrossed } from "lucide-react";

@@ -23,6 +23,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { skiingInLeviTranslations } from "./skiingInLeviTranslations";
 import MajoitusCallout from "@/components/MajoitusCallout";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import {
   Accordion,
   AccordionContent,

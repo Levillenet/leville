@@ -15,6 +15,7 @@ import OptimizedImage from "@/components/OptimizedImage";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import { Language } from "@/translations";
+import InlineBookingLink from "@/components/InlineBookingLink";
 
 // Restaurant Asia
 import asiaWokki from "@/assets/restaurants/Aasialainen wokki bataattiranskalaisilla - Ravintola Asia.jpg";

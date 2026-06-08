@@ -26,6 +26,7 @@ import adventureParkRopes from "@/assets/summer/adventure-park-ropes.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import MajoitusCallout from "@/components/MajoitusCallout";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import {
   Accordion,
   AccordionContent,

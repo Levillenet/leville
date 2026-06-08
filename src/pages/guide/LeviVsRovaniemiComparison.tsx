@@ -24,6 +24,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import InlineBookingLink from "@/components/InlineBookingLink";
 
 
 import type { Language } from "@/translations";

@@ -20,6 +20,7 @@ import crossCountrySunny from "@/assets/seasons/cross-country-sunny.jpg";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import TimedNotice from "@/components/TimedNotice";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import {
   Accordion,
   AccordionContent,

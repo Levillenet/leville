@@ -20,6 +20,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { leviWithChildrenTranslationsDe, leviWithChildrenTranslationsSv, leviWithChildrenTranslationsFr, leviWithChildrenTranslationsEs } from "./leviWithChildrenTranslations";
 
 import MajoitusCallout from "@/components/MajoitusCallout";
+import InlineBookingLink from "@/components/InlineBookingLink";
 interface LeviWithChildrenProps {
   lang?: Language;
 }
