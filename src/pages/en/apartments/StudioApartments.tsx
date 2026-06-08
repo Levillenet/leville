@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     q: "How far are the studios from the ski slopes?",
-    a: (<>The Skistar studios on Postintie are right next to K-Market – great for convenience – and about 600 meters from the slopes. {linkProp("Platinum A2", "platinum-a2")} is on Hiihtäjänkuja at the foot of the front slope. {linkProp("Moonlight 415", "moonlight-415")} is next to the Hullu Poro hotel, about 400 meters from the slopes and ski track.</>),
+    a: (<>The Skistar studios on Postintie are right next to K-Market – great for convenience – and about 700 meters from the lifts. {linkProp("Platinum A2", "platinum-a2")} is on Hiihtäjänkuja at the foot of the front slope. {linkProp("Moonlight 415", "moonlight-415")} is next to the Hullu Poro hotel, about 400 meters from the slopes and ski track.</>),
   },
   {
     q: "What's the difference between the studios?",
@@ -97,7 +97,7 @@ const StudioApartments = () => {
               Our studios range from 24 to 37 m². Almost all have a private sauna – the only exception is {linkProp("Studio 102", "102")}, which has a shower only. All other studios include their own electric sauna, which is a real luxury after a cold day outdoors.
             </p>
             <p>
-              All studios are in Levi center. The Skistar studios ({linkProp("102", "102")}, {linkProp("104", "104")}, {linkProp("319", "319")}–{linkProp("321", "321")}) are in the Skistar building on Postintie, just steps from K-Market grocery store and about 600 meters from the slopes. {linkProp("Platinum A2", "platinum-a2")} is on Hiihtäjänkuja at the foot of the front slope – the newest apartment in our portfolio, opened in 2023. {linkProp("Moonlight 415", "moonlight-415")} sits next to the Hullu Poro hotel, about 400 meters from the slopes and ski track.
+              All studios are in Levi center. The Skistar studios ({linkProp("102", "102")}, {linkProp("104", "104")}, {linkProp("319", "319")}–{linkProp("321", "321")}) are in the Skistar building on Postintie, just steps from K-Market grocery store and about 700 meters from the lifts. {linkProp("Platinum A2", "platinum-a2")} is on Hiihtäjänkuja at the foot of the front slope – the newest apartment in our portfolio, opened in 2023. {linkProp("Moonlight 415", "moonlight-415")} sits next to the Hullu Poro hotel, about 400 meters from the slopes and ski track.
             </p>
             <p>
               Here's the honest truth about studios: they're compact. If you like spreading out or you're traveling with kids, consider a 1-bedroom or 2-bedroom apartment. But if your holiday is about the outdoors and the apartment is just for sleeping, cooking breakfast, and warming up in the sauna after a day on the slopes – a studio is everything you need.
