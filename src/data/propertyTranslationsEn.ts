@@ -204,7 +204,7 @@ Smart, stylish and perfectly located. This modern 28 m² studio in the Skistar b
   "skistar-studio-319": {
     name: "Skistar Studio 319 with Sauna — Levi Center",
     shortDescription:
-      "28 m² Superior studio with private sauna in the Skistar building, Postintie. Washing machine in apartment, drying cupboard. About 600 m to the slopes. No pets.",
+      "28 m² Superior studio with private sauna in the Skistar building, Postintie. Washing machine in apartment, drying cupboard. About 700 m to the slopes. No pets.",
     longDescription: `**Accommodation and layout**
 Each studio has a combined living and sleeping area:
 

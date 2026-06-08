@@ -29,8 +29,8 @@ const PRESETS: Record<Intent, Partial<Record<Lang, Preset>>> = {
     en: { text: "Tip: enjoy the midnight sun from your own terrace —", linkText: "browse summer accommodations in Levi", href: "/en/accommodations", emoji: "☀️" },
   },
   skiSlopeside: {
-    fi: { text: "Vinkki: säästä aikaa rinteillä — yövy hissien vieressä", linkText: "Skistar Postintie 3 -huoneistoissa", href: "/kadut/skistar-postintie-3", emoji: "⛷️" },
-    en: { text: "Tip: save time on the slopes — stay right next to the lifts at", linkText: "Skistar Postintie 3 apartments", href: "/en/apartments/levi-center-apartments", emoji: "⛷️" },
+    fi: { text: "Vinkki: keskeinen sijainti palveluiden vieressä, n. 700 m hisseille —", linkText: "katso Skistar Postintie 3 -huoneistot", href: "/kadut/skistar-postintie-3", emoji: "⛷️" },
+    en: { text: "Tip: central location next to all services, about 700 m to the lifts —", linkText: "see Skistar Postintie 3 apartments", href: "/en/apartments/levi-center-apartments", emoji: "⛷️" },
   },
   trackside: {
     fi: { text: "Vinkki: hiihtoladuille pääsee suoraan ovelta —", linkText: "katso huoneistot Hiihtäjänkujalla", href: "/kadut/hiihtajankuja", emoji: "🎿" },
