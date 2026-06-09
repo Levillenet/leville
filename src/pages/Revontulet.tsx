@@ -18,6 +18,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import OptimizedImage from "@/components/OptimizedImage";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import MajoitusCallout from "@/components/MajoitusCallout";
 import auroraTykkyWide from "@/assets/activities/aurora-tykky-wide.jpg";
 import { Language } from "@/translations";
