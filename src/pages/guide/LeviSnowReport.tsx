@@ -17,6 +17,7 @@ import SnowDepthChart from "@/components/SnowDepthChart";
 
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import {
   Accordion,
   AccordionContent,
