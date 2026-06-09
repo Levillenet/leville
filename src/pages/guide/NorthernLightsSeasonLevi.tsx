@@ -391,6 +391,8 @@ const NorthernLightsSeasonLevi = ({ lang = "fi" }: Props) => {
             <section className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.h1}</h1>
             </section>
+            <InlineBookingLink variant="tip" intent="auroraStay" lang={lang} />
+            <InlineBookingLink variant="tip" intent="stayCentre" lang={lang} />
             {t.sections.map((section, idx) => (
               <section key={idx} className="mb-12">
                 <h2 className="text-2xl font-bold text-foreground mb-4">{section.title}</h2>
