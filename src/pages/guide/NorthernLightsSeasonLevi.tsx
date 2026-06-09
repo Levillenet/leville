@@ -406,7 +406,7 @@ const NorthernLightsSeasonLevi = ({ lang = "fi" }: Props) => {
             <section className="mb-12">
               <Card className="glass-card border-border/30 p-6">
                 <p className="text-muted-foreground mb-4">
-                  {lang === "fi" ? "Majoitu Levillä ja katsele revontulia omalta terassilta." : "Stay in Levi and watch the northern lights from your own terrace."}
+                  {lang === "fi" ? "Majoitu Levillä — pimeät revontulipaikat ovat pienen kävelymatkan päässä huoneistoiltamme." : "Stay in Levi — dark aurora spots are a short walk from our apartments."}
                 </p>
                 <Button asChild>
                   <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodations"}>
