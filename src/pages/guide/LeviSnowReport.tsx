@@ -309,6 +309,12 @@ const LeviSnowReport = ({ lang = "fi" }: LeviSnowReportProps) => {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold mb-8 text-center">{t.h1}</h1>
 
+          <InlineBookingLink variant="tip" intent="trackside" lang={lang} />
+          <InlineBookingLink variant="tip" intent="glacierPrime" lang={lang} />
+          <InlineBookingLink variant="tip" intent="directNoFees" lang={lang} />
+
+
+
           {/* Section 1: Trail & Slope Conditions */}
           <section className="mb-12">
             <h2 className="text-2xl font-bold mb-4">{t.trails.title}</h2>
