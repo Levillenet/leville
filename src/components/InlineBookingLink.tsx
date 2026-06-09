@@ -11,7 +11,8 @@ type Intent =
   | "familySpace"       // family-friendly apartments
   | "groupCabin"        // cabins for groups
   | "directNoFees"      // pricing — book direct
-  | "glacierPrime";     // Glacier Apartments — ~20 m to track, ~150 m to main slope
+  | "glacierPrime"      // Glacier Apartments — ~20 m to track, ~150 m to main slope
+  | "auroraStay";       // northern lights — dark spots a short walk away
 
 interface Preset {
   text: string;
