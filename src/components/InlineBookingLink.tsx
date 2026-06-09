@@ -11,7 +11,8 @@ type Intent =
   | "familySpace"       // family-friendly apartments
   | "groupCabin"        // cabins for groups
   | "directNoFees"      // pricing — book direct
-  | "glacierPrime";     // Glacier Apartments — ~20 m to track, ~150 m to main slope
+  | "glacierPrime"      // Glacier Apartments — ~20 m to track, ~150 m to main slope
+  | "auroraStay";       // northern lights — dark spots a short walk away
 
 interface Preset {
   text: string;
@@ -52,6 +53,10 @@ const PRESETS: Record<Intent, Partial<Record<Lang, Preset>>> = {
   glacierPrime: {
     fi: { text: "Vinkki: vain n. 20 m hiihtoladulta ja n. 150 m päärinteestä, palvelut askelmatkan päässä —", linkText: "katso Glacier Apartments Eturinteen Alppikylässä", href: "/kadut/glacier-apartments-levi", emoji: "🏔️" },
     en: { text: "Tip: just ~20 m to the cross-country track and ~150 m to the main slope, services on your doorstep —", linkText: "see Glacier Apartments in the Front Slope Alpine Village", href: "/en/accommodations", emoji: "🏔️" },
+  },
+  auroraStay: {
+    fi: { text: "Vinkki: majoituksistamme pienen kävelymatkan päässä on pimeitä paikkoja, joista revontulia bongaa parhaiten —", linkText: "katso majoitukset Levillä", href: "/majoitukset", emoji: "🌌" },
+    en: { text: "Tip: a short walk from our apartments you'll find dark spots where the aurora shows up best —", linkText: "see accommodations in Levi", href: "/en/accommodations", emoji: "🌌" },
   },
 };
 

@@ -18,6 +18,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import OptimizedImage from "@/components/OptimizedImage";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import MajoitusCallout from "@/components/MajoitusCallout";
 import auroraTykkyWide from "@/assets/activities/aurora-tykky-wide.jpg";
 import { Language } from "@/translations";
@@ -376,6 +377,10 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-4xl mx-auto text-center">
                 {t.intro}
               </p>
+              <div className="max-w-4xl mx-auto">
+                <InlineBookingLink variant="tip" intent="auroraStay" lang={lang === "fi" ? "fi" : "en"} />
+                <InlineBookingLink variant="tip" intent="stayCentre" lang={lang === "fi" ? "fi" : "en"} />
+              </div>
             </ScrollReveal>
 
             {/* Forecast + Alert side by side */}

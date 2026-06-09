@@ -15,6 +15,7 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import {
   Accordion,
   AccordionContent,
@@ -107,7 +108,7 @@ Tämä ei kuitenkaan tarkoita, etteikö muina vuosina näkisi revontulia Levill�
       links: [
         { title: "Revontulet Levillä", desc: "Kattava opas revontulista", href: "/revontulet" },
         { title: "Talvi Levillä", desc: "Mitä talviloma Levillä tarjoaa?", href: "/opas/talvi-levi" },
-        { title: "Majoitukset", desc: "Katsele revontulia omalta terassilta", href: "/majoitukset" }
+        { title: "Majoitukset", desc: "Pimeät revontulipaikat kävelymatkan päässä", href: "/majoitukset" }
       ]
     }
   },
@@ -189,7 +190,7 @@ However, this doesn't mean you won't see aurora in other years. Levi is north of
       links: [
         { title: "Northern Lights in Levi", desc: "Comprehensive aurora guide", href: "/en/northern-lights" },
         { title: "Winter in Levi", desc: "What does a winter holiday offer?", href: "/guide/winter-in-levi" },
-        { title: "Accommodation", desc: "Watch aurora from your own terrace", href: "/en/accommodations" }
+        { title: "Accommodation", desc: "Dark aurora spots a short walk away", href: "/en/accommodations" }
       ]
     }
   },
@@ -367,6 +368,9 @@ const BestTimeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
               </h1>
             </section>
 
+            <InlineBookingLink variant="tip" intent="auroraStay" lang={lang} />
+            <InlineBookingLink variant="tip" intent="stayCentre" lang={lang} />
+
             {/* Aurora image */}
             <section className="mb-12 rounded-xl overflow-hidden">
               <OptimizedImage src={auroraTykkySpiral} alt={lang === "fi" ? "Revontulet tykkylumisten puiden yllä Levillä" : "Northern lights over snow-laden trees in Levi"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
@@ -393,8 +397,8 @@ const BestTimeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
               <Card className="glass-card border-border/30 p-6">
                 <p className="text-muted-foreground mb-4">
                   {lang === "fi"
-                    ? "Majoitu Levillä ja katsele revontulia omalta terassilta."
-                    : "Stay in Levi and watch the northern lights from your own terrace."}
+                    ? "Majoitu Levillä — pimeät revontulipaikat ovat pienen kävelymatkan päässä huoneistoiltamme."
+                    : "Stay in Levi — dark aurora spots are a short walk from our apartments."}
                 </p>
                 <Button asChild>
                   <Link to={lang === "fi" ? "/majoitukset" : "/en/accommodations"}>
