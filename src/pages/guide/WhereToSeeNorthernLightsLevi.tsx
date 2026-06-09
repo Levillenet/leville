@@ -15,6 +15,7 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import InlineBookingLink from "@/components/InlineBookingLink";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import OptimizedImage from "@/components/OptimizedImage";
 import auroraTykkyWide from "@/assets/activities/aurora-tykky-wide.jpg";
@@ -112,7 +113,7 @@ Usein paras paikka on aivan majoituksen lähellä — tuttu, turvallinen ja help
       links: [
         { title: "Revontulet Levillä", desc: "Kattava revontuliopas", href: "/revontulet" },
         { title: "Revontulien valokuvaus", desc: "Kamera-asetukset ja vinkit", href: "/opas/revontulien-valokuvaus-levi" },
-        { title: "Majoitukset", desc: "Katsele revontulia omalta terassilta", href: "/majoitukset" }
+        { title: "Majoitukset", desc: "Pimeät revontulipaikat kävelymatkan päässä", href: "/majoitukset" }
       ]
     }
   },
@@ -366,6 +367,8 @@ const WhereToSeeNorthernLightsLevi = ({ lang = "fi" }: Props) => {
             <section className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.h1}</h1>
             </section>
+            <InlineBookingLink variant="tip" intent="auroraStay" lang={lang} />
+            <InlineBookingLink variant="tip" intent="stayCentre" lang={lang} />
             {/* Aurora wide image */}
             <section className="mb-12 rounded-xl overflow-hidden">
               <OptimizedImage src={auroraTykkyWide} alt={lang === "fi" ? "Revontulet tykkylumisten puiden ja erätuvan yllä" : "Northern lights over snow-covered trees and a wilderness cabin"} className="w-full h-64 sm:h-80 md:h-96 object-cover" />
