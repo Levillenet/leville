@@ -388,7 +388,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                       {
                         title: "Skistar — keskustahuoneistot Postintiellä",
                         subtitle: "Levin ydinkeskustassa, askelia palveluille — 9 kohdetta",
-                        items: properties.filter((p) => ["211", "212", "209", "210", "102", "104", "319", "320", "321"].includes(p.id)),
+                        items: properties.filter((p) => ["211", "212", "209", "210", "310", "102", "104", "319", "320", "321"].includes(p.id)),
                       },
                       {
                         title: "Karhupirtti — hirsihuvila 14:lle",
@@ -415,7 +415,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                       {
                         title: "Skistar — central apartments on Postintie",
                         subtitle: "In the heart of Levi, steps from the services — 9 properties",
-                        items: properties.filter((p) => ["211", "212", "209", "210", "102", "104", "319", "320", "321"].includes(p.id)),
+                        items: properties.filter((p) => ["211", "212", "209", "210", "310", "102", "104", "319", "320", "321"].includes(p.id)),
                       },
                       {
                         title: "Karhupirtti — log villa for 14",

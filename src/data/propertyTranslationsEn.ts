@@ -163,6 +163,22 @@ A comfortable, compact base for a Levi holiday. This 43 m² apartment in the pop
 
 **Everything included for a comfortable stay** Fully equipped kitchen with dishwasher, oven, microwave, coffee machine and toaster. Private sauna and bathroom. Balcony. Free WiFi and TV with HDMI. High chair available for families.`,
   },
+  "skistar-310": {
+    name: "Skistar 310 — One-Bedroom Suite, Levi Center",
+    shortDescription:
+      "43 m² renovated one-bedroom Superior apartment with private sauna in the Skistar building. Located on the 3rd floor. Carefully designed interior. No pets.",
+    longDescription: `**Comfortable one-bedroom apartment in Levi Center — Skistar building**
+
+A comfortable, compact base for your Levi holiday. This 43 m² apartment in the popular Skistar building suits couples or small families well, sleeping up to 4 guests. It is located on the 3rd floor of the Skistar building in the centre of Levi, with the main ski slopes about 700 m away and all services within walking distance.
+
+**Modern layout for up to 4 guests** The spacious bedroom has two single beds, and the living room has a comfortable sofa bed for 1–2 extra guests. The open-plan kitchen-living room is bright and welcoming — a great space for cooking, relaxing and planning the next day's adventures.
+
+**Private sauna and practical comforts** Unwind in your own electric sauna after a day on the slopes. The building has a shared laundry and a separate ski storage with a waxing rack and ventilation. The apartment has its own drying cupboard. Please note the apartment is on the 3rd floor and the building has no lift.
+
+**Skistar building — central location in Levi** The Skistar building is in the centre of Levi. The main slopes are about 700 m away — an easy walk or a quick ski along the trail. Cross-country trails, restaurants, shops and après-ski venues are all close by. Free on-site parking with an electric outlet is available.
+
+**Everything included for a comfortable stay** Fully equipped kitchen with dishwasher, oven, microwave, coffee machine and toaster. Private sauna and bathroom. Balcony. Free WiFi and TV with HDMI. High chair available for families.`,
+  },
   "skistar-studio-102": {
     name: "Skistar Studio 102 — Levi Center",
     shortDescription:

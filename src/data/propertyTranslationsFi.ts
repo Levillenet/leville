@@ -155,6 +155,23 @@ Mukava ja kompakti tukikohta Levillä lomailuun. Tämä 43 m²:n huoneisto suosi
 **Kaikki mukavan oleskelun takaamiseksi** Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Oma sauna ja kylpyhuone. Parveke. Ilmainen WiFi ja televisio HDMI-liitännällä. Syöttötuoli saatavilla perheille.`,
   
   },
+  "skistar-310": {
+    name: "Levin keskusta Superior 310",
+    shortDescription:
+      "43 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla, 3. kerroksessa Skistar-talossa. Huolellisesti suunniteltu sisustus. Ei lemmikkejä.",
+    longDescription: `**Viihtyisä yhden makuuhuoneen huoneisto Levin keskustassa – SkiStar-rakennus**
+
+Mukava ja kompakti tukikohta Levin-lomallesi. Tämä 43 m²:n huoneisto suositussa SkiStar-rakennuksessa sopii erinomaisesti pariskunnille tai pienille perheille, majoittaen jopa 4 vierasta. Huoneisto sijaitsee talon 3. kerroksessa, ja rakennus on Levin keskustassa: päähiihtorinteet ovat noin 700 metrin päässä ja kaikki palvelut kävelyetäisyydellä.
+
+**Nykyaikainen pohjaratkaisu jopa 4 vieraalle** Tilavassa makuuhuoneessa on kaksi erillistä sänkyä, ja olohuoneessa on mukava vuodesohva 1–2 lisävieraalle. Avokeittiö-olohuone on valoisa ja kutsuva – loistava tila ruoanlaittoon, rentoutumiseen ja seuraavan päivän seikkailujen suunnitteluun.
+
+**Oma sauna ja käytännölliset mukavuudet** Rentoudu omassa sähkösaunassa rinteillä vietetyn päivän jälkeen. Rakennuksessa on jaettu pyykkitupa ja erillinen suksivarasto huoltotelineellä ja tuuletuksella. Asunnossa on oma kuivauskaappi. Huomaathan, että huoneisto sijaitsee 3. kerroksessa eikä talossa ole hissiä.
+
+**SkiStar-rakennus – keskeinen sijainti Levillä** SkiStar-rakennus sijaitsee Levin keskustassa. Päähiihtorinteet ovat noin 700 metrin päässä – helppo kävely tai nopea hiihto latua pitkin. Murtomaahiihtoladut, ravintolat, kaupat ja after ski -paikat ovat kaikki lähistöllä. Ilmainen pysäköinti sähköpistokkeella on saatavilla paikan päällä.
+
+**Kaikki sisältyy mukavaan oleskeluun** Täysin varusteltu keittiö astianpesukoneella, uunilla, mikroaaltouunilla, kahvinkeittimellä ja leivänpaahtimella. Oma sauna ja kylpyhuone. Parveke. Ilmainen WiFi ja televisio HDMI-liitännällä. Syöttötuoli saatavilla perheille.`,
+
+  },
   "skistar-studio-102": {
     name: "Levin keskusta Studio 102 – Postintie",
     shortDescription:
