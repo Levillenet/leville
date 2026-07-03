@@ -388,7 +388,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                       {
                         title: "Skistar — keskustahuoneistot Postintiellä",
                         subtitle: "Levin ydinkeskustassa, askelia palveluille — 9 kohdetta",
-                        items: properties.filter((p) => ["211", "212", "209", "210", "102", "104", "319", "320", "321"].includes(p.id)),
+                        items: properties.filter((p) => ["211", "212", "209", "210", "310", "102", "104", "319", "320", "321"].includes(p.id)),
                       },
                       {
                         title: "Karhupirtti — hirsihuvila 14:lle",
