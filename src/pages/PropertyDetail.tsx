@@ -314,7 +314,7 @@ const HeroGallery = ({ images, alt, t }: { images: string[]; alt: string; t: UiS
 const groupOf = (p: Property): string => {
   if (p.id.startsWith("5")) return "front-slope";
   if (p.id === "karhupirtti") return "karhupirtti";
-  if (["211", "212", "209", "210", "102", "104", "319", "320", "321"].includes(p.id)) return "skistar";
+  if (["211", "212", "209", "210", "310", "102", "104", "319", "320", "321"].includes(p.id)) return "skistar";
   if (["karhunvartija3", "platinum-a2", "moonlight-415"].includes(p.id)) return "center-other";
   return "glacier";
 };
