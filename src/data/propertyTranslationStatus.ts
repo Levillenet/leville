@@ -23,6 +23,7 @@ export const propertyTranslationAvailability: Record<string, Language[]> = {
   "skistar-212": ["fi", "en"],
   "skistar-209": ["fi", "en"],
   "skistar-210": ["fi", "en"],
+  "skistar-310": ["fi", "en"],
   "skistar-studio-102": ["fi", "en"],
   "skistar-studio-104": ["fi", "en"],
   "skistar-studio-319": ["fi", "en"],
