@@ -153,8 +153,8 @@ export const streetHubs: StreetHub[] = [
     subtitle:
       "Skistar-talo Levin keskustassa – 9 huoneistoa kävelymatkan päässä rinteistä ja palveluista.",
     intro: [
-      "Postintie 3 sijaitsee aivan Levin ydinkeskustassa, askelten päässä K-Marketista, ravintoloista ja Levin pääkadun palveluista. Osoitteessa sijaitsee Skistar-talo, jossa Leville.netillä on yhteensä 9 huoneistoa: neljä kolmiota (kerrokset 2 ja 3) ja viisi studiota (kerrokset 1 ja 3).",
-      "Skistar-talon kolmiot sopivat perheille ja pienille kaveriporukoille, kun taas modernit studiot ovat erinomainen valinta pariskunnille tai yksin matkustaville Leville. Jokaisessa huoneistossa on täysin varusteltu keittiö ja WiFi. Talossa ei ole hissiä. Sijainti on Levin keskustassa palveluiden ja kauppojen lähistöllä – hisseille on noin 700 metrin kävelymatka (n. 8–10 min), joten ei ihan ovelta rinteeseen, mutta kuitenkin lähistöllä.",
+      "Postintie 3 sijaitsee aivan Levin ydinkeskustassa, askelten päässä K-Marketista, ravintoloista ja Levin pääkadun palveluista. Osoitteessa sijaitsee Skistar-talo, jossa Leville.netillä on yhteensä 10 huoneistoa: viisi kaksiota (kerrokset 2 ja 3) ja viisi studiota (kerrokset 1 ja 3).",
+      "Skistar-talon kaksiot sopivat perheille ja pienille kaveriporukoille, kun taas modernit studiot ovat erinomainen valinta pariskunnille tai yksin matkustaville Leville. Jokaisessa huoneistossa on täysin varusteltu keittiö ja WiFi. Talossa ei ole hissiä. Sijainti on Levin keskustassa palveluiden ja kauppojen lähistöllä – hisseille on noin 700 metrin kävelymatka (n. 8–10 min), joten ei ihan ovelta rinteeseen, mutta kuitenkin lähistöllä.",
       "Kun haluat ryhmämajoitusta keskustassa, voit varata useamman Skistar-huoneiston samasta talosta yhdellä kertaa. Kaikki Postintie 3:n huoneistot voi varata suoraan Leville.netin kautta – ilman välityspalkkioita ja samat hinnat kuin Booking.comissa.",
     ],
     propertySlugs: [
@@ -162,6 +162,7 @@ export const streetHubs: StreetHub[] = [
       "skistar-212",
       "skistar-209",
       "skistar-210",
+      "skistar-310",
       "skistar-studio-102",
       "skistar-studio-104",
       "skistar-studio-319",
@@ -172,7 +173,7 @@ export const streetHubs: StreetHub[] = [
       { label: "Levin keskustaan", value: "askelmatka" },
       { label: "Hisseille / rinteille", value: "n. 700 m (8–10 min kävely)" },
       { label: "Lähin ruokakauppa", value: "n. 150 m (K-Market Levi)" },
-      { label: "Huoneistoja yhteensä", value: "9 (kolmiot & studiot)" },
+      { label: "Huoneistoja yhteensä", value: "10 (kaksiot & studiot)" },
     ],
   },
 ];
