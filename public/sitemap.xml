@@ -4822,6 +4822,23 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/accommodations/skistar-210" />
   </url>
   <url>
+    <loc>https://leville.net/majoitukset/skistar-310</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/majoitukset/skistar-310" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/accommodations/skistar-310" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/accommodations/skistar-310" />
+  </url>
+  <url>
+    <loc>https://leville.net/en/accommodations/skistar-310</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/majoitukset/skistar-310" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/accommodations/skistar-310" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/accommodations/skistar-310" />
+  <url>
     <loc>https://leville.net/majoitukset/skistar-studio-102</loc>
     <lastmod>2026-05-13</lastmod>
     <changefreq>monthly</changefreq>
