@@ -86,13 +86,13 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
       <HreflangTags currentPath={location.pathname} currentLang={lang} customUrls={customUrls} />
       <Helmet>
         <html lang={lang} />
-        <title>Levi vs. Rovaniemi – Which Lapland Destination Is Right for You? | Leville.net</title>
-        <meta name="description" content="Levi or Rovaniemi? An honest comparison of a Lapland fell village and the capital of Lapland. Skiing, activities, Santa Claus, northern lights, services and prices." />
+        <title>Levi vs Rovaniemi – Which Lapland Destination Is Better?</title>
+        <meta name="description" content="Honest comparison: skiing, northern lights, activities, prices and accommodation. Which Finnish Lapland resort suits your trip — Levi or Rovaniemi?" />
         <link rel="canonical" href={`https://leville.net${customUrls[lang] || customUrls.en}`} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={`https://leville.net${customUrls[lang] || customUrls.en}`} />
-        <meta property="og:title" content="Levi vs. Rovaniemi – Which Lapland Destination Is Right for You? | Leville.net" />
-        <meta property="og:description" content="Levi or Rovaniemi? An honest comparison of a Lapland fell village and the capital of Lapland." />
+        <meta property="og:title" content="Levi vs Rovaniemi – Which Lapland Destination Is Better?" />
+        <meta property="og:description" content="Honest comparison: skiing, northern lights, activities, prices and accommodation. Which Finnish Lapland resort suits your trip — Levi or Rovaniemi?" />
         <meta property="og:locale" content={localeMap[lang] || "en_US"} />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
@@ -100,16 +100,16 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Levi vs. Rovaniemi – Which Lapland Destination Is Right for You? | Leville.net" />
-        <meta name="twitter:description" content="Levi or Rovaniemi? An honest comparison of a Lapland fell village and the capital of Lapland." />
+        <meta name="twitter:title" content="Levi vs Rovaniemi – Which Lapland Destination Is Better?" />
+        <meta name="twitter:description" content="Honest comparison: skiing, northern lights, activities, prices and accommodation. Which Finnish Lapland resort suits your trip — Levi or Rovaniemi?" />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
         <meta name="twitter:image:alt" content="Levi ski resort in Finnish Lapland" />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
-            headline: "Levi vs. Rovaniemi – Fell Village or the Capital of Lapland?",
-            description: "Levi or Rovaniemi? An honest comparison of a Lapland fell village and the capital of Lapland.",
+            headline: "Levi vs Rovaniemi – Which Lapland Destination Is Better?",
+            description: "Honest comparison: skiing, northern lights, activities, prices and accommodation. Which Finnish Lapland resort suits your trip — Levi or Rovaniemi?",
             author: { "@type": "Organization", name: "Leville.net" },
             publisher: { "@type": "Organization", name: "Leville.net" },
           })}

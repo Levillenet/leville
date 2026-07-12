@@ -26,9 +26,9 @@ interface GettingAroundLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Liikkuminen Levillä | Leville.net",
+      title: "Liikkuminen Levillä – Bussit, taksit ja vuokra-autot",
       description:
-        "Näin pääset Leville ja liikut perillä. Lentokenttäkuljetukset, hiihtobussa, taksit, autonvuokraus ja talviajotipat.",
+        "Näin liikut Levillä ilman omaa autoa. Hiihtobussa, skibussi, taksit, autonvuokraus ja kaikki reitit yhdessä paikassa.",
       canonical: "https://leville.net/opas/liikkuminen-levilla",
     },
     title: "Liikkuminen Levillä",

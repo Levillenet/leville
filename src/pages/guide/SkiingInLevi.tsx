@@ -38,8 +38,8 @@ interface SkiingInLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: `Laskettelu Levillä ${new Date().getFullYear()} — 43 rinnettä ja hissiliput`,
-      description: "Levin 43 rinnettä ja 28 hissiä. Kysy tarjous majoitus + hissiliput -paketista suoraan meiltä. Rinnekartta, vaikeustasot ja vinkit laskettelulomalle.",
+      title: `Laskettelu Levillä ${new Date().getFullYear()} – 43 rinnettä, rinnekartta ja vinkit`,
+      description: "Levin hiihtokeskuksen opas: 43 rinnettä, 28 hissiä, rinnekartta, hissilippuhinnat ja parhaat rinteet aloittelijoille ja kokeneille. Suunnittele laskettelupäiväsi.",
       canonical: "https://leville.net/opas/laskettelu-levi"
     },
     title: "Laskettelu Levillä",
@@ -132,8 +132,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: `Skiing in Levi ${new Date().getFullYear()} — 43 Slopes, Lifts & Packages`,
-      description: "Levi's 43 slopes and 28 lifts. Ask us for a combined accommodation + lift pass package. Slope map, difficulty levels and tips for your ski holiday.",
+      title: `Skiing in Levi ${new Date().getFullYear()} – 43 Slopes, Trail Map & Local Tips`,
+      description: "Complete guide to Levi ski resort: 43 slopes, 28 lifts, trail map, lift pass prices and tips for all levels. Plan your ski day in Finnish Lapland.",
       canonical: "https://leville.net/guide/skiing-in-levi"
     },
     title: "Skiing in Levi",
