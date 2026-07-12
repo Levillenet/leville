@@ -111,7 +111,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
   },
   en: {
     meta: {
-      title: "Northern Lights Colors Explained — Why Green, Red, Purple & Blue? | Leville.net",
+      title: "Northern Lights Colors – Why Green, Red, Purple & Blue?",
       description: "Why do northern lights appear in different colors? Explanation of green, red, purple and blue: atmospheric gases and altitude.",
       canonical: "https://leville.net/guide/northern-lights-colors-explained"
     },

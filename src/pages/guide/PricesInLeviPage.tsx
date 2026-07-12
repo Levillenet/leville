@@ -145,8 +145,8 @@ const PricesInLeviPage = () => {
       />
       <JsonLd data={getWebsiteSchema()} />
       <JsonLd data={getArticleSchema({
-        title: "Prices in Levi – What Does a Lapland Holiday Cost?",
-        description: "Complete price guide for a Levi holiday. Ski pass prices, restaurant costs, activity rates and grocery prices.",
+        title: "Prices in Levi – Food, Ski Pass, Activities & Budget Tips",
+        description: "How much does a Levi holiday cost? Real prices for restaurants, lift passes, equipment rental and activities. Budget tips from a local.",
         url: "https://leville.net/guide/prices-in-levi",
         lang: "en",
         datePublished: "2025-11-01",

@@ -368,8 +368,8 @@ const VappuLevilla = () => {
   return (
     <>
       <SeoMeta
-        title="Vappu Levillä – Majoitus -10% koodilla vappu2026 | Leville.net"
-        description="Vappu Levillä on kevään kohokohta! Rinteet auki, vappukulkue, vesihiihto ja live-esiintyjät. Varaa majoitus -10% alennuksella koodilla vappu2026."
+        title="Vappu Levillä – Tapahtumat, rinteet ja vappumajoitus"
+        description="Vietä vappu Levin tunturissa! MayDay-tapahtumat, vappukulkue, vesihiihto ja rinteet auki. Varaa vappumajoitus edullisesti."
         canonicalUrl="https://leville.net/opas/vappu-levilla"
         lang={lang}
         ogType="article"

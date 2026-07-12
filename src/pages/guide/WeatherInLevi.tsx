@@ -199,7 +199,7 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Levi Weather Now — Temperature, Snow Depth & Forecast",
+      title: "Levi Weather – Live Temperature, Snow Depth & Forecast",
       description: "Live weather data for Levi ski resort. Current temperature, snow depth and wind conditions. Monthly averages for trip planning.",
       canonical: "https://leville.net/en/levi/weather-in-levi"
     },
