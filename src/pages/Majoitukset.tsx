@@ -217,10 +217,14 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               <ScrollReveal>
                 <section className="max-w-3xl mx-auto mb-10 md:mb-12 px-2 text-center">
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    Etsitkö <strong className="text-foreground">majoitusta Leviltä</strong>? Tarjoamme
-                    saunallisia <strong className="text-foreground">vuokramökkejä</strong> ja moderneja
-                    huoneistoja Levin ydinkeskustassa neljässä eri kohteessa: Front Slope -alppihuoneistot
-                    {" "}
+                    Etsitkö <strong className="text-foreground">majoitusta Levillä</strong>? Tarjoamme{" "}
+                    <strong className="text-foreground">vuokramökkejä ja huoneistoja Levin keskustassa</strong>{" "}
+                    suoraan omistajalta. Valikoimasta löydät saunallisia{" "}
+                    <strong className="text-foreground">mökkejä Leviltä</strong> pariskunnille, perheille ja
+                    isommille ryhmille – kaikki lyhyen kävelymatkan päässä rinteistä, ravintoloista ja Levin
+                    keskustan palveluista. <strong className="text-foreground">Mökkivuokraus Levillä</strong>{" "}
+                    on kanssamme mutkatonta: ei välityspalkkioita, joustavat peruutusehdot ja suora yhteys
+                    omistajaan. Neljä kohdetta Levin ytimessä: Front Slope -alppihuoneistot{" "}
                     <Link to="/vuokramokit/hiihtajankuja-levi" className="text-primary hover:underline">
                       Hiihtäjänkujalla
                     </Link>
@@ -236,8 +240,11 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     <Link to="/vuokramokit/postintie-levi" className="text-primary hover:underline">
                       Postintie 3:ssa
                     </Link>
-                    . Kaikki kohteet ovat lyhyen kävelymatkan päässä rinteiltä, ravintoloista ja Levin
-                    keskustan palveluista – ja varaat suoraan meiltä ilman välityspalkkioita.
+                    . Lue myös oppaamme{" "}
+                    <Link to="/opas/vuokramokit-levi" className="text-primary hover:underline">
+                      vuokramökeistä Levillä
+                    </Link>
+                    .
                   </p>
                 </section>
               </ScrollReveal>
