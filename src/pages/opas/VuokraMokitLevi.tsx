@@ -24,11 +24,11 @@ interface Props {
 
 const content = {
   fi: {
-    title: `Vuokramökit Levillä – mökkivuokraus keskustassa ${new Date().getFullYear()}`,
-    description: "Vuokramökit ja mökkihuoneistot Levin keskustassa kävelymatkan päässä rinteistä. Mökkivuokraus suoraan ilman välityspalkkioita – 27 kohdetta.",
+    title: `Vuokramökit Levillä ${new Date().getFullYear()} – mökkivuokraus Levin keskustassa | Leville.net`,
+    description: "Vuokramökit Levillä suoraan omistajalta – saunallisia mökkejä ja huoneistoja Levin keskustassa kävelymatkan päässä rinteistä. Mökkivuokraus ilman välityspalkkioita.",
     canonical: "https://leville.net/opas/vuokramokit-levi",
-    h1: "Vuokramökit Levillä – mökkivuokraus Levin keskustassa",
-    intro: "Etsitkö vuokramökkiä Leviltä? Levin keskustassa on tarjolla mökkihuoneistoja ja perinteisiä hirsimökkejä, jotka sopivat niin pariskunnille kuin isommillekin seurueille. Tämä opas auttaa valitsemaan oikean mökin – ja kertoo miksi mökkivuokraus suoraan omistajalta on usein huoletonta ja hintaneutraalia.",
+    h1: "Vuokramökit Levillä – mökkivuokraus ja mökit Levin keskustassa",
+    intro: "Etsitkö vuokramökkiä Leviltä? Vuokramökit Levillä ovat suosituin tapa majoittua Lapissa – ja Levin keskustassa on tarjolla sekä perinteisiä hirsimökkejä että moderneja mökkihuoneistoja. Mökkivuokraus suoraan omistajalta on huoletonta: ei välityspalkkioita, joustavat peruutusehdot ja suora yhteys omistajaan. Tämä opas auttaa löytämään oikean mökin – studiokoosta 14 hengen hirsihuvilaan.",
     sectionsTitle: "Mökkityypit Levillä",
     sections: [
       {
