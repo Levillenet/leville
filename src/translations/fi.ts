@@ -56,13 +56,13 @@ export const fi = {
   },
   majoitukset: {
     meta: {
-      title: `Majoitus Levillä ${new Date().getFullYear()} | Mökit & huoneistot keskustassa`,
-      description: "Majoitus Levillä — saunalliset vuokramökit ja modernit huoneistot Levin keskustassa, kävelymatkan päässä rinteistä. Mökkivuokraus suoraan ilman välityspalkkioita.",
-      keywords: "majoitus Levi, levi majoitus, vuokramökit Levi, levi mökit, mökki Levi, levi mökkimajoitus, levin mökkivuokraus, mökkivuokraus Levi, huoneisto Levin keskusta, levi vuokramökit, levi huoneistot, levi hotelli vaihtoehto",
+      title: `Majoitus Levillä ${new Date().getFullYear()} – Vuokramökit ja huoneistot Levin keskustassa | Leville.net`,
+      description: "Majoitus Levillä suoraan omistajalta: vuokramökit, mökkivuokraus ja modernit huoneistot Levin keskustassa. Saunallisia mökkejä ja huoneistoja kävelymatkan päässä rinteistä – ilman välityspalkkioita.",
+      keywords: "majoitus Levi, levi majoitus, vuokramökit Levi, levi mökit, mökki Levi, levi mökkimajoitus, levin mökkivuokraus, mökkivuokraus Levi, levin mökit, huoneisto Levin keskusta, levi vuokramökit, levi huoneistot, levin majoituspalvelut",
       canonical: "https://leville.net/majoitukset"
     },
-    title: "Majoitus Levillä — mökit ja huoneistot Levin keskustassa",
-    subtitle: "Saunalliset vuokramökit ja modernit huoneistot Levin ydinkeskustassa, askelten päässä rinteistä, ravintoloista ja palveluista. Mökkivuokraus suoraan ilman välityspalkkioita.",
+    title: "Majoitus Levillä – vuokramökit ja huoneistot Levin keskustassa",
+    subtitle: "Saunalliset vuokramökit ja modernit huoneistot Levin ydinkeskustassa – kävelymatkan päässä rinteistä, ravintoloista ja palveluista. Mökkivuokraus suoraan omistajalta ilman välityspalkkioita.",
     bookCta: "Varaa heti lomasi",
     amenitiesTitle: "Kaikissa majoituksissamme",
     accommodations: [

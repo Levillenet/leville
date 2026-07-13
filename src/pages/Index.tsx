@@ -34,9 +34,9 @@ const seoContent: Record<Language, {
   locale: string;
 }> = {
   fi: {
-    title: "Majoitus Levillä — mökit & huoneistot keskustassa | Leville",
-    description: "Majoitus Levillä suoraan omistajalta: saunalliset vuokramökit ja modernit huoneistot Levin keskustassa, askelten päässä rinteistä. Varaa ilman välityspalkkioita.",
-    keywords: "majoitus Levi, levi majoitus, levi mökit, mökki Levi, vuokramökit Levi, levi huoneisto, levi hotelli, levin keskusta majoitus, levi vuokramökit, loma Levi",
+    title: "Majoitus Levillä – Vuokramökit ja huoneistot Levin keskustassa | Leville.net",
+    description: "Majoitus Levillä suoraan omistajalta: vuokramökit ja huoneistot Levin keskustassa. Mökkivuokraus ilman välityspalkkioita – saunallisia mökkejä ja huoneistoja kävelymatkan päässä rinteistä.",
+    keywords: "majoitus Levi, levi majoitus, vuokramökit Levi, levi mökit, mökki Levi, levi mökkimajoitus, mökkivuokraus Levi, levin mökit, levin mökkivuokraus, levi huoneisto, levi vuokramökit, loma Levi",
     canonical: "https://leville.net",
     locale: "fi_FI"
   },
