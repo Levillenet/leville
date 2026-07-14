@@ -22,7 +22,14 @@ export interface StreetHub {
   propertySlugs: string[];
   /** Lähimmät palvelut / etäisyydet info-listaan */
   facts: { label: string; value: string }[];
+  /** Brändinimet JSON-LD alternateName + hubtaulukon esittelyyn */
+  brandNames?: string[];
+  /** Sijainnin lyhyt kuvaus (esim. "Zero Point, ydinkeskusta") hubtaulukkoa varten */
+  locationLabel?: string;
+  /** Kapasiteetti "2–6 hlö" / "14 hlö" hubtaulukkoa varten */
+  capacityLabel?: string;
 }
+
 
 export const streetHubs: StreetHub[] = [
   {
