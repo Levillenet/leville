@@ -8,17 +8,18 @@ import { Link } from "react-router-dom";
  */
 const HomeSeoBlock = () => {
   const hubs: { href: string; label: string }[] = [
-    { href: "/vuokramokit/postintie-levi", label: "Skistar-huoneistot Postintie 3:lla" },
-    { href: "/vuokramokit/glacier-apartments-levi", label: "Glacier-alppihuoneistot keskustassa" },
-    { href: "/vuokramokit/hiihtajankuja-levi", label: "Hiihtäjänkujan mökit" },
-    { href: "/vuokramokit/ratsastajankuja-levi", label: "Ratsastajankujan mökit" },
-    { href: "/vuokramokit/skimbaajankuja-levi", label: "Skimbaajankujan huoneistot" },
+    { href: "/vuokramokit/glacier-apartments-levi", label: "Glacier Apartments – 4–5 mh perhehuoneistot Zero Pointissa" },
+    { href: "/vuokramokit/skimbaajankuja-levi", label: "Bear Lodge / Karhupirtti – 14 hengen hirsihuvila" },
+    { href: "/vuokramokit/hiihtajankuja-levi", label: "Front Slope Apartments – Hiihtäjänkujan alppihuoneistot" },
+    { href: "/vuokramokit/postintie-levi", label: "Skistar-talo – Postintie 3 keskustassa" },
+    { href: "/vuokramokit/ratsastajankuja-levi", label: "Ratsastajankuja 2 – Glacier-alppitalo" },
     { href: "/majoitukset", label: "Kaikki vuokramökit ja huoneistot Leviltä" },
     { href: "/opas/majoitus-levilla", label: "Opas: majoitus Levillä – mistä valita" },
     { href: "/opas/vuokra-mokit-levi", label: "Vuokramökit Leviltä – kokoluokat 2–14 hengelle" },
     { href: "/opas/levi-vs-rovaniemi", label: "Levi vs Rovaniemi – missä yöpyä Lapissa" },
     { href: "/opas/levi-vs-saariselka", label: "Levi vs Saariselkä – vertailu" },
   ];
+
 
   return (
     <section
