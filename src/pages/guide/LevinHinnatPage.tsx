@@ -13,6 +13,7 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ReadNextSection from "@/components/guide/ReadNextSection";
+import MajoitusCallout from "@/components/MajoitusCallout";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import {
   Euro,
@@ -470,6 +471,13 @@ const LevinHinnatPage = () => {
             ))}
           </Accordion>
         </SectionCard>
+
+        <MajoitusCallout
+          lang="fi"
+          variant="compact"
+          title="Loman hinta pienemmäksi – varaa suoraan"
+          body="Meidän saunalliset huoneistot ja mökit Levin keskustassa ilman välityspalkkioita. Samat hinnat kuin Booking.comissa – säästät jopa 15 %."
+        />
 
         <GuideDisclaimer lang="fi" />
 
