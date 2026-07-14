@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Clock, ArrowRight, Snowflake, Star, Route, TreePine, Moon } from "lucide-react";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import MajoitusCallout from "@/components/MajoitusCallout";
 import { Language } from "@/translations";
 import OptimizedImage from "@/components/OptimizedImage";
 import springCrossCountry from "@/assets/seasons/spring-cross-country.jpg";
@@ -265,6 +266,8 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
                 ))}
               </Accordion>
             </section>
+
+            <MajoitusCallout lang={lang} variant="compact" />
 
             <GuideDisclaimer lang={lang} />
 

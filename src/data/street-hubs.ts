@@ -29,7 +29,7 @@ export const streetHubs: StreetHub[] = [
     slug: "hiihtajankuja-levi",
     street: "Hiihtäjänkuja",
     h1: "Vuokramökit ja huoneistot Hiihtäjänkujalla, Levi",
-    metaTitle: `Vuokramökit Hiihtäjänkuja Levi ${new Date().getFullYear()} – Front Slope -alppihuoneistot`,
+    metaTitle: "Hiihtäjänkuja Levi – vuokrahuoneistot Eturinteellä | Leville.net",
     metaDescription:
       "Front Slope -alppihuoneistot Hiihtäjänkujalla, Levin Eturinteellä. Saunalliset huoneistot 200 m Eturinteen rinteiltä – varaa suoraan ilman välityspalkkioita.",
     subtitle:
@@ -55,7 +55,7 @@ export const streetHubs: StreetHub[] = [
     slug: "skimbaajankuja-levi",
     street: "Skimbaajankuja",
     h1: "Vuokramökki Skimbaajankujalla, Levi – Karhupirtti hirsihuvila",
-    metaTitle: `Vuokramökki Skimbaajankuja Levi ${new Date().getFullYear()} – Karhupirtti, hirsihuvila 14 hengelle`,
+    metaTitle: "Skimbaajankuja Levi – Karhupirtti hirsihuvila 14 hengelle | Leville.net",
     metaDescription:
       "Karhupirtti on perinteinen hirsihuvila Skimbaajankujalla, Levin keskustassa. Ulkoporeallas, takka, 7 makuuhuonetta – varaa suoraan ilman välityspalkkioita.",
     subtitle:
@@ -78,7 +78,7 @@ export const streetHubs: StreetHub[] = [
     street: "Ratsastajankuja",
     address: "Ratsastajankuja 2",
     h1: "Vuokramökit ja huoneistot Ratsastajankuja 2, Levi – Glacier-alppitalo",
-    metaTitle: `Vuokramökit Ratsastajankuja 2 Levi ${new Date().getFullYear()} – Glacier A & B -alppihuoneistot`,
+    metaTitle: "Ratsastajankuja 2 Levi – Glacier-alppihuoneistot Alppikylässä | Leville.net",
     metaDescription:
       "Glacier A & B -alppihuoneistot Ratsastajankuja 2:ssa, Levin Eturinteen Alppikylässä. Vain n. 20 m hiihtoladulta ja n. 150 m päärinteestä – 10 saunallista huoneistoa.",
     subtitle:
@@ -112,7 +112,7 @@ export const streetHubs: StreetHub[] = [
     street: "Glacier Apartments",
     address: "Ratsastajankuja 2",
     h1: "Glacier Apartments Levi – Levin keskustan suurin 10 huoneiston alppitalo",
-    metaTitle: `Glacier Apartments Levi ${new Date().getFullYear()} – 10 saunallista huoneistoa keskustassa`,
+    metaTitle: "Glacier Apartments Levi – 10 saunallista alppihuoneistoa | Leville.net",
     metaDescription:
       "Levi Glacier Apartments – 10 saunallisen huoneiston alppitalo Ratsastajankuja 2:ssa Levin Eturinteen Alppikylässä. Vain n. 20 m hiihtoladulta ja n. 150 m päärinteestä.",
     subtitle:
@@ -147,7 +147,7 @@ export const streetHubs: StreetHub[] = [
     street: "Postintie",
     address: "Postintie 3",
     h1: "Vuokrahuoneistot Postintie 3, Levi – Skistar-talon kolmiot ja studiot",
-    metaTitle: `Vuokrahuoneistot Postintie 3 Levi ${new Date().getFullYear()} – Skistar-talon majoitus keskustassa`,
+    metaTitle: "Postintie 3 Levi – Skistar-talon vuokrahuoneistot keskustassa | Leville.net",
     metaDescription:
       "Skistar-talon kolmiot ja studiot Postintie 3:ssa, aivan Levin keskustassa. 9 huoneistoa kävelymatkan päässä rinteistä, ravintoloista ja palveluista – varaa suoraan.",
     subtitle:
