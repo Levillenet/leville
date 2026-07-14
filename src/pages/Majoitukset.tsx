@@ -232,14 +232,15 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     <Link to="/vuokramokit/skimbaajankuja-levi" className="text-primary hover:underline">
                       Skimbaajankujalla
                     </Link>
-                    , Levin keskustan suurin 10 huoneiston{" "}
+                    , Levin ydinkeskustan{" "}
                     <Link to="/vuokramokit/glacier-apartments-levi" className="text-primary hover:underline">
-                      Glacier Apartments -alppitalo
+                      Glacier Apartments – 4–5 mh perhehuoneistot Zero Pointissa
                     </Link>{" "}
                     sekä Skistar-talon kolmiot ja studiot{" "}
                     <Link to="/vuokramokit/postintie-levi" className="text-primary hover:underline">
                       Postintie 3:ssa
                     </Link>
+
                     . Lue myös oppaamme{" "}
                     <Link to="/opas/vuokramokit-levi" className="text-primary hover:underline">
                       vuokramökeistä Levillä
