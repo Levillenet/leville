@@ -93,6 +93,8 @@ const StreetHub = () => {
       </Helmet>
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={itemListSchema} />
+      {lodgingSchema && <JsonLd data={lodgingSchema} />}
+
 
       <div className="min-h-screen bg-background relative">
         <SubpageBackground />
