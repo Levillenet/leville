@@ -232,14 +232,15 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     <Link to="/vuokramokit/skimbaajankuja-levi" className="text-primary hover:underline">
                       Skimbaajankujalla
                     </Link>
-                    , Levin keskustan suurin 10 huoneiston{" "}
+                    , Levin ydinkeskustan{" "}
                     <Link to="/vuokramokit/glacier-apartments-levi" className="text-primary hover:underline">
-                      Glacier Apartments -alppitalo
+                      Glacier Apartments – 4–5 mh perhehuoneistot Zero Pointissa
                     </Link>{" "}
                     sekä Skistar-talon kolmiot ja studiot{" "}
                     <Link to="/vuokramokit/postintie-levi" className="text-primary hover:underline">
                       Postintie 3:ssa
                     </Link>
+
                     . Lue myös oppaamme{" "}
                     <Link to="/opas/vuokramokit-levi" className="text-primary hover:underline">
                       vuokramökeistä Levillä
@@ -349,38 +350,47 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </div>
             </ScrollReveal>
 
-            {/* Selaa kaduittain (FI only) */}
+            {/* Selaa kohteittain (FI only) – kaupallinen hubtaulukko */}
             {lang === "fi" && (
               <ScrollReveal>
                 <section className="mb-12 md:mb-16">
                   <div className="text-center mb-5">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Selaa majoitusta kaduittain</h2>
-                    <p className="text-sm text-muted-foreground mt-1">Vuokramökit ja huoneistot Levin keskustan kolmella kadulla.</p>
+                    <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Kaikki majoituskohteemme Levillä</h2>
+                    <p className="text-sm text-muted-foreground mt-1">Viisi majoituskokonaisuutta Levin keskustan alueella – valitse brändi ja katso saatavuus.</p>
                   </div>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    {streetHubs.map((s) => (
-                      <Link
-                        key={s.slug}
-                        to={`/vuokramokit/${s.slug}`}
-                        className="group glass-card border border-border/30 rounded-xl p-5 hover:border-primary/50 transition-colors"
-                      >
-                        <div className="inline-flex items-center gap-2 text-xs uppercase tracking-wide text-primary mb-2">
-                          <MapPin className="w-3.5 h-3.5" />
-                          {s.address ?? s.street}
-                        </div>
-                        <div className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                          {s.street}, Levi
-                        </div>
-                        <p className="text-sm text-muted-foreground mt-1 mb-3">{s.subtitle}</p>
-                        <span className="inline-flex items-center gap-1 text-sm text-primary font-medium">
-                          Katso kohteet <ArrowRight className="w-3.5 h-3.5" />
-                        </span>
-                      </Link>
-                    ))}
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {streetHubs.map((s) => {
+                      const brand = s.brandNames?.[0] ?? s.street;
+                      return (
+                        <Link
+                          key={s.slug}
+                          to={`/vuokramokit/${s.slug}`}
+                          className="group glass-card border border-border/30 rounded-xl p-5 hover:border-primary/50 transition-colors flex flex-col"
+                        >
+                          <div className="inline-flex items-center gap-2 text-xs uppercase tracking-wide text-primary mb-2">
+                            <MapPin className="w-3.5 h-3.5" />
+                            {s.locationLabel ?? s.address ?? s.street}
+                          </div>
+                          <div className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                            {brand}
+                          </div>
+                          {s.capacityLabel && (
+                            <div className="text-xs text-muted-foreground mt-1">
+                              Kapasiteetti: <span className="text-foreground font-medium">{s.capacityLabel}</span>
+                            </div>
+                          )}
+                          <p className="text-sm text-muted-foreground mt-2 mb-3 flex-1">{s.subtitle}</p>
+                          <span className="inline-flex items-center gap-1 text-sm text-primary font-medium">
+                            Katso saatavuus <ArrowRight className="w-3.5 h-3.5" />
+                          </span>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </section>
               </ScrollReveal>
             )}
+
 
             {/* Accommodations */}
             {lang === "fi" || lang === "en" ? (

@@ -22,16 +22,26 @@ export interface StreetHub {
   propertySlugs: string[];
   /** Lähimmät palvelut / etäisyydet info-listaan */
   facts: { label: string; value: string }[];
+  /** Brändinimet JSON-LD alternateName + hubtaulukon esittelyyn */
+  brandNames?: string[];
+  /** Sijainnin lyhyt kuvaus (esim. "Zero Point, ydinkeskusta") hubtaulukkoa varten */
+  locationLabel?: string;
+  /** Kapasiteetti "2–6 hlö" / "14 hlö" hubtaulukkoa varten */
+  capacityLabel?: string;
 }
+
 
 export const streetHubs: StreetHub[] = [
   {
     slug: "hiihtajankuja-levi",
     street: "Hiihtäjänkuja",
-    h1: "Vuokramökit ja huoneistot Hiihtäjänkujalla, Levi",
-    metaTitle: "Hiihtäjänkuja Levi – vuokrahuoneistot Eturinteellä | Leville.net",
+    h1: "Front Slope Apartments Levi – vuokrahuoneistot Hiihtäjänkujalla Eturinteellä",
+    metaTitle: "Front Slope Apartments Levi – vuokrahuoneistot Eturinteellä | Leville.net",
     metaDescription:
-      "Front Slope -alppihuoneistot Hiihtäjänkujalla, Levin Eturinteellä. Saunalliset huoneistot 200 m Eturinteen rinteiltä – varaa suoraan ilman välityspalkkioita.",
+      "Front Slope -huoneistot Hiihtäjänkujalla, Levin Eturinteellä: saunallisia kämppiä 2–8 hengelle, rinne ja hissi n. 200 m. Varaa suoraan ilman välityspalkkioita.",
+    brandNames: ["Front Slope Apartments", "Front Slope Levi", "Hiihtäjänkuja Levi"],
+    locationLabel: "Eturinne, Zero Point",
+    capacityLabel: "2–8 hlö",
     subtitle:
       "Levin Eturinne, Zero Point -alueella – noin 200 metriä Eturinteen rinteiltä.",
     intro: [
@@ -50,14 +60,18 @@ export const streetHubs: StreetHub[] = [
       { label: "Lähin ruokakauppa", value: "n. 250 m (K-Market Levi)" },
       { label: "Gondoli (Levi 2)", value: "n. 600 m" },
     ],
+
   },
   {
     slug: "skimbaajankuja-levi",
     street: "Skimbaajankuja",
-    h1: "Vuokramökki Skimbaajankujalla, Levi – Karhupirtti hirsihuvila",
-    metaTitle: "Skimbaajankuja Levi – Karhupirtti hirsihuvila 14 hengelle | Leville.net",
+    h1: "Bear Lodge / Karhupirtti Levi – 14 hengen hirsihuvila Etelärinteellä",
+    metaTitle: "Bear Lodge / Karhupirtti Levi – 14 hengen hirsihuvila | Leville.net",
     metaDescription:
-      "Karhupirtti on perinteinen hirsihuvila Skimbaajankujalla, Levin keskustassa. Ulkoporeallas, takka, 7 makuuhuonetta – varaa suoraan ilman välityspalkkioita.",
+      "Bear Lodge Karhupirtti Levillä: 14 hengen hirsihuvila, oma ulkoporeallas, sauna ja takka Etelärinteellä. 7 makuuhuonetta – varaa suoraan ilman välityspalkkioita.",
+    brandNames: ["Bear Lodge", "Bear Lodge Levi", "Karhupirtti", "Karhupirtti Levi"],
+    locationLabel: "Etelärinne, keskusta",
+    capacityLabel: "14 hlö",
     subtitle:
       "Tunnelmallinen hirsihuvila ulkoporealtaalla Levin keskustassa.",
     intro: [
@@ -77,16 +91,19 @@ export const streetHubs: StreetHub[] = [
     slug: "ratsastajankuja-levi",
     street: "Ratsastajankuja",
     address: "Ratsastajankuja 2",
-    h1: "Vuokramökit ja huoneistot Ratsastajankuja 2, Levi – Glacier-alppitalo",
-    metaTitle: "Ratsastajankuja 2 Levi – Glacier-alppihuoneistot Alppikylässä | Leville.net",
+    h1: "Glacier Apartments Levi – 4–5 makuuhuoneen perhehuoneistot Zero Pointissa",
+    metaTitle: "Glacier Apartments Levi – perhehuoneistot Zero Pointissa | Leville.net",
     metaDescription:
-      "Glacier A & B -alppihuoneistot Ratsastajankuja 2:ssa, Levin Eturinteen Alppikylässä. Vain n. 20 m hiihtoladulta ja n. 150 m päärinteestä – 10 saunallista huoneistoa.",
+      "Glacier-huoneistot Levin ydinkeskustassa Zero Pointissa: 4–5 makuuhuoneen saunalliset perhehuoneistot, hissit ja rinteet vieressä. Varaa suoraan ilman välityspalkkioita.",
+    brandNames: ["Glacier Apartments", "Glacier Apartments Levi", "Levi Glacier"],
+    locationLabel: "Zero Point, ydinkeskusta",
+    capacityLabel: "6–10 hlö (4–5 mh)",
     subtitle:
-      "Glacier-alppitalo Eturinteen Alppikylässä – n. 20 m hiihtoladulta ja n. 150 m päärinteestä.",
+      "Glacier Apartments Levin ydinkeskustassa Zero Point -alueella – 4–5 makuuhuoneen perhehuoneistot, rinteet ja palvelut vieressä.",
     intro: [
-      "Ratsastajankuja 2 sijaitsee Levin Eturinteen Alppikylässä loistavalla sijainnilla: hiihtoladulle on vain noin 20 metriä ja päärinteelle noin 150 metriä. Kaikki keskustan palvelut, ravintolat ja kaupat ovat askelmatkan päässä. Osoitteessa sijaitsee Levi Glacier -alppitalo, jossa on yhteensä 10 modernia huoneistoa kahdessa rakennuksessa (A- ja B-talot).",
-      "Glacier-huoneistot on suunniteltu erityisesti perheille, urheiluseuroille ja yritysryhmille. Jokaisessa huoneistossa on oma sauna, parveke ja täysin varusteltu keittiö. Huoneistoja on kahdesta neljään makuuhuonetta, ja kattohuoneistoissa on tilaa jopa kymmenelle hengelle. Talossa on myös pelihuone lapsille.",
-      "Kun haluat majoittaa koko seurueen samaan rakennukseen, voit varata 4–10 huoneistoa kerrallaan ja saada koko talon yksityiskäyttöön. Kaikki Glacierin huoneistot voi varata suoraan Leville.netin kautta ilman välityspalkkioita.",
+      "Ratsastajankuja 2 sijaitsee Levin ydinkeskustassa Zero Point -alueella, aivan rinteiden ja palveluiden vieressä: hiihtoladulle on vain noin 20 metriä ja päärinteelle noin 150 metriä. Kaikki keskustan ravintolat, kaupat ja hissit ovat askelmatkan päässä. Osoitteessa sijaitsee Levi Glacier Apartments -alppitalo, jossa on yhteensä 10 tilavaa perhehuoneistoa kahdessa rakennuksessa (A- ja B-talot).",
+      "Glacier Apartments -huoneistot on suunniteltu perheille, urheiluseuroille ja yritysryhmille. Pääosin huoneistoissa on 4–5 makuuhuonetta, ja niissä majoittuu mukavasti 6–10 henkeä; kattohuoneistoissa on tilaa jopa kymmenelle hengelle. Jokaisessa huoneistossa on oma sauna, parveke ja täysin varusteltu keittiö. Talossa on myös lasten pelihuone.",
+      "Kun haluat majoittaa koko seurueen samaan rakennukseen, voit varata useampia Glacier-huoneistoja kerrallaan ja saada koko talon yksityiskäyttöön. Kaikki Glacierin huoneistot voi varata suoraan Leville.netin kautta ilman välityspalkkioita.",
     ],
     propertySlugs: [
       "glacier-a1",
@@ -103,7 +120,7 @@ export const streetHubs: StreetHub[] = [
     facts: [
       { label: "Hiihtoladulle", value: "n. 20 m" },
       { label: "Päärinteelle", value: "n. 150 m" },
-      { label: "Levin keskustaan", value: "n. 400 m" },
+      { label: "Levin keskustaan", value: "ydinkeskusta / Zero Point" },
       { label: "Huoneistoja yhteensä", value: "10 (A & B)" },
     ],
   },
@@ -111,16 +128,19 @@ export const streetHubs: StreetHub[] = [
     slug: "glacier-apartments-levi",
     street: "Glacier Apartments",
     address: "Ratsastajankuja 2",
-    h1: "Glacier Apartments Levi – Levin keskustan suurin 10 huoneiston alppitalo",
-    metaTitle: "Glacier Apartments Levi – 10 saunallista alppihuoneistoa | Leville.net",
+    h1: "Glacier Apartments Levi – 4–5 makuuhuoneen perhehuoneistot Zero Pointissa",
+    metaTitle: "Glacier Apartments Levi – perhehuoneistot Zero Pointissa | Leville.net",
     metaDescription:
-      "Levi Glacier Apartments – 10 saunallisen huoneiston alppitalo Ratsastajankuja 2:ssa Levin Eturinteen Alppikylässä. Vain n. 20 m hiihtoladulta ja n. 150 m päärinteestä.",
+      "Glacier-huoneistot Levin ydinkeskustassa Zero Pointissa: 4–5 makuuhuoneen saunalliset perhehuoneistot, hissit ja rinteet vieressä. Varaa suoraan ilman välityspalkkioita.",
+    brandNames: ["Glacier Apartments", "Glacier Apartments Levi", "Levi Glacier", "Glacier Levi"],
+    locationLabel: "Zero Point, ydinkeskusta",
+    capacityLabel: "6–10 hlö (4–5 mh)",
     subtitle:
-      "Levin keskustan suurin alppitalo Eturinteen Alppikylässä – n. 20 m hiihtoladulta ja n. 150 m päärinteestä.",
+      "Glacier Apartments Levin ydinkeskustassa Zero Point -alueella – 4–5 makuuhuoneen perhehuoneistot, rinteet ja palvelut vieressä.",
     intro: [
-      "Levi Glacier Apartments on Levin keskustan suurin yksittäinen huoneistokokonaisuus: 10 modernia saunallista alppihuoneistoa samassa osoitteessa, Ratsastajankuja 2:ssa Eturinteen Alppikylässä. Sijainti on huippuluokkaa – hiihtoladulle on vain noin 20 metriä ja päärinteelle noin 150 metriä, ja kaikki Levin keskustan palvelut, ravintolat ja kaupat löytyvät askelmatkan päästä. Lähistöllä ovat myös Hullu Poro -hotelli ja Hullu Poro Areena.",
-      "Glacier Apartments jakautuu kahteen rakennukseen (A- ja B-talo), joissa on yhteensä kuusi A-puolen ja neljä B-puolen huoneistoa. Huoneistoissa on 2–4 makuuhuonetta ja kattohuoneistoissa (A5, B3, B4 Penthouse) tilaa jopa kymmenelle hengelle. Jokaisessa huoneistossa on oma sauna, parveke, täysin varusteltu keittiö ja WiFi. Talossa on myös lasten pelihuone.",
-      "Glacier Apartments on Levin suosituin valinta isoille ryhmille, urheiluseuroille, yritystapahtumille ja sukujuhlille – voit varata jopa koko 10 huoneiston talon samalle ajalle ja saada sen yksityiskäyttöön. Kaikki Glacier-huoneistot voi varata suoraan Leville.netin kautta ilman välityspalkkioita.",
+      "Levi Glacier Apartments on Levin ydinkeskustan suurin yksittäinen huoneistokokonaisuus: 10 modernia saunallista perhehuoneistoa samassa osoitteessa, Ratsastajankuja 2:ssa Zero Point -alueella. Sijainti on huippuluokkaa – hiihtoladulle on vain noin 20 metriä ja päärinteelle noin 150 metriä, ja kaikki Levin keskustan palvelut, ravintolat ja kaupat löytyvät askelmatkan päästä. Lähistöllä ovat myös Hullu Poro -hotelli ja Hullu Poro Areena.",
+      "Glacier Apartments jakautuu kahteen rakennukseen (A- ja B-talo), joissa on yhteensä kuusi A-puolen ja neljä B-puolen huoneistoa. Pääosin huoneistoissa on 4–5 makuuhuonetta ja tilaa 6–10 hengelle; kattohuoneistoissa (A5, B3, B4 Penthouse) majoittuu jopa kymmenen henkeä. Jokaisessa huoneistossa on oma sauna, parveke, täysin varusteltu keittiö ja WiFi. Talossa on myös lasten pelihuone.",
+      "Glacier Apartments on Levin suosituin valinta isoille perheille, urheiluseuroille, yritystapahtumille ja sukujuhlille – voit varata jopa koko 10 huoneiston talon samalle ajalle ja saada sen yksityiskäyttöön. Kaikki Glacier-huoneistot voi varata suoraan Leville.netin kautta ilman välityspalkkioita.",
     ],
     propertySlugs: [
       "glacier-a1",
@@ -138,20 +158,23 @@ export const streetHubs: StreetHub[] = [
       { label: "Huoneistoja yhteensä", value: "10 (A & B)" },
       { label: "Hiihtoladulle", value: "n. 20 m" },
       { label: "Päärinteelle", value: "n. 150 m" },
-      { label: "Levin keskustaan", value: "n. 400 m" },
-      { label: "Suurin huoneisto", value: "10 hengelle (Penthouse)" },
+      { label: "Sijainti", value: "Zero Point, ydinkeskusta" },
+      { label: "Makuuhuoneita", value: "pääosin 4–5 mh" },
     ],
   },
   {
     slug: "postintie-levi",
     street: "Postintie",
     address: "Postintie 3",
-    h1: "Vuokrahuoneistot Postintie 3, Levi – Skistar-talon kolmiot ja studiot",
-    metaTitle: "Postintie 3 Levi – Skistar-talon vuokrahuoneistot keskustassa | Leville.net",
+    h1: "Skistar-talon huoneistot Levi – Postintie 3 keskustassa",
+    metaTitle: "Skistar-talon huoneistot Levi – Postintie 3 keskustassa | Leville.net",
     metaDescription:
-      "Skistar-talon kolmiot ja studiot Postintie 3:ssa, aivan Levin keskustassa. 9 huoneistoa kävelymatkan päässä rinteistä, ravintoloista ja palveluista – varaa suoraan.",
+      "Skistar-talon vuokrahuoneistot Levin keskustassa Postintie 3:ssa: saunallisia kämppiä 2–6 hengelle, kylpylän vieressä. Varaa suoraan ilman välityspalkkioita.",
+    brandNames: ["Skistar-talo", "Skistar-talo Levi", "Skistar Levi", "Postintie 3 Levi"],
+    locationLabel: "Ydinkeskusta",
+    capacityLabel: "2–6 hlö",
     subtitle:
-      "Skistar-talo Levin keskustassa – 9 huoneistoa kävelymatkan päässä rinteistä ja palveluista.",
+      "Skistar-talo Levin keskustassa – 10 huoneistoa kävelymatkan päässä rinteistä ja palveluista.",
     intro: [
       "Postintie 3 sijaitsee aivan Levin ydinkeskustassa, askelten päässä K-Marketista, ravintoloista ja Levin pääkadun palveluista. Osoitteessa sijaitsee Skistar-talo, jossa Leville.netillä on yhteensä 10 huoneistoa: viisi kaksiota (kerrokset 2 ja 3) ja viisi studiota (kerrokset 1 ja 3).",
       "Skistar-talon kaksiot sopivat perheille ja pienille kaveriporukoille, kun taas modernit studiot ovat erinomainen valinta pariskunnille tai yksin matkustaville Leville. Jokaisessa huoneistossa on täysin varusteltu keittiö ja WiFi. Talossa ei ole hissiä. Sijainti on Levin keskustassa palveluiden ja kauppojen lähistöllä – hisseille on noin 700 metrin kävelymatka (n. 8–10 min), joten ei ihan ovelta rinteeseen, mutta kuitenkin lähistöllä.",
@@ -177,6 +200,7 @@ export const streetHubs: StreetHub[] = [
     ],
   },
 ];
+
 
 export const getStreetHub = (slug: string) =>
   streetHubs.find((h) => h.slug === slug);
