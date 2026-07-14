@@ -35,10 +35,13 @@ export const streetHubs: StreetHub[] = [
   {
     slug: "hiihtajankuja-levi",
     street: "Hiihtäjänkuja",
-    h1: "Vuokramökit ja huoneistot Hiihtäjänkujalla, Levi",
-    metaTitle: "Hiihtäjänkuja Levi – vuokrahuoneistot Eturinteellä | Leville.net",
+    h1: "Front Slope Apartments Levi – vuokrahuoneistot Hiihtäjänkujalla Eturinteellä",
+    metaTitle: "Front Slope Apartments Levi – vuokrahuoneistot Eturinteellä | Leville.net",
     metaDescription:
-      "Front Slope -alppihuoneistot Hiihtäjänkujalla, Levin Eturinteellä. Saunalliset huoneistot 200 m Eturinteen rinteiltä – varaa suoraan ilman välityspalkkioita.",
+      "Front Slope -huoneistot Hiihtäjänkujalla, Levin Eturinteellä: saunallisia kämppiä 2–8 hengelle, rinne ja hissi n. 200 m. Varaa suoraan ilman välityspalkkioita.",
+    brandNames: ["Front Slope Apartments", "Front Slope Levi", "Hiihtäjänkuja Levi"],
+    locationLabel: "Eturinne, Zero Point",
+    capacityLabel: "2–8 hlö",
     subtitle:
       "Levin Eturinne, Zero Point -alueella – noin 200 metriä Eturinteen rinteiltä.",
     intro: [
@@ -57,6 +60,7 @@ export const streetHubs: StreetHub[] = [
       { label: "Lähin ruokakauppa", value: "n. 250 m (K-Market Levi)" },
       { label: "Gondoli (Levi 2)", value: "n. 600 m" },
     ],
+
   },
   {
     slug: "skimbaajankuja-levi",
