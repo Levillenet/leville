@@ -56,6 +56,24 @@ const StreetHub = () => {
     })),
   };
 
+  const lodgingSchema = hub.brandNames && hub.brandNames.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        name: hub.brandNames[0],
+        alternateName: hub.brandNames.slice(1),
+        url: canonical,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: hub.address ?? hub.street,
+          addressLocality: hub.locationLabel ?? "Levi",
+          addressRegion: "Lappi",
+          addressCountry: "FI",
+        },
+      }
+    : null;
+
+
   // Sisar-hubit (muut katuhubit) ristiinlinkitykseen
   const sisterHubs = streetHubs.filter((h) => h.slug !== hub.slug);
 
