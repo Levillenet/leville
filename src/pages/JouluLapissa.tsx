@@ -649,7 +649,14 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   moon: Moon,
   sparkles: Sparkles,
   heart: Heart,
-  snowflake: Snowflake
+  snowflake: Snowflake,
+  calendar: Calendar,
+  utensils: Utensils,
+  mountain: Mountain,
+  music: Music,
+  home: Home,
+  thermometer: Thermometer,
+  tree: TreePine,
 };
 
 const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
