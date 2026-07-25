@@ -60,6 +60,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     christmasTitle: string;
     christmasDesc: string;
     christmasButton: string;
+    christmasBadge: string;
     liveCamera: string;
     liveCameraDesc: string;
     pronounceLabel: string;
@@ -96,6 +97,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasTitle: "Joulu Lapissa",
       christmasDesc: "Koe taianomainen joulu joulupukin kotimaassa.",
       christmasButton: "Lue lisää",
+      christmasBadge: "Joulu 2026",
       liveCamera: "Levin live-kamera",
       liveCameraDesc: "Suora näkymä Levin hiihtokeskuksesta",
       pronounceLabel: "Miten Levi lausutaan?",
@@ -132,6 +134,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasTitle: "Christmas in Lapland",
       christmasDesc: "Experience a magical Christmas in the home of Santa Claus.",
       christmasButton: "Read more",
+      christmasBadge: "Christmas 2026",
       liveCamera: "Levi Live Camera",
       liveCameraDesc: "Live view from Levi ski resort",
       pronounceLabel: "How to pronounce Levi?",
@@ -168,6 +171,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasTitle: "Jul i Lappland",
       christmasDesc: "Upplev en magisk jul i jultomtens hemland.",
       christmasButton: "Läs mer",
+      christmasBadge: "Jul 2026",
       liveCamera: "Levi livekamera",
       liveCameraDesc: "Direktsändning från Levi skidort",
       pronounceLabel: "Hur uttalas Levi?",
@@ -204,6 +208,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasTitle: "Weihnachten in Lappland",
       christmasDesc: "Erlebe ein magisches Weihnachten in der Heimat des Weihnachtsmanns.",
       christmasButton: "Mehr lesen",
+      christmasBadge: "Weihnachten 2026",
       liveCamera: "Levi Live-Kamera",
       liveCameraDesc: "Live-Blick aus dem Skigebiet Levi",
       pronounceLabel: "Wie spricht man Levi aus?",
@@ -240,6 +245,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasTitle: "Navidad en Laponia",
       christmasDesc: "Vive una Navidad mágica en el hogar de Papá Noel.",
       christmasButton: "Leer más",
+      christmasBadge: "Navidad 2026",
       liveCamera: "Cámara en vivo de Levi",
       liveCameraDesc: "Vista en directo desde la estación de esquí de Levi",
       pronounceLabel: "¿Cómo se pronuncia Levi?",
@@ -276,6 +282,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasTitle: "Noël en Laponie",
       christmasDesc: "Vivez un Noël magique dans le pays du Père Noël.",
       christmasButton: "En savoir plus",
+      christmasBadge: "Noël 2026",
       liveCamera: "Caméra en direct de Levi",
       liveCameraDesc: "Vue en direct de la station de ski de Levi",
       pronounceLabel: "Comment prononcer Levi ?",
@@ -312,6 +319,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
       christmasTitle: "Kerst in Lapland",
       christmasDesc: "Beleef een magische kerst in het thuisland van de Kerstman.",
       christmasButton: "Lees meer",
+      christmasBadge: "Kerst 2026",
       liveCamera: "Levi live camera",
       liveCameraDesc: "Live beeld van het skigebied Levi",
       pronounceLabel: "Hoe spreek je Levi uit?",
@@ -670,7 +678,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
             </section>
 
 
-            <section className="mb-12 sm:mb-16 grid sm:grid-cols-2 gap-4">
+            <section className="mb-6 sm:mb-8">
               {/* Quiz CTA */}
               <Card className="glass-card border-primary/30 bg-primary/5 overflow-hidden">
                 <CardContent className="p-4 sm:p-6">
@@ -694,36 +702,55 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
                   </div>
                 </CardContent>
               </Card>
+            </section>
 
-              {/* Christmas CTA */}
-              <Card className="relative overflow-hidden border-red-500/40 bg-gradient-to-br from-red-950/40 via-red-900/20 to-background">
+            {/* Christmas CTA — full width, festive */}
+            <section className="mb-12 sm:mb-16">
+              <Card className="relative overflow-hidden border-red-500/50 bg-gradient-to-br from-red-700 via-red-900 to-red-950 shadow-2xl shadow-red-900/40">
+                {/* Aurora glows */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                  <Star className="absolute top-3 left-4 w-4 h-4 text-amber-400/40 animate-pulse" style={{ animationDelay: '0s' }} />
-                  <Snowflake className="absolute top-4 right-6 w-5 h-5 text-primary/30 animate-pulse" style={{ animationDelay: '0.5s' }} />
-                  <Flame className="absolute bottom-4 left-6 w-4 h-4 text-amber-500/35 animate-pulse" style={{ animationDelay: '1s' }} />
+                  <div className="absolute -top-16 -left-10 w-72 h-40 rounded-full bg-emerald-400/25 blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+                  <div className="absolute -top-10 right-0 w-80 h-40 rounded-full bg-purple-500/25 blur-3xl animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+                  <div className="absolute top-0 left-1/3 w-60 h-32 rounded-full bg-cyan-400/15 blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
                 </div>
-                <CardContent className="p-4 sm:p-6 relative z-10">
-                  <div className="flex flex-col items-center text-center gap-3 sm:gap-4">
-                    <div className="w-12 h-12 rounded-full bg-red-500/25 flex items-center justify-center flex-shrink-0 border border-red-500/30">
-                      <Gift className="w-6 h-6 text-red-400" />
+                {/* Snowflakes & sparkles */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                  <Snowflake className="absolute top-4 left-6 w-4 h-4 text-white/50 animate-pulse" style={{ animationDelay: '0s' }} />
+                  <Snowflake className="absolute top-10 left-1/4 w-3 h-3 text-white/40 animate-pulse" style={{ animationDelay: '0.7s' }} />
+                  <Snowflake className="absolute bottom-6 left-10 w-5 h-5 text-white/40 animate-pulse" style={{ animationDelay: '1.4s' }} />
+                  <Snowflake className="absolute top-6 right-8 w-5 h-5 text-white/50 animate-pulse" style={{ animationDelay: '0.3s' }} />
+                  <Snowflake className="absolute bottom-8 right-1/4 w-3 h-3 text-white/40 animate-pulse" style={{ animationDelay: '1.1s' }} />
+                  <Star className="absolute top-8 right-1/3 w-4 h-4 text-amber-300/70 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                  <Star className="absolute bottom-10 left-1/2 w-3 h-3 text-amber-200/60 animate-pulse" style={{ animationDelay: '1.8s' }} />
+                  <Flame className="absolute bottom-6 right-6 w-5 h-5 text-amber-400/60 animate-pulse" style={{ animationDelay: '1.2s' }} />
+                </div>
+                <CardContent className="p-6 sm:p-10 relative z-10">
+                  <div className="flex flex-col items-center text-center gap-4 sm:gap-5">
+                    <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm border border-white/25 text-xs sm:text-sm font-semibold text-white uppercase tracking-wider">
+                      🎄 {c.christmasBadge}
+                    </span>
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center flex-shrink-0 border-2 border-white/30 shadow-lg shadow-red-500/60">
+                      <Gift className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                     </div>
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1">
+                    <div className="max-w-xl">
+                      <h3 className="text-2xl sm:text-4xl font-bold text-white mb-2 drop-shadow-lg">
                         {c.christmasTitle}
                       </h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm sm:text-base text-red-50/90">
                         {c.christmasDesc}
                       </p>
                     </div>
-                    <Button asChild size="default" className="text-sm bg-red-600 hover:bg-red-700 text-white border-0">
+                    <Button asChild size="lg" className="text-sm sm:text-base bg-white hover:bg-red-50 text-red-700 hover:text-red-800 border-0 font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-105">
                       <Link to={christmasLinks[lang]}>
                         {c.christmasButton}
+                        <ArrowRight className="w-4 h-4 ml-2" />
                       </Link>
                     </Button>
                   </div>
                 </CardContent>
               </Card>
             </section>
+
 
             {/* Atmosphere Gallery Section */}
             <section className="mb-12 sm:mb-16">
