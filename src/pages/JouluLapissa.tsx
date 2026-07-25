@@ -953,6 +953,75 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
               </div>
             </section>
 
+            {/* Long-form Christmas Guide (FI + EN) */}
+            {t.longContent && (
+              <div className="max-w-3xl mx-auto">
+                {t.longContent.sections.map((sec) => {
+                  const SectionIcon = iconMap[sec.icon] ?? Star;
+                  const bookingCopy: Record<string, { fi: string; en: string }> = {
+                    illalliset: {
+                      fi: "Varaa joulumajoitus keittiöllä — täydellinen paikka omalle joulupöydälle",
+                      en: "Book Christmas accommodation with a kitchen — perfect for your own Christmas table",
+                    },
+                    sauna: {
+                      fi: "Katso saunalliset joulumajoitukset Levillä",
+                      en: "See Christmas accommodations with private sauna",
+                    },
+                    vinkit: {
+                      fi: "Varaa joulumajoituksesi Levillä nyt",
+                      en: "Book your Christmas stay in Levi now",
+                    },
+                  };
+                  const cta = bookingCopy[sec.id];
+                  return (
+                    <section key={sec.id} id={sec.id} className="mb-10 sm:mb-14">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 flex items-center gap-3">
+                        <SectionIcon className="w-6 h-6 text-primary flex-shrink-0" />
+                        {sec.heading}
+                      </h2>
+                      {sec.paragraphs.map((p, i) => (
+                        <p key={i} className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-3">
+                          {p}
+                        </p>
+                      ))}
+                      {sec.bullets && (
+                        <ul className="list-disc pl-6 mt-3 space-y-1 text-sm sm:text-base text-muted-foreground">
+                          {sec.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                        </ul>
+                      )}
+                      {cta && (
+                        <p className="mt-4 text-sm sm:text-base">
+                          <a
+                            href="https://app.moder.fi/levillenet"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary font-medium underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+                          >
+                            {lang === "fi" ? cta.fi : cta.en} →
+                          </a>
+                        </p>
+                      )}
+                    </section>
+                  );
+                })}
+
+                <section className="mb-12 sm:mb-16">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
+                    <Star className="w-6 h-6 text-primary flex-shrink-0" />
+                    {lang === "fi" ? "Usein kysytyt kysymykset" : "Frequently Asked Questions"}
+                  </h2>
+                  <div className="space-y-4">
+                    {t.longContent.faq.map((f, i) => (
+                      <div key={i} className="glass-card border border-border/30 rounded-xl p-4 sm:p-5">
+                        <h3 className="font-semibold text-foreground mb-2">{f.q}</h3>
+                        <p className="text-sm sm:text-base text-muted-foreground">{f.a}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            )}
+
             {/* CTA Section */}
             <section className="mb-12 sm:mb-20">
               <Card className="glass-card border-primary/30 bg-primary/5 relative overflow-hidden min-h-[320px] sm:min-h-[360px]">
