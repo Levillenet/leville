@@ -260,7 +260,115 @@ const translations: Record<Language, {
     linksTitle: "Useful Links",
     santaHome: "The home of Santa Claus",
     didYouKnow: "Did you know?",
-    didYouKnowText: "Santa's cabin is located on the slopes of Levi! You can reach it by the Levi Black gondola lift – it's an exciting adventure for the whole family."
+    didYouKnowText: "Santa's cabin is located on the slopes of Levi! You can reach it by the Levi Black gondola lift – it's an exciting adventure for the whole family.",
+    longContent: {
+      sections: [
+        {
+          id: "markkinat",
+          icon: "calendar",
+          heading: "Levi Christmas Market",
+          paragraphs: [
+            "The Levi Christmas market brings local artisans, reindeer-meat producers and festive atmosphere to the village centre throughout December. You'll find handmade jewellery, woollens, gift ideas and warm glögi (mulled wine). Campfires and local performers set the evening mood.",
+            "Check exact dates and opening hours from Levi's official events calendar.",
+          ],
+          bullets: [
+            "Location: Levi centre, Zero Point area",
+            "Timing: December weekends before Christmas",
+            "Free entry",
+          ],
+        },
+        {
+          id: "illalliset",
+          icon: "utensils",
+          heading: "Christmas Dinners & the Finnish Christmas Table",
+          paragraphs: [
+            "Levi restaurants serve traditional Finnish Christmas menus (joulupöytä) and à la carte options on Christmas Eve and Christmas Day. Popular venues such as Hullu Poro, Restaurant Sokka and Tunturialpit fill quickly — reserve well in advance. The traditional table features ham, root-vegetable casseroles, rosolli salad and glögi.",
+            "Prefer to celebrate at your apartment? Local caterers deliver a ready Christmas table straight to your accommodation.",
+          ],
+          bullets: [
+            "Book Christmas dinner 2–3 months in advance",
+            "Catering deliveries typically 22–24 December",
+            "Mention dietary requirements when booking",
+          ],
+        },
+        {
+          id: "joulupukki",
+          icon: "gift",
+          heading: "Santa Claus in Levi – Elves' Village & Christmas World",
+          paragraphs: [
+            "You can meet Santa Claus in several places in Levi. Elves' Village (Tonttula) near the centre is an experience village where children meet Santa and his elves and feed reindeer. Christmas World at Levi Summit offers guided programmes and Santa audiences.",
+            "Private Santa visits to your cabin can be booked from local activity operators — a favourite for groups and families.",
+          ],
+          bullets: [
+            "Elves' Village Tonttula — daily in December",
+            "Santa's Post Office — send a letter to Santa",
+            "Book a private Santa visit in advance",
+          ],
+        },
+        {
+          id: "rinteet",
+          icon: "mountain",
+          heading: "Christmas Slopes & Winter Sports",
+          paragraphs: [
+            "Levi's slopes are open throughout the Christmas season: 43 slopes, 28 lifts and a longest run of 2.5 km. Lifts run on shortened hours on Christmas Eve and return to normal on Christmas Day. The cross-country network is 230 km, of which nearly 30 km is lit.",
+            "Ski schools and equipment rentals are open, though Christmas Eve hours are limited. Buy lift passes online in advance to save time.",
+          ],
+        },
+        {
+          id: "revontulet",
+          icon: "sparkles",
+          heading: "Northern Lights at Christmas",
+          paragraphs: [
+            "December is Lapland's darkest month — after sunset the sky can glow with aurora late into the night. Several dark spots around Levi minimise light pollution, such as the shores of Lake Immel and the surroundings of Kätkä fell.",
+            "Follow the aurora forecast and head out when the KP index is 3 or higher and the sky is clear.",
+          ],
+        },
+        {
+          id: "sauna",
+          icon: "home",
+          heading: "Christmas Sauna & Wellness",
+          paragraphs: [
+            "The Finnish Christmas tradition culminates in the Christmas Eve sauna. Every Leville.net apartment has its own sauna, and many also have a fireplace. Enjoy silence, candlelight and traditional Christmas treats after your löyly.",
+            "For a public sauna experience, Levi offers smoke saunas, lakeside barrel saunas and hotel saunas with ice-swimming access.",
+          ],
+          bullets: [
+            "Private sauna in every apartment",
+            "Ice swimming at nearby Lake Immel",
+            "Smoke-sauna and reindeer-themed sauna experiences",
+          ],
+        },
+        {
+          id: "joulurauha",
+          icon: "music",
+          heading: "The Declaration of Christmas Peace",
+          paragraphs: [
+            "The Declaration of Christmas Peace is broadcast in Finland at noon on Christmas Eve. Watch the TV broadcast with your family in the cabin, or attend the Christmas Eve service at Levi Chapel — a quiet, meaningful moment amid the holiday preparations.",
+          ],
+        },
+        {
+          id: "vinkit",
+          icon: "thermometer",
+          heading: "Practical Tips for a Christmas Holiday in Levi",
+          paragraphs: [
+            "Clothing: December temperatures can drop below –30 °C. Wear layers, wool base layers and a windproof outer shell. From Kittilä Airport to Levi is about 15 km — reachable by airport bus, taxi or rental car, roughly a 20-minute drive.",
+            "Prices rise in peak season: accommodation, activities and restaurants should be booked as soon as your dates are fixed. Grocery shops close early on Christmas Eve — stock up in advance.",
+          ],
+          bullets: [
+            "Kittilä Airport to Levi: about 20 minutes",
+            "Grocery shops open until about 15:00 on Christmas Eve",
+            "Buy lift passes and activities in advance",
+          ],
+        },
+      ],
+      faq: [
+        { q: "When is the Levi Christmas market held?", a: "The Christmas market runs throughout December in Levi centre, with main weekends before Christmas. Check exact dates from Levi's official events calendar." },
+        { q: "Are the slopes open on Christmas Eve?", a: "Yes, Levi's slopes are open on Christmas Eve with shortened hours, typically in the morning. Christmas Day and Boxing Day operate on normal hours." },
+        { q: "Where can I meet Santa Claus in Levi?", a: "At Elves' Village Tonttula near the centre, and at Christmas World at Levi Summit. Private Santa visits to your cabin can be booked from local activity operators." },
+        { q: "Can I see the northern lights at Christmas?", a: "December is a great aurora period. On clear, cloudless nights the northern lights are likely when the KP index is 3 or higher." },
+        { q: "How early should I book Christmas accommodation?", a: "Popular Christmas dates (23–27 December) often sell out 6–12 months in advance. Book as soon as your dates are fixed." },
+        { q: "How do I get from Kittilä Airport to Levi?", a: "Kittilä Airport is about 15 km from Levi. You can travel by airport bus, taxi or rental car — the trip takes about 20 minutes." },
+      ],
+    },
   },
   sv: {
     meta: {
