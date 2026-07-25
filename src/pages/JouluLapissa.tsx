@@ -693,19 +693,54 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
 
         {/* JSON-LD */}
         <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "TouristDestination",
-            "name": t.title + " - Levi",
-            "description": t.meta.description,
-            "url": t.meta.canonical,
-            "touristType": ["Family", "Couples", "Adventure seekers"],
-            "includesAttraction": [
-              { "@type": "TouristAttraction", "name": t.experiences[0].title },
-              { "@type": "TouristAttraction", "name": t.experiences[2].title },
-              { "@type": "TouristAttraction", "name": t.experiences[1].title }
-            ]
-          })}
+          {JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "TouristDestination",
+              "name": t.title + " - Levi",
+              "description": t.meta.description,
+              "url": t.meta.canonical,
+              "touristType": ["Family", "Couples", "Adventure seekers"],
+              "includesAttraction": [
+                { "@type": "TouristAttraction", "name": t.experiences[0].title },
+                { "@type": "TouristAttraction", "name": t.experiences[2].title },
+                { "@type": "TouristAttraction", "name": t.experiences[1].title },
+              ],
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Event",
+              "name": lang === "fi" ? "Joulu Levillä 2026" : "Christmas in Levi 2026",
+              "startDate": "2026-12-20",
+              "endDate": "2026-12-27",
+              "eventStatus": "https://schema.org/EventScheduled",
+              "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+              "location": {
+                "@type": "Place",
+                "name": "Levi, Sirkka",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Sirkka",
+                  "postalCode": "99130",
+                  "addressRegion": "Lapland",
+                  "addressCountry": "FI",
+                },
+              },
+              "url": t.meta.canonical,
+              "description": t.meta.description,
+            },
+            ...(t.longContent
+              ? [{
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  "mainEntity": t.longContent.faq.map((f) => ({
+                    "@type": "Question",
+                    "name": f.q,
+                    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+                  })),
+                }]
+              : []),
+          ])}
         </script>
       </Helmet>
       
