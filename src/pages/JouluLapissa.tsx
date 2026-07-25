@@ -70,12 +70,12 @@ const translations: Record<Language, {
 }> = {
   fi: {
     meta: {
-      title: "Joulu Lapissa – Maaginen joulukokemus Levillä | Leville.net",
-      description: "Koe ainutlaatuinen joulu Lapissa! Joulupukki, revontulet, porot ja luminen talvimaisema. Varaa joulumajoitus Levillä ajoissa.",
-      keywords: "joulu Lapissa, joulu Levi, Levi joulupukki, Lappi joululoma, joulunvietto Lappi",
+      title: "Joulu Levillä 2026 – Tapahtumat, illalliset ja joulumajoitus",
+      description: "Täydellinen opas jouluun Levillä: joulumarkkinat, jouluillalliset, Joulupukin mökki, rinteet, revontulet ja joulumajoitus. Varaa ajoissa!",
+      keywords: "joulu Levillä, joulumarkkinat Levi, jouluillallinen Levi, Joulupukki Levi, joulumajoitus Levi",
       canonical: "https://leville.net/levi/joulu-lapissa"
     },
-    title: "Joulu Lapissa",
+    title: "Joulu Levillä – Täydellinen opas Lapin jouluun",
     subtitle: "Koe taianmainen joulu lumisessa Lapissa – joulupukin kotimaassa",
     intro: "Lappi on joulun synnyinpaikka, ja Levi tarjoaa täydellisen miljöön unohtumattomaan joulukokemukseen. Luminen maisema, revontulet, porot ja joulupukin läheisyys tekevät Levin joulusta ainutlaatuisen.",
     experiencesTitle: "Jouluiset elämykset Levillä",
