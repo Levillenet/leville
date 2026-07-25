@@ -63,6 +63,10 @@ const translations: Record<Language, {
   santaHome: string;
   didYouKnow: string;
   didYouKnowText: string;
+  longContent?: {
+    sections: { id: string; icon: string; heading: string; paragraphs: string[]; bullets?: string[] }[];
+    faq: { q: string; a: string }[];
+  };
 }> = {
   fi: {
     meta: {
