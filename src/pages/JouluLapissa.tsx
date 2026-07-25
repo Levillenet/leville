@@ -221,12 +221,12 @@ const translations: Record<Language, {
   },
   en: {
     meta: {
-      title: "Christmas in Lapland – Magical Holiday Experience in Levi | Leville.net",
-      description: "Experience a unique Christmas in Lapland! Santa Claus, northern lights, reindeer and snowy winter landscapes. Book your Levi Christmas accommodation early.",
-      keywords: "Christmas in Lapland, Christmas Levi, Levi Santa Claus, Lapland Christmas holiday, Christmas Finland",
+      title: "Christmas in Levi 2026 – Events, Dinners & Holiday Guide",
+      description: "Complete guide to Christmas in Levi, Finnish Lapland: Christmas market, dinners, Santa Claus, slopes, northern lights and holiday accommodation.",
+      keywords: "Christmas in Levi, Christmas market Levi, Christmas dinner Levi, Santa Claus Levi, Christmas accommodation Levi",
       canonical: "https://leville.net/en/levi/christmas-in-lapland"
     },
-    title: "Christmas in Lapland",
+    title: "Christmas in Levi – The Complete Guide to Lapland Christmas",
     subtitle: "Experience a magical Christmas in snowy Lapland – the home of Santa Claus",
     intro: "Lapland is the birthplace of Christmas, and Levi offers the perfect setting for an unforgettable Christmas experience. Snowy landscapes, northern lights, reindeer and the proximity of Santa Claus make Christmas in Levi truly unique.",
     experiencesTitle: "Christmas Experiences in Levi",
