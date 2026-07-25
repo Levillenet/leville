@@ -1,76 +1,49 @@
+## Plan: Expand `JouluLapissa.tsx` into a comprehensive Christmas guide (FI + EN)
 
-# SEO Vaihe 2 – brändinimet + kaupallinen /majoitukset-taulu (korjattu)
+Modify `src/pages/JouluLapissa.tsx` only. Keep DE/SV/FR/ES/NL translations, shared components (Header, Footer, Breadcrumbs, SubpageBackground, HreflangTags, PageCTA, StickyBookingBar, WhatsAppChat, ReadNextSection, GuideDisclaimer), the hero, Santa image, dinner-guide card, existing experiences grid, why/tips/CTA and read-next sections intact.
 
-Korjaus: **Glacier Apartments on 4–5 makuuhuoneen perhehuoneistot Levin ydinkeskustassa Zero Point -alueella** (ei 2 mh Alppikylässä). Päivitetty alle.
+### 1. Meta (FI + EN)
+- FI title: `Joulu Levillä 2026 – Tapahtumat, illalliset ja joulumajoitus`
+- FI desc: `Täydellinen opas jouluun Levillä: joulumarkkinat, jouluillalliset, Joulupukin mökki, rinteet, revontulet ja joulumajoitus. Varaa ajoissa!`
+- EN title: `Christmas in Levi 2026 – Events, Dinners & Holiday Guide`
+- EN desc: `Complete guide to Christmas in Levi, Finnish Lapland: Christmas market, dinners, Santa Claus, slopes, northern lights and holiday accommodation.`
+- Update H1 (FI): `Joulu Levillä – Täydellinen opas Lapin jouluun` (EN: `Christmas in Levi – The Complete Guide to Lapland Christmas`). H1 stays evergreen (no year).
 
-## Mitä tehdään
+### 2. Structured data (in existing `<Helmet>` JSON-LD block)
+Emit an array with three schemas:
+- Existing `TouristDestination`
+- `Event` — name "Joulu Levillä 2026" (EN: "Christmas in Levi 2026"), startDate `2026-12-20`, endDate `2026-12-27`, location = Levi, Sirkka FI, url = canonical
+- `FAQPage` built from the new FAQ Q/A pairs (FI/EN respectively)
 
-### 1. Brändisivujen H1 + meta + JSON-LD (5 sivua)
+### 3. New content sections (FI + EN parity)
+Insert a new `longContent` field in the `fi` and `en` translation objects containing all prose plus FAQ array, then render it as a new block placed between the existing "Tips" section and the "CTA" section (so hero/experiences/why remain untouched at top).
 
-| Sivu | H1 | Meta description (~155 mrk) |
-|---|---|---|
-| `/vuokramokit/glacier-apartments` | **Glacier Apartments Levi – 4–5 makuuhuoneen perhehuoneistot Zero Pointissa** | Glacier-huoneistot Levin ydinkeskustassa Zero Pointissa: 4–5 makuuhuoneen saunalliset perhehuoneistot, hissit ja rinteet vieressä. Varaa suoraan. |
-| `/vuokramokit/skimbaajankuja-karhupirtti` | **Bear Lodge / Karhupirtti Levi – 14 hengen hirsihuvila Etelärinteellä** | Bear Lodge Karhupirtti: 14 hengen hirsihuvila oma poreallas ja sauna, Etelärinteellä Levillä. |
-| `/vuokramokit/hiihtajankuja-eturinne` | **Front Slope Apartments Levi – vuokrahuoneistot Eturinteellä** | Front Slope -huoneistot Eturinteellä Levillä: rinne ja hissi 50 m, saunalliset kämpät 2–8 hengelle. |
-| `/vuokramokit/postintie-3-skistar` | **Skistar-talon huoneistot Levi – Postintie 3 keskustassa** | Skistar-talon vuokrahuoneistot Levin keskustassa, kylpylän vieressä. Saunallisia kämppiä 2–6 hengelle. |
-| `/vuokramokit/ratsastajankuja` | (nykyinen ok, vain JSON-LD `alternateName`) | – |
+Sections rendered with Tailwind (`prose`-like typography using existing `text-foreground`, `text-muted-foreground`, `Card`, section spacing consistent with the file) and a Lucide icon next to each H2:
+1. Intro paragraph (added below existing intro on hero)
+2. `Levin joulumarkkinat` — `Calendar` icon, external link to `levi.fi/tapahtumat/`
+3. `Jouluillalliset ja joulupöytä` — `Utensils` icon; internal link to `/opas/ravintolat-ja-palvelut-levilla`; external `levi.fi` restaurants link; **contextual booking link #1** to `https://app.moder.fi/levillenet`
+4. `Joulupukki Levillä – Tonttulan elämyskylä` — `Gift` icon; bullet list; external `elvesvillage.fi`; internal `/opas/joulupukki-levilla`
+5. `Joulurinteet ja talviurheilu` — `Mountain` icon; external `levi.fi/rinteet-ja-ladut/` + `levi.skiperformance.com`; internal `/opas/hiihtoladut-levi`, `/opas/laskettelu-levi`
+6. `Revontulet jouluaikaan` — `Sparkles` icon; internal `/revontulet`, `/opas/revontuliennuste-levi`
+7. `Joulusauna ja wellness` — `Home` icon; bullet list; internal `/opas/sauna-levilla`; **contextual booking link #2**
+8. `Joulurauhan julistus` — `Music` icon; short paragraph
+9. `Käytännön vinkit joululomalle Levillä` — `Thermometer` icon; internal links `/opas/talvipukeutuminen-lappi`, `/opas/miten-paasee-leville`, `/opas/hinnat-levilla`; **contextual booking link #3**
+10. `Usein kysytyt kysymykset joulusta Levillä` — `Star` icon; 6-question FAQ (also feeds FAQPage JSON-LD)
 
-Jokainen sivu saa `LodgingBusiness` JSON-LD -skeeman `alternateName`-kentässä brändinimet + Glacierille `address.streetAddress` = Zero Point / ydinkeskusta. Vain `<Helmet>` + yksi `<script type="application/ld+json">` -blokki, ei sisältömuutoksia.
+All `app.moder.fi` and `levi.fi`/`elvesvillage.fi`/`skiperformance.com` links use `target="_blank" rel="noopener noreferrer"`. Internal links use `<Link>` from react-router.
 
-### 2. `/majoitukset` kaupalliseksi hubiksi
+### 4. Read-next (FI)
+Update the FI `readNextData` links per spec (Revontulet, Laskettelu, Hiihtoladut, Joulupukki, Ravintolat, Sauna, Talvipukeutuminen, Hinnat, Miten pääsee, Joulukuu Levillä). EN read-next kept as-is (already covers most of the equivalents).
 
-Uusi komponentti `AccommodationHubTable` intron alle:
+### 5. Icon imports
+Add missing Lucide icons to the existing import: `Utensils`, `Mountain`, `Music`, `MapPin`, `Calendar`, `Users`, `Thermometer`, `Home` (Gift/Star/TreePine/Sparkles already imported).
 
-```text
-Kaikki majoituskohteemme Levillä
-┌────────────────────────┬───────────────┬───────┬────────────────────┐
-│ Kohde                  │ Sijainti      │ Hengil│ CTA                │
-├────────────────────────┼───────────────┼───────┼────────────────────┤
-│ Glacier Apartments     │ Zero Point,   │ 8–12  │ Katso saatavuus →  │
-│                        │ ydinkeskusta  │ (4–5mh)│                   │
-│ Bear Lodge (Karhupir…) │ Etelärinne    │ 14    │ Katso saatavuus →  │
-│ Front Slope Apartments │ Eturinne      │ 2–8   │ Katso saatavuus →  │
-│ Skistar-talo           │ Keskusta      │ 2–6   │ Katso saatavuus →  │
-│ Ratsastajankuja        │ Alppikylä     │ 4–6   │ Katso saatavuus →  │
-└────────────────────────┴───────────────┴───────┴────────────────────┘
-```
+### Out of scope
+- No changes to DE/SV/FR/ES/NL translations, routing, sitemap, or any other file.
+- No new images. No price/date/menu specifics beyond what the brief allows.
+- No restructuring of hero, experiences grid, why/tips/CTA blocks.
 
-- Data `src/data/street-hubs.ts` + `properties.ts` -yhdistelmästä
-- Rivit linkkaavat katu-hubeihin (sisäinen linkkiverkko)
-- CTA vie Moder-linkkiin, hintaneutraali per memoria
-
-### 3. Sisäinen linkkiverkko
-
-- **Etusivun `HomeSeoBlock`**: nosto "Katso kaikki majoituskohteet" → `/majoitukset` + 3 brändinostoa (Glacier / Bear Lodge / Skistar) suoraan katu-hubien URL-osoitteisiin.
-- **Katu-hub-sivujen alalaitaan** "Muut kohteemme Levillä" -komponentti, joka listaa 3 sisarkohdetta.
-- **Footerin "Suositut kohteet"** -sarake vaihtaa 3 vanhaa linkkiä brändinimiin.
-
-## Kohdehakusanat
-
-| Hakusana | Volyymi/kk | Sivu | Odotus |
-|---|---|---|---|
-| glacier levi / glacier apartments levi | ~90 | Glacier hub | #1–2 |
-| perhemajoitus levi / iso huoneisto levi | ~60 | Glacier hub | #3–6 |
-| bear lodge levi / karhupirtti levi | ~70 | Bear Lodge hub | #1–3 |
-| skistar levi / skistar-talo levi | ~110 | Skistar hub | #1–3 |
-| front slope levi | ~40 | Eturinne hub | #1–3 |
-| levi huoneistot | 50 | /majoitukset + Glacier/Skistar | #3–5 |
-| chalet levi | 210 | /majoitukset | #5–8 |
-
-## Mitä EI kosketa
-
-Oppaat, blogit, kausisivut, Moder-integraatio, hero-kuvat, layoutit, `properties.ts` hinta/kuvatieto, muut kielet kuin fi + en.
-
-## Tekninen toteutus
-
-Muokataan (6 tiedostoa):
-- `src/data/street-hubs.ts` — Glacier-hubin metaTitle/description/location korjaus (Zero Point, 4–5 mh) + 3 muun hubin meta + `brandNames`-kenttä
-- `src/pages/hubs/StreetHubPage.tsx` — H1 brandNamesista, JSON-LD `alternateName`, "Muut kohteemme" alalaitaan
-- `src/pages/Majoitukset.tsx` — `<AccommodationHubTable />` intron alle
-- `src/components/AccommodationHubTable.tsx` — UUSI, ~80 riviä
-- `src/components/HomeSeoBlock.tsx` — 3 brändilinkkiä
-- `src/components/SiteFooter.tsx` — "Suositut kohteet" brändinimiksi
-
-Ennen koodausta luen `street-hubs.ts` läpi ja tarkistan että Glacier-hubin nykyinen sijainti/mh-tieto muualla (properties.ts, mahdolliset opastekstit) päivittyy samaan totuuteen — jos näissä on ristiriitaisuuksia listaan ne ja pyydän hyväksynnän ennen muutosta.
-
-Kun hyväksyt, toteutan kaikki tiedostot samassa vaiheessa ja päivitän `.lovable/plan.md`-statuksen: Vaihe 2 = valmis. Vaihe 3 (`/vuokramokit-levi` uusi laskeutumissivu) jää seuraavaksi.
+### Technical notes
+- The new long-form content lives inside `translations.fi.longContent` / `translations.en.longContent` as a typed object (sections: [{id, icon, heading, paragraphs, bullets?, links?}], faq: [{q, a}]) so JSON-LD generation and rendering share one source.
+- FAQPage schema is emitted only when `t.longContent.faq` exists (so DE/SV/FR/ES/NL stay unchanged and don't break).
+- Event schema always renders (dates are evergreen for 2026 season per brief).
