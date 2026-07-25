@@ -8,18 +8,23 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Snowflake, 
-  Gift, 
-  Star, 
-  TreePine, 
-  Sparkles, 
+import {
+  Snowflake,
+  Gift,
+  Star,
+  TreePine,
+  Sparkles,
   Heart,
-  
   Camera,
   Moon,
   Bell,
-  UtensilsCrossed
+  UtensilsCrossed,
+  Utensils,
+  Mountain,
+  Music,
+  Calendar,
+  Thermometer,
+  Home,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Language } from "@/translations";
