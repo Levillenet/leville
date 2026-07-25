@@ -60,6 +60,7 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
     christmasTitle: string;
     christmasDesc: string;
     christmasButton: string;
+    christmasBadge: string;
     liveCamera: string;
     liveCameraDesc: string;
     pronounceLabel: string;
