@@ -109,7 +109,115 @@ const translations: Record<Language, {
     linksTitle: "Hyödyllisiä linkkejä",
     santaHome: "Joulupukin kotimaa",
     didYouKnow: "Tiesitkö?",
-    didYouKnowText: "Joulupukin mökki löytyy Levin rinteiltä! Pääset sinne Levi Black gondolihissillä ja se on jännittävä retki koko perheelle."
+    didYouKnowText: "Joulupukin mökki löytyy Levin rinteiltä! Pääset sinne Levi Black gondolihissillä ja se on jännittävä retki koko perheelle.",
+    longContent: {
+      sections: [
+        {
+          id: "markkinat",
+          icon: "calendar",
+          heading: "Levin joulumarkkinat",
+          paragraphs: [
+            "Levin joulumarkkinat kokoavat paikalliset käsityöläiset, poronlihatuottajat ja jouluista tunnelmaa keskustaan pitkin joulukuuta. Löydät lahjaideoita, käsintehtyjä koruja, villavaatteita ja lämmintä glögiä. Markkinatunnelmaa kruunaavat nuotiopaikat ja paikallisten esiintyjien iltatapahtumat.",
+            "Tarkat päivämäärät ja aukioloajat kannattaa varmistaa Levin virallisesta tapahtumakalenterista.",
+          ],
+          bullets: [
+            "Sijainti: Levin keskusta, Zero Point -alue",
+            "Ajankohta: joulukuun päävikonloput ennen joulua",
+            "Vapaa pääsy",
+          ],
+        },
+        {
+          id: "illalliset",
+          icon: "utensils",
+          heading: "Jouluillalliset ja perinteinen joulupöytä",
+          paragraphs: [
+            "Levin ravintolat tarjoavat jouluaattona ja joulupäivinä perinteisiä joulupöytiä sekä à la carte -menuja. Suosituimmat paikat, kuten Hullu Poro, Ravintola Sokka ja Tunturialpit, täyttyvät nopeasti — varaa pöytä hyvissä ajoin. Perinteiseen joulupöytään kuuluvat kinkku, laatikot, rosolli ja glögi.",
+            "Jos haluat viettää jouluaaton omassa mökissä, monet paikalliset catering-yritykset toimittavat valmiin joulupöydän suoraan majoitukseesi. Katso ravintolatarjonta myös oppaastamme.",
+          ],
+          bullets: [
+            "Varaa jouluillallinen 2–3 kuukautta etukäteen",
+            "Catering-toimitukset yleensä 22.–24.12.",
+            "Ilmoita erityisruokavaliot varauksen yhteydessä",
+          ],
+        },
+        {
+          id: "joulupukki",
+          icon: "gift",
+          heading: "Joulupukki Levillä – Tonttula ja Joulumaailma",
+          paragraphs: [
+            "Joulupukin voi tavata Levillä useassa paikassa. Elves' Village Tonttula on keskustan lähellä toimiva elämyskylä, jossa lapset kohtaavat pukin ja tontut sekä ruokkivat poroja. Joulumaailma Levi Summit -alueella tarjoaa opastettuja ohjelmia ja joulupukin haastatteluja.",
+            "Yksityisiä pukkitilauksia mökille voi varata paikallisilta ohjelmapalveluyrityksiltä — suosittu vaihtoehto ryhmille ja lapsiperheille.",
+          ],
+          bullets: [
+            "Elves' Village Tonttula — päivittäin joulukuussa",
+            "Joulupukin postitoimisto — postita kirje pukille",
+            "Varaa pukkivierailu mökille etukäteen",
+          ],
+        },
+        {
+          id: "rinteet",
+          icon: "mountain",
+          heading: "Joulurinteet ja talviurheilu",
+          paragraphs: [
+            "Levin rinteet ovat auki koko joulusesongin: 43 rinnettä, 28 hissiä ja pisin lasku 2,5 km. Jouluaattona hissit pyörivät lyhennetyillä ajoilla ja avautuvat taas normaalisti joulupäivänä. Latuverkosto on 230 km, josta lähes 30 km on valaistuja latuja.",
+            "Hiihtokoulut ja välinevuokraamot ovat auki, mutta jouluaaton aukioloajat ovat rajoitetut. Osta hissiliput ennakkoon verkosta säästääksesi aikaa.",
+          ],
+        },
+        {
+          id: "revontulet",
+          icon: "sparkles",
+          heading: "Revontulet jouluaikaan",
+          paragraphs: [
+            "Joulukuu on Lapin pimeintä aikaa — auringonlaskun jälkeen taivas voi loistaa revontulista aina aamuyöhön. Levin ympäristössä on lukuisia tummia paikkoja, joissa valosaaste on minimissään, esimerkiksi Immeljärven ranta ja Kätkä-tunturin ympäristö.",
+            "Seuraa revontuliennustetta ja lähde ulos, kun KP-indeksi on 3 tai suurempi ja taivas on kirkas.",
+          ],
+        },
+        {
+          id: "sauna",
+          icon: "home",
+          heading: "Joulusauna ja wellness",
+          paragraphs: [
+            "Suomalainen jouluperinne huipentuu jouluaaton saunahetkeen. Kaikissa Leville.net-majoituksissa on oma sauna, ja monissa myös takka. Nauti hiljaisuudesta, kynttilänvalosta ja perinteisistä jouluherkuista löylyjen jälkeen.",
+            "Jos etsit julkista saunaelämystä, Levillä on savusaunoja, tynnyrisaunoja järven rannalla ja hotellisaunoja avantouintimahdollisuudella.",
+          ],
+          bullets: [
+            "Oma sauna kaikissa majoituksissamme",
+            "Avantouinti läheisellä Immeljärvellä",
+            "Savusauna- ja poroteemasaunaelämyksiä ohjelmapalveluilta",
+          ],
+        },
+        {
+          id: "joulurauha",
+          icon: "music",
+          heading: "Joulurauhan julistus",
+          paragraphs: [
+            "Joulurauha julistetaan Suomessa jouluaattona kello 12. Voit seurata TV-lähetystä perheen kanssa mökillä tai osallistua Levin kappelin jouluhartauteen ja jouluaaton messuun. Tapahtuma tuo hiljaisen hetken keskelle joulupäivän valmisteluja.",
+          ],
+        },
+        {
+          id: "vinkit",
+          icon: "thermometer",
+          heading: "Käytännön vinkit joululomalle Levillä",
+          paragraphs: [
+            "Pukeutuminen: joulukuussa lämpötila voi laskea alle –30 °C. Käytä kerroksia, villaa iholla ja tuulta pitävää päällyskerrosta. Kittilän lentokentältä Leville pääsee bussilla, taksilla tai vuokra-autolla — matkaa on n. 15 km ja aikaa kuluu noin 20 minuuttia.",
+            "Hinnat nousevat sesonkiaikaan: majoitus, ohjelmapalvelut ja ravintolat kannattaa varata heti kun päivämäärät ovat selvät. Ruokakaupat sulkevat jouluaattona jo iltapäivällä — täydennä kaappi ajoissa.",
+          ],
+          bullets: [
+            "Matka Kittilän lentokentältä Leville: n. 20 min",
+            "Ruokakaupat auki jouluaattona n. klo 15 asti",
+            "Osta hissiliput ja ohjelmat ennakkoon",
+          ],
+        },
+      ],
+      faq: [
+        { q: "Milloin Levin joulumarkkinat pidetään?", a: "Joulumarkkinat järjestetään Levin keskustassa pitkin joulukuuta, pääviikonloppuina ennen joulua. Tarkista tarkat päivämäärät Levin virallisesta tapahtumakalenterista." },
+        { q: "Ovatko rinteet auki jouluaattona?", a: "Kyllä, Levin rinteet ovat auki jouluaattona lyhennetyllä aukioloajalla, tyypillisesti aamupäivällä. Joulupäivänä ja tapaninpäivänä hissit ovat auki normaalisti." },
+        { q: "Missä tapaan joulupukin Levillä?", a: "Elves' Village Tonttulassa lähellä keskustaa sekä Joulumaailmassa Levi Summit -alueella. Yksityisiä pukkitilauksia mökille voi varata paikallisilta ohjelmapalveluyrityksiltä." },
+        { q: "Näenkö revontulia jouluna?", a: "Joulukuu on hyvää revontuliaikaa. Selkeinä ja pilvettöminä öinä revontulien näkeminen on todennäköistä, kun KP-indeksi on 3 tai korkeampi." },
+        { q: "Kuinka aikaisin joulumajoitus kannattaa varata?", a: "Suositut joulupäivämäärät (23.–27.12.) myydään usein loppuun 6–12 kuukautta etukäteen. Varaa heti kun tiedät päivämäärät." },
+        { q: "Miten pääsen Kittilän lentokentältä Leville?", a: "Kittilän lentokentältä Leville on noin 15 km. Voit tulla lentokenttäbussilla, taksilla tai vuokra-autolla, matka kestää noin 20 minuuttia." },
+      ],
+    },
   },
   en: {
     meta: {
