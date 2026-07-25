@@ -8,18 +8,23 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Snowflake, 
-  Gift, 
-  Star, 
-  TreePine, 
-  Sparkles, 
+import {
+  Snowflake,
+  Gift,
+  Star,
+  TreePine,
+  Sparkles,
   Heart,
-  
   Camera,
   Moon,
   Bell,
-  UtensilsCrossed
+  UtensilsCrossed,
+  Utensils,
+  Mountain,
+  Music,
+  Calendar,
+  Thermometer,
+  Home,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Language } from "@/translations";
@@ -58,15 +63,19 @@ const translations: Record<Language, {
   santaHome: string;
   didYouKnow: string;
   didYouKnowText: string;
+  longContent?: {
+    sections: { id: string; icon: string; heading: string; paragraphs: string[]; bullets?: string[] }[];
+    faq: { q: string; a: string }[];
+  };
 }> = {
   fi: {
     meta: {
-      title: "Joulu Lapissa – Maaginen joulukokemus Levillä | Leville.net",
-      description: "Koe ainutlaatuinen joulu Lapissa! Joulupukki, revontulet, porot ja luminen talvimaisema. Varaa joulumajoitus Levillä ajoissa.",
-      keywords: "joulu Lapissa, joulu Levi, Levi joulupukki, Lappi joululoma, joulunvietto Lappi",
+      title: "Joulu Levillä 2026 – Tapahtumat, illalliset ja joulumajoitus",
+      description: "Täydellinen opas jouluun Levillä: joulumarkkinat, jouluillalliset, Joulupukin mökki, rinteet, revontulet ja joulumajoitus. Varaa ajoissa!",
+      keywords: "joulu Levillä, joulumarkkinat Levi, jouluillallinen Levi, Joulupukki Levi, joulumajoitus Levi",
       canonical: "https://leville.net/levi/joulu-lapissa"
     },
-    title: "Joulu Lapissa",
+    title: "Joulu Levillä – Täydellinen opas Lapin jouluun",
     subtitle: "Koe taianmainen joulu lumisessa Lapissa – joulupukin kotimaassa",
     intro: "Lappi on joulun synnyinpaikka, ja Levi tarjoaa täydellisen miljöön unohtumattomaan joulukokemukseen. Luminen maisema, revontulet, porot ja joulupukin läheisyys tekevät Levin joulusta ainutlaatuisen.",
     experiencesTitle: "Jouluiset elämykset Levillä",
@@ -100,16 +109,124 @@ const translations: Record<Language, {
     linksTitle: "Hyödyllisiä linkkejä",
     santaHome: "Joulupukin kotimaa",
     didYouKnow: "Tiesitkö?",
-    didYouKnowText: "Joulupukin mökki löytyy Levin rinteiltä! Pääset sinne Levi Black gondolihissillä ja se on jännittävä retki koko perheelle."
+    didYouKnowText: "Joulupukin mökki löytyy Levin rinteiltä! Pääset sinne Levi Black gondolihissillä ja se on jännittävä retki koko perheelle.",
+    longContent: {
+      sections: [
+        {
+          id: "markkinat",
+          icon: "calendar",
+          heading: "Levin joulumarkkinat",
+          paragraphs: [
+            "Levin joulumarkkinat kokoavat paikalliset käsityöläiset, poronlihatuottajat ja jouluista tunnelmaa keskustaan pitkin joulukuuta. Löydät lahjaideoita, käsintehtyjä koruja, villavaatteita ja lämmintä glögiä. Markkinatunnelmaa kruunaavat nuotiopaikat ja paikallisten esiintyjien iltatapahtumat.",
+            "Tarkat päivämäärät ja aukioloajat kannattaa varmistaa Levin virallisesta tapahtumakalenterista.",
+          ],
+          bullets: [
+            "Sijainti: Levin keskusta, Zero Point -alue",
+            "Ajankohta: joulukuun päävikonloput ennen joulua",
+            "Vapaa pääsy",
+          ],
+        },
+        {
+          id: "illalliset",
+          icon: "utensils",
+          heading: "Jouluillalliset ja perinteinen joulupöytä",
+          paragraphs: [
+            "Levin ravintolat tarjoavat jouluaattona ja joulupäivinä perinteisiä joulupöytiä sekä à la carte -menuja. Suosituimmat paikat, kuten Hullu Poro, Ravintola Sokka ja Tunturialpit, täyttyvät nopeasti — varaa pöytä hyvissä ajoin. Perinteiseen joulupöytään kuuluvat kinkku, laatikot, rosolli ja glögi.",
+            "Jos haluat viettää jouluaaton omassa mökissä, monet paikalliset catering-yritykset toimittavat valmiin joulupöydän suoraan majoitukseesi. Katso ravintolatarjonta myös oppaastamme.",
+          ],
+          bullets: [
+            "Varaa jouluillallinen 2–3 kuukautta etukäteen",
+            "Catering-toimitukset yleensä 22.–24.12.",
+            "Ilmoita erityisruokavaliot varauksen yhteydessä",
+          ],
+        },
+        {
+          id: "joulupukki",
+          icon: "gift",
+          heading: "Joulupukki Levillä – Tonttula ja Joulumaailma",
+          paragraphs: [
+            "Joulupukin voi tavata Levillä useassa paikassa. Elves' Village Tonttula on keskustan lähellä toimiva elämyskylä, jossa lapset kohtaavat pukin ja tontut sekä ruokkivat poroja. Joulumaailma Levi Summit -alueella tarjoaa opastettuja ohjelmia ja joulupukin haastatteluja.",
+            "Yksityisiä pukkitilauksia mökille voi varata paikallisilta ohjelmapalveluyrityksiltä — suosittu vaihtoehto ryhmille ja lapsiperheille.",
+          ],
+          bullets: [
+            "Elves' Village Tonttula — päivittäin joulukuussa",
+            "Joulupukin postitoimisto — postita kirje pukille",
+            "Varaa pukkivierailu mökille etukäteen",
+          ],
+        },
+        {
+          id: "rinteet",
+          icon: "mountain",
+          heading: "Joulurinteet ja talviurheilu",
+          paragraphs: [
+            "Levin rinteet ovat auki koko joulusesongin: 43 rinnettä, 28 hissiä ja pisin lasku 2,5 km. Jouluaattona hissit pyörivät lyhennetyillä ajoilla ja avautuvat taas normaalisti joulupäivänä. Latuverkosto on 230 km, josta lähes 30 km on valaistuja latuja.",
+            "Hiihtokoulut ja välinevuokraamot ovat auki, mutta jouluaaton aukioloajat ovat rajoitetut. Osta hissiliput ennakkoon verkosta säästääksesi aikaa.",
+          ],
+        },
+        {
+          id: "revontulet",
+          icon: "sparkles",
+          heading: "Revontulet jouluaikaan",
+          paragraphs: [
+            "Joulukuu on Lapin pimeintä aikaa — auringonlaskun jälkeen taivas voi loistaa revontulista aina aamuyöhön. Levin ympäristössä on lukuisia tummia paikkoja, joissa valosaaste on minimissään, esimerkiksi Immeljärven ranta ja Kätkä-tunturin ympäristö.",
+            "Seuraa revontuliennustetta ja lähde ulos, kun KP-indeksi on 3 tai suurempi ja taivas on kirkas.",
+          ],
+        },
+        {
+          id: "sauna",
+          icon: "home",
+          heading: "Joulusauna ja wellness",
+          paragraphs: [
+            "Suomalainen jouluperinne huipentuu jouluaaton saunahetkeen. Kaikissa Leville.net-majoituksissa on oma sauna, ja monissa myös takka. Nauti hiljaisuudesta, kynttilänvalosta ja perinteisistä jouluherkuista löylyjen jälkeen.",
+            "Jos etsit julkista saunaelämystä, Levillä on savusaunoja, tynnyrisaunoja järven rannalla ja hotellisaunoja avantouintimahdollisuudella.",
+          ],
+          bullets: [
+            "Oma sauna kaikissa majoituksissamme",
+            "Avantouinti läheisellä Immeljärvellä",
+            "Savusauna- ja poroteemasaunaelämyksiä ohjelmapalveluilta",
+          ],
+        },
+        {
+          id: "joulurauha",
+          icon: "music",
+          heading: "Joulurauhan julistus",
+          paragraphs: [
+            "Joulurauha julistetaan Suomessa jouluaattona kello 12. Voit seurata TV-lähetystä perheen kanssa mökillä tai osallistua Levin kappelin jouluhartauteen ja jouluaaton messuun. Tapahtuma tuo hiljaisen hetken keskelle joulupäivän valmisteluja.",
+          ],
+        },
+        {
+          id: "vinkit",
+          icon: "thermometer",
+          heading: "Käytännön vinkit joululomalle Levillä",
+          paragraphs: [
+            "Pukeutuminen: joulukuussa lämpötila voi laskea alle –30 °C. Käytä kerroksia, villaa iholla ja tuulta pitävää päällyskerrosta. Kittilän lentokentältä Leville pääsee bussilla, taksilla tai vuokra-autolla — matkaa on n. 15 km ja aikaa kuluu noin 20 minuuttia.",
+            "Hinnat nousevat sesonkiaikaan: majoitus, ohjelmapalvelut ja ravintolat kannattaa varata heti kun päivämäärät ovat selvät. Ruokakaupat sulkevat jouluaattona jo iltapäivällä — täydennä kaappi ajoissa.",
+          ],
+          bullets: [
+            "Matka Kittilän lentokentältä Leville: n. 20 min",
+            "Ruokakaupat auki jouluaattona n. klo 15 asti",
+            "Osta hissiliput ja ohjelmat ennakkoon",
+          ],
+        },
+      ],
+      faq: [
+        { q: "Milloin Levin joulumarkkinat pidetään?", a: "Joulumarkkinat järjestetään Levin keskustassa pitkin joulukuuta, pääviikonloppuina ennen joulua. Tarkista tarkat päivämäärät Levin virallisesta tapahtumakalenterista." },
+        { q: "Ovatko rinteet auki jouluaattona?", a: "Kyllä, Levin rinteet ovat auki jouluaattona lyhennetyllä aukioloajalla, tyypillisesti aamupäivällä. Joulupäivänä ja tapaninpäivänä hissit ovat auki normaalisti." },
+        { q: "Missä tapaan joulupukin Levillä?", a: "Elves' Village Tonttulassa lähellä keskustaa sekä Joulumaailmassa Levi Summit -alueella. Yksityisiä pukkitilauksia mökille voi varata paikallisilta ohjelmapalveluyrityksiltä." },
+        { q: "Näenkö revontulia jouluna?", a: "Joulukuu on hyvää revontuliaikaa. Selkeinä ja pilvettöminä öinä revontulien näkeminen on todennäköistä, kun KP-indeksi on 3 tai korkeampi." },
+        { q: "Kuinka aikaisin joulumajoitus kannattaa varata?", a: "Suositut joulupäivämäärät (23.–27.12.) myydään usein loppuun 6–12 kuukautta etukäteen. Varaa heti kun tiedät päivämäärät." },
+        { q: "Miten pääsen Kittilän lentokentältä Leville?", a: "Kittilän lentokentältä Leville on noin 15 km. Voit tulla lentokenttäbussilla, taksilla tai vuokra-autolla, matka kestää noin 20 minuuttia." },
+      ],
+    },
   },
   en: {
     meta: {
-      title: "Christmas in Lapland – Magical Holiday Experience in Levi | Leville.net",
-      description: "Experience a unique Christmas in Lapland! Santa Claus, northern lights, reindeer and snowy winter landscapes. Book your Levi Christmas accommodation early.",
-      keywords: "Christmas in Lapland, Christmas Levi, Levi Santa Claus, Lapland Christmas holiday, Christmas Finland",
+      title: "Christmas in Levi 2026 – Events, Dinners & Holiday Guide",
+      description: "Complete guide to Christmas in Levi, Finnish Lapland: Christmas market, dinners, Santa Claus, slopes, northern lights and holiday accommodation.",
+      keywords: "Christmas in Levi, Christmas market Levi, Christmas dinner Levi, Santa Claus Levi, Christmas accommodation Levi",
       canonical: "https://leville.net/en/levi/christmas-in-lapland"
     },
-    title: "Christmas in Lapland",
+    title: "Christmas in Levi – The Complete Guide to Lapland Christmas",
     subtitle: "Experience a magical Christmas in snowy Lapland – the home of Santa Claus",
     intro: "Lapland is the birthplace of Christmas, and Levi offers the perfect setting for an unforgettable Christmas experience. Snowy landscapes, northern lights, reindeer and the proximity of Santa Claus make Christmas in Levi truly unique.",
     experiencesTitle: "Christmas Experiences in Levi",
@@ -143,7 +260,115 @@ const translations: Record<Language, {
     linksTitle: "Useful Links",
     santaHome: "The home of Santa Claus",
     didYouKnow: "Did you know?",
-    didYouKnowText: "Santa's cabin is located on the slopes of Levi! You can reach it by the Levi Black gondola lift – it's an exciting adventure for the whole family."
+    didYouKnowText: "Santa's cabin is located on the slopes of Levi! You can reach it by the Levi Black gondola lift – it's an exciting adventure for the whole family.",
+    longContent: {
+      sections: [
+        {
+          id: "markkinat",
+          icon: "calendar",
+          heading: "Levi Christmas Market",
+          paragraphs: [
+            "The Levi Christmas market brings local artisans, reindeer-meat producers and festive atmosphere to the village centre throughout December. You'll find handmade jewellery, woollens, gift ideas and warm glögi (mulled wine). Campfires and local performers set the evening mood.",
+            "Check exact dates and opening hours from Levi's official events calendar.",
+          ],
+          bullets: [
+            "Location: Levi centre, Zero Point area",
+            "Timing: December weekends before Christmas",
+            "Free entry",
+          ],
+        },
+        {
+          id: "illalliset",
+          icon: "utensils",
+          heading: "Christmas Dinners & the Finnish Christmas Table",
+          paragraphs: [
+            "Levi restaurants serve traditional Finnish Christmas menus (joulupöytä) and à la carte options on Christmas Eve and Christmas Day. Popular venues such as Hullu Poro, Restaurant Sokka and Tunturialpit fill quickly — reserve well in advance. The traditional table features ham, root-vegetable casseroles, rosolli salad and glögi.",
+            "Prefer to celebrate at your apartment? Local caterers deliver a ready Christmas table straight to your accommodation.",
+          ],
+          bullets: [
+            "Book Christmas dinner 2–3 months in advance",
+            "Catering deliveries typically 22–24 December",
+            "Mention dietary requirements when booking",
+          ],
+        },
+        {
+          id: "joulupukki",
+          icon: "gift",
+          heading: "Santa Claus in Levi – Elves' Village & Christmas World",
+          paragraphs: [
+            "You can meet Santa Claus in several places in Levi. Elves' Village (Tonttula) near the centre is an experience village where children meet Santa and his elves and feed reindeer. Christmas World at Levi Summit offers guided programmes and Santa audiences.",
+            "Private Santa visits to your cabin can be booked from local activity operators — a favourite for groups and families.",
+          ],
+          bullets: [
+            "Elves' Village Tonttula — daily in December",
+            "Santa's Post Office — send a letter to Santa",
+            "Book a private Santa visit in advance",
+          ],
+        },
+        {
+          id: "rinteet",
+          icon: "mountain",
+          heading: "Christmas Slopes & Winter Sports",
+          paragraphs: [
+            "Levi's slopes are open throughout the Christmas season: 43 slopes, 28 lifts and a longest run of 2.5 km. Lifts run on shortened hours on Christmas Eve and return to normal on Christmas Day. The cross-country network is 230 km, of which nearly 30 km is lit.",
+            "Ski schools and equipment rentals are open, though Christmas Eve hours are limited. Buy lift passes online in advance to save time.",
+          ],
+        },
+        {
+          id: "revontulet",
+          icon: "sparkles",
+          heading: "Northern Lights at Christmas",
+          paragraphs: [
+            "December is Lapland's darkest month — after sunset the sky can glow with aurora late into the night. Several dark spots around Levi minimise light pollution, such as the shores of Lake Immel and the surroundings of Kätkä fell.",
+            "Follow the aurora forecast and head out when the KP index is 3 or higher and the sky is clear.",
+          ],
+        },
+        {
+          id: "sauna",
+          icon: "home",
+          heading: "Christmas Sauna & Wellness",
+          paragraphs: [
+            "The Finnish Christmas tradition culminates in the Christmas Eve sauna. Every Leville.net apartment has its own sauna, and many also have a fireplace. Enjoy silence, candlelight and traditional Christmas treats after your löyly.",
+            "For a public sauna experience, Levi offers smoke saunas, lakeside barrel saunas and hotel saunas with ice-swimming access.",
+          ],
+          bullets: [
+            "Private sauna in every apartment",
+            "Ice swimming at nearby Lake Immel",
+            "Smoke-sauna and reindeer-themed sauna experiences",
+          ],
+        },
+        {
+          id: "joulurauha",
+          icon: "music",
+          heading: "The Declaration of Christmas Peace",
+          paragraphs: [
+            "The Declaration of Christmas Peace is broadcast in Finland at noon on Christmas Eve. Watch the TV broadcast with your family in the cabin, or attend the Christmas Eve service at Levi Chapel — a quiet, meaningful moment amid the holiday preparations.",
+          ],
+        },
+        {
+          id: "vinkit",
+          icon: "thermometer",
+          heading: "Practical Tips for a Christmas Holiday in Levi",
+          paragraphs: [
+            "Clothing: December temperatures can drop below –30 °C. Wear layers, wool base layers and a windproof outer shell. From Kittilä Airport to Levi is about 15 km — reachable by airport bus, taxi or rental car, roughly a 20-minute drive.",
+            "Prices rise in peak season: accommodation, activities and restaurants should be booked as soon as your dates are fixed. Grocery shops close early on Christmas Eve — stock up in advance.",
+          ],
+          bullets: [
+            "Kittilä Airport to Levi: about 20 minutes",
+            "Grocery shops open until about 15:00 on Christmas Eve",
+            "Buy lift passes and activities in advance",
+          ],
+        },
+      ],
+      faq: [
+        { q: "When is the Levi Christmas market held?", a: "The Christmas market runs throughout December in Levi centre, with main weekends before Christmas. Check exact dates from Levi's official events calendar." },
+        { q: "Are the slopes open on Christmas Eve?", a: "Yes, Levi's slopes are open on Christmas Eve with shortened hours, typically in the morning. Christmas Day and Boxing Day operate on normal hours." },
+        { q: "Where can I meet Santa Claus in Levi?", a: "At Elves' Village Tonttula near the centre, and at Christmas World at Levi Summit. Private Santa visits to your cabin can be booked from local activity operators." },
+        { q: "Can I see the northern lights at Christmas?", a: "December is a great aurora period. On clear, cloudless nights the northern lights are likely when the KP index is 3 or higher." },
+        { q: "How early should I book Christmas accommodation?", a: "Popular Christmas dates (23–27 December) often sell out 6–12 months in advance. Book as soon as your dates are fixed." },
+        { q: "How do I get from Kittilä Airport to Levi?", a: "Kittilä Airport is about 15 km from Levi. You can travel by airport bus, taxi or rental car — the trip takes about 20 minutes." },
+      ],
+    },
   },
   sv: {
     meta: {
@@ -424,7 +649,14 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   moon: Moon,
   sparkles: Sparkles,
   heart: Heart,
-  snowflake: Snowflake
+  snowflake: Snowflake,
+  calendar: Calendar,
+  utensils: Utensils,
+  mountain: Mountain,
+  music: Music,
+  home: Home,
+  thermometer: Thermometer,
+  tree: TreePine,
 };
 
 const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
@@ -461,19 +693,54 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
 
         {/* JSON-LD */}
         <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "TouristDestination",
-            "name": t.title + " - Levi",
-            "description": t.meta.description,
-            "url": t.meta.canonical,
-            "touristType": ["Family", "Couples", "Adventure seekers"],
-            "includesAttraction": [
-              { "@type": "TouristAttraction", "name": t.experiences[0].title },
-              { "@type": "TouristAttraction", "name": t.experiences[2].title },
-              { "@type": "TouristAttraction", "name": t.experiences[1].title }
-            ]
-          })}
+          {JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "TouristDestination",
+              "name": t.title + " - Levi",
+              "description": t.meta.description,
+              "url": t.meta.canonical,
+              "touristType": ["Family", "Couples", "Adventure seekers"],
+              "includesAttraction": [
+                { "@type": "TouristAttraction", "name": t.experiences[0].title },
+                { "@type": "TouristAttraction", "name": t.experiences[2].title },
+                { "@type": "TouristAttraction", "name": t.experiences[1].title },
+              ],
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "Event",
+              "name": lang === "fi" ? "Joulu Levillä 2026" : "Christmas in Levi 2026",
+              "startDate": "2026-12-20",
+              "endDate": "2026-12-27",
+              "eventStatus": "https://schema.org/EventScheduled",
+              "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+              "location": {
+                "@type": "Place",
+                "name": "Levi, Sirkka",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Sirkka",
+                  "postalCode": "99130",
+                  "addressRegion": "Lapland",
+                  "addressCountry": "FI",
+                },
+              },
+              "url": t.meta.canonical,
+              "description": t.meta.description,
+            },
+            ...(t.longContent
+              ? [{
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  "mainEntity": t.longContent.faq.map((f) => ({
+                    "@type": "Question",
+                    "name": f.q,
+                    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+                  })),
+                }]
+              : []),
+          ])}
         </script>
       </Helmet>
       
@@ -685,6 +952,75 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                 ))}
               </div>
             </section>
+
+            {/* Long-form Christmas Guide (FI + EN) */}
+            {t.longContent && (
+              <div className="max-w-3xl mx-auto">
+                {t.longContent.sections.map((sec) => {
+                  const SectionIcon = iconMap[sec.icon] ?? Star;
+                  const bookingCopy: Record<string, { fi: string; en: string }> = {
+                    illalliset: {
+                      fi: "Varaa joulumajoitus keittiöllä — täydellinen paikka omalle joulupöydälle",
+                      en: "Book Christmas accommodation with a kitchen — perfect for your own Christmas table",
+                    },
+                    sauna: {
+                      fi: "Katso saunalliset joulumajoitukset Levillä",
+                      en: "See Christmas accommodations with private sauna",
+                    },
+                    vinkit: {
+                      fi: "Varaa joulumajoituksesi Levillä nyt",
+                      en: "Book your Christmas stay in Levi now",
+                    },
+                  };
+                  const cta = bookingCopy[sec.id];
+                  return (
+                    <section key={sec.id} id={sec.id} className="mb-10 sm:mb-14">
+                      <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 flex items-center gap-3">
+                        <SectionIcon className="w-6 h-6 text-primary flex-shrink-0" />
+                        {sec.heading}
+                      </h2>
+                      {sec.paragraphs.map((p, i) => (
+                        <p key={i} className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-3">
+                          {p}
+                        </p>
+                      ))}
+                      {sec.bullets && (
+                        <ul className="list-disc pl-6 mt-3 space-y-1 text-sm sm:text-base text-muted-foreground">
+                          {sec.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                        </ul>
+                      )}
+                      {cta && (
+                        <p className="mt-4 text-sm sm:text-base">
+                          <a
+                            href="https://app.moder.fi/levillenet"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary font-medium underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+                          >
+                            {lang === "fi" ? cta.fi : cta.en} →
+                          </a>
+                        </p>
+                      )}
+                    </section>
+                  );
+                })}
+
+                <section className="mb-12 sm:mb-16">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 flex items-center gap-3">
+                    <Star className="w-6 h-6 text-primary flex-shrink-0" />
+                    {lang === "fi" ? "Usein kysytyt kysymykset" : "Frequently Asked Questions"}
+                  </h2>
+                  <div className="space-y-4">
+                    {t.longContent.faq.map((f, i) => (
+                      <div key={i} className="glass-card border border-border/30 rounded-xl p-4 sm:p-5">
+                        <h3 className="font-semibold text-foreground mb-2">{f.q}</h3>
+                        <p className="text-sm sm:text-base text-muted-foreground">{f.a}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              </div>
+            )}
 
             {/* CTA Section */}
             <section className="mb-12 sm:mb-20">
