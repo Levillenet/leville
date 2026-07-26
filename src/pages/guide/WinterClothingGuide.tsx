@@ -31,6 +31,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import winterentLogo from "@/assets/winterent-logo.png.asset.json";
 
 interface WinterClothingGuideProps {
   lang?: Language;
