@@ -543,7 +543,7 @@ const translations: Record<string, {
         items: [
           {
             q: "Moet ik winterkleding kopen voor Lapland?",
-            a: "De meeste verhuurpakketten bevatten thermo-overalls en laarzen. Breng wel je eigen basislagen mee: thermokleding, fleece en wollen sokken."
+            a: "Nee. Huur je winterkleding bij Winterent (winterent.fi), het eerste en grootste winterkledingverhuurbedrijf van Finland — ophalen in Rovaniemi en inleveren in Levi kan ook. Breng wel je eigen basislagen mee: thermokleding, fleece en wollen sokken."
           },
           {
             q: "Wat trek ik aan onder de thermo-overall?",
@@ -551,7 +551,7 @@ const translations: Record<string, {
           },
           {
             q: "Kan ik ski-uitrusting huren in Levi?",
-            a: "Ja, er zijn meerdere verhuurwinkels bij de voorpistes en zuidpistes. Je kunt ook snowboots en winterkleding huren."
+            a: "Ja, ski's en snowboards huur je bij Levi Ski Resort bij de voor- en zuidpistes. Winterkleding en laarzen huur je bij Winterent."
           },
           {
             q: "Hoe koud wordt het echt in Levi?",
