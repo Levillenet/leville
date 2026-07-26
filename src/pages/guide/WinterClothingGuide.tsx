@@ -815,14 +815,17 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
             {/* Winterent partner card */}
             <Card className="bg-card border-border mb-4">
               <CardContent className="pt-6">
-                <img
-                  src={winterentLogo.url}
-                  alt="Winterent"
-                  width={220}
-                  height={52}
-                  loading="lazy"
-                  className="h-10 w-auto mb-4 dark:invert"
-                />
+                <div className="inline-flex items-center rounded-md bg-white px-4 py-2 mb-4">
+                  <img
+                    src={winterentLogo.url}
+                    alt="Winterent"
+                    width={220}
+                    height={52}
+                    loading="lazy"
+                    className="h-10 w-auto"
+                  />
+                </div>
+
                 <h3 className="font-semibold text-foreground mb-3">
                   {t.sections.gear.partner.heading}
                 </h3>
