@@ -343,13 +343,24 @@ const translations: Record<string, {
       },
       gear: {
         title: "Where to Get Gear in Levi",
-        intro: "You don't need to bring everything. Levi has excellent rental services:",
+        intro: "You don't need to bring everything — winter clothing is best rented locally:",
         options: [
-          "Lappset Rental – winter clothing and equipment",
+          "Winterent – winter clothing for adults and children (winterent.fi)",
           "Levi Ski Resort – skiing equipment",
-          "Safari operators – thermal gear included with safaris"
+          "Safari operators – thermal overalls included with safaris"
         ],
-        tip: "Our tip: Rent heavy gear locally and bring quality base layers from home."
+        tip: "Our tip: Rent your outer layers from Winterent and bring quality base layers from home.",
+        partner: {
+          heading: "Winterent — Finland's largest winter clothing rental",
+          points: [
+            "The first and largest winter clothing rental company in Finland",
+            "Pick up your gear in Rovaniemi and return it in Levi — or the other way around",
+            "Winter overalls, boots, gloves and hats for adults and children"
+          ],
+          cta: "Visit winterent.fi",
+          equipmentLinkText: "Read more about equipment rental in Levi",
+          equipmentHref: "/guide/equipment-rental-levi"
+        }
       },
       faq: {
         title: "Frequently Asked Questions",
