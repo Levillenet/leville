@@ -195,7 +195,7 @@ const translations: Record<string, {
           },
           {
             q: "Voiko Levillä vuokrata talvivaatteita?",
-            a: "Kyllä! Levillä on useita vuokraamoja, jotka tarjoavat talvivaatteita aikuisille ja lapsille. Safari-operaattorit sisällyttävät yleensä lämpövarusteet hintaan."
+            a: "Kyllä. Suosittelemme Winterentiä (winterent.fi), joka on alan ensimmäinen ja Suomen suurin talvivaatevuokraamo. Voit vuokrata vaatteet Rovaniemeltä ja palauttaa ne Levillä tai toisin päin. Safari-operaattorit sisällyttävät yleensä lämpöhaalarit hintaan."
           },
           {
             q: "Mitkä kengät toimivat jäällä?",
