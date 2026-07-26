@@ -489,7 +489,7 @@ const translations: Record<string, {
             name: "Schoeisel",
             tips: [
               "Waterdichte winterlaarzen (geschikt tot -30°C)",
-              "TIP: In Levi kun je snowboots huren bij Levi Ski Resort verhuurwinkels",
+              "TIP: Winterlaarzen huur je bij Winterent (winterent.fi)",
               "Dikke wollen sokken",
               "Vermijd te strakke schoenen – lucht rond je voeten isoleert"
             ]
