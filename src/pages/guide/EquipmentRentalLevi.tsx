@@ -49,7 +49,7 @@ const translations = {
           "Murtomaahiihtosetti (sukset, monot, sauvat — klassinen tai vapaa tyyli)",
           "Lumikengät",
           "Fatbike",
-          "Talvivaatteita (haalari, hanskat, kengät) osasta vuokraamoista",
+          "Talvivaatteet (haalari, hanskat, kengät) — Winterent, Suomen suurin talvivaatevuokraamo (winterent.fi)",
           "Lasten välineet kaikissa kategorioissa"
         ]
       },
