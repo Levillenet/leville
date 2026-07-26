@@ -390,7 +390,7 @@ const content: Record<"fi" | "en", Content> = {
     ],
     breadcrumbs: [
       { label: "Home", href: "/en" },
-      { label: "Travel Guide", href: "/guide/travel-guide-levi" },
+      { label: "Travel Guide", href: "/guide/travel-to-levi" },
       { label: "Driving in Lapland", href: "/guide/driving-in-lapland" },
     ],
     readNextTitle: "Read next",
@@ -398,7 +398,7 @@ const content: Record<"fi" | "en", Content> = {
       {
         title: "How to get to Levi",
         desc: "Flights, trains and driving from Helsinki to Levi",
-        href: "/travel/how-to-get-to-levi-from-helsinki",
+        href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad",
       },
       {
         title: "Getting around Levi",

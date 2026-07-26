@@ -117,6 +117,7 @@ export const travelHubContent: Record<Language, TravelHubContent> = {
       subtitle: "You've arrived – here's how to enjoy your holiday",
       guides: [
         { id: "transport", title: "Getting Around Levi", description: "Ski buses, taxis and car rental. How to get around in Levi.", href: "/guide/getting-around-in-levi", iconKey: "bus" },
+        { id: "driving-lapland", title: "Driving in Lapland", description: "Winter tyres, reindeer on the road, block heaters and distances — safe driving in Lapland.", href: "/guide/driving-in-lapland", iconKey: "car" },
         { id: "services", title: "Restaurants & Services", description: "Restaurants, shops, rentals and other services in Levi center.", href: "/guide/restaurants-and-services-in-levi", iconKey: "utensils" },
         { id: "apres-ski", title: "Après-Ski & Nightlife", description: "Best après-ski bars and nightlife spots in Levi.", href: "/guide/apres-ski-and-nightlife-in-levi", iconKey: "glass" },
         { id: "rental", title: "Equipment Rental", description: "Skis, snowshoes, snowmobiles – where to rent gear in Levi.", href: "/guide/equipment-rental-in-levi", iconKey: "ski" },

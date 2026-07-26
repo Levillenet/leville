@@ -450,6 +450,7 @@ const App = () => {
               <Route path="/opas/vappu-levilla" element={<VappuLevilla />} />
               {/* Travel HUB Child Pages - English */}
               <Route path="/guide/getting-around-in-levi" element={<GettingAroundLevi lang="en" />} />
+              <Route path="/guide/driving-in-lapland" element={<DrivingInLapland lang="en" />} />
               <Route path="/guide/restaurants-and-services-in-levi" element={<RestaurantsAndServices lang="en" />} />
               <Route path="/guide/levi-restaurants-and-dishes" element={<LeviRestaurantGuide lang="en" />} />
               <Route path="/guide/levi-with-children" element={<LeviWithChildren lang="en" />} />
