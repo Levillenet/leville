@@ -519,14 +519,24 @@ const translations: Record<string, {
       },
       gear: {
         title: "Wat kun je huren in Levi?",
-        intro: "Je hoeft niet alles mee te nemen. In Levi kun je veel huren:",
+        intro: "Je hoeft niet alles mee te nemen — winterkleding huur je het beste ter plaatse:",
         options: [
-          "Thermo-overalls bij verhuurwinkels bij de pistes",
+          "Winterent – winterkleding voor volwassenen en kinderen (winterent.fi)",
           "Ski-uitrusting bij Levi Ski Resort (voor- en zuidpistes)",
-          "Snowboots bij verhuurwinkels in het centrum",
-          "Safari-aanbieders leveren warme kleding bij activiteiten"
+          "Safari-aanbieders leveren warme overalls bij activiteiten"
         ],
-        tip: "Onze tip: Huur zware uitrusting ter plaatse, maar breng zelf mee: thermokleding, fleece, je eigen winterjas, wollen sokken, muts en wanten."
+        tip: "Onze tip: Huur je buitenkleding bij Winterent en breng zelf mee: thermokleding, fleece, wollen sokken, muts en wanten.",
+        partner: {
+          heading: "Winterent — de grootste winterkledingverhuur van Finland",
+          points: [
+            "Het eerste en grootste winterkledingverhuurbedrijf van Finland",
+            "Haal je kleding op in Rovaniemi en lever ze in Levi in — of andersom",
+            "Winteroveralls, laarzen, handschoenen en mutsen voor volwassenen en kinderen"
+          ],
+          cta: "Ga naar winterent.fi",
+          equipmentLinkText: "Lees meer over uitrustingverhuur in Levi",
+          equipmentHref: "/guide/equipment-rental-levi"
+        }
       },
       faq: {
         title: "Veelgestelde vragen",
