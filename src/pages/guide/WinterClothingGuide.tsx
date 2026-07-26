@@ -167,13 +167,24 @@ const translations: Record<string, {
       },
       gear: {
         title: "Mistä varusteet Levillä?",
-        intro: "Kaikkea ei tarvitse tuoda mukana. Levillä on hyvät vuokrauspalvelut:",
+        intro: "Kaikkea ei tarvitse tuoda mukana — talvivaatteet kannattaa vuokrata paikan päältä:",
         options: [
-          "Lappset Rental – talvivaatteet ja varusteet",
+          "Winterent – talvivaatteet aikuisille ja lapsille (winterent.fi)",
           "Levi Ski Resort – lasketteluvälineet",
-          "Safari-operaattorit – lämpövarusteet safarien yhteydessä"
+          "Safari-operaattorit – lämpöhaalarit safarien yhteydessä"
         ],
-        tip: "Vinkkimme: Vuokraa paikan päältä raskas varustus ja tuo kotoa laadukkaat aluskerrokset."
+        tip: "Vinkkimme: Vuokraa päällysvaatteet Winterentiltä ja tuo kotoa laadukkaat aluskerrokset.",
+        partner: {
+          heading: "Winterent — Suomen suurin talvivaatevuokraamo",
+          points: [
+            "Alan ensimmäinen ja Suomen suurin talvivaatteiden vuokraaja",
+            "Vuokraa vaatteet Rovaniemeltä ja jätä ne Levillä — tai toisin päin",
+            "Talvihaalarit, kengät, hanskat ja päähineet aikuisille ja lapsille"
+          ],
+          cta: "Siirry osoitteeseen winterent.fi",
+          equipmentLinkText: "Lue lisää välinevuokrauksesta Levillä",
+          equipmentHref: "/opas/valinevuokraus-levilla"
+        }
       },
       faq: {
         title: "Usein kysytyt kysymykset",
