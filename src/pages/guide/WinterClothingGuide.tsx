@@ -360,7 +360,7 @@ const translations: Record<string, {
           ],
           cta: "Visit winterent.fi",
           equipmentLinkText: "Read more about equipment rental in Levi",
-          equipmentHref: "/guide/equipment-rental-levi"
+          equipmentHref: "/guide/equipment-rental-in-levi"
         }
       },
       faq: {
@@ -536,7 +536,7 @@ const translations: Record<string, {
           ],
           cta: "Ga naar winterent.fi",
           equipmentLinkText: "Lees meer over uitrustingverhuur in Levi",
-          equipmentHref: "/guide/equipment-rental-levi"
+          equipmentHref: "/guide/equipment-rental-in-levi"
         }
       },
       faq: {
