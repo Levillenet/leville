@@ -371,7 +371,7 @@ const translations: Record<string, {
           },
           {
             q: "Can I rent winter clothes in Levi?",
-            a: "Yes! Levi has several rental shops offering winter clothing for adults and children. Safari operators usually include thermal gear in the price."
+            a: "Yes. We recommend Winterent (winterent.fi), the first and largest winter clothing rental company in Finland. You can pick up your clothing in Rovaniemi and return it in Levi, or the other way around. Safari operators usually include thermal overalls in the price."
           },
           {
             q: "What shoes work on ice?",
