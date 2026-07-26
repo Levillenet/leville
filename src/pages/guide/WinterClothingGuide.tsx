@@ -46,7 +46,13 @@ const translations: Record<string, {
     layering: { title: string; intro: string; layers: { name: string; icon: string; items: string[] }[] };
     accessories: { title: string; items: { name: string; tips: string[] }[] };
     activities: { title: string; items: { activity: string; tips: string }[] };
-    gear: { title: string; intro: string; options: string[]; tip: string };
+    gear: {
+      title: string;
+      intro: string;
+      options: string[];
+      tip: string;
+      partner: { heading: string; points: string[]; cta: string; equipmentLinkText: string; equipmentHref: string };
+    };
     faq: { title: string; items: { q: string; a: string }[] };
   };
   cta: { title: string; text: string; button: string };
