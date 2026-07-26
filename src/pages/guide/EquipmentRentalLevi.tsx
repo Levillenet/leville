@@ -49,7 +49,7 @@ const translations = {
           "Murtomaahiihtosetti (sukset, monot, sauvat — klassinen tai vapaa tyyli)",
           "Lumikengät",
           "Fatbike",
-          "Talvivaatteita (haalari, hanskat, kengät) osasta vuokraamoista",
+          "Talvivaatteet (haalari, hanskat, kengät) — Winterent, Suomen suurin talvivaatevuokraamo (winterent.fi)",
           "Lasten välineet kaikissa kategorioissa"
         ]
       },
@@ -117,7 +117,7 @@ const translations = {
           "Cross-country ski set (skis, boots, poles — classic or skating)",
           "Snowshoes",
           "Fatbike",
-          "Winter clothing (overall, gloves, boots) from some shops",
+          "Winter clothing (overall, gloves, boots) — Winterent, Finland's largest winter clothing rental (winterent.fi)",
           "Children's equipment in all categories"
         ]
       },

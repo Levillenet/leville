@@ -31,6 +31,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import winterentLogo from "@/assets/winterent-logo.png.asset.json";
 
 interface WinterClothingGuideProps {
   lang?: Language;
@@ -46,7 +47,13 @@ const translations: Record<string, {
     layering: { title: string; intro: string; layers: { name: string; icon: string; items: string[] }[] };
     accessories: { title: string; items: { name: string; tips: string[] }[] };
     activities: { title: string; items: { activity: string; tips: string }[] };
-    gear: { title: string; intro: string; options: string[]; tip: string };
+    gear: {
+      title: string;
+      intro: string;
+      options: string[];
+      tip: string;
+      partner: { heading: string; points: string[]; cta: string; equipmentLinkText: string; equipmentHref: string };
+    };
     faq: { title: string; items: { q: string; a: string }[] };
   };
   cta: { title: string; text: string; button: string };
@@ -161,13 +168,24 @@ const translations: Record<string, {
       },
       gear: {
         title: "Mistä varusteet Levillä?",
-        intro: "Kaikkea ei tarvitse tuoda mukana. Levillä on hyvät vuokrauspalvelut:",
+        intro: "Kaikkea ei tarvitse tuoda mukana — talvivaatteet kannattaa vuokrata paikan päältä:",
         options: [
-          "Lappset Rental – talvivaatteet ja varusteet",
+          "Winterent – talvivaatteet aikuisille ja lapsille (winterent.fi)",
           "Levi Ski Resort – lasketteluvälineet",
-          "Safari-operaattorit – lämpövarusteet safarien yhteydessä"
+          "Safari-operaattorit – lämpöhaalarit safarien yhteydessä"
         ],
-        tip: "Vinkkimme: Vuokraa paikan päältä raskas varustus ja tuo kotoa laadukkaat aluskerrokset."
+        tip: "Vinkkimme: Vuokraa päällysvaatteet Winterentiltä ja tuo kotoa laadukkaat aluskerrokset.",
+        partner: {
+          heading: "Winterent — Suomen suurin talvivaatevuokraamo",
+          points: [
+            "Alan ensimmäinen ja Suomen suurin talvivaatteiden vuokraaja",
+            "Vuokraa vaatteet Rovaniemeltä ja jätä ne Levillä — tai toisin päin",
+            "Talvihaalarit, kengät, hanskat ja päähineet aikuisille ja lapsille"
+          ],
+          cta: "Siirry osoitteeseen winterent.fi",
+          equipmentLinkText: "Lue lisää välinevuokrauksesta Levillä",
+          equipmentHref: "/opas/valinevuokraus-levilla"
+        }
       },
       faq: {
         title: "Usein kysytyt kysymykset",
@@ -178,7 +196,7 @@ const translations: Record<string, {
           },
           {
             q: "Voiko Levillä vuokrata talvivaatteita?",
-            a: "Kyllä! Levillä on useita vuokraamoja, jotka tarjoavat talvivaatteita aikuisille ja lapsille. Safari-operaattorit sisällyttävät yleensä lämpövarusteet hintaan."
+            a: "Kyllä. Suosittelemme Winterentiä (winterent.fi), joka on alan ensimmäinen ja Suomen suurin talvivaatevuokraamo. Voit vuokrata vaatteet Rovaniemeltä ja palauttaa ne Levillä tai toisin päin. Safari-operaattorit sisällyttävät yleensä lämpöhaalarit hintaan."
           },
           {
             q: "Mitkä kengät toimivat jäällä?",
@@ -326,13 +344,24 @@ const translations: Record<string, {
       },
       gear: {
         title: "Where to Get Gear in Levi",
-        intro: "You don't need to bring everything. Levi has excellent rental services:",
+        intro: "You don't need to bring everything — winter clothing is best rented locally:",
         options: [
-          "Lappset Rental – winter clothing and equipment",
+          "Winterent – winter clothing for adults and children (winterent.fi)",
           "Levi Ski Resort – skiing equipment",
-          "Safari operators – thermal gear included with safaris"
+          "Safari operators – thermal overalls included with safaris"
         ],
-        tip: "Our tip: Rent heavy gear locally and bring quality base layers from home."
+        tip: "Our tip: Rent your outer layers from Winterent and bring quality base layers from home.",
+        partner: {
+          heading: "Winterent — Finland's largest winter clothing rental",
+          points: [
+            "The first and largest winter clothing rental company in Finland",
+            "Pick up your gear in Rovaniemi and return it in Levi — or the other way around",
+            "Winter overalls, boots, gloves and hats for adults and children"
+          ],
+          cta: "Visit winterent.fi",
+          equipmentLinkText: "Read more about equipment rental in Levi",
+          equipmentHref: "/guide/equipment-rental-in-levi"
+        }
       },
       faq: {
         title: "Frequently Asked Questions",
@@ -343,7 +372,7 @@ const translations: Record<string, {
           },
           {
             q: "Can I rent winter clothes in Levi?",
-            a: "Yes! Levi has several rental shops offering winter clothing for adults and children. Safari operators usually include thermal gear in the price."
+            a: "Yes. We recommend Winterent (winterent.fi), the first and largest winter clothing rental company in Finland. You can pick up your clothing in Rovaniemi and return it in Levi, or the other way around. Safari operators usually include thermal overalls in the price."
           },
           {
             q: "What shoes work on ice?",
@@ -461,7 +490,7 @@ const translations: Record<string, {
             name: "Schoeisel",
             tips: [
               "Waterdichte winterlaarzen (geschikt tot -30°C)",
-              "TIP: In Levi kun je snowboots huren bij Levi Ski Resort verhuurwinkels",
+              "TIP: Winterlaarzen huur je bij Winterent (winterent.fi)",
               "Dikke wollen sokken",
               "Vermijd te strakke schoenen – lucht rond je voeten isoleert"
             ]
@@ -491,21 +520,31 @@ const translations: Record<string, {
       },
       gear: {
         title: "Wat kun je huren in Levi?",
-        intro: "Je hoeft niet alles mee te nemen. In Levi kun je veel huren:",
+        intro: "Je hoeft niet alles mee te nemen — winterkleding huur je het beste ter plaatse:",
         options: [
-          "Thermo-overalls bij verhuurwinkels bij de pistes",
+          "Winterent – winterkleding voor volwassenen en kinderen (winterent.fi)",
           "Ski-uitrusting bij Levi Ski Resort (voor- en zuidpistes)",
-          "Snowboots bij verhuurwinkels in het centrum",
-          "Safari-aanbieders leveren warme kleding bij activiteiten"
+          "Safari-aanbieders leveren warme overalls bij activiteiten"
         ],
-        tip: "Onze tip: Huur zware uitrusting ter plaatse, maar breng zelf mee: thermokleding, fleece, je eigen winterjas, wollen sokken, muts en wanten."
+        tip: "Onze tip: Huur je buitenkleding bij Winterent en breng zelf mee: thermokleding, fleece, wollen sokken, muts en wanten.",
+        partner: {
+          heading: "Winterent — de grootste winterkledingverhuur van Finland",
+          points: [
+            "Het eerste en grootste winterkledingverhuurbedrijf van Finland",
+            "Haal je kleding op in Rovaniemi en lever ze in Levi in — of andersom",
+            "Winteroveralls, laarzen, handschoenen en mutsen voor volwassenen en kinderen"
+          ],
+          cta: "Ga naar winterent.fi",
+          equipmentLinkText: "Lees meer over uitrustingverhuur in Levi",
+          equipmentHref: "/guide/equipment-rental-in-levi"
+        }
       },
       faq: {
         title: "Veelgestelde vragen",
         items: [
           {
             q: "Moet ik winterkleding kopen voor Lapland?",
-            a: "De meeste verhuurpakketten bevatten thermo-overalls en laarzen. Breng wel je eigen basislagen mee: thermokleding, fleece en wollen sokken."
+            a: "Nee. Huur je winterkleding bij Winterent (winterent.fi), het eerste en grootste winterkledingverhuurbedrijf van Finland — ophalen in Rovaniemi en inleveren in Levi kan ook. Breng wel je eigen basislagen mee: thermokleding, fleece en wollen sokken."
           },
           {
             q: "Wat trek ik aan onder de thermo-overall?",
@@ -513,7 +552,7 @@ const translations: Record<string, {
           },
           {
             q: "Kan ik ski-uitrusting huren in Levi?",
-            a: "Ja, er zijn meerdere verhuurwinkels bij de voorpistes en zuidpistes. Je kunt ook snowboots en winterkleding huren."
+            a: "Ja, ski's en snowboards huur je bij Levi Ski Resort bij de voor- en zuidpistes. Winterkleding en laarzen huur je bij Winterent."
           },
           {
             q: "Hoe koud wordt het echt in Levi?",
@@ -772,6 +811,49 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
                 </li>
               ))}
             </ul>
+
+            {/* Winterent partner card */}
+            <Card className="bg-card border-border mb-4">
+              <CardContent className="pt-6">
+                <img
+                  src={winterentLogo.url}
+                  alt="Winterent"
+                  width={220}
+                  height={52}
+                  loading="lazy"
+                  className="h-10 w-auto mb-4 dark:invert"
+                />
+                <h3 className="font-semibold text-foreground mb-3">
+                  {t.sections.gear.partner.heading}
+                </h3>
+                <ul className="space-y-2 mb-5">
+                  {t.sections.gear.partner.points.map((point, index) => (
+                    <li key={index} className="flex items-start gap-2 text-foreground/80">
+                      <span className="text-primary">✓</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap items-center gap-4">
+                  <Button asChild>
+                    <a
+                      href="https://winterent.fi"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t.sections.gear.partner.cta}
+                    </a>
+                  </Button>
+                  <Link
+                    to={t.sections.gear.partner.equipmentHref}
+                    className="text-primary hover:underline text-sm"
+                  >
+                    {t.sections.gear.partner.equipmentLinkText}
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+
             <p className="text-sm bg-primary/10 p-4 rounded-lg text-foreground/90">
               💡 {t.sections.gear.tip}
             </p>

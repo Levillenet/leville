@@ -1,36 +1,38 @@
 ## Tavoite
 
-Nostaa Joulu Lapissa -kortti näyttävämmäksi Levi-oppaan pääsivulla (`/levi`) punaisella joulutunnelmalla ja hienovaraisilla revontulilla, sekä lisätä lyhyet jako-URL:t `/joulu` ja `/xmas`.
+Poistetaan kaikki muut talvivaatevuokraamomaininnat sivustolta ja nostetaan **Winterent (winterent.fi)** ainoaksi suositelluksi vaatevuokraajaksi: alan ensimmäinen ja Suomen suurin, vaatteet voi vuokrata Rovaniemeltä ja palauttaa Levillä tai päinvastoin. Kaikki kieliversiot varmistetaan.
 
 ## Muutokset
 
-### 1. `src/pages/Levi.tsx` — Christmas-kortti (rivit 698–725)
-Nykyinen kortti on olemassa mutta pieni ja hillitty. Muokataan visuaalisesti näyttävämmäksi säilyttäen kortin sijainti ja käännösavaimet (`christmasTitle`, `christmasDesc`, `christmasButton`, `christmasLinks`):
+### 1. Winterent-logo assetiksi
+Ladattu logo (`Winterent_musta_teksti_pelkistetty…png`) viedään Lovable Assets -CDN:ään ja tallennetaan osoittimena `src/assets/winterent-logo.png.asset.json`. Käytetään `<img>`-elementtinä, jolla on eksplisiittiset width/height (CLS-sääntö).
 
-- Vahvempi punainen gradient-tausta (esim. `from-red-700 via-red-900 to-red-950`) valkoisella tekstillä paremman kontrastin ja jouluisen tunnelman vuoksi
-- Hienovarainen revontuli-efekti kortin yläreunaan: kaksi päällekkäistä pehmeää `blur-3xl` gradient-läiskää vihreällä ja violetilla (`from-emerald-400/30 to-purple-500/20`), animoitu hitaalla pulssilla
-- Lumihiutaleiden tiheyttä lisätään (4–5 kpl eri kokoisia ja animaatioviiveitä), tähti ja liekki säilytetään
-- Otsikko isommaksi (`text-2xl sm:text-3xl`), lisäksi pieni "🎄" tai koristeellinen alaotsikkoteksti (uusi käännösavain `christmasBadge`, esim. "Joulu 2026" / "Christmas 2026" 7 kielelle)
-- Nappi valkoisella pohjalla + punainen teksti (parempi kontrasti punaisella kortilla) hover-tilalla käänteinen
-- `Gift`-ikonin ympyrä isommaksi ja hehkuvammaksi (`shadow-lg shadow-red-500/50`)
-- Kortti spannataan koko leveydelle omalla rivillään sen sijaan että se on sisar-Card quiz-kortin kanssa samassa grid-solussa — nykyinen `<section>` sisältää sekä quiz- että christmas-kortin; erotetaan Christmas-kortti omaan sectioniin quizin jälkeen jotta se saa täyden näkyvyyden (leveä hero-tyylinen kortti)
+### 2. `src/pages/guide/WinterClothingGuide.tsx` (fi, en, nl)
+Sivulla on tällä hetkellä kolme kieliobjektia (fi, en, nl) — muut kielet käyttävät EN-sisältöä reittikartan mukaan, joten kaikki 7 kieliversiota kattuvat näillä.
 
-Kaikki 7 kielen `christmasBadge`-avainta lisätään olemassa olevaan `content`-objektiin `Levi.tsx`:ssä.
+Osiossa **"Mistä varusteet Levillä?" / "Where to Get Gear in Levi" / "Wat kun je huren in Levi?"**:
+- Poistetaan "Lappset Rental", "vuokraamot rinteillä/keskustassa" ja muut nimeämättömät vaatevuokraamomaininnat.
+- Jäljelle jää: **Winterent** (talvivaatteet) + Levi Ski Resort (vain lasketteluvälineet) + safari-operaattorit (haalarit safarin hintaan).
+- Lisätään Winterentille oma korostettu vuokrauskortti osioon: logo, otsikko, myyntipointit (Suomen suurin ja alan ensimmäinen vaatevuokraaja; nouto Rovaniemeltä ja palautus Levillä tai toisinpäin) ja nappi/linkki `https://winterent.fi` `target="_blank" rel="noopener noreferrer"`.
+- Vinkkiteksti (`tip`) muotoillaan uudelleen: vuokraa päällysvaatteet Winterentiltä, tuo aluskerrokset kotoa.
 
-### 2. `src/App.tsx` — Alias-reitit
-Lisätään `JouluLapissa`-import-lohkon lähelle kaksi uutta reittiä olemassa olevien lang-versioiden viereen:
+FAQ-vastaukset kolmella kielellä:
+- "Voiko Levillä vuokrata talvivaatteita?" → vastaus nimeää Winterentin ja Rovaniemi–Levi-ristiinpalautuksen; poistetaan "useita vuokraamoja".
+- NL: `Kan ik ski-uitrusting huren in Levi?` ja `Moet ik winterkleding kopen…` -vastauksista poistetaan yleiset "verhuurwinkels"-vaatemaininnat, tilalle Winterent.
+- NL-jalkinekohta ("snowboots huren bij Levi Ski Resort verhuurwinkels") → Winterent.
 
-```tsx
-<Route path="/joulu" element={<JouluLapissa />} />
-<Route path="/xmas" element={<JouluLapissa lang="en" />} />
-```
+### 3. `src/pages/guide/EquipmentRentalLevi.tsx` (välineiluopas)
+- Rivi "Talvivaatteita (haalari, hanskat, kengät) osasta vuokraamoista" → korvataan Winterent-maininnalla ja ulkoisella linkillä; muu välinevuokraussisältö (sukset, laudat, monot) jätetään ennalleen.
+- Lisätään lyhyt Winterent-rivi/linkki "Mistä varusteet"-osioon.
 
-Molemmat renderöivät saman `JouluLapissa`-komponentin (200-alias-strategia — ei redirectejä). `/joulu` palvelee suomenkielisen version, `/xmas` englanninkielisen. Kanoninen URL säilyy `/levi/joulu-lapissa` ja `/en/levi/christmas-in-lapland` — komponentin `SeoMeta` asettaa canonicalin, joten aliakset eivät luo duplikaattisisältöä hakukoneille.
-
-### 3. Sitemap
-Ei muutoksia — aliakset ovat vain jakoa varten, kanoninen URL on jo sitemapissa. Näin vältetään ghost URL / duplikaattiongelmat (memory: ghost-url-prevention).
+### 4. Ristiviittaukset
+Talvivaateoppaan Winterent-kortista linkki myös välineiluoppaaseen ja päinvastoin, jotta vaatevuokraus löytyy molemmista suunnista.
 
 ## Ei muutoksia
-- `JouluLapissa.tsx` sisältöön tai käännöksiin
-- Muihin kortteihin `/levi`-sivulla
-- Muihin kieliin `christmasLinks`-mapissä
+- Sivujen rakenne, otsikot, meta-tiedot tai layout eivät muutu — vain vuokraussisällön tekstit ja uusi Winterent-kortti.
+- Kuivauskaappi-/kiinteistötekstit (propertyTranslations) eivät liity vaatevuokraukseen, ne jäävät koskematta.
+- Sitemap ja reitit ennallaan.
+
+## Tekniset huomiot
+- Winterent on ulkoinen kumppani → kaikki linkit `target="_blank"` (muistisääntö).
+- Logokortissa käytetään semanttisia design-tokeneita (`bg-card`, `border-border`), ei kovakoodattuja värejä.
