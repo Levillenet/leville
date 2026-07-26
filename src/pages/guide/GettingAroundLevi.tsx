@@ -200,6 +200,7 @@ const translations = {
       links: [
         { title: "How to Get to Levi", desc: "Flights, trains and driving", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
         { title: "Levi Without a Car", desc: "Complete car-free guide", href: "/guide/levi-without-a-car" },
+        { title: "Driving in Lapland", desc: "Winter tyres, reindeer and cold-weather tips", href: "/guide/driving-in-lapland" },
         { title: "Restaurants & Services", desc: "Levi center services", href: "/guide/restaurants-and-services-in-levi" },
         { title: "Levi With Children", desc: "Getting around with kids", href: "/guide/levi-with-children" },
       ],

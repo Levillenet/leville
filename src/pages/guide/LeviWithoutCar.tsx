@@ -255,6 +255,7 @@ const translations = {
       links: [
         { title: "How to Get to Levi", desc: "Flights and trains to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
         { title: "Getting Around Levi", desc: "Ski buses and taxis", href: "/guide/getting-around-in-levi" },
+        { title: "Driving in Lapland", desc: "Winter tyres, reindeer and cold-weather tips", href: "/guide/driving-in-lapland" },
         { title: "Skiing in Levi", desc: "Slopes within walking distance", href: "/guide/skiing-in-levi" },
         { title: "Restaurants & Services", desc: "Everything in the center", href: "/guide/restaurants-and-services-in-levi" },
       ],
