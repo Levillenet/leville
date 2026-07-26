@@ -810,6 +810,49 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
                 </li>
               ))}
             </ul>
+
+            {/* Winterent partner card */}
+            <Card className="bg-card border-border mb-4">
+              <CardContent className="pt-6">
+                <img
+                  src={winterentLogo.url}
+                  alt="Winterent"
+                  width={220}
+                  height={52}
+                  loading="lazy"
+                  className="h-10 w-auto mb-4 dark:invert"
+                />
+                <h3 className="font-semibold text-foreground mb-3">
+                  {t.sections.gear.partner.heading}
+                </h3>
+                <ul className="space-y-2 mb-5">
+                  {t.sections.gear.partner.points.map((point, index) => (
+                    <li key={index} className="flex items-start gap-2 text-foreground/80">
+                      <span className="text-primary">✓</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap items-center gap-4">
+                  <Button asChild>
+                    <a
+                      href="https://winterent.fi"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t.sections.gear.partner.cta}
+                    </a>
+                  </Button>
+                  <Link
+                    to={t.sections.gear.partner.equipmentHref}
+                    className="text-primary hover:underline text-sm"
+                  >
+                    {t.sections.gear.partner.equipmentLinkText}
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+
             <p className="text-sm bg-primary/10 p-4 rounded-lg text-foreground/90">
               💡 {t.sections.gear.tip}
             </p>
