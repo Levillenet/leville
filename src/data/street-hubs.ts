@@ -65,12 +65,12 @@ export const streetHubs: StreetHub[] = [
   {
     slug: "skimbaajankuja-levi",
     street: "Skimbaajankuja",
-    h1: "Bear Lodge / Karhupirtti Levi – 14 hengen hirsihuvila Etelärinteellä",
+    h1: "Bear Lodge / Karhupirtti Levi – 14 hengen hirsihuvila Levin keskustassa",
     metaTitle: "Bear Lodge / Karhupirtti Levi – 14 hengen hirsihuvila | Leville.net",
     metaDescription:
-      "Bear Lodge Karhupirtti Levillä: 14 hengen hirsihuvila, oma ulkoporeallas, sauna ja takka Etelärinteellä. 7 makuuhuonetta – varaa suoraan ilman välityspalkkioita.",
+      "Bear Lodge Karhupirtti Levin keskustassa päärinteen alueella: 14 hengen hirsihuvila, ulkoporeallas, sauna ja takka. Varaa suoraan ilman välityspalkkioita.",
     brandNames: ["Bear Lodge", "Bear Lodge Levi", "Karhupirtti", "Karhupirtti Levi"],
-    locationLabel: "Etelärinne, keskusta",
+    locationLabel: "Levin keskusta, päärinteen alue",
     capacityLabel: "14 hlö",
     subtitle:
       "Tunnelmallinen hirsihuvila ulkoporealtaalla Levin keskustassa.",
