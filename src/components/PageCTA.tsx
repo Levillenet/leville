@@ -32,6 +32,7 @@ const PageCTA = ({ lang = "fi" }: PageCTAProps) => {
               href={moderUrl}
               target="_blank"
               rel="noopener noreferrer"
+              data-booking-source="page-cta"
               className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-3 rounded-xl transition-colors"
             >
               {c.bookLabel}
