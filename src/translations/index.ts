@@ -101,6 +101,8 @@ export const routeConfig = {
   christmasDinnerFI: { fi: "/opas/jouluillallinen-levilla", en: "/opas/jouluillallinen-levilla", sv: "/opas/jouluillallinen-levilla", de: "/opas/jouluillallinen-levilla", es: "/opas/jouluillallinen-levilla", fr: "/opas/jouluillallinen-levilla", nl: "/opas/jouluillallinen-levilla" },
   latuinfo: { fi: "/latuinfo", en: "/en/levi", sv: "/sv/levi", de: "/de/levi", es: "/es/levi", fr: "/fr/levi", nl: "/nl/levi" },
   laplandGlossary: { fi: "/opas/lapin-sanasto", en: "/guide/lapland-glossary", sv: "/guide/lapland-glossary", de: "/guide/lapland-glossary", es: "/guide/lapland-glossary", fr: "/guide/lapland-glossary", nl: "/guide/lapland-glossary" },
+  leviAreas: { fi: "/opas/levin-alueet", en: "/guide/levi-areas", sv: "/guide/levi-areas", de: "/guide/levi-areas", es: "/guide/levi-areas", fr: "/guide/levi-areas", nl: "/guide/levi-areas" },
+
   pricesInLevi: { fi: "/opas/hinnat-levilla", en: "/guide/prices-in-levi", sv: "/opas/hinnat-levilla", de: "/opas/hinnat-levilla", es: "/opas/hinnat-levilla", fr: "/opas/hinnat-levilla", nl: "/nl/gids/prijzen-in-levi" },
   // Additional guide pages
   cabinVsApartment: { fi: "/opas/mokki-vai-huoneisto-levi", en: "/guide/cabin-vs-apartment-in-levi", sv: "/guide/cabin-vs-apartment-in-levi", de: "/guide/cabin-vs-apartment-in-levi", es: "/guide/cabin-vs-apartment-in-levi", fr: "/guide/cabin-vs-apartment-in-levi", nl: "/guide/cabin-vs-apartment-in-levi" },
