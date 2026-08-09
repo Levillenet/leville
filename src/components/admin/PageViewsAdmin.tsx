@@ -82,6 +82,8 @@ const EVENT_LABELS: Record<string, string> = {
   "/event/booking-sticky-bar": "Varaa tästä (alareunan palkki)",
   "/event/booking-page-cta": "Sivun CTA-painike",
   "/event/booking-link": "Muut varauslinkit",
+  "/event/booking-header": "Yläpalkin varauslinkki",
+  "/event/booking-features": "Etusivun nostot",
   "/event/site-search": "Sivuhaku (klikkaus)",
   "/event/site-search-abandon": "Sivuhaku (ei tulosta)",
 };
@@ -354,12 +356,14 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   }
   const getConvCount = (type: string) => conversionCounts[type] || 0;
 
-  // Build full conversion list (always show all 4 types)
+  // Build full conversion list (always show all 6 booking types)
   const allConversionTypes = [
     "/event/booking-search-widget",
     "/event/booking-sticky-bar",
     "/event/booking-page-cta",
     "/event/booking-link",
+    "/event/booking-header",
+    "/event/booking-features",
     "/event/site-search",
     "/event/site-search-abandon",
   ];
@@ -456,6 +460,8 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
           <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-2" />} label="Varaa tästä -palkki" value={getConvCount("/event/booking-sticky-bar")} colorClass="bg-chart-2/10" />
           <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-3" />} label="Sivun CTA" value={getConvCount("/event/booking-page-cta")} colorClass="bg-chart-3/10" />
           <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-4" />} label="Muut varauslinkit" value={getConvCount("/event/booking-link")} colorClass="bg-chart-4/10" />
+          <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-primary" />} label="Yläpalkki" value={getConvCount("/event/booking-header")} colorClass="bg-primary/10" />
+          <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-6" />} label="Etusivun nostot" value={getConvCount("/event/booking-features")} colorClass="bg-chart-6/10" />
         </div>
       </div>
 

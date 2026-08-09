@@ -143,6 +143,7 @@ const Header = () => {
                 href={bookNowHref} 
                 target="_blank" 
                 rel="noopener noreferrer"
+                data-booking-source="header"
               >
                 {bookNowLabel}
               </a>
@@ -194,6 +195,7 @@ const Header = () => {
                   href={bookNowHref} 
                   target="_blank" 
                   rel="noopener noreferrer"
+                  data-booking-source="header"
                 >
                   {bookNowLabel}
                 </a>

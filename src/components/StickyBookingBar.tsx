@@ -29,6 +29,7 @@ const StickyBookingBar = ({ lang = "fi" }: StickyBookingBarProps) => {
         href={getModerUrl()}
         target="_blank"
         rel="noopener noreferrer"
+        data-booking-source="sticky-bar"
         className="flex items-center justify-center gap-2 py-3 md:py-2.5 text-primary-foreground font-semibold text-base md:text-sm hover:bg-primary/90 transition-colors"
       >
         {text[lang]}

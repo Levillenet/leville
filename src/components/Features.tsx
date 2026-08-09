@@ -164,6 +164,7 @@ const Features = ({ lang = "fi" }: FeaturesProps) => {
                 href={lang === "fi" ? "https://app.moder.fi/levillenet" : "https://app.moder.fi/levillenet?lang=en"}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-booking-source="features"
                 className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 py-3 rounded-xl transition-colors"
               >
                 {lang === "fi" ? "Varaa majoitus" : lang === "en" ? "Book accommodation" : lang === "sv" ? "Boka boende" : lang === "de" ? "Unterkunft buchen" : lang === "es" ? "Reservar alojamiento" : lang === "nl" ? "Boek accommodatie" : "Réserver un hébergement"}
