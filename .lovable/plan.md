@@ -1,21 +1,48 @@
-## Ongelma
+# Levin alueet -opassivu (vaihe 1/2)
 
-`/vuokramokit/skimbaajankuja-levi` -sivun sisältö tulee `src/data/street-hubs.ts`:n Skimbaajankuja-objektista. Sen kentissä sanotaan Karhupirtin sijaitsevan Etelärinteellä:
+Uusi suomenkielinen opassivu, joka esittelee Levin 14 majoitusaluetta korttimuodossa: etäisyys keskustaan, liikkumistapa, majoituskanta ja kenelle alue sopii. Vaiheessa 1 tehdään vain runko ja aluekortit — vertailutaulukko, FAQ ja Read Next tulevat vaiheessa 2.
 
-- rivi 68 `h1`: "... 14 hengen hirsihuvila **Etelärinteellä**"
-- rivi 71 `metaDescription`: "... sauna ja takka **Etelärinteellä**"
-- rivi 73 `locationLabel`: "**Etelärinne**, keskusta"
+## Mitä syntyy
 
-Kävin läpi koko repon (`src`, `public`) hakusanoilla "Etelärinne / south slope / Skimbaajankuja / Karhupirtti / Bear Lodge": muualla Karhupirtti kuvataan jo oikein Levin keskustaksi (esim. `propertyTranslationsFi.ts`, `llms.txt`, `Majoitukset.tsx`). Muut osumat "Etelärinteeseen" koskevat muita kohteita tai yleisiä rinneoppaita, joihin ei kosketa.
+**Uusi tiedosto:** `src/pages/opas/LeviAreasGuide.tsx`
 
-## Korjaus
+Sivun rakenne järjestyksessä:
 
-Muokataan vain nämä kolme kenttää `src/data/street-hubs.ts`:ssa:
+```text
+SeoMeta → HreflangTags → JsonLd → Header → SubpageBackground → Breadcrumbs
+→ <main>
+     H1: Levin alueet – missä kannattaa majoittua?
+     Johdantokappale (~120 sanaa)
+     H2: Miksi keskusta voittaa lähes aina (~200 sanaa + varauslinkki)
+     H2: Levin alueet yksitellen → 14 aluekorttia
+   </main>
+→ PageCTA → Footer → WhatsAppChat → StickyBookingBar
+```
 
-1. `h1` → "Bear Lodge / Karhupirtti Levi – 14 hengen hirsihuvila Levin keskustassa"
-2. `metaDescription` → "...oma ulkoporeallas, sauna ja takka Levin keskustassa päärinteen tuntumassa. 7 makuuhuonetta – varaa suoraan ilman välityspalkkioita." (alle 160 merkkiä)
-3. `locationLabel` → "Levin keskusta, päärinteen alue"
+Komponentti ottaa propin `{ lang = "fi" }: { lang?: Language }` ja välittää `lang`-arvon Footerille, PageCTA:lle, StickyBookingBarille ja WhatsAppChatille — nämä kaikki tukevat jo `lang`-propia.
 
-Lisäksi tarkistetaan intro-tekstin (rivit 78–79) ja fakta-listan (84–87) johdonmukaisuus: ne puhuvat jo keskustasta ja Front Slope -rinteistä, joten ne jäävät ennalleen.
+**Muokataan:** `src/App.tsx` — lisätään lazy-import ja reitti `/opas/levin-alueet` samalla tavalla kuin muut `/opas/*`-sivut (esim. `SaunaLevilla`).
 
-Muuta sisältöä, rakennetta tai layoutia ei muuteta.
+## Aluedata
+
+Alueet tallennetaan tyypitettynä `Area[]`-taulukkona tiedoston alkuun (slug, nimi, etäisyys, liikkuminen, majoituskanta, kenelle sopii, kuvaus, karttahaku, korostus). Järjestys ja sisältö tulevat annetusta datasta sellaisenaan:
+
+Keskusta (korostettu) · Eturinteet · Kelorakka · Rakkavaara · Isorakka ja Keskirakka · Etelärinne/South Point · Länsirinne/West Point · Immeljärvi · Utsuvaara · Kätkä ja Kätkäjärvi · Levi Golf · Taalo · Köngäs · Levin huippu.
+
+Jokainen kortti näyttää: H3-otsikon, ikonirivin (etäisyys MapPin-ikonilla + liikkuminen Footprints/Car/Bus-ikonilla sen mukaan onko alueella kävelymatka, skibussi vai auto), kuvauskappaleen, kaksi pientä laatikkoa ("Majoituskanta" ja "Sopii parhaiten") sekä alalaidan linkin "Näytä kartalla" Google Mapsiin. Keskustan kortti saa korostetun reunuksen, eri taustan ja "Suositelluin"-merkin Star-ikonilla.
+
+## Tekniset yksityiskohdat
+
+- **SEO:** title "Levin alueet – missä kannattaa majoittua? | Leville.net", kuvaus alueiden vertailusta, canonical `https://leville.net/opas/levin-alueet`.
+- **HreflangTags:** vain `fi` ja `x-default`, molemmat samaan FI-URLiin (`customUrls`-propilla, jolloin muita kieliä ei tulosteta).
+- **JsonLd:** Article (headline "Levin alueet ja mökkialueet", author Organization "Leville.net", inLanguage "fi", about Place "Levi, Kittilä, Finland") + BreadcrumbList.
+- **Breadcrumbs:** Etusivu › Opas › Levin alueet, annetaan `items`-propina.
+- **Ikonit:** MapPin, Footprints, Car, Bus, Home, Mountain, Waves, Snowflake, ExternalLink, Star lucide-reactista.
+- **Ulkoiset linkit:** kaikki `app.moder.fi/levillenet`- ja Google Maps -linkit `target="_blank" rel="noopener noreferrer"`.
+- **Tyylit:** Tailwind, mobile-first, olemassa olevat semanttiset värit (ei kovakoodattuja värejä).
+
+Sivulle ei tule hintoja eikä sää-/lumitilannesisältöä.
+
+## Ei tässä vaiheessa
+
+Vertailutaulukko, FAQ-osio ja ReadNextSection jäävät vaiheeseen 2. Sivua ei lisätä vielä sitemapiin, hakuindeksiin eikä oppaan navigaatioon — ne kannattaa tehdä samalla kun sisältö on valmis.
