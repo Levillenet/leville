@@ -418,12 +418,62 @@ const copy = {
     bestForLabel: "Sopii parhaiten",
     mapLink: "Näytä kartalla",
     recommended: "Suositelluin",
+    tableH2: "Etäisyystaulukko",
+    tableCols: ["Alue", "Etäisyys keskustaan", "Liikkuminen", "Majoitustyyppi"],
+    chooseH2: "Näin valitset alueen",
+    chooseItems: [
+      {
+        h3: "Jos et vuokraa autoa",
+        text: "Valitse keskusta tai Eturinteet. Muilla alueilla olet skibussin aikataulun varassa, ja bussivuorot loppuvat illalla ennen kuin ravintolaillallinen on ohi. Taksin odotusaika ruuhkaviikonloppuna voi olla puoli tuntia.",
+      },
+      {
+        h3: "Jos laskettelu on lomasi ainoa sisältö",
+        text: "Etelärinne ja West Point tarjoavat aidon ski-in/ski-out-sijainnin, ja West Pointissa hissille on parikymmentä metriä. Vastineeksi illat vietetään mökillä: keskustan ravintolat ja kaupat ovat ajomatkan päässä.",
+      },
+      {
+        h3: "Jos haet rauhaa ja revontulia",
+        text: "Immeljärvi, Kätkä ja Köngäs ovat kylän valojen ulkopuolella, mikä auttaa revontulien näkymisessä. Varaudu ajamaan jokaiselle kauppareissulle ja aktiviteetille.",
+      },
+    ],
+    chooseCtaLink: "Tarkista vapaat päivät keskustan kohteissamme",
+    chooseCtaTail:
+      " — kaikki huoneistomme ja mökkimme ovat kävelymatkan päässä Levin palveluista.",
+    faqH2: "Usein kysytyt kysymykset",
+    faq: [
+      {
+        q: "Mikä on Levin paras alue majoittua?",
+        a: "Useimmille keskusta. Se on ainoa alue, jolta pääsee kävellen sekä rinteille, kauppoihin että ravintoloihin, eikä auto tai taksi ole tarpeen. Rinnemajoitusta etsivälle Etelärinne ja West Point ovat vaihtoehtoja, luonnonrauhaa hakevalle Immeljärvi tai Kätkä.",
+      },
+      {
+        q: "Tarvitseeko Levillä autoa?",
+        a: "Keskustassa ja Eturinteillä et tarvitse. Muilla alueilla auto on käytännössä välttämätön, ellei skibussin aikataulu satu sopimaan päivärytmiisi. Köngäs ja Kätkä eivät toimi lainkaan ilman autoa.",
+      },
+      {
+        q: "Mitä ski-in/ski-out tarkoittaa Levillä?",
+        a: "Että pääset majoituksesta suksilla rinteeseen ja takaisin ilman kuljetusta. Levillä aidoin ski-in/ski-out on West Pointissa ja osassa Etelärinteen kohteita. Keskustassa matka Zero Pointille on kävellen muutama minuutti, mikä käytännössä vastaa samaa.",
+      },
+      {
+        q: "Kuinka kaukana Kittilän lentoasema on Levin keskustasta?",
+        a: "Noin 15 kilometriä, ajoaika noin 20 minuuttia. Lentojen aikatauluihin on kuljetusyhteydet, ja taksit odottavat terminaalilla.",
+        linkPhrase: "Kittilän lentoasema",
+        linkHref: "/matka/miten-paasee-leville-helsingista",
+      },
+    ],
+    readNextTitle: "Lue seuraavaksi",
+    readNext: [
+      { title: "Levin majoitus – kaikki kohteemme", desc: "Selaa kaikkia huoneistoja ja mökkejä.", href: "/majoitukset" },
+      { title: "Laskettelu Levillä", desc: "Rinteet, hissiliput ja hiihtokoulu.", href: "/opas/laskettelu-levi" },
+      { title: "Miten Leville pääsee", desc: "Lennot, junat ja autoilu Helsingistä ja ulkomailta.", href: "/matka/miten-paasee-leville-helsingista" },
+      { title: "Liikkuminen Levillä ja skibussi", desc: "Skibussit, taksit ja autonvuokraus.", href: "/opas/liikkuminen-levilla" },
+      { title: "Revontulet Levillä", desc: "Milloin ja mistä revontulet näkyvät parhaiten.", href: "/revontulet" },
+    ],
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Opas", href: "/opas/matkaopas-levi" },
       { label: "Levin alueet", href: "/opas/levin-alueet" },
     ],
   },
+
   en: {
     title: "Levi Areas – Where to Stay in Levi, Lapland | Leville.net",
     description:
