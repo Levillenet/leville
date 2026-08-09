@@ -446,7 +446,7 @@ const copy = {
     recommended: "Most recommended",
     breadcrumbs: [
       { label: "Home", href: "/en" },
-      { label: "Guide", href: "/guide/levi-travel-guide" },
+      { label: "Guide", href: "/guide/travel-to-levi" },
       { label: "Levi areas", href: "/guide/levi-areas" },
     ],
   },
@@ -619,7 +619,7 @@ const LeviAreasGuide = ({ lang = "fi" }: LeviAreasGuideProps) => {
 
           <div className="mt-10">
             <Button asChild variant="outline">
-              <Link to={lang === "en" ? "/accommodations" : "/majoitukset"}>
+              <Link to={lang === "en" ? "/en/accommodations" : "/majoitukset"}>
                 {lang === "en" ? "Browse all accommodation" : "Selaa kaikkia majoituksia"}
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Link>
