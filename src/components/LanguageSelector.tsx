@@ -22,9 +22,11 @@ const LanguageSelector = () => {
 
   const handleLanguageChange = (lang: Language) => {
     if (lang === currentLang) return;
-    const newPath = getRouteForLanguage(location.pathname, lang);
+    const newPath = getRouteForLanguage(location.pathname, lang, { stayOnPage: true });
+    if (newPath === location.pathname) return;
     navigate(newPath);
   };
+
 
   return (
     <DropdownMenu>
