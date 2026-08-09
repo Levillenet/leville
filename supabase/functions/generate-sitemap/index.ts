@@ -2,7 +2,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { SITEMAP_ROUTES, type SitemapRoute } from "../_shared/sitemapRoutes.ts";
 import { PROPERTY_SLUGS } from "../_shared/propertySlugs.ts";
 
-const BASE_URL = "https://leville.net";
+const BASE_URL = "https://leville.net"; // canonical domain
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
