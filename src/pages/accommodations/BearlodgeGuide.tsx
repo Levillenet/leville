@@ -4,6 +4,9 @@ import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import PageCTA from "@/components/PageCTA";
+import StickyBookingBar from "@/components/StickyBookingBar";
+import WhatsAppChat from "@/components/WhatsAppChat";
 import {
   Clock, Phone, Mail, Wifi, Flame, Droplets, Car, ShieldCheck,
   ChefHat, WashingMachine, Thermometer, ArrowRight,
@@ -735,7 +738,10 @@ const BearlodgeGuide = ({ lang = "en" }: BearlodgeGuideProps) => {
         </div>
       </main>
 
+      <PageCTA lang={lang} />
       <Footer lang={lang} />
+      <WhatsAppChat lang={lang} />
+      <StickyBookingBar lang={lang} />
     </>
   );
 };
