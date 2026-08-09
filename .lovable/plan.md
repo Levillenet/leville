@@ -1,48 +1,28 @@
-# Levin alueet -opassivu (vaihe 1/2)
+# Kielenvaihto pysyy sivulla + Levin huippu pois aluelistalta
 
-Uusi suomenkielinen opassivu, joka esittelee Levin 14 majoitusaluetta korttimuodossa: etäisyys keskustaan, liikkumistapa, majoituskanta ja kenelle alue sopii. Vaiheessa 1 tehdään vain runko ja aluekortit — vertailutaulukko, FAQ ja Read Next tulevat vaiheessa 2.
+## 1. Kielenvaihto ei enää heitä etusivulle
 
-## Mitä syntyy
+Nykytila (varmistettu koodista): `getRouteForLanguage` etsii polkua `routeConfig`-taulukosta täsmäosumalla. Jos osumaa ei löydy (esim. dynaamiset osoitteet kuten `/majoitukset/<slug>`, `/vuokramokit/<hub>`, kuukausioppaat), se palauttaa kohdekielen etusivun — tästä hyppy etusivulle tulee.
 
-**Uusi tiedosto:** `src/pages/opas/LeviAreasGuide.tsx`
+Korjaus `src/translations/index.ts`:n `getRouteForLanguage`-funktioon, kolmiportainen logiikka:
 
-Sivun rakenne järjestyksessä:
+1. **Täsmäosuma** `routeConfig`-taulukosta (nykyinen toiminta, säilyy).
+2. **Dynaamiset alipolut**: jos polku alkaa jollain routeConfig-polulla ja sen perässä on slug (esim. `/majoitukset/glacier-a1` tai `/en/accommodations/glacier-a1`), vaihdetaan vain etuliite ja säilytetään slug.
+3. **Kieliprefiksin vaihto**: jos polku alkaa kieliprefiksillä (`/en/…`, `/sv/…` jne.), vaihdetaan pelkkä prefiksi kohdekieleen.
+4. **Fallback = pysy sivulla**: jos mitään käännösvastinetta ei löydy, palautetaan nykyinen polku eikä etusivua.
 
-```text
-SeoMeta → HreflangTags → JsonLd → Header → SubpageBackground → Breadcrumbs
-→ <main>
-     H1: Levin alueet – missä kannattaa majoittua?
-     Johdantokappale (~120 sanaa)
-     H2: Miksi keskusta voittaa lähes aina (~200 sanaa + varauslinkki)
-     H2: Levin alueet yksitellen → 14 aluekorttia
-   </main>
-→ PageCTA → Footer → WhatsAppChat → StickyBookingBar
-```
+`src/components/LanguageSelector.tsx`: jos laskettu uusi polku on sama kuin nykyinen, ei navigoida (ei turhaa reloadia). Muuten komponentti pysyy ennallaan.
 
-Komponentti ottaa propin `{ lang = "fi" }: { lang?: Language }` ja välittää `lang`-arvon Footerille, PageCTA:lle, StickyBookingBarille ja WhatsAppChatille — nämä kaikki tukevat jo `lang`-propia.
+Huom. hreflang: `HreflangTags` käyttää samaa funktiota. Jotta ei synny haamu-URLeja, hreflang-puolella käytetään edelleen vain aitoja käännösvastineita — fallback "pysy sivulla" rajataan koskemaan vain käyttäjän kielenvaihtoa, ei hreflang-tuotosta (erillinen parametri/apufunktio).
 
-**Muokataan:** `src/App.tsx` — lisätään lazy-import ja reitti `/opas/levin-alueet` samalla tavalla kuin muut `/opas/*`-sivut (esim. `SaunaLevilla`).
+## 2. Levin huippu / Levi Summit poistetaan
 
-## Aluedata
-
-Alueet tallennetaan tyypitettynä `Area[]`-taulukkona tiedoston alkuun (slug, nimi, etäisyys, liikkuminen, majoituskanta, kenelle sopii, kuvaus, karttahaku, korostus). Järjestys ja sisältö tulevat annetusta datasta sellaisenaan:
-
-Keskusta (korostettu) · Eturinteet · Kelorakka · Rakkavaara · Isorakka ja Keskirakka · Etelärinne/South Point · Länsirinne/West Point · Immeljärvi · Utsuvaara · Kätkä ja Kätkäjärvi · Levi Golf · Taalo · Köngäs · Levin huippu.
-
-Jokainen kortti näyttää: H3-otsikon, ikonirivin (etäisyys MapPin-ikonilla + liikkuminen Footprints/Car/Bus-ikonilla sen mukaan onko alueella kävelymatka, skibussi vai auto), kuvauskappaleen, kaksi pientä laatikkoa ("Majoituskanta" ja "Sopii parhaiten") sekä alalaidan linkin "Näytä kartalla" Google Mapsiin. Keskustan kortti saa korostetun reunuksen, eri taustan ja "Suositelluin"-merkin Star-ikonilla.
+`src/pages/opas/LeviAreasGuide.tsx`:
+- Poistetaan aluekortti `slug: "huippu"` sekä suomen- (rivit ~251) että englanninkielisestä (~425) aluelistasta.
+- Poistetaan sitä koskeva rivi etäisyystaulukosta (taulukko generoituu samasta listasta, joten poistuu automaattisesti) ja tarkistetaan, ettei "Näin valitset alueen" -osiossa, FAQ:ssa tai johdannossa viitata huippumajoitukseen tai aluemäärään "14" — mahdolliset maininnat päivitetään 13 alueeseen.
 
 ## Tekniset yksityiskohdat
 
-- **SEO:** title "Levin alueet – missä kannattaa majoittua? | Leville.net", kuvaus alueiden vertailusta, canonical `https://leville.net/opas/levin-alueet`.
-- **HreflangTags:** vain `fi` ja `x-default`, molemmat samaan FI-URLiin (`customUrls`-propilla, jolloin muita kieliä ei tulosteta).
-- **JsonLd:** Article (headline "Levin alueet ja mökkialueet", author Organization "Leville.net", inLanguage "fi", about Place "Levi, Kittilä, Finland") + BreadcrumbList.
-- **Breadcrumbs:** Etusivu › Opas › Levin alueet, annetaan `items`-propina.
-- **Ikonit:** MapPin, Footprints, Car, Bus, Home, Mountain, Waves, Snowflake, ExternalLink, Star lucide-reactista.
-- **Ulkoiset linkit:** kaikki `app.moder.fi/levillenet`- ja Google Maps -linkit `target="_blank" rel="noopener noreferrer"`.
-- **Tyylit:** Tailwind, mobile-first, olemassa olevat semanttiset värit (ei kovakoodattuja värejä).
-
-Sivulle ei tule hintoja eikä sää-/lumitilannesisältöä.
-
-## Ei tässä vaiheessa
-
-Vertailutaulukko, FAQ-osio ja ReadNextSection jäävät vaiheeseen 2. Sivua ei lisätä vielä sitemapiin, hakuindeksiin eikä oppaan navigaatioon — ne kannattaa tehdä samalla kun sisältö on valmis.
+- Muutettavat tiedostot: `src/translations/index.ts`, `src/components/LanguageSelector.tsx`, `src/pages/opas/LeviAreasGuide.tsx`.
+- Ei muutoksia reititykseen, sivukarttaan tai sisältöön muilta osin.
+- Tarkistus selaimella: siirrytään esim. `/guide/levi-areas`- ja `/majoitukset/<slug>`-sivuille ja vaihdetaan kieli — käyttäjän pitää pysyä vastaavalla sivulla.
