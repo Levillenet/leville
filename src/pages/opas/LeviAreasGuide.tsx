@@ -247,18 +247,6 @@ const areasFi: Area[] = [
       "Köngäs on oikea lappilainen kylä Ounasjoen varrella, noin kymmenen kilometriä Leviltä pohjoiseen. Alueella on omat ravintolansa ja husky- sekä porotiloja. Levin rinteille ajaa reilussa kymmenessä minuutissa.",
     mapQuery: "Köngäs, Kittilä, Finland",
   },
-  {
-    slug: "huippu",
-    name: "Levin huippu",
-    distance: "Tunturin laella",
-    transport: "car",
-    transportLabel: "Auto tai gondoli",
-    stock: "Muutamia huippumökkejä ja erikoiskohteita",
-    bestFor: "Maisemien maksimointi ja erityiset juhlat",
-    description:
-      "Tunturin laella majoittuminen on Levin erikoisin vaihtoehto: näkymät ulottuvat kymmenien kilometrien päähän ja revontulet näkyvät suoraan ikkunasta. Kohteita on vähän ja ne varataan usein hyvissä ajoin.",
-    mapQuery: "Levin huippu, Kittilä, Finland",
-  },
 ];
 
 const areasEn: Area[] = [
@@ -421,18 +409,6 @@ const areasEn: Area[] = [
       "Köngäs is a genuine Lappish village on the banks of the Ounasjoki river, about ten kilometres north of Levi. It has its own restaurants plus husky and reindeer farms, and the Levi slopes are a drive of just over ten minutes away.",
     mapQuery: "Köngäs, Kittilä, Finland",
   },
-  {
-    slug: "huippu",
-    name: "Levi Summit",
-    distance: "On top of the fell",
-    transport: "car",
-    transportLabel: "Car or gondola",
-    stock: "A handful of summit cabins and special properties",
-    bestFor: "Maximum views and special occasions",
-    description:
-      "Staying on the summit is the most unusual option in Levi: views stretch for tens of kilometres and the northern lights appear straight through the window. There are only a few properties and they are usually booked well in advance.",
-    mapQuery: "Levi summit, Kittilä, Finland",
-  },
 ];
 
 const copy = {
@@ -442,7 +418,7 @@ const copy = {
       "Levin majoitusalueet vertailussa: keskusta, Eturinteet, Rakka, Etelärinne, Immeljärvi, Köngäs ja muut. Etäisyydet, liikkuminen ja kenelle kukin alue sopii.",
     h1: "Levin alueet – missä kannattaa majoittua?",
     intro:
-      "Levi ei ole yksi paikka vaan joukko hyvin erilaisia alueita. Keskustassa kaikki on kävelymatkan päässä, mökkialueilla saat rauhaa ja tilaa, ja järvenrannoilla loma rakentuu luonnon ympärille. Alueen valinta ratkaisee, tarvitsetko auton, kuinka paljon aikaa kuluu siirtymiin ja millainen tunnelma lomallesi tulee. Tähän oppaaseen on koottu Levin 14 majoitusaluetta: etäisyys keskustaan, käytännöllisin liikkumistapa, millaista majoitusta alueelta löytyy ja kenelle alue parhaiten sopii. Näin voit valita alueen ensin ja majoituksen vasta sen jälkeen.",
+      "Levi ei ole yksi paikka vaan joukko hyvin erilaisia alueita. Keskustassa kaikki on kävelymatkan päässä, mökkialueilla saat rauhaa ja tilaa, ja järvenrannoilla loma rakentuu luonnon ympärille. Alueen valinta ratkaisee, tarvitsetko auton, kuinka paljon aikaa kuluu siirtymiin ja millainen tunnelma lomallesi tulee. Tähän oppaaseen on koottu Levin 13 majoitusaluetta: etäisyys keskustaan, käytännöllisin liikkumistapa, millaista majoitusta alueelta löytyy ja kenelle alue parhaiten sopii. Näin voit valita alueen ensin ja majoituksen vasta sen jälkeen.",
     whyH2: "Miksi keskusta voittaa lähes aina",
     why: [
       "Suurin osa vieraistamme päätyy keskustaan, ja syy on käytännöllinen. Kun majoitut kävelymatkan päässä rinteistä ja ravintoloista, loman rytmi muuttuu: aamulla ei tarvitse lastata suksia autoon, lounaalle voi tulla takaisin mökille ja illallisen jälkeen ei tarvitse miettiä kuka ajaa. Perheiden kanssa tämä on iso ero – väsyneen lapsen kanssa kymmenen minuutin kävely on aivan eri asia kuin bussin odottaminen pakkasessa.",
@@ -520,7 +496,7 @@ const copy = {
       "A guide to every area in Levi: village centre, front slopes, Rakka cabin areas, South Point, Lake Immeljärvi, Köngäs and more. Distances, getting around and who each area suits.",
     h1: "Levi areas – where should you stay?",
     intro:
-      "Levi is not one place but a collection of very different areas. In the village centre everything is within walking distance; in the cabin areas you get space and quiet; by the lakes the holiday is built around nature. The area you choose decides whether you need a car, how much time you spend in transit and what the atmosphere of your trip feels like. This guide covers all 14 accommodation areas in Levi: the distance to the centre, the most practical way to get around, what kind of properties you will find and who each area suits best — so you can choose the area first and the property second.",
+      "Levi is not one place but a collection of very different areas. In the village centre everything is within walking distance; in the cabin areas you get space and quiet; by the lakes the holiday is built around nature. The area you choose decides whether you need a car, how much time you spend in transit and what the atmosphere of your trip feels like. This guide covers all 13 accommodation areas in Levi: the distance to the centre, the most practical way to get around, what kind of properties you will find and who each area suits best — so you can choose the area first and the property second.",
     whyH2: "Why the village centre wins almost every time",
     why: [
       "Most of our guests end up in the centre, and the reason is practical. When you stay within walking distance of the slopes and restaurants, the rhythm of the holiday changes: no loading skis into a car in the morning, you can pop back for lunch, and after dinner nobody has to be the designated driver. With families the difference is significant — a ten-minute walk with a tired child is not the same as waiting for a bus in freezing temperatures.",
