@@ -251,7 +251,7 @@ const App = () => {
               <Route path="/xmas" element={<JouluLapissa lang="en" />} />
               <Route path="/levi/saatieto-levilta" element={<WeatherInLevi />} />
                <Route path="/lumitilanne" element={<LeviSnowReport lang="fi" />} />
-               <Route path="/snowreport" element={<LeviSnowReport lang="en" />} />
+               <Route path="/snowreport" element={<Navigate to="/en/snowreport" replace />} />
                <Route path="/levi/lumitilanne" element={<Navigate to="/lumitilanne" replace />} />
               <Route path="/revontulet" element={<Revontulet />} />
               <Route path="/yhteystiedot" element={<Yhteystiedot />} />
@@ -373,7 +373,7 @@ const App = () => {
               <Route path="/nl/gids/zomer-in-levi" element={<SummerInLevi lang="nl" />} />
               <Route path="/nl/gids/herfst-ruska-in-levi" element={<AutumnRuskaInLevi lang="nl" />} />
               <Route path="/nl/activiteiten/sneeuwscooter-safari-levi" element={<SnowmobileSafariTips lang="nl" />} />
-              <Route path="/nl/activiteiten/rendier-safari-levi" element={<ReindeerSafariLevi lang="nl" />} />
+              <Route path="/nl/activiteiten/rendier-safari-levi" element={<Navigate to="/nl/activiteiten/rendiersafari-levi" replace />} />
               <Route path="/nl/gids/vervoer-in-levi" element={<GettingAroundLevi lang="nl" />} />
               
               {/* Guide HUB Pages - Finnish */}
@@ -612,7 +612,7 @@ const App = () => {
               <Route path="/author/*" element={<Navigate to="/" replace />} />
 
               {/* Common broken link redirects */}
-              <Route path="/en/accommodation" element={<Navigate to="/en/accommodations" replace />} />
+              
               <Route path="/travel/how-to-get-to-levi" element={<Navigate to="/travel/how-to-get-to-levi-from-helsinki-and-abroad" replace />} />
               <Route path="/travel/how-to-get-to-levi-from-helsinki" element={<Navigate to="/travel/how-to-get-to-levi-from-helsinki-and-abroad" replace />} />
               <Route path="/guide/restaurants-and-dining" element={<Navigate to="/guide/restaurants-and-services-in-levi" replace />} />
