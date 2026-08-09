@@ -1,3 +1,6 @@
+# Dynamic sitemap — served by the generate-sitemap edge function (200 rewrite, URL stays leville.net/sitemap.xml)
+/sitemap.xml  https://jcvxklzcxngctyqmknax.supabase.co/functions/v1/generate-sitemap  200
+
 # Leville.net – 301 redirects for old WordPress URLs
 # Fixes soft 404 issues reported by Google Search Console
 
