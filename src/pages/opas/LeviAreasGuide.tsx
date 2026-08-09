@@ -10,6 +10,14 @@ import JsonLd from "@/components/JsonLd";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
+import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
   MapPin,
@@ -21,6 +29,9 @@ import {
   Star,
   ExternalLink,
   ArrowRight,
+  Table as TableIcon,
+  Compass,
+  HelpCircle,
 } from "lucide-react";
 
 type Lang = "fi" | "en";
@@ -51,6 +62,27 @@ const BOOKING_URL = "https://app.moder.fi/levillenet";
 
 const transportIcon = (t: Transport) =>
   t === "walk" ? Footprints : t === "bus" ? Bus : Car;
+
+const shortStock = (stock: string) => stock.split(/[,–]/)[0].trim();
+
+const withInlineLink = (
+  text: string,
+  phrase?: string,
+  href?: string,
+) => {
+  if (!phrase || !href) return text;
+  const index = text.indexOf(phrase);
+  if (index === -1) return text;
+  return (
+    <>
+      {text.slice(0, index)}
+      <Link to={href} className="text-primary hover:underline">
+        {phrase}
+      </Link>
+      {text.slice(index + phrase.length)}
+    </>
+  );
+};
 
 const mapUrl = (q: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
@@ -154,8 +186,6 @@ const areasFi: Area[] = [
     description:
       "Immeljärven ympärillä on Levin klassisimpia järvenrantamökkejä. Alue on erityisen suosittu kesällä, kun uinti, melonta ja kalastus onnistuvat suoraan omalta rannalta. Talvella järven yli kulkee latuja ja moottorikelkkareittejä.",
     mapQuery: "Immeljärvi, Levi, Kittilä, Finland",
-    linkPhrase: "moottorikelkkareittejä",
-    linkHref: "/revontulet",
   },
   {
     slug: "utsuvaara",
@@ -441,6 +471,8 @@ const copy = {
       {
         h3: "Jos haet rauhaa ja revontulia",
         text: "Immeljärvi, Kätkä ja Köngäs ovat kylän valojen ulkopuolella, mikä auttaa revontulien näkymisessä. Varaudu ajamaan jokaiselle kauppareissulle ja aktiviteetille.",
+        linkPhrase: "revontulien",
+        linkHref: "/revontulet",
       },
     ],
     chooseCtaLink: "Tarkista vapaat päivät keskustan kohteissamme",
@@ -517,6 +549,8 @@ const copy = {
       {
         h3: "If you want quiet and northern lights",
         text: "Immeljärvi, Kätkä and Köngäs sit outside the village lights, which helps when watching the aurora. Be prepared to drive to every grocery run and activity.",
+        linkPhrase: "aurora",
+        linkHref: "/en/northern-lights",
       },
     ],
     chooseCtaLink: "Check availability in our centrally located properties",
@@ -588,6 +622,17 @@ const LeviAreasGuide = ({ lang = "fi" }: LeviAreasGuideProps) => {
     },
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: lang,
+    mainEntity: t.faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -615,6 +660,7 @@ const LeviAreasGuide = ({ lang = "fi" }: LeviAreasGuideProps) => {
       />
       <JsonLd data={articleSchema} />
       <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={faqSchema} />
 
       <Header />
       <SubpageBackground />
@@ -689,7 +735,7 @@ const LeviAreasGuide = ({ lang = "fi" }: LeviAreasGuideProps) => {
                       </div>
 
                       <p className="text-muted-foreground leading-relaxed mb-5">
-                        {area.description}
+                        {withInlineLink(area.description, area.linkPhrase, area.linkHref)}
                       </p>
 
                       <div className="grid gap-3 sm:grid-cols-2 mb-5">
@@ -724,6 +770,114 @@ const LeviAreasGuide = ({ lang = "fi" }: LeviAreasGuideProps) => {
               })}
             </div>
           </section>
+
+          <section className="mt-14">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground flex items-center gap-2">
+              <TableIcon className="h-6 w-6 text-primary" aria-hidden="true" />
+              {t.tableH2}
+            </h2>
+            <div className="overflow-x-auto rounded-lg border border-border">
+              <table className="w-full min-w-[640px] text-sm">
+                <thead className="bg-muted/60">
+                  <tr>
+                    {t.tableCols.map((col) => (
+                      <th
+                        key={col}
+                        scope="col"
+                        className="px-4 py-3 text-left font-semibold text-foreground whitespace-nowrap"
+                      >
+                        {col}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {areas.map((area) => (
+                    <tr
+                      key={area.slug}
+                      className={
+                        area.highlight
+                          ? "border-t border-border bg-primary/5 font-medium"
+                          : "border-t border-border"
+                      }
+                    >
+                      <td className="px-4 py-3 text-foreground whitespace-nowrap">
+                        <a href={`#${area.slug}`} className="hover:text-primary hover:underline">
+                          {area.name}
+                        </a>
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">{area.distance}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{area.transportLabel}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{shortStock(area.stock)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section className="mt-14">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground flex items-center gap-2">
+              <Compass className="h-6 w-6 text-primary" aria-hidden="true" />
+              {t.chooseH2}
+            </h2>
+            <div className="space-y-6">
+              {t.chooseItems.map((item) => (
+                <div key={item.h3}>
+                  <h3 className="text-lg md:text-xl font-semibold text-foreground mb-2">
+                    {item.h3}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {withInlineLink(
+                      item.text,
+                      "linkPhrase" in item ? item.linkPhrase : undefined,
+                      "linkHref" in item ? item.linkHref : undefined,
+                    )}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-muted-foreground leading-relaxed">
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary hover:underline"
+              >
+                {t.chooseCtaLink}
+              </a>
+              {t.chooseCtaTail}
+            </p>
+          </section>
+
+          <section className="mt-14">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground flex items-center gap-2">
+              <HelpCircle className="h-6 w-6 text-primary" aria-hidden="true" />
+              {t.faqH2}
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {t.faq.map((item, index) => (
+                <AccordionItem key={item.q} value={`faq-${index}`}>
+                  <AccordionTrigger className="text-left text-foreground">
+                    {item.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {withInlineLink(
+                      item.a,
+                      "linkPhrase" in item ? item.linkPhrase : undefined,
+                      "linkHref" in item ? item.linkHref : undefined,
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </section>
+
+          <div className="mt-14">
+            <ReadNextSection title={t.readNextTitle} links={t.readNext.map((l) => ({ ...l }))} />
+          </div>
+
+          <GuideDisclaimer lang={lang} />
 
           <div className="mt-10">
             <Button asChild variant="outline">
