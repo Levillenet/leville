@@ -494,11 +494,61 @@ const copy = {
     bestForLabel: "Best for",
     mapLink: "Show on map",
     recommended: "Most recommended",
+    tableH2: "Distance table",
+    tableCols: ["Area", "Distance to centre", "Getting around", "Accommodation type"],
+    chooseH2: "How to choose your area",
+    chooseItems: [
+      {
+        h3: "If you are not renting a car",
+        text: "Choose the centre or the front slopes. Everywhere else you depend on the ski bus timetable, and services stop in the evening before dinner is over. On a busy weekend a taxi can take half an hour to arrive.",
+      },
+      {
+        h3: "If skiing is the only thing on your agenda",
+        text: "South Point and West Point offer genuine ski-in/ski-out locations, and at West Point the lift is some twenty metres away. The trade-off is that evenings are spent at the cabin: restaurants and shops in the village are a drive away.",
+      },
+      {
+        h3: "If you want quiet and northern lights",
+        text: "Immeljärvi, Kätkä and Köngäs sit outside the village lights, which helps when watching the aurora. Be prepared to drive to every grocery run and activity.",
+      },
+    ],
+    chooseCtaLink: "Check availability in our centrally located properties",
+    chooseCtaTail:
+      " — all our apartments and cabins are within walking distance of Levi's services.",
+    faqH2: "Frequently asked questions",
+    faq: [
+      {
+        q: "What is the best area to stay in Levi?",
+        a: "For most visitors, the centre. It is the only area where the slopes, shops and restaurants are all within walking distance and no car or taxi is needed. If you want slope-side accommodation, South Point and West Point are the alternatives; for natural quiet, Immeljärvi or Kätkä.",
+      },
+      {
+        q: "Do you need a car in Levi?",
+        a: "Not in the centre or on the front slopes. In other areas a car is practically essential, unless the ski bus timetable happens to match your daily rhythm. Köngäs and Kätkä do not work at all without a car.",
+      },
+      {
+        q: "What does ski-in/ski-out mean in Levi?",
+        a: "That you can ski from your accommodation to the slope and back without transport. The most genuine ski-in/ski-out in Levi is at West Point and in some South Slope properties. From the centre it is a few minutes' walk to Zero Point, which in practice amounts to the same thing.",
+      },
+      {
+        q: "How far is Kittilä Airport from Levi centre?",
+        a: "About 15 kilometres, roughly a 20-minute drive. Transfers are scheduled around flight arrivals and taxis wait at the terminal.",
+        linkPhrase: "Kittilä Airport",
+        linkHref: "/travel/how-to-get-to-levi-from-helsinki-and-abroad",
+      },
+    ],
+    readNextTitle: "Read next",
+    readNext: [
+      { title: "Levi accommodation – all our properties", desc: "Browse every apartment and cabin we rent out.", href: "/en/accommodations" },
+      { title: "Skiing in Levi", desc: "Slopes, lift passes and ski school.", href: "/guide/skiing-in-levi" },
+      { title: "How to get to Levi", desc: "Flights, trains and driving from Helsinki and abroad.", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+      { title: "Getting around Levi and the ski bus", desc: "Ski buses, taxis and car rental.", href: "/guide/getting-around-in-levi" },
+      { title: "Northern lights in Levi", desc: "When and where the aurora is best seen.", href: "/en/northern-lights" },
+    ],
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Guide", href: "/guide/travel-to-levi" },
       { label: "Levi areas", href: "/guide/levi-areas" },
     ],
+
   },
 } as const;
 
