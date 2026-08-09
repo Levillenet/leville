@@ -38,6 +38,8 @@ interface Area {
   description: string;
   mapQuery: string;
   highlight?: boolean;
+  linkPhrase?: string;
+  linkHref?: string;
 }
 
 const URLS = {
@@ -90,6 +92,8 @@ const areasFi: Area[] = [
     description:
       "Kelorakka on klassinen mökkialue, jossa kelohirsimökit sijaitsevat väljästi metsän keskellä. Alue on hiljainen ja tunnelmallinen, ja rinteille sekä keskustaan pääsee skibussilla tai autolla muutamassa minuutissa.",
     mapQuery: "Kelorakka, Levi, Kittilä, Finland",
+    linkPhrase: "skibussilla",
+    linkHref: "/opas/liikkuminen-levilla",
   },
   {
     slug: "rakkavaara",
@@ -150,6 +154,8 @@ const areasFi: Area[] = [
     description:
       "Immeljärven ympärillä on Levin klassisimpia järvenrantamökkejä. Alue on erityisen suosittu kesällä, kun uinti, melonta ja kalastus onnistuvat suoraan omalta rannalta. Talvella järven yli kulkee latuja ja moottorikelkkareittejä.",
     mapQuery: "Immeljärvi, Levi, Kittilä, Finland",
+    linkPhrase: "moottorikelkkareittejä",
+    linkHref: "/revontulet",
   },
   {
     slug: "utsuvaara",
@@ -262,6 +268,8 @@ const areasEn: Area[] = [
     description:
       "Kelorakka is a classic cabin area where weathered log cabins stand well apart from each other among the pines. It is quiet and atmospheric, and both the slopes and the centre are a few minutes away by ski bus or car.",
     mapQuery: "Kelorakka, Levi, Kittilä, Finland",
+    linkPhrase: "ski bus",
+    linkHref: "/guide/getting-around-in-levi",
   },
   {
     slug: "rakkavaara",
