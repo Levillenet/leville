@@ -82,6 +82,8 @@ const EVENT_LABELS: Record<string, string> = {
   "/event/booking-sticky-bar": "Varaa tästä (alareunan palkki)",
   "/event/booking-page-cta": "Sivun CTA-painike",
   "/event/booking-link": "Muut varauslinkit",
+  "/event/booking-header": "Yläpalkin varauslinkki",
+  "/event/booking-features": "Etusivun nostot",
   "/event/site-search": "Sivuhaku (klikkaus)",
   "/event/site-search-abandon": "Sivuhaku (ei tulosta)",
 };
@@ -354,12 +356,14 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   }
   const getConvCount = (type: string) => conversionCounts[type] || 0;
 
-  // Build full conversion list (always show all 4 types)
+  // Build full conversion list (always show all 6 booking types)
   const allConversionTypes = [
     "/event/booking-search-widget",
     "/event/booking-sticky-bar",
     "/event/booking-page-cta",
     "/event/booking-link",
+    "/event/booking-header",
+    "/event/booking-features",
     "/event/site-search",
     "/event/site-search-abandon",
   ];
