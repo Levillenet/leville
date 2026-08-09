@@ -81,6 +81,7 @@ const LeviVsRovaniemiComparison = lazy(() => import("./pages/guide/LeviVsRovanie
 const LeviVsSaariselka = lazy(() => import("./pages/opas/LeviVsSaariselka"));
 const LeviVsSaariselkaComparison = lazy(() => import("./pages/guide/LeviVsSaariselkaComparison"));
 const SaunaLevilla = lazy(() => import("./pages/opas/SaunaLevilla"));
+const LeviAreasGuide = lazy(() => import("./pages/opas/LeviAreasGuide"));
 const MajoitusLevilla = lazy(() => import("./pages/opas/MajoitusLevilla"));
 const VuokraMokitLevi = lazy(() => import("./pages/opas/VuokraMokitLevi"));
 const LeviFAQ = lazy(() => import("./pages/guide/LeviFAQ"));
@@ -440,6 +441,8 @@ const App = () => {
               <Route path="/opas/levi-vs-rovaniemi" element={<LeviVsRovaniemi />} />
               <Route path="/opas/levi-vs-saariselka" element={<LeviVsSaariselka />} />
               <Route path="/opas/sauna-levilla" element={<SaunaLevilla />} />
+              <Route path="/opas/levin-alueet" element={<LeviAreasGuide lang="fi" />} />
+              <Route path="/guide/levi-areas" element={<LeviAreasGuide lang="en" />} />
               <Route path="/opas/majoitus-levilla" element={<MajoitusLevilla />} />
               <Route path="/opas/vuokramokit-levi" element={<VuokraMokitLevi lang="fi" />} />
               <Route path="/en/guides/cabins-in-levi" element={<VuokraMokitLevi lang="en" />} />
