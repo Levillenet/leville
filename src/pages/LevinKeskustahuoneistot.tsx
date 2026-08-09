@@ -8,6 +8,7 @@ import JsonLd from "@/components/JsonLd";
 import PropertyCard from "@/components/PropertyCard";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import PageCTA from "@/components/PageCTA";
 import { ArrowRight, MapPin } from "lucide-react";
 import { properties, getPropertiesByLocation } from "@/data/properties";
 
@@ -282,9 +283,10 @@ const LevinKeskustahuoneistot = () => {
           </div>
         </section>
       </main>
+      <PageCTA lang="fi" />
       <Footer lang="fi" />
-      <WhatsAppChat />
-      <StickyBookingBar />
+      <WhatsAppChat lang="fi" />
+      <StickyBookingBar lang="fi" />
     </div>
   );
 };
