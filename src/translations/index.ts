@@ -193,11 +193,12 @@ export const getRouteForLanguage = (
   const currentPrefixLang = prefixLangs.find(
     (l) => path === languageConfig[l].prefix || path.startsWith(`${languageConfig[l].prefix}/`),
   );
-  if (currentPrefixLang) {
+  if (currentPrefixLang && languageConfig[targetLang].prefix) {
     const rest = path.slice(languageConfig[currentPrefixLang].prefix.length);
     const targetPrefix = languageConfig[targetLang].prefix;
     return `${targetPrefix}${rest}` || "/";
   }
+
 
   // 4. Fallback: keep the user on the same page (only for the language switcher);
   //    hreflang output must not invent ghost URLs, so it falls back to the home page.
