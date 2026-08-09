@@ -10,6 +10,14 @@ import JsonLd from "@/components/JsonLd";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
+import ReadNextSection from "@/components/guide/ReadNextSection";
+import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
   MapPin,
@@ -21,6 +29,9 @@ import {
   Star,
   ExternalLink,
   ArrowRight,
+  Table as TableIcon,
+  Compass,
+  HelpCircle,
 } from "lucide-react";
 
 type Lang = "fi" | "en";
@@ -38,6 +49,8 @@ interface Area {
   description: string;
   mapQuery: string;
   highlight?: boolean;
+  linkPhrase?: string;
+  linkHref?: string;
 }
 
 const URLS = {
@@ -49,6 +62,27 @@ const BOOKING_URL = "https://app.moder.fi/levillenet";
 
 const transportIcon = (t: Transport) =>
   t === "walk" ? Footprints : t === "bus" ? Bus : Car;
+
+const shortStock = (stock: string) => stock.split(/[,–]/)[0].trim();
+
+const withInlineLink = (
+  text: string,
+  phrase?: string,
+  href?: string,
+) => {
+  if (!phrase || !href) return text;
+  const index = text.indexOf(phrase);
+  if (index === -1) return text;
+  return (
+    <>
+      {text.slice(0, index)}
+      <Link to={href} className="text-primary hover:underline">
+        {phrase}
+      </Link>
+      {text.slice(index + phrase.length)}
+    </>
+  );
+};
 
 const mapUrl = (q: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
@@ -90,6 +124,8 @@ const areasFi: Area[] = [
     description:
       "Kelorakka on klassinen mökkialue, jossa kelohirsimökit sijaitsevat väljästi metsän keskellä. Alue on hiljainen ja tunnelmallinen, ja rinteille sekä keskustaan pääsee skibussilla tai autolla muutamassa minuutissa.",
     mapQuery: "Kelorakka, Levi, Kittilä, Finland",
+    linkPhrase: "skibussilla",
+    linkHref: "/opas/liikkuminen-levilla",
   },
   {
     slug: "rakkavaara",
@@ -262,6 +298,8 @@ const areasEn: Area[] = [
     description:
       "Kelorakka is a classic cabin area where weathered log cabins stand well apart from each other among the pines. It is quiet and atmospheric, and both the slopes and the centre are a few minutes away by ski bus or car.",
     mapQuery: "Kelorakka, Levi, Kittilä, Finland",
+    linkPhrase: "ski bus",
+    linkHref: "/guide/getting-around-in-levi",
   },
   {
     slug: "rakkavaara",
@@ -418,12 +456,64 @@ const copy = {
     bestForLabel: "Sopii parhaiten",
     mapLink: "Näytä kartalla",
     recommended: "Suositelluin",
+    tableH2: "Etäisyystaulukko",
+    tableCols: ["Alue", "Etäisyys keskustaan", "Liikkuminen", "Majoitustyyppi"],
+    chooseH2: "Näin valitset alueen",
+    chooseItems: [
+      {
+        h3: "Jos et vuokraa autoa",
+        text: "Valitse keskusta tai Eturinteet. Muilla alueilla olet skibussin aikataulun varassa, ja bussivuorot loppuvat illalla ennen kuin ravintolaillallinen on ohi. Taksin odotusaika ruuhkaviikonloppuna voi olla puoli tuntia.",
+      },
+      {
+        h3: "Jos laskettelu on lomasi ainoa sisältö",
+        text: "Etelärinne ja West Point tarjoavat aidon ski-in/ski-out-sijainnin, ja West Pointissa hissille on parikymmentä metriä. Vastineeksi illat vietetään mökillä: keskustan ravintolat ja kaupat ovat ajomatkan päässä.",
+      },
+      {
+        h3: "Jos haet rauhaa ja revontulia",
+        text: "Immeljärvi, Kätkä ja Köngäs ovat kylän valojen ulkopuolella, mikä auttaa revontulien näkymisessä. Varaudu ajamaan jokaiselle kauppareissulle ja aktiviteetille.",
+        linkPhrase: "revontulien",
+        linkHref: "/revontulet",
+      },
+    ],
+    chooseCtaLink: "Tarkista vapaat päivät keskustan kohteissamme",
+    chooseCtaTail:
+      " — kaikki huoneistomme ja mökkimme ovat kävelymatkan päässä Levin palveluista.",
+    faqH2: "Usein kysytyt kysymykset",
+    faq: [
+      {
+        q: "Mikä on Levin paras alue majoittua?",
+        a: "Useimmille keskusta. Se on ainoa alue, jolta pääsee kävellen sekä rinteille, kauppoihin että ravintoloihin, eikä auto tai taksi ole tarpeen. Rinnemajoitusta etsivälle Etelärinne ja West Point ovat vaihtoehtoja, luonnonrauhaa hakevalle Immeljärvi tai Kätkä.",
+      },
+      {
+        q: "Tarvitseeko Levillä autoa?",
+        a: "Keskustassa ja Eturinteillä et tarvitse. Muilla alueilla auto on käytännössä välttämätön, ellei skibussin aikataulu satu sopimaan päivärytmiisi. Köngäs ja Kätkä eivät toimi lainkaan ilman autoa.",
+      },
+      {
+        q: "Mitä ski-in/ski-out tarkoittaa Levillä?",
+        a: "Että pääset majoituksesta suksilla rinteeseen ja takaisin ilman kuljetusta. Levillä aidoin ski-in/ski-out on West Pointissa ja osassa Etelärinteen kohteita. Keskustassa matka Zero Pointille on kävellen muutama minuutti, mikä käytännössä vastaa samaa.",
+      },
+      {
+        q: "Kuinka kaukana Kittilän lentoasema on Levin keskustasta?",
+        a: "Noin 15 kilometriä, ajoaika noin 20 minuuttia. Lentojen aikatauluihin on kuljetusyhteydet, ja taksit odottavat terminaalilla.",
+        linkPhrase: "Kittilän lentoasema",
+        linkHref: "/matka/miten-paasee-leville-helsingista",
+      },
+    ],
+    readNextTitle: "Lue seuraavaksi",
+    readNext: [
+      { title: "Levin majoitus – kaikki kohteemme", desc: "Selaa kaikkia huoneistoja ja mökkejä.", href: "/majoitukset" },
+      { title: "Laskettelu Levillä", desc: "Rinteet, hissiliput ja hiihtokoulu.", href: "/opas/laskettelu-levi" },
+      { title: "Miten Leville pääsee", desc: "Lennot, junat ja autoilu Helsingistä ja ulkomailta.", href: "/matka/miten-paasee-leville-helsingista" },
+      { title: "Liikkuminen Levillä ja skibussi", desc: "Skibussit, taksit ja autonvuokraus.", href: "/opas/liikkuminen-levilla" },
+      { title: "Revontulet Levillä", desc: "Milloin ja mistä revontulet näkyvät parhaiten.", href: "/revontulet" },
+    ],
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Opas", href: "/opas/matkaopas-levi" },
       { label: "Levin alueet", href: "/opas/levin-alueet" },
     ],
   },
+
   en: {
     title: "Levi Areas – Where to Stay in Levi, Lapland | Leville.net",
     description:
@@ -444,11 +534,63 @@ const copy = {
     bestForLabel: "Best for",
     mapLink: "Show on map",
     recommended: "Most recommended",
+    tableH2: "Distance table",
+    tableCols: ["Area", "Distance to centre", "Getting around", "Accommodation type"],
+    chooseH2: "How to choose your area",
+    chooseItems: [
+      {
+        h3: "If you are not renting a car",
+        text: "Choose the centre or the front slopes. Everywhere else you depend on the ski bus timetable, and services stop in the evening before dinner is over. On a busy weekend a taxi can take half an hour to arrive.",
+      },
+      {
+        h3: "If skiing is the only thing on your agenda",
+        text: "South Point and West Point offer genuine ski-in/ski-out locations, and at West Point the lift is some twenty metres away. The trade-off is that evenings are spent at the cabin: restaurants and shops in the village are a drive away.",
+      },
+      {
+        h3: "If you want quiet and northern lights",
+        text: "Immeljärvi, Kätkä and Köngäs sit outside the village lights, which helps when watching the aurora. Be prepared to drive to every grocery run and activity.",
+        linkPhrase: "aurora",
+        linkHref: "/en/northern-lights",
+      },
+    ],
+    chooseCtaLink: "Check availability in our centrally located properties",
+    chooseCtaTail:
+      " — all our apartments and cabins are within walking distance of Levi's services.",
+    faqH2: "Frequently asked questions",
+    faq: [
+      {
+        q: "What is the best area to stay in Levi?",
+        a: "For most visitors, the centre. It is the only area where the slopes, shops and restaurants are all within walking distance and no car or taxi is needed. If you want slope-side accommodation, South Point and West Point are the alternatives; for natural quiet, Immeljärvi or Kätkä.",
+      },
+      {
+        q: "Do you need a car in Levi?",
+        a: "Not in the centre or on the front slopes. In other areas a car is practically essential, unless the ski bus timetable happens to match your daily rhythm. Köngäs and Kätkä do not work at all without a car.",
+      },
+      {
+        q: "What does ski-in/ski-out mean in Levi?",
+        a: "That you can ski from your accommodation to the slope and back without transport. The most genuine ski-in/ski-out in Levi is at West Point and in some South Slope properties. From the centre it is a few minutes' walk to Zero Point, which in practice amounts to the same thing.",
+      },
+      {
+        q: "How far is Kittilä Airport from Levi centre?",
+        a: "About 15 kilometres, roughly a 20-minute drive. Transfers are scheduled around flight arrivals and taxis wait at the terminal.",
+        linkPhrase: "Kittilä Airport",
+        linkHref: "/travel/how-to-get-to-levi-from-helsinki-and-abroad",
+      },
+    ],
+    readNextTitle: "Read next",
+    readNext: [
+      { title: "Levi accommodation – all our properties", desc: "Browse every apartment and cabin we rent out.", href: "/en/accommodations" },
+      { title: "Skiing in Levi", desc: "Slopes, lift passes and ski school.", href: "/guide/skiing-in-levi" },
+      { title: "How to get to Levi", desc: "Flights, trains and driving from Helsinki and abroad.", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
+      { title: "Getting around Levi and the ski bus", desc: "Ski buses, taxis and car rental.", href: "/guide/getting-around-in-levi" },
+      { title: "Northern lights in Levi", desc: "When and where the aurora is best seen.", href: "/en/northern-lights" },
+    ],
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Guide", href: "/guide/travel-to-levi" },
       { label: "Levi areas", href: "/guide/levi-areas" },
     ],
+
   },
 } as const;
 
@@ -480,6 +622,17 @@ const LeviAreasGuide = ({ lang = "fi" }: LeviAreasGuideProps) => {
     },
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    inLanguage: lang,
+    mainEntity: t.faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -507,6 +660,7 @@ const LeviAreasGuide = ({ lang = "fi" }: LeviAreasGuideProps) => {
       />
       <JsonLd data={articleSchema} />
       <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={faqSchema} />
 
       <Header />
       <SubpageBackground />
@@ -581,7 +735,7 @@ const LeviAreasGuide = ({ lang = "fi" }: LeviAreasGuideProps) => {
                       </div>
 
                       <p className="text-muted-foreground leading-relaxed mb-5">
-                        {area.description}
+                        {withInlineLink(area.description, area.linkPhrase, area.linkHref)}
                       </p>
 
                       <div className="grid gap-3 sm:grid-cols-2 mb-5">
@@ -616,6 +770,114 @@ const LeviAreasGuide = ({ lang = "fi" }: LeviAreasGuideProps) => {
               })}
             </div>
           </section>
+
+          <section className="mt-14">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground flex items-center gap-2">
+              <TableIcon className="h-6 w-6 text-primary" aria-hidden="true" />
+              {t.tableH2}
+            </h2>
+            <div className="overflow-x-auto rounded-lg border border-border">
+              <table className="w-full min-w-[640px] text-sm">
+                <thead className="bg-muted/60">
+                  <tr>
+                    {t.tableCols.map((col) => (
+                      <th
+                        key={col}
+                        scope="col"
+                        className="px-4 py-3 text-left font-semibold text-foreground whitespace-nowrap"
+                      >
+                        {col}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {areas.map((area) => (
+                    <tr
+                      key={area.slug}
+                      className={
+                        area.highlight
+                          ? "border-t border-border bg-primary/5 font-medium"
+                          : "border-t border-border"
+                      }
+                    >
+                      <td className="px-4 py-3 text-foreground whitespace-nowrap">
+                        <a href={`#${area.slug}`} className="hover:text-primary hover:underline">
+                          {area.name}
+                        </a>
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">{area.distance}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{area.transportLabel}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{shortStock(area.stock)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section className="mt-14">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground flex items-center gap-2">
+              <Compass className="h-6 w-6 text-primary" aria-hidden="true" />
+              {t.chooseH2}
+            </h2>
+            <div className="space-y-6">
+              {t.chooseItems.map((item) => (
+                <div key={item.h3}>
+                  <h3 className="text-lg md:text-xl font-semibold text-foreground mb-2">
+                    {item.h3}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {withInlineLink(
+                      item.text,
+                      "linkPhrase" in item ? item.linkPhrase : undefined,
+                      "linkHref" in item ? item.linkHref : undefined,
+                    )}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-muted-foreground leading-relaxed">
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary hover:underline"
+              >
+                {t.chooseCtaLink}
+              </a>
+              {t.chooseCtaTail}
+            </p>
+          </section>
+
+          <section className="mt-14">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-foreground flex items-center gap-2">
+              <HelpCircle className="h-6 w-6 text-primary" aria-hidden="true" />
+              {t.faqH2}
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {t.faq.map((item, index) => (
+                <AccordionItem key={item.q} value={`faq-${index}`}>
+                  <AccordionTrigger className="text-left text-foreground">
+                    {item.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">
+                    {withInlineLink(
+                      item.a,
+                      "linkPhrase" in item ? item.linkPhrase : undefined,
+                      "linkHref" in item ? item.linkHref : undefined,
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </section>
+
+          <div className="mt-14">
+            <ReadNextSection title={t.readNextTitle} links={t.readNext.map((l) => ({ ...l }))} />
+          </div>
+
+          <GuideDisclaimer lang={lang} />
 
           <div className="mt-10">
             <Button asChild variant="outline">
