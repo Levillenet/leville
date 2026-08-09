@@ -152,18 +152,58 @@ export const routeConfig = {
 };
 
 // Helper to get route for a specific language
-export const getRouteForLanguage = (currentPath: string, targetLang: Language): string => {
-  // Find which route config matches the current path
+export const getRouteForLanguage = (
+  currentPath: string,
+  targetLang: Language,
+  options?: { stayOnPage?: boolean },
+): string => {
+  const path = currentPath.length > 1 ? currentPath.replace(/\/+$/, "") : currentPath;
+
+  // 1. Exact match from routeConfig
   for (const [, routes] of Object.entries(routeConfig)) {
-    for (const [lang, path] of Object.entries(routes)) {
-      if (path === currentPath) {
+    for (const [, routePath] of Object.entries(routes)) {
+      if (routePath === path) {
         return routes[targetLang as keyof typeof routes] || routes.fi;
       }
     }
   }
-  // Fallback to home page of target language
-  return languageConfig[targetLang].prefix || "/";
+
+  // 2. Dynamic sub-paths: keep the slug, swap the known prefix
+  //    e.g. /majoitukset/glacier-a1 ↔ /en/accommodations/glacier-a1
+  let bestMatch: { base: string; routes: Record<string, string> } | null = null;
+  for (const [, routes] of Object.entries(routeConfig)) {
+    for (const [, routePath] of Object.entries(routes)) {
+      if (routePath === "/" || routePath.length <= 1) continue;
+      if (path.startsWith(`${routePath}/`)) {
+        if (!bestMatch || routePath.length > bestMatch.base.length) {
+          bestMatch = { base: routePath, routes: routes as Record<string, string> };
+        }
+      }
+    }
+  }
+  if (bestMatch) {
+    const targetBase = bestMatch.routes[targetLang] || bestMatch.routes.fi;
+    return `${targetBase}${path.slice(bestMatch.base.length)}`;
+  }
+
+  // 3. Plain language-prefix swap: /en/foo → /sv/foo
+  const prefixLangs = (Object.keys(languageConfig) as Language[]).filter(
+    (l) => languageConfig[l].prefix,
+  );
+  const currentPrefixLang = prefixLangs.find(
+    (l) => path === languageConfig[l].prefix || path.startsWith(`${languageConfig[l].prefix}/`),
+  );
+  if (currentPrefixLang) {
+    const rest = path.slice(languageConfig[currentPrefixLang].prefix.length);
+    const targetPrefix = languageConfig[targetLang].prefix;
+    return `${targetPrefix}${rest}` || "/";
+  }
+
+  // 4. Fallback: keep the user on the same page (only for the language switcher);
+  //    hreflang output must not invent ghost URLs, so it falls back to the home page.
+  return options?.stayOnPage ? currentPath : languageConfig[targetLang].prefix || "/";
 };
+
 
 // Helper to detect current language from path
 export const detectLanguageFromPath = (path: string): Language => {
