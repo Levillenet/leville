@@ -45,6 +45,7 @@ export const travelHubContent: Record<Language, TravelHubContent> = {
       subtitle: "Suunnittele matkasi Leville – kaikki mitä tarvitset ennen lähtöä",
       guides: [
         { id: "getting-there", title: "Miten pääsee Leville", description: "Lentoyhteydet, junayhteydet ja autoilutiedot Leville. Kaikki matkustusvaihtoehdot.", href: "/matka/miten-paasee-leville-helsingista", iconKey: "plane" },
+        { id: "levi-areas", title: "Levin alueet – missä majoittua?", description: "Tutustu Levin eri alueisiin ennen kuin valitset majoituksen: etäisyydet keskustaan, liikkuminen ja kenelle kukin alue sopii.", href: "/opas/levin-alueet", iconKey: "mapPin" },
         { id: "best-time", title: "Paras aika matkustaa Leville", description: "Kuukausittainen opas: milloin on paras aika lasketteluun, revontuliin, ruskaan tai kesälomaan.", href: "/opas/paras-aika-matkustaa-leville", iconKey: "calendar" },
         { id: "clothing", title: "Talvivarusteet", description: "Mitä vaatteita tarvitset Levin talveen? Pukeutumisvinkit -30°C pakkasiin.", href: "/opas/talvivarusteet-leville", iconKey: "shirt" },
         { id: "packing", title: "Pakkauslista Lapin lomalle", description: "Tulostettava muistilista – mitä pakata mukaan Lapin matkalle.", href: "/opas/pakkauslista-lapin-lomalle", iconKey: "list" },
@@ -102,6 +103,7 @@ export const travelHubContent: Record<Language, TravelHubContent> = {
       subtitle: "Everything you need before you go",
       guides: [
         { id: "getting-there", title: "Getting to Levi", description: "Flight connections, train routes and driving directions to Levi.", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad", iconKey: "plane" },
+        { id: "levi-areas", title: "Levi Areas – Where to Stay", description: "Explore the different areas of Levi before choosing your accommodation: distances to the centre, getting around and who each area suits.", href: "/guide/levi-areas", iconKey: "mapPin" },
         { id: "best-time", title: "Best Time to Visit Levi", description: "Monthly guide: the best time for skiing, northern lights, autumn colors or summer.", href: "/guide/best-time-to-visit-levi", iconKey: "calendar" },
         { id: "clothing", title: "Winter Clothing Guide", description: "What clothes do you need for Levi winter? Dressing tips for -30°C.", href: "/guide/how-to-dress-for-winter-in-levi-lapland", iconKey: "shirt" },
         { id: "packing", title: "Packing List for Lapland", description: "Printable checklist – what to pack for a Lapland holiday.", href: "/guide/packing-list-for-lapland", iconKey: "list" },
