@@ -1,37 +1,27 @@
-# Soft 404 -korjaus: 12 uudelleenohjausreittiä + hosting-vastaus
+# Sitemap generoidaan build-vaiheessa
 
-## Osa 1 — Vastaus hosting-kysymykseen (tarkistettu projektista)
+## Ongelma
 
-1. **Hosting**: projekti on julkaistu Lovable-hostingiin (published URL `leville.net`, alkuperäinen `leville.lovable.app`). Projektissa ei ole `netlify.toml`, `vercel.json` eikä `_headers` -tiedostoa — pelkkä Vite-build, joka tarjoillaan Lovablen staattisesta hostingista.
-2. **Oikea mekanismi**: Lovable-hosting ei prosessoi `_redirects`-tiedostoa (se on Netlify-konventio). Lovablessa on sisäänrakennettu SPA-fallback, ja uudelleenohjaukset tehdään sovelluskoodissa Reactin routerilla (`<Navigate to="..." replace />`). Aitoa 301-vastausta HTTP-tasolla ei voi konfiguroida; client-side-ohjaus riittää Googlelle soft 404:n poistamiseen, koska vanha URL ohjaa välittömästi oikeaan osoitteeseen.
-3. **Onko `public/_redirects` kuollutta konfiguraatiota?** Kyllä — sitä ei sovelleta lainkaan, ja se tarjoillaan sellaisenaan tekstitiedostona osoitteessa `/_redirects`. Se ei ole väärin deployattu, vaan väärän alustan formaatti.
+`/sitemap.xml`-rewrite tiedostossa `public/_redirects` ei toimi Lovable-hostingissa, joten dynaamisen edge-funktion tuottama sitemap ei koskaan päädy Googlelle. Nykytila tarkistettu: `public/sitemap.xml` **ei ole olemassa** — se nimettiin aiemmin `public/sitemap-static-backup.xml`:ksi. `public/robots.txt` osoittaa oikein osoitteeseen `https://leville.net/sitemap.xml`, joten sitä ei muuteta.
 
-**Tärkeä huomio**: samassa tiedostossa on `/sitemap.xml` → generate-sitemap -edge-funktion 200-rewrite. Sekään ei siis toimi, eli `leville.net/sitemap.xml` tarjoilee edelleen staattisen tiedoston (tai 404:n, jos vanha tiedosto on nimetty uudelleen). Tämä pitää ratkaista erikseen — en tee sille mitään tässä tehtävässä, mutta kerro jos haluat korjauksen (esim. dynaamisen sitemapin generointi build-aikaan `public/sitemap.xml`-tiedostoon).
+## Toteutus
 
-En poista `public/_redirects`-tiedostoa tässä tehtävässä, koska ohje kieltää muut muutokset kuin reittien lisäyksen.
+1. **Uusi tiedosto `scripts/generate-sitemap.mjs`**
+   - Hakee natiivilla `fetch`illä sitemapin generate-sitemap-reunafunktiosta (ei uusia npm-riippuvuuksia).
+   - Validoi ennen kirjoitusta: HTTP 200, runko alkaa `<?xml`, sisältää vähintään 500 `<loc>`-esiintymää.
+   - Kaikki validoinnit läpi → kirjoittaa rungon tiedostoon `public/sitemap.xml` ja lokittaa `<loc>`-määrän.
+   - Mikä tahansa validointi epäonnistuu (tai verkkovirhe) → selkeä virheloki, olemassa olevaa tiedostoa ei kosketa, poistuu koodilla 0 jotta build ei kaadu.
 
-## Osa 2 — Lisättävät reitit `src/App.tsx`:ään
+2. **`package.json`**: `"build": "node scripts/generate-sitemap.mjs && vite build"`. `build:dev`, `dev`, `lint` ja `preview` jäävät ennalleen.
 
-Kaikki 11 kohdepolkua on **varmistettu olemassa oleviksi** App.tsx:ssä. Lisätään "Old WordPress redirects" -lohkon yhteyteen:
-
-| Lähde | Kohde |
-|---|---|
-| /es/guia/clima-en-levi | /es/levi/clima-en-levi |
-| /fr/guide/meteo-a-levi | /fr/levi/meteo-a-levi |
-| /sv/guide/vader-i-levi | /sv/levi/vader-i-levi |
-| /es/guia/como-llegar-a-levi | /es/viaje/como-llegar-a-levi |
-| /es/guia/auroras-boreales-levi | /es/auroras-boreales |
-| /de/ratgeber/nordlichter-levi | /de/nordlichter |
-| /nl/gids/vervoer-levi | /nl/gids/vervoer-in-levi |
-| /fr/guide/photographie-aurores-boreales-levi | /fr/guide/photographier-aurores-boreales-levi |
-| /es/alojamiento | /es/alojamientos |
-| /latukartta | /latuinfo |
-| /hiihtajankuja-5-b-2 (+ trailing slash) | /hiihtajankuja |
-
-Jokainen muodossa `<Route path="..." element={<Navigate to="..." replace />} />`.
+3. **Verifiointi**: ajetaan skripti kerran ja raportoidaan kirjoitettujen `<loc>`-rivien määrä.
 
 ## Rajaukset
 
-- Ei muutoksia sivukomponentteihin, käännöksiin, sisältöön tai olemassa oleviin reitteihin.
-- Ei lisäyksiä sitemapiin eikä muutoksia `supabase/functions/_shared/sitemapRoutes.ts`-tiedostoon.
-- Lopuksi tyyppitarkistus, että reitit kääntyvät virheettä.
+- Ei muutoksia `supabase/functions/generate-sitemap/index.ts`- tai `_shared/sitemapRoutes.ts`-tiedostoihin.
+- Ei muutoksia `public/_redirects`-tiedostoon eikä yhteenkään sivuun, komponenttiin tai reittiin.
+- `robots.txt` jätetään ennalleen (osoittaa jo oikeaan URLiin).
+
+## Huomio lastmod-arvoista
+
+Sitemapin `<lastmod>`-arvot tulevat reunafunktiosta. Jos ne johdetaan generointihetken päivämäärästä eivätkä sivukohtaisesta muokkausajasta, ne kannattaa poistaa — mutta se vaatisi reunafunktion muokkaamista, jonka tämä tehtävä kieltää. Kerro jos haluat sen erillisenä korjauksena.
