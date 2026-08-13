@@ -92,7 +92,11 @@ const Index = ({ lang = "fi" }: IndexProps) => {
     <>
       <JsonLd data={getWebsiteSchema()} />
       <JsonLd data={getLodgingBusinessSchema(lang)} />
-      <HreflangTags currentPath={location.pathname} currentLang={lang} />
+      <HreflangTags
+        currentPath={location.pathname}
+        currentLang={lang}
+        customUrls={{ fi: "/", en: "/en" }}
+      />
       <Helmet>
         <html lang={lang} />
         <title>{seo.title}</title>
