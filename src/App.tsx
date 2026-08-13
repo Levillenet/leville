@@ -282,7 +282,7 @@ const App = () => {
               <Route path="/en/privacy" element={<Tietosuoja lang="en" />} />
               
               {/* Swedish routes */}
-              <Route path="/sv" element={<Index lang="sv" />} />
+              <Route path="/sv" element={<Navigate to="/en" replace />} />
               <Route path="/sv/boende" element={<Majoitukset lang="sv" />} />
               <Route path="/sv/nyheter" element={<Ajankohtaista lang="sv" />} />
               <Route path="/sv/levi" element={<Levi lang="sv" />} />
@@ -297,7 +297,7 @@ const App = () => {
               <Route path="/sv/integritetspolicy" element={<Tietosuoja lang="sv" />} />
               
               {/* German routes */}
-              <Route path="/de" element={<Index lang="de" />} />
+              <Route path="/de" element={<Navigate to="/en" replace />} />
               <Route path="/de/unterkuenfte" element={<Majoitukset lang="de" />} />
               <Route path="/de/aktuelles" element={<Ajankohtaista lang="de" />} />
               <Route path="/de/levi" element={<Levi lang="de" />} />
@@ -312,7 +312,7 @@ const App = () => {
               <Route path="/de/datenschutz" element={<Tietosuoja lang="de" />} />
               
               {/* Spanish routes */}
-              <Route path="/es" element={<Index lang="es" />} />
+              <Route path="/es" element={<Navigate to="/en" replace />} />
               <Route path="/es/alojamientos" element={<Majoitukset lang="es" />} />
               <Route path="/es/noticias" element={<Ajankohtaista lang="es" />} />
               <Route path="/es/levi" element={<Levi lang="es" />} />
@@ -327,7 +327,7 @@ const App = () => {
               <Route path="/es/privacidad" element={<Tietosuoja lang="es" />} />
               
               {/* French routes */}
-              <Route path="/fr" element={<Index lang="fr" />} />
+              <Route path="/fr" element={<Navigate to="/en" replace />} />
               <Route path="/fr/hebergements" element={<Majoitukset lang="fr" />} />
               <Route path="/fr/actualites" element={<Ajankohtaista lang="fr" />} />
               <Route path="/fr/levi" element={<Levi lang="fr" />} />
@@ -342,7 +342,7 @@ const App = () => {
               <Route path="/fr/confidentialite" element={<Tietosuoja lang="fr" />} />
               
               {/* Dutch routes */}
-              <Route path="/nl" element={<Index lang="nl" />} />
+              <Route path="/nl" element={<Navigate to="/en" replace />} />
               <Route path="/nl/accommodaties" element={<Majoitukset lang="nl" />} />
               <Route path="/nl/nieuws" element={<Ajankohtaista lang="nl" />} />
               <Route path="/nl/levi" element={<Levi lang="nl" />} />
@@ -447,7 +447,7 @@ const App = () => {
               <Route path="/opas/vuokramokit-levi" element={<VuokraMokitLevi lang="fi" />} />
               <Route path="/en/guides/cabins-in-levi" element={<VuokraMokitLevi lang="en" />} />
               <Route path="/levi/ukk" element={<LeviFAQ lang="fi" />} />
-              <Route path="/en/levi/faq" element={<LeviFAQ lang="en" />} />
+              <Route path="/en/levi/faq" element={<Navigate to="/levi/ukk" replace />} />
               <Route path="/opas/lapin-sanasto" element={<LaplandGlossary />} />
               <Route path="/opas/hinnat-levilla" element={<LevinHinnatPage />} />
               <Route path="/opas/vappu-levilla" element={<VappuLevilla />} />
@@ -842,99 +842,99 @@ const App = () => {
               {/* January */}
               <Route path="/opas/levi-tammikuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-january" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-januar" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-januari" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-enero" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-janvier" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-januari" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-januar" element={<Navigate to="/guide/levi-in-january" replace />} />
+              <Route path="/sv/guide/levi-i-januari" element={<Navigate to="/guide/levi-in-january" replace />} />
+              <Route path="/es/guia/levi-en-enero" element={<Navigate to="/guide/levi-in-january" replace />} />
+              <Route path="/fr/guide/levi-en-janvier" element={<Navigate to="/guide/levi-in-january" replace />} />
+              <Route path="/nl/gids/levi-in-januari" element={<Navigate to="/guide/levi-in-january" replace />} />
               {/* February */}
               <Route path="/opas/levi-helmikuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-february" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-februar" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-februari" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-febrero" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-fevrier" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-februari" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-februar" element={<Navigate to="/guide/levi-in-february" replace />} />
+              <Route path="/sv/guide/levi-i-februari" element={<Navigate to="/guide/levi-in-february" replace />} />
+              <Route path="/es/guia/levi-en-febrero" element={<Navigate to="/guide/levi-in-february" replace />} />
+              <Route path="/fr/guide/levi-en-fevrier" element={<Navigate to="/guide/levi-in-february" replace />} />
+              <Route path="/nl/gids/levi-in-februari" element={<Navigate to="/guide/levi-in-february" replace />} />
               {/* March */}
               <Route path="/opas/levi-maaliskuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-march" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-maerz" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-mars" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-marzo" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-mars" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-maart" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-maerz" element={<Navigate to="/guide/levi-in-march" replace />} />
+              <Route path="/sv/guide/levi-i-mars" element={<Navigate to="/guide/levi-in-march" replace />} />
+              <Route path="/es/guia/levi-en-marzo" element={<Navigate to="/guide/levi-in-march" replace />} />
+              <Route path="/fr/guide/levi-en-mars" element={<Navigate to="/guide/levi-in-march" replace />} />
+              <Route path="/nl/gids/levi-in-maart" element={<Navigate to="/guide/levi-in-march" replace />} />
               {/* April */}
               <Route path="/opas/levi-huhtikuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-april" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-april" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-april" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-abril" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-avril" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-april" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-april" element={<Navigate to="/guide/levi-in-april" replace />} />
+              <Route path="/sv/guide/levi-i-april" element={<Navigate to="/guide/levi-in-april" replace />} />
+              <Route path="/es/guia/levi-en-abril" element={<Navigate to="/guide/levi-in-april" replace />} />
+              <Route path="/fr/guide/levi-en-avril" element={<Navigate to="/guide/levi-in-april" replace />} />
+              <Route path="/nl/gids/levi-in-april" element={<Navigate to="/guide/levi-in-april" replace />} />
               {/* May */}
               <Route path="/opas/levi-toukokuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-may" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-mai" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-maj" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-mayo" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-mai" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-mei" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-mai" element={<Navigate to="/guide/levi-in-may" replace />} />
+              <Route path="/sv/guide/levi-i-maj" element={<Navigate to="/guide/levi-in-may" replace />} />
+              <Route path="/es/guia/levi-en-mayo" element={<Navigate to="/guide/levi-in-may" replace />} />
+              <Route path="/fr/guide/levi-en-mai" element={<Navigate to="/guide/levi-in-may" replace />} />
+              <Route path="/nl/gids/levi-in-mei" element={<Navigate to="/guide/levi-in-may" replace />} />
               {/* June */}
               <Route path="/opas/levi-kesakuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-june" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-juni" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-juni" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-junio" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-juin" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-juni" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-juni" element={<Navigate to="/guide/levi-in-june" replace />} />
+              <Route path="/sv/guide/levi-i-juni" element={<Navigate to="/guide/levi-in-june" replace />} />
+              <Route path="/es/guia/levi-en-junio" element={<Navigate to="/guide/levi-in-june" replace />} />
+              <Route path="/fr/guide/levi-en-juin" element={<Navigate to="/guide/levi-in-june" replace />} />
+              <Route path="/nl/gids/levi-in-juni" element={<Navigate to="/guide/levi-in-june" replace />} />
               {/* July */}
               <Route path="/opas/levi-heinakuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-july" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-juli" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-juli" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-julio" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-juillet" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-juli" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-juli" element={<Navigate to="/guide/levi-in-july" replace />} />
+              <Route path="/sv/guide/levi-i-juli" element={<Navigate to="/guide/levi-in-july" replace />} />
+              <Route path="/es/guia/levi-en-julio" element={<Navigate to="/guide/levi-in-july" replace />} />
+              <Route path="/fr/guide/levi-en-juillet" element={<Navigate to="/guide/levi-in-july" replace />} />
+              <Route path="/nl/gids/levi-in-juli" element={<Navigate to="/guide/levi-in-july" replace />} />
               {/* August */}
               <Route path="/opas/levi-elokuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-august" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-august" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-augusti" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-agosto" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-aout" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-augustus" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-august" element={<Navigate to="/guide/levi-in-august" replace />} />
+              <Route path="/sv/guide/levi-i-augusti" element={<Navigate to="/guide/levi-in-august" replace />} />
+              <Route path="/es/guia/levi-en-agosto" element={<Navigate to="/guide/levi-in-august" replace />} />
+              <Route path="/fr/guide/levi-en-aout" element={<Navigate to="/guide/levi-in-august" replace />} />
+              <Route path="/nl/gids/levi-in-augustus" element={<Navigate to="/guide/levi-in-august" replace />} />
               {/* September */}
               <Route path="/opas/levi-syyskuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-september" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-september" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-september" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-septiembre" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-septembre" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-september" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-september" element={<Navigate to="/guide/levi-in-september" replace />} />
+              <Route path="/sv/guide/levi-i-september" element={<Navigate to="/guide/levi-in-september" replace />} />
+              <Route path="/es/guia/levi-en-septiembre" element={<Navigate to="/guide/levi-in-september" replace />} />
+              <Route path="/fr/guide/levi-en-septembre" element={<Navigate to="/guide/levi-in-september" replace />} />
+              <Route path="/nl/gids/levi-in-september" element={<Navigate to="/guide/levi-in-september" replace />} />
               {/* October */}
               <Route path="/opas/levi-lokakuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-october" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-oktober" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-oktober" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-octubre" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-octobre" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-oktober" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-oktober" element={<Navigate to="/guide/levi-in-october" replace />} />
+              <Route path="/sv/guide/levi-i-oktober" element={<Navigate to="/guide/levi-in-october" replace />} />
+              <Route path="/es/guia/levi-en-octubre" element={<Navigate to="/guide/levi-in-october" replace />} />
+              <Route path="/fr/guide/levi-en-octobre" element={<Navigate to="/guide/levi-in-october" replace />} />
+              <Route path="/nl/gids/levi-in-oktober" element={<Navigate to="/guide/levi-in-october" replace />} />
               {/* November */}
               <Route path="/opas/levi-marraskuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-november" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-november" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-november" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-noviembre" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-novembre" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-november" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-november" element={<Navigate to="/guide/levi-in-november" replace />} />
+              <Route path="/sv/guide/levi-i-november" element={<Navigate to="/guide/levi-in-november" replace />} />
+              <Route path="/es/guia/levi-en-noviembre" element={<Navigate to="/guide/levi-in-november" replace />} />
+              <Route path="/fr/guide/levi-en-novembre" element={<Navigate to="/guide/levi-in-november" replace />} />
+              <Route path="/nl/gids/levi-in-november" element={<Navigate to="/guide/levi-in-november" replace />} />
               {/* December */}
               <Route path="/opas/levi-joulukuussa" element={<MonthlyGuideLevi />} />
               <Route path="/guide/levi-in-december" element={<MonthlyGuideLevi lang="en" />} />
-              <Route path="/de/ratgeber/levi-im-dezember" element={<MonthlyGuideLevi lang="de" />} />
-              <Route path="/sv/guide/levi-i-december" element={<MonthlyGuideLevi lang="sv" />} />
-              <Route path="/es/guia/levi-en-diciembre" element={<MonthlyGuideLevi lang="es" />} />
-              <Route path="/fr/guide/levi-en-decembre" element={<MonthlyGuideLevi lang="fr" />} />
-              <Route path="/nl/gids/levi-in-december" element={<MonthlyGuideLevi lang="nl" />} />
+              <Route path="/de/ratgeber/levi-im-dezember" element={<Navigate to="/guide/levi-in-december" replace />} />
+              <Route path="/sv/guide/levi-i-december" element={<Navigate to="/guide/levi-in-december" replace />} />
+              <Route path="/es/guia/levi-en-diciembre" element={<Navigate to="/guide/levi-in-december" replace />} />
+              <Route path="/fr/guide/levi-en-decembre" element={<Navigate to="/guide/levi-in-december" replace />} />
+              <Route path="/nl/gids/levi-in-december" element={<Navigate to="/guide/levi-in-december" replace />} />
 
               {/* CabinVsApartmentLevi */}
               <Route path="/opas/mokki-vai-huoneisto-levi" element={<CabinVsApartmentLevi />} />
