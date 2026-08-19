@@ -946,8 +946,8 @@ const App = () => {
               <Route path="/nl/activiteiten/sneeuwscootersafari-levi" element={<Navigate to="/nl/activiteiten/sneeuwscooter-safari-levi" replace />} />
               <Route path="/nl/gids/skien-in-levi" element={<Navigate to="/nl/gids/skieen-in-levi" replace />} />
               <Route path="/nl/gids/noorderlicht-fotografie-levi" element={<Navigate to="/nl/gids/noorderlicht-fotograferen-levi" replace />} />
-              <Route path="/de/news" element={<Navigate to="/de/aktuelles" replace />} />
-              <Route path="/fr/hebergement" element={<Navigate to="/fr/hebergements" replace />} />
+              <Route path="/de/news" element={<Navigate to="/" replace />} />
+              <Route path="/fr/hebergement" element={<Navigate to="/" replace />} />
               <Route path="/sv/guide/activities-in-levi" element={<Navigate to="/sv/guide/aktiviteter-i-levi" replace />} />
               <Route path="/es/guide/activities-in-levi" element={<Navigate to="/es/guia/actividades-en-levi" replace />} />
               <Route path="/fr/guide/activities-in-levi" element={<Navigate to="/fr/guide/activites-a-levi" replace />} />
@@ -958,6 +958,14 @@ const App = () => {
               <Route path="/guide/levi-vs-yllas-vs-ruka" element={<Navigate to="/guide/levi-vs-yllas-vs-ruka-comparison" replace />} />
               <Route path="/guide/christmas-dinner-in-levi" element={<Navigate to="/en/guide/christmas-dinner-in-levi" replace />} />
               <Route path="/accommodations/guides" element={<Navigate to="/en/accommodations" replace />} />
+
+              {/* Soft 404 -korjaukset: uudet GSC-ohjaukset (2026-08) */}
+              <Route path="/guide" element={<Navigate to="/en" replace />} />
+              <Route path="/opas" element={<Navigate to="/" replace />} />
+              <Route path="/tietoa" element={<Navigate to="/" replace />} />
+              <Route path="/latukartta" element={<Navigate to="/opas/hiihtoladut-levi" replace />} />
+              <Route path="/hiihtajankuja-5-b-2" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/es/alojamiento" element={<Navigate to="/" replace />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
