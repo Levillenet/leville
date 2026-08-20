@@ -8,7 +8,7 @@ import heroApartment from "@/assets/hero-apartment.jpg";
 import heroLodge from "@/assets/hero-lodge.jpg";
 
 // LCP image: served from /public so the <link rel="preload"> in index.html matches the actual request
-const heroChalet = "/hero-chalet.jpg";
+const heroChalet = "/hero-chalet.webp";
 
 const heroImages = [
   { src: heroChalet, w: 1536, h: 1024 },
