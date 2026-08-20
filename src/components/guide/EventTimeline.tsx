@@ -67,7 +67,7 @@ const events: LeviEvent[] = [
       fi: "Joulupukkitapaamiset, joulumarkkinat, erityisohjelma ravintoloissa ja safariyrityksissä. Kaamoksen sininen valo ja jouluvalot.",
       en: "Santa meetings, Christmas markets, special programs at restaurants and safari companies. Blue light of the polar night and Christmas lights."
     },
-    url: { fi: "/levi/joulu-lapissa", en: "/levi/christmas-in-lapland" },
+    url: { fi: "/levi/joulu-lapissa", en: "/en/levi/christmas-in-lapland" },
     free: false
   },
   {
@@ -324,7 +324,9 @@ const t = {
     entertainment: "Viihde",
     free: "Ilmainen",
     readMore: "Lue lisää",
-    disclaimer: "Tapahtumakalenteri on suuntaa-antava. Tarkat päivämäärät voivat muuttua vuosittain. Tarkista aina ajantasaiset tiedot tapahtuman omilta sivuilta tai osoitteesta levi.fi/tapahtumat.",
+    disclaimer: "Tapahtumakalenteri on suuntaa-antava. Tarkat päivämäärät voivat muuttua vuosittain. Tarkista aina ajantasaiset tiedot tapahtuman omilta sivuilta.",
+    disclaimerLinkText: "Katso Levin koko tapahtumakalenteri (levi.fi)",
+    disclaimerLinkHref: "https://www.levi.fi/tapahtumat/",
     calendarTitle: "Tapahtumakalenteri",
   },
   en: {
