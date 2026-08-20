@@ -34,4 +34,11 @@ Tärkeä huomio: `src/assets`-kuvat muunnetaan jo nyt automaattisesti WebP-muoto
 - Muunnos tehdään `cwebp`/ImageMagick-työkaluilla sandboxissa, ei uusia riippuvuuksia projektiin.
 - Hero-LCP-kuva `public/hero-chalet.jpg` ja sen `<link rel="preload">` `index.html`-tiedostossa päivitetään yhtä aikaa, ettei preload mene rikki.
 - `vite.config.ts`:n imagetools-asetuksia ei muuteta.
-- Ei muutoksia sisältöön, otsikoihin, layoutiin tai SEO-metaan.
+- Ei muutoksia sisältöön, otsikoihin, layoutiin tai SEO-metaan (paitsi kuvatiedostojen päätteet).
+
+## Palautettavuus
+
+Kaikki alkuperäiset kuvat säilyvät git-historiassa. Muutos tehdään yhtenä committina, joten:
+- Koko muutoksen voi perua Lovablen chat-historiasta ("revert").
+- Yksittäisen kuvan voi palauttaa git-historiasta alkuperäisessä laadussaan milloin tahansa.
+- Mitään ei poisteta CDN:stä tai muusta ulkoisesta palvelusta, joten peruminen on aina turvallista.
