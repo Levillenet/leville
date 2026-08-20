@@ -957,7 +957,6 @@ const App = () => {
               <Route path="/opas/miten-paasee-leville" element={<Navigate to="/matka/miten-paasee-leville-helsingista" replace />} />
               <Route path="/guide/levi-vs-yllas-vs-ruka" element={<Navigate to="/guide/levi-vs-yllas-vs-ruka-comparison" replace />} />
               <Route path="/guide/christmas-dinner-in-levi" element={<Navigate to="/en/guide/christmas-dinner-in-levi" replace />} />
-              
 
               {/* Soft 404 -korjaukset: uudet GSC-ohjaukset (2026-08) */}
               <Route path="/guide" element={<Navigate to="/en" replace />} />
