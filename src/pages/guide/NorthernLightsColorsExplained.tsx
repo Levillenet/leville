@@ -320,6 +320,10 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
 
 const NorthernLightsColorsExplained = ({ lang = "fi" }: Props) => {
   const t = translations[lang as keyof typeof translations] || translations.en;
+  const moderUrl =
+    lang === "fi" ? "https://app.moder.fi/levillenet"
+    : lang === "sv" ? "https://app.moder.fi/levillenet?lang=sv"
+    : "https://app.moder.fi/levillenet?lang=en";
   const location = useLocation();
   const customUrls: Record<string, string> = { fi: "/opas/revontulien-varit", en: "/guide/northern-lights-colors-explained" };
   const breadcrumbItems = [
@@ -386,6 +390,20 @@ const NorthernLightsColorsExplained = ({ lang = "fi" }: Props) => {
               </Card>
             </section>
             <section className="mb-12">
+              {t.bookingNudge && (
+                <p className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 text-[15px] leading-relaxed">
+                  {t.bookingNudge.text}{" "}
+                  <a
+                    href={moderUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-primary underline underline-offset-4 hover:decoration-primary"
+                  >
+                    {t.bookingNudge.link}
+                  </a>
+                  .
+                </p>
+              )}
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.faq.title}</h2>
               <Accordion type="single" collapsible className="space-y-2">
                 {t.faq.items.map((item, idx) => (
