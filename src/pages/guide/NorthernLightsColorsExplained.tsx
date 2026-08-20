@@ -21,6 +21,7 @@ interface Props { lang?: Language; }
 
 const translations = {
   fi: {
+    bookingNudge: { text: "Suunnitteletko jo matkaa?", link: "Katso vapaat majoitukset ja hinnat" },
     meta: {
       title: "Revontulien värit — Miksi vihreä, punainen, violetti ja sininen? | Leville.net",
       description: "Miksi revontulet ovat eri värisiä? Selitys vihreän, punaisen, violetin ja sinisen värin syistä: ilmakehän kaasut ja korkeus.",
@@ -110,6 +111,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
     }
   },
   en: {
+    bookingNudge: { text: "Already planning your trip?", link: "Check availability and prices" },
     meta: {
       title: "Northern Lights Colors – Why Green, Red, Purple & Blue?",
       description: "Why do northern lights appear in different colors? Explanation of green, red, purple and blue: atmospheric gases and altitude.",
@@ -144,6 +146,7 @@ Muista: värit riippuvat myös aurinkotuulen hiukkasten energiasta ja magneettik
     }
   },
   nl: {
+    bookingNudge: { text: "Ben je je reis al aan het plannen?", link: "Bekijk beschikbaarheid en prijzen" },
     meta: {
       title: "Kleuren van het noorderlicht — Waarom groen, rood, paars en blauw? | Leville.net",
       description: "Waarom heeft het noorderlicht verschillende kleuren? Uitleg over groen, rood, paars en blauw: atmosferische gassen en hoogte.",

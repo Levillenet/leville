@@ -25,6 +25,7 @@ interface GettingAroundLeviProps {
 
 const translations = {
   fi: {
+    bookingNudge: { text: "Suunnitteletko jo matkaa?", link: "Katso vapaat majoitukset ja hinnat" },
     meta: {
       title: "Liikkuminen Levillä – Bussit, taksit ja vuokra-autot",
       description:
@@ -116,6 +117,7 @@ const translations = {
   },
 
   en: {
+    bookingNudge: { text: "Already planning your trip?", link: "Check availability and prices" },
     meta: {
       title: "Getting Around Levi | Leville.net",
       description:
@@ -207,6 +209,7 @@ const translations = {
     },
   },
   nl: {
+    bookingNudge: { text: "Ben je je reis al aan het plannen?", link: "Bekijk beschikbaarheid en prijzen" },
     meta: {
       title: "Vervoer in Levi | Leville.net",
       description: "Hoe kom je in Levi en hoe reis je rond. Luchthaven transfers, skibus, taxi's, autoverhuur en winterrijtips.",

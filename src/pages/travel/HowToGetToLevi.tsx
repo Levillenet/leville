@@ -40,6 +40,7 @@ interface HowToGetToLeviProps {
 
 const translations = {
   fi: {
+    bookingNudge: { text: "Suunnitteletko jo matkaa?", link: "Katso vapaat majoitukset ja hinnat" },
     meta: {
       title: "Miten pääsee Leville? Lennot, juna, auto – kaikki reitit",
       description: "Suorat lennot Helsingistä Kittilään 1h 15min. Yöjuna Kolariin. Auton vuokraus tai bussi. Vertaile vaihtoehdot ja hinnat.",
@@ -202,6 +203,7 @@ const translations = {
     },
   },
   en: {
+    bookingNudge: { text: "Already planning your trip?", link: "Check availability and prices" },
     meta: {
       title: "How to Get to Levi – Flights, Trains, Car & Bus Routes",
       description: "Direct flights from Helsinki to Kittilä in 75 min. Night train to Kolari. Car rental or bus. Compare all options and prices.",
@@ -365,6 +367,7 @@ const translations = {
     },
   },
   nl: {
+    bookingNudge: { text: "Ben je je reis al aan het plannen?", link: "Bekijk beschikbaarheid en prijzen" },
     meta: {
       title: "Hoe kom je in Levi? Vliegen, trein en auto naar Lapland | Leville.net",
       description: "Alle reisopties naar Levi in Fins Lapland. Directe vluchten naar Kittilä, treinverbindingen via Rovaniemi en Kolari, en autoroutes vanuit Helsinki.",

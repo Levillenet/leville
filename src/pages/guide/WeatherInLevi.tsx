@@ -32,6 +32,7 @@ interface WeatherInLeviProps {
 
 const translations = {
   fi: {
+    bookingNudge: { text: "Suunnitteletko jo matkaa?", link: "Katso vapaat majoitukset ja hinnat" },
     meta: {
       title: "Levin sää nyt — lämpötila, lumensyvyys ja ennuste",
       description: "Levin säätiedot reaaliajassa: lämpötila, lumensyvyys ja tuuliolosuhteet. Kuukausittaiset keskiarvot matkan suunnitteluun.",
@@ -199,6 +200,7 @@ const translations = {
     },
   },
   en: {
+    bookingNudge: { text: "Already planning your trip?", link: "Check availability and prices" },
     meta: {
       title: "Levi Weather – Live Temperature, Snow Depth & Forecast",
       description: "Live weather data for Levi ski resort. Current temperature, snow depth and wind conditions. Monthly averages for trip planning.",
@@ -366,6 +368,7 @@ const translations = {
     },
   },
   nl: {
+    bookingNudge: { text: "Ben je je reis al aan het plannen?", link: "Bekijk beschikbaarheid en prijzen" },
     meta: {
       title: "Weer in Levi – sneeuwdiepte & seizoenen | Leville.net",
       description: "Weer in Levi: sneeuwdiepte, temperaturen en seizoenen. Plan je reis met data van het Fins Meteorologisch Instituut.",
