@@ -784,32 +784,6 @@ const App = () => {
               {/* AccessibleLevi */}
               <Route path="/opas/esteetton-levi" element={<AccessibleLevi />} />
               <Route path="/guide/accessible-levi" element={<AccessibleLevi lang="en" />} />
-              {/* SkiingInLevi - DE/SV/FR/ES */}
-              <Route path="/de/ratgeber/skifahren-in-levi" element={<SkiingInLevi lang="de" />} />
-              <Route path="/sv/guide/skidakning-i-levi" element={<SkiingInLevi lang="sv" />} />
-              <Route path="/fr/guide/ski-a-levi" element={<SkiingInLevi lang="fr" />} />
-              <Route path="/es/guia/esqui-en-levi" element={<SkiingInLevi lang="es" />} />
-              <Route path="/de/ratgeber/levi-mit-kindern" element={<LeviWithChildren lang="de" />} />
-              <Route path="/sv/guide/levi-med-barn" element={<LeviWithChildren lang="sv" />} />
-              <Route path="/fr/guide/levi-avec-enfants" element={<LeviWithChildren lang="fr" />} />
-              <Route path="/es/guia/levi-con-ninos" element={<LeviWithChildren lang="es" />} />
-              <Route path="/de/ratgeber/restaurants-und-services-levi" element={<RestaurantsAndServices lang="de" />} />
-              <Route path="/sv/guide/restauranger-och-tjanster-levi" element={<RestaurantsAndServices lang="sv" />} />
-              <Route path="/fr/guide/restaurants-et-services-levi" element={<RestaurantsAndServices lang="fr" />} />
-              <Route path="/es/guia/restaurantes-y-servicios-levi" element={<RestaurantsAndServices lang="es" />} />
-              <Route path="/nl/gids/restaurants-en-diensten-levi" element={<RestaurantsAndServices lang="nl" />} />
-
-              {/* WeatherInLevi - DE/SV/FR/ES */}
-              <Route path="/de/levi/wetter-in-levi" element={<WeatherInLevi lang="de" />} />
-              <Route path="/sv/levi/vader-i-levi" element={<WeatherInLevi lang="sv" />} />
-              <Route path="/fr/levi/meteo-a-levi" element={<WeatherInLevi lang="fr" />} />
-              <Route path="/es/levi/clima-en-levi" element={<WeatherInLevi lang="es" />} />
-
-              {/* HowToGetToLevi - DE/SV/FR/ES */}
-              <Route path="/de/reise/anreise-nach-levi" element={<HowToGetToLevi lang="de" />} />
-              <Route path="/sv/resa/hur-tar-man-sig-till-levi" element={<HowToGetToLevi lang="sv" />} />
-              <Route path="/fr/voyage/comment-aller-a-levi" element={<HowToGetToLevi lang="fr" />} />
-              <Route path="/es/viaje/como-llegar-a-levi" element={<HowToGetToLevi lang="es" />} />
 
               {/* ApresSkiLevi - missing DE/ES */}
               <Route path="/guide/apres-ski-and-nightlife-in-levi" element={<ApresSkiLevi lang="en" />} />

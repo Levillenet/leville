@@ -270,10 +270,6 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
   const hreflangUrls = {
     fi: "https://leville.net/opas/ravintolat-ja-palvelut-levilla",
     en: "https://leville.net/guide/restaurants-and-services-in-levi",
-    de: "https://leville.net/de/ratgeber/restaurants-und-services-levi",
-    sv: "https://leville.net/sv/guide/restauranger-och-tjanster-levi",
-    fr: "https://leville.net/fr/guide/restaurants-et-services-levi",
-    es: "https://leville.net/es/guia/restaurantes-y-servicios-levi",
   };
 
   const breadcrumbSchema = {
