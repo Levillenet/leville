@@ -1293,6 +1293,13 @@ function getMonthData(month: number, lang: string): MonthData | null {
 const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
   const location = useLocation();
   const isFi = lang === "fi";
+  const bookingNudge = isFi
+    ? { text: "Suunnitteletko jo matkaa?", link: "Katso vapaat majoitukset ja hinnat" }
+    : { text: "Already planning your trip?", link: "Check availability and prices" };
+  const moderUrl =
+    lang === "fi" ? "https://app.moder.fi/levillenet"
+    : lang === "sv" ? "https://app.moder.fi/levillenet?lang=sv"
+    : "https://app.moder.fi/levillenet?lang=en";
 
   // Derive month from URL
   const pathSegments = location.pathname.split("/");
@@ -1384,6 +1391,21 @@ const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="max-w-4xl mx-auto px-4">
+          <p className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 text-[15px] leading-relaxed">
+            {bookingNudge.text}{" "}
+            <a
+              href={moderUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-primary underline underline-offset-4 hover:decoration-primary"
+            >
+              {bookingNudge.link}
+            </a>
+            .
+          </p>
         </section>
 
         {/* Events */}

@@ -40,6 +40,7 @@ interface HowToGetToLeviProps {
 
 const translations = {
   fi: {
+    bookingNudge: { text: "Suunnitteletko jo matkaa?", link: "Katso vapaat majoitukset ja hinnat" },
     meta: {
       title: "Miten pääsee Leville? Lennot, juna, auto – kaikki reitit",
       description: "Suorat lennot Helsingistä Kittilään 1h 15min. Yöjuna Kolariin. Auton vuokraus tai bussi. Vertaile vaihtoehdot ja hinnat.",
@@ -202,6 +203,7 @@ const translations = {
     },
   },
   en: {
+    bookingNudge: { text: "Already planning your trip?", link: "Check availability and prices" },
     meta: {
       title: "How to Get to Levi – Flights, Trains, Car & Bus Routes",
       description: "Direct flights from Helsinki to Kittilä in 75 min. Night train to Kolari. Car rental or bus. Compare all options and prices.",
@@ -365,6 +367,7 @@ const translations = {
     },
   },
   nl: {
+    bookingNudge: { text: "Ben je je reis al aan het plannen?", link: "Bekijk beschikbaarheid en prijzen" },
     meta: {
       title: "Hoe kom je in Levi? Vliegen, trein en auto naar Lapland | Leville.net",
       description: "Alle reisopties naar Levi in Fins Lapland. Directe vluchten naar Kittilä, treinverbindingen via Rovaniemi en Kolari, en autoroutes vanuit Helsinki.",
@@ -532,6 +535,11 @@ const translations = {
 const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
   const location = useLocation();
   const t = translations[lang] || translations.fi;
+  const moderUrl =
+    lang === "fi" ? "https://app.moder.fi/levillenet"
+    : lang === "sv" ? "https://app.moder.fi/levillenet?lang=sv"
+    : "https://app.moder.fi/levillenet?lang=en";
+  const nudge = ("bookingNudge" in t ? t.bookingNudge : undefined) as { text: string; link: string } | undefined;
   
   const hreflangUrls = {
     fi: "https://leville.net/matka/miten-paasee-leville-helsingista",
@@ -822,6 +830,20 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
+          {nudge && (
+            <p className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 text-[15px] leading-relaxed">
+              {nudge.text}{" "}
+              <a
+                href={moderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary underline underline-offset-4 hover:decoration-primary"
+              >
+                {nudge.link}
+              </a>
+              .
+            </p>
+          )}
           {/* CTA Section */}
           <section className="bg-primary/10 rounded-2xl p-8 text-center mb-12">
             <h2 className="text-2xl font-bold text-foreground mb-4">{t.cta.title}</h2>

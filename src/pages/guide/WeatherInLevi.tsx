@@ -32,6 +32,7 @@ interface WeatherInLeviProps {
 
 const translations = {
   fi: {
+    bookingNudge: { text: "Suunnitteletko jo matkaa?", link: "Katso vapaat majoitukset ja hinnat" },
     meta: {
       title: "Levin sää nyt — lämpötila, lumensyvyys ja ennuste",
       description: "Levin säätiedot reaaliajassa: lämpötila, lumensyvyys ja tuuliolosuhteet. Kuukausittaiset keskiarvot matkan suunnitteluun.",
@@ -199,6 +200,7 @@ const translations = {
     },
   },
   en: {
+    bookingNudge: { text: "Already planning your trip?", link: "Check availability and prices" },
     meta: {
       title: "Levi Weather – Live Temperature, Snow Depth & Forecast",
       description: "Live weather data for Levi ski resort. Current temperature, snow depth and wind conditions. Monthly averages for trip planning.",
@@ -366,6 +368,7 @@ const translations = {
     },
   },
   nl: {
+    bookingNudge: { text: "Ben je je reis al aan het plannen?", link: "Bekijk beschikbaarheid en prijzen" },
     meta: {
       title: "Weer in Levi – sneeuwdiepte & seizoenen | Leville.net",
       description: "Weer in Levi: sneeuwdiepte, temperaturen en seizoenen. Plan je reis met data van het Fins Meteorologisch Instituut.",
@@ -468,6 +471,11 @@ const translations = {
 };
 const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
   const t = translations[lang] || translations.fi;
+  const moderUrl =
+    lang === "fi" ? "https://app.moder.fi/levillenet"
+    : lang === "sv" ? "https://app.moder.fi/levillenet?lang=sv"
+    : "https://app.moder.fi/levillenet?lang=en";
+  const nudge = ("bookingNudge" in t ? t.bookingNudge : undefined) as { text: string; link: string } | undefined;
   const location = useLocation();
 
   const customUrls: Record<string, string> = {
@@ -682,6 +690,20 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
 
             {/* FAQ */}
             <section className="mb-12">
+              {nudge && (
+                <p className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 text-[15px] leading-relaxed">
+                  {nudge.text}{" "}
+                  <a
+                    href={moderUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-primary underline underline-offset-4 hover:decoration-primary"
+                  >
+                    {nudge.link}
+                  </a>
+                  .
+                </p>
+              )}
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.faq.title}</h2>
               <Accordion type="single" collapsible className="space-y-2">
                 {t.faq.items.map((item, idx) => (
