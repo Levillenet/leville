@@ -598,11 +598,15 @@ const EventCard = ({ event, lang, labels, seasonStyle, seasonName }: EventCardPr
 
             {/* Badges + link */}
             <div className="flex items-center gap-2 flex-wrap">
-              {event.free && (
+              {event.free ? (
                 <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-xs">
                   🎟 {labels.free}
                 </Badge>
-              )}
+              ) : event.partlyFree ? (
+                <Badge variant="outline" className="bg-muted/40 text-muted-foreground border-border text-xs">
+                  🎟 {labels.partlyFree}
+                </Badge>
+              ) : null}
               {hasUrl && (
                 isExternal ? (
                   <a
