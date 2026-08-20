@@ -807,25 +807,66 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     ))}
                   </div>
 
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-6">
-                    Vertaile tarkemmin{" "}
-                    <Link to="/opas/mokki-vai-huoneisto-levi" className="text-primary hover:underline">
-                      mökin ja huoneiston eroja
-                    </Link>
-                    , tutustu{" "}
-                    <Link to="/mokit-levilla" className="text-primary hover:underline">
-                      mökkeihin Levillä
-                    </Link>{" "}
-                    tai katso{" "}
-                    <Link to="/akkilahdot" className="text-primary hover:underline">
-                      äkkilähtöjen tarjouksia
-                    </Link>
-                    . Et löydä sopivaa? Ota yhteyttä:{" "}
-                    <a href="mailto:info@leville.net" className="text-primary hover:underline">
-                      info@leville.net
-                    </a>
-                    .
-                  </p>
+                  {isEnglish ? (
+                    <>
+                      <h3 className="text-lg sm:text-xl font-semibold text-foreground mt-8 mb-2">
+                        Levi log cabins and cottages
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                        Looking for a log cabin in Levi rather than an apartment? Our cabins and cabin-style
+                        holiday homes have a private sauna, a fireplace and room for 8–14 guests — see all{" "}
+                        <Link to="/en/log-cabins-levi" className="text-primary hover:underline">
+                          Levi log cabins and cottages
+                        </Link>
+                        .
+                      </p>
+                      <h3 className="text-lg sm:text-xl font-semibold text-foreground mt-6 mb-2">
+                        Where to stay in Levi ski resort
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                        All of our accommodation is in Levi centre (Sirkka, Kittilä), so you can walk to the
+                        gondola, the ski school, restaurants and the supermarket. Kittilä airport is about 15
+                        minutes away by car. Compare{" "}
+                        <Link to="/guide/cabin-vs-apartment-in-levi" className="text-primary hover:underline">
+                          a cabin versus an apartment
+                        </Link>
+                        , check{" "}
+                        <Link to="/en/last-minute" className="text-primary hover:underline">
+                          last-minute deals
+                        </Link>{" "}
+                        or read{" "}
+                        <Link to="/travel/how-to-get-to-levi-from-helsinki-and-abroad" className="text-primary hover:underline">
+                          how to get to Levi
+                        </Link>
+                        . Can't find the right fit? Email{" "}
+                        <a href="mailto:info@leville.net" className="text-primary hover:underline">
+                          info@leville.net
+                        </a>
+                        .
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-sm text-muted-foreground leading-relaxed mt-6">
+                      Vertaile tarkemmin{" "}
+                      <Link to="/opas/mokki-vai-huoneisto-levi" className="text-primary hover:underline">
+                        mökin ja huoneiston eroja
+                      </Link>
+                      , tutustu{" "}
+                      <Link to="/mokit-levilla" className="text-primary hover:underline">
+                        mökkeihin Levillä
+                      </Link>{" "}
+                      tai katso{" "}
+                      <Link to="/akkilahdot" className="text-primary hover:underline">
+                        äkkilähtöjen tarjouksia
+                      </Link>
+                      . Et löydä sopivaa? Ota yhteyttä:{" "}
+                      <a href="mailto:info@leville.net" className="text-primary hover:underline">
+                        info@leville.net
+                      </a>
+                      .
+                    </p>
+                  )}
+
                 </section>
               </ScrollReveal>
             )}
