@@ -158,6 +158,8 @@ export const SITEMAP_ROUTES: SitemapRoute[] = [
   { path: "/opas/world-cup-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "world-cup-levi" },
   { path: "/opas/kaamos-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "kaamos-levi" },
   { path: "/guide/polar-night-levi", lang: "en", priority: 0.7, changefreq: "monthly", altGroup: "kaamos-levi" },
+  { path: "/opas/levi-3-paivassa", lang: "fi", priority: 0.8, changefreq: "monthly", altGroup: "levi-3-days" },
+  { path: "/guide/levi-in-3-days", lang: "en", priority: 0.8, changefreq: "monthly", altGroup: "levi-3-days" },
   { path: "/guide/levi-world-cup", lang: "en", priority: 0.7, changefreq: "monthly", altGroup: "world-cup-levi" },
   { path: "/opas/hiihtoladut-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "opas-hiihtoladut-levi" },
   { path: "/opas/talvi-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "opas-talvi-levi" },

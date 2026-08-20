@@ -52,6 +52,7 @@ const TopWinterActivities = lazy(() => import("./pages/activities/TopWinterActiv
 const SkiingInLevi = lazy(() => import("./pages/guide/SkiingInLevi"));
 const WorldCupLevi = lazy(() => import("./pages/guide/WorldCupLevi"));
 const KaamosLevi = lazy(() => import("./pages/guide/KaamosLevi"));
+const LeviIn3Days = lazy(() => import("./pages/guide/LeviIn3Days"));
 const CrossCountrySkiingInLevi = lazy(() => import("./pages/guide/CrossCountrySkiingInLevi"));
 const WinterInLevi = lazy(() => import("./pages/guide/WinterInLevi"));
 const WeatherInLevi = lazy(() => import("./pages/guide/WeatherInLevi"));
@@ -405,6 +406,7 @@ const App = () => {
               <Route path="/opas/laskettelu-levi" element={<SkiingInLevi />} />
               <Route path="/opas/world-cup-levi" element={<WorldCupLevi />} />
               <Route path="/opas/kaamos-levi" element={<KaamosLevi />} />
+              <Route path="/opas/levi-3-paivassa" element={<LeviIn3Days />} />
               <Route path="/opas/hiihtoladut-levi" element={<CrossCountrySkiingInLevi />} />
               <Route path="/opas/talvi-levi" element={<WinterInLevi />} />
               <Route path="/opas/kevat-levi" element={<SpringInLevi />} />
@@ -423,6 +425,7 @@ const App = () => {
               <Route path="/guide/skiing-in-levi" element={<SkiingInLevi lang="en" />} />
               <Route path="/guide/levi-world-cup" element={<WorldCupLevi lang="en" />} />
               <Route path="/guide/polar-night-levi" element={<KaamosLevi lang="en" />} />
+              <Route path="/guide/levi-in-3-days" element={<LeviIn3Days lang="en" />} />
               <Route path="/guide/cross-country-skiing-in-levi" element={<CrossCountrySkiingInLevi lang="en" />} />
               <Route path="/guide/winter-in-levi" element={<WinterInLevi lang="en" />} />
               <Route path="/guide/spring-in-levi" element={<SpringInLevi lang="en" />} />
