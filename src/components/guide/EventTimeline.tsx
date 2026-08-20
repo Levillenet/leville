@@ -522,7 +522,18 @@ const EventTimeline = ({ lang = "fi" }: EventTimelineProps) => {
       <Card className="glass-card border-border/30 p-4 mt-6">
         <div className="flex items-start gap-3">
           <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-          <p className="text-sm text-muted-foreground italic">{labels.disclaimer}</p>
+          <div>
+            <p className="text-sm text-muted-foreground italic">{labels.disclaimer}</p>
+            <a
+              href={labels.disclaimerLinkHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-sm text-primary hover:underline font-medium mt-2"
+            >
+              {labels.disclaimerLinkText}
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
         </div>
       </Card>
     </section>
