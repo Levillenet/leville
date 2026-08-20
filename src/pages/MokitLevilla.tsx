@@ -24,7 +24,7 @@ import { getFAQSchema } from "@/utils/structuredData";
 
 const YEAR = new Date().getFullYear();
 const CANONICAL_FI = "https://leville.net/mokit-levilla";
-const CANONICAL_EN = "https://leville.net/en/cabins";
+const CANONICAL_EN = "https://leville.net/en/log-cabins-levi";
 const BOOKING_URL = "https://app.moder.fi/levillenet";
 
 interface MokitLevillaProps {
@@ -64,12 +64,12 @@ const ui = {
   },
   en: {
     canonical: CANONICAL_EN,
-    title: `Cabins in Levi ${YEAR} — log villas and holiday homes in the centre`,
+    title: `Levi Log Cabins & Cottages ${YEAR} — Levi Cabins in the Centre`,
     description:
-      "Rent a cabin or holiday home in Levi directly from the owner. Log villas and spacious apartments in Levi Center, private saunas and walking distance to the slopes.",
+      "Levi log cabins and cottages in Finland, rented directly from the owner. Cabins in Levi centre with private sauna, fireplace and walking distance to the slopes.",
     keywords:
-      "cabin Levi, cabins in Levi, log villa Levi, holiday home Levi, Levi cabin rental, Levi accommodation",
-    h1: `Cabins in Levi ${YEAR} — log villas and holiday homes in the centre`,
+      "levi cabins, levi log cabins, levi log cabins finland, levi finland log cabins, levi cottages, log cabin lapland, cabin rental levi",
+    h1: `Levi log cabins and cottages ${YEAR} — cabins in Levi centre, Finland`,
     intro:
       "In Finland, 'mökki' (cabin) can mean any holiday home with sauna steam, a crackling fireplace and your own peace. Leville.net offers both traditional log cabins and spacious cabin-like apartments in Levi Center — all with private saunas, most with fireplaces, and walking distance to the slopes.",
     cabins: "Traditional log cabins",

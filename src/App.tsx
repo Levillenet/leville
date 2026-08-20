@@ -247,7 +247,8 @@ const App = () => {
               <Route path="/vuokramokit/ratsastajankuja-levi" element={<Navigate to="/vuokramokit/glacier-apartments-levi" replace />} />
               <Route path="/mokit-levilla" element={<MokitLevilla />} />
               <Route path="/vuokramokit" element={<MokitLevilla />} />
-              <Route path="/en/cabins" element={<MokitLevilla lang="en" />} />
+              <Route path="/en/log-cabins-levi" element={<MokitLevilla lang="en" />} />
+              <Route path="/en/cabins" element={<Navigate to="/en/log-cabins-levi" replace />} />
               <Route path="/majoitus/levin-keskustahuoneistot" element={<LevinKeskustahuoneistot />} />
               <Route path="/opas/autolla-ajaminen-lapissa" element={<DrivingInLapland />} />
               <Route path="/ajankohtaista" element={<Ajankohtaista />} />
