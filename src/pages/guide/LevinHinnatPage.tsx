@@ -166,7 +166,21 @@ const LevinHinnatPage = () => {
           <p className="text-muted-foreground text-lg">
             Kattava hintaopas hissilipuista ravintoloihin, aktiviteeteista ruokakauppoihin. Suunnittele Levin loman budjetti etukäteen.
           </p>
+          <p className="text-muted-foreground mt-3">
+            Majoituksen hinnat vaihtelevat kauden mukaan —{" "}
+            <a
+              href="https://app.moder.fi/levillenet"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-booking-source="hinnat-levilla-intro"
+              className="text-primary underline underline-offset-4 hover:text-primary/80"
+            >
+              tarkista ajantasaiset hinnat ja saatavuus varausjärjestelmästämme
+            </a>
+            .
+          </p>
         </div>
+
 
         {/* Disclaimer */}
         <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 mb-8 flex gap-3 text-sm">
