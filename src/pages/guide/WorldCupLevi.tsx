@@ -34,14 +34,18 @@ import wcTunnelma from "@/assets/worldcup/worldcup-levi-tunnelma.jpg";
 // PÄIVITÄ VUOSITTAIN: FIS vahvistaa päivät keväällä — vaihda vain tämä lohko, koko sivu päivittyy.
 const WORLD_CUP = {
   year: 2026,
-  dates: { fi: "14.–15.11.2026", en: "14–15 November 2026" },
-  startDate: "2026-11-14",
+  dates: { fi: "13.–15.11.2026", en: "13–15 November 2026" },
+  startDate: "2026-11-13",
   endDate: "2026-11-15",
   edition: 22, // järjestyskerta
   confirmed: true, // false = näytetään "FIS vahvistaa päivät"
 };
 
 const WC_URL = "https://www.worldcuplevi.com";
+const LEVI_FI_WC_URL = {
+  fi: "https://www.levi.fi/tapahtumat/fis-ski-alpine-world-cup-levi/",
+  en: "https://www.levi.fi/en/events/fis-ski-alpine-world-cup-levi/",
+};
 const BOOKING_URL = "https://app.moder.fi/levillenet";
 
 interface WorldCupLeviProps {
