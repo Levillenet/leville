@@ -251,6 +251,41 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </ScrollReveal>
             )}
 
+            {lang === "en" && (
+              <ScrollReveal>
+                <section className="max-w-3xl mx-auto mb-10 md:mb-12 px-2 text-center">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    Looking for <strong className="text-foreground">accommodation in Levi</strong>?
+                    We rent our own{" "}
+                    <strong className="text-foreground">apartments and cabins in Levi centre</strong>{" "}
+                    directly to guests — no booking agency in between. The selection covers
+                    saunaed studios for two, family apartments for 4–6, large alpine apartments
+                    for 8–10 and a log villa for up to 14 people, all within walking distance of
+                    the slopes, restaurants and services. Four locations in the heart of Levi:
+                    Front Slope alpine apartments on{" "}
+                    <Link to="/vuokramokit/hiihtajankuja-levi" className="text-primary hover:underline">
+                      Hiihtäjänkuja
+                    </Link>
+                    , the Karhupirtti log villa on{" "}
+                    <Link to="/vuokramokit/skimbaajankuja-levi" className="text-primary hover:underline">
+                      Skimbaajankuja
+                    </Link>
+                    ,{" "}
+                    <Link to="/vuokramokit/glacier-apartments-levi" className="text-primary hover:underline">
+                      Glacier Apartments at Zero Point
+                    </Link>{" "}
+                    and the Skistar building at{" "}
+                    <Link to="/vuokramokit/postintie-levi" className="text-primary hover:underline">
+                      Postintie 3
+                    </Link>
+                    .
+                  </p>
+                </section>
+              </ScrollReveal>
+            )}
+
+
+
             {/* Moder Booking Widget – check availability across all properties */}
             <ScrollReveal>
               <section className="mb-10 md:mb-12 relative z-[9990]">

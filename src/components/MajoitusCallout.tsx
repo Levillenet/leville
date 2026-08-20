@@ -20,14 +20,14 @@ const COPY: Record<"fi" | "en", { title: string; body: string; cta: string; seco
   fi: {
     title: "Etsitkö majoitusta Leviltä?",
     body: "Vuokraamme suoraan omistajalta saunallisia huoneistoja ja mökkejä Levin keskustassa. Ei välityskuluja, henkilökohtainen palvelu, kävelymatka rinteille.",
-    cta: "Katso kaikki majoitukset",
+    cta: "Majoitus Levillä – katso kaikki kohteet",
     secondary: "Mökit Levillä",
     secondaryHref: "/mokit-levilla",
   },
   en: {
     title: "Looking for accommodation in Levi?",
     body: "We rent saunaed apartments and cabins in Levi Center directly from the owner. No middleman fees, personal service, walking distance to the slopes.",
-    cta: "Browse all accommodations",
+    cta: "Accommodation in Levi – see all",
     secondary: "Cabins in Levi",
     secondaryHref: "/en/accommodations",
   },

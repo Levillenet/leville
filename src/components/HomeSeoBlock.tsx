@@ -31,34 +31,33 @@ const HomeSeoBlock = () => {
           id="home-seo-heading"
           className="font-serif text-3xl md:text-4xl text-foreground mb-6"
         >
-          Majoitus Levillä — kaikki vaihtoehdot Levin keskustassa
+          Leville.net — majoituksemme ja paikallinen Levi-opas
         </h2>
 
         <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
           <p>
-            Etsitkö <strong>majoitusta Levillä</strong> suoraan omistajalta ilman
-            välityspalkkioita? Leville.net vuokraa omia{" "}
-            <strong>vuokramökkejä Leviltä</strong> sekä moderneja{" "}
-            <strong>huoneistoja Levin keskustassa</strong>, kävelymatkan päässä
-            rinteistä, ravintoloista ja palveluista. Valikoimaamme kuuluu
-            studiohuoneistoja kahdelle, perhehuoneistoja 4–6 hengelle, isoja
-            alppihuoneistoja 8–10 hengelle sekä tunnelmallinen hirsimökki jopa 14
-            hengelle.
+            Olemme paikallinen toimija Levillä: vuokraamme omia huoneistojamme ja
+            mökkejämme suoraan omistajalta ja ylläpidämme samalla laajaa
+            Levi-opasta lumitilanteesta latuihin, ravintoloihin ja revontuliin.
+            Kaikki kohteemme ovat Levin keskustassa, kävelymatkan päässä
+            rinteistä ja palveluista.
           </p>
           <p>
-            <strong>Mökkivuokraus Leviltä</strong> on helppoa: valitset
-            päivämäärät, näet hinnan ja varaat suoraan – kaikki kohteet ovat
-            omiamme, eikä välissä ole välittäjää. Useimmissa kohteissa on{" "}
-            <strong>oma sauna</strong>, joten <em>saunamökki</em> tai{" "}
-            <em>saunallinen huoneisto Leviltä</em> löytyy lähes mistä tahansa
-            kohteestamme.
+            Koko valikoima kohteineen, kokoluokkineen ja sijainteineen löytyy
+            omalta sivultaan:{" "}
+            <Link
+              to="/majoitukset"
+              className="text-primary hover:text-primary/80 underline underline-offset-4 font-semibold"
+            >
+              Majoitus Levillä
+            </Link>{" "}
+            — studiohuoneistoista kahdelle aina 14 hengen hirsihuvilaan asti.
+            Useimmissa kohteissa on oma sauna.
           </p>
           <p>
-            <strong>Lomahuoneiston</strong> tai mökin hinta Levillä vaihtelee
-            sesongin ja kohteen mukaan: studiohuoneisto kahdelle noin 70–150 €/yö,
-            perheasunto 4–6 hengelle noin 120–250 €/yö ja tilava mökki 8–14
-            hengelle noin 200–500 €/yö. Joulu ja hiihtolomaviikot ovat kysytyimpiä,
-            joten varaa hyvissä ajoin.
+            Varaaminen käy suoraan meiltä ilman välittäjää: valitset päivämäärät,
+            näet vapaat kohteet ja teet varauksen. Joulu ja hiihtolomaviikot ovat
+            kysytyimpiä, joten varaa hyvissä ajoin.
           </p>
         </div>
 
