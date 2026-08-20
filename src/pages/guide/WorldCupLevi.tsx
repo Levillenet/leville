@@ -381,6 +381,20 @@ const WorldCupLevi = ({ lang = "fi" }: WorldCupLeviProps) => {
               <a href={WC_URL} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">
                 {t.tickets.link}
               </a>
+              <p className="text-sm text-muted-foreground mt-3">
+                {lang === "en"
+                  ? "Levi's own tourism site also lists the race weekend among its events: "
+                  : "Myös Levin oma matkailusivusto listaa kisaviikonlopun tapahtumakalenteriinsa: "}
+                <a
+                  href={lang === "en" ? LEVI_FI_WC_URL.en : LEVI_FI_WC_URL.fi}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-4"
+                >
+                  {lang === "en" ? "FIS Ski Alpine World Cup Levi (levi.fi)" : "FIS Ski Alpine World Cup Levi (levi.fi)"}
+                </a>
+                .
+              </p>
             </section>
 
             {/* Viewing spots */}
