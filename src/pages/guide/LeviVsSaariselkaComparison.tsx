@@ -472,9 +472,9 @@ const LeviVsSaariselkaComparison = ({ lang = "en" }: LeviVsSaariselkaComparisonP
 
         <PageCTA lang={lang} />
 
-        <Footer />
-        <WhatsAppChat />
-        <StickyBookingBar />
+        <Footer lang={lang} />
+        <WhatsAppChat lang={lang} />
+        <StickyBookingBar lang={lang} />
       </div>
     </>
   );

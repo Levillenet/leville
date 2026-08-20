@@ -498,7 +498,7 @@ const PricesInLeviPage = () => {
       <PageCTA lang="en" />
 
       <Footer lang="en" />
-      <WhatsAppChat />
+      <WhatsAppChat lang="en" />
       <StickyBookingBar lang="en" />
     </div>
   );

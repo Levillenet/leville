@@ -15,6 +15,7 @@ import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSectio
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
+import type { Language } from "@/translations";
 import {
   Accordion,
   AccordionContent,
@@ -23,7 +24,7 @@ import {
 } from "@/components/ui/accordion";
 
 interface MonthlyGuideLeviProps {
-  lang?: string;
+  lang?: Language;
 }
 
 // Derive month number from URL path
@@ -1453,11 +1454,11 @@ const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
         </section>
       </main>
 
-      <PageCTA lang="fi" />
+      <PageCTA lang={lang} />
 
-      <Footer />
-      <WhatsAppChat />
-      <StickyBookingBar />
+      <Footer lang={lang} />
+      <WhatsAppChat lang={lang} />
+      <StickyBookingBar lang={lang} />
     </div>
   );
 };

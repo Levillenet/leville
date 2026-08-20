@@ -298,7 +298,7 @@ const ReindeerSafariLevi = ({ lang = "fi" }: ReindeerSafariLeviProps) => {
       <PageCTA lang={lang} />
 <MajoitusCallout lang={lang} variant="compact" />
 
-      <Footer />
+      <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </div>

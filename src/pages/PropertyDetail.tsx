@@ -742,7 +742,7 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
             />
           </div>
         </main>
-        <Footer />
+        <Footer lang={lang} />
       </div>
     </>
   );

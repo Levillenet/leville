@@ -236,9 +236,9 @@ const ChristmasDinnerLeviFI = () => {
         <PageCTA lang="fi" />
 <MajoitusCallout />
 
-        <Footer />
-        <WhatsAppChat />
-        <StickyBookingBar />
+        <Footer lang="fi" />
+        <WhatsAppChat lang="fi" />
+        <StickyBookingBar lang="fi" />
       </div>
     </>
   );

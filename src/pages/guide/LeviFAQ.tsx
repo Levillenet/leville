@@ -631,7 +631,7 @@ const LeviFAQ = ({ lang = "fi" }: LeviFAQProps) => {
 
       <Footer lang={lang} />
       <StickyBookingBar lang={lang} />
-      <WhatsAppChat />
+      <WhatsAppChat lang={lang} />
     </>
   );
 };

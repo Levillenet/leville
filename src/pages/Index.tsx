@@ -152,7 +152,7 @@ const Index = ({ lang = "fi" }: IndexProps) => {
           </Suspense>
         </main>
         <Footer lang={lang} />
-        <WhatsAppChat />
+        <WhatsAppChat lang={lang} />
         <ModerBookingWidget lang={lang} />
       </div>
     </>
