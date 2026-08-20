@@ -609,6 +609,37 @@ const experienceLinks: Record<Language, Record<string, string>> = {
   nl: { moon: "/nl/noorderlicht", sparkles: "/activities/husky-safari-levi", heart: "/guide/finnish-sauna-in-levi", snowflake: "/activities/top-winter-activities-in-levi-lapland" },
 };
 
+const xmasBookingCopy: Record<string, { top: { before: string; link: string; after: string }; mid: string }> = {
+  fi: {
+    top: { before: "Joulun ajan majoitus kannattaa varata ajoissa — ", link: "katso vapaat mökit ja huoneistot", after: "." },
+    mid: "Kaikissa kohteissamme on oma sauna ja täysin varusteltu keittiö joulunviettoon →",
+  },
+  en: {
+    top: { before: "Christmas accommodation books up early — ", link: "see available cabins and apartments", after: "." },
+    mid: "All our properties have a private sauna and a fully equipped kitchen for Christmas →",
+  },
+  sv: {
+    top: { before: "Julboendet bokas tidigt — ", link: "se lediga stugor och lägenheter", after: "." },
+    mid: "Alla våra boenden har egen bastu och fullt utrustat kök för julfirandet →",
+  },
+  de: {
+    top: { before: "Weihnachtsunterkünfte sind früh ausgebucht — ", link: "freie Hütten und Apartments ansehen", after: "." },
+    mid: "Alle unsere Unterkünfte haben eine eigene Sauna und eine voll ausgestattete Küche für Weihnachten →",
+  },
+  es: {
+    top: { before: "El alojamiento de Navidad se reserva pronto — ", link: "ver cabañas y apartamentos disponibles", after: "." },
+    mid: "Todos nuestros alojamientos tienen sauna privada y cocina totalmente equipada para la Navidad →",
+  },
+  fr: {
+    top: { before: "Les hébergements de Noël partent vite — ", link: "voir les chalets et appartements disponibles", after: "." },
+    mid: "Tous nos logements disposent d'un sauna privé et d'une cuisine entièrement équipée pour Noël →",
+  },
+  nl: {
+    top: { before: "Kerstaccommodatie is snel volgeboekt — ", link: "bekijk beschikbare chalets en appartementen", after: "." },
+    mid: "Al onze accommodaties hebben een eigen sauna en volledig uitgeruste keuken voor de kerst →",
+  },
+};
+
 const readMoreLabels: Record<Language, string> = {
   fi: "Lue lisää",
   en: "Read more",
@@ -786,6 +817,19 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
               <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 {t.intro}
               </p>
+              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed mt-4">
+                {xmasBookingCopy[lang]?.top.before ?? xmasBookingCopy.en.top.before}
+                <a
+                  href="https://app.moder.fi/levillenet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-booking-source="joulu-lapissa-intro"
+                  className="text-primary font-medium underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+                >
+                  {xmasBookingCopy[lang]?.top.link ?? xmasBookingCopy.en.top.link}
+                </a>
+                {xmasBookingCopy[lang]?.top.after ?? xmasBookingCopy.en.top.after}
+              </p>
             </section>
 
             {/* Santa Image Section */}
@@ -953,6 +997,21 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
               </div>
             </section>
 
+            {/* Contextual booking link (mid-page) */}
+            <section className="mb-12 sm:mb-16">
+              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed text-center">
+                <a
+                  href="https://app.moder.fi/levillenet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-booking-source="joulu-lapissa-mid"
+                  className="text-primary font-medium underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+                >
+                  {xmasBookingCopy[lang]?.mid ?? xmasBookingCopy.en.mid}
+                </a>
+              </p>
+            </section>
+
             {/* Long-form Christmas Guide (FI + EN) */}
             {t.longContent && (
               <div className="max-w-3xl mx-auto">
@@ -1068,12 +1127,18 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                 fi: {
                   title: "Lue myös",
                   links: [
+                    { title: "Joulupukki Levillä", desc: "Missä ja milloin pukin tapaa", href: "/opas/joulupukki-levilla" },
+                    { title: "Jouluillallinen Levillä", desc: "Ravintolat, menut ja catering", href: "/opas/jouluillallinen-levilla" },
+                    { title: "Levi joulukuussa", desc: "Sää, lumitilanne ja tapahtumat", href: "/opas/levi-joulukuussa" },
+                    { title: "Levi tammikuussa", desc: "Kaamoksen jälkeinen hiljainen kausi", href: "/opas/levi-tammikuussa" },
+                    { title: "Uusivuosi Levillä", desc: "Ilotulitukset ja ohjelma", href: "/opas/uusivuosi-levilla" },
+                    { title: "Revontulet Levillä", desc: "Paras aika ja paikka revontulille", href: "/revontulet" },
+                    { title: "Majoitus Levillä", desc: "Mökit ja huoneistot keskustassa", href: "/majoitukset" },
+                    { title: "Miten pääsee Leville", desc: "Lennot, junat ja autoilu", href: "/opas/miten-paasee-leville" },
+                    { title: "Hinnat Levillä", desc: "Mitä loma maksaa käytännössä", href: "/opas/hinnat-levilla" },
+                    { title: "Tapahtumat Levillä", desc: "Kauden tapahtumakalenteri", href: "/opas/tapahtumat-levilla" },
                     { title: "Levi vs Rovaniemi", desc: "Kumpi on parempi joulukohde?", href: "/opas/levi-vs-rovaniemi" },
                     { title: "Talvi Levillä", desc: "Kaamos, lumi ja talviaktiviteetit", href: "/opas/talvi-levi" },
-                    { title: "Revontulet Levillä", desc: "Paras aika ja paikka revontulille", href: "/revontulet" },
-                    { title: "Talvivarusteet", desc: "Pukeutumisvinkit Lapin pakkasiin", href: "/opas/talvivarusteet-leville" },
-                    { title: "Ravintolat ja palvelut", desc: "Levin keskustan palvelut", href: "/opas/ravintolat-ja-palvelut-levilla" },
-                    { title: "Lapsiperheet Levillä", desc: "Vinkit perheen joulumatkaan", href: "/opas/lapsiperheet-levilla" },
                   ],
                 },
                 en: {
@@ -1082,8 +1147,16 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                     { title: "Levi vs Rovaniemi", desc: "Which is the better Christmas destination?", href: "/guide/levi-vs-rovaniemi-comparison" },
                     { title: "Winter in Levi", desc: "Polar night, snow and winter activities", href: "/guide/winter-in-levi" },
                     { title: "Northern Lights in Levi", desc: "Best time and spots for aurora", href: "/en/northern-lights" },
+                    { title: "Santa Claus in Levi", desc: "Where and when to meet Santa", href: "/guide/santa-claus-in-levi" },
+                    { title: "Christmas Dinner in Levi", desc: "Restaurants, menus and catering", href: "/guide/christmas-dinner-in-levi" },
+                    { title: "Levi in December", desc: "Weather, snow and events", href: "/guide/levi-in-december" },
+                    { title: "Levi in January", desc: "Quiet season after the polar night", href: "/guide/levi-in-january" },
+                    { title: "New Year in Levi", desc: "Fireworks and festive programme", href: "/guide/new-years-eve-in-levi" },
+                    { title: "Accommodation in Levi", desc: "Cabins and apartments in the centre", href: "/en/accommodations" },
+                    { title: "How to Get to Levi", desc: "Flights, trains and driving", href: "/travel/how-to-get-to-levi" },
+                    { title: "Prices in Levi", desc: "What a Lapland holiday really costs", href: "/guide/prices-in-levi" },
+                    { title: "Events in Levi", desc: "Seasonal events calendar", href: "/guide/events-in-levi" },
                     { title: "Winter Clothing Guide", desc: "How to dress for Lapland frost", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
-                    { title: "Restaurants & Services", desc: "Levi center dining and services", href: "/guide/restaurants-and-services-in-levi" },
                     { title: "Levi With Children", desc: "Tips for a family Christmas trip", href: "/guide/levi-with-children" },
                   ],
                 },
@@ -1093,6 +1166,10 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                     { title: "Vinter i Levi", desc: "Polarnatt, snö och vinteraktiviteter", href: "/guide/winter-in-levi" },
                     { title: "Norrsken i Levi", desc: "Bästa tid och platser", href: "/sv/norrsken" },
                     { title: "Vinterkläder", desc: "Klädtips för Lapplands kyla", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+                    { title: "Levi i december", desc: "Väder, snö och evenemang", href: "/sv/guide/levi-i-december" },
+                    { title: "Levi i januari", desc: "Lugn säsong efter polarnatten", href: "/sv/guide/levi-i-januari" },
+                    { title: "Boende i Levi", desc: "Stugor och lägenheter i centrum", href: "/sv/boenden" },
+                    { title: "Hur tar man sig till Levi", desc: "Flyg, tåg och bil", href: "/sv/resa/hur-tar-man-sig-till-levi" },
                   ],
                 },
                 de: {
@@ -1101,6 +1178,10 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                     { title: "Winter in Levi", desc: "Polarnacht, Schnee und Aktivitäten", href: "/guide/winter-in-levi" },
                     { title: "Nordlichter in Levi", desc: "Beste Zeit und Orte", href: "/de/nordlichter" },
                     { title: "Winterkleidung", desc: "Kleidungstipps für Lapplands Kälte", href: "/guide/how-to-dress-for-winter-in-levi-lapland" },
+                    { title: "Levi im Dezember", desc: "Wetter, Schnee und Events", href: "/de/ratgeber/levi-im-dezember" },
+                    { title: "Levi im Januar", desc: "Ruhige Zeit nach der Polarnacht", href: "/de/ratgeber/levi-im-januar" },
+                    { title: "Unterkünfte in Levi", desc: "Hütten und Apartments im Zentrum", href: "/de/unterkuenfte" },
+                    { title: "Anreise nach Levi", desc: "Flüge, Züge und Auto", href: "/de/reise/anreise-nach-levi" },
                   ],
                 },
                 es: {
@@ -1108,6 +1189,9 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                   links: [
                     { title: "Invierno en Levi", desc: "Noche polar, nieve y actividades", href: "/guide/winter-in-levi" },
                     { title: "Auroras boreales en Levi", desc: "Mejor época y lugares", href: "/es/auroras-boreales" },
+                    { title: "Levi en diciembre", desc: "Clima, nieve y eventos", href: "/es/guia/levi-en-diciembre" },
+                    { title: "Levi en enero", desc: "Temporada tranquila tras la noche polar", href: "/es/guia/levi-en-enero" },
+                    { title: "Alojamiento en Levi", desc: "Cabañas y apartamentos en el centro", href: "/es/alojamientos" },
                   ],
                 },
                 fr: {
@@ -1115,6 +1199,10 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                   links: [
                     { title: "L'hiver à Levi", desc: "Nuit polaire, neige et activités", href: "/guide/winter-in-levi" },
                     { title: "Aurores boréales à Levi", desc: "Meilleure période et spots", href: "/fr/aurores-boreales" },
+                    { title: "Levi en décembre", desc: "Météo, neige et événements", href: "/fr/guide/levi-en-decembre" },
+                    { title: "Levi en janvier", desc: "Saison calme après la nuit polaire", href: "/fr/guide/levi-en-janvier" },
+                    { title: "Hébergements à Levi", desc: "Chalets et appartements au centre", href: "/fr/hebergements" },
+                    { title: "Comment aller à Levi", desc: "Vols, trains et voiture", href: "/fr/voyage/comment-aller-a-levi" },
                   ],
                 },
                 nl: {
@@ -1124,6 +1212,10 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                     { title: "Noorderlicht in Levi", desc: "Beste tijd en locaties", href: "/nl/noorderlicht" },
                     { title: "Winterkleding", desc: "Kledingstips voor Lapland", href: "/nl/gids/winterkleding-levi-lapland" },
                     { title: "Levi met kinderen", desc: "Tips voor een familiekersttrip", href: "/nl/gids/levi-met-kinderen" },
+                    { title: "Levi in december", desc: "Weer, sneeuw en evenementen", href: "/nl/gids/levi-in-december" },
+                    { title: "Levi in januari", desc: "Rustig seizoen na de poolnacht", href: "/nl/gids/levi-in-januari" },
+                    { title: "Accommodaties in Levi", desc: "Chalets en appartementen in het centrum", href: "/nl/accommodaties" },
+                    { title: "Prijzen in Levi", desc: "Wat kost een Lapland-vakantie", href: "/nl/gids/prijzen-in-levi" },
                   ],
                 },
               };
