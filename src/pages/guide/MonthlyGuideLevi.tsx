@@ -1293,6 +1293,13 @@ function getMonthData(month: number, lang: string): MonthData | null {
 const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
   const location = useLocation();
   const isFi = lang === "fi";
+  const bookingNudge = isFi
+    ? { text: "Suunnitteletko jo matkaa?", link: "Katso vapaat majoitukset ja hinnat" }
+    : { text: "Already planning your trip?", link: "Check availability and prices" };
+  const moderUrl =
+    lang === "fi" ? "https://app.moder.fi/levillenet"
+    : lang === "sv" ? "https://app.moder.fi/levillenet?lang=sv"
+    : "https://app.moder.fi/levillenet?lang=en";
 
   // Derive month from URL
   const pathSegments = location.pathname.split("/");
