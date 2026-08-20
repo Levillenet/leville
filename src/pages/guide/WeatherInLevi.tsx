@@ -475,6 +475,7 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
     lang === "fi" ? "https://app.moder.fi/levillenet"
     : lang === "sv" ? "https://app.moder.fi/levillenet?lang=sv"
     : "https://app.moder.fi/levillenet?lang=en";
+  const nudge = ("bookingNudge" in t ? t.bookingNudge : undefined) as { text: string; link: string } | undefined;
   const location = useLocation();
 
   const customUrls: Record<string, string> = {
@@ -689,16 +690,16 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
 
             {/* FAQ */}
             <section className="mb-12">
-              {t.bookingNudge && (
+              {nudge && (
                 <p className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 text-[15px] leading-relaxed">
-                  {t.bookingNudge.text}{" "}
+                  {nudge.text}{" "}
                   <a
                     href={moderUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-medium text-primary underline underline-offset-4 hover:decoration-primary"
                   >
-                    {t.bookingNudge.link}
+                    {nudge.link}
                   </a>
                   .
                 </p>

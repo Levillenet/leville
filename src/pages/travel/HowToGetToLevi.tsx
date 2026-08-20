@@ -539,6 +539,7 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
     lang === "fi" ? "https://app.moder.fi/levillenet"
     : lang === "sv" ? "https://app.moder.fi/levillenet?lang=sv"
     : "https://app.moder.fi/levillenet?lang=en";
+  const nudge = ("bookingNudge" in t ? t.bookingNudge : undefined) as { text: string; link: string } | undefined;
   
   const hreflangUrls = {
     fi: "https://leville.net/matka/miten-paasee-leville-helsingista",
@@ -829,16 +830,16 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
-          {t.bookingNudge && (
+          {nudge && (
             <p className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 text-[15px] leading-relaxed">
-              {t.bookingNudge.text}{" "}
+              {nudge.text}{" "}
               <a
                 href={moderUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-primary underline underline-offset-4 hover:decoration-primary"
               >
-                {t.bookingNudge.link}
+                {nudge.link}
               </a>
               .
             </p>
