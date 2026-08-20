@@ -321,7 +321,7 @@ const FinnishSaunaLevi = () => {
                   {/* Timer dial image card */}
                   <div className="bg-background/60 rounded-lg p-4 border border-border/30 flex flex-col items-center justify-center">
                     <img 
-                      src="/images/sauna-timer-dial.png" 
+                      src="/images/sauna-timer-dial.webp" 
                       alt="Sauna timer dial showing Range A (1-4 hours, immediate heating) and Range B (1-8 hours, delayed heating)" 
                       className="w-full max-w-[180px] object-contain"
                       loading="lazy"

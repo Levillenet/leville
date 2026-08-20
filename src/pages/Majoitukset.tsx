@@ -26,9 +26,9 @@ import { streetHubs } from "@/data/street-hubs";
 
 // Import accommodation background images
 import karhupirttiImg from "@/assets/accommodations/karhupirtti.jpg";
-import skistarImg from "@/assets/accommodations/skistar.png";
-import perheasunnotImg from "@/assets/accommodations/perheasunnot.png";
-import glacierImg from "@/assets/accommodations/glacier.png";
+import skistarImg from "@/assets/accommodations/skistar.jpg";
+import perheasunnotImg from "@/assets/accommodations/perheasunnot.jpg";
+import glacierImg from "@/assets/accommodations/glacier.jpg";
 
 const accommodationIcons: LucideIcon[] = [Home, Users, Mountain, Building];
 
