@@ -1,60 +1,30 @@
-# Suunnitelma: poista käännöspuuttuvat reitit ja hreflang-viittaukset
+# Suunnitelma: lisää `lang`-prop komponenttitaggeihin
 
 ## Tavoite
-Poista 21 reittiä, jotka renderöivät komponentteja kielillä joille niillä ei ole käännöksiä. Komponentti putoaa suomeen ja lähettää suomenkielisen kanonisen tagin, jolloin Google indeksoi sivut suomenkielisen alkuperäisen duplikaatteina.
+Lisätä `lang`-prop komponenteille, jotka renderöivät suomenkielisen UI:n ilman propia. Tämä varmistaa, että alatunnisteet (`Footer`), varauspalkki (`StickyBookingBar`), WhatsApp-widget ja CTA (`PageCTA`) käyttävät oikeaa kieltä.
 
 ## Muutokset
+Muutetaan vain listattuja komponenttitaggeja. Ei kosketa teksteihin, otsikkoihin, käännöksiin, layoutiin, tyylihin eikä komponenttilogiikkaan.
 
-### 1. `src/App.tsx` — poista 21 `<Route>`-riviä
-Poistettavat reitit (vahvistettu riveillä 788–812):
+### Tiedostot, joissa `lang`-muuttuja on olemassa
+| Tiedosto | Muuttuja | Rivi | Muutos |
+|---|---|---|---|
+| `src/pages/opas/VappuLevilla.tsx` | `const lang = "fi";` (rivi 284) | 741 | `<WhatsAppChat />` → `<WhatsAppChat lang={lang} />` |
 
-**SkiingInLevi (4 kpl):**
-- `/de/ratgeber/skifahren-in-levi`
-- `/sv/guide/skidakning-i-levi`
-- `/fr/guide/ski-a-levi`
-- `/es/guia/esqui-en-levi`
+### Tiedostot, joissa ei ole `lang`-propia scopessa — käytetään literaalia `lang="fi"`
+| Tiedosto | Rivit | Muutokset |
+|---|---|---|
+| `src/pages/opas/MajoitusLevilla.tsx` | 392–395 | `<PageCTA />` → `<PageCTA lang="fi" />`, `<Footer />` → `<Footer lang="fi" />`, `<WhatsAppChat />` → `<WhatsAppChat lang="fi" />`, `<StickyBookingBar />` → `<StickyBookingBar lang="fi" />` |
+| `src/pages/opas/LeviVsRovaniemi.tsx` | 547–549 | `<Footer />` → `<Footer lang="fi" />`, `<WhatsAppChat />` → `<WhatsAppChat lang="fi" />`, `<StickyBookingBar />` → `<StickyBookingBar lang="fi" />` |
+| `src/pages/opas/LeviVsSaariselka.tsx` | 444–446 | `<Footer />` → `<Footer lang="fi" />`, `<WhatsAppChat />` → `<WhatsAppChat lang="fi" />`, `<StickyBookingBar />` → `<StickyBookingBar lang="fi" />` |
+| `src/pages/opas/SaunaLevilla.tsx` | 447–449 | `<Footer />` → `<Footer lang="fi" />`, `<WhatsAppChat />` → `<WhatsAppChat lang="fi" />`, `<StickyBookingBar />` → `<StickyBookingBar lang="fi" />` |
+| `src/pages/guide/LeviVsYllasVsRuka.tsx` | 480–482 | `<Footer />` → `<Footer lang="fi" />`, `<WhatsAppChat />` → `<WhatsAppChat lang="fi" />`, `<StickyBookingBar />` → `<StickyBookingBar lang="fi" />` |
+| `src/pages/guide/LeviInteractiveMap.tsx` | 533 | `<Footer />` → `<Footer lang="fi" />` |
+| `src/pages/StreetHub.tsx` | 219 | `<Footer />` → `<Footer lang="fi" />` |
 
-**LeviWithChildren (4 kpl):**
-- `/de/ratgeber/levi-mit-kindern`
-- `/sv/guide/levi-med-barn`
-- `/fr/guide/levi-avec-enfants`
-- `/es/guia/levi-con-ninos`
-
-**RestaurantsAndServices (5 kpl):**
-- `/de/ratgeber/restaurants-und-services-levi`
-- `/sv/guide/restauranger-och-tjanster-levi`
-- `/fr/guide/restaurants-et-services-levi`
-- `/es/guia/restaurantes-y-servicios-levi`
-- `/nl/gids/restaurants-en-diensten-levi`
-
-**WeatherInLevi (4 kpl):**
-- `/de/levi/wetter-in-levi`
-- `/sv/levi/vader-i-levi`
-- `/fr/levi/meteo-a-levi`
-- `/es/levi/clima-en-levi`
-
-**HowToGetToLevi (4 kpl):**
-- `/de/reise/anreise-nach-levi`
-- `/sv/resa/hur-tar-man-sig-till-levi`
-- `/fr/voyage/comment-aller-a-levi`
-- `/es/viaje/como-llegar-a-levi`
-
-**Ei kosketa:** `lazy()`-import-lauseita, koska komponentteja käyttävät jäljelle jäävät fi/en/nl-reitit.
-
-### 2. Hreflang-objektien siivous
-Poista vain määritellyt kieliavaimet. Ei kosketa muihin objekteihin (breadcrumbs, homeLinks, leviLinks, käännökset, layout).
-
-| Tiedosto | Objekti | Rivit | Poistettavat | Jäljelle jäävät |
-|---|---|---|---|---|
-| `src/pages/guide/SkiingInLevi.tsx` | `customUrls` | 326–334 | de, sv, fr, es | fi, en, nl |
-| `src/pages/guide/LeviWithChildren.tsx` | `hreflangUrls` | 609–617 | de, sv, fr, es | fi, en, nl |
-| `src/pages/guide/WeatherInLevi.tsx` | `customUrls` | 473–481 | de, sv, fr, es | fi, en, nl |
-| `src/pages/travel/HowToGetToLevi.tsx` | `hreflangUrls` | 536–544 | de, sv, fr, es | fi, en, nl |
-| `src/pages/guide/RestaurantsAndServices.tsx` | `hreflangUrls` | 270–277 | de, sv, fr, es | fi, en |
-
-Huomio: `RestaurantsAndServices.tsx`:n `hreflangUrls`-objektissa ei ole `nl`-avainta, joten lopputila on fi + en.
+## Huomio scopessa olevasta kielestä
+Vain `VappuLevilla.tsx`:ssä on `lang`-muuttuja scopessa (`const lang = "fi";`). Muissa tiedostoissa komponentti ei ota `lang`-propia, joten lisätään literaali `lang="fi"`.
 
 ## Validointi
-- Ajoitan TypeScript-tarkistuksen (`tsgo` / `tsc --noEmit`) ja tuotantobuildin.
-- Tarkistan Playwrightilla, että poistetut polut (esim. `/de/ratgeber/skifahren-in-levi`) eivät enää renderöi sivua ja että fi/en/nl-polut toimivat.
-- Raportoin tiedosto- ja rivimuutokset toteutuksen jälkeen.
+- Ajoitan TypeScript-tarkistuksen (`tsgo`) ja tuotantobuildin.
+- Tarkistan, että muutetut sivut renderöityvät ilman virheitä.
