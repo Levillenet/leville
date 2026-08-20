@@ -738,7 +738,7 @@ const VappuLevilla = () => {
       <PageCTA lang={lang} />
       <Footer lang={lang} />
       <StickyBookingBar lang={lang} />
-      <WhatsAppChat />
+      <WhatsAppChat lang={lang} />
     </>
   );
 };

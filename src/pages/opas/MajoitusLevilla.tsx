@@ -389,10 +389,10 @@ const MajoitusLevilla = () => {
         </div>
       </main>
 
-      <PageCTA />
-      <Footer />
-      <WhatsAppChat />
-      <StickyBookingBar />
+      <PageCTA lang="fi" />
+      <Footer lang="fi" />
+      <WhatsAppChat lang="fi" />
+      <StickyBookingBar lang="fi" />
     </div>
   );
 };

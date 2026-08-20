@@ -530,7 +530,7 @@ const LeviInteractiveMap = () => {
         </section>
       </main>
 
-      <Footer />
+      <Footer lang="fi" />
 
       {/* Mapbox marker & popup styles */}
       <style>{`

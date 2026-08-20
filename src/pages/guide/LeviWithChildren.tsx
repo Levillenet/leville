@@ -610,10 +610,6 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
     fi: "https://leville.net/opas/lapsiperheet-levilla",
     en: "https://leville.net/guide/levi-with-children",
     nl: "https://leville.net/nl/gids/levi-met-kinderen",
-    de: "https://leville.net/de/ratgeber/levi-mit-kindern",
-    sv: "https://leville.net/sv/guide/levi-med-barn",
-    fr: "https://leville.net/fr/guide/levi-avec-enfants",
-    es: "https://leville.net/es/guia/levi-con-ninos",
   };
 
   const faqSchema = {

@@ -326,11 +326,7 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
   const customUrls: Record<string, string> = {
     fi: "/opas/laskettelu-levi",
     en: "/guide/skiing-in-levi",
-    nl: "/nl/gids/skieen-in-levi",
-    de: "/de/ratgeber/skifahren-in-levi",
-    sv: "/sv/guide/skidakning-i-levi",
-    fr: "/fr/guide/ski-a-levi",
-    es: "/es/guia/esqui-en-levi"
+    nl: "/nl/gids/skieen-in-levi"
   };
 
   const homeLabels: Record<string, string> = { fi: "Etusivu", en: "Home", nl: "Home", de: "Startseite", sv: "Hem", fr: "Accueil", es: "Inicio" };

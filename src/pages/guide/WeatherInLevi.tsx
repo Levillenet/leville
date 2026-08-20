@@ -473,11 +473,7 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
   const customUrls: Record<string, string> = {
     fi: "/levi/saatieto-levilta",
     en: "/en/levi/weather-in-levi",
-    nl: "/nl/levi/weer-in-levi",
-    de: "/de/levi/wetter-in-levi",
-    sv: "/sv/levi/vader-i-levi",
-    fr: "/fr/levi/meteo-a-levi",
-    es: "/es/levi/clima-en-levi"
+    nl: "/nl/levi/weer-in-levi"
   };
 
   const homeLabels: Record<string, string> = { fi: "Etusivu", en: "Home", nl: "Home", de: "Startseite", sv: "Hem", fr: "Accueil", es: "Inicio" };

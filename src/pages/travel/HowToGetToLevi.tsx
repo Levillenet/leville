@@ -536,11 +536,7 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
   const hreflangUrls = {
     fi: "https://leville.net/matka/miten-paasee-leville-helsingista",
     en: "https://leville.net/travel/how-to-get-to-levi-from-helsinki-and-abroad",
-    nl: "https://leville.net/nl/gids/hoe-kom-je-in-levi",
-    de: "https://leville.net/de/reise/anreise-nach-levi",
-    sv: "https://leville.net/sv/resa/hur-tar-man-sig-till-levi",
-    fr: "https://leville.net/fr/voyage/comment-aller-a-levi",
-    es: "https://leville.net/es/viaje/como-llegar-a-levi"
+    nl: "https://leville.net/nl/gids/hoe-kom-je-in-levi"
   };
 
   const faqSchema = {
