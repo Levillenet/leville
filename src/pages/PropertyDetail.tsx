@@ -326,6 +326,22 @@ const groupAddress: Record<string, { label: string; query: string }> = {
   "karhupirtti": { label: "Skimbaajankuja 3, Levi", query: "Skimbaajankuja 3, 99130 Levi" },
 };
 
+const hubUrlByGroup: Record<string, Record<Language, string>> = {
+  "front-slope": { fi: "/vuokramokit/front-slope-levi", en: "/en/rentals/front-slope-levi", sv: "", de: "", es: "", fr: "", nl: "" },
+  "skistar": { fi: "/vuokramokit/skistar-levi", en: "/en/rentals/skistar-levi", sv: "", de: "", es: "", fr: "", nl: "" },
+  "glacier": { fi: "/vuokramokit/glacier-apartments-levi", en: "/en/rentals/glacier-apartments-levi", sv: "", de: "", es: "", fr: "", nl: "" },
+  "karhupirtti": { fi: "/mokit-levilla", en: "/en/cabins", sv: "", de: "", es: "", fr: "", nl: "" },
+  "center-other": { fi: "/majoitukset", en: "/en/accommodations", sv: "", de: "", es: "", fr: "", nl: "" },
+};
+
+const hubLabelByGroup: Record<string, Record<Language, string>> = {
+  "front-slope": { fi: "Katso kaikki Front Slope -huoneistot", en: "See all Front Slope apartments", sv: "", de: "", es: "", fr: "", nl: "" },
+  "skistar": { fi: "Katso kaikki Skistar-huoneistot", en: "See all Skistar apartments", sv: "", de: "", es: "", fr: "", nl: "" },
+  "glacier": { fi: "Katso kaikki Glacier Apartments -huoneistot", en: "See all Glacier Apartments", sv: "", de: "", es: "", fr: "", nl: "" },
+  "karhupirtti": { fi: "Tutustu kaikkiin Levi-mökkeihin", en: "Explore all Levi cabins", sv: "", de: "", es: "", fr: "", nl: "" },
+  "center-other": { fi: "Katso kaikki keskustan kohteet", en: "See all center properties", sv: "", de: "", es: "", fr: "", nl: "" },
+};
+
 type GroupCopy = { text: string; distance: string };
 
 const groupContext: Record<string, Record<Language, GroupCopy>> = {
@@ -348,12 +364,12 @@ const groupContext: Record<string, Record<Language, GroupCopy>> = {
   },
   "skistar": {
     fi: {
-      text: "Postintien moderni rakennus aivan Levin keskustassa. Askelia K-Marketille, ravintoloihin ja kahviloihin, n. 600 m gondolille. Huom. ei hissiä.",
-      distance: "Levin keskusta · 600 m gondolille",
+      text: "Postintien moderni rakennus aivan Levin keskustassa. Askelia K-Marketille, ravintoloihin ja kahviloihin, n. 700 m gondolille. Huom. ei hissiä.",
+      distance: "Levin keskusta · n. 700 m gondolille",
     },
     en: {
-      text: "A modern building on Postintie right in Levi Center. Steps from the K-Market (small grocery store), restaurants and cafés, about 600 m to the gondola. Note: no elevator in the building.",
-      distance: "Levi Center · 600 m to gondola",
+      text: "A modern building on Postintie right in Levi Center. Steps from the K-Market (small grocery store), restaurants and cafés, about 700 m to the gondola. Note: no elevator in the building.",
+      distance: "Levi Center · about 700 m to gondola",
     },
     sv: { text: "", distance: "" },
     de: { text: "", distance: "" },
@@ -393,12 +409,12 @@ const groupContext: Record<string, Record<Language, GroupCopy>> = {
   },
   "glacier": {
     fi: {
-      text: "Hullu Poro -alueen alppihuoneistot etelärinteen tuntumassa. Lasten leikkihuone, lämmin suksivarasto ja parkkipaikat samassa rakennuksessa.",
-      distance: "Hullu Poro · etelärinne",
+      text: "Eturinteen Alppikylän alppihuoneistot Levin ydinkeskustassa. Hiihtoladulle noin 20 m ja päärinteelle noin 150 m. Lasten leikkihuone, lämmin suksivarasto ja parkkipaikat samassa rakennuksessa.",
+      distance: "Eturinteen Alppikylä · ydinkeskusta",
     },
     en: {
-      text: "Alpine apartments in the Hullu Poro area, close to the south slope. Children's playroom, heated ski storage and parking in the same building.",
-      distance: "Hullu Poro · south slope",
+      text: "Alpine apartments in Eturinteen Alppikylä, right in Levi Center. About 20 m to the ski trail and 150 m to the main slope. Children's playroom, heated ski storage and parking in the same building.",
+      distance: "Eturinteen Alppikylä · Levi Center",
     },
     sv: { text: "", distance: "" },
     de: { text: "", distance: "" },
@@ -455,13 +471,17 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
   // Parse "Hiihtäjänkuja 5, 99130 Levi" → { street, postalCode }
   const addressQuery = groupAddress[group]?.query ?? "";
   const addressMatch = addressQuery.match(/^(.+?),\s*(\d{5})\s+(.+)$/);
-  const streetAddress = addressMatch?.[1] ?? groupAddress[group]?.label ?? "";
-  const postalCode = addressMatch?.[2] ?? "99130";
+  const streetAddress = property.address?.street ?? addressMatch?.[1] ?? groupAddress[group]?.label ?? "";
+  const postalCode = property.address?.postalCode ?? addressMatch?.[2] ?? "99130";
   const streetShort = streetAddress.split(",")[0].trim();
   const guestLabel = activeLang === "en" ? "guests" : "hlö";
+  const bedroomLabel = activeLang === "en" ? "br" : "mh";
+  const bedroomPart = property.bedrooms ? `${property.bedrooms} ${bedroomLabel}` : "";
+  const guestPart = `${property.maxGuests} ${guestLabel}`;
+  const capacityPart = bedroomPart ? `${bedroomPart}, ${guestPart}` : guestPart;
   const titleSuffix = streetShort
-    ? `${streetShort}, Levi · ${property.maxGuests} ${guestLabel}`
-    : `Levi · ${property.maxGuests} ${guestLabel}`;
+    ? `${streetShort}, Levi · ${capacityPart}`
+    : `Levi · ${capacityPart}`;
   const title = `${displayName} — ${titleSuffix} | Leville.net`;
   const description = truncate(displayDescription);
 
@@ -494,8 +514,8 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
     description: displayDescription,
     address: {
       "@type": "PostalAddress",
-      ...(streetAddress ? { streetAddress } : {}),
-      addressLocality: "Levi",
+      streetAddress,
+      addressLocality: property.address?.city ?? "Levi",
       postalCode,
       addressRegion: "Lappi",
       addressCountry: "FI",
@@ -676,6 +696,16 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
                       >
                         <MapPin className="w-4 h-4" /> {t.openInMaps(groupAddress[group].label)} <ArrowRight className="w-4 h-4" />
                       </a>
+                    </div>
+                  )}
+                  {hubUrlByGroup[group]?.[activeLang] && (
+                    <div className="mt-3">
+                      <Link
+                        to={hubUrlByGroup[group][activeLang]}
+                        className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
+                      >
+                        <ArrowRight className="w-4 h-4" /> {hubLabelByGroup[group][activeLang]}
+                      </Link>
                     </div>
                   )}
                 </CardContent>
