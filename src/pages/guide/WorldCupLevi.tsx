@@ -453,6 +453,12 @@ const WorldCupLevi = ({ lang = "fi" }: WorldCupLeviProps) => {
                 {t.side.title}
               </h2>
               <p className="text-muted-foreground mb-3">{t.side.body}</p>
+              <Card className="glass-card border-border/30 mb-4">
+                <CardContent className="p-4">
+                  <h3 className="font-semibold text-foreground mb-1">{t.zeroPoint.title}</h3>
+                  <p className="text-sm text-muted-foreground">{t.zeroPoint.body}</p>
+                </CardContent>
+              </Card>
               <Link
                 to={lang === "en" ? "/guide/restaurants-and-services-levi" : "/opas/ravintolat-ja-palvelut-levilla"}
                 className="text-primary underline underline-offset-4"
