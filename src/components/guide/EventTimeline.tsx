@@ -587,7 +587,7 @@ const EventCard = ({ event, lang, labels, seasonStyle, seasonName }: EventCardPr
               {hasUrl && (
                 isExternal ? (
                   <a
-                    href={event.url}
+                    href={url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-xs text-primary hover:underline font-medium"
@@ -597,7 +597,7 @@ const EventCard = ({ event, lang, labels, seasonStyle, seasonName }: EventCardPr
                   </a>
                 ) : (
                   <Link
-                    to={event.url}
+                    to={url}
                     className="inline-flex items-center gap-1 text-xs text-primary hover:underline font-medium"
                   >
                     {labels.readMore}
