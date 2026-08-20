@@ -6,11 +6,18 @@ Tärkeä huomio: `src/assets`-kuvat muunnetaan jo nyt automaattisesti WebP-muoto
 
 ## Vaihe 1 — public-kansion kuvat WebP-muotoon (suurin hyöty)
 
-- Muunnetaan kaikki `public/`-kansion kohde-JPEG/PNG-kuvat WebP-muotoon (maksimileveys 1920px, laatu 82).
-- Päivitetään viittaukset koodissa `.jpg` → `.webp` (mm. `src/data/properties.ts`, muut komponentit joissa `/glacier/`, `/skistar/`, `/hiihtajankuja/`, `/images/` -polkuja).
-- Poistetaan alkuperäiset tiedostot.
-- Poikkeus: `og-*.png`-jakokuvat säilytetään PNG/JPEG-muodossa (osa somepalveluista ei tue WebPiä) — ne vain pakataan pienemmiksi.
+- Muunnetaan kaikki `public/`-kansion kohde-JPEG/PNG-kuvat WebP-muotoon (maksimileveys 1920px, laatu 82). **Tiedostonimet pysyvät täysin samoina — vain pääte muuttuu** (`/glacier/a2/05.jpg` → `/glacier/a2/05.webp`).
+- Viittaukset haetaan koko projektista, ei vain `properties.ts`:stä: kaikki `.ts`, `.tsx`, `.html`, `.txt`, `.json`, `.css` -tiedostot. Erityisesti tarkistetaan:
+  - `index.html` meta-tagit ja `<link rel="preload">`
+  - JSON-LD -komponentit ja skeemat (`JsonLd.tsx`, `StructuredData.tsx`, `src/utils/structuredData.ts`, sivukohtaiset skeemat)
+  - `SeoMeta.tsx` sekä sivujen omat `og:image` / `twitter:image` -tagit
+  - `public/llms-full.txt` ja `public/llms.txt`
+  - `src/data/*.ts` (properties, street-hubs, propertyDetails, searchIndex ym.)
+  - Reunatapaukset: dynaamisesti koostetut polut (esim. `${slug}/01.jpg`) käydään läpi käsin.
+- Poistetaan alkuperäiset tiedostot vasta kun kaikki viittaukset on päivitetty; lopuksi varmistetaan haulla, ettei koodissa ole yhtään jäljelle jäänyttä `.jpg`/`.png`-viittausta muunnettuihin tiedostoihin.
+- Poikkeus: `og-*.png`-jakokuvat säilytetään PNG-muodossa (osa somepalveluista ei tue WebPiä) — ne vain pakataan pienemmiksi, nimet ja polut ennallaan, joten meta-tageihin ei tule muutoksia.
 - Odotettu tulos: ~104 MB → noin 12–18 MB, ja nopeammin latautuvat kohdesivut.
+
 
 ## Vaihe 2 — src/assets-lähdekuvien pakkaus
 
