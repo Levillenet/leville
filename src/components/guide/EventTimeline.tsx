@@ -536,8 +536,9 @@ interface EventCardProps {
 const EventCard = ({ event, lang, labels, seasonStyle, seasonName }: EventCardProps) => {
   const catConfig = categoryConfig[event.category];
   const CatIcon = catConfig.icon;
-  const isExternal = event.url.startsWith("http");
-  const hasUrl = event.url.length > 0;
+  const url = event.url[lang];
+  const isExternal = url.startsWith("http");
+  const hasUrl = url.length > 0;
 
   return (
     <Card className="glass-card border-border/30 hover:border-primary/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg group overflow-hidden">
