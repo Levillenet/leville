@@ -334,6 +334,33 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
           </header>
 
           <p className="mb-6 text-lg">{t.intro}</p>
+          {lang === "fi" ? (
+            <p className="mb-6 text-lg">
+              Majoitumme Levin keskustassa, kävelyetäisyydellä useimmista ravintoloista —{" "}
+              <a
+                href="https://app.moder.fi/levillenet"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                katso huoneistomme
+              </a>
+              .
+            </p>
+          ) : lang === "en" ? (
+            <p className="mb-6 text-lg">
+              Our apartments are in Levi center, within walking distance of most restaurants —{" "}
+              <a
+                href="https://app.moder.fi/levillenet"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                see our accommodation
+              </a>
+              .
+            </p>
+          ) : null}
           <InlineBookingLink variant="tip" intent="stayCentre" lang={lang} />
           <InlineBookingLink variant="tip" intent="glacierPrime" lang={lang} />
           <InlineBookingLink variant="tip" intent="directNoFees" lang={lang} />
