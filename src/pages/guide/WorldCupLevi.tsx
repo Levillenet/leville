@@ -90,10 +90,13 @@ const translations = {
       title: "Parhaat katselupaikat",
       items: [
         { h: "Maalialue ja päakatsomo", p: "Levi Blackin juurella näet viimeiset portit ja maaliintulon läheltä. Tunnelmallisin paikka, mutta täyttyy ensimmäisenä." },
-        { h: "Zero Point", p: "Kylän keskusta kisa-alueen vieressä: suurtaulu, ruokakojut ja kävelymatka rinteeltä majoitukseen." },
         { h: "Lapland Avenue -tapahtuma-alue", p: "Näytteilleasettajat, esiintymislava ja tapahtumatorin tunnelma kisojen välissä." },
       ],
       tip: "Paikallisen vinkki: pukeudu –15 °C:n kelille. Seisot paikallasi tunteja, joten villasukat, toppahousut ja lämpimät kengät ratkaisevat kokemuksen.",
+    },
+    zeroPoint: {
+      title: "Zero Point – oheisohjelmaa kisaviikonloppuna",
+      body: "Zero Point ei itsessään ole katselupaikka, vaan se toimii kisaviikonlopun tapahtumakeskuksena. Siellä järjestetään esimerkiksi lasku- ja kilpailunumeroiden arvonta, johon liittyy yleensä myös muuta oheisohjelmaa perjantai- ja lauantai-iltana.",
     },
     stay: {
       title: "Majoitus kisaviikonloppuna",
