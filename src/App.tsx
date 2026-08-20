@@ -51,6 +51,7 @@ const HowToGetToLevi = lazy(() => import("./pages/travel/HowToGetToLevi"));
 const TopWinterActivities = lazy(() => import("./pages/activities/TopWinterActivities"));
 const SkiingInLevi = lazy(() => import("./pages/guide/SkiingInLevi"));
 const WorldCupLevi = lazy(() => import("./pages/guide/WorldCupLevi"));
+const KaamosLevi = lazy(() => import("./pages/guide/KaamosLevi"));
 const CrossCountrySkiingInLevi = lazy(() => import("./pages/guide/CrossCountrySkiingInLevi"));
 const WinterInLevi = lazy(() => import("./pages/guide/WinterInLevi"));
 const WeatherInLevi = lazy(() => import("./pages/guide/WeatherInLevi"));
@@ -403,6 +404,7 @@ const App = () => {
               <Route path="/opas/talvivarusteet-leville" element={<WinterClothingGuide />} />
               <Route path="/opas/laskettelu-levi" element={<SkiingInLevi />} />
               <Route path="/opas/world-cup-levi" element={<WorldCupLevi />} />
+              <Route path="/opas/kaamos-levi" element={<KaamosLevi />} />
               <Route path="/opas/hiihtoladut-levi" element={<CrossCountrySkiingInLevi />} />
               <Route path="/opas/talvi-levi" element={<WinterInLevi />} />
               <Route path="/opas/kevat-levi" element={<SpringInLevi />} />
@@ -420,6 +422,7 @@ const App = () => {
               <Route path="/guide/how-to-dress-for-winter-in-levi-lapland" element={<WinterClothingGuide lang="en" />} />
               <Route path="/guide/skiing-in-levi" element={<SkiingInLevi lang="en" />} />
               <Route path="/guide/levi-world-cup" element={<WorldCupLevi lang="en" />} />
+              <Route path="/guide/polar-night-levi" element={<KaamosLevi lang="en" />} />
               <Route path="/guide/cross-country-skiing-in-levi" element={<CrossCountrySkiingInLevi lang="en" />} />
               <Route path="/guide/winter-in-levi" element={<WinterInLevi lang="en" />} />
               <Route path="/guide/spring-in-levi" element={<SpringInLevi lang="en" />} />
