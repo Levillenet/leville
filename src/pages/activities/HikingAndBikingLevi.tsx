@@ -227,9 +227,9 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Hiking and Biking in Levi – Fell Trails and E-bikes | Leville.net",
+      title: "Hiking & Biking in Levi – Trails, Routes & Local Tips",
       description:
-        "Discover Levi's best hiking trails and mountain biking routes. E-bikes and fatbikes are also available in winter on groomed trails. Experience Lapland nature!",
+        "Best hiking and mountain biking trails in Levi, Finnish Lapland. Trail difficulty levels, e-bike rental and seasonal tips from a local.",
       canonical: "https://leville.net/activities/hiking-and-biking-levi",
     },
     title: "Hiking and Biking in Levi",
