@@ -28,8 +28,8 @@ const COPY: Record<"fi" | "en", { title: string; body: string; cta: string; seco
     title: "Looking for accommodation in Levi?",
     body: "We rent saunaed apartments and cabins in Levi Center directly from the owner. No middleman fees, personal service, walking distance to the slopes.",
     cta: "Accommodation in Levi – see all",
-    secondary: "Cabins in Levi",
-    secondaryHref: "/en/accommodations",
+    secondary: "Levi log cabins",
+    secondaryHref: "/en/log-cabins-levi",
   },
 };
 

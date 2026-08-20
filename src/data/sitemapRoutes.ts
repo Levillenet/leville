@@ -27,7 +27,7 @@ export const SITEMAP_ROUTES: SitemapRoute[] = [
   { path: "/en/ski-in-ski-out-levi", lang: "en", priority: 0.7, changefreq: "monthly" },
   { path: "/mokit-levilla", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "mokit-levilla" },
   { path: "/vuokramokit", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "mokit-levilla" },
-  { path: "/en/cabins", lang: "en", priority: 0.7, changefreq: "monthly", altGroup: "mokit-levilla" },
+  { path: "/en/log-cabins-levi", lang: "en", priority: 0.7, changefreq: "monthly", altGroup: "mokit-levilla" },
   { path: "/majoitus/levin-keskustahuoneistot", lang: "fi", priority: 0.6, changefreq: "monthly" },
   { path: "/opas/autolla-ajaminen-lapissa", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "opas-autolla-ajaminen-lapissa" },
   { path: "/ajankohtaista", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "ajankohtaista" },

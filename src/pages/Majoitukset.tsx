@@ -102,15 +102,15 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
   const BASE = "https://leville.net";
 
   const buildingGroups = useMemo(() => {
-    const groups: { id: string; name: string; slugPrefix: (slug: string) => boolean; description: string }[] = [
-      { id: "zero-point", name: "Zero Point (Hiihtäjänkuja 5)", slugPrefix: (s) => s.startsWith("zero-point"), description: "Saunalliset 2 makuuhuoneen alppihuoneistot Levin ydinkeskustassa, kävelymatka rinteille ja keskustaan." },
-      { id: "karhupirtti", name: "Karhupirtti (Skimbaajankuja 3)", slugPrefix: (s) => s === "karhupirtti", description: "Tilava hirsihuvila isoille ryhmille – oma sauna, takka ja paljulle varattu piha." },
-      { id: "skistar", name: "Skistar Levi Centre (Postintie 3)", slugPrefix: (s) => s.startsWith("skistar"), description: "Modernit huoneistot ja studiot Levin keskustassa – palvelut askelmatkan päässä, hisseille n. 700 m." },
-      { id: "karhunvartija", name: "Karhunvartija 3 (Skimbaajankuja 4)", slugPrefix: (s) => s === "karhunvartija-3", description: "Tilava perhehuoneisto Levin keskustassa, oma sauna ja takka." },
-      { id: "levi-platinum", name: "Levi Platinum A2 (Hiihtäjänkuja 2)", slugPrefix: (s) => s === "levi-platinum-a2", description: "Edustava studio Levin keskustassa – kävelymatka rinteille, ravintoloihin ja palveluihin." },
-      { id: "moonlight", name: "Moonlight 415 (Leviraitti)", slugPrefix: (s) => s === "moonlight-415", description: "Tunnelmallinen studio Levin sydämessä – nopea pääsy rinteille ja Levin palveluihin." },
-      { id: "glacier-a", name: "Levi Glacier Apartments A-talo (Ratsastajankuja 2)", slugPrefix: (s) => /^glacier-a\d/.test(s), description: "Uudet alppitalon huoneistot ja penthouse rinteen yläpäässä – sauna, takka ja näköalat." },
-      { id: "glacier-b", name: "Levi Glacier Apartments B-talo (Ratsastajankuja 2)", slugPrefix: (s) => /^glacier-b\d/.test(s), description: "Glacier B-talon huoneistot ja penthouset – sauna, takka ja rauhallinen sijainti." },
+    const groups: { id: string; name: string; slugPrefix: (slug: string) => boolean; description: string; descriptionEn: string }[] = [
+      { id: "zero-point", name: "Zero Point (Hiihtäjänkuja 5)", slugPrefix: (s) => s.startsWith("zero-point"), description: "Saunalliset 2 makuuhuoneen alppihuoneistot Levin ydinkeskustassa, kävelymatka rinteille ja keskustaan.", descriptionEn: "Two-bedroom alpine apartments with private sauna in the heart of Levi centre, walking distance to the slopes." },
+      { id: "karhupirtti", name: "Karhupirtti (Skimbaajankuja 3)", slugPrefix: (s) => s === "karhupirtti", description: "Tilava hirsihuvila isoille ryhmille – oma sauna, takka ja paljulle varattu piha.", descriptionEn: "Spacious log villa for large groups — private sauna, fireplace and a yard prepared for a hot tub." },
+      { id: "skistar", name: "Skistar Levi Centre (Postintie 3)", slugPrefix: (s) => s.startsWith("skistar"), description: "Modernit huoneistot ja studiot Levin keskustassa – palvelut askelmatkan päässä, hisseille n. 700 m.", descriptionEn: "Modern apartments and studios in Levi centre — services next door, about 700 m to the ski lifts." },
+      { id: "karhunvartija", name: "Karhunvartija 3 (Skimbaajankuja 4)", slugPrefix: (s) => s === "karhunvartija-3", description: "Tilava perhehuoneisto Levin keskustassa, oma sauna ja takka.", descriptionEn: "Spacious family apartment in Levi centre with private sauna and fireplace." },
+      { id: "levi-platinum", name: "Levi Platinum A2 (Hiihtäjänkuja 2)", slugPrefix: (s) => s === "levi-platinum-a2", description: "Edustava studio Levin keskustassa – kävelymatka rinteille, ravintoloihin ja palveluihin.", descriptionEn: "Stylish studio in Levi centre — walking distance to the slopes, restaurants and services." },
+      { id: "moonlight", name: "Moonlight 415 (Leviraitti)", slugPrefix: (s) => s === "moonlight-415", description: "Tunnelmallinen studio Levin sydämessä – nopea pääsy rinteille ja Levin palveluihin.", descriptionEn: "Cosy studio in the heart of Levi — quick access to the slopes and all Levi services." },
+      { id: "glacier-a", name: "Levi Glacier Apartments A-talo (Ratsastajankuja 2)", slugPrefix: (s) => /^glacier-a\d/.test(s), description: "Uudet alppitalon huoneistot ja penthouse rinteen yläpäässä – sauna, takka ja näköalat.", descriptionEn: "New alpine apartments and a penthouse at the top of the front slope — sauna, fireplace and views." },
+      { id: "glacier-b", name: "Levi Glacier Apartments B-talo (Ratsastajankuja 2)", slugPrefix: (s) => /^glacier-b\d/.test(s), description: "Glacier B-talon huoneistot ja penthouset – sauna, takka ja rauhallinen sijainti.", descriptionEn: "Glacier building B apartments and penthouses — sauna, fireplace and a peaceful location." },
     ];
     return groups.map((g) => ({
       ...g,
@@ -139,7 +139,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
       "@type": "LodgingBusiness",
       name: g.name,
       url: `${BASE}${lang === "fi" ? "/majoitukset" : lang === "en" ? "/en/accommodations" : "/majoitukset"}#${g.id}`,
-      description: g.description,
+      description: lang === "en" ? g.descriptionEn : g.description,
       address: addr ? {
         "@type": "PostalAddress",
         streetAddress: addr.street,
@@ -762,20 +762,21 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </ScrollReveal>
             )}
 
-            {/* SEO: per-building accommodation overview (FI only) */}
-            {lang === "fi" && (
+            {/* SEO: per-building accommodation overview (FI + EN) */}
+            {(lang === "fi" || lang === "en") && (
               <ScrollReveal delay={0.2}>
                 <section className="mt-12 md:mt-16 mb-8 max-w-4xl mx-auto px-2" aria-labelledby="majoitus-yleiskatsaus">
                   <h2 id="majoitus-yleiskatsaus" className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                    Majoitus Levillä – kaikki {properties.length} huoneistoamme
+                    {isEnglish
+                      ? `Levi accommodation — all ${properties.length} apartments and cabins`
+                      : `Majoitus Levillä – kaikki ${properties.length} huoneistoamme`}
                   </h2>
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
-                    Leville.net vuokraa {properties.length} omaa loma-asuntoa Levin keskustasta ja rinteiden välittömästä
-                    läheisyydestä – studioista penthouseihin. Kaikki kohteet sijaitsevat Sirkan kylässä Kittilässä,
-                    kävelymatkan päässä hisseiltä, ravintoloista ja Levin palveluista. Varaat suoraan meiltä ilman
-                    välityspalkkioita. Alla yhteenveto kohteistamme rakennuksittain – jokainen huoneisto on linkitetty
-                    omalle sivulleen, jossa näet kuvat, varustelun ja varauskalenterin.
+                    {isEnglish
+                      ? `Leville.net rents ${properties.length} owner-operated holiday apartments, log cabins and cottages in Levi centre, Finland — from studios to penthouses. Every property is in Sirkka village, Kittilä, within walking distance of the ski lifts, restaurants and services of the Levi ski resort. You book directly with the owner, with no agency commission. Below is an overview of our Levi accommodation building by building; each apartment links to its own page with photos, amenities and a live availability calendar.`
+                      : "Leville.net vuokraa " + properties.length + " omaa loma-asuntoa Levin keskustasta ja rinteiden välittömästä läheisyydestä – studioista penthouseihin. Kaikki kohteet sijaitsevat Sirkan kylässä Kittilässä, kävelymatkan päässä hisseiltä, ravintoloista ja Levin palveluista. Varaat suoraan meiltä ilman välityspalkkioita. Alla yhteenveto kohteistamme rakennuksittain – jokainen huoneisto on linkitetty omalle sivulleen, jossa näet kuvat, varustelun ja varauskalenterin."}
                   </p>
+
 
                   <div className="space-y-6">
                     {buildingGroups.map((g) => (
@@ -789,7 +790,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                             </address>
                           </p>
                         )}
-                        <p className="text-sm text-muted-foreground mb-3">{g.description}</p>
+                        <p className="text-sm text-muted-foreground mb-3">{isEnglish ? g.descriptionEn : g.description}</p>
                         <ul className="flex flex-wrap gap-2">
                           {g.items.map((p) => (
                             <li key={p.slug}>
@@ -806,25 +807,66 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     ))}
                   </div>
 
-                  <p className="text-sm text-muted-foreground leading-relaxed mt-6">
-                    Vertaile tarkemmin{" "}
-                    <Link to="/opas/mokki-vai-huoneisto-levi" className="text-primary hover:underline">
-                      mökin ja huoneiston eroja
-                    </Link>
-                    , tutustu{" "}
-                    <Link to="/mokit-levilla" className="text-primary hover:underline">
-                      mökkeihin Levillä
-                    </Link>{" "}
-                    tai katso{" "}
-                    <Link to="/akkilahdot" className="text-primary hover:underline">
-                      äkkilähtöjen tarjouksia
-                    </Link>
-                    . Et löydä sopivaa? Ota yhteyttä:{" "}
-                    <a href="mailto:info@leville.net" className="text-primary hover:underline">
-                      info@leville.net
-                    </a>
-                    .
-                  </p>
+                  {isEnglish ? (
+                    <>
+                      <h3 className="text-lg sm:text-xl font-semibold text-foreground mt-8 mb-2">
+                        Levi log cabins and cottages
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                        Looking for a log cabin in Levi rather than an apartment? Our cabins and cabin-style
+                        holiday homes have a private sauna, a fireplace and room for 8–14 guests — see all{" "}
+                        <Link to="/en/log-cabins-levi" className="text-primary hover:underline">
+                          Levi log cabins and cottages
+                        </Link>
+                        .
+                      </p>
+                      <h3 className="text-lg sm:text-xl font-semibold text-foreground mt-6 mb-2">
+                        Where to stay in Levi ski resort
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                        All of our accommodation is in Levi centre (Sirkka, Kittilä), so you can walk to the
+                        gondola, the ski school, restaurants and the supermarket. Kittilä airport is about 15
+                        minutes away by car. Compare{" "}
+                        <Link to="/guide/cabin-vs-apartment-in-levi" className="text-primary hover:underline">
+                          a cabin versus an apartment
+                        </Link>
+                        , check{" "}
+                        <Link to="/en/last-minute" className="text-primary hover:underline">
+                          last-minute deals
+                        </Link>{" "}
+                        or read{" "}
+                        <Link to="/travel/how-to-get-to-levi-from-helsinki-and-abroad" className="text-primary hover:underline">
+                          how to get to Levi
+                        </Link>
+                        . Can't find the right fit? Email{" "}
+                        <a href="mailto:info@leville.net" className="text-primary hover:underline">
+                          info@leville.net
+                        </a>
+                        .
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-sm text-muted-foreground leading-relaxed mt-6">
+                      Vertaile tarkemmin{" "}
+                      <Link to="/opas/mokki-vai-huoneisto-levi" className="text-primary hover:underline">
+                        mökin ja huoneiston eroja
+                      </Link>
+                      , tutustu{" "}
+                      <Link to="/mokit-levilla" className="text-primary hover:underline">
+                        mökkeihin Levillä
+                      </Link>{" "}
+                      tai katso{" "}
+                      <Link to="/akkilahdot" className="text-primary hover:underline">
+                        äkkilähtöjen tarjouksia
+                      </Link>
+                      . Et löydä sopivaa? Ota yhteyttä:{" "}
+                      <a href="mailto:info@leville.net" className="text-primary hover:underline">
+                        info@leville.net
+                      </a>
+                      .
+                    </p>
+                  )}
+
                 </section>
               </ScrollReveal>
             )}
