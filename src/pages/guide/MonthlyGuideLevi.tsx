@@ -1393,6 +1393,21 @@ const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
           </ul>
         </section>
 
+        <section className="max-w-4xl mx-auto px-4">
+          <p className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 text-[15px] leading-relaxed">
+            {bookingNudge.text}{" "}
+            <a
+              href={moderUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-primary underline underline-offset-4 hover:decoration-primary"
+            >
+              {bookingNudge.link}
+            </a>
+            .
+          </p>
+        </section>
+
         {/* Events */}
         <section className="max-w-4xl mx-auto px-4 pb-12">
           <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "#2D2D2D" }}>{data.events.title}</h2>
