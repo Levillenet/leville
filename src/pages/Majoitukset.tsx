@@ -762,20 +762,21 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </ScrollReveal>
             )}
 
-            {/* SEO: per-building accommodation overview (FI only) */}
-            {lang === "fi" && (
+            {/* SEO: per-building accommodation overview (FI + EN) */}
+            {(lang === "fi" || lang === "en") && (
               <ScrollReveal delay={0.2}>
                 <section className="mt-12 md:mt-16 mb-8 max-w-4xl mx-auto px-2" aria-labelledby="majoitus-yleiskatsaus">
                   <h2 id="majoitus-yleiskatsaus" className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                    Majoitus Levillä – kaikki {properties.length} huoneistoamme
+                    {isEnglish
+                      ? `Levi accommodation — all ${properties.length} apartments and cabins`
+                      : `Majoitus Levillä – kaikki ${properties.length} huoneistoamme`}
                   </h2>
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
-                    Leville.net vuokraa {properties.length} omaa loma-asuntoa Levin keskustasta ja rinteiden välittömästä
-                    läheisyydestä – studioista penthouseihin. Kaikki kohteet sijaitsevat Sirkan kylässä Kittilässä,
-                    kävelymatkan päässä hisseiltä, ravintoloista ja Levin palveluista. Varaat suoraan meiltä ilman
-                    välityspalkkioita. Alla yhteenveto kohteistamme rakennuksittain – jokainen huoneisto on linkitetty
-                    omalle sivulleen, jossa näet kuvat, varustelun ja varauskalenterin.
+                    {isEnglish
+                      ? `Leville.net rents ${properties.length} owner-operated holiday apartments, log cabins and cottages in Levi centre, Finland — from studios to penthouses. Every property is in Sirkka village, Kittilä, within walking distance of the ski lifts, restaurants and services of the Levi ski resort. You book directly with the owner, with no agency commission. Below is an overview of our Levi accommodation building by building; each apartment links to its own page with photos, amenities and a live availability calendar.`
+                      : "Leville.net vuokraa " + properties.length + " omaa loma-asuntoa Levin keskustasta ja rinteiden välittömästä läheisyydestä – studioista penthouseihin. Kaikki kohteet sijaitsevat Sirkan kylässä Kittilässä, kävelymatkan päässä hisseiltä, ravintoloista ja Levin palveluista. Varaat suoraan meiltä ilman välityspalkkioita. Alla yhteenveto kohteistamme rakennuksittain – jokainen huoneisto on linkitetty omalle sivulleen, jossa näet kuvat, varustelun ja varauskalenterin."}
                   </p>
+
 
                   <div className="space-y-6">
                     {buildingGroups.map((g) => (
