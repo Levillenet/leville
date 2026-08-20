@@ -535,6 +535,10 @@ const translations = {
 const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
   const location = useLocation();
   const t = translations[lang] || translations.fi;
+  const moderUrl =
+    lang === "fi" ? "https://app.moder.fi/levillenet"
+    : lang === "sv" ? "https://app.moder.fi/levillenet?lang=sv"
+    : "https://app.moder.fi/levillenet?lang=en";
   
   const hreflangUrls = {
     fi: "https://leville.net/matka/miten-paasee-leville-helsingista",
@@ -825,6 +829,20 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
           {/* Read Next */}
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
 
+          {t.bookingNudge && (
+            <p className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 text-[15px] leading-relaxed">
+              {t.bookingNudge.text}{" "}
+              <a
+                href={moderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary underline underline-offset-4 hover:decoration-primary"
+              >
+                {t.bookingNudge.link}
+              </a>
+              .
+            </p>
+          )}
           {/* CTA Section */}
           <section className="bg-primary/10 rounded-2xl p-8 text-center mb-12">
             <h2 className="text-2xl font-bold text-foreground mb-4">{t.cta.title}</h2>

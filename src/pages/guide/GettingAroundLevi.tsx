@@ -312,6 +312,10 @@ const sectionIcons: Record<SectionKey, React.ReactNode> = {
 const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
   const location = useLocation();
   const t = translations[lang] || translations.fi;
+  const moderUrl =
+    lang === "fi" ? "https://app.moder.fi/levillenet"
+    : lang === "sv" ? "https://app.moder.fi/levillenet?lang=sv"
+    : "https://app.moder.fi/levillenet?lang=en";
 
   const hreflangUrls: Record<string, string> = {
     fi: "https://leville.net/opas/liikkuminen-levilla",
@@ -418,6 +422,20 @@ const GettingAroundLevi = ({ lang = "fi" }: GettingAroundLeviProps) => {
             );
           })}
 
+          {t.bookingNudge && (
+            <p className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 text-[15px] leading-relaxed">
+              {t.bookingNudge.text}{" "}
+              <a
+                href={moderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary underline underline-offset-4 hover:decoration-primary"
+              >
+                {t.bookingNudge.link}
+              </a>
+              .
+            </p>
+          )}
           <GuideDisclaimer lang={lang} />
 
           {/* Read Next */}
