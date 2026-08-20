@@ -126,7 +126,7 @@ const Varausehdot = ({ lang = "fi" }: VarausehdotProps) => {
           </div>
         </main>
         <Footer lang={lang} />
-        <WhatsAppChat />
+        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

@@ -1453,11 +1453,11 @@ const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
         </section>
       </main>
 
-      <PageCTA lang="fi" />
+      <PageCTA lang={lang} />
 
-      <Footer />
-      <WhatsAppChat />
-      <StickyBookingBar />
+      <Footer lang={lang} />
+      <WhatsAppChat lang={lang} />
+      <StickyBookingBar lang={lang} />
     </div>
   );
 };
