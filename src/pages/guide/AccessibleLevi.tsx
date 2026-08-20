@@ -87,8 +87,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Accessible Levi — Guide for Visitors with Disabilities | Leville.net",
-      description: "Accessibility guide for Levi: wheelchair access, accessible accommodation, adapted skiing and activities.",
+      title: "Accessible Levi – Wheelchair-Friendly Skiing & Travel",
+      description: "Guide to accessible travel in Levi: adaptive skiing, wheelchair-friendly facilities, accessible accommodation and transport in Lapland.",
       canonical: "https://leville.net/guide/accessible-levi"
     },
     h1: "Accessible Levi — A Guide for Visitors with Disabilities",

@@ -99,7 +99,7 @@ const iconMap: Record<string, React.ReactNode> = {
 const translations: Record<string, TranslationContent> = {
   fi: {
     meta: {
-      title: "Paras aika matkustaa Leville – Kuukausikohtainen opas 2025 | Leville.net",
+      title: `Paras aika matkustaa Leville – Kuukausiopas ${new Date().getFullYear()}`,
       description: "Milloin Leville kannattaa matkustaa? Vertaile vuodenaikoja, säätietoja, aktiviteetteja ja revontulien todennäköisyyttä kuukausi kuukaudelta.",
       canonical: "https://leville.net/opas/paras-aika-matkustaa-leville"
     },
@@ -215,7 +215,7 @@ const translations: Record<string, TranslationContent> = {
   },
   en: {
     meta: {
-      title: "Best Time to Visit Levi, Finland – Month-by-Month Guide 2025 | Leville.net",
+      title: `Best Time to Visit Levi – Month-by-Month Guide ${new Date().getFullYear()}`,
       description: "When is the best time to visit Levi? Compare seasons, weather, activities and Northern Lights chances month by month. Plan your perfect Lapland holiday.",
       canonical: "https://leville.net/guide/best-time-to-visit-levi"
     },

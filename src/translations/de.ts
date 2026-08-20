@@ -238,8 +238,8 @@ export const de = {
   },
   levi: {
     meta: {
-      title: "Levi – Aktivitäten & Informationen | Leville.net",
-      description: "Entdecken Sie Levi Aktivitäten: Skifahren, Langlaufen, Nordlichter und vieles mehr. Nützliche Links zu Levi Services und Wetterinfo.",
+      title: "Levi Finnland – Skigebiet, Aktivitäten & Reiseführer",
+      description: "Alles für Ihren Levi-Urlaub: Pisten, Loipen, Restaurants, Nordlichter, Unterkunft und Veranstaltungen. Tipps von Einheimischen.",
       keywords: "Levi Aktivitäten, Levi Skifahren, Levi Langlauf, Levi Nordlichter, Levi Wetter",
       canonical: "https://leville.net/de/levi"
     },
