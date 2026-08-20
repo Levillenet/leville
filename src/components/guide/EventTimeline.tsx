@@ -50,11 +50,12 @@ const events: LeviEvent[] = [
     recurring: { fi: "Vuosittain marraskuun puolivälissä", en: "Annually in mid-November" },
     category: "sports",
     description: {
-      fi: "Kansainvälinen alppihiihdon maailmancup — kauden avauskilpailu. Naisten ja miesten pujottelu Levi Black -rinteessä. Katselu rinteeltä on ilmaista.",
-      en: "International FIS Alpine Ski World Cup — season-opening slalom event. Women's and men's slalom on the Levi Black slope. Free spectating from the slope."
+      fi: "Kansainvälinen alppihiihdon maailmancup — kauden avauskilpailu. Naisten ja miesten pujottelu Levi Black -rinteessä. Seuraaminen rinteen laidalta on ilmaista; katsomopaikat, VIP-paketit ja oheistapahtumat ovat maksullisia.",
+      en: "International FIS Alpine Ski World Cup — season-opening slalom event. Women's and men's slalom on the Levi Black slope. Watching from the slope side is free; grandstand seats, VIP packages and side events are ticketed."
     },
     url: { fi: "/opas/world-cup-levi", en: "/guide/levi-world-cup" },
-    free: true
+    free: false,
+    partlyFree: true
   },
   {
     id: "christmas-season",
