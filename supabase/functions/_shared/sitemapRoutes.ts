@@ -23,7 +23,6 @@ export type SitemapRoute = {
 export const SITEMAP_ROUTES: SitemapRoute[] = [
   { path: "/", lang: "fi", priority: 1.0, changefreq: "weekly" },
   { path: "/majoitukset", lang: "fi", priority: 0.9, changefreq: "weekly" },
-  { path: "/en/accommodations", lang: "en", priority: 0.7, changefreq: "monthly" },
   { path: "/en/apartment-levi", lang: "en", priority: 0.7, changefreq: "monthly" },
   { path: "/en/ski-in-ski-out-levi", lang: "en", priority: 0.7, changefreq: "monthly" },
   { path: "/mokit-levilla", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "mokit-levilla" },
