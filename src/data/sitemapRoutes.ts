@@ -155,6 +155,8 @@ export const SITEMAP_ROUTES: SitemapRoute[] = [
   { path: "/es/guia/actividades-en-levi", lang: "es", priority: 0.8, changefreq: "monthly", altGroup: "opas-aktiviteetit-levi" },
   { path: "/opas/talvivarusteet-leville", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "opas-talvivarusteet-leville" },
   { path: "/opas/laskettelu-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "opas-laskettelu-levi" },
+  { path: "/opas/world-cup-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "world-cup-levi" },
+  { path: "/guide/levi-world-cup", lang: "en", priority: 0.7, changefreq: "monthly", altGroup: "world-cup-levi" },
   { path: "/opas/hiihtoladut-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "opas-hiihtoladut-levi" },
   { path: "/opas/talvi-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "opas-talvi-levi" },
   { path: "/opas/kevat-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "opas-kevat-levi" },
