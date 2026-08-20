@@ -325,6 +325,7 @@ const t = {
     family: "Perhe",
     entertainment: "Viihde",
     free: "Ilmainen",
+    partlyFree: "Osin ilmainen",
     readMore: "Lue lisää",
     disclaimer: "Tapahtumakalenteri on suuntaa-antava. Tarkat päivämäärät voivat muuttua vuosittain. Tarkista aina ajantasaiset tiedot tapahtuman omilta sivuilta.",
     disclaimerLinkText: "Katso Levin koko tapahtumakalenteri (levi.fi)",
