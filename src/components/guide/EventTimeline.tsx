@@ -17,7 +17,7 @@ interface LeviEvent {
   recurring: { fi: string; en: string };
   category: EventCategory;
   description: { fi: string; en: string };
-  url: string;
+  url: { fi: string; en: string };
   free: boolean;
 }
 
@@ -25,8 +25,8 @@ const events: LeviEvent[] = [
   {
     id: "winter-opening",
     name: { fi: "Talvikauden avajaiset", en: "Winter Season Opening" },
-    dateStart: "2025-10-03",
-    dateEnd: "2025-10-05",
+    dateStart: "2026-10-02",
+    dateEnd: "2026-10-04",
     month: 10,
     recurring: { fi: "Vuosittain lokakuun alussa", en: "Annually in early October" },
     category: "sports",
@@ -34,13 +34,16 @@ const events: LeviEvent[] = [
       fi: "Levin laskettelu- ja maastohiihtokausi avataan. Eturinteille säilötään ennätysmäärä lunta.",
       en: "Alpine and cross-country skiing season opens in Levi. Record amounts of stored snow on the Front Slopes."
     },
-    url: "https://www.levi.fi/en/events/winter-season-opening-2025-2026/",
+    url: {
+      fi: "https://www.levi.fi/tapahtumat/talvikauden-avajaiset-2026-2027/",
+      en: "https://www.levi.fi/en/events/winter-season-opening-2026-2027/"
+    },
     free: true
   },
   {
     id: "world-cup",
     name: { fi: "FIS Alpine World Cup Slalom", en: "FIS Alpine World Cup Slalom" },
-    dateStart: "2026-11-14",
+    dateStart: "2026-11-13",
     dateEnd: "2026-11-15",
     month: 11,
     recurring: { fi: "Vuosittain marraskuun puolivälissä", en: "Annually in mid-November" },
@@ -49,14 +52,14 @@ const events: LeviEvent[] = [
       fi: "Kansainvälinen alppihiihdon maailmancup — kauden avauskilpailu. Naisten ja miesten pujottelu Levi Black -rinteessä. Katselu rinteeltä on ilmaista.",
       en: "International FIS Alpine Ski World Cup — season-opening slalom event. Women's and men's slalom on the Levi Black slope. Free spectating from the slope."
     },
-    url: "https://www.levi.fi/en/events/fis-ski-alpine-world-cup-levi/",
+    url: { fi: "/opas/world-cup-levi", en: "/guide/levi-world-cup" },
     free: true
   },
   {
     id: "christmas-season",
     name: { fi: "Joulusesonki", en: "Christmas Season" },
-    dateStart: "2025-12-01",
-    dateEnd: "2026-01-06",
+    dateStart: "2026-12-01",
+    dateEnd: "2027-01-06",
     month: 12,
     recurring: { fi: "Vuosittain joulu–tammikuu", en: "Annually December–January" },
     category: "family",
@@ -64,14 +67,14 @@ const events: LeviEvent[] = [
       fi: "Joulupukkitapaamiset, joulumarkkinat, erityisohjelma ravintoloissa ja safariyrityksissä. Kaamoksen sininen valo ja jouluvalot.",
       en: "Santa meetings, Christmas markets, special programs at restaurants and safari companies. Blue light of the polar night and Christmas lights."
     },
-    url: "/levi/joulu-lapissa",
+    url: { fi: "/levi/joulu-lapissa", en: "/levi/christmas-in-lapland" },
     free: false
   },
   {
     id: "new-years-eve",
     name: { fi: "Uudenvuodenaatto", en: "New Year's Eve" },
-    dateStart: "2025-12-31",
-    dateEnd: "2025-12-31",
+    dateStart: "2026-12-31",
+    dateEnd: "2026-12-31",
     month: 12,
     recurring: { fi: "Vuosittain 31.12.", en: "Annually December 31" },
     category: "entertainment",
@@ -79,14 +82,14 @@ const events: LeviEvent[] = [
       fi: "Ilotulitukset keskiyöllä keskustan tuntumasta. Baareissa ja ravintoloissa erityisohjelmaa.",
       en: "Fireworks at midnight near the village center. Special programs at bars and restaurants."
     },
-    url: "",
+    url: { fi: "", en: "" },
     free: true
   },
   {
     id: "ski-holidays",
     name: { fi: "Hiihtolomaviikot", en: "Finnish Ski Holiday Weeks" },
-    dateStart: "2026-02-14",
-    dateEnd: "2026-03-08",
+    dateStart: "2027-02-13",
+    dateEnd: "2027-03-07",
     month: 2,
     recurring: { fi: "Vuosittain viikot 8–10 (helmi–maaliskuu)", en: "Annually weeks 8–10 (February–March)" },
     category: "sports",
@@ -94,14 +97,14 @@ const events: LeviEvent[] = [
       fi: "Kolmen viikon jakso — Levin vilkkain aika. Erityisohjelmaa perheille, kilpailuja ja tapahtumia.",
       en: "Three-week period — Levi's busiest time. Special programs for families, competitions and events."
     },
-    url: "",
+    url: { fi: "", en: "" },
     free: false
   },
   {
     id: "yllas-levi-ski",
     name: { fi: "Ylläs-Levi Hiihto", en: "Ylläs-Levi Cross-Country Ski Race" },
-    dateStart: "2026-04-10",
-    dateEnd: "2026-04-11",
+    dateStart: "2027-04-10",
+    dateEnd: "2027-04-11",
     month: 4,
     recurring: { fi: "Vuosittain huhtikuussa", en: "Annually in April" },
     category: "sports",
@@ -109,14 +112,14 @@ const events: LeviEvent[] = [
       fi: "Perinteinen pitkän matkan hiihto — 55 km ja 70 km tunturimaisemissa Ylläkseltä Leville. Noin 2000 osallistujaa.",
       en: "Traditional long-distance cross-country skiing — 55 km and 70 km through fell landscapes from Ylläs to Levi. Approximately 2000 participants."
     },
-    url: "https://yllaslevi.fi/en/",
+    url: { fi: "https://yllaslevi.fi/", en: "https://yllaslevi.fi/en/" },
     free: false
   },
   {
     id: "ski-snow-fest",
     name: { fi: "Ski & Snow Fest", en: "Ski & Snow Fest" },
-    dateStart: "2026-04-13",
-    dateEnd: "2026-04-19",
+    dateStart: "2027-04-13",
+    dateEnd: "2027-04-19",
     month: 4,
     recurring: { fi: "Vuosittain huhtikuussa", en: "Annually in April" },
     category: "sports",
@@ -124,14 +127,14 @@ const events: LeviEvent[] = [
       fi: "Viikon mittainen kilpailu- ja laskettelu-juhla kevätrinteillä.",
       en: "A week full of competitions and snowy fun on the slopes."
     },
-    url: "https://www.levi.fi/en/events/ski&snowfest/",
+    url: { fi: "https://www.levi.fi/tapahtumat/", en: "https://www.levi.fi/en/events/" },
     free: true
   },
   {
     id: "levi-mayday",
     name: { fi: "Levi MayDay — kauden päätös", en: "Levi MayDay — Season Finale" },
-    dateStart: "2026-04-30",
-    dateEnd: "2026-05-02",
+    dateStart: "2027-04-30",
+    dateEnd: "2027-05-02",
     month: 5,
     recurring: { fi: "Vuosittain vapun tienoilla", en: "Annually around May Day" },
     category: "sports",
@@ -139,14 +142,14 @@ const events: LeviEvent[] = [
       fi: "Laskettelukauden päätöstapahtuma. Kevätaurinko ja rento tunnelma.",
       en: "Ski season closing event. Spring sun and a relaxed atmosphere."
     },
-    url: "https://www.levi.fi/en/events/levi-mayday-2026/",
+    url: { fi: "https://www.levi.fi/tapahtumat/", en: "https://www.levi.fi/en/events/" },
     free: true
   },
   {
     id: "midsummer",
     name: { fi: "Juhannus Levillä", en: "Midsummer in Levi" },
-    dateStart: "2026-06-19",
-    dateEnd: "2026-06-20",
+    dateStart: "2027-06-25",
+    dateEnd: "2027-06-26",
     month: 6,
     recurring: { fi: "Vuosittain juhannusviikonloppuna", en: "Annually on Midsummer weekend" },
     category: "entertainment",
@@ -154,14 +157,14 @@ const events: LeviEvent[] = [
       fi: "Juhannusjuhlat keskiyön auringon alla. Kokko, musiikkia ja perinteistä tunnelmaa.",
       en: "Midsummer celebrations under the midnight sun. Bonfire, music and traditional atmosphere."
     },
-    url: "",
+    url: { fi: "", en: "" },
     free: true
   },
   {
     id: "yllas-levi-mtb",
     name: { fi: "Ylläs-Levi MTB", en: "Ylläs-Levi MTB" },
-    dateStart: "2026-07-25",
-    dateEnd: "2026-07-25",
+    dateStart: "2027-07-24",
+    dateEnd: "2027-07-24",
     month: 7,
     recurring: { fi: "Vuosittain heinäkuussa", en: "Annually in July" },
     category: "sports",
@@ -169,22 +172,94 @@ const events: LeviEvent[] = [
       fi: "Maastopyörätapahtuma Ylläkseltä Leville tunturimaisemissa.",
       en: "Mountain biking event from Ylläs to Levi through fell landscapes."
     },
-    url: "https://yllas.fi/en/events/",
+    url: { fi: "https://yllas.fi/tapahtumat/", en: "https://yllas.fi/en/events/" },
     free: false
   },
   {
-    id: "golf-tournament",
-    name: { fi: "Panorama Open — golfturnaus", en: "Panorama Open Golf Tournament" },
-    dateStart: "2026-08-01",
-    dateEnd: "2026-08-02",
+    id: "open-doors",
+    name: { fi: "Yhteiset avoimet ovet Levillä", en: "Levi Open Doors Day" },
+    dateStart: "2026-08-22",
+    dateEnd: "2026-08-22",
     month: 8,
-    recurring: { fi: "Vuosittain elokuun alussa", en: "Annually in early August" },
+    recurring: { fi: "Vuosittain elokuun lopussa", en: "Annually in late August" },
+    category: "family",
+    description: {
+      fi: "Levin yritykset avaavat ovensa yhteiselle esittelypäivälle: tutustu palveluihin, ohjelmiin ja tekijöihin paikan päällä.",
+      en: "Levi's companies open their doors for a shared showcase day: get to know the local services, programmes and people."
+    },
+    url: {
+      fi: "https://www.levi.fi/tapahtumat/yhteiset-avoimet-ovet/",
+      en: "https://www.levi.fi/tapahtumat/yhteiset-avoimet-ovet/"
+    },
+    free: false
+  },
+  {
+    id: "levi-friends-bike",
+    name: { fi: "Levi Friends & Bike", en: "Levi Friends & Bike" },
+    dateStart: "2026-08-29",
+    dateEnd: "2026-08-29",
+    month: 8,
+    recurring: { fi: "Vuosittain elokuun lopussa", en: "Annually in late August" },
     category: "sports",
     description: {
-      fi: "Kaksipäiväinen golfkilpailu Levi Golf & Country Clubilla.",
-      en: "Two-day golf competition at Levi Golf & Country Club."
+      fi: "Pyöräilypäivä kaveriporukalle Levin Bike Parkissa ja maastopyöräreiteillä.",
+      en: "A biking day out with friends in the Levi Bike Park and on the mountain bike trails."
     },
-    url: "",
+    url: {
+      fi: "https://www.levi.fi/tapahtumat/levi-friends-ja-bike/",
+      en: "https://www.levi.fi/tapahtumat/levi-friends-ja-bike/"
+    },
+    free: false
+  },
+  {
+    id: "suopunki-championships",
+    name: { fi: "Suopunginheiton mestaruuskilpailut", en: "Lasso Throwing Championships" },
+    dateStart: "2026-08-29",
+    dateEnd: "2026-08-29",
+    month: 8,
+    recurring: { fi: "Vuosittain elokuun lopussa", en: "Annually in late August" },
+    category: "family",
+    description: {
+      fi: "Lapin perinteitä ja kilpailujännitystä Reindeer Manorilla — suopunginheiton mestaruuskilpailut koko perheelle.",
+      en: "Lappish traditions and competition at Reindeer Manor — the lasso throwing championships, fun for the whole family."
+    },
+    url: {
+      fi: "https://www.levi.fi/tapahtumat/suopunginheiton-mestaruuskilpailut-2026/",
+      en: "https://www.levi.fi/tapahtumat/suopunginheiton-mestaruuskilpailut-2026/"
+    },
+    free: false
+  },
+  {
+    id: "pieni-pyhiinvaellus",
+    name: { fi: "Pieni pyhiinvaellus ruskan aikana", en: "Small Pilgrimage During Ruska" },
+    dateStart: "2026-09-03",
+    dateEnd: "2026-09-10",
+    month: 9,
+    recurring: { fi: "Vuosittain ruskaviikoilla (3.–5.9. ja 8.–10.9.2026)", en: "Annually during the ruska weeks (3–5 Sep and 8–10 Sep 2026)" },
+    category: "family",
+    description: {
+      fi: "Kittilän seurakunta järjestää ruskaviikoilla neljä pientä pyhiinvaellusta Levillä. Rauhallinen kävelyretki ruskamaisemissa.",
+      en: "Kittilä parish organises four small pilgrimages in Levi during the ruska weeks. A calm guided walk in the autumn colours."
+    },
+    url: {
+      fi: "https://www.levi.fi/tapahtumat/pieni-pyhiinvaellus-levilla-ruskan-aikana/",
+      en: "https://www.levi.fi/tapahtumat/pieni-pyhiinvaellus-levilla-ruskan-aikana/"
+    },
+    free: false
+  },
+  {
+    id: "ruska-concerts",
+    name: { fi: "Ruskan konserttiviikot", en: "Ruska Concert Weeks" },
+    dateStart: "2026-09-04",
+    dateEnd: "2026-09-11",
+    month: 9,
+    recurring: { fi: "Vuosittain syyskuun ruskaviikoilla", en: "Annually during the September ruska weeks" },
+    category: "entertainment",
+    description: {
+      fi: "Ruskakarkelot ja Tuikun ruska tuovat kotimaisia artisteja Levin ravintoloihin ja areenalle useana viikonloppuna. Esiintyjät vaihtuvat vuosittain.",
+      en: "Ruskakarkelot and Tuikun ruska bring Finnish artists to Levi's restaurants and the arena over several weekends. The line-up changes every year."
+    },
+    url: { fi: "https://www.levi.fi/tapahtumat/", en: "https://www.levi.fi/en/events/" },
     free: false
   },
   {
@@ -196,13 +271,14 @@ const events: LeviEvent[] = [
     recurring: { fi: "Vuosittain syyskuun toinen lauantai", en: "Annually on the second Saturday of September" },
     category: "sports",
     description: {
-      fi: "Levin vanhin ja rakastetuin tapahtuma — 43. kertaa. Maraton, puolimaraton, 10 km, trailrun ja lasten juoksu. Noin 2500 osallistujaa ruskan väreissä.",
-      en: "Levi's oldest and most beloved event — 43rd edition. Marathon, half marathon, 10 km, trail run and kids' run. Approximately 2500 participants in autumn foliage colors."
+      fi: "Levin vanhin ja rakastetuin tapahtuma. Maraton, puolimaraton, 10 km, trailrun ja lasten juoksu. Noin 2500 osallistujaa ruskan väreissä.",
+      en: "Levi's oldest and most beloved event. Marathon, half marathon, 10 km, trail run and kids' run. Approximately 2500 participants in autumn foliage colors."
     },
-    url: "https://www.ruskamaraton.com/",
+    url: { fi: "https://www.ruskamaraton.com/", en: "https://www.ruskamaraton.com/" },
     free: false
   }
 ];
+
 
 const months = [
   { num: 10, fi: "Loka", en: "Oct" },
