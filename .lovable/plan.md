@@ -1,49 +1,53 @@
-# Vaihe 3 — Semrush-havainnot ja mitä kilpailijoilta kannattaa kopioida
+# Seuraava vaihe — konkreettiset toimet Semrush-datan pohjalta
 
-Semrush (FI-tietokanta) näyttää nykytilan: 769 avainsanaa, ~3 021 käyntiä/kk. Liikenne tulee lähes kokonaan opassivuilta, ei majoituksesta. Suurin yksittäinen mahdollisuus on, että "majoitus levi" (12 100 hakua/kk, vaikeus 32 = realistinen) osuu tällä hetkellä etusivulle sijalle 15 — eli sivun 2 alkuun.
+Majoitussivu on nyt vahvistettu. Seuraavaksi tehdään kaksi asiaa: ohjataan nykyinen opasliikenne majoitukseen ja täytetään kolme selkeää sisältöaukkoa, joissa on hakuvolyymia mutta heikko kilpailu.
 
-## Havainnot
+## Mitä Semrush näyttää nyt
 
-1. **Rahahakusanat ovat sivulla 2.** Etusivu sijoittuu 15. sijalle hakusanalla "majoitus levi". Meillä ei ole omaa, vahvaa laskeutumissivua tälle — etusivu yrittää palvella sekä opasta että majoitusta.
-2. **Klusteri on iso ja pirstoutunut:** levi majoitus 6 600, levi mökkimajoitus 2 400, levi mökit 1 900, vuokramökit levi 1 300, mökki levi 1 000, nettimökki levi 1 000. Vaihe 2:n mökkihubit kattavat osan, mutta "mökkimajoitus"- ja "nettimökki"-muotoja ei käytetä missään.
-3. **Oppaat vetävät, mutta eivät ohjaa varaukseen.** hinnat-levilla (35 % liikenteestä), hiihtoladut, ravintolat, sää — nämä ovat sijoilla 2–8 ja tuovat valtaosan kävijöistä. Näiltä puuttuu systemaattinen majoitus-CTA.
-4. **Kilpailijoiden voittava malli (levinyt.fi):** yksi laaja, jatkuvasti päivitettävä listaussivu per aihe (ravintolalistaus = 14 % heidän liikenteestään, tapahtumat = 11 %). Meillä on samat sivut, mutta ohuemmalla listauksella.
-5. **Selkeät sisältöaukot** (kilpailijat rankkaavat, me emme): levi kylpylä / levi spa (3 600 + 2 400), levi hotel/hotelli (2 400), levi apteekki (1 300), palvelut kuten K-Rauta, baarit ja pubit -listaus, uimarannat, Immeljärvi. Nämä ovat "palvelut Levillä" -tyyppisiä hakuja, joihin meidän Ravintolat ja palvelut -sivu on jo lähellä.
-6. **Poissuljetaan tarkoituksella:** yksittäisten kilpailijayritysten brändihaut (Ihku, Hullu Poro, Colorado, Tuikku, Levilehto). Niihin ei kannata tehdä sivuja, mutta ne voi mainita listaussivuilla luonnollisena osana sisältöä.
+- leville.net: 769 avainsanaa, ~3 021 käyntiä/kk. Liikenne tulee lähes kokonaan oppaista: hinnat-levilla 35 %, hiihtoladut 12 %, ravintolat 8 %, sää 7 %. Etusivu tuo vain 1,2 %.
+- "majoitus levi" (12 100/kk, vaikeus 32) on sijalla 15. Sivun 2 alalaidasta ei tule klikkejä — tämä on lähin iso voitto.
+- Puuttuvat aiheet, joilla kilpailijat rankkaavat: levi kylpylä / levi spa (~6 000/kk yhteensä), levi apteekki ja kaupat (~1 300/kk), baarit ja pubit -listaus.
 
-## Mitä tehdään
+## holidayinlapland.fi — tarkistus
 
-### 1. "Majoitus Levillä" -laskeutumissivu kuntoon (tärkein)
-Vahvistetaan `/majoitukset` selkeäksi rahasivuksi ja nostetaan etusivun sisäistä linkitystä siihen: H1 sisältää päähakusanan, kohteet ryhmiteltyinä henkilömäärän ja tyypin mukaan, hintahaarukat, sijaintikartta, FAQ-osio. Etusivu jatkaa oppaan roolissa mutta linkittää yhdellä selkeällä nostolla majoitussivulle.
+Pieni toimija: 311 avainsanaa, ~327 käyntiä/kk, auktoriteetti 9/100 (meillä 11/100, 3 021 käyntiä/kk). Emme häviä heille kokonaisuutena — mutta heillä on **yksi sivu joka toimii poikkeuksellisen hyvin** ja se kannattaa kopioida:
 
-### 2. Klusterin sanaston laajennus
-Lisätään luonnollisesti "mökkimajoitus Levi", "vuokramökit", "mökki Levillä" -muodot mökkihubien otsikoihin, ingresseihin ja FAQ-kysymyksiin — ei avainsanatäytettä, vaan omat alaotsikot joiden alla on oikeaa sisältöä (esim. "Mökkimajoitus vs. huoneisto", "Mitä mökkivuokraus sisältää").
+`/levin-5-upeaa-ulkoilureittia-lumettomaan-aikaan/` rankkaa yksin noin 15 hakusanalla sijoilla 3–9:
+jääkausipolku, levi vaellus, levi retkeily, levin patikointi reitit, levi kävelyreitit, kätkätunturin reitti, levi tunturit, levi reitit, levi vaellusreitit kartta, levi huippupolku, levin ympärystie.
 
-### 3. Palvelut Levillä -sivun laajennus (kopioidaan levinyt.fi:n malli)
-Laajennetaan `/opas/ravintolat-ja-palvelut-levilla` tai eriytetään siitä oma **Palvelut ja kaupat Levillä** -sivu, joka kattaa: apteekki, kaupat (K-Market, S-Market, K-Rauta), pankkiautomaatit, terveysasema, huoltoasemat, pesula, aukioloajat. Tämä on suoraan puuttuva sisältöalue jolla on hakuvolyymia eikä kilpailua.
+Meidän `/opas/vaellus-ja-maastopyoraily-levilla` käsittelee vaellusta yleisesti mutta **ei nimeä yhtään reittiä**. Siksi emme rankkaa näillä lainkaan. Nimetyt reitit ovat se, mitä ihmiset hakevat.
+
+Lisäksi he rankkaavat ykkösenä hakusanalla "loma lapissa" (1 300/kk) melko ohuella etusivulla — sekin on tavoiteltavissa.
+
+## Konkreettiset toimet
+
+### 1. Levin vaellusreitit -sivu (kopioidaan holidayinlaplandin voittaja, tehdään paremmin)
+Uusi opassivu `/opas/vaellusreitit-levi` (+ EN). Jokainen reitti omana osionaan: **Jääkausipolku, Kätkätunturin reitti, Levin huippupolku, Levin ympärystie, Immeljärven kierros, Kotimaisema-polku**. Jokaisesta: pituus km, kesto, vaativuus, lähtöpaikka, mitä näet, sopiiko lapsille/rattaille, kausi. Yhteenvetotaulukko kärkeen ja linkki Levin karttasivullemme. Tämä yksi sivu tavoittelee ~15 hakusanaa, joita meillä ei nyt ole.
+
+### 2. Konversiopolku oppaista majoitukseen
+Lisätään sama majoitusnosto (`MajoitusCallout`) kuuteen eniten liikennettä tuovaan opassivuun, joista se puuttuu: hinnat-levilla, hiihtoladut-levi, ravintolat-ja-palvelut-levilla, saatieto-levilta, tapahtumat-levilla, laskettelu-levi. Nosto sijoitetaan sisällön puoliväliin, ei vain loppuun, ja se linkittää vahvistetulle majoitussivulle. Nykyiset ~3 000 kävijää/kk alkavat tuottaa varauksia.
+
+### 3. Palvelut ja kaupat Levillä
+Uusi sivu `/opas/palvelut-levilla` (+ EN): apteekki, K-Market ja S-Market, K-Rauta, Alko, pankkiautomaatit, terveysasema, huoltoasemat, pesula — sijainnit, etäisyys keskustasta, aukiolot. Käytännön sivu, jota kukaan ei ole tehnyt kunnolla, ja se palvelee myös omia majoittujiamme.
 
 ### 4. Kylpylä ja hyvinvointi Levillä
-Uusi opassivu (FI + EN): Levin kylpylät ja saunamaailmat, hinnat, aukioloajat, kenelle sopii. Kohdistuu "levi kylpylä" / "levi spa" -hakuihin (yhteensä ~6 000/kk) ja linkittää saunasisältöihin sekä majoitukseen, jossa on oma sauna.
+Uusi sivu `/opas/kylpyla-levi` (+ EN): Levin kylpylät ja hyvinvointipalvelut, hintataso, aukioloajat, kenelle sopii, sekä linkki saunasisältöihimme ja omiin saunallisiin kohteisiin. Kohdistuu hakuihin "levi kylpylä" ja "levi spa".
 
-### 5. Baarit ja yöelämä Levillä
-Listaussivu après-ski -sisällön rinnalle: baarit, pubit, karaoke, aukioloajat, hintataso. Kattaa "baarit ja pubit" -tyyppiset haut ja täydentää ravintolaoppaan aukon.
-
-### 6. Konversiopolku oppaista majoitukseen
-Lisätään vakioitu majoitusnosto (sama komponentti) top-liikennesivuille: hinnat-levilla, hiihtoladut-levi, ravintolat-ja-palvelut, saatieto-levilta, tapahtumat-levilla, laskettelu-levi. Näin nykyinen 3 000 kävijää/kk alkaa tuottaa varauksia.
+### 5. Sisäinen linkitys
+Uudet sivut liitetään Levi-oppaan hub-rakenteeseen ja `ReadNextSection`-ristiinlinkityksiin. Vaellusreitit-sivu linkitetään kesä-, ruska- ja vaellus/maastopyöräilysivuilta.
 
 ## Tekninen toteutus
 
-- Uudet sivut: `src/pages/guide/SpaAndWellnessLevi.tsx`, `src/pages/guide/BarsAndNightlifeLevi.tsx`, `src/pages/guide/ServicesInLevi.tsx` — noudattavat olemassa olevaa opassivurakennetta (SeoMeta/Helmet, Breadcrumbs, JsonLd, ReadNextSection, PageCTA).
-- Reitit `src/App.tsx`:ään FI- ja EN-poluille, hreflang vain käännetyille versioille (ei haamu-URLeja).
-- Sitemap: lisäykset `src/data/sitemapRoutes.ts` + `supabase/functions/_shared/sitemapRoutes.ts`, generointi ajetaan uudelleen.
-- Majoitusnosto: käytetään olemassa olevaa `MajoitusCallout`-komponenttia ja lisätään se puuttuville opassivuille.
-- JSON-LD: uusille listaussivuille `CollectionPage` + `FAQPage`, kuten muillakin hub-sivuilla.
-- Kaikki faktat (aukioloajat, hinnat) merkitään tarkistettaviksi ennen julkaisua — ei keksittyjä hintoja tai arvosteluja.
+- Uudet sivut: `src/pages/guide/HikingTrailsLevi.tsx`, `src/pages/guide/ServicesInLevi.tsx`, `src/pages/guide/SpaAndWellnessLevi.tsx` — olemassa oleva opassivurakenne (Helmet/SeoMeta, Breadcrumbs, JsonLd, ReadNextSection, PageCTA, StickyBookingBar).
+- Reitit `src/App.tsx`:ään FI- ja EN-poluille; hreflang vain käännetyille versioille.
+- Sitemap: lisäykset `src/data/sitemapRoutes.ts` ja `supabase/functions/_shared/sitemapRoutes.ts`, generointi ajetaan uudelleen.
+- JSON-LD: vaellusreitit-sivulle `ItemList` + `FAQPage`, palvelut- ja kylpyläsivulle `CollectionPage` + `FAQPage`.
+- Hakuindeksi `src/data/searchIndex.ts` päivitetään uusilla sivuilla.
+- Faktat (reittien pituudet, aukioloajat, hinnat) merkitään tarkistettaviksi ennen julkaisua — ei keksittyjä lukuja eikä arvosteluja.
 
 ## Järjestys
 
-1. Majoitussivun vahvistus + konversiopolku oppaista (suurin vaikutus, vähiten työtä)
-2. Palvelut Levillä -sivu
-3. Kylpylä ja hyvinvointi
-4. Baarit ja yöelämä
-5. Mökkiklusterin sanaston laajennus
+1. Konversiopolku oppaista majoitukseen (nopein tuotto, ei uutta sisältöä)
+2. Vaellusreitit-sivu (suurin uusi hakupotentiaali)
+3. Palvelut Levillä
+4. Kylpylä ja hyvinvointi
