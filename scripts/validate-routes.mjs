@@ -9,7 +9,7 @@ const APP = readFileSync(resolve("src/App.tsx"), "utf8");
 const SITEMAP_PATH = resolve("public/sitemap.xml");
 const LANGS = ["fi", "en", "sv", "de", "fr", "es", "nl"];
 
-const STRICT = process.env.VALIDATE_STRICT === "1";
+const STRICT = true; // set to false to report errors without failing the build
 const errors = [];
 const warns = [];
 
