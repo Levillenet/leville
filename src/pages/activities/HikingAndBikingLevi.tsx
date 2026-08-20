@@ -548,7 +548,39 @@ const HikingAndBikingLevi = ({ lang = "fi" }: HikingAndBikingLeviProps) => {
               <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
                 {t.intro}
               </p>
+              <p className="text-muted-foreground max-w-3xl mx-auto mt-4">
+                {lang === "fi" ? (
+                  <>
+                    Vaellusreissun jälkeen ei ole parempaa kuin oma sauna —{" "}
+                    <a
+                      href="https://app.moder.fi/levillenet"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-booking-source="vaellus-maastopyoraily-intro"
+                      className="text-primary underline underline-offset-4 hover:text-primary/80"
+                    >
+                      huoneistoissamme on oma sauna
+                    </a>{" "}
+                    ja parveke tunturinäköalalla.
+                  </>
+                ) : (
+                  <>
+                    After a day on the trails, nothing beats a private sauna —{" "}
+                    <a
+                      href="https://app.moder.fi/levillenet"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-booking-source="hiking-biking-intro"
+                      className="text-primary underline underline-offset-4 hover:text-primary/80"
+                    >
+                      our apartments come with saunas
+                    </a>{" "}
+                    and balconies with fell views.
+                  </>
+                )}
+              </p>
             </section>
+
 
             {/* Bike Park image */}
             <section className="mb-12 rounded-xl overflow-hidden">
