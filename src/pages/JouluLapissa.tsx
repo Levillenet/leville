@@ -34,9 +34,9 @@ import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import OptimizedImage from "@/components/OptimizedImage";
 import santaSitting from "@/assets/santa-sitting.jpg";
-import santaWaving from "@/assets/santa-waving.png";
+import santaWaving from "@/assets/santa-waving.jpg";
 import santaCabin from "@/assets/santa-cabin.webp";
-import christmasCozy from "@/assets/christmas-cozy.png";
+import christmasCozy from "@/assets/christmas-cozy.jpg";
 import christmasMarket from "@/assets/seasons/christmas-market.jpg";
 import christmasGrilling from "@/assets/seasons/christmas-grilling.jpg";
 

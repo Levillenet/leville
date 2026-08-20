@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import buildingExterior from "@/assets/frontslope/building-exterior.png";
+import buildingExterior from "@/assets/frontslope/building-exterior.jpg";
 import livingFireplace from "@/assets/frontslope/living-fireplace.jpg";
 import sauna5a2 from "@/assets/frontslope/sauna-5a2.jpg";
 
