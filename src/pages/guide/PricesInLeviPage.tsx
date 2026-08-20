@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageCTA from "@/components/PageCTA";
+import MajoitusCallout from "@/components/MajoitusCallout";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
@@ -493,6 +494,7 @@ const PricesInLeviPage = () => {
             { title: "How to Get to Levi", desc: "Flights, trains and buses from Helsinki.", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
           ]}
         />
+        <MajoitusCallout lang="en" />
       </main>
 
       <PageCTA lang="en" />
