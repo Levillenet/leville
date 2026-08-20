@@ -193,7 +193,7 @@ const translations = {
         { q: "Is the event suitable for children?", a: "Yes. There is a Kids Race and family-friendly areas, and the finish area works well with small children too. Bring warm clothing and plan an indoor break." },
         { q: "How do I get to Levi?", a: "Kittilä Airport is about a 15-minute drive away, and Levi is also reachable by train to Kolari or by car. See our travel guide for details." },
       ],
-      travelLink: { text: "How to get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki" },
+      travelLink: { text: "How to get to Levi", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
     },
     images: {
       slalom: "Slalom skier on the Levi Black slope at World Cup Levi",
@@ -208,7 +208,7 @@ const translations = {
         { title: "Levi in November", desc: "Weather, conditions and season opening", href: "/guide/levi-in-november" },
         { title: "Restaurants and services", desc: "Where to eat during the race weekend", href: "/guide/restaurants-and-services-levi" },
         { title: "Accommodation in Levi", desc: "Our apartments in the centre", href: "/en/accommodation" },
-        { title: "How to get to Levi", desc: "Flights, trains and driving", href: "/travel/how-to-get-to-levi-from-helsinki" },
+        { title: "How to get to Levi", desc: "Flights, trains and driving", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
       ] as ReadNextLink[],
     },
     cta: { hub: "Levi guide", hubLink: "/en/levi", accommodation: "See accommodation", accommodationLink: "/en/accommodation" },
