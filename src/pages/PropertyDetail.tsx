@@ -330,7 +330,7 @@ const hubUrlByGroup: Record<string, Record<Language, string>> = {
   "front-slope": { fi: "/vuokramokit/front-slope-levi", en: "/en/rentals/front-slope-levi", sv: "", de: "", es: "", fr: "", nl: "" },
   "skistar": { fi: "/vuokramokit/skistar-levi", en: "/en/rentals/skistar-levi", sv: "", de: "", es: "", fr: "", nl: "" },
   "glacier": { fi: "/vuokramokit/glacier-apartments-levi", en: "/en/rentals/glacier-apartments-levi", sv: "", de: "", es: "", fr: "", nl: "" },
-  "karhupirtti": { fi: "/mokit-levilla", en: "/en/cabins", sv: "", de: "", es: "", fr: "", nl: "" },
+  "karhupirtti": { fi: "/mokit-levilla", en: "/en/log-cabins-levi", sv: "", de: "", es: "", fr: "", nl: "" },
   "center-other": { fi: "/majoitukset", en: "/en/accommodations", sv: "", de: "", es: "", fr: "", nl: "" },
 };
 

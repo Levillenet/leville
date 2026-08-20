@@ -27,6 +27,7 @@ export const searchPages: SearchPage[] = [
   { title: "Etusivu", description: "Leville.net – Majoitus Levin keskustassa", path: "/", lang: "fi", category: "general" },
   { title: "Majoitukset", description: "Huoneistot ja mökit Levin keskustassa", path: "/majoitukset", lang: "fi", category: "accommodation" },
   { title: "Mökit Leviltä", description: "Vuokramökit ja loma-asunnot Levin keskustassa – hirsimökit, sauna ja takka", path: "/mokit-levilla", lang: "fi", category: "accommodation" },
+  { title: "Levi log cabins & cottages", description: "Log cabins and cabin-like holiday homes in Levi centre – private sauna, fireplace, book direct", path: "/en/log-cabins-levi", lang: "en", category: "accommodation" },
   { title: "Autolla ajaminen Lapissa", description: "Talvirenkaat, porot, lohkolämmitin ja etäisyydet – paikallisten vinkit Lapin autoiluun", path: "/opas/autolla-ajaminen-lapissa", lang: "fi", category: "guide" },
   { title: "Ajankohtaista", description: "Uutiset ja ajankohtaiset asiat", path: "/ajankohtaista", lang: "fi", category: "general" },
   { title: "Levi-info", description: "Tietoa Levin hiihtokeskuksesta", path: "/levi", lang: "fi", category: "general" },

@@ -189,7 +189,7 @@ const MokitLevilla = ({ lang = "fi" }: MokitLevillaProps) => {
     ? [
         { label: "Home", href: "/en" },
         { label: "Accommodation", href: "/en/accommodations" },
-        { label: "Cabins in Levi", href: "/en/cabins" },
+        { label: "Levi log cabins", href: "/en/log-cabins-levi" },
       ]
     : [
         { label: "Etusivu", href: "/" },
