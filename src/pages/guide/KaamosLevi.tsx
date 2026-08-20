@@ -237,10 +237,10 @@ const translations = {
         { title: "Levi in January", desc: "The coldest month and the return of light", href: "/guide/levi-in-january" },
         { title: "Northern lights in Levi", desc: "When and where to look", href: "/en/northern-lights" },
         { title: "Skiing in Levi", desc: "Slopes, lifts and floodlighting", href: "/guide/skiing-in-levi" },
-        { title: "Accommodation in Levi", desc: "Our apartments in the centre", href: "/en/accommodation" },
+        { title: "Accommodation in Levi", desc: "Our apartments in the centre", href: "/en/accommodations" },
       ] as ReadNextLink[],
     },
-    cta: { hub: "Levi guide", hubLink: "/en/levi", accommodation: "See accommodation", accommodationLink: "/en/accommodation" },
+    cta: { hub: "Levi guide", hubLink: "/en/levi", accommodation: "See accommodation", accommodationLink: "/en/accommodations" },
   },
 };
 

@@ -217,11 +217,11 @@ const translations = {
         { title: "Skiing in Levi", desc: "Slopes, lifts and piste map", href: "/guide/skiing-in-levi" },
         { title: "Levi in November", desc: "Weather, conditions and season opening", href: "/guide/levi-in-november" },
         { title: "Restaurants and services", desc: "Where to eat during the race weekend", href: "/guide/restaurants-and-services-levi" },
-        { title: "Accommodation in Levi", desc: "Our apartments in the centre", href: "/en/accommodation" },
+        { title: "Accommodation in Levi", desc: "Our apartments in the centre", href: "/en/accommodations" },
         { title: "How to get to Levi", desc: "Flights, trains and driving", href: "/travel/how-to-get-to-levi-from-helsinki-and-abroad" },
       ] as ReadNextLink[],
     },
-    cta: { hub: "Levi guide", hubLink: "/en/levi", accommodation: "See accommodation", accommodationLink: "/en/accommodation" },
+    cta: { hub: "Levi guide", hubLink: "/en/levi", accommodation: "See accommodation", accommodationLink: "/en/accommodations" },
   },
 };
 

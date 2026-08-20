@@ -230,7 +230,7 @@ const App = () => {
               <Route path="/huoneisto-levi" element={<Majoitukset />} />
               <Route path="/vuokra-asunto-levi" element={<Majoitukset />} />
               <Route path="/levi-majoitus-keskusta" element={<Majoitukset />} />
-              <Route path="/en/accommodation" element={<Majoitukset lang="en" />} />
+              <Route path="/en/accommodation" element={<Navigate to="/en/accommodations" replace />} />
               <Route path="/en/apartment-levi" element={<Majoitukset lang="en" />} />
               <Route path="/en/ski-in-ski-out-levi" element={<Majoitukset lang="en" />} />
 
@@ -246,7 +246,7 @@ const App = () => {
               <Route path="/vuokramokit/:streetSlug" element={<StreetHub />} />
               <Route path="/vuokramokit/ratsastajankuja-levi" element={<Navigate to="/vuokramokit/glacier-apartments-levi" replace />} />
               <Route path="/mokit-levilla" element={<MokitLevilla />} />
-              <Route path="/vuokramokit" element={<MokitLevilla />} />
+              <Route path="/vuokramokit" element={<Navigate to="/mokit-levilla" replace />} />
               <Route path="/en/log-cabins-levi" element={<MokitLevilla lang="en" />} />
               <Route path="/en/cabins" element={<Navigate to="/en/log-cabins-levi" replace />} />
               <Route path="/majoitus/levin-keskustahuoneistot" element={<LevinKeskustahuoneistot />} />
