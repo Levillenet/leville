@@ -338,6 +338,7 @@ const t = {
     family: "Family",
     entertainment: "Entertainment",
     free: "Free",
+    partlyFree: "Partly free",
     readMore: "Read more",
     disclaimer: "The event calendar is indicative. Exact dates may change annually. Always check current information on the event's own website.",
     disclaimerLinkText: "See Levi's full event calendar (levi.fi)",
