@@ -19,6 +19,7 @@ interface LeviEvent {
   description: { fi: string; en: string };
   url: { fi: string; en: string };
   free: boolean;
+  partlyFree?: boolean;
 }
 
 const events: LeviEvent[] = [
