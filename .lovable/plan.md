@@ -1,32 +1,27 @@
 # Päällekkäisten majoitus-URLien siivous (vain reitit, canonical, sitemap)
 
-Vahvistettu koodista ennen suunnitelmaa. Sisältöön, käännöksiin, H1:iin tai schemaan ei kosketa.
+Vahvistettu koodista. Sisältöön, käännöksiin, H1:iin tai schemaan ei kosketa.
 
 ## Todennettu nykytila
 
-- `CANONICAL_FI = "https://leville.net/mokit-levilla"` (`src/pages/MokitLevilla.tsx:26`). Eli **`/mokit-levilla` jää voimaan**, `/vuokramokit` muuttuu redirectiksi.
+- `CANONICAL_FI = "https://leville.net/mokit-levilla"` (`src/pages/MokitLevilla.tsx:26`) → **`/mokit-levilla` jää voimaan**, `/vuokramokit` muuttuu redirectiksi.
 - `/en/accommodation` (App.tsx:233) ja `/en/accommodations` (App.tsx:275) renderöivät molemmat `<Majoitukset lang="en" />`.
-- Yksikkömuoto `/en/accommodation` esiintyy näissä: `src/data/sitemapRoutes.ts:25`, `supabase/functions/_shared/sitemapRoutes.ts:26`, `src/App.tsx:233`, `src/pages/guide/WorldCupLevi.tsx:220,224`, `src/pages/guide/KaamosLevi.tsx:240,243`.
-  - Huom: WorldCupLevi ja KaamosLevi ovat opassivuja, joihin ohje kieltää koskemasta. Katso kysymys alla.
-- `src/data/searchIndex.ts:118` käyttää jo monikkoa — ei muutosta.
-- Katuhubien reitti `/vuokramokit/:streetSlug` (App.tsx:246) on erillinen polku; exact-reitin `/vuokramokit` muuttaminen Navigateksi ei riko lapsireittejä.
-- StreetHub käyttää canonicalina `/vuokramokit/<slug>` (StreetHub.tsx:35) — pysyy ennallaan.
+- Yksikkömuodon osumat: `src/App.tsx:233`, `src/data/sitemapRoutes.ts:25`, `supabase/functions/_shared/sitemapRoutes.ts:26`, `src/pages/guide/WorldCupLevi.tsx:220` (Read next -linkkitaulukko) ja `:224` (CTA-linkki `accommodationLink`), `src/pages/guide/KaamosLevi.tsx:240` (Read next -linkkitaulukko) ja `:243` (CTA-linkki).
+- `src/data/searchIndex.ts:118` käyttää jo monikkoa — ei muutosta. HreflangTagsissa tai käännöstiedostoissa ei ole yksikkömuotoa.
+- `/vuokramokit/:streetSlug` (App.tsx:246) on erillinen polku; exact-reitin muuttaminen ei riko sitä.
+
+### Raportti kohtaan 2.3 (ei korjata nyt)
+- StreetHub käyttää yleistä `<Breadcrumbs lang="fi" />` -komponenttia (`src/pages/StreetHub.tsx:102`), joka rakentaa polun URL-segmenteistä (`src/components/Breadcrumbs.tsx:83`). Katuhubin murupolku sisältää siis segmentin `/vuokramokit`, joka muuttuu redirectiksi.
+- Muita sisäisiä linkkejä `/vuokramokit`-sivulle ei ole: ainoat muut osumat ovat `/vuokramokit/<slug>`-katuhubilinkkejä (StreetHub.tsx:184) tai eri sivu `/opas/vuokramokit-levi` (App.tsx:460, Majoitukset.tsx:245, VuokraMokitLevi.tsx:30,143). Footerissa tai navissa ei osumia.
 
 ## Muutokset
 
-### Osa 1 — EN
-1. `src/App.tsx:233`: `/en/accommodation` → `<Navigate to="/en/accommodations" replace />`. Reittiä ei poisteta.
-2. `src/data/sitemapRoutes.ts:25`: `/en/accommodation` → `/en/accommodations`; varmistetaan ettei monikko esiinny kahdesti.
-3. `supabase/functions/_shared/sitemapRoutes.ts:26`: sama korjaus, tiedostot pysyvät identtisinä rivin 1 kommenttia lukuun ottamatta.
+1. `src/App.tsx:233`: `/en/accommodation` → `<Navigate to="/en/accommodations" replace />` (reitti säilyy).
+2. `src/App.tsx:249`: `/vuokramokit` → `<Navigate to="/mokit-levilla" replace />` (reitti säilyy).
+3. `src/data/sitemapRoutes.ts`: rivi 25 monikkoon, rivi 29 `/vuokramokit` pois.
+4. `supabase/functions/_shared/sitemapRoutes.ts`: sama (rivit 26 ja 30), tiedostot pysyvät identtisinä rivin 1 kommenttia lukuun ottamatta.
+5. `src/pages/guide/WorldCupLevi.tsx:220,224` ja `src/pages/guide/KaamosLevi.tsx:240,243`: vain URL-merkkijono monikkoon, tekstejä ei muuteta.
 
-### Osa 2 — FI
-4. `src/App.tsx:249`: `/vuokramokit` → `<Navigate to="/mokit-levilla" replace />`.
-5. `src/data/sitemapRoutes.ts:29` ja `supabase/functions/_shared/sitemapRoutes.ts:30`: poistetaan `/vuokramokit`-rivi. `/mokit-levilla` ja `/en/log-cabins-levi` jäävät samaan altGroupiin.
-
-### Verifiointi
-- Playwright: `/en/accommodation` ohjautuu monikkoon, `/mokit-levilla` renderöityy, ja kaikki neljä katuhubia (`hiihtajankuja-levi`, `skimbaajankuja-levi`, `glacier-apartments-levi`, `postintie-levi`) latautuvat.
-- Sitemapin URL-määrä ennen/jälkeen raportoidaan.
-- Build + typecheck.
-
-## Avoin kysymys
-`/en/accommodation`-osumat WorldCupLevi.tsx- ja KaamosLevi.tsx-sivuilla ovat opassivuilla, joihin ohje kieltää koskemasta, mutta kohta 1.4 käskee korjata kaikki esiintymät. Oletus tässä suunnitelmassa: **korjataan ne monikkoon**, koska muutos koskee vain linkin URLia eikä sisältöä. Sano jos ne pitää jättää rauhaan.
+## Verifiointi
+- Playwright: `/en/accommodation` → `/en/accommodations`, `/vuokramokit` → `/mokit-levilla`, ja neljä katuhubia (`hiihtajankuja-levi`, `skimbaajankuja-levi`, `glacier-apartments-levi`, `postintie-levi`) latautuvat.
+- Sitemapin URL-määrä ennen ja jälkeen, build + typecheck.
