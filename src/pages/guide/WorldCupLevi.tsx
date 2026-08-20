@@ -175,10 +175,13 @@ const translations = {
       title: "Best viewing spots",
       items: [
         { h: "Finish area and main stand", p: "At the base of Levi Black you see the final gates and the finish up close. The best atmosphere, and the first area to fill up." },
-        { h: "Zero Point", p: "The village centre right next to the race area: big screen, food stalls and a short walk from slope to apartment." },
         { h: "Lapland Avenue event area", p: "Exhibitors, a stage and a festival feel between the runs." },
       ],
       tip: "Local tip: dress for -15°C. You'll be standing still for hours, so wool socks, insulated trousers and warm boots make or break the day.",
+    },
+    zeroPoint: {
+      title: "Zero Point – side events during the race weekend",
+      body: "Zero Point is not a viewing spot in itself; it serves as the event hub for the race weekend. It hosts events such as the bib draw, which usually includes additional side programming on Friday and Saturday evening.",
     },
     stay: {
       title: "Where to stay for the race weekend",
