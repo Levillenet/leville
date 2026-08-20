@@ -1,53 +1,76 @@
-# Seuraava vaihe — konkreettiset toimet Semrush-datan pohjalta
+# Englanninkielinen majoitusklusteri — mitä Semrush kertoo ja mitä tehdään
 
-Majoitussivu on nyt vahvistettu. Seuraavaksi tehdään kaksi asiaa: ohjataan nykyinen opasliikenne majoitukseen ja täytetään kolme selkeää sisältöaukkoa, joissa on hakuvolyymia mutta heikko kilpailu.
+Lähde: Semrush, UK-tietokanta (brittihaut ovat suurin englanninkielinen Levi-markkina) + FI-tietokanta vertailuksi.
 
-## Mitä Semrush näyttää nyt
+## Miksi englanti kannattaa: raha näkyy datassa
 
-- leville.net: 769 avainsanaa, ~3 021 käyntiä/kk. Liikenne tulee lähes kokonaan oppaista: hinnat-levilla 35 %, hiihtoladut 12 %, ravintolat 8 %, sää 7 %. Etusivu tuo vain 1,2 %.
-- "majoitus levi" (12 100/kk, vaikeus 32) on sijalla 15. Sivun 2 alalaidasta ei tule klikkejä — tämä on lähin iso voitto.
-- Puuttuvat aiheet, joilla kilpailijat rankkaavat: levi kylpylä / levi spa (~6 000/kk yhteensä), levi apteekki ja kaupat (~1 300/kk), baarit ja pubit -listaus.
+| Hakusana | Volyymi (UK) | CPC | Vaikeus |
+|---|---|---|---|
+| levi accommodation | 590/kk | $1,36 | 18 (helppo) |
+| levi hotels | 590/kk | $1,39 | 15 (helppo) |
+| hotels in levi | 390/kk | $0,97 | — |
+| levi cabins | 320/kk | $1,21 | 23 (helppo) |
+| levi log cabins | 320/kk | $0,85 | — |
+| hotels in levi finland | 320/kk | $1,41 | — |
+| levi finland accommodation | 260/kk | $1,36 | 17 (helppo) |
+| levi cottages | 260/kk | $1,39 | matala kilpailu |
+| levi finland log cabins | 260/kk | $1,21 | — |
+| levi log cabins finland | 260/kk | $1,21 | — |
+| accommodation in levi | 110/kk | $1,36 | 16 (helppo) |
 
-## holidayinlapland.fi — tarkistus
+Klusteri on yhteensä noin **3 500 hakua/kk** ja vaikeusaste 15–23 = uusikin sivu voi rankata.
 
-Pieni toimija: 311 avainsanaa, ~327 käyntiä/kk, auktoriteetti 9/100 (meillä 11/100, 3 021 käyntiä/kk). Emme häviä heille kokonaisuutena — mutta heillä on **yksi sivu joka toimii poikkeuksellisen hyvin** ja se kannattaa kopioida:
+**CPC on ratkaiseva havainto:** englanninkielisistä majoitushauista maksetaan $0,85–1,61 per klikki, suomenkielisistä $0,19–0,55. Sama kävijämäärä on englanniksi noin **3x arvokkaampi**, ja se vahvistaa arvion suomalaisen asiakkaan maksukyvystä. Volyymi on pienempi (3 500 vs 25 000), mutta vaikeus on murto-osa ja arvo per kävijä moninkertainen.
 
-`/levin-5-upeaa-ulkoilureittia-lumettomaan-aikaan/` rankkaa yksin noin 15 hakusanalla sijoilla 3–9:
-jääkausipolku, levi vaellus, levi retkeily, levin patikointi reitit, levi kävelyreitit, kätkätunturin reitti, levi tunturit, levi reitit, levi vaellusreitit kartta, levi huippupolku, levin ympärystie.
+## Missä olemme nyt englanniksi
 
-Meidän `/opas/vaellus-ja-maastopyoraily-levilla` käsittelee vaellusta yleisesti mutta **ei nimeä yhtään reittiä**. Siksi emme rankkaa näillä lainkaan. Nimetyt reitit ovat se, mitä ihmiset hakevat.
+UK-tietokannassa: 88 avainsanaa, ~96 käyntiä/kk (FI: 769 sanaa, 3 021 käyntiä/kk). Kaikki UK-näkyvyys tulee opassivuilta — `guide/skiing-in-levi`, `guide/santa-claus-in-levi`, `guide/northern-lights-season-levi`.
 
-Lisäksi he rankkaavat ykkösenä hakusanalla "loma lapissa" (1 300/kk) melko ohuella etusivulla — sekin on tavoiteltavissa.
+**Yksikään majoitussivumme ei rankkaa englanniksi.** Etusivu näkyy vain sijalla 49 kilpailijan brändinimellä. Meillä ei siis ole englanninkielistä majoituslaskeutumissivua, joka kilpailisi näistä sanoista.
 
-## Konkreettiset toimet
+## Kuka rankkaa nyt — pääseekö väliin
 
-### 1. Levin vaellusreitit -sivu (kopioidaan holidayinlaplandin voittaja, tehdään paremmin)
-Uusi opassivu `/opas/vaellusreitit-levi` (+ EN). Jokainen reitti omana osionaan: **Jääkausipolku, Kätkätunturin reitti, Levin huippupolku, Levin ympärystie, Immeljärven kierros, Kotimaisema-polku**. Jokaisesta: pituus km, kesto, vaativuus, lähtöpaikka, mitä näet, sopiiko lapsille/rattaille, kausi. Yhteenvetotaulukko kärkeen ja linkki Levin karttasivullemme. Tämä yksi sivu tavoittelee ~15 hakusanaa, joita meillä ei nyt ole.
+SERP "levi accommodation" (UK):
+1. levi.fi/en/stay 2. Booking.com **3. levisuites.fi/en/accommodation** 4. holidayhomes.co.uk 5. Airbnb 6. Trivago 7. HomeToGo 8. Tripadvisor 9. Agoda 10. Expedia
 
-### 2. Konversiopolku oppaista majoitukseen
-Lisätään sama majoitusnosto (`MajoitusCallout`) kuuteen eniten liikennettä tuovaan opassivuun, joista se puuttuu: hinnat-levilla, hiihtoladut-levi, ravintolat-ja-palvelut-levilla, saatieto-levilta, tapahtumat-levilla, laskettelu-levi. Nosto sijoitetaan sisällön puoliväliin, ei vain loppuun, ja se linkittää vahvistetulle majoitussivulle. Nykyiset ~3 000 kävijää/kk alkavat tuottaa varauksia.
+Kahdeksan kymmenestä on OTA-jättiläisiä, joita vastaan ei kannata taistella. Mutta **levisuites.fi on sijalla 3 yhdellä majoituslistaussivulla** — se on meidän kokoluokkamme toimija (376 avainsanaa, auktoriteetti samaa tasoa). Tämä todistaa, että paikallinen suoravuokraaja pääsee top 3:een omalla sivullaan. Siihen tähdätään.
 
-### 3. Palvelut ja kaupat Levillä
-Uusi sivu `/opas/palvelut-levilla` (+ EN): apteekki, K-Market ja S-Market, K-Rauta, Alko, pankkiautomaatit, terveysasema, huoltoasemat, pesula — sijainnit, etäisyys keskustasta, aukiolot. Käytännön sivu, jota kukaan ei ole tehnyt kunnolla, ja se palvelee myös omia majoittujiamme.
+## Mitä tehdään
 
-### 4. Kylpylä ja hyvinvointi Levillä
-Uusi sivu `/opas/kylpyla-levi` (+ EN): Levin kylpylät ja hyvinvointipalvelut, hintataso, aukioloajat, kenelle sopii, sekä linkki saunasisältöihimme ja omiin saunallisiin kohteisiin. Kohdistuu hakuihin "levi kylpylä" ja "levi spa".
+### 1. `/en/accommodation` — englanninkielinen päälaskeutumissivu
+Rakennetaan sama vahvistus kuin `/majoitukset`-sivulle tehtiin, mutta englanninkielisen klusterin sanastolla:
+- H1 "Accommodation in Levi, Finland" ja title, joka kattaa sekä *levi accommodation* että *levi finland accommodation*
+- Kohteet ryhmiteltynä: **apartments**, **log cabins / cottages**, **large groups** — sanat "cabin", "log cabin" ja "cottage" ovat omat hakuklusterinsa (yhteensä ~1 100/kk) ja ne pitää esiintyä omina otsikoituina osioinaan, ei synonyymeinä
+- Jokaisesta kohteesta: makuuhuoneet, henkilömäärä, etäisyys rinteeseen ja keskustaan, sauna
+- 400–600 sanaa uniikkia tekstiä: mitä eroa on huoneistolla ja mökillä, missä päin Leviä kannattaa yöpyä, milloin varata
+- FAQ + `FAQPage`, `ItemList`, `BreadcrumbList`, `LodgingBusiness` -schemat
 
-### 5. Sisäinen linkitys
-Uudet sivut liitetään Levi-oppaan hub-rakenteeseen ja `ReadNextSection`-ristiinlinkityksiin. Vaellusreitit-sivu linkitetään kesä-, ruska- ja vaellus/maastopyöräilysivuilta.
+### 2. `/en/log-cabins-levi` — oma mökkisivu
+"levi cabins", "levi log cabins", "levi finland log cabins", "levi log cabins finland", "levi cottages" = noin 1 400 hakua/kk yhdessä klusterissa, matala kilpailu. Nykyinen `/en/cabins` laajennetaan tähän: mitä hirsimökki Lapissa tarkoittaa, saunat, takat, mökki vs. huoneisto, meidän mökkikohteemme.
+
+### 3. Ero OTA-jättiläisiin näkyville
+Booking, Airbnb ja Expedia hallitsevat SERPiä. Sivun pitää tarjota se, mitä ne eivät: omistajan tiedot, tarkat sijainnit ja etäisyydet metreinä, oikeat pohjakuvat, suora yhteys ilman välikäsiä, paikallinen neuvonta. Ei hintalupauksia (hintapariteetti).
+
+### 4. Englanninkielisten opassivujen ohjaus majoitukseen
+UK-liikenteemme tulee jo oppaista: skiing-in-levi, santa-claus-in-levi, northern-lights-season-levi, prices-in-levi, how-to-get-to-levi. Näihin lisätään sama majoitusnosto kuin FI-puolelle, mutta linkki osoittaa `/en/accommodation`-sivulle. Nämä ovat matkaa suunnittelevia briteiltä — täsmälleen oikea yleisö.
+
+### 5. Tukevat englanninkieliset sanat, jotka kannattaa ottaa mukaan samalla
+- **levi ski holiday** (140/kk, vaikeus 9) ja **levi lapland** (1 900/kk, vaikeus 28) — molemmat majoitussivun luontevia sisäisiä linkkikohteita
+- **levi northern lights** (170/kk, vaikeus 14) — meillä on jo sivu sijalla 18, se nousee helposti
+- **christmas in lapland** (590/kk, vaikeus 25) — kausisisältö, joka ohjaa suoraan majoitukseen
 
 ## Tekninen toteutus
 
-- Uudet sivut: `src/pages/guide/HikingTrailsLevi.tsx`, `src/pages/guide/ServicesInLevi.tsx`, `src/pages/guide/SpaAndWellnessLevi.tsx` — olemassa oleva opassivurakenne (Helmet/SeoMeta, Breadcrumbs, JsonLd, ReadNextSection, PageCTA, StickyBookingBar).
-- Reitit `src/App.tsx`:ään FI- ja EN-poluille; hreflang vain käännetyille versioille.
-- Sitemap: lisäykset `src/data/sitemapRoutes.ts` ja `supabase/functions/_shared/sitemapRoutes.ts`, generointi ajetaan uudelleen.
-- JSON-LD: vaellusreitit-sivulle `ItemList` + `FAQPage`, palvelut- ja kylpyläsivulle `CollectionPage` + `FAQPage`.
-- Hakuindeksi `src/data/searchIndex.ts` päivitetään uusilla sivuilla.
-- Faktat (reittien pituudet, aukioloajat, hinnat) merkitään tarkistettaviksi ennen julkaisua — ei keksittyjä lukuja eikä arvosteluja.
+- Uusi/vahvistettava: `/en/accommodation` (englanninkielinen vastine `Majoitukset`-sivulle) ja `/en/log-cabins-levi` (nykyisen `/en/cabins`-reitin laajennus, vanha polku ohjataan uuteen)
+- Reitit `src/App.tsx`:ään; hreflang fi↔en `HreflangTags`-komponentilla, vain käännetyille sivuille
+- Schemat `src/utils/structuredData.ts`:n helpereillä + `ItemList`
+- Majoitusnosto: `MajoitusCallout` saa kielitietoisen kohdelinkin ja lisätään englanninkielisille opassivuille
+- Sitemap: `src/data/sitemapRoutes.ts` + `supabase/functions/_shared/sitemapRoutes.ts`, generointi uudelleen
+- `src/data/searchIndex.ts` päivitetään
 
 ## Järjestys
 
-1. Konversiopolku oppaista majoitukseen (nopein tuotto, ei uutta sisältöä)
-2. Vaellusreitit-sivu (suurin uusi hakupotentiaali)
-3. Palvelut Levillä
-4. Kylpylä ja hyvinvointi
+1. `/en/accommodation` vahvistus (suurin ja arvokkain klusteri)
+2. Englanninkielisten opassivujen majoitusnostot (liikenne on jo olemassa)
+3. `/en/log-cabins-levi` mökkiklusteri
+4. Tukisanojen sisällöt ja sisäinen linkitys
