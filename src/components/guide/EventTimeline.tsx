@@ -19,6 +19,7 @@ interface LeviEvent {
   description: { fi: string; en: string };
   url: { fi: string; en: string };
   free: boolean;
+  partlyFree?: boolean;
 }
 
 const events: LeviEvent[] = [
@@ -49,11 +50,12 @@ const events: LeviEvent[] = [
     recurring: { fi: "Vuosittain marraskuun puolivälissä", en: "Annually in mid-November" },
     category: "sports",
     description: {
-      fi: "Kansainvälinen alppihiihdon maailmancup — kauden avauskilpailu. Naisten ja miesten pujottelu Levi Black -rinteessä. Katselu rinteeltä on ilmaista.",
-      en: "International FIS Alpine Ski World Cup — season-opening slalom event. Women's and men's slalom on the Levi Black slope. Free spectating from the slope."
+      fi: "Kansainvälinen alppihiihdon maailmancup — kauden avauskilpailu. Naisten ja miesten pujottelu Levi Black -rinteessä. Seuraaminen rinteen laidalta on ilmaista; katsomopaikat, VIP-paketit ja oheistapahtumat ovat maksullisia.",
+      en: "International FIS Alpine Ski World Cup — season-opening slalom event. Women's and men's slalom on the Levi Black slope. Watching from the slope side is free; grandstand seats, VIP packages and side events are ticketed."
     },
     url: { fi: "/opas/world-cup-levi", en: "/guide/levi-world-cup" },
-    free: true
+    free: false,
+    partlyFree: true
   },
   {
     id: "christmas-season",
@@ -323,6 +325,7 @@ const t = {
     family: "Perhe",
     entertainment: "Viihde",
     free: "Ilmainen",
+    partlyFree: "Osin ilmainen",
     readMore: "Lue lisää",
     disclaimer: "Tapahtumakalenteri on suuntaa-antava. Tarkat päivämäärät voivat muuttua vuosittain. Tarkista aina ajantasaiset tiedot tapahtuman omilta sivuilta.",
     disclaimerLinkText: "Katso Levin koko tapahtumakalenteri (levi.fi)",
@@ -335,6 +338,7 @@ const t = {
     family: "Family",
     entertainment: "Entertainment",
     free: "Free",
+    partlyFree: "Partly free",
     readMore: "Read more",
     disclaimer: "The event calendar is indicative. Exact dates may change annually. Always check current information on the event's own website.",
     disclaimerLinkText: "See Levi's full event calendar (levi.fi)",
@@ -594,11 +598,15 @@ const EventCard = ({ event, lang, labels, seasonStyle, seasonName }: EventCardPr
 
             {/* Badges + link */}
             <div className="flex items-center gap-2 flex-wrap">
-              {event.free && (
+              {event.free ? (
                 <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-xs">
                   🎟 {labels.free}
                 </Badge>
-              )}
+              ) : event.partlyFree ? (
+                <Badge variant="outline" className="bg-muted/40 text-muted-foreground border-border text-xs">
+                  🎟 {labels.partlyFree}
+                </Badge>
+              ) : null}
               {hasUrl && (
                 isExternal ? (
                   <a
