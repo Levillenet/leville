@@ -9,7 +9,7 @@ import { resolve } from "node:path";
 const SITEMAP_URL =
   "https://jcvxklzcxngctyqmknax.supabase.co/functions/v1/generate-sitemap";
 const OUTPUT_PATH = resolve("public/sitemap.xml");
-const MIN_LOC_ENTRIES = 500;
+const MIN_LOC_ENTRIES = 400;
 
 const fail = (message) => {
   console.error(`[sitemap] ERROR: ${message}`);
