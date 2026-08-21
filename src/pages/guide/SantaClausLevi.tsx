@@ -47,13 +47,10 @@ const translations = {
         access: "Mökille pääsee gondolihissillä ja kävellen alas rinnettä, kesällä patikoiden Tuikku-ravintolalta tai talvella suksilla laskettelun yhteydessä. Retki mökille kannattaa ehdottomasti tehdä Levin-vierailun aikana!",
         note: "Mökki on nähtävyys — ei varsinainen joulupukkielämys. Pukkitapaamiset järjestävät Levin elämysyritykset."
       },
-      experiences: {
-        title: "Joulupukkielämykset Levillä",
-        content: "Levillä toimii useita elämysyrityksiä jotka järjestävät joulupukkitapaamisia. Suurin ja suosituin näistä on Elves Village, joka tarjoaa monipuolisen jouluisen elämyksen tonttutoimintoineen.",
-        note: "Levillä on monia muitakin pukkielämysten järjestäjiä — tarkista ajantasaiset vaihtoehdot Visit Levi -matkailuneuvonnasta.",
-        letterTitle: "Joulupukin tervetulokirje",
-        letterDesc: "Lataa joulupukin tervetulokirje tulostettavaksi — mukava yllätys lapsille majoitukseen saapuessa!",
-        letterButton: "Lataa tervetulokirje (PDF)"
+      welcomeLetter: {
+        title: "Joulupukin tervetulokirje",
+        desc: "Lataa joulupukin tervetulokirje tulostettavaksi — mukava yllätys lapsille majoitukseen saapuessa!",
+        button: "Lataa tervetulokirje (PDF)"
       },
       other: {
         title: "Muut jouluelämykset Levillä",
