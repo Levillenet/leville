@@ -33,12 +33,13 @@ interface SantaClausLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Joulupukki Levillä — Missä tavata pukki ja jouluelämykset | Leville.net",
-      description: "Opas joulupukin tapaamiseen Levillä: Joulupukin mökki tunturilla, Elves Village ja muut jouluelämykset. Vertailu Rovaniemen Pajakylään.",
+      title: "Joulupukki Levillä — joulupukin tapaaminen ja jouluelämykset | Leville.net",
+      description: "Miten tapaat joulupukin Levillä? Vertailemme joulupukkielämykset — perinteinen mökkivierailu, tonttuhovi, safari ja yksityinen VIP — sekä Levin ja Rovaniemen Santa Claus Villagen erot.",
       canonical: "https://leville.net/opas/joulupukki-levilla"
     },
     h1: "Joulupukki Levillä — missä tavata pukki?",
-    intro: "Levi tarjoaa ainutlaatuisia jouluelämyksiä koko perheelle — tunturin huipun ikonisesta joulupukin mökistä elämysyritysten pukkitapaamisiin. Tässä oppaassa kerromme mitä Levillä on tarjolla ja miten Levi vertautuu Rovaniemeen.",
+    intro: "Levillä joulupukin voi tavata monella tavalla, ja kokemukset eroavat toisistaan enemmän kuin moni arvaa: toinen perhe haluaa kiireettömän hetken vanhassa poromiehen mökissä, toinen tonttujen temmellystä ja tekemistä, kolmas moottorikelkkasafarin tai täysin oman yksityisvuoron. Tässä oppaassa käymme läpi, millainen joulupukkikokemus sopii juuri teille, ketkä niitä Levillä järjestävät ja miten Levi eroaa Rovaniemen Santa Claus Villagesta.",
+
     sections: {
       cabin: {
         title: "Joulupukin mökki Levin tunturilla",
