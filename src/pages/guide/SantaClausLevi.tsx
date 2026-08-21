@@ -266,15 +266,107 @@ const translations = {
         ]
       }
     },
+    profiles: {
+      title: "Which Santa experience is right for your family?",
+      intro: "Santa programmes in Levi differ in atmosphere, length and how much there is to do. Pick the style first — the providers are introduced right below.",
+      items: [
+        { title: "Calm and traditional", desc: "An unhurried moment in an old Lappish cabin with Mrs. Claus and gingerbread. Best for small children and families who want authentic atmosphere without rush.", match: "Santa's Secret Hideaway" },
+        { title: "Elf world and activities", desc: "A story-driven adventure park with elves, games and decorating. Best for older children and families who like to stay longer.", match: "Arcandia — The Elf Court" },
+        { title: "Safari and reindeer", desc: "Santa combined with a snowmobile or minibus safari and a reindeer ride. Best for families who want several experiences in one outing.", match: "Tokka Safaris" },
+        { title: "Private VIP meeting", desc: "Your own quiet slot in a Lappish hut where the children's names are remembered. Best for families who value privacy and want to avoid groups.", match: "Arctic Shaman Adventures" }
+      ]
+    },
+    providers: {
+      title: "Santa experience providers in Levi",
+      intro: "Four different ways to meet Santa Claus in the Levi area. The details below are taken from each provider's own website — always confirm current availability, prices and season directly with the operator.",
+      forWhoLabel: "Best for:",
+      ctaLabel: "Provider's website",
+      note: "These are examples, not the full offering in Levi. The selection changes from season to season, and many operators can also bring Santa to your own accommodation. Ask Visit Levi tourist information for current options.",
+      items: [
+        {
+          name: "Santa's Secret Hideaway — Santa & Mrs. Claus",
+          tagline: "A traditional, unhurried visit in a roughly 100-year-old reindeer herder's cabin deep in the forest.",
+          points: [
+            "The same Santa since 1998",
+            "About 1.5 h of programme at the cabin, around 2.5 h in total",
+            "Gingerbread baking with Mrs. Claus",
+            "Elf guide and a personal gift for every child",
+            "Unlimited photos of your own",
+            "Transfer from Levi centre included",
+            "Groups of up to 23 guests; a private version is available"
+          ],
+          forWho: "Families with small children and anyone who wants a genuine, peaceful meeting.",
+          url: "https://www.levi-tours.com/santa-hideaway-levi"
+        },
+        {
+          name: "Tokka Safaris — Santa visits",
+          tagline: "Santa and a reindeer ride combined with a safari — by snowmobile or in a warm minibus.",
+          points: [
+            "Snowmobile option about 30 km, roughly 4 h",
+            "Car transfer option, roughly 2 h",
+            "A short reindeer ride included in both",
+            "Warm drink and a bun at the cabin",
+            "An elf welcomes you; time to share your gift wishes",
+            "Children travel in a heated sledge pod",
+            "Instructions for delivering a letter arrive about two weeks before the visit"
+          ],
+          forWho: "Families who want to combine Santa with a Lapland safari.",
+          url: "https://www.tokkasafaris.fi/en/safaris/santa-visits/"
+        },
+        {
+          name: "Arcandia — The Elf Court",
+          tagline: "A story-driven adventure park where the elves decide who is nice and who is naughty.",
+          points: [
+            "The elves summon guests with a letter; at the gate everyone receives their own Ring of Truth",
+            "On the way to the village you meet the Court's reindeer — you can photograph and feed them",
+            "Outdoor amusements: village games, Knockerballs at the Arctic Colosseum, sledging and spider swings",
+            "Inside the hut you decorate the Christmas tree and gingerbreads with the elves",
+            "Santa reads letters and writes in the Court books with each family individually",
+            "Everyone receives a personal Court decision: nice or naughty",
+            "The visit continues into the park area after dark"
+          ],
+          forWho: "Older children and families who want a story and plenty to do, not just a meeting.",
+          url: "https://www.arcandia-en.com/elfcourt"
+        },
+        {
+          name: "Arctic Shaman Adventures — Santa Claus Daytime VIP",
+          tagline: "A private Santa meeting in a cosy Lappish hut, entirely your own slot.",
+          points: [
+            "Private meeting — no shared group",
+            "About 2.5 h",
+            "The children's names are remembered",
+            "Gifts, photos and certificates",
+            "Runs during the Christmas season; slots are usually booked well in advance"
+          ],
+          forWho: "Families who value privacy and a calm atmosphere.",
+          url: "https://arcticshamanadventures.com/experiences/"
+        }
+      ]
+    },
+    santaVillage: {
+      title: "Is there a Santa Claus Village in Levi? Levi vs Rovaniemi",
+      content: "This is a common mix-up: the actual Santa Claus Village sits in Rovaniemi on the Arctic Circle, not in Levi. Levi has no village of that name — instead it has elf- and Christmas-themed adventure parks and several operators who take families to Santa in a forest cabin or arrange a private visit.",
+      distance: "The distance from Levi to Rovaniemi's Santa Claus Village is roughly 170 km, about 2.5 hours each way, so a day trip is possible.",
+      note: "In practice: if you want the Arctic Circle and the post office, that's Rovaniemi. If you want smaller groups, a forest cabin and the option to combine Santa with skiing and safaris, Levi works better."
+    },
+    bookingNudge: {
+      text: "Santa programmes in Levi sell out early — and so does accommodation. We rent saunaed apartments and cabins in Levi centre directly from the owner, with no middleman fees:",
+      link: "check available dates and book your stay"
+    },
     faq: {
       title: "Frequently Asked Questions",
       items: [
-        { q: "Is Santa in Levi year-round?", a: "Santa experiences are available during the Christmas season. For year-round Santa meetings, Rovaniemi's Santa Claus Village is an option." },
-        { q: "How much does a Santa meeting cost?", a: "Depends on the experience and provider. Check current prices from e.g. Elves Village or Visit Levi tourist information." },
-        { q: "Is it suitable for small children?", a: "Absolutely — Santa experiences are designed for families. The trip to Santa's Cabin on the fell is also suitable for all ages." },
+        { q: "Where can I meet Santa Claus in Levi?", a: "You meet Santa through local operators: forest cabin visits (e.g. Santa's Secret Hideaway), the Elf Court at Arcandia, safari Santa visits with Tokka Safaris, or a private meeting with Arctic Shaman Adventures. Santa's Cabin on top of the fell is a landmark and photo spot where Santa is not usually present." },
+        { q: "Is there a Santa Claus Village in Levi?", a: "No. Santa Claus Village is in Rovaniemi, roughly 170 km or about 2.5 hours' drive from Levi. Levi has its own Christmas adventure parks and Santa meetings instead." },
+        { q: "Are private Santa experiences available?", a: "Yes. Arctic Shaman Adventures' Santa Claus Daytime VIP is a private meeting, and several forest cabin programmes also offer a private version. Many operators can also bring Santa to your own accommodation." },
+        { q: "Is Santa in Levi year-round?", a: "No — Santa programmes mainly run from November to January depending on the operator. For a year-round meeting, Rovaniemi's Santa Claus Village is the option." },
+        { q: "Can I combine a Santa experience with other activities?", a: "Yes, and it's worth it. Some programmes already include a reindeer ride or snowmobile safari, and in Levi it's easy to add skiing, a husky or reindeer safari and an aurora tour to the same trip." },
+        { q: "When should I book Santa programmes?", a: "As early as possible. The most popular December and ski-holiday slots often sell out during the summer or early autumn — the same applies to accommodation." },
+        { q: "Is it suitable for small children?", a: "Absolutely — Santa experiences are designed for families. Calm cabin visits and shorter programmes suit the youngest best." },
         { q: "Can I take a day trip to Rovaniemi?", a: "Yes, the journey is about 2.5 hours each way. Guided day trips are also available." }
       ]
     },
+
     cta: {
       text: "Christmas season is extremely popular — book your accommodation early.",
       link: "/en/accommodations",
