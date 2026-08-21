@@ -476,33 +476,20 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
               </Card>
             </section>
 
-            {/* Santa experiences */}
+            {/* Welcome letter */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                  <Gift className="w-5 h-5 text-primary" />
-                </div>
-                <h2 className="text-2xl font-bold text-foreground">{t.sections.experiences.title}</h2>
-              </div>
-              <p className="text-muted-foreground mb-3">{t.sections.experiences.content}</p>
-              <Card className="glass-card border-border/30 p-4 mb-4">
-                <div className="flex items-start gap-3">
-                  <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-muted-foreground italic">{t.sections.experiences.note}</p>
-                </div>
-              </Card>
-
-              {/* Welcome letter PDF */}
-              <Card className="glass-card border-border/30 p-6">
-                <div className="flex items-center gap-3 mb-2">
                   <TreePine className="w-5 h-5 text-primary" />
-                  <h3 className="font-bold text-foreground">{t.sections.experiences.letterTitle}</h3>
                 </div>
-                <p className="text-sm text-muted-foreground mb-4">{t.sections.experiences.letterDesc}</p>
+                <h2 className="text-2xl font-bold text-foreground">{t.sections.welcomeLetter.title}</h2>
+              </div>
+              <Card className="glass-card border-border/30 p-6">
+                <p className="text-sm text-muted-foreground mb-4">{t.sections.welcomeLetter.desc}</p>
                 <Button variant="outline" asChild>
                   <a href={letterPdf} target="_blank" rel="noopener noreferrer">
                     <Download className="w-4 h-4 mr-2" />
-                    {t.sections.experiences.letterButton}
+                    {t.sections.welcomeLetter.button}
                   </a>
                 </Button>
               </Card>
