@@ -209,12 +209,13 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Santa Claus in Levi — Where to Meet Santa & Christmas Experiences | Leville.net",
-      description: "Guide to meeting Santa in Levi: Santa's Cabin on the fell, Elves Village and other Christmas experiences. Comparison with Rovaniemi.",
+      title: "Santa Claus in Levi — Santa Experiences & Christmas Activities | Leville.net",
+      description: "How to meet Santa Claus in Levi: compare traditional cabin visits, the Elf Court, safari Santa visits and private VIP meetings — plus how Levi differs from Rovaniemi's Santa Claus Village.",
       canonical: "https://leville.net/guide/santa-claus-in-levi"
     },
     h1: "Santa Claus in Levi — Where to Meet Santa?",
-    intro: "Levi offers unique Christmas experiences for the whole family — from the iconic Santa's Cabin on top of the fell to Santa meetings organised by experience companies. This guide tells you what's on offer and how Levi compares to Rovaniemi.",
+    intro: "In Levi you can meet Santa Claus in very different ways: a quiet, unhurried visit in a century-old reindeer herder's cabin, a story-driven elf world full of things to do, a snowmobile safari with a reindeer ride, or a fully private VIP meeting. This guide helps you choose the Santa experience that fits your family, introduces the providers who run them, and explains how Levi differs from Rovaniemi's Santa Claus Village.",
+
     sections: {
       cabin: {
         title: "Santa's Cabin on Levi Fell",
