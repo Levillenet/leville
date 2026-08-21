@@ -388,6 +388,9 @@ const translations = {
 const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
   const t = translations[lang as keyof typeof translations] || translations.fi;
   const location = useLocation();
+  const moderUrl = lang === "fi" ? "https://app.moder.fi/levillenet" : "https://app.moder.fi/levillenet?lang=en";
+  const profileIcons = [Heart, Sparkles, Mountain, Star];
+
 
   const customUrls: Record<string, string> = {
     fi: "/opas/joulupukki-levilla",
