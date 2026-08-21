@@ -236,11 +236,11 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
             <h3 className="text-foreground font-serif font-semibold mb-6 text-lg tracking-tight">{c.trustTitle}</h3>
             <div className="space-y-5">
               {/* Booking.com */}
-              <div className="rounded-xl border border-border/50 p-4 flex flex-col items-center text-center">
-                <div className="mb-3">
-                  <img src={bookingLogo} alt="Booking.com" width={400} height={64} className="h-8 w-auto" loading="lazy" decoding="async" />
+              <div className="rounded-xl border border-border/50 p-4 flex flex-col items-center text-center gap-3">
+                <div className="w-full h-14 rounded-lg bg-white flex items-center justify-center px-3">
+                  <img src={bookingLogo} alt="Booking.com" width={320} height={100} className="h-9 w-auto object-contain" loading="lazy" decoding="async" />
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center justify-center gap-2 h-6">
                   <span className="inline-flex items-center justify-center bg-[hsl(221,100%,30%)] text-white text-xs font-bold rounded-md px-2 py-1">
                     9.0
                   </span>
@@ -249,11 +249,11 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
               </div>
 
               {/* Airbnb */}
-              <div className="rounded-xl border border-border/50 p-4 flex flex-col items-center text-center">
-                <div className="mb-3">
-                  <img src={airbnbLogo} alt="Airbnb" width={600} height={190} className="h-8 w-auto" loading="lazy" decoding="async" />
+              <div className="rounded-xl border border-border/50 p-4 flex flex-col items-center text-center gap-3">
+                <div className="w-full h-14 rounded-lg bg-white flex items-center justify-center px-3">
+                  <img src={airbnbLogo} alt="Airbnb" width={320} height={100} className="h-9 w-auto object-contain" loading="lazy" decoding="async" />
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center justify-center gap-2 h-6">
                   <div className="flex text-[hsl(356,100%,45%)]">
                     {[...Array(5)].map((_, i) => (
                       <svg key={i} className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
@@ -266,9 +266,15 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
               </div>
 
               {/* Levi Partner */}
-              <div className="rounded-xl border border-border/50 p-4 flex items-center justify-center">
-                <img src={leviPartnerLogo} alt="Levi Partner" width={200} height={200} className="h-20 w-auto object-contain" loading="lazy" decoding="async" />
+              <div className="rounded-xl border border-border/50 p-4 flex flex-col items-center text-center gap-3">
+                <div className="w-full h-14 rounded-lg bg-white flex items-center justify-center px-3">
+                  <img src={leviPartnerLogo} alt="Levi Partner" width={256} height={256} className="h-11 w-auto object-contain" loading="lazy" decoding="async" />
+                </div>
+                <div className="flex items-center justify-center gap-2 h-6">
+                  <span className="text-sm text-muted-foreground font-medium">Levi Partner</span>
+                </div>
               </div>
+
             </div>
           </div>
 
