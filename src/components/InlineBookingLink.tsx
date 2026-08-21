@@ -93,7 +93,11 @@ type Props = InlineProps | TipPresetProps | TipCustomProps;
 
 const resolveCopy = (lang: Lang, intent: Intent, overrides: Partial<Preset>): Preset => {
   const presetForLang = PRESETS[intent][lang] ?? PRESETS[intent].en ?? PRESETS[intent].fi!;
-  return { ...presetForLang, ...overrides };
+  // Only merge defined overrides — spreading undefined values would wipe the preset copy.
+  const defined = Object.fromEntries(
+    Object.entries(overrides).filter(([, v]) => v !== undefined && v !== "")
+  ) as Partial<Preset>;
+  return { ...presetForLang, ...defined };
 };
 
 /**
@@ -117,7 +121,10 @@ const InlineBookingLink = (props: Props) => {
       const p = props as TipCustomProps;
       copy = { text: p.text, linkText: p.linkText, href: p.href, emoji: p.emoji };
     }
+    // Never render an empty tip row.
+    if (!copy?.text || !copy?.linkText || !copy?.href) return null;
     const emoji = copy.emoji ?? "💡";
+
     return (
       <p
         className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 italic text-[15px] leading-relaxed"
