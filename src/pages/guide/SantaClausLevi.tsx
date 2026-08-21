@@ -514,7 +514,94 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
               </Card>
             </section>
 
+            {/* Which experience suits you */}
+            <section className="mb-12">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold text-foreground">{t.profiles.title}</h2>
+              </div>
+              <p className="text-muted-foreground mb-6">{t.profiles.intro}</p>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {t.profiles.items.map((item, idx) => {
+                  const Icon = profileIcons[idx] ?? Star;
+                  return (
+                    <Card key={idx} className="glass-card border-border/30 p-5">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Icon className="w-4 h-4 text-primary flex-shrink-0" />
+                        <h3 className="font-bold text-foreground">{item.title}</h3>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-3">{item.desc}</p>
+                      <p className="text-sm font-medium text-primary">{item.match}</p>
+                    </Card>
+                  );
+                })}
+              </div>
+            </section>
+
+            {/* Providers */}
+            <section className="mb-12">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                  <Gift className="w-5 h-5 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold text-foreground">{t.providers.title}</h2>
+              </div>
+              <p className="text-muted-foreground mb-6">{t.providers.intro}</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                {t.providers.items.map((p, idx) => (
+                  <Card key={idx} className="glass-card border-border/30 p-6 flex flex-col">
+                    <h3 className="text-lg font-bold text-foreground mb-2">{p.name}</h3>
+                    <p className="text-sm text-muted-foreground mb-4">{p.tagline}</p>
+                    <ul className="space-y-2 mb-4">
+                      {p.points.map((point, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="text-sm text-foreground mb-4 mt-auto">
+                      <span className="font-semibold">{t.providers.forWhoLabel}</span> {p.forWho}
+                    </p>
+                    <a
+                      href={p.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+                    >
+                      {t.providers.ctaLabel}
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </Card>
+                ))}
+              </div>
+              <Card className="glass-card border-border/30 p-4 mt-6">
+                <div className="flex items-start gap-3">
+                  <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-muted-foreground italic">{t.providers.note}</p>
+                </div>
+              </Card>
+
+              <p className="my-6 pl-4 border-l-2 border-primary/60 text-foreground/90 text-[15px] leading-relaxed">
+                {t.bookingNudge.text}{" "}
+                <a
+                  href={moderUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-primary underline underline-offset-4 hover:decoration-primary"
+                >
+                  {t.bookingNudge.link}
+                </a>
+                .
+              </p>
+            </section>
+
+            <MajoitusCallout lang={lang} variant="compact" />
+
             {/* Other experiences */}
+
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.other.title}</h2>
               <ul className="space-y-3 mb-4">
