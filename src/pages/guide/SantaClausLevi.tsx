@@ -47,13 +47,10 @@ const translations = {
         access: "Mökille pääsee gondolihissillä ja kävellen alas rinnettä, kesällä patikoiden Tuikku-ravintolalta tai talvella suksilla laskettelun yhteydessä. Retki mökille kannattaa ehdottomasti tehdä Levin-vierailun aikana!",
         note: "Mökki on nähtävyys — ei varsinainen joulupukkielämys. Pukkitapaamiset järjestävät Levin elämysyritykset."
       },
-      experiences: {
-        title: "Joulupukkielämykset Levillä",
-        content: "Levillä toimii useita elämysyrityksiä jotka järjestävät joulupukkitapaamisia. Suurin ja suosituin näistä on Elves Village, joka tarjoaa monipuolisen jouluisen elämyksen tonttutoimintoineen.",
-        note: "Levillä on monia muitakin pukkielämysten järjestäjiä — tarkista ajantasaiset vaihtoehdot Visit Levi -matkailuneuvonnasta.",
-        letterTitle: "Joulupukin tervetulokirje",
-        letterDesc: "Lataa joulupukin tervetulokirje tulostettavaksi — mukava yllätys lapsille majoitukseen saapuessa!",
-        letterButton: "Lataa tervetulokirje (PDF)"
+      welcomeLetter: {
+        title: "Joulupukin tervetulokirje",
+        desc: "Lataa joulupukin tervetulokirje tulostettavaksi — mukava yllätys lapsille majoitukseen saapuessa!",
+        button: "Lataa tervetulokirje (PDF)"
       },
       other: {
         title: "Muut jouluelämykset Levillä",
@@ -223,13 +220,10 @@ const translations = {
         access: "You can reach the cabin via the gondola lift and walking down the slope, by hiking from Tuikku restaurant in summer, or by skiing in winter. A trip to the cabin is an absolute must during your visit to Levi!",
         note: "The cabin is a landmark — not a Santa experience as such. Santa meetings are organised by Levi's experience companies."
       },
-      experiences: {
-        title: "Santa Claus Experiences in Levi",
-        content: "Several experience companies in Levi organise Santa Claus meetings. The largest and most popular is Elves Village, which offers a comprehensive Christmas experience with elf activities and more.",
-        note: "There are many other Santa experience providers in Levi — check current options from Visit Levi tourist information.",
-        letterTitle: "Santa's Welcome Letter",
-        letterDesc: "Download Santa's welcome letter to print — a lovely surprise for children upon arrival at your accommodation!",
-        letterButton: "Download welcome letter (PDF)"
+      welcomeLetter: {
+        title: "Santa's Welcome Letter",
+        desc: "Download Santa's welcome letter to print — a lovely surprise for children upon arrival at your accommodation!",
+        button: "Download welcome letter (PDF)"
       },
       other: {
         title: "Other Christmas Experiences in Levi",
@@ -482,33 +476,20 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
               </Card>
             </section>
 
-            {/* Santa experiences */}
+            {/* Welcome letter */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                  <Gift className="w-5 h-5 text-primary" />
-                </div>
-                <h2 className="text-2xl font-bold text-foreground">{t.sections.experiences.title}</h2>
-              </div>
-              <p className="text-muted-foreground mb-3">{t.sections.experiences.content}</p>
-              <Card className="glass-card border-border/30 p-4 mb-4">
-                <div className="flex items-start gap-3">
-                  <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-muted-foreground italic">{t.sections.experiences.note}</p>
-                </div>
-              </Card>
-
-              {/* Welcome letter PDF */}
-              <Card className="glass-card border-border/30 p-6">
-                <div className="flex items-center gap-3 mb-2">
                   <TreePine className="w-5 h-5 text-primary" />
-                  <h3 className="font-bold text-foreground">{t.sections.experiences.letterTitle}</h3>
                 </div>
-                <p className="text-sm text-muted-foreground mb-4">{t.sections.experiences.letterDesc}</p>
+                <h2 className="text-2xl font-bold text-foreground">{t.sections.welcomeLetter.title}</h2>
+              </div>
+              <Card className="glass-card border-border/30 p-6">
+                <p className="text-sm text-muted-foreground mb-4">{t.sections.welcomeLetter.desc}</p>
                 <Button variant="outline" asChild>
                   <a href={letterPdf} target="_blank" rel="noopener noreferrer">
                     <Download className="w-4 h-4 mr-2" />
-                    {t.sections.experiences.letterButton}
+                    {t.sections.welcomeLetter.button}
                   </a>
                 </Button>
               </Card>
