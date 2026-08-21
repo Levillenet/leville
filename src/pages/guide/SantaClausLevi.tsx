@@ -90,15 +90,107 @@ const translations = {
         ]
       }
     },
+    profiles: {
+      title: "Millainen joulupukkikokemus sopii teille?",
+      intro: "Levin joulupukkiohjelmat eroavat toisistaan tunnelmaltaan, kestoltaan ja tekemisen määrältä. Valitse ensin tyyli — palveluiden esittelyt löytyvät heti alta.",
+      items: [
+        { title: "Rauhallinen ja perinteinen", desc: "Kiireetön hetki vanhassa lappilaisessa mökissä, joulumuori ja piparkakut. Sopii pienille lapsille ja perheille, jotka haluavat aitoa tunnelmaa ilman vauhtia.", match: "Santa's Secret Hideaway" },
+        { title: "Tonttujen maailma ja tekemistä", desc: "Tarinallinen elämyspuisto, jossa tontut, pelit ja koristelu vievät mukanaan. Sopii isommille lapsille ja perheille, jotka viihtyvät pidempään.", match: "Arcandia — The Elf Court" },
+        { title: "Safari ja porot", desc: "Joulupukki yhdistettynä moottorikelkka- tai bussisafariin ja poroajeluun. Sopii perheille, jotka haluavat yhden päivän aikana useamman elämyksen.", match: "Tokka Safaris" },
+        { title: "Yksityinen VIP-vuoro", desc: "Oma rauhallinen vuoro majassa, jossa lasten nimet muistetaan. Sopii perheille, jotka arvostavat yksityisyyttä ja haluavat välttää ryhmät.", match: "Arctic Shaman Adventures" }
+      ]
+    },
+    providers: {
+      title: "Joulupukkielämysten järjestäjiä Levillä",
+      intro: "Alla neljä erilaista tapaa tavata joulupukki Levin alueella. Tiedot on tarkistettu palveluntarjoajien omilta sivuilta — tarkista aina ajantasainen saatavuus, hinnat ja kaudet suoraan järjestäjältä.",
+      forWhoLabel: "Kenelle sopii:",
+      ctaLabel: "Palveluntarjoajan sivut",
+      note: "Nämä ovat esimerkkejä, eivät koko Levin tarjonta. Valikoima muuttuu kausittain, ja joulupukin voi useilta järjestäjiltä tilata myös suoraan omaan majoitukseen. Kysy ajantasaiset vaihtoehdot Visit Levi -matkailuneuvonnasta.",
+      items: [
+        {
+          name: "Santa's Secret Hideaway — joulupukki ja joulumuori",
+          tagline: "Perinteinen ja kiireetön vierailu noin 100 vuotta vanhassa poromiehen mökissä metsän keskellä.",
+          points: [
+            "Sama joulupukki vuodesta 1998",
+            "Noin 1,5 h ohjelmaa mökillä, kokonaisuus noin 2,5 h",
+            "Piparkakkujen leipomista joulumuorin kanssa",
+            "Tonttuopas, henkilökohtainen lahja jokaiselle lapselle",
+            "Omia valokuvia saa ottaa rajattomasti",
+            "Kuljetus Levin keskustasta sisältyy",
+            "Enintään 23 hengen ryhmä; yksityinen versio saatavilla"
+          ],
+          forWho: "Pienten lasten perheille ja kaikille, jotka haluavat aidon, rauhallisen kohtaamisen.",
+          url: "https://www.levi-tours.com/santa-hideaway-levi"
+        },
+        {
+          name: "Tokka Safaris — joulupukkivierailut",
+          tagline: "Joulupukki ja poroajelu yhdistettynä safariin — moottorikelkalla tai lämpimällä minibussilla.",
+          points: [
+            "Kelkkavaihtoehto noin 30 km, kesto noin 4 h",
+            "Autokuljetusvaihtoehto, kesto noin 2 h",
+            "Molempiin sisältyy lyhyt poroajelu",
+            "Lämmin juoma ja pulla mökillä",
+            "Tonttu vastassa, aikaa lahjatoiveiden kertomiseen",
+            "Lapset matkustavat lämmitetyssä kelkkakärryssä",
+            "Ohjeet kirjeen toimittamiseen tulevat noin 2 viikkoa ennen vierailua"
+          ],
+          forWho: "Perheille, jotka haluavat yhdistää joulupukin ja Lapin safarielämyksen.",
+          url: "https://www.tokkasafaris.fi/safarit/joulupukkivierailut/"
+        },
+        {
+          name: "Arcandia — The Elf Court (tonttuhovi)",
+          tagline: "Tarinallinen elämyspuisto, jossa tontut ratkaisevat kuka on kiltti ja kuka tuhma.",
+          points: [
+            "Tontut kutsuvat vieraat kirjeellä; portilla jokainen saa oman Ring of Truth -sormuksen",
+            "Matkalla kylään tavataan hovin porot — niitä saa kuvata ja ruokkia",
+            "Ulkona hovin huvituksia: kyläpelit, Knockerball-pallot Arctic Colosseumilla, mäenlasku ja keinut",
+            "Majassa koristellaan joulukuusta ja piparkakkuja tonttujen kanssa",
+            "Joulupukki lukee kirjeitä ja kirjoittaa hovin kirjaan perheen kanssa yksi kerrallaan",
+            "Lopuksi jokainen saa oman hovin päätöksen: kiltti vai tuhma",
+            "Vierailu jatkuu puistoalueelle pimeän tultua"
+          ],
+          forWho: "Isommille lapsille ja perheille, jotka haluavat tarinaa ja tekemistä pelkän tapaamisen sijaan.",
+          url: "https://www.arcandia-en.com/elfcourt"
+        },
+        {
+          name: "Arctic Shaman Adventures — Santa Claus Daytime VIP",
+          tagline: "Yksityinen joulupukin tapaaminen lappilaisessa majassa, täysin oma vuoro.",
+          points: [
+            "Yksityinen tapaaminen — ei jaettua ryhmää",
+            "Kesto noin 2,5 h",
+            "Lasten nimet muistetaan",
+            "Lahjat, valokuvat ja todistukset",
+            "Joulukauden ohjelma; paikat varataan yleensä hyvissä ajoin täyteen"
+          ],
+          forWho: "Perheille, jotka arvostavat yksityisyyttä ja rauhallista tunnelmaa.",
+          url: "https://arcticshamanadventures.com/experiences/"
+        }
+      ]
+    },
+    santaVillage: {
+      title: "Onko Levillä Santa Claus Village? Levi vai Rovaniemi",
+      content: "Tämä sekoittuu usein: varsinainen Santa Claus Village eli Joulupukin Pajakylä sijaitsee Rovaniemellä napapiirillä, ei Levillä. Levillä ei ole samannimistä kylää — sen sijaan Levillä on tonttu- ja jouluteemaisia elämyspuistoja sekä useita järjestäjiä, jotka vievät perheet joulupukin luo metsämökkiin tai järjestävät yksityisvierailun.",
+      distance: "Etäisyys Leviltä Rovaniemen Santa Claus Villageen on noin 170 km eli noin 2,5 tuntia suuntaansa, joten päiväretki on mahdollinen.",
+      note: "Käytännössä: jos haluat napapiirin ja postikonttorin, se on Rovaniemellä. Jos haluat pienemmän ryhmän, metsämökin ja mahdollisuuden yhdistää pukin lasketteluun ja safareihin, Levi toimii paremmin."
+    },
+    bookingNudge: {
+      text: "Joulupukkiohjelmat varataan Levillä loppuun aikaisin — ja sama koskee majoitusta. Meiltä vuokraat saunalliset huoneistot ja mökit Levin keskustassa suoraan omistajalta ilman välityskuluja:",
+      link: "tarkista vapaat päivät ja varaa majoitus"
+    },
     faq: {
       title: "Usein kysytyt kysymykset",
       items: [
-        { q: "Onko joulupukki Levillä ympäri vuoden?", a: "Joulupukkielämyksiä on tarjolla joulusesongin aikana. Ympärivuotiseen pukkitapaamiseen Rovaniemen Pajakylä on vaihtoehto." },
-        { q: "Paljonko joulupukkitapaaminen maksaa?", a: "Riippuu elämyksestä ja palveluntarjoajasta. Tarkista ajantasaiset hinnat esim. Elves Villagelta tai Visit Levi -matkailuneuvonnasta." },
-        { q: "Sopiiko pienille lapsille?", a: "Ehdottomasti — pukkielämykset on suunniteltu perheille. Myös retki tunturin joulupukin mökille sopii kaiken ikäisille." },
+        { q: "Missä joulupukin voi tavata Levillä?", a: "Joulupukin tapaa Levillä elämysyritysten ohjelmissa: metsämökkivierailuilla (esim. Santa's Secret Hideaway), tonttuhovissa (Arcandia — The Elf Court), safarien yhteydessä (Tokka Safaris) tai yksityisvierailulla (Arctic Shaman Adventures). Tunturin huipun Joulupukin mökki on nähtävyys ja valokuvauspaikka, jossa pukki ei yleensä ole paikalla." },
+        { q: "Onko Levillä Santa Claus Village?", a: "Ei. Santa Claus Village eli Joulupukin Pajakylä on Rovaniemellä, noin 170 km eli noin 2,5 tunnin ajomatkan päässä Leviltä. Levillä on omat jouluelämyspuistonsa ja pukkitapaamisensa." },
+        { q: "Onko yksityisiä joulupukkitapaamisia saatavilla?", a: "Kyllä. Esimerkiksi Arctic Shaman Adventuresin Santa Claus Daytime VIP on yksityinen tapaaminen, ja useista metsämökkiohjelmista on saatavilla myös yksityinen versio. Monilta järjestäjiltä joulupukin voi tilata myös suoraan omaan majoitukseen." },
+        { q: "Onko joulupukki Levillä ympäri vuoden?", a: "Ei — joulupukkiohjelmat pyörivät pääosin marras–tammikuussa, järjestäjästä riippuen. Ympärivuotiseen tapaamiseen Rovaniemen Pajakylä on vaihtoehto." },
+        { q: "Voiko joulupukkielämyksen yhdistää muihin aktiviteetteihin?", a: "Kyllä, ja se kannattaa. Osaan ohjelmista sisältyy jo poroajelu tai moottorikelkkasafari, ja Levillä pukkipäivään on helppo yhdistää laskettelu, husky- tai porosafari sekä revontuliretki." },
+        { q: "Milloin joulupukkiohjelmat kannattaa varata?", a: "Mahdollisimman aikaisin. Suosituimmat vuorot joulukuussa ja hiihtolomaviikoilla myydään usein loppuun jo kesän tai alkusyksyn aikana — sama koskee majoitusta." },
+        { q: "Sopiiko pienille lapsille?", a: "Ehdottomasti — pukkielämykset on suunniteltu perheille. Pienimmille sopivat parhaiten rauhalliset mökkivierailut ja lyhyet ohjelmat." },
         { q: "Voiko tehdä päiväretken Rovaniemelle?", a: "Kyllä, matka on noin 2,5 tuntia suuntaan. Opastettuja päiväretkiä on myös saatavilla." }
       ]
     },
+
     cta: {
       text: "Joulusesonki on erittäin kysytty — varaa majoitus ajoissa.",
       link: "/majoitukset",
