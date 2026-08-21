@@ -220,13 +220,10 @@ const translations = {
         access: "You can reach the cabin via the gondola lift and walking down the slope, by hiking from Tuikku restaurant in summer, or by skiing in winter. A trip to the cabin is an absolute must during your visit to Levi!",
         note: "The cabin is a landmark — not a Santa experience as such. Santa meetings are organised by Levi's experience companies."
       },
-      experiences: {
-        title: "Santa Claus Experiences in Levi",
-        content: "Several experience companies in Levi organise Santa Claus meetings. The largest and most popular is Elves Village, which offers a comprehensive Christmas experience with elf activities and more.",
-        note: "There are many other Santa experience providers in Levi — check current options from Visit Levi tourist information.",
-        letterTitle: "Santa's Welcome Letter",
-        letterDesc: "Download Santa's welcome letter to print — a lovely surprise for children upon arrival at your accommodation!",
-        letterButton: "Download welcome letter (PDF)"
+      welcomeLetter: {
+        title: "Santa's Welcome Letter",
+        desc: "Download Santa's welcome letter to print — a lovely surprise for children upon arrival at your accommodation!",
+        button: "Download welcome letter (PDF)"
       },
       other: {
         title: "Other Christmas Experiences in Levi",
