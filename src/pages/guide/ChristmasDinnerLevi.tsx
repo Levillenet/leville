@@ -489,6 +489,12 @@ const ChristmasDinnerLevi = () => {
                   Back to Christmas in Lapland
                 </Link>
               </Button>
+              <Button asChild variant="outline">
+                <Link to="/guide/santa-claus-in-levi">
+                  Santa Claus in Levi — compare Santa experiences
+                </Link>
+              </Button>
+
               <Button asChild className="bg-red-700 hover:bg-red-800 text-white">
                 <Link to="/en/accommodations">
                   <Gift className="w-4 h-4 mr-2" />
