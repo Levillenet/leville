@@ -135,7 +135,7 @@ const translations = {
             "Ohjeet kirjeen toimittamiseen tulevat noin 2 viikkoa ennen vierailua"
           ],
           forWho: "Perheille, jotka haluavat yhdistää joulupukin ja Lapin safarielämyksen.",
-          url: "https://www.tokkasafaris.fi/safarit/joulupukkivierailut/"
+          url: "https://www.tokkasafaris.fi/en/safaris/santa-visits/"
         },
         {
           name: "Arcandia — The Elf Court (tonttuhovi)",
