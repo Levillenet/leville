@@ -179,7 +179,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
         <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-16">
           {/* Brand */}
           <div>
-            <Link to={homeHref} className="inline-block mb-6">
+            <Link to={homeHref} className="inline-block mb-6 rounded-xl bg-white p-3">
               <img 
                 src={levilleLogo} 
                 alt="Leville.net - Apartments & Villas" 
@@ -187,7 +187,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
                 height={591}
                 loading="lazy"
                 decoding="async"
-                className="h-40 md:h-48 w-auto"
+                className="h-20 md:h-24 w-auto object-contain"
               />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
