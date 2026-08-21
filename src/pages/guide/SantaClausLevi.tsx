@@ -11,7 +11,7 @@ import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema, getFAQSchema } from "@/utils/structuredData";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Gift, Mountain, Users, MapPin, Info, Camera, Heart, Download, TreePine } from "lucide-react";
+import { ArrowRight, Star, Gift, Mountain, Users, MapPin, Info, Camera, Heart, Download, TreePine, ExternalLink, Snowflake, Sparkles, CheckCircle2 } from "lucide-react";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
