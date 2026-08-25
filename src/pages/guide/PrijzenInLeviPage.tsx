@@ -272,7 +272,7 @@ const PrijzenInLeviPage = () => {
         {/* Section 4: Boodschappen */}
         <SectionCard icon={ShoppingCart} title="Boodschappen & Dagelijkse benodigdheden">
           <p className="text-muted-foreground mb-4">
-            Levi heeft twee goed gesorteerde supermarkten: K-Market Levi en S-Market. Beide zijn dagelijks open en verrassend goed bevoorraad voor een klein dorp. De prijzen liggen iets hoger dan in Zuid-Finland, maar niet dramatisch.
+            Levi heeft twee goed gesorteerde supermarkten: K-Market Levi en S-Market. Beide zijn dagelijks open en verrassend goed bevoorraad voor een klein dorp. De prijzen zijn vrijwel hetzelfde als in de rest van Finland — K-Group en S-Group hanteren landelijke prijzen, en de winkels in Levi zijn standaard K- en S-Market filialen.
           </p>
           <PriceTable
             headers={["Product", "Typische prijs"]}

@@ -279,7 +279,7 @@ const LevinHinnatPage = () => {
         {/* Osio 4: Ruokakaupat */}
         <SectionCard icon={ShoppingCart} title="Ruokakaupat ja päivittäistavarat">
           <p className="text-muted-foreground mb-4">
-            Levillä on kaksi hyvin varusteltua ruokakauppaa: Levimarket (K-ryhmä) ja S-Market. Molemmat ovat auki joka päivä ja valikoimat yllättävät laajuudellaan pienelle kylälle. Hintataso on hieman korkeampi kuin Etelä-Suomessa, mutta ei dramaattisesti.
+            Levillä on kaksi hyvin varusteltua ruokakauppaa: Levimarket (K-ryhmä) ja S-Market. Molemmat ovat auki joka päivä ja valikoimat yllättävät laajuudellaan pienelle kylälle. Hintataso on käytännössä sama kuin muualla Suomessa — K-ryhmän ja S-ryhmän ketjuhinnoittelu on valtakunnallinen ja Levin kaupat ovat normaaleja K- ja S-Market -myymälöitä.
           </p>
           <PriceTable
             headers={["Tuote", "Tyypillinen hinta"]}
@@ -297,7 +297,7 @@ const LevinHinnatPage = () => {
             ]}
           />
           <p className="text-muted-foreground text-sm mb-4">
-            Alkoholia yli 5,5 % myy vain Alko — Levin Alko on S-Marketin vieressä. Aukioloajat ovat rajoitetut (yleensä ma–pe 10–18, la 10–16). Kauppojen hinnat ovat noin 10–15 % korkeammat kuin Helsingissä.
+            Alkoholia yli 5,5 % myy vain Alko — Levin Alko on S-Marketin vieressä. Aukioloajat ovat rajoitetut (yleensä ma–pe 10–18, la 10–16). Suurissa ketjukaupoissa hinnat ovat pääsääntöisesti samat kuin muualla maassa; sesonkiaikoina yksittäisten tuotteiden tarjoukset voivat vaihdella, mutta perusvalikoimassa hintaeroja ei ole merkittävästi.
           </p>
           <p className="text-muted-foreground text-sm mb-4">
             K-Market ja S-Market ovat Suomen suurimmat kauppaketjut — K-ryhmä (Kesko) ja S-ryhmä (SOK). Levin S-Marketissa S-etukortti toimii normaalisti.

@@ -276,7 +276,7 @@ const PricesInLeviPage = () => {
         {/* Section 4: Groceries */}
         <SectionCard icon={ShoppingCart} title="Groceries & Everyday Items">
           <p className="text-muted-foreground mb-4">
-            Levi has two well-stocked supermarkets: K-Market Levi and S-Market. Both are open daily and surprisingly well-stocked for a small village. Prices are slightly higher than in southern Finland but not dramatically so.
+            Levi has two well-stocked supermarkets: K-Market Levi and S-Market. Both are open daily and surprisingly well-stocked for a small village. Prices are broadly the same as elsewhere in Finland — K-Group and S-Group use national pricing, and Levi's stores are standard K- and S-Market outlets.
           </p>
           <PriceTable
             headers={["Item", "Typical Price"]}
