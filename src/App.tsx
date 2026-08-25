@@ -40,6 +40,7 @@ const LeviPronounce = lazy(() => import("./pages/LeviPronounce"));
 const Latuinfo = lazy(() => import("./pages/Latuinfo"));
 const MyyLomaAsuntosi = lazy(() => import("./pages/MyyLomaAsuntosi"));
 const Seuratuki = lazy(() => import("./pages/Seuratuki"));
+const ClubSupport = lazy(() => import("./pages/en/ClubSupport"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // SEO Landing Pages
