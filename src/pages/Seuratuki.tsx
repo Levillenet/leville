@@ -182,6 +182,11 @@ const Seuratuki = () => {
         />
         <script type="application/ld+json">{JSON.stringify([breadcrumbSchema, serviceSchema, faqSchema])}</script>
       </Helmet>
+      <HreflangTags
+        currentPath="/seuratuki"
+        currentLang="fi"
+        customUrls={{ fi: "/seuratuki", en: "/en/club-support" }}
+      />
 
       <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
         <SubpageBackground />
