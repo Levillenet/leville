@@ -47,6 +47,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
         { label: "Last Minute", href: routeConfig.lastMinute.en },
         { label: "Levi Guide", href: routeConfig.levi.en },
         { label: "Contact", href: routeConfig.contact.en },
+        { label: "Club support", href: "/en/club-support" },
         { label: "FAQ", href: routeConfig.faq.en },
       ],
       apartmentLinks: [
