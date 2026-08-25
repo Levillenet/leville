@@ -96,11 +96,11 @@ const faqs = [
   },
   {
     q: "Pitääkö seuran hoitaa varauksia tai myydä jotain?",
-    a: "Ei. Seuran ei tarvitse myydä tuotteita, kerätä tilauksia eikä hoitaa majoitusvarauksia. Me hoidamme varaukset ja majoituksen, seura hoitaa viestinnän omille jäsenilleen.",
+    a: "Ei. Tuotemyynnin, tilauslistojen, talkoiden tai sponsorien etsimisen sijaan seuran tarvitsee vain viestiä omille jäsenilleen. Me hoidamme varaukset ja majoituksen.",
   },
   {
     q: "Kuka voi liittyä mukaan?",
-    a: "Malli on tarkoitettu urheiluseuroille ja järjestöille. Jos et ole varma sopiiko oma yhteisösi mukaan, kysy rohkeasti sähköpostitse.",
+    a: "Malli on tarkoitettu urheiluseuroille, järjestöille ja muille yhteisöille, jotka keräävät varoja toimintaansa. Jos et ole varma sopiiko oma yhteisösi mukaan, kysy rohkeasti sähköpostitse.",
   },
 ];
 
