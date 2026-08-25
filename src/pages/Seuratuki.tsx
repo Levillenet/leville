@@ -201,9 +201,10 @@ const Seuratuki = () => {
                   Tue omaa seuraasi – varaa majoitus Leviltä
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
-                  Uusi yhteistyömalli urheiluseuroille ja järjestöille. Sinä maksat majoituksesta normaalin hinnan,
-                  eikä sinulle tule mitään lisäkustannusta. Seurasi saa varauksestasi 10 % majoituksen verottomasta
-                  hinnasta.
+                  Uusi yhteistyömalli urheiluseuroille, järjestöille ja muille yhteisöille, jotka keräävät varoja
+                  perinteisesti esimerkiksi myymällä tuotteita, pitämällä talkoita tai keräämällä sponsorointitukea.
+                  Sinä maksat majoituksesta normaalin hinnan, eikä sinulle tule mitään lisäkustannusta. Seurasi saa
+                  varauksestasi 10 % majoituksen verottomasta hinnasta.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
