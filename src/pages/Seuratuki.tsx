@@ -294,12 +294,12 @@ const Seuratuki = () => {
                       <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
                         <Users className="w-6 h-6 text-primary" />
                       </div>
-                      <h3 className="text-xl font-semibold text-foreground">Edustat seuraa tai järjestöä</h3>
+                      <h3 className="text-xl font-semibold text-foreground">Edustat seuraa, järjestöä tai yhteisöä</h3>
                     </div>
                     <p className="text-muted-foreground leading-relaxed mb-6">
-                      Seuranne saa uuden varainhankinnan muodon ilman tuotemyyntiä, tilauslistoja tai talkoita. Te
-                      kerrotte mahdollisuudesta omille jäsenillenne ja jaatte oman varauslinkkinne – me hoidamme
-                      majoituksen ja varaukset.
+                      Yhteisönne saa uuden varainhankinnan muodon ilman tuotemyyntiä, tilauslistoja, talkoita tai
+                      sponsorien etsimistä. Te kerrotte mahdollisuudesta omille jäsenillenne ja jaatte oman
+                      varauslinkkinne – me hoidamme majoituksen ja varaukset.
                     </p>
                     <div className="mt-auto">
                       <Button asChild variant="outline" className="w-full sm:w-auto">
