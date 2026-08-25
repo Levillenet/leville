@@ -525,6 +525,7 @@ const App = () => {
               <Route path="/latuinfo" element={<Latuinfo />} />
               <Route path="/myy-loma-asuntosi" element={<MyyLomaAsuntosi />} />
               <Route path="/seuratuki" element={<Seuratuki />} />
+              <Route path="/en/club-support" element={<ClubSupport />} />
               
               {/* Property Guides (unlisted) */}
               <Route path="/guide/:slug" element={<PropertyGuide />} />
