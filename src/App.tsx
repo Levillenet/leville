@@ -39,6 +39,7 @@ const TicketResolved = lazy(() => import("./pages/TicketResolved"));
 const LeviPronounce = lazy(() => import("./pages/LeviPronounce"));
 const Latuinfo = lazy(() => import("./pages/Latuinfo"));
 const MyyLomaAsuntosi = lazy(() => import("./pages/MyyLomaAsuntosi"));
+const Seuratuki = lazy(() => import("./pages/Seuratuki"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // SEO Landing Pages
@@ -522,6 +523,7 @@ const App = () => {
               <Route path="/levi-pronounce" element={<LeviPronounce />} />
               <Route path="/latuinfo" element={<Latuinfo />} />
               <Route path="/myy-loma-asuntosi" element={<MyyLomaAsuntosi />} />
+              <Route path="/seuratuki" element={<Seuratuki />} />
               
               {/* Property Guides (unlisted) */}
               <Route path="/guide/:slug" element={<PropertyGuide />} />

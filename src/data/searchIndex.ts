@@ -44,6 +44,7 @@ export const searchPages: SearchPage[] = [
   { title: "Latuinfo", description: "Hiihtolatujen tilanne Levillä", path: "/latuinfo", lang: "fi", category: "guide" },
   { title: "Lomasuunnittelija", description: "Suunnittele Levi-lomasi helposti", path: "/lomasuunnittelija", lang: "fi", category: "general" },
   { title: "Myy loma-asuntosi", description: "Haluatko vuokrata asuntosi Levillä?", path: "/myy-loma-asuntosi", lang: "fi", category: "general" },
+  { title: "Seuratuki", description: "Urheiluseuran varainhankinta ilman myyntiä – seura saa 10 % majoituksen verottomasta hinnasta", path: "/seuratuki", lang: "fi", category: "general" },
   { title: "Asiakaspalvelu", description: "Asiakaspalveluchat ja tuki", path: "/asiakaspalvelu", lang: "fi", category: "general" },
 
   // FI Guide pages
