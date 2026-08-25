@@ -173,12 +173,20 @@ const ClubSupport = () => {
         />
         <meta property="og:locale" content="en_GB" />
         <meta property="og:site_name" content="Leville.net" />
+        <meta property="og:image" content="https://leville.net/og-club-support.jpg" />
+        <meta property="og:image:secure_url" content="https://leville.net/og-club-support.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="A sports club arriving at accommodation in Levi" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Club support – fundraising without selling products" />
         <meta
           name="twitter:description"
           content="A member books accommodation in Levi with the club's code at the normal price – the club receives 10% of the VAT-exclusive price."
         />
+        <meta name="twitter:image" content="https://leville.net/og-club-support.jpg" />
+        <meta name="twitter:image:alt" content="A sports club arriving at accommodation in Levi" />
         <script type="application/ld+json">{JSON.stringify([breadcrumbSchema, serviceSchema, faqSchema])}</script>
       </Helmet>
       <HreflangTags
