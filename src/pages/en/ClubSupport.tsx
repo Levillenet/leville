@@ -435,7 +435,7 @@ const ClubSupport = () => {
                     <Link to="/en/accommodations" className="text-muted-foreground hover:text-foreground transition-colors">
                       Accommodation in Levi
                     </Link>
-                    <Link to="/en/cabins" className="text-muted-foreground hover:text-foreground transition-colors">
+                    <Link to="/en/log-cabins-levi" className="text-muted-foreground hover:text-foreground transition-colors">
                       Cabins in Levi
                     </Link>
                     <Link to="/en/contact" className="text-muted-foreground hover:text-foreground transition-colors">
