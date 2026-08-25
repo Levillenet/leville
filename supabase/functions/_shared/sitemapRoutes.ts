@@ -252,6 +252,7 @@ export const SITEMAP_ROUTES: SitemapRoute[] = [
   { path: "/levi-pronounce", lang: "fi", priority: 0.5, changefreq: "monthly" },
   { path: "/latuinfo", lang: "fi", priority: 0.5, changefreq: "monthly" },
   { path: "/myy-loma-asuntosi", lang: "fi", priority: 0.7, changefreq: "monthly" },
+  { path: "/seuratuki", lang: "fi", priority: 0.7, changefreq: "monthly" },
   { path: "/accommodations/guides/bearlodge", lang: "fi", priority: 0.5, changefreq: "monthly" },
   { path: "/majoitukset/oppaat/bearlodge", lang: "fi", priority: 0.9, changefreq: "weekly" },
   { path: "/majoitukset/oppaat/karhupirtti", lang: "fi", priority: 0.9, changefreq: "weekly" },
