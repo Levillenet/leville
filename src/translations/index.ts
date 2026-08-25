@@ -55,6 +55,7 @@ export const routeConfig = {
   bookingTerms: { fi: "/varausehdot", en: "/en/booking-terms", sv: "/sv/bokningsvillkor", de: "/de/buchungsbedingungen", es: "/es/terminos-de-reserva", fr: "/fr/conditions-de-reservation", nl: "/nl/boekingsvoorwaarden" },
   privacyPolicy: { fi: "/tietosuoja", en: "/en/privacy", sv: "/sv/integritetspolicy", de: "/de/datenschutz", es: "/es/privacidad", fr: "/fr/confidentialite", nl: "/nl/privacy" },
   sellProperty: { fi: "/myy-loma-asuntosi", en: "/myy-loma-asuntosi", sv: "/myy-loma-asuntosi", de: "/myy-loma-asuntosi", es: "/myy-loma-asuntosi", fr: "/myy-loma-asuntosi", nl: "/myy-loma-asuntosi" },
+  clubSupport: { fi: "/seuratuki", en: "/en/club-support", sv: "/en/club-support", de: "/en/club-support", es: "/en/club-support", fr: "/en/club-support", nl: "/en/club-support" },
   holidayPlanner: { fi: "/lomasuunnittelija", en: "/en/holiday-planner", sv: "/lomasuunnittelija", de: "/lomasuunnittelija", es: "/lomasuunnittelija", fr: "/lomasuunnittelija", nl: "/lomasuunnittelija" },
   // Guide HUB pages
   seasonsHub: { fi: "/opas/vuodenajat-levi", en: "/guide/seasons-in-levi", sv: "/guide/seasons-in-levi", de: "/guide/seasons-in-levi", es: "/guide/seasons-in-levi", fr: "/guide/seasons-in-levi", nl: "/nl/gids/seizoenen-in-levi" },
