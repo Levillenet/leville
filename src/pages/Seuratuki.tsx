@@ -175,12 +175,20 @@ const Seuratuki = () => {
         />
         <meta property="og:locale" content="fi_FI" />
         <meta property="og:site_name" content="Leville.net" />
+        <meta property="og:image" content="https://leville.net/og-club-support.jpg" />
+        <meta property="og:image:secure_url" content="https://leville.net/og-club-support.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Urheiluseura saapumassa majoitukseen Levillä" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Seuratuki – urheiluseuran varainhankinta ilman myyntiä" />
         <meta
           name="twitter:description"
           content="Jäsen varaa Levin majoituksen seuran koodilla normaalihintaan – seura saa 10 % verottomasta hinnasta."
         />
+        <meta name="twitter:image" content="https://leville.net/og-club-support.jpg" />
+        <meta name="twitter:image:alt" content="Urheiluseura saapumassa majoitukseen Levillä" />
         <script type="application/ld+json">{JSON.stringify([breadcrumbSchema, serviceSchema, faqSchema])}</script>
       </Helmet>
       <HreflangTags
