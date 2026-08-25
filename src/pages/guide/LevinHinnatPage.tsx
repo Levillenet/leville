@@ -297,7 +297,7 @@ const LevinHinnatPage = () => {
             ]}
           />
           <p className="text-muted-foreground text-sm mb-4">
-            Alkoholia yli 5,5 % myy vain Alko — Levin Alko on S-Marketin vieressä. Aukioloajat ovat rajoitetut (yleensä ma–pe 10–18, la 10–16). Kauppojen hinnat ovat noin 10–15 % korkeammat kuin Helsingissä.
+            Alkoholia yli 5,5 % myy vain Alko — Levin Alko on S-Marketin vieressä. Aukioloajat ovat rajoitetut (yleensä ma–pe 10–18, la 10–16). Suurissa ketjukaupoissa hinnat ovat pääsääntöisesti samat kuin muualla maassa; sesonkiaikoina yksittäisten tuotteiden tarjoukset voivat vaihdella, mutta perusvalikoimassa hintaeroja ei ole merkittävästi.
           </p>
           <p className="text-muted-foreground text-sm mb-4">
             K-Market ja S-Market ovat Suomen suurimmat kauppaketjut — K-ryhmä (Kesko) ja S-ryhmä (SOK). Levin S-Marketissa S-etukortti toimii normaalisti.
