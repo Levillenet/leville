@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SubpageBackground from "@/components/SubpageBackground";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ScrollReveal from "@/components/ScrollReveal";
+import HreflangTags from "@/components/HreflangTags";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import {
