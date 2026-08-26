@@ -162,7 +162,86 @@ export const streetHubs: StreetHub[] = [
       { label: "Huoneistoja yhteensä", value: "10 (kaksiot & studiot)" },
     ],
   },
+  {
+    slug: "hiihtajankuja-2-levi",
+    street: "Hiihtäjänkuja",
+    address: "Hiihtäjänkuja 2",
+    h1: "Levi Platinum Hiihtäjänkuja 2 – studiomajoitus Eturinteen juurella",
+    metaTitle: "Levi Platinum, Hiihtäjänkuja 2 – studio Eturinteellä | Leville.net",
+    metaDescription:
+      "Levi Platinum A2 -studio Hiihtäjänkuja 2:ssa Levin Eturinteen juurella: oma sauna, 37 m², 1–4 hengelle. Varaa suoraan omistajalta ilman välityspalkkioita.",
+    brandNames: ["Levi Platinum", "Levi Platinum A2", "Hiihtäjänkuja 2 Levi"],
+    locationLabel: "Eturinne, Hiihtäjänkuja 2",
+    capacityLabel: "1–4 hlö",
+    subtitle:
+      "Levi Platinum -talo Hiihtäjänkuja 2:ssa – Eturinteen juurella, kävelymatka keskustaan.",
+    intro: [
+      "Hiihtäjänkuja 2 sijaitsee Levin Eturinteen juurella, samalla kadulla kuin Front Slope -alppihuoneistot. Osoite on yksi Levin käytännöllisimmistä: rinteille ja hisseille on lyhyt matka, ja Levin keskustan ravintolat ja kaupat ovat kävelyetäisyydellä.",
+      "Leville.netillä on Hiihtäjänkuja 2:ssa Levi Platinum Superior Studio A2 – 37 neliön studio, joka avattiin vuonna 2023 ja on kohteistamme uusin. Studiossa on oma sauna, lattialämmitys, pyykinpesukone ja kuivauskaappi. Se sopii pariskunnille sekä pienelle perheelle, majoitusta enintään neljälle hengelle. Lemmikkejä kohteeseen ei valitettavasti voi ottaa.",
+      "Varaus tapahtuu suoraan meiltä ilman välityspalkkioita, ja vapaat ajat näkyvät reaaliaikaisesti.",
+    ],
+    propertySlugs: ["levi-platinum-a2"],
+    facts: [
+      { label: "Eturinteen rinteille", value: "n. 250 m" },
+      { label: "Levin keskustaan", value: "n. 400 m" },
+      { label: "Lähin ruokakauppa", value: "n. 250 m (K-Market Levi)" },
+      { label: "Kohteita osoitteessa", value: "1 studio (1–4 hlö)" },
+    ],
+  },
+  {
+    slug: "skimbaajankuja-4-levi",
+    street: "Skimbaajankuja",
+    address: "Skimbaajankuja 4",
+    h1: "Karhunvartija 3, Skimbaajankuja 4 – perhehuoneisto Levin keskustassa",
+    metaTitle: "Karhunvartija 3, Skimbaajankuja 4 Levi – perhehuoneisto | Leville.net",
+    metaDescription:
+      "Karhunvartija 3 Skimbaajankuja 4:ssä Levin keskustassa: 42 m², 2 makuuhuonetta, oma sauna, takka ja aidattu piha. Lemmikit sallittu. Varaa suoraan omistajalta.",
+    brandNames: ["Karhunvartija 3", "Karhunvartija Levi", "Skimbaajankuja 4 Levi"],
+    locationLabel: "Levin keskusta, Skimbaajankuja 4",
+    capacityLabel: "1–4 hlö",
+    subtitle:
+      "Karhunvartija 3 – kahden makuuhuoneen huoneisto omalla saunalla ja takalla Levin keskustassa.",
+    intro: [
+      "Skimbaajankuja 4 sijaitsee Levin keskustan tuntumassa, samalla alueella kuin Karhupirtti-hirsihuvila. Alue on rauhallinen mutta silti kävelymatkan päässä Levin palveluista ja rinnealueesta.",
+      "Osoitteessa on Karhunvartija 3 -huoneistomme: 42 neliötä, kaksi makuuhuonetta, luonnonkivitakka, oma sauna ja aidattu piha. Oma sisäänkäynti on Ratsastajankujan puolelta. Huoneisto majoittaa neljä henkeä ja sopii erityisen hyvin perheille – lemmikit ovat tervetulleita.",
+      "Kohteen voi varata suoraan Leville.netin kautta ilman välityspalkkioita, ja saatavuus näkyy reaaliaikaisesti.",
+    ],
+    propertySlugs: ["karhunvartija-3"],
+    facts: [
+      { label: "Levin keskustaan", value: "n. 500 m" },
+      { label: "Rinteille", value: "n. 500 m" },
+      { label: "Makuuhuoneet", value: "2 (4 hengelle)" },
+      { label: "Lemmikit", value: "Sallittu" },
+    ],
+  },
+  {
+    slug: "leviraitti-levi",
+    street: "Leviraitti",
+    address: "Leviraitti",
+    h1: "Moonlight 415 Leviraitilla – studiomajoitus Levin sydämessä",
+    metaTitle: "Moonlight 415, Leviraitti Levi – studio keskustassa | Leville.net",
+    metaDescription:
+      "Moonlight 415 -loftstudio Leviraitilla, Hullu Poron vieressä: oma sauna, 28 m², 1–4 hengelle. Rinteille n. 400 m. Varaa suoraan omistajalta.",
+    brandNames: ["Moonlight 415", "Moonlight Levi", "Leviraitti Levi"],
+    locationLabel: "Ydinkeskusta, Leviraitti",
+    capacityLabel: "1–4 hlö",
+    subtitle:
+      "Moonlight-talo Leviraitilla – Levin kävelykadun tuntumassa, Hullu Poron naapurissa.",
+    intro: [
+      "Leviraitti on Levin keskustan pääraitti, jonka varrella ovat resortin ravintolat, kaupat ja iltaelämä. Osoite on paras mahdollinen, jos haluat kaiken kävelymatkan päähän ilman autoa.",
+      "Moonlight 415 on 28 neliön loftstudio Hullu Poron vieressä. Yläkerran parvella on vuodepaikat kolmelle (portaat ovat jyrkät) ja alakerrassa vuodesohva, joten majoitusta on enintään neljälle. Studiossa on oma sauna. Rinteille ja latureitille on noin 400 metriä ja lähimpään kauppaan noin 150 metriä. Lemmikkejä kohteeseen ei voi ottaa.",
+      "Varaa suoraan meiltä ilman välityspalkkioita – vapaat ajat näet reaaliaikaisesti.",
+    ],
+    propertySlugs: ["moonlight-415"],
+    facts: [
+      { label: "Rinteille ja ladulle", value: "n. 400 m" },
+      { label: "Lähin ruokakauppa", value: "n. 150 m" },
+      { label: "Ravintolat", value: "Hullu Poro naapurissa" },
+      { label: "Kohteita osoitteessa", value: "1 studio (1–4 hlö)" },
+    ],
+  },
 ];
+
 
 
 export const getStreetHub = (slug: string) =>
