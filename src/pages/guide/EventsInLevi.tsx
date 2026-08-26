@@ -17,8 +17,8 @@ import EventTimeline from "@/components/guide/EventTimeline";
 import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
-import {
 import MajoitusCallout from "@/components/MajoitusCallout";
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
