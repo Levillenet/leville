@@ -69,6 +69,7 @@ import hookWings from "@/assets/restaurants/Buffalo wings - Ravintola Hook.jpeg"
 
 // Pihvipirtti
 import pihvipirttiKala from "@/assets/restaurants/kalapöytä alkupalat ravintola pihvipirtti.jpg";
+import MajoitusCallout from "@/components/MajoitusCallout";
 
 interface LeviRestaurantGuideProps {
   lang?: Language;
@@ -598,6 +599,9 @@ const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
       </main>
 
       <PageCTA lang={lang} />
+      <div className="container mx-auto px-4">
+        <MajoitusCallout lang={lang} />
+      </div>
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />

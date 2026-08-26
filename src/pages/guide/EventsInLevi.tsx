@@ -18,6 +18,7 @@ import { Language } from "@/translations";
 import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
+import MajoitusCallout from "@/components/MajoitusCallout";
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -328,6 +329,12 @@ const EventsInLevi = ({ lang = "fi" }: EventsInLeviProps) => {
         </main>
 
         <PageCTA lang={lang} />
+
+        <div className="container mx-auto px-4">
+
+          <MajoitusCallout lang={lang} />
+
+        </div>
 
         <Footer lang={lang} />
         <WhatsAppChat lang={lang} />
