@@ -20,6 +20,7 @@ import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
 import { supabase } from "@/integrations/supabase/client";
 import PropertyCard from "@/components/PropertyCard";
+import PropertyFilters from "@/components/PropertyFilters";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
 import { properties } from "@/data/properties";
 import { streetHubs } from "@/data/street-hubs";
@@ -426,6 +427,12 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </ScrollReveal>
             )}
 
+
+            {(lang === "fi" || lang === "en") && (
+              <ScrollReveal>
+                <PropertyFilters properties={properties} lang={lang as "fi" | "en"} />
+              </ScrollReveal>
+            )}
 
             {/* Accommodations */}
             {lang === "fi" || lang === "en" ? (
