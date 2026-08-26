@@ -25,6 +25,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Skeleton } from "@/components/ui/skeleton";
+import MajoitusCallout from "@/components/MajoitusCallout";
 
 interface LeviSnowReportProps {
   lang?: Language;
@@ -408,6 +409,12 @@ const LeviSnowReport = ({ lang = "fi" }: LeviSnowReportProps) => {
           <ReadNextSection title={t.readNext.title} links={t.readNext.links} />
         </div>
       </main>
+
+      <div className="container mx-auto px-4">
+
+        <MajoitusCallout lang={lang} />
+
+      </div>
 
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
