@@ -24,9 +24,13 @@ levillas.fi:n etusivu tuo **75 % koko sivuston liikenteestä** ja rankkaa sijall
 `/majoitukset` nostetaan majoituksen kanoniseksi vastaukseksi ja etusivu palautetaan brändi- ja opassivuksi.
 
 - `/majoitukset`: title ja H1 kohdistetaan pääsanoihin *levi majoitus* / *majoitus levi* (yhteensä 18 700/kk)
-- Etusivun title muutetaan brändi- ja opaspainotteiseksi, jotta se lakkaa kilpailemasta samasta hausta
+- Etusivun title ja description muutetaan brändi- ja opaspainotteiseksi, jotta se lakkaa kilpailemasta samasta hausta. **Muutos koskee vain metatietoja — etusivun hakubanneriin ei kosketa.**
 - Etusivulta vahva, näkyvä linkki `/majoitukset`-sivulle ankkurilla "majoitus Levillä"
 - Nykyiset `/mokit-levilla` ja `/majoitukset` erotetaan selvästi: mökit vs. huoneistot, ristiinlinkitys molempiin suuntiin
+
+### Suojattu: etusivun hakubanneri
+Etusivun varaus-/hakubanneri (`<Hero>` ja `<ModerBookingWidget>` tiedostossa `src/pages/Index.tsx`, rivit 130 ja 156) jätetään täysin koskematta: ei muutoksia komponentteihin, propseihin, järjestykseen, tyyleihin eikä Moder-integraatioon. Etusivulla tehdään vain `<Helmet>`-metatietomuutos ja majoituslinkin lisäys bannerin ulkopuolelle. Lopuksi varmistetaan selaimessa, että banneri renderöityy ja toimii normaalisti.
+
 
 ### 2. Rakennetaan `/majoitukset` oikeaksi hakusivuksi
 Hakija haluaa valita majoituksen, ei lukea esittelytekstiä. Sivulle:
