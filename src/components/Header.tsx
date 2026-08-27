@@ -22,6 +22,7 @@ const Header = () => {
           { name: "Accommodations", href: routeConfig.accommodations.en },
           { name: "Last Minute", href: routeConfig.lastMinute.en, highlight: true },
           { name: "Levi Guide", href: routeConfig.levi.en },
+          { name: "News", href: routeConfig.news.en },
           { name: "Contact", href: routeConfig.contact.en },
         ];
       case "sv":
@@ -29,6 +30,7 @@ const Header = () => {
           { name: "Boende", href: routeConfig.accommodations.sv },
           { name: "Sista Minuten", href: routeConfig.lastMinute.sv, highlight: true },
           { name: "Levi-guide", href: routeConfig.levi.sv },
+          { name: "Nyheter", href: routeConfig.news.sv },
           { name: "Kontakt", href: routeConfig.contact.sv },
         ];
       case "de":
@@ -36,6 +38,7 @@ const Header = () => {
           { name: "Unterkünfte", href: routeConfig.accommodations.de },
           { name: "Last Minute", href: routeConfig.lastMinute.de, highlight: true },
           { name: "Levi-Reiseführer", href: routeConfig.levi.de },
+          { name: "Aktuelles", href: routeConfig.news.de },
           { name: "Kontakt", href: routeConfig.contact.de },
         ];
       case "es":
@@ -43,6 +46,7 @@ const Header = () => {
           { name: "Alojamientos", href: routeConfig.accommodations.es },
           { name: "Última Hora", href: routeConfig.lastMinute.es, highlight: true },
           { name: "Guía de Levi", href: routeConfig.levi.es },
+          { name: "Noticias", href: routeConfig.news.es },
           { name: "Contacto", href: routeConfig.contact.es },
         ];
       case "fr":
@@ -50,6 +54,7 @@ const Header = () => {
           { name: "Hébergements", href: routeConfig.accommodations.fr },
           { name: "Dernière Minute", href: routeConfig.lastMinute.fr, highlight: true },
           { name: "Guide de Levi", href: routeConfig.levi.fr },
+          { name: "Actualités", href: routeConfig.news.fr },
           { name: "Contact", href: routeConfig.contact.fr },
         ];
       case "nl":
@@ -57,6 +62,7 @@ const Header = () => {
           { name: "Accommodaties", href: routeConfig.accommodations.nl },
           { name: "Last Minute", href: routeConfig.lastMinute.nl, highlight: true },
           { name: "Levi-gids", href: routeConfig.levi.nl },
+          { name: "Nieuws", href: routeConfig.news.nl },
           { name: "Contact", href: routeConfig.contact.nl },
         ];
       default: // Finnish
@@ -64,8 +70,10 @@ const Header = () => {
           { name: "Majoitukset", href: routeConfig.accommodations.fi },
           { name: "Äkkilähdöt", href: routeConfig.lastMinute.fi, highlight: true },
           { name: "Levi-opas", href: routeConfig.levi.fi },
+          { name: "Ajankohtaista", href: routeConfig.news.fi },
           { name: "Yhteystiedot", href: routeConfig.contact.fi },
         ];
+
     }
   };
 
