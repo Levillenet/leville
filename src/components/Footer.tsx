@@ -86,11 +86,9 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       trustTitle: "Hervorragend bewertet",
       links: [
         { label: "Unsere Geschichte", href: routeConfig.company.de, highlight: true },
-        { label: "Unterkünfte", href: routeConfig.accommodations.de },
-        { label: "Last Minute", href: routeConfig.lastMinute.de },
-        { label: "Levi", href: routeConfig.levi.de },
-        { label: "Kontakt", href: routeConfig.contact.de },
+        { label: "Aktuelles", href: routeConfig.news.de },
         { label: "FAQ", href: routeConfig.faq.de },
+        { label: "Kontakt", href: routeConfig.contact.de },
       ],
       contactTitle: "Kontakt",
       location: "Levi Zentrum, Kittilä",
