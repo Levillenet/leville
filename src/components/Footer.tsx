@@ -40,13 +40,11 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       trustTitle: "Rated Excellent",
       links: [
         { label: "Our Story", href: routeConfig.company.en, highlight: true },
-        { label: "Accommodations", href: routeConfig.accommodations.en },
         { label: "Apartments", href: "/en/apartments" },
-        { label: "Last Minute", href: routeConfig.lastMinute.en },
-        { label: "Levi Guide", href: routeConfig.levi.en },
-        { label: "Contact", href: routeConfig.contact.en },
+        { label: "News", href: routeConfig.news.en },
         { label: "Club support", href: "/en/club-support" },
         { label: "FAQ", href: routeConfig.faq.en },
+        { label: "Contact", href: routeConfig.contact.en },
       ],
       apartmentLinks: [
         { label: "Studio apartments", href: "/en/apartments/studio" },
