@@ -67,11 +67,9 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       trustTitle: "Utmärkt betyg",
       links: [
         { label: "Vår historia", href: routeConfig.company.sv, highlight: true },
-        { label: "Boende", href: routeConfig.accommodations.sv },
-        { label: "Sista minuten", href: routeConfig.lastMinute.sv },
-        { label: "Levi", href: routeConfig.levi.sv },
-        { label: "Kontakt", href: routeConfig.contact.sv },
+        { label: "Nyheter", href: routeConfig.news.sv },
         { label: "FAQ", href: routeConfig.faq.sv },
+        { label: "Kontakt", href: routeConfig.contact.sv },
       ],
       contactTitle: "Kontakt",
       location: "Levi Centrum, Kittilä",
