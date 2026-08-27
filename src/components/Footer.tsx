@@ -143,11 +143,9 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       trustTitle: "Uitstekend beoordeeld",
       links: [
         { label: "Ons verhaal", href: routeConfig.company.nl, highlight: true },
-        { label: "Accommodaties", href: routeConfig.accommodations.nl },
-        { label: "Last minute", href: routeConfig.lastMinute.nl },
-        { label: "Levi", href: routeConfig.levi.nl },
-        { label: "Contact", href: routeConfig.contact.nl },
+        { label: "Nieuws", href: routeConfig.news.nl },
         { label: "FAQ", href: routeConfig.faq.nl },
+        { label: "Contact", href: routeConfig.contact.nl },
       ],
       contactTitle: "Contact",
       location: "Centrum van Levi, Kittilä",
