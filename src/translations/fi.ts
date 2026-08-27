@@ -283,7 +283,7 @@ export const fi = {
   ajankohtaista: {
     meta: {
       title: "Ajankohtaista – Varaa parhaat ajankohdat Leviltä | Leville.net",
-      description: "Ajankohtaiset uutiset Levin majoituksista. Kevätkauden 2026 alennuskoodi -10%, loppukevään vapaat ajankohdat ja joulukuu 2026 nyt myynnissä!",
+      description: "Ajankohtaiset uutiset Levin majoituksista: ruska ja talven treenikausi 2026, Seuratuki urheiluseuroille ja uuden kauden varaustilanne.",
       keywords: "Levi alennuskoodi, Levi tarjous 2026, Levi kevät alennus, Levi joulu 2026, Levi majoitus tarjous",
       canonical: "https://leville.net/ajankohtaista"
     },
@@ -292,6 +292,13 @@ export const fi = {
     badge: "Uutiset & Tarjoukset",
     bookCta: "Tutustu vapaisiin ajankohtiin ja varaa",
     items: [
+      {
+        badge: "🍂 Ruska & talvi 2026",
+        date: "27.8.2026",
+        title: "Levin kesäkausi vaihtuu ruskaan ja talven treenikausiin",
+        description: "Levin kesäkausi alkaa olla tältä vuodelta lopuillaan ja seuraavaksi katseet kääntyvät ruskaan. Syksyn yksi suurimmista tapahtumista on jälleen huippusuosittu Ruska-maraton, jonka aikaan Levin majoitustilanne on jo hyvin täynnä. Vielä muutamia majoituksia on saatavilla, mutta suurimmat kohteemme ovat jo täyttyneet.\n\nRuskan jälkeen talvi saapuu Leville nopeasti. Lokakuun alussa käynnistyy talvikausi, kun ensilumen latu ja Eturinne avautuvat. Silloin Levin maisemaan ilmestyy jälleen paljon treeniryhmiä, jotka saapuvat hakemaan huippuolosuhteita sekä lasketteluun että maastohiihtoon.\n\nErityisesti laskettelun osalta Levi on kansainvälisten joukkueiden suosiossa. Loka- ja marraskuun aikana Levillä harjoittelee runsaasti suomalaisia ja kansainvälisiä ryhmiä aina Levin maailmancupiin saakka. Meillä on jo vuosien kokemus joukkueiden ja urheiluseurojen majoittamisesta, ja tänäkin vuonna meillä majoittuu suuri määrä erilaisia joukkueita.\n\nTänä vuonna olemme halunneet viedä seurayhteistyötä vielä askeleen pidemmälle ja loimme uuden Seuratuki-konseptin. Maksamme seuroille 10 prosentin tuen seuran tekemistä majoitusvarauksista. Tuki ei rajoitu ainoastaan joukkueen omiin matkoihin, vaan se koskee myös ympäri vuoden seuran sidosryhmien, kannattajien ja perheiden tekemiä majoitusvarauksia Leville.\n\nSeuratukeen kannattaa tutustua tarkemmin osoitteessa leville.net/seuratuki. Näin myös tavallinen lomamatka Leville voi samalla tuoda taloudellista tukea omalle seuralle.\n\nTalven varaustilanne näyttää tällä hetkellä erittäin hyvältä. Varauksia on jo yli 50 prosenttia enemmän kuin normaalisti tähän aikaan vuodesta, joten mikäli mielessä on tietty kohde ja haluttu ajankohta, varaaminen kannattaa tehdä nyt. Mitä lähemmäs talvea mennään, sitä vaikeammaksi etenkin suurten ryhmien ja suosituimpien ajankohtien majoituksen löytäminen muuttuu.\n\nOlipa suunnitelmissa ruskan väriloisto, hiihtoleiri, laskettelun treenikausi tai talviloma perheen kanssa, tervetuloa Leville!",
+        highlight: "Seuratuki tuo seuralle 10 % jokaisesta seuran kautta tulleesta majoitusvarauksesta – katso lisää osoitteesta leville.net/seuratuki."
+      },
       {
         badge: "☀️ Kesä 2026",
         date: "7.6.2026",
