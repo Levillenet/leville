@@ -381,6 +381,7 @@ Deno.serve(async (req) => {
           if (sessionPages[sid].firstTs === undefined || ts < sessionPages[sid].firstTs!) {
             sessionPages[sid].firstTs = ts;
             sessionPages[sid].firstPath = v.path;
+            sessionPages[sid].firstReferrer = v.referrer || null;
           }
           // Track last (latest) pageview path for exit pages
           if (sessionPages[sid].lastTs === undefined || ts > sessionPages[sid].lastTs!) {
