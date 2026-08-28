@@ -497,6 +497,53 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
         </CardContent>
       </Card>
 
+      {/* AI assistant referrals */}
+      {stats.aiTraffic && stats.aiTraffic.totalSessions > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Tekoälyohjaukset (AI-assistentit)</CardTitle>
+            <CardDescription>
+              Istunnot joiden ensimmäisen sivukatselun lähde on tekoälyassistentti.
+              HUOM: referrer näkyy vain jos käyttäjä klikkaa linkkiä — kopioidut URL:t kirjautuvat suorana liikenteenä, joten luku on alaraja.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <SummaryCard icon={<Bot className="w-5 h-5 text-chart-1" />} label="AI-istunnot" value={stats.aiTraffic.totalSessions} colorClass="bg-chart-1/10" />
+              <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-5" />} label="Varausklikkaus" value={stats.aiTraffic.convertingSessions} colorClass="bg-chart-5/10" />
+              <SummaryCard icon={<TrendingUp className="w-5 h-5 text-chart-2" />} label="Konversio" value={stats.aiTraffic.conversionRate} colorClass="bg-chart-2/10" suffix="%" />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Koko sivuston konversio samalla jaksolla: {stats.aiTraffic.siteConversionRate} %
+            </p>
+            <div className="h-[220px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={aiDateData}>
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                  <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 12 }} allowDecimals={false} />
+                  <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
+                  <Legend />
+                  {aiSources.map((s) => (
+                    <Bar key={s} dataKey={s} stackId="ai" name={s} fill={AI_SOURCE_COLORS[s] || "hsl(var(--muted-foreground))"} />
+                  ))}
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="space-y-1">
+              <h4 className="text-sm font-medium">Sisääntulosivut</h4>
+              {stats.aiTraffic.topLandingPages.map((p) => (
+                <div key={p.path} className="flex justify-between text-sm border-b border-border/50 py-1">
+                  <span className="truncate mr-2 text-muted-foreground">{p.path}</span>
+                  <span className="font-medium tabular-nums">{p.sessions}</span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+
 
       {/* Session & page view summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
