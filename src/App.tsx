@@ -216,6 +216,8 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <PathNormalizer />
+
           <Suspense fallback={null}>
             <PageViewTracker />
             <StructuredData />
