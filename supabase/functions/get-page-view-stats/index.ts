@@ -14,6 +14,32 @@ const getHelsinkiOffset = (date: Date): string => {
   return diff === 3 ? "03:00" : "02:00";
 };
 
+// AI assistant referrer classification
+const AI_REFERRER_MAP: Array<{ match: string[]; label: string }> = [
+  { match: ["chatgpt.com", "chat.openai.com", "openai.com"], label: "ChatGPT" },
+  { match: ["perplexity.ai"], label: "Perplexity" },
+  { match: ["copilot.microsoft.com", "bing.com/chat"], label: "Copilot" },
+  { match: ["gemini.google.com", "bard.google.com"], label: "Gemini" },
+  { match: ["claude.ai"], label: "Claude" },
+  { match: ["you.com", "poe.com", "phind.com", "deepseek.com", "grok.com", "x.ai", "mistral.ai", "chat.qwen.ai", "duckduckgo.com/aichat"], label: "Muu AI" },
+];
+
+function classifyAiReferrer(referrer: string | null): string | null {
+  if (!referrer) return null;
+  const r = referrer.toLowerCase();
+  for (const entry of AI_REFERRER_MAP) {
+    for (const m of entry.match) {
+      if (r.includes("://" + m) || r.includes("://www." + m) || r.includes("." + m) || r.includes("/" + m)) {
+        return entry.label;
+      }
+    }
+  }
+  return null;
+}
+
+const isDevReferrer = (referrer: string | null | undefined): boolean =>
+  !!referrer && (referrer.includes("lovable.app") || referrer.includes("lovable.dev") || referrer.includes("lovableproject.com") || referrer.includes("localhost"));
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
