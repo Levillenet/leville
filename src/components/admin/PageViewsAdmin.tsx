@@ -70,7 +70,25 @@ interface Stats {
   topExitPages?: Array<{ path: string; count: number }>;
   bookingClicksBySource?: BookingSourceRow[];
   inlinePromoClicks?: InlinePromoClickRow[];
+  aiTraffic?: {
+    totalSessions: number;
+    convertingSessions: number;
+    conversionRate: number;
+    siteConversionRate: number;
+    byDate: Record<string, Record<string, number>>;
+    bySource: Array<{ source: string; sessions: number; converting: number; conversionRate: number }>;
+    topLandingPages: Array<{ path: string; sessions: number }>;
+  };
 }
+
+const AI_SOURCE_COLORS: Record<string, string> = {
+  ChatGPT: "hsl(var(--chart-1))",
+  Perplexity: "hsl(var(--chart-2))",
+  Copilot: "hsl(var(--chart-3))",
+  Gemini: "hsl(var(--chart-4))",
+  Claude: "hsl(var(--chart-5))",
+  "Muu AI": "hsl(var(--muted-foreground))",
+};
 
 
 
