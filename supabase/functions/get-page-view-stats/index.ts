@@ -341,7 +341,7 @@ Deno.serve(async (req) => {
     let timeOnPageCount = 0;
 
     // Session tracking — also collect first/last pageview path per session
-    const sessionPages: Record<string, { timestamps: number[]; pageCount: number; firstPath?: string; firstTs?: number; lastPath?: string; lastTs?: number }> = {};
+    const sessionPages: Record<string, { timestamps: number[]; pageCount: number; firstPath?: string; firstTs?: number; lastPath?: string; lastTs?: number; firstReferrer?: string | null; hasBooking?: boolean }> = {};
     const dailySessions: Record<string, Set<string>> = {};
 
     for (const v of views || []) {
