@@ -369,6 +369,9 @@ Deno.serve(async (req) => {
         conversionMap[eventType].count++;
         const source = v.referrer || "unknown";
         conversionMap[eventType].sources[source] = (conversionMap[eventType].sources[source] || 0) + 1;
+        if (sid && sessionPages[sid] && v.path.startsWith("/event/booking-")) {
+          sessionPages[sid].hasBooking = true;
+        }
       } else {
         total++;
         if (sid && sessionPages[sid]) {
