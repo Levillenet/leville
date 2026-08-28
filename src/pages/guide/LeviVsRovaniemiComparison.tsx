@@ -41,14 +41,15 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
     en: "en_US", nl: "nl_NL", de: "de_DE", fr: "fr_FR", es: "es_ES", sv: "sv_SE"
   };
 
+  // Only FI and EN are genuinely translated. The de/fr/es/nl routes serve the
+  // English article, so they canonicalise to the EN URL and are excluded from
+  // hreflang (no ghost alternates for untranslated content).
   const customUrls: Record<string, string> = {
     fi: "/opas/levi-vs-rovaniemi",
     en: "/guide/levi-vs-rovaniemi-comparison",
-    nl: "/nl/gids/levi-vs-rovaniemi",
-    de: "/de/guide/levi-vs-rovaniemi",
-    fr: "/fr/guide/levi-vs-rovaniemi",
-    es: "/es/guia/levi-vs-rovaniemi",
   };
+  const canonicalUrl = `https://leville.net${customUrls.en}`;
+
 
   const breadcrumbItems = [
     { label: lang === "nl" ? "Home" : lang === "de" ? "Startseite" : lang === "fr" ? "Accueil" : lang === "es" ? "Inicio" : "Home", href: routeConfig.home[lang] || "/en" },
@@ -88,9 +89,10 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
         <html lang={lang} />
         <title>Levi vs Rovaniemi – Which Lapland Destination Is Better?</title>
         <meta name="description" content="Honest comparison: skiing, northern lights, activities, prices and accommodation. Which Finnish Lapland resort suits your trip — Levi or Rovaniemi?" />
-        <link rel="canonical" href={`https://leville.net${customUrls[lang] || customUrls.en}`} />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://leville.net${customUrls[lang] || customUrls.en}`} />
+        <meta property="og:url" content={canonicalUrl} />
+
         <meta property="og:title" content="Levi vs Rovaniemi – Which Lapland Destination Is Better?" />
         <meta property="og:description" content="Honest comparison: skiing, northern lights, activities, prices and accommodation. Which Finnish Lapland resort suits your trip — Levi or Rovaniemi?" />
         <meta property="og:locale" content={localeMap[lang] || "en_US"} />

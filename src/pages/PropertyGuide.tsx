@@ -143,7 +143,7 @@ const PropertyGuide = () => {
   return (
     <>
       <Helmet>
-        <title>{property.name} – Guest Guide</title>
+        <title>{`${property.name} – Guest Guide`}</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
