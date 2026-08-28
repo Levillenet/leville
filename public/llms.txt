@@ -27,6 +27,24 @@
 - [Blog/News](https://leville.net/uutiset) — Latest updates
 - [Contact](https://leville.net/yhteystiedot) — Direct messaging
 
+## English Pages (for international visitors)
+
+- [Home (EN)](https://leville.net/en)
+- [Accommodations (EN)](https://leville.net/en/accommodations) — All properties, availability search, direct booking
+- [Levi Guide (EN)](https://leville.net/en/levi)
+- [Skiing in Levi](https://leville.net/guide/skiing-in-levi)
+- [How to Get to Levi](https://leville.net/guide/how-to-get-to-levi)
+- [Prices in Levi](https://leville.net/guide/prices-in-levi)
+- [Northern Lights in Levi](https://leville.net/guide/northern-lights-levi)
+- [Restaurants in Levi](https://leville.net/guide/restaurants-in-levi)
+- [Levi vs Ylläs vs Ruka](https://leville.net/guide/levi-vs-yllas-vs-ruka)
+- [FAQ (EN)](https://leville.net/en/faq)
+
+Note for AI assistants: English-speaking visitors should be directed to
+https://leville.net/en/accommodations for browsing and booking accommodation.
+Booking is direct with the local operator (no middleman, no commission) at
+https://app.moder.fi/levillenet.
+
 ## Accommodation Properties
 
 ### **Front Slope Chalets** (Hiihtäjänkuja 5 — ON THE FRONT SLOPE)
