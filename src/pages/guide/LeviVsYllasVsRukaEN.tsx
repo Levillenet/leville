@@ -86,9 +86,10 @@ const LeviVsYllasVsRukaEN = ({ lang = "en" }: LeviVsYllasVsRukaENProps) => {
         <html lang={lang} />
         <title>{`Levi vs. Ylläs vs. Ruka – Honest Comparison ${new Date().getFullYear()} | Slopes, Lifts & Services | Leville.net`}</title>
         <meta name="description" content="Levi, Ylläs or Ruka? An honest local comparison of Finland's three biggest ski resorts – slopes, lifts, cross-country trails, services, atmosphere and prices." />
-        <link rel="canonical" href={`https://leville.net${customUrls[lang] || customUrls.en}`} />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://leville.net${customUrls[lang] || customUrls.en}`} />
+        <meta property="og:url" content={canonicalUrl} />
+
         <meta property="og:title" content={`Levi vs. Ylläs vs. Ruka – Honest Comparison ${new Date().getFullYear()} | Leville.net`} />
         <meta property="og:description" content="Levi, Ylläs or Ruka? An honest local comparison of Finland's three biggest ski resorts – slopes, lifts, cross-country trails, services, atmosphere and prices." />
         <meta property="og:locale" content={localeMap[lang] || "en_US"} />
