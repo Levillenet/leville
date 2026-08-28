@@ -75,7 +75,7 @@ const NotFound = () => {
             </nav>
           </div>
         </main>
-        <Footer />
+        <Footer lang={isEnglish ? "en" : "fi"} />
       </div>
     </>
   );
