@@ -89,9 +89,10 @@ const LeviVsRovaniemiComparison = ({ lang = "en" }: LeviVsRovaniemiComparisonPro
         <html lang={lang} />
         <title>Levi vs Rovaniemi – Which Lapland Destination Is Better?</title>
         <meta name="description" content="Honest comparison: skiing, northern lights, activities, prices and accommodation. Which Finnish Lapland resort suits your trip — Levi or Rovaniemi?" />
-        <link rel="canonical" href={`https://leville.net${customUrls[lang] || customUrls.en}`} />
+        <link rel="canonical" href={canonicalUrl} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://leville.net${customUrls[lang] || customUrls.en}`} />
+        <meta property="og:url" content={canonicalUrl} />
+
         <meta property="og:title" content="Levi vs Rovaniemi – Which Lapland Destination Is Better?" />
         <meta property="og:description" content="Honest comparison: skiing, northern lights, activities, prices and accommodation. Which Finnish Lapland resort suits your trip — Levi or Rovaniemi?" />
         <meta property="og:locale" content={localeMap[lang] || "en_US"} />
