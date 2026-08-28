@@ -1,71 +1,47 @@
-# Tekoälynäkyvyyden vahvistaminen (AI/GEO)
+# Cloudflaren AI-eston poisto ja robots.txt:n korjaus
 
-Ranskalaisen asiakkaan ChatGPT-varaus todistaa, että nykyiset AI-tiedostot toimivat. Alla konkreettiset parannukset, joilla Leville.net voi olla Levin selvästi paras AI-lähde.
+## Mitä varmistin juuri nyt
 
-## 1. robots.txt: puuttuvat AI-agentit
+- `https://leville.net/robots.txt` (200, `server: cloudflare`) alkaa lohkolla `# BEGIN Cloudflare Managed content` … `# END Cloudflare Managed Content`, jossa on `Content-Signal: search=yes,ai-train=no,use=reference` sekä `Disallow: /` seuraaville: Amazonbot, Applebot-Extended, Bytespider, CCBot, ClaudeBot, CloudflareBrowserRenderingCrawler, Google-Extended, GPTBot, meta-externalagent. Oma tiedostomme alkaa vasta tämän jälkeen.
+- `https://leville.lovable.app/robots.txt` palauttaa **vain** oman tiedostomme ilman Cloudflare-lohkoa.
 
-Nykyisessä tiedostossa on vanhentuneita tai virheellisiä nimiä ja useita nykyisiä agentteja puuttuu kokonaan. Bottia, jota ei ole listattu, ohjaa `User-agent: *` (Allow: /), mutta eksplisiittinen listaus on selkeämpi ja osa palveluista lukee sen suoraan.
+Johtopäätös: lohkoa ei injektoi Lovable eikä se ole repossa. Se tulee **leville.net-verkkotunnuksen omasta Cloudflare-zonesta**, jossa on päällä "AI Crawl Control / Managed robots.txt (Content Signals Policy)". Tätä ei voi korjata koodista — se on kytkettävä pois Cloudflare-hallinnasta.
 
-Lisätään / korjataan:
-- OpenAI: `OAI-SearchBot` (oikea nimi; nykyinen "OpenAI-SearchBot" ei ole olemassa), `ChatGPT-User`
-- Anthropic: `ClaudeBot`, `Claude-User`, `Claude-SearchBot` (nykyiset `Claude-Web` / `anthropic-ai` ovat vanhentuneita)
-- Google: `Google-Extended` (AI Overviews / Gemini grounding — nykyinen "Gemini-Web" ei ole todellinen agentti)
-- Perplexity: `Perplexity-User` (nykyisen `PerplexityBot`in lisäksi)
-- Muut: `Applebot-Extended`, `Amazonbot`, `Meta-ExternalAgent`, `DuckAssistBot`, `MistralAI-User`, `YouBot`, `CCBot`
-- Lisätään `# LLM knowledge base:` -viittaukset suoraan robots.txt:n alkuun
+## Vaihe 1 — Cloudflare-asetus pois (ainoa oikea korjaus, tehtävä käsin)
 
-## 2. llms.txt / llms-full.txt: automaattinen ja tuore
+Cloudflare-dashboard → valitse zone `leville.net`:
+- **AI Crawl Control** (aiemmin "AI Audit") → *robots.txt management* / *Managed robots.txt* → pois päältä
+- Jos näkyvissä on erillinen **Content Signals Policy** -kytkin (Security → Settings, tai AI Crawl Control -sivulla) → pois päältä
+- Tarkista myös Security → Bots, ettei "Block AI bots / Block AI scrapers and crawlers" ole päällä (se estää botit HTTP-tasolla, jolloin robots.txt:llä ei ole väliä)
 
-Nyt tiedostot ovat käsin ylläpidettyjä ja päiväys on "May 2026" — vanhentuva tieto on AI-näkyvyyden suurin riski.
+Tämä on ainoa asetus, joka poistaa `ai-train=no`- ja `Disallow: /` -rivit. Autan tulkitsemaan näkymän, jos lähetät kuvakaappauksen.
 
-- Uusi `scripts/generate-llms.mjs`, joka ajetaan buildissa (kuten sitemap ja social pages)
-- Kohteet ja huoneistotiedot generoidaan suoraan `src/data/properties.ts`:stä, jolloin kapasiteetit, osoitteet ja varustelut eivät voi ajautua erilleen sivustosta
-- Päiväys `Last updated: <build date>` automaattisesti
-- Uutiset/ajankohtaista-osio (viimeisimmät 5 otsikkoa + linkit) mukaan, jotta AI näkee että sivusto elää
-- Sivukartan pohjalta ylläpidetty "All pages" -linkkilistaus llms-full.txt:n loppuun
+## Vaihe 2 — Oman robots.txt:n siivous ja modernisointi
 
-## 3. Monikielisyys AI:lle
+Nykyisessä `public/robots.txt`-tiedostossa on vanhentuneita/olemattomia agenttinimiä. Korjataan:
 
-Ranskalainen asiakas löysi meidät englanninkielisellä tiedostolla. Vahvistetaan tätä:
-- llms.txt:hen lyhyt monikielinen ydinfaktalohko (FI/EN/FR/DE/SV) — nimi, sijainti, kapasiteetit, suorat varauslinkit
-- Selkeä lista kielikohtaisista aloitussivuista, jotta AI osaa linkata käyttäjän omalle kielelle
-- `/llms-fr.txt` ja `/llms-de.txt` kevyet versiot (ydinfaktat + linkit), koska AI siteeraa mieluiten käyttäjän kielellä olevaa lähdettä
+- Poistetaan toimimattomat: `Claude-Web`, `anthropic-ai`, `Gemini-Web`, `OpenAI-SearchBot` (väärä nimi), `AdsBot-Google-ER`
+- Lisätään oikeat nykyiset:
+  - OpenAI: `GPTBot` (koulutus), `OAI-SearchBot` (ChatGPT-haun indeksi), `ChatGPT-User` (live-haku)
+  - Anthropic: `ClaudeBot`, `Claude-User`, `Claude-SearchBot`
+  - Google: `Google-Extended` (Gemini/AI Overviews -grounding)
+  - Perplexity: `PerplexityBot`, `Perplexity-User`
+  - Muut: `Applebot`, `Applebot-Extended`, `Amazonbot`, `meta-externalagent`, `DuckAssistBot`, `MistralAI-User`, `YouBot`, `CCBot`
+- Lisätään omat vastasignaalit heti tiedoston alkuun, jotta ne ovat mahdollisimman lähellä Cloudflaren lohkoa:
+  `Content-Signal: search=yes,ai-input=yes,ai-train=yes,use=full` `User-agent: *` -ryhmään
+- Poistetaan `Crawl-delay`-rivit AI-agenteilta (osa crawlereista hidastaa turhaan; Googlebot ohittaa sen joka tapauksessa)
+- Nostetaan `llms.txt` / `llms-full.txt` -viittaukset tiedoston alkuun `Sitemap:`-rivin viereen
 
-## 4. Koneluettava datafeed
+Huom: niin kauan kuin Cloudflaren lohko on tiedostossa, sama agentti (esim. GPTBot) esiintyy kahdessa ryhmässä. RFC 9309:n mukaan ryhmät yhdistetään ja `Allow: /` voittaa `Disallow: /`:n Googlen toteutuksessa, mutta tulkinta vaihtelee crawlereittain. Siksi vaihe 1 on pakollinen, eikä vaihe 2 yksin riitä.
 
-AI-assistentit suosivat lähteitä, joista saa rakenteista dataa:
-- `public/data/properties.json` — kohteet, kapasiteetti, osoite, varustelu, hintahaarukka, suora varauslinkki (generoidaan samassa skriptissä)
-- Linkitys tähän llms.txt:stä ja robots.txt:stä
-- Ei saatavuus- tai hintadataa reaaliaikaisesti (Beds24-rajoitukset); käytetään hintahaarukkaa ja linkkiä varausmoottoriin
+## Vaihe 3 — Varmistus
 
-## 5. RSS-syöte ajankohtaisista
-
-Sivustolla ei ole tällä hetkellä syötettä. Lisätään `public/rss.xml` (generoidaan uutisista buildissa) ja `<link rel="alternate" type="application/rss+xml">` headiin. Syötteet ovat vahva tuoreussignaali sekä hakukoneille että AI-indeksoijille.
-
-## 6. Vastausmuotoinen sisältö (kysymys → vastaus)
-
-AI siteeraa mieluiten sivuja, joissa on suora vastaus. Lisätään FAQPage-schema ja tiivis "lyhyt vastaus" -lohko keskeisimmille rahasivuille:
-- `/majoitukset`, `/mokit-levilla`, `/en/accommodations`, `/en/log-cabins-levi`
-- Kysymykset tyyliin: "Mikä majoitus Levillä sopii 8 hengen ryhmälle?", "Onko Levillä lemmikkiystävällisiä mökkejä?", "Kuinka lähellä rinteitä?"
-- Ei muuteta olemassa olevaa myyntitekstiä eikä hinnoittelua
-
-## 7. Mittaus
-
-AI-referrer-mittari on jo käytössä. Täydennetään:
-- ChatGPT-referrerien kielikohtainen erittely (mistä maasta/kielestä AI-liikenne tulee)
-- llms.txt- ja properties.json-latauksien laskenta, jotta näemme kuinka usein AI-crawlerit hakevat tiedostot
+Kun Cloudflare-asetus on pois:
+- Haen uudelleen `https://leville.net/robots.txt` ja varmistan, että `BEGIN Cloudflare Managed content` -lohko on kadonnut ja `ai-train=no` ei enää esiinny
+- Tarkistan että `llms.txt`, `llms-full.txt` ja `sitemap.xml` palautuvat 200:lla apex-domainilta
+- Testaan yhden sivun haun ChatGPT-User- ja OAI-SearchBot-user-agentilla, että edge ei palauta 403:a
 
 ## Tekniset yksityiskohdat
 
-- Uudet skriptit: `scripts/generate-llms.mjs`, `scripts/generate-rss.mjs`; kytketään `package.json`:n `build`-ketjuun sitemap- ja social-skriptien viereen
-- Ei muutoksia varauslogiikkaan, hintoihin, etusivun hakubanneriin eikä olemassa oleviin sivutekstiin
-- Sitemap ja route-validointi pysyvät ennallaan; uudet tiedostot ovat staattisia `public/`-resursseja eivätkä lisää reittejä
-
-## Toteutusjärjestys
-
-1. robots.txt-korjaukset (nopein hyöty)
-2. llms-generaattori + properties.json
-3. RSS-syöte
-4. Monikieliset llms-tiedostot
-5. FAQ-lohkot ja schema rahasivuille
-6. Mittarin täydennys
+- Muutokset koodissa rajoittuvat tiedostoon `public/robots.txt`. Ei muutoksia sitemapiin, reitteihin, metatageihin eikä sisältöön.
+- Vaihe 1 tapahtuu Cloudflaren hallinnassa, ei repossa — teen sen jälkeen vain varmistukset.
