@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Eye, Monitor, Smartphone, Tablet, RefreshCw, MousePointerClick, Download, ClipboardCopy, Users, Clock, TrendingDown, Radio } from "lucide-react";
+import { Loader2, Eye, Monitor, Smartphone, Tablet, RefreshCw, MousePointerClick, Download, ClipboardCopy, Users, Clock, TrendingDown, TrendingUp, Radio, Bot } from "lucide-react";
 import { toast } from "sonner";
 import {
   ResponsiveContainer,
@@ -17,6 +17,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
 } from "recharts";
 
 const COLORS = [
@@ -69,7 +70,25 @@ interface Stats {
   topExitPages?: Array<{ path: string; count: number }>;
   bookingClicksBySource?: BookingSourceRow[];
   inlinePromoClicks?: InlinePromoClickRow[];
+  aiTraffic?: {
+    totalSessions: number;
+    convertingSessions: number;
+    conversionRate: number;
+    siteConversionRate: number;
+    byDate: Record<string, Record<string, number>>;
+    bySource: Array<{ source: string; sessions: number; converting: number; conversionRate: number }>;
+    topLandingPages: Array<{ path: string; sessions: number }>;
+  };
 }
+
+const AI_SOURCE_COLORS: Record<string, string> = {
+  ChatGPT: "hsl(var(--chart-1))",
+  Perplexity: "hsl(var(--chart-2))",
+  Copilot: "hsl(var(--chart-3))",
+  Gemini: "hsl(var(--chart-4))",
+  Claude: "hsl(var(--chart-5))",
+  "Muu AI": "hsl(var(--muted-foreground))",
+};
 
 
 
@@ -105,6 +124,7 @@ SARAKKEET:
 - country: Kävijän maa ISO 3166-1 alpha-2 -koodina (esim. "FI", "DE", "SE"). Päätellään palvelinpuolella IP-osoitteen perusteella (CDN-otsakkeet). HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
 - viewport_w: Selainikkunan leveys pikseleinä (esim. 390, 768, 1440). Hyödyllinen responsiivisuusongelmien jäljitykseen — vertaa esim. mobiilibucket <640px konversioon. HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
 - session_id: Istunnon tunniste (UUID). Sama käyttäjä samassa selainikkunassa/välilehdessä saa saman session_id:n. Uusi välilehti tai selaimen sulkeminen luo uuden istunnon. HUOM: Vanhoilla riveillä (ennen 13.3.2026) session_id on tyhjä.
+- ai_source: Tekoälyassistentti josta kävijä tuli, jos referrer tunnistetaan (ChatGPT, Perplexity, Copilot, Gemini, Claude, Muu AI). Tyhjä muilla riveillä. HUOM: arvo täyttyy vain jos käyttäjä klikkasi linkkiä assistentissa — kopioitu URL kirjautuu suorana liikenteenä, joten AI-liikenne on todellisuudessa suurempi.
 
 SISÄÄNTULO- JA POISTUMISSIVUT (LASKETUT):
 - Eivät ole erillinen sarake CSV:ssä, vaan lasketaan istuntodatasta: ryhmittele rivit session_id:n mukaan, järjestä created_at-nousevasti, ja ensimmäisen pageview-rivin path on istunnon sisääntulosivu (landing), viimeisen pageview-rivin path on poistumissivu (exit).
@@ -182,7 +202,14 @@ LISÄLOHKO CSV:N LOPUSSA — "INLINE & PROMO BANNER CLICKS":
 - Sarakkeet: placement, link_type, total, fi, en, nl, sv, de, fr, es, target_url, last_click_at
 - link_type = "inline" merkitsee sisältöön upotetut inline-linkit (placement sisältää "_inline_", esim. summer_page_inline_intro / _activities / _hiking / _footer).
 - link_type = "banner" on perinteisten kampanjabannereiden klikit (esim. placement="summer_page").
-- HUOM: sama klikki kirjautuu myös ylläolevaan BOOKING CLICKS BY SOURCE -lohkoon (yleensä "other_link"-sarakkeeseen), koska globaali click-handler nappaa kaikki app.moder.fi-linkit. Tämä lohko erittelee ne placement-tasolla, jotta voi vertailla esim. inline-linkin ja kovan napin tehokkuutta samalla sivulla.`;
+- HUOM: sama klikki kirjautuu myös ylläolevaan BOOKING CLICKS BY SOURCE -lohkoon (yleensä "other_link"-sarakkeeseen), koska globaali click-handler nappaa kaikki app.moder.fi-linkit. Tämä lohko erittelee ne placement-tasolla, jotta voi vertailla esim. inline-linkin ja kovan napin tehokkuutta samalla sivulla.
+
+LISÄLOHKO CSV:N LOPUSSA — "AI ASSISTANT REFERRALS":
+- Aivan viimeisenä lohkona on yhteenveto tekoälyassistenteista tulleesta liikenteestä istuntotasolla.
+- Sarakkeet: ai_source, sessions, converting, conversion_rate_pct, top_landing_page
+- sessions = istunnot joiden ENSIMMÄISEN sivukatselun referrer on kyseinen AI-assistentti
+- converting = näistä istunnoista ne joissa oli vähintään yksi app.moder.fi-varausklikkaus
+- top_landing_page = kyseisen lähteen yleisin sisääntulosivu`;
 
 
 
@@ -301,6 +328,18 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
       views,
       sessions: stats.byDateSessions?.[date] || 0,
     }));
+
+  const aiSources = (stats.aiTraffic?.bySource || []).map((s) => s.source);
+  const aiDateData = Object.entries(stats.aiTraffic?.byDate || {})
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, sources]) => {
+      const row: Record<string, string | number> = {
+        date: new Date(date).toLocaleDateString("fi-FI", { day: "numeric", month: "numeric" }),
+      };
+      for (const s of aiSources) row[s] = sources[s] || 0;
+      return row;
+    });
+
 
   const deviceData = Object.entries(stats.byDevice).map(([name, value]) => ({
     name: name === "mobile" ? "Mobiili" : name === "tablet" ? "Tabletti" : name === "desktop" ? "Tietokone" : name,
@@ -457,6 +496,53 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
           </div>
         </CardContent>
       </Card>
+
+      {/* AI assistant referrals */}
+      {stats.aiTraffic && stats.aiTraffic.totalSessions > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Tekoälyohjaukset (AI-assistentit)</CardTitle>
+            <CardDescription>
+              Istunnot joiden ensimmäisen sivukatselun lähde on tekoälyassistentti.
+              HUOM: referrer näkyy vain jos käyttäjä klikkaa linkkiä — kopioidut URL:t kirjautuvat suorana liikenteenä, joten luku on alaraja.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <SummaryCard icon={<Bot className="w-5 h-5 text-chart-1" />} label="AI-istunnot" value={stats.aiTraffic.totalSessions} colorClass="bg-chart-1/10" />
+              <SummaryCard icon={<MousePointerClick className="w-5 h-5 text-chart-5" />} label="Varausklikkaus" value={stats.aiTraffic.convertingSessions} colorClass="bg-chart-5/10" />
+              <SummaryCard icon={<TrendingUp className="w-5 h-5 text-chart-2" />} label="Konversio" value={stats.aiTraffic.conversionRate} colorClass="bg-chart-2/10" suffix="%" />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Koko sivuston konversio samalla jaksolla: {stats.aiTraffic.siteConversionRate} %
+            </p>
+            <div className="h-[220px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={aiDateData}>
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                  <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 12 }} allowDecimals={false} />
+                  <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
+                  <Legend />
+                  {aiSources.map((s) => (
+                    <Bar key={s} dataKey={s} stackId="ai" name={s} fill={AI_SOURCE_COLORS[s] || "hsl(var(--muted-foreground))"} />
+                  ))}
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <div className="space-y-1">
+              <h4 className="text-sm font-medium">Sisääntulosivut</h4>
+              {stats.aiTraffic.topLandingPages.map((p) => (
+                <div key={p.path} className="flex justify-between text-sm border-b border-border/50 py-1">
+                  <span className="truncate mr-2 text-muted-foreground">{p.path}</span>
+                  <span className="font-medium tabular-nums">{p.sessions}</span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
 
 
       {/* Session & page view summary */}

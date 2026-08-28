@@ -14,6 +14,32 @@ const getHelsinkiOffset = (date: Date): string => {
   return diff === 3 ? "03:00" : "02:00";
 };
 
+// AI assistant referrer classification
+const AI_REFERRER_MAP: Array<{ match: string[]; label: string }> = [
+  { match: ["chatgpt.com", "chat.openai.com", "openai.com"], label: "ChatGPT" },
+  { match: ["perplexity.ai"], label: "Perplexity" },
+  { match: ["copilot.microsoft.com", "bing.com/chat"], label: "Copilot" },
+  { match: ["gemini.google.com", "bard.google.com"], label: "Gemini" },
+  { match: ["claude.ai"], label: "Claude" },
+  { match: ["you.com", "poe.com", "phind.com", "deepseek.com", "grok.com", "x.ai", "mistral.ai", "chat.qwen.ai", "duckduckgo.com/aichat"], label: "Muu AI" },
+];
+
+function classifyAiReferrer(referrer: string | null): string | null {
+  if (!referrer) return null;
+  const r = referrer.toLowerCase();
+  for (const entry of AI_REFERRER_MAP) {
+    for (const m of entry.match) {
+      if (r.includes("://" + m) || r.includes("://www." + m) || r.includes("." + m) || r.includes("/" + m)) {
+        return entry.label;
+      }
+    }
+  }
+  return null;
+}
+
+const isDevReferrer = (referrer: string | null | undefined): boolean =>
+  !!referrer && (referrer.includes("lovable.app") || referrer.includes("lovable.dev") || referrer.includes("lovableproject.com") || referrer.includes("localhost"));
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -146,7 +172,7 @@ Deno.serve(async (req) => {
 
     // CSV format: return raw rows + aggregated booking-clicks-by-source block
     if (format === "csv") {
-      const csvHeader = "date,time,path,type,referrer,device_type,language,country,viewport_w,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page";
+      const csvHeader = "date,time,path,type,referrer,device_type,language,country,viewport_w,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page,ai_source";
       const csvRows = (views || []).map((v: any) => {
         const dt = new Date(v.created_at);
         const date = dt.toISOString().split("T")[0];
@@ -165,8 +191,9 @@ Deno.serve(async (req) => {
         const utmCamp = v.utm_campaign || "";
         const scrollD = v.scroll_depth != null ? String(v.scroll_depth) : "";
         const timeP = v.time_on_page != null ? String(v.time_on_page) : "";
+        const aiSrc = classifyAiReferrer(v.referrer) || "";
         const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
-        return [date, time, esc(path), type, esc(ref), device, lang, country, vw, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP].join(",");
+        return [date, time, esc(path), type, esc(ref), device, lang, country, vw, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP, esc(aiSrc)].join(",");
       });
 
       // Aggregate booking clicks by source page (only /event/booking-* events).
@@ -239,7 +266,52 @@ Deno.serve(async (req) => {
         ...promoRows,
       ];
 
-      return new Response([csvHeader, ...csvRows, ...bookingBlock, ...promoBlock].join("\n"), {
+      // AI assistant referrals (session-level) for CSV branch
+      const csvSessions: Record<string, { firstTs?: number; firstPath?: string; firstReferrer?: string | null; hasBooking?: boolean; pageCount: number }> = {};
+      for (const v of views || []) {
+        if (isDevReferrer(v.referrer)) continue;
+        const sid = v.session_id;
+        if (!sid) continue;
+        if (!csvSessions[sid]) csvSessions[sid] = { pageCount: 0 };
+        const s = csvSessions[sid];
+        const ts = new Date(v.created_at).getTime();
+        if (v.path?.startsWith("/event/")) {
+          if (v.path.startsWith("/event/booking-")) s.hasBooking = true;
+        } else {
+          s.pageCount++;
+          if (s.firstTs === undefined || ts < s.firstTs) {
+            s.firstTs = ts;
+            s.firstPath = v.path;
+            s.firstReferrer = v.referrer || null;
+          }
+        }
+      }
+      const aiCsvAgg: Record<string, { sessions: number; converting: number; landing: Record<string, number> }> = {};
+      for (const s of Object.values(csvSessions)) {
+        if (s.pageCount === 0) continue;
+        const label = classifyAiReferrer(s.firstReferrer || null);
+        if (!label) continue;
+        if (!aiCsvAgg[label]) aiCsvAgg[label] = { sessions: 0, converting: 0, landing: {} };
+        aiCsvAgg[label].sessions++;
+        if (s.hasBooking) aiCsvAgg[label].converting++;
+        if (s.firstPath) aiCsvAgg[label].landing[s.firstPath] = (aiCsvAgg[label].landing[s.firstPath] || 0) + 1;
+      }
+      const aiRows = Object.entries(aiCsvAgg)
+        .sort(([, a], [, b]) => b.sessions - a.sessions)
+        .map(([source, d]) => {
+          const topLanding = Object.entries(d.landing).sort(([, a], [, b]) => b - a)[0]?.[0] || "";
+          const rate = d.sessions > 0 ? Math.round((d.converting / d.sessions) * 1000) / 10 : 0;
+          return [escCsv(source), d.sessions, d.converting, rate, escCsv(topLanding)].join(",");
+        });
+
+      const aiBlock = [
+        "",
+        "AI ASSISTANT REFERRALS — istunnot joiden ensimmäisen sivukatselun referrer on tekoälyassistentti. converting = istunnossa oli vähintään yksi app.moder.fi-varausklikkaus.",
+        "ai_source,sessions,converting,conversion_rate_pct,top_landing_page",
+        ...aiRows,
+      ];
+
+      return new Response([csvHeader, ...csvRows, ...bookingBlock, ...promoBlock, ...aiBlock].join("\n"), {
         headers: {
           ...corsHeaders,
           "Content-Type": "text/csv; charset=utf-8",
@@ -269,7 +341,7 @@ Deno.serve(async (req) => {
     let timeOnPageCount = 0;
 
     // Session tracking — also collect first/last pageview path per session
-    const sessionPages: Record<string, { timestamps: number[]; pageCount: number; firstPath?: string; firstTs?: number; lastPath?: string; lastTs?: number }> = {};
+    const sessionPages: Record<string, { timestamps: number[]; pageCount: number; firstPath?: string; firstTs?: number; lastPath?: string; lastTs?: number; firstReferrer?: string | null; hasBooking?: boolean }> = {};
     const dailySessions: Record<string, Set<string>> = {};
 
     for (const v of views || []) {
@@ -297,6 +369,9 @@ Deno.serve(async (req) => {
         conversionMap[eventType].count++;
         const source = v.referrer || "unknown";
         conversionMap[eventType].sources[source] = (conversionMap[eventType].sources[source] || 0) + 1;
+        if (sid && sessionPages[sid] && v.path.startsWith("/event/booking-")) {
+          sessionPages[sid].hasBooking = true;
+        }
       } else {
         total++;
         if (sid && sessionPages[sid]) {
@@ -306,6 +381,7 @@ Deno.serve(async (req) => {
           if (sessionPages[sid].firstTs === undefined || ts < sessionPages[sid].firstTs!) {
             sessionPages[sid].firstTs = ts;
             sessionPages[sid].firstPath = v.path;
+            sessionPages[sid].firstReferrer = v.referrer || null;
           }
           // Track last (latest) pageview path for exit pages
           if (sessionPages[sid].lastTs === undefined || ts > sessionPages[sid].lastTs!) {
@@ -481,12 +557,60 @@ Deno.serve(async (req) => {
         return b.total - a.total;
       });
 
+    // AI assistant referrals (session-level)
+    const aiByDate: Record<string, Record<string, number>> = {};
+    const aiBySource: Record<string, { sessions: number; converting: number }> = {};
+    const aiLanding: Record<string, number> = {};
+    let aiTotalSessions = 0;
+    let aiConvertingSessions = 0;
+    let allSessionsCount = 0;
+    let allConvertingSessions = 0;
+
+    for (const [, s] of Object.entries(sessionPages)) {
+      if (s.pageCount === 0) continue;
+      allSessionsCount++;
+      if (s.hasBooking) allConvertingSessions++;
+      const label = classifyAiReferrer(s.firstReferrer || null);
+      if (!label) continue;
+      aiTotalSessions++;
+      if (s.hasBooking) aiConvertingSessions++;
+      const d = s.firstTs ? new Date(s.firstTs).toISOString().split("T")[0] : null;
+      if (d) {
+        if (!aiByDate[d]) aiByDate[d] = {};
+        aiByDate[d][label] = (aiByDate[d][label] || 0) + 1;
+      }
+      if (!aiBySource[label]) aiBySource[label] = { sessions: 0, converting: 0 };
+      aiBySource[label].sessions++;
+      if (s.hasBooking) aiBySource[label].converting++;
+      if (s.firstPath) aiLanding[s.firstPath] = (aiLanding[s.firstPath] || 0) + 1;
+    }
+
+    const aiTraffic = {
+      totalSessions: aiTotalSessions,
+      convertingSessions: aiConvertingSessions,
+      conversionRate: aiTotalSessions > 0 ? Math.round((aiConvertingSessions / aiTotalSessions) * 1000) / 10 : 0,
+      siteConversionRate: allSessionsCount > 0 ? Math.round((allConvertingSessions / allSessionsCount) * 1000) / 10 : 0,
+      byDate: aiByDate,
+      bySource: Object.entries(aiBySource)
+        .map(([source, v]) => ({
+          source,
+          sessions: v.sessions,
+          converting: v.converting,
+          conversionRate: v.sessions > 0 ? Math.round((v.converting / v.sessions) * 1000) / 10 : 0,
+        }))
+        .sort((a, b) => b.sessions - a.sessions),
+      topLandingPages: Object.entries(aiLanding)
+        .map(([path, sessions]) => ({ path, sessions }))
+        .sort((a, b) => b.sessions - a.sessions)
+        .slice(0, 10),
+    };
+
     return new Response(
       JSON.stringify({
         total, byDate, topPages, byReferrer, byDevice, byLanguage, byCountry, byViewport, conversionEvents,
         totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
         byUtmSource, byUtmMedium, byUtmCampaign, avgScrollDepth, avgTimeOnPage,
-        topLandingPages, topExitPages, bookingClicksBySource, inlinePromoClicks,
+        topLandingPages, topExitPages, bookingClicksBySource, inlinePromoClicks, aiTraffic,
 
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
