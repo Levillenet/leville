@@ -32,12 +32,23 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     };
 
     // Some embeds read document language during initialization.
-    // We force it here *before* loading the script.
+    // We force it here *before* loading the script, then restore the real page
+    // language so the <html lang> stays correct for SEO / screen readers.
+    let restoreLangId: ReturnType<typeof setTimeout> | null = null;
     try {
+      const pageLang = lang;
       document.documentElement.lang = 'en';
+      restoreLangId = setTimeout(() => {
+        try {
+          document.documentElement.lang = pageLang;
+        } catch {
+          // ignore
+        }
+      }, 4000);
     } catch {
       // ignore
     }
+
 
     let setupTimeoutId: ReturnType<typeof setTimeout> | null = null;
     let attempts = 0;
