@@ -1,57 +1,27 @@
 # Leville.net robots.txt
-# Levi holiday accommodation — leville.net
-#
-# AI knowledge base (optimized for LLMs and AI assistants):
-#   https://leville.net/llms.txt        (quick reference)
-#   https://leville.net/llms-full.txt   (comprehensive knowledge base)
-# Both files are CC0 (public domain) — free to use for AI training and grounding.
+# Search engines + AI crawlers explicitly allowed.
+# AI knowledge base: https://leville.net/llms.txt and /llms-full.txt (CC0)
 
-Sitemap: https://leville.net/sitemap.xml
-
-# ============================================
-# DEFAULT — ALL BOTS WELCOME
-# ============================================
-User-agent: *
-Content-Signal: search=yes,ai-input=yes,ai-train=yes,use=full
-Allow: /
-Disallow: /admin
-Disallow: /admin/*
-Disallow: /.env
-Disallow: /.git
-
-# ============================================
-# SEARCH ENGINES
-# ============================================
+# --- Search engines ---
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-# ============================================
-# OPENAI / CHATGPT
-# ============================================
-# GPTBot = model training
+# --- OpenAI ---
+# GPTBot = model training, OAI-SearchBot = ChatGPT search index,
+# ChatGPT-User = live fetches on user request
 User-agent: GPTBot
 Allow: /
 
-# OAI-SearchBot = ChatGPT search index
 User-agent: OAI-SearchBot
 Allow: /
 
-# ChatGPT-User = live fetch when a user asks
 User-agent: ChatGPT-User
 Allow: /
 
-# ============================================
-# ANTHROPIC / CLAUDE
-# ============================================
+# --- Anthropic ---
 User-agent: ClaudeBot
 Allow: /
 
@@ -61,61 +31,46 @@ Allow: /
 User-agent: Claude-SearchBot
 Allow: /
 
-# ============================================
-# GOOGLE AI (Gemini, AI Overviews grounding)
-# ============================================
+# --- Google AI ---
 User-agent: Google-Extended
 Allow: /
 
-# ============================================
-# PERPLEXITY
-# ============================================
+# --- Perplexity ---
 User-agent: PerplexityBot
 Allow: /
 
 User-agent: Perplexity-User
 Allow: /
 
-# ============================================
-# APPLE
-# ============================================
+# --- Meta ---
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+# --- Apple ---
 User-agent: Applebot
 Allow: /
 
 User-agent: Applebot-Extended
 Allow: /
 
-# ============================================
-# OTHER AI CRAWLERS
-# ============================================
-User-agent: Amazonbot
-Allow: /
-
-User-agent: meta-externalagent
-Allow: /
-
+# --- Muut AI ---
 User-agent: DuckAssistBot
 Allow: /
 
 User-agent: MistralAI-User
 Allow: /
 
-User-agent: YouBot
+User-agent: cohere-ai
 Allow: /
 
 User-agent: CCBot
 Allow: /
 
-User-agent: Bytespider
-Allow: /
-
-# ============================================
-# SOCIAL MEDIA / LINK PREVIEWS
-# ============================================
+# --- Social ---
 User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
 Allow: /
 
 User-agent: LinkedInBot
@@ -123,3 +78,15 @@ Allow: /
 
 User-agent: WhatsApp
 Allow: /
+
+# --- Default ---
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/*
+
+Sitemap: https://leville.net/sitemap.xml
+
+# AI knowledge base (CC0, public domain):
+# https://leville.net/llms.txt
+# https://leville.net/llms-full.txt
