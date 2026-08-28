@@ -133,7 +133,7 @@ const LevinKeskustahuoneistot = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Helmet>
-        <title>Majoitus Levin keskustassa {YEAR} — huoneistot kävelymatkan päässä rinteistä</title>
+        <title>{`Majoitus Levin keskustassa ${YEAR} — huoneistot kävelymatkan päässä rinteistä`}</title>
         <meta
           name="description"
           content={`Levin keskustan huoneistot ${YEAR}: studiot, yksiöt, kaksiot ja hirsihuvila. Kävelymatka gondolille, kauppaan ja ravintoloihin. Varaa suoraan omistajalta ilman välityskuluja.`}
