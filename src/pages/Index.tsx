@@ -35,8 +35,9 @@ const seoContent: Record<Language, {
   locale: string;
 }> = {
   fi: {
-    title: "Leville.net – paikallinen Levi-opas: lumitilanne, ladut ja rinteet",
-    description: "Paikallisen ylläpitämä Levi-sivusto: ajantasainen lumitilanne, ladut, rinteet, hissiliput, ravintolat ja revontulet. Katso myös omat kohteemme Levin keskustassa.",
+    title: "Majoitus Levillä – Vuokramökit ja huoneistot keskustassa",
+    description: "Majoitus Levillä suoraan omistajalta: saunalliset vuokramökit ja huoneistot Levin keskustassa, kävelymatka rinteille. Varaa ilman välityspalkkioita.",
+
     keywords: "Levi opas, Levi lumitilanne, Levi ladut, Levi rinteet, Levi hissiliput, Levi ravintolat, Levi revontulet",
     canonical: "https://leville.net",
     locale: "fi_FI"
