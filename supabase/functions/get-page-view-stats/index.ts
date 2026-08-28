@@ -557,12 +557,60 @@ Deno.serve(async (req) => {
         return b.total - a.total;
       });
 
+    // AI assistant referrals (session-level)
+    const aiByDate: Record<string, Record<string, number>> = {};
+    const aiBySource: Record<string, { sessions: number; converting: number }> = {};
+    const aiLanding: Record<string, number> = {};
+    let aiTotalSessions = 0;
+    let aiConvertingSessions = 0;
+    let allSessionsCount = 0;
+    let allConvertingSessions = 0;
+
+    for (const [, s] of Object.entries(sessionPages)) {
+      if (s.pageCount === 0) continue;
+      allSessionsCount++;
+      if (s.hasBooking) allConvertingSessions++;
+      const label = classifyAiReferrer(s.firstReferrer || null);
+      if (!label) continue;
+      aiTotalSessions++;
+      if (s.hasBooking) aiConvertingSessions++;
+      const d = s.firstTs ? new Date(s.firstTs).toISOString().split("T")[0] : null;
+      if (d) {
+        if (!aiByDate[d]) aiByDate[d] = {};
+        aiByDate[d][label] = (aiByDate[d][label] || 0) + 1;
+      }
+      if (!aiBySource[label]) aiBySource[label] = { sessions: 0, converting: 0 };
+      aiBySource[label].sessions++;
+      if (s.hasBooking) aiBySource[label].converting++;
+      if (s.firstPath) aiLanding[s.firstPath] = (aiLanding[s.firstPath] || 0) + 1;
+    }
+
+    const aiTraffic = {
+      totalSessions: aiTotalSessions,
+      convertingSessions: aiConvertingSessions,
+      conversionRate: aiTotalSessions > 0 ? Math.round((aiConvertingSessions / aiTotalSessions) * 1000) / 10 : 0,
+      siteConversionRate: allSessionsCount > 0 ? Math.round((allConvertingSessions / allSessionsCount) * 1000) / 10 : 0,
+      byDate: aiByDate,
+      bySource: Object.entries(aiBySource)
+        .map(([source, v]) => ({
+          source,
+          sessions: v.sessions,
+          converting: v.converting,
+          conversionRate: v.sessions > 0 ? Math.round((v.converting / v.sessions) * 1000) / 10 : 0,
+        }))
+        .sort((a, b) => b.sessions - a.sessions),
+      topLandingPages: Object.entries(aiLanding)
+        .map(([path, sessions]) => ({ path, sessions }))
+        .sort((a, b) => b.sessions - a.sessions)
+        .slice(0, 10),
+    };
+
     return new Response(
       JSON.stringify({
         total, byDate, topPages, byReferrer, byDevice, byLanguage, byCountry, byViewport, conversionEvents,
         totalSessions, bounceRate, avgSessionDurationSec, byDateSessions,
         byUtmSource, byUtmMedium, byUtmCampaign, avgScrollDepth, avgTimeOnPage,
-        topLandingPages, topExitPages, bookingClicksBySource, inlinePromoClicks,
+        topLandingPages, topExitPages, bookingClicksBySource, inlinePromoClicks, aiTraffic,
 
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
