@@ -38,14 +38,15 @@ const LeviVsYllasVsRukaEN = ({ lang = "en" }: LeviVsYllasVsRukaENProps) => {
     en: "en_US", nl: "nl_NL", de: "de_DE", fr: "fr_FR", es: "es_ES", sv: "sv_SE"
   };
 
+  // Only FI and EN are genuinely translated. The de/fr/es/nl routes serve the
+  // English article, so they canonicalise to the EN URL and are excluded from
+  // hreflang (no ghost alternates for untranslated content).
   const customUrls: Record<string, string> = {
     fi: "/opas/levi-vs-yllas-vs-ruka",
     en: "/guide/levi-vs-yllas-vs-ruka-comparison",
-    nl: "/nl/gids/levi-vs-yllas-vs-ruka",
-    de: "/de/guide/levi-vs-yllas-vs-ruka",
-    fr: "/fr/guide/levi-vs-yllas-vs-ruka",
-    es: "/es/guia/levi-vs-yllas-vs-ruka",
   };
+  const canonicalUrl = `https://leville.net${customUrls.en}`;
+
 
   const breadcrumbItems = [
     { label: lang === "nl" ? "Home" : lang === "de" ? "Startseite" : lang === "fr" ? "Accueil" : lang === "es" ? "Inicio" : "Home", href: routeConfig.home[lang] || "/en" },
