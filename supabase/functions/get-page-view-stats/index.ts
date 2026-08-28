@@ -172,7 +172,7 @@ Deno.serve(async (req) => {
 
     // CSV format: return raw rows + aggregated booking-clicks-by-source block
     if (format === "csv") {
-      const csvHeader = "date,time,path,type,referrer,device_type,language,country,viewport_w,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page";
+      const csvHeader = "date,time,path,type,referrer,device_type,language,country,viewport_w,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page,ai_source";
       const csvRows = (views || []).map((v: any) => {
         const dt = new Date(v.created_at);
         const date = dt.toISOString().split("T")[0];
@@ -191,8 +191,9 @@ Deno.serve(async (req) => {
         const utmCamp = v.utm_campaign || "";
         const scrollD = v.scroll_depth != null ? String(v.scroll_depth) : "";
         const timeP = v.time_on_page != null ? String(v.time_on_page) : "";
+        const aiSrc = classifyAiReferrer(v.referrer) || "";
         const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
-        return [date, time, esc(path), type, esc(ref), device, lang, country, vw, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP].join(",");
+        return [date, time, esc(path), type, esc(ref), device, lang, country, vw, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP, esc(aiSrc)].join(",");
       });
 
       // Aggregate booking clicks by source page (only /event/booking-* events).
