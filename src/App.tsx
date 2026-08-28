@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollToTop from "./components/ScrollToTop";
+import PathNormalizer from "./components/PathNormalizer";
+
 
 // Deferred — these don't affect first paint, lazy-load them off the critical path
 const PageViewTracker = lazy(() => import("./components/PageViewTracker"));
@@ -216,6 +218,8 @@ const App = () => {
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <PathNormalizer />
+
           <Suspense fallback={null}>
             <PageViewTracker />
             <StructuredData />
