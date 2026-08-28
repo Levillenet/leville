@@ -124,6 +124,7 @@ SARAKKEET:
 - country: Kävijän maa ISO 3166-1 alpha-2 -koodina (esim. "FI", "DE", "SE"). Päätellään palvelinpuolella IP-osoitteen perusteella (CDN-otsakkeet). HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
 - viewport_w: Selainikkunan leveys pikseleinä (esim. 390, 768, 1440). Hyödyllinen responsiivisuusongelmien jäljitykseen — vertaa esim. mobiilibucket <640px konversioon. HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
 - session_id: Istunnon tunniste (UUID). Sama käyttäjä samassa selainikkunassa/välilehdessä saa saman session_id:n. Uusi välilehti tai selaimen sulkeminen luo uuden istunnon. HUOM: Vanhoilla riveillä (ennen 13.3.2026) session_id on tyhjä.
+- ai_source: Tekoälyassistentti josta kävijä tuli, jos referrer tunnistetaan (ChatGPT, Perplexity, Copilot, Gemini, Claude, Muu AI). Tyhjä muilla riveillä. HUOM: arvo täyttyy vain jos käyttäjä klikkasi linkkiä assistentissa — kopioitu URL kirjautuu suorana liikenteenä, joten AI-liikenne on todellisuudessa suurempi.
 
 SISÄÄNTULO- JA POISTUMISSIVUT (LASKETUT):
 - Eivät ole erillinen sarake CSV:ssä, vaan lasketaan istuntodatasta: ryhmittele rivit session_id:n mukaan, järjestä created_at-nousevasti, ja ensimmäisen pageview-rivin path on istunnon sisääntulosivu (landing), viimeisen pageview-rivin path on poistumissivu (exit).
