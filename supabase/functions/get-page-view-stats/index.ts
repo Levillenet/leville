@@ -266,7 +266,52 @@ Deno.serve(async (req) => {
         ...promoRows,
       ];
 
-      return new Response([csvHeader, ...csvRows, ...bookingBlock, ...promoBlock].join("\n"), {
+      // AI assistant referrals (session-level) for CSV branch
+      const csvSessions: Record<string, { firstTs?: number; firstPath?: string; firstReferrer?: string | null; hasBooking?: boolean; pageCount: number }> = {};
+      for (const v of views || []) {
+        if (isDevReferrer(v.referrer)) continue;
+        const sid = v.session_id;
+        if (!sid) continue;
+        if (!csvSessions[sid]) csvSessions[sid] = { pageCount: 0 };
+        const s = csvSessions[sid];
+        const ts = new Date(v.created_at).getTime();
+        if (v.path?.startsWith("/event/")) {
+          if (v.path.startsWith("/event/booking-")) s.hasBooking = true;
+        } else {
+          s.pageCount++;
+          if (s.firstTs === undefined || ts < s.firstTs) {
+            s.firstTs = ts;
+            s.firstPath = v.path;
+            s.firstReferrer = v.referrer || null;
+          }
+        }
+      }
+      const aiCsvAgg: Record<string, { sessions: number; converting: number; landing: Record<string, number> }> = {};
+      for (const s of Object.values(csvSessions)) {
+        if (s.pageCount === 0) continue;
+        const label = classifyAiReferrer(s.firstReferrer || null);
+        if (!label) continue;
+        if (!aiCsvAgg[label]) aiCsvAgg[label] = { sessions: 0, converting: 0, landing: {} };
+        aiCsvAgg[label].sessions++;
+        if (s.hasBooking) aiCsvAgg[label].converting++;
+        if (s.firstPath) aiCsvAgg[label].landing[s.firstPath] = (aiCsvAgg[label].landing[s.firstPath] || 0) + 1;
+      }
+      const aiRows = Object.entries(aiCsvAgg)
+        .sort(([, a], [, b]) => b.sessions - a.sessions)
+        .map(([source, d]) => {
+          const topLanding = Object.entries(d.landing).sort(([, a], [, b]) => b - a)[0]?.[0] || "";
+          const rate = d.sessions > 0 ? Math.round((d.converting / d.sessions) * 1000) / 10 : 0;
+          return [escCsv(source), d.sessions, d.converting, rate, escCsv(topLanding)].join(",");
+        });
+
+      const aiBlock = [
+        "",
+        "AI ASSISTANT REFERRALS — istunnot joiden ensimmäisen sivukatselun referrer on tekoälyassistentti. converting = istunnossa oli vähintään yksi app.moder.fi-varausklikkaus.",
+        "ai_source,sessions,converting,conversion_rate_pct,top_landing_page",
+        ...aiRows,
+      ];
+
+      return new Response([csvHeader, ...csvRows, ...bookingBlock, ...promoBlock, ...aiBlock].join("\n"), {
         headers: {
           ...corsHeaders,
           "Content-Type": "text/csv; charset=utf-8",
