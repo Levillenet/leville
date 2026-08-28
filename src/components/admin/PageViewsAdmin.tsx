@@ -616,29 +616,6 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
       </Card>
 
 
-
-
-      {/* Daily views chart */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Päivittäiset katselut</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[250px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={dateData}>
-                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                <XAxis dataKey="date" tick={{ fontSize: 12 }} />
-                <YAxis tick={{ fontSize: 12 }} />
-                <Tooltip contentStyle={{ backgroundColor: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: "8px" }} />
-                <Line type="monotone" dataKey="views" name="Sivukatselut" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ fill: "hsl(var(--primary))" }} />
-                <Line type="monotone" dataKey="sessions" name="Kävijät" stroke="hsl(var(--chart-2))" strokeWidth={2} dot={{ fill: "hsl(var(--chart-2))" }} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Top pages */}
       <Card>
         <CardHeader>
