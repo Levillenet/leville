@@ -329,6 +329,18 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
       sessions: stats.byDateSessions?.[date] || 0,
     }));
 
+  const aiSources = (stats.aiTraffic?.bySource || []).map((s) => s.source);
+  const aiDateData = Object.entries(stats.aiTraffic?.byDate || {})
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, sources]) => {
+      const row: Record<string, string | number> = {
+        date: new Date(date).toLocaleDateString("fi-FI", { day: "numeric", month: "numeric" }),
+      };
+      for (const s of aiSources) row[s] = sources[s] || 0;
+      return row;
+    });
+
+
   const deviceData = Object.entries(stats.byDevice).map(([name, value]) => ({
     name: name === "mobile" ? "Mobiili" : name === "tablet" ? "Tabletti" : name === "desktop" ? "Tietokone" : name,
     value,
