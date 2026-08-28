@@ -86,7 +86,7 @@ export default function TicketResolved() {
     <>
       <Helmet>
         <html lang="fi" />
-        <title>{content.title} | Leville.net</title>
+        <title>{`${content.title} | Leville.net`}</title>
         <meta name="description" content={content.description} />
         <meta name="robots" content="noindex, nofollow" />
         <link rel="canonical" href="https://leville.net/tiketti-ratkaistu" />
