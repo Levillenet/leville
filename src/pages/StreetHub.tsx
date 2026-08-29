@@ -9,6 +9,7 @@ import SubpageBackground from "@/components/SubpageBackground";
 import ScrollReveal from "@/components/ScrollReveal";
 import PropertyCard from "@/components/PropertyCard";
 import JsonLd from "@/components/JsonLd";
+import { ApartmentComplexSchema } from "@/components/PropertySchema";
 import { properties } from "@/data/properties";
 import { getStreetHub, streetHubs } from "@/data/street-hubs";
 
@@ -94,6 +95,21 @@ const StreetHub = () => {
       <JsonLd data={breadcrumbSchema} />
       <JsonLd data={itemListSchema} />
       {lodgingSchema && <JsonLd data={lodgingSchema} />}
+      <ApartmentComplexSchema
+        name={hub.brandNames?.[0] ?? hub.street}
+        alternateName={hub.brandNames?.slice(1)}
+        description={hub.metaDescription}
+        canonical={canonical}
+        streetAddress={hub.address ?? hub.street}
+        images={items.map((p) => p.heroImage).filter((s): s is string => Boolean(s))}
+        units={items.map((p) => ({
+          name: p.name,
+          url: `${BASE_URL}/majoitukset/${p.slug}`,
+          maxGuests: p.maxGuests,
+          sqm: p.sqm,
+          bedrooms: p.bedrooms,
+        }))}
+      />
 
 
       <div className="min-h-screen bg-background relative">
