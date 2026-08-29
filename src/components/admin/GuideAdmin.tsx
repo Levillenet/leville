@@ -184,18 +184,25 @@ const GuideAdmin = ({ isViewer }: GuideAdminProps) => {
     try {
       const ext = file.name.split(".").pop();
       const path = `${selectedProperty.slug}/${sectionKey || "hero"}/${Date.now()}.${ext}`;
-      
-      const { error: uploadError } = await supabase.storage
-        .from("guide-images")
-        .upload(path, file);
-      
-      if (uploadError) throw uploadError;
 
-      const { data: urlData } = supabase.storage
-        .from("guide-images")
-        .getPublicUrl(path);
+      // Upload through the admin-authenticated edge function (storage writes are admin-only)
+      const buffer = await file.arrayBuffer();
+      const bytes = new Uint8Array(buffer);
+      let binaryString = "";
+      const chunkSize = 0x8000;
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        binaryString += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+      }
+      const contentBase64 = btoa(binaryString);
 
-      const imageUrl = urlData.publicUrl;
+      const uploadResult = await apiCall("upload_image_file", {
+        path,
+        content_base64: contentBase64,
+        content_type: file.type || "application/octet-stream",
+      });
+
+      const imageUrl = uploadResult.publicUrl as string;
+
 
       // If it's for hero, update property
       if (!sectionKey || sectionKey === "hero") {
