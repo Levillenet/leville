@@ -72,13 +72,19 @@ const PropertyGuide = () => {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [wifi, setWifi] = useState<{ wifi_name: string | null; wifi_password: string | null }>({
+    wifi_name: null,
+    wifi_password: null,
+  });
 
   useEffect(() => {
     const fetchGuide = async () => {
       try {
         const { data: prop, error: propErr } = await supabase
           .from("guide_properties")
-          .select("*")
+          .select(
+            "id, slug, name, address, latitude, longitude, check_in_time, check_out_time, hero_image_url, contact_phone, contact_whatsapp, contact_email, max_guests, bedrooms, bathrooms"
+          )
           .eq("slug", slug)
           .eq("is_published", true)
           .single();
@@ -90,7 +96,7 @@ const PropertyGuide = () => {
 
         setProperty(prop as GuideProperty);
 
-        const [sectionsRes, imagesRes] = await Promise.all([
+        const [sectionsRes, imagesRes, wifiRes] = await Promise.all([
           supabase
             .from("guide_sections")
             .select("*")
@@ -102,10 +108,18 @@ const PropertyGuide = () => {
             .select("*")
             .eq("property_id", prop.id)
             .order("sort_order"),
+          supabase.functions.invoke("get-guide-wifi", { body: { slug } }),
         ]);
 
         setSections((sectionsRes.data || []) as GuideSection[]);
         setImages((imagesRes.data || []) as GuideImage[]);
+        if (wifiRes.data && !wifiRes.error) {
+          setWifi({
+            wifi_name: wifiRes.data.wifi_name ?? null,
+            wifi_password: wifiRes.data.wifi_password ?? null,
+          });
+        }
+
       } catch (err) {
         console.error("Error loading guide:", err);
         setNotFound(true);
