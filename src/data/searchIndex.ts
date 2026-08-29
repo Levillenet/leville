@@ -8,20 +8,23 @@ export interface SearchPage {
   category: string;
   /** Vapaamuotoiset avainsanat sisällöstä — auttavat hakua löytämään sivun esim. ravintolan, paikan tai aiheen nimellä. */
   keywords?: string[];
+  /** "download" = suora tiedostolataus (PDF/kuva), avataan uuteen välilehteen. */
+  type?: "page" | "download";
 }
 
 // Category labels per language
 export const categoryLabels: Record<Language, Record<string, string>> = {
-  fi: { accommodation: "Majoitus", guide: "Opas", activities: "Aktiviteetit", northernLights: "Revontulet", travel: "Matka", general: "Yleinen", comparison: "Vertailut", apartments: "Huoneistot" },
-  en: { accommodation: "Accommodation", guide: "Guide", activities: "Activities", northernLights: "Northern Lights", travel: "Travel", general: "General", comparison: "Comparisons", apartments: "Apartments" },
-  sv: { accommodation: "Boende", guide: "Guide", activities: "Aktiviteter", northernLights: "Norrsken", travel: "Resa", general: "Allmänt", comparison: "Jämförelser", apartments: "Lägenheter" },
-  de: { accommodation: "Unterkunft", guide: "Reiseführer", activities: "Aktivitäten", northernLights: "Nordlichter", travel: "Reise", general: "Allgemein", comparison: "Vergleiche", apartments: "Apartments" },
-  es: { accommodation: "Alojamiento", guide: "Guía", activities: "Actividades", northernLights: "Auroras", travel: "Viaje", general: "General", comparison: "Comparaciones", apartments: "Apartamentos" },
-  fr: { accommodation: "Hébergement", guide: "Guide", activities: "Activités", northernLights: "Aurores", travel: "Voyage", general: "Général", comparison: "Comparaisons", apartments: "Appartements" },
-  nl: { accommodation: "Accommodatie", guide: "Gids", activities: "Activiteiten", northernLights: "Noorderlicht", travel: "Reizen", general: "Algemeen", comparison: "Vergelijkingen", apartments: "Appartementen" },
+  fi: { accommodation: "Majoitus", guide: "Opas", activities: "Aktiviteetit", northernLights: "Revontulet", travel: "Matka", general: "Yleinen", comparison: "Vertailut", apartments: "Huoneistot", downloads: "Lataukset" },
+  en: { accommodation: "Accommodation", guide: "Guide", activities: "Activities", northernLights: "Northern Lights", travel: "Travel", general: "General", comparison: "Comparisons", apartments: "Apartments", downloads: "Downloads" },
+  sv: { accommodation: "Boende", guide: "Guide", activities: "Aktiviteter", northernLights: "Norrsken", travel: "Resa", general: "Allmänt", comparison: "Jämförelser", apartments: "Lägenheter", downloads: "Nedladdningar" },
+  de: { accommodation: "Unterkunft", guide: "Reiseführer", activities: "Aktivitäten", northernLights: "Nordlichter", travel: "Reise", general: "Allgemein", comparison: "Vergleiche", apartments: "Apartments", downloads: "Downloads" },
+  es: { accommodation: "Alojamiento", guide: "Guía", activities: "Actividades", northernLights: "Auroras", travel: "Viaje", general: "General", comparison: "Comparaciones", apartments: "Apartamentos", downloads: "Descargas" },
+  fr: { accommodation: "Hébergement", guide: "Guide", activities: "Activités", northernLights: "Aurores", travel: "Voyage", general: "Général", comparison: "Comparaisons", apartments: "Appartements", downloads: "Téléchargements" },
+  nl: { accommodation: "Accommodatie", guide: "Gids", activities: "Activiteiten", northernLights: "Noorderlicht", travel: "Reizen", general: "Algemeen", comparison: "Vergelijkingen", apartments: "Appartementen", downloads: "Downloads" },
 };
 
-export const searchPages: SearchPage[] = [
+const basePages: SearchPage[] = [
+
   // === FINNISH ===
   // General
   { title: "Etusivu", description: "Leville.net – Majoitus Levin keskustassa", path: "/", lang: "fi", category: "general" },
@@ -219,3 +222,127 @@ export const searchPages: SearchPage[] = [
   { title: "Bearlodge Guide", description: "Bearlodge apartments guest guide", path: "/accommodations/guides/bearlodge", lang: "en", category: "accommodation" },
   { title: "Skistar Apartments Guide", description: "Skistar apartments guest guide", path: "/accommodations/guides/skistar-apartments", lang: "en", category: "accommodation" },
 ];
+
+// === LADATTAVAT TIEDOSTOT / DOWNLOADS ===
+const downloadPages: SearchPage[] = [
+  {
+    title: "Joulupukin tervetulokirje lapsille (PDF)",
+    description: "Tulostettava tervetulokirje joulupukilta — mukava yllätys lapsille majoitukseen saapuessa",
+    path: "/docs/tervetulokirje.pdf",
+    lang: "fi",
+    category: "downloads",
+    type: "download",
+    keywords: ["tervetulokirje", "kirje", "joulupukki", "joulu", "lapset", "lapsille", "tulostettava", "pdf", "lataus", "yllätys", "welcome letter", "santa", "letter", "printable"],
+  },
+  {
+    title: "Santa's welcome letter for children (PDF)",
+    description: "Printable welcome letter from Santa Claus — a lovely surprise for children on arrival",
+    path: "/docs/tervetulokirje.pdf",
+    lang: "en",
+    category: "downloads",
+    type: "download",
+    keywords: ["welcome letter", "letter", "welcome", "santa", "santa claus", "christmas", "kids", "children", "printable", "print", "pdf", "download", "tervetulokirje"],
+  },
+  {
+    title: "Carta de bienvenida de Papá Noel (PDF)",
+    description: "Carta de bienvenida imprimible de Papá Noel para los niños",
+    path: "/docs/tervetulokirje-es.pdf",
+    lang: "es",
+    category: "downloads",
+    type: "download",
+    keywords: ["carta", "bienvenida", "papá noel", "niños", "imprimible", "pdf", "welcome letter", "santa", "tervetulokirje"],
+  },
+  {
+    title: "Saunan lämmitysohjeet (PDF)",
+    description: "Sähkösaunan lämmitys- ja ajastinohjeet majoituskohteissamme",
+    path: "/docs/sauna-ohjeet.pdf",
+    lang: "fi",
+    category: "downloads",
+    type: "download",
+    keywords: ["sauna", "saunaohje", "lämmitys", "ajastin", "kiuas", "sähkösauna", "ohje", "pdf", "lataus", "sauna instructions"],
+  },
+  {
+    title: "Sauna heating instructions (PDF)",
+    description: "Electric sauna heating and timer instructions for our accommodations",
+    path: "/docs/sauna-ohjeet.pdf",
+    lang: "en",
+    category: "downloads",
+    type: "download",
+    keywords: ["sauna", "heating", "timer", "stove", "electric sauna", "instructions", "manual", "pdf", "download"],
+  },
+  {
+    title: "Sähkösaunan ohjekuva",
+    description: "Kuvallinen ohje sähkösaunan ohjauspaneelin käyttöön",
+    path: "/docs/sahkosauna-ohje-fi.jpg",
+    lang: "fi",
+    category: "downloads",
+    type: "download",
+    keywords: ["sauna", "ohjekuva", "ohjauspaneeli", "kiuas", "sähkösauna", "kuva", "lataus"],
+  },
+  {
+    title: "Electric sauna control panel guide",
+    description: "Illustrated guide to using the electric sauna control panel",
+    path: "/docs/sahkosauna-ohje-en.jpg",
+    lang: "en",
+    category: "downloads",
+    type: "download",
+    keywords: ["sauna", "control panel", "stove", "electric sauna", "guide", "image", "download"],
+  },
+];
+
+/**
+ * Polkukohtaiset lisäavainsanat. Auttavat hakua löytämään sivut myös
+ * synonyymeillä ja toisen kielen termeillä (esim. "cabin" → mökit).
+ */
+const keywordHints: Record<string, string[]> = {
+  "/": ["etusivu", "koti", "leville", "majoitus", "varaa", "home"],
+  "/majoitukset": ["majoitus", "huoneisto", "mökki", "asunto", "varaa", "vuokraus", "accommodation", "apartment", "cabin", "booking"],
+  "/mokit-levilla": ["mökki", "mökit", "hirsimökki", "loma-asunto", "sauna", "takka", "cabin", "cottage", "log cabin"],
+  "/en/log-cabins-levi": ["cabin", "cabins", "log cabin", "cottage", "sauna", "fireplace", "mökki"],
+  "/akkilahdot": ["äkkilähtö", "tarjous", "alennus", "viime hetken", "last minute", "deal", "offer"],
+  "/en/last-minute": ["last minute", "deal", "offer", "discount", "äkkilähtö"],
+  "/seuratuki": ["seuratuki", "urheiluseura", "varainhankinta", "joukkue", "sponsori", "club support", "fundraising"],
+  "/en/club-support": ["club support", "fundraising", "sports club", "team", "sponsor", "seuratuki"],
+  "/yhteystiedot": ["yhteystiedot", "puhelin", "sähköposti", "ota yhteyttä", "asiakaspalvelu", "contact", "phone", "email"],
+  "/en/contact": ["contact", "phone", "email", "customer service", "yhteystiedot"],
+  "/asiakaspalvelu": ["asiakaspalvelu", "chat", "tuki", "apua", "ongelma", "customer service", "support", "help"],
+  "/varausehdot": ["varausehdot", "peruutus", "ehdot", "maksu", "sopimus", "booking terms", "cancellation"],
+  "/en/booking-terms": ["booking terms", "cancellation", "payment", "conditions", "varausehdot"],
+  "/ukk": ["ukk", "faq", "kysymykset", "vastaukset", "kysy"],
+  "/en/faq": ["faq", "questions", "answers", "ukk"],
+  "/revontulet": ["revontulet", "aurora", "northern lights", "kp-indeksi", "ennuste"],
+  "/en/northern-lights": ["northern lights", "aurora", "aurora borealis", "forecast", "revontulet"],
+  "/opas/joulupukki-levilla": ["joulupukki", "joulu", "tonttu", "lapset", "tervetulokirje", "kirje", "santa", "christmas", "letter"],
+  "/guide/santa-claus-in-levi": ["santa", "santa claus", "christmas", "elves", "kids", "welcome letter", "letter", "joulupukki"],
+  "/levi/joulu-lapissa": ["joulu", "joulupukki", "jouluaatto", "christmas", "santa", "lapset"],
+  "/en/levi/christmas-in-lapland": ["christmas", "santa", "christmas eve", "kids", "joulu"],
+  "/opas/sauna-levilla": ["sauna", "löyly", "kiuas", "palju", "sauna instructions", "hot tub"],
+  "/guide/finnish-sauna-in-levi": ["sauna", "steam", "stove", "hot tub", "sauna instructions", "löyly"],
+  "/opas/lapsiperheet-levilla": ["lapset", "lapsiperhe", "perhe", "lastenhoito", "kids", "family", "children"],
+  "/guide/levi-with-children": ["kids", "children", "family", "toddler", "lapset", "perhe"],
+  "/aktiviteetit/levi-lapsille": ["lapset", "lapsille", "perhe", "kids", "children"],
+  "/activities/levi-for-kids": ["kids", "children", "family", "lapset"],
+  "/lomasuunnittelija": ["lomasuunnittelija", "suunnittelu", "ohjelma", "aikataulu", "itinerary", "planner"],
+  "/en/holiday-planner": ["planner", "itinerary", "schedule", "plan", "lomasuunnittelija"],
+  "/latuinfo": ["ladut", "latu", "hiihto", "latuinfo", "kunto", "ski track", "trail"],
+  "/levi/saatieto-levilta": ["sää", "lumi", "lumitilanne", "lämpötila", "weather", "snow"],
+  "/en/levi/weather-in-levi": ["weather", "snow", "temperature", "conditions", "sää", "lumi"],
+  "/myy-loma-asuntosi": ["vuokranantaja", "omistaja", "välitys", "myy", "sijoitus", "rent out", "owner"],
+  "/ajankohtaista": ["uutiset", "ajankohtaista", "tiedote", "blogi", "news"],
+  "/en/news": ["news", "updates", "blog", "ajankohtaista"],
+  "/tietovisa": ["visa", "tietovisa", "kysymys", "peli", "quiz", "game"],
+  "/opas/hinnat-levilla": ["hinta", "hinnat", "hissilippu", "budjetti", "kustannukset", "price", "cost"],
+  "/guide/prices-in-levi": ["price", "prices", "lift ticket", "budget", "cost", "hinta"],
+  "/opas/laskettelu-levi": ["laskettelu", "rinne", "hissi", "hissilippu", "lumilautailu", "ski", "slope", "lift"],
+  "/guide/skiing-in-levi": ["ski", "skiing", "slope", "lift", "lift ticket", "snowboard", "laskettelu"],
+};
+
+/** Yhteiset termit, jotka pitää löytyä sivulta riippumatta kielestä. */
+const withHints = (page: SearchPage): SearchPage => {
+  const hints = keywordHints[page.path];
+  if (!hints) return page;
+  return { ...page, keywords: [...(page.keywords || []), ...hints] };
+};
+
+export const searchPages: SearchPage[] = [...basePages, ...downloadPages].map(withHints);
+

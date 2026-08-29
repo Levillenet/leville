@@ -85,7 +85,9 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
 
     return () => {
       if (setupTimeoutId) clearTimeout(setupTimeoutId);
+      if (restoreLangId) clearTimeout(restoreLangId);
     };
+
     // Intentionally not depending on `lang` since widget is forced to EN
   }, []);
 
@@ -153,8 +155,8 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     window.addEventListener('beforeunload', beforeUnloadHandler);
 
     return () => {
-      if (restoreLangId) clearTimeout(restoreLangId);
       window.removeEventListener('beforeunload', beforeUnloadHandler);
+
 
       const overlay = document.getElementById('moder-loading-overlay');
       if (overlay) overlay.remove();
