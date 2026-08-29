@@ -237,6 +237,8 @@ export function AuroraAlertSubscribe({ lang = "fi" }: AuroraAlertSubscribeProps)
             </Button>
           </div>
           <p className="text-xs text-muted-foreground">{t.privacyNote}</p>
+          <p className="text-xs text-muted-foreground">{VALIDITY_NOTE[lang] || VALIDITY_NOTE.fi}</p>
+
         </form>
       </CardContent>
     </Card>
