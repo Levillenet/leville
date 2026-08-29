@@ -172,8 +172,9 @@ const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
           body: { date: dateStr }
         }),
         supabase.functions.invoke('get-cleaning-status', {
-          body: { date: dateStr }
+          body: { date: dateStr, password: localStorage.getItem('admin_password') || '' }
         })
+
       ]);
 
       console.log('Bookings response:', bookingsResult.data);
