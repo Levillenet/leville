@@ -1,6 +1,8 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 import { Resend } from "https://esm.sh/resend@2.0.0";
+import { readJsonBody, isAdminRequest, isCronRequest, unauthorized } from "../_shared/authGuard.ts";
+
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -245,6 +247,13 @@ const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
+
+  const reqBody = await readJsonBody(req);
+  if (!isCronRequest(req, reqBody) && !isAdminRequest(req, reqBody)) {
+    return unauthorized(req);
+  }
+
+
 
   try {
     const resend = new Resend(Deno.env.get("RESEND_API_KEY"));

@@ -1,17 +1,19 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': 'https://leville.net',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+import { corsFor, readJsonBody, isAdminRequest, isCronRequest, unauthorized } from "../_shared/authGuard.ts";
 
 const ROOM_NAMES_CACHE_KEY = 'beds24_room_names';
 const CACHE_TTL_HOURS = 12;
 
 serve(async (req: Request): Promise<Response> => {
+  const corsHeaders = corsFor(req);
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  const body = await readJsonBody(req);
+  if (!isAdminRequest(req, body) && !isCronRequest(req, body)) {
+    return unauthorized(req);
   }
 
   try {
@@ -20,7 +22,8 @@ serve(async (req: Request): Promise<Response> => {
     const beds24ApiToken = Deno.env.get('BEDS24_API_TOKEN');
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { action, data } = await req.json();
+    const { action, data } = body as { action?: string; data?: any };
+
 
     // Action to fetch room names from Beds24 API (with caching)
     if (action === 'get_room_names') {

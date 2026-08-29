@@ -1,10 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { corsFor, readJsonBody, isAdminRequest, isCronRequest, unauthorized } from "../_shared/authGuard.ts";
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': 'https://leville.net',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
 
 interface HomeyToken {
   homeyId: string;
@@ -68,8 +65,14 @@ async function fetchWithRetry(
 }
 
 serve(async (req) => {
+  const corsHeaders = corsFor(req);
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  const body = await readJsonBody(req);
+  if (!isAdminRequest(req, body) && !isCronRequest(req, body)) {
+    return unauthorized(req);
   }
 
   try {
@@ -77,8 +80,8 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-const body = await req.json();
-    const { action, deviceId, capability, value, targetHomeyId, homeyIdToRemove, settings, deviceIds } = body;
+    const { action, deviceId, capability, value, targetHomeyId, homeyIdToRemove, settings, deviceIds } = body as any;
+
 
     // Handle actions that don't need tokens first
     if (action === 'addHomey') {
