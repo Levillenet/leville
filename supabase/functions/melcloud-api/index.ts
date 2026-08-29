@@ -1082,12 +1082,19 @@ async function getDeviceHistory(deviceId: number, period: '24h' | '7d' | '30d', 
 }
 
 serve(async (req) => {
+  const corsHeaders = corsFor(req);
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const reqBody = req.method === 'POST' ? await readJsonBody(req) : {};
+  if (!isAdminRequest(req, reqBody) && !isCronRequest(req, reqBody)) {
+    return unauthorized(req);
+  }
+
   try {
+
     const url = new URL(req.url);
     const action = url.searchParams.get('action');
 
