@@ -32,8 +32,14 @@ function getHelsinkiTime(): { hours: number; minutes: number } {
 }
 
 serve(async (req: Request): Promise<Response> => {
+  const corsHeaders = corsFor(req);
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  const requestBody = await readJsonBody(req);
+  if (!isAdminRequest(req, requestBody) && !isCronRequest(req, requestBody)) {
+    return unauthorized(req);
   }
 
   try {
@@ -52,7 +58,10 @@ serve(async (req: Request): Promise<Response> => {
     const resend = new Resend(resendApiKey);
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { preview, targetDate: customDate, cronCheck, force } = await req.json().catch(() => ({}));
+    const { preview, targetDate: customDate, cronCheck, force } = requestBody as {
+      preview?: boolean; targetDate?: string; cronCheck?: boolean; force?: boolean;
+    };
+
 
     // === GLOBAL GUARDS (apply to ALL non-preview calls) ===
     if (!preview) {
