@@ -1,9 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': 'https://leville.net',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+import { corsFor, readJsonBody, isAdminRequest, unauthorized } from "../_shared/authGuard.ts";
 
 interface BookingInfo {
   propertyId: string;
@@ -18,8 +14,14 @@ interface DayBookings {
 }
 
 serve(async (req: Request): Promise<Response> => {
+  const corsHeaders = corsFor(req);
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  const body = await readJsonBody(req);
+  if (!isAdminRequest(req, body)) {
+    return unauthorized(req);
   }
 
   try {
@@ -28,8 +30,9 @@ serve(async (req: Request): Promise<Response> => {
       throw new Error('BEDS24_API_TOKEN not configured');
     }
 
-    const { date } = await req.json();
+    const date = typeof body.date === 'string' ? body.date : undefined;
     const targetDate = date || new Date().toISOString().split('T')[0];
+
     
     console.log(`Fetching bookings for date: ${targetDate}`);
 

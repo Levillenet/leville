@@ -1,10 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.89.0";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "https://leville.net",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+import { corsFor, readJsonBody, isAdminRequest, unauthorized } from "../_shared/authGuard.ts";
 
 interface MarkCleanedRequest {
   propertyId: string;
@@ -14,8 +10,14 @@ interface MarkCleanedRequest {
 // Privacy: guest names, emails and phone numbers are never received or stored.
 // Guest notification emails have been disabled.
 serve(async (req: Request): Promise<Response> => {
+  const corsHeaders = corsFor(req);
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  const body = await readJsonBody(req);
+  if (!isAdminRequest(req, body, { allowViewer: false })) {
+    return unauthorized(req);
   }
 
   try {
@@ -23,7 +25,8 @@ serve(async (req: Request): Promise<Response> => {
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { propertyId, checkInDate }: MarkCleanedRequest = await req.json();
+    const { propertyId, checkInDate } = body as unknown as MarkCleanedRequest;
+
 
     console.log("Mark cleaned request:", { propertyId, checkInDate });
 
