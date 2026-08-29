@@ -12,6 +12,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
+import PropertySchema from "@/components/PropertySchema";
 import OptimizedImage from "@/components/OptimizedImage";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -577,6 +578,13 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
         customUrls={buildPropertyHreflangUrls(property.slug)}
       />
       <JsonLd data={lodgingSchema} />
+      <PropertySchema
+        property={property}
+        canonical={canonical}
+        name={displayName}
+        description={description}
+        streetAddress={streetAddress}
+      />
       <JsonLd data={breadcrumbSchema} />
 
       <div className="min-h-screen bg-background relative">
