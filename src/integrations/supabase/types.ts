@@ -2135,6 +2135,7 @@ export type Database = {
       }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
       prune_heat_pump_history: { Args: never; Returns: undefined }
+      purge_expired_aurora_alerts: { Args: never; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "super_admin"

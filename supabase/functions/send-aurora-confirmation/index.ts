@@ -10,6 +10,17 @@ const corsHeaders = {
 
 type Language = "fi" | "en" | "sv" | "de" | "es" | "fr";
 
+const VALIDITY_NOTE: Record<Language, string> = {
+  fi: "Tilaus on voimassa 14 vuorokautta, minkä jälkeen se päättyy ja sähköpostiosoitteesi poistetaan automaattisesti. Voit tilata hälytykset uudelleen milloin tahansa.",
+  en: "This subscription is valid for 14 days, after which it ends and your email address is deleted automatically. You can subscribe again at any time.",
+  sv: "Prenumerationen gäller i 14 dagar, därefter avslutas den och din e-postadress raderas automatiskt. Du kan prenumerera igen när som helst.",
+  de: "Das Abonnement gilt 14 Tage, danach endet es und Ihre E-Mail-Adresse wird automatisch gelöscht. Sie können sich jederzeit erneut anmelden.",
+  es: "La suscripción es válida durante 14 días; después finaliza y tu dirección de correo se elimina automáticamente. Puedes suscribirte de nuevo cuando quieras.",
+  fr: "L'abonnement est valable 14 jours, après quoi il prend fin et votre adresse e-mail est supprimée automatiquement. Vous pouvez vous réabonner à tout moment.",
+};
+
+
+
 const confirmationContent: Record<Language, {
   subject: string;
   greeting: string;
@@ -208,6 +219,10 @@ function createConfirmationEmailHtml(lang: Language, unsubscribeToken: string): 
       <p style="font-size: 13px; color: #64748b; text-align: center; margin: 0;">
         ${content.unsubscribeNote}
       </p>
+      <p style="font-size: 13px; color: #64748b; text-align: center; margin: 8px 0 0 0;">
+        ${VALIDITY_NOTE[lang as Language] || VALIDITY_NOTE.en}
+      </p>
+
     </div>
     
     <!-- Footer -->
