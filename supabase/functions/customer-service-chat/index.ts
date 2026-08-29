@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -21,7 +20,7 @@ serve(async (req) => {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    console.log("Received messages:", JSON.stringify(messages, null, 2));
+    console.log(`Received ${Array.isArray(messages) ? messages.length : 0} messages`);
 
     // Fetch the knowledge base dynamically
     let knowledgeBase = "";
