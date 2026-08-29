@@ -96,10 +96,17 @@ const StructuredData = () => {
   // Only LodgingBusiness, VacationRental, and WebSite are safe globally.
   // Everything else (Article, FAQPage, BreadcrumbList, TouristDestination)
   // is page-specific and already handled by individual page components.
+  // Property and street-hub pages emit their own, property-specific
+  // VacationRental / ApartmentComplex schema — don't duplicate the generic one.
+  const hasOwnRentalSchema =
+    pathname.startsWith("/vuokramokit/") ||
+    /^\/majoitukset\/.+/.test(pathname) ||
+    /^\/en\/accommodations\/.+/.test(pathname);
+
   const schemas: Record<string, unknown>[] = [
     getWebSite(),
     getLodgingBusiness(),
-    getVacationRental(),
+    ...(hasOwnRentalSchema ? [] : [getVacationRental()]),
   ];
 
   return (

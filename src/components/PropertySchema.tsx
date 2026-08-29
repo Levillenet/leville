@@ -157,7 +157,9 @@ export const buildApartmentComplexSchema = ({
   ...(alternateName && alternateName.length ? { alternateName } : {}),
   description,
   url: canonical,
-  ...(images && images.length ? { image: images.slice(0, 3).map(abs) } : {}),
+  ...(images && images.length
+    ? { image: images.filter((v, i, a) => a.indexOf(v) === i).slice(0, 3).map(abs) }
+    : {}),
   address: {
     "@type": "PostalAddress",
     ...(streetAddress ? { streetAddress } : {}),
