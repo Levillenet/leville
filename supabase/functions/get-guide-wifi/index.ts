@@ -1,11 +1,10 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { corsFor } from "../_shared/authGuard.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
-
+// Public by design: guests open their guide page and need the WiFi details.
+// Access is limited to our own origins so other sites cannot harvest them.
 Deno.serve(async (req: Request): Promise<Response> => {
+  const corsHeaders = corsFor(req);
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -15,6 +14,7 @@ Deno.serve(async (req: Request): Promise<Response> => {
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
+
 
     const { slug } = await req.json();
 
