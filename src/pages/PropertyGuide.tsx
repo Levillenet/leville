@@ -325,7 +325,7 @@ const PropertyGuide = () => {
                       )}
 
                       {/* Special: WiFi details */}
-                      {section.section_key === "wifi" && property.wifi_name && (
+                      {section.section_key === "wifi" && wifi.wifi_name && (
                         <div className="mt-5 bg-secondary/50 rounded-lg p-4 border border-border">
                           <div className="flex items-center gap-2 mb-2">
                             <Wifi className="w-5 h-5 text-primary" />
