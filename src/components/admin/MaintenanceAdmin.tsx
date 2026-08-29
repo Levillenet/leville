@@ -216,9 +216,9 @@ const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
       const { data, error } = await supabase.functions.invoke('mark-cleaned', {
         body: {
           propertyId,
-          checkInDate: dateStr,
-          sendNotification: false // Beds24 doesn't have guest email, disable for now
+          checkInDate: dateStr
         }
+
       });
 
       if (error) throw error;
