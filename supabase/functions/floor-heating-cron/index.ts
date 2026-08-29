@@ -22,8 +22,14 @@ interface FloorHeatingDevice {
 }
 
 serve(async (req) => {
+  const corsHeaders = corsFor(req);
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  const reqBody = await readJsonBody(req);
+  if (!isCronRequest(req, reqBody) && !isAdminRequest(req, reqBody)) {
+    return unauthorized(req);
   }
 
   try {
@@ -35,8 +41,9 @@ serve(async (req) => {
 
     // Call homey-api to get floor heating devices
     const { data, error } = await supabase.functions.invoke('homey-api', {
-      body: { action: 'getFloorHeatingDevices' }
+      body: { action: 'getFloorHeatingDevices', cronSecret: Deno.env.get('CRON_SECRET') }
     });
+
 
     if (error) {
       console.error('Error fetching floor heating devices:', error);
