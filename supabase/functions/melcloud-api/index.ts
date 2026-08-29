@@ -1128,7 +1128,7 @@ serve(async (req) => {
     }
 
     if (req.method === 'POST') {
-      const body = await req.json();
+      const body = reqBody as any;
       const { deviceId, buildingId, action: bodyAction, deviceName } = body;
 
       // Handle settings update (no MELCloud API call needed)

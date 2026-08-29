@@ -65,8 +65,14 @@ async function fetchWithRetry(
 }
 
 serve(async (req) => {
+  const corsHeaders = corsFor(req);
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  const body = await readJsonBody(req);
+  if (!isAdminRequest(req, body) && !isCronRequest(req, body)) {
+    return unauthorized(req);
   }
 
   try {
@@ -74,8 +80,8 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-const body = await req.json();
-    const { action, deviceId, capability, value, targetHomeyId, homeyIdToRemove, settings, deviceIds } = body;
+    const { action, deviceId, capability, value, targetHomeyId, homeyIdToRemove, settings, deviceIds } = body as any;
+
 
     // Handle actions that don't need tokens first
     if (action === 'addHomey') {
