@@ -133,10 +133,18 @@ async function loadLearnedExamples(supabase: any, topic: string | null, language
     .map((x) => x.ex);
 }
 
+// DISABLED: the auto-responder no longer reads mailboxes or stores sender data.
+const AUTORESPONDER_DISABLED = true;
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
+  if (AUTORESPONDER_DISABLED) {
+    return json({ ok: true, skipped: "autoresponder_permanently_disabled" });
+  }
+
   try {
+
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
