@@ -490,9 +490,16 @@ async function fetchOutdoorTemperature(): Promise<number | null> {
 }
 
 serve(async (req) => {
+  const corsHeaders = corsFor(req);
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
+
+  const reqBody = await readJsonBody(req);
+  if (!isCronRequest(req, reqBody) && !isAdminRequest(req, reqBody)) {
+    return unauthorized(req);
+  }
+
 
   const startTime = Date.now();
   console.log('[CRON] MELCloud cron job started');
