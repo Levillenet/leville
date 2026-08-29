@@ -208,6 +208,10 @@ function createConfirmationEmailHtml(lang: Language, unsubscribeToken: string): 
       <p style="font-size: 13px; color: #64748b; text-align: center; margin: 0;">
         ${content.unsubscribeNote}
       </p>
+      <p style="font-size: 13px; color: #64748b; text-align: center; margin: 8px 0 0 0;">
+        ${VALIDITY_NOTE[lang as Language] || VALIDITY_NOTE.en}
+      </p>
+
     </div>
     
     <!-- Footer -->
