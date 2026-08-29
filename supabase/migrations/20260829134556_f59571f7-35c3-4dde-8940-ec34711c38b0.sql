@@ -1,0 +1,1 @@
+REVOKE ALL ON FUNCTION public.purge_expired_aurora_alerts() FROM PUBLIC, anon, authenticated;
