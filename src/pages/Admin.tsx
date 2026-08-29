@@ -7,7 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Lock, FileText, Globe, Calendar, Download, LogOut, Building, BarChart3, Ticket, Database, Settings, Users, Loader2, Thermometer, Wrench, Home, Eye, Heater, ScrollText, MessageSquare, BookOpen, Bot, TrendingUp, Bell, Megaphone, ClipboardList, Mail, Search } from "lucide-react";
-import AutoResponderAdmin from "@/components/admin/AutoResponderAdmin";
 import PropertyAdmin from "@/components/admin/PropertyAdmin";
 import SkiPassAdmin from "@/components/admin/SkiPassAdmin";
 import CacheAdmin from "@/components/admin/CacheAdmin";
@@ -18,10 +17,8 @@ import MaintenanceAdmin from "@/components/admin/MaintenanceAdmin";
 import PropertyMaintenanceAdmin from "@/components/admin/PropertyMaintenanceAdmin";
 import FloorHeatingAdmin from "@/components/admin/FloorHeatingAdmin";
 import { BookingTermsAdmin } from "@/components/admin/BookingTermsAdmin";
-import MessagingAdmin from "@/components/admin/MessagingAdmin";
 import GuideAdmin from "@/components/admin/GuideAdmin";
 import SeoPageAdmin from "@/components/admin/SeoPageAdmin";
-import ChatbotStatsAdmin from "@/components/admin/ChatbotStatsAdmin";
 import PageViewsAdmin from "@/components/admin/PageViewsAdmin";
 import SearchConsoleAdmin from "@/components/admin/SearchConsoleAdmin";
 import TimedNoticesAdmin from "@/components/admin/TimedNoticesAdmin";
