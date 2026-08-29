@@ -18,7 +18,18 @@ serve(async (req: Request): Promise<Response> => {
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { date } = await req.json();
+    const { date, password } = await req.json();
+
+    // Verify admin/viewer password before returning any data
+    const adminPassword = Deno.env.get("ADMIN_PASSWORD");
+    const viewerPassword = Deno.env.get("VIEWER_PASSWORD");
+
+    if (!password || (password !== adminPassword && password !== viewerPassword)) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized" }),
+        { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
 
     if (!date) {
       return new Response(
@@ -27,12 +38,10 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    console.log("Fetching cleaning status for date:", date);
-
-    // Get cleaning status for the given date
+    // Get cleaning status for the given date (no guest PII returned)
     const { data: cleaningData, error } = await supabase
       .from("cleaning_status")
-      .select("*")
+      .select("property_id, check_in_date, cleaned_at, notification_sent_at")
       .eq("check_in_date", date);
 
     if (error) {
@@ -41,10 +50,11 @@ serve(async (req: Request): Promise<Response> => {
     }
 
     // Create a map by property_id for easy lookup
-    const statusMap: Record<string, any> = {};
+    const statusMap: Record<string, unknown> = {};
     for (const status of (cleaningData || [])) {
       statusMap[status.property_id] = status;
     }
+
 
     console.log("Cleaning status found:", Object.keys(statusMap).length);
 

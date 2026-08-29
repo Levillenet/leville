@@ -202,6 +202,41 @@ Deno.serve(async (req) => {
         break;
       }
 
+      case "upload_image_file": {
+        // Admin-only upload via service role (storage write policies are admin-scoped)
+        const { path, content_base64, content_type } = params as {
+          path?: string;
+          content_base64?: string;
+          content_type?: string;
+        };
+        if (!path || !content_base64) {
+          return new Response(
+            JSON.stringify({ error: "path and content_base64 are required" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+        const safePath = path.replace(/^\/+/, "");
+        if (safePath.includes("..")) {
+          return new Response(
+            JSON.stringify({ error: "Invalid path" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+        const binary = Uint8Array.from(atob(content_base64), (c) => c.charCodeAt(0));
+        const { error: uploadError } = await supabase.storage
+          .from("guide-images")
+          .upload(safePath, binary, {
+            contentType: content_type || "application/octet-stream",
+            upsert: true,
+          });
+        if (uploadError) throw uploadError;
+        const { data: urlData } = supabase.storage.from("guide-images").getPublicUrl(safePath);
+        result = { path: safePath, publicUrl: urlData.publicUrl };
+        break;
+      }
+
+
+
       default:
         return new Response(
           JSON.stringify({ error: "Unknown action" }),

@@ -37,8 +37,7 @@ interface GuideProperty {
   check_in_time: string | null;
   check_out_time: string | null;
   hero_image_url: string | null;
-  wifi_name: string | null;
-  wifi_password: string | null;
+
   contact_phone: string | null;
   contact_whatsapp: string | null;
   contact_email: string | null;
@@ -73,13 +72,19 @@ const PropertyGuide = () => {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [wifi, setWifi] = useState<{ wifi_name: string | null; wifi_password: string | null }>({
+    wifi_name: null,
+    wifi_password: null,
+  });
 
   useEffect(() => {
     const fetchGuide = async () => {
       try {
         const { data: prop, error: propErr } = await supabase
           .from("guide_properties")
-          .select("*")
+          .select(
+            "id, slug, name, address, latitude, longitude, check_in_time, check_out_time, hero_image_url, contact_phone, contact_whatsapp, contact_email, max_guests, bedrooms, bathrooms"
+          )
           .eq("slug", slug)
           .eq("is_published", true)
           .single();
@@ -91,7 +96,7 @@ const PropertyGuide = () => {
 
         setProperty(prop as GuideProperty);
 
-        const [sectionsRes, imagesRes] = await Promise.all([
+        const [sectionsRes, imagesRes, wifiRes] = await Promise.all([
           supabase
             .from("guide_sections")
             .select("*")
@@ -103,10 +108,18 @@ const PropertyGuide = () => {
             .select("*")
             .eq("property_id", prop.id)
             .order("sort_order"),
+          supabase.functions.invoke("get-guide-wifi", { body: { slug } }),
         ]);
 
         setSections((sectionsRes.data || []) as GuideSection[]);
         setImages((imagesRes.data || []) as GuideImage[]);
+        if (wifiRes.data && !wifiRes.error) {
+          setWifi({
+            wifi_name: wifiRes.data.wifi_name ?? null,
+            wifi_password: wifiRes.data.wifi_password ?? null,
+          });
+        }
+
       } catch (err) {
         console.error("Error loading guide:", err);
         setNotFound(true);
@@ -197,10 +210,10 @@ const PropertyGuide = () => {
                 <span>Check-out {property.check_out_time}</span>
               </div>
             )}
-            {property.wifi_name && (
+            {wifi.wifi_name && (
               <div className="flex items-center gap-1.5">
                 <Wifi className="w-4 h-4 text-primary" />
-                <span>{property.wifi_name}</span>
+                <span>{wifi.wifi_name}</span>
               </div>
             )}
             {property.max_guests && (
@@ -312,15 +325,15 @@ const PropertyGuide = () => {
                       )}
 
                       {/* Special: WiFi details */}
-                      {section.section_key === "wifi" && property.wifi_name && (
+                      {section.section_key === "wifi" && wifi.wifi_name && (
                         <div className="mt-5 bg-secondary/50 rounded-lg p-4 border border-border">
                           <div className="flex items-center gap-2 mb-2">
                             <Wifi className="w-5 h-5 text-primary" />
                             <span className="font-medium text-foreground font-sans">WiFi Details</span>
                           </div>
-                          <p className="text-sm text-muted-foreground"><strong className="text-foreground">Network:</strong> {property.wifi_name}</p>
-                          {property.wifi_password && (
-                            <p className="text-sm text-muted-foreground"><strong className="text-foreground">Password:</strong> {property.wifi_password}</p>
+                          <p className="text-sm text-muted-foreground"><strong className="text-foreground">Network:</strong> {wifi.wifi_name}</p>
+                          {wifi.wifi_password && (
+                            <p className="text-sm text-muted-foreground"><strong className="text-foreground">Password:</strong> {wifi.wifi_password}</p>
                           )}
                         </div>
                       )}
