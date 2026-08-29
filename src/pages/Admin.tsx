@@ -434,10 +434,6 @@ const Admin = () => {
             </TabsContent>
           )}
 
-          <TabsContent value="messaging">
-            <MessagingAdmin isViewer={isViewer} />
-          </TabsContent>
-
           <TabsContent value="guides">
             <GuideAdmin isViewer={isViewer} />
           </TabsContent>
@@ -446,9 +442,7 @@ const Admin = () => {
             <SeoPageAdmin isViewer={isViewer} />
           </TabsContent>
 
-          <TabsContent value="chatbot-stats">
-            <ChatbotStatsAdmin isViewer={isViewer} />
-          </TabsContent>
+
 
           <TabsContent value="page-views">
             <PageViewsAdmin isViewer={isViewer} />
