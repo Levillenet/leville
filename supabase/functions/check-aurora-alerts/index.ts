@@ -281,14 +281,17 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Get active subscribers who haven't received alert in last 12 hours
+    // Get active subscribers who haven't received alert in last 12 hours.
+    // Subscriptions expire after 14 days (rows are purged daily by pg_cron).
     const twelveHoursAgo = new Date();
     twelveHoursAgo.setHours(twelveHoursAgo.getHours() - 12);
+    const fourteenDaysAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
 
     const { data: subscribers, error: fetchError } = await supabase
       .from("aurora_alerts")
       .select("*")
       .eq("is_active", true)
+      .gte("created_at", fourteenDaysAgo.toISOString())
       .or(`last_alert_sent.is.null,last_alert_sent.lt.${twelveHoursAgo.toISOString()}`);
 
     if (fetchError) {
