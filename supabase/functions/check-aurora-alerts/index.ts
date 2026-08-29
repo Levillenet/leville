@@ -246,6 +246,13 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const reqBody = await readJsonBody(req);
+  if (!isCronRequest(req, reqBody) && !isAdminRequest(req, reqBody)) {
+    return unauthorized(req);
+  }
+
+
+
   try {
     const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
