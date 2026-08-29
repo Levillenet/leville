@@ -347,7 +347,6 @@ const Admin = () => {
             )}
             <TabsTrigger value="guides" className="flex items-center gap-2">
 
-            <TabsTrigger value="guides" className="flex items-center gap-2">
               <BookOpen className="w-4 h-4" />
               Oppaat
             </TabsTrigger>
