@@ -210,10 +210,10 @@ const PropertyGuide = () => {
                 <span>Check-out {property.check_out_time}</span>
               </div>
             )}
-            {property.wifi_name && (
+            {wifi.wifi_name && (
               <div className="flex items-center gap-1.5">
                 <Wifi className="w-4 h-4 text-primary" />
-                <span>{property.wifi_name}</span>
+                <span>{wifi.wifi_name}</span>
               </div>
             )}
             {property.max_guests && (
@@ -331,9 +331,9 @@ const PropertyGuide = () => {
                             <Wifi className="w-5 h-5 text-primary" />
                             <span className="font-medium text-foreground font-sans">WiFi Details</span>
                           </div>
-                          <p className="text-sm text-muted-foreground"><strong className="text-foreground">Network:</strong> {property.wifi_name}</p>
-                          {property.wifi_password && (
-                            <p className="text-sm text-muted-foreground"><strong className="text-foreground">Password:</strong> {property.wifi_password}</p>
+                          <p className="text-sm text-muted-foreground"><strong className="text-foreground">Network:</strong> {wifi.wifi_name}</p>
+                          {wifi.wifi_password && (
+                            <p className="text-sm text-muted-foreground"><strong className="text-foreground">Password:</strong> {wifi.wifi_password}</p>
                           )}
                         </div>
                       )}
