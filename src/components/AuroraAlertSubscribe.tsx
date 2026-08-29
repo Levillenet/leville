@@ -15,6 +15,16 @@ interface AuroraAlertSubscribeProps {
 
 const emailSchema = z.string().trim().email().max(255);
 
+const VALIDITY_NOTE: Record<Language, string> = {
+  fi: "Tilaus on voimassa 14 vuorokautta, minkä jälkeen se päättyy ja sähköpostiosoitteesi poistetaan automaattisesti.",
+  en: "The subscription is valid for 14 days, after which it ends and your email address is deleted automatically.",
+  sv: "Prenumerationen gäller i 14 dagar, därefter avslutas den och din e-postadress raderas automatiskt.",
+  de: "Das Abonnement gilt 14 Tage, danach endet es und Ihre E-Mail-Adresse wird automatisch gelöscht.",
+  es: "La suscripción es válida durante 14 días; después finaliza y tu correo se elimina automáticamente.",
+  fr: "L'abonnement est valable 14 jours, après quoi il prend fin et votre adresse e-mail est supprimée automatiquement.",
+  nl: "Het abonnement is 14 dagen geldig; daarna eindigt het en wordt je e-mailadres automatisch verwijderd.",
+};
+
 const content: Record<Language, {
   title: string;
   description: string;
