@@ -354,10 +354,6 @@ const Admin = () => {
               <Globe className="w-4 h-4" />
               SEO-sivut
             </TabsTrigger>
-            <TabsTrigger value="chatbot-stats" className="flex items-center gap-2">
-              <Bot className="w-4 h-4" />
-              Chatbot
-            </TabsTrigger>
             <TabsTrigger value="page-views" className="flex items-center gap-2">
               <TrendingUp className="w-4 h-4" />
               Analytiikka
@@ -377,10 +373,6 @@ const Admin = () => {
             <TabsTrigger value="tickets" className="flex items-center gap-2">
               <ClipboardList className="w-4 h-4" />
               Tiketöinti
-            </TabsTrigger>
-            <TabsTrigger value="autoresponder" className="flex items-center gap-2">
-              <Mail className="w-4 h-4" />
-              Auto-vastaaja
             </TabsTrigger>
           </TabsList>
 
