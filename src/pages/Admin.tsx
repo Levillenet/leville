@@ -464,9 +464,8 @@ const Admin = () => {
             <TicketAdmin isViewer={isViewer} />
           </TabsContent>
 
-          <TabsContent value="autoresponder">
-            <AutoResponderAdmin isViewer={isViewer} />
-          </TabsContent>
+
+
 
           <TabsContent value="stats">
         {/* Summary Cards */}
