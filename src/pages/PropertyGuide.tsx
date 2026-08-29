@@ -37,8 +37,7 @@ interface GuideProperty {
   check_in_time: string | null;
   check_out_time: string | null;
   hero_image_url: string | null;
-  wifi_name: string | null;
-  wifi_password: string | null;
+
   contact_phone: string | null;
   contact_whatsapp: string | null;
   contact_email: string | null;
