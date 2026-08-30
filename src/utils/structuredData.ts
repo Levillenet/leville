@@ -12,7 +12,7 @@ export function getWebsiteSchema() {
     "@type": "WebSite",
     "name": "Leville.net",
     "url": BASE_URL,
-    "description": "Travel guide and accommodation booking for Levi ski resort in Finnish Lapland",
+    "description": "Accommodation in Levi centre plus a local Levi travel guide: snow, trails, slopes, restaurants and northern lights",
     "inLanguage": ["fi", "en", "sv", "de", "fr", "es", "nl"],
     "publisher": publisher,
   };
@@ -130,8 +130,9 @@ export function getLodgingBusinessSchema(lang: string) {
     "@type": "LodgingBusiness",
     "name": "Leville.net",
     "description": isFi
-      ? "Varaa mökit, huoneistot ja lomakoteja suoraan Levin hiihtokeskuksesta. Paras hinta, ei välikäsiä."
-      : "Book cabins, apartments, and holiday homes directly in Levi ski resort, Finnish Lapland. Best price guarantee, no middleman fees.",
+      ? "Paikallinen majoitusyritys Levin keskustassa vuodesta 2012. Huoneistot ja mökit suoraan omistajalta ilman välityspalkkioita."
+      : "Local accommodation company in Levi centre since 2012. Apartments and cabins booked directly from the owner, no middleman fees.",
+    "foundingDate": "2012",
     "url": isFi ? `${BASE_URL}/majoitukset` : `${BASE_URL}/en/accommodations`,
     "telephone": "+358 44 13 13 13",
     "email": "info@leville.net",

@@ -20,7 +20,8 @@ function getLodgingBusiness() {
     name: "Leville.net",
     url: BASE_URL,
     description:
-      "Accommodation in Levi centre. Apartments and chalets located in the best locations in Levi, Finland.",
+      "Local accommodation company in Levi centre since 2012. Apartments and cabins in the best locations, booked directly from the owner.",
+    foundingDate: "2012",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Levin keskusta",

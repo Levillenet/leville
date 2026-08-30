@@ -35,16 +35,16 @@ const seoContent: Record<Language, {
   locale: string;
 }> = {
   fi: {
-    title: "Majoitus Levillä – Vuokramökit ja huoneistot keskustassa",
-    description: "Majoitus Levillä suoraan omistajalta: saunalliset vuokramökit ja huoneistot Levin keskustassa, kävelymatka rinteille. Varaa ilman välityspalkkioita.",
+    title: "Leville.net – Majoitus Levin keskustassa suoraan omistajalta",
+    description: "Paikallinen majoitusyritys vuodesta 2012. Saunalliset huoneistot ja mökit Levin keskustassa – varaa suoraan omistajalta ilman välityspalkkioita.",
 
     keywords: "Levi opas, Levi lumitilanne, Levi ladut, Levi rinteet, Levi hissiliput, Levi ravintolat, Levi revontulet",
     canonical: "https://leville.net",
     locale: "fi_FI"
   },
   en: {
-    title: "Leville.net – Levi Travel Guide: Snow, Slopes, Trails & Restaurants",
-    description: "A local-run Levi travel guide: up-to-date snow conditions, trails, slopes, lift tickets, restaurants and northern lights. See also our own apartments in Levi centre.",
+    title: "Leville.net – Accommodation in Levi Centre, Book Direct",
+    description: "A local, trusted Levi accommodation company since 2012. Apartments and cabins in Levi centre – book directly from the owner, no middleman fees.",
     keywords: "Levi guide, Levi snow report, Levi trails, Levi slopes, Levi lift tickets, Levi restaurants, northern lights Levi",
     canonical: "https://leville.net/en",
     locale: "en_US"
