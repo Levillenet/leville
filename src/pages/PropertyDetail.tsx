@@ -13,6 +13,7 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import PropertySchema from "@/components/PropertySchema";
+import { getBuildingGeo } from "@/data/buildingGeo";
 import OptimizedImage from "@/components/OptimizedImage";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -584,6 +585,7 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
         name={displayName}
         description={description}
         streetAddress={streetAddress}
+        geo={getBuildingGeo(streetAddress)}
       />
       <JsonLd data={breadcrumbSchema} />
 
