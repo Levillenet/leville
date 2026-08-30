@@ -30,6 +30,14 @@ function getLodgingBusiness() {
       addressRegion: "Lapland",
       addressCountry: "FI",
     },
+    alternateName: [
+      "Levi Apartments by Leville.net",
+      "Levillenet Glacier Alpine Chalets at Levi Centre",
+      "Levillenet Bearlodge at Levi city centre",
+      "Levillenet Bears Watch Apartments",
+      "Levillenet Skistar Superior Studios",
+      "Levi Platinum Superior Apartments",
+    ],
     areaServed: "Levi Finland",
     image: `${BASE_URL}/og-image.png`,
     telephone: "+358 44 13 13 13",
@@ -39,36 +47,10 @@ function getLodgingBusiness() {
   };
 }
 
-function getVacationRental() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "VacationRental",
-    name: "Levi Apartments by Leville.net",
-    alternateName: [
-      "Levillenet Glacier Alpine Chalets at Levi Centre",
-      "Levillenet Levi centre chalets",
-      "Levillenet Bearlodge at Levi city centre",
-      "Levillenet Bears Watch Apartments",
-      "Levillenet Skistar Superior Studios",
-      "Levillenet Skistar Superior 1-bedroom apartments",
-      "Levillenet Skistar Superior 2 bedroom apartments",
-      "Levi Platinum Superior Apartments",
-      "Levi Centre Moonlight Studio with Sauna 415",
-    ],
-    url: BASE_URL,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Levi",
-      addressRegion: "Lapland",
-      addressCountry: "FI",
-    },
-    amenityFeature: [
-      { "@type": "LocationFeatureSpecification", name: "Ski access", value: true },
-      { "@type": "LocationFeatureSpecification", name: "Central location", value: true },
-      { "@type": "LocationFeatureSpecification", name: "Short stay apartments", value: true },
-    ],
-  };
-}
+// Sivustonlaajuinen VacationRental poistettu: se ei kuvannut yhtä oikeaa
+// vuokrakohdetta (puuttui identifier/containsPlace/geo/image) ja Google merkitsi
+// sen virheelliseksi. Brändinimet elävät nyt LodgingBusiness.alternateName-kentässä.
+
 
 function getWebSite() {
   return {
@@ -94,21 +76,12 @@ const StructuredData = () => {
     return null;
   }
 
-  // Only LodgingBusiness, VacationRental, and WebSite are safe globally.
+  // Only LodgingBusiness and WebSite are safe globally.
   // Everything else (Article, FAQPage, BreadcrumbList, TouristDestination)
   // is page-specific and already handled by individual page components.
   // Property and street-hub pages emit their own, property-specific
-  // VacationRental / ApartmentComplex schema — don't duplicate the generic one.
-  const hasOwnRentalSchema =
-    pathname.startsWith("/vuokramokit/") ||
-    /^\/majoitukset\/.+/.test(pathname) ||
-    /^\/en\/accommodations\/.+/.test(pathname);
-
-  const schemas: Record<string, unknown>[] = [
-    getWebSite(),
-    getLodgingBusiness(),
-    ...(hasOwnRentalSchema ? [] : [getVacationRental()]),
-  ];
+  // VacationRental / ApartmentComplex schema.
+  const schemas: Record<string, unknown>[] = [getWebSite(), getLodgingBusiness()];
 
   return (
     <Helmet>

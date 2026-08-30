@@ -48,7 +48,7 @@ export const buildVacationRentalSchema = ({
   const images = [property.heroImage, ...(property.images ?? [])]
     .filter((src): src is string => Boolean(src))
     .filter((src, i, arr) => arr.indexOf(src) === i)
-    .slice(0, 3)
+    .slice(0, 12)
     .map(abs);
 
   const bathroomsTotal = Number.parseFloat(property.bathrooms);
@@ -89,6 +89,7 @@ export const buildVacationRentalSchema = ({
     "@context": "https://schema.org",
     "@type": "VacationRental",
     name,
+    identifier: property.slug,
     description,
     url: canonical,
     ...(images.length ? { image: images } : {}),
@@ -139,6 +140,10 @@ interface ComplexSchemaProps {
   streetAddress?: string;
   units: ComplexUnit[];
   images?: string[];
+  /** Stable identifier (hub slug). */
+  identifier?: string;
+  /** Optional coordinates — only pass when real data exists. */
+  geo?: { latitude: number; longitude: number };
 }
 
 /** ApartmentComplex JSON-LD for building/street hub pages. */
@@ -150,15 +155,18 @@ export const buildApartmentComplexSchema = ({
   streetAddress,
   units,
   images,
+  identifier,
+  geo,
 }: ComplexSchemaProps) => ({
   "@context": "https://schema.org",
   "@type": "ApartmentComplex",
   name,
+  ...(identifier ? { identifier } : {}),
   ...(alternateName && alternateName.length ? { alternateName } : {}),
   description,
   url: canonical,
   ...(images && images.length
-    ? { image: images.filter((v, i, a) => a.indexOf(v) === i).slice(0, 3).map(abs) }
+    ? { image: images.filter((v, i, a) => a.indexOf(v) === i).slice(0, 12).map(abs) }
     : {}),
   address: {
     "@type": "PostalAddress",
@@ -168,6 +176,9 @@ export const buildApartmentComplexSchema = ({
     addressRegion: "Lappi",
     addressCountry: "FI",
   },
+  ...(geo
+    ? { geo: { "@type": "GeoCoordinates", latitude: geo.latitude, longitude: geo.longitude } }
+    : {}),
   numberOfAccommodationUnits: {
     "@type": "QuantitativeValue",
     value: units.length,

@@ -10,6 +10,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import PropertyCard from "@/components/PropertyCard";
 import JsonLd from "@/components/JsonLd";
 import { ApartmentComplexSchema } from "@/components/PropertySchema";
+import { getBuildingGeo } from "@/data/buildingGeo";
 import { properties } from "@/data/properties";
 import { getStreetHub, streetHubs } from "@/data/street-hubs";
 
@@ -101,6 +102,8 @@ const StreetHub = () => {
         description={hub.metaDescription}
         canonical={canonical}
         streetAddress={hub.address ?? hub.street}
+        identifier={hub.slug}
+        geo={getBuildingGeo(hub.address ?? hub.street)}
         images={items.map((p) => p.heroImage).filter((s): s is string => Boolean(s))}
         units={items.map((p) => ({
           name: p.name,
