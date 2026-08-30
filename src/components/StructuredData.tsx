@@ -39,36 +39,10 @@ function getLodgingBusiness() {
   };
 }
 
-function getVacationRental() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "VacationRental",
-    name: "Levi Apartments by Leville.net",
-    alternateName: [
-      "Levillenet Glacier Alpine Chalets at Levi Centre",
-      "Levillenet Levi centre chalets",
-      "Levillenet Bearlodge at Levi city centre",
-      "Levillenet Bears Watch Apartments",
-      "Levillenet Skistar Superior Studios",
-      "Levillenet Skistar Superior 1-bedroom apartments",
-      "Levillenet Skistar Superior 2 bedroom apartments",
-      "Levi Platinum Superior Apartments",
-      "Levi Centre Moonlight Studio with Sauna 415",
-    ],
-    url: BASE_URL,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Levi",
-      addressRegion: "Lapland",
-      addressCountry: "FI",
-    },
-    amenityFeature: [
-      { "@type": "LocationFeatureSpecification", name: "Ski access", value: true },
-      { "@type": "LocationFeatureSpecification", name: "Central location", value: true },
-      { "@type": "LocationFeatureSpecification", name: "Short stay apartments", value: true },
-    ],
-  };
-}
+// Sivustonlaajuinen VacationRental poistettu: se ei kuvannut yhtä oikeaa
+// vuokrakohdetta (puuttui identifier/containsPlace/geo/image) ja Google merkitsi
+// sen virheelliseksi. Brändinimet elävät nyt LodgingBusiness.alternateName-kentässä.
+
 
 function getWebSite() {
   return {
