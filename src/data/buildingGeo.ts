@@ -34,5 +34,8 @@ export function getBuildingGeo(streetAddress?: string | null): GeoPoint | undefi
   if (BUILDING_GEO[key]) return BUILDING_GEO[key];
   // Katutason osuma ilman numeroa (esim. "Leviraitti 10" -> "leviraitti")
   const streetOnly = key.replace(/\s+\d+.*$/, "");
-  return BUILDING_GEO[streetOnly];
+  if (BUILDING_GEO[streetOnly]) return BUILDING_GEO[streetOnly];
+  // Katuhubit ilman talonumeroa: käytetään kadun ensimmäistä tunnettua rakennusta.
+  const streetMatch = Object.keys(BUILDING_GEO).find((k) => k.startsWith(`${streetOnly} `));
+  return streetMatch ? BUILDING_GEO[streetMatch] : undefined;
 }
