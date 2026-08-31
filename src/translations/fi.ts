@@ -294,7 +294,7 @@ export const fi = {
     items: [
       {
         badge: "🍂 Ruska & talvi 2026",
-        date: "27.8.2026",
+        date: "31.8.2026",
         title: "Levin kesäkausi vaihtuu ruskaan ja talven treenikausiin",
         description: "Levin kesäkausi alkaa olla tältä vuodelta lopuillaan ja seuraavaksi katseet kääntyvät ruskaan. Syksyn yksi suurimmista tapahtumista on jälleen huippusuosittu Ruska-maraton, jonka aikaan Levin majoitustilanne on jo hyvin täynnä. Vielä muutamia majoituksia on saatavilla, mutta suurimmat kohteemme ovat jo täyttyneet.\n\nRuskan jälkeen talvi saapuu Leville nopeasti. Lokakuun alussa käynnistyy talvikausi, kun ensilumen latu ja Eturinne avautuvat. Silloin Levin maisemaan ilmestyy jälleen paljon treeniryhmiä, jotka saapuvat hakemaan huippuolosuhteita sekä lasketteluun että maastohiihtoon.\n\nErityisesti laskettelun osalta Levi on kansainvälisten joukkueiden suosiossa. Loka- ja marraskuun aikana Levillä harjoittelee runsaasti suomalaisia ja kansainvälisiä ryhmiä aina Levin maailmancupiin saakka. Meillä on jo vuosien kokemus joukkueiden ja urheiluseurojen majoittamisesta, ja tänäkin vuonna meillä majoittuu suuri määrä erilaisia joukkueita.\n\nTänä vuonna olemme halunneet viedä seurayhteistyötä vielä askeleen pidemmälle ja loimme uuden Seuratuki-konseptin. Maksamme seuroille 10 prosentin tuen seuran tekemistä majoitusvarauksista. Tuki ei rajoitu ainoastaan joukkueen omiin matkoihin, vaan se koskee myös ympäri vuoden seuran sidosryhmien, kannattajien ja perheiden tekemiä majoitusvarauksia Leville.\n\nSeuratukeen kannattaa tutustua tarkemmin osoitteessa leville.net/seuratuki. Näin myös tavallinen lomamatka Leville voi samalla tuoda taloudellista tukea omalle seuralle.\n\nTalven varaustilanne näyttää tällä hetkellä erittäin hyvältä. Varauksia on jo yli 50 prosenttia enemmän kuin normaalisti tähän aikaan vuodesta, joten mikäli mielessä on tietty kohde ja haluttu ajankohta, varaaminen kannattaa tehdä nyt. Mitä lähemmäs talvea mennään, sitä vaikeammaksi etenkin suurten ryhmien ja suosituimpien ajankohtien majoituksen löytäminen muuttuu.\n\nOlipa suunnitelmissa ruskan väriloisto, hiihtoleiri, laskettelun treenikausi tai talviloma perheen kanssa, tervetuloa Leville!",
         highlight: "Seuratuki tuo seuralle 10 % jokaisesta seuran kautta tulleesta majoitusvarauksesta – katso lisää osoitteesta leville.net/seuratuki."
@@ -328,22 +328,22 @@ export const fi = {
         highlight: "Vaikka kaikki ei mennyt täysin suunnitelmien mukaan, kokonaiskokemus Levistä jäi vahvasti mieleen ja palaute on ollut erittäin myönteistä."
       },
       {
-        badge: "🎿 Kevät 2025",
-        date: "29.12.2024",
+        badge: "🎿 Kevät 2026",
+        date: "5.1.2026",
         title: "Loppukeväälle on vielä tilaa Levillä",
         description: "Kevättalvi ja alkukevät ovat Levillä monen suosikkiaikaa. Valoisat päivät, loistavat hiihto- ja ulkoiluolosuhteet sekä rauhallisempi tunnelma tekevät loppukeväästä erinomaisen ajankohdan lomalle. Useissa majoituskohteissamme on vielä vapaita ajankohtia, joten nyt on hyvä hetki varata.",
         highlight: "Koodilla \"winter10\" saat nyt -10% alennuksen kevätkauden 2026 majoituksiin! Hyödynnä etusi heti!"
       },
       {
         badge: "🎄 Joulu 2026",
-        date: "29.12.2024",
+        date: "2.12.2025",
         title: "Joulukuu 2026 on nyt avattu myyntiin",
         description: "Olemme avanneet varaukset joulukuulle 2026. Joulusesonki on Levillä erittäin kysytty, ja suosituimmat päivät sekä majoitukset varataan usein pitkälle etukäteen. Varaamalla ajoissa varmistat, että saat juuri sinulle sopivat päivät ja mieluisimman majoituskohteen.",
         highlight: "Varaa ajoissa ja suunnittele matkasi rauhassa etukäteen!"
       },
       {
         badge: "🌟 Vinkki",
-        date: "29.12.2024",
+        date: "15.11.2025",
         title: "Varaa suoraan meiltä – paras hinta taattu",
         description: "Varaamalla suoraan Leville.netin kautta saat aina parhaan hinnan ilman välikäsiä. Tarjoamme henkilökohtaista palvelua ja joustavuutta varauksiin. Ota yhteyttä, niin autamme löytämään juuri sinulle sopivan majoituksen Leviltä.",
         highlight: "Suora varaus = paras hinta + henkilökohtainen palvelu!"
