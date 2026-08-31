@@ -1,33 +1,31 @@
-# Holiday rental -virhe: korjaus on koodissa, mutta ei vielä livenä
+# Julkaisu epäonnistuu: kaksi kriittistä havaintoa, joista toinen jo korjattu
 
-## Tilanne (tarkistettu juuri)
+## Syy julkaisuporttiin (tarkistettu)
 
-Hain `https://leville.net/` sekä normaalina että Googlebot-agenttina. Livenä olevassa
-HTML:ssä on edelleen vanha, virheellinen lohko:
+Julkaisun estää tietoturvaportti, jossa on 2 error-tason havaintoa. Kummatkin ovat
+**vanhentuneita skannauksia** (up_to_date: false):
 
-```text
-"@type": "VacationRental",
-"name": "Levi Apartments by Leville.net"
-```
+### 1. get-cleaning-status paljasti vieraiden tietoja (skannaus 12.3.2026)
+**Jo korjattu.** Koodi sisältää nyt admin/viewer-salasanatarkistuksen ennen minkään
+datan palautusta (varmistettu koodista rivit 21–29). Skannaus on vain vanha.
 
-Projektin koodissa tätä ei enää ole — `src/components/StructuredData.tsx` rivillä 50 on
-kommentti "Sivustonlaajuinen VacationRental poistettu", eikä tiedosto enää tuota sitä.
-
-Eli syy ei ole koodissa: **korjausta ei ole vielä julkaistu**, joten Googlen tänään
-crawlaama versio on edelleen vanha.
+### 2. guide_properties: WiFi-salasanat julkisesti luettavissa (skannaus 29.8.2026)
+**Jo korjattu.** Tarkistin saraketason oikeudet kannasta: `wifi_password`,
+`contact_phone`, `contact_email`, `contact_whatsapp` -sarakkeille ei ole enää
+anon/authenticated-oikeuksia (0 riviä). Arvot jaetaan vain `get-guide-wifi`
+-taustafunktion kautta.
 
 ## Mitä tehdään
 
-1. Julkaistaan sivusto (ei koodimuutoksia).
-2. Julkaisun jälkeen haetaan `https://leville.net/` uudelleen ja varmistetaan, että
-   `VacationRental` ei enää esiinny etusivun HTML:ssä ja että etusivulla on vain
-   `WebSite` + `LodgingBusiness`.
-3. Tarkistetaan samalla yksi kohdesivu (esim. `/majoitukset/zero-point-5a2`), että sen
-   oma `VacationRental` sisältää `identifier`, `geo`, `containsPlace` ja kuvat.
-4. Sinä pyydät Search Consolessa uudelleenindeksoinnin etusivulle (URL-tarkastus →
-   "Pyydä indeksointia"). Rikastetulostilan päivittyminen kestää yleensä muutamia päiviä.
+1. Merkitään molemmat havainnot korjatuksi (mark_as_fixed) — koska korjaukset on
+   jo todistettavasti tehty ja scannerit ovat vanhentuneita.
+2. Julkaistaan sivusto — tämän jälkeen Holiday rental -korjaus (poistettu
+   virheellinen VacationRental) menee livenä leville.net-osoitteeseen.
+3. Varmistetaan julkaisun jälkeen, että `https://leville.net/` ei enää sisällä
+   `VacationRental`-lohkoa ja että kohdesivun schema sisältää `identifier`, `geo`,
+   `containsPlace` ja kuvat.
+4. Sinä pyydät Search Consolessa uudelleenindeksoinnin etusivulle.
 
 ## Mitä EI tehdä
 
-- Ei muuteta otsikoita, kuvauksia, canonicaleja eikä ulkoasua.
-- Ei lisätä keksittyjä hintoja, arvosteluja tai koordinaatteja.
+- Ei koodimuutoksia, ei tietokantamuutoksia — vain havaintojen tilan päivitys ja julkaisu.
