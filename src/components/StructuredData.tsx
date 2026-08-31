@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const BASE_URL = "https://leville.net";
@@ -31,7 +32,6 @@ function getLodgingBusiness() {
       addressCountry: "FI",
     },
     alternateName: [
-      "Levi Apartments by Leville.net",
       "Levillenet Glacier Alpine Chalets at Levi Centre",
       "Levillenet Bearlodge at Levi city centre",
       "Levillenet Bears Watch Apartments",
@@ -68,8 +68,46 @@ function getWebSite() {
   };
 }
 
+const isInvalidLegacyRental = (value: unknown) => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+
+  const schema = value as Record<string, unknown>;
+  return (
+    schema["@type"] === "VacationRental" &&
+    schema.name === "Levi Apartments by Leville.net" &&
+    (!schema.identifier || !schema.containsPlace || !schema.geo || !schema.image)
+  );
+};
+
+/**
+ * Removes only the obsolete sitewide VacationRental left in an old prerendered
+ * HTML snapshot. Real property schemas have identifiers, images, coordinates
+ * and containsPlace, so they are never matched by this cleanup.
+ */
+const removeInvalidLegacyRental = () => {
+  document.querySelectorAll<HTMLScriptElement>('script[type="application/ld+json"]').forEach((script) => {
+    try {
+      const parsed: unknown = JSON.parse(script.textContent ?? "");
+
+      if (Array.isArray(parsed)) {
+        const cleaned = parsed.filter((item) => !isInvalidLegacyRental(item));
+        if (cleaned.length !== parsed.length) script.textContent = JSON.stringify(cleaned);
+        return;
+      }
+
+      if (isInvalidLegacyRental(parsed)) script.remove();
+    } catch {
+      // Leave unrelated or temporarily incomplete JSON-LD untouched.
+    }
+  });
+};
+
 const StructuredData = () => {
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    removeInvalidLegacyRental();
+  }, [pathname]);
 
   // Don't inject global schemas on admin or utility pages
   if (pathname.startsWith("/admin") || pathname === "/unsubscribe") {
