@@ -558,26 +558,40 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return property?.maxGuests || 2;
   }, [getPropertyWithOverride]);
 
-  // Generate WhatsApp booking URL for Beds24 deal - localized messages
-  const generateWhatsAppUrl = useCallback((deal: Beds24Deal): string => {
-    const totalPrice = getTotalPrice(deal);
+  // Generate WhatsApp booking URL for a deal - localized messages
+  const generateWhatsAppUrl = useCallback((deal: Beds24Deal, nights: number): string => {
+    const totalPrice = getTotalPrice(deal, nights);
+    const displayCheckOut = addDaysIso(deal.checkIn, nights);
     const marketingName = getMarketingName(deal);
     const property = getPropertyWithOverride(deal.roomId);
     const whatsappNumber = property?.whatsappNumber?.replace('+', '') || '35844131313';
-    
-    const messages: Record<string, string> = {
-      fi: `Hei, olen kiinnostunut äkkilähdöstä: ${marketingName}, ajalle ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Hinta: ${totalPrice}€.` : ""} Onko kohde vielä vapaana?`,
-      en: `Hello, I'm interested in a last-minute deal: ${marketingName}, for ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Price: ${totalPrice}€.` : ""} Is the property still available?`,
-      sv: `Hej, jag är intresserad av ett sista minuten-erbjudande: ${marketingName}, för ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Pris: ${totalPrice}€.` : ""} Är boendet fortfarande ledigt?`,
-      de: `Hallo, ich interessiere mich für ein Last-Minute-Angebot: ${marketingName}, für ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Preis: ${totalPrice}€.` : ""} Ist die Unterkunft noch verfügbar?`,
-      es: `Hola, estoy interesado en una oferta de última hora: ${marketingName}, para ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Precio: ${totalPrice}€.` : ""} ¿Está disponible el alojamiento?`,
-      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${marketingName}, pour ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Prix : ${totalPrice}€.` : ""} Le logement est-il encore disponible ?`,
-      nl: `Hallo, ik ben geïnteresseerd in een last-minute aanbieding: ${marketingName}, voor ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(deal.checkOut)}.${totalPrice ? ` Prijs: ${totalPrice}€.` : ""} Is de accommodatie nog beschikbaar?`
+    const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
+    const flexible = windowNights > nights;
+
+    const flexNotes: Record<string, string> = {
+      fi: ` Kohteessa on vapaana yhteensä ${windowNights} yötä, joten päivät ovat joustavat.`,
+      en: ` The property has ${windowNights} nights available in total, so the dates are flexible.`,
+      sv: ` Boendet har ${windowNights} nätter lediga totalt, så datumen är flexibla.`,
+      de: ` Die Unterkunft hat insgesamt ${windowNights} Nächte frei, die Daten sind also flexibel.`,
+      es: ` El alojamiento tiene ${windowNights} noches disponibles en total, las fechas son flexibles.`,
+      fr: ` Le logement a ${windowNights} nuits disponibles au total, les dates sont donc flexibles.`,
+      nl: ` De accommodatie heeft in totaal ${windowNights} nachten beschikbaar, dus de data zijn flexibel.`
     };
-    
+    const flex = flexible ? (flexNotes[lang] || flexNotes.fi) : "";
+
+    const messages: Record<string, string> = {
+      fi: `Hei, olen kiinnostunut äkkilähdöstä: ${marketingName}, ajalle ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Hinta: ${totalPrice}€.` : ""}${flex} Onko kohde vielä vapaana?`,
+      en: `Hello, I'm interested in a last-minute deal: ${marketingName}, for ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Price: ${totalPrice}€.` : ""}${flex} Is the property still available?`,
+      sv: `Hej, jag är intresserad av ett sista minuten-erbjudande: ${marketingName}, för ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Pris: ${totalPrice}€.` : ""}${flex} Är boendet fortfarande ledigt?`,
+      de: `Hallo, ich interessiere mich für ein Last-Minute-Angebot: ${marketingName}, für ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Preis: ${totalPrice}€.` : ""}${flex} Ist die Unterkunft noch verfügbar?`,
+      es: `Hola, estoy interesado en una oferta de última hora: ${marketingName}, para ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Precio: ${totalPrice}€.` : ""}${flex} ¿Está disponible el alojamiento?`,
+      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${marketingName}, pour ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Prix : ${totalPrice}€.` : ""}${flex} Le logement est-il encore disponible ?`,
+      nl: `Hallo, ik ben geïnteresseerd in een last-minute aanbieding: ${marketingName}, voor ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Prijs: ${totalPrice}€.` : ""}${flex} Is de accommodatie nog beschikbaar?`
+    };
+
     const message = messages[lang] || messages.fi;
     return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-  }, [getTotalPrice, getMarketingName, getPropertyWithOverride, formatDateDisplay, lang]);
+  }, [getTotalPrice, getMarketingName, getPropertyWithOverride, formatDateDisplay, nightsText, lang]);
 
   // Combine manual and Beds24 deals for schema - memoized
   const allDealsForSchema = useMemo(() => beds24Deals.map((deal, index) => ({
