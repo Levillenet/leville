@@ -478,84 +478,59 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return today.toDateString() === checkDate.toDateString();
   }, []);
 
-  // Get original API price + cleaning fee (no discounts applied)
-  const getOriginalApiPrice = useCallback((deal: Beds24Deal): number | null => {
-    if (deal.price == null) return null;
+  // Nights displayed for a deal under the current filter (window capped at 7)
+  const getDisplayNights = useCallback((deal: Beds24Deal): number => {
+    const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
+    return Math.min(requiredNights, windowNights);
+  }, [requiredNights]);
+
+  // Moder price for a given stay length (EUR, excluding cleaning fee)
+  const getModerPrice = useCallback((deal: Beds24Deal, nights: number): number | null => {
+    const p = deal.pricesByNights?.[String(nights)];
+    if (typeof p === 'number' && p > 0) return p;
+    if (nights === deal.nights && deal.price != null && deal.price > 0) return deal.price;
+    return null;
+  }, []);
+
+  // Cleaning fee: prefer Moder mapping value, fallback to property settings
+  const getCleaningFee = useCallback((deal: Beds24Deal): number => {
+    if (typeof deal.cleaningFee === 'number' && deal.cleaningFee > 0) return deal.cleaningFee;
     const property = getPropertyWithOverride(deal.roomId);
-    const cleaningFee = property?.cleaningFee || 0;
-    return Math.round(deal.price + cleaningFee);
+    return property?.cleaningFee || 0;
   }, [getPropertyWithOverride]);
 
-  // Get PropertyAdmin discounted price (before any special offer)
-  const getPropertyAdminPrice = useCallback((deal: Beds24Deal): number | null => {
-    if (deal.price == null) return null;
-    const property = getPropertyWithOverride(deal.roomId);
-    const cleaningFee = property?.cleaningFee || 0;
-    let basePrice = deal.price;
+  // Normal price shown as reference: Moder price + cleaning fee (no discounts)
+  const getOriginalApiPrice = useCallback((deal: Beds24Deal, nights: number): number | null => {
+    const base = getModerPrice(deal, nights);
+    if (base == null) return null;
+    return Math.round(base + getCleaningFee(deal));
+  }, [getModerPrice, getCleaningFee]);
 
-    // Apply property-level discounts based on number of nights
-    let discount = 0;
-    if (deal.nights === 1 && property?.oneNightDiscount) {
-      discount = property.oneNightDiscount;
-    } else if (deal.nights === 2 && property?.twoNightDiscount) {
-      discount = property.twoNightDiscount;
-    } else if (deal.nights >= 3 && property?.longStayDiscount) {
-      discount = property.longStayDiscount;
-    }
+  // Final price: Moder price - base discount - period custom discount, + cleaning fee
+  const getTotalPrice = useCallback((deal: Beds24Deal, nights: number): number | null => {
+    const base = getModerPrice(deal, nights);
+    if (base == null) return null;
 
-    if (discount > 0) {
-      basePrice = basePrice * (1 - discount / 100);
-    }
+    let price = base * (1 - dealsBaseDiscount / 100);
 
-    return Math.round(basePrice + cleaningFee);
-  }, [getPropertyWithOverride]);
-
-  // Calculate total price with cleaning fee and discounts
-  const getTotalPrice = useCallback((deal: Beds24Deal): number | null => {
-    if (deal.price == null) return null;
-
-    // Get PropertyAdmin discounted price first
-    const propertyAdminPrice = getPropertyAdminPrice(deal);
-    if (propertyAdminPrice == null) return null;
-
-    // Check for period-specific custom discount (from admin) - applied as ADDITIONAL discount
-    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
+    // Period-specific custom discount (from admin) - applied as ADDITIONAL discount
+    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, addDaysIso(deal.checkIn, nights));
     if (periodS.customDiscount && periodS.customDiscount > 0) {
-      // Apply custom discount on top of PropertyAdmin price (additional discount)
-      return Math.round(propertyAdminPrice * (1 - periodS.customDiscount / 100));
+      price = price * (1 - periodS.customDiscount / 100);
     }
 
-    return propertyAdminPrice;
-  }, [getPropertyAdminPrice, getPeriodSettingsFromDb]);
+    return Math.round(price + getCleaningFee(deal));
+  }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb]);
 
-  // Get discount info for display - show if showDiscount toggle is enabled
-  const getDiscountInfo = useCallback((deal: Beds24Deal): { totalDiscount: number; showBadge: boolean } => {
-    const property = getPropertyWithOverride(deal.roomId);
-    let discount = 0;
-    
-    if (deal.nights === 1 && property?.oneNightDiscount) {
-      discount = property.oneNightDiscount;
-    } else if (deal.nights === 2 && property?.twoNightDiscount) {
-      discount = property.twoNightDiscount;
-    } else if (deal.nights >= 3 && property?.longStayDiscount) {
-      discount = property.longStayDiscount;
-    }
-    
-    return {
-      totalDiscount: discount,
-      showBadge: property?.showDiscount === true && discount > 0
-    };
-  }, [getPropertyWithOverride]);
-
-  // Check if ski pass offer applies to this deal (using database)
-  const hasSkiPassOffer = useCallback((deal: Beds24Deal): boolean => {
-    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
+  // Check if ski pass offer applies to this deal (using displayed dates)
+  const hasSkiPassOffer = useCallback((deal: Beds24Deal, nights: number): boolean => {
+    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, addDaysIso(deal.checkIn, nights));
     return periodS.hasSkiPass;
   }, [getPeriodSettingsFromDb]);
 
-  // Check if special offer is active (from database)
-  const hasSpecialOffer = useCallback((deal: Beds24Deal): boolean => {
-    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
+  // Check if special offer is active (using displayed dates)
+  const hasSpecialOffer = useCallback((deal: Beds24Deal, nights: number): boolean => {
+    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, addDaysIso(deal.checkIn, nights));
     return periodS.specialOffer || false;
   }, [getPeriodSettingsFromDb]);
 
