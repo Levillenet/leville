@@ -364,39 +364,54 @@ const disabledContent: Record<Language, { heading: string; body: string; cta: st
   }
 };
 
-type NightFilter = "all" | "short" | "long";
+type NightFilter = "2" | "3" | "4plus";
+
+// Add n days to an ISO date string (yyyy-mm-dd)
+const addDaysIso = (dateStr: string, days: number): string => {
+  const d = new Date(dateStr + "T00:00:00Z");
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+};
 
 const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
-  const [nightFilter, setNightFilter] = useState<NightFilter>("all");
+  const [nightFilter, setNightFilter] = useState<NightFilter>("3");
 
-  // Fetch Beds24 deals
+  // Fetch Moder deals
   const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
-    queryKey: ['beds24-availability'],
+    queryKey: ['moder-availability'],
     queryFn: fetchBeds24Availability,
-    staleTime: 60 * 60 * 1000, // 1 hour cache (Beds24 allows 100 requests/day)
+    staleTime: 60 * 60 * 1000, // 1 hour cache (matches server cache)
   });
 
   // Fetch admin settings from database
   const { data: adminSettings, isLoading: isLoadingSettings } = useAdminSettings();
-  
+
   const propertySettings = adminSettings?.propertySettings || [];
   const periodSettings = adminSettings?.periodSettings || [];
   const dealsEnabled = (adminSettings?.siteSettings?.find(s => s.id === 'deals_enabled')?.value) !== false;
-  
+  const baseDiscountRaw = adminSettings?.siteSettings?.find(s => s.id === 'deals_base_discount')?.value;
+  const dealsBaseDiscount = (() => {
+    const n = typeof baseDiscountRaw === 'number' ? baseDiscountRaw : parseInt(String(baseDiscountRaw ?? '0'), 10);
+    return isNaN(n) || n < 0 ? 0 : Math.min(n, 90);
+  })();
+
   const isLoading = isLoadingDeals || isLoadingSettings;
 
-  // Filter deals based on night filter - memoized
-  const filteredDeals = useMemo(() => 
+  // How many nights the selected filter wants to display
+  const requiredNights = nightFilter === "2" ? 2 : nightFilter === "3" ? 3 : 4;
+
+  // Filter deals: window must fit the selected length and respect min stay - memoized
+  const filteredDeals = useMemo(() =>
     beds24Deals.filter((deal) => {
-      // Never show stays longer than 7 nights
-      if (deal.nights > 7) return false;
-      if (nightFilter === "all") return true;
-      if (nightFilter === "short") return deal.nights <= 2;
-      if (nightFilter === "long") return deal.nights >= 3;
+      const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
+      const minNights = deal.minNights ?? 1;
+      if (windowNights < 2) return false;
+      if (windowNights < requiredNights) return false;
+      if (minNights > requiredNights) return false;
       return true;
-    }), [beds24Deals, nightFilter]);
+    }), [beds24Deals, requiredNights]);
 
   // Helper to get property with DB override - memoized
   const getPropertyWithOverride = useCallback((roomId: string) => {
