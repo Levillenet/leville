@@ -933,7 +933,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                       </span>
                                     </>
                                   ) : (
-                                    <span className={`font-bold ${hasSpecialOffer(deal) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
+                                    <span className={`font-bold ${hasSpecialOffer(deal, displayNights) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
                                       {totalPrice}€
                                     </span>
                                   )}
@@ -980,7 +980,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           <div className="space-y-3">
                             {/* Primary: WhatsApp booking */}
                             <a
-                              href={generateWhatsAppUrl(deal)}
+                              href={generateWhatsAppUrl(deal, displayNights)}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
