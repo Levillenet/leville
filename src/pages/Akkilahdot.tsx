@@ -760,16 +760,18 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 {filteredDeals.map((deal, index) => {
                   const isSameDay = isToday(deal.checkIn);
-                  const totalPrice = getTotalPrice(deal);
-                  const originalPrice = getOriginalApiPrice(deal);
+                  const displayNights = getDisplayNights(deal);
+                  const displayCheckOut = addDaysIso(deal.checkIn, displayNights);
+                  const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
+                  const totalPrice = getTotalPrice(deal, displayNights);
+                  const originalPrice = getOriginalApiPrice(deal, displayNights);
                   const bookingUrl = getBookingUrl(deal.roomId);
                   const marketingName = getMarketingName(deal);
                   const category = getPropertyCategory(deal.roomId);
-                  const discountInfo = getDiscountInfo(deal);
-                  const dealPeriodSettings = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, deal.checkOut);
-                  // Show strikethrough when showDiscountBadge is on AND there's any discount (property-level OR special offer)
-                  const hasAnyDiscount = discountInfo.totalDiscount > 0 || (dealPeriodSettings.customDiscount && dealPeriodSettings.customDiscount > 0);
-                  const showStrikethrough = dealPeriodSettings.showDiscountBadge === true && hasAnyDiscount;
+                  const dealPeriodSettings = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, displayCheckOut);
+                  // Strikethrough whenever the final price is below the normal (Moder) price
+                  const showStrikethrough = originalPrice != null && totalPrice != null && totalPrice < originalPrice;
+                  const discountPct = showStrikethrough ? Math.round((1 - totalPrice / originalPrice) * 100) : 0;
                   
                   return (
                     <ScrollReveal key={deal.id} delay={index * 0.1}>
