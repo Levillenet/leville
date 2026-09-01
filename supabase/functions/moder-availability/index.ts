@@ -279,6 +279,9 @@ serve(async (req) => {
     const roomTypesParam = roomTypeIds.map(id => `room_types[]=${id}`).join("&");
     const availRes = await moderFetch(token, `/api/v1/availabilities?date_start=${dateStart}&date_end=${dateEnd}&${roomTypesParam}`);
     if (!availRes.ok) {
+      // Diagnostic: does the token work at all? Try the room-types endpoint
+      const rtRes = await moderFetch(token, `/room-types`);
+      console.log(`Room-types diagnostic: ok=${rtRes.ok} status=${rtRes.status}`);
       throw new Error(`Moder availabilities failed (status ${availRes.status})`);
     }
     console.log("Moder base URL:", availRes.base);
