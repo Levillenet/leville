@@ -15,9 +15,25 @@ Toteutus:
 
 - Uusi edge-funktio `moder-availability`.
 - Huoneistotyypit luetaan `moder_property_mapping`-taulusta (`moder_room_type_id`). Kaksi kohdetta (Karhupirtti, Skistar 322) on ilman Moder-id:tä — ne jäävät listalta pois, kunnes id lisätään.
-- Vapaat jaksot muodostetaan päiväkohtaisesta saatavuudesta samalla logiikalla kuin nyt: peräkkäiset vapaat päivät → jakso, huomioiden `min_nights`, `checkin_denied`, `checkout_denied` ja `blackout`. Aikaikkuna edelleen `deals_days_ahead` (nyt 28) ja enintään 7 yön jaksot näytetään.
-- Jakson hinta haetaan `prices`-endpointista (`guests_adults=2`), hinnat ovat sentteinä → jaetaan 100:lla.
-- Vastauksen muoto pidetään identtisenä nykyisen `Beds24Deal`-rakenteen kanssa (`roomId`, `roomName`, `checkIn`, `checkOut`, `nights`, `price`), jolloin etusivun ja `/akkilahdot`-sivun rakenteeseen ei tarvita isoja muutoksia. `roomId` mapataan takaisin Beds24-id:ksi, jotta olemassa olevat siivousmaksut, markkinointinimet ja WhatsApp-numerot `propertyDetails.ts`:stä ja `property_settings`-taulusta osuvat oikein.
+- Vapaat jaksot muodostetaan päiväkohtaisesta saatavuudesta: peräkkäiset vapaat päivät → yhtenäinen vapaa ikkuna, huomioiden `min_nights`, `checkin_denied`, `checkout_denied` ja `blackout`. Aikaikkuna edelleen `deals_days_ahead` (nyt 28).
+- Funktio palauttaa **vapaan ikkunan sekä sen yökohtaiset hinnat** (`prices`-endpointin `dates`-taulukko), jolloin minkä tahansa lyhyemmän osajakson hinta voidaan laskea suoraan. Hinnat ovat sentteinä → jaetaan 100:lla.
+- Kenttänimet pidetään yhteensopivina nykyisen `Beds24Deal`-rakenteen kanssa (`roomId`, `roomName`, `checkIn`, `checkOut`, `nights`, `price`) ja lisätään `nightlyPrices` sekä `windowNights`. `roomId` mapataan takaisin Beds24-id:ksi, jotta olemassa olevat siivousmaksut, markkinointinimet ja WhatsApp-numerot `propertyDetails.ts`:stä ja `property_settings`-taulusta osuvat oikein.
+
+## 1b. Jaksojen pilkkominen ja uudet suodattimet
+
+Pitkiä vapaita ikkunoita ei enää näytetä sellaisenaan — niistä myydään mitä tahansa öitä.
+
+- Näytettävä jakso on **enintään 7 yötä**, vaikka vapaana olisi esim. 14 yötä.
+- Yläreunan suodattimet muuttuvat: **2 yötä / 3 yötä / 4+ yötä** (nykyisten "kaikki / 1–2 / 3+" tilalle).
+- Valittu suodatin määrää näytettävän jakson pituuden ikkunan alusta laskien:
+  - "2 yötä" → 2 yön jakso
+  - "3 yötä" → 3 yön jakso
+  - "4+ yötä" → pisin mahdollinen, kuitenkin enintään 7 yötä
+- Ikkuna näytetään vain, jos siitä saadaan valitun mittainen jakso ja kohteen `min_nights` täyttyy.
+- Kun vapaa ikkuna on pidempi kuin näytetty jakso, kortissa näkyy huomautus: *"Tällä jaksolla on vapaana yhteensä X yötä — voit valita haluamasi päivät. Kysy WhatsAppilla."* Teksti käännetään kaikille 7 kielelle.
+- Jakson hinta lasketaan yökohtaisten hintojen summana + siivousmaksu, joten pilkottu jakso hinnoitellaan oikein.
+- WhatsApp-viestiin lisätään tieto koko vapaasta ikkunasta, jotta asiakas voi pyytää eri pituutta.
+
 
 ## 2. Hakutiheys
 
@@ -48,8 +64,8 @@ Lopullinen hinta            = perusalennettu hinta × (1 − jaksokohtainen alen
 
 ## 4. Mitä säilyy ennallaan
 
-- WhatsApp-varauspyyntö samalla viestipohjalla ja hinnalla, kaikilla 7 kielellä.
-- Suodattimet (kaikki / 1–2 yötä / 3+ yötä), 7 yön yläraja, hissilippu- ja erikoistarjousmerkinnät, jaksokohtaiset asetukset ja niiden hallinta.
+- WhatsApp-varauspyyntö samalla viestipohjalla ja hinnalla, kaikilla 7 kielellä (täydennettynä vapaan ikkunan pituudella).
+- 7 yön yläraja, hissilippu- ja erikoistarjousmerkinnät, jaksokohtaiset asetukset ja niiden hallinta.
 - Etusivun hakubanneri ja Moderin varauswidget: ei muutoksia.
 - Sivun ulkoasu, SEO-metat ja JSON-LD-rakenne.
 
@@ -58,6 +74,7 @@ Lopullinen hinta            = perusalennettu hinta × (1 − jaksokohtainen alen
 - Kutsutaan `moder-availability` suoraan ja tarkistetaan, että jaksot ja hinnat tulevat oikein useammalle kohteelle.
 - Verrataan muutamaa jaksoa Moderin varaussivun hintaan, että summat täsmäävät.
 - Playwright: `/akkilahdot` näyttää kortit, yliviivatun normaalihinnan ja alennetun hinnan; WhatsApp-linkin viesti sisältää lopullisen hinnan.
+- Testataan suodattimet 2 / 3 / 4+ yötä ja varmistetaan, että pitkä vapaa ikkuna näkyy pilkottuna oikean mittaisena ja "muitakin vaihtoehtoja" -huomautus näkyy.
 - Tarkistetaan välimuistin osuma- ja uudelleenhakukäyttäytyminen lokeista.
 
 ## Tekniset yksityiskohdat
