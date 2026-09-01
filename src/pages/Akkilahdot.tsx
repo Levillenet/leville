@@ -593,18 +593,21 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
   }, [getTotalPrice, getMarketingName, getPropertyWithOverride, formatDateDisplay, nightsText, lang]);
 
-  // Combine manual and Beds24 deals for schema - memoized
-  const allDealsForSchema = useMemo(() => beds24Deals.map((deal, index) => ({
-    "@type": "Offer",
-    "position": index + 1,
-    "name": deal.roomName,
-    "description": `${deal.roomName} - ${deal.nights} nights`,
-    "price": getTotalPrice(deal) || 0,
-    "priceCurrency": "EUR",
-    "availability": "https://schema.org/LimitedAvailability",
-    "validFrom": deal.checkIn,
-    "validThrough": deal.checkOut
-  })), [beds24Deals, getTotalPrice]);
+  // Combine deals for schema - memoized (3-night example price)
+  const allDealsForSchema = useMemo(() => beds24Deals.map((deal, index) => {
+    const schemaNights = Math.min(3, Math.min(deal.windowNights ?? deal.nights, 7));
+    return {
+      "@type": "Offer",
+      "position": index + 1,
+      "name": deal.roomName,
+      "description": `${deal.roomName} - ${schemaNights} nights`,
+      "price": getTotalPrice(deal, schemaNights) || 0,
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/LimitedAvailability",
+      "validFrom": deal.checkIn,
+      "validThrough": addDaysIso(deal.checkIn, schemaNights)
+    };
+  }), [beds24Deals, getTotalPrice]);
 
   const schemaData = useMemo(() => ({
     "@context": "https://schema.org",
