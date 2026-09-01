@@ -58,24 +58,29 @@ interface Beds24Deal {
   currency: string;
   maxPersons: number;
   available: boolean;
+  // Moder-specific: full free window length and prices per stay length
+  windowNights?: number;
+  minNights?: number;
+  pricesByNights?: Record<string, number | null>;
+  cleaningFee?: number;
 }
 
 // Manual special deals - easy to update
 const manualDeals: ManualDeal[] = [];
 
-// Fetch Beds24 availability
+// Fetch Moder availability (replaces Beds24)
 const fetchBeds24Availability = async (): Promise<Beds24Deal[]> => {
   try {
-    const { data, error } = await supabase.functions.invoke('beds24-availability');
+    const { data, error } = await supabase.functions.invoke('moder-availability');
 
     if (error) {
-      console.error('Error fetching Beds24 availability:', error);
+      console.error('Error fetching Moder availability:', error);
       return [];
     }
 
     return data?.deals || [];
   } catch (err) {
-    console.error('Error fetching Beds24 availability:', err);
+    console.error('Error fetching Moder availability:', err);
     return [];
   }
 };
@@ -110,9 +115,10 @@ const content = {
       "Nopea varaus WhatsAppilla",
       "Rajoitettu saatavuus – toimi nopeasti!"
     ],
-    filterAll: "Kaikki",
-    filterShort: "1-2 yötä",
-    filterLong: "3+ yötä"
+    filter2: "2 yötä",
+    filter3: "3 yötä",
+    filter4plus: "4+ yötä",
+    moreOptions: "Jaksolla vapaana yhteensä {n} yötä – voit valita haluamasi päivät. Kysy WhatsAppilla!"
   },
   en: {
     meta: {
@@ -143,9 +149,10 @@ const content = {
       "Quick booking via WhatsApp",
       "Limited availability – act fast!"
     ],
-    filterAll: "All",
-    filterShort: "1-2 nights",
-    filterLong: "3+ nights"
+    filter2: "2 nights",
+    filter3: "3 nights",
+    filter4plus: "4+ nights",
+    moreOptions: "{n} nights available in this window – choose your own dates. Ask via WhatsApp!"
   },
   sv: {
     meta: {
@@ -176,9 +183,10 @@ const content = {
       "Snabb bokning via WhatsApp",
       "Begränsad tillgänglighet – agera snabbt!"
     ],
-    filterAll: "Alla",
-    filterShort: "1-2 nätter",
-    filterLong: "3+ nätter"
+    filter2: "2 nätter",
+    filter3: "3 nätter",
+    filter4plus: "4+ nätter",
+    moreOptions: "{n} nätter lediga i perioden – välj dina egna datum. Fråga via WhatsApp!"
   },
   de: {
     meta: {
@@ -209,9 +217,10 @@ const content = {
       "Schnelle Buchung via WhatsApp",
       "Begrenzte Verfügbarkeit – handeln Sie schnell!"
     ],
-    filterAll: "Alle",
-    filterShort: "1-2 Nächte",
-    filterLong: "3+ Nächte"
+    filter2: "2 Nächte",
+    filter3: "3 Nächte",
+    filter4plus: "4+ Nächte",
+    moreOptions: "{n} Nächte in diesem Zeitraum frei – wählen Sie Ihre Daten. Per WhatsApp anfragen!"
   },
   es: {
     meta: {
@@ -242,9 +251,10 @@ const content = {
       "Reserva rápida vía WhatsApp",
       "¡Disponibilidad limitada – actúa rápido!"
     ],
-    filterAll: "Todos",
-    filterShort: "1-2 noches",
-    filterLong: "3+ noches"
+    filter2: "2 noches",
+    filter3: "3 noches",
+    filter4plus: "4+ noches",
+    moreOptions: "{n} noches disponibles en este período – elige tus fechas. ¡Pregunta por WhatsApp!"
   },
   fr: {
     meta: {
@@ -275,9 +285,10 @@ const content = {
       "Réservation rapide via WhatsApp",
       "Disponibilité limitée – agissez vite !"
     ],
-    filterAll: "Tous",
-    filterShort: "1-2 nuits",
-    filterLong: "3+ nuits"
+    filter2: "2 nuits",
+    filter3: "3 nuits",
+    filter4plus: "4+ nuits",
+    moreOptions: "{n} nuits disponibles sur cette période – choisissez vos dates. Demandez via WhatsApp !"
   },
   nl: {
     meta: {
@@ -308,9 +319,10 @@ const content = {
       "Snel boeken via WhatsApp",
       "Beperkte beschikbaarheid – wees er snel bij!"
     ],
-    filterAll: "Alle",
-    filterShort: "1-2 nachten",
-    filterLong: "3+ nachten"
+    filter2: "2 nachten",
+    filter3: "3 nachten",
+    filter4plus: "4+ nachten",
+    moreOptions: "{n} nachten beschikbaar in deze periode – kies je eigen data. Vraag via WhatsApp!"
   }
 };
 

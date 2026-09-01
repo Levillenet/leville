@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Loader2, CalendarDays, Eye } from 'lucide-react';
+import { Loader2, CalendarDays, Eye, Percent } from 'lucide-react';
 import { useAdminSettingsManager } from '@/hooks/useAdminSettings';
 
 interface SiteSettingsAdminProps {
@@ -14,6 +14,7 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const { settings, isLoading, updateSiteSetting, isSaving } = useAdminSettingsManager();
   const [dealsDaysAhead, setDealsDaysAhead] = useState<number>(14);
   const [dealsEnabled, setDealsEnabled] = useState<boolean>(true);
+  const [dealsBaseDiscount, setDealsBaseDiscount] = useState<number>(0);
   
   // Load current values from settings
   useEffect(() => {
@@ -31,6 +32,15 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
       if (enabledSetting?.value !== undefined) {
         setDealsEnabled(enabledSetting.value !== false);
       }
+      const discountSetting = settings.siteSettings.find(s => s.id === 'deals_base_discount');
+      if (discountSetting?.value !== undefined) {
+        const value = typeof discountSetting.value === 'number'
+          ? discountSetting.value
+          : parseInt(String(discountSetting.value), 10);
+        if (!isNaN(value)) {
+          setDealsBaseDiscount(value);
+        }
+      }
     }
   }, [settings?.siteSettings]);
 
@@ -42,6 +52,11 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const handleToggleEnabled = (checked: boolean) => {
     setDealsEnabled(checked);
     updateSiteSetting({ settingId: 'deals_enabled', value: checked });
+  };
+
+  const handleBaseDiscount = (pct: number) => {
+    setDealsBaseDiscount(pct);
+    updateSiteSetting({ settingId: 'deals_base_discount', value: pct });
   };
 
   if (isLoading) {
@@ -97,6 +112,34 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
+          <div className="space-y-3">
+            <Label className="text-base font-medium flex items-center gap-2">
+              <Percent className="w-4 h-4 text-muted-foreground" />
+              Perusalennus: {dealsBaseDiscount}%
+            </Label>
+
+            <div className="flex flex-wrap gap-2">
+              {[0, 5, 10, 15, 20, 25, 30].map(pct => (
+                <Button
+                  key={pct}
+                  type="button"
+                  size="lg"
+                  variant={dealsBaseDiscount === pct ? "default" : "outline"}
+                  className="h-12 px-6 text-lg"
+                  onClick={() => handleBaseDiscount(pct)}
+                  disabled={isSaving}
+                >
+                  {pct}%
+                </Button>
+              ))}
+            </div>
+
+            <p className="text-sm text-muted-foreground mt-2">
+              Automaattinen alennus, joka lasketaan Moderin hinnasta kaikille äkkilähdöille.
+              Jaksokohtaisilla alennuksilla (Jaksoasetukset) voit antaa lisäalennusta.
+            </p>
+          </div>
+
           <div className="space-y-3">
             <Label className="text-base font-medium">
               Näytä äkkilähtöjä {dealsDaysAhead} päivää etukäteen
