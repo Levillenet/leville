@@ -1,42 +1,69 @@
-# Moder API:n hinta- ja saatavuushaut äkkilähtöihin
+# Äkkilähdöt Moderin rajapinnalle + perusalennus
 
-## Vastaus: kyllä saa
+## Yhteenveto
 
-Moderin julkisen rajapinnan dokumentaatiossa (Swagger) on suoraan kaksi sopivaa endpointia:
+Äkkilähtöjen hinnat ja saatavuus haetaan jatkossa Moderin rajapinnasta Beds24:n sijaan. Admin-asetuksiin lisätään uusi **perusalennus (%)**, joka lasketaan automaattisesti Moderin hinnasta. Jaksokohtainen alennus säilyy ennallaan lisäalennuksena. Varaaminen jatkuu WhatsApp-viestillä.
 
-- `GET /api/v1/availabilities?date_start&date_end&room_types[]` — päiväkohtainen saatavuus per huoneistotyyppi: `is_free`, `free_rooms`, `day_rate`, `min_nights`, `checkin_denied`, `blackout`.
-- `GET /api/v1/prices?room_types[]&date_start&date_end&guests_adults` — kokonaishinta (`total_price`) ja päivähinnat valitulle jaksolle.
+## 1. Moder-haku (backend)
 
-Autentikointi on yksinkertainen `Authorization: Bearer <token>` — ja `MODER_API_TOKEN` on jo tallennettuna backendin salaisuuksiin, eli avaimet ovat kunnossa.
+Moderin API tarjoaa juuri tarvittavat endpointit (`Authorization: Bearer <MODER_API_TOKEN>`, token on jo tallessa):
 
-## Mitä nyt tapahtuu (tausta)
+- `GET /api/v1/availabilities?date_start&date_end&room_types[]` → per päivä: `is_free`, `free_rooms`, `day_rate`, `min_nights`, `checkin_denied`, `checkout_denied`, `blackout`
+- `GET /api/v1/prices?room_types[]&date_start&date_end&guests_adults` → jakson `total_price` ja päivähinnat
 
-Äkkilähdöt-sivu hakee hinnat ja saatavuuden nykyään Beds24:stä edge-funktiolla `beds24-availability`. Siinä on havaittuja puutteita: hinnat haetaan yksi tarjous kerrallaan (hidas, paljon API-kutsuja) ja osa tarjouksista jää ilman hintaa. Moderista sekä saatavuus että hinta saadaan yhdellä/kahdella kutsulla koko joukolle huoneistotyyppejä kerralla.
+Toteutus:
 
-Kannassa on jo valmiina `moder_property_mapping`-taulu, jossa lähes kaikilla kohteilla on `moder_room_type_id` — vain Karhupirtti ja Skistar 322 puuttuvat (ohitetaan, jäävät Beds24:lle).
+- Uusi edge-funktio `moder-availability`.
+- Huoneistotyypit luetaan `moder_property_mapping`-taulusta (`moder_room_type_id`). Kaksi kohdetta (Karhupirtti, Skistar 322) on ilman Moder-id:tä — ne jäävät listalta pois, kunnes id lisätään.
+- Vapaat jaksot muodostetaan päiväkohtaisesta saatavuudesta samalla logiikalla kuin nyt: peräkkäiset vapaat päivät → jakso, huomioiden `min_nights`, `checkin_denied`, `checkout_denied` ja `blackout`. Aikaikkuna edelleen `deals_days_ahead` (nyt 28) ja enintään 7 yön jaksot näytetään.
+- Jakson hinta haetaan `prices`-endpointista (`guests_adults=2`), hinnat ovat sentteinä → jaetaan 100:lla.
+- Vastauksen muoto pidetään identtisenä nykyisen `Beds24Deal`-rakenteen kanssa (`roomId`, `roomName`, `checkIn`, `checkOut`, `nights`, `price`), jolloin etusivun ja `/akkilahdot`-sivun rakenteeseen ei tarvita isoja muutoksia. `roomId` mapataan takaisin Beds24-id:ksi, jotta olemassa olevat siivousmaksut, markkinointinimet ja WhatsApp-numerot `propertyDetails.ts`:stä ja `property_settings`-taulusta osuvat oikein.
 
-## Mitä tehdään
+## 2. Hakutiheys
 
-1. **Laajennetaan `beds24-availability`-edge-funktiota Moder-lähteellä** (nimetään uudelleen sisäisesti, mutta funktion URL säilyy samana, joten etupään muutoksia ei tarvita):
-   - Luetaan `moder_property_mapping`-taulusta ne kohteet, joilla on `moder_room_type_id`.
-   - Kutsutaan `GET /api/v1/availabilities` kaikille mapped-tyypeille seuraaville 28 päivälle (sama `deals_days_ahead`-ikkuna).
-   - Muodostetaan vapaat jaksoja samalla logiikalla kuin nykyinen Beds24-käsittely (min. 1 yö, `min_nights` huomioiden).
-   - Haetaan `GET /api/v1/prices` jaksoille ja lasketaan kokonaishinta.
-   - **Yhdistelmästrategia: Moder ensisijainen, Beds24 varalla.** Jos Moder vastaa kohteelle, käytetään sitä; muutoin käytetään nykyistä Beds24-dataa (esim. Karhupirtti, Skistar 322). Jos Moder-kutsu epäonnistuu kokonaan, palataan täysin Beds24:ään — sivu ei koskaan tyhjene.
-   - Hinnat välitetään sentteinä API:sta, jaetaan 100:lla euroiksi.
-2. **Välimuisti säilyy:** Moder-vastaus tallennetaan samaan `beds24_cache`-tauluun omalla id:llä (esim. `moder_availability`), jolloin Beds24:n rate limit -suojauslogiikka kattaa myös Moderin. Ei uusia tauluja.
-3. **Salaisuudet:** `MODER_API_TOKEN` luetaan edge-funktiossa `Deno.env.get()` — ei koodiin, ei lokille.
-4. **Varauslinkit säilyvät ennallaan:** äkkilähtökortit jatkavat ohjausta Moderin varausmoottoriin nykyisten URLien kautta. Etusivun hakubanneriin EI kosketa.
+Toteutetaan välimuistin vanhenemisikkunana `beds24_cache`-taulussa (id `moder_availability`), ei erillisenä ajastettuna työnä:
 
-## Varmistus
+- klo 06–23 Suomen aikaa: data haetaan uudelleen, jos se on yli **1 tunti** vanhaa
+- klo 23–06: uudelleenhaku, jos data on yli **2 tuntia** vanhaa
 
-- Kutsutaan edge-funktiota ja tarkistetaan, että vastauksessa on Moder-lähtöisiä tarjouksia oikeilla hinnoilla.
-- Playwright: `/akkilahdot` näyttää kortit eikä tyhjä-tilaa; console ilman virheitä.
-- Käännetty varoitus: jos yksikään Moder-kutsu heittää virheen, lokiin tulee selkeä rivi ja fallback toimii.
+Tämä antaa täsmälleen pyydetyn tuoreuden mutta ei aja tyhjää yöllä, kun kukaan ei katso sivua — eli ei turhaa Cloud-kulutusta. Adminin "päivitä nyt" -toiminto pakottaa haun ohi välimuistin kuten nytkin.
+
+## 3. Perusalennus (uusi asetus)
+
+- Uusi rivi `site_settings`-tauluun: `deals_base_discount` (numero, %, oletus 0).
+- Admin: `SiteSettingsAdmin.tsx` → Äkkilähdöt-osioon uusi kenttä "Perusalennus (%)" nykyisten päälle/pois- ja päiväikkuna-asetusten viereen.
+
+### Hintalogiikka
+
+```text
+Normaalihinta (yliviivattu) = Moderin jakson hinta + siivousmaksu
+Perusalennettu hinta        = Moderin hinta × (1 − perusalennus%) + siivousmaksu
+Lopullinen hinta            = perusalennettu hinta × (1 − jaksokohtainen alennus%)
+```
+
+- Jos jaksolle **ei** ole annettu erillistä alennusta: näytetään normaalihinta yliviivattuna ja perusalennettu hinta korostettuna.
+- Jos jaksolle on annettu lisäalennus (`period_settings.custom_discount`): se lasketaan perusalennetun hinnan päälle, ja yliviivattuna näkyy edelleen Moderin normaalihinta.
+- Alennusprosenttibadge näyttää yhteenlasketun todellisen alennuksen normaalihintaan verrattuna.
+- Nykyiset kohdekohtaiset yö-määrään sidotut alennukset (`discount_1_night` / `_2_nights` / `_3_plus_nights`) korvautuvat perusalennuksella äkkilähdöissä, jotta hinnoittelu pysyy yhtenä selkeänä ketjuna. Jos haluat säilyttää nekin rinnalla, kerro — se on helppo pitää mukana.
+
+## 4. Mitä säilyy ennallaan
+
+- WhatsApp-varauspyyntö samalla viestipohjalla ja hinnalla, kaikilla 7 kielellä.
+- Suodattimet (kaikki / 1–2 yötä / 3+ yötä), 7 yön yläraja, hissilippu- ja erikoistarjousmerkinnät, jaksokohtaiset asetukset ja niiden hallinta.
+- Etusivun hakubanneri ja Moderin varauswidget: ei muutoksia.
+- Sivun ulkoasu, SEO-metat ja JSON-LD-rakenne.
+
+## 5. Varmistus
+
+- Kutsutaan `moder-availability` suoraan ja tarkistetaan, että jaksot ja hinnat tulevat oikein useammalle kohteelle.
+- Verrataan muutamaa jaksoa Moderin varaussivun hintaan, että summat täsmäävät.
+- Playwright: `/akkilahdot` näyttää kortit, yliviivatun normaalihinnan ja alennetun hinnan; WhatsApp-linkin viesti sisältää lopullisen hinnan.
+- Tarkistetaan välimuistin osuma- ja uudelleenhakukäyttäytyminen lokeista.
 
 ## Tekniset yksityiskohdat
 
-- Base-URL: dokumentaatio näkyy osoitteessa `dev-app.moder.fi`; tuotanto-osoite varmistetaan ensimmäisellä testikutsulla (todennäköisesti `https://app.moder.fi`). Jos tuotanto ei vastaa, käytetään dev-pohjaa toistaiseksi — dokumentoitu funktioon.
-- Muutettavat tiedostot: `supabase/functions/beds24-availability/index.ts` (laajennus). Etupää: ei muutoksia.
-- `room_types[]` välitetään query-muodossa `room_types[]=318&room_types[]=319...` (standardi taulukkoparametri).
-- `guests_adults` oletuksena 2, sama kuin nykyisessä Beds24-offer-haussa.
+- Uusi tiedosto: `supabase/functions/moder-availability/index.ts`.
+- Muokattavat: `src/pages/Akkilahdot.tsx` (datalähde + hintaketju), `src/components/admin/SiteSettingsAdmin.tsx` (perusalennus-kenttä), `supabase/functions/admin-settings/index.ts` tarvittaessa sallitun asetusavaimen lisäys.
+- `deals_base_discount` lisätään `site_settings`-tauluun datarivinä (ei skeemamuutosta).
+- Beds24-funktio `beds24-availability` jätetään paikalleen toistaiseksi (ei poisteta), jotta paluu vanhaan onnistuu yhdellä muutoksella.
+- Tuotannon base-URL varmistetaan ensimmäisellä testikutsulla (`app.moder.fi` vs. dokumentaatiossa näkyvä `dev-app.moder.fi`).
