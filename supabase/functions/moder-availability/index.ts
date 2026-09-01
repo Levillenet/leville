@@ -217,7 +217,8 @@ serve(async (req) => {
   }
 
   try {
-    const token = Deno.env.get("MODER_API_TOKEN");
+    const token = (Deno.env.get("MODER_API_TOKEN") || "").trim();
+    console.log(`MODER_API_TOKEN length=${token.length} prefix_ok=${/^\d+\|/.test(token)}`);
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
@@ -275,19 +276,31 @@ serve(async (req) => {
     const dateEnd = formatDate(new Date(today.getTime() + (dealsDaysAhead + MAX_DEAL_NIGHTS) * 86400000));
     const maxCheckIn = formatDate(new Date(today.getTime() + dealsDaysAhead * 86400000));
 
-    // Fetch availabilities for all room types in one call
+    // Fetch availabilities for all room types in one call; if the token lacks
+    // access to some room types (403/401), fall back to per-room-type queries
+    // and skip the denied ones.
     const roomTypesParam = roomTypeIds.map(id => `room_types[]=${id}`).join("&");
-    const availRes = await moderFetch(token, `/api/v1/availabilities?date_start=${dateStart}&date_end=${dateEnd}&${roomTypesParam}`);
-    if (!availRes.ok) {
-      // Diagnostic: does the token work at all? Try the room-types endpoint
-      const rtRes = await moderFetch(token, `/room-types`);
-      console.log(`Room-types diagnostic: ok=${rtRes.ok} status=${rtRes.status}`);
-      throw new Error(`Moder availabilities failed (status ${availRes.status})`);
-    }
-    console.log("Moder base URL:", availRes.base);
-    console.log("Availabilities raw sample:", JSON.stringify(availRes.json).slice(0, 800));
+    let daysByRoomType = new Map<number, DayInfo[]>();
+    let moderBase = "";
 
-    const daysByRoomType = parseAvailabilities(availRes.json, roomTypeIds);
+    const availRes = await moderFetch(token, `/api/v1/availabilities?date_start=${dateStart}&date_end=${dateEnd}&${roomTypesParam}`);
+    if (availRes.ok) {
+      moderBase = availRes.base;
+      console.log("Moder base URL:", availRes.base);
+      daysByRoomType = parseAvailabilities(availRes.json, roomTypeIds);
+    } else {
+      console.log(`Bulk availabilities failed (status ${availRes.status}), falling back to per-room-type`);
+      for (const rtId of roomTypeIds) {
+        const single = await moderFetch(token, `/api/v1/availabilities?date_start=${dateStart}&date_end=${dateEnd}&room_types[]=${rtId}`);
+        if (!single.ok) {
+          console.log(`Room type ${rtId}: access denied, skipped`);
+          continue;
+        }
+        moderBase = moderBase || single.base;
+        const parsed = parseAvailabilities(single.json, [rtId]);
+        for (const [k, v] of parsed) daysByRoomType.set(k, v);
+      }
+    }
     console.log(`Parsed day lists for ${daysByRoomType.size} room types`);
 
     // Build windows
