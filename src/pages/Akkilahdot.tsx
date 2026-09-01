@@ -845,7 +845,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         
                         {/* Special Offer Badge - moved lower */}
                         {/* Special Offer Badge - top left */}
-                        {hasSpecialOffer(deal) && (
+                        {hasSpecialOffer(deal, displayNights) && (
                           <div className="absolute top-3 left-3 z-20">
                             <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Sparkles className="w-3.5 h-3.5 mr-1" />
@@ -855,7 +855,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         )}
                         
                         {/* Ski Pass Badge - top right, 2 lines */}
-                        {hasSkiPassOffer(deal) && (
+                        {hasSkiPassOffer(deal, displayNights) && (
                           <div className="absolute top-3 right-3 z-20 max-w-[140px]">
                             <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg whitespace-normal text-center leading-tight">
                               <Ticket className="w-3.5 h-3.5 mr-1 flex-shrink-0" />
@@ -867,7 +867,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         <CardHeader className="pb-3 pt-12 relative z-10">
                           <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
                             <Calendar className="w-4 h-4" />
-                            <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(deal.checkOut)}</span>
+                            <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(displayCheckOut)}</span>
                           </div>
                           <CardTitle className="text-xl">
                             {bookingUrl ? (
@@ -891,8 +891,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           <ul className="space-y-1.5 mb-4">
                             <li className="text-sm text-muted-foreground flex items-center gap-2">
                               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                              {nightsText(deal.nights)}
+                              {nightsText(displayNights)}
                             </li>
+                            {windowNights > displayNights && (
+                              <li className="text-sm text-primary flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                {t.moreOptions.replace('{n}', String(windowNights))}
+                              </li>
+                            )}
                             <li className="text-sm text-muted-foreground flex items-center gap-2">
                               <Users className="w-3.5 h-3.5" />
                               Max {getMaxGuests(deal.roomId)} hlö
@@ -909,10 +915,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                             ) : totalPrice != null ? (
                               <>
                                 {/* Discount badge - only show if 30% or more AND strikethrough is NOT active */}
-                                {discountInfo.showBadge && !showStrikethrough && (
+                                {discountPct > 0 && !showStrikethrough && (
                                   <div className="mb-2">
                                     <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                                      -{discountInfo.totalDiscount}% alennus
+                                      -{discountPct}%
                                     </Badge>
                                   </div>
                                 )}
