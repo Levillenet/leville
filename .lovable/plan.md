@@ -18,6 +18,8 @@ Toteutus:
 - Vapaat jaksot muodostetaan päiväkohtaisesta saatavuudesta: peräkkäiset vapaat päivät → yhtenäinen vapaa ikkuna, huomioiden `min_nights`, `checkin_denied`, `checkout_denied` ja `blackout`. Aikaikkuna edelleen `deals_days_ahead` (nyt 28).
 - Funktio palauttaa **vapaan ikkunan sekä sen yökohtaiset hinnat** (`prices`-endpointin `dates`-taulukko), jolloin minkä tahansa lyhyemmän osajakson hinta voidaan laskea suoraan. Hinnat ovat sentteinä → jaetaan 100:lla.
 - Kenttänimet pidetään yhteensopivina nykyisen `Beds24Deal`-rakenteen kanssa (`roomId`, `roomName`, `checkIn`, `checkOut`, `nights`, `price`) ja lisätään `nightlyPrices` sekä `windowNights`. `roomId` mapataan takaisin Beds24-id:ksi, jotta olemassa olevat siivousmaksut, markkinointinimet ja WhatsApp-numerot `propertyDetails.ts`:stä ja `property_settings`-taulusta osuvat oikein.
+- **Pituusriippuvainen hinnoittelu:** hintakysely tehdään aina sille jaksonpituudelle, jota näytetään (esim. ikkunan alusta 3 yötä), ei pelkästään koko ikkunalle. Näin Moderin mahdollinen lyhyen majoittumisen korotus tulee hintaan oikein mukaan. Käytännössä funktio hakee yöhinnat kullakin tuettavalla pituudella (2, 3 ja 4–7 yötä) samassa kierrossa.
+- Ensimmäiseen testikierrokseen sisältyy vertailu: sama ikkuna haetaan 3 ja 4 yön pituisena ja yöhinnat lokitetaan, jotta nähdään heti, onko Moderissa pituusriippuvainen hinnoittelu (lyhyen jakson korotus) käytössä.
 
 ## 1b. Jaksojen pilkkominen ja uudet suodattimet
 
