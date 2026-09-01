@@ -922,7 +922,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                     </Badge>
                                   </div>
                                 )}
-                                <div className="flex items-baseline gap-2">
+                                <div className="flex items-baseline gap-2 flex-wrap">
                                   {showStrikethrough && originalPrice ? (
                                     <>
                                       <span className="text-lg text-muted-foreground line-through">
@@ -931,6 +931,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                       <span className="text-3xl md:text-4xl font-bold italic text-amber-500 tracking-wide">
                                         {totalPrice}€
                                       </span>
+                                      <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs self-center">
+                                        -{discountPct}%
+                                      </Badge>
                                     </>
                                   ) : (
                                     <span className={`font-bold ${hasSpecialOffer(deal, displayNights) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
