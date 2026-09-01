@@ -64,8 +64,8 @@ Lopullinen hinta            = perusalennettu hinta × (1 − jaksokohtainen alen
 
 ## 4. Mitä säilyy ennallaan
 
-- WhatsApp-varauspyyntö samalla viestipohjalla ja hinnalla, kaikilla 7 kielellä.
-- Suodattimet (kaikki / 1–2 yötä / 3+ yötä), 7 yön yläraja, hissilippu- ja erikoistarjousmerkinnät, jaksokohtaiset asetukset ja niiden hallinta.
+- WhatsApp-varauspyyntö samalla viestipohjalla ja hinnalla, kaikilla 7 kielellä (täydennettynä vapaan ikkunan pituudella).
+- 7 yön yläraja, hissilippu- ja erikoistarjousmerkinnät, jaksokohtaiset asetukset ja niiden hallinta.
 - Etusivun hakubanneri ja Moderin varauswidget: ei muutoksia.
 - Sivun ulkoasu, SEO-metat ja JSON-LD-rakenne.
 
