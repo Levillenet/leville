@@ -432,10 +432,12 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     };
   }, [propertySettings]);
 
-  // Helper to get period settings from DB - memoized
+  // Helper to get period settings from DB - matches the displayed stay dates - memoized
   const getPeriodSettingsFromDb = useCallback((roomId: string, checkIn: string, checkOut: string) => {
     const period = periodSettings.find(
-      p => p.property_id === roomId && p.check_in === checkIn && p.check_out === checkOut
+      p => p.property_id === roomId && p.check_in <= checkIn && p.check_out >= checkOut
+    ) ?? periodSettings.find(
+      p => p.property_id === roomId && p.check_in <= checkOut && p.check_out >= checkIn
     );
     return {
       specialOffer: period?.has_special_offer || false,
