@@ -679,29 +679,29 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 {/* Night filter */}
                 {dealsEnabled && (
                 <div className="mt-6 flex justify-center">
-                  <ToggleGroup 
-                    type="single" 
-                    value={nightFilter} 
+                  <ToggleGroup
+                    type="single"
+                    value={nightFilter}
                     onValueChange={(value) => value && setNightFilter(value as NightFilter)}
                     className="bg-background/50 border border-border/30 rounded-lg p-1"
                   >
-                    <ToggleGroupItem 
-                      value="all" 
+                    <ToggleGroupItem
+                      value="2"
                       className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
                     >
-                      {t.filterAll}
+                      {t.filter2}
                     </ToggleGroupItem>
-                    <ToggleGroupItem 
-                      value="short" 
+                    <ToggleGroupItem
+                      value="3"
                       className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
                     >
-                      {t.filterShort}
+                      {t.filter3}
                     </ToggleGroupItem>
-                    <ToggleGroupItem 
-                      value="long" 
+                    <ToggleGroupItem
+                      value="4plus"
                       className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
                     >
-                      {t.filterLong}
+                      {t.filter4plus}
                     </ToggleGroupItem>
                   </ToggleGroup>
                 </div>
