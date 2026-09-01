@@ -74,6 +74,7 @@ Lopullinen hinta            = perusalennettu hinta × (1 − jaksokohtainen alen
 - Kutsutaan `moder-availability` suoraan ja tarkistetaan, että jaksot ja hinnat tulevat oikein useammalle kohteelle.
 - Verrataan muutamaa jaksoa Moderin varaussivun hintaan, että summat täsmäävät.
 - Playwright: `/akkilahdot` näyttää kortit, yliviivatun normaalihinnan ja alennetun hinnan; WhatsApp-linkin viesti sisältää lopullisen hinnan.
+- Testataan suodattimet 2 / 3 / 4+ yötä ja varmistetaan, että pitkä vapaa ikkuna näkyy pilkottuna oikean mittaisena ja "muitakin vaihtoehtoja" -huomautus näkyy.
 - Tarkistetaan välimuistin osuma- ja uudelleenhakukäyttäytyminen lokeista.
 
 ## Tekniset yksityiskohdat
