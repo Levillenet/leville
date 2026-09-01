@@ -217,7 +217,8 @@ serve(async (req) => {
   }
 
   try {
-    const token = Deno.env.get("MODER_API_TOKEN");
+    const token = (Deno.env.get("MODER_API_TOKEN") || "").trim();
+    console.log(`MODER_API_TOKEN length=${token.length} prefix_ok=${/^\d+\|/.test(token)}`);
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
