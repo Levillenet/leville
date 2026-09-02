@@ -91,7 +91,8 @@ Deno.serve(async (req) => {
         // Get site settings
         const { data: siteSettings, error: siteError } = await supabase
           .from('site_settings')
-          .select('*');
+          .select('id, value, created_at, updated_at')
+          .in('id', ['deals_enabled', 'deals_days_ahead', 'deals_base_discount']);
         
         if (siteError) throw siteError;
         
