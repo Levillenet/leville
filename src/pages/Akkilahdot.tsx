@@ -469,13 +469,13 @@ const extraLabels: Record<Language, { offer: string; today: string; pickDate: st
 
 // Marketing strip: examples of free periods (no prices — prices come from search)
 const exampleLabels: Record<Language, { heading: string; note: string; cta: string }> = {
-  fi: { heading: "Esimerkkejä vapaista jaksoista", note: "Nämä ovat vain esimerkkejä. Tee haku ja löydä omasi! Hinta näkyy, kun valitset ajanjakson.", cta: "Hae tälle jaksolle" },
-  en: { heading: "Examples of free periods", note: "These are just examples. Make a search and find yours! The price appears when you select your dates.", cta: "Search these dates" },
-  sv: { heading: "Exempel på lediga perioder", note: "Detta är bara exempel. Gör en sökning och hitta din! Priset visas när du väljer datum.", cta: "Sök dessa datum" },
-  de: { heading: "Beispiele für freie Zeiträume", note: "Dies sind nur Beispiele. Suchen Sie und finden Sie Ihren Zeitraum! Der Preis erscheint nach der Datumsauswahl.", cta: "Diesen Zeitraum suchen" },
-  es: { heading: "Ejemplos de periodos libres", note: "Solo son ejemplos. ¡Haz una búsqueda y encuentra el tuyo! El precio aparece al elegir las fechas.", cta: "Buscar estas fechas" },
-  fr: { heading: "Exemples de périodes libres", note: "Ce ne sont que des exemples. Faites une recherche et trouvez la vôtre ! Le prix s'affiche après le choix des dates.", cta: "Rechercher ces dates" },
-  nl: { heading: "Voorbeelden van vrije periodes", note: "Dit zijn slechts voorbeelden. Doe een zoekopdracht en vind de jouwe! De prijs verschijnt na het kiezen van data.", cta: "Zoek deze data" },
+  fi: { heading: "Esimerkkejä vapaista jaksoista", note: "Nämä ovat vain esimerkkejä — tee haku ja löydä omasi! Tarkan hinnan saat aina valitsemalla omat päiväsi.", cta: "Hae tälle jaksolle" },
+  en: { heading: "Examples of free periods", note: "These are just examples — make a search and find yours! Select your own dates for an exact price.", cta: "Search these dates" },
+  sv: { heading: "Exempel på lediga perioder", note: "Detta är bara exempel — gör en sökning och hitta din! Välj egna datum för ett exakt pris.", cta: "Sök dessa datum" },
+  de: { heading: "Beispiele für freie Zeiträume", note: "Dies sind nur Beispiele — suchen Sie und finden Sie Ihren Zeitraum! Wählen Sie eigene Daten für den genauen Preis.", cta: "Diesen Zeitraum suchen" },
+  es: { heading: "Ejemplos de periodos libres", note: "Solo son ejemplos — ¡haz una búsqueda y encuentra el tuyo! Elige tus fechas para ver el precio exacto.", cta: "Buscar estas fechas" },
+  fr: { heading: "Exemples de périodes libres", note: "Ce ne sont que des exemples — faites une recherche et trouvez la vôtre ! Choisissez vos dates pour un prix exact.", cta: "Rechercher ces dates" },
+  nl: { heading: "Voorbeelden van vrije periodes", note: "Dit zijn slechts voorbeelden — doe een zoekopdracht en vind de jouwe! Kies je eigen data voor een exacte prijs.", cta: "Zoek deze data" },
 };
 
 
@@ -573,6 +573,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     }
     return picked;
   }, [filteredDeals]);
+
+
 
 
 
@@ -846,6 +848,226 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   const hasDeals = searchItems.length > 0 || manualDeals.length > 0;
 
+  // Shared deal card renderer — used by both the search results grid and the
+  // marketing example strip so the look always stays in sync.
+  const renderDealCard = (deal: Beds24Deal, stayCheckIn: string, displayNights: number, quoted: number | null, index: number) => {
+    const isSameDay = isToday(stayCheckIn);
+    const displayCheckOut = addDaysIso(stayCheckIn, displayNights);
+    const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
+    const totalPrice = getTotalPrice(deal, stayCheckIn, displayNights, quoted);
+    const originalPrice = getOriginalApiPrice(deal, stayCheckIn, displayNights, quoted);
+    const bookingUrl = getBookingUrl(deal.roomId);
+    const marketingName = getMarketingName(deal);
+    const category = getPropertyCategory(deal.roomId);
+    // Strikethrough whenever the final price is below the normal (Moder) price
+    const showStrikethrough = originalPrice != null && totalPrice != null && totalPrice < originalPrice;
+    const discountPct = showStrikethrough ? Math.round((1 - totalPrice / originalPrice) * 100) : 0;
+
+    return (
+      <ScrollReveal key={`${deal.id}-${stayCheckIn}-${displayNights}`} delay={index * 0.1}>
+        <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
+          {/* Background image based on property category */}
+          {category === 'glacier' && (
+            <div
+              className="absolute inset-0 z-0 pointer-events-none"
+              style={{
+                backgroundImage: `url(${glacierImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center 30%',
+                opacity: 0.25,
+                maskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
+              }}
+            />
+          )}
+          {category === 'skistar' && (
+            <div
+              className="absolute inset-0 z-0 pointer-events-none"
+              style={{
+                backgroundImage: `url(${skistarImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center 40%',
+                opacity: 0.25,
+                maskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
+              }}
+            />
+          )}
+          {deal.roomId === '620949' && (
+            <div
+              className="absolute inset-0 z-0 pointer-events-none"
+              style={{
+                backgroundImage: `url(${karhunvartijaImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center 40%',
+                opacity: 0.25,
+                maskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
+              }}
+            />
+          )}
+          {deal.roomId === '353045' && (
+            <div
+              className="absolute inset-0 z-0 pointer-events-none"
+              style={{
+                backgroundImage: `url(${karhupirttiImage})`,
+                backgroundSize: '180%',
+                backgroundPosition: 'center 75%',
+                opacity: 0.25,
+                maskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
+              }}
+            />
+          )}
+          {['350162', '350160', '350161'].includes(deal.roomId) && (
+            <div
+              className="absolute inset-0 z-0 pointer-events-none"
+              style={{
+                backgroundImage: `url(${chaletsImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center 40%',
+                opacity: 0.25,
+                maskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
+                WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
+              }}
+            />
+          )}
+
+          {/* Last-minute offer badge - only when the stay is actually discounted */}
+          {showStrikethrough && (
+            <div className="absolute top-3 left-3 z-20">
+              <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg tracking-wide">
+                <Sparkles className="w-3.5 h-3.5 mr-1" />
+                {x.offer}
+              </Badge>
+            </div>
+          )}
+
+          {/* Ski Pass Badge - top right, 2 lines */}
+          {hasSkiPassOffer(deal, stayCheckIn, displayNights) && (
+            <div className="absolute top-3 right-3 z-20 max-w-[140px]">
+              <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg whitespace-normal text-center leading-tight">
+                <Ticket className="w-3.5 h-3.5 mr-1 flex-shrink-0" />
+                <span>{t.skiPassBadge}</span>
+              </Badge>
+            </div>
+          )}
+
+          <CardHeader className="pb-3 pt-12 relative z-10">
+            <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
+              <Calendar className="w-4 h-4" />
+              <span>{formatDateDisplay(stayCheckIn)} – {formatDateDisplay(displayCheckOut)}</span>
+            </div>
+            <CardTitle className="text-xl">
+              {bookingUrl ? (
+                <a
+                  href={bookingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1.5 underline underline-offset-2 decoration-primary/50 hover:decoration-primary font-semibold"
+                >
+                  {marketingName}
+                  <ExternalLink className="w-4 h-4 opacity-70" />
+                </a>
+              ) : (
+                <span className="text-foreground">{marketingName}</span>
+              )}
+            </CardTitle>
+          </CardHeader>
+
+          <CardContent className="relative z-10">
+            {/* Property info */}
+            <ul className="space-y-1.5 mb-4">
+              <li className="text-sm text-muted-foreground flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                {nightsText(displayNights)}
+              </li>
+              {windowNights > displayNights && (
+                <li className="text-sm text-primary flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  {t.moreOptions.replace('{n}', String(windowNights))}
+                </li>
+              )}
+              <li className="text-sm text-muted-foreground flex items-center gap-2">
+                <Users className="w-3.5 h-3.5" />
+                Max {getMaxGuests(deal.roomId)} hlö
+              </li>
+            </ul>
+
+            {/* Price section */}
+            <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-lg p-4 mb-4">
+              {totalPrice != null ? (
+                <>
+                  {isSameDay && (
+                    <div className="mb-2 text-sm font-semibold text-amber-500 flex items-center gap-2">
+                      <Clock className="w-4 h-4" />
+                      {x.today}
+                    </div>
+                  )}
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    {showStrikethrough && originalPrice ? (
+                      <>
+                        <span className="text-lg text-muted-foreground line-through">
+                          {originalPrice}€
+                        </span>
+                        <span className="text-3xl md:text-4xl font-bold italic text-amber-500 tracking-wide">
+                          {totalPrice}€
+                        </span>
+                        <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs self-center">
+                          -{discountPct}%
+                        </Badge>
+                      </>
+                    ) : (
+                      <span className="font-bold text-3xl md:text-4xl italic text-amber-500 tracking-wide">
+                        {totalPrice}€
+                      </span>
+                    )}
+
+                    <span className="text-muted-foreground text-sm">{t.total}</span>
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-2">
+                    {lang === 'fi'
+                      ? "Hinta sisältää siivouksen (liinavaatteet tarvittaessa 19€/hlö)."
+                      : lang === 'en'
+                        ? "Price includes cleaning (linens if needed 19€/person)."
+                        : lang === 'sv'
+                          ? "Priset inkluderar städning (sängkläder vid behov 19€/person)."
+                          : lang === 'de'
+                            ? "Preis inkl. Reinigung (Bettwäsche bei Bedarf 19€/Person)."
+                            : lang === 'es'
+                              ? "Precio incluye limpieza (ropa de cama si es necesario 19€/persona)."
+                              : "Prix comprend le ménage (linge si nécessaire 19€/personne)."
+                    }
+                  </div>
+                </>
+              ) : (
+                <div className="text-base font-semibold text-amber-500 flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  {t.priceNotAvailable ?? t.sameDayNote}
+                </div>
+              )}
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="space-y-3">
+              {/* Primary: WhatsApp booking */}
+              <a
+                href={generateWhatsAppUrl(deal, stayCheckIn, displayNights)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                {t.bookWhatsApp}
+              </a>
+
+            </div>
+          </CardContent>
+        </Card>
+      </ScrollReveal>
+    );
+  };
+
   return (
     <>
       <JsonLd data={getWebsiteSchema()} />
@@ -981,31 +1203,16 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 )}
 
 
-                {/* Marketing examples before any dates are chosen */}
+                {/* Marketing examples before any dates are chosen — full deal cards with prices */}
                 {dealsEnabled && !searchActive && exampleWindows.length > 0 && (
-                  <div className="mt-10 max-w-4xl mx-auto text-left">
+                  <div className="mt-10 text-left">
                     <h2 className="text-lg md:text-xl font-semibold text-foreground mb-1 text-center">{ex.heading}</h2>
                     <p className="text-sm text-muted-foreground mb-5 text-center">{ex.note}</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {exampleWindows.map((w) => (
-                        <button
-                          key={`${w.deal.roomId}-${w.checkIn}`}
-                          type="button"
-                          onClick={() => {
-                            setSearchCheckIn(w.checkIn);
-                            setSearchCheckOut(w.checkOut);
-                            window.scrollTo({ top: 0, behavior: "smooth" });
-                          }}
-                          className="glass-card border-border/50 rounded-xl p-4 text-left transition-colors hover:border-primary/50"
-                        >
-                          <div className="font-semibold text-foreground text-sm">{getMarketingName(w.deal)}</div>
-                          <div className="text-sm text-muted-foreground mt-1">
-                            {formatDateDisplay(w.checkIn)} – {formatDateDisplay(w.checkOut)} · {nightsText(w.nights)}
-                          </div>
-                          <div className="text-xs text-primary mt-2">{ex.cta}</div>
-                        </button>
-                      ))}
-                    </div>
+                    <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4">
+                      {exampleWindows.map((w, i) =>
+                        renderDealCard(w.deal, w.checkIn, w.nights, null, i)
+                      )}
+                    </section>
                   </div>
                 )}
 
@@ -1090,225 +1297,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             {/* Deals Grid */}
             {dealsEnabled && !isLoading && displayItems.length > 0 && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                {displayItems.map(({ deal, checkIn: stayCheckIn, nights: displayNights, quoted }, index) => {
-                  const isSameDay = isToday(stayCheckIn);
-                  const displayCheckOut = addDaysIso(stayCheckIn, displayNights);
-                  const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
-                  const totalPrice = getTotalPrice(deal, stayCheckIn, displayNights, quoted);
-                  const originalPrice = getOriginalApiPrice(deal, stayCheckIn, displayNights, quoted);
-                  const bookingUrl = getBookingUrl(deal.roomId);
-                  const marketingName = getMarketingName(deal);
-                  const category = getPropertyCategory(deal.roomId);
-                  // Strikethrough whenever the final price is below the normal (Moder) price
-                  const showStrikethrough = originalPrice != null && totalPrice != null && totalPrice < originalPrice;
-                  const discountPct = showStrikethrough ? Math.round((1 - totalPrice / originalPrice) * 100) : 0;
-                  
-                  return (
-                    <ScrollReveal key={deal.id} delay={index * 0.1}>
-                      <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
-                        {/* Background image based on property category */}
-                        {category === 'glacier' && (
-                          <div 
-                            className="absolute inset-0 z-0 pointer-events-none"
-                            style={{
-                              backgroundImage: `url(${glacierImage})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center 30%',
-                              opacity: 0.25,
-                              maskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
-                              WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
-                            }}
-                          />
-                        )}
-                        {category === 'skistar' && (
-                          <div 
-                            className="absolute inset-0 z-0 pointer-events-none"
-                            style={{
-                              backgroundImage: `url(${skistarImage})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center 40%',
-                              opacity: 0.25,
-                              maskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
-                              WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
-                            }}
-                          />
-                        )}
-                        {deal.roomId === '620949' && (
-                          <div 
-                            className="absolute inset-0 z-0 pointer-events-none"
-                            style={{
-                              backgroundImage: `url(${karhunvartijaImage})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center 40%',
-                              opacity: 0.25,
-                              maskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
-                              WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
-                            }}
-                          />
-                        )}
-                        {deal.roomId === '353045' && (
-                          <div 
-                            className="absolute inset-0 z-0 pointer-events-none"
-                            style={{
-                              backgroundImage: `url(${karhupirttiImage})`,
-                              backgroundSize: '180%',
-                              backgroundPosition: 'center 75%',
-                              opacity: 0.25,
-                              maskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
-                              WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
-                            }}
-                          />
-                        )}
-                        {['350162', '350160', '350161'].includes(deal.roomId) && (
-                          <div 
-                            className="absolute inset-0 z-0 pointer-events-none"
-                            style={{
-                              backgroundImage: `url(${chaletsImage})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center 40%',
-                              opacity: 0.25,
-                              maskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
-                              WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%)',
-                            }}
-                          />
-                        )}
-                        
-                        {/* Last-minute offer badge - only when the stay is actually discounted */}
-                        {showStrikethrough && (
-                          <div className="absolute top-3 left-3 z-20">
-                            <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg tracking-wide">
-                              <Sparkles className="w-3.5 h-3.5 mr-1" />
-                              {x.offer}
-                            </Badge>
-                          </div>
-                        )}
-
-
-                        
-                        {/* Ski Pass Badge - top right, 2 lines */}
-                        {hasSkiPassOffer(deal, stayCheckIn, displayNights) && (
-                          <div className="absolute top-3 right-3 z-20 max-w-[140px]">
-                            <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg whitespace-normal text-center leading-tight">
-                              <Ticket className="w-3.5 h-3.5 mr-1 flex-shrink-0" />
-                              <span>{t.skiPassBadge}</span>
-                            </Badge>
-                          </div>
-                        )}
-
-                        <CardHeader className="pb-3 pt-12 relative z-10">
-                          <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
-                            <Calendar className="w-4 h-4" />
-                            <span>{formatDateDisplay(stayCheckIn)} – {formatDateDisplay(displayCheckOut)}</span>
-                          </div>
-                          <CardTitle className="text-xl">
-                            {bookingUrl ? (
-                              <a
-                                href={bookingUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1.5 underline underline-offset-2 decoration-primary/50 hover:decoration-primary font-semibold"
-                              >
-                                {marketingName}
-                                <ExternalLink className="w-4 h-4 opacity-70" />
-                              </a>
-                            ) : (
-                              <span className="text-foreground">{marketingName}</span>
-                            )}
-                          </CardTitle>
-                        </CardHeader>
-                        
-                        <CardContent className="relative z-10">
-                          {/* Property info */}
-                          <ul className="space-y-1.5 mb-4">
-                            <li className="text-sm text-muted-foreground flex items-center gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                              {nightsText(displayNights)}
-                            </li>
-                            {windowNights > displayNights && (
-                              <li className="text-sm text-primary flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                {t.moreOptions.replace('{n}', String(windowNights))}
-                              </li>
-                            )}
-                            <li className="text-sm text-muted-foreground flex items-center gap-2">
-                              <Users className="w-3.5 h-3.5" />
-                              Max {getMaxGuests(deal.roomId)} hlö
-                            </li>
-                          </ul>
-
-                          {/* Price section */}
-                          <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-lg p-4 mb-4">
-                            {totalPrice != null ? (
-                              <>
-                                {isSameDay && (
-                                  <div className="mb-2 text-sm font-semibold text-amber-500 flex items-center gap-2">
-                                    <Clock className="w-4 h-4" />
-                                    {x.today}
-                                  </div>
-                                )}
-                                <div className="flex items-baseline gap-2 flex-wrap">
-                                  {showStrikethrough && originalPrice ? (
-                                    <>
-                                      <span className="text-lg text-muted-foreground line-through">
-                                        {originalPrice}€
-                                      </span>
-                                      <span className="text-3xl md:text-4xl font-bold italic text-amber-500 tracking-wide">
-                                        {totalPrice}€
-                                      </span>
-                                      <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs self-center">
-                                        -{discountPct}%
-                                      </Badge>
-                                    </>
-                                  ) : (
-                                    <span className="font-bold text-3xl md:text-4xl italic text-amber-500 tracking-wide">
-                                      {totalPrice}€
-                                    </span>
-                                  )}
-
-                                  <span className="text-muted-foreground text-sm">{t.total}</span>
-                                </div>
-                                <div className="text-xs text-muted-foreground mt-2">
-                                  {lang === 'fi'
-                                    ? "Hinta sisältää siivouksen (liinavaatteet tarvittaessa 19€/hlö)."
-                                    : lang === 'en'
-                                      ? "Price includes cleaning (linens if needed 19€/person)."
-                                      : lang === 'sv'
-                                        ? "Priset inkluderar städning (sängkläder vid behov 19€/person)."
-                                        : lang === 'de'
-                                          ? "Preis inkl. Reinigung (Bettwäsche bei Bedarf 19€/Person)."
-                                          : lang === 'es'
-                                            ? "Precio incluye limpieza (ropa de cama si es necesario 19€/persona)."
-                                            : "Prix comprend le ménage (linge si nécessaire 19€/personne)."
-                                  }
-                                </div>
-                              </>
-                            ) : (
-                              <div className="text-base font-semibold text-amber-500 flex items-center gap-2">
-                                <Clock className="w-4 h-4" />
-                                {t.priceNotAvailable ?? t.sameDayNote}
-                              </div>
-                            )}
-                          </div>
-
-                          {/* CTA Buttons */}
-                          <div className="space-y-3">
-                            {/* Primary: WhatsApp booking */}
-                            <a
-                              href={generateWhatsAppUrl(deal, stayCheckIn, displayNights)}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
-                            >
-                              <MessageCircle className="w-4 h-4" />
-                              {t.bookWhatsApp}
-                            </a>
-
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </ScrollReveal>
-                  );
-                })}
+                {displayItems.map(({ deal, checkIn: stayCheckIn, nights: displayNights, quoted }, index) =>
+                  renderDealCard(deal, stayCheckIn, displayNights, quoted, index)
+                )}
               </section>
             )}
 
