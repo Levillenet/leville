@@ -1,9 +1,5 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': 'https://leville.net',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+import { corsFor } from '../_shared/authGuard.ts';
 
 interface PropertySettings {
   property_id: string;
@@ -39,9 +35,11 @@ function isPasswordAdmin(password: string | null): boolean {
 }
 
 Deno.serve(async (req) => {
+  const corsHeaders = corsFor(req);
+
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+    return new Response('ok', { headers: corsHeaders });
   }
 
   try {

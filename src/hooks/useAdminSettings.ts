@@ -44,6 +44,9 @@ interface AdminSettingsResponse {
   siteSettings: DbSiteSetting[];
 }
 
+const getErrorMessage = (error: unknown, fallback: string) =>
+  error instanceof Error && error.message ? error.message : fallback;
+
 // Fetch all settings from database
 const fetchAdminSettings = async (): Promise<AdminSettingsResponse> => {
   const { data, error } = await supabase.functions.invoke('admin-settings', {
@@ -125,7 +128,7 @@ export const useAdminSettingsManager = () => {
       console.error('Error saving period:', error);
       toast({ 
         title: 'Virhe', 
-        description: 'Jaksoasetusten tallennus epäonnistui',
+        description: getErrorMessage(error, 'Jaksoasetusten tallennus epäonnistui'),
         variant: 'destructive'
       });
     }
@@ -240,7 +243,7 @@ export const useAdminSettingsManager = () => {
       console.error('Error updating site setting:', error);
       toast({ 
         title: 'Virhe', 
-        description: 'Asetuksen päivitys epäonnistui',
+        description: getErrorMessage(error, 'Asetuksen päivitys epäonnistui'),
         variant: 'destructive'
       });
     }
