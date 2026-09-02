@@ -444,11 +444,12 @@ const addDaysIso = (dateStr: string, days: number): string => {
 const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
+  const x = extraLabels[lang];
   const [nightFilter, setNightFilter] = useState<NightFilter>("3");
-  const [mode, setMode] = useState<"list" | "search">("list");
+  const [mode, setMode] = useState<"list" | "search">("search");
   const [searchCheckIn, setSearchCheckIn] = useState("");
   const [searchCheckOut, setSearchCheckOut] = useState("");
-  const [searchGuests, setSearchGuests] = useState("");
+
 
   // Fetch Moder deals
   const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
