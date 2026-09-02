@@ -604,11 +604,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return today.toDateString() === checkDate.toDateString();
   }, []);
 
-  // Nights displayed for a deal under the current filter (window capped at 7)
-  const getDisplayNights = useCallback((deal: Beds24Deal): number => {
-    const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
-    return Math.min(requiredNights, windowNights);
-  }, [requiredNights]);
+
+
 
   // Real Moder stay price (EUR, excluding cleaning fee).
   // List mode: prices per stay length precomputed for the window start.
