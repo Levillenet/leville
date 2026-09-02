@@ -1103,16 +1103,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           />
                         )}
                         
-                        {/* Special Offer Badge - moved lower */}
-                        {/* Special Offer Badge - top left */}
-                        {hasSpecialOffer(deal, stayCheckIn, displayNights) && (
-                          <div className="absolute top-3 left-3 z-20">
-                            <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
-                              <Sparkles className="w-3.5 h-3.5 mr-1" />
-                              {t.specialOfferBadge}
-                            </Badge>
-                          </div>
-                        )}
+                        {/* Last-minute offer badge - always shown, top left */}
+                        <div className="absolute top-3 left-3 z-20">
+                          <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg tracking-wide">
+                            <Sparkles className="w-3.5 h-3.5 mr-1" />
+                            {x.offer}
+                          </Badge>
+                        </div>
+
                         
                         {/* Ski Pass Badge - top right, 2 lines */}
                         {hasSkiPassOffer(deal, stayCheckIn, displayNights) && (
