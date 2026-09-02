@@ -76,7 +76,7 @@ interface ModerDeal {
 // Manual special deals - easy to update
 const manualDeals: ManualDeal[] = [];
 
-// Fetch Moder availability (replaces Beds24)
+// Fetch Moder availability (all deal data comes from Moder)
 const fetchModerAvailability = async (): Promise<{ deals: ModerDeal[]; daysAhead: number | null }> => {
   try {
     const { data, error } = await supabase.functions.invoke('moder-availability');
