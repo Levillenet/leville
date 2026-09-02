@@ -741,6 +741,27 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return result.allowed;
   }, [evaluateStay, gapDebug, todayIso]);
 
+  // Marketing examples: next 10 sellable free periods across different properties
+  const exampleWindows = useMemo(() => {
+    const sorted = [...filteredDeals].sort((a, b) => a.checkIn.localeCompare(b.checkIn));
+    const perRoom = new Map<string, number>();
+    const picked: { deal: Beds24Deal; checkIn: string; checkOut: string; nights: number }[] = [];
+    for (const deal of sorted) {
+      const used = perRoom.get(deal.roomId) ?? 0;
+      if (used >= 2) continue;
+      const maxNights = Math.min(deal.windowNights ?? deal.nights, 7);
+      let nights = 0;
+      for (let n = maxNights; n >= 1; n--) {
+        if (isStayAllowed(deal, deal.checkIn, n)) { nights = n; break; }
+      }
+      if (nights < 1) continue;
+      perRoom.set(deal.roomId, used + 1);
+      picked.push({ deal, checkIn: deal.checkIn, checkOut: addDaysIso(deal.checkIn, nights), nights });
+      if (picked.length >= 10) break;
+    }
+    return picked;
+  }, [filteredDeals, isStayAllowed]);
+
 
   // Cleaning fee: prefer Moder mapping value, fallback to property settings
   const getCleaningFee = useCallback((deal: Beds24Deal): number => {
