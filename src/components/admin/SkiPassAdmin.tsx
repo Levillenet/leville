@@ -325,11 +325,11 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
               <div className="bg-background/50 p-3 rounded-lg border border-amber-500/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Sparkles className="w-4 h-4 text-amber-400" />
-                  <span className="font-semibold text-foreground">Erikoistarjous</span>
+                  <span className="font-semibold text-foreground">Äkkilähtö tarjous</span>
                 </div>
                 <p className="text-muted-foreground text-xs">
-                  Lisää kultaisen "Erikoistarjous"-badgen majoituskorttiin ja korostaa hinnan isommalla kursiivilla. 
-                  <strong> Tämä on visuaalinen merkintä</strong> - varsinainen alennus asetetaan Alennus-painikkeilla.
+                  Kaikki äkkilähtökohteet näytetään aina "ÄKKILÄHTÖ TARJOUS" -merkinnällä ja
+                  alkuperäinen hinta yliviivattuna. Erillisiä kytkimiä ei enää tarvita.
                 </p>
               </div>
             </div>
@@ -342,32 +342,24 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
                   <span className="font-semibold text-foreground">Alennus (10%, 20%, 30%)</span>
                 </div>
                 <p className="text-muted-foreground text-xs">
-                  Jaksokohtainen lisäalennus, joka lasketaan <strong>huoneistohinnan päälle</strong>. 
-                  Esim. jos huoneistolla on jo 15% alennus ja lisäät 10% jaksoalennuksen, lopullinen hinta on: 
-                  (API-hinta × 0.85 + siivous) × 0.90
+                  Jaksokohtainen lisäalennus, joka lasketaan <strong>perusalennuksen päälle</strong>. 
+                  Esim. perusalennus 10% ja jaksoalennus 10%: (API-hinta × 0.90 × 0.90) + siivous.
                 </p>
               </div>
               
               <div className="bg-background/50 p-3 rounded-lg border border-purple-500/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="w-4 h-4 text-purple-400 font-bold text-sm">👁️</span>
-                  <span className="font-semibold text-foreground">Näytä alennus</span>
+                  <Percent className="w-4 h-4 text-purple-400" />
+                  <span className="font-semibold text-foreground">Perusalennus {baseDiscount}%</span>
                 </div>
                 <p className="text-muted-foreground text-xs">
-                  Kun päällä, näyttää asiakkaalle <strong>alkuperäisen hinnan yliviivattuna</strong> (esim. <span className="line-through">309€</span>) 
-                  alennetun hinnan vieressä. Korostaa säästöä visuaalisesti. Piilottaa prosenttibadgen, koska hinnanero näkyy suoraan.
+                  Asetetaan äkkilähtöasetuksissa ja lasketaan automaattisesti kaikkien jaksojen
+                  hinnoista. Alla näkyvät hinnat sisältävät sen.
                 </p>
               </div>
             </div>
           </div>
-          
-          <div className="mt-4 text-xs text-muted-foreground bg-background/30 p-2 rounded flex items-start gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
-            <span>
-              <strong>Hinnan prioriteetti:</strong> Jaksokohtainen alennus (tässä välilehdessä) sovelletaan AINA kun se on asetettu, 
-              riippumatta Erikoistarjous-togglesta. Erikoistarjous-toggle vaikuttaa vain ulkoasuun (badge ja korostettu tyyli).
-            </span>
-          </div>
+
         </CardContent>
       </Card>
 
