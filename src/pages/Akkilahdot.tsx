@@ -782,11 +782,6 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     "itemListElement": allDealsForSchema
   }), [t.title, t.meta.description, t.meta.canonical, allDealsForSchema]);
 
-  // Cards to render in list mode: window start + the nights shown for the filter
-  const listItems = useMemo(() =>
-    filteredDeals.map(deal => ({ deal, checkIn: deal.checkIn, nights: getDisplayNights(deal), quoted: null as number | null })),
-    [filteredDeals, getDisplayNights]);
-
   // Date search: one card per room whose window covers the requested stay
   const searchNights = useMemo(() => {
     if (!searchCheckIn || !searchCheckOut) return 0;
@@ -796,12 +791,12 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const { data: searchPrices } = useQuery({
     queryKey: ['moder-stay-prices', searchCheckIn, searchCheckOut],
     queryFn: () => fetchStayPrices(searchCheckIn, searchCheckOut),
-    enabled: mode === "search" && searchNights >= 1 && searchCheckIn <= maxCheckInIso,
+    enabled: searchNights >= 1 && searchCheckIn <= maxCheckInIso,
     staleTime: 30 * 60 * 1000,
   });
 
   const searchItems = useMemo(() => {
-    if (mode !== "search" || searchNights < 1) return [];
+    if (searchNights < 1) return [];
     if (searchCheckIn > maxCheckInIso) return [];
     const results: { deal: Beds24Deal; checkIn: string; nights: number; quoted: number | null }[] = [];
     for (const deal of allDeals) {
@@ -815,13 +810,13 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       (getTotalPrice(b.deal, b.checkIn, b.nights, b.quoted) ?? Infinity)
     );
     return results;
-  }, [mode, allDeals, searchCheckIn, searchNights, isStayAllowed, getTotalPrice, maxCheckInIso, searchPrices]);
+  }, [allDeals, searchCheckIn, searchNights, isStayAllowed, getTotalPrice, maxCheckInIso, searchPrices]);
 
 
-  const displayItems = mode === "search" ? searchItems : listItems;
-  const searchActive = mode === "search" && searchNights >= 1;
+  const displayItems = searchItems;
+  const searchActive = searchNights >= 1;
 
-  const hasDeals = filteredDeals.length > 0 || manualDeals.length > 0;
+  const hasDeals = searchItems.length > 0 || manualDeals.length > 0;
 
   return (
     <>
