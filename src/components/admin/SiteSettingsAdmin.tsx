@@ -85,6 +85,12 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
     updateSiteSetting({ settingId: 'deals_base_discount', value: pct });
   };
 
+  const handleToggleOneNight = (checked: boolean) => {
+    setDiscountOneNight(checked);
+    updateSiteSetting({ settingId: 'deals_discount_one_night', value: checked });
+  };
+
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
