@@ -11,6 +11,22 @@ interface SiteSettingsAdminProps {
   isViewer?: boolean;
 }
 
+interface GapFillSettings {
+  g1: boolean;
+  g2: { enabled: boolean; oneNight: { enabled: boolean; days: number } };
+  g3: {
+    enabled: boolean;
+    twoNights: { enabled: boolean; days: number };
+    oneNight: { enabled: boolean; days: number };
+  };
+}
+
+const defaultGapFill: GapFillSettings = {
+  g1: true,
+  g2: { enabled: true, oneNight: { enabled: true, days: 5 } },
+  g3: { enabled: true, twoNights: { enabled: true, days: 7 }, oneNight: { enabled: true, days: 3 } },
+};
+
 const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const { settings, isLoading, updateSiteSetting, isSaving } = useAdminSettingsManager();
   const [dealsDaysAhead, setDealsDaysAhead] = useState<number>(14);
@@ -18,6 +34,9 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const [dealsBaseDiscount, setDealsBaseDiscount] = useState<number>(0);
   const [discountOneNight, setDiscountOneNight] = useState<boolean>(false);
   const [superDiscount, setSuperDiscount] = useState<{ d3: number; d5: number; d7: number }>({ d3: 0, d5: 0, d7: 0 });
+  const [gapFill, setGapFill] = useState<GapFillSettings>(defaultGapFill);
+
+
 
   
   // Load current values from settings
