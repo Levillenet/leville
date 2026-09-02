@@ -475,8 +475,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
   const x = extraLabels[lang];
-  const [nightFilter, setNightFilter] = useState<NightFilter>("3");
-  const [mode, setMode] = useState<"list" | "search">("list");
+  // Deals are only served through the date search so prices always come
+  // from Moder for the exact length of stay.
   const [searchCheckIn, setSearchCheckIn] = useState("");
   const [searchCheckOut, setSearchCheckOut] = useState("");
   const [rangeOpen, setRangeOpen] = useState(false);
