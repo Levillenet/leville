@@ -1072,7 +1072,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         <CardHeader className="pb-3 pt-12 relative z-10">
                           <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
                             <Calendar className="w-4 h-4" />
-                            <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(displayCheckOut)}</span>
+                            <span>{formatDateDisplay(stayCheckIn)} – {formatDateDisplay(displayCheckOut)}</span>
                           </div>
                           <CardTitle className="text-xl">
                             {bookingUrl ? (
