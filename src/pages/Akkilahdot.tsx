@@ -51,7 +51,7 @@ interface ManualDeal {
   urgency?: Record<Language, string>;
 }
 
-interface Beds24Deal {
+interface ModerDeal {
   id: string;
   roomId: string;
   roomName: string;
@@ -76,8 +76,8 @@ interface Beds24Deal {
 // Manual special deals - easy to update
 const manualDeals: ManualDeal[] = [];
 
-// Fetch Moder availability (replaces Beds24)
-const fetchBeds24Availability = async (): Promise<{ deals: Beds24Deal[]; daysAhead: number | null }> => {
+// Fetch Moder availability (all deal data comes from Moder)
+const fetchModerAvailability = async (): Promise<{ deals: ModerDeal[]; daysAhead: number | null }> => {
   try {
     const { data, error } = await supabase.functions.invoke('moder-availability');
 
@@ -498,7 +498,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // Fetch Moder deals
   const { data: availability, isLoading: isLoadingDeals } = useQuery({
     queryKey: ['moder-availability'],
-    queryFn: fetchBeds24Availability,
+    queryFn: fetchModerAvailability,
     staleTime: 60 * 60 * 1000, // 1 hour cache (matches server cache)
   });
   const allDeals = availability?.deals ?? [];
@@ -666,7 +666,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // Real Moder stay price (EUR, excluding cleaning fee).
   // List mode: prices per stay length precomputed for the window start.
   // Date search: price fetched for the exact requested range (override).
-  const getModerPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number, override?: number | null): number | null => {
+  const getModerPrice = useCallback((deal: ModerDeal, checkIn: string, nights: number, override?: number | null): number | null => {
     if (typeof override === 'number' && override > 0) return override;
     if (checkIn === deal.checkIn) {
       const p = deal.pricesByNights?.[String(nights)];
@@ -677,7 +677,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   // Gap Fill rules: gaps between two bookings may override the property's
   // normal minimum stay. Longer free windows follow Moder's minimum stay.
-  const evaluateStay = useCallback((deal: Beds24Deal, checkIn: string, nights: number): { allowed: boolean; reason: string } => {
+  const evaluateStay = useCallback((deal: ModerDeal, checkIn: string, nights: number): { allowed: boolean; reason: string } => {
     if (nights < 1) return { allowed: false, reason: 'invalid-nights' };
     const checkOut = addDaysIso(checkIn, nights);
     if (checkIn < deal.checkIn || checkOut > deal.checkOut) return { allowed: false, reason: 'outside-window' };
@@ -727,7 +727,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       : { allowed: false, reason: 'below-min-nights' };
   }, [gapFill, todayIso]);
 
-  const isStayAllowed = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
+  const isStayAllowed = useCallback((deal: ModerDeal, checkIn: string, nights: number): boolean => {
     const result = evaluateStay(deal, checkIn, nights);
     if (gapDebug) {
       const windowNights = deal.windowNights ?? deal.nights;
@@ -745,7 +745,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const exampleWindows = useMemo(() => {
     const sorted = [...filteredDeals].sort((a, b) => a.checkIn.localeCompare(b.checkIn));
     const perRoom = new Map<string, number>();
-    const picked: { deal: Beds24Deal; checkIn: string; checkOut: string; nights: number }[] = [];
+    const picked: { deal: ModerDeal; checkIn: string; checkOut: string; nights: number }[] = [];
     for (const deal of sorted) {
       const used = perRoom.get(deal.roomId) ?? 0;
       if (used >= 2) continue;
@@ -764,14 +764,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
 
   // Cleaning fee: prefer Moder mapping value, fallback to property settings
-  const getCleaningFee = useCallback((deal: Beds24Deal): number => {
+  const getCleaningFee = useCallback((deal: ModerDeal): number => {
     if (typeof deal.cleaningFee === 'number' && deal.cleaningFee > 0) return deal.cleaningFee;
     const property = getPropertyWithOverride(deal.roomId);
     return property?.cleaningFee || 0;
   }, [getPropertyWithOverride]);
 
   // Normal price shown as reference: Moder price + cleaning fee (no discounts)
-  const getOriginalApiPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number, override?: number | null): number | null => {
+  const getOriginalApiPrice = useCallback((deal: ModerDeal, checkIn: string, nights: number, override?: number | null): number | null => {
     const base = getModerPrice(deal, checkIn, nights, override);
     if (base == null) return null;
     return Math.round(base + getCleaningFee(deal));
@@ -783,7 +783,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   }, [discountOneNight]);
 
   // Final price: Moder price - base discount - period custom discount, + cleaning fee
-  const getTotalPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number, override?: number | null): number | null => {
+  const getTotalPrice = useCallback((deal: ModerDeal, checkIn: string, nights: number, override?: number | null): number | null => {
     const base = getModerPrice(deal, checkIn, nights, override);
     if (base == null) return null;
 
@@ -807,7 +807,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
 
   // Check if ski pass offer applies to this stay (using displayed dates)
-  const hasSkiPassOffer = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
+  const hasSkiPassOffer = useCallback((deal: ModerDeal, checkIn: string, nights: number): boolean => {
     const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
     return periodS.hasSkiPass;
   }, [getPeriodSettingsFromDb]);
@@ -816,7 +816,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
 
   // Get marketing name from propertyDetails
-  const getMarketingName = useCallback((deal: Beds24Deal): string => {
+  const getMarketingName = useCallback((deal: ModerDeal): string => {
     const property = getPropertyWithOverride(deal.roomId);
     return property?.name || deal.roomName;
   }, [getPropertyWithOverride]);
@@ -840,7 +840,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   }, [getPropertyWithOverride]);
 
   // Generate WhatsApp booking URL for a stay - localized messages
-  const generateWhatsAppUrl = useCallback((deal: Beds24Deal, checkIn: string, nights: number, quoted?: number | null): string => {
+  const generateWhatsAppUrl = useCallback((deal: ModerDeal, checkIn: string, nights: number, quoted?: number | null): string => {
     const totalPrice = getTotalPrice(deal, checkIn, nights, quoted);
     const displayCheckOut = addDaysIso(checkIn, nights);
     const marketingName = getMarketingName(deal);
@@ -920,7 +920,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const searchItems = useMemo(() => {
     if (searchNights < 1) return [];
     if (searchCheckIn > maxCheckInIso) return [];
-    const results: { deal: Beds24Deal; checkIn: string; nights: number; quoted: number | null }[] = [];
+    const results: { deal: ModerDeal; checkIn: string; nights: number; quoted: number | null }[] = [];
     for (const deal of allDeals) {
       if (!isStayAllowed(deal, searchCheckIn, searchNights)) continue;
       const quoted = searchPrices?.[deal.roomId] ?? null;
@@ -942,7 +942,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   // Shared deal card renderer — used by both the search results grid and the
   // marketing example strip so the look always stays in sync.
-  const renderDealCard = (deal: Beds24Deal, stayCheckIn: string, displayNights: number, quoted: number | null, index: number) => {
+  const renderDealCard = (deal: ModerDeal, stayCheckIn: string, displayNights: number, quoted: number | null, index: number) => {
     const isSameDay = isToday(stayCheckIn);
     const displayCheckOut = addDaysIso(stayCheckIn, displayNights);
     const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);

@@ -316,17 +316,21 @@ serve(async (req) => {
         });
       }
       const debug = url.searchParams.get("debug") === "true";
-      // Moder rarely has a rate for a single night, so 1-night stays are priced
-      // using the 2-night stay price for the same arrival date.
+      // Moder has no rate for a single night, so 1-night stays are priced from
+      // the 2-night stay price for the same arrival date — divided by 2, i.e.
+      // the per-night rate of that 2-night stay (never the full 2-night total).
       const nightsRequested = daysBetween(from, to);
       const priceTo = nightsRequested === 1 ? addDays(from, 2) : to;
       const priceMap = await fetchStayPrices(token, roomTypeIds, from, priceTo, debug);
       const prices: Record<string, number> = {};
       for (const m of mappings) {
         const v = priceMap.get(m.moder_room_type_id);
-        if (v != null) prices[String(m.beds24_room_id)] = v;
+        if (v != null) {
+          // beds24_room_id is just the property key here; data comes from Moder
+          prices[String(m.beds24_room_id)] = nightsRequested === 1 ? Math.round(v / 2) : v;
+        }
       }
-      return new Response(JSON.stringify({ from, to, prices, pricedNights: nightsRequested === 1 ? 2 : nightsRequested }), {
+      return new Response(JSON.stringify({ from, to, prices, pricedNights: nightsRequested === 1 ? 2 : nightsRequested, perNight: nightsRequested === 1 }), {
 
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
