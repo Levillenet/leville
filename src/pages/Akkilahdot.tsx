@@ -1165,19 +1165,12 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
                           {/* Price section */}
                           <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-lg p-4 mb-4">
-                            {isSameDay ? (
-                              <div className="text-base font-semibold text-amber-500 flex items-center gap-2">
-                                <Clock className="w-4 h-4" />
-                                {t.sameDayNote}
-                              </div>
-                            ) : totalPrice != null ? (
+                            {totalPrice != null ? (
                               <>
-                                {/* Discount badge - only show if 30% or more AND strikethrough is NOT active */}
-                                {discountPct > 0 && !showStrikethrough && (
-                                  <div className="mb-2">
-                                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                                      -{discountPct}%
-                                    </Badge>
+                                {isSameDay && (
+                                  <div className="mb-2 text-sm font-semibold text-amber-500 flex items-center gap-2">
+                                    <Clock className="w-4 h-4" />
+                                    {x.today}
                                   </div>
                                 )}
                                 <div className="flex items-baseline gap-2 flex-wrap">
@@ -1194,10 +1187,11 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                       </Badge>
                                     </>
                                   ) : (
-                                    <span className={`font-bold ${hasSpecialOffer(deal, stayCheckIn, displayNights) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
+                                    <span className="font-bold text-3xl md:text-4xl italic text-amber-500 tracking-wide">
                                       {totalPrice}€
                                     </span>
                                   )}
+
                                   <span className="text-muted-foreground text-sm">{t.total}</span>
                                 </div>
                                 <div className="text-xs text-muted-foreground mt-2">
