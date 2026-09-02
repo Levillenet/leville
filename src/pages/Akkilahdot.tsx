@@ -748,11 +748,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   const searchItems = useMemo(() => {
     if (mode !== "search" || searchNights < 1) return [];
-    const guests = parseInt(searchGuests, 10);
     const results: { deal: Beds24Deal; checkIn: string; nights: number }[] = [];
     for (const deal of beds24Deals) {
       if (!isStayAllowed(deal, searchCheckIn, searchNights)) continue;
-      if (!isNaN(guests) && guests > 0 && deal.maxPersons < guests) continue;
       if (getTotalPrice(deal, searchCheckIn, searchNights) == null) continue;
       results.push({ deal, checkIn: searchCheckIn, nights: searchNights });
     }
@@ -761,7 +759,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       (getTotalPrice(b.deal, b.checkIn, b.nights) ?? Infinity)
     );
     return results;
-  }, [mode, beds24Deals, searchCheckIn, searchNights, searchGuests, isStayAllowed, getTotalPrice]);
+  }, [mode, beds24Deals, searchCheckIn, searchNights, isStayAllowed, getTotalPrice]);
+
 
   const displayItems = mode === "search" ? searchItems : listItems;
   const searchActive = mode === "search" && searchNights >= 1;
