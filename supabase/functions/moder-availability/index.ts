@@ -230,6 +230,45 @@ serve(async (req) => {
     const url = new URL(req.url);
     const forceRefresh = url.searchParams.get("force_refresh") === "true";
 
+    // --- Temporary diagnostic: find the endpoint that returns the real stay price ---
+    if (url.searchParams.get("debug_price") === "1") {
+      const rt = url.searchParams.get("room_type") || "3900";
+      const from = url.searchParams.get("from") || "2026-09-03";
+      const to = url.searchParams.get("to") || "2026-09-09";
+      const guests = url.searchParams.get("guests") || "1";
+      const candidates = [
+        `/api/v1/offers?room_types[]=${rt}&date_start=${from}&date_end=${to}&adults=${guests}`,
+        `/api/v1/offers?room_type_id=${rt}&arrival=${from}&departure=${to}&guests=${guests}`,
+        `/api/v1/prices?room_types[]=${rt}&date_start=${from}&date_end=${to}&adults=${guests}`,
+        `/api/v1/prices?room_type_id=${rt}&arrival=${from}&departure=${to}&guests=${guests}`,
+        `/api/v1/quotes?room_type_id=${rt}&arrival=${from}&departure=${to}&guests=${guests}`,
+        `/api/v1/quote?room_type_id=${rt}&arrival=${from}&departure=${to}&guests=${guests}`,
+        `/api/v1/room_types/${rt}/prices?date_start=${from}&date_end=${to}&adults=${guests}`,
+        `/api/v1/room_types/${rt}/offers?date_start=${from}&date_end=${to}&adults=${guests}`,
+        `/api/v1/room_types/${rt}/availabilities?date_start=${from}&date_end=${to}&adults=${guests}`,
+        `/api/v1/availabilities?date_start=${from}&date_end=${to}&room_types[]=${rt}&adults=${guests}&nights=${daysBetween(from, to)}`,
+        `/api/v1/availabilities?date_start=${from}&date_end=${to}&room_types[]=${rt}&guests=${guests}&length_of_stay=${daysBetween(from, to)}`,
+        `/api/v1/search?date_start=${from}&date_end=${to}&room_types[]=${rt}&adults=${guests}`,
+        `/api/v1/rates?room_types[]=${rt}&date_start=${from}&date_end=${to}&adults=${guests}`,
+        `/api/v1/rate_plans?room_types[]=${rt}&date_start=${from}&date_end=${to}`,
+        `/api/v1/room_types/${rt}`,
+        `/api/v1/room_types`,
+      ];
+      const results: any[] = [];
+      for (const path of candidates) {
+        const r = await moderFetch(token, path);
+        results.push({
+          path,
+          ok: r.ok,
+          status: r.status,
+          sample: r.ok ? JSON.stringify(r.json).slice(0, 1500) : null,
+        });
+      }
+      return new Response(JSON.stringify({ debug: true, results }, null, 2), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     // deals_days_ahead setting (default 28)
     let dealsDaysAhead = 28;
     const { data: daysSetting } = await supabase
