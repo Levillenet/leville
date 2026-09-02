@@ -21,7 +21,7 @@ Näin tunnuksia ei tarvitse arvata.
    - 7 olemassa olevaa riviä saa oikean Moder-tunnuksen
    - 21 puuttuvaa kohdetta lisätään (Glacier A1–A6 ja B1–B4, studiot, Karhupirtti, Hiihtäjä, Moonlight, Platinum, Karhunvartija 3, Skistar 209/210/310)
    - Siivousmaksu ja henkilömäärä otetaan `propertyDetails.ts`:stä
-2. **Poistuneet kohteet pois äkkilähdöistä:** 19 vanhaa riviä (Tunturi, Immelrinne, Immelkartano, Riekontie, Rantatähti, Karhunvartija A7/A8/C21/C22, Glacier A8/B8, Skistar 422/521/522/321/322) — näiltä nollataan Moder-tunnus, mutta **rivit jätetään paikoilleen**, koska tiketöinti hakee niistä kohteen nimen vanhoille tiketeille.
+2. **Vieraat rivit pois äkkilähdöistä:** Taulussa on 19 riviä, jotka eivät ole koskaan kuuluneet nykyiseen kantaanne (Tunturi, Immelrinne, Immelkartano, Riekontie, Rantatähti, Karhunvartija A7/A8/C21/C22, Glacier A8/B8, Skistar 422/521/522/321/322). Ne ovat peräisin tammikuun 2026 alkuperäisestä migraatiosta, joka syötti tauluun vanhan testilistauksen tunnuksilla 308–333. Näiltä nollataan Moder-tunnus, mutta **rivit jätetään paikoilleen**, koska tiketöinti hakee niistä kohteen nimen mahdollisille vanhoille tiketeille. Jos haluat, että myös tiketöinti näyttää raakatunnuksen näille, voidaan rivit poistaa kokonaan — kerro valintasi.
 3. **Ristiriidan korjaus:** Karhupirtin Beds24-tunnus on taulussa `419423`, mutta koodissa `353045`. Käytetään koodin arvoa, jotta siivousmaksut ja WhatsApp-numero osuvat oikein.
 
 ## Varmistus
