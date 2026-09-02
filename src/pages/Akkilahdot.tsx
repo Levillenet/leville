@@ -699,7 +699,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       "position": index + 1,
       "name": deal.roomName,
       "description": `${deal.roomName} - ${schemaNights} nights`,
-      "price": getTotalPrice(deal, schemaNights) || 0,
+      "price": getTotalPrice(deal, deal.checkIn, schemaNights) || 0,
       "priceCurrency": "EUR",
       "availability": "https://schema.org/LimitedAvailability",
       "validFrom": deal.checkIn,
