@@ -151,9 +151,10 @@ function parseAvailabilities(payload: any, roomTypeIds: number[]): Map<number, D
 }
 
 // Build contiguous free windows from a sorted day list.
-// A window is a maximal run of free, non-blackout nights. The run is also split
-// at a checkout_denied day (nothing can end that day, so a stay may not span it).
+// A window is a maximal run of free, non-blackout nights.
 // isGap = both the day before and the day after the window are occupied.
+// checkout_denied days do not split a run: they only forbid a stay ending that
+// date, which is enforced per-stay via noCheckOut in the frontend.
 function buildWindows(roomTypeId: number, days: DayInfo[], maxCheckIn: string): Window_[] {
   const windows: Window_[] = [];
   const dateSet = new Map(days.map(d => [d.date, d]));
@@ -194,22 +195,10 @@ function buildWindows(roomTypeId: number, days: DayInfo[], maxCheckIn: string): 
     runDays = [];
   };
 
-  for (let i = 0; i < days.length; i++) {
-    const day = days[i];
+  for (const day of days) {
     const usable = day.isFree && !day.blackout;
     if (usable) {
       runDays.push(day);
-      // A checkout-denied day cannot end a stay, but it can start one.
-      // Split the run so the next window starts fresh at the following day
-      // only when the following day is usable; otherwise the run closes anyway.
-      if (day.checkoutDenied) {
-        const next = days[i + 1];
-        if (next && next.isFree && !next.blackout) {
-          closeRun(next);
-        } else {
-          closeRun(next ?? null);
-        }
-      }
     } else {
       closeRun(day);
     }
