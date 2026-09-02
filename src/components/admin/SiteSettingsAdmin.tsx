@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { useAdminSettingsManager } from '@/hooks/useAdminSettings';
 import { supabase } from '@/integrations/supabase/client';
 import { useQueryClient } from '@tanstack/react-query';
+import DealsPriceCheck from './DealsPriceCheck';
+
 
 interface SiteSettingsAdminProps {
   isViewer?: boolean;
@@ -475,7 +477,16 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
           )}
         </CardContent>
       </Card>
+
+      <DealsPriceCheck
+        settings={{
+          baseDiscount: dealsBaseDiscount,
+          superDiscount,
+          discountOneNight,
+        }}
+      />
     </div>
+
 
   );
 };
