@@ -649,10 +649,18 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return Math.round(base + getCleaningFee(deal));
   }, [getModerPrice, getCleaningFee]);
 
+  // Are discounts applied at all for this stay length?
+  const isDiscountable = useCallback((nights: number): boolean => {
+    return nights > 1 || discountOneNight;
+  }, [discountOneNight]);
+
   // Final price: Moder price - base discount - period custom discount, + cleaning fee
   const getTotalPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number, override?: number | null): number | null => {
     const base = getModerPrice(deal, checkIn, nights, override);
     if (base == null) return null;
+
+    // 1-night stays can be excluded from discounts by admin setting
+    if (!isDiscountable(nights)) return Math.round(base + getCleaningFee(deal));
 
     let price = base * (1 - dealsBaseDiscount / 100);
 
@@ -667,7 +675,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     }
 
     return Math.round(price + getCleaningFee(deal));
-  }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb, getSuperDiscountPct]);
+  }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb, getSuperDiscountPct, isDiscountable]);
+
 
   // Check if ski pass offer applies to this stay (using displayed dates)
   const hasSkiPassOffer = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
