@@ -410,7 +410,11 @@ serve(async (req) => {
         const v = stayPrices.get(`${w.checkIn}|${n}`)?.get(w.roomTypeId);
         if (v != null && v > 0) pricesByNights[String(n)] = v;
       }
+      // Moder rarely prices a single night: use the 2-night price for 1 night.
+      const twoNight = stayPrices.get(`${w.checkIn}|2`)?.get(w.roomTypeId);
+      if (twoNight != null && twoNight > 0) pricesByNights["1"] = twoNight;
       const windowTotal = pricesByNights[String(maxN)] ?? null;
+
 
       return {
         id: `${mapping.beds24_room_id}-${w.checkIn}`,
