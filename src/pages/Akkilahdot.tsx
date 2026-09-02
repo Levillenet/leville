@@ -499,6 +499,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     const n = typeof baseDiscountRaw === 'number' ? baseDiscountRaw : parseInt(String(baseDiscountRaw ?? '0'), 10);
     return isNaN(n) || n < 0 ? 0 : Math.min(n, 90);
   })();
+  // Should 1-night stays get the base/super discount at all?
+  const discountOneNight = (adminSettings?.siteSettings?.find(s => s.id === 'deals_discount_one_night')?.value) === true;
+
 
   // Listing/search horizon: server value wins, admin setting is the fallback
   const daysAheadSetting = (() => {
