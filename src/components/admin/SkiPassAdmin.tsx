@@ -101,7 +101,9 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     d5: clampPct(superDiscountRaw?.d5),
     d7: clampPct(superDiscountRaw?.d7),
   };
+  const discountOneNight = dbSettings?.siteSettings?.find(s => s.id === 'deals_discount_one_night')?.value === true;
   const getSuperDiscountPct = (checkIn?: string | null): number => {
+
     if (!checkIn) return 0;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
