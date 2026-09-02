@@ -1,35 +1,38 @@
-# Äkkilähtöjen hintaero: siivous lasketaan kahteen kertaan
+# Äkkilähtöjen hintakorjaus: siivousmaksun tuplalisäys pois
 
-## Mistä ero johtuu
+## Ongelma
+Moderin `/api/v1/prices`-rajapinnan palauttama jaksohinta sisältää siivouksen jo valmiiksi.
+Sivu lisää siivousmaksun silti erikseen päälle, joten hinnat ovat liian korkeat:
+- Glacier A5: näytetään 529 €, Moderissa 481 € (ero = 120 € siivous)
+- Karhupirtti: näytetään 1062 €, Moderissa 990 € (ero = 220 € siivous)
 
-Tarkistin taustapalvelun palauttamat oikeat Moder-hinnat ja asetukset.
+Lisäksi alennukset lasketaan vain majoitusosasta ja siivous lisätään alentamattomana,
+joten hinta ei vastaa Moderia millään laskutavalla.
 
-- Perusalennus on 15 % (`deals_base_discount = 15`).
-- Karhupirtti, 6 yötä: Moderin jaksohinta **990 €**, siivousmaksu tietokannassa **220 €**.
-  990 × 0,85 = 841,50 → + 220 = **1061,50 ≈ 1062 €** (juuri se, mitä sivu näyttää).
-- Glacier A5 Penthouse: Moderin jaksohinta **481 €**, siivousmaksu **120 €**.
-  481 × 0,85 = 408,85 → + 120 = **528,85 ≈ 529 €** (juuri se, mitä sivu näyttää).
-
-Molemmat erot selittyvät täsmälleen: **Moderin palauttama jaksohinta sisältää jo siivouksen, mutta sivu lisää siivousmaksun vielä erikseen päälle.** Lisäksi alennus lasketaan hinnasta ilman siivousta, jolloin loppusumma ei vastaa Moderin näyttämää hintaa millään laskutavalla.
-
-## Mitä korjataan
-
-1. **Siivousmaksua ei enää lisätä erikseen.** Moderin jaksohinta on lopullinen pohjahinta, josta alennukset lasketaan. Loppuhinta = Moder-hinta − perusalennus − superäkkilähtöalennus.
-2. **Yliviivattu alkuperäinen hinta = Moderin jaksohinta sellaisenaan** (esim. A5: 481 €, Karhupirtti: 990 €), ei enää hinta + siivous.
-3. Sama korjaus adminin hintariveille, jotta hallintanäkymä ja asiakassivu näyttävät saman summan.
-4. Hintaerittelyn tekstistä poistetaan erillinen "siivous"-rivi, koska se sisältyy hintaan. Tarvittaessa lisätään huomautus "sisältää loppusiivouksen".
-
-## Varmistus
-
-Tarkistan korjauksen jälkeen samat kaksi tapausta:
-
+## Nykyinen kaava (virheellinen)
 ```text
-Glacier A5, sama jakso   Moder 481 €  → sivu näyttää yliviivattuna 481 € ja alennettuna 409 €
-Karhupirtti, 6 yötä      Moder 990 €  → sivu näyttää yliviivattuna 990 € ja alennettuna 842 €
+loppuhinta = pyöristys( ModerJaksohinta × (1 − perusalennus) × (1 − super%) × (1 − jakso%) + siivous )
+alkuperäinen (yliviivattu) = ModerJaksohinta + siivous
 ```
 
-## Tekniset yksityiskohdat
+## Uusi kaava (korjattu)
+```text
+loppuhinta = pyöristys( ModerJaksohinta × (1 − perusalennus) × (1 − super%) × (1 − jakso%) )
+alkuperäinen (yliviivattu) = ModerJaksohinta
+```
 
-- `src/pages/Akkilahdot.tsx`: `cleaningFee` poistetaan hintalaskennasta (alkuperäinen hinta, alennettu hinta ja erittely).
-- `src/components/admin/SkiPassAdmin.tsx`: sama muutos hintarivien laskentaan.
-- `supabase/functions/moder-availability/index.ts`: `cleaningFee` jätetään vastaukseen tiedoksi, mutta sitä ei enää käytetä summaukseen (tai poistetaan käytöstä kokonaan, jos mikään näkymä ei sitä tarvitse).
+## Muutokset
+1. **src/pages/Akkilahdot.tsx**
+   - `getTotalPrice`: poistetaan `+ getCleaningFee(deal)` — Moder-hinta on lopullinen pohja.
+   - `getOriginalApiPrice`: palauttaa pelkän Moder-jaksohinnan (ilman siivousta).
+   - Hintaerittelyn tekstit: poistetaan/muutetaan siivoukseen viittaava rivi ("Price includes cleaning…") — hinta on nyt Moder-hinta miinus alennukset.
+   - `getCleaningFee`-funktiota ei enää käytetä hinnassa; voidaan jättää poistamatta jos käytetään muualla, muuten poistetaan.
+2. **src/components/admin/SkiPassAdmin.tsx** (äkkilähtöjen hintarivit adminissa)
+   - `getCurrentDisplayPrice`: sama korjaus — siivousta ei lisätä Moder-hintaan.
+
+## Ei muuteta
+- Perusalennus 15 %, superäkkilähtö-portaat ja jaksoalennukset toimivat kuten ennen — ne lasketaan nyt koko Moder-jaksohinnasta (sis. siivouksen), mikä on haluttua.
+- Moder-kyselyt, saatavuuslogiikka ja kalenteri pysyvät ennallaan.
+
+## Tarkistus
+- Selaintarkistus: A5 samalle jaksolle näyttää ~409 € (481 × 0,85) ja yliviivattuna 481 €; Karhupirtti ~842 € (990 × 0,85) ja yliviivattuna 990 €.
