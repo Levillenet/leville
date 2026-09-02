@@ -955,6 +955,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     // Strikethrough/discount badge is hidden for 1-night stays; otherwise show when discounted
     const showStrikethrough = displayNights !== 1 && originalPrice != null && totalPrice != null && totalPrice < originalPrice;
     const discountPct = showStrikethrough ? Math.round((1 - totalPrice / originalPrice) * 100) : 0;
+    // Price includes 4 guests note: Glacier apartments, Karhupirtti (353045) and Hiihtäjänkuja 5B5 (350161)
+    const showGuestPriceNote = category === 'glacier' || deal.roomId === '353045' || deal.roomId === '350161';
 
     return (
       <ScrollReveal key={`${deal.id}-${stayCheckIn}-${displayNights}`} delay={index * 0.1}>
@@ -1129,6 +1131,22 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                               ? "Precio incluye limpieza (ropa de cama si es necesario 19€/persona)."
                               : "Prix comprend le ménage (linge si nécessaire 19€/personne)."
                     }
+                    {showGuestPriceNote && (
+                      <div className="mt-1">
+                        {lang === 'fi'
+                          ? "Hinta sisältää 4 henkilöä. Lisähenkilöt 15 €/henkilö/varaus."
+                          : lang === 'en'
+                            ? "Price includes 4 guests. Extra guests 15 €/person/booking."
+                            : lang === 'sv'
+                              ? "Priset inkluderar 4 gäster. Extra gäster 15 €/person/bokning."
+                              : lang === 'de'
+                                ? "Preis inkl. 4 Personen. Zusatzpersonen 15 €/Person/Buchung."
+                                : lang === 'es'
+                                  ? "El precio incluye 4 personas. Personas adicionales 15 €/persona/reserva."
+                                  : "Prix pour 4 personnes. Personnes supplémentaires 15 €/personne/réservation."
+                        }
+                      </div>
+                    )}
                   </div>
                 </>
               ) : (
