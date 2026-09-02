@@ -158,6 +158,7 @@ const DealsPriceCheck = ({ settings }: Props) => {
       lines.push(`  Perusalennus ${r.breakdown.baseDiscountPct}%: -${eur(r.breakdown.baseDiscountAmount)}`);
       lines.push(`  Superäkkilähtö ${r.breakdown.superDiscountPct}%: -${eur(r.breakdown.superDiscountAmount)}`);
       lines.push(`  Jaksoalennus ${r.breakdown.periodDiscountPct}%: -${eur(r.breakdown.periodDiscountAmount)}`);
+      lines.push(`  Siivousmaksu: +${eur(r.breakdown.cleaningFee)}`);
       lines.push(`  Asiakkaan hinta: ${r.breakdown.total} € (${eur(r.breakdown.perNight)}/yö)`);
       if (r.debug) {
         lines.push(`  Moder LOS-hinnat: ${Object.entries(r.debug.losPrices).map(([n, v]) => `${n}yö=${v}€`).join(', ')}`);
