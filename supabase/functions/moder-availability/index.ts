@@ -8,7 +8,6 @@ const corsHeaders = {
 
 const MODER_BASE_URLS = ["https://app.moder.fi", "https://dev-app.moder.fi"];
 const CACHE_ID = "moder_availability";
-const MAX_DEAL_NIGHTS = 7;
 
 function formatDate(date: Date): string {
   return date.toISOString().split("T")[0];
@@ -48,6 +47,7 @@ interface DayInfo {
   checkinDenied: boolean;
   checkoutDenied: boolean;
   blackout: boolean;
+  dayRate: number | null; // EUR per night, from Moder day_rate (cents)
 }
 
 interface Window_ {
@@ -56,6 +56,10 @@ interface Window_ {
   checkOut: string; // exclusive
   nights: number;
   minNights: number;
+  isGap: boolean;
+  rates: Record<string, number>; // date -> EUR per night
+  noCheckIn: string[];
+  noCheckOut: string[];
 }
 
 async function moderFetch(token: string, path: string): Promise<{ ok: boolean; status: number; json: any; base: string }> {
@@ -89,6 +93,8 @@ function parseAvailabilities(payload: any, roomTypeIds: number[]): Map<number, D
   const toDay = (d: any): DayInfo | null => {
     const date = d?.date ?? d?.day;
     if (!date) return null;
+    const rawRate = d?.day_rate ?? d?.rate;
+    const rateNum = typeof rawRate === "number" ? rawRate : Number(rawRate);
     return {
       date: String(date).slice(0, 10),
       isFree: d?.is_free === true || d?.available === true || (d?.free_rooms ?? 0) > 0,
@@ -96,6 +102,7 @@ function parseAvailabilities(payload: any, roomTypeIds: number[]): Map<number, D
       checkinDenied: d?.checkin_denied === true || d?.check_in_denied === true,
       checkoutDenied: d?.checkout_denied === true || d?.check_out_denied === true,
       blackout: d?.blackout === true,
+      dayRate: !isNaN(rateNum) && rateNum > 0 ? Math.round(rateNum) / 100 : null,
     };
   };
 
@@ -113,7 +120,7 @@ function parseAvailabilities(payload: any, roomTypeIds: number[]): Map<number, D
           const day = toDay({ date, ...(v as object) });
           if (day) list.push(day);
         } else {
-          list.push({ date, isFree: v === true, minNights: 1, checkinDenied: false, checkoutDenied: false, blackout: false });
+          list.push({ date, isFree: v === true, minNights: 1, checkinDenied: false, checkoutDenied: false, blackout: false, dayRate: null });
         }
       }
     }
@@ -143,72 +150,62 @@ function parseAvailabilities(payload: any, roomTypeIds: number[]): Map<number, D
   return result;
 }
 
-// Build free windows from a sorted day list
+// Build contiguous free windows from a sorted day list.
+// A window is a maximal run of free, non-blackout nights.
+// isGap = both the day before and the day after the window are occupied.
+// checkout_denied days do not split a run: they only forbid a stay ending that
+// date, which is enforced per-stay via noCheckOut in the frontend.
 function buildWindows(roomTypeId: number, days: DayInfo[], maxCheckIn: string): Window_[] {
   const windows: Window_[] = [];
-  let start: DayInfo | null = null;
+  const dateSet = new Map(days.map(d => [d.date, d]));
 
-  const closeWindow = (endDateExclusive: string) => {
-    if (!start) return;
-    const nights = daysBetween(start.date, endDateExclusive);
+  let runDays: DayInfo[] = [];
+
+  const closeRun = (nextDay: DayInfo | null) => {
+    if (runDays.length === 0) return;
+    const start = runDays[0];
+    const last = runDays[runDays.length - 1];
+    const checkOut = addDays(last.date, 1);
+    const nights = daysBetween(start.date, checkOut);
+
     if (nights >= 1 && start.date <= maxCheckIn) {
+      // Gap detection: window bounded by occupied days on both sides
+      const prevDay = dateSet.get(addDays(start.date, -1));
+      const afterDay = nextDay ?? dateSet.get(checkOut);
+      const occupied = (d: DayInfo | undefined) => !!d && (!d.isFree || d.blackout);
+      const isGap = occupied(prevDay) && occupied(afterDay);
+
+      const rates: Record<string, number> = {};
+      for (const d of runDays) {
+        if (d.dayRate != null) rates[d.date] = d.dayRate;
+      }
+
       windows.push({
         roomTypeId,
         checkIn: start.date,
-        checkOut: endDateExclusive,
+        checkOut,
         nights,
-        minNights: start.minNights,
+        minNights: Math.max(...runDays.map(d => d.minNights || 1)),
+        isGap,
+        rates,
+        noCheckIn: runDays.filter(d => d.checkinDenied).map(d => d.date),
+        noCheckOut: runDays.filter(d => d.checkoutDenied).map(d => d.date),
       });
     }
-    start = null;
+    runDays = [];
   };
 
   for (const day of days) {
     const usable = day.isFree && !day.blackout;
     if (usable) {
-      if (!start) {
-        // Window can only start on a day where check-in is allowed
-        if (!day.checkinDenied) start = day;
-      }
-      // If checkout is denied on this day, the window must end before/at this date
-      // (a stay must be able to end). We keep it simple: window ends after the last
-      // day where checkout is allowed.
-      if (day.checkoutDenied) {
-        closeWindow(day.date);
-      }
+      runDays.push(day);
     } else {
-      closeWindow(day.date);
+      closeRun(day);
     }
   }
-  if (start && days.length > 0) {
-    closeWindow(addDays(days[days.length - 1].date, 1));
-  }
+  closeRun(null);
+
   return windows.filter(w => w.checkIn <= maxCheckIn);
-}
-
-// Fetch total price (EUR) for a stay of given length from window start
-async function fetchPrice(
-  token: string,
-  base: string,
-  roomTypeId: number,
-  checkIn: string,
-  nights: number
-): Promise<number | null> {
-  const dateEnd = addDays(checkIn, nights);
-  const path = `/api/v1/prices?room_types[]=${roomTypeId}&date_start=${checkIn}&date_end=${dateEnd}&guests_adults=2`;
-  const res = await moderFetch(token, path);
-  if (!res.ok) return null;
-
-  const raw = res.json?.data ?? res.json;
-  const entries = Array.isArray(raw) ? raw : [raw];
-  for (const e of entries) {
-    const total = e?.total_price ?? e?.totalPrice ?? e?.price;
-    if (typeof total === "number" && total > 0) {
-      // Moder returns cents
-      return Math.round(total) / 100;
-    }
-  }
-  return null;
 }
 
 serve(async (req) => {
@@ -273,19 +270,19 @@ serve(async (req) => {
 
     const today = new Date();
     const dateStart = formatDate(today);
-    const dateEnd = formatDate(new Date(today.getTime() + (dealsDaysAhead + MAX_DEAL_NIGHTS) * 86400000));
-    const maxCheckIn = formatDate(new Date(today.getTime() + dealsDaysAhead * 86400000));
+    // Cover the full listing horizon plus room for date-range searches.
+    const horizonDays = dealsDaysAhead + 30;
+    const dateEnd = formatDate(new Date(today.getTime() + horizonDays * 86400000));
+    const maxCheckIn = formatDate(new Date(today.getTime() + horizonDays * 86400000));
 
     // Fetch availabilities for all room types in one call; if the token lacks
     // access to some room types (403/401), fall back to per-room-type queries
     // and skip the denied ones.
     const roomTypesParam = roomTypeIds.map(id => `room_types[]=${id}`).join("&");
     let daysByRoomType = new Map<number, DayInfo[]>();
-    let moderBase = "";
 
     const availRes = await moderFetch(token, `/api/v1/availabilities?date_start=${dateStart}&date_end=${dateEnd}&${roomTypesParam}`);
     if (availRes.ok) {
-      moderBase = availRes.base;
       console.log("Moder base URL:", availRes.base);
       daysByRoomType = parseAvailabilities(availRes.json, roomTypeIds);
     } else {
@@ -296,7 +293,6 @@ serve(async (req) => {
           console.log(`Room type ${rtId}: access denied, skipped`);
           continue;
         }
-        moderBase = moderBase || single.base;
         const parsed = parseAvailabilities(single.json, [rtId]);
         for (const [k, v] of parsed) daysByRoomType.set(k, v);
       }
@@ -309,37 +305,14 @@ serve(async (req) => {
       const wins = buildWindows(rtId, days, maxCheckIn);
       allWindows.push(...wins);
     }
-    console.log(`Found ${allWindows.length} free windows`);
+    console.log(`Found ${allWindows.length} free windows (${allWindows.filter(w => w.isGap).length} gaps)`);
 
-    // Fetch prices per window and supported length (2..min(7, windowNights))
-    const deals: any[] = [];
-    let probeLogged = false;
-
-    for (const w of allWindows) {
+    const deals = allWindows.map(w => {
       const mapping = mappings.find(m => m.moder_room_type_id === w.roomTypeId);
-      if (!mapping) continue;
+      if (!mapping) return null;
+      const windowTotal = Object.values(w.rates).reduce((s, v) => s + v, 0);
 
-      const maxLen = Math.min(MAX_DEAL_NIGHTS, w.nights);
-      const pricesByNights: Record<string, number> = {};
-      const nightlyProbe: Record<string, number> = {};
-
-      for (let len = 2; len <= maxLen; len++) {
-        const price = await fetchPrice(token, availRes.base, w.roomTypeId, w.checkIn, len);
-        if (price != null) {
-          pricesByNights[String(len)] = price;
-          nightlyProbe[String(len)] = Math.round((price / len) * 100) / 100;
-        }
-      }
-
-      // Length-dependent pricing probe: log per-night price per length
-      if (!probeLogged && nightlyProbe["3"] && nightlyProbe["4"]) {
-        probeLogged = true;
-        console.log(`PRICE PROBE room_type ${w.roomTypeId} ${w.checkIn}: per-night by length = ${JSON.stringify(nightlyProbe)}`);
-      }
-
-      const longestPrice = pricesByNights[String(maxLen)] ?? null;
-
-      deals.push({
+      return {
         id: `${mapping.beds24_room_id}-${w.checkIn}`,
         roomId: String(mapping.beds24_room_id),
         roomName: mapping.property_name,
@@ -348,16 +321,19 @@ serve(async (req) => {
         nights: w.nights,
         windowNights: w.nights,
         minNights: w.minNights,
-        pricesByNights,
-        price: longestPrice,
+        isGap: w.isGap,
+        rates: w.rates,
+        noCheckIn: w.noCheckIn,
+        noCheckOut: w.noCheckOut,
+        price: windowTotal > 0 ? windowTotal : null,
         cleaningFee: mapping.cleaning_fee ?? 0,
         currency: "EUR",
         maxPersons: mapping.max_guests ?? 2,
         available: true,
-      });
-    }
+      };
+    }).filter(Boolean);
 
-    deals.sort((a, b) => a.checkIn.localeCompare(b.checkIn));
+    deals.sort((a: any, b: any) => a.checkIn.localeCompare(b.checkIn));
 
     const payload = {
       deals,

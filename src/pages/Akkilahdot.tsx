@@ -63,6 +63,11 @@ interface Beds24Deal {
   minNights?: number;
   pricesByNights?: Record<string, number | null>;
   cleaningFee?: number;
+  // Moder window payload
+  isGap?: boolean;
+  rates?: Record<string, number>; // date -> EUR per night
+  noCheckIn?: string[];
+  noCheckOut?: string[];
 }
 
 // Manual special deals - easy to update
@@ -118,7 +123,16 @@ const content = {
     filter2: "2 yötä",
     filter3: "3 yötä",
     filter4plus: "4+ yötä",
-    moreOptions: "Jaksolla vapaana yhteensä {n} yötä – voit valita haluamasi päivät. Kysy WhatsAppilla!"
+    moreOptions: "Jaksolla vapaana yhteensä {n} yötä – voit valita haluamasi päivät. Kysy WhatsAppilla!",
+    modeSearch: "Hae päivämäärillä",
+    modeList: "Selaa tarjouksia",
+    checkInLabel: "Saapuminen",
+    checkOutLabel: "Lähtö",
+    guestsLabel: "Henkilömäärä",
+    guestsAny: "Ei väliä",
+    searchButton: "Hae äkkilähtöjä",
+    searchResults: "Vapaat majoitukset valitulle ajanjaksolle",
+    noSearchResults: "Ei vapaita majoituksia valitulle ajanjaksolle. Kokeile toisia päiviä tai kysy WhatsAppilla!"
   },
   en: {
     meta: {
@@ -152,7 +166,16 @@ const content = {
     filter2: "2 nights",
     filter3: "3 nights",
     filter4plus: "4+ nights",
-    moreOptions: "{n} nights available in this window – choose your own dates. Ask via WhatsApp!"
+    moreOptions: "{n} nights available in this window – choose your own dates. Ask via WhatsApp!",
+    modeSearch: "Search by dates",
+    modeList: "Browse deals",
+    checkInLabel: "Check-in",
+    checkOutLabel: "Check-out",
+    guestsLabel: "Guests",
+    guestsAny: "Any",
+    searchButton: "Search last-minute deals",
+    searchResults: "Available accommodation for your dates",
+    noSearchResults: "No available accommodation for the selected dates. Try different dates or ask via WhatsApp!"
   },
   sv: {
     meta: {
@@ -186,7 +209,16 @@ const content = {
     filter2: "2 nätter",
     filter3: "3 nätter",
     filter4plus: "4+ nätter",
-    moreOptions: "{n} nätter lediga i perioden – välj dina egna datum. Fråga via WhatsApp!"
+    moreOptions: "{n} nätter lediga i perioden – välj dina egna datum. Fråga via WhatsApp!",
+    modeSearch: "Sök efter datum",
+    modeList: "Bläddra bland erbjudanden",
+    checkInLabel: "Incheckning",
+    checkOutLabel: "Utcheckning",
+    guestsLabel: "Antal personer",
+    guestsAny: "Spelar ingen roll",
+    searchButton: "Sök sista minuten-erbjudanden",
+    searchResults: "Lediga boenden för valda datum",
+    noSearchResults: "Inga lediga boenden för valda datum. Prova andra datum eller fråga via WhatsApp!"
   },
   de: {
     meta: {
@@ -220,7 +252,16 @@ const content = {
     filter2: "2 Nächte",
     filter3: "3 Nächte",
     filter4plus: "4+ Nächte",
-    moreOptions: "{n} Nächte in diesem Zeitraum frei – wählen Sie Ihre Daten. Per WhatsApp anfragen!"
+    moreOptions: "{n} Nächte in diesem Zeitraum frei – wählen Sie Ihre Daten. Per WhatsApp anfragen!",
+    modeSearch: "Nach Daten suchen",
+    modeList: "Angebote durchsuchen",
+    checkInLabel: "Anreise",
+    checkOutLabel: "Abreise",
+    guestsLabel: "Personen",
+    guestsAny: "Egal",
+    searchButton: "Last-Minute suchen",
+    searchResults: "Verfügbare Unterkünfte für Ihren Zeitraum",
+    noSearchResults: "Keine freien Unterkünfte für den gewählten Zeitraum. Versuchen Sie andere Daten oder fragen Sie per WhatsApp!"
   },
   es: {
     meta: {
@@ -254,7 +295,16 @@ const content = {
     filter2: "2 noches",
     filter3: "3 noches",
     filter4plus: "4+ noches",
-    moreOptions: "{n} noches disponibles en este período – elige tus fechas. ¡Pregunta por WhatsApp!"
+    moreOptions: "{n} noches disponibles en este período – elige tus fechas. ¡Pregunta por WhatsApp!",
+    modeSearch: "Buscar por fechas",
+    modeList: "Ver ofertas",
+    checkInLabel: "Llegada",
+    checkOutLabel: "Salida",
+    guestsLabel: "Huéspedes",
+    guestsAny: "Cualquiera",
+    searchButton: "Buscar ofertas de última hora",
+    searchResults: "Alojamientos disponibles para tus fechas",
+    noSearchResults: "No hay alojamientos disponibles para las fechas seleccionadas. ¡Prueba otras fechas o pregunta por WhatsApp!"
   },
   fr: {
     meta: {
@@ -288,7 +338,16 @@ const content = {
     filter2: "2 nuits",
     filter3: "3 nuits",
     filter4plus: "4+ nuits",
-    moreOptions: "{n} nuits disponibles sur cette période – choisissez vos dates. Demandez via WhatsApp !"
+    moreOptions: "{n} nuits disponibles sur cette période – choisissez vos dates. Demandez via WhatsApp !",
+    modeSearch: "Rechercher par dates",
+    modeList: "Parcourir les offres",
+    checkInLabel: "Arrivée",
+    checkOutLabel: "Départ",
+    guestsLabel: "Personnes",
+    guestsAny: "Peu importe",
+    searchButton: "Rechercher des offres",
+    searchResults: "Hébergements disponibles pour vos dates",
+    noSearchResults: "Aucun hébergement disponible pour les dates choisies. Essayez d'autres dates ou demandez via WhatsApp !"
   },
   nl: {
     meta: {
@@ -322,7 +381,16 @@ const content = {
     filter2: "2 nachten",
     filter3: "3 nachten",
     filter4plus: "4+ nachten",
-    moreOptions: "{n} nachten beschikbaar in deze periode – kies je eigen data. Vraag via WhatsApp!"
+    moreOptions: "{n} nachten beschikbaar in deze periode – kies je eigen data. Vraag via WhatsApp!",
+    modeSearch: "Zoeken op datum",
+    modeList: "Aanbiedingen bekijken",
+    checkInLabel: "Aankomst",
+    checkOutLabel: "Vertrek",
+    guestsLabel: "Personen",
+    guestsAny: "Maakt niet uit",
+    searchButton: "Zoek last-minute deals",
+    searchResults: "Beschikbare accommodatie voor jouw data",
+    noSearchResults: "Geen beschikbare accommodatie voor de gekozen data. Probeer andere data of vraag via WhatsApp!"
   }
 };
 
@@ -377,6 +445,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
   const [nightFilter, setNightFilter] = useState<NightFilter>("3");
+  const [mode, setMode] = useState<"list" | "search">("list");
+  const [searchCheckIn, setSearchCheckIn] = useState("");
+  const [searchCheckOut, setSearchCheckOut] = useState("");
+  const [searchGuests, setSearchGuests] = useState("");
 
   // Fetch Moder deals
   const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
@@ -402,11 +474,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // How many nights the selected filter wants to display
   const requiredNights = nightFilter === "2" ? 2 : nightFilter === "3" ? 3 : 4;
 
-  // Filter deals: window must fit the selected length and respect min stay - memoized
+  // Filter deals: window must fit the selected length and respect min stay.
+  // Gap windows (short openings between two bookings) are always shown,
+  // even when shorter than Moder's minimum stay.
   const filteredDeals = useMemo(() =>
     beds24Deals.filter((deal) => {
       const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
       const minNights = deal.minNights ?? 1;
+      if (deal.isGap) return windowNights >= 1;
       if (windowNights < 2) return false;
       if (windowNights < requiredNights) return false;
       if (minNights > requiredNights) return false;
@@ -484,12 +559,35 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return Math.min(requiredNights, windowNights);
   }, [requiredNights]);
 
-  // Moder price for a given stay length (EUR, excluding cleaning fee)
-  const getModerPrice = useCallback((deal: Beds24Deal, nights: number): number | null => {
+  // Moder stay price from per-night rates (EUR, excluding cleaning fee).
+  // Falls back to the legacy pricesByNights payload when rates are absent.
+  const getModerPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number): number | null => {
+    if (deal.rates && Object.keys(deal.rates).length > 0) {
+      let sum = 0;
+      for (let i = 0; i < nights; i++) {
+        const r = deal.rates[addDaysIso(checkIn, i)];
+        if (typeof r !== "number" || r <= 0) return null;
+        sum += r;
+      }
+      return sum;
+    }
     const p = deal.pricesByNights?.[String(nights)];
     if (typeof p === 'number' && p > 0) return p;
     if (nights === deal.nights && deal.price != null && deal.price > 0) return deal.price;
     return null;
+  }, []);
+
+  // A stay must fit inside the free window, start on an allowed check-in day,
+  // end on an allowed check-out day, and respect Moder's minimum stay —
+  // unless it is a short gap between two bookings (shown regardless of min stay).
+  const isStayAllowed = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
+    if (nights < 1) return false;
+    const checkOut = addDaysIso(checkIn, nights);
+    if (checkIn < deal.checkIn || checkOut > deal.checkOut) return false;
+    if (deal.noCheckIn?.includes(checkIn)) return false;
+    if (deal.noCheckOut?.includes(checkOut)) return false;
+    if (!deal.isGap && nights < (deal.minNights ?? 1)) return false;
+    return true;
   }, []);
 
   // Cleaning fee: prefer Moder mapping value, fallback to property settings
@@ -500,21 +598,21 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   }, [getPropertyWithOverride]);
 
   // Normal price shown as reference: Moder price + cleaning fee (no discounts)
-  const getOriginalApiPrice = useCallback((deal: Beds24Deal, nights: number): number | null => {
-    const base = getModerPrice(deal, nights);
+  const getOriginalApiPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number): number | null => {
+    const base = getModerPrice(deal, checkIn, nights);
     if (base == null) return null;
     return Math.round(base + getCleaningFee(deal));
   }, [getModerPrice, getCleaningFee]);
 
   // Final price: Moder price - base discount - period custom discount, + cleaning fee
-  const getTotalPrice = useCallback((deal: Beds24Deal, nights: number): number | null => {
-    const base = getModerPrice(deal, nights);
+  const getTotalPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number): number | null => {
+    const base = getModerPrice(deal, checkIn, nights);
     if (base == null) return null;
 
     let price = base * (1 - dealsBaseDiscount / 100);
 
     // Period-specific custom discount (from admin) - applied as ADDITIONAL discount
-    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, addDaysIso(deal.checkIn, nights));
+    const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
     if (periodS.customDiscount && periodS.customDiscount > 0) {
       price = price * (1 - periodS.customDiscount / 100);
     }
@@ -522,15 +620,15 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return Math.round(price + getCleaningFee(deal));
   }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb]);
 
-  // Check if ski pass offer applies to this deal (using displayed dates)
-  const hasSkiPassOffer = useCallback((deal: Beds24Deal, nights: number): boolean => {
-    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, addDaysIso(deal.checkIn, nights));
+  // Check if ski pass offer applies to this stay (using displayed dates)
+  const hasSkiPassOffer = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
+    const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
     return periodS.hasSkiPass;
   }, [getPeriodSettingsFromDb]);
 
   // Check if special offer is active (using displayed dates)
-  const hasSpecialOffer = useCallback((deal: Beds24Deal, nights: number): boolean => {
-    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, addDaysIso(deal.checkIn, nights));
+  const hasSpecialOffer = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
+    const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
     return periodS.specialOffer || false;
   }, [getPeriodSettingsFromDb]);
 
@@ -558,10 +656,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return property?.maxGuests || 2;
   }, [getPropertyWithOverride]);
 
-  // Generate WhatsApp booking URL for a deal - localized messages
-  const generateWhatsAppUrl = useCallback((deal: Beds24Deal, nights: number): string => {
-    const totalPrice = getTotalPrice(deal, nights);
-    const displayCheckOut = addDaysIso(deal.checkIn, nights);
+  // Generate WhatsApp booking URL for a stay - localized messages
+  const generateWhatsAppUrl = useCallback((deal: Beds24Deal, checkIn: string, nights: number): string => {
+    const totalPrice = getTotalPrice(deal, checkIn, nights);
+    const displayCheckOut = addDaysIso(checkIn, nights);
     const marketingName = getMarketingName(deal);
     const property = getPropertyWithOverride(deal.roomId);
     const whatsappNumber = property?.whatsappNumber?.replace('+', '') || '35844131313';
@@ -580,13 +678,13 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     const flex = flexible ? (flexNotes[lang] || flexNotes.fi) : "";
 
     const messages: Record<string, string> = {
-      fi: `Hei, olen kiinnostunut äkkilähdöstä: ${marketingName}, ajalle ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Hinta: ${totalPrice}€.` : ""}${flex} Onko kohde vielä vapaana?`,
-      en: `Hello, I'm interested in a last-minute deal: ${marketingName}, for ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Price: ${totalPrice}€.` : ""}${flex} Is the property still available?`,
-      sv: `Hej, jag är intresserad av ett sista minuten-erbjudande: ${marketingName}, för ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Pris: ${totalPrice}€.` : ""}${flex} Är boendet fortfarande ledigt?`,
-      de: `Hallo, ich interessiere mich für ein Last-Minute-Angebot: ${marketingName}, für ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Preis: ${totalPrice}€.` : ""}${flex} Ist die Unterkunft noch verfügbar?`,
-      es: `Hola, estoy interesado en una oferta de última hora: ${marketingName}, para ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Precio: ${totalPrice}€.` : ""}${flex} ¿Está disponible el alojamiento?`,
-      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${marketingName}, pour ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Prix : ${totalPrice}€.` : ""}${flex} Le logement est-il encore disponible ?`,
-      nl: `Hallo, ik ben geïnteresseerd in een last-minute aanbieding: ${marketingName}, voor ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Prijs: ${totalPrice}€.` : ""}${flex} Is de accommodatie nog beschikbaar?`
+      fi: `Hei, olen kiinnostunut äkkilähdöstä: ${marketingName}, ajalle ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Hinta: ${totalPrice}€.` : ""}${flex} Onko kohde vielä vapaana?`,
+      en: `Hello, I'm interested in a last-minute deal: ${marketingName}, for ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Price: ${totalPrice}€.` : ""}${flex} Is the property still available?`,
+      sv: `Hej, jag är intresserad av ett sista minuten-erbjudande: ${marketingName}, för ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Pris: ${totalPrice}€.` : ""}${flex} Är boendet fortfarande ledigt?`,
+      de: `Hallo, ich interessiere mich für ein Last-Minute-Angebot: ${marketingName}, für ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Preis: ${totalPrice}€.` : ""}${flex} Ist die Unterkunft noch verfügbar?`,
+      es: `Hola, estoy interesado en una oferta de última hora: ${marketingName}, para ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Precio: ${totalPrice}€.` : ""}${flex} ¿Está disponible el alojamiento?`,
+      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${marketingName}, pour ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Prix : ${totalPrice}€.` : ""}${flex} Le logement est-il encore disponible ?`,
+      nl: `Hallo, ik ben geïnteresseerd in een last-minute aanbieding: ${marketingName}, voor ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Prijs: ${totalPrice}€.` : ""}${flex} Is de accommodatie nog beschikbaar?`
     };
 
     const message = messages[lang] || messages.fi;
@@ -601,7 +699,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       "position": index + 1,
       "name": deal.roomName,
       "description": `${deal.roomName} - ${schemaNights} nights`,
-      "price": getTotalPrice(deal, schemaNights) || 0,
+      "price": getTotalPrice(deal, deal.checkIn, schemaNights) || 0,
       "priceCurrency": "EUR",
       "availability": "https://schema.org/LimitedAvailability",
       "validFrom": deal.checkIn,
@@ -622,6 +720,37 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     },
     "itemListElement": allDealsForSchema
   }), [t.title, t.meta.description, t.meta.canonical, allDealsForSchema]);
+
+  // Cards to render in list mode: window start + the nights shown for the filter
+  const listItems = useMemo(() =>
+    filteredDeals.map(deal => ({ deal, checkIn: deal.checkIn, nights: getDisplayNights(deal) })),
+    [filteredDeals, getDisplayNights]);
+
+  // Date search: one card per room whose window covers the requested stay
+  const searchNights = useMemo(() => {
+    if (!searchCheckIn || !searchCheckOut) return 0;
+    return Math.round((new Date(searchCheckOut).getTime() - new Date(searchCheckIn).getTime()) / 86400000);
+  }, [searchCheckIn, searchCheckOut]);
+
+  const searchItems = useMemo(() => {
+    if (mode !== "search" || searchNights < 1) return [];
+    const guests = parseInt(searchGuests, 10);
+    const results: { deal: Beds24Deal; checkIn: string; nights: number }[] = [];
+    for (const deal of beds24Deals) {
+      if (!isStayAllowed(deal, searchCheckIn, searchNights)) continue;
+      if (!isNaN(guests) && guests > 0 && deal.maxPersons < guests) continue;
+      if (getTotalPrice(deal, searchCheckIn, searchNights) == null) continue;
+      results.push({ deal, checkIn: searchCheckIn, nights: searchNights });
+    }
+    results.sort((a, b) =>
+      (getTotalPrice(a.deal, a.checkIn, a.nights) ?? Infinity) -
+      (getTotalPrice(b.deal, b.checkIn, b.nights) ?? Infinity)
+    );
+    return results;
+  }, [mode, beds24Deals, searchCheckIn, searchNights, searchGuests, isStayAllowed, getTotalPrice]);
+
+  const displayItems = mode === "search" ? searchItems : listItems;
+  const searchActive = mode === "search" && searchNights >= 1;
 
   const hasDeals = filteredDeals.length > 0 || manualDeals.length > 0;
 
@@ -676,8 +805,79 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   {t.subtitle}
                 </p>
                 
-                {/* Night filter */}
+                {/* Mode toggle: browse list / search by dates */}
                 {dealsEnabled && (
+                  <div className="mt-6 flex justify-center">
+                    <ToggleGroup
+                      type="single"
+                      value={mode}
+                      onValueChange={(value) => value && setMode(value as "list" | "search")}
+                      className="bg-background/50 border border-border/30 rounded-lg p-1"
+                    >
+                      <ToggleGroupItem
+                        value="list"
+                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
+                      >
+                        {t.modeList}
+                      </ToggleGroupItem>
+                      <ToggleGroupItem
+                        value="search"
+                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
+                      >
+                        {t.modeSearch}
+                      </ToggleGroupItem>
+                    </ToggleGroup>
+                  </div>
+                )}
+
+                {/* Date search form */}
+                {dealsEnabled && mode === "search" && (
+                  <div className="mt-6 max-w-2xl mx-auto">
+                    <div className="glass-card border-border/30 rounded-xl p-4 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-3 text-left">
+                      <div>
+                        <label className="block text-xs text-muted-foreground mb-1">{t.checkInLabel}</label>
+                        <input
+                          type="date"
+                          value={searchCheckIn}
+                          min={new Date().toISOString().slice(0, 10)}
+                          onChange={(e) => setSearchCheckIn(e.target.value)}
+                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-muted-foreground mb-1">{t.checkOutLabel}</label>
+                        <input
+                          type="date"
+                          value={searchCheckOut}
+                          min={searchCheckIn ? addDaysIso(searchCheckIn, 1) : undefined}
+                          onChange={(e) => setSearchCheckOut(e.target.value)}
+                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-muted-foreground mb-1">{t.guestsLabel}</label>
+                        <select
+                          value={searchGuests}
+                          onChange={(e) => setSearchGuests(e.target.value)}
+                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
+                        >
+                          <option value="">{t.guestsAny}</option>
+                          {[2, 3, 4, 5, 6, 7, 8, 10, 12, 14].map(n => (
+                            <option key={n} value={n}>{n}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="flex items-end">
+                        <span className="text-sm text-muted-foreground">
+                          {searchActive ? `${t.searchResults} (${searchItems.length})` : ""}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Night filter (list mode) */}
+                {dealsEnabled && mode === "list" && (
                 <div className="mt-6 flex justify-center">
                   <ToggleGroup
                     type="single"
@@ -755,20 +955,25 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
               </section>
             )}
 
-            {/* Beds24 Deals Grid */}
-            {dealsEnabled && !isLoading && filteredDeals.length > 0 && (
+            {/* No results for an active date search */}
+            {dealsEnabled && !isLoading && searchActive && searchItems.length === 0 && (
+              <section className="max-w-2xl mx-auto mb-16 text-center">
+                <p className="text-muted-foreground">{t.noSearchResults}</p>
+              </section>
+            )}
+
+            {/* Deals Grid */}
+            {dealsEnabled && !isLoading && displayItems.length > 0 && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                {filteredDeals.map((deal, index) => {
-                  const isSameDay = isToday(deal.checkIn);
-                  const displayNights = getDisplayNights(deal);
-                  const displayCheckOut = addDaysIso(deal.checkIn, displayNights);
+                {displayItems.map(({ deal, checkIn: stayCheckIn, nights: displayNights }, index) => {
+                  const isSameDay = isToday(stayCheckIn);
+                  const displayCheckOut = addDaysIso(stayCheckIn, displayNights);
                   const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
-                  const totalPrice = getTotalPrice(deal, displayNights);
-                  const originalPrice = getOriginalApiPrice(deal, displayNights);
+                  const totalPrice = getTotalPrice(deal, stayCheckIn, displayNights);
+                  const originalPrice = getOriginalApiPrice(deal, stayCheckIn, displayNights);
                   const bookingUrl = getBookingUrl(deal.roomId);
                   const marketingName = getMarketingName(deal);
                   const category = getPropertyCategory(deal.roomId);
-                  const dealPeriodSettings = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, displayCheckOut);
                   // Strikethrough whenever the final price is below the normal (Moder) price
                   const showStrikethrough = originalPrice != null && totalPrice != null && totalPrice < originalPrice;
                   const discountPct = showStrikethrough ? Math.round((1 - totalPrice / originalPrice) * 100) : 0;
@@ -845,7 +1050,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         
                         {/* Special Offer Badge - moved lower */}
                         {/* Special Offer Badge - top left */}
-                        {hasSpecialOffer(deal, displayNights) && (
+                        {hasSpecialOffer(deal, stayCheckIn, displayNights) && (
                           <div className="absolute top-3 left-3 z-20">
                             <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Sparkles className="w-3.5 h-3.5 mr-1" />
@@ -855,7 +1060,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         )}
                         
                         {/* Ski Pass Badge - top right, 2 lines */}
-                        {hasSkiPassOffer(deal, displayNights) && (
+                        {hasSkiPassOffer(deal, stayCheckIn, displayNights) && (
                           <div className="absolute top-3 right-3 z-20 max-w-[140px]">
                             <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg whitespace-normal text-center leading-tight">
                               <Ticket className="w-3.5 h-3.5 mr-1 flex-shrink-0" />
@@ -867,7 +1072,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         <CardHeader className="pb-3 pt-12 relative z-10">
                           <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
                             <Calendar className="w-4 h-4" />
-                            <span>{formatDateDisplay(deal.checkIn)} – {formatDateDisplay(displayCheckOut)}</span>
+                            <span>{formatDateDisplay(stayCheckIn)} – {formatDateDisplay(displayCheckOut)}</span>
                           </div>
                           <CardTitle className="text-xl">
                             {bookingUrl ? (
@@ -936,7 +1141,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                       </Badge>
                                     </>
                                   ) : (
-                                    <span className={`font-bold ${hasSpecialOffer(deal, displayNights) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
+                                    <span className={`font-bold ${hasSpecialOffer(deal, stayCheckIn, displayNights) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
                                       {totalPrice}€
                                     </span>
                                   )}
@@ -983,7 +1188,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           <div className="space-y-3">
                             {/* Primary: WhatsApp booking */}
                             <a
-                              href={generateWhatsAppUrl(deal, displayNights)}
+                              href={generateWhatsAppUrl(deal, stayCheckIn, displayNights)}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
