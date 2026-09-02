@@ -576,6 +576,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
 
 
+
+
   // Helper to get property with DB override - memoized
   const getPropertyWithOverride = useCallback((roomId: string) => {
     const defaultProperty = getDefaultPropertyDetails(roomId);
