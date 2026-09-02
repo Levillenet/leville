@@ -658,18 +658,72 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return null;
   }, []);
 
-  // A stay must fit inside the free window, start on an allowed check-in day,
-  // end on an allowed check-out day, and respect Moder's minimum stay —
-  // unless it is a short gap between two bookings (shown regardless of min stay).
-  const isStayAllowed = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
-    if (nights < 1) return false;
+  // Gap Fill rules: gaps between two bookings may override the property's
+  // normal minimum stay. Longer free windows follow Moder's minimum stay.
+  const evaluateStay = useCallback((deal: Beds24Deal, checkIn: string, nights: number): { allowed: boolean; reason: string } => {
+    if (nights < 1) return { allowed: false, reason: 'invalid-nights' };
     const checkOut = addDaysIso(checkIn, nights);
-    if (checkIn < deal.checkIn || checkOut > deal.checkOut) return false;
-    if (deal.noCheckIn?.includes(checkIn)) return false;
-    if (deal.noCheckOut?.includes(checkOut)) return false;
-    if (!deal.isGap && nights < (deal.minNights ?? 1)) return false;
-    return true;
-  }, []);
+    if (checkIn < deal.checkIn || checkOut > deal.checkOut) return { allowed: false, reason: 'outside-window' };
+    if (deal.noCheckIn?.includes(checkIn)) return { allowed: false, reason: 'no-checkin-day' };
+    if (deal.noCheckOut?.includes(checkOut)) return { allowed: false, reason: 'no-checkout-day' };
+
+    const windowNights = deal.windowNights ?? deal.nights;
+    const minNights = deal.minNights ?? 1;
+    const daysUntil = Math.round(
+      (new Date(checkIn + "T00:00:00").getTime() - new Date(todayIso + "T00:00:00").getTime()) / 86400000
+    );
+
+    if (deal.isGap && windowNights <= 3) {
+      // Booking the whole gap always overrides the minimum stay when enabled
+      if (nights === windowNights) {
+        const on = windowNights === 1 ? gapFill.g1 : windowNights === 2 ? gapFill.g2.enabled : gapFill.g3.enabled;
+        return on
+          ? { allowed: true, reason: `gap${windowNights}-full` }
+          : { allowed: false, reason: `gap${windowNights}-disabled` };
+      }
+      if (windowNights === 2 && nights === 1) {
+        const rule = gapFill.g2.oneNight;
+        if (!rule.enabled) return { allowed: false, reason: 'gap2-1n-disabled' };
+        return daysUntil <= rule.days
+          ? { allowed: true, reason: 'gap2-1n-window' }
+          : { allowed: false, reason: 'gap2-1n-not-open-yet' };
+      }
+      if (windowNights === 3 && nights === 2) {
+        const rule = gapFill.g3.twoNights;
+        if (!rule.enabled) return { allowed: false, reason: 'gap3-2n-disabled' };
+        return daysUntil <= rule.days
+          ? { allowed: true, reason: 'gap3-2n-window' }
+          : { allowed: false, reason: 'gap3-2n-not-open-yet' };
+      }
+      if (windowNights === 3 && nights === 1) {
+        const rule = gapFill.g3.oneNight;
+        if (!rule.enabled) return { allowed: false, reason: 'gap3-1n-disabled' };
+        return daysUntil <= rule.days
+          ? { allowed: true, reason: 'gap3-1n-window' }
+          : { allowed: false, reason: 'gap3-1n-not-open-yet' };
+      }
+      return { allowed: false, reason: 'gap-shape-not-allowed' };
+    }
+
+    return nights >= minNights
+      ? { allowed: true, reason: 'min-nights' }
+      : { allowed: false, reason: 'below-min-nights' };
+  }, [gapFill, todayIso]);
+
+  const isStayAllowed = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
+    const result = evaluateStay(deal, checkIn, nights);
+    if (gapDebug) {
+      const windowNights = deal.windowNights ?? deal.nights;
+      const daysUntil = Math.round(
+        (new Date(checkIn + "T00:00:00").getTime() - new Date(todayIso + "T00:00:00").getTime()) / 86400000
+      );
+      console.debug(
+        `[gapfill] room=${deal.roomId} in=${checkIn} nights=${nights} window=${windowNights} gap=${!!deal.isGap} minNights=${deal.minNights ?? 1} daysUntil=${daysUntil} -> ${result.allowed}/${result.reason}`
+      );
+    }
+    return result.allowed;
+  }, [evaluateStay, gapDebug, todayIso]);
+
 
   // Cleaning fee: prefer Moder mapping value, fallback to property settings
   const getCleaningFee = useCallback((deal: Beds24Deal): number => {
