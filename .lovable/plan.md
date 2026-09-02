@@ -24,7 +24,7 @@ Eli Moderin hinnoittelu toimii täsmälleen kuten kuvasi näyttävät: päivähi
 
 ## Tarkistus toteutuksen jälkeen
 
-- Haku 14.9.–15.9.2026: Skistar 310 näyttää 1 yön hinnan, joka vastaa Moderia (n. 48 € + siivous), ei 120 €.
+- Haku 14.9.–15.9.2026: Skistar 310 näyttää 1 yön hinnan 60 € (120 € ÷ 2) + siivous 60 €, ei 120 € + siivous.
 - Haku 14.9.–16.9.2026 (2 yötä) pysyy 120 € + siivous.
 - Pidemmät jaksot (3, 4, 6 yötä) pysyvät ennallaan.
 
