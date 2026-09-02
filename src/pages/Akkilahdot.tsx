@@ -1291,7 +1291,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   const pricePerPerson = Math.round(deal.price / deal.persons);
                   
                   return (
-                    <ScrollReveal key={deal.id} delay={(beds24Deals.length + index) * 0.1}>
+                    <ScrollReveal key={deal.id} delay={(filteredDeals.length + index) * 0.1}>
                       <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
                         {/* Urgency badge */}
                         {deal.urgency && (
