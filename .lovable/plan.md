@@ -25,10 +25,13 @@ Löysin lisäksi varmistetun bugin: `mode=prices` -haara on koodissa **välimuis
 3. **Välimuistibugi:** siirretään `mode=prices` -haara ennen välimuistitarkistusta, niin päivämäärähaku hakee aina tuoreet jaksohinnat.
 4. **Siivousmaksu:** koska Moder ei lisää siivousta (se palauttaa vain majoitushinnan), siivousmaksu **jää** hintaan mukaan yhtenä eränä, mutta lisätään vain kerran ja alennus lasketaan majoitusosuudesta — ei siivouksesta. Yliviivattu alkuperäishinta lasketaan samalla kaavalla ilman alennusta.
 5. Sama laskenta myös adminin hintariveille, jotta esikatselu ja julkinen sivu täsmäävät.
+6. **Uusi asetus: perusalennus 1 yön jaksoille.** Äkkilähtöasetuksiin kytkin "Anna perusalennus myös 1 yön varauksille" (oletus: pois päältä). Kun se on pois, 1 yön jaksot myydään täydellä Moder-hinnalla ilman perusalennusta eikä niissä näytetä yliviivattua hintaa tai "ÄKKILÄHTÖ TARJOUS" -merkkiä. Superäkkilähtöalennus noudattaa samaa kytkintä, jotta 1 yön hinta ei putoa muutakaan kautta.
 
 ## Tekniset yksityiskohdat
 
 - `supabase/functions/moder-availability/index.ts`: `mode=prices` -haaran siirto rivin ~280 välimuistilohkon edelle; `fetchStayPrices` lokittaa raakavastauksen kertaluontoisesti ja lukee valitun hintakentän.
-- `src/pages/Akkilahdot.tsx`: `getTotalPrice` / yliviivattu hinta — alennus vain majoitusosuudesta, siivous lisätään kerran.
+- `src/pages/Akkilahdot.tsx`: `getTotalPrice` / yliviivattu hinta — alennus vain majoitusosuudesta, siivous lisätään kerran; alennukset ohitetaan kun `nights === 1` ja uusi asetus on pois päältä.
 - `src/components/admin/SkiPassAdmin.tsx`: `getCurrentDisplayPrice` samaan kaavaan.
-- Ei muutoksia tietokantaan; `moder_property_mapping.cleaning_fee` pysyy siivousmaksun lähteenä.
+- Uusi asetusrivi `site_settings`-tauluun: `deals_discount_one_night` (boolean, oletus `false`), ylläpito `SiteSettingsAdmin.tsx`:n äkkilähtöosiossa.
+- `moder_property_mapping.cleaning_fee` pysyy siivousmaksun lähteenä.
+
