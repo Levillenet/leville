@@ -721,6 +721,37 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     "itemListElement": allDealsForSchema
   }), [t.title, t.meta.description, t.meta.canonical, allDealsForSchema]);
 
+  // Cards to render in list mode: window start + the nights shown for the filter
+  const listItems = useMemo(() =>
+    filteredDeals.map(deal => ({ deal, checkIn: deal.checkIn, nights: getDisplayNights(deal) })),
+    [filteredDeals, getDisplayNights]);
+
+  // Date search: one card per room whose window covers the requested stay
+  const searchNights = useMemo(() => {
+    if (!searchCheckIn || !searchCheckOut) return 0;
+    return Math.round((new Date(searchCheckOut).getTime() - new Date(searchCheckIn).getTime()) / 86400000);
+  }, [searchCheckIn, searchCheckOut]);
+
+  const searchItems = useMemo(() => {
+    if (mode !== "search" || searchNights < 1) return [];
+    const guests = parseInt(searchGuests, 10);
+    const results: { deal: Beds24Deal; checkIn: string; nights: number }[] = [];
+    for (const deal of beds24Deals) {
+      if (!isStayAllowed(deal, searchCheckIn, searchNights)) continue;
+      if (!isNaN(guests) && guests > 0 && deal.maxPersons < guests) continue;
+      if (getTotalPrice(deal, searchCheckIn, searchNights) == null) continue;
+      results.push({ deal, checkIn: searchCheckIn, nights: searchNights });
+    }
+    results.sort((a, b) =>
+      (getTotalPrice(a.deal, a.checkIn, a.nights) ?? Infinity) -
+      (getTotalPrice(b.deal, b.checkIn, b.nights) ?? Infinity)
+    );
+    return results;
+  }, [mode, beds24Deals, searchCheckIn, searchNights, searchGuests, isStayAllowed, getTotalPrice]);
+
+  const displayItems = mode === "search" ? searchItems : listItems;
+  const searchActive = mode === "search" && searchNights >= 1;
+
   const hasDeals = filteredDeals.length > 0 || manualDeals.length > 0;
 
   return (
