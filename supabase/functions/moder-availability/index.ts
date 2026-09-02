@@ -330,10 +330,65 @@ serve(async (req) => {
           prices[String(m.beds24_room_id)] = nightsRequested === 1 ? Math.round(v / 2) : v;
         }
       }
-      return new Response(JSON.stringify({ from, to, prices, pricedNights: nightsRequested === 1 ? 2 : nightsRequested, perNight: nightsRequested === 1 }), {
+
+      // Admin price-check tool: raw Moder data behind the price
+      let debugRooms: Record<string, unknown> | undefined;
+      if (debug) {
+        const losTasks = [1, 2, 3, 4, 5, 6, 7].map((n) => async () => ({
+          n,
+          map: await fetchStayPrices(token, roomTypeIds, from, addDays(from, n)),
+        }));
+        const losResults = await runLimited(losTasks, 3);
+
+        const rtParam = roomTypeIds.map((id) => `room_types[]=${id}`).join("&");
+        const availDebug = await moderFetch(
+          token,
+          `/api/v1/availabilities?date_start=${from}&date_end=${addDays(to, 1)}&${rtParam}`,
+        );
+        const dayMap = availDebug.ok
+          ? parseAvailabilities(availDebug.json, roomTypeIds)
+          : new Map<number, DayInfo[]>();
+
+        debugRooms = {};
+        for (const m of mappings) {
+          const los: Record<string, number> = {};
+          for (const r of losResults) {
+            const v = r.map.get(m.moder_room_type_id);
+            if (v != null && v > 0) los[String(r.n)] = v;
+          }
+          const days = (dayMap.get(m.moder_room_type_id) || []).filter(
+            (d) => d.date >= from && d.date < to,
+          );
+          (debugRooms as Record<string, unknown>)[String(m.beds24_room_id)] = {
+            name: m.property_name,
+            roomTypeId: m.moder_room_type_id,
+            cleaningFee: m.cleaning_fee,
+            maxGuests: m.max_guests,
+            losPrices: los,
+            days: days.map((d) => ({
+              date: d.date,
+              dayRate: d.dayRate,
+              isFree: d.isFree,
+              minNights: d.minNights,
+              checkinDenied: d.checkinDenied,
+              checkoutDenied: d.checkoutDenied,
+            })),
+          };
+        }
+      }
+
+      return new Response(JSON.stringify({
+        from,
+        to,
+        prices,
+        pricedNights: nightsRequested === 1 ? 2 : nightsRequested,
+        perNight: nightsRequested === 1,
+        ...(debugRooms ? { debug: debugRooms } : {}),
+      }), {
 
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
+
     }
 
     // Check cache (listing mode only). The cached payload must also match the
