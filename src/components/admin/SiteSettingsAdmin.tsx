@@ -233,7 +233,10 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
             />
           </div>
 
+          <div className="space-y-3">
+            <Label className="text-base font-medium">
               Näytä äkkilähtöjä {dealsDaysAhead} päivää etukäteen
+
             </Label>
             
             <div className="flex flex-wrap gap-2">
