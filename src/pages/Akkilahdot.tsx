@@ -834,6 +834,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return property?.bookingUrl || "";
   }, [getPropertyWithOverride]);
 
+  // Get own website property page URL (keeps visitors on leville.net)
+  const getPropertyPageUrl = useCallback((roomId: string): string => {
+    const slug = getPropertySiteSlug(roomId);
+    if (!slug) return "";
+    return lang === 'en' ? `/en/accommodations/${slug}` : `/majoitukset/${slug}`;
+  }, [lang]);
+
+
   // Get max guests for property
   const getMaxGuests = useCallback((roomId: string): number => {
     const property = getPropertyWithOverride(roomId);
