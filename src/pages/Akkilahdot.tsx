@@ -656,11 +656,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return periodS.hasSkiPass;
   }, [getPeriodSettingsFromDb]);
 
-  // Check if special offer is active (using displayed dates)
-  const hasSpecialOffer = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
-    const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
-    return periodS.specialOffer || false;
-  }, [getPeriodSettingsFromDb]);
+
+
 
   // Get marketing name from propertyDetails
   const getMarketingName = useCallback((deal: Beds24Deal): string => {
