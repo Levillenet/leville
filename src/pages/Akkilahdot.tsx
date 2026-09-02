@@ -1050,7 +1050,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         
                         {/* Special Offer Badge - moved lower */}
                         {/* Special Offer Badge - top left */}
-                        {hasSpecialOffer(deal, displayNights) && (
+                        {hasSpecialOffer(deal, stayCheckIn, displayNights) && (
                           <div className="absolute top-3 left-3 z-20">
                             <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
                               <Sparkles className="w-3.5 h-3.5 mr-1" />
@@ -1060,7 +1060,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                         )}
                         
                         {/* Ski Pass Badge - top right, 2 lines */}
-                        {hasSkiPassOffer(deal, displayNights) && (
+                        {hasSkiPassOffer(deal, stayCheckIn, displayNights) && (
                           <div className="absolute top-3 right-3 z-20 max-w-[140px]">
                             <Badge className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg whitespace-normal text-center leading-tight">
                               <Ticket className="w-3.5 h-3.5 mr-1 flex-shrink-0" />
@@ -1141,7 +1141,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                       </Badge>
                                     </>
                                   ) : (
-                                    <span className={`font-bold ${hasSpecialOffer(deal, displayNights) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
+                                    <span className={`font-bold ${hasSpecialOffer(deal, stayCheckIn, displayNights) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
                                       {totalPrice}€
                                     </span>
                                   )}
@@ -1188,7 +1188,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           <div className="space-y-3">
                             {/* Primary: WhatsApp booking */}
                             <a
-                              href={generateWhatsAppUrl(deal, displayNights)}
+                              href={generateWhatsAppUrl(deal, stayCheckIn, displayNights)}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
