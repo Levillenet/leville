@@ -16,7 +16,9 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const [dealsDaysAhead, setDealsDaysAhead] = useState<number>(14);
   const [dealsEnabled, setDealsEnabled] = useState<boolean>(true);
   const [dealsBaseDiscount, setDealsBaseDiscount] = useState<number>(0);
+  const [discountOneNight, setDiscountOneNight] = useState<boolean>(false);
   const [superDiscount, setSuperDiscount] = useState<{ d3: number; d5: number; d7: number }>({ d3: 0, d5: 0, d7: 0 });
+
   
   // Load current values from settings
   useEffect(() => {
