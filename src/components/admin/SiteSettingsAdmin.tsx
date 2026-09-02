@@ -78,6 +78,28 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
         };
         setSuperDiscount({ d3: num(v.d3), d5: num(v.d5), d7: num(v.d7) });
       }
+      const gapSetting = settings.siteSettings.find(s => s.id === 'deals_gap_fill');
+      if (gapSetting?.value && typeof gapSetting.value === 'object') {
+        const v = gapSetting.value as Record<string, any>;
+        const num = (x: unknown, f: number) => {
+          const n = typeof x === 'number' ? x : parseInt(String(x ?? ''), 10);
+          return isNaN(n) || n < 0 ? f : Math.min(n, 30);
+        };
+        const bool = (x: unknown, f: boolean) => (typeof x === 'boolean' ? x : f);
+        const two = num(v.g3?.twoNights?.days, 7);
+        setGapFill({
+          g1: bool(v.g1, true),
+          g2: {
+            enabled: bool(v.g2?.enabled, true),
+            oneNight: { enabled: bool(v.g2?.oneNight?.enabled, true), days: num(v.g2?.oneNight?.days, 5) },
+          },
+          g3: {
+            enabled: bool(v.g3?.enabled, true),
+            twoNights: { enabled: bool(v.g3?.twoNights?.enabled, true), days: two },
+            oneNight: { enabled: bool(v.g3?.oneNight?.enabled, true), days: Math.min(num(v.g3?.oneNight?.days, 3), two) },
+          },
+        });
+      }
     }
   }, [settings?.siteSettings]);
 
@@ -88,6 +110,25 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
     setSuperDiscount(next);
     updateSiteSetting({ settingId: 'deals_super_discount', value: next });
   };
+
+  const saveGapFill = (next: GapFillSettings) => {
+    // Validation: 1-night release can never open earlier than the 2-night release
+    const normalized: GapFillSettings = {
+      ...next,
+      g3: {
+        ...next.g3,
+        oneNight: { ...next.g3.oneNight, days: Math.min(next.g3.oneNight.days, next.g3.twoNights.days) },
+      },
+    };
+    setGapFill(normalized);
+    updateSiteSetting({ settingId: 'deals_gap_fill', value: normalized });
+  };
+
+  const gapDays = (raw: string) => {
+    const n = parseInt(raw, 10);
+    return isNaN(n) || n < 0 ? 0 : Math.min(n, 30);
+  };
+
 
   const handleQuickSelect = (days: number) => {
     setDealsDaysAhead(days);
