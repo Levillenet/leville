@@ -336,15 +336,23 @@ serve(async (req) => {
       });
     }
 
-    // Check cache (listing mode only)
+    // Check cache (listing mode only). The cached payload must also match the
+    // current `deals_days_ahead` setting — otherwise an admin change would not
+    // take effect until the cache expires.
     if (!forceRefresh) {
       const { data: cache } = await supabase
         .from("beds24_cache").select("*").eq("id", CACHE_ID).maybeSingle();
-      if (cache && isCacheValid(cache.fetched_at)) {
+      const cachedDaysAhead = (cache?.data as { daysAhead?: number } | null)?.daysAhead;
+      const horizonMatches = cachedDaysAhead === dealsDaysAhead;
+      if (cache && isCacheValid(cache.fetched_at) && horizonMatches) {
         console.log("Serving Moder availability from cache, fetched_at:", cache.fetched_at);
-        return new Response(JSON.stringify({ ...cache.data, fromCache: true, fetchedAt: cache.fetched_at }), {
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+        return new Response(
+          JSON.stringify({ ...cache.data, daysAhead: dealsDaysAhead, fromCache: true, fetchedAt: cache.fetched_at }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+      if (cache && !horizonMatches) {
+        console.log(`Cache horizon ${cachedDaysAhead} != setting ${dealsDaysAhead}, rebuilding`);
       }
     }
 
