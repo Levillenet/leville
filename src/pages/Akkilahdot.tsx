@@ -1143,7 +1143,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0 bg-popover z-50" align="start">
                               <CalendarPicker
-                                mode="range"
+                                 mode="range"
+                                 weekStartsOn={1}
                                 selected={searchCheckIn
                                   ? {
                                       from: new Date(searchCheckIn + "T00:00:00"),
