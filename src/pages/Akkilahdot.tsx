@@ -951,8 +951,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     const bookingUrl = getBookingUrl(deal.roomId);
     const marketingName = getMarketingName(deal);
     const category = getPropertyCategory(deal.roomId);
-    // Strikethrough whenever the final price is below the normal (Moder) price
-    const showStrikethrough = originalPrice != null && totalPrice != null && totalPrice < originalPrice;
+    // Strikethrough/discount badge is hidden for 1-night stays; otherwise show when discounted
+    const showStrikethrough = displayNights !== 1 && originalPrice != null && totalPrice != null && totalPrice < originalPrice;
     const discountPct = showStrikethrough ? Math.round((1 - totalPrice / originalPrice) * 100) : 0;
 
     return (
@@ -1025,15 +1025,13 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             />
           )}
 
-          {/* Last-minute offer badge - only when the stay is actually discounted */}
-          {showStrikethrough && (
-            <div className="absolute top-3 left-3 z-20">
-              <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg tracking-wide">
-                <Sparkles className="w-3.5 h-3.5 mr-1" />
-                {x.offer}
-              </Badge>
-            </div>
-          )}
+          {/* Last-minute offer badge - always shown */}
+          <div className="absolute top-3 left-3 z-20">
+            <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg tracking-wide">
+              <Sparkles className="w-3.5 h-3.5 mr-1" />
+              {x.offer}
+            </Badge>
+          </div>
 
           {/* Ski Pass Badge - top right, 2 lines */}
           {hasSkiPassOffer(deal, stayCheckIn, displayNights) && (
