@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback, memo } from "react";
 import { Helmet } from "react-helmet-async";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -16,7 +16,7 @@ import type { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar as CalendarPicker } from "@/components/ui/calendar";
-import { Calendar, Clock, ExternalLink, MessageCircle, Sparkles, Ticket, Flame, Users } from "lucide-react";
+import { Calendar, Clock, ExternalLink, ArrowRight, MessageCircle, Sparkles, Ticket, Flame, Users } from "lucide-react";
 
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -24,7 +24,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getDefaultPropertyDetails } from "@/data/propertyDetails";
+import { getDefaultPropertyDetails, getPropertySiteSlug } from "@/data/propertyDetails";
 import { useAdminSettings } from "@/hooks/useAdminSettings";
 
 // Property background images
@@ -949,7 +949,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
     const totalPrice = getTotalPrice(deal, stayCheckIn, displayNights, quoted);
     const originalPrice = getOriginalApiPrice(deal, stayCheckIn, displayNights, quoted);
-    const bookingUrl = getBookingUrl(deal.roomId);
+    const propertyPageUrl = getPropertyPageUrl(deal.roomId);
     const marketingName = getMarketingName(deal);
     const category = getPropertyCategory(deal.roomId);
     // Strikethrough/discount badge is hidden for 1-night stays; otherwise show when discounted
@@ -1052,19 +1052,18 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
               <span>{formatDateDisplay(stayCheckIn)} – {formatDateDisplay(displayCheckOut)}</span>
             </div>
             <CardTitle className="text-xl">
-              {bookingUrl ? (
-                <a
-                  href={bookingUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              {propertyPageUrl ? (
+                <Link
+                  to={propertyPageUrl}
                   className="text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1.5 underline underline-offset-2 decoration-primary/50 hover:decoration-primary font-semibold"
                 >
                   {marketingName}
-                  <ExternalLink className="w-4 h-4 opacity-70" />
-                </a>
+                  <ArrowRight className="w-4 h-4 opacity-70" />
+                </Link>
               ) : (
                 <span className="text-foreground">{marketingName}</span>
               )}
+
             </CardTitle>
           </CardHeader>
 
@@ -1131,22 +1130,6 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                               ? "Precio incluye limpieza (ropa de cama si es necesario 19€/persona)."
                               : "Prix comprend le ménage (linge si nécessaire 19€/personne)."
                     }
-                    {showGuestPriceNote && (
-                      <div className="mt-1">
-                        {lang === 'fi'
-                          ? "Hinta sisältää 4 henkilöä. Lisähenkilöt 15 €/henkilö/varaus."
-                          : lang === 'en'
-                            ? "Price includes 4 guests. Extra guests 15 €/person/booking."
-                            : lang === 'sv'
-                              ? "Priset inkluderar 4 gäster. Extra gäster 15 €/person/bokning."
-                              : lang === 'de'
-                                ? "Preis inkl. 4 Personen. Zusatzpersonen 15 €/Person/Buchung."
-                                : lang === 'es'
-                                  ? "El precio incluye 4 personas. Personas adicionales 15 €/persona/reserva."
-                                  : "Prix pour 4 personnes. Personnes supplémentaires 15 €/personne/réservation."
-                        }
-                      </div>
-                    )}
                   </div>
                 </>
               ) : (
@@ -1156,6 +1139,24 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 </div>
               )}
             </div>
+
+            {showGuestPriceNote && (
+              <p className="text-xs text-muted-foreground -mt-2 mb-4">
+                {lang === 'fi'
+                  ? "Hinta sisältää 4 henkilöä. Lisähenkilöt 15 €/henkilö/varaus."
+                  : lang === 'en'
+                    ? "Price includes 4 guests. Extra guests 15 €/person/booking."
+                    : lang === 'sv'
+                      ? "Priset inkluderar 4 gäster. Extra gäster 15 €/person/bokning."
+                      : lang === 'de'
+                        ? "Preis inkl. 4 Personen. Zusatzpersonen 15 €/Person/Buchung."
+                        : lang === 'es'
+                          ? "El precio incluye 4 personas. Personas adicionales 15 €/persona/reserva."
+                          : "Prix pour 4 personnes. Personnes supplémentaires 15 €/personne/réservation."
+                }
+              </p>
+            )}
+
 
             {/* CTA Buttons */}
             <div className="space-y-3">
