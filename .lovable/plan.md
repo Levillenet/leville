@@ -1,41 +1,66 @@
-# Äkkilähdöt: Moder-huonetunnusten korjaus
+# Äkkilähdöt: Moder-rajapinta, aukkoyöt ja haku
 
-## Mikä oli vialla
+## Lähtötilanne (varmistettu)
 
-Kyse ei ollut käyttöoikeuksista vaan **vääristä huonetunnuksista**. `moder_property_mapping`-taulussa oli vanhentunut tunnusjoukko (308–333), joka ei vastaa nykyistä kohdekantaa — siksi Moder vastasi "Access denied".
+- Vika ei ollut käyttöoikeuksissa vaan **vääriä huonetunnuksia** tietokannassa. Testasin antamasi 28 tunnusta suoraan Moderiin: kaikki palauttavat 200, myös yhdistetty haku kaikilla 28 kerralla.
+- Väärät tunnukset (308–333) ja vieraat nimet (Tunturi, Immelrinne, Riekontie, Rantatähti, Karhunvartija A7/A8/C21/C22, Glacier A8/B8, Skistar 422/521/522/321/322) tulivat tammikuun 2026 migraatiosta, joka syötti tauluun vanhan testilistauksen.
+- Oikea Beds24 ↔ Moder -vastaavuus löytyy jo koodista: `propertyDetails.ts` sisältää jokaisen kohteen Moder-varauslinkin. Tästä saadaan 26 paria, ja Moonlight 415 (2215) sekä Platinum Superior 2MH (5415) täydennetään listastasi. Yhteensä 28 — tunnuksia ei tarvitse arvata.
+- Moderin saatavuusvastaus sisältää jo `day_rate`-kentän (hinta senteissä per yö) sekä `min_nights`, `checkin_denied` ja `checkout_denied`.
 
-Testasin antamasi 28 tunnusta suoraan rajapintaan: **kaikki palauttavat 200**, ja myös yhdistetty haku kaikilla 28 tunnuksella toimii. Token on siis kunnossa koko ajan ollut.
+## 1. Kohdemappauksen korjaus
 
-## Mistä oikea vastaavuus saadaan
+- Nollataan Moder-tunnus kaikilta nykyisiltä riveiltä, mutta **rivit jätetään paikoilleen** — tiketöinti hakee niistä kohteen nimen vanhoille tiketeille.
+- Kirjoitetaan 28 nykyisen kohteen rivit oikeilla tunnuksilla, nimillä, henkilömäärillä ja siivousmaksuilla (arvot `propertyDetails.ts`:stä).
+- Karhupirtin Beds24-tunnukseksi tulee koodin arvo `353045` (taulussa oli virheellinen `419423`).
 
-Oikea Beds24 ↔ Moder -vastaavuus löytyy jo koodista: `src/data/propertyDetails.ts` sisältää jokaisen kohteen Moder-varauslinkin (esim. `app.moder.fi/levillenet/306`). Tästä saadaan 26 paria automaattisesti, ja kaksi puuttuvaa täydennetään listastasi:
+## 2. Aukkoyöt kahden varauksen välissä
 
-- Moonlight 415 → Beds24 `645946`, Moder `2215`
-- Levi Platinum Superior 2MH → Beds24 `547818`, Moder `5415`
+Nykyinen logiikka pudottaa pois kaikki jaksot, joiden pituus alittaa Moderin minimiyömäärän. Muutetaan tämä pyyntösi mukaisesti:
 
-Näin tunnuksia ei tarvitse arvata.
+- Jokaiselle vapaalle jaksolle katsotaan, onko **sekä sitä edeltävä että sitä seuraava päivä varattu**.
+- Jos on ja jakso jää minimiyömäärän alle, jakso merkitään **aukoksi** ja se näytetään täsmälleen sen pituisena (1 tai 2 yötä) — minimiyömäärä ohitetaan, koska aukkoa ei voi muuten myydä.
+- Muissa tapauksissa näytetään vain minimiyömäärän täyttävät pituudet, kuten ennenkin.
+- Lisäksi huomioidaan Moderin `checkin_denied` / `checkout_denied` -päivät: jaksoa ei tarjota alkavaksi tai päättyväksi kielletylle päivälle.
 
-## Mitä tehdään
+Aukkojaksot saavat oman merkintänsä kortissa (esim. "Vain tämä aukko – 2 yötä").
 
-1. **Päivitetään mappaustaulu** vastaamaan nykyistä 28 kohteen kantaa:
-   - 7 olemassa olevaa riviä saa oikean Moder-tunnuksen
-   - 21 puuttuvaa kohdetta lisätään (Glacier A1–A6 ja B1–B4, studiot, Karhupirtti, Hiihtäjä, Moonlight, Platinum, Karhunvartija 3, Skistar 209/210/310)
-   - Siivousmaksu ja henkilömäärä otetaan `propertyDetails.ts`:stä
-2. **Vieraat rivit pois äkkilähdöistä:** Taulussa on 19 riviä, jotka eivät ole koskaan kuuluneet nykyiseen kantaanne (Tunturi, Immelrinne, Immelkartano, Riekontie, Rantatähti, Karhunvartija A7/A8/C21/C22, Glacier A8/B8, Skistar 422/521/522/321/322). Ne ovat peräisin tammikuun 2026 alkuperäisestä migraatiosta, joka syötti tauluun vanhan testilistauksen tunnuksilla 308–333. Näiltä nollataan Moder-tunnus, mutta **rivit jätetään paikoilleen**, koska tiketöinti hakee niistä kohteen nimen mahdollisille vanhoille tiketeille. Jos haluat, että myös tiketöinti näyttää raakatunnuksen näille, voidaan rivit poistaa kokonaan — kerro valintasi.
-3. **Ristiriidan korjaus:** Karhupirtin Beds24-tunnus on taulussa `419423`, mutta koodissa `353045`. Käytetään koodin arvoa, jotta siivousmaksut ja WhatsApp-numero osuvat oikein.
+## 3. Hinnoittelu suoraan saatavuusvastauksesta
 
-## Varmistus
+Nykyinen toteutus tekee erillisen hintakyselyn jokaiselle jaksolle ja jokaiselle pituudelle — 28 kohteella se olisi satoja peräkkäisiä kutsuja ja aikakatkaisu.
 
-- Kutsutaan `moder-availability?force_refresh=true` ja tarkistetaan, että jaksoja tulee usealta kohteelta.
-- `/akkilahdot` selaimessa: kortteja usealta kohteelta, suodattimet 2 / 3 / 4+ yötä toimivat, hinnat ja WhatsApp-linkki oikein.
-- Varmistetaan, ettei tiketöinnin kohdenimien haku rikkoudu.
+Siirrytään käyttämään saatavuusvastauksen `day_rate`-arvoja: koko kausi haetaan **yhdellä kutsulla**, ja minkä tahansa jakson hinta lasketaan yösummana. Tämä on Moderin oma vuorokausihinta, ja se on edellytys myös kohdan 4 vapaalle päivämäärähaulle.
+
+Hintalogiikka pysyy sovittuna:
+- Normaalihinta = Moderin yösumma + siivousmaksu
+- Alennettu hinta = perusalennus (`deals_base_discount`), ja jaksokohtainen alennus päälle jos adminissa annettu
+
+## 4. Haku ja listaus
+
+Äkkilähtösivulle tulee kaksi tilaa:
+
+- **Haku (oletus):** käyttäjä valitsee aikavälin (alkaa / päättyy) ja henkilömäärän. Tulokset ovat kyseiselle välille osuvia jaksoja, halvimmat ensin. Aikaväli esitäytetään seuraavalle kahdelle viikolle, jotta tuloksia näkyy heti.
+- **Listaus:** nykyinen 2 / 3 / 4+ yötä -suodatin säilyy sellaisenaan vaihtoehtona.
+
+Aukkoyöt näkyvät molemmissa tiloissa.
+
+Etusivun hakubanneriin ei kosketa.
 
 ## Tekniset yksityiskohdat
 
-- Muutos on pelkkää datapäivitystä `moder_property_mapping`-tauluun (UPDATE + INSERT), ei skeemamuutosta.
-- `supabase/functions/moder-availability/index.ts` ei vaadi muutoksia — sen vikasietoinen kohdekohtainen varahaku jää paikalleen turvaverkoksi.
-- Tiketöinnin funktiot (`manage-tickets`, `ticket-reminders`, `check-booking-changes`) lukevat taulusta vain `property_name`-kentän `beds24_room_id`-avaimella; niihin ei kosketa.
+- `moder_property_mapping`: data-päivitys (UPDATE + DELETE + INSERT), ei skeemamuutosta.
+- `supabase/functions/moder-availability/index.ts`:
+  - `DayInfo` saa `dayRate`-kentän; `parseAvailabilities` lukee `day_rate`.
+  - `buildWindows` palauttaa yhtenäiset vapaat jaksot ja tiedon reunapäivien varaustilanteesta → `isGap`.
+  - Erilliset `/api/v1/prices`-kutsut poistuvat; jakso palauttaa `rates`-kartan (päivä → €) sekä `noCheckIn` / `noCheckOut` -päivälistat.
+  - Vastaus säilyttää nykyiset kentät (`roomId`, `checkIn`, `nights`, `cleaningFee`, `maxPersons`), joten mikään muu sivu ei rikkoudu.
+- `src/pages/Akkilahdot.tsx`: hakutila + listaustila, jaksojen laskenta `rates`-kartasta, aukkomerkintä. Käännökset kaikille 7 kielelle.
+- Tiketöinnin funktioihin (`manage-tickets`, `ticket-reminders`, `check-booking-changes`) ei kosketa.
 
-## Huomio
+## Varmistus
 
-Perusalennus (`deals_base_discount`) on edelleen 0 %. Aseta se adminissa, niin korteissa näkyy yliviivattu Moder-hinta ja alennettu hinta suunnitellusti.
+- Kutsutaan funktio `force_refresh=true` -parametrilla ja tarkistetaan, että jaksoja tulee useilta kohteilta ja että ainakin yksi aukkojakso löytyy.
+- `/akkilahdot` selaimessa: haku palauttaa tuloksia, listaus toimii, hinnat ja yliviivaus näkyvät oikein.
+
+## Muistutus
+
+Perusalennus (`deals_base_discount`) on edelleen 0 %. Aseta se adminissa, niin alennettu hinta ja yliviivaus näkyvät korteissa.
