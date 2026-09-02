@@ -467,12 +467,27 @@ const extraLabels: Record<Language, { offer: string; today: string; pickDate: st
   nl: { offer: "LAST-MINUTE AANBIEDING", today: "Begint vandaag", pickDate: "Kies datum", pickRange: "Kies datums", datesLabel: "Data", searchHeading: "Zoek beschikbare last-minute verblijven", clearDates: "Selectie wissen", beyondWindow: (d: number) => `Last-minute verblijven worden tot ${d} dagen vooruit getoond. Kies een eerdere aankomstdatum of boek direct.`, bookDirect: "Direct boeken", },
 };
 
+// Marketing strip: examples of free periods (no prices — prices come from search)
+const exampleLabels: Record<Language, { heading: string; note: string; cta: string }> = {
+  fi: { heading: "Esimerkkejä vapaista jaksoista", note: "Nämä ovat vain esimerkkejä. Tee haku ja löydä omasi! Hinta näkyy, kun valitset ajanjakson.", cta: "Hae tälle jaksolle" },
+  en: { heading: "Examples of free periods", note: "These are just examples. Make a search and find yours! The price appears when you select your dates.", cta: "Search these dates" },
+  sv: { heading: "Exempel på lediga perioder", note: "Detta är bara exempel. Gör en sökning och hitta din! Priset visas när du väljer datum.", cta: "Sök dessa datum" },
+  de: { heading: "Beispiele für freie Zeiträume", note: "Dies sind nur Beispiele. Suchen Sie und finden Sie Ihren Zeitraum! Der Preis erscheint nach der Datumsauswahl.", cta: "Diesen Zeitraum suchen" },
+  es: { heading: "Ejemplos de periodos libres", note: "Solo son ejemplos. ¡Haz una búsqueda y encuentra el tuyo! El precio aparece al elegir las fechas.", cta: "Buscar estas fechas" },
+  fr: { heading: "Exemples de périodes libres", note: "Ce ne sont que des exemples. Faites une recherche et trouvez la vôtre ! Le prix s'affiche après le choix des dates.", cta: "Rechercher ces dates" },
+  nl: { heading: "Voorbeelden van vrije periodes", note: "Dit zijn slechts voorbeelden. Doe een zoekopdracht en vind de jouwe! De prijs verschijnt na het kiezen van data.", cta: "Zoek deze data" },
+};
+
+
+
 
 
 const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
   const x = extraLabels[lang];
+  const ex = exampleLabels[lang];
+
   // Deals are only served through the date search so prices always come
   // from Moder for the exact length of stay.
   const [searchCheckIn, setSearchCheckIn] = useState("");
@@ -541,6 +556,25 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const filteredDeals = useMemo(() =>
     allDeals.filter((deal) => deal.checkIn <= maxCheckInIso),
     [allDeals, maxCheckInIso]);
+
+  // Marketing examples: next 10 free periods across different properties
+  const exampleWindows = useMemo(() => {
+    const sorted = [...filteredDeals].sort((a, b) => a.checkIn.localeCompare(b.checkIn));
+    const perRoom = new Map<string, number>();
+    const picked: { deal: Beds24Deal; checkIn: string; checkOut: string; nights: number }[] = [];
+    for (const deal of sorted) {
+      const used = perRoom.get(deal.roomId) ?? 0;
+      if (used >= 2) continue;
+      const nights = Math.min(deal.windowNights ?? deal.nights, 7);
+      if (nights < 1) continue;
+      perRoom.set(deal.roomId, used + 1);
+      picked.push({ deal, checkIn: deal.checkIn, checkOut: addDaysIso(deal.checkIn, nights), nights });
+      if (picked.length >= 10) break;
+    }
+    return picked;
+  }, [filteredDeals]);
+
+
 
   // Helper to get property with DB override - memoized
   const getPropertyWithOverride = useCallback((roomId: string) => {
@@ -947,10 +981,38 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 )}
 
 
-                {/* Prompt before any dates are chosen */}
-                {dealsEnabled && !searchActive && (
+                {/* Marketing examples before any dates are chosen */}
+                {dealsEnabled && !searchActive && exampleWindows.length > 0 && (
+                  <div className="mt-10 max-w-4xl mx-auto text-left">
+                    <h2 className="text-lg md:text-xl font-semibold text-foreground mb-1 text-center">{ex.heading}</h2>
+                    <p className="text-sm text-muted-foreground mb-5 text-center">{ex.note}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {exampleWindows.map((w) => (
+                        <button
+                          key={`${w.deal.roomId}-${w.checkIn}`}
+                          type="button"
+                          onClick={() => {
+                            setSearchCheckIn(w.checkIn);
+                            setSearchCheckOut(w.checkOut);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                          }}
+                          className="glass-card border-border/50 rounded-xl p-4 text-left transition-colors hover:border-primary/50"
+                        >
+                          <div className="font-semibold text-foreground text-sm">{getMarketingName(w.deal)}</div>
+                          <div className="text-sm text-muted-foreground mt-1">
+                            {formatDateDisplay(w.checkIn)} – {formatDateDisplay(w.checkOut)} · {nightsText(w.nights)}
+                          </div>
+                          <div className="text-xs text-primary mt-2">{ex.cta}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {dealsEnabled && !searchActive && exampleWindows.length === 0 && (
                   <p className="mt-6 text-sm text-muted-foreground">{x.pickRange}</p>
                 )}
+
               </section>
             </ScrollReveal>
 
