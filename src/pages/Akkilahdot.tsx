@@ -25,6 +25,8 @@ import StickyBookingBar from "@/components/StickyBookingBar";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getDefaultPropertyDetails, getPropertySiteSlug } from "@/data/propertyDetails";
+import { computeDealPrice } from "@/lib/dealPricing";
+
 import { useAdminSettings } from "@/hooks/useAdminSettings";
 
 // Property background images
@@ -788,23 +790,19 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     const base = getModerPrice(deal, checkIn, nights, override);
     if (base == null) return null;
 
-    // 1-night stays can be excluded from discounts by admin setting
-    if (!isDiscountable(nights)) return Math.round(base + getCleaningFee(deal));
-
-    let price = base * (1 - dealsBaseDiscount / 100);
-
-    // Hidden super last-minute discount (not shown separately to the guest)
-    const superPct = getSuperDiscountPct(checkIn);
-    if (superPct > 0) price = price * (1 - superPct / 100);
-
-    // Period-specific custom discount (from admin) - applied as ADDITIONAL discount
     const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
-    if (periodS.customDiscount && periodS.customDiscount > 0) {
-      price = price * (1 - periodS.customDiscount / 100);
-    }
 
-    return Math.round(price + getCleaningFee(deal));
-  }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb, getSuperDiscountPct, isDiscountable]);
+    return computeDealPrice({
+      moderPrice: base,
+      cleaningFee: getCleaningFee(deal),
+      nights,
+      checkIn,
+      todayIso,
+      settings: { baseDiscount: dealsBaseDiscount, superDiscount, discountOneNight },
+      periodDiscountPct: periodS.customDiscount,
+    }).total;
+  }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb, superDiscount, discountOneNight, todayIso]);
+
 
 
   // Check if ski pass offer applies to this stay (using displayed dates)
