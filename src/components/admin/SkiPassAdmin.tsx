@@ -223,7 +223,7 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     return Math.round(deal.price + cleaningFee);
   };
 
-  // Get the current displayed price (with property-level discounts)
+  // Get the current displayed price (property-level + base discount)
   const getCurrentDisplayPrice = (deal: Beds24Deal): number | null => {
     if (deal.price == null) return null;
     const cleaningFee = getCleaningFee(deal.roomId);
@@ -233,17 +233,22 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     if (discount > 0) {
       basePrice = basePrice * (1 - discount / 100);
     }
+    if (baseDiscount > 0) {
+      basePrice = basePrice * (1 - baseDiscount / 100);
+    }
 
     return Math.round(basePrice + cleaningFee);
   };
 
-  // Get the special offer price (additional discount)
+  // Get the special offer price (additional period discount on top)
   const getSpecialOfferPrice = (deal: Beds24Deal, customDiscount: number | null): number | null => {
     if (deal.price == null || customDiscount == null || customDiscount <= 0) return null;
+    const cleaningFee = getCleaningFee(deal.roomId);
     const currentPrice = getCurrentDisplayPrice(deal);
     if (currentPrice == null) return null;
-    return Math.round(currentPrice * (1 - customDiscount / 100));
+    return Math.round((currentPrice - cleaningFee) * (1 - customDiscount / 100) + cleaningFee);
   };
+
 
   // Group deals by property
   const dealsByProperty = beds24Deals.reduce((acc, deal) => {
