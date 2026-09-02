@@ -130,9 +130,16 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   };
 
 
-  const handleQuickSelect = (days: number) => {
+  const handleQuickSelect = async (days: number) => {
     setDealsDaysAhead(days);
     updateSiteSetting({ settingId: 'deals_days_ahead', value: days });
+    // Rebuild the deals cache right away so the new horizon shows in production
+    try {
+      await supabase.functions.invoke('moder-availability?force_refresh=true');
+    } catch (err) {
+      console.error('Could not refresh deals cache:', err);
+    }
+    queryClient.invalidateQueries({ queryKey: ['moder-availability'] });
   };
 
   const handleToggleEnabled = (checked: boolean) => {
