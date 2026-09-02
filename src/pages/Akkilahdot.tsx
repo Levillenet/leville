@@ -469,13 +469,13 @@ const extraLabels: Record<Language, { offer: string; today: string; pickDate: st
 
 // Marketing strip: examples of free periods (no prices — prices come from search)
 const exampleLabels: Record<Language, { heading: string; note: string; cta: string }> = {
-  fi: { heading: "Esimerkkejä vapaista jaksoista", note: "Nämä ovat vain esimerkkejä. Tee haku ja löydä omasi! Hinta näkyy, kun valitset ajanjakson.", cta: "Hae tälle jaksolle" },
-  en: { heading: "Examples of free periods", note: "These are just examples. Make a search and find yours! The price appears when you select your dates.", cta: "Search these dates" },
-  sv: { heading: "Exempel på lediga perioder", note: "Detta är bara exempel. Gör en sökning och hitta din! Priset visas när du väljer datum.", cta: "Sök dessa datum" },
-  de: { heading: "Beispiele für freie Zeiträume", note: "Dies sind nur Beispiele. Suchen Sie und finden Sie Ihren Zeitraum! Der Preis erscheint nach der Datumsauswahl.", cta: "Diesen Zeitraum suchen" },
-  es: { heading: "Ejemplos de periodos libres", note: "Solo son ejemplos. ¡Haz una búsqueda y encuentra el tuyo! El precio aparece al elegir las fechas.", cta: "Buscar estas fechas" },
-  fr: { heading: "Exemples de périodes libres", note: "Ce ne sont que des exemples. Faites une recherche et trouvez la vôtre ! Le prix s'affiche après le choix des dates.", cta: "Rechercher ces dates" },
-  nl: { heading: "Voorbeelden van vrije periodes", note: "Dit zijn slechts voorbeelden. Doe een zoekopdracht en vind de jouwe! De prijs verschijnt na het kiezen van data.", cta: "Zoek deze data" },
+  fi: { heading: "Esimerkkejä vapaista jaksoista", note: "Nämä ovat vain esimerkkejä — tee haku ja löydä omasi! Tarkan hinnan saat aina valitsemalla omat päiväsi.", cta: "Hae tälle jaksolle" },
+  en: { heading: "Examples of free periods", note: "These are just examples — make a search and find yours! Select your own dates for an exact price.", cta: "Search these dates" },
+  sv: { heading: "Exempel på lediga perioder", note: "Detta är bara exempel — gör en sökning och hitta din! Välj egna datum för ett exakt pris.", cta: "Sök dessa datum" },
+  de: { heading: "Beispiele für freie Zeiträume", note: "Dies sind nur Beispiele — suchen Sie und finden Sie Ihren Zeitraum! Wählen Sie eigene Daten für den genauen Preis.", cta: "Diesen Zeitraum suchen" },
+  es: { heading: "Ejemplos de periodos libres", note: "Solo son ejemplos — ¡haz una búsqueda y encuentra el tuyo! Elige tus fechas para ver el precio exacto.", cta: "Buscar estas fechas" },
+  fr: { heading: "Exemples de périodes libres", note: "Ce ne sont que des exemples — faites une recherche et trouvez la vôtre ! Choisissez vos dates pour un prix exact.", cta: "Rechercher ces dates" },
+  nl: { heading: "Voorbeelden van vrije periodes", note: "Dit zijn slechts voorbeelden — doe een zoekopdracht en vind de jouwe! Kies je eigen data voor een exacte prijs.", cta: "Zoek deze data" },
 };
 
 
