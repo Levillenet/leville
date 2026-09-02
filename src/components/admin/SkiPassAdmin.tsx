@@ -553,23 +553,9 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
                               )}
                             </div>
                             
-                            {/* Special offer toggle */}
-                            <div className="flex items-center gap-2 bg-amber-500/5 px-3 py-2 rounded-lg border border-amber-500/20">
-                              <Switch
-                                id={`special-${deal.id}`}
-                                checked={localPeriodSettings.specialOffer}
-                                onCheckedChange={(checked) => handleToggleSpecialOffer(deal, checked)}
-                                disabled={isSaving}
-                              />
-                              <Label htmlFor={`special-${deal.id}`} className={`text-sm font-medium ${localPeriodSettings.specialOffer ? 'text-amber-400' : ''}`}>
-                                Erikoistarjous
-                              </Label>
-                              <span className="text-xs text-muted-foreground hidden md:inline">(badge)</span>
-                            </div>
-                            
                             {/* Custom discount buttons */}
                             <div className="flex items-center gap-2 bg-green-500/5 px-3 py-2 rounded-lg border border-green-500/20">
-                              <Label className="text-sm font-medium text-green-400">Alennus:</Label>
+                              <Label className="text-sm font-medium text-green-400">Lisäalennus:</Label>
                               <div className="flex items-center gap-1">
                                 {[10, 20, 30].map(val => (
                                   <Button
@@ -589,20 +575,7 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
                                 ))}
                               </div>
                             </div>
-                            
-                            {/* Show discount toggle */}
-                            <div className="flex items-center gap-2 bg-purple-500/5 px-3 py-2 rounded-lg border border-purple-500/20">
-                              <Switch
-                                id={`showdiscount-${deal.id}`}
-                                checked={localPeriodSettings.showDiscountBadge}
-                                onCheckedChange={(checked) => handleToggleShowDiscount(deal, checked)}
-                                disabled={isSaving}
-                              />
-                              <Label htmlFor={`showdiscount-${deal.id}`} className={`text-sm font-medium ${localPeriodSettings.showDiscountBadge ? 'text-purple-400' : ''}`}>
-                                Näytä alennus
-                              </Label>
-                              <span className="text-xs text-muted-foreground hidden md:inline">(yliviivaus)</span>
-                            </div>
+
                           </div>
                         </div>
                       );
