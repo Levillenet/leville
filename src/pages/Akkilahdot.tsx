@@ -1131,6 +1131,22 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                               ? "Precio incluye limpieza (ropa de cama si es necesario 19€/persona)."
                               : "Prix comprend le ménage (linge si nécessaire 19€/personne)."
                     }
+                    {showGuestPriceNote && (
+                      <div className="mt-1">
+                        {lang === 'fi'
+                          ? "Hinta sisältää 4 henkilöä. Lisähenkilöt 15 €/henkilö/varaus."
+                          : lang === 'en'
+                            ? "Price includes 4 guests. Extra guests 15 €/person/booking."
+                            : lang === 'sv'
+                              ? "Priset inkluderar 4 gäster. Extra gäster 15 €/person/bokning."
+                              : lang === 'de'
+                                ? "Preis inkl. 4 Personen. Zusatzpersonen 15 €/Person/Buchung."
+                                : lang === 'es'
+                                  ? "El precio incluye 4 personas. Personas adicionales 15 €/persona/reserva."
+                                  : "Prix pour 4 personnes. Personnes supplémentaires 15 €/personne/réservation."
+                        }
+                      </div>
+                    )}
                   </div>
                 </>
               ) : (
