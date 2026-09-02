@@ -805,8 +805,79 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   {t.subtitle}
                 </p>
                 
-                {/* Night filter */}
+                {/* Mode toggle: browse list / search by dates */}
                 {dealsEnabled && (
+                  <div className="mt-6 flex justify-center">
+                    <ToggleGroup
+                      type="single"
+                      value={mode}
+                      onValueChange={(value) => value && setMode(value as "list" | "search")}
+                      className="bg-background/50 border border-border/30 rounded-lg p-1"
+                    >
+                      <ToggleGroupItem
+                        value="list"
+                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
+                      >
+                        {t.modeList}
+                      </ToggleGroupItem>
+                      <ToggleGroupItem
+                        value="search"
+                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
+                      >
+                        {t.modeSearch}
+                      </ToggleGroupItem>
+                    </ToggleGroup>
+                  </div>
+                )}
+
+                {/* Date search form */}
+                {dealsEnabled && mode === "search" && (
+                  <div className="mt-6 max-w-2xl mx-auto">
+                    <div className="glass-card border-border/30 rounded-xl p-4 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-3 text-left">
+                      <div>
+                        <label className="block text-xs text-muted-foreground mb-1">{t.checkInLabel}</label>
+                        <input
+                          type="date"
+                          value={searchCheckIn}
+                          min={new Date().toISOString().slice(0, 10)}
+                          onChange={(e) => setSearchCheckIn(e.target.value)}
+                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-muted-foreground mb-1">{t.checkOutLabel}</label>
+                        <input
+                          type="date"
+                          value={searchCheckOut}
+                          min={searchCheckIn ? addDaysIso(searchCheckIn, 1) : undefined}
+                          onChange={(e) => setSearchCheckOut(e.target.value)}
+                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-muted-foreground mb-1">{t.guestsLabel}</label>
+                        <select
+                          value={searchGuests}
+                          onChange={(e) => setSearchGuests(e.target.value)}
+                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
+                        >
+                          <option value="">{t.guestsAny}</option>
+                          {[2, 3, 4, 5, 6, 7, 8, 10, 12, 14].map(n => (
+                            <option key={n} value={n}>{n}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="flex items-end">
+                        <span className="text-sm text-muted-foreground">
+                          {searchActive ? `${t.searchResults} (${searchItems.length})` : ""}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Night filter (list mode) */}
+                {dealsEnabled && mode === "list" && (
                 <div className="mt-6 flex justify-center">
                   <ToggleGroup
                     type="single"
