@@ -214,8 +214,25 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
             </p>
           </div>
 
-          <div className="space-y-3">
-            <Label className="text-base font-medium">
+          <div className="flex items-center justify-between gap-4 border-t pt-4">
+            <div className="space-y-1">
+              <Label htmlFor="deals-one-night-toggle" className="text-base font-medium">
+                Anna alennus myös 1 yön varauksille
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                {discountOneNight
+                  ? 'Päällä: 1 yön jaksot saavat perus- ja superäkkilähtöalennuksen.'
+                  : 'Pois: 1 yön jaksot myydään täydellä Moder-hinnalla ilman alennusmerkintöjä.'}
+              </p>
+            </div>
+            <Switch
+              id="deals-one-night-toggle"
+              checked={discountOneNight}
+              onCheckedChange={handleToggleOneNight}
+              disabled={isSaving || isViewer}
+            />
+          </div>
+
               Näytä äkkilähtöjä {dealsDaysAhead} päivää etukäteen
             </Label>
             
