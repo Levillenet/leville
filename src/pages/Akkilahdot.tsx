@@ -656,10 +656,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return property?.maxGuests || 2;
   }, [getPropertyWithOverride]);
 
-  // Generate WhatsApp booking URL for a deal - localized messages
-  const generateWhatsAppUrl = useCallback((deal: Beds24Deal, nights: number): string => {
-    const totalPrice = getTotalPrice(deal, nights);
-    const displayCheckOut = addDaysIso(deal.checkIn, nights);
+  // Generate WhatsApp booking URL for a stay - localized messages
+  const generateWhatsAppUrl = useCallback((deal: Beds24Deal, checkIn: string, nights: number): string => {
+    const totalPrice = getTotalPrice(deal, checkIn, nights);
+    const displayCheckOut = addDaysIso(checkIn, nights);
     const marketingName = getMarketingName(deal);
     const property = getPropertyWithOverride(deal.roomId);
     const whatsappNumber = property?.whatsappNumber?.replace('+', '') || '35844131313';
