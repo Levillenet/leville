@@ -124,7 +124,7 @@ const DealsPriceCheck = ({ settings }: Props) => {
         const property = properties.find(p => p.id === roomId);
         const name = property?.name || debug?.name || roomId;
         const moderPrice = result.prices[roomId] ?? null;
-        const cleaningFee = 0; // Moder LOS price already includes cleaning
+        const cleaningFee = debug?.cleaningFee ?? 0;
         const periodPct = periodDiscountFor(roomId);
         const breakdown =
           moderPrice != null
