@@ -81,6 +81,14 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
 
   const periodSettings = dbSettings?.periodSettings || [];
 
+  // Base last-minute discount from site settings (same value the public page uses)
+  const baseDiscountRaw = dbSettings?.siteSettings?.find(s => s.id === 'deals_base_discount')?.value;
+  const baseDiscount = (() => {
+    const n = typeof baseDiscountRaw === 'number' ? baseDiscountRaw : parseInt(String(baseDiscountRaw ?? '0'), 10);
+    return isNaN(n) || n < 0 ? 0 : Math.min(n, 90);
+  })();
+
+
   // Fetch Beds24 deals
   const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
     queryKey: ['beds24-availability-admin'],
@@ -133,28 +141,14 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
       check_in: deal.checkIn,
       check_out: deal.checkOut,
       has_ski_pass: !currentStatus,
-      has_special_offer: currentSettings.specialOffer,
+      has_special_offer: true,
       custom_discount: currentSettings.customDiscount || 0,
-      show_discount: currentSettings.showDiscountBadge
+      show_discount: true
     });
     
     toast({
       title: currentStatus ? "Hissilippu poistettu" : "Hissilippu annettu",
       description: `${getMarketingName(deal)} ${format(new Date(deal.checkIn), "d.M")} - ${format(new Date(deal.checkOut), "d.M")}`
-    });
-  };
-
-  const handleToggleSpecialOffer = (deal: Beds24Deal, checked: boolean) => {
-    const currentSettings = getLocalPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
-    
-    upsertPeriod({
-      property_id: deal.roomId,
-      check_in: deal.checkIn,
-      check_out: deal.checkOut,
-      has_ski_pass: currentSettings.hasSkiPass,
-      has_special_offer: checked,
-      custom_discount: currentSettings.customDiscount || 0,
-      show_discount: currentSettings.showDiscountBadge
     });
   };
 
@@ -166,25 +160,12 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
       check_in: deal.checkIn,
       check_out: deal.checkOut,
       has_ski_pass: currentSettings.hasSkiPass,
-      has_special_offer: currentSettings.specialOffer,
+      has_special_offer: true,
       custom_discount: discount || 0,
-      show_discount: currentSettings.showDiscountBadge
+      show_discount: true
     });
   };
 
-  const handleToggleShowDiscount = (deal: Beds24Deal, checked: boolean) => {
-    const currentSettings = getLocalPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
-    
-    upsertPeriod({
-      property_id: deal.roomId,
-      check_in: deal.checkIn,
-      check_out: deal.checkOut,
-      has_ski_pass: currentSettings.hasSkiPass,
-      has_special_offer: currentSettings.specialOffer,
-      custom_discount: currentSettings.customDiscount || 0,
-      show_discount: checked
-    });
-  };
 
   const getMarketingName = (deal: Beds24Deal): string => {
     const dbOverride = dbSettings?.propertySettings?.find(s => s.property_id === deal.roomId);
@@ -223,7 +204,7 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     return Math.round(deal.price + cleaningFee);
   };
 
-  // Get the current displayed price (with property-level discounts)
+  // Get the current displayed price (property-level + base discount)
   const getCurrentDisplayPrice = (deal: Beds24Deal): number | null => {
     if (deal.price == null) return null;
     const cleaningFee = getCleaningFee(deal.roomId);
@@ -233,17 +214,22 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     if (discount > 0) {
       basePrice = basePrice * (1 - discount / 100);
     }
+    if (baseDiscount > 0) {
+      basePrice = basePrice * (1 - baseDiscount / 100);
+    }
 
     return Math.round(basePrice + cleaningFee);
   };
 
-  // Get the special offer price (additional discount)
+  // Get the special offer price (additional period discount on top)
   const getSpecialOfferPrice = (deal: Beds24Deal, customDiscount: number | null): number | null => {
     if (deal.price == null || customDiscount == null || customDiscount <= 0) return null;
+    const cleaningFee = getCleaningFee(deal.roomId);
     const currentPrice = getCurrentDisplayPrice(deal);
     if (currentPrice == null) return null;
-    return Math.round(currentPrice * (1 - customDiscount / 100));
+    return Math.round((currentPrice - cleaningFee) * (1 - customDiscount / 100) + cleaningFee);
   };
+
 
   // Group deals by property
   const dealsByProperty = beds24Deals.reduce((acc, deal) => {
@@ -325,11 +311,11 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
               <div className="bg-background/50 p-3 rounded-lg border border-amber-500/20">
                 <div className="flex items-center gap-2 mb-2">
                   <Sparkles className="w-4 h-4 text-amber-400" />
-                  <span className="font-semibold text-foreground">Erikoistarjous</span>
+                  <span className="font-semibold text-foreground">Äkkilähtö tarjous</span>
                 </div>
                 <p className="text-muted-foreground text-xs">
-                  Lisää kultaisen "Erikoistarjous"-badgen majoituskorttiin ja korostaa hinnan isommalla kursiivilla. 
-                  <strong> Tämä on visuaalinen merkintä</strong> - varsinainen alennus asetetaan Alennus-painikkeilla.
+                  Kaikki äkkilähtökohteet näytetään aina "ÄKKILÄHTÖ TARJOUS" -merkinnällä ja
+                  alkuperäinen hinta yliviivattuna. Erillisiä kytkimiä ei enää tarvita.
                 </p>
               </div>
             </div>
@@ -342,32 +328,24 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
                   <span className="font-semibold text-foreground">Alennus (10%, 20%, 30%)</span>
                 </div>
                 <p className="text-muted-foreground text-xs">
-                  Jaksokohtainen lisäalennus, joka lasketaan <strong>huoneistohinnan päälle</strong>. 
-                  Esim. jos huoneistolla on jo 15% alennus ja lisäät 10% jaksoalennuksen, lopullinen hinta on: 
-                  (API-hinta × 0.85 + siivous) × 0.90
+                  Jaksokohtainen lisäalennus, joka lasketaan <strong>perusalennuksen päälle</strong>. 
+                  Esim. perusalennus 10% ja jaksoalennus 10%: (API-hinta × 0.90 × 0.90) + siivous.
                 </p>
               </div>
               
               <div className="bg-background/50 p-3 rounded-lg border border-purple-500/20">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="w-4 h-4 text-purple-400 font-bold text-sm">👁️</span>
-                  <span className="font-semibold text-foreground">Näytä alennus</span>
+                  <Percent className="w-4 h-4 text-purple-400" />
+                  <span className="font-semibold text-foreground">Perusalennus {baseDiscount}%</span>
                 </div>
                 <p className="text-muted-foreground text-xs">
-                  Kun päällä, näyttää asiakkaalle <strong>alkuperäisen hinnan yliviivattuna</strong> (esim. <span className="line-through">309€</span>) 
-                  alennetun hinnan vieressä. Korostaa säästöä visuaalisesti. Piilottaa prosenttibadgen, koska hinnanero näkyy suoraan.
+                  Asetetaan äkkilähtöasetuksissa ja lasketaan automaattisesti kaikkien jaksojen
+                  hinnoista. Alla näkyvät hinnat sisältävät sen.
                 </p>
               </div>
             </div>
           </div>
-          
-          <div className="mt-4 text-xs text-muted-foreground bg-background/30 p-2 rounded flex items-start gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
-            <span>
-              <strong>Hinnan prioriteetti:</strong> Jaksokohtainen alennus (tässä välilehdessä) sovelletaan AINA kun se on asetettu, 
-              riippumatta Erikoistarjous-togglesta. Erikoistarjous-toggle vaikuttaa vain ulkoasuun (badge ja korostettu tyyli).
-            </span>
-          </div>
+
         </CardContent>
       </Card>
 
@@ -548,23 +526,9 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
                               )}
                             </div>
                             
-                            {/* Special offer toggle */}
-                            <div className="flex items-center gap-2 bg-amber-500/5 px-3 py-2 rounded-lg border border-amber-500/20">
-                              <Switch
-                                id={`special-${deal.id}`}
-                                checked={localPeriodSettings.specialOffer}
-                                onCheckedChange={(checked) => handleToggleSpecialOffer(deal, checked)}
-                                disabled={isSaving}
-                              />
-                              <Label htmlFor={`special-${deal.id}`} className={`text-sm font-medium ${localPeriodSettings.specialOffer ? 'text-amber-400' : ''}`}>
-                                Erikoistarjous
-                              </Label>
-                              <span className="text-xs text-muted-foreground hidden md:inline">(badge)</span>
-                            </div>
-                            
                             {/* Custom discount buttons */}
                             <div className="flex items-center gap-2 bg-green-500/5 px-3 py-2 rounded-lg border border-green-500/20">
-                              <Label className="text-sm font-medium text-green-400">Alennus:</Label>
+                              <Label className="text-sm font-medium text-green-400">Lisäalennus:</Label>
                               <div className="flex items-center gap-1">
                                 {[10, 20, 30].map(val => (
                                   <Button
@@ -584,20 +548,7 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
                                 ))}
                               </div>
                             </div>
-                            
-                            {/* Show discount toggle */}
-                            <div className="flex items-center gap-2 bg-purple-500/5 px-3 py-2 rounded-lg border border-purple-500/20">
-                              <Switch
-                                id={`showdiscount-${deal.id}`}
-                                checked={localPeriodSettings.showDiscountBadge}
-                                onCheckedChange={(checked) => handleToggleShowDiscount(deal, checked)}
-                                disabled={isSaving}
-                              />
-                              <Label htmlFor={`showdiscount-${deal.id}`} className={`text-sm font-medium ${localPeriodSettings.showDiscountBadge ? 'text-purple-400' : ''}`}>
-                                Näytä alennus
-                              </Label>
-                              <span className="text-xs text-muted-foreground hidden md:inline">(yliviivaus)</span>
-                            </div>
+
                           </div>
                         </div>
                       );

@@ -13,7 +13,11 @@ import { getWebsiteSchema } from "@/utils/structuredData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar as CalendarPicker } from "@/components/ui/calendar";
 import { Calendar, Clock, ExternalLink, MessageCircle, Sparkles, Ticket, Flame, Users } from "lucide-react";
+
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
@@ -441,14 +445,40 @@ const addDaysIso = (dateStr: string, days: number): string => {
   return d.toISOString().slice(0, 10);
 };
 
+// Local (not UTC) yyyy-mm-dd for calendar selections
+const toIsoDate = (date: Date): string => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+
+const todayIso = toIsoDate(new Date());
+
+
+
+// Labels shown on every deal card / in the search widget
+const extraLabels: Record<Language, { offer: string; today: string; pickDate: string; searchHeading: string }> = {
+  fi: { offer: "ÄKKILÄHTÖ TARJOUS", today: "Alkaa tänään", pickDate: "Valitse päivä", searchHeading: "Hae vapaat äkkilähdöt" },
+  en: { offer: "LAST MINUTE OFFER", today: "Starts today", pickDate: "Select date", searchHeading: "Search available last-minute stays" },
+  sv: { offer: "SISTA MINUTEN-ERBJUDANDE", today: "Börjar idag", pickDate: "Välj datum", searchHeading: "Sök lediga sista minuten-boenden" },
+  de: { offer: "LAST-MINUTE-ANGEBOT", today: "Beginnt heute", pickDate: "Datum wählen", searchHeading: "Freie Last-Minute-Unterkünfte suchen" },
+  es: { offer: "OFERTA ÚLTIMA HORA", today: "Comienza hoy", pickDate: "Elegir fecha", searchHeading: "Buscar alojamientos de última hora" },
+  fr: { offer: "OFFRE DERNIÈRE MINUTE", today: "Commence aujourd'hui", pickDate: "Choisir la date", searchHeading: "Rechercher des séjours de dernière minute" },
+  nl: { offer: "LAST-MINUTE AANBIEDING", today: "Begint vandaag", pickDate: "Kies datum", searchHeading: "Zoek beschikbare last-minute verblijven" },
+};
+
+
+
 const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
+  const x = extraLabels[lang];
   const [nightFilter, setNightFilter] = useState<NightFilter>("3");
-  const [mode, setMode] = useState<"list" | "search">("list");
+  const [mode, setMode] = useState<"list" | "search">("search");
   const [searchCheckIn, setSearchCheckIn] = useState("");
   const [searchCheckOut, setSearchCheckOut] = useState("");
-  const [searchGuests, setSearchGuests] = useState("");
+
 
   // Fetch Moder deals
   const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
@@ -626,11 +656,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return periodS.hasSkiPass;
   }, [getPeriodSettingsFromDb]);
 
-  // Check if special offer is active (using displayed dates)
-  const hasSpecialOffer = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
-    const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
-    return periodS.specialOffer || false;
-  }, [getPeriodSettingsFromDb]);
+
+
 
   // Get marketing name from propertyDetails
   const getMarketingName = useCallback((deal: Beds24Deal): string => {
@@ -734,11 +761,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   const searchItems = useMemo(() => {
     if (mode !== "search" || searchNights < 1) return [];
-    const guests = parseInt(searchGuests, 10);
     const results: { deal: Beds24Deal; checkIn: string; nights: number }[] = [];
     for (const deal of beds24Deals) {
       if (!isStayAllowed(deal, searchCheckIn, searchNights)) continue;
-      if (!isNaN(guests) && guests > 0 && deal.maxPersons < guests) continue;
       if (getTotalPrice(deal, searchCheckIn, searchNights) == null) continue;
       results.push({ deal, checkIn: searchCheckIn, nights: searchNights });
     }
@@ -747,7 +772,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       (getTotalPrice(b.deal, b.checkIn, b.nights) ?? Infinity)
     );
     return results;
-  }, [mode, beds24Deals, searchCheckIn, searchNights, searchGuests, isStayAllowed, getTotalPrice]);
+  }, [mode, beds24Deals, searchCheckIn, searchNights, isStayAllowed, getTotalPrice]);
+
 
   const displayItems = mode === "search" ? searchItems : listItems;
   const searchActive = mode === "search" && searchNights >= 1;
@@ -830,51 +856,77 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   </div>
                 )}
 
-                {/* Date search form */}
+                {/* Big search widget with calendars */}
                 {dealsEnabled && mode === "search" && (
-                  <div className="mt-6 max-w-2xl mx-auto">
-                    <div className="glass-card border-border/30 rounded-xl p-4 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-3 text-left">
-                      <div>
-                        <label className="block text-xs text-muted-foreground mb-1">{t.checkInLabel}</label>
-                        <input
-                          type="date"
-                          value={searchCheckIn}
-                          min={new Date().toISOString().slice(0, 10)}
-                          onChange={(e) => setSearchCheckIn(e.target.value)}
-                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs text-muted-foreground mb-1">{t.checkOutLabel}</label>
-                        <input
-                          type="date"
-                          value={searchCheckOut}
-                          min={searchCheckIn ? addDaysIso(searchCheckIn, 1) : undefined}
-                          onChange={(e) => setSearchCheckOut(e.target.value)}
-                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs text-muted-foreground mb-1">{t.guestsLabel}</label>
-                        <select
-                          value={searchGuests}
-                          onChange={(e) => setSearchGuests(e.target.value)}
-                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
-                        >
-                          <option value="">{t.guestsAny}</option>
-                          {[2, 3, 4, 5, 6, 7, 8, 10, 12, 14].map(n => (
-                            <option key={n} value={n}>{n}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="flex items-end">
-                        <span className="text-sm text-muted-foreground">
+                  <div className="mt-8 max-w-4xl mx-auto">
+                    <div className="glass-card border-primary/30 rounded-2xl p-5 md:p-8 text-left shadow-xl">
+                      <h2 className="text-lg md:text-xl font-semibold text-foreground mb-4 text-center">
+                        {x.searchHeading}
+                      </h2>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                        <div>
+                          <label className="block text-xs text-muted-foreground mb-1.5">{t.checkInLabel}</label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="w-full justify-start h-12 text-base font-normal bg-background/60"
+                              >
+                                <Calendar className="w-4 h-4 mr-2 opacity-70" />
+                                {searchCheckIn ? formatDateDisplay(searchCheckIn) : x.pickDate}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0 bg-popover z-50" align="start">
+                              <CalendarPicker
+                                mode="single"
+                                selected={searchCheckIn ? new Date(searchCheckIn + "T00:00:00") : undefined}
+                                onSelect={(date) => {
+                                  if (!date) return;
+                                  const iso = toIsoDate(date);
+                                  setSearchCheckIn(iso);
+                                  if (!searchCheckOut || searchCheckOut <= iso) {
+                                    setSearchCheckOut(addDaysIso(iso, 2));
+                                  }
+                                }}
+                                disabled={(date) => toIsoDate(date) < todayIso}
+                                initialFocus
+                                className="p-3 pointer-events-auto"
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                        <div>
+                          <label className="block text-xs text-muted-foreground mb-1.5">{t.checkOutLabel}</label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="w-full justify-start h-12 text-base font-normal bg-background/60"
+                              >
+                                <Calendar className="w-4 h-4 mr-2 opacity-70" />
+                                {searchCheckOut ? formatDateDisplay(searchCheckOut) : x.pickDate}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0 bg-popover z-50" align="start">
+                              <CalendarPicker
+                                mode="single"
+                                selected={searchCheckOut ? new Date(searchCheckOut + "T00:00:00") : undefined}
+                                onSelect={(date) => date && setSearchCheckOut(toIsoDate(date))}
+                                disabled={(date) => toIsoDate(date) <= (searchCheckIn || todayIso)}
+                                initialFocus
+                                className="p-3 pointer-events-auto"
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                        <div className="text-sm text-muted-foreground md:pb-3">
                           {searchActive ? `${t.searchResults} (${searchItems.length})` : ""}
-                        </span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 )}
+
 
                 {/* Night filter (list mode) */}
                 {dealsEnabled && mode === "list" && (
@@ -1048,16 +1100,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           />
                         )}
                         
-                        {/* Special Offer Badge - moved lower */}
-                        {/* Special Offer Badge - top left */}
-                        {hasSpecialOffer(deal, stayCheckIn, displayNights) && (
-                          <div className="absolute top-3 left-3 z-20">
-                            <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-sm font-bold shadow-lg">
-                              <Sparkles className="w-3.5 h-3.5 mr-1" />
-                              {t.specialOfferBadge}
-                            </Badge>
-                          </div>
-                        )}
+                        {/* Last-minute offer badge - always shown, top left */}
+                        <div className="absolute top-3 left-3 z-20">
+                          <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg tracking-wide">
+                            <Sparkles className="w-3.5 h-3.5 mr-1" />
+                            {x.offer}
+                          </Badge>
+                        </div>
+
                         
                         {/* Ski Pass Badge - top right, 2 lines */}
                         {hasSkiPassOffer(deal, stayCheckIn, displayNights) && (
@@ -1112,19 +1162,12 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
                           {/* Price section */}
                           <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 rounded-lg p-4 mb-4">
-                            {isSameDay ? (
-                              <div className="text-base font-semibold text-amber-500 flex items-center gap-2">
-                                <Clock className="w-4 h-4" />
-                                {t.sameDayNote}
-                              </div>
-                            ) : totalPrice != null ? (
+                            {totalPrice != null ? (
                               <>
-                                {/* Discount badge - only show if 30% or more AND strikethrough is NOT active */}
-                                {discountPct > 0 && !showStrikethrough && (
-                                  <div className="mb-2">
-                                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                                      -{discountPct}%
-                                    </Badge>
+                                {isSameDay && (
+                                  <div className="mb-2 text-sm font-semibold text-amber-500 flex items-center gap-2">
+                                    <Clock className="w-4 h-4" />
+                                    {x.today}
                                   </div>
                                 )}
                                 <div className="flex items-baseline gap-2 flex-wrap">
@@ -1141,10 +1184,11 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                       </Badge>
                                     </>
                                   ) : (
-                                    <span className={`font-bold ${hasSpecialOffer(deal, stayCheckIn, displayNights) ? 'text-3xl md:text-4xl italic text-amber-500 tracking-wide' : 'text-3xl text-foreground'}`}>
+                                    <span className="font-bold text-3xl md:text-4xl italic text-amber-500 tracking-wide">
                                       {totalPrice}€
                                     </span>
                                   )}
+
                                   <span className="text-muted-foreground text-sm">{t.total}</span>
                                 </div>
                                 <div className="text-xs text-muted-foreground mt-2">
