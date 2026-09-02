@@ -958,26 +958,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 )}
 
 
-                {/* Night filter (list mode) */}
-                {dealsEnabled && mode === "list" && (
-                <div className="mt-6 flex justify-center">
-                  <ToggleGroup
-                    type="single"
-                    value={nightFilter}
-                    onValueChange={(value) => value && setNightFilter(value as NightFilter)}
-                    className="bg-background/50 border border-border/30 rounded-lg p-1"
-                  >
-                    {([2, 3, 4, 5, 6, 7] as const).map((n) => (
-                      <ToggleGroupItem
-                        key={n}
-                        value={String(n)}
-                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                      >
-                        {n} {t.nightsWord}
-                      </ToggleGroupItem>
-                    ))}
-                  </ToggleGroup>
-                </div>
+                {/* Prompt before any dates are chosen */}
+                {dealsEnabled && !searchActive && (
+                  <p className="mt-6 text-sm text-muted-foreground">{x.pickRange}</p>
                 )}
               </section>
             </ScrollReveal>
