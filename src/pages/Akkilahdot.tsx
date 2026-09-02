@@ -13,7 +13,11 @@ import { getWebsiteSchema } from "@/utils/structuredData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar as CalendarPicker } from "@/components/ui/calendar";
 import { Calendar, Clock, ExternalLink, MessageCircle, Sparkles, Ticket, Flame, Users } from "lucide-react";
+
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import WhatsAppChat from "@/components/WhatsAppChat";
