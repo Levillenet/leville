@@ -1,38 +1,34 @@
-# Äkkilähtöjen hintakorjaus: siivousmaksun tuplalisäys pois
+# Äkkilähtöjen hinta: mistä 62 € tulee ja miten se korjataan
 
-## Ongelma
-Moderin `/api/v1/prices`-rajapinnan palauttama jaksohinta sisältää siivouksen jo valmiiksi.
-Sivu lisää siivousmaksun silti erikseen päälle, joten hinnat ovat liian korkeat:
-- Glacier A5: näytetään 529 €, Moderissa 481 € (ero = 120 € siivous)
-- Karhupirtti: näytetään 1062 €, Moderissa 990 € (ero = 220 € siivous)
+## Mitä mittaukset osoittavat
 
-Lisäksi alennukset lasketaan vain majoitusosasta ja siivous lisätään alentamattomana,
-joten hinta ei vastaa Moderia millään laskutavalla.
+Ajoin taustapalvelun `mode=prices`-haun Hiihtäjänkuja 5A2:lle (Moder room type 304) saapumispäivälle 7.9.2026, kaikilla pituuksilla 1–7 yötä. Moderin `/api/v1/prices`-vastauksen kenttä `total_price` antaa:
 
-## Nykyinen kaava (virheellinen)
-```text
-loppuhinta = pyöristys( ModerJaksohinta × (1 − perusalennus) × (1 − super%) × (1 − jakso%) + siivous )
-alkuperäinen (yliviivattu) = ModerJaksohinta + siivous
-```
+| Yöt | 5A2 | Karhupirtti |
+|---|---|---|
+| 1 | 62 € | 140 € |
+| 2 | 154 € | 280 € |
+| 3 | 213 € | 546 € |
+| 4 | 332 € | 804 € |
+| 5 | 409 € | 1039 € |
+| 6 | 513 € | 1360 € |
+| 7 | 574 € | 1681 € |
 
-## Uusi kaava (korjattu)
-```text
-loppuhinta = pyöristys( ModerJaksohinta × (1 − perusalennus) × (1 − super%) × (1 − jakso%) )
-alkuperäinen (yliviivattu) = ModerJaksohinta
-```
+Eli 62 € tulee tosiaan Moderin rajapinnasta, ei sivustolta. Se ei vastaa Moderin varausnäkymän 110 € yöhintaa, joten `total_price` ei ole se hinta, jolla myydään (todennäköisesti netto-/pohjahinta ilman lisiä tai eri hinnastosta). Tätä ei voi päätellä pelkästä nykyisestä koodista, koska taustapalvelu poimii vastauksesta vain `total_price`-kentän eikä lokita muuta.
 
-## Muutokset
-1. **src/pages/Akkilahdot.tsx**
-   - `getTotalPrice`: poistetaan `+ getCleaningFee(deal)` — Moder-hinta on lopullinen pohja.
-   - `getOriginalApiPrice`: palauttaa pelkän Moder-jaksohinnan (ilman siivousta).
-   - Hintaerittelyn tekstit: poistetaan/muutetaan siivoukseen viittaava rivi ("Price includes cleaning…") — hinta on nyt Moder-hinta miinus alennukset.
-   - `getCleaningFee`-funktiota ei enää käytetä hinnassa; voidaan jättää poistamatta jos käytetään muualla, muuten poistetaan.
-2. **src/components/admin/SkiPassAdmin.tsx** (äkkilähtöjen hintarivit adminissa)
-   - `getCurrentDisplayPrice`: sama korjaus — siivousta ei lisätä Moder-hintaan.
+Löysin lisäksi varmistetun bugin: `mode=prices` -haara on koodissa **välimuistin jälkeen**. Kun välimuisti on voimassa, päivämäärähaku ei koskaan mene Moderiin vaan palauttaa vanhan listauspaketin (`deals`), jolloin sivu näyttää hinnan väärältä ajanjaksolta. Tämä on nyt tuotannossa päällä.
 
-## Ei muuteta
-- Perusalennus 15 %, superäkkilähtö-portaat ja jaksoalennukset toimivat kuten ennen — ne lasketaan nyt koko Moder-jaksohinnasta (sis. siivouksen), mikä on haluttua.
-- Moder-kyselyt, saatavuuslogiikka ja kalenteri pysyvät ennallaan.
+## Korjaus
 
-## Tarkistus
-- Selaintarkistus: A5 samalle jaksolle näyttää ~409 € (481 × 0,85) ja yliviivattuna 481 €; Karhupirtti ~842 € (990 × 0,85) ja yliviivattuna 990 €.
+1. **Diagnostiikka ensin (yksi ajo):** lokitetaan Moderin `/api/v1/prices`- ja `/api/v1/availabilities`-vastauksen koko JSON yhdelle huonetyypille ja yhdelle yölle, jotta nähdään kaikki hintakentät (esim. `total_price`, `price`, `rate`, `services`, `taxes`, `day_rate`). Verrataan niitä Moderin näyttämään 110 €:oon ja valitaan oikea kenttä.
+2. **Käytetään oikeaa kenttää** hintalähteenä `fetchStayPrices`-funktiossa. Jos mikään kenttä ei vastaa 110 €:a, käytetään `availabilities`-vastauksen `day_rate`-summaa jakson yli ja merkitään LOS-hinnoittelu Moderin osalta puuttuvaksi (silloin pyydetään Moderilta oikea päätepiste).
+3. **Välimuistibugi:** siirretään `mode=prices` -haara ennen välimuistitarkistusta, niin päivämäärähaku hakee aina tuoreet jaksohinnat.
+4. **Siivousmaksu:** koska Moder ei lisää siivousta (se palauttaa vain majoitushinnan), siivousmaksu **jää** hintaan mukaan yhtenä eränä, mutta lisätään vain kerran ja alennus lasketaan majoitusosuudesta — ei siivouksesta. Yliviivattu alkuperäishinta lasketaan samalla kaavalla ilman alennusta.
+5. Sama laskenta myös adminin hintariveille, jotta esikatselu ja julkinen sivu täsmäävät.
+
+## Tekniset yksityiskohdat
+
+- `supabase/functions/moder-availability/index.ts`: `mode=prices` -haaran siirto rivin ~280 välimuistilohkon edelle; `fetchStayPrices` lokittaa raakavastauksen kertaluontoisesti ja lukee valitun hintakentän.
+- `src/pages/Akkilahdot.tsx`: `getTotalPrice` / yliviivattu hinta — alennus vain majoitusosuudesta, siivous lisätään kerran.
+- `src/components/admin/SkiPassAdmin.tsx`: `getCurrentDisplayPrice` samaan kaavaan.
+- Ei muutoksia tietokantaan; `moder_property_mapping.cleaning_fee` pysyy siivousmaksun lähteenä.
