@@ -208,6 +208,42 @@ function buildWindows(roomTypeId: number, days: DayInfo[], maxCheckIn: string): 
   return windows.filter(w => w.checkIn <= maxCheckIn);
 }
 
+// Real sellable stay price from Moder (/api/v1/prices). Moder prices depend on
+// the length of stay, so this must be queried per exact arrival/departure pair.
+async function fetchStayPrices(
+  token: string,
+  roomTypeIds: number[],
+  from: string,
+  to: string,
+): Promise<Map<number, number>> {
+  const map = new Map<number, number>();
+  if (roomTypeIds.length === 0) return map;
+  const param = roomTypeIds.map((id) => `room_types[]=${id}`).join("&");
+  const r = await moderFetch(token, `/api/v1/prices?date_start=${from}&date_end=${to}&${param}`);
+  if (!r.ok) return map;
+  const raw = r.json?.data ?? r.json;
+  const list = Array.isArray(raw) ? raw : [raw];
+  for (const e of list) {
+    const id = Number(e?.room_type_id);
+    const total = Number(e?.total_price);
+    if (id && !isNaN(total) && total > 0) map.set(id, Math.round(total) / 100);
+  }
+  return map;
+}
+
+async function runLimited<T>(tasks: (() => Promise<T>)[], limit = 5): Promise<T[]> {
+  const results: T[] = [];
+  let i = 0;
+  const workers = Array.from({ length: Math.min(limit, tasks.length) }, async () => {
+    while (i < tasks.length) {
+      const idx = i++;
+      results[idx] = await tasks[idx]();
+    }
+  });
+  await Promise.all(workers);
+  return results;
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -268,6 +304,27 @@ serve(async (req) => {
       });
     }
 
+    // On-demand stay price for a specific date range (used by the date search)
+    if (url.searchParams.get("mode") === "prices") {
+      const from = url.searchParams.get("from") || "";
+      const to = url.searchParams.get("to") || "";
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(from) || !/^\d{4}-\d{2}-\d{2}$/.test(to) || daysBetween(from, to) < 1) {
+        return new Response(JSON.stringify({ error: "invalid_dates", prices: {} }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      const priceMap = await fetchStayPrices(token, roomTypeIds, from, to);
+      const prices: Record<string, number> = {};
+      for (const m of mappings) {
+        const v = priceMap.get(m.moder_room_type_id);
+        if (v != null) prices[String(m.beds24_room_id)] = v;
+      }
+      return new Response(JSON.stringify({ from, to, prices }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     const today = new Date();
     const dateStart = formatDate(today);
     // Cover the full listing horizon plus room for date-range searches.
@@ -308,10 +365,37 @@ serve(async (req) => {
     }
     console.log(`Found ${allWindows.length} free windows (${allWindows.filter(w => w.isGap).length} gaps)`);
 
+    // Real Moder stay prices: one bulk call per (arrival, length-of-stay) pair
+    const MAX_NIGHTS = 7;
+    const startDates = Array.from(new Set(allWindows.map(w => w.checkIn))).sort();
+    const priceTasks: (() => Promise<void>)[] = [];
+    // key: `${checkIn}|${nights}` -> Map<roomTypeId, totalEUR>
+    const stayPrices = new Map<string, Map<number, number>>();
+    for (const start of startDates) {
+      const roomsAtStart = allWindows.filter(w => w.checkIn === start);
+      for (let n = 1; n <= MAX_NIGHTS; n++) {
+        const ids = roomsAtStart.filter(w => w.nights >= n).map(w => w.roomTypeId);
+        if (ids.length === 0) continue;
+        const key = `${start}|${n}`;
+        priceTasks.push(async () => {
+          const map = await fetchStayPrices(token, ids, start, addDays(start, n));
+          stayPrices.set(key, map);
+        });
+      }
+    }
+    await runLimited(priceTasks, 6);
+    console.log(`Fetched stay prices for ${priceTasks.length} (date,length) combinations`);
+
     const deals = allWindows.map(w => {
       const mapping = mappings.find(m => m.moder_room_type_id === w.roomTypeId);
       if (!mapping) return null;
-      const windowTotal = Object.values(w.rates).reduce((s, v) => s + v, 0);
+      const maxN = Math.min(w.nights, MAX_NIGHTS);
+      const pricesByNights: Record<string, number> = {};
+      for (let n = 1; n <= maxN; n++) {
+        const v = stayPrices.get(`${w.checkIn}|${n}`)?.get(w.roomTypeId);
+        if (v != null && v > 0) pricesByNights[String(n)] = v;
+      }
+      const windowTotal = pricesByNights[String(maxN)] ?? null;
 
       return {
         id: `${mapping.beds24_room_id}-${w.checkIn}`,
@@ -323,10 +407,10 @@ serve(async (req) => {
         windowNights: w.nights,
         minNights: w.minNights,
         isGap: w.isGap,
-        rates: w.rates,
+        pricesByNights,
         noCheckIn: w.noCheckIn,
         noCheckOut: w.noCheckOut,
-        price: windowTotal > 0 ? windowTotal : null,
+        price: windowTotal,
         cleaningFee: mapping.cleaning_fee ?? 0,
         currency: "EUR",
         maxPersons: mapping.max_guests ?? 2,
