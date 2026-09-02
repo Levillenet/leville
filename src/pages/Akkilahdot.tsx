@@ -929,8 +929,34 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                 initialFocus
                                 className="p-3 pointer-events-auto"
                               />
+                              <div className="flex justify-end border-t border-border/40 p-2">
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    setSearchCheckIn("");
+                                    setSearchCheckOut("");
+                                    setRangeOpen(false);
+                                  }}
+                                >
+                                  {x.clearDates}
+                                </Button>
+                              </div>
                             </PopoverContent>
                           </Popover>
+                          {searchCheckIn && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSearchCheckIn("");
+                                setSearchCheckOut("");
+                              }}
+                              className="mt-2 text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
+                            >
+                              {x.clearDates}
+                            </button>
+                          )}
                         </div>
                         <div className="text-sm text-muted-foreground md:pb-3">
                           {searchActive ? `${t.searchResults} (${searchItems.length})` : ""}
@@ -1011,8 +1037,26 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
               </section>
             )}
 
+            {/* Search beyond the allowed booking window */}
+            {dealsEnabled && !isLoading && mode === "search" && searchCheckIn > maxCheckInIso && (
+              <section className="max-w-2xl mx-auto mb-16 text-center">
+                <div className="glass-card border-primary/30 rounded-xl p-6">
+                  <p className="text-muted-foreground mb-4">{x.beyondWindow(daysAhead)}</p>
+                  <a
+                    href="https://app.moder.fi/levillenet"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-lg px-5 py-2.5 font-medium"
+                  >
+                    {x.bookDirect}
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              </section>
+            )}
+
             {/* No results for an active date search */}
-            {dealsEnabled && !isLoading && searchActive && searchItems.length === 0 && (
+            {dealsEnabled && !isLoading && searchActive && searchCheckIn <= maxCheckInIso && searchItems.length === 0 && (
               <section className="max-w-2xl mx-auto mb-16 text-center">
                 <p className="text-muted-foreground">{t.noSearchResults}</p>
               </section>
