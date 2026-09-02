@@ -955,20 +955,25 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
               </section>
             )}
 
-            {/* Beds24 Deals Grid */}
-            {dealsEnabled && !isLoading && filteredDeals.length > 0 && (
+            {/* No results for an active date search */}
+            {dealsEnabled && !isLoading && searchActive && searchItems.length === 0 && (
+              <section className="max-w-2xl mx-auto mb-16 text-center">
+                <p className="text-muted-foreground">{t.noSearchResults}</p>
+              </section>
+            )}
+
+            {/* Deals Grid */}
+            {dealsEnabled && !isLoading && displayItems.length > 0 && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                {filteredDeals.map((deal, index) => {
-                  const isSameDay = isToday(deal.checkIn);
-                  const displayNights = getDisplayNights(deal);
-                  const displayCheckOut = addDaysIso(deal.checkIn, displayNights);
+                {displayItems.map(({ deal, checkIn: stayCheckIn, nights: displayNights }, index) => {
+                  const isSameDay = isToday(stayCheckIn);
+                  const displayCheckOut = addDaysIso(stayCheckIn, displayNights);
                   const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
-                  const totalPrice = getTotalPrice(deal, displayNights);
-                  const originalPrice = getOriginalApiPrice(deal, displayNights);
+                  const totalPrice = getTotalPrice(deal, stayCheckIn, displayNights);
+                  const originalPrice = getOriginalApiPrice(deal, stayCheckIn, displayNights);
                   const bookingUrl = getBookingUrl(deal.roomId);
                   const marketingName = getMarketingName(deal);
                   const category = getPropertyCategory(deal.roomId);
-                  const dealPeriodSettings = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, displayCheckOut);
                   // Strikethrough whenever the final price is below the normal (Moder) price
                   const showStrikethrough = originalPrice != null && totalPrice != null && totalPrice < originalPrice;
                   const discountPct = showStrikethrough ? Math.round((1 - totalPrice / originalPrice) * 100) : 0;
