@@ -678,13 +678,13 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     const flex = flexible ? (flexNotes[lang] || flexNotes.fi) : "";
 
     const messages: Record<string, string> = {
-      fi: `Hei, olen kiinnostunut äkkilähdöstä: ${marketingName}, ajalle ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Hinta: ${totalPrice}€.` : ""}${flex} Onko kohde vielä vapaana?`,
-      en: `Hello, I'm interested in a last-minute deal: ${marketingName}, for ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Price: ${totalPrice}€.` : ""}${flex} Is the property still available?`,
-      sv: `Hej, jag är intresserad av ett sista minuten-erbjudande: ${marketingName}, för ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Pris: ${totalPrice}€.` : ""}${flex} Är boendet fortfarande ledigt?`,
-      de: `Hallo, ich interessiere mich für ein Last-Minute-Angebot: ${marketingName}, für ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Preis: ${totalPrice}€.` : ""}${flex} Ist die Unterkunft noch verfügbar?`,
-      es: `Hola, estoy interesado en una oferta de última hora: ${marketingName}, para ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Precio: ${totalPrice}€.` : ""}${flex} ¿Está disponible el alojamiento?`,
-      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${marketingName}, pour ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Prix : ${totalPrice}€.` : ""}${flex} Le logement est-il encore disponible ?`,
-      nl: `Hallo, ik ben geïnteresseerd in een last-minute aanbieding: ${marketingName}, voor ${formatDateDisplay(deal.checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Prijs: ${totalPrice}€.` : ""}${flex} Is de accommodatie nog beschikbaar?`
+      fi: `Hei, olen kiinnostunut äkkilähdöstä: ${marketingName}, ajalle ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Hinta: ${totalPrice}€.` : ""}${flex} Onko kohde vielä vapaana?`,
+      en: `Hello, I'm interested in a last-minute deal: ${marketingName}, for ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Price: ${totalPrice}€.` : ""}${flex} Is the property still available?`,
+      sv: `Hej, jag är intresserad av ett sista minuten-erbjudande: ${marketingName}, för ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Pris: ${totalPrice}€.` : ""}${flex} Är boendet fortfarande ledigt?`,
+      de: `Hallo, ich interessiere mich für ein Last-Minute-Angebot: ${marketingName}, für ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Preis: ${totalPrice}€.` : ""}${flex} Ist die Unterkunft noch verfügbar?`,
+      es: `Hola, estoy interesado en una oferta de última hora: ${marketingName}, para ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Precio: ${totalPrice}€.` : ""}${flex} ¿Está disponible el alojamiento?`,
+      fr: `Bonjour, je suis intéressé par une offre de dernière minute : ${marketingName}, pour ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Prix : ${totalPrice}€.` : ""}${flex} Le logement est-il encore disponible ?`,
+      nl: `Hallo, ik ben geïnteresseerd in een last-minute aanbieding: ${marketingName}, voor ${formatDateDisplay(checkIn)} - ${formatDateDisplay(displayCheckOut)} (${nightsText(nights)}).${totalPrice ? ` Prijs: ${totalPrice}€.` : ""}${flex} Is de accommodatie nog beschikbaar?`
     };
 
     const message = messages[lang] || messages.fi;
