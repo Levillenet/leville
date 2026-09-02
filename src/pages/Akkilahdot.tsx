@@ -748,8 +748,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   }, [getPropertyWithOverride]);
 
   // Generate WhatsApp booking URL for a stay - localized messages
-  const generateWhatsAppUrl = useCallback((deal: Beds24Deal, checkIn: string, nights: number): string => {
-    const totalPrice = getTotalPrice(deal, checkIn, nights);
+  const generateWhatsAppUrl = useCallback((deal: Beds24Deal, checkIn: string, nights: number, quoted?: number | null): string => {
+    const totalPrice = getTotalPrice(deal, checkIn, nights, quoted);
     const displayCheckOut = addDaysIso(checkIn, nights);
     const marketingName = getMarketingName(deal);
     const property = getPropertyWithOverride(deal.roomId);
@@ -1052,7 +1052,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             <div className="space-y-3">
               {/* Primary: WhatsApp booking */}
               <a
-                href={generateWhatsAppUrl(deal, stayCheckIn, displayNights)}
+                href={generateWhatsAppUrl(deal, stayCheckIn, displayNights, quoted)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
