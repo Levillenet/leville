@@ -88,6 +88,31 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     return isNaN(n) || n < 0 ? 0 : Math.min(n, 90);
   })();
 
+  // Hidden super last-minute discount (same values the public page uses)
+  const superDiscountRaw = dbSettings?.siteSettings?.find(s => s.id === 'deals_super_discount')?.value as
+    | { d3?: number; d5?: number; d7?: number }
+    | undefined;
+  const clampPct = (v: unknown) => {
+    const n = typeof v === 'number' ? v : parseInt(String(v ?? '0'), 10);
+    return isNaN(n) || n < 0 ? 0 : Math.min(n, 90);
+  };
+  const superDiscount = {
+    d3: clampPct(superDiscountRaw?.d3),
+    d5: clampPct(superDiscountRaw?.d5),
+    d7: clampPct(superDiscountRaw?.d7),
+  };
+  const getSuperDiscountPct = (checkIn?: string | null): number => {
+    if (!checkIn) return 0;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const days = Math.round((new Date(checkIn + 'T00:00:00').getTime() - today.getTime()) / 86400000);
+    if (days < 0) return 0;
+    if (days < 3) return superDiscount.d3;
+    if (days < 5) return superDiscount.d5;
+    if (days < 7) return superDiscount.d7;
+    return 0;
+  };
+
 
   // Fetch Beds24 deals
   const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
@@ -216,6 +241,10 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     }
     if (baseDiscount > 0) {
       basePrice = basePrice * (1 - baseDiscount / 100);
+    }
+    const superPct = getSuperDiscountPct(deal.checkIn);
+    if (superPct > 0) {
+      basePrice = basePrice * (1 - superPct / 100);
     }
 
     return Math.round(basePrice + cleaningFee);
