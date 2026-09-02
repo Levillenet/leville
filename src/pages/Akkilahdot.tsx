@@ -542,16 +542,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return { d3: clamp(superDiscountRaw?.d3), d5: clamp(superDiscountRaw?.d5), d7: clamp(superDiscountRaw?.d7) };
   }, [superDiscountRaw?.d3, superDiscountRaw?.d5, superDiscountRaw?.d7]);
 
-  const getSuperDiscountPct = useCallback((checkIn: string): number => {
-    const days = Math.round(
-      (new Date(checkIn + "T00:00:00").getTime() - new Date(todayIso + "T00:00:00").getTime()) / 86400000
-    );
-    if (days < 0) return 0;
-    if (days < 3) return superDiscount.d3;
-    if (days < 5) return superDiscount.d5;
-    if (days < 7) return superDiscount.d7;
-    return 0;
-  }, [superDiscount]);
+  // Super last-minute % now lives in @/lib/dealPricing (shared with the admin
+  // price-check tool) and is applied inside computeDealPrice.
+
 
   // Gap Fill rules (admin setting `deals_gap_fill`)
   const gapFillRaw = adminSettings?.siteSettings?.find(s => s.id === 'deals_gap_fill')?.value as
