@@ -1,18 +1,41 @@
-# Äkkilähtöjen Moder-oikeudet: odotus ja varmistus
+# Äkkilähdöt: Moder-huonetunnusten korjaus
 
-## Tilanne
+## Mikä oli vialla
 
-- Moder-integraatio on koodiltaan valmis ja sivu toimii: Skistar 211 (id 308) näyttää jaksot oikeilla hinnoilla.
-- Tokenilla on Moderissa oikeus vain tähän yhteen huonetyyppiin — 23 muuta palauttavat 403 "Access denied" (varmistettu 06:41 UTC, myös minuutin odotuksen jälkeen).
-- Funktio on jo vikasietoinen: se ohittaa estetyt kohteet, joten sivu näyttää ne kohteet, joihin oikeus on. Ei koodimuutoksia tarvita.
+Kyse ei ollut käyttöoikeuksista vaan **vääristä huonetunnuksista**. `moder_property_mapping`-taulussa oli vanhentunut tunnusjoukko (308–333), joka ei vastaa nykyistä kohdekantaa — siksi Moder vastasi "Access denied".
+
+Testasin antamasi 28 tunnusta suoraan rajapintaan: **kaikki palauttavat 200**, ja myös yhdistetty haku kaikilla 28 tunnuksella toimii. Token on siis kunnossa koko ajan ollut.
+
+## Mistä oikea vastaavuus saadaan
+
+Oikea Beds24 ↔ Moder -vastaavuus löytyy jo koodista: `src/data/propertyDetails.ts` sisältää jokaisen kohteen Moder-varauslinkin (esim. `app.moder.fi/levillenet/306`). Tästä saadaan 26 paria automaattisesti, ja kaksi puuttuvaa täydennetään listastasi:
+
+- Moonlight 415 → Beds24 `645946`, Moder `2215`
+- Levi Platinum Superior 2MH → Beds24 `547818`, Moder `5415`
+
+Näin tunnuksia ei tarvitse arvata.
 
 ## Mitä tehdään
 
-1. **Odotetaan oikeuksien voimaantuloa** Moderissa (saattaa viedä aikaa / vaatia tallennuksen eri paikassa kuin tehty). Mitään ei muuteta koodiin.
-2. **Varmistus (vain luku):** kun käyttäjä kertoo oikeuksien olevan kunnossa, testataan suoraan Moder-rajapintaa: bulk-haku kaikilla 24 huonetyypillä pitää palauttaa HTTP 200. Jos edelleen 403, käyttäjä luo Moderissa uuden tokenin täysillä kohdeoikeuksilla ja liittää sen chattiin → päivitetään `MODER_API_TOKEN` ja deployataan funktio.
-3. **Kun bulk-haku toimii:** kutsutaan `moder-availability?force_refresh=true` ja varmistetaan, että deals-listalla on useampia kohteita (Skistar-, Tunturi-, Karhunvartija-, Glacier-, Immel- ja Rantatähti-kohteet).
-4. **Sivutesti:** `/akkilahdot` näyttää useamman kohteen kortit; testataan suodattimet 2 / 3 / 4+ yötä ja pitkän ikkunan huomautusteksti.
+1. **Päivitetään mappaustaulu** vastaamaan nykyistä 28 kohteen kantaa:
+   - 7 olemassa olevaa riviä saa oikean Moder-tunnuksen
+   - 21 puuttuvaa kohdetta lisätään (Glacier A1–A6 ja B1–B4, studiot, Karhupirtti, Hiihtäjä, Moonlight, Platinum, Karhunvartija 3, Skistar 209/210/310)
+   - Siivousmaksu ja henkilömäärä otetaan `propertyDetails.ts`:stä
+2. **Poistuneet kohteet pois äkkilähdöistä:** 19 vanhaa riviä (Tunturi, Immelrinne, Immelkartano, Riekontie, Rantatähti, Karhunvartija A7/A8/C21/C22, Glacier A8/B8, Skistar 422/521/522/321/322) — näiltä nollataan Moder-tunnus, mutta **rivit jätetään paikoilleen**, koska tiketöinti hakee niistä kohteen nimen vanhoille tiketeille.
+3. **Ristiriidan korjaus:** Karhupirtin Beds24-tunnus on taulussa `419423`, mutta koodissa `353045`. Käytetään koodin arvoa, jotta siivousmaksut ja WhatsApp-numero osuvat oikein.
+
+## Varmistus
+
+- Kutsutaan `moder-availability?force_refresh=true` ja tarkistetaan, että jaksoja tulee usealta kohteelta.
+- `/akkilahdot` selaimessa: kortteja usealta kohteelta, suodattimet 2 / 3 / 4+ yötä toimivat, hinnat ja WhatsApp-linkki oikein.
+- Varmistetaan, ettei tiketöinnin kohdenimien haku rikkoudu.
+
+## Tekniset yksityiskohdat
+
+- Muutos on pelkkää datapäivitystä `moder_property_mapping`-tauluun (UPDATE + INSERT), ei skeemamuutosta.
+- `supabase/functions/moder-availability/index.ts` ei vaadi muutoksia — sen vikasietoinen kohdekohtainen varahaku jää paikalleen turvaverkoksi.
+- Tiketöinnin funktiot (`manage-tickets`, `ticket-reminders`, `check-booking-changes`) lukevat taulusta vain `property_name`-kentän `beds24_room_id`-avaimella; niihin ei kosketa.
 
 ## Huomio
 
-- Perusalennus-asetus (`deals_base_discount`) on vielä 0 % — kannattaa asettaa adminissa, jotta yliviivattu normaalihinta ja alennettu hinta näkyvät korteissa suunnitellusti.
+Perusalennus (`deals_base_discount`) on edelleen 0 %. Aseta se adminissa, niin korteissa näkyy yliviivattu Moder-hinta ja alennettu hinta suunnitellusti.
