@@ -63,6 +63,11 @@ interface Beds24Deal {
   minNights?: number;
   pricesByNights?: Record<string, number | null>;
   cleaningFee?: number;
+  // Moder window payload
+  isGap?: boolean;
+  rates?: Record<string, number>; // date -> EUR per night
+  noCheckIn?: string[];
+  noCheckOut?: string[];
 }
 
 // Manual special deals - easy to update
@@ -118,7 +123,16 @@ const content = {
     filter2: "2 yötä",
     filter3: "3 yötä",
     filter4plus: "4+ yötä",
-    moreOptions: "Jaksolla vapaana yhteensä {n} yötä – voit valita haluamasi päivät. Kysy WhatsAppilla!"
+    moreOptions: "Jaksolla vapaana yhteensä {n} yötä – voit valita haluamasi päivät. Kysy WhatsAppilla!",
+    modeSearch: "Hae päivämäärillä",
+    modeList: "Selaa tarjouksia",
+    checkInLabel: "Saapuminen",
+    checkOutLabel: "Lähtö",
+    guestsLabel: "Henkilömäärä",
+    guestsAny: "Ei väliä",
+    searchButton: "Hae äkkilähtöjä",
+    searchResults: "Vapaat majoitukset valitulle ajanjaksolle",
+    noSearchResults: "Ei vapaita majoituksia valitulle ajanjaksolle. Kokeile toisia päiviä tai kysy WhatsAppilla!"
   },
   en: {
     meta: {
@@ -152,7 +166,16 @@ const content = {
     filter2: "2 nights",
     filter3: "3 nights",
     filter4plus: "4+ nights",
-    moreOptions: "{n} nights available in this window – choose your own dates. Ask via WhatsApp!"
+    moreOptions: "{n} nights available in this window – choose your own dates. Ask via WhatsApp!",
+    modeSearch: "Search by dates",
+    modeList: "Browse deals",
+    checkInLabel: "Check-in",
+    checkOutLabel: "Check-out",
+    guestsLabel: "Guests",
+    guestsAny: "Any",
+    searchButton: "Search last-minute deals",
+    searchResults: "Available accommodation for your dates",
+    noSearchResults: "No available accommodation for the selected dates. Try different dates or ask via WhatsApp!"
   },
   sv: {
     meta: {
@@ -186,7 +209,16 @@ const content = {
     filter2: "2 nätter",
     filter3: "3 nätter",
     filter4plus: "4+ nätter",
-    moreOptions: "{n} nätter lediga i perioden – välj dina egna datum. Fråga via WhatsApp!"
+    moreOptions: "{n} nätter lediga i perioden – välj dina egna datum. Fråga via WhatsApp!",
+    modeSearch: "Sök efter datum",
+    modeList: "Bläddra bland erbjudanden",
+    checkInLabel: "Incheckning",
+    checkOutLabel: "Utcheckning",
+    guestsLabel: "Antal personer",
+    guestsAny: "Spelar ingen roll",
+    searchButton: "Sök sista minuten-erbjudanden",
+    searchResults: "Lediga boenden för valda datum",
+    noSearchResults: "Inga lediga boenden för valda datum. Prova andra datum eller fråga via WhatsApp!"
   },
   de: {
     meta: {
@@ -220,7 +252,16 @@ const content = {
     filter2: "2 Nächte",
     filter3: "3 Nächte",
     filter4plus: "4+ Nächte",
-    moreOptions: "{n} Nächte in diesem Zeitraum frei – wählen Sie Ihre Daten. Per WhatsApp anfragen!"
+    moreOptions: "{n} Nächte in diesem Zeitraum frei – wählen Sie Ihre Daten. Per WhatsApp anfragen!",
+    modeSearch: "Nach Daten suchen",
+    modeList: "Angebote durchsuchen",
+    checkInLabel: "Anreise",
+    checkOutLabel: "Abreise",
+    guestsLabel: "Personen",
+    guestsAny: "Egal",
+    searchButton: "Last-Minute suchen",
+    searchResults: "Verfügbare Unterkünfte für Ihren Zeitraum",
+    noSearchResults: "Keine freien Unterkünfte für den gewählten Zeitraum. Versuchen Sie andere Daten oder fragen Sie per WhatsApp!"
   },
   es: {
     meta: {
@@ -254,7 +295,16 @@ const content = {
     filter2: "2 noches",
     filter3: "3 noches",
     filter4plus: "4+ noches",
-    moreOptions: "{n} noches disponibles en este período – elige tus fechas. ¡Pregunta por WhatsApp!"
+    moreOptions: "{n} noches disponibles en este período – elige tus fechas. ¡Pregunta por WhatsApp!",
+    modeSearch: "Buscar por fechas",
+    modeList: "Ver ofertas",
+    checkInLabel: "Llegada",
+    checkOutLabel: "Salida",
+    guestsLabel: "Huéspedes",
+    guestsAny: "Cualquiera",
+    searchButton: "Buscar ofertas de última hora",
+    searchResults: "Alojamientos disponibles para tus fechas",
+    noSearchResults: "No hay alojamientos disponibles para las fechas seleccionadas. ¡Prueba otras fechas o pregunta por WhatsApp!"
   },
   fr: {
     meta: {
@@ -288,7 +338,16 @@ const content = {
     filter2: "2 nuits",
     filter3: "3 nuits",
     filter4plus: "4+ nuits",
-    moreOptions: "{n} nuits disponibles sur cette période – choisissez vos dates. Demandez via WhatsApp !"
+    moreOptions: "{n} nuits disponibles sur cette période – choisissez vos dates. Demandez via WhatsApp !",
+    modeSearch: "Rechercher par dates",
+    modeList: "Parcourir les offres",
+    checkInLabel: "Arrivée",
+    checkOutLabel: "Départ",
+    guestsLabel: "Personnes",
+    guestsAny: "Peu importe",
+    searchButton: "Rechercher des offres",
+    searchResults: "Hébergements disponibles pour vos dates",
+    noSearchResults: "Aucun hébergement disponible pour les dates choisies. Essayez d'autres dates ou demandez via WhatsApp !"
   },
   nl: {
     meta: {
@@ -322,7 +381,16 @@ const content = {
     filter2: "2 nachten",
     filter3: "3 nachten",
     filter4plus: "4+ nachten",
-    moreOptions: "{n} nachten beschikbaar in deze periode – kies je eigen data. Vraag via WhatsApp!"
+    moreOptions: "{n} nachten beschikbaar in deze periode – kies je eigen data. Vraag via WhatsApp!",
+    modeSearch: "Zoeken op datum",
+    modeList: "Aanbiedingen bekijken",
+    checkInLabel: "Aankomst",
+    checkOutLabel: "Vertrek",
+    guestsLabel: "Personen",
+    guestsAny: "Maakt niet uit",
+    searchButton: "Zoek last-minute deals",
+    searchResults: "Beschikbare accommodatie voor jouw data",
+    noSearchResults: "Geen beschikbare accommodatie voor de gekozen data. Probeer andere data of vraag via WhatsApp!"
   }
 };
 
