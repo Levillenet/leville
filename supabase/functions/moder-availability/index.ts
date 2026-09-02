@@ -273,7 +273,8 @@ serve(async (req) => {
     // Cover the full listing horizon plus room for date-range searches.
     const horizonDays = dealsDaysAhead + 30;
     const dateEnd = formatDate(new Date(today.getTime() + horizonDays * 86400000));
-    const maxCheckIn = formatDate(new Date(today.getTime() + horizonDays * 86400000));
+    // Listing/search horizon for CHECK-IN dates is exactly the admin setting.
+    const maxCheckIn = formatDate(new Date(today.getTime() + dealsDaysAhead * 86400000));
 
     // Fetch availabilities for all room types in one call; if the token lacks
     // access to some room types (403/401), fall back to per-room-type queries
@@ -337,6 +338,7 @@ serve(async (req) => {
 
     const payload = {
       deals,
+      daysAhead: dealsDaysAhead,
       source: "moder",
       generatedAt: new Date().toISOString(),
     };

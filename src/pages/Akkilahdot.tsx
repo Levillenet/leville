@@ -79,19 +79,19 @@ interface Beds24Deal {
 const manualDeals: ManualDeal[] = [];
 
 // Fetch Moder availability (replaces Beds24)
-const fetchBeds24Availability = async (): Promise<Beds24Deal[]> => {
+const fetchBeds24Availability = async (): Promise<{ deals: Beds24Deal[]; daysAhead: number | null }> => {
   try {
     const { data, error } = await supabase.functions.invoke('moder-availability');
 
     if (error) {
       console.error('Error fetching Moder availability:', error);
-      return [];
+      return { deals: [], daysAhead: null };
     }
 
-    return data?.deals || [];
+    return { deals: data?.deals || [], daysAhead: typeof data?.daysAhead === 'number' ? data.daysAhead : null };
   } catch (err) {
     console.error('Error fetching Moder availability:', err);
-    return [];
+    return { deals: [], daysAhead: null };
   }
 };
 
@@ -445,14 +445,14 @@ const todayIso = toIsoDate(new Date());
 
 
 // Labels shown on every deal card / in the search widget
-const extraLabels: Record<Language, { offer: string; today: string; pickDate: string; pickRange: string; datesLabel: string; searchHeading: string }> = {
-  fi: { offer: "ÄKKILÄHTÖ TARJOUS", today: "Alkaa tänään", pickDate: "Valitse päivä", pickRange: "Valitse ajanjakso", datesLabel: "Ajanjakso", searchHeading: "Hae vapaat äkkilähdöt" },
-  en: { offer: "LAST MINUTE OFFER", today: "Starts today", pickDate: "Select date", pickRange: "Select dates", datesLabel: "Dates", searchHeading: "Search available last-minute stays" },
-  sv: { offer: "SISTA MINUTEN-ERBJUDANDE", today: "Börjar idag", pickDate: "Välj datum", pickRange: "Välj datum", datesLabel: "Datum", searchHeading: "Sök lediga sista minuten-boenden" },
-  de: { offer: "LAST-MINUTE-ANGEBOT", today: "Beginnt heute", pickDate: "Datum wählen", pickRange: "Zeitraum wählen", datesLabel: "Zeitraum", searchHeading: "Freie Last-Minute-Unterkünfte suchen" },
-  es: { offer: "OFERTA ÚLTIMA HORA", today: "Comienza hoy", pickDate: "Elegir fecha", pickRange: "Elegir fechas", datesLabel: "Fechas", searchHeading: "Buscar alojamientos de última hora" },
-  fr: { offer: "OFFRE DERNIÈRE MINUTE", today: "Commence aujourd'hui", pickDate: "Choisir la date", pickRange: "Choisir les dates", datesLabel: "Dates", searchHeading: "Rechercher des séjours de dernière minute" },
-  nl: { offer: "LAST-MINUTE AANBIEDING", today: "Begint vandaag", pickDate: "Kies datum", pickRange: "Kies datums", datesLabel: "Data", searchHeading: "Zoek beschikbare last-minute verblijven" },
+const extraLabels: Record<Language, { offer: string; today: string; pickDate: string; pickRange: string; datesLabel: string; searchHeading: string; clearDates: string; beyondWindow: (d: number) => string; bookDirect: string }> = {
+  fi: { offer: "ÄKKILÄHTÖ TARJOUS", today: "Alkaa tänään", pickDate: "Valitse päivä", pickRange: "Valitse ajanjakso", datesLabel: "Ajanjakso", searchHeading: "Hae vapaat äkkilähdöt", clearDates: "Tyhjennä valinnat", beyondWindow: (d: number) => `Äkkilähtöjä näytetään ${d} päivää eteenpäin. Valitse aikaisempi saapumispäivä tai varaa suoraan varausjärjestelmästä.`, bookDirect: "Varaa suoraan", },
+  en: { offer: "LAST MINUTE OFFER", today: "Starts today", pickDate: "Select date", pickRange: "Select dates", datesLabel: "Dates", searchHeading: "Search available last-minute stays", clearDates: "Clear selection", beyondWindow: (d: number) => `Last-minute stays are shown up to ${d} days ahead. Choose an earlier arrival date or book directly.`, bookDirect: "Book directly", },
+  sv: { offer: "SISTA MINUTEN-ERBJUDANDE", today: "Börjar idag", pickDate: "Välj datum", pickRange: "Välj datum", datesLabel: "Datum", searchHeading: "Sök lediga sista minuten-boenden", clearDates: "Rensa val", beyondWindow: (d: number) => `Sista minuten-boenden visas ${d} dagar framåt. Välj ett tidigare ankomstdatum eller boka direkt.`, bookDirect: "Boka direkt", },
+  de: { offer: "LAST-MINUTE-ANGEBOT", today: "Beginnt heute", pickDate: "Datum wählen", pickRange: "Zeitraum wählen", datesLabel: "Zeitraum", searchHeading: "Freie Last-Minute-Unterkünfte suchen", clearDates: "Auswahl löschen", beyondWindow: (d: number) => `Last-Minute-Angebote werden ${d} Tage im Voraus angezeigt. Wählen Sie ein früheres Anreisedatum oder buchen Sie direkt.`, bookDirect: "Direkt buchen", },
+  es: { offer: "OFERTA ÚLTIMA HORA", today: "Comienza hoy", pickDate: "Elegir fecha", pickRange: "Elegir fechas", datesLabel: "Fechas", searchHeading: "Buscar alojamientos de última hora", clearDates: "Borrar selección", beyondWindow: (d: number) => `Las ofertas de última hora se muestran hasta ${d} días por adelantado. Elige una fecha de llegada anterior o reserva directamente.`, bookDirect: "Reservar directamente", },
+  fr: { offer: "OFFRE DERNIÈRE MINUTE", today: "Commence aujourd'hui", pickDate: "Choisir la date", pickRange: "Choisir les dates", datesLabel: "Dates", searchHeading: "Rechercher des séjours de dernière minute", clearDates: "Effacer la sélection", beyondWindow: (d: number) => `Les séjours de dernière minute sont affichés jusqu\u2019à ${d} jours à l\u2019avance. Choisissez une date d\u2019arrivée plus proche ou réservez directement.`, bookDirect: "Réserver directement", },
+  nl: { offer: "LAST-MINUTE AANBIEDING", today: "Begint vandaag", pickDate: "Kies datum", pickRange: "Kies datums", datesLabel: "Data", searchHeading: "Zoek beschikbare last-minute verblijven", clearDates: "Selectie wissen", beyondWindow: (d: number) => `Last-minute verblijven worden tot ${d} dagen vooruit getoond. Kies een eerdere aankomstdatum of boek direct.`, bookDirect: "Direct boeken", },
 };
 
 
@@ -469,11 +469,12 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
 
   // Fetch Moder deals
-  const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
+  const { data: availability, isLoading: isLoadingDeals } = useQuery({
     queryKey: ['moder-availability'],
     queryFn: fetchBeds24Availability,
     staleTime: 60 * 60 * 1000, // 1 hour cache (matches server cache)
   });
+  const allDeals = availability?.deals ?? [];
 
   // Fetch admin settings from database
   const { data: adminSettings, isLoading: isLoadingSettings } = useAdminSettings();
@@ -487,6 +488,38 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return isNaN(n) || n < 0 ? 0 : Math.min(n, 90);
   })();
 
+  // Listing/search horizon: server value wins, admin setting is the fallback
+  const daysAheadSetting = (() => {
+    const raw = adminSettings?.siteSettings?.find(s => s.id === 'deals_days_ahead')?.value;
+    const n = typeof raw === 'number' ? raw : parseInt(String(raw ?? ''), 10);
+    return isNaN(n) || n <= 0 ? null : n;
+  })();
+  const daysAhead = availability?.daysAhead ?? daysAheadSetting ?? 21;
+  const maxCheckInIso = addDaysIso(todayIso, daysAhead);
+
+  // Hidden extra discount the closer the check-in is (super last-minute)
+  const superDiscountRaw = adminSettings?.siteSettings?.find(s => s.id === 'deals_super_discount')?.value as
+    | { d3?: number; d5?: number; d7?: number }
+    | undefined;
+  const superDiscount = useMemo(() => {
+    const clamp = (v: unknown) => {
+      const n = typeof v === 'number' ? v : parseInt(String(v ?? '0'), 10);
+      return isNaN(n) || n < 0 ? 0 : Math.min(n, 90);
+    };
+    return { d3: clamp(superDiscountRaw?.d3), d5: clamp(superDiscountRaw?.d5), d7: clamp(superDiscountRaw?.d7) };
+  }, [superDiscountRaw?.d3, superDiscountRaw?.d5, superDiscountRaw?.d7]);
+
+  const getSuperDiscountPct = useCallback((checkIn: string): number => {
+    const days = Math.round(
+      (new Date(checkIn + "T00:00:00").getTime() - new Date(todayIso + "T00:00:00").getTime()) / 86400000
+    );
+    if (days < 0) return 0;
+    if (days < 3) return superDiscount.d3;
+    if (days < 5) return superDiscount.d5;
+    if (days < 7) return superDiscount.d7;
+    return 0;
+  }, [superDiscount]);
+
   const isLoading = isLoadingDeals || isLoadingSettings;
 
   // How many nights the selected filter wants to display
@@ -496,7 +529,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // Gap windows (short openings between two bookings) are always shown,
   // even when shorter than Moder's minimum stay.
   const filteredDeals = useMemo(() =>
-    beds24Deals.filter((deal) => {
+    allDeals.filter((deal) => {
+      if (deal.checkIn > maxCheckInIso) return false;
       const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
       const minNights = deal.minNights ?? 1;
       if (deal.isGap) return windowNights >= 1;
@@ -504,7 +538,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       if (windowNights < requiredNights) return false;
       if (minNights > requiredNights) return false;
       return true;
-    }), [beds24Deals, requiredNights]);
+    }), [allDeals, requiredNights, maxCheckInIso]);
 
   // Helper to get property with DB override - memoized
   const getPropertyWithOverride = useCallback((roomId: string) => {
@@ -629,6 +663,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
     let price = base * (1 - dealsBaseDiscount / 100);
 
+    // Hidden super last-minute discount (not shown separately to the guest)
+    const superPct = getSuperDiscountPct(checkIn);
+    if (superPct > 0) price = price * (1 - superPct / 100);
+
     // Period-specific custom discount (from admin) - applied as ADDITIONAL discount
     const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
     if (periodS.customDiscount && periodS.customDiscount > 0) {
@@ -636,7 +674,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     }
 
     return Math.round(price + getCleaningFee(deal));
-  }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb]);
+  }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb, getSuperDiscountPct]);
 
   // Check if ski pass offer applies to this stay (using displayed dates)
   const hasSkiPassOffer = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
@@ -707,7 +745,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   }, [getTotalPrice, getMarketingName, getPropertyWithOverride, formatDateDisplay, nightsText, lang]);
 
   // Combine deals for schema - memoized (3-night example price)
-  const allDealsForSchema = useMemo(() => beds24Deals.map((deal, index) => {
+  const allDealsForSchema = useMemo(() => filteredDeals.map((deal, index) => {
     const schemaNights = Math.min(3, Math.min(deal.windowNights ?? deal.nights, 7));
     return {
       "@type": "Offer",
@@ -720,7 +758,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       "validFrom": deal.checkIn,
       "validThrough": addDaysIso(deal.checkIn, schemaNights)
     };
-  }), [beds24Deals, getTotalPrice]);
+  }), [filteredDeals, getTotalPrice]);
 
   const schemaData = useMemo(() => ({
     "@context": "https://schema.org",
@@ -749,8 +787,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   const searchItems = useMemo(() => {
     if (mode !== "search" || searchNights < 1) return [];
+    if (searchCheckIn > maxCheckInIso) return [];
     const results: { deal: Beds24Deal; checkIn: string; nights: number }[] = [];
-    for (const deal of beds24Deals) {
+    for (const deal of allDeals) {
       if (!isStayAllowed(deal, searchCheckIn, searchNights)) continue;
       if (getTotalPrice(deal, searchCheckIn, searchNights) == null) continue;
       results.push({ deal, checkIn: searchCheckIn, nights: searchNights });
@@ -760,7 +799,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       (getTotalPrice(b.deal, b.checkIn, b.nights) ?? Infinity)
     );
     return results;
-  }, [mode, beds24Deals, searchCheckIn, searchNights, isStayAllowed, getTotalPrice]);
+  }, [mode, allDeals, searchCheckIn, searchNights, isStayAllowed, getTotalPrice, maxCheckInIso]);
 
 
   const displayItems = mode === "search" ? searchItems : listItems;
@@ -890,8 +929,34 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                                 initialFocus
                                 className="p-3 pointer-events-auto"
                               />
+                              <div className="flex justify-end border-t border-border/40 p-2">
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    setSearchCheckIn("");
+                                    setSearchCheckOut("");
+                                    setRangeOpen(false);
+                                  }}
+                                >
+                                  {x.clearDates}
+                                </Button>
+                              </div>
                             </PopoverContent>
                           </Popover>
+                          {searchCheckIn && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSearchCheckIn("");
+                                setSearchCheckOut("");
+                              }}
+                              className="mt-2 text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
+                            >
+                              {x.clearDates}
+                            </button>
+                          )}
                         </div>
                         <div className="text-sm text-muted-foreground md:pb-3">
                           {searchActive ? `${t.searchResults} (${searchItems.length})` : ""}
@@ -972,8 +1037,26 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
               </section>
             )}
 
+            {/* Search beyond the allowed booking window */}
+            {dealsEnabled && !isLoading && mode === "search" && searchCheckIn > maxCheckInIso && (
+              <section className="max-w-2xl mx-auto mb-16 text-center">
+                <div className="glass-card border-primary/30 rounded-xl p-6">
+                  <p className="text-muted-foreground mb-4">{x.beyondWindow(daysAhead)}</p>
+                  <a
+                    href="https://app.moder.fi/levillenet"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors rounded-lg px-5 py-2.5 font-medium"
+                  >
+                    {x.bookDirect}
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              </section>
+            )}
+
             {/* No results for an active date search */}
-            {dealsEnabled && !isLoading && searchActive && searchItems.length === 0 && (
+            {dealsEnabled && !isLoading && searchActive && searchCheckIn <= maxCheckInIso && searchItems.length === 0 && (
               <section className="max-w-2xl mx-auto mb-16 text-center">
                 <p className="text-muted-foreground">{t.noSearchResults}</p>
               </section>
@@ -1208,7 +1291,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   const pricePerPerson = Math.round(deal.price / deal.persons);
                   
                   return (
-                    <ScrollReveal key={deal.id} delay={(beds24Deals.length + index) * 0.1}>
+                    <ScrollReveal key={deal.id} delay={(filteredDeals.length + index) * 0.1}>
                       <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
                         {/* Urgency badge */}
                         {deal.urgency && (
