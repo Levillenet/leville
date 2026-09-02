@@ -445,6 +445,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
   const [nightFilter, setNightFilter] = useState<NightFilter>("3");
+  const [mode, setMode] = useState<"list" | "search">("list");
+  const [searchCheckIn, setSearchCheckIn] = useState("");
+  const [searchCheckOut, setSearchCheckOut] = useState("");
+  const [searchGuests, setSearchGuests] = useState("");
 
   // Fetch Moder deals
   const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
@@ -470,11 +474,14 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   // How many nights the selected filter wants to display
   const requiredNights = nightFilter === "2" ? 2 : nightFilter === "3" ? 3 : 4;
 
-  // Filter deals: window must fit the selected length and respect min stay - memoized
+  // Filter deals: window must fit the selected length and respect min stay.
+  // Gap windows (short openings between two bookings) are always shown,
+  // even when shorter than Moder's minimum stay.
   const filteredDeals = useMemo(() =>
     beds24Deals.filter((deal) => {
       const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
       const minNights = deal.minNights ?? 1;
+      if (deal.isGap) return windowNights >= 1;
       if (windowNights < 2) return false;
       if (windowNights < requiredNights) return false;
       if (minNights > requiredNights) return false;
