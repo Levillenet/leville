@@ -445,6 +445,18 @@ const addDaysIso = (dateStr: string, days: number): string => {
   return d.toISOString().slice(0, 10);
 };
 
+// Local (not UTC) yyyy-mm-dd for calendar selections
+const toIsoDate = (date: Date): string => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+
+const todayIso = toIsoDate(new Date());
+
+
+
 // Labels shown on every deal card / in the search widget
 const extraLabels: Record<Language, { offer: string; today: string; pickDate: string; searchHeading: string }> = {
   fi: { offer: "ÄKKILÄHTÖ TARJOUS", today: "Alkaa tänään", pickDate: "Valitse päivä", searchHeading: "Hae vapaat äkkilähdöt" },
