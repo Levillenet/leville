@@ -13,6 +13,7 @@ import { getWebsiteSchema } from "@/utils/structuredData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import type { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar as CalendarPicker } from "@/components/ui/calendar";
@@ -124,9 +125,7 @@ const content = {
       "Nopea varaus WhatsAppilla",
       "Rajoitettu saatavuus – toimi nopeasti!"
     ],
-    filter2: "2 yötä",
-    filter3: "3 yötä",
-    filter4plus: "4+ yötä",
+    nightsWord: "yötä",
     moreOptions: "Jaksolla vapaana yhteensä {n} yötä – voit valita haluamasi päivät. Kysy WhatsAppilla!",
     modeSearch: "Hae päivämäärillä",
     modeList: "Selaa tarjouksia",
@@ -167,9 +166,7 @@ const content = {
       "Quick booking via WhatsApp",
       "Limited availability – act fast!"
     ],
-    filter2: "2 nights",
-    filter3: "3 nights",
-    filter4plus: "4+ nights",
+    nightsWord: "nights",
     moreOptions: "{n} nights available in this window – choose your own dates. Ask via WhatsApp!",
     modeSearch: "Search by dates",
     modeList: "Browse deals",
@@ -210,9 +207,7 @@ const content = {
       "Snabb bokning via WhatsApp",
       "Begränsad tillgänglighet – agera snabbt!"
     ],
-    filter2: "2 nätter",
-    filter3: "3 nätter",
-    filter4plus: "4+ nätter",
+    nightsWord: "nätter",
     moreOptions: "{n} nätter lediga i perioden – välj dina egna datum. Fråga via WhatsApp!",
     modeSearch: "Sök efter datum",
     modeList: "Bläddra bland erbjudanden",
@@ -253,9 +248,7 @@ const content = {
       "Schnelle Buchung via WhatsApp",
       "Begrenzte Verfügbarkeit – handeln Sie schnell!"
     ],
-    filter2: "2 Nächte",
-    filter3: "3 Nächte",
-    filter4plus: "4+ Nächte",
+    nightsWord: "Nächte",
     moreOptions: "{n} Nächte in diesem Zeitraum frei – wählen Sie Ihre Daten. Per WhatsApp anfragen!",
     modeSearch: "Nach Daten suchen",
     modeList: "Angebote durchsuchen",
@@ -296,9 +289,7 @@ const content = {
       "Reserva rápida vía WhatsApp",
       "¡Disponibilidad limitada – actúa rápido!"
     ],
-    filter2: "2 noches",
-    filter3: "3 noches",
-    filter4plus: "4+ noches",
+    nightsWord: "noches",
     moreOptions: "{n} noches disponibles en este período – elige tus fechas. ¡Pregunta por WhatsApp!",
     modeSearch: "Buscar por fechas",
     modeList: "Ver ofertas",
@@ -339,9 +330,7 @@ const content = {
       "Réservation rapide via WhatsApp",
       "Disponibilité limitée – agissez vite !"
     ],
-    filter2: "2 nuits",
-    filter3: "3 nuits",
-    filter4plus: "4+ nuits",
+    nightsWord: "nuits",
     moreOptions: "{n} nuits disponibles sur cette période – choisissez vos dates. Demandez via WhatsApp !",
     modeSearch: "Rechercher par dates",
     modeList: "Parcourir les offres",
@@ -382,9 +371,7 @@ const content = {
       "Snel boeken via WhatsApp",
       "Beperkte beschikbaarheid – wees er snel bij!"
     ],
-    filter2: "2 nachten",
-    filter3: "3 nachten",
-    filter4plus: "4+ nachten",
+    nightsWord: "nachten",
     moreOptions: "{n} nachten beschikbaar in deze periode – kies je eigen data. Vraag via WhatsApp!",
     modeSearch: "Zoeken op datum",
     modeList: "Aanbiedingen bekijken",
@@ -436,7 +423,7 @@ const disabledContent: Record<Language, { heading: string; body: string; cta: st
   }
 };
 
-type NightFilter = "2" | "3" | "4plus";
+type NightFilter = "2" | "3" | "4" | "5" | "6" | "7";
 
 // Add n days to an ISO date string (yyyy-mm-dd)
 const addDaysIso = (dateStr: string, days: number): string => {
@@ -458,14 +445,14 @@ const todayIso = toIsoDate(new Date());
 
 
 // Labels shown on every deal card / in the search widget
-const extraLabels: Record<Language, { offer: string; today: string; pickDate: string; searchHeading: string }> = {
-  fi: { offer: "ÄKKILÄHTÖ TARJOUS", today: "Alkaa tänään", pickDate: "Valitse päivä", searchHeading: "Hae vapaat äkkilähdöt" },
-  en: { offer: "LAST MINUTE OFFER", today: "Starts today", pickDate: "Select date", searchHeading: "Search available last-minute stays" },
-  sv: { offer: "SISTA MINUTEN-ERBJUDANDE", today: "Börjar idag", pickDate: "Välj datum", searchHeading: "Sök lediga sista minuten-boenden" },
-  de: { offer: "LAST-MINUTE-ANGEBOT", today: "Beginnt heute", pickDate: "Datum wählen", searchHeading: "Freie Last-Minute-Unterkünfte suchen" },
-  es: { offer: "OFERTA ÚLTIMA HORA", today: "Comienza hoy", pickDate: "Elegir fecha", searchHeading: "Buscar alojamientos de última hora" },
-  fr: { offer: "OFFRE DERNIÈRE MINUTE", today: "Commence aujourd'hui", pickDate: "Choisir la date", searchHeading: "Rechercher des séjours de dernière minute" },
-  nl: { offer: "LAST-MINUTE AANBIEDING", today: "Begint vandaag", pickDate: "Kies datum", searchHeading: "Zoek beschikbare last-minute verblijven" },
+const extraLabels: Record<Language, { offer: string; today: string; pickDate: string; pickRange: string; datesLabel: string; searchHeading: string }> = {
+  fi: { offer: "ÄKKILÄHTÖ TARJOUS", today: "Alkaa tänään", pickDate: "Valitse päivä", pickRange: "Valitse ajanjakso", datesLabel: "Ajanjakso", searchHeading: "Hae vapaat äkkilähdöt" },
+  en: { offer: "LAST MINUTE OFFER", today: "Starts today", pickDate: "Select date", pickRange: "Select dates", datesLabel: "Dates", searchHeading: "Search available last-minute stays" },
+  sv: { offer: "SISTA MINUTEN-ERBJUDANDE", today: "Börjar idag", pickDate: "Välj datum", pickRange: "Välj datum", datesLabel: "Datum", searchHeading: "Sök lediga sista minuten-boenden" },
+  de: { offer: "LAST-MINUTE-ANGEBOT", today: "Beginnt heute", pickDate: "Datum wählen", pickRange: "Zeitraum wählen", datesLabel: "Zeitraum", searchHeading: "Freie Last-Minute-Unterkünfte suchen" },
+  es: { offer: "OFERTA ÚLTIMA HORA", today: "Comienza hoy", pickDate: "Elegir fecha", pickRange: "Elegir fechas", datesLabel: "Fechas", searchHeading: "Buscar alojamientos de última hora" },
+  fr: { offer: "OFFRE DERNIÈRE MINUTE", today: "Commence aujourd'hui", pickDate: "Choisir la date", pickRange: "Choisir les dates", datesLabel: "Dates", searchHeading: "Rechercher des séjours de dernière minute" },
+  nl: { offer: "LAST-MINUTE AANBIEDING", today: "Begint vandaag", pickDate: "Kies datum", pickRange: "Kies datums", datesLabel: "Data", searchHeading: "Zoek beschikbare last-minute verblijven" },
 };
 
 
@@ -478,6 +465,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const [mode, setMode] = useState<"list" | "search">("search");
   const [searchCheckIn, setSearchCheckIn] = useState("");
   const [searchCheckOut, setSearchCheckOut] = useState("");
+  const [rangeOpen, setRangeOpen] = useState(false);
 
 
   // Fetch Moder deals
@@ -502,7 +490,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const isLoading = isLoadingDeals || isLoadingSettings;
 
   // How many nights the selected filter wants to display
-  const requiredNights = nightFilter === "2" ? 2 : nightFilter === "3" ? 3 : 4;
+  const requiredNights = parseInt(nightFilter, 10);
 
   // Filter deals: window must fit the selected length and respect min stay.
   // Gap windows (short openings between two bookings) are always shown,
@@ -863,56 +851,42 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                       <h2 className="text-lg md:text-xl font-semibold text-foreground mb-4 text-center">
                         {x.searchHeading}
                       </h2>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-end">
                         <div>
-                          <label className="block text-xs text-muted-foreground mb-1.5">{t.checkInLabel}</label>
-                          <Popover>
+                          <label className="block text-xs text-muted-foreground mb-1.5">{x.datesLabel}</label>
+                          <Popover open={rangeOpen} onOpenChange={setRangeOpen}>
                             <PopoverTrigger asChild>
                               <Button
                                 variant="outline"
                                 className="w-full justify-start h-12 text-base font-normal bg-background/60"
                               >
                                 <Calendar className="w-4 h-4 mr-2 opacity-70" />
-                                {searchCheckIn ? formatDateDisplay(searchCheckIn) : x.pickDate}
+                                {searchCheckIn
+                                  ? `${formatDateDisplay(searchCheckIn)} – ${searchCheckOut ? formatDateDisplay(searchCheckOut) : "…"}`
+                                  : x.pickRange}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0 bg-popover z-50" align="start">
                               <CalendarPicker
-                                mode="single"
-                                selected={searchCheckIn ? new Date(searchCheckIn + "T00:00:00") : undefined}
-                                onSelect={(date) => {
-                                  if (!date) return;
-                                  const iso = toIsoDate(date);
-                                  setSearchCheckIn(iso);
-                                  if (!searchCheckOut || searchCheckOut <= iso) {
-                                    setSearchCheckOut(addDaysIso(iso, 2));
+                                mode="range"
+                                selected={searchCheckIn
+                                  ? {
+                                      from: new Date(searchCheckIn + "T00:00:00"),
+                                      to: searchCheckOut ? new Date(searchCheckOut + "T00:00:00") : undefined,
+                                    }
+                                  : undefined}
+                                onSelect={(range: DateRange | undefined) => {
+                                  if (!range || !range.from) {
+                                    setSearchCheckIn("");
+                                    setSearchCheckOut("");
+                                    return;
                                   }
+                                  setSearchCheckIn(toIsoDate(range.from));
+                                  setSearchCheckOut(range.to ? toIsoDate(range.to) : "");
+                                  if (range.from && range.to) setRangeOpen(false);
                                 }}
                                 disabled={(date) => toIsoDate(date) < todayIso}
-                                initialFocus
-                                className="p-3 pointer-events-auto"
-                              />
-                            </PopoverContent>
-                          </Popover>
-                        </div>
-                        <div>
-                          <label className="block text-xs text-muted-foreground mb-1.5">{t.checkOutLabel}</label>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant="outline"
-                                className="w-full justify-start h-12 text-base font-normal bg-background/60"
-                              >
-                                <Calendar className="w-4 h-4 mr-2 opacity-70" />
-                                {searchCheckOut ? formatDateDisplay(searchCheckOut) : x.pickDate}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0 bg-popover z-50" align="start">
-                              <CalendarPicker
-                                mode="single"
-                                selected={searchCheckOut ? new Date(searchCheckOut + "T00:00:00") : undefined}
-                                onSelect={(date) => date && setSearchCheckOut(toIsoDate(date))}
-                                disabled={(date) => toIsoDate(date) <= (searchCheckIn || todayIso)}
+                                numberOfMonths={2}
                                 initialFocus
                                 className="p-3 pointer-events-auto"
                               />
@@ -937,24 +911,15 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                     onValueChange={(value) => value && setNightFilter(value as NightFilter)}
                     className="bg-background/50 border border-border/30 rounded-lg p-1"
                   >
-                    <ToggleGroupItem
-                      value="2"
-                      className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                    >
-                      {t.filter2}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                      value="3"
-                      className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                    >
-                      {t.filter3}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                      value="4plus"
-                      className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                    >
-                      {t.filter4plus}
-                    </ToggleGroupItem>
+                    {([2, 3, 4, 5, 6, 7] as const).map((n) => (
+                      <ToggleGroupItem
+                        key={n}
+                        value={String(n)}
+                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
+                      >
+                        {n} {t.nightsWord}
+                      </ToggleGroupItem>
+                    ))}
                   </ToggleGroup>
                 </div>
                 )}
