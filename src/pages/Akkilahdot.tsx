@@ -13,6 +13,7 @@ import { getWebsiteSchema } from "@/utils/structuredData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import type { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar as CalendarPicker } from "@/components/ui/calendar";
@@ -464,6 +465,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const [mode, setMode] = useState<"list" | "search">("search");
   const [searchCheckIn, setSearchCheckIn] = useState("");
   const [searchCheckOut, setSearchCheckOut] = useState("");
+  const [rangeOpen, setRangeOpen] = useState(false);
 
 
   // Fetch Moder deals
