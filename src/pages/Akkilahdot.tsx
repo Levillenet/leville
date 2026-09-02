@@ -874,33 +874,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   {t.subtitle}
                 </p>
                 
-                {/* Mode toggle: browse list / search by dates */}
+                {/* Date search is the only way to get correct length-of-stay prices */}
                 {dealsEnabled && (
-                  <div className="mt-6 flex justify-center">
-                    <ToggleGroup
-                      type="single"
-                      value={mode}
-                      onValueChange={(value) => value && setMode(value as "list" | "search")}
-                      className="bg-background/50 border border-border/30 rounded-lg p-1"
-                    >
-                      <ToggleGroupItem
-                        value="list"
-                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                      >
-                        {t.modeList}
-                      </ToggleGroupItem>
-                      <ToggleGroupItem
-                        value="search"
-                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                      >
-                        {t.modeSearch}
-                      </ToggleGroupItem>
-                    </ToggleGroup>
-                  </div>
-                )}
-
-                {/* Big search widget with calendars */}
-                {dealsEnabled && mode === "search" && (
                   <div className="mt-8 max-w-4xl mx-auto">
                     <div className="glass-card border-primary/30 rounded-2xl p-5 md:p-8 text-left shadow-xl">
                       <h2 className="text-lg md:text-xl font-semibold text-foreground mb-4 text-center">
