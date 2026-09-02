@@ -67,6 +67,7 @@ interface ModerDeal {
   // Moder-specific: full free window length and prices per stay length
   windowNights?: number;
   minNights?: number;
+  minNightsByDate?: Record<string, number>;
   pricesByNights?: Record<string, number | null>;
   cleaningFee?: number;
   // Moder window payload
@@ -681,7 +682,15 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     if (deal.noCheckOut?.includes(checkOut)) return { allowed: false, reason: 'no-checkout-day' };
 
     const windowNights = deal.windowNights ?? deal.nights;
-    const minNights = deal.minNights ?? 1;
+    // Minimum stay applies to the nights actually booked, not to the whole
+    // free window: a long window can contain a stricter date much later.
+    const stayMins: number[] = [];
+    for (let i = 0; i < nights; i++) {
+      const d = addDaysIso(checkIn, i);
+      const v = deal.minNightsByDate?.[d];
+      if (typeof v === 'number' && v > 0) stayMins.push(v);
+    }
+    const minNights = stayMins.length > 0 ? Math.max(...stayMins) : (deal.minNights ?? 1);
     const daysUntil = Math.round(
       (new Date(checkIn + "T00:00:00").getTime() - new Date(todayIso + "T00:00:00").getTime()) / 86400000
     );
