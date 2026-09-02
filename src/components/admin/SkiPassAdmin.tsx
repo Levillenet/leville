@@ -236,6 +236,11 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     let basePrice = deal.price;
     const discount = getPropertyDiscount(deal.roomId, deal.nights);
 
+    // 1-night stays are sold at full price unless the admin setting allows discounts
+    if (deal.nights <= 1 && !discountOneNight) {
+      return Math.round(basePrice + cleaningFee);
+    }
+
     if (discount > 0) {
       basePrice = basePrice * (1 - discount / 100);
     }
@@ -246,6 +251,7 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     if (superPct > 0) {
       basePrice = basePrice * (1 - superPct / 100);
     }
+
 
     return Math.round(basePrice + cleaningFee);
   };
