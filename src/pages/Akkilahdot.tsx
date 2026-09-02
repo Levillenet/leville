@@ -70,7 +70,6 @@ interface Beds24Deal {
   cleaningFee?: number;
   // Moder window payload
   isGap?: boolean;
-  rates?: Record<string, number>; // date -> EUR per night
   noCheckIn?: string[];
   noCheckOut?: string[];
 }
@@ -92,6 +91,21 @@ const fetchBeds24Availability = async (): Promise<{ deals: Beds24Deal[]; daysAhe
   } catch (err) {
     console.error('Error fetching Moder availability:', err);
     return { deals: [], daysAhead: null };
+  }
+};
+
+// Real Moder stay price for an exact date range (length-of-stay pricing)
+const fetchStayPrices = async (from: string, to: string): Promise<Record<string, number>> => {
+  try {
+    const { data, error } = await supabase.functions.invoke(`moder-availability?mode=prices&from=${from}&to=${to}`);
+    if (error) {
+      console.error('Error fetching Moder stay prices:', error);
+      return {};
+    }
+    return (data?.prices || {}) as Record<string, number>;
+  } catch (err) {
+    console.error('Error fetching Moder stay prices:', err);
+    return {};
   }
 };
 
@@ -462,7 +476,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const t = content[lang];
   const x = extraLabels[lang];
   const [nightFilter, setNightFilter] = useState<NightFilter>("3");
-  const [mode, setMode] = useState<"list" | "search">("search");
+  const [mode, setMode] = useState<"list" | "search">("list");
   const [searchCheckIn, setSearchCheckIn] = useState("");
   const [searchCheckOut, setSearchCheckOut] = useState("");
   const [rangeOpen, setRangeOpen] = useState(false);
@@ -611,21 +625,15 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return Math.min(requiredNights, windowNights);
   }, [requiredNights]);
 
-  // Moder stay price from per-night rates (EUR, excluding cleaning fee).
-  // Falls back to the legacy pricesByNights payload when rates are absent.
-  const getModerPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number): number | null => {
-    if (deal.rates && Object.keys(deal.rates).length > 0) {
-      let sum = 0;
-      for (let i = 0; i < nights; i++) {
-        const r = deal.rates[addDaysIso(checkIn, i)];
-        if (typeof r !== "number" || r <= 0) return null;
-        sum += r;
-      }
-      return sum;
+  // Real Moder stay price (EUR, excluding cleaning fee).
+  // List mode: prices per stay length precomputed for the window start.
+  // Date search: price fetched for the exact requested range (override).
+  const getModerPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number, override?: number | null): number | null => {
+    if (typeof override === 'number' && override > 0) return override;
+    if (checkIn === deal.checkIn) {
+      const p = deal.pricesByNights?.[String(nights)];
+      if (typeof p === 'number' && p > 0) return p;
     }
-    const p = deal.pricesByNights?.[String(nights)];
-    if (typeof p === 'number' && p > 0) return p;
-    if (nights === deal.nights && deal.price != null && deal.price > 0) return deal.price;
     return null;
   }, []);
 
@@ -650,15 +658,15 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   }, [getPropertyWithOverride]);
 
   // Normal price shown as reference: Moder price + cleaning fee (no discounts)
-  const getOriginalApiPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number): number | null => {
-    const base = getModerPrice(deal, checkIn, nights);
+  const getOriginalApiPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number, override?: number | null): number | null => {
+    const base = getModerPrice(deal, checkIn, nights, override);
     if (base == null) return null;
     return Math.round(base + getCleaningFee(deal));
   }, [getModerPrice, getCleaningFee]);
 
   // Final price: Moder price - base discount - period custom discount, + cleaning fee
-  const getTotalPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number): number | null => {
-    const base = getModerPrice(deal, checkIn, nights);
+  const getTotalPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number, override?: number | null): number | null => {
+    const base = getModerPrice(deal, checkIn, nights, override);
     if (base == null) return null;
 
     let price = base * (1 - dealsBaseDiscount / 100);
@@ -776,7 +784,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   // Cards to render in list mode: window start + the nights shown for the filter
   const listItems = useMemo(() =>
-    filteredDeals.map(deal => ({ deal, checkIn: deal.checkIn, nights: getDisplayNights(deal) })),
+    filteredDeals.map(deal => ({ deal, checkIn: deal.checkIn, nights: getDisplayNights(deal), quoted: null as number | null })),
     [filteredDeals, getDisplayNights]);
 
   // Date search: one card per room whose window covers the requested stay
@@ -785,21 +793,29 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return Math.round((new Date(searchCheckOut).getTime() - new Date(searchCheckIn).getTime()) / 86400000);
   }, [searchCheckIn, searchCheckOut]);
 
+  const { data: searchPrices } = useQuery({
+    queryKey: ['moder-stay-prices', searchCheckIn, searchCheckOut],
+    queryFn: () => fetchStayPrices(searchCheckIn, searchCheckOut),
+    enabled: mode === "search" && searchNights >= 1 && searchCheckIn <= maxCheckInIso,
+    staleTime: 30 * 60 * 1000,
+  });
+
   const searchItems = useMemo(() => {
     if (mode !== "search" || searchNights < 1) return [];
     if (searchCheckIn > maxCheckInIso) return [];
-    const results: { deal: Beds24Deal; checkIn: string; nights: number }[] = [];
+    const results: { deal: Beds24Deal; checkIn: string; nights: number; quoted: number | null }[] = [];
     for (const deal of allDeals) {
       if (!isStayAllowed(deal, searchCheckIn, searchNights)) continue;
-      if (getTotalPrice(deal, searchCheckIn, searchNights) == null) continue;
-      results.push({ deal, checkIn: searchCheckIn, nights: searchNights });
+      const quoted = searchPrices?.[deal.roomId] ?? null;
+      if (getTotalPrice(deal, searchCheckIn, searchNights, quoted) == null) continue;
+      results.push({ deal, checkIn: searchCheckIn, nights: searchNights, quoted });
     }
     results.sort((a, b) =>
-      (getTotalPrice(a.deal, a.checkIn, a.nights) ?? Infinity) -
-      (getTotalPrice(b.deal, b.checkIn, b.nights) ?? Infinity)
+      (getTotalPrice(a.deal, a.checkIn, a.nights, a.quoted) ?? Infinity) -
+      (getTotalPrice(b.deal, b.checkIn, b.nights, b.quoted) ?? Infinity)
     );
     return results;
-  }, [mode, allDeals, searchCheckIn, searchNights, isStayAllowed, getTotalPrice, maxCheckInIso]);
+  }, [mode, allDeals, searchCheckIn, searchNights, isStayAllowed, getTotalPrice, maxCheckInIso, searchPrices]);
 
 
   const displayItems = mode === "search" ? searchItems : listItems;
@@ -1065,12 +1081,12 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             {/* Deals Grid */}
             {dealsEnabled && !isLoading && displayItems.length > 0 && (
               <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                {displayItems.map(({ deal, checkIn: stayCheckIn, nights: displayNights }, index) => {
+                {displayItems.map(({ deal, checkIn: stayCheckIn, nights: displayNights, quoted }, index) => {
                   const isSameDay = isToday(stayCheckIn);
                   const displayCheckOut = addDaysIso(stayCheckIn, displayNights);
                   const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
-                  const totalPrice = getTotalPrice(deal, stayCheckIn, displayNights);
-                  const originalPrice = getOriginalApiPrice(deal, stayCheckIn, displayNights);
+                  const totalPrice = getTotalPrice(deal, stayCheckIn, displayNights, quoted);
+                  const originalPrice = getOriginalApiPrice(deal, stayCheckIn, displayNights, quoted);
                   const bookingUrl = getBookingUrl(deal.roomId);
                   const marketingName = getMarketingName(deal);
                   const category = getPropertyCategory(deal.roomId);
