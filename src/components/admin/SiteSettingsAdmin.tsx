@@ -6,6 +6,8 @@ import { Switch } from '@/components/ui/switch';
 import { Loader2, CalendarDays, Eye, Percent, Flame } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useAdminSettingsManager } from '@/hooks/useAdminSettings';
+import { supabase } from '@/integrations/supabase/client';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface SiteSettingsAdminProps {
   isViewer?: boolean;
