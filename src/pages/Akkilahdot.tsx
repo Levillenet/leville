@@ -843,51 +843,77 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   </div>
                 )}
 
-                {/* Date search form */}
+                {/* Big search widget with calendars */}
                 {dealsEnabled && mode === "search" && (
-                  <div className="mt-6 max-w-2xl mx-auto">
-                    <div className="glass-card border-border/30 rounded-xl p-4 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-3 text-left">
-                      <div>
-                        <label className="block text-xs text-muted-foreground mb-1">{t.checkInLabel}</label>
-                        <input
-                          type="date"
-                          value={searchCheckIn}
-                          min={new Date().toISOString().slice(0, 10)}
-                          onChange={(e) => setSearchCheckIn(e.target.value)}
-                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs text-muted-foreground mb-1">{t.checkOutLabel}</label>
-                        <input
-                          type="date"
-                          value={searchCheckOut}
-                          min={searchCheckIn ? addDaysIso(searchCheckIn, 1) : undefined}
-                          onChange={(e) => setSearchCheckOut(e.target.value)}
-                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs text-muted-foreground mb-1">{t.guestsLabel}</label>
-                        <select
-                          value={searchGuests}
-                          onChange={(e) => setSearchGuests(e.target.value)}
-                          className="w-full bg-background/60 border border-border/40 rounded-md px-3 py-2 text-sm text-foreground"
-                        >
-                          <option value="">{t.guestsAny}</option>
-                          {[2, 3, 4, 5, 6, 7, 8, 10, 12, 14].map(n => (
-                            <option key={n} value={n}>{n}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="flex items-end">
-                        <span className="text-sm text-muted-foreground">
+                  <div className="mt-8 max-w-4xl mx-auto">
+                    <div className="glass-card border-primary/30 rounded-2xl p-5 md:p-8 text-left shadow-xl">
+                      <h2 className="text-lg md:text-xl font-semibold text-foreground mb-4 text-center">
+                        {x.searchHeading}
+                      </h2>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                        <div>
+                          <label className="block text-xs text-muted-foreground mb-1.5">{t.checkInLabel}</label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="w-full justify-start h-12 text-base font-normal bg-background/60"
+                              >
+                                <Calendar className="w-4 h-4 mr-2 opacity-70" />
+                                {searchCheckIn ? formatDateDisplay(searchCheckIn) : x.pickDate}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0 bg-popover z-50" align="start">
+                              <CalendarPicker
+                                mode="single"
+                                selected={searchCheckIn ? new Date(searchCheckIn + "T00:00:00") : undefined}
+                                onSelect={(date) => {
+                                  if (!date) return;
+                                  const iso = toIsoDate(date);
+                                  setSearchCheckIn(iso);
+                                  if (!searchCheckOut || searchCheckOut <= iso) {
+                                    setSearchCheckOut(addDaysIso(iso, 2));
+                                  }
+                                }}
+                                disabled={(date) => toIsoDate(date) < todayIso}
+                                initialFocus
+                                className="p-3 pointer-events-auto"
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                        <div>
+                          <label className="block text-xs text-muted-foreground mb-1.5">{t.checkOutLabel}</label>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="w-full justify-start h-12 text-base font-normal bg-background/60"
+                              >
+                                <Calendar className="w-4 h-4 mr-2 opacity-70" />
+                                {searchCheckOut ? formatDateDisplay(searchCheckOut) : x.pickDate}
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0 bg-popover z-50" align="start">
+                              <CalendarPicker
+                                mode="single"
+                                selected={searchCheckOut ? new Date(searchCheckOut + "T00:00:00") : undefined}
+                                onSelect={(date) => date && setSearchCheckOut(toIsoDate(date))}
+                                disabled={(date) => toIsoDate(date) <= (searchCheckIn || todayIso)}
+                                initialFocus
+                                className="p-3 pointer-events-auto"
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                        <div className="text-sm text-muted-foreground md:pb-3">
                           {searchActive ? `${t.searchResults} (${searchItems.length})` : ""}
-                        </span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 )}
+
 
                 {/* Night filter (list mode) */}
                 {dealsEnabled && mode === "list" && (
