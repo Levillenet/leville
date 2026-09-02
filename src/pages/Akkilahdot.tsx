@@ -981,10 +981,38 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 )}
 
 
-                {/* Prompt before any dates are chosen */}
-                {dealsEnabled && !searchActive && (
+                {/* Marketing examples before any dates are chosen */}
+                {dealsEnabled && !searchActive && exampleWindows.length > 0 && (
+                  <div className="mt-10 max-w-4xl mx-auto text-left">
+                    <h2 className="text-lg md:text-xl font-semibold text-foreground mb-1 text-center">{ex.heading}</h2>
+                    <p className="text-sm text-muted-foreground mb-5 text-center">{ex.note}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {exampleWindows.map((w) => (
+                        <button
+                          key={`${w.deal.roomId}-${w.checkIn}`}
+                          type="button"
+                          onClick={() => {
+                            setSearchCheckIn(w.checkIn);
+                            setSearchCheckOut(w.checkOut);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                          }}
+                          className="glass-card border-border/50 rounded-xl p-4 text-left transition-colors hover:border-primary/50"
+                        >
+                          <div className="font-semibold text-foreground text-sm">{getMarketingName(w.deal)}</div>
+                          <div className="text-sm text-muted-foreground mt-1">
+                            {formatDateDisplay(w.checkIn)} – {formatDateDisplay(w.checkOut)} · {nightsText(w.nights)}
+                          </div>
+                          <div className="text-xs text-primary mt-2">{ex.cta}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {dealsEnabled && !searchActive && exampleWindows.length === 0 && (
                   <p className="mt-6 text-sm text-muted-foreground">{x.pickRange}</p>
                 )}
+
               </section>
             </ScrollReveal>
 
