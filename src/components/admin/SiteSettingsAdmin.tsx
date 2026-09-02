@@ -6,6 +6,8 @@ import { Switch } from '@/components/ui/switch';
 import { Loader2, CalendarDays, Eye, Percent, Flame } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useAdminSettingsManager } from '@/hooks/useAdminSettings';
+import { supabase } from '@/integrations/supabase/client';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface SiteSettingsAdminProps {
   isViewer?: boolean;
@@ -29,6 +31,7 @@ const defaultGapFill: GapFillSettings = {
 
 const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const { settings, isLoading, updateSiteSetting, isSaving } = useAdminSettingsManager();
+  const queryClient = useQueryClient();
   const [dealsDaysAhead, setDealsDaysAhead] = useState<number>(14);
   const [dealsEnabled, setDealsEnabled] = useState<boolean>(true);
   const [dealsBaseDiscount, setDealsBaseDiscount] = useState<number>(0);
@@ -130,9 +133,16 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   };
 
 
-  const handleQuickSelect = (days: number) => {
+  const handleQuickSelect = async (days: number) => {
     setDealsDaysAhead(days);
     updateSiteSetting({ settingId: 'deals_days_ahead', value: days });
+    // Rebuild the deals cache right away so the new horizon shows in production
+    try {
+      await supabase.functions.invoke('moder-availability?force_refresh=true');
+    } catch (err) {
+      console.error('Could not refresh deals cache:', err);
+    }
+    queryClient.invalidateQueries({ queryKey: ['moder-availability'] });
   };
 
   const handleToggleEnabled = (checked: boolean) => {

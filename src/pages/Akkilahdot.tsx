@@ -524,7 +524,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     const n = typeof raw === 'number' ? raw : parseInt(String(raw ?? ''), 10);
     return isNaN(n) || n <= 0 ? null : n;
   })();
-  const daysAhead = availability?.daysAhead ?? daysAheadSetting ?? 21;
+  // Admin setting wins; the server value is only a fallback while settings load
+  const daysAhead = daysAheadSetting ?? availability?.daysAhead ?? 21;
   const maxCheckInIso = addDaysIso(todayIso, daysAhead);
 
   // Hidden extra discount the closer the check-in is (super last-minute)
