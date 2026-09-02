@@ -18,11 +18,10 @@
 Nykyinen logiikka pudottaa pois kaikki jaksot, joiden pituus alittaa Moderin minimiyömäärän. Muutetaan tämä pyyntösi mukaisesti:
 
 - Jokaiselle vapaalle jaksolle katsotaan, onko **sekä sitä edeltävä että sitä seuraava päivä varattu**.
-- Jos on ja jakso jää minimiyömäärän alle, jakso merkitään **aukoksi** ja se näytetään täsmälleen sen pituisena (1 tai 2 yötä) — minimiyömäärä ohitetaan, koska aukkoa ei voi muuten myydä.
+- Jos on ja jakso jää minimiyömäärän alle, jakso sallitaan sen pituisena (1 tai 2 yötä) — minimiyömäärä ohitetaan, koska aukkoa ei voi muuten myydä.
 - Muissa tapauksissa näytetään vain minimiyömäärän täyttävät pituudet, kuten ennenkin.
 - Lisäksi huomioidaan Moderin `checkin_denied` / `checkout_denied` -päivät: jaksoa ei tarjota alkavaksi tai päättyväksi kielletylle päivälle.
-
-Aukkojaksot saavat oman merkintänsä kortissa (esim. "Vain tämä aukko – 2 yötä").
+- Aukkoja **ei merkitä korteissa erikseen** — ne näytetään ihan samalla tavalla kuin muutkin jaksot.
 
 ## 3. Hinnoittelu suoraan saatavuusvastauksesta
 
