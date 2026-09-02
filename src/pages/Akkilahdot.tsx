@@ -12,7 +12,6 @@ import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema } from "@/utils/structuredData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import type { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -437,7 +436,6 @@ const disabledContent: Record<Language, { heading: string; body: string; cta: st
   }
 };
 
-type NightFilter = "2" | "3" | "4" | "5" | "6" | "7";
 
 // Add n days to an ISO date string (yyyy-mm-dd)
 const addDaysIso = (dateStr: string, days: number): string => {
@@ -994,7 +992,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* Search beyond the allowed booking window */}
-            {dealsEnabled && !isLoading && mode === "search" && searchCheckIn > maxCheckInIso && (
+            {dealsEnabled && !isLoading && searchCheckIn > maxCheckInIso && (
               <section className="max-w-2xl mx-auto mb-16 text-center">
                 <div className="glass-card border-primary/30 rounded-xl p-6">
                   <p className="text-muted-foreground mb-4">{x.beyondWindow(daysAhead)}</p>
