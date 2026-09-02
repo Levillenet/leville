@@ -138,3 +138,37 @@ export const getAllPropertyDetails = getAllDefaultPropertyDetails;
 
 // Export for backwards compatibility
 export const propertyDetails = getAllDefaultPropertyDetails();
+
+// Map Beds24 roomId -> own website property page slug (src/data/properties.ts)
+export const propertySiteSlugs: Record<string, string> = {
+  "350161": "zero-point-5b5-penthouse",
+  "350162": "zero-point-5a2",
+  "350160": "zero-point-5b2",
+  "504843": "glacier-a1",
+  "504854": "glacier-a2",
+  "504855": "glacier-a3",
+  "504856": "glacier-a4",
+  "504857": "glacier-a5-penthouse",
+  "504858": "glacier-a6",
+  "504859": "glacier-b1",
+  "504860": "glacier-b2",
+  "504861": "glacier-b3-penthouse",
+  "504862": "glacier-b4-penthouse",
+  "625187": "skistar-studio-319",
+  "413958": "skistar-studio-321",
+  "350158": "skistar-studio-320",
+  "350156": "skistar-studio-104",
+  "485409": "skistar-studio-102",
+  "350155": "skistar-210",
+  "350154": "skistar-211",
+  "350159": "skistar-212",
+  "350157": "skistar-209",
+  "699582": "skistar-310",
+  "414014": "levi-platinum-a2",
+  "353045": "karhupirtti",
+  "620949": "karhunvartija-3",
+  "645946": "moonlight-415",
+  "625005": "moonlight-415",
+};
+
+export const getPropertySiteSlug = (roomId: string): string | undefined => propertySiteSlugs[roomId];
