@@ -536,23 +536,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   const isLoading = isLoadingDeals || isLoadingSettings;
 
-  // How many nights the selected filter wants to display
-  const requiredNights = parseInt(nightFilter, 10);
-
-  // Filter deals: window must fit the selected length and respect min stay.
-  // Gap windows (short openings between two bookings) are always shown,
-  // even when shorter than Moder's minimum stay.
+  // Deals inside the allowed booking window (used for schema only)
   const filteredDeals = useMemo(() =>
-    allDeals.filter((deal) => {
-      if (deal.checkIn > maxCheckInIso) return false;
-      const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
-      const minNights = deal.minNights ?? 1;
-      if (deal.isGap) return windowNights >= 1;
-      if (windowNights < 2) return false;
-      if (windowNights < requiredNights) return false;
-      if (minNights > requiredNights) return false;
-      return true;
-    }), [allDeals, requiredNights, maxCheckInIso]);
+    allDeals.filter((deal) => deal.checkIn <= maxCheckInIso),
+    [allDeals, maxCheckInIso]);
 
   // Helper to get property with DB override - memoized
   const getPropertyWithOverride = useCallback((roomId: string) => {
