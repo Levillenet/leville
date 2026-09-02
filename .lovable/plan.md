@@ -35,3 +35,11 @@ Adminin hintarivi laskee tällä hetkellä vain kiinteistökohtaiset alennukset,
 
 - Ei tietokantamuutoksia eikä edge-funktiomuutoksia; kaikki muutokset frontendissä.
 - Sarakkeet `has_special_offer` ja `show_discount` jäävät tauluun, mutta niitä ei enää säädetä käyttöliittymästä.
+
+## 4. Hakuwidget ja saman päivän hinnat
+
+- **Hinta myös samana päivänä alkaville jaksoille**: poistetaan "Kysy hintaa nopeasti alkavaan majoitukseen" -korvike. Hinta lasketaan ja näytetään samalla logiikalla kuin muillekin jaksoille; kiireellisyys viestitään erillisellä "Alkaa tänään" -merkinnällä.
+- **Haku päälle oletuksena**: `/akkilahdot` avautuu hakutilassa (nykyisin listatila). Listaus jää toiseksi vaihtoehdoksi selkeällä "Näytä lista" -painikkeella.
+- **Iso, etusivun hakubanneria muistuttava widget**: leveä, korostettu hakupalkki sivun yläosaan samalla visuaalisella tyylillä kuin etusivun banneri (ei muutoksia etusivun banneriin itseensä).
+- **Kalenterivalinta**: nykyiset `type="date"` -kentät korvataan kalenterivalitsimella (shadcn Popover + Calendar), jossa kalenteri aukeaa klikkaamalla. Lähtöpäivä rajoittuu saapumispäivän jälkeisiin päiviin, menneet päivät estetään.
+- **Henkilömäärä poistetaan** hakukentistä ja suodatuslogiikasta.
