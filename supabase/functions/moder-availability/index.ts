@@ -169,11 +169,16 @@ function buildWindows(roomTypeId: number, days: DayInfo[], maxCheckIn: string): 
     const nights = daysBetween(start.date, checkOut);
 
     if (nights >= 1 && start.date <= maxCheckIn) {
-      // Gap detection: window bounded by occupied days on both sides
-      const prevDay = dateSet.get(addDays(start.date, -1));
+      // Gap detection: window bounded by occupied days on both sides.
+      // A window starting on the very first fetched day counts as bounded on the
+      // left: the night before is in the past and can never be sold.
+      const prevDate = addDays(start.date, -1);
+      const prevDay = dateSet.get(prevDate);
       const afterDay = nextDay ?? dateSet.get(checkOut);
       const occupied = (d: DayInfo | undefined) => !!d && (!d.isFree || d.blackout);
-      const isGap = occupied(prevDay) && occupied(afterDay);
+      const leftBounded = prevDay ? occupied(prevDay) : prevDate < days[0].date;
+      const isGap = leftBounded && occupied(afterDay);
+
 
       const rates: Record<string, number> = {};
       for (const d of runDays) {

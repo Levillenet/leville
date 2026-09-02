@@ -550,6 +550,39 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return 0;
   }, [superDiscount]);
 
+  // Gap Fill rules (admin setting `deals_gap_fill`)
+  const gapFillRaw = adminSettings?.siteSettings?.find(s => s.id === 'deals_gap_fill')?.value as
+    | Record<string, unknown>
+    | undefined;
+  const gapFill = useMemo(() => {
+    const num = (v: unknown, fallback: number) => {
+      const n = typeof v === 'number' ? v : parseInt(String(v ?? ''), 10);
+      return isNaN(n) || n < 0 ? fallback : Math.min(n, 30);
+    };
+    const bool = (v: unknown, fallback: boolean) => (typeof v === 'boolean' ? v : fallback);
+    const g2 = (gapFillRaw?.g2 ?? {}) as { enabled?: unknown; oneNight?: { enabled?: unknown; days?: unknown } };
+    const g3 = (gapFillRaw?.g3 ?? {}) as {
+      enabled?: unknown;
+      twoNights?: { enabled?: unknown; days?: unknown };
+      oneNight?: { enabled?: unknown; days?: unknown };
+    };
+    const g3Two = num(g3.twoNights?.days, 7);
+    return {
+      g1: bool(gapFillRaw?.g1, true),
+      g2: {
+        enabled: bool(g2.enabled, true),
+        oneNight: { enabled: bool(g2.oneNight?.enabled, true), days: num(g2.oneNight?.days, 5) },
+      },
+      g3: {
+        enabled: bool(g3.enabled, true),
+        twoNights: { enabled: bool(g3.twoNights?.enabled, true), days: g3Two },
+        oneNight: { enabled: bool(g3.oneNight?.enabled, true), days: Math.min(num(g3.oneNight?.days, 3), g3Two) },
+      },
+    };
+  }, [gapFillRaw]);
+
+  const gapDebug = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('debug') === 'gapfill';
+
   const isLoading = isLoadingDeals || isLoadingSettings;
 
   // Deals inside the allowed booking window (used for schema only)
@@ -557,22 +590,6 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     allDeals.filter((deal) => deal.checkIn <= maxCheckInIso),
     [allDeals, maxCheckInIso]);
 
-  // Marketing examples: next 10 free periods across different properties
-  const exampleWindows = useMemo(() => {
-    const sorted = [...filteredDeals].sort((a, b) => a.checkIn.localeCompare(b.checkIn));
-    const perRoom = new Map<string, number>();
-    const picked: { deal: Beds24Deal; checkIn: string; checkOut: string; nights: number }[] = [];
-    for (const deal of sorted) {
-      const used = perRoom.get(deal.roomId) ?? 0;
-      if (used >= 2) continue;
-      const nights = Math.min(deal.windowNights ?? deal.nights, 7);
-      if (nights < 1) continue;
-      perRoom.set(deal.roomId, used + 1);
-      picked.push({ deal, checkIn: deal.checkIn, checkOut: addDaysIso(deal.checkIn, nights), nights });
-      if (picked.length >= 10) break;
-    }
-    return picked;
-  }, [filteredDeals]);
 
 
 
@@ -658,18 +675,93 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return null;
   }, []);
 
-  // A stay must fit inside the free window, start on an allowed check-in day,
-  // end on an allowed check-out day, and respect Moder's minimum stay —
-  // unless it is a short gap between two bookings (shown regardless of min stay).
-  const isStayAllowed = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
-    if (nights < 1) return false;
+  // Gap Fill rules: gaps between two bookings may override the property's
+  // normal minimum stay. Longer free windows follow Moder's minimum stay.
+  const evaluateStay = useCallback((deal: Beds24Deal, checkIn: string, nights: number): { allowed: boolean; reason: string } => {
+    if (nights < 1) return { allowed: false, reason: 'invalid-nights' };
     const checkOut = addDaysIso(checkIn, nights);
-    if (checkIn < deal.checkIn || checkOut > deal.checkOut) return false;
-    if (deal.noCheckIn?.includes(checkIn)) return false;
-    if (deal.noCheckOut?.includes(checkOut)) return false;
-    if (!deal.isGap && nights < (deal.minNights ?? 1)) return false;
-    return true;
-  }, []);
+    if (checkIn < deal.checkIn || checkOut > deal.checkOut) return { allowed: false, reason: 'outside-window' };
+    if (deal.noCheckIn?.includes(checkIn)) return { allowed: false, reason: 'no-checkin-day' };
+    if (deal.noCheckOut?.includes(checkOut)) return { allowed: false, reason: 'no-checkout-day' };
+
+    const windowNights = deal.windowNights ?? deal.nights;
+    const minNights = deal.minNights ?? 1;
+    const daysUntil = Math.round(
+      (new Date(checkIn + "T00:00:00").getTime() - new Date(todayIso + "T00:00:00").getTime()) / 86400000
+    );
+
+    if (deal.isGap && windowNights <= 3) {
+      // Booking the whole gap always overrides the minimum stay when enabled
+      if (nights === windowNights) {
+        const on = windowNights === 1 ? gapFill.g1 : windowNights === 2 ? gapFill.g2.enabled : gapFill.g3.enabled;
+        return on
+          ? { allowed: true, reason: `gap${windowNights}-full` }
+          : { allowed: false, reason: `gap${windowNights}-disabled` };
+      }
+      if (windowNights === 2 && nights === 1) {
+        const rule = gapFill.g2.oneNight;
+        if (!rule.enabled) return { allowed: false, reason: 'gap2-1n-disabled' };
+        return daysUntil <= rule.days
+          ? { allowed: true, reason: 'gap2-1n-window' }
+          : { allowed: false, reason: 'gap2-1n-not-open-yet' };
+      }
+      if (windowNights === 3 && nights === 2) {
+        const rule = gapFill.g3.twoNights;
+        if (!rule.enabled) return { allowed: false, reason: 'gap3-2n-disabled' };
+        return daysUntil <= rule.days
+          ? { allowed: true, reason: 'gap3-2n-window' }
+          : { allowed: false, reason: 'gap3-2n-not-open-yet' };
+      }
+      if (windowNights === 3 && nights === 1) {
+        const rule = gapFill.g3.oneNight;
+        if (!rule.enabled) return { allowed: false, reason: 'gap3-1n-disabled' };
+        return daysUntil <= rule.days
+          ? { allowed: true, reason: 'gap3-1n-window' }
+          : { allowed: false, reason: 'gap3-1n-not-open-yet' };
+      }
+      return { allowed: false, reason: 'gap-shape-not-allowed' };
+    }
+
+    return nights >= minNights
+      ? { allowed: true, reason: 'min-nights' }
+      : { allowed: false, reason: 'below-min-nights' };
+  }, [gapFill, todayIso]);
+
+  const isStayAllowed = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
+    const result = evaluateStay(deal, checkIn, nights);
+    if (gapDebug) {
+      const windowNights = deal.windowNights ?? deal.nights;
+      const daysUntil = Math.round(
+        (new Date(checkIn + "T00:00:00").getTime() - new Date(todayIso + "T00:00:00").getTime()) / 86400000
+      );
+      console.debug(
+        `[gapfill] room=${deal.roomId} in=${checkIn} nights=${nights} window=${windowNights} gap=${!!deal.isGap} minNights=${deal.minNights ?? 1} daysUntil=${daysUntil} -> ${result.allowed}/${result.reason}`
+      );
+    }
+    return result.allowed;
+  }, [evaluateStay, gapDebug, todayIso]);
+
+  // Marketing examples: next 10 sellable free periods across different properties
+  const exampleWindows = useMemo(() => {
+    const sorted = [...filteredDeals].sort((a, b) => a.checkIn.localeCompare(b.checkIn));
+    const perRoom = new Map<string, number>();
+    const picked: { deal: Beds24Deal; checkIn: string; checkOut: string; nights: number }[] = [];
+    for (const deal of sorted) {
+      const used = perRoom.get(deal.roomId) ?? 0;
+      if (used >= 2) continue;
+      const maxNights = Math.min(deal.windowNights ?? deal.nights, 7);
+      let nights = 0;
+      for (let n = maxNights; n >= 1; n--) {
+        if (isStayAllowed(deal, deal.checkIn, n)) { nights = n; break; }
+      }
+      if (nights < 1) continue;
+      perRoom.set(deal.roomId, used + 1);
+      picked.push({ deal, checkIn: deal.checkIn, checkOut: addDaysIso(deal.checkIn, nights), nights });
+      if (picked.length >= 10) break;
+    }
+    return picked;
+  }, [filteredDeals, isStayAllowed]);
+
 
   // Cleaning fee: prefer Moder mapping value, fallback to property settings
   const getCleaningFee = useCallback((deal: Beds24Deal): number => {

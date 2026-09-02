@@ -11,6 +11,22 @@ interface SiteSettingsAdminProps {
   isViewer?: boolean;
 }
 
+interface GapFillSettings {
+  g1: boolean;
+  g2: { enabled: boolean; oneNight: { enabled: boolean; days: number } };
+  g3: {
+    enabled: boolean;
+    twoNights: { enabled: boolean; days: number };
+    oneNight: { enabled: boolean; days: number };
+  };
+}
+
+const defaultGapFill: GapFillSettings = {
+  g1: true,
+  g2: { enabled: true, oneNight: { enabled: true, days: 5 } },
+  g3: { enabled: true, twoNights: { enabled: true, days: 7 }, oneNight: { enabled: true, days: 3 } },
+};
+
 const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const { settings, isLoading, updateSiteSetting, isSaving } = useAdminSettingsManager();
   const [dealsDaysAhead, setDealsDaysAhead] = useState<number>(14);
@@ -18,6 +34,9 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const [dealsBaseDiscount, setDealsBaseDiscount] = useState<number>(0);
   const [discountOneNight, setDiscountOneNight] = useState<boolean>(false);
   const [superDiscount, setSuperDiscount] = useState<{ d3: number; d5: number; d7: number }>({ d3: 0, d5: 0, d7: 0 });
+  const [gapFill, setGapFill] = useState<GapFillSettings>(defaultGapFill);
+
+
 
   
   // Load current values from settings
@@ -59,6 +78,28 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
         };
         setSuperDiscount({ d3: num(v.d3), d5: num(v.d5), d7: num(v.d7) });
       }
+      const gapSetting = settings.siteSettings.find(s => s.id === 'deals_gap_fill');
+      if (gapSetting?.value && typeof gapSetting.value === 'object') {
+        const v = gapSetting.value as Record<string, any>;
+        const num = (x: unknown, f: number) => {
+          const n = typeof x === 'number' ? x : parseInt(String(x ?? ''), 10);
+          return isNaN(n) || n < 0 ? f : Math.min(n, 30);
+        };
+        const bool = (x: unknown, f: boolean) => (typeof x === 'boolean' ? x : f);
+        const two = num(v.g3?.twoNights?.days, 7);
+        setGapFill({
+          g1: bool(v.g1, true),
+          g2: {
+            enabled: bool(v.g2?.enabled, true),
+            oneNight: { enabled: bool(v.g2?.oneNight?.enabled, true), days: num(v.g2?.oneNight?.days, 5) },
+          },
+          g3: {
+            enabled: bool(v.g3?.enabled, true),
+            twoNights: { enabled: bool(v.g3?.twoNights?.enabled, true), days: two },
+            oneNight: { enabled: bool(v.g3?.oneNight?.enabled, true), days: Math.min(num(v.g3?.oneNight?.days, 3), two) },
+          },
+        });
+      }
     }
   }, [settings?.siteSettings]);
 
@@ -69,6 +110,25 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
     setSuperDiscount(next);
     updateSiteSetting({ settingId: 'deals_super_discount', value: next });
   };
+
+  const saveGapFill = (next: GapFillSettings) => {
+    // Validation: 1-night release can never open earlier than the 2-night release
+    const normalized: GapFillSettings = {
+      ...next,
+      g3: {
+        ...next.g3,
+        oneNight: { ...next.g3.oneNight, days: Math.min(next.g3.oneNight.days, next.g3.twoNights.days) },
+      },
+    };
+    setGapFill(normalized);
+    updateSiteSetting({ settingId: 'deals_gap_fill', value: normalized });
+  };
+
+  const gapDays = (raw: string) => {
+    const n = parseInt(raw, 10);
+    return isNaN(n) || n < 0 ? 0 : Math.min(n, 30);
+  };
+
 
   const handleQuickSelect = (days: number) => {
     setDealsDaysAhead(days);
@@ -269,7 +329,144 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
           )}
         </CardContent>
       </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <CalendarDays className="w-5 h-5" />
+            Gap Fill – väliin jäävät yöt
+          </CardTitle>
+          <CardDescription>
+            Kahden varauksen väliin jäävät 1–3 yön jaksot voidaan myydä kohteen normaalista
+            minimiyöpymisestä huolimatta. Säännöt vaikuttavat suoraan myytävään saatavuuteen.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* 1 night gap */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-4">
+              <Label htmlFor="gap-g1" className="text-base font-medium">1 yön gap – salli 1 yön gap fill</Label>
+              <Switch
+                id="gap-g1"
+                checked={gapFill.g1}
+                onCheckedChange={(c) => saveGapFill({ ...gapFill, g1: c })}
+                disabled={isSaving || isViewer}
+              />
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Myynti sallittu koko äkkilähtöikkunan ajan, viimeistään saapumista edeltävänä päivänä.
+            </p>
+          </div>
+
+          {/* 2 night gap */}
+          <div className="space-y-3 border-t pt-4">
+            <div className="flex items-center justify-between gap-4">
+              <Label htmlFor="gap-g2" className="text-base font-medium">2 yön gap – salli 2 yön gap fill</Label>
+              <Switch
+                id="gap-g2"
+                checked={gapFill.g2.enabled}
+                onCheckedChange={(c) => saveGapFill({ ...gapFill, g2: { ...gapFill.g2, enabled: c } })}
+                disabled={isSaving || isViewer}
+              />
+            </div>
+            <div className="flex items-center justify-between gap-4">
+              <Label htmlFor="gap-g2-1n" className="text-sm">
+                Salli 1 yön varaus, jos koko gapia ei ole myyty
+              </Label>
+              <Switch
+                id="gap-g2-1n"
+                checked={gapFill.g2.oneNight.enabled}
+                onCheckedChange={(c) => saveGapFill({ ...gapFill, g2: { ...gapFill.g2, oneNight: { ...gapFill.g2.oneNight, enabled: c } } })}
+                disabled={isSaving || isViewer}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Input
+                type="number"
+                min={0}
+                max={30}
+                className="h-11 w-24"
+                value={gapFill.g2.oneNight.days}
+                onChange={(e) => saveGapFill({ ...gapFill, g2: { ...gapFill.g2, oneNight: { ...gapFill.g2.oneNight, days: gapDays(e.target.value) } } })}
+                disabled={isSaving || isViewer || !gapFill.g2.oneNight.enabled}
+              />
+              <span className="text-sm text-muted-foreground">päivää ennen saapumista</span>
+            </div>
+          </div>
+
+          {/* 3 night gap */}
+          <div className="space-y-3 border-t pt-4">
+            <div className="flex items-center justify-between gap-4">
+              <Label htmlFor="gap-g3" className="text-base font-medium">3 yön gap – salli 3 yön gap fill</Label>
+              <Switch
+                id="gap-g3"
+                checked={gapFill.g3.enabled}
+                onCheckedChange={(c) => saveGapFill({ ...gapFill, g3: { ...gapFill.g3, enabled: c } })}
+                disabled={isSaving || isViewer}
+              />
+            </div>
+            <div className="flex items-center justify-between gap-4">
+              <Label htmlFor="gap-g3-2n" className="text-sm">
+                Salli 2 yön varaus, jos koko gapia ei ole myyty
+              </Label>
+              <Switch
+                id="gap-g3-2n"
+                checked={gapFill.g3.twoNights.enabled}
+                onCheckedChange={(c) => saveGapFill({ ...gapFill, g3: { ...gapFill.g3, twoNights: { ...gapFill.g3.twoNights, enabled: c } } })}
+                disabled={isSaving || isViewer}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Input
+                type="number"
+                min={0}
+                max={30}
+                className="h-11 w-24"
+                value={gapFill.g3.twoNights.days}
+                onChange={(e) => saveGapFill({ ...gapFill, g3: { ...gapFill.g3, twoNights: { ...gapFill.g3.twoNights, days: gapDays(e.target.value) } } })}
+                disabled={isSaving || isViewer || !gapFill.g3.twoNights.enabled}
+              />
+              <span className="text-sm text-muted-foreground">päivää ennen saapumista</span>
+            </div>
+            <div className="flex items-center justify-between gap-4">
+              <Label htmlFor="gap-g3-1n" className="text-sm">
+                Salli 1 yön varaus, jos gapia ei edelleenkään ole myyty
+              </Label>
+              <Switch
+                id="gap-g3-1n"
+                checked={gapFill.g3.oneNight.enabled}
+                onCheckedChange={(c) => saveGapFill({ ...gapFill, g3: { ...gapFill.g3, oneNight: { ...gapFill.g3.oneNight, enabled: c } } })}
+                disabled={isSaving || isViewer}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Input
+                type="number"
+                min={0}
+                max={30}
+                className="h-11 w-24"
+                value={gapFill.g3.oneNight.days}
+                onChange={(e) => saveGapFill({ ...gapFill, g3: { ...gapFill.g3, oneNight: { ...gapFill.g3.oneNight, days: gapDays(e.target.value) } } })}
+                disabled={isSaving || isViewer || !gapFill.g3.oneNight.enabled}
+              />
+              <span className="text-sm text-muted-foreground">päivää ennen saapumista</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              1 yön myynti ei voi avautua aikaisemmin kuin 2 yön myynti – arvo rajataan automaattisesti
+              korkeintaan {gapFill.g3.twoNights.days} päivään.
+            </p>
+          </div>
+
+          {isSaving && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Tallennetaan...
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
+
   );
 };
 
