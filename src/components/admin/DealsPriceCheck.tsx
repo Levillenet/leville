@@ -289,6 +289,10 @@ const DealsPriceCheck = ({ settings }: Props) => {
                     <span>Jaksokohtainen alennus {r.breakdown.periodDiscountPct} %</span>
                     <span>− {eur(r.breakdown.periodDiscountAmount)}</span>
                   </div>
+                  <div className="flex justify-between">
+                    <span>Siivousmaksu</span>
+                    <span>+ {eur(r.breakdown.cleaningFee)}</span>
+                  </div>
                   <div className="flex justify-between border-t pt-1 font-semibold">
                     <span>Asiakkaan hinta</span>
                     <span>{r.breakdown.total} €</span>
@@ -296,7 +300,9 @@ const DealsPriceCheck = ({ settings }: Props) => {
                   {!r.breakdown.discountsApplied && (
                     <div className="text-amber-600">1 yön varaus: alennukset pois päältä asetuksissa.</div>
                   )}
-                  <div className="text-muted-foreground">Siivousmaksu sisältyy Moderin hintaan (ei lisätä erikseen).</div>
+                  <div className="text-muted-foreground">
+                    Moderin hinta on pelkkä majoitus; siivousmaksu lisätään aina päälle.
+                  </div>
                 </div>
               )}
 
