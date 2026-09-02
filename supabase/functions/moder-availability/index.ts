@@ -56,6 +56,7 @@ interface Window_ {
   checkOut: string; // exclusive
   nights: number;
   minNights: number;
+  minNightsByDate: Record<string, number>;
   isGap: boolean;
   rates: Record<string, number>; // date -> EUR per night
   noCheckIn: string[];
@@ -181,8 +182,10 @@ function buildWindows(roomTypeId: number, days: DayInfo[], maxCheckIn: string): 
 
 
       const rates: Record<string, number> = {};
+      const minNightsByDate: Record<string, number> = {};
       for (const d of runDays) {
         if (d.dayRate != null) rates[d.date] = d.dayRate;
+        minNightsByDate[d.date] = d.minNights || 1;
       }
 
       windows.push({
@@ -190,7 +193,11 @@ function buildWindows(roomTypeId: number, days: DayInfo[], maxCheckIn: string): 
         checkIn: start.date,
         checkOut,
         nights,
-        minNights: Math.max(...runDays.map(d => d.minNights || 1)),
+        // Per-stay minimum: use the arrival night's value, not the maximum
+        // across the whole free window (a long window would otherwise inherit
+        // a stricter limit from a far-away date).
+        minNights: start.minNights || 1,
+        minNightsByDate,
         isGap,
         rates,
         noCheckIn: runDays.filter(d => d.checkinDenied).map(d => d.date),
@@ -497,6 +504,7 @@ serve(async (req) => {
         nights: w.nights,
         windowNights: w.nights,
         minNights: w.minNights,
+        minNightsByDate: w.minNightsByDate,
         isGap: w.isGap,
         pricesByNights,
         noCheckIn: w.noCheckIn,
