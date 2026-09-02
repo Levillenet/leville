@@ -559,12 +559,35 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return Math.min(requiredNights, windowNights);
   }, [requiredNights]);
 
-  // Moder price for a given stay length (EUR, excluding cleaning fee)
-  const getModerPrice = useCallback((deal: Beds24Deal, nights: number): number | null => {
+  // Moder stay price from per-night rates (EUR, excluding cleaning fee).
+  // Falls back to the legacy pricesByNights payload when rates are absent.
+  const getModerPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number): number | null => {
+    if (deal.rates && Object.keys(deal.rates).length > 0) {
+      let sum = 0;
+      for (let i = 0; i < nights; i++) {
+        const r = deal.rates[addDaysIso(checkIn, i)];
+        if (typeof r !== "number" || r <= 0) return null;
+        sum += r;
+      }
+      return sum;
+    }
     const p = deal.pricesByNights?.[String(nights)];
     if (typeof p === 'number' && p > 0) return p;
     if (nights === deal.nights && deal.price != null && deal.price > 0) return deal.price;
     return null;
+  }, []);
+
+  // A stay must fit inside the free window, start on an allowed check-in day,
+  // end on an allowed check-out day, and respect Moder's minimum stay —
+  // unless it is a short gap between two bookings (shown regardless of min stay).
+  const isStayAllowed = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
+    if (nights < 1) return false;
+    const checkOut = addDaysIso(checkIn, nights);
+    if (checkIn < deal.checkIn || checkOut > deal.checkOut) return false;
+    if (deal.noCheckIn?.includes(checkIn)) return false;
+    if (deal.noCheckOut?.includes(checkOut)) return false;
+    if (!deal.isGap && nights < (deal.minNights ?? 1)) return false;
+    return true;
   }, []);
 
   // Cleaning fee: prefer Moder mapping value, fallback to property settings
@@ -575,21 +598,21 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   }, [getPropertyWithOverride]);
 
   // Normal price shown as reference: Moder price + cleaning fee (no discounts)
-  const getOriginalApiPrice = useCallback((deal: Beds24Deal, nights: number): number | null => {
-    const base = getModerPrice(deal, nights);
+  const getOriginalApiPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number): number | null => {
+    const base = getModerPrice(deal, checkIn, nights);
     if (base == null) return null;
     return Math.round(base + getCleaningFee(deal));
   }, [getModerPrice, getCleaningFee]);
 
   // Final price: Moder price - base discount - period custom discount, + cleaning fee
-  const getTotalPrice = useCallback((deal: Beds24Deal, nights: number): number | null => {
-    const base = getModerPrice(deal, nights);
+  const getTotalPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number): number | null => {
+    const base = getModerPrice(deal, checkIn, nights);
     if (base == null) return null;
 
     let price = base * (1 - dealsBaseDiscount / 100);
 
     // Period-specific custom discount (from admin) - applied as ADDITIONAL discount
-    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, addDaysIso(deal.checkIn, nights));
+    const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
     if (periodS.customDiscount && periodS.customDiscount > 0) {
       price = price * (1 - periodS.customDiscount / 100);
     }
@@ -597,15 +620,15 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return Math.round(price + getCleaningFee(deal));
   }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb]);
 
-  // Check if ski pass offer applies to this deal (using displayed dates)
-  const hasSkiPassOffer = useCallback((deal: Beds24Deal, nights: number): boolean => {
-    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, addDaysIso(deal.checkIn, nights));
+  // Check if ski pass offer applies to this stay (using displayed dates)
+  const hasSkiPassOffer = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
+    const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
     return periodS.hasSkiPass;
   }, [getPeriodSettingsFromDb]);
 
   // Check if special offer is active (using displayed dates)
-  const hasSpecialOffer = useCallback((deal: Beds24Deal, nights: number): boolean => {
-    const periodS = getPeriodSettingsFromDb(deal.roomId, deal.checkIn, addDaysIso(deal.checkIn, nights));
+  const hasSpecialOffer = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
+    const periodS = getPeriodSettingsFromDb(deal.roomId, checkIn, addDaysIso(checkIn, nights));
     return periodS.specialOffer || false;
   }, [getPeriodSettingsFromDb]);
 
