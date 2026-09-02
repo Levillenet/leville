@@ -12,7 +12,6 @@ import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema } from "@/utils/structuredData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import type { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -437,7 +436,6 @@ const disabledContent: Record<Language, { heading: string; body: string; cta: st
   }
 };
 
-type NightFilter = "2" | "3" | "4" | "5" | "6" | "7";
 
 // Add n days to an ISO date string (yyyy-mm-dd)
 const addDaysIso = (dateStr: string, days: number): string => {
@@ -475,8 +473,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
   const x = extraLabels[lang];
-  const [nightFilter, setNightFilter] = useState<NightFilter>("3");
-  const [mode, setMode] = useState<"list" | "search">("list");
+  // Deals are only served through the date search so prices always come
+  // from Moder for the exact length of stay.
   const [searchCheckIn, setSearchCheckIn] = useState("");
   const [searchCheckOut, setSearchCheckOut] = useState("");
   const [rangeOpen, setRangeOpen] = useState(false);
@@ -536,23 +534,10 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
   const isLoading = isLoadingDeals || isLoadingSettings;
 
-  // How many nights the selected filter wants to display
-  const requiredNights = parseInt(nightFilter, 10);
-
-  // Filter deals: window must fit the selected length and respect min stay.
-  // Gap windows (short openings between two bookings) are always shown,
-  // even when shorter than Moder's minimum stay.
+  // Deals inside the allowed booking window (used for schema only)
   const filteredDeals = useMemo(() =>
-    allDeals.filter((deal) => {
-      if (deal.checkIn > maxCheckInIso) return false;
-      const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
-      const minNights = deal.minNights ?? 1;
-      if (deal.isGap) return windowNights >= 1;
-      if (windowNights < 2) return false;
-      if (windowNights < requiredNights) return false;
-      if (minNights > requiredNights) return false;
-      return true;
-    }), [allDeals, requiredNights, maxCheckInIso]);
+    allDeals.filter((deal) => deal.checkIn <= maxCheckInIso),
+    [allDeals, maxCheckInIso]);
 
   // Helper to get property with DB override - memoized
   const getPropertyWithOverride = useCallback((roomId: string) => {
@@ -619,11 +604,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return today.toDateString() === checkDate.toDateString();
   }, []);
 
-  // Nights displayed for a deal under the current filter (window capped at 7)
-  const getDisplayNights = useCallback((deal: Beds24Deal): number => {
-    const windowNights = Math.min(deal.windowNights ?? deal.nights, 7);
-    return Math.min(requiredNights, windowNights);
-  }, [requiredNights]);
+
+
 
   // Real Moder stay price (EUR, excluding cleaning fee).
   // List mode: prices per stay length precomputed for the window start.
@@ -782,11 +764,6 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     "itemListElement": allDealsForSchema
   }), [t.title, t.meta.description, t.meta.canonical, allDealsForSchema]);
 
-  // Cards to render in list mode: window start + the nights shown for the filter
-  const listItems = useMemo(() =>
-    filteredDeals.map(deal => ({ deal, checkIn: deal.checkIn, nights: getDisplayNights(deal), quoted: null as number | null })),
-    [filteredDeals, getDisplayNights]);
-
   // Date search: one card per room whose window covers the requested stay
   const searchNights = useMemo(() => {
     if (!searchCheckIn || !searchCheckOut) return 0;
@@ -796,12 +773,12 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const { data: searchPrices } = useQuery({
     queryKey: ['moder-stay-prices', searchCheckIn, searchCheckOut],
     queryFn: () => fetchStayPrices(searchCheckIn, searchCheckOut),
-    enabled: mode === "search" && searchNights >= 1 && searchCheckIn <= maxCheckInIso,
+    enabled: searchNights >= 1 && searchCheckIn <= maxCheckInIso,
     staleTime: 30 * 60 * 1000,
   });
 
   const searchItems = useMemo(() => {
-    if (mode !== "search" || searchNights < 1) return [];
+    if (searchNights < 1) return [];
     if (searchCheckIn > maxCheckInIso) return [];
     const results: { deal: Beds24Deal; checkIn: string; nights: number; quoted: number | null }[] = [];
     for (const deal of allDeals) {
@@ -815,13 +792,13 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
       (getTotalPrice(b.deal, b.checkIn, b.nights, b.quoted) ?? Infinity)
     );
     return results;
-  }, [mode, allDeals, searchCheckIn, searchNights, isStayAllowed, getTotalPrice, maxCheckInIso, searchPrices]);
+  }, [allDeals, searchCheckIn, searchNights, isStayAllowed, getTotalPrice, maxCheckInIso, searchPrices]);
 
 
-  const displayItems = mode === "search" ? searchItems : listItems;
-  const searchActive = mode === "search" && searchNights >= 1;
+  const displayItems = searchItems;
+  const searchActive = searchNights >= 1;
 
-  const hasDeals = filteredDeals.length > 0 || manualDeals.length > 0;
+  const hasDeals = searchItems.length > 0 || manualDeals.length > 0;
 
   return (
     <>
@@ -874,33 +851,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   {t.subtitle}
                 </p>
                 
-                {/* Mode toggle: browse list / search by dates */}
+                {/* Date search is the only way to get correct length-of-stay prices */}
                 {dealsEnabled && (
-                  <div className="mt-6 flex justify-center">
-                    <ToggleGroup
-                      type="single"
-                      value={mode}
-                      onValueChange={(value) => value && setMode(value as "list" | "search")}
-                      className="bg-background/50 border border-border/30 rounded-lg p-1"
-                    >
-                      <ToggleGroupItem
-                        value="list"
-                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                      >
-                        {t.modeList}
-                      </ToggleGroupItem>
-                      <ToggleGroupItem
-                        value="search"
-                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                      >
-                        {t.modeSearch}
-                      </ToggleGroupItem>
-                    </ToggleGroup>
-                  </div>
-                )}
-
-                {/* Big search widget with calendars */}
-                {dealsEnabled && mode === "search" && (
                   <div className="mt-8 max-w-4xl mx-auto">
                     <div className="glass-card border-primary/30 rounded-2xl p-5 md:p-8 text-left shadow-xl">
                       <h2 className="text-lg md:text-xl font-semibold text-foreground mb-4 text-center">
@@ -983,26 +935,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                 )}
 
 
-                {/* Night filter (list mode) */}
-                {dealsEnabled && mode === "list" && (
-                <div className="mt-6 flex justify-center">
-                  <ToggleGroup
-                    type="single"
-                    value={nightFilter}
-                    onValueChange={(value) => value && setNightFilter(value as NightFilter)}
-                    className="bg-background/50 border border-border/30 rounded-lg p-1"
-                  >
-                    {([2, 3, 4, 5, 6, 7] as const).map((n) => (
-                      <ToggleGroupItem
-                        key={n}
-                        value={String(n)}
-                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                      >
-                        {n} {t.nightsWord}
-                      </ToggleGroupItem>
-                    ))}
-                  </ToggleGroup>
-                </div>
+                {/* Prompt before any dates are chosen */}
+                {dealsEnabled && !searchActive && (
+                  <p className="mt-6 text-sm text-muted-foreground">{x.pickRange}</p>
                 )}
               </section>
             </ScrollReveal>
@@ -1054,7 +989,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* Search beyond the allowed booking window */}
-            {dealsEnabled && !isLoading && mode === "search" && searchCheckIn > maxCheckInIso && (
+            {dealsEnabled && !isLoading && searchCheckIn > maxCheckInIso && (
               <section className="max-w-2xl mx-auto mb-16 text-center">
                 <div className="glass-card border-primary/30 rounded-xl p-6">
                   <p className="text-muted-foreground mb-4">{x.beyondWindow(daysAhead)}</p>
@@ -1307,7 +1242,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                   const pricePerPerson = Math.round(deal.price / deal.persons);
                   
                   return (
-                    <ScrollReveal key={deal.id} delay={(filteredDeals.length + index) * 0.1}>
+                    <ScrollReveal key={deal.id} delay={index * 0.1}>
                       <Card className="glass-card border-border/30 hover:border-red-500/50 transition-all duration-300 overflow-hidden group relative">
                         {/* Urgency badge */}
                         {deal.urgency && (
@@ -1374,7 +1309,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
             )}
 
             {/* No deals available */}
-            {dealsEnabled && !isLoading && !hasDeals && (
+            {dealsEnabled && !isLoading && searchActive && !hasDeals && (
               <ScrollReveal>
                 <div className="text-center py-12 text-muted-foreground">
                   <Clock className="w-12 h-12 mx-auto mb-4 opacity-50" />
