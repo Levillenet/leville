@@ -124,7 +124,7 @@ const DealsPriceCheck = ({ settings }: Props) => {
         const property = properties.find(p => p.id === roomId);
         const name = property?.name || debug?.name || roomId;
         const moderPrice = result.prices[roomId] ?? null;
-        const cleaningFee = 0; // Moder LOS price already includes cleaning
+        const cleaningFee = debug?.cleaningFee ?? 0;
         const periodPct = periodDiscountFor(roomId);
         const breakdown =
           moderPrice != null
@@ -158,6 +158,7 @@ const DealsPriceCheck = ({ settings }: Props) => {
       lines.push(`  Perusalennus ${r.breakdown.baseDiscountPct}%: -${eur(r.breakdown.baseDiscountAmount)}`);
       lines.push(`  Superäkkilähtö ${r.breakdown.superDiscountPct}%: -${eur(r.breakdown.superDiscountAmount)}`);
       lines.push(`  Jaksoalennus ${r.breakdown.periodDiscountPct}%: -${eur(r.breakdown.periodDiscountAmount)}`);
+      lines.push(`  Siivousmaksu: +${eur(r.breakdown.cleaningFee)}`);
       lines.push(`  Asiakkaan hinta: ${r.breakdown.total} € (${eur(r.breakdown.perNight)}/yö)`);
       if (r.debug) {
         lines.push(`  Moder LOS-hinnat: ${Object.entries(r.debug.losPrices).map(([n, v]) => `${n}yö=${v}€`).join(', ')}`);
@@ -288,6 +289,10 @@ const DealsPriceCheck = ({ settings }: Props) => {
                     <span>Jaksokohtainen alennus {r.breakdown.periodDiscountPct} %</span>
                     <span>− {eur(r.breakdown.periodDiscountAmount)}</span>
                   </div>
+                  <div className="flex justify-between">
+                    <span>Siivousmaksu</span>
+                    <span>+ {eur(r.breakdown.cleaningFee)}</span>
+                  </div>
                   <div className="flex justify-between border-t pt-1 font-semibold">
                     <span>Asiakkaan hinta</span>
                     <span>{r.breakdown.total} €</span>
@@ -295,7 +300,9 @@ const DealsPriceCheck = ({ settings }: Props) => {
                   {!r.breakdown.discountsApplied && (
                     <div className="text-amber-600">1 yön varaus: alennukset pois päältä asetuksissa.</div>
                   )}
-                  <div className="text-muted-foreground">Siivousmaksu sisältyy Moderin hintaan (ei lisätä erikseen).</div>
+                  <div className="text-muted-foreground">
+                    Moderin hinta on pelkkä majoitus; siivousmaksu lisätään aina päälle.
+                  </div>
                 </div>
               )}
 
