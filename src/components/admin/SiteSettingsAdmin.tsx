@@ -45,7 +45,12 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
           setDealsBaseDiscount(value);
         }
       }
+      const oneNightSetting = settings.siteSettings.find(s => s.id === 'deals_discount_one_night');
+      if (oneNightSetting?.value !== undefined) {
+        setDiscountOneNight(oneNightSetting.value === true);
+      }
       const superSetting = settings.siteSettings.find(s => s.id === 'deals_super_discount');
+
       if (superSetting?.value && typeof superSetting.value === 'object') {
         const v = superSetting.value as { d3?: number; d5?: number; d7?: number };
         const num = (x: unknown) => {
