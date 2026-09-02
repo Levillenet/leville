@@ -441,6 +441,19 @@ const addDaysIso = (dateStr: string, days: number): string => {
   return d.toISOString().slice(0, 10);
 };
 
+// Labels shown on every deal card / in the search widget
+const extraLabels: Record<Language, { offer: string; today: string; pickDate: string; searchHeading: string }> = {
+  fi: { offer: "ÄKKILÄHTÖ TARJOUS", today: "Alkaa tänään", pickDate: "Valitse päivä", searchHeading: "Hae vapaat äkkilähdöt" },
+  en: { offer: "LAST MINUTE OFFER", today: "Starts today", pickDate: "Select date", searchHeading: "Search available last-minute stays" },
+  sv: { offer: "SISTA MINUTEN-ERBJUDANDE", today: "Börjar idag", pickDate: "Välj datum", searchHeading: "Sök lediga sista minuten-boenden" },
+  de: { offer: "LAST-MINUTE-ANGEBOT", today: "Beginnt heute", pickDate: "Datum wählen", searchHeading: "Freie Last-Minute-Unterkünfte suchen" },
+  es: { offer: "OFERTA ÚLTIMA HORA", today: "Comienza hoy", pickDate: "Elegir fecha", searchHeading: "Buscar alojamientos de última hora" },
+  fr: { offer: "OFFRE DERNIÈRE MINUTE", today: "Commence aujourd'hui", pickDate: "Choisir la date", searchHeading: "Rechercher des séjours de dernière minute" },
+  nl: { offer: "LAST-MINUTE AANBIEDING", today: "Begint vandaag", pickDate: "Kies datum", searchHeading: "Zoek beschikbare last-minute verblijven" },
+};
+
+
+
 const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const location = useLocation();
   const t = content[lang];
