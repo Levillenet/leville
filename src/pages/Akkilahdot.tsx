@@ -851,56 +851,42 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                       <h2 className="text-lg md:text-xl font-semibold text-foreground mb-4 text-center">
                         {x.searchHeading}
                       </h2>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-end">
                         <div>
-                          <label className="block text-xs text-muted-foreground mb-1.5">{t.checkInLabel}</label>
-                          <Popover>
+                          <label className="block text-xs text-muted-foreground mb-1.5">{x.datesLabel}</label>
+                          <Popover open={rangeOpen} onOpenChange={setRangeOpen}>
                             <PopoverTrigger asChild>
                               <Button
                                 variant="outline"
                                 className="w-full justify-start h-12 text-base font-normal bg-background/60"
                               >
                                 <Calendar className="w-4 h-4 mr-2 opacity-70" />
-                                {searchCheckIn ? formatDateDisplay(searchCheckIn) : x.pickDate}
+                                {searchCheckIn
+                                  ? `${formatDateDisplay(searchCheckIn)} – ${searchCheckOut ? formatDateDisplay(searchCheckOut) : "…"}`
+                                  : x.pickRange}
                               </Button>
                             </PopoverTrigger>
                             <PopoverContent className="w-auto p-0 bg-popover z-50" align="start">
                               <CalendarPicker
-                                mode="single"
-                                selected={searchCheckIn ? new Date(searchCheckIn + "T00:00:00") : undefined}
-                                onSelect={(date) => {
-                                  if (!date) return;
-                                  const iso = toIsoDate(date);
-                                  setSearchCheckIn(iso);
-                                  if (!searchCheckOut || searchCheckOut <= iso) {
-                                    setSearchCheckOut(addDaysIso(iso, 2));
+                                mode="range"
+                                selected={searchCheckIn
+                                  ? {
+                                      from: new Date(searchCheckIn + "T00:00:00"),
+                                      to: searchCheckOut ? new Date(searchCheckOut + "T00:00:00") : undefined,
+                                    }
+                                  : undefined}
+                                onSelect={(range: DateRange | undefined) => {
+                                  if (!range || !range.from) {
+                                    setSearchCheckIn("");
+                                    setSearchCheckOut("");
+                                    return;
                                   }
+                                  setSearchCheckIn(toIsoDate(range.from));
+                                  setSearchCheckOut(range.to ? toIsoDate(range.to) : "");
+                                  if (range.from && range.to) setRangeOpen(false);
                                 }}
                                 disabled={(date) => toIsoDate(date) < todayIso}
-                                initialFocus
-                                className="p-3 pointer-events-auto"
-                              />
-                            </PopoverContent>
-                          </Popover>
-                        </div>
-                        <div>
-                          <label className="block text-xs text-muted-foreground mb-1.5">{t.checkOutLabel}</label>
-                          <Popover>
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant="outline"
-                                className="w-full justify-start h-12 text-base font-normal bg-background/60"
-                              >
-                                <Calendar className="w-4 h-4 mr-2 opacity-70" />
-                                {searchCheckOut ? formatDateDisplay(searchCheckOut) : x.pickDate}
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0 bg-popover z-50" align="start">
-                              <CalendarPicker
-                                mode="single"
-                                selected={searchCheckOut ? new Date(searchCheckOut + "T00:00:00") : undefined}
-                                onSelect={(date) => date && setSearchCheckOut(toIsoDate(date))}
-                                disabled={(date) => toIsoDate(date) <= (searchCheckIn || todayIso)}
+                                numberOfMonths={2}
                                 initialFocus
                                 className="p-3 pointer-events-auto"
                               />
