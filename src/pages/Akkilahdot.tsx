@@ -67,6 +67,7 @@ interface ModerDeal {
   // Moder-specific: full free window length and prices per stay length
   windowNights?: number;
   minNights?: number;
+  minNightsByDate?: Record<string, number>;
   pricesByNights?: Record<string, number | null>;
   cleaningFee?: number;
   // Moder window payload
