@@ -911,24 +911,15 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                     onValueChange={(value) => value && setNightFilter(value as NightFilter)}
                     className="bg-background/50 border border-border/30 rounded-lg p-1"
                   >
-                    <ToggleGroupItem
-                      value="2"
-                      className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                    >
-                      {t.filter2}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                      value="3"
-                      className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                    >
-                      {t.filter3}
-                    </ToggleGroupItem>
-                    <ToggleGroupItem
-                      value="4plus"
-                      className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
-                    >
-                      {t.filter4plus}
-                    </ToggleGroupItem>
+                    {([2, 3, 4, 5, 6, 7] as const).map((n) => (
+                      <ToggleGroupItem
+                        key={n}
+                        value={String(n)}
+                        className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground px-4 py-2 rounded-md"
+                      >
+                        {n} {t.nightsWord}
+                      </ToggleGroupItem>
+                    ))}
                   </ToggleGroup>
                 </div>
                 )}
