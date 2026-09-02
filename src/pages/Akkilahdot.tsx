@@ -422,7 +422,7 @@ const disabledContent: Record<Language, { heading: string; body: string; cta: st
   }
 };
 
-type NightFilter = "2" | "3" | "4plus";
+type NightFilter = "2" | "3" | "4" | "5" | "6" | "7";
 
 // Add n days to an ISO date string (yyyy-mm-dd)
 const addDaysIso = (dateStr: string, days: number): string => {
@@ -444,14 +444,14 @@ const todayIso = toIsoDate(new Date());
 
 
 // Labels shown on every deal card / in the search widget
-const extraLabels: Record<Language, { offer: string; today: string; pickDate: string; searchHeading: string }> = {
-  fi: { offer: "ÄKKILÄHTÖ TARJOUS", today: "Alkaa tänään", pickDate: "Valitse päivä", searchHeading: "Hae vapaat äkkilähdöt" },
-  en: { offer: "LAST MINUTE OFFER", today: "Starts today", pickDate: "Select date", searchHeading: "Search available last-minute stays" },
-  sv: { offer: "SISTA MINUTEN-ERBJUDANDE", today: "Börjar idag", pickDate: "Välj datum", searchHeading: "Sök lediga sista minuten-boenden" },
-  de: { offer: "LAST-MINUTE-ANGEBOT", today: "Beginnt heute", pickDate: "Datum wählen", searchHeading: "Freie Last-Minute-Unterkünfte suchen" },
-  es: { offer: "OFERTA ÚLTIMA HORA", today: "Comienza hoy", pickDate: "Elegir fecha", searchHeading: "Buscar alojamientos de última hora" },
-  fr: { offer: "OFFRE DERNIÈRE MINUTE", today: "Commence aujourd'hui", pickDate: "Choisir la date", searchHeading: "Rechercher des séjours de dernière minute" },
-  nl: { offer: "LAST-MINUTE AANBIEDING", today: "Begint vandaag", pickDate: "Kies datum", searchHeading: "Zoek beschikbare last-minute verblijven" },
+const extraLabels: Record<Language, { offer: string; today: string; pickDate: string; pickRange: string; datesLabel: string; searchHeading: string }> = {
+  fi: { offer: "ÄKKILÄHTÖ TARJOUS", today: "Alkaa tänään", pickDate: "Valitse päivä", pickRange: "Valitse ajanjakso", datesLabel: "Ajanjakso", searchHeading: "Hae vapaat äkkilähdöt" },
+  en: { offer: "LAST MINUTE OFFER", today: "Starts today", pickDate: "Select date", pickRange: "Select dates", datesLabel: "Dates", searchHeading: "Search available last-minute stays" },
+  sv: { offer: "SISTA MINUTEN-ERBJUDANDE", today: "Börjar idag", pickDate: "Välj datum", pickRange: "Välj datum", datesLabel: "Datum", searchHeading: "Sök lediga sista minuten-boenden" },
+  de: { offer: "LAST-MINUTE-ANGEBOT", today: "Beginnt heute", pickDate: "Datum wählen", pickRange: "Zeitraum wählen", datesLabel: "Zeitraum", searchHeading: "Freie Last-Minute-Unterkünfte suchen" },
+  es: { offer: "OFERTA ÚLTIMA HORA", today: "Comienza hoy", pickDate: "Elegir fecha", pickRange: "Elegir fechas", datesLabel: "Fechas", searchHeading: "Buscar alojamientos de última hora" },
+  fr: { offer: "OFFRE DERNIÈRE MINUTE", today: "Commence aujourd'hui", pickDate: "Choisir la date", pickRange: "Choisir les dates", datesLabel: "Dates", searchHeading: "Rechercher des séjours de dernière minute" },
+  nl: { offer: "LAST-MINUTE AANBIEDING", today: "Begint vandaag", pickDate: "Kies datum", pickRange: "Kies datums", datesLabel: "Data", searchHeading: "Zoek beschikbare last-minute verblijven" },
 };
 
 
@@ -488,7 +488,7 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
   const isLoading = isLoadingDeals || isLoadingSettings;
 
   // How many nights the selected filter wants to display
-  const requiredNights = nightFilter === "2" ? 2 : nightFilter === "3" ? 3 : 4;
+  const requiredNights = parseInt(nightFilter, 10);
 
   // Filter deals: window must fit the selected length and respect min stay.
   // Gap windows (short openings between two bookings) are always shown,
