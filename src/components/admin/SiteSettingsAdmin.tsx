@@ -31,6 +31,7 @@ const defaultGapFill: GapFillSettings = {
 
 const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const { settings, isLoading, updateSiteSetting, isSaving } = useAdminSettingsManager();
+  const queryClient = useQueryClient();
   const [dealsDaysAhead, setDealsDaysAhead] = useState<number>(14);
   const [dealsEnabled, setDealsEnabled] = useState<boolean>(true);
   const [dealsBaseDiscount, setDealsBaseDiscount] = useState<number>(0);
