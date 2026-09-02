@@ -81,6 +81,14 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
 
   const periodSettings = dbSettings?.periodSettings || [];
 
+  // Base last-minute discount from site settings (same value the public page uses)
+  const baseDiscountRaw = dbSettings?.siteSettings?.find(s => s.id === 'deals_base_discount')?.value;
+  const baseDiscount = (() => {
+    const n = typeof baseDiscountRaw === 'number' ? baseDiscountRaw : parseInt(String(baseDiscountRaw ?? '0'), 10);
+    return isNaN(n) || n < 0 ? 0 : Math.min(n, 90);
+  })();
+
+
   // Fetch Beds24 deals
   const { data: beds24Deals = [], isLoading: isLoadingDeals } = useQuery({
     queryKey: ['beds24-availability-admin'],
