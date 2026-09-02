@@ -1,25 +1,33 @@
-# Äkkilähdöt: asiakas valitsee esimerkkijaksojen alkupäivän
+# Äkkilähdöt: 1 ja 2 yön näyttösäännöt (siivousaika + Moderin minimiyöt)
 
-## Mitä tehdään
+## Säännöt
 
-"Esimerkkejä vapaista jaksoista" -osion yhteyteen lisätään pieni päivävalitsin: **"Näytä vapaita jaksoja alkaen"**.
+**1 yö**
+- Näytetään **vain** kun kyseessä on kahden varauksen välissä oleva **tasan 1 yön aukko** (gap-ikkuna, jonka pituus on 1 yö).
+- Ei koskaan näytetä samalle päivälle: jos saapumispäivä on tänään, 1 yön jaksoa ei näytetä (huonetta ei ehditä siivota).
+- Muissa tapauksissa (pidempi vapaa jakso, josta asiakas valitsisi 1 yön) 1 yötä ei näytetä lainkaan.
 
-- Oletuksena esimerkit näytetään kuten nyt (tästä päivästä eteenpäin).
-- Asiakas voi valita kalenterista päivän, jolloin esimerkkikortit suodatetaan näyttämään vain jaksot, joiden **saapumispäivä on valittuna päivänä tai sen jälkeen**.
-- Valinnan voi tyhjentää (paluu oletukseen) pienellä "Tyhjennä" / x-painikkeella.
-- Valitsin näkyy vain kun hakua ei ole tehty ja esimerkkejä on näkyvissä (sama ehto kuin nykyisellä osiolla).
-- Valittu päivä rajoitetaan: ei menneitä päiviä, ei myöhemmin kuin `maxCheckInIso` (deals_days_ahead -raja), koska sen jälkeen ei ole jaksoja näytettävissä.
-- Tekstit käännetään kaikille 7 kielelle (fi/en/sv/de/es/fr/nl): label "Näytä jaksoja alkaen" tms.
+**2 yötä**
+- Näytetään kun Moderin **minimiyöt on enintään 2**, tai kun kyseessä on **tasan 2 yön aukko** varausten välissä.
+- Jos Moderin minimi on 3 tai enemmän eikä kyseessä ole 2 yön aukko, 2 yön jaksoa ei näytetä.
+
+**Yleistys (koskee kaikkia pituuksia)**
+- Aukko-ikkunan (gap) minimiyöt saa ohittaa vain silloin, kun varataan **koko aukko** (esim. 3 yön aukosta 3 yötä). Aukon sisältä lyhyempää jaksoa ei enää näytetä, jos se alittaa Moderin minimin.
+- Muuten voimassa on normaali sääntö: yöt ≥ Moderin minimiyöt.
+
+Säännöt vaikuttavat sekä hakutuloksiin että "Esimerkkejä vapaista jaksoista" -kortteihin, jotta esimerkeissä ei näy jaksoja, joita ei oikeasti myydä.
 
 ## Tekniset yksityiskohdat
 
-- `src/pages/Akkilahdot.tsx`:
-  - Uusi tila `exampleStartIso: string | null`.
-  - `exampleWindows`-memoon lisätään suodatus `deal.checkIn >= exampleStartIso` kun valittu; dedupe/leikkauslogiikka ennallaan.
-  - Esimerkkiosion otsikon viereen/alle pieni Popover + yhden kuukauden `mode="single"` Calendar (`weekStartsOn={1}`, `disabled`: päivät < tänään tai > maxCheckInIso), nappi näyttää valitun päivän tai label-tekstin. Tyhjennys-painike nollaa tilan.
-  - Uudet käännösavaimet `exampleLabels`-objektiin: `fromLabel`, `clear`.
+- `src/pages/Akkilahdot.tsx`, `isStayAllowed`:
+  - Uusi laskenta `windowNights = deal.windowNights ?? deal.nights`.
+  - `nights === 1` → sallittu vain jos `deal.isGap && windowNights === 1 && checkIn > todayIso`.
+  - Muuten sallittu jos `nights >= (deal.minNights ?? 1)` **tai** (`deal.isGap && nights === windowNights`).
+  - Muut nykyiset ehdot (mahtuu ikkunaan, `noCheckIn`, `noCheckOut`) säilyvät ennallaan.
+- `exampleWindows`-memo suodattaa ehdokkaat samalla `isStayAllowed`-funktiolla; jos valittu pituus ei kelpaa, jakso jätetään pois (tai lyhennetään sallittuun pituuteen), jottei esimerkeissä näy kiellettyjä 1–2 yön jaksoja.
+- Ei muutoksia taustapalveluun eikä hinnoitteluun.
 
 ## Varmistus
 
 - `tsgo --noEmit` puhtaana.
-- Playwright-tarkistus `/akkilahdot`: valitaan alkupäivä tulevaisuuteen → esimerkkikortit päivittyvät (kaikki saapumispäivät ≥ valinta), tyhjennys palauttaa oletuksen.
+- Playwright `/akkilahdot`: 1 yön haku tälle päivälle → ei tuloksia; 1 yön haku, jossa on 1 yön aukko → tulos näkyy; 2 yön haku kohteessa, jonka minimi on 3 → ei tuloksia ilman 2 yön aukkoa.
