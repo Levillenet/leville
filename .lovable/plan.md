@@ -13,20 +13,18 @@ Testasin Moderin hinnat kohteelle Skistar 310 (room type 11960), saapuminen 14.9
 
 Eli Moderin hinnoittelu toimii täsmälleen kuten kuvasi näyttävät: päivähinnat + keston mukainen muutos-% + hintasääntö.
 
-**Ongelma:** äkkilähtösivun 1 yön haku ei kysy Moderilta 1 yön hintaa. Nykyinen koodi (`supabase/functions/moder-availability/index.ts`, mode=prices) muuttaa 1 yön kyselyn automaattisesti 2 yön kyselyksi, koska aiemmin oletettiin ettei Moder anna 1 yön hintaa. Siksi kortti näyttää 14.9.–15.9. hintana 120 € (= kahden yön hinta) + siivous 60 € = 180 €.
-
-Oikea 1 yön hinta olisi 80 € × 0,60 = **48 €** (ei keston muutos-%, koska sääntötaulussa kesto alkaa 2 yöstä) → 48 + 60 siivous = 108 €, alennuksineen vähemmän.
+**Ongelma:** äkkilähtösivun 1 yön haku kysyy Moderilta 2 yön **kokonaishinnan** (120 €) ja näyttää sen sellaisenaan 1 yön hintana. Tarkoitus on käyttää 2 yön hintaa **per yö** eli jakaa se kahdella: 120 € ÷ 2 = **60 €** 1 yön hinnaksi (+ siivous 60 € = 120 €, alennuksineen vähemmän).
 
 ## Mitä tehdään
 
-1. **Poistetaan 1 yö → 2 yötä -kikka.** 1 yön haku kysyy Moderilta aidon 1 yön hinnan (`date_start` = saapuminen, `date_end` = seuraava päivä).
-2. **Varajärjestely, jos Moder ei palauta 1 yön hintaa:** hinta lasketaan saapumispäivän omasta `day_rate`-hinnasta (sama luku, jonka Moder antaa saatavuusrajapinnassa), ei koskaan kahden yön summasta. Jos kumpikaan ei anna hintaa, kohdetta ei näytetä 1 yön haussa lainkaan – parempi jättää pois kuin näyttää väärä hinta.
-3. **Vastauksessa kerrotaan mistä hinta tuli** (`pricedNights` ja lähde), jotta jatkossa on heti nähtävissä käyttääkö kortti aitoa vai laskettua hintaa.
+1. **1 yön hinta = 2 yön hinta ÷ 2.** Säilytetään nykyinen tapa, jossa 1 yön kysely hakee Moderilta 2 yön hinnan samalle saapumispäivälle (koska 1 yölle ei ole omaa hintaa), mutta palautettava hinta jaetaan kahdella. Koska 2 yön hintaan sisältyy keston muutos-% (+24 %) ja jakaminen kahdella jakaa myös sen, päivähinta säilyy korrektina: 80 € × 1,24 × 0,60 ≈ 60 €/yö.
+2. **Pyöristys**: pyöristetään lähimpään euroon kuten muuallakin (120 ÷ 2 = 60 €, esim. 119 ÷ 2 → 60 €).
+3. **Vastauksessa kerrotaan mistä hinta tuli** (`pricedNights: 2, perNight: true`), jotta jatkossa on heti nähtävissä että kortin hinta on 2 yön hinta per yö.
 4. **Beds24 pois nimistä.** Äkkilähdöt hakevat jo kaiken datan Moderista – Beds24-rajapintaa ei enää kutsuta. Jäljellä on vain vanhoja nimiä (`Beds24Deal`, `fetchBeds24Availability`, `beds24_room_id`-avain). Siistitään koodin nimet Moder-muotoon niin ettei kukaan luule Beds24:ää yhä käytettävän. Tietokannan sarakenimi `beds24_room_id` jätetään ennalleen, koska se on kohteen tunniste useassa muussakin taulussa – vain sen käyttö dokumentoidaan kommentilla.
 
 ## Tarkistus toteutuksen jälkeen
 
-- Haku 14.9.–15.9.2026: Skistar 310 näyttää 1 yön hinnan, joka vastaa Moderia (n. 48 € + siivous), ei 120 €.
+- Haku 14.9.–15.9.2026: Skistar 310 näyttää 1 yön hinnan 60 € (120 € ÷ 2) + siivous 60 €, ei 120 € + siivous.
 - Haku 14.9.–16.9.2026 (2 yötä) pysyy 120 € + siivous.
 - Pidemmät jaksot (3, 4, 6 yötä) pysyvät ennallaan.
 
