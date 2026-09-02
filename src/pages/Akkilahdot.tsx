@@ -557,6 +557,25 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     allDeals.filter((deal) => deal.checkIn <= maxCheckInIso),
     [allDeals, maxCheckInIso]);
 
+  // Marketing examples: next 10 free periods across different properties
+  const exampleWindows = useMemo(() => {
+    const sorted = [...filteredDeals].sort((a, b) => a.checkIn.localeCompare(b.checkIn));
+    const perRoom = new Map<string, number>();
+    const picked: { deal: Beds24Deal; checkIn: string; checkOut: string; nights: number }[] = [];
+    for (const deal of sorted) {
+      const used = perRoom.get(deal.roomId) ?? 0;
+      if (used >= 2) continue;
+      const nights = Math.min(deal.windowNights ?? deal.nights, 7);
+      if (nights < 1) continue;
+      perRoom.set(deal.roomId, used + 1);
+      picked.push({ deal, checkIn: deal.checkIn, checkOut: addDaysIso(deal.checkIn, nights), nights });
+      if (picked.length >= 10) break;
+    }
+    return picked;
+  }, [filteredDeals]);
+
+
+
   // Helper to get property with DB override - memoized
   const getPropertyWithOverride = useCallback((roomId: string) => {
     const defaultProperty = getDefaultPropertyDetails(roomId);
