@@ -550,6 +550,39 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return 0;
   }, [superDiscount]);
 
+  // Gap Fill rules (admin setting `deals_gap_fill`)
+  const gapFillRaw = adminSettings?.siteSettings?.find(s => s.id === 'deals_gap_fill')?.value as
+    | Record<string, unknown>
+    | undefined;
+  const gapFill = useMemo(() => {
+    const num = (v: unknown, fallback: number) => {
+      const n = typeof v === 'number' ? v : parseInt(String(v ?? ''), 10);
+      return isNaN(n) || n < 0 ? fallback : Math.min(n, 30);
+    };
+    const bool = (v: unknown, fallback: boolean) => (typeof v === 'boolean' ? v : fallback);
+    const g2 = (gapFillRaw?.g2 ?? {}) as { enabled?: unknown; oneNight?: { enabled?: unknown; days?: unknown } };
+    const g3 = (gapFillRaw?.g3 ?? {}) as {
+      enabled?: unknown;
+      twoNights?: { enabled?: unknown; days?: unknown };
+      oneNight?: { enabled?: unknown; days?: unknown };
+    };
+    const g3Two = num(g3.twoNights?.days, 7);
+    return {
+      g1: bool(gapFillRaw?.g1, true),
+      g2: {
+        enabled: bool(g2.enabled, true),
+        oneNight: { enabled: bool(g2.oneNight?.enabled, true), days: num(g2.oneNight?.days, 5) },
+      },
+      g3: {
+        enabled: bool(g3.enabled, true),
+        twoNights: { enabled: bool(g3.twoNights?.enabled, true), days: g3Two },
+        oneNight: { enabled: bool(g3.oneNight?.enabled, true), days: Math.min(num(g3.oneNight?.days, 3), g3Two) },
+      },
+    };
+  }, [gapFillRaw]);
+
+  const gapDebug = typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('debug') === 'gapfill';
+
   const isLoading = isLoadingDeals || isLoadingSettings;
 
   // Deals inside the allowed booking window (used for schema only)
@@ -557,22 +590,6 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     allDeals.filter((deal) => deal.checkIn <= maxCheckInIso),
     [allDeals, maxCheckInIso]);
 
-  // Marketing examples: next 10 free periods across different properties
-  const exampleWindows = useMemo(() => {
-    const sorted = [...filteredDeals].sort((a, b) => a.checkIn.localeCompare(b.checkIn));
-    const perRoom = new Map<string, number>();
-    const picked: { deal: Beds24Deal; checkIn: string; checkOut: string; nights: number }[] = [];
-    for (const deal of sorted) {
-      const used = perRoom.get(deal.roomId) ?? 0;
-      if (used >= 2) continue;
-      const nights = Math.min(deal.windowNights ?? deal.nights, 7);
-      if (nights < 1) continue;
-      perRoom.set(deal.roomId, used + 1);
-      picked.push({ deal, checkIn: deal.checkIn, checkOut: addDaysIso(deal.checkIn, nights), nights });
-      if (picked.length >= 10) break;
-    }
-    return picked;
-  }, [filteredDeals]);
 
 
 
