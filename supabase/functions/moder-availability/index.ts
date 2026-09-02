@@ -215,6 +215,7 @@ async function fetchStayPrices(
   roomTypeIds: number[],
   from: string,
   to: string,
+  debug = false,
 ): Promise<Map<number, number>> {
   const map = new Map<number, number>();
   if (roomTypeIds.length === 0) return map;
@@ -223,6 +224,9 @@ async function fetchStayPrices(
   if (!r.ok) return map;
   const raw = r.json?.data ?? r.json;
   const list = Array.isArray(raw) ? raw : [raw];
+  if (debug && list.length > 0) {
+    console.log(`Moder /prices raw sample (${from}..${to}):`, JSON.stringify(list.slice(0, 3)));
+  }
   for (const e of list) {
     const id = Number(e?.room_type_id);
     const total = Number(e?.total_price);
@@ -230,6 +234,7 @@ async function fetchStayPrices(
   }
   return map;
 }
+
 
 async function runLimited<T>(tasks: (() => Promise<T>)[], limit = 5): Promise<T[]> {
   const results: T[] = [];
@@ -275,18 +280,6 @@ serve(async (req) => {
       if (!isNaN(parsed) && parsed > 0) dealsDaysAhead = parsed;
     }
 
-    // Check cache
-    if (!forceRefresh) {
-      const { data: cache } = await supabase
-        .from("beds24_cache").select("*").eq("id", CACHE_ID).maybeSingle();
-      if (cache && isCacheValid(cache.fetched_at)) {
-        console.log("Serving Moder availability from cache, fetched_at:", cache.fetched_at);
-        return new Response(JSON.stringify({ ...cache.data, fromCache: true, fetchedAt: cache.fetched_at }), {
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-    }
-
     // Room mapping
     const { data: mappingRows, error: mapErr } = await supabase
       .from("moder_property_mapping")
@@ -304,7 +297,10 @@ serve(async (req) => {
       });
     }
 
-    // On-demand stay price for a specific date range (used by the date search)
+    // On-demand stay price for a specific date range (used by the date search).
+    // NOTE: this must run BEFORE the availability cache check — otherwise a warm
+    // cache short-circuits the request and returns stale listing data instead of
+    // fresh length-of-stay prices for the requested range.
     if (url.searchParams.get("mode") === "prices") {
       const from = url.searchParams.get("from") || "";
       const to = url.searchParams.get("to") || "";
@@ -314,7 +310,8 @@ serve(async (req) => {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
-      const priceMap = await fetchStayPrices(token, roomTypeIds, from, to);
+      const debug = url.searchParams.get("debug") === "true";
+      const priceMap = await fetchStayPrices(token, roomTypeIds, from, to, debug);
       const prices: Record<string, number> = {};
       for (const m of mappings) {
         const v = priceMap.get(m.moder_room_type_id);
@@ -324,6 +321,19 @@ serve(async (req) => {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+
+    // Check cache (listing mode only)
+    if (!forceRefresh) {
+      const { data: cache } = await supabase
+        .from("beds24_cache").select("*").eq("id", CACHE_ID).maybeSingle();
+      if (cache && isCacheValid(cache.fetched_at)) {
+        console.log("Serving Moder availability from cache, fetched_at:", cache.fetched_at);
+        return new Response(JSON.stringify({ ...cache.data, fromCache: true, fetchedAt: cache.fetched_at }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+    }
+
 
     const today = new Date();
     const dateStart = formatDate(today);

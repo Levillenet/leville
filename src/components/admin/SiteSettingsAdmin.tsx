@@ -16,7 +16,9 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
   const [dealsDaysAhead, setDealsDaysAhead] = useState<number>(14);
   const [dealsEnabled, setDealsEnabled] = useState<boolean>(true);
   const [dealsBaseDiscount, setDealsBaseDiscount] = useState<number>(0);
+  const [discountOneNight, setDiscountOneNight] = useState<boolean>(false);
   const [superDiscount, setSuperDiscount] = useState<{ d3: number; d5: number; d7: number }>({ d3: 0, d5: 0, d7: 0 });
+
   
   // Load current values from settings
   useEffect(() => {
@@ -43,7 +45,12 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
           setDealsBaseDiscount(value);
         }
       }
+      const oneNightSetting = settings.siteSettings.find(s => s.id === 'deals_discount_one_night');
+      if (oneNightSetting?.value !== undefined) {
+        setDiscountOneNight(oneNightSetting.value === true);
+      }
       const superSetting = settings.siteSettings.find(s => s.id === 'deals_super_discount');
+
       if (superSetting?.value && typeof superSetting.value === 'object') {
         const v = superSetting.value as { d3?: number; d5?: number; d7?: number };
         const num = (x: unknown) => {
@@ -77,6 +84,12 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
     setDealsBaseDiscount(pct);
     updateSiteSetting({ settingId: 'deals_base_discount', value: pct });
   };
+
+  const handleToggleOneNight = (checked: boolean) => {
+    setDiscountOneNight(checked);
+    updateSiteSetting({ settingId: 'deals_discount_one_night', value: checked });
+  };
+
 
   if (isLoading) {
     return (
@@ -201,9 +214,29 @@ const SiteSettingsAdmin = ({ isViewer = false }: SiteSettingsAdminProps) => {
             </p>
           </div>
 
+          <div className="flex items-center justify-between gap-4 border-t pt-4">
+            <div className="space-y-1">
+              <Label htmlFor="deals-one-night-toggle" className="text-base font-medium">
+                Anna alennus myös 1 yön varauksille
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                {discountOneNight
+                  ? 'Päällä: 1 yön jaksot saavat perus- ja superäkkilähtöalennuksen.'
+                  : 'Pois: 1 yön jaksot myydään täydellä Moder-hinnalla ilman alennusmerkintöjä.'}
+              </p>
+            </div>
+            <Switch
+              id="deals-one-night-toggle"
+              checked={discountOneNight}
+              onCheckedChange={handleToggleOneNight}
+              disabled={isSaving || isViewer}
+            />
+          </div>
+
           <div className="space-y-3">
             <Label className="text-base font-medium">
               Näytä äkkilähtöjä {dealsDaysAhead} päivää etukäteen
+
             </Label>
             
             <div className="flex flex-wrap gap-2">

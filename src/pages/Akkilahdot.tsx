@@ -499,6 +499,9 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     const n = typeof baseDiscountRaw === 'number' ? baseDiscountRaw : parseInt(String(baseDiscountRaw ?? '0'), 10);
     return isNaN(n) || n < 0 ? 0 : Math.min(n, 90);
   })();
+  // Should 1-night stays get the base/super discount at all?
+  const discountOneNight = (adminSettings?.siteSettings?.find(s => s.id === 'deals_discount_one_night')?.value) === true;
+
 
   // Listing/search horizon: server value wins, admin setting is the fallback
   const daysAheadSetting = (() => {
@@ -646,10 +649,18 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     return Math.round(base + getCleaningFee(deal));
   }, [getModerPrice, getCleaningFee]);
 
+  // Are discounts applied at all for this stay length?
+  const isDiscountable = useCallback((nights: number): boolean => {
+    return nights > 1 || discountOneNight;
+  }, [discountOneNight]);
+
   // Final price: Moder price - base discount - period custom discount, + cleaning fee
   const getTotalPrice = useCallback((deal: Beds24Deal, checkIn: string, nights: number, override?: number | null): number | null => {
     const base = getModerPrice(deal, checkIn, nights, override);
     if (base == null) return null;
+
+    // 1-night stays can be excluded from discounts by admin setting
+    if (!isDiscountable(nights)) return Math.round(base + getCleaningFee(deal));
 
     let price = base * (1 - dealsBaseDiscount / 100);
 
@@ -664,7 +675,8 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
     }
 
     return Math.round(price + getCleaningFee(deal));
-  }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb, getSuperDiscountPct]);
+  }, [getModerPrice, getCleaningFee, dealsBaseDiscount, getPeriodSettingsFromDb, getSuperDiscountPct, isDiscountable]);
+
 
   // Check if ski pass offer applies to this stay (using displayed dates)
   const hasSkiPassOffer = useCallback((deal: Beds24Deal, checkIn: string, nights: number): boolean => {
@@ -1099,13 +1111,16 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
                           />
                         )}
                         
-                        {/* Last-minute offer badge - always shown, top left */}
-                        <div className="absolute top-3 left-3 z-20">
-                          <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg tracking-wide">
-                            <Sparkles className="w-3.5 h-3.5 mr-1" />
-                            {x.offer}
-                          </Badge>
-                        </div>
+                        {/* Last-minute offer badge - only when the stay is actually discounted */}
+                        {showStrikethrough && (
+                          <div className="absolute top-3 left-3 z-20">
+                            <Badge className="bg-gradient-to-r from-amber-500 to-red-500 text-white border-0 px-3 py-1.5 text-xs font-bold shadow-lg tracking-wide">
+                              <Sparkles className="w-3.5 h-3.5 mr-1" />
+                              {x.offer}
+                            </Badge>
+                          </div>
+                        )}
+
 
                         
                         {/* Ski Pass Badge - top right, 2 lines */}

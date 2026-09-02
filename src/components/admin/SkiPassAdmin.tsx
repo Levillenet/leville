@@ -101,7 +101,9 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     d5: clampPct(superDiscountRaw?.d5),
     d7: clampPct(superDiscountRaw?.d7),
   };
+  const discountOneNight = dbSettings?.siteSettings?.find(s => s.id === 'deals_discount_one_night')?.value === true;
   const getSuperDiscountPct = (checkIn?: string | null): number => {
+
     if (!checkIn) return 0;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -236,6 +238,11 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     let basePrice = deal.price;
     const discount = getPropertyDiscount(deal.roomId, deal.nights);
 
+    // 1-night stays are sold at full price unless the admin setting allows discounts
+    if (deal.nights <= 1 && !discountOneNight) {
+      return Math.round(basePrice + cleaningFee);
+    }
+
     if (discount > 0) {
       basePrice = basePrice * (1 - discount / 100);
     }
@@ -246,6 +253,7 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
     if (superPct > 0) {
       basePrice = basePrice * (1 - superPct / 100);
     }
+
 
     return Math.round(basePrice + cleaningFee);
   };
