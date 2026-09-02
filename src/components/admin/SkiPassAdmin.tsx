@@ -141,28 +141,14 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
       check_in: deal.checkIn,
       check_out: deal.checkOut,
       has_ski_pass: !currentStatus,
-      has_special_offer: currentSettings.specialOffer,
+      has_special_offer: true,
       custom_discount: currentSettings.customDiscount || 0,
-      show_discount: currentSettings.showDiscountBadge
+      show_discount: true
     });
     
     toast({
       title: currentStatus ? "Hissilippu poistettu" : "Hissilippu annettu",
       description: `${getMarketingName(deal)} ${format(new Date(deal.checkIn), "d.M")} - ${format(new Date(deal.checkOut), "d.M")}`
-    });
-  };
-
-  const handleToggleSpecialOffer = (deal: Beds24Deal, checked: boolean) => {
-    const currentSettings = getLocalPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
-    
-    upsertPeriod({
-      property_id: deal.roomId,
-      check_in: deal.checkIn,
-      check_out: deal.checkOut,
-      has_ski_pass: currentSettings.hasSkiPass,
-      has_special_offer: checked,
-      custom_discount: currentSettings.customDiscount || 0,
-      show_discount: currentSettings.showDiscountBadge
     });
   };
 
@@ -174,25 +160,12 @@ const SkiPassAdmin = ({ isViewer = false }: SkiPassAdminProps) => {
       check_in: deal.checkIn,
       check_out: deal.checkOut,
       has_ski_pass: currentSettings.hasSkiPass,
-      has_special_offer: currentSettings.specialOffer,
+      has_special_offer: true,
       custom_discount: discount || 0,
-      show_discount: currentSettings.showDiscountBadge
+      show_discount: true
     });
   };
 
-  const handleToggleShowDiscount = (deal: Beds24Deal, checked: boolean) => {
-    const currentSettings = getLocalPeriodSettings(deal.roomId, deal.checkIn, deal.checkOut);
-    
-    upsertPeriod({
-      property_id: deal.roomId,
-      check_in: deal.checkIn,
-      check_out: deal.checkOut,
-      has_ski_pass: currentSettings.hasSkiPass,
-      has_special_offer: currentSettings.specialOffer,
-      custom_discount: currentSettings.customDiscount || 0,
-      show_discount: checked
-    });
-  };
 
   const getMarketingName = (deal: Beds24Deal): string => {
     const dbOverride = dbSettings?.propertySettings?.find(s => s.property_id === deal.roomId);
