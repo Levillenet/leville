@@ -6,20 +6,42 @@ import heroCabin from "@/assets/hero-cabin.jpg";
 import heroVillage from "@/assets/hero-village.jpg";
 import heroApartment from "@/assets/hero-apartment.jpg";
 import heroLodge from "@/assets/hero-lodge.jpg";
+import heroCabinSet from "@/assets/hero-cabin.jpg?w=640;1024;1536&format=webp&quality=72&as=srcset";
+import heroVillageSet from "@/assets/hero-village.jpg?w=640;1024;1536&format=webp&quality=72&as=srcset";
+import heroApartmentSet from "@/assets/hero-apartment.jpg?w=640;1024;1536&format=webp&quality=72&as=srcset";
+import heroLodgeSet from "@/assets/hero-lodge.jpg?w=640;1024;1536&format=webp&quality=72&as=srcset";
 
 // LCP image: served from /public so the <link rel="preload"> in index.html matches the actual request
 const heroChalet = "/hero-chalet.webp";
+const heroChaletSet =
+  "/hero-chalet-640.webp 640w, /hero-chalet-1024.webp 1024w, /hero-chalet.webp 1536w";
 
 const heroImages = [
-  { src: heroChalet, w: 1536, h: 1024 },
-  { src: heroVillage, w: 1536, h: 1024 },
-  { src: heroApartment, w: 1024, h: 1536 },
-  { src: heroLodge, w: 1536, h: 1024 },
-  { src: heroCabin, w: 1536, h: 1152 },
+  { src: heroChalet, srcSet: heroChaletSet, w: 1536, h: 1024 },
+  { src: heroVillage, srcSet: heroVillageSet as unknown as string, w: 1536, h: 1024 },
+  { src: heroApartment, srcSet: heroApartmentSet as unknown as string, w: 1024, h: 1536 },
+  { src: heroLodge, srcSet: heroLodgeSet as unknown as string, w: 1536, h: 1024 },
+  { src: heroCabin, srcSet: heroCabinSet as unknown as string, w: 1536, h: 1152 },
 ];
 
 const FADE_DURATION_MS = 5000;
 const SLIDE_INTERVAL_MS = 10000;
+
+// Run a low-priority task once the main thread is free (falls back to a timeout)
+const onIdle = (cb: () => void, timeout = 3000) => {
+  const w = window as unknown as {
+    requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+  };
+  if (typeof w.requestIdleCallback === "function") {
+    return w.requestIdleCallback(cb, { timeout });
+  }
+  return window.setTimeout(cb, 1200);
+};
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
 
 interface HeroProps {
   lang?: Language;
