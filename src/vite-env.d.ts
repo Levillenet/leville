@@ -15,3 +15,9 @@ declare module '*?w=400&format=webp&quality=80' {
   const src: string;
   export default src;
 }
+
+// vite-imagetools: `?...&as=srcset` returns a srcset string
+declare module "*&as=srcset" {
+  const srcset: string;
+  export default srcset;
+}

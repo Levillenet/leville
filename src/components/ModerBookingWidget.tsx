@@ -51,6 +51,7 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
 
 
     let setupTimeoutId: ReturnType<typeof setTimeout> | null = null;
+    let idleId: number | null = null;
     let attempts = 0;
 
     const ensureScriptLoaded = () => {
@@ -73,7 +74,8 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
 
       const script = document.createElement('script');
       script.id = scriptId;
-      script.src = `${scriptBaseSrc}?v=${Date.now()}`;
+      // Stable URL (no Date.now cache buster) so the browser can cache the 170 kB bundle.
+      script.src = scriptBaseSrc;
       script.defer = true;
       script.async = true;
       document.body.appendChild(script);
@@ -81,12 +83,33 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
       scriptLoadedRef.current = true;
     };
 
-    ensureScriptLoaded();
+    // Defer the third-party bundle until the page has loaded and the main thread is idle.
+    const schedule = () => {
+      const w = window as unknown as {
+        requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      };
+      if (typeof w.requestIdleCallback === 'function') {
+        idleId = w.requestIdleCallback(ensureScriptLoaded, { timeout: 3000 });
+      } else {
+        idleId = window.setTimeout(ensureScriptLoaded, 1000);
+      }
+    };
+
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', schedule, { once: true });
 
     return () => {
+      window.removeEventListener('load', schedule);
+      if (idleId !== null) {
+        const w = window as unknown as { cancelIdleCallback?: (id: number) => void };
+        if (typeof w.cancelIdleCallback === 'function') w.cancelIdleCallback(idleId);
+        else window.clearTimeout(idleId);
+      }
       if (setupTimeoutId) clearTimeout(setupTimeoutId);
       if (restoreLangId) clearTimeout(restoreLangId);
     };
+
+
 
     // Intentionally not depending on `lang` since widget is forced to EN
   }, []);

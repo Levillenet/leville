@@ -37,14 +37,19 @@
 
     <!-- Microsoft Clarity loaded dynamically via CookieConsent component -->
 
-    <!-- LCP Fix 1: Preload hero image so browser fetches it before JS bundle -->
-    <link rel="preload" as="image" href="/hero-chalet.webp" fetchpriority="high">
+    <!-- LCP Fix 1: Preload hero image so browser fetches it before JS bundle.
+         Responsive: phones get the 640px variant, tablets 1024px, desktop full. -->
+    <link rel="preload" as="image" href="/hero-chalet.webp"
+          imagesrcset="/hero-chalet-640.webp 640w, /hero-chalet-1024.webp 1024w, /hero-chalet.webp 1536w"
+          imagesizes="100vw" fetchpriority="high">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Combined font request — single round-trip for all three families -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Cormorant+Garamond:wght@600;700&family=Raleway:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Cormorant+Garamond:wght@600;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet"></noscript>
+    <!-- Self-hosted fonts (no Google Fonts round-trip). Preload the two used above the fold. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/dm-sans-latin.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/cormorant-garamond-latin.woff2" crossorigin>
+
+    <!-- Booking widget origin: warm up the connection, script itself loads when idle -->
+    <link rel="preconnect" href="https://moder-embeds-dev.s3.eu-north-1.amazonaws.com" crossorigin>
+
 
   </head>
 

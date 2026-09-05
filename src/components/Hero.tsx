@@ -6,20 +6,42 @@ import heroCabin from "@/assets/hero-cabin.jpg";
 import heroVillage from "@/assets/hero-village.jpg";
 import heroApartment from "@/assets/hero-apartment.jpg";
 import heroLodge from "@/assets/hero-lodge.jpg";
+import heroCabinSet from "@/assets/hero-cabin.jpg?w=640;1024;1536&format=webp&quality=72&as=srcset";
+import heroVillageSet from "@/assets/hero-village.jpg?w=640;1024;1536&format=webp&quality=72&as=srcset";
+import heroApartmentSet from "@/assets/hero-apartment.jpg?w=640;1024;1536&format=webp&quality=72&as=srcset";
+import heroLodgeSet from "@/assets/hero-lodge.jpg?w=640;1024;1536&format=webp&quality=72&as=srcset";
 
 // LCP image: served from /public so the <link rel="preload"> in index.html matches the actual request
 const heroChalet = "/hero-chalet.webp";
+const heroChaletSet =
+  "/hero-chalet-640.webp 640w, /hero-chalet-1024.webp 1024w, /hero-chalet.webp 1536w";
 
 const heroImages = [
-  { src: heroChalet, w: 1536, h: 1024 },
-  { src: heroVillage, w: 1536, h: 1024 },
-  { src: heroApartment, w: 1024, h: 1536 },
-  { src: heroLodge, w: 1536, h: 1024 },
-  { src: heroCabin, w: 1536, h: 1152 },
+  { src: heroChalet, srcSet: heroChaletSet, w: 1536, h: 1024 },
+  { src: heroVillage, srcSet: heroVillageSet as unknown as string, w: 1536, h: 1024 },
+  { src: heroApartment, srcSet: heroApartmentSet as unknown as string, w: 1024, h: 1536 },
+  { src: heroLodge, srcSet: heroLodgeSet as unknown as string, w: 1536, h: 1024 },
+  { src: heroCabin, srcSet: heroCabinSet as unknown as string, w: 1536, h: 1152 },
 ];
 
 const FADE_DURATION_MS = 5000;
 const SLIDE_INTERVAL_MS = 10000;
+
+// Run a low-priority task once the main thread is free (falls back to a timeout)
+const onIdle = (cb: () => void, timeout = 3000) => {
+  const w = window as unknown as {
+    requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+  };
+  if (typeof w.requestIdleCallback === "function") {
+    return w.requestIdleCallback(cb, { timeout });
+  }
+  return window.setTimeout(cb, 1200);
+};
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
 
 interface HeroProps {
   lang?: Language;
@@ -29,17 +51,21 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [previousImageIndex, setPreviousImageIndex] = useState<number | null>(null);
   const [previousVisible, setPreviousVisible] = useState(false);
-  // First image shows immediately; rest preload in background
+  // First image shows immediately; rest preload only once the page is idle
   const [restLoaded, setRestLoaded] = useState(false);
+  // Decorative layers (aurora + stars) mount after the first paint so they never delay LCP
+  const [decorReady, setDecorReady] = useState(false);
 
   const fadeTimeoutRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
 
   const t = getTranslations(lang).hero;
 
+  const starCount = decorReady && typeof window !== "undefined" && window.innerWidth < 768 ? 18 : 32;
+
   const stars = useMemo(
     () =>
-      [...Array(50)].map((_, i) => ({
+      [...Array(starCount)].map((_, i) => ({
         id: i,
         left: Math.random() * 100,
         top: Math.random() * 55,
@@ -47,37 +73,66 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         delay: Math.random() * 4,
         duration: 1.5 + Math.random() * 2,
       })),
-    []
+    [starCount]
   );
 
   const trustIcons = [MapPin, CreditCard, Home];
 
-  // Preload remaining hero images in background (first one loads eagerly via img tag)
+  // Mount decorations after the browser has painted the hero
   useEffect(() => {
-    let isMounted = true;
-    
-    const preloadRest = async () => {
-      const promises = heroImages.slice(1).map((item) => {
-        return new Promise<void>((resolve) => {
-          const img = new Image();
-          img.onload = () => resolve();
-          img.onerror = () => resolve();
-          img.src = item.src;
-        });
-      });
-      
-      await Promise.all(promises);
-      if (isMounted) {
-        setRestLoaded(true);
-      }
-    };
-    
-    preloadRest();
-    
+    if (prefersReducedMotion()) return;
+    const id = onIdle(() => setDecorReady(true), 2000);
     return () => {
-      isMounted = false;
+      const w = window as unknown as { cancelIdleCallback?: (id: number) => void };
+      if (typeof w.cancelIdleCallback === "function") w.cancelIdleCallback(id as number);
+      else window.clearTimeout(id as number);
     };
   }, []);
+
+  // Preload remaining hero images only when the page is loaded AND the main thread is idle,
+  // so they never compete with the LCP image, fonts or the app bundle.
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+
+    let isMounted = true;
+    let idleId: number | null = null;
+
+    const preloadRest = () => {
+      const promises = heroImages.slice(1).map(
+        (item) =>
+          new Promise<void>((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            if (item.srcSet) img.srcset = item.srcSet;
+            img.sizes = "100vw";
+            img.src = item.src;
+          })
+      );
+
+      Promise.all(promises).then(() => {
+        if (isMounted) setRestLoaded(true);
+      });
+    };
+
+    const schedule = () => {
+      idleId = onIdle(preloadRest, 4000) as number;
+    };
+
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("load", schedule);
+      if (idleId !== null) {
+        const w = window as unknown as { cancelIdleCallback?: (id: number) => void };
+        if (typeof w.cancelIdleCallback === "function") w.cancelIdleCallback(idleId);
+        else window.clearTimeout(idleId);
+      }
+    };
+  }, []);
+
 
   // Start slideshow after remaining images are loaded
   useEffect(() => {
@@ -138,7 +193,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           return (
             <div
               key={index}
-              className={`absolute inset-0 ${kenBurnsClass}`}
+              className={`absolute inset-0 ${decorReady ? kenBurnsClass : ""}`}
               style={{
                 zIndex: isPrevious ? 2 : 1,
                 animationPlayState: isPrevious ? "paused" : "running",
@@ -146,6 +201,8 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             >
               <img
                 src={item.src}
+                srcSet={item.srcSet}
+                sizes="100vw"
                 alt=""
                 width={item.w}
                 height={item.h}
@@ -170,19 +227,22 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         <div className="absolute inset-0 bg-gradient-to-b from-leville-dark/75 via-leville-dark/50 to-leville-dark/85 z-[3]" />
       </div>
 
-      {/* Subtle Aurora overlay effects - with turquoise accent */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
-        <div 
-          className="absolute -top-20 left-0 w-[800px] h-[500px] bg-gradient-to-b from-aurora-green/25 via-leville-turquoise/15 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-1"
-        />
-        <div
-          className="absolute -top-10 right-0 w-[700px] h-[400px] bg-gradient-to-b from-leville-turquoise/20 via-aurora-green/12 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-2"
-        />
-      </div>
+      {/* Subtle Aurora overlay effects - mounted after first paint */}
+      {decorReady && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
+          <div 
+            className="absolute -top-20 left-0 w-[800px] h-[500px] bg-gradient-to-b from-aurora-green/25 via-leville-turquoise/15 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-1"
+          />
+          <div
+            className="absolute -top-10 right-0 w-[700px] h-[400px] bg-gradient-to-b from-leville-turquoise/20 via-aurora-green/12 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-2"
+          />
+        </div>
+      )}
 
       {/* Twinkling stars */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
-        {stars.map((star) => (
+        {decorReady && stars.map((star) => (
+
           <div
             key={star.id}
             className="absolute rounded-full bg-white animate-twinkle"
