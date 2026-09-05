@@ -51,17 +51,21 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [previousImageIndex, setPreviousImageIndex] = useState<number | null>(null);
   const [previousVisible, setPreviousVisible] = useState(false);
-  // First image shows immediately; rest preload in background
+  // First image shows immediately; rest preload only once the page is idle
   const [restLoaded, setRestLoaded] = useState(false);
+  // Decorative layers (aurora + stars) mount after the first paint so they never delay LCP
+  const [decorReady, setDecorReady] = useState(false);
 
   const fadeTimeoutRef = useRef<number | null>(null);
   const rafRef = useRef<number | null>(null);
 
   const t = getTranslations(lang).hero;
 
+  const starCount = decorReady && typeof window !== "undefined" && window.innerWidth < 768 ? 18 : 32;
+
   const stars = useMemo(
     () =>
-      [...Array(50)].map((_, i) => ({
+      [...Array(starCount)].map((_, i) => ({
         id: i,
         left: Math.random() * 100,
         top: Math.random() * 55,
@@ -69,37 +73,66 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         delay: Math.random() * 4,
         duration: 1.5 + Math.random() * 2,
       })),
-    []
+    [starCount]
   );
 
   const trustIcons = [MapPin, CreditCard, Home];
 
-  // Preload remaining hero images in background (first one loads eagerly via img tag)
+  // Mount decorations after the browser has painted the hero
   useEffect(() => {
-    let isMounted = true;
-    
-    const preloadRest = async () => {
-      const promises = heroImages.slice(1).map((item) => {
-        return new Promise<void>((resolve) => {
-          const img = new Image();
-          img.onload = () => resolve();
-          img.onerror = () => resolve();
-          img.src = item.src;
-        });
-      });
-      
-      await Promise.all(promises);
-      if (isMounted) {
-        setRestLoaded(true);
-      }
-    };
-    
-    preloadRest();
-    
+    if (prefersReducedMotion()) return;
+    const id = onIdle(() => setDecorReady(true), 2000);
     return () => {
-      isMounted = false;
+      const w = window as unknown as { cancelIdleCallback?: (id: number) => void };
+      if (typeof w.cancelIdleCallback === "function") w.cancelIdleCallback(id as number);
+      else window.clearTimeout(id as number);
     };
   }, []);
+
+  // Preload remaining hero images only when the page is loaded AND the main thread is idle,
+  // so they never compete with the LCP image, fonts or the app bundle.
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+
+    let isMounted = true;
+    let idleId: number | null = null;
+
+    const preloadRest = () => {
+      const promises = heroImages.slice(1).map(
+        (item) =>
+          new Promise<void>((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            if (item.srcSet) img.srcset = item.srcSet;
+            img.sizes = "100vw";
+            img.src = item.src;
+          })
+      );
+
+      Promise.all(promises).then(() => {
+        if (isMounted) setRestLoaded(true);
+      });
+    };
+
+    const schedule = () => {
+      idleId = onIdle(preloadRest, 4000) as number;
+    };
+
+    if (document.readyState === "complete") schedule();
+    else window.addEventListener("load", schedule, { once: true });
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("load", schedule);
+      if (idleId !== null) {
+        const w = window as unknown as { cancelIdleCallback?: (id: number) => void };
+        if (typeof w.cancelIdleCallback === "function") w.cancelIdleCallback(idleId);
+        else window.clearTimeout(idleId);
+      }
+    };
+  }, []);
+
 
   // Start slideshow after remaining images are loaded
   useEffect(() => {
