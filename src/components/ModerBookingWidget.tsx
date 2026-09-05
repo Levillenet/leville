@@ -110,10 +110,6 @@ const ModerBookingWidget = ({ lang = "fi" }: ModerBookingWidgetProps) => {
     };
 
 
-    return () => {
-      if (setupTimeoutId) clearTimeout(setupTimeoutId);
-      if (restoreLangId) clearTimeout(restoreLangId);
-    };
 
     // Intentionally not depending on `lang` since widget is forced to EN
   }, []);
