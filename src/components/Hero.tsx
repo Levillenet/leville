@@ -193,7 +193,7 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
           return (
             <div
               key={index}
-              className={`absolute inset-0 ${kenBurnsClass}`}
+              className={`absolute inset-0 ${decorReady ? kenBurnsClass : ""}`}
               style={{
                 zIndex: isPrevious ? 2 : 1,
                 animationPlayState: isPrevious ? "paused" : "running",
@@ -201,6 +201,8 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
             >
               <img
                 src={item.src}
+                srcSet={item.srcSet}
+                sizes="100vw"
                 alt=""
                 width={item.w}
                 height={item.h}
@@ -225,19 +227,22 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
         <div className="absolute inset-0 bg-gradient-to-b from-leville-dark/75 via-leville-dark/50 to-leville-dark/85 z-[3]" />
       </div>
 
-      {/* Subtle Aurora overlay effects - with turquoise accent */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
-        <div 
-          className="absolute -top-20 left-0 w-[800px] h-[500px] bg-gradient-to-b from-aurora-green/25 via-leville-turquoise/15 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-1"
-        />
-        <div
-          className="absolute -top-10 right-0 w-[700px] h-[400px] bg-gradient-to-b from-leville-turquoise/20 via-aurora-green/12 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-2"
-        />
-      </div>
+      {/* Subtle Aurora overlay effects - mounted after first paint */}
+      {decorReady && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
+          <div 
+            className="absolute -top-20 left-0 w-[800px] h-[500px] bg-gradient-to-b from-aurora-green/25 via-leville-turquoise/15 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-1"
+          />
+          <div
+            className="absolute -top-10 right-0 w-[700px] h-[400px] bg-gradient-to-b from-leville-turquoise/20 via-aurora-green/12 to-transparent rounded-full blur-3xl mix-blend-screen animate-aurora-2"
+          />
+        </div>
+      )}
 
       {/* Twinkling stars */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-[4]">
-        {stars.map((star) => (
+        {decorReady && stars.map((star) => (
+
           <div
             key={star.id}
             className="absolute rounded-full bg-white animate-twinkle"
