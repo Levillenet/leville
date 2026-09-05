@@ -4,17 +4,19 @@ import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Features from "@/components/Features";
-import NewsHighlight from "@/components/NewsHighlight";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredData";
+// Below-the-fold sections load on demand to keep the first paint light
+const About = lazy(() => import("@/components/About"));
+const Features = lazy(() => import("@/components/Features"));
+const NewsHighlight = lazy(() => import("@/components/NewsHighlight"));
+const WhatsAppChat = lazy(() => import("@/components/WhatsAppChat"));
 const GuideLinksSection = lazy(() => import("@/components/GuideLinksSection"));
 const ActivitiesLinksSection = lazy(() => import("@/components/ActivitiesLinksSection"));
-import PromoBanner from "@/components/PromoBanner";
+const PromoBanner = lazy(() => import("@/components/PromoBanner"));
+
 
 const IndexEN = () => {
   const location = useLocation();
