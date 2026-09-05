@@ -60,18 +60,21 @@ const IndexEN = () => {
         <Header />
         <main>
           <Hero lang="en" />
-          <PromoBanner lang="en" />
-          <About lang="en" />
           <Suspense fallback={<div className="min-h-[200px]" />}>
+            <PromoBanner lang="en" />
+            <About lang="en" />
             <GuideLinksSection lang="en" />
             <ActivitiesLinksSection lang="en" />
+            <NewsHighlight lang="en" />
+            <Features lang="en" />
           </Suspense>
-          <NewsHighlight lang="en" />
-          <Features lang="en" />
         </main>
         <Footer lang="en" />
-        <WhatsAppChat lang="en" />
+        <Suspense fallback={null}>
+          <WhatsAppChat lang="en" />
+        </Suspense>
         <ModerBookingWidget lang="en" />
+
       </div>
     </>
   );
