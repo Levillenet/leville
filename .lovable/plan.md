@@ -1,25 +1,38 @@
-# Latausnopeuden jälkimittaus (julkaisu + PageSpeed)
+# Nopeusero kilpailijaan (leville.net vs levillas.fi)
 
-Tähänastiset labramittaukset (mobiili, simuloitu puhelin):
+## Mistä ero tulee
 
-| Mittari | Ennen (julkaistu) | Jälkeen (esikatselu) |
+Googlen kenttädata (viimeiset 28 päivää, mobiili):
+
+| Mittari | leville.net | levillas.fi |
 |---|---|---|
-| FCP | 1,63 s | ~0,45 s (−72 %) |
-| CLS | 0,063 | 0,000 |
-| Hero-kuvan koko | ~430 kt (JPG) | ~7–50 kt (WebP 640/1024/1536) |
-| Kuvapyynnöt | 5 kuvaa heti | 1 kuva heti, loput joutilaana |
+| LCP | 5,2 s (hylätty) | 1,8 s |
+| FCP | 5,0 s | 1,7 s |
+| TTFB | 1,6 s | 0,8 s |
+| CLS | 0,06 | 0,04 |
+| Tehokkuus (labra) | 87 | 75 |
 
-Esikatselu palvelee kääntämätöntä kehitysversiota (6,9 Mt skriptejä, 214 pyyntöä), joten sen LCP-luku (1,8–3,8 s) ei kerro tuotannon todellista tilaa. Luotettava luku saadaan vain julkaistusta versiosta. PageSpeed Insightsin ilmainen päiväkiintiö oli tänään täynnä, joten mittaus tehdään paikallisesti Lighthouse/Playwright-labralla.
+Huomio: labratesti antaa meille jo paremman pistemäärän (87 vs 75), mutta kenttädata on 28 päivän liukuva keskiarvo oikeilta käyttäjiltä. Se ei sisällä vielä eilen tehtyjä korjauksia lainkaan.
+
+Tarkistin julkaistun etusivun lähdekoodin juuri nyt. Se on yhä vanha versio:
+- Fontit haetaan edelleen Google Fontsista (ulkoinen yhteys ennen tekstin näkymistä) — itse hostatut fontit eivät ole tuotannossa.
+- Etusivun pääkuvalle ei ole esilatausta eikä puhelimen pienempää versiota; ladataan yhä täysikokoinen kuva.
+- Kaikki viisi taustakuvaa ovat sivun koodissa heti.
+- Palvelimen vasteaika (TTFB) 1,6 s on kaksinkertainen kilpailijaan nähden.
+
+Eli eilen tehdyt korjaukset eivät ole vielä käytössä — siksi mitään ei ole parantunut.
 
 ## Mitä tehdään
 
-1. **Julkaistaan sivusto** nykyisine LCP-muutoksineen.
-2. **Jälkimittaus julkaistulle versiolle** (`https://leville.lovable.app` ja `https://leville.net` jos ohjaa oikein): LCP, FCP, CLS, TBT, pyyntöjen määrä ja siirrettävä datamäärä mobiili- ja työpöytäprofiililla. Mittaus ajetaan kolme kertaa ja raportoidaan mediaani.
-3. **Raportti chatissa** ennen/jälkeen-taulukkona: LCP, FCP, CLS, TBT ja datamäärät (kuvat, fontit, skriptit) sekä arvio PageSpeed-pisteiden muutoksesta.
-4. Jos LCP jää yli 2,5 s:n, tunnistetaan jäljellä oleva suurin hidaste (esim. Moder-widget tai aloitusanimaatiot) ja ehdotetaan tarkkakorjausta erikseen.
+1. **Julkaistaan sivusto**, jotta tehdyt korjaukset (WebP-kuvat, esilataus, itse hostatut fontit, viivästetty varauswidget) menevät oikeasti tuotantoon.
+2. **Varmistetaan julkaisun jälkeen** suoraan julkaistusta HTML:stä, että Google Fonts -linkki on poissa, pääkuvan esilataus on paikallaan ja vain yksi taustakuva latautuu heti.
+3. **Mitataan uudelleen** labratesti mobiilille (LCP, FCP, CLS, siirretty datamäärä) ennen/jälkeen-taulukkona.
+4. **TTFB-korjaus (1,6 s → tavoite alle 0,8 s).** Tutkitaan miksi ensimmäinen vaste on hidas: Cloudflaren välimuistiasetukset ja esirenderöinnin välimuistin osumatarkkuus etusivulle. Säädetään välimuisti niin, että etusivu tulee reunapalvelimelta valmiina.
+5. **Kenttädatan seuranta.** Kerrotaan selvästi, että Googlen luvut päivittyvät vasta 2–4 viikossa julkaisusta, joten hylätty-merkintä poistuu viiveellä vaikka sivu olisi jo nopea.
 
 ## Tekniset yksityiskohdat
-- Mittaus: Playwright + PerformanceObserver (largest-contentful-paint, paint, layout-shift, longtask) kuten tähänkin asti; verrataan samaan ennen-lukemaan (LCP 1,78 s, FCP 1,63 s, CLS 0,063, 2,5 Mt).
-- PageSpeed Insights -uusinta tehdään kun kiintiö nollautuu, jos haluat Googlen viralliset pisteet.
+- Julkaistu HTML sisältää yhä `fonts.googleapis.com`-tyylitiedoston ja viisi `<img>`-hero-elementtiä, eikä `<link rel="preload" as="image">`-riviä — todiste vanhasta buildista.
+- Mittaus: Playwright + PerformanceObserver (LCP/FCP/CLS), mobiiliprofiili 390×844, kolme ajoa, mediaani. PageSpeed Insights -API:n päiväkiintiö oli täynnä; uusitaan kun kiintiö nollautuu.
+- TTFB-tutkinta: `curl -w` aikaerittely julkaistulle etusivulle sekä `x-lovablehtml-render-cache`- ja `cf-cache-status`-otsakkeet.
 
-Ei muutoksia sisältöön tai varauslogiikkaan — vain julkaisu ja mittaus.
+Ei muutoksia sisältöön, hintoihin tai varauslogiikkaan.
