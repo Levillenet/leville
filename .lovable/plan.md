@@ -1,38 +1,35 @@
-# Nopeusero kilpailijaan (leville.net vs levillas.fi)
+# Julkaisun jälkeinen mittaus ja seuraava hidaste
 
-## Mistä ero tulee
+## Mitä juuri tapahtui
 
-Googlen kenttädata (viimeiset 28 päivää, mobiili):
+- Julkaisu meni läpi. Tuore HTML (kun pyydetään `?nocache=1`) sisältää nyt itse hostatut fontit ja hero-kuvan esilatauksen, eikä Google Fontsia ole enää.
+- Mittasin julkaistun `https://leville.net/` mobiililla Playwrightilla (3 ajoa):
 
-| Mittari | leville.net | levillas.fi |
+| Mittari | Ennen (kenttädata) | Julkaisun jälkeen (labra) |
 |---|---|---|
-| LCP | 5,2 s (hylätty) | 1,8 s |
-| FCP | 5,0 s | 1,7 s |
-| TTFB | 1,6 s | 0,8 s |
-| CLS | 0,06 | 0,04 |
-| Tehokkuus (labra) | 87 | 75 |
+| LCP | 5,2 s | 2,2–2,8 s (mediaani ~2,8 s) |
+| FCP | 5,0 s | 2,2–2,8 s |
+| CLS | 0,06 | 0,063 |
+| TBT | – | ~435 ms |
+| Pyyntöjä | – | 67 |
+| Siirretty data | – | 2,58 Mt |
 
-Huomio: labratesti antaa meille jo paremman pistemäärän (87 vs 75), mutta kenttädata on 28 päivän liukuva keskiarvo oikeilta käyttäjiltä. Se ei sisällä vielä eilen tehtyjä korjauksia lainkaan.
+Ero on selvä: LCP putosi noin 5,2 s → 2,8 s. Mutta tavoite (alle 2,5 s, mieluiten kilpailijan 1,8 s) ei vielä täyty.
 
-Tarkistin julkaistun etusivun lähdekoodin juuri nyt. Se on yhä vanha versio:
-- Fontit haetaan edelleen Google Fontsista (ulkoinen yhteys ennen tekstin näkymistä) — itse hostatut fontit eivät ole tuotannossa.
-- Etusivun pääkuvalle ei ole esilatausta eikä puhelimen pienempää versiota; ladataan yhä täysikokoinen kuva.
-- Kaikki viisi taustakuvaa ovat sivun koodissa heti.
-- Palvelimen vasteaika (TTFB) 1,6 s on kaksinkertainen kilpailijaan nähden.
+## Miksi LCP ei vielä riitä
 
-Eli eilen tehdyt korjaukset eivät ole vielä käytössä — siksi mitään ei ole parantunut.
+LCP-elementti ei olekaan hero-kuva, vaan etusivun pääotsikko (`H1`), joka käyttää `Cormorant Garamond` -fonttia. Otsikolla on `animate-slide-up`-animaatio, joka alkaa `opacity: 0`. Selain ei siis merkitse tekstiä "näkyväksi" ennen kuin 0,8 s animaatio on valmis. Tämä selittää, miksi FCP ja LCP osuvat lähes samaan aikaan (~2 s) eikä kuvan optimointi auttanut enempää.
 
-## Mitä tehdään
+TTFB itse asiassa putosi hyväksi: ~326 ms (kenttädata 1,6 s oli vanhaa). Eli palvelinvaste ei ole enää pullonkaula.
 
-1. **Julkaistaan sivusto**, jotta tehdyt korjaukset (WebP-kuvat, esilataus, itse hostatut fontit, viivästetty varauswidget) menevät oikeasti tuotantoon.
-2. **Varmistetaan julkaisun jälkeen** suoraan julkaistusta HTML:stä, että Google Fonts -linkki on poissa, pääkuvan esilataus on paikallaan ja vain yksi taustakuva latautuu heti.
-3. **Mitataan uudelleen** labratesti mobiilille (LCP, FCP, CLS, siirretty datamäärä) ennen/jälkeen-taulukkona.
-4. **TTFB-korjaus (1,6 s → tavoite alle 0,8 s).** Tutkitaan miksi ensimmäinen vaste on hidas: Cloudflaren välimuistiasetukset ja esirenderöinnin välimuistin osumatarkkuus etusivulle. Säädetään välimuisti niin, että etusivu tulee reunapalvelimelta valmiina.
-5. **Kenttädatan seuranta.** Kerrotaan selvästi, että Googlen luvut päivittyvät vasta 2–4 viikossa julkaisusta, joten hylätty-merkintä poistuu viiveellä vaikka sivu olisi jo nopea.
+## Mitä tehdään seuraavaksi
+
+1. **Poista LCP-elementin piilotus.** Muutetaan hero-otsikon animaatio niin, että teksti on näkyvissä heti sivun avautuessa. Animaatio voi liikkua ylöspäin, mutta `opacity` ei saa alkaa nollasta. Vaihtoehtoisesti lisätään `prefers-reduced-motion`-tuki, joka poistaa animaation kokonaan.
+2. **Julkaistaan korjaus ja mitataan uudelleen.** Tavoite: LCP ja FCP erkanevat — FCP alle 1 s ja LCP alle 1,5 s.
+3. **Jos tavoite ei vielä täyty, tutkitaan CSS-koon purkamista.** Renderöitävä CSS on 154 kt, mikä voi hidastaa ensimmäistä maalausta. Tämä on seuraava epäilty, mutta sitä ei koske ennen kuin otsikon piilotus on korjattu.
+4. **Kenttädatan päivitys.** Kerrotaan selvästi, että Googlen CrUX-luvut päivittyvät vasta 2–4 viikossa, joten PageSpeedin "Hyväksytty"-merkintä tulee viiveellä vaikka labramittarit olisivat jo kunnossa.
 
 ## Tekniset yksityiskohdat
-- Julkaistu HTML sisältää yhä `fonts.googleapis.com`-tyylitiedoston ja viisi `<img>`-hero-elementtiä, eikä `<link rel="preload" as="image">`-riviä — todiste vanhasta buildista.
-- Mittaus: Playwright + PerformanceObserver (LCP/FCP/CLS), mobiiliprofiili 390×844, kolme ajoa, mediaani. PageSpeed Insights -API:n päiväkiintiö oli täynnä; uusitaan kun kiintiö nollautuu.
-- TTFB-tutkinta: `curl -w` aikaerittely julkaistulle etusivulle sekä `x-lovablehtml-render-cache`- ja `cf-cache-status`-otsakkeet.
-
-Ei muutoksia sisältöön, hintoihin tai varauslogiikkaan.
+- Muokattava: `src/components/Hero.tsx` — hero-otsikon animaatio (tai `src/index.css` `.animate-slide-up` / `@keyframes slideUp`).
+- Mittaus: sama Playwright-ajo (mobiili 390×844, 3 toistoa, networkidle + 3 s odotus).
+- Ei muutoksia sisältöön, hintoihin eikä varauslogiikkaan.
