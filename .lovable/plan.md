@@ -24,12 +24,13 @@ TTFB itse asiassa putosi hyväksi: ~326 ms (kenttädata 1,6 s oli vanhaa). Eli p
 
 ## Mitä tehdään seuraavaksi
 
-1. **Poista LCP-elementin piilotus.** Muutetaan hero-otsikon animaatio niin, että teksti on näkyvissä heti sivun avautuessa. Animaatio voi liikkua ylöspäin, mutta `opacity` ei saa alkaa nollasta. Vaihtoehtoisesti lisätään `prefers-reduced-motion`-tuki, joka poistaa animaation kokonaan.
+1. **Poista LCP-elementin piilotus.** Muutetaan `animate-slide-up`-animaation avainkehys niin, että teksti on näkyvissä heti sivun avautuessa. Animaatio voi liikkua ylöspäin, mutta `opacity` ei saa alkaa nollasta. Tämä on yksi pieni CSS-muutos: `src/index.css`, `@keyframes slideUp` — `from { opacity: 0; }` → `from { opacity: 1; }`.
+   - **Emme koske varauswidgettiin (Moder) millään tavalla.** Hero.tsx jätetään rauhaan; vain yleinen animaatio muuttuu.
 2. **Julkaistaan korjaus ja mitataan uudelleen.** Tavoite: LCP ja FCP erkanevat — FCP alle 1 s ja LCP alle 1,5 s.
 3. **Jos tavoite ei vielä täyty, tutkitaan CSS-koon purkamista.** Renderöitävä CSS on 154 kt, mikä voi hidastaa ensimmäistä maalausta. Tämä on seuraava epäilty, mutta sitä ei koske ennen kuin otsikon piilotus on korjattu.
 4. **Kenttädatan päivitys.** Kerrotaan selvästi, että Googlen CrUX-luvut päivittyvät vasta 2–4 viikossa, joten PageSpeedin "Hyväksytty"-merkintä tulee viiveellä vaikka labramittarit olisivat jo kunnossa.
 
 ## Tekniset yksityiskohdat
-- Muokattava: `src/components/Hero.tsx` — hero-otsikon animaatio (tai `src/index.css` `.animate-slide-up` / `@keyframes slideUp`).
+- Muokattava tiedosto: vain `src/index.css` (rivit 214–223).
 - Mittaus: sama Playwright-ajo (mobiili 390×844, 3 toistoa, networkidle + 3 s odotus).
 - Ei muutoksia sisältöön, hintoihin eikä varauslogiikkaan.
