@@ -110,8 +110,8 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
       { id: "karhunvartija", name: "Karhunvartija 3 (Skimbaajankuja 4)", slugPrefix: (s) => s === "karhunvartija-3", description: "Tilava perhehuoneisto Levin keskustassa, oma sauna ja takka.", descriptionEn: "Spacious family apartment in Levi centre with private sauna and fireplace." },
       { id: "levi-platinum", name: "Levi Platinum A2 (Hiihtäjänkuja 2)", slugPrefix: (s) => s === "levi-platinum-a2", description: "Edustava studio Levin keskustassa – kävelymatka rinteille, ravintoloihin ja palveluihin.", descriptionEn: "Stylish studio in Levi centre — walking distance to the slopes, restaurants and services." },
       { id: "moonlight", name: "Moonlight 415 (Leviraitti)", slugPrefix: (s) => s === "moonlight-415", description: "Tunnelmallinen studio Levin sydämessä – nopea pääsy rinteille ja Levin palveluihin.", descriptionEn: "Cosy studio in the heart of Levi — quick access to the slopes and all Levi services." },
-      { id: "glacier-a", name: "Levi Glacier Apartments A-talo (Ratsastajankuja 2)", slugPrefix: (s) => /^glacier-a\d/.test(s), description: "Uudet alppitalon huoneistot ja penthouse rinteen yläpäässä – sauna, takka ja näköalat.", descriptionEn: "New alpine apartments and a penthouse at the top of the front slope — sauna, fireplace and views." },
-      { id: "glacier-b", name: "Levi Glacier Apartments B-talo (Ratsastajankuja 2)", slugPrefix: (s) => /^glacier-b\d/.test(s), description: "Glacier B-talon huoneistot ja penthouset – sauna, takka ja rauhallinen sijainti.", descriptionEn: "Glacier building B apartments and penthouses — sauna, fireplace and a peaceful location." },
+      { id: "glacier-a", name: "Levi Glacier Apartments A-talo (Ratsastajankuja 2)", slugPrefix: (s) => /^glacier-a\d/.test(s), description: "Alppitalon huoneistot ja penthouse eturinteen juurella – sauna, parveke ja näköalat.", descriptionEn: "Alpine apartments and a penthouse at the foot of the front slope — sauna, balcony and views." },
+      { id: "glacier-b", name: "Levi Glacier Apartments B-talo (Ratsastajankuja 2)", slugPrefix: (s) => /^glacier-b\d/.test(s), description: "Glacier B-talon huoneistot ja penthouset eturinteen juurella – sauna, parvekkeet ja rauhallinen sijainti.", descriptionEn: "Glacier building B apartments and penthouses at the foot of the front slope — sauna, balconies and a peaceful location." },
     ];
     return groups.map((g) => ({
       ...g,
@@ -173,7 +173,6 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
         <html lang={lang} />
         <title>{t.meta.title}</title>
         <meta name="description" content={t.meta.description} />
-        <meta name="keywords" content={t.meta.keywords} />
         <link rel="canonical" href={t.meta.canonical} />
         
         {/* Open Graph */}
