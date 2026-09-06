@@ -58,7 +58,7 @@ export const en = {
     meta: {
       title: `Levi Accommodation ${new Date().getFullYear()} — Apartments & Cabins, Levi Finland`,
       description: "Levi accommodation booked direct from the owner: 27 apartments, log cabins and cottages in Levi centre, Finland. Private sauna, walking distance to the slopes, no booking fees.",
-      keywords: "levi accommodation, levi finland accommodation, accommodation in levi, levi apartments, levi cabins, levi cottages, where to stay in levi, levi ski resort accommodation",
+      
 
       canonical: "https://leville.net/en/accommodations"
     },
