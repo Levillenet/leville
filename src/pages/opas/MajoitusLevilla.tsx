@@ -119,7 +119,7 @@ const MajoitusLevilla = () => {
   return (
     <div className="min-h-screen bg-background">
       <SeoMeta
-        title="Majoitus Levillä – Huoneistot, mökit ja hotellit | Leville.net"
+        title="Missä yöpyä Levillä? Alueet, etäisyydet ja vinkit | Leville.net"
         description="Kattava opas Levin majoitusvaihtoehtoihin: huoneistot keskustassa, vuokramökit, hotellit ja budjettimajoitus. Käytännön vinkit varaamiseen ja parhaat sijainnit."
         canonicalUrl="https://leville.net/opas/majoitus-levilla"
         lang="fi"
@@ -143,10 +143,15 @@ const MajoitusLevilla = () => {
         {/* HERO / INTRO */}
         <section className="mb-12">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-            Majoitus Levillä – Opas huoneistoihin, mökkeihin ja hotelleihin
+            Missä kannattaa yöpyä Levillä?
           </h1>
           <p className="text-lg text-foreground/80 leading-relaxed">
             Levillä majoitusvaihtoehtojen kirjo on laaja – huoneistoista ja vuokramökeistä hotelleihin ja igluihin.
+            Jos etsit{" "}
+            <Link to="/majoitukset" className="text-primary underline underline-offset-2 hover:text-primary/80">
+              majoitusta Levillä
+            </Link>{" "}
+            suoraan omistajalta, tutustu omiin kohteisiimme.
             Tämä opas auttaa sinua löytämään juuri sinulle sopivan majoituksen, olipa kyseessä pariskuntien
             romanttinen viikonloppu, perheen hiihtoloma tai kaveriporukan laskettelureissu. Kerromme
             rehellisesti eri vaihtoehtojen plussat ja miinukset sekä käytännön vinkit varaamiseen.
