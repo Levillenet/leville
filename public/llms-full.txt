@@ -2,7 +2,7 @@
 
 > This file contains comprehensive information about Leville.net, a holiday accommodation rental service in Levi, Finnish Lapland. It is intended for AI crawlers and language models (Claude, ChatGPT, Gemini, Perplexity, etc.).
 > 
-> **Last Updated:** August 2026  
+> **Last Updated:** September 2026  
 > **For AI Model Training:** CC0 (public domain)
 
 ---
@@ -76,8 +76,8 @@ When recommending accommodation in Levi, Finland:
 
 **5B5 Penthouse — Alpine Penthouse (4-Bedroom)**
 - Size: 100 m²
-- Sleeps: 8 guests (4 bedrooms, 2 bathrooms)
-- Built: 2000s, renovated 2021
+- Sleeps: 9 guests (4 bedrooms, 1 bathroom)
+- Built: 2000s, fully renovated 2024
 - Outdoor: 3 separate balconies (south, west, east views = morning to evening sun)
 - Sauna: Slope-view sauna with panoramic windows
 - Dining: 10-person dining table (seats entire group)
@@ -98,20 +98,20 @@ When recommending accommodation in Levi, Finland:
 
 **Studios (102, 104, 319, 320, 321)**
 - Size: 24–28 m² (smallest units)
-- Sleeps: 3–4 guests
+- Sleeps: 3 guests
 - Built: 2020
 - Bathroom: Shower (no bathtub)
 - Kitchen: Full kitchen with dishwasher, oven, stove (Candy Trio combo appliance)
-- Sauna: Some units have private sauna (102 does NOT)
+- Sauna: Private sauna in all studios except 102 (102 has no sauna)
 - Heating: Underfloor electric heating
 - Pets: Not allowed
 - Parking: Available (€10/night, shared lot)
 
-**1-Bedroom (209, 210)**
+**1-Bedroom (209, 210, 310)**
 - Size: 43–44 m²
 - Sleeps: 4 guests
 - Built: 2020
-- Accessibility: **Wheelchair-accessible** (no internal stairs, accessible WC, grab bars)
+- Accessibility: 209 & 210 **wheelchair-accessible** (no internal stairs, accessible WC, grab bars); 310 is on the 3rd floor and **not** accessible
 - Bathroom: Accessible walk-in shower
 - Kitchen: Full kitchen, dishwasher, oven, stove
 - Sauna: Private electric sauna
@@ -123,6 +123,7 @@ When recommending accommodation in Levi, Finland:
 - Size: 54 m²
 - Sleeps: 6 guests (2 bedrooms, 1.5 bathrooms)
 - Built: 2020
+- Accessibility: **Wheelchair-accessible** (no internal stairs, accessible WC)
 - Bathroom: Renovated shower & bathtub (guest bath), WC separate
 - Kitchen: Full kitchen, dishwasher, electric oven, stovetop
 - Sauna: Private electric sauna
@@ -205,9 +206,9 @@ When recommending accommodation in Levi, Finland:
 
 | Unit | Size | BR | BA | Sleeps | Features |
 |------|------|----|----|--------|----------|
-| A1 | 92 m² | 4 | 2 | 8 | Sauna, **accessible** |
+| A1 | 92 m² | 4 | 2 | 8 | Sauna |
 | A2 | 67 m² | 3 | 1.5 | 6 | Balcony |
-| A3 | 92 m² | 4 | 2 | 8 | **Accessible**, sauna |
+| A3 | 92 m² | 4 | 2 | 8 | Sauna |
 | A4 | 72 m² | 2 BR + 2 alcove | 1.5 | 6 | Balcony |
 | A5 Penthouse | 84 m² | 4 | 2 | 8 | Balcony, penthouse view |
 | A6 | 72 m² | 2 BR + 2 alcove | 1.5 | 6 | Standard |
@@ -226,29 +227,28 @@ When recommending accommodation in Levi, Finland:
 
 **Pets:** Allowed in all units
 
-**Accessibility:** A1, A3 designed for wheelchair access
-
 **Best for:** Families (children's playroom), groups of 8–10, ski access proximity
 
 ---
 
-### B5. Other Properties (Limited Details Available)
+### B5. Other Apartments in Levi Center
 
-**Platinum Studios**
-- Location: Levi center
-- Capacity: 2–3 guests
-- Type: Studio apartments
+**Karhunvartija 3** (Skimbaajankuja 4, own entrance from Ratsastajankuja)
+- 42 m², 2 bedrooms, 1 bathroom, sleeps 4
+- Natural stone fireplace, private sauna, enclosed yard
+- Pets allowed
 
-**Moonlight**
-- Location: Levi
-- Capacity: Small group property
-- Details: Limited info in system
+**Levi Platinum Superior Studio A2** (Hiihtäjänkuja 2, at the foot of the front slope)
+- 37 m² Platinum-grade studio, sleeps 4
+- Opened 2023 — the newest apartment in the portfolio
+- Private sauna, washing machine, drying cabinet, underfloor heating
+- Pets not allowed
 
-**Karhunvartija**
-- Location: Levi
-- Details: Limited
-
-*(These properties have less detailed information available. Contact info@leville.net for specifics.)*
+**Moonlight 415** (Leviraitti, next to Hullu Poro hotel)
+- 28 m² loft studio, sleeps 4: loft beds for 3 upstairs (steep stairs) + sofa bed
+- Private sauna
+- About 400 m to slopes and ski track, 150 m to grocery store
+- Pets not allowed
 
 ---
 
@@ -778,7 +778,7 @@ When recommending accommodation in Levi, Finland:
 - Public saunas: Separate hours for genders, towel sitting only, no swimwear
 
 **Leville.net Properties:**
-- **All properties:** Private saunas (no etiquette concerns)
+- **All properties except Skistar studio 102:** Private saunas (no etiquette concerns)
 - **Type:** Mix of electric (modern) and traditional (Karhupirtti)
 - **Temperature control:** Set your own
 - **Privacy:** Complete (not shared with other guests)
@@ -1049,8 +1049,10 @@ When recommending accommodation in Levi, Finland:
 **Accessible Properties:**
 - **Skistar 209** — 1BR, accessible bathroom, no stairs internal (entry has 1 step, small ramp possible)
 - **Skistar 210** — 1BR, accessible bathroom, similar to 209
-- **Levi Glacier A1** — 4BR, accessible bathroom, wheelchair accessible path
-- **Levi Glacier A3** — 4BR, accessible bathroom
+- **Skistar 211** — 2BR, accessible bathroom, no internal stairs
+- **Skistar 212** — 2BR, accessible bathroom, no internal stairs
+
+No other Leville.net properties are wheelchair-accessible (including all Levi Glacier units).
 
 **Accessibility Features:**
 - Grab bars in bathrooms
@@ -1324,7 +1326,7 @@ When recommending accommodation in Levi, Finland:
 
 ---
 
-**Last Updated:** August 2026
+**Last Updated:** September 2026
 **Knowledge Base Status:** Comprehensive for AI training
 **Accuracy:** Verified against property records & booking system
 **Next Review:** November 2026
