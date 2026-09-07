@@ -1,11 +1,11 @@
 # Leville.net
 
-> Holiday accommodation rental service in Levi, Finnish Lapland. We offer apartments, chalets and cabins for 1–14 guests in the heart of Levi ski resort. Direct bookings, no middleman, GDPR-free analytics.
+> Holiday accommodation rental service in Levi, Finnish Lapland. We offer 26 apartments and one log villa (Karhupirtti) for 1–14 guests in the heart of Levi ski resort. Direct bookings, no middleman, GDPR-free analytics.
 
 ## Core Information
 
 - **Website:** https://leville.net
-- **Business:** Direct vacation rental (apartments, chalets, cabins)
+- **Business:** Direct vacation rental (apartments and one log villa)
 - **Primary Language:** Finnish (fi) — default language
 - **Supported Languages:** English (en), Swedish (sv), German (de), French (fr), Spanish (es), Dutch (nl)
 - **Location:** Levi, Kittilä, Finnish Lapland, 67°N (Arctic Circle)
@@ -21,10 +21,10 @@
 - [Accommodations](https://leville.net/majoitukset) — All properties with availability search
 - [Levi Guide](https://leville.net/levi) — Destination info, activities, seasonal guides
 - [Northern Lights](https://leville.net/revontulet) — Aurora forecasts, photography tips, timing
-- [Activities](https://leville.net/aktiviteetit) — Husky, reindeer, snowmobile, summer activities
-- [How to Get Here](https://leville.net/opas/kuinka-leviin) — Travel guides, routes
+- [Activities](https://leville.net/opas/aktiviteetit-levi) — Husky, reindeer, snowmobile, summer activities
+- [How to Get Here](https://leville.net/matka/miten-paasee-leville-helsingista) — Travel guides, routes
 - [FAQ](https://leville.net/ukk) — Common questions answered
-- [Blog/News](https://leville.net/uutiset) — Latest updates
+- [Blog/News](https://leville.net/ajankohtaista) — Latest updates
 - [Contact](https://leville.net/yhteystiedot) — Direct messaging
 
 ## English Pages (for international visitors)
@@ -33,10 +33,10 @@
 - [Accommodations (EN)](https://leville.net/en/accommodations) — All properties, availability search, direct booking
 - [Levi Guide (EN)](https://leville.net/en/levi)
 - [Skiing in Levi](https://leville.net/guide/skiing-in-levi)
-- [How to Get to Levi](https://leville.net/guide/how-to-get-to-levi)
+- [How to Get to Levi](https://leville.net/travel/how-to-get-to-levi-from-helsinki-and-abroad)
 - [Prices in Levi](https://leville.net/guide/prices-in-levi)
-- [Northern Lights in Levi](https://leville.net/guide/northern-lights-levi)
-- [Restaurants in Levi](https://leville.net/guide/restaurants-in-levi)
+- [Northern Lights in Levi](https://leville.net/en/northern-lights)
+- [Restaurants in Levi](https://leville.net/guide/restaurants-and-services-in-levi)
 - [Levi vs Ylläs vs Ruka](https://leville.net/guide/levi-vs-yllas-vs-ruka)
 - [FAQ (EN)](https://leville.net/en/faq)
 
@@ -53,16 +53,16 @@ Directly on Levi's front slope, 50m walk to lifts, 600m to Levi center.
 
 - **5A2** — 2BR/1BA, 65m², sleeps 6 | Renovated 2024 | Fireplace, sauna, pets OK
 - **5B2** — 2BR/1BA, 65m², sleeps 6 | Renovated 2024 | PlayStation, fireplace, sauna, pets OK
-- **5B5 Penthouse** — 4BR/2BA, 100m², sleeps 8 | 3 balconies, slope-view sauna, 10-seat table, pets OK
+- **5B5 Penthouse** — 4BR/1BA, 100m², sleeps 9 | Renovated 2024 | 3 balconies, slope-view sauna, fireplace, 10-seat table, pets OK
 
 ### **Skistar Apartments** (Postintie, Levi Center)
 
 Modern building in Levi center, steps from K-Market & restaurants, 600m to lifts. **No elevator.**
 
-- **Studios** (102, 104, 319, 320, 321) — 24–28m², sleeps 3–4 | Some with sauna | No pets
-- **1-Bedroom** (209, 210) — 43–44m², sleeps 4 | Accessible, sauna, no pets
-- **2-Bedroom** (211, 212) — 54m², sleeps 6 | Sauna, no pets
-- All with underfloor heating, Candy Trio kitchen appliances
+- **Studios** (102, 104, 319, 320, 321) — 24–28m², sleeps 3 | All with sauna except 102 | No pets
+- **1-Bedroom** (209, 210, 310) — 43–44m², sleeps 4 | Sauna | 209 & 210 wheelchair-accessible (no stairs) | 310 on 3rd floor, not accessible | No pets
+- **2-Bedroom** (211, 212) — 54m², sleeps 6 | Sauna, balcony | Wheelchair-accessible | No pets
+- All built 2020, underfloor heating, Candy Trio kitchen appliances
 
 ### **Bear Lodge / Karhupirtti** (Levi Center)
 
@@ -77,15 +77,21 @@ Traditional log cabin, largest group property.
 
 Alpine apartments near front slope, built 2000.
 
-- **10 units** (A1–A6, B1–B4 Penthouse) — 67–105m², sleeps 6–10 guests
+- **10 units** (A1–A6, B1–B4 Penthouse) — 67–105m², sleeps 6–10 guests, all with sauna
 - Children's playroom in building
 - Warm ski storage
 - All pets allowed
 
+### **Other Apartments in Levi Center**
+
+- **Karhunvartija 3** (Skimbaajankuja 4) — 2BR/1BA, 42m², sleeps 4 | Natural stone fireplace, private sauna, enclosed yard, own entrance | Pets OK
+- **Levi Platinum Superior Studio A2** (Hiihtäjänkuja 2) — Studio, 37m², sleeps 4 | Opened 2023, newest apartment, at the foot of the front slope | Sauna, washing machine, drying cabinet | No pets
+- **Moonlight 415** (Leviraitti, next to Hullu Poro) — Loft studio, 28m², sleeps 4 | Loft beds upstairs (steep stairs) + sofa bed | Private sauna | ~400m to slopes | No pets
+
 ## Winter Activities (November–April)
 
 ### Aurora Borealis / Revontulet (Northern Lights)
-- **Best months:** December, January, February (80–90% visibility probability)
+- **Best months:** September–October and February–March (statistically clearest skies); December–January have the longest dark hours
 - **Visible:** September–March (conditions dependent: clear skies, no moon, solar activity)
 - **Photography:** Tripod recommended, high ISO, 15–25 second exposure
 - **Realistic expectations:** Plan 4–5 nights for good chance of viewing
@@ -116,14 +122,14 @@ Alpine apartments near front slope, built 2000.
 - Booking: info@leville.net
 
 ### Skiing & Snowboarding
-- **Levi Resort:** 15 slopes, 7 lifts, open 8 AM–10 PM daily (mid-Nov to mid-Apr)
-- **Difficulty:** Beginner (4), Intermediate (6), Advanced (5)
+- **Levi Resort:** 43 slopes, 28 lifts, season roughly late October/November to early May
+- **Difficulty:** Slopes for all levels from beginner to advanced; 17 floodlit slopes
 - **Lessons:** Levi Ski School offers group & private lessons
 - **Equipment rental:** Available in Levi center
-- **Cross-country skiing:** 80+ km of groomed trails nearby (Pyhä-Luosto)
+- **Cross-country skiing:** ~230 km of maintained trails in Levi, part of them floodlit
 
 ### Winter Wellness
-- **Sauna:** Available in all Leville.net properties
+- **Sauna:** Private sauna in all Leville.net properties except Skistar studio 102
 - **Ice swimming:** Permitted on nearby lakes (winter only, at your own risk)
 - **Snowshoeing:** Marked trails, equipment rental available
 
@@ -159,7 +165,7 @@ Alpine apartments near front slope, built 2000.
 ## Year-Round Activities
 
 ### Finnish Sauna Culture
-- **Available:** All Leville.net properties include sauna
+- **Available:** All Leville.net properties except Skistar studio 102 include a private sauna
 - **Types:** Smoke sauna (traditional), electric sauna (modern)
 - **Temperature:** 70–90°C typical
 - **Cooling:** Jump in snow/ice (winter) or cool pool (summer) — optional
@@ -203,21 +209,21 @@ Alpine apartments near front slope, built 2000.
 ### Winter Guides
 - [Skiing at Levi](https://leville.net/opas/hiihto-levi)
 - [Cross-Country Skiing](https://leville.net/opas/hiihtoladut-levi)
-- [How to Dress for Winter](https://leville.net/opas/talvivaatteet-lapissa)
+- [How to Dress for Winter](https://leville.net/guide/how-to-dress-for-winter-in-levi-lapland)
 - [Northern Lights Guide](https://leville.net/revontulet)
 - [Levi vs Ylläs vs Ruka Comparison](https://leville.net/opas/levi-vs-yllas-vs-ruka)
 
 ### Summer Guides
 - [Summer at Levi](https://leville.net/opas/kesa-levi)
 - [Families with Children](https://leville.net/opas/lapsiperheet-levilla)
-- [Hiking Guide](https://leville.net/opas/retkeily-levi)
+- [Hiking Guide](https://leville.net/opas/paivaretket-levilla)
 
 ### Practical Guides
-- [How to Get to Levi](https://leville.net/opas/kuinka-leviin)
+- [How to Get to Levi](https://leville.net/matka/miten-paasee-leville-helsingista)
 - [Levi Without a Car](https://leville.net/opas/levi-ilman-autoa)
 - [Restaurants & Services](https://leville.net/opas/ravintolat-ja-palvelut-levilla)
-- [Finnish Sauna](https://leville.net/opas/sauna)
-- [Lapland Glossary](https://leville.net/opas/laplands-sanasto)
+- [Finnish Sauna](https://leville.net/opas/sauna-levilla)
+- [Lapland Glossary](https://leville.net/opas/lapin-sanasto)
 
 ### Comparisons
 - [Levi vs Ylläs vs Ruka](https://leville.net/opas/levi-vs-yllas-vs-ruka)
@@ -255,15 +261,13 @@ Alpine apartments near front slope, built 2000.
 
 For detailed property specifications, activity descriptions, FAQ answers, appliance instructions, accessibility info, and complete route guides:
 
-→ **[llms-full.txt](https://leville.net/llms-full.txt)** (comprehensive 700+ line reference)
+→ **[llms-full.txt](https://leville.net/llms-full.txt)** (comprehensive 1,300+ line reference)
 
 ---
 
 ## Accessibility & Special Needs
 
-- **Wheelchair-accessible properties:** Skistar 209, 210 (accessible bathrooms)
-- **Levi Glacier A1, A3** — accessible apartments
-- **Accessible lifts:** Levi Resort has accessible lift infrastructure
+- **Wheelchair-accessible apartments:** Skistar 209, 210 (1-bedroom) and 211, 212 (2-bedroom) — no stairs, accessible bathrooms. No other Leville.net properties are wheelchair-accessible.
 - **Contact:** info@leville.net to discuss specific needs
 
 ## Policies
@@ -276,5 +280,5 @@ For detailed property specifications, activity descriptions, FAQ answers, applia
 
 ---
 
-**Last Updated:** May 2026  
+**Last Updated:** September 2026  
 **For More:** https://leville.net | info@leville.net | WhatsApp +358 44 131 313
