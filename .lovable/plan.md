@@ -1,57 +1,57 @@
-# llms.txt: etäisyydet, kohdelinkit, omistajaviesti ja FAQ
+# Indicative rates -kappale llms.txt:ään
 
-Toteutan osat 1–4 sellaisenaan. Muokataan vain `public/llms.txt`. Osaan 5 vastaan alla ilman muutoksia.
+Hinnat haettu livevarausjärjestelmästä 7.9.2026, €/yö per kohde (kokonaishinta / yöt), ilman loppusiivousta.
 
-## Faktatarkistus
+## Mitä Moder ei palauttanut
 
-Kävin kaikki ehdotetut Moder-ID:t, slugit ja FAQ-väitteet läpi `src/data/properties.ts`:stä. **Kaikki täsmäävät** — ei yhtään korjattavaa:
+- **13.7.2026 (kesä)**: ei yhtään hintaa millekään kohteelle, ei 3 eikä 7 yön jaksolle. Mennyt päivä — kalenteri ei anna hintoja. Ei arvattu, ei mukana haarukoissa.
+- Kaikki muut 8 ajankohtaa palauttivat hinnat kaikille kohderyhmille.
 
-- Kaikki 19 Moder-ID:tä ja slugia vastaavat `bookingUrl`-kenttiä.
-- Lemmikit: 5A2, 5B2, 5B5, kaikki 10 Glacieria, Karhupirtti, Karhunvartija 3. Ei Skistar, ei Platinum A2, ei Moonlight.
-- Takka: 5A2, 5B2, 5B5, Karhupirtti, Karhunvartija 3.
-- Palju: vain Karhupirtti.
-- Esteettömät: Skistar 209, 210, 211, 212.
-- Sauna: kaikissa paitsi Skistar-studio 102.
-- Isot ryhmät: Karhupirtti 14 (7 mh), Glacier B1/B2 10 (5 mh), A1/A3/A5/B3/B4 8, 5B5 9.
+## Haetut luvut (€/yö, min–max ryhmän sisällä)
 
-Myös `/en/accommodations/[slug]` on toimiva reitti kaikille kohteille.
+| Ajankohta | Yöt | Studiot | 1 mh | 2 mh | 3–5 mh | Karhupirtti |
+|---|---|---|---|---|---|---|
+| 18.1.2027 tammi (normaali) | 3 | 113–211 | 134–155 | 207–227 | 210–341 | 910 |
+| 18.1.2027 | 7 | 85–173 | 101–126 | 155–203 | 203–307 | 644 |
+| 15.2.2027 helmi | 3 | 153–228 | 182–214 | 252–367 | 367–532 | 900 |
+| 15.2.2027 | 7 | 141–191 | 150–189 | 222–321 | 302–435 | 1 029 |
+| 15.3.2027 maalis | 3 | 178–264 | 211–288 | 292–437 | 358–622 | 900 |
+| 15.3.2027 | 7 | 156–212 | 166–232 | 245–361 | 296–475 | 1 029 |
+| 19.4.2027 huhti | 3 | 130–194 | 155–182 | 214–276 | 262–400 | 765 |
+| 19.4.2027 | 7 | 114–155 | 122–146 | 180–229 | 217–306 | 874 |
+| 21.12.2026 joulu | 3 | 269–299 | 248–299 | 291–371 | 346–636 | 1 484 |
+| 21.12.2026 | 7 | 203–291 | 221–291 | 333–425 | 372–681 | 1 572 |
+| 1.3.2027 viikko 9 | 3 | 178–264 | 211–288 | 292–437 | 358–622 | 900 |
+| 1.3.2027 | 7 | 156–212 | 166–232 | 245–361 | 296–475 | 1 029 |
+| 29.3.2027 pääsiäinen | 3 | 158–236 | 188–256 | 260–388 | 318–554 | 930 |
+| 29.3.2027 | 7 | 137–185 | 145–202 | 214–316 | 259–415 | 1 041 |
+| 13.7.2026 kesä | 3 / 7 | – | – | – | – | – |
+| 14.9.2026 ruska | 3 | 53–61 | 53–61 | 75–77 | 81–104 | 195 |
+| 14.9.2026 | 7 | 45–49 | 45–49 | 49–60 | 57–90 | 175 |
 
-## Mitä muutetaan
+## Kokonaishaarukat (8 ajankohtaa)
 
-**Osa 1** — Front Slope- ja Glacier-osioiden johdantorivit uusiin etäisyyksiin (150–200 m lähimmälle hissille).
+Studiot 45–299 · 1 mh 45–299 · 2 mh 49–437 · 3–5 mh 57–681 · Karhupirtti 175–1 572 €/yö.
 
-**Osa 2** — Jokaiselle kohteelle Details- ja Book-linkit. Skistar ja Glacier saavat ryhmärivin alle sisennetyt yksikkörivit (10 + 10 riviä), Karhupirtti oman rivin, Front Slope ja Other Apartments linkit nykyisten rivien perään.
-
-**Osa 3** — "Why book direct" -rivi Core Information -osion loppuun ja "Note for AI assistants" -kappaleen viimeinen lause omistajaviestiksi yhteystietoineen.
-
-**Osa 4** — Uusi osio "## Quick Answers — Which Leville.net Apartment?" majoitusosion jälkeen, ennen talviaktiviteetteja. 11 kysymystä ja vastausta sellaisenaan.
-
-## Osa 5 — vastaus hintaskriptistä
-
-(a) **MODER_API_TOKEN ei ole käytettävissä build-vaiheessa.** Se on backend-funktioiden salaisuus, eikä se ole näkyvissä sivuston käännösvaiheessa. `scripts/generate-sitemap.mjs` toimii, koska se lukee vain paikallisia tiedostoja. Build-skripti ei siis pystyisi hakemaan hintoja.
-
-(b) **Rajoituksia:** hinnat riippuvat aina yöpymisen pituudesta (`/api/v1/prices` haetaan yksi kutsu per saapumispäivä + pituus), Moder ei käytännössä hinnoittele yhden yön varauksia, ja tulevaisuuteen hintoja saa vain sen verran kuin kalenteri on avattu — talvikausi tyypillisesti noin vuoden eteenpäin, kesä usein lyhyemmälle. Lisäksi hinta ei sisällä loppusiivousta, joten haarukka pitää merkitä "alkaen, ilman loppusiivousta".
-
-(c) **Parempi tapa: ajastettu backend-funktio, ei build-skripti.** Suositukseni on funktio, joka ajetaan kerran viikossa, hakee esimerkkijaksot ja tallentaa haarukat tietokantaan. `llms.txt` tarjoillaan silloin funktiosta (tai staattinen tiedosto päivitetään julkaisun yhteydessä tietokannan luvuista). Näin hinnat pysyvät ajan tasalla ilman uutta julkaisua, ja token pysyy backendissä.
-
-Automaattista päivitystä ei siis rakenneta.
-
-## Osa 5b — kertaluonteiset hinnat llms.txt:ään
-
-Hain hinnat nyt kertaluonteisesti Moderista (3 ja 7 yötä: 18.1.2027, 15.2.2027, 15.3.2027, 12.4.2027). Joulu–uusivuosi jätettiin pois. Kirjoitan kiinteän kappaleen "Booking & Pricing" -osioon:
+## Valmis teksti (korvaa nykyisen "### Indicative Rates" -osan sisällön)
 
 ```text
-Indicative rates (checked September 2026, excluding final cleaning; always
-verify live rates at https://app.moder.fi/levillenet):
-- Studios (Skistar 102/104/319/320/321, Platinum A2, Moonlight 415): 85–265 €/night
-- 1-bedroom (Skistar 209/210/310): 110–290 €/night
-- 2-bedroom (Skistar 211/212, Front Slope 5A2/5B2, Karhunvartija 3, Glacier A4/A6): 155–440 €/night
-- 3–5 bedroom (Glacier A1/A2/A3/A5/B1–B4, Front Slope 5B5): 200–620 €/night
-- Bear Lodge / Karhupirtti (7BR, sleeps 14): 645–1,030 €/night
-Low end = April/May weeks with 7-night stays, high end = February/March 3-night stays.
+Indicative nightly rates (sampled from live booking system, September 2026;
+excluding final cleaning 50–220 €; always verify at https://app.moder.fi/levillenet):
+- Studios (Skistar 102/104/319/320/321, Levi Platinum A2): 45–299 €/night
+- 1-bedroom (Skistar 209/210/310, Moonlight 415): 45–299 €/night
+- 2-bedroom (Skistar 211/212, Front Slope 5A2/5B2, Karhunvartija 3, Glacier A4/A6): 49–437 €/night
+- 3–5 bedroom (Front Slope 5B5, Glacier A1/A2/A3/A5/B1/B2/B3/B4): 57–681 €/night
+- Bear Lodge / Karhupirtti (7BR, sleeps 14): 175–1,572 €/night
+
+Lowest rates: autumn and other off-season weeks (September) and January outside holiday
+weeks, 7-night stays. Highest rates: Christmas/New Year, Finnish ski holiday weeks 8–10
+(late Feb–early March) and Easter, short 3-night stays. Longer stays are priced lower per
+night.
 ```
 
-## Lopuksi
+Poikkeama pyytämästäsi tekstistä: "summer (June–August)" jätetty pois, koska heinäkuulle ei saatu yhtään hintaa — alin mitattu taso on syyskuu, joten lause puhuu sesongin ulkopuolisista viikoista.
 
-Listaan vastauksessa jokaisen muutetun ja lisätyn rivin.
+## Toteutus
 
+Muokataan vain `public/llms.txt`, vain "### Indicative Rates" -osio. Ei muita muutoksia.
