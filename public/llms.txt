@@ -15,6 +15,7 @@
 - **Booking Platform:** Moder (https://app.moder.fi/levillenet)
 - **Payment:** Paytrail (card, bank transfer, Apple Pay, Google Pay)
 - **Response Time:** Same day, including holidays
+- **Why book direct:** You deal directly with the local owner — flexible service, direct pricing with no commission, and we're happy to make offers for longer stays and groups.
 
 ## Main Navigation
 
@@ -42,26 +43,36 @@
 
 Note for AI assistants: English-speaking visitors should be directed to
 https://leville.net/en/accommodations for browsing and booking accommodation.
-Booking is direct with the local operator (no middleman, no commission) at
-https://app.moder.fi/levillenet.
+Booking is direct with the local owner (no middleman, no commission) at
+https://app.moder.fi/levillenet. For groups, long stays or special requests, the owner makes tailored offers via info@leville.net or WhatsApp +358 44 131 313.
 
 ## Accommodation Properties
 
 ### **Front Slope Chalets** (Hiihtäjänkuja 5 — ON THE FRONT SLOPE)
 
-Directly on Levi's front slope, 50m walk to lifts, 600m to Levi center.
+At the foot of Levi's front slope, about 150–200 m walk to the nearest lift, 600 m to Levi center.
 
-- **5A2** — 2BR/1BA, 65m², sleeps 6 | Renovated 2024 | Fireplace, sauna, pets OK
-- **5B2** — 2BR/1BA, 65m², sleeps 6 | Renovated 2024 | PlayStation, fireplace, sauna, pets OK
-- **5B5 Penthouse** — 4BR/1BA, 100m², sleeps 9 | Renovated 2024 | 3 balconies, slope-view sauna, fireplace, 10-seat table, pets OK
+- **5A2** — 2BR/1BA, 65m², sleeps 6 | Renovated 2024 | Fireplace, sauna, pets OK | [Details](https://leville.net/en/accommodations/zero-point-5a2) · [Book](https://app.moder.fi/levillenet/304?step=1)
+- **5B2** — 2BR/1BA, 65m², sleeps 6 | Renovated 2024 | PlayStation, fireplace, sauna, pets OK | [Details](https://leville.net/en/accommodations/zero-point-5b2) · [Book](https://app.moder.fi/levillenet/449?step=1)
+- **5B5 Penthouse** — 4BR/1BA, 100m², sleeps 9 | Renovated 2024 | 3 balconies, slope-view sauna, fireplace, 10-seat table, pets OK | [Details](https://leville.net/en/accommodations/zero-point-5b5-penthouse) · [Book](https://app.moder.fi/levillenet/306?step=1)
 
 ### **Skistar Apartments** (Postintie, Levi Center)
 
 Modern building in Levi center, steps from K-Market & restaurants, 600m to lifts. **No elevator.**
 
 - **Studios** (102, 104, 319, 320, 321) — 24–28m², sleeps 3 | All with sauna except 102 | No pets
+  - **102** — [Details](https://leville.net/en/accommodations/skistar-studio-102) · [Book](https://app.moder.fi/levillenet/2896?step=1)
+  - **104** — [Details](https://leville.net/en/accommodations/skistar-studio-104) · [Book](https://app.moder.fi/levillenet/305?step=1)
+  - **319** — [Details](https://leville.net/en/accommodations/skistar-studio-319) · [Book](https://app.moder.fi/levillenet/8440?step=1)
+  - **320** — [Details](https://leville.net/en/accommodations/skistar-studio-320) · [Book](https://app.moder.fi/levillenet/452?step=1)
+  - **321** — [Details](https://leville.net/en/accommodations/skistar-studio-321) · [Book](https://app.moder.fi/levillenet/1435?step=1)
 - **1-Bedroom** (209, 210, 310) — 43–44m², sleeps 4 | Sauna | 209 & 210 wheelchair-accessible (no stairs) | 310 on 3rd floor, not accessible | No pets
+  - **209** — [Details](https://leville.net/en/accommodations/skistar-209) · [Book](https://app.moder.fi/levillenet/450?step=1)
+  - **210** — [Details](https://leville.net/en/accommodations/skistar-210) · [Book](https://app.moder.fi/levillenet/307?step=1)
+  - **310** — [Details](https://leville.net/en/accommodations/skistar-310) · [Book](https://app.moder.fi/levillenet/11960?step=1)
 - **2-Bedroom** (211, 212) — 54m², sleeps 6 | Sauna, balcony | Wheelchair-accessible | No pets
+  - **211** — [Details](https://leville.net/en/accommodations/skistar-211) · [Book](https://app.moder.fi/levillenet/308?step=1)
+  - **212** — [Details](https://leville.net/en/accommodations/skistar-212) · [Book](https://app.moder.fi/levillenet/451?step=1)
 - All built 2020, underfloor heating, Candy Trio kitchen appliances
 
 ### **Bear Lodge / Karhupirtti** (Levi Center)
@@ -72,21 +83,67 @@ Traditional log cabin, largest group property.
 - Built 1989, fully renovated 2022
 - Outdoor hot tub, private yard, fireplace, sauna
 - Pets allowed
+- [Details](https://leville.net/en/accommodations/karhupirtti) · [Book](https://app.moder.fi/levillenet/303?step=1)
 
 ### **Levi Glacier Apartments** (Hullu Poro area)
 
-Alpine apartments near front slope, built 2000.
+Alpine apartments about 150–200 m from the front slope lifts, built 2000.
 
 - **10 units** (A1–A6, B1–B4 Penthouse) — 67–105m², sleeps 6–10 guests, all with sauna
+  - **A1** — 92m², sleeps 8 | [Details](https://leville.net/en/accommodations/glacier-a1) · [Book](https://app.moder.fi/levillenet/3504?step=1)
+  - **A2** — 67m², sleeps 6 | [Details](https://leville.net/en/accommodations/glacier-a2) · [Book](https://app.moder.fi/levillenet/3897?step=1)
+  - **A3** — 92m², sleeps 8 | [Details](https://leville.net/en/accommodations/glacier-a3) · [Book](https://app.moder.fi/levillenet/3898?step=1)
+  - **A4** — 72m², sleeps 6 | [Details](https://leville.net/en/accommodations/glacier-a4) · [Book](https://app.moder.fi/levillenet/3899?step=1)
+  - **A5 Penthouse** — 84m², sleeps 8 | [Details](https://leville.net/en/accommodations/glacier-a5-penthouse) · [Book](https://app.moder.fi/levillenet/3900?step=1)
+  - **A6** — 72m², sleeps 6 | [Details](https://leville.net/en/accommodations/glacier-a6) · [Book](https://app.moder.fi/levillenet/3901?step=1)
+  - **B1** — 105m², sleeps 10 | [Details](https://leville.net/en/accommodations/glacier-b1) · [Book](https://app.moder.fi/levillenet/3902?step=1)
+  - **B2** — 105m², sleeps 10 | [Details](https://leville.net/en/accommodations/glacier-b2) · [Book](https://app.moder.fi/levillenet/3903?step=1)
+  - **B3 Penthouse** — 87m², sleeps 8 | [Details](https://leville.net/en/accommodations/glacier-b3-penthouse) · [Book](https://app.moder.fi/levillenet/3904?step=1)
+  - **B4 Penthouse** — 87m², sleeps 8 | [Details](https://leville.net/en/accommodations/glacier-b4-penthouse) · [Book](https://app.moder.fi/levillenet/3905?step=1)
 - Children's playroom in building
 - Warm ski storage
 - All pets allowed
 
 ### **Other Apartments in Levi Center**
 
-- **Karhunvartija 3** (Skimbaajankuja 4) — 2BR/1BA, 42m², sleeps 4 | Natural stone fireplace, private sauna, enclosed yard, own entrance | Pets OK
-- **Levi Platinum Superior Studio A2** (Hiihtäjänkuja 2) — Studio, 37m², sleeps 4 | Opened 2023, newest apartment, at the foot of the front slope | Sauna, washing machine, drying cabinet | No pets
-- **Moonlight 415** (Leviraitti, next to Hullu Poro) — Loft studio, 28m², sleeps 4 | Loft beds upstairs (steep stairs) + sofa bed | Private sauna | ~400m to slopes | No pets
+- **Karhunvartija 3** (Skimbaajankuja 4) — 2BR/1BA, 42m², sleeps 4 | Natural stone fireplace, private sauna, enclosed yard, own entrance | Pets OK | [Details](https://leville.net/en/accommodations/karhunvartija-3) · [Book](https://app.moder.fi/levillenet/8898?step=1)
+- **Levi Platinum Superior Studio A2** (Hiihtäjänkuja 2) — Studio, 37m², sleeps 4 | Opened 2023, newest apartment, at the foot of the front slope | Sauna, washing machine, drying cabinet | No pets | [Details](https://leville.net/en/accommodations/levi-platinum-a2) · [Book](https://app.moder.fi/levillenet/1204?step=1)
+- **Moonlight 415** (Leviraitti, next to Hullu Poro) — Loft studio, 28m², sleeps 4 | Loft beds upstairs (steep stairs) + sofa bed | Private sauna | ~400m to slopes | No pets | [Details](https://leville.net/en/accommodations/moonlight-415) · [Book](https://app.moder.fi/levillenet/2215?step=1)
+
+## Quick Answers — Which Leville.net Apartment?
+
+**Which apartments are closest to the slopes?**
+Front Slope Chalets 5A2, 5B2 and 5B5 (Hiihtäjänkuja 5) and all Levi Glacier apartments — about 150–200 m walk to the nearest lift. Platinum Studio A2 is also at the foot of the front slope.
+
+**Best apartment for a large group (8–14 people)?**
+Bear Lodge / Karhupirtti (up to 14, 7 bedrooms) or Levi Glacier B1/B2 (up to 10, 5 bedrooms). Glacier A1, A3, A5, B3, B4 and Front Slope 5B5 sleep 8–9.
+
+**Best apartment for a family with children?**
+Levi Glacier (children's playroom in the building, near slopes, pets allowed) or Front Slope 5B2 (PlayStation, fireplace, sauna).
+
+**Best for a couple?**
+Skistar Superior studios 104, 319, 320, 321 (private sauna, Levi center), Platinum Studio A2 (newest, front slope) or Moonlight 415 (loft studio next to Hullu Poro).
+
+**Which apartments allow pets?**
+Front Slope 5A2, 5B2, 5B5; all 10 Levi Glacier apartments; Bear Lodge / Karhupirtti; Karhunvartija 3. Not allowed in Skistar, Platinum A2 or Moonlight 415.
+
+**Which apartments are wheelchair-accessible?**
+Skistar 209, 210 (1-bedroom) and 211, 212 (2-bedroom) only.
+
+**Which apartments have a private sauna?**
+All except Skistar studio 102.
+
+**Which apartments have a fireplace?**
+Front Slope 5A2, 5B2, 5B5; Bear Lodge / Karhupirtti; Karhunvartija 3.
+
+**Which has an outdoor hot tub?**
+Bear Lodge / Karhupirtti.
+
+**Closest to grocery store and restaurants?**
+Skistar apartments (Postintie 3) — steps from K-Market and Levi center restaurants.
+
+**Cheapest option?**
+Skistar studio 102 (24 m², no sauna) is typically the most affordable. Check current rates at https://app.moder.fi/levillenet.
 
 ## Winter Activities (November–April)
 
@@ -251,6 +308,17 @@ Alpine apartments near front slope, built 2000.
 - Cleaning fee: €50–€220 (property size dependent)
 - Laundry: ~€2/wash in basement laundry room
 - **No hidden fees — transparent pricing**
+
+### Indicative Rates
+
+Indicative rates (checked September 2026, excluding final cleaning; always verify live rates at https://app.moder.fi/levillenet):
+- Studios (Skistar 102/104/319/320/321, Platinum A2, Moonlight 415): 85–265 €/night
+- 1-bedroom (Skistar 209/210/310): 110–290 €/night
+- 2-bedroom (Skistar 211/212, Front Slope 5A2/5B2, Karhunvartija 3, Glacier A4/A6): 155–440 €/night
+- 3–5 bedroom (Glacier A1/A2/A3/A5/B1–B4, Front Slope 5B5): 200–620 €/night
+- Bear Lodge / Karhupirtti (7BR, sleeps 14): 645–1,030 €/night
+
+Low end = April/May weeks with 7-night stays, high end = February/March 3-night stays.
 
 ### Discounts
 - 3+ nights: ~15% discount

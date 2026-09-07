@@ -38,17 +38,17 @@ Automaattista päivitystä ei siis rakenneta.
 
 ## Osa 5b — kertaluonteiset hinnat llms.txt:ään
 
-Hain hinnat nyt kertaluonteisesti Moderista (3 ja 7 yötä: 14.12.2026, 11.1.2027, 15.2.2027, 15.3.2027). Kirjoitan niistä "Booking & Pricing" -osioon kiinteän kappaleen, joka ei päivity automaattisesti:
+Hain hinnat nyt kertaluonteisesti Moderista (3 ja 7 yötä: 18.1.2027, 15.2.2027, 15.3.2027, 12.4.2027). Joulu–uusivuosi jätettiin pois. Kirjoitan kiinteän kappaleen "Booking & Pricing" -osioon:
 
 ```text
 Indicative rates (checked September 2026, excluding final cleaning; always
 verify live rates at https://app.moder.fi/levillenet):
 - Studios (Skistar 102/104/319/320/321, Platinum A2, Moonlight 415): 85–265 €/night
-- 1-bedroom (Skistar 209/210/310): 125–290 €/night
+- 1-bedroom (Skistar 209/210/310): 110–290 €/night
 - 2-bedroom (Skistar 211/212, Front Slope 5A2/5B2, Karhunvartija 3, Glacier A4/A6): 155–440 €/night
 - 3–5 bedroom (Glacier A1/A2/A3/A5/B1–B4, Front Slope 5B5): 200–620 €/night
 - Bear Lodge / Karhupirtti (7BR, sleeps 14): 645–1,030 €/night
-Low end = January weeks with 7-night stays, high end = March 3-night stays.
+Low end = April/May weeks with 7-night stays, high end = February/March 3-night stays.
 ```
 
 ## Lopuksi
