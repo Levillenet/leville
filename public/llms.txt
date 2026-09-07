@@ -15,6 +15,7 @@
 - **Booking Platform:** Moder (https://app.moder.fi/levillenet)
 - **Payment:** Paytrail (card, bank transfer, Apple Pay, Google Pay)
 - **Response Time:** Same day, including holidays
+- **Why book direct:** You deal directly with the local owner — flexible service, direct pricing with no commission, and we're happy to make offers for longer stays and groups.
 
 ## Main Navigation
 
