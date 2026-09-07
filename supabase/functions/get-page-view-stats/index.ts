@@ -219,7 +219,7 @@ Deno.serve(async (req) => {
         const utmCamp = v.utm_campaign || "";
         const scrollD = v.scroll_depth != null ? String(v.scroll_depth) : "";
         const timeP = v.time_on_page != null ? String(v.time_on_page) : "";
-        const aiSrc = classifyAiReferrer(v.referrer) || "";
+        const aiSrc = classifyAiSource(v.referrer, v.utm_source) || "";
         const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
         return [date, time, esc(path), type, esc(ref), device, lang, country, vw, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP, esc(aiSrc)].join(",");
       });
@@ -295,7 +295,7 @@ Deno.serve(async (req) => {
       ];
 
       // AI assistant referrals (session-level) for CSV branch
-      const csvSessions: Record<string, { firstTs?: number; firstPath?: string; firstReferrer?: string | null; hasBooking?: boolean; pageCount: number }> = {};
+      const csvSessions: Record<string, { firstTs?: number; firstPath?: string; firstReferrer?: string | null; firstUtmSource?: string | null; hasBooking?: boolean; pageCount: number }> = {};
       for (const v of views || []) {
         if (isDevReferrer(v.referrer)) continue;
         const sid = v.session_id;
@@ -311,13 +311,14 @@ Deno.serve(async (req) => {
             s.firstTs = ts;
             s.firstPath = v.path;
             s.firstReferrer = v.referrer || null;
+            s.firstUtmSource = v.utm_source || null;
           }
         }
       }
       const aiCsvAgg: Record<string, { sessions: number; converting: number; landing: Record<string, number> }> = {};
       for (const s of Object.values(csvSessions)) {
         if (s.pageCount === 0) continue;
-        const label = classifyAiReferrer(s.firstReferrer || null);
+        const label = classifyAiSource(s.firstReferrer, s.firstUtmSource);
         if (!label) continue;
         if (!aiCsvAgg[label]) aiCsvAgg[label] = { sessions: 0, converting: 0, landing: {} };
         aiCsvAgg[label].sessions++;
@@ -369,7 +370,7 @@ Deno.serve(async (req) => {
     let timeOnPageCount = 0;
 
     // Session tracking — also collect first/last pageview path per session
-    const sessionPages: Record<string, { timestamps: number[]; pageCount: number; firstPath?: string; firstTs?: number; lastPath?: string; lastTs?: number; firstReferrer?: string | null; hasBooking?: boolean }> = {};
+    const sessionPages: Record<string, { timestamps: number[]; pageCount: number; firstPath?: string; firstTs?: number; lastPath?: string; lastTs?: number; firstReferrer?: string | null; firstUtmSource?: string | null; hasBooking?: boolean }> = {};
     const dailySessions: Record<string, Set<string>> = {};
 
     for (const v of views || []) {
@@ -410,6 +411,7 @@ Deno.serve(async (req) => {
             sessionPages[sid].firstTs = ts;
             sessionPages[sid].firstPath = v.path;
             sessionPages[sid].firstReferrer = v.referrer || null;
+            sessionPages[sid].firstUtmSource = v.utm_source || null;
           }
           // Track last (latest) pageview path for exit pages
           if (sessionPages[sid].lastTs === undefined || ts > sessionPages[sid].lastTs!) {
@@ -598,7 +600,7 @@ Deno.serve(async (req) => {
       if (s.pageCount === 0) continue;
       allSessionsCount++;
       if (s.hasBooking) allConvertingSessions++;
-      const label = classifyAiReferrer(s.firstReferrer || null);
+      const label = classifyAiSource(s.firstReferrer, s.firstUtmSource);
       if (!label) continue;
       aiTotalSessions++;
       if (s.hasBooking) aiConvertingSessions++;
