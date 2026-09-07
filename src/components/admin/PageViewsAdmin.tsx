@@ -504,7 +504,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
             <CardTitle className="text-base">Tekoälyohjaukset (AI-assistentit)</CardTitle>
             <CardDescription>
               Istunnot joiden ensimmäisen sivukatselun lähde on tekoälyassistentti.
-              HUOM: referrer näkyy vain jos käyttäjä klikkaa linkkiä — kopioidut URL:t kirjautuvat suorana liikenteenä, joten luku on alaraja.
+              HUOM: lähde tunnistetaan viittaavasta osoitteesta tai linkin merkinnästä (esim. utm_source=chatgpt.com). Käsin kopioidut URL:t kirjautuvat suorana liikenteenä, joten luku on alaraja.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

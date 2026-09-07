@@ -24,6 +24,17 @@ const AI_REFERRER_MAP: Array<{ match: string[]; label: string }> = [
   { match: ["you.com", "poe.com", "phind.com", "deepseek.com", "grok.com", "x.ai", "mistral.ai", "chat.qwen.ai", "duckduckgo.com/aichat"], label: "Muu AI" },
 ];
 
+// AI assistants increasingly strip the referrer and tag the link instead
+// (e.g. ChatGPT appends ?utm_source=chatgpt.com), so utm_source is checked too.
+const AI_UTM_MAP: Array<{ match: string[]; label: string }> = [
+  { match: ["chatgpt", "openai"], label: "ChatGPT" },
+  { match: ["perplexity"], label: "Perplexity" },
+  { match: ["copilot", "bingchat"], label: "Copilot" },
+  { match: ["gemini", "bard", "google-ai", "aistudio"], label: "Gemini" },
+  { match: ["claude", "anthropic"], label: "Claude" },
+  { match: ["you.com", "poe", "phind", "deepseek", "grok", "x.ai", "mistral", "qwen", "duckassist", "meta.ai"], label: "Muu AI" },
+];
+
 function classifyAiReferrer(referrer: string | null): string | null {
   if (!referrer) return null;
   const r = referrer.toLowerCase();
@@ -36,6 +47,23 @@ function classifyAiReferrer(referrer: string | null): string | null {
   }
   return null;
 }
+
+function classifyAiUtm(utmSource: string | null | undefined): string | null {
+  if (!utmSource) return null;
+  const u = utmSource.toLowerCase().trim();
+  if (!u) return null;
+  for (const entry of AI_UTM_MAP) {
+    for (const m of entry.match) {
+      if (u.includes(m)) return entry.label;
+    }
+  }
+  return null;
+}
+
+function classifyAiSource(referrer: string | null | undefined, utmSource?: string | null): string | null {
+  return classifyAiReferrer(referrer || null) || classifyAiUtm(utmSource);
+}
+
 
 const isDevReferrer = (referrer: string | null | undefined): boolean =>
   !!referrer && (referrer.includes("lovable.app") || referrer.includes("lovable.dev") || referrer.includes("lovableproject.com") || referrer.includes("localhost"));
@@ -191,7 +219,7 @@ Deno.serve(async (req) => {
         const utmCamp = v.utm_campaign || "";
         const scrollD = v.scroll_depth != null ? String(v.scroll_depth) : "";
         const timeP = v.time_on_page != null ? String(v.time_on_page) : "";
-        const aiSrc = classifyAiReferrer(v.referrer) || "";
+        const aiSrc = classifyAiSource(v.referrer, v.utm_source) || "";
         const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
         return [date, time, esc(path), type, esc(ref), device, lang, country, vw, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP, esc(aiSrc)].join(",");
       });
@@ -267,7 +295,7 @@ Deno.serve(async (req) => {
       ];
 
       // AI assistant referrals (session-level) for CSV branch
-      const csvSessions: Record<string, { firstTs?: number; firstPath?: string; firstReferrer?: string | null; hasBooking?: boolean; pageCount: number }> = {};
+      const csvSessions: Record<string, { firstTs?: number; firstPath?: string; firstReferrer?: string | null; firstUtmSource?: string | null; hasBooking?: boolean; pageCount: number }> = {};
       for (const v of views || []) {
         if (isDevReferrer(v.referrer)) continue;
         const sid = v.session_id;
@@ -283,13 +311,14 @@ Deno.serve(async (req) => {
             s.firstTs = ts;
             s.firstPath = v.path;
             s.firstReferrer = v.referrer || null;
+            s.firstUtmSource = v.utm_source || null;
           }
         }
       }
       const aiCsvAgg: Record<string, { sessions: number; converting: number; landing: Record<string, number> }> = {};
       for (const s of Object.values(csvSessions)) {
         if (s.pageCount === 0) continue;
-        const label = classifyAiReferrer(s.firstReferrer || null);
+        const label = classifyAiSource(s.firstReferrer, s.firstUtmSource);
         if (!label) continue;
         if (!aiCsvAgg[label]) aiCsvAgg[label] = { sessions: 0, converting: 0, landing: {} };
         aiCsvAgg[label].sessions++;
@@ -306,7 +335,7 @@ Deno.serve(async (req) => {
 
       const aiBlock = [
         "",
-        "AI ASSISTANT REFERRALS — istunnot joiden ensimmäisen sivukatselun referrer on tekoälyassistentti. converting = istunnossa oli vähintään yksi app.moder.fi-varausklikkaus.",
+        "AI ASSISTANT REFERRALS — istunnot joiden ensimmäisen sivukatselun lähde on tekoälyassistentti (referrer tai utm_source, esim. utm_source=chatgpt.com). converting = istunnossa oli vähintään yksi app.moder.fi-varausklikkaus.",
         "ai_source,sessions,converting,conversion_rate_pct,top_landing_page",
         ...aiRows,
       ];
@@ -341,7 +370,7 @@ Deno.serve(async (req) => {
     let timeOnPageCount = 0;
 
     // Session tracking — also collect first/last pageview path per session
-    const sessionPages: Record<string, { timestamps: number[]; pageCount: number; firstPath?: string; firstTs?: number; lastPath?: string; lastTs?: number; firstReferrer?: string | null; hasBooking?: boolean }> = {};
+    const sessionPages: Record<string, { timestamps: number[]; pageCount: number; firstPath?: string; firstTs?: number; lastPath?: string; lastTs?: number; firstReferrer?: string | null; firstUtmSource?: string | null; hasBooking?: boolean }> = {};
     const dailySessions: Record<string, Set<string>> = {};
 
     for (const v of views || []) {
@@ -382,6 +411,7 @@ Deno.serve(async (req) => {
             sessionPages[sid].firstTs = ts;
             sessionPages[sid].firstPath = v.path;
             sessionPages[sid].firstReferrer = v.referrer || null;
+            sessionPages[sid].firstUtmSource = v.utm_source || null;
           }
           // Track last (latest) pageview path for exit pages
           if (sessionPages[sid].lastTs === undefined || ts > sessionPages[sid].lastTs!) {
@@ -570,7 +600,7 @@ Deno.serve(async (req) => {
       if (s.pageCount === 0) continue;
       allSessionsCount++;
       if (s.hasBooking) allConvertingSessions++;
-      const label = classifyAiReferrer(s.firstReferrer || null);
+      const label = classifyAiSource(s.firstReferrer, s.firstUtmSource);
       if (!label) continue;
       aiTotalSessions++;
       if (s.hasBooking) aiConvertingSessions++;
