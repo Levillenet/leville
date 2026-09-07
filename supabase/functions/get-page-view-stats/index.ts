@@ -335,7 +335,7 @@ Deno.serve(async (req) => {
 
       const aiBlock = [
         "",
-        "AI ASSISTANT REFERRALS — istunnot joiden ensimmäisen sivukatselun referrer on tekoälyassistentti. converting = istunnossa oli vähintään yksi app.moder.fi-varausklikkaus.",
+        "AI ASSISTANT REFERRALS — istunnot joiden ensimmäisen sivukatselun lähde on tekoälyassistentti (referrer tai utm_source, esim. utm_source=chatgpt.com). converting = istunnossa oli vähintään yksi app.moder.fi-varausklikkaus.",
         "ai_source,sessions,converting,conversion_rate_pct,top_landing_page",
         ...aiRows,
       ];
