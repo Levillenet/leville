@@ -24,6 +24,17 @@ const AI_REFERRER_MAP: Array<{ match: string[]; label: string }> = [
   { match: ["you.com", "poe.com", "phind.com", "deepseek.com", "grok.com", "x.ai", "mistral.ai", "chat.qwen.ai", "duckduckgo.com/aichat"], label: "Muu AI" },
 ];
 
+// AI assistants increasingly strip the referrer and tag the link instead
+// (e.g. ChatGPT appends ?utm_source=chatgpt.com), so utm_source is checked too.
+const AI_UTM_MAP: Array<{ match: string[]; label: string }> = [
+  { match: ["chatgpt", "openai"], label: "ChatGPT" },
+  { match: ["perplexity"], label: "Perplexity" },
+  { match: ["copilot", "bingchat"], label: "Copilot" },
+  { match: ["gemini", "bard", "google-ai", "aistudio"], label: "Gemini" },
+  { match: ["claude", "anthropic"], label: "Claude" },
+  { match: ["you.com", "poe", "phind", "deepseek", "grok", "x.ai", "mistral", "qwen", "duckassist", "meta.ai"], label: "Muu AI" },
+];
+
 function classifyAiReferrer(referrer: string | null): string | null {
   if (!referrer) return null;
   const r = referrer.toLowerCase();
@@ -36,6 +47,23 @@ function classifyAiReferrer(referrer: string | null): string | null {
   }
   return null;
 }
+
+function classifyAiUtm(utmSource: string | null | undefined): string | null {
+  if (!utmSource) return null;
+  const u = utmSource.toLowerCase().trim();
+  if (!u) return null;
+  for (const entry of AI_UTM_MAP) {
+    for (const m of entry.match) {
+      if (u.includes(m)) return entry.label;
+    }
+  }
+  return null;
+}
+
+function classifyAiSource(referrer: string | null | undefined, utmSource?: string | null): string | null {
+  return classifyAiReferrer(referrer || null) || classifyAiUtm(utmSource);
+}
+
 
 const isDevReferrer = (referrer: string | null | undefined): boolean =>
   !!referrer && (referrer.includes("lovable.app") || referrer.includes("lovable.dev") || referrer.includes("lovableproject.com") || referrer.includes("localhost"));
