@@ -190,6 +190,7 @@ const VuokraMokitLevi = ({ lang = "fi" }: Props) => {
         <section className="mb-12">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">{c.h1}</h1>
           <p className="text-lg text-foreground/80 leading-relaxed">{c.intro}</p>
+          <p className="text-foreground/80 leading-relaxed mt-4">{c.intro2}</p>
         </section>
 
         <Link to={c.ctaLink} className="block mb-12 group">
@@ -218,6 +219,20 @@ const VuokraMokitLevi = ({ lang = "fi" }: Props) => {
               );
             })}
           </div>
+          <p className="text-foreground/80 leading-relaxed mt-5">{c.logCabinNote}</p>
+        </section>
+
+        <section className="mb-14">
+          <h2 className="text-2xl font-bold text-foreground mb-4">{c.priceTitle}</h2>
+          <p className="text-foreground/80 leading-relaxed">{c.priceText}</p>
+          <a
+            href="https://app.moder.fi/levillenet"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 mt-3 text-primary font-semibold hover:underline"
+          >
+            {c.priceLinkLabel} <ChevronRight className="w-4 h-4" />
+          </a>
         </section>
 
         <section className="mb-14">
