@@ -1,62 +1,109 @@
-# Tarkistus: pitääkö kolme väitettä paikkansa?
+# Kolme korjausta: etusivu vs. /majoitukset, mökkiklusteri, /majoitukset-teksti
 
-Kävin väitteet läpi Search Consolen datalla (leville.net, 10.6.–6.9.2026).
+Perusta: Search Console 10.6.–6.9.2026. "levi majoitus" — etusivu 3 131 näyttöä
+(sij. 12,5), /majoitukset 373 näyttöä (sij. 16,8). Mökkihaut (levi vuokramökit,
+vuokramökit levi, vuokramökki levi, levi mökkivuokraus jne.) yhteensä n. 610
+näyttöä, 2 klikkiä, sijainnit 22–33 — niissä näkyvät etusivu ja
+/opas/vuokramokit-levi.
 
-## 1. Kannibalisointi — osittain totta, mutta väärä pari
+Reunaehdot: ei euromääräisiä hintoja mihinkään, hintataso vain sanallisesti +
+linkki varausjärjestelmään. Sana "mökki" vapaasti vuokramökkioppaassa, ei
+/majoitukset-sivun titleen eikä H1:een.
 
-Haku "levi majoitus":
+---
 
-| Sivu | Näytöt | Klikit | Sijainti |
-|---|---|---|---|
-| Etusivu | 3 131 | 23 | 12,5 |
-| /majoitukset | 373 | 3 | 16,8 |
-| /opas/majoitus-levilla | ei näyttöjä | 0 | – |
+## 1. Etusivu → brändi, /majoitukset → majoitushaku
 
-Haku "majoitus levi": etusivu 1 270 näyttöä (pos 13,1), /majoitukset ei mukana.
+### Etusivu (`src/translations`-riippumaton `src/pages/Index.tsx`, fi)
 
-Eli kilpailu on **etusivun ja /majoitukset-sivun** välillä. Opas-sivu ei näy
-päähauille lainkaan — se nousee vain marginaalisilla hauilla ("edullinen majoitus
-levi", sijainti 64) ja on niissä käytännössä pois pelistä. Väite "opas pos 24" ei
-saa tukea datasta.
+Nykyinen title: "Leville.net – Majoitus Levin keskustassa suoraan omistajalta"
 
-## 2. Mökkiklusteri — totta
+**Uusi title:**
+`Leville.net – 27 kohdetta Levin keskustassa, varaa suoraan omistajalta`
 
-| Haku | Näytöt yhteensä | Klikit | Paras sijainti |
-|---|---|---|---|
-| levi vuokramökit | 284 | 0 | 22,4 (opas) / 24,5 (etusivu) |
-| vuokramökit levi | 106 | 0 | 24,0 |
-| vuokramökki levi | 66 | 0 | 30,4 |
-| levi vuokramökki | 42 | 0 | 24,6 |
-| levin vuokramökit | 42 | 1 | 13,6 |
-| vuokramökit levillä | 19 | 0 | 10,0 |
-| levi mökkivuokraus | 54 | 1 | 26,4 |
+**Uusi description:**
+`Paikallinen perheyritys vuodesta 2012. 27 saunallista kohdetta Levin keskustassa – varaa suoraan omistajalta ilman välityspalkkioita. Katso kaikki kohteet ja saatavuus.`
 
-Yhteensä n. 610 näyttöä, 2 klikkiä, sijainnit 22–33. Suuruusluokka ja johtopäätös
-pitävät: klusteri on pimennossa. Luku 830 on hieman yläkantissa tälle jaksolle.
-Huomio: tässäkin näkyvät sivut ovat **etusivu ja /opas/vuokramokit-levi**, ei
-/majoitukset. Karhupirtti on aito hirsihuvila, joten mökkikulma on rehellinen.
+Muut kielet jätetään ennalleen. Etusivun hero, hakubanneri ja Moder-widget eivät
+muutu.
 
-## 3. /majoitukset on ohut — vain osittain
+### /majoitukset (`src/translations/fi.ts`, `majoitukset.meta` + `title`)
 
-Sivulla on jo hero-teksti, viisi ryhmäkuvausta, kohdekortit, tekstiosio ja
-FAQ + FAQ-schema. Se ei ole tyhjä listaus. Puutteet ovat tarkempia:
+Nykyinen title: "Majoitus Levi – huoneistot ja hirsihuvila suoraan omistajalta"
 
-- Ei yhtään kappaletta, joka vastaa suoraan hakuun "majoitus Levillä" (hinnat,
-  sijainnit, sesongit, mitä eroa on kohderyhmillä).
-- Sana "mökki" esiintyy sivulla vain Karhupirtin yhteydessä.
+**Uusi title:**
+`Majoitus Levillä – 27 huoneistoa ja huvilaa Levin keskustassa | Leville.net`
 
-## Mitä ehdotan tehtäväksi
+**Uusi description:**
+`Majoitus Levillä suoraan omistajalta: 27 saunallista kohdetta keskustassa, rinteiden juurelta enintään 700 metrin päässä. Ei välityspalkkioita – katso saatavuus ja hinnat varauskalenterista.`
 
-1. **Ratkaistaan etusivu vs. /majoitukset.** Valitaan /majoitukset majoitushakujen
-   laskeutumissivuksi: etusivun otsikko ja kuvaus siirretään brändikulmalle
-   ("Leville.net – 27 kohdetta Levin keskustassa"), /majoitukset saa selkeän
-   "Majoitus Levillä" -otsikoinnin ja etusivulta vahva linkki sinne.
-2. **Yksi kunnollinen mökkisivu.** Vahvistetaan /opas/vuokramokit-levi
-   (jo sijainti 22–24) todelliseksi vastaukseksi: Karhupirtti-hirsihuvila
-   pääroolissa, saunalliset huoneistot rehellisesti erikseen, hinnat ja
-   ryhmäkoot. Etusivu ei enää tavoittele tätä hakua (kuvaus ja sisäiset linkit).
-3. **Lisätään /majoitukset-sivulle vastausteksti** (2–3 kappaletta) alueista,
-   ryhmäkooista, hintatasosta ja siitä milloin kannattaa varata — sekä linkki
-   mökkisivulle.
+**Uusi H1:**
+`Majoitus Levillä – huoneistot ja hirsihuvila Levin keskustassa` (pysyy)
 
-Kaikki muutokset ovat tekstiä ja linkkejä; kohdetietoihin ei kosketa.
+EN-vastine `/en/accommodations` säilyy nykyisellään.
+
+## 2. Mökkiklusteri: /opas/vuokramokit-levi vahvistetaan
+
+Sivun title, description ja H1 ovat jo kohdillaan – ne pidetään. Lisätään sivulle
+kaksi kappaletta ja etusivun/majoitukset-sivun linkitys tänne.
+
+**Uusi kappale 1 (heti H1:n alle):**
+
+> Vuokramökki Levillä tarkoittaa käytännössä kahta asiaa: perinteistä hirsimökkiä
+> omalla pihalla tai mökkitunnelmaista huoneistoa, jossa on oma sauna. Meiltä saa
+> molempia, ja kaikki kohteet ovat Levin keskustassa tai eturinteen tuntumassa –
+> autoa ei tarvita.
+
+**Uusi kappale 2 (Hirsimökit ja chaletit -osioon):**
+
+> Karhupirtti Skimbaajankujalla on ainoa varsinainen hirsihuvilamme: seitsemän
+> makuuhuonetta, oma sauna, takka ja ulkoporeallas, tilaa 14 hengelle. Se on
+> tarkoitettu isolle porukalle – suvun jouluun, kaveriporukan hiihtoviikkoon tai
+> yrityksen retriittiin. Muut mökkihenkiset vaihtoehtomme ovat saunallisia
+> huoneistoja, joissa on 1–5 makuuhuonetta.
+
+**Uusi kappale 3 (hintataso, sanallinen, ei euroja):**
+
+> Mökkivuokrauksen hinta Levillä vaihtelee sesongin ja seurueen koon mukaan:
+> edullisimmillaan ollaan kevättalvella ja syksyllä pidemmillä varauksilla,
+> kalleimmillaan jouluna, hiihtolomaviikoilla ja pääsiäisenä. Näet ajantasaisen
+> hinnan aina varauskalenterista, kun valitset päivät.
+> [Katso vapaat mökit ja hinnat](https://app.moder.fi/levillenet)
+
+## 3. /majoitukset: vastausteksti hakuun
+
+Lisätään ryhmälistauksen alle uusi osio otsikolla
+**"Miten valita majoitus Levillä"**, kolme kappaletta. Sana "mökki" ei esiinny
+otsikossa eikä H1:ssä; leipätekstissä ohjataan mökkioppaaseen.
+
+> **Sijainti.** Kaikki kohteemme ovat kävelymatkan päässä Levin keskustasta.
+> Eturinteen alppihuoneistot (Zero Point ja Glacier) ovat noin 150–200 metriä
+> lähimmältä hissiltä, Skistar-talon huoneistot Postintiellä ovat keskellä
+> palveluita ja noin 700 metriä rinteille. Kumpikin toimii ilman autoa.
+
+> **Seurueen koko.** Studiot sopivat kahdelle tai kolmelle, yhden ja kahden
+> makuuhuoneen huoneistot perheelle, ja isoille ryhmille on 3–5 makuuhuoneen
+> huoneistoja sekä 14 hengen hirsihuvila Karhupirtti. Jos etsit nimenomaan
+> hirsirakennusta, katso [vuokramökit Levillä](/opas/vuokramokit-levi).
+
+> **Ajankohta ja hinta.** Hinta määräytyy sesongin ja yöpymisen pituuden mukaan:
+> joulu, hiihtolomaviikot ja pääsiäinen ovat kysytyimpiä ja kalleimpia, kun taas
+> alkutalvi ja kevät ovat rauhallisempia ja edullisempia. Pidempi varaus on aina
+> yöltä edullisempi. Ajantasainen hinta näkyy varauskalenterista, kun valitset
+> päivät.
+
+Lisäksi etusivulle ja /majoitukset-sivulle sisäinen linkki mökkioppaaseen
+ankkurilla "vuokramökit Levillä".
+
+## Tekniset kohdat
+
+- `src/pages/Index.tsx` — fi-title ja -description (vain metatiedot).
+- `src/translations/fi.ts` — `majoitukset.meta.title` ja `.description`.
+- `src/pages/Majoitukset.tsx` — uusi tekstiosio "Miten valita majoitus Levillä"
+  + linkki mökkioppaaseen (fi; en-versioon vastaava englanninkielinen teksti).
+- `src/pages/opas/VuokraMokitLevi.tsx` — kolme uutta kappaletta fi + en.
+- Ei uusia reittejä, ei sitemap-muutoksia, ei kohdetietojen muutoksia.
+
+Huomio erikseen: /majoitukset-sivulla on yhä otsikko "Varaa suoraan meiltä –
+paras hinta taattu". Se on hintatakuulupaus, jota emme halua antaa – voin
+vaihtaa sen muotoon "Varaa suoraan omistajalta", jos hyväksyt.
