@@ -15,7 +15,7 @@ const HomeSeoBlock = () => {
     { href: "/vuokramokit/ratsastajankuja-levi", label: "Ratsastajankuja 2 – Glacier-alppitalo" },
     { href: "/majoitukset", label: "Kaikki vuokramökit ja huoneistot Leviltä" },
     { href: "/opas/majoitus-levilla", label: "Opas: majoitus Levillä – mistä valita" },
-    { href: "/opas/vuokra-mokit-levi", label: "Vuokramökit Leviltä – kokoluokat 2–14 hengelle" },
+    { href: "/opas/vuokramokit-levi", label: "Vuokramökit Levillä – kokoluokat 2–14 hengelle" },
     { href: "/opas/levi-vs-rovaniemi", label: "Levi vs Rovaniemi – missä yöpyä Lapissa" },
     { href: "/opas/levi-vs-saariselka", label: "Levi vs Saariselkä – vertailu" },
   ];
