@@ -56,8 +56,8 @@ export const fi = {
   },
   majoitukset: {
     meta: {
-      title: "Majoitus Levi – huoneistot ja hirsihuvila suoraan omistajalta",
-      description: "26 huoneistoa ja hirsihuvila Levin keskustassa, rinteiden juurelta 700 m:iin. Mökkilomatunnelmaa ilman välityspalkkiota – varaa suoraan omistajalta.",
+      title: "Majoitus Levillä – 27 huoneistoa ja huvilaa Levin keskustassa | Leville.net",
+      description: "Majoitus Levillä suoraan omistajalta: 27 saunallista kohdetta keskustassa, rinteiden juurelta enintään 700 metrin päässä. Ei välityspalkkioita – katso saatavuus ja hinnat varauskalenterista.",
       canonical: "https://leville.net/majoitukset"
     },
     title: "Majoitus Levillä – huoneistot ja hirsihuvila Levin keskustassa",

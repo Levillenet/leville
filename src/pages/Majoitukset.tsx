@@ -694,6 +694,70 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </section>
             </ScrollReveal>
 
+            {/* How to choose */}
+            <ScrollReveal delay={0.2}>
+              <section className="mb-16 md:mb-20 max-w-3xl mx-auto">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
+                  {isEnglish ? "How to choose your accommodation in Levi" : "Miten valita majoitus Levillä"}
+                </h2>
+                {isEnglish ? (
+                  <div className="space-y-4 text-muted-foreground leading-relaxed">
+                    <p>
+                      <strong className="text-foreground">Location.</strong> All our properties are
+                      within walking distance of Levi centre. The front-slope alpine apartments
+                      (Zero Point and Glacier) are about 150–200 metres from the nearest lift, while
+                      the Skistar building on Postintie sits among the shops and restaurants, about
+                      700 metres from the slopes. Both work without a car.
+                    </p>
+                    <p>
+                      <strong className="text-foreground">Group size.</strong> Studios suit two or
+                      three guests, one- and two-bedroom apartments suit families, and larger groups
+                      have 3–5 bedroom apartments as well as Bear Lodge, a log villa for 14. If you
+                      are specifically after a log building, see{" "}
+                      <Link to="/en/guides/cabins-in-levi" className="text-primary hover:underline">
+                        cabin rental in Levi
+                      </Link>
+                      .
+                    </p>
+                    <p>
+                      <strong className="text-foreground">Timing and price.</strong> Rates depend on
+                      the season and the length of your stay: Christmas, Finnish ski holiday weeks
+                      and Easter are the busiest and priciest, while early winter and spring are
+                      quieter and cheaper. A longer stay always costs less per night. The current
+                      price is shown in the booking calendar once you pick your dates.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4 text-muted-foreground leading-relaxed">
+                    <p>
+                      <strong className="text-foreground">Sijainti.</strong> Kaikki kohteemme ovat
+                      kävelymatkan päässä Levin keskustasta. Eturinteen alppihuoneistot (Zero Point
+                      ja Glacier) ovat noin 150–200 metriä lähimmältä hissiltä, Skistar-talon
+                      huoneistot Postintiellä ovat keskellä palveluita ja noin 700 metriä rinteille.
+                      Kumpikin toimii ilman autoa.
+                    </p>
+                    <p>
+                      <strong className="text-foreground">Seurueen koko.</strong> Studiot sopivat
+                      kahdelle tai kolmelle, yhden ja kahden makuuhuoneen huoneistot perheelle, ja
+                      isoille ryhmille on 3–5 makuuhuoneen huoneistoja sekä 14 hengen hirsihuvila
+                      Karhupirtti. Jos etsit nimenomaan hirsirakennusta, katso{" "}
+                      <Link to="/opas/vuokramokit-levi" className="text-primary hover:underline">
+                        vuokramökit Levillä
+                      </Link>
+                      .
+                    </p>
+                    <p>
+                      <strong className="text-foreground">Ajankohta ja hinta.</strong> Hinta
+                      määräytyy sesongin ja yöpymisen pituuden mukaan: joulu, hiihtolomaviikot ja
+                      pääsiäinen ovat kysytyimpiä ja kalleimpia, kun taas alkutalvi ja kevät ovat
+                      rauhallisempia ja edullisempia. Pidempi varaus on aina yöltä edullisempi.
+                      Ajantasainen hinta näkyy varauskalenterista, kun valitset päivät.
+                    </p>
+                  </div>
+                )}
+              </section>
+            </ScrollReveal>
+
             {/* FAQ Section */}
             <ScrollReveal delay={0.2}>
               <section className="mb-16 md:mb-20 max-w-3xl mx-auto">
