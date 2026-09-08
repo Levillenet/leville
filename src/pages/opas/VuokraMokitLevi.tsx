@@ -30,6 +30,11 @@ const content = {
     canonical: "https://leville.net/opas/vuokramokit-levi",
     h1: "Vuokramökit Levillä – mökkivuokraus ja mökit Levin keskustassa",
     intro: "Etsitkö vuokramökkiä Leviltä? Vuokramökit Levillä ovat suosituin tapa majoittua Lapissa – ja Levin keskustassa on tarjolla sekä perinteisiä hirsimökkejä että moderneja mökkihuoneistoja. Mökkivuokraus suoraan omistajalta on huoletonta: ei välityspalkkioita, joustavat peruutusehdot ja suora yhteys omistajaan. Tämä opas auttaa löytämään oikean mökin – studiokoosta 14 hengen hirsihuvilaan.",
+    intro2: "Vuokramökki Levillä tarkoittaa käytännössä kahta asiaa: perinteistä hirsimökkiä omalla pihalla tai mökkitunnelmaista huoneistoa, jossa on oma sauna. Meiltä saa molempia, ja kaikki kohteet ovat Levin keskustassa tai eturinteen tuntumassa – autoa ei tarvita.",
+    logCabinNote: "Karhupirtti Skimbaajankujalla on ainoa varsinainen hirsihuvilamme: seitsemän makuuhuonetta, oma sauna, takka ja ulkoporeallas, tilaa 14 hengelle. Se on tarkoitettu isolle porukalle – suvun jouluun, kaveriporukan hiihtoviikkoon tai yrityksen retriittiin. Muut mökkihenkiset vaihtoehtomme ovat saunallisia huoneistoja, joissa on 1–5 makuuhuonetta.",
+    priceTitle: "Mitä vuokramökki Levillä maksaa?",
+    priceText: "Mökkivuokrauksen hinta Levillä vaihtelee sesongin ja seurueen koon mukaan: edullisimmillaan ollaan kevättalvella ja syksyllä pidemmillä varauksilla, kalleimmillaan jouluna, hiihtolomaviikoilla ja pääsiäisenä. Näet ajantasaisen hinnan aina varauskalenterista, kun valitset päivät.",
+    priceLinkLabel: "Katso vapaat mökit ja hinnat",
     sectionsTitle: "Mökkityypit Levillä",
     sections: [
       {
@@ -86,6 +91,11 @@ const content = {
     canonical: "https://leville.net/en/guides/cabins-in-levi",
     h1: "Cabin Rental in Levi – Cabins and Apartments in Levi Centre",
     intro: "Looking for a rental cabin in Levi? Levi centre offers both modern apartment-cabins and traditional log cabins, perfect for couples and larger groups alike. This guide helps you pick the right cabin – and explains why renting directly from the owner is often the most carefree way to book.",
+    intro2: "A rental cabin in Levi means one of two things in practice: a traditional log cabin with its own yard, or a cabin-style apartment with a private sauna. We offer both, and every property is in Levi centre or right by the front slope – no car needed.",
+    logCabinNote: "Bear Lodge (Karhupirtti) on Skimbaajankuja is our only true log villa: seven bedrooms, private sauna, fireplace and an outdoor hot tub, sleeping 14. It is made for a big group – a family Christmas, a friends' ski week or a company retreat. Our other cabin-style options are apartments with a private sauna and 1–5 bedrooms.",
+    priceTitle: "What does a rental cabin in Levi cost?",
+    priceText: "Cabin rental prices in Levi vary by season and group size: the lowest rates are in late winter and autumn on longer stays, the highest at Christmas, Finnish ski holiday weeks and Easter. The current price is always shown in the booking calendar once you pick your dates.",
+    priceLinkLabel: "See available cabins and prices",
     sectionsTitle: "Cabin types in Levi",
     sections: [
       {
