@@ -40,6 +40,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Site",
       trustTitle: "Rated Excellent",
       links: [
+        { label: "Accommodation in Levi", href: "/en/accommodations" },
         { label: "Our Story", href: routeConfig.company.en, highlight: true },
         { label: "Apartments", href: "/en/apartments" },
         { label: "News", href: routeConfig.news.en },
