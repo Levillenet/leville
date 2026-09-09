@@ -995,6 +995,13 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
                   </Card>
                 ))}
               </div>
+              {lang === "fi" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Joulun ja uudenvuoden viikot varataan usein jo keväällä. Katso{" "}
+                  <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">joulumajoitus Levillä</Link>
+                  {" "}– Leville.netin 27 kohdetta ovat Levin keskustassa, ja isoin niistä (Karhupirtti) majoittaa 14 hengen suvun.
+                </p>
+              )}
             </section>
 
             {/* Contextual booking link (mid-page) */}

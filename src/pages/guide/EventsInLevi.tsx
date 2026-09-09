@@ -293,6 +293,13 @@ const EventsInLevi = ({ lang = "fi" }: EventsInLeviProps) => {
                 <h2 className="text-2xl font-bold text-foreground">{t.sections.stayUpdated.title}</h2>
               </div>
               <p className="text-muted-foreground">{t.sections.stayUpdated.content}</p>
+              {lang === "fi" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Suurimpien tapahtumien viikonloppuina keskustan majoitus täyttyy ensin. Katso ajoissa{" "}
+                  <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levin keskustassa</Link>
+                  {" "}– kaikki Leville.netin kohteet ovat kävelymatkan päässä tapahtumapaikoista.
+                </p>
+              )}
             </section>
 
             {/* FAQ */}
