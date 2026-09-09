@@ -390,6 +390,11 @@ const LevinHinnatPage = () => {
           <TipBox>
             <strong>Säästövinkki:</strong> Huoneisto tai mökki itsepalvelukeittiöllä säästää ravintolakuluissa satoja euroja viikossa. Leville.netin kautta varaat suoraan ilman välikäsiä.
           </TipBox>
+          <p className="text-muted-foreground leading-relaxed mt-4">
+            Vertaile kokoluokkia ja sijainteja sivulla{" "}
+            <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levillä – huoneistot ja hirsihuvila</Link>
+            ; ajantasaiset hinnat näkyvät varausjärjestelmässä valitsemillesi päiville.
+          </p>
           <Link to="/majoitukset">
             <Button className="mt-4 bg-accent hover:bg-accent/90 text-accent-foreground">
               Katso Leville.netin majoitukset →
