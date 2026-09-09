@@ -822,6 +822,13 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
                 <strong>💡 Vinkki:</strong> {t.sections.stroller.tip}
               </p>
             </div>
+            {lang === "fi" && (
+              <p className="text-muted-foreground leading-relaxed mt-4">
+                Lapsiperheelle keskeisin valinta on sijainti: lyhyt matka rinteille, kauppaan ja Leevilandiaan. Katso{" "}
+                <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">perheille sopiva majoitus Levillä</Link>
+                {" "}– 2–5 makuuhuoneen huoneistot ja oma sauna kaikissa kohteissa.
+              </p>
+            )}
           </section>
 
           {/* Family Restaurants */}

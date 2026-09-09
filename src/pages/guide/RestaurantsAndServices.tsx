@@ -414,6 +414,13 @@ const RestaurantsAndServices = ({ lang = "fi" }: RestaurantsAndServicesProps) =>
                 {lang === "en" ? "See restaurant reviews and dish photos →" : "Katso ravintolaesittelyt ja annoskuvat →"}
               </Link>
             </div>
+            {lang === "fi" && (
+              <p className="text-muted-foreground leading-relaxed mt-4">
+                Kaikki tämän oppaan ravintolat ovat kävelymatkan päässä Leville.netin kohteista – katso{" "}
+                <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">Levin keskustan huoneistot</Link>
+                , jos haluat illallisen jälkeen kävellä majoitukseen ilman autoa tai taksia.
+              </p>
+            )}
           </section>
 
           {/* Grocery fish counter image */}

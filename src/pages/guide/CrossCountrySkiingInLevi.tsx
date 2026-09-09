@@ -242,6 +242,13 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.services.title}</h2>
               <p className="text-muted-foreground">{t.sections.services.content}</p>
+              {lang === "fi" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Latuverkostolle pääsee suoraan keskustasta. Katso{" "}
+                  <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levillä</Link>
+                  {" "}– esimerkiksi Glacier Apartmentsista lähimmälle ladulle on noin 20 metriä ovelta.
+                </p>
+              )}
             </section>
 
             {/* Conditions */}

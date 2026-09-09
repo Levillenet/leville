@@ -654,6 +654,13 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
                   </li>
                 ))}
               </ul>
+              {lang === "fi" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Kesällä Levin keskusta on hiljaisempi kuin talvella, ja hinnat ovat kauden matalimmat. Katso kaikki 27 kohdetta sivulta{" "}
+                  <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levin keskustassa</Link>
+                  {" "}– useimmissa on oma sauna ja parveke tai terassi.
+                </p>
+              )}
             </section>
 
             {/* Leipäjuusto image */}

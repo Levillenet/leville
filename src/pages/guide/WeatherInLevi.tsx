@@ -686,6 +686,13 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
                   </Card>
                 ))}
               </div>
+              {lang === "fi" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Säästä riippumatta lyhyt matka rinteille ja palveluihin helpottaa lomaa: kaikki Leville.netin kohteet löytyvät sivulta{" "}
+                  <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levillä</Link>
+                  , ja jokainen on kävelymatkan päässä Levin keskustasta.
+                </p>
+              )}
             </section>
 
             {/* FAQ */}
