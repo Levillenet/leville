@@ -1,7 +1,7 @@
 export const fi = {
   hero: {
-    title: "Majoitus Levillä —",
-    titleHighlight: "mökit ja huoneistot keskustassa",
+    title: "Leville.net —",
+    titleHighlight: "Levin huoneistot suoraan omistajalta",
     subtitle: "Vuokramökit ja modernit huoneistot Levin ydinkeskustassa, askelten päässä rinteistä. Varaa suoraan ilman välikäsiä.",
     discount: "Kevään 2026 majoitukset nyt –10 % koodilla winter10",
     bookingCta: "Varaa majoitus",

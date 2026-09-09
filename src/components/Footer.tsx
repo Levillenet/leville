@@ -18,6 +18,7 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
       siteTitle: "Sivusto",
       trustTitle: "Arvioitu erinomaiseksi",
       links: [
+        { label: "Majoitus Levillä", href: "/majoitukset" },
         { label: "Tarinamme", href: routeConfig.company.fi, highlight: true },
         { label: "Ajankohtaista", href: routeConfig.news.fi },
         { label: "Seuratuki", href: "/seuratuki" },
