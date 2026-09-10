@@ -218,11 +218,11 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                 <section className="max-w-3xl mx-auto mb-10 md:mb-12 px-2 text-center">
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     Etsitkö <strong className="text-foreground">majoitusta Levillä</strong>? Tarjoamme{" "}
-                    <strong className="text-foreground">vuokramökkejä ja huoneistoja Levin keskustassa</strong>{" "}
+                    <strong className="text-foreground">27 huoneistoa ja yhden hirsihuvilan Levin keskustassa</strong>{" "}
                     suoraan omistajalta. Valikoimasta löydät saunallisia{" "}
-                    <strong className="text-foreground">mökkejä Leviltä</strong> pariskunnille, perheille ja
+                    <strong className="text-foreground">huoneistoja Levin keskustasta</strong> pariskunnille, perheille ja
                     isommille ryhmille – kaikki lyhyen kävelymatkan päässä rinteistä, ravintoloista ja Levin
-                    keskustan palveluista. <strong className="text-foreground">Mökkivuokraus Levillä</strong>{" "}
+                    keskustan palveluista. <strong className="text-foreground">Majoitus Levillä</strong>{" "}
                     on kanssamme mutkatonta: ei välityspalkkioita, joustavat peruutusehdot ja suora yhteys
                     omistajaan. Neljä kohdetta Levin ytimessä: Front Slope -alppihuoneistot{" "}
                     <Link to="/vuokramokit/hiihtajankuja-levi" className="text-primary hover:underline">
@@ -374,7 +374,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     : "Hutten en appartementen in Levi"}
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
-                  {lang === "fi" ? "Valitse studiosta tilavaan hirsimökkiin — kaikki kohteet rinteiden ja palveluiden välittömässä läheisyydessä."
+                  {lang === "fi" ? "Valitse studiosta 14 hengen hirsihuvilaan — kaikki kohteet rinteiden ja palveluiden välittömässä läheisyydessä."
                     : lang === "en" ? "From cozy studios to spacious log cabins — all properties next to the slopes and services."
                     : lang === "sv" ? "Från studio till rymliga timmerstugor — alla nära pisterna och servicen."
                     : lang === "de" ? "Vom Studio bis zur geräumigen Blockhütte — alle Objekte direkt an Pisten und Services."
@@ -693,6 +693,58 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                 </div>
               </section>
             </ScrollReveal>
+
+            {lang === "fi" && (
+              <ScrollReveal>
+                <section className="mb-16 md:mb-20 max-w-3xl mx-auto">
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
+                    Majoitus Levin keskustassa – kaikki kohteemme kävelymatkan päässä
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Kaikki 27 kohdettamme sijaitsevat Levin keskustassa neljässä osoitteessa, joten autoa ei
+                    lomalla tarvitse. Rinteet, hissit, ravintolat, K-Market ja Alko ovat kävelymatkan päässä
+                    jokaisesta kohteesta. Tämä erottaa meidät suurista varaussivustoista, joilla "Levi" voi
+                    tarkoittaa myös kymmenen kilometrin päässä olevaa mökkialuetta.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    <Link to="/vuokramokit/hiihtajankuja-levi" className="text-primary hover:underline">
+                      Front Slope -huoneistot Hiihtäjänkujalla
+                    </Link>{" "}
+                    ovat nimensä mukaisesti eturinteen juurella – hiihtokengät jalkaan ja rinteeseen.{" "}
+                    <Link to="/vuokramokit/skimbaajankuja-levi" className="text-primary hover:underline">
+                      Karhupirtti
+                    </Link>{" "}
+                    samassa korttelissa on valikoimamme ainoa hirsihuvila: 220 m², 7 makuuhuonetta ja tilaa
+                    14 hengelle.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    <Link to="/vuokramokit/postintie-levi" className="text-primary hover:underline">
+                      Skistar-talon huoneistot Postintiellä
+                    </Link>{" "}
+                    ovat aivan keskustan palveluiden vieressä, K-Market on ovelta muutaman askeleen päässä ja
+                    hisseille on noin 700 metriä.{" "}
+                    <Link to="/vuokramokit/glacier-apartments-levi" className="text-primary hover:underline">
+                      Glacier Apartments
+                    </Link>{" "}
+                    Ratsastajankujalla sopivat perheille ja isommille seurueille – lähimmälle hiihtoladulle
+                    on ovelta noin 20 metriä.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Sauna kuuluu lähes jokaiseen kohteeseen. Ajantasainen saatavuus ja hinnat valitsemillesi
+                    päiville näkyvät yllä olevassa hakukentässä tai suoraan{" "}
+                    <a
+                      href="https://app.moder.fi/levillenet"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      varausjärjestelmässä
+                    </a>
+                    .
+                  </p>
+                </section>
+              </ScrollReveal>
+            )}
 
             {/* How to choose */}
             <ScrollReveal delay={0.2}>
