@@ -829,6 +829,13 @@ const LeviWithChildren = ({ lang = "fi" }: LeviWithChildrenProps) => {
                 {" "}– 2–5 makuuhuoneen huoneistot ja oma sauna kaikissa kohteissa.
               </p>
             )}
+            {lang === "en" && (
+              <p className="text-muted-foreground leading-relaxed mt-4">
+                For families the key choice is location: a short walk to the slopes, the shop and Leevilandia. See{" "}
+                <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">family accommodation in Levi</Link>
+                {" "}– 2–5 bedroom apartments, each with its own sauna.
+              </p>
+            )}
           </section>
 
           {/* Family Restaurants */}
