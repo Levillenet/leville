@@ -693,6 +693,13 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
                   , ja jokainen on kävelymatkan päässä Levin keskustasta.
                 </p>
               )}
+              {lang === "en" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Whatever the weather, a short walk to the slopes and services makes the trip easier: all Leville.net properties are listed on{" "}
+                  <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi</Link>
+                  , each of them within walking distance of Levi centre.
+                </p>
+              )}
             </section>
 
             {/* FAQ */}

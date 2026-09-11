@@ -300,6 +300,13 @@ const EventsInLevi = ({ lang = "fi" }: EventsInLeviProps) => {
                   {" "}– kaikki Leville.netin kohteet ovat kävelymatkan päässä tapahtumapaikoista.
                 </p>
               )}
+              {lang === "en" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  On the biggest event weekends the centre sells out first. Book early and see{" "}
+                  <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi centre</Link>
+                  {" "}– every Leville.net property is within walking distance of the venues.
+                </p>
+              )}
             </section>
 
             {/* FAQ */}

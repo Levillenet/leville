@@ -746,6 +746,59 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
               </ScrollReveal>
             )}
 
+            {lang === "en" && (
+              <ScrollReveal>
+                <section className="mb-16 md:mb-20 max-w-3xl mx-auto">
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
+                    Accommodation in Levi centre – everything within walking distance
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    All 27 of our properties sit in Levi centre at four addresses, so you do not need a car
+                    during your holiday. The slopes, lifts, restaurants, the K-Market supermarket and Alko are
+                    a walk away from every property. That is what separates us from the big booking sites,
+                    where "Levi" can also mean a cabin area ten kilometres out of the village.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    <Link to="/vuokramokit/hiihtajankuja-levi" className="text-primary hover:underline">
+                      The Front Slope apartments on Hiihtäjänkuja
+                    </Link>{" "}
+                    are exactly what the name says – at the foot of the front slope, ski boots on and you are
+                    there.{" "}
+                    <Link to="/vuokramokit/skimbaajankuja-levi" className="text-primary hover:underline">
+                      Karhupirtti (Bear Lodge)
+                    </Link>{" "}
+                    in the same block is the only log villa in our selection: 220 m², seven bedrooms and room
+                    for 14 guests.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    <Link to="/vuokramokit/postintie-levi" className="text-primary hover:underline">
+                      The Skistar building apartments on Postintie
+                    </Link>{" "}
+                    are right next to the centre's services, with the supermarket a few steps from the door and
+                    around 700 metres to the lifts.{" "}
+                    <Link to="/vuokramokit/glacier-apartments-levi" className="text-primary hover:underline">
+                      Glacier Apartments
+                    </Link>{" "}
+                    on Ratsastajankuja suit families and larger groups – the nearest cross-country track is
+                    about 20 metres from the door.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Nearly every property has its own sauna. Current availability and prices for your dates are
+                    shown in the search above or directly in the{" "}
+                    <a
+                      href="https://app.moder.fi/levillenet"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      booking system
+                    </a>
+                    .
+                  </p>
+                </section>
+              </ScrollReveal>
+            )}
+
             {/* How to choose */}
             <ScrollReveal delay={0.2}>
               <section className="mb-16 md:mb-20 max-w-3xl mx-auto">

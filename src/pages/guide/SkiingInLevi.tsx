@@ -486,8 +486,15 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
             {/* Lift System */}
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.lifts.title}</h2>
-              <p className="text-muted-foreground">{t.sections.lifts.content}</p>
-            </section>
+               <p className="text-muted-foreground">{t.sections.lifts.content}</p>
+              {lang === "en" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Staying next to the lifts saves the most time on a ski holiday. See{" "}
+                  <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi</Link>
+                  {" "}– our front-slope apartments are roughly 150–200 metres from the nearest lift.
+                </p>
+              )}
+             </section>
 
             {/* Lift Passes */}
             <section className="mb-12">

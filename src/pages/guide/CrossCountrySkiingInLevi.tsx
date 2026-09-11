@@ -249,6 +249,13 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
                   {" "}– esimerkiksi Glacier Apartmentsista lähimmälle ladulle on noin 20 metriä ovelta.
                 </p>
               )}
+              {lang === "en" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  The trail network starts right in the centre. See our{" "}
+                  <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi</Link>
+                  {" "}– from Glacier Apartments, for example, the nearest track is about 20 metres from the door.
+                </p>
+              )}
             </section>
 
             {/* Conditions */}
