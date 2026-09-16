@@ -182,7 +182,6 @@ async function login(): Promise<string> {
     throw new Error('No context key received');
   }
 
-  console.log('Login successful');
   return data.LoginData.ContextKey;
 }
 
@@ -1089,7 +1088,7 @@ serve(async (req) => {
   }
 
   const reqBody = req.method === 'POST' ? await readJsonBody(req) : {};
-  if (!isAdminRequest(req, reqBody) && !isCronRequest(req, reqBody)) {
+  if (!await isAdminRequest(req, reqBody) && !isCronRequest(req, reqBody)) {
     return unauthorized(req);
   }
 

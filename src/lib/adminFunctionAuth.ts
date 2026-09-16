@@ -1,9 +1,11 @@
 import { supabase } from "@/integrations/supabase/client";
+import { getAdminToken } from "@/lib/adminSession";
 
 /**
- * Privileged edge functions require the admin/viewer password. Instead of
- * threading it through every call site, we inject it once as a request header
- * for all function invocations made from an authenticated admin session.
+ * Privileged edge functions require an admin/viewer credential. Instead of
+ * threading it through every call site, we inject the short-lived signed
+ * session token once as a request header for all function invocations made
+ * from an authenticated admin session.
  */
 let patched = false;
 
@@ -17,18 +19,12 @@ export function installAdminFunctionAuth() {
   const originalInvoke = functionsClient.invoke.bind(functionsClient);
 
   functionsClient.invoke = (name: string, options: Record<string, unknown> = {}) => {
-    let password: string | null = null;
-    try {
-      password = localStorage.getItem("admin_password");
-    } catch {
-      password = null;
-    }
-
-    if (!password) return originalInvoke(name, options);
+    const token = getAdminToken();
+    if (!token) return originalInvoke(name, options);
 
     const headers = {
       ...((options.headers as Record<string, string>) || {}),
-      "x-admin-password": password,
+      "x-admin-password": token,
     };
 
     return originalInvoke(name, { ...options, headers });

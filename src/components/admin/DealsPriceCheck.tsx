@@ -88,17 +88,14 @@ const DealsPriceCheck = ({ settings }: Props) => {
     }
     setLoading(true);
     try {
-      const [{ data, error }, periodRes] = await Promise.all([
+      const [{ data, error }, settingsRes] = await Promise.all([
         supabase.functions.invoke(`moder-availability?mode=prices&from=${from}&to=${to}&debug=true`),
-        supabase
-          .from('period_settings')
-          .select('property_id, check_in, check_out, custom_discount')
-          .lte('check_in', to)
-          .gte('check_out', from),
+        supabase.functions.invoke('admin-settings', { body: { action: 'get_all_settings' } }),
       ]);
       if (error) throw error;
       setResult(data as PricesResponse);
-      setPeriods((periodRes.data || []) as PeriodRow[]);
+      const allPeriods = (settingsRes.data?.periodSettings || []) as PeriodRow[];
+      setPeriods(allPeriods.filter(p => p.check_in <= to && p.check_out >= from));
     } catch (e) {
       console.error('Price check failed', e);
       toast.error('Hintojen haku epäonnistui');

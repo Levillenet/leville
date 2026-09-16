@@ -20,6 +20,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ownerPhoto from "@/assets/sami-aavikko.jpg?w=800&format=webp&quality=80";
 import signatureImage from "@/assets/signature-sami-white.png?w=400&format=webp&quality=80";
+import RichTranslationText from "@/components/RichTranslationText";
 
 const serviceIcons: LucideIcon[] = [Building, Home, Users, Briefcase, MapPin];
 
@@ -191,9 +192,9 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
               <section className="max-w-4xl mx-auto mb-20">
                 <Card className="glass-card border-border/30 p-8 md:p-12">
                   <CardContent className="p-0 space-y-6">
-                    <p 
+                    <RichTranslationText
                       className="text-lg text-muted-foreground leading-relaxed"
-                      dangerouslySetInnerHTML={{ __html: t.introText }}
+                      text={t.introText}
                     />
                   </CardContent>
                 </Card>
@@ -426,9 +427,9 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
               <section className="text-center max-w-3xl mx-auto">
                 <Card className="glass-card border-primary/30 p-8 md:p-12">
                   <CardContent className="p-0 space-y-6">
-                    <p 
+                    <RichTranslationText
                       className="text-lg text-muted-foreground leading-relaxed"
-                      dangerouslySetInnerHTML={{ __html: t.ctaText }}
+                      text={t.ctaText}
                     />
                     <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                       <Button asChild size="lg" className="bg-primary hover:bg-primary/90">

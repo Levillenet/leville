@@ -1703,6 +1703,33 @@ export type Database = {
         }
         Relationships: []
       }
+      rate_limit_attempts: {
+        Row: {
+          attempts: number
+          bucket: string
+          client_key: string
+          id: string
+          updated_at: string
+          window_started_at: string
+        }
+        Insert: {
+          attempts?: number
+          bucket: string
+          client_key: string
+          id?: string
+          updated_at?: string
+          window_started_at?: string
+        }
+        Update: {
+          attempts?: number
+          bucket?: string
+          client_key?: string
+          id?: string
+          updated_at?: string
+          window_started_at?: string
+        }
+        Relationships: []
+      }
       seo_pages: {
         Row: {
           component_name: string

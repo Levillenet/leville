@@ -1,3 +1,4 @@
+import { getAdminToken } from "@/lib/adminSession";
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -39,7 +40,7 @@ export default function ChatbotStatsAdmin({ isViewer }: ChatbotStatsAdminProps) 
   const fetchStats = async () => {
     setIsLoading(true);
     try {
-      const password = localStorage.getItem('admin_password');
+      const password = getAdminToken();
       if (!password) return;
 
       const { data, error } = await supabase.functions.invoke('get-chatbot-stats', {

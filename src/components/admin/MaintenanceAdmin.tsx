@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
+import { getAdminToken } from "@/lib/adminSession";
 
 interface BookingInfo {
   propertyId: string;
@@ -94,10 +95,11 @@ const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
   const fetchSettings = async () => {
     try {
       // Fetch property names from property_settings
-      const { data: settingsData } = await supabase
-        .from('property_settings')
-        .select('property_id, marketing_name');
-      
+      const { data: allSettings } = await supabase.functions.invoke('admin-settings', {
+        body: { action: 'get_all_settings' },
+      });
+      const settingsData = (allSettings?.propertySettings || []) as Array<{ property_id: string; marketing_name?: string | null }>;
+
       const nameMap = new Map<string, string>();
       for (const s of (settingsData || [])) {
         if (s.marketing_name) {
@@ -172,7 +174,7 @@ const MaintenanceAdmin = ({ isViewer = false }: MaintenanceAdminProps) => {
           body: { date: dateStr }
         }),
         supabase.functions.invoke('get-cleaning-status', {
-          body: { date: dateStr, password: localStorage.getItem('admin_password') || '' }
+          body: { date: dateStr, password: getAdminToken() || '' }
         })
 
       ]);

@@ -1,3 +1,4 @@
+import { getAdminToken } from "@/lib/adminSession";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -94,7 +95,7 @@ const SearchConsoleAdmin = ({ isViewer }: Props) => {
     setLoading(true);
     setError(null);
     try {
-      const password = localStorage.getItem("admin_password");
+      const password = getAdminToken();
       if (!password) { setError("Admin-salasanaa ei löydy"); setLoading(false); return; }
       const { data, error } = await supabase.functions.invoke("get-search-console-stats", {
         body: { password, period: p, language: lang },
@@ -115,7 +116,7 @@ const SearchConsoleAdmin = ({ isViewer }: Props) => {
   const downloadCsv = async () => {
     setCsvLoading(true);
     try {
-      const password = localStorage.getItem("admin_password");
+      const password = getAdminToken();
       if (!password) return;
       const { data, error } = await supabase.functions.invoke("get-search-console-stats", {
         body: { password, format: "csv", period, language },

@@ -71,7 +71,7 @@ serve(async (req) => {
   }
 
   const body = await readJsonBody(req);
-  if (!isAdminRequest(req, body) && !isCronRequest(req, body)) {
+  if (!await isAdminRequest(req, body) && !isCronRequest(req, body)) {
     return unauthorized(req);
   }
 

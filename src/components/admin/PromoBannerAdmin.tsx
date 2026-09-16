@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Trash2, Edit, Loader2, PartyPopper, TreePine, Sparkles, Sun, Leaf, Mountain, Snowflake, Languages } from "lucide-react";
 import { routeConfig } from "@/translations";
+import { getAdminToken } from "@/lib/adminSession";
 
 interface PromoBannerData {
   id?: string;
@@ -119,7 +120,7 @@ const PromoBannerAdmin = ({ isViewer = false }: PromoBannerAdminProps) => {
   const [statsDays, setStatsDays] = useState<number>(30);
   const { toast } = useToast();
 
-  const password = localStorage.getItem("admin_password") || "";
+  const password = getAdminToken() || "";
 
   const fetchBanners = async () => {
     setLoading(true);

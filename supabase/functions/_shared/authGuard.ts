@@ -2,6 +2,8 @@
 // - Admin/viewer access: password sent as `x-admin-password` header or `password` in body.
 // - Scheduled (cron) access: `x-cron-secret` header or `cronSecret` in body.
 
+import { resolveAdminRole } from "./adminCredential.ts";
+
 const STATIC_ALLOWED_ORIGINS = [
   "https://leville.net",
   "https://www.leville.net",
@@ -52,20 +54,15 @@ export function isCronRequest(req: Request, body: Record<string, unknown> = {}):
   return provided === secret;
 }
 
-export function isAdminRequest(
+export async function isAdminRequest(
   req: Request,
   body: Record<string, unknown> = {},
   opts: { allowViewer?: boolean } = {},
-): boolean {
+): Promise<boolean> {
   const provided = pick(req, "x-admin-password", body, "password");
-  if (!provided) return false;
-  const admin = Deno.env.get("ADMIN_PASSWORD");
-  if (admin && provided === admin) return true;
-  if (opts.allowViewer !== false) {
-    const viewer = Deno.env.get("VIEWER_PASSWORD");
-    if (viewer && provided === viewer) return true;
-  }
-  return false;
+  const role = await resolveAdminRole(provided);
+  if (role === "admin") return true;
+  return role === "viewer" && opts.allowViewer !== false;
 }
 
 export function unauthorized(req: Request): Response {

@@ -24,6 +24,7 @@ import SearchConsoleAdmin from "@/components/admin/SearchConsoleAdmin";
 import TimedNoticesAdmin from "@/components/admin/TimedNoticesAdmin";
 import PromoBannerAdmin from "@/components/admin/PromoBannerAdmin";
 import TicketAdmin from "@/components/admin/TicketAdmin";
+import { getAdminToken, getAdminRole, setAdminSession, clearAdminSession, purgeLegacyAdminCredentials } from "@/lib/adminSession";
 import {
   BarChart,
   Bar,
@@ -69,21 +70,16 @@ const Admin = () => {
 
   // Check for existing session on mount
   useEffect(() => {
-    const savedRole = localStorage.getItem('admin_role');
-    const savedPassword = localStorage.getItem('admin_password');
-    
-    // For admin role, require password to be stored as well
-    if (savedRole === 'admin' && savedPassword) {
+    purgeLegacyAdminCredentials();
+    const savedRole = getAdminRole();
+    const token = getAdminToken();
+
+    if (savedRole && token) {
       setUserRole(savedRole);
       setIsAuthenticated(true);
-      fetchStats();
-    } else if (savedRole === 'viewer') {
-      setUserRole(savedRole);
-      setIsAuthenticated(true);
+      if (savedRole === 'admin') fetchStats();
     } else {
-      // Clear incomplete session
-      localStorage.removeItem('admin_role');
-      localStorage.removeItem('admin_password');
+      clearAdminSession();
     }
     setIsLoading(false);
   }, []);
@@ -110,11 +106,8 @@ const Admin = () => {
         return;
       }
 
-      // Store role and password in localStorage
-      localStorage.setItem('admin_role', data.role);
-      if (data.role === 'admin') {
-        localStorage.setItem('admin_password', password.trim());
-      }
+      // Store only the short-lived signed session token (sessionStorage)
+      setAdminSession(data.role, data.token ?? null);
       setUserRole(data.role);
       setIsAuthenticated(true);
       setPassword("");
@@ -142,15 +135,11 @@ const Admin = () => {
 
   const fetchStats = async () => {
     try {
-      const storedPassword = localStorage.getItem('admin_password');
-      
-      if (!storedPassword) {
-        console.log('No admin password stored, skipping stats fetch');
-        return;
-      }
-      
+      const token = getAdminToken();
+      if (!token) return;
+
       const { data, error } = await supabase.functions.invoke('get-download-stats', {
-        body: { password: storedPassword }
+        body: { password: token }
       });
 
       if (error) {
@@ -165,8 +154,7 @@ const Admin = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('admin_role');
-    localStorage.removeItem('admin_password');
+    clearAdminSession();
     setIsAuthenticated(false);
     setUserRole(null);
     setStats(null);
@@ -416,7 +404,7 @@ const Admin = () => {
 
           {!isViewer && (
             <TabsContent value="booking-terms">
-              <BookingTermsAdmin adminPassword={localStorage.getItem('admin_password') || ''} />
+              <BookingTermsAdmin adminPassword={getAdminToken()} />
             </TabsContent>
           )}
 

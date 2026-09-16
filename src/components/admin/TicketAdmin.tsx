@@ -25,6 +25,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
+import { getAdminToken } from "@/lib/adminSession";
 
 // ── Types ──
 interface TicketApartment {
@@ -533,7 +534,7 @@ const TicketAdmin = ({ isViewer }: TicketAdminProps) => {
   const { toast } = useToast();
 
   const callApi = async (action: string, extra: Record<string, unknown> = {}) => {
-    const password = localStorage.getItem("admin_password");
+    const password = getAdminToken();
     const { data, error } = await supabase.functions.invoke("manage-tickets", {
       body: { action, password, ...extra },
     });

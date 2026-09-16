@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Plus, Trash2, Send, Loader2, FlaskConical, ListChecks, Settings as SettingsIcon, ScrollText, X, Inbox, GraduationCap, Check, Edit3 } from "lucide-react";
+import { getAdminToken } from "@/lib/adminSession";
 
 interface Settings {
   enabled: boolean;
@@ -94,7 +95,7 @@ interface Props {
 
 export default function AutoResponderAdmin({ isViewer }: Props) {
   const { toast } = useToast();
-  const password = localStorage.getItem("admin_password") || "";
+  const password = getAdminToken() || "";
 
   const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState<Settings | null>(null);

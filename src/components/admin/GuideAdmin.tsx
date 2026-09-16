@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Trash2, Save, ExternalLink, Loader2, GripVertical, Image, Upload, Copy, Link, Sparkles } from "lucide-react";
+import { getAdminToken } from "@/lib/adminSession";
 
 interface GuideProperty {
   id: string;
@@ -90,7 +91,7 @@ const GuideAdmin = ({ isViewer }: GuideAdminProps) => {
   const [scraping, setScraping] = useState(false);
   const { toast } = useToast();
 
-  const getPassword = () => localStorage.getItem("admin_password") || "";
+  const getPassword = () => getAdminToken() || "";
 
   const apiCall = useCallback(async (action: string, params: Record<string, any> = {}) => {
     const { data, error } = await supabase.functions.invoke("manage-guide", {

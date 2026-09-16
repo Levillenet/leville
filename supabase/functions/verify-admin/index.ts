@@ -1,15 +1,46 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createAdminToken } from "../_shared/adminCredential.ts";
+import { clientIp, rateLimit, resetRateLimit, tooManyRequests } from "../_shared/rateLimit.ts";
+import { checkLimit, clearFailures, recordFailure } from "../_shared/persistentRateLimit.ts";
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': 'https://leville.net',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const LOGIN_WINDOW_SECONDS = 15 * 60;
+const LOGIN_MAX_FAILURES = 5;
+
+const STATIC_ALLOWED_ORIGINS = [
+  "https://leville.net",
+  "https://www.leville.net",
+  "https://leville.lovable.app",
+];
+
+function corsFor(req: Request): Record<string, string> {
+  const origin = req.headers.get("origin") ?? "";
+  const allowed =
+    STATIC_ALLOWED_ORIGINS.includes(origin) ||
+    /^https:\/\/[a-z0-9-]+\.lovable\.app$/.test(origin) ||
+    /^https:\/\/[a-z0-9-]+\.lovableproject\.com$/.test(origin) ||
+    /^http:\/\/localhost(:\d+)?$/.test(origin);
+  return {
+    'Access-Control-Allow-Origin': allowed ? origin : 'https://leville.net',
+    'Vary': 'Origin',
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  };
+}
 
 serve(async (req) => {
+  const corsHeaders = corsFor(req);
+
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
+
+  // Throttle credential guessing: 5 failed attempts per IP / 15 minutes.
+  const ip = clientIp(req);
+  const rlKey = `verify-admin:${ip}`;
+  const retryAfter = rateLimit(rlKey, LOGIN_MAX_FAILURES, LOGIN_WINDOW_SECONDS);
+  if (retryAfter !== null) return tooManyRequests(retryAfter, corsHeaders);
+  const persistedRetry = await checkLimit("verify-admin", ip, LOGIN_MAX_FAILURES, LOGIN_WINDOW_SECONDS);
+  if (persistedRetry !== null) return tooManyRequests(persistedRetry, corsHeaders);
 
   try {
     const { password } = await req.json();
@@ -17,38 +48,34 @@ serve(async (req) => {
     const viewerPassword = Deno.env.get('VIEWER_PASSWORD');
 
     if (!adminPassword || !viewerPassword) {
-      console.error('Passwords not configured');
       return new Response(
         JSON.stringify({ success: false, error: 'Server configuration error' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Check admin password
-    if (password === adminPassword) {
-      console.log('Admin login successful');
+    const role = password === adminPassword
+      ? 'admin'
+      : password === viewerPassword
+        ? 'viewer'
+        : null;
+
+    if (role) {
+      resetRateLimit(rlKey);
+      await clearFailures("verify-admin", ip);
+      const token = await createAdminToken(role);
       return new Response(
-        JSON.stringify({ success: true, role: 'admin' }),
+        JSON.stringify({ success: true, role, token }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Check viewer password
-    if (password === viewerPassword) {
-      console.log('Viewer login successful');
-      return new Response(
-        JSON.stringify({ success: true, role: 'viewer' }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-
-    console.log('Login failed - wrong password');
+    await recordFailure("verify-admin", ip, LOGIN_WINDOW_SECONDS);
     return new Response(
       JSON.stringify({ success: false, error: 'Väärä salasana' }),
       { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
-  } catch (error) {
-    console.error('Error in verify-admin:', error);
+  } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Invalid request' }),
       { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

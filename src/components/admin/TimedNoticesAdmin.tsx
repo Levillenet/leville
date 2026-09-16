@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Trash2, Edit2, Save, X, Loader2 } from "lucide-react";
+import { getAdminToken } from "@/lib/adminSession";
 
 interface TimedNotice {
   id: string;
@@ -73,7 +74,7 @@ const TimedNoticesAdmin = ({ isViewer }: TimedNoticesAdminProps) => {
   const fetchNotices = async () => {
     setLoading(true);
     try {
-      const password = localStorage.getItem("admin_password");
+      const password = getAdminToken();
       const { data, error } = await supabase.functions.invoke("manage-timed-notices", {
         body: { action: "list", password },
       });
@@ -95,7 +96,7 @@ const TimedNoticesAdmin = ({ isViewer }: TimedNoticesAdminProps) => {
     }
     setSaving(true);
     try {
-      const password = localStorage.getItem("admin_password");
+      const password = getAdminToken();
       const action = editingId ? "update" : "create";
       const notice = editingId ? { ...form, id: editingId } : form;
 
@@ -119,7 +120,7 @@ const TimedNoticesAdmin = ({ isViewer }: TimedNoticesAdminProps) => {
   const handleDelete = async (id: string) => {
     if (!confirm("Poistetaanko ilmoitus?")) return;
     try {
-      const password = localStorage.getItem("admin_password");
+      const password = getAdminToken();
       await supabase.functions.invoke("manage-timed-notices", {
         body: { action: "delete", password, notice: { id } },
       });

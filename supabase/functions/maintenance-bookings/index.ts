@@ -20,7 +20,7 @@ serve(async (req: Request): Promise<Response> => {
   }
 
   const body = await readJsonBody(req);
-  if (!isAdminRequest(req, body)) {
+  if (!await isAdminRequest(req, body)) {
     return unauthorized(req);
   }
 
