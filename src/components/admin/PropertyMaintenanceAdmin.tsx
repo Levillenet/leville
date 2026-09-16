@@ -64,9 +64,10 @@ const PropertyMaintenanceAdmin = ({ isViewer = false }: PropertyMaintenanceAdmin
       }
 
       // Then fetch marketing name overrides from property_settings
-      const { data: settingsData } = await supabase
-        .from('property_settings')
-        .select('property_id, marketing_name');
+      const { data: allSettings } = await supabase.functions.invoke('admin-settings', {
+        body: { action: 'get_all_settings' },
+      });
+      const settingsData = (allSettings?.propertySettings || []) as Array<{ property_id: string; marketing_name?: string | null }>;
       
       for (const s of (settingsData || [])) {
         if (s.marketing_name) {

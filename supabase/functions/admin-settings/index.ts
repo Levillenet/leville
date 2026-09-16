@@ -1,5 +1,6 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { corsFor } from '../_shared/authGuard.ts';
+import { isAdminCredential } from '../_shared/adminCredential.ts';
 
 interface PropertySettings {
   property_id: string;
@@ -27,11 +28,9 @@ interface SkiPassCapacity {
   max_passes: number;
 }
 
-// Helper function to check if password matches admin password
-function isPasswordAdmin(password: string | null): boolean {
-  if (!password) return false;
-  const adminPassword = Deno.env.get('ADMIN_PASSWORD');
-  return password === adminPassword;
+// Helper: accepts a signed admin session token (or the admin password on login)
+function isPasswordAdmin(password: string | null): Promise<boolean> {
+  return isAdminCredential(password);
 }
 
 Deno.serve(async (req) => {
@@ -54,8 +53,7 @@ Deno.serve(async (req) => {
     const writeActions = ['upsert_property', 'upsert_period', 'update_capacity', 'reset_property', 'reset_all', 'update_site_setting'];
     if (writeActions.includes(action)) {
       const password = data?.password;
-      if (!isPasswordAdmin(password)) {
-        console.log('Admin auth failed for action:', action, '- invalid password');
+      if (!(await isPasswordAdmin(password))) {
         return new Response(
           JSON.stringify({ error: 'Unauthorized - Admin access required' }),
           { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

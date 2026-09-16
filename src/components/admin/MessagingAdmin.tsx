@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogT
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, MessageSquare, RefreshCw, Send, Plus, Pencil, Trash2, Users, CheckSquare, Shield, Clock, Mail } from "lucide-react";
 import { getAllDefaultPropertyDetails } from "@/data/propertyDetails";
+import { getAdminToken } from "@/lib/adminSession";
 
 type SendMethod = 'whatsapp' | 'email';
 
@@ -122,7 +123,7 @@ const MessagingAdmin = ({ isViewer }: MessagingAdminProps) => {
     fetchTemplates();
   }, []);
 
-  const getAdminPassword = () => localStorage.getItem('admin_password') || '';
+  const getAdminPassword = () => getAdminToken() || '';
 
   const fetchTemplates = async () => {
     setIsLoadingTemplates(true);

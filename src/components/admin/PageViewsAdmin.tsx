@@ -1,3 +1,4 @@
+import { getAdminToken } from "@/lib/adminSession";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -233,7 +234,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
 
   const fetchLive = useCallback(async () => {
     try {
-      const password = localStorage.getItem("admin_password");
+      const password = getAdminToken();
       if (!password) return;
       const { data, error } = await supabase.functions.invoke("get-page-view-stats", { body: { password, action: "live" } });
       if (!error && data) setLiveUsers(data);
@@ -250,7 +251,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   const fetchStats = async (p: Period = period) => {
     setLoading(true);
     try {
-      const password = localStorage.getItem("admin_password");
+      const password = getAdminToken();
       if (!password) { setLoading(false); return; }
 
       const { data, error } = await supabase.functions.invoke("get-page-view-stats", { body: { password, period: p } });
@@ -270,7 +271,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   const downloadCsv = async () => {
     setCsvLoading(true);
     try {
-      const password = localStorage.getItem("admin_password");
+      const password = getAdminToken();
       if (!password) return;
 
       const { data, error } = await supabase.functions.invoke("get-page-view-stats", {

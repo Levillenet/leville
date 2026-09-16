@@ -1,5 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { resolveAdminRole } from "../_shared/adminCredential.ts";
+import { clientIp, rateLimit, tooManyRequests } from "../_shared/rateLimit.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': 'https://leville.net',
@@ -7,6 +9,9 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
+  const retryAfterSeconds = rateLimit(`manage-message-templates:${clientIp(req)}`, 60, 60);
+  if (retryAfterSeconds !== null) return tooManyRequests(retryAfterSeconds, corsHeaders);
+
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
@@ -15,10 +20,9 @@ serve(async (req) => {
     const { action, password, template } = await req.json();
     
     // Verify admin password for write operations
-    const adminPassword = Deno.env.get('ADMIN_PASSWORD');
-    const viewerPassword = Deno.env.get('VIEWER_PASSWORD');
-    const isAdmin = password === adminPassword;
-    const isViewer = password === viewerPassword;
+    const role = await resolveAdminRole(password);
+    const isAdmin = role === 'admin';
+    const isViewer = role === 'viewer';
     
     if (!isAdmin && !isViewer) {
       return new Response(

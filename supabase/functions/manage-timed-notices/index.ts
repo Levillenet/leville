@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { isAdminCredential } from "../_shared/adminCredential.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': 'https://leville.net',
@@ -13,9 +14,7 @@ serve(async (req) => {
 
   try {
     const { action, password, notice } = await req.json();
-    const adminPassword = Deno.env.get('ADMIN_PASSWORD');
-
-    if (!adminPassword || password !== adminPassword) {
+    if (!(await isAdminCredential(password))) {
       return new Response(
         JSON.stringify({ error: 'Unauthorized' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

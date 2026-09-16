@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { getAdminToken } from "@/lib/adminSession";
 
 interface SeoPage {
   id: string;
@@ -69,7 +70,7 @@ const SeoPageAdmin = ({ isViewer }: SeoPageAdminProps) => {
   const [newPage, setNewPage] = useState({ path: '', title: '', component_name: '', lang: 'fi', sort_order: 0 });
   const { toast } = useToast();
 
-  const getPassword = () => localStorage.getItem('admin_password') || '';
+  const getPassword = () => getAdminToken() || '';
 
   const fetchPages = async () => {
     try {

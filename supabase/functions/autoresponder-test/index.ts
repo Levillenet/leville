@@ -12,20 +12,43 @@ import {
   type PropertyFacts,
 } from "../_shared/autoresponderEngine.ts";
 import { detectTopic, detectProperty } from "../_shared/autoresponderKnowledge.ts";
+import { isAdminCredential } from "../_shared/adminCredential.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+const STATIC_ALLOWED_ORIGINS = [
+  "https://leville.net",
+  "https://www.leville.net",
+  "https://leville.lovable.app",
+];
 
-function json(body: unknown, status = 200) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
-  });
+function originFor(req: Request): string {
+  const origin = req.headers.get("origin") ?? "";
+  if (STATIC_ALLOWED_ORIGINS.includes(origin)) return origin;
+  if (/^https:\/\/[a-z0-9-]+\.lovable\.app$/.test(origin)) return origin;
+  if (/^https:\/\/[a-z0-9-]+\.lovableproject\.com$/.test(origin)) return origin;
+  if (/^http:\/\/localhost(:\d+)?$/.test(origin)) return origin;
+  return "https://leville.net";
+}
+
+function corsFor(req: Request): Record<string, string> {
+  return {
+    "Access-Control-Allow-Origin": originFor(req),
+    "Vary": "Origin",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+  };
+}
+
+function jsonWith(cors: Record<string, string>) {
+  return (body: unknown, status = 200) =>
+    new Response(JSON.stringify(body), {
+      status,
+      headers: { ...cors, "Content-Type": "application/json" },
+    });
 }
 
 Deno.serve(async (req) => {
+  const corsHeaders = corsFor(req);
+  const json = jsonWith(corsHeaders);
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
@@ -35,8 +58,7 @@ Deno.serve(async (req) => {
     const message: string = body.message || "";
     const fromEmail: string = (body.from_email || "").toLowerCase().trim();
 
-    const adminPw = Deno.env.get("ADMIN_PASSWORD");
-    if (!adminPw || password !== adminPw) return json({ error: "Unauthorized" }, 401);
+    if (!(await isAdminCredential(password))) return json({ error: "Unauthorized" }, 401);
     if (!fromEmail || !fromEmail.includes("@")) return json({ error: "from_email required" }, 400);
     if (!message.trim()) return json({ error: "message required" }, 400);
 

@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { isAdminCredential } from "../_shared/adminCredential.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "https://leville.net",
@@ -24,10 +25,10 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const adminPassword = Deno.env.get("ADMIN_PASSWORD");
-    const authHeader = req.headers.get("authorization");
+    const authHeader = req.headers.get("authorization") ?? "";
+    const bearer = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
 
-    if (!authHeader || authHeader !== `Bearer ${adminPassword}`) {
+    if (!(await isAdminCredential(bearer))) {
       return new Response(
         JSON.stringify({ error: "Unauthorized" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }

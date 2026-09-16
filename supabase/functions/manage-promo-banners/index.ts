@@ -1,12 +1,32 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { isAdminCredential } from "../_shared/adminCredential.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
-};
+const STATIC_ALLOWED_ORIGINS = [
+  "https://leville.net",
+  "https://www.leville.net",
+  "https://leville.lovable.app",
+];
+
+function originFor(req: Request): string {
+  const origin = req.headers.get("origin") ?? "";
+  if (STATIC_ALLOWED_ORIGINS.includes(origin)) return origin;
+  if (/^https:\/\/[a-z0-9-]+\.lovable\.app$/.test(origin)) return origin;
+  if (/^https:\/\/[a-z0-9-]+\.lovableproject\.com$/.test(origin)) return origin;
+  if (/^http:\/\/localhost(:\d+)?$/.test(origin)) return origin;
+  return "https://leville.net";
+}
+
+function corsFor(req: Request): Record<string, string> {
+  return {
+    "Access-Control-Allow-Origin": originFor(req),
+    "Vary": "Origin",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+  };
+}
 
 Deno.serve(async (req) => {
+  const corsHeaders = corsFor(req);
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
@@ -21,8 +41,7 @@ Deno.serve(async (req) => {
     const { action, password, data, id } = body;
 
     // Verify admin password
-    const adminPassword = Deno.env.get("ADMIN_PASSWORD");
-    if (!password || password !== adminPassword) {
+    if (!(await isAdminCredential(password))) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },

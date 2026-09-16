@@ -1,4 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { isAdminCredential } from "../_shared/adminCredential.ts";
+import { clientIp, rateLimit, tooManyRequests } from "../_shared/rateLimit.ts";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': 'https://leville.net',
@@ -6,6 +8,9 @@ const corsHeaders = {
 };
 
 Deno.serve(async (req) => {
+  const retryAfterSeconds = rateLimit(`manage-seo-pages:${clientIp(req)}`, 60, 60);
+  if (retryAfterSeconds !== null) return tooManyRequests(retryAfterSeconds, corsHeaders);
+
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
@@ -17,7 +22,6 @@ Deno.serve(async (req) => {
     );
 
     const { action, password, ...params } = await req.json();
-    const ADMIN_PASSWORD = Deno.env.get('ADMIN_PASSWORD');
 
     // get_published is public (for frontend routing)
     if (action === 'get_published') {
@@ -32,7 +36,7 @@ Deno.serve(async (req) => {
     }
 
     // All other actions require admin password
-    if (password !== ADMIN_PASSWORD) {
+    if (!(await isAdminCredential(password))) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

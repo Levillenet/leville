@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { isAdminCredential } from "../_shared/adminCredential.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "https://leville.net",
@@ -11,7 +12,6 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const adminPassword = Deno.env.get("ADMIN_PASSWORD")!;
     const firecrawlKey = Deno.env.get("FIRECRAWL_API_KEY");
 
     if (!firecrawlKey) {
@@ -24,7 +24,7 @@ Deno.serve(async (req) => {
     const body = await req.json();
     const { password, url } = body;
 
-    if (password !== adminPassword) {
+    if (!(await isAdminCredential(password))) {
       return new Response(
         JSON.stringify({ error: "Unauthorized" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
