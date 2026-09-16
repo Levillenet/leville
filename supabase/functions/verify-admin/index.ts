@@ -1,6 +1,10 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createAdminToken } from "../_shared/adminCredential.ts";
 import { clientIp, rateLimit, resetRateLimit, tooManyRequests } from "../_shared/rateLimit.ts";
+import { checkLimit, clearFailures, recordFailure } from "../_shared/persistentRateLimit.ts";
+
+const LOGIN_WINDOW_SECONDS = 15 * 60;
+const LOGIN_MAX_FAILURES = 5;
 
 const STATIC_ALLOWED_ORIGINS = [
   "https://leville.net",
