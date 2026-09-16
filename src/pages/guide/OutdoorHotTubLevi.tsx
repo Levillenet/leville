@@ -109,6 +109,15 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
             </h2>
             <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
               {t.whatParagraphs.map((p, i) => <p key={i}>{p}</p>)}
+              {lang === "en" && (
+                <p>
+                  Looking for Levi accommodation with a private outdoor hot tub?{" "}
+                  <Link to="/en/accommodations/karhupirtti" className="text-primary underline hover:no-underline">
+                    Bear Lodge (Karhupirtti)
+                  </Link>{" "}
+                  is a 220 m² log villa in Levi Center with its own outdoor hot tub on a private fenced yard — heated year-round, with room for up to 14 guests.
+                </p>
+              )}
             </div>
           </section>
 
@@ -308,7 +317,7 @@ const translations = {
   },
   en: {
     metaTitle: "Outdoor Hot Tubs in Levi – Guest Guide | Leville.net",
-    metaDescription: "Outdoor hot tubs in Levi cabin accommodation: water temperature, cover use, showering rules and tips for winter bathing. Practical guide for guests.",
+    metaDescription: "Outdoor hot tubs in Levi cabin accommodation: water temperature, cover use, showering rules and tips for winter bathing — and where to find Levi accommodation with a private outdoor hot tub.",
     metaKeywords: "outdoor hot tub Levi cabin, jacuzzi cabin Finland, hot tub Lapland accommodation, poreallas Levi",
     title: "Outdoor hot tubs in Levi – what guests should know",
     breadcrumb: "Outdoor hot tubs",
@@ -364,6 +373,7 @@ const translations = {
     ],
     relatedTitle: "Read also",
     relatedLinks: [
+      { label: "Bear Lodge – log villa with private outdoor hot tub", href: "/en/accommodations/karhupirtti" },
       { label: "Finnish sauna in Levi cabins", href: "/guide/finnish-sauna-in-levi" },
       { label: "Accommodation in Levi", href: "/en/accommodations" },
       { label: "Travel guide to Levi", href: "/guide/travel-to-levi" },

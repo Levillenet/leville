@@ -81,7 +81,7 @@ This is the biggest of the three Front Slope apartments: a 100 m² top-floor pen
   },
 
   "karhupirtti": {
-    name: "Karhupirtti — The Bear Lodge in Levi Center",
+    name: "Karhupirtti — Log Villa with Outdoor Hot Tub in Levi Center",
     shortDescription:
       "220 m² traditional log villa right in Levi Center: 7 bedrooms for up to 14 guests, outdoor hot tub, private yard and fireplace. 3 ensuite bedrooms downstairs (private shower + WC), a separate bathroom by the sauna, plus 2 additional WCs. Fully renovated 2022. Firewood included. Pets welcome.",
     longDescription: `**Karhupirtti — a 220 m² log villa for groups of up to 14, in the heart of Levi**
