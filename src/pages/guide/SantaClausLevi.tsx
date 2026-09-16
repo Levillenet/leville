@@ -231,6 +231,15 @@ const translations = {
         access: "You can reach the cabin via the gondola lift and walking down the slope, by hiking from Tuikku restaurant in summer, or by skiing in winter. A trip to the cabin is an absolute must during your visit to Levi!",
         note: "The cabin is a landmark — not a Santa experience as such. Santa meetings are organised by Levi's experience companies."
       },
+      location: {
+        title: "Where Santa's Cabin is and how to get there",
+        content: "Santa's Cabin sits right on the top of Levi fell, above Levi centre. In winter the visit is easy to combine with a day on the slopes: the gondola takes you up, and it is a short walk down the slope to the cabin — or you can ski there as part of your ski day. In summer the cabin is reached on foot by hiking from Tuikku restaurant.",
+        mapLink: "see it on the Levi map",
+        officialTipPrefix: "Exact seasonal opening times of the services around the cabin vary by season — check the latest details from",
+        officialTipLink: "official Levi channels",
+        bookingPrefix: "Accommodation fills up fast over Christmas —",
+        bookingLink: "see our available properties"
+      },
       welcomeLetter: {
         title: "Santa's Welcome Letter",
         desc: "Download Santa's welcome letter to print — a lovely surprise for children upon arrival at your accommodation!",
