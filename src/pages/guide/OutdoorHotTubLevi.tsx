@@ -308,7 +308,7 @@ const translations = {
   },
   en: {
     metaTitle: "Outdoor Hot Tubs in Levi – Guest Guide | Leville.net",
-    metaDescription: "Outdoor hot tubs in Levi cabin accommodation: water temperature, cover use, showering rules and tips for winter bathing. Practical guide for guests.",
+    metaDescription: "Outdoor hot tubs in Levi cabin accommodation: water temperature, cover use, showering rules and tips for winter bathing — and where to find Levi accommodation with a private outdoor hot tub.",
     metaKeywords: "outdoor hot tub Levi cabin, jacuzzi cabin Finland, hot tub Lapland accommodation, poreallas Levi",
     title: "Outdoor hot tubs in Levi – what guests should know",
     breadcrumb: "Outdoor hot tubs",
