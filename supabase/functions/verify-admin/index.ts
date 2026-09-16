@@ -35,9 +35,12 @@ serve(async (req) => {
   }
 
   // Throttle credential guessing: 5 failed attempts per IP / 15 minutes.
-  const rlKey = `verify-admin:${clientIp(req)}`;
-  const retryAfter = rateLimit(rlKey, 5, 15 * 60);
+  const ip = clientIp(req);
+  const rlKey = `verify-admin:${ip}`;
+  const retryAfter = rateLimit(rlKey, LOGIN_MAX_FAILURES, LOGIN_WINDOW_SECONDS);
   if (retryAfter !== null) return tooManyRequests(retryAfter, corsHeaders);
+  const persistedRetry = await checkLimit("verify-admin", ip, LOGIN_MAX_FAILURES, LOGIN_WINDOW_SECONDS);
+  if (persistedRetry !== null) return tooManyRequests(persistedRetry, corsHeaders);
 
   try {
     const { password } = await req.json();
