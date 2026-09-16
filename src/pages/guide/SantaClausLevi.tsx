@@ -377,7 +377,9 @@ const translations = {
         { q: "Can I combine a Santa experience with other activities?", a: "Yes, and it's worth it. Some programmes already include a reindeer ride or snowmobile safari, and in Levi it's easy to add skiing, a husky or reindeer safari and an aurora tour to the same trip." },
         { q: "When should I book Santa programmes?", a: "As early as possible. The most popular December and ski-holiday slots often sell out during the summer or early autumn — the same applies to accommodation." },
         { q: "Is it suitable for small children?", a: "Absolutely — Santa experiences are designed for families. Calm cabin visits and shorter programmes suit the youngest best." },
-        { q: "Can I take a day trip to Rovaniemi?", a: "Yes, the journey is about 2.5 hours each way. Guided day trips are also available." }
+        { q: "Can I take a day trip to Rovaniemi?", a: "Yes, the journey is about 2.5 hours each way. Guided day trips are also available." },
+        { q: "Is Santa's Cabin open in summer?", a: "The cabin's main season is winter, when it is easiest to reach by gondola and as part of a ski day. In summer the cabin is reached by hiking from Tuikku restaurant, but year-round services and opening times should not be assumed — check current details from official Levi channels." },
+        { q: "Where is Santa's Cabin in Levi?", a: "Santa's Cabin sits on the very top of Levi fell, above Levi centre. In winter you reach it via the gondola lift and a short walk down the slope, or by skiing; in summer by hiking from Tuikku restaurant.", linkHref: "/levi-map", linkText: "see it on the Levi map" }
       ]
     },
 
