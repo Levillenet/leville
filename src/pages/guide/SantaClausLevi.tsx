@@ -30,11 +30,18 @@ interface SantaClausLeviProps {
   lang?: Language;
 }
 
+interface FaqItem {
+  q: string;
+  a: string;
+  linkHref?: string;
+  linkText?: string;
+}
+
 const translations = {
   fi: {
     meta: {
-      title: "Joulupukki Levillä — joulupukin tapaaminen ja jouluelämykset | Leville.net",
-      description: "Miten tapaat joulupukin Levillä? Vertailemme joulupukkielämykset — perinteinen mökkivierailu, tonttuhovi, safari ja yksityinen VIP — sekä Levin ja Rovaniemen Santa Claus Villagen erot.",
+      title: "Joulupukin mökki Levillä – Tapaaminen, sijainti ja vinkit",
+      description: "Joulupukin mökki Levin tunturilla: miten sinne pääsee, milloin joulupukin tapaa ja vinkit perheille.",
       canonical: "https://leville.net/opas/joulupukki-levilla"
     },
     h1: "Joulupukki Levillä — missä tavata pukki?",
@@ -46,6 +53,15 @@ const translations = {
         content: "Levin tunturin huipulla sijaitsee ikoninen Joulupukin mökki — Levin kuvatuin kohde, joka tunnetaan Joulutarina-elokuvasta. Mökki on upea nähtävyys ja valokuvauspaikka henkeäsalpaavine näköaloineen, mutta joulupukki ei yleensä ole siellä paikalla.",
         access: "Mökille pääsee gondolihissillä ja kävellen alas rinnettä, kesällä patikoiden Tuikku-ravintolalta tai talvella suksilla laskettelun yhteydessä. Retki mökille kannattaa ehdottomasti tehdä Levin-vierailun aikana!",
         note: "Mökki on nähtävyys — ei varsinainen joulupukkielämys. Pukkitapaamiset järjestävät Levin elämysyritykset."
+      },
+      location: {
+        title: "Missä joulupukin mökki sijaitsee ja miten sinne pääsee",
+        content: "Joulupukin mökki sijaitsee Levin tunturin huipulla, Levin keskustan yläpuolella. Talvella retki on helppo yhdistää laskettelupäivään: gondoli vie ylös, ja mökille kävelee rinnettä alas tai matkan voi hiihtää osana laskettelua. Kesällä mökille patikoidaan Tuikku-ravintolalta.",
+        mapLink: "katso sijainti Levin kartalta",
+        officialTipPrefix: "Mökin ympärillä olevien palveluiden tarkat kauden aukioloajat vaihtelevat sesongittain — tarkista ajantasaiset tiedot",
+        officialTipLink: "Levin virallisilta kanavilta",
+        bookingPrefix: "Joulun ajan majoitus täyttyy nopeasti —",
+        bookingLink: "katso vapaat kohteemme"
       },
       welcomeLetter: {
         title: "Joulupukin tervetulokirje",
@@ -184,7 +200,9 @@ const translations = {
         { q: "Voiko joulupukkielämyksen yhdistää muihin aktiviteetteihin?", a: "Kyllä, ja se kannattaa. Osaan ohjelmista sisältyy jo poroajelu tai moottorikelkkasafari, ja Levillä pukkipäivään on helppo yhdistää laskettelu, husky- tai porosafari sekä revontuliretki." },
         { q: "Milloin joulupukkiohjelmat kannattaa varata?", a: "Mahdollisimman aikaisin. Suosituimmat vuorot joulukuussa ja hiihtolomaviikoilla myydään usein loppuun jo kesän tai alkusyksyn aikana — sama koskee majoitusta." },
         { q: "Sopiiko pienille lapsille?", a: "Ehdottomasti — pukkielämykset on suunniteltu perheille. Pienimmille sopivat parhaiten rauhalliset mökkivierailut ja lyhyet ohjelmat." },
-        { q: "Voiko tehdä päiväretken Rovaniemelle?", a: "Kyllä, matka on noin 2,5 tuntia suuntaan. Opastettuja päiväretkiä on myös saatavilla." }
+        { q: "Voiko tehdä päiväretken Rovaniemelle?", a: "Kyllä, matka on noin 2,5 tuntia suuntaan. Opastettuja päiväretkiä on myös saatavilla." },
+        { q: "Onko joulupukin mökki auki kesällä?", a: "Joulupukin mökin pääsesonkki on talvi, jolloin mökille pääsee helpoimmin gondolilla ja laskettelun yhteydessä. Kesällä mökille patikoidaan Tuikku-ravintolalta, mutta ympärivuotisia palveluita ja aukioloaikoja ei voi olettaa — tarkista ajantasaiset tiedot Levin virallisilta kanavilta." },
+        { q: "Missä joulupukin mökki on Levillä?", a: "Joulupukin mökki sijaitsee Levin tunturin huipulla, Levin keskustan yläpuolella. Talvella sinne pääsee gondolihissillä ja kävellen rinnettä alas tai hiihtäen, kesällä patikoimalla Tuikku-ravintolalta.", linkHref: "/levi-map", linkText: "katso sijainti Levin kartalta" }
       ]
     },
 
@@ -206,8 +224,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Santa Claus in Levi — Santa Experiences & Christmas Activities | Leville.net",
-      description: "How to meet Santa Claus in Levi: compare traditional cabin visits, the Elf Court, safari Santa visits and private VIP meetings — plus how Levi differs from Rovaniemi's Santa Claus Village.",
+      title: "Santa's Cabin in Levi – Meeting Santa, Location & Tips",
+      description: "Santa's Cabin on Levi fell: how to get there, when to meet Santa and tips for families.",
       canonical: "https://leville.net/guide/santa-claus-in-levi"
     },
     h1: "Santa Claus in Levi — Where to Meet Santa?",
@@ -219,6 +237,15 @@ const translations = {
         content: "On top of Levi fell sits the iconic Santa's Cabin — Levi's most photographed spot, known from the Finnish film 'Christmas Story' (Joulutarina). The cabin is a stunning landmark and photo spot with breathtaking views, but Santa is not usually present there.",
         access: "You can reach the cabin via the gondola lift and walking down the slope, by hiking from Tuikku restaurant in summer, or by skiing in winter. A trip to the cabin is an absolute must during your visit to Levi!",
         note: "The cabin is a landmark — not a Santa experience as such. Santa meetings are organised by Levi's experience companies."
+      },
+      location: {
+        title: "Where Santa's Cabin is and how to get there",
+        content: "Santa's Cabin sits right on the top of Levi fell, above Levi centre. In winter the visit is easy to combine with a day on the slopes: the gondola takes you up, and it is a short walk down the slope to the cabin — or you can ski there as part of your ski day. In summer the cabin is reached on foot by hiking from Tuikku restaurant.",
+        mapLink: "see it on the Levi map",
+        officialTipPrefix: "Exact seasonal opening times of the services around the cabin vary by season — check the latest details from",
+        officialTipLink: "official Levi channels",
+        bookingPrefix: "Accommodation fills up fast over Christmas —",
+        bookingLink: "see our available properties"
       },
       welcomeLetter: {
         title: "Santa's Welcome Letter",
@@ -357,7 +384,9 @@ const translations = {
         { q: "Can I combine a Santa experience with other activities?", a: "Yes, and it's worth it. Some programmes already include a reindeer ride or snowmobile safari, and in Levi it's easy to add skiing, a husky or reindeer safari and an aurora tour to the same trip." },
         { q: "When should I book Santa programmes?", a: "As early as possible. The most popular December and ski-holiday slots often sell out during the summer or early autumn — the same applies to accommodation." },
         { q: "Is it suitable for small children?", a: "Absolutely — Santa experiences are designed for families. Calm cabin visits and shorter programmes suit the youngest best." },
-        { q: "Can I take a day trip to Rovaniemi?", a: "Yes, the journey is about 2.5 hours each way. Guided day trips are also available." }
+        { q: "Can I take a day trip to Rovaniemi?", a: "Yes, the journey is about 2.5 hours each way. Guided day trips are also available." },
+        { q: "Is Santa's Cabin open in summer?", a: "The cabin's main season is winter, when it is easiest to reach by gondola and as part of a ski day. In summer the cabin is reached by hiking from Tuikku restaurant, but year-round services and opening times should not be assumed — check current details from official Levi channels." },
+        { q: "Where is Santa's Cabin in Levi?", a: "Santa's Cabin sits on the very top of Levi fell, above Levi centre. In winter you reach it via the gondola lift and a short walk down the slope, or by skiing; in summer by hiking from Tuikku restaurant.", linkHref: "/levi-map", linkText: "see it on the Levi map" }
       ]
     },
 
@@ -474,6 +503,40 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
                   <p className="text-sm text-muted-foreground italic">{t.sections.cabin.note}</p>
                 </div>
               </Card>
+            </section>
+
+            {/* Santa's Cabin — location & how to get there */}
+            <section className="mb-12">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold text-foreground">{t.sections.location.title}</h2>
+              </div>
+              <p className="text-muted-foreground mb-3">{t.sections.location.content}</p>
+              <p className="mb-4">
+                <Link to="/levi-map" className="font-medium text-primary underline underline-offset-4 hover:decoration-primary">
+                  {t.sections.location.mapLink}
+                </Link>
+              </p>
+              <Card className="glass-card border-border/30 p-4 mb-4">
+                <div className="flex items-start gap-3">
+                  <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-muted-foreground">
+                    {t.sections.location.officialTipPrefix}{" "}
+                    <a href="https://www.levi.fi" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                      {t.sections.location.officialTipLink}
+                    </a>
+                    <ExternalLink className="inline w-3 h-3 ml-1" />
+                  </p>
+                </div>
+              </Card>
+              <p className="text-foreground/90">
+                {t.sections.location.bookingPrefix}{" "}
+                <a href={moderUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4 hover:decoration-primary">
+                  {t.sections.location.bookingLink}
+                </a>
+              </p>
             </section>
 
             {/* Welcome letter */}
@@ -679,10 +742,19 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.faq.title}</h2>
               <Accordion type="single" collapsible className="space-y-2">
-                {t.faq.items.map((item, idx) => (
+                {t.faq.items.map((item: FaqItem, idx: number) => (
                   <AccordionItem key={idx} value={`faq-${idx}`} className="glass-card border border-border/30 rounded-lg px-4">
                     <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">{item.q}</AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">{item.a}</AccordionContent>
+                    <AccordionContent className="text-muted-foreground">
+                      {item.a}
+                      {item.linkHref && (
+                        <>{" "}
+                          <Link to={item.linkHref} className="font-medium text-primary underline underline-offset-4 hover:decoration-primary">
+                            {item.linkText}
+                          </Link>
+                        </>
+                      )}
+                    </AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
