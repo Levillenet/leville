@@ -62,6 +62,7 @@ serve(async (req) => {
 
     if (role) {
       resetRateLimit(rlKey);
+      await clearFailures("verify-admin", ip);
       const token = await createAdminToken(role);
       return new Response(
         JSON.stringify({ success: true, role, token }),
@@ -69,6 +70,7 @@ serve(async (req) => {
       );
     }
 
+    await recordFailure("verify-admin", ip, LOGIN_WINDOW_SECONDS);
     return new Response(
       JSON.stringify({ success: false, error: 'Väärä salasana' }),
       { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
