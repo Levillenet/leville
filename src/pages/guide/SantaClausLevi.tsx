@@ -33,8 +33,8 @@ interface SantaClausLeviProps {
 const translations = {
   fi: {
     meta: {
-      title: "Joulupukki Levillä — joulupukin tapaaminen ja jouluelämykset | Leville.net",
-      description: "Miten tapaat joulupukin Levillä? Vertailemme joulupukkielämykset — perinteinen mökkivierailu, tonttuhovi, safari ja yksityinen VIP — sekä Levin ja Rovaniemen Santa Claus Villagen erot.",
+      title: "Joulupukin mökki Levillä – Tapaaminen, sijainti ja vinkit",
+      description: "Joulupukin mökki Levin tunturilla: miten sinne pääsee, milloin joulupukin tapaa ja vinkit perheille.",
       canonical: "https://leville.net/opas/joulupukki-levilla"
     },
     h1: "Joulupukki Levillä — missä tavata pukki?",
@@ -206,8 +206,8 @@ const translations = {
   },
   en: {
     meta: {
-      title: "Santa Claus in Levi — Santa Experiences & Christmas Activities | Leville.net",
-      description: "How to meet Santa Claus in Levi: compare traditional cabin visits, the Elf Court, safari Santa visits and private VIP meetings — plus how Levi differs from Rovaniemi's Santa Claus Village.",
+      title: "Santa's Cabin in Levi – Meeting Santa, Location & Tips",
+      description: "Santa's Cabin on Levi fell: how to get there, when to meet Santa and tips for families.",
       canonical: "https://leville.net/guide/santa-claus-in-levi"
     },
     h1: "Santa Claus in Levi — Where to Meet Santa?",
