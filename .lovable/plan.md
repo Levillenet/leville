@@ -5,8 +5,8 @@ Validointi tehty: sivulta löytyy H2 "Joulupukin mökki Levin tunturilla" / "San
 ## 1. Metatiedot
 - FI title: "Joulupukin mökki Levillä – Tapaaminen, sijainti ja vinkit"
 - EN title: "Santa's Cabin in Levi – Meeting Santa, Location & Tips"
-- FI description: mainitsee mökin, miten sinne pääsee ja milloin joulupukin voi tavata, päättyy "ja vinkit perheille". Ei hintoja.
-- EN description vastaavasti.
+- FI description: "Joulupukin mökki Levin tunturilla: miten sinne pääsee, milloin joulupukin tapaa ja vinkit perheille." — avainsana "Joulupukin mökki" descriptionin alussa (etupainotteinen avainsana nostaa CTR:ää "joulupukin mökki levi" -hauissa). Ei hintoja.
+- EN description: "Santa's Cabin on Levi fell: how to get there, when to meet Santa and tips for families." — sama front-loaded rakenne.
 
 ## 2. Uusi H2-osio heti mökkiosion jälkeen
 - FI: "Missä joulupukin mökki sijaitsee ja miten sinne pääsee"
