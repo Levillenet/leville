@@ -47,6 +47,15 @@ const translations = {
         access: "Mökille pääsee gondolihissillä ja kävellen alas rinnettä, kesällä patikoiden Tuikku-ravintolalta tai talvella suksilla laskettelun yhteydessä. Retki mökille kannattaa ehdottomasti tehdä Levin-vierailun aikana!",
         note: "Mökki on nähtävyys — ei varsinainen joulupukkielämys. Pukkitapaamiset järjestävät Levin elämysyritykset."
       },
+      location: {
+        title: "Missä joulupukin mökki sijaitsee ja miten sinne pääsee",
+        content: "Joulupukin mökki sijaitsee Levin tunturin huipulla, Levin keskustan yläpuolella. Talvella retki on helppo yhdistää laskettelupäivään: gondoli vie ylös, ja mökille kävelee rinnettä alas tai matkan voi hiihtää osana laskettelua. Kesällä mökille patikoidaan Tuikku-ravintolalta.",
+        mapLink: "katso sijainti Levin kartalta",
+        officialTipPrefix: "Mökin ympärillä olevien palveluiden tarkat kauden aukioloajat vaihtelevat sesongittain — tarkista ajantasaiset tiedot",
+        officialTipLink: "Levin virallisilta kanavilta",
+        bookingPrefix: "Joulun ajan majoitus täyttyy nopeasti —",
+        bookingLink: "katso vapaat kohteemme"
+      },
       welcomeLetter: {
         title: "Joulupukin tervetulokirje",
         desc: "Lataa joulupukin tervetulokirje tulostettavaksi — mukava yllätys lapsille majoitukseen saapuessa!",
@@ -184,7 +193,9 @@ const translations = {
         { q: "Voiko joulupukkielämyksen yhdistää muihin aktiviteetteihin?", a: "Kyllä, ja se kannattaa. Osaan ohjelmista sisältyy jo poroajelu tai moottorikelkkasafari, ja Levillä pukkipäivään on helppo yhdistää laskettelu, husky- tai porosafari sekä revontuliretki." },
         { q: "Milloin joulupukkiohjelmat kannattaa varata?", a: "Mahdollisimman aikaisin. Suosituimmat vuorot joulukuussa ja hiihtolomaviikoilla myydään usein loppuun jo kesän tai alkusyksyn aikana — sama koskee majoitusta." },
         { q: "Sopiiko pienille lapsille?", a: "Ehdottomasti — pukkielämykset on suunniteltu perheille. Pienimmille sopivat parhaiten rauhalliset mökkivierailut ja lyhyet ohjelmat." },
-        { q: "Voiko tehdä päiväretken Rovaniemelle?", a: "Kyllä, matka on noin 2,5 tuntia suuntaan. Opastettuja päiväretkiä on myös saatavilla." }
+        { q: "Voiko tehdä päiväretken Rovaniemelle?", a: "Kyllä, matka on noin 2,5 tuntia suuntaan. Opastettuja päiväretkiä on myös saatavilla." },
+        { q: "Onko joulupukin mökki auki kesällä?", a: "Joulupukin mökin pääsesonkki on talvi, jolloin mökille pääsee helpoimmin gondolilla ja laskettelun yhteydessä. Kesällä mökille patikoidaan Tuikku-ravintolalta, mutta ympärivuotisia palveluita ja aukioloaikoja ei voi olettaa — tarkista ajantasaiset tiedot Levin virallisilta kanavilta." },
+        { q: "Missä joulupukin mökki on Levillä?", a: "Joulupukin mökki sijaitsee Levin tunturin huipulla, Levin keskustan yläpuolella. Talvella sinne pääsee gondolihissillä ja kävellen rinnettä alas tai hiihtäen, kesällä patikoimalla Tuikku-ravintolalta.", linkHref: "/levi-map", linkText: "katso sijainti Levin kartalta" }
       ]
     },
 
