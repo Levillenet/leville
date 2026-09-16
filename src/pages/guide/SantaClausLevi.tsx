@@ -30,6 +30,13 @@ interface SantaClausLeviProps {
   lang?: Language;
 }
 
+interface FaqItem {
+  q: string;
+  a: string;
+  linkHref?: string;
+  linkText?: string;
+}
+
 const translations = {
   fi: {
     meta: {
@@ -498,6 +505,40 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
               </Card>
             </section>
 
+            {/* Santa's Cabin — location & how to get there */}
+            <section className="mb-12">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-primary" />
+                </div>
+                <h2 className="text-2xl font-bold text-foreground">{t.sections.location.title}</h2>
+              </div>
+              <p className="text-muted-foreground mb-3">{t.sections.location.content}</p>
+              <p className="mb-4">
+                <Link to="/levi-map" className="font-medium text-primary underline underline-offset-4 hover:decoration-primary">
+                  {t.sections.location.mapLink}
+                </Link>
+              </p>
+              <Card className="glass-card border-border/30 p-4 mb-4">
+                <div className="flex items-start gap-3">
+                  <Info className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-muted-foreground">
+                    {t.sections.location.officialTipPrefix}{" "}
+                    <a href="https://www.levi.fi" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                      {t.sections.location.officialTipLink}
+                    </a>
+                    <ExternalLink className="inline w-3 h-3 ml-1" />
+                  </p>
+                </div>
+              </Card>
+              <p className="text-foreground/90">
+                {t.sections.location.bookingPrefix}{" "}
+                <a href={moderUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-primary underline underline-offset-4 hover:decoration-primary">
+                  {t.sections.location.bookingLink}
+                </a>
+              </p>
+            </section>
+
             {/* Welcome letter */}
             <section className="mb-12">
               <div className="flex items-center gap-3 mb-4">
@@ -701,10 +742,19 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">{t.faq.title}</h2>
               <Accordion type="single" collapsible className="space-y-2">
-                {t.faq.items.map((item, idx) => (
+                {t.faq.items.map((item: FaqItem, idx: number) => (
                   <AccordionItem key={idx} value={`faq-${idx}`} className="glass-card border border-border/30 rounded-lg px-4">
                     <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">{item.q}</AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">{item.a}</AccordionContent>
+                    <AccordionContent className="text-muted-foreground">
+                      {item.a}
+                      {item.linkHref && (
+                        <>{" "}
+                          <Link to={item.linkHref} className="font-medium text-primary underline underline-offset-4 hover:decoration-primary">
+                            {item.linkText}
+                          </Link>
+                        </>
+                      )}
+                    </AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
