@@ -56,6 +56,8 @@ export const buildingPages: BuildingPage[] = [
     path: { fi: "/glacier", en: "/en/glacier" },
     name: "Levi Glacier Apartments",
     address: "Ratsastajankuja 2, 99130 Sirkka",
+    postal: { street: "Ratsastajankuja 2", postalCode: "99130", locality: "Sirkka" },
+    units: 10,
     geo: { lat: 67.8045, lng: 24.8025 },
     images: [
       { src: "/glacier/exterior-a.webp", alt: "Glacier Apartments A-talo Levin keskustassa" },
