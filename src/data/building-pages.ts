@@ -222,6 +222,11 @@ export const buildingPages: BuildingPage[] = [
     address: "Postintie 3, 99130 Sirkka",
     postal: { street: "Postintie 3", postalCode: "99130", locality: "Sirkka" },
     units: 10,
+    amenities: [
+      { fi: "Suksien huoltotila", en: "Ski service room" },
+      { fi: "Välinevarasto", en: "Equipment storage" },
+      { fi: "Sauna lähes joka huoneistossa", en: "Sauna in almost every apartment" },
+    ],
     geo: { lat: 67.8048, lng: 24.8085 },
     images: [
       { src: "/skistar/exterior.webp", alt: "Skistar-talo Levin keskustassa, Postintie 3" },
