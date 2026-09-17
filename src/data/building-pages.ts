@@ -59,6 +59,11 @@ export const buildingPages: BuildingPage[] = [
     address: "Ratsastajankuja 2, 99130 Sirkka",
     postal: { street: "Ratsastajankuja 2", postalCode: "99130", locality: "Sirkka" },
     units: 10,
+    amenities: [
+      { fi: "Suksien huoltotila", en: "Ski service room" },
+      { fi: "Lasten pelihuone", en: "Children's games room" },
+      { fi: "Sauna joka huoneistossa", en: "Sauna in every apartment" },
+    ],
     geo: { lat: 67.8045, lng: 24.8025 },
     images: [
       { src: "/glacier/exterior-a.webp", alt: "Glacier Apartments A-talo Levin keskustassa" },
