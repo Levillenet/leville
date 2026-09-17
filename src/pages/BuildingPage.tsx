@@ -60,11 +60,11 @@ const BuildingPage = ({ slug, lang = "fi" }: Props) => {
       latitude: building.geo.lat,
       longitude: building.geo.lng,
     },
-    amenityFeature: [
-      { "@type": "LocationFeatureSpecification", name: lang === "fi" ? "Suksien huoltotila" : "Ski service room", value: true },
-      { "@type": "LocationFeatureSpecification", name: lang === "fi" ? "Lasten pelihuone" : "Children's games room", value: true },
-      { "@type": "LocationFeatureSpecification", name: lang === "fi" ? "Sauna joka huoneistossa" : "Sauna in every apartment", value: true },
-    ],
+    amenityFeature: building.amenities.map((a) => ({
+      "@type": "LocationFeatureSpecification",
+      name: a[lang],
+      value: true,
+    })),
   };
 
   const breadcrumbSchema = {
