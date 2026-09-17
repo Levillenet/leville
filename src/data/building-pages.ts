@@ -12,6 +12,13 @@ export interface BuildingFaq {
   a: string;
 }
 
+export interface BuildingCrossLink {
+  heading: string;
+  text: string;
+  linkLabel: string;
+  href: string;
+}
+
 export interface BuildingLangContent {
   metaTitle: string;
   metaDescription: string;
