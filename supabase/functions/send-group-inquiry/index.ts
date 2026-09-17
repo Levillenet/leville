@@ -149,6 +149,9 @@ Deno.serve(async (req) => {
       return json({ error: "Sähköpostin lähetys epäonnistui" }, 502);
     }
 
+    // Count every accepted submission towards the hourly per-IP limit.
+    await recordFailure("group-inquiry", clientKey, 3600);
+
     return json({ success: true });
   } catch (error) {
     console.error("send-group-inquiry error:", error instanceof Error ? error.message : error);
