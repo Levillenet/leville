@@ -34,6 +34,7 @@ export interface BuildingLangContent {
   faqs: BuildingFaq[];
   formHeading: string;
   formIntro: string;
+  crossLink?: BuildingCrossLink;
 }
 
 export interface BuildingPage {
