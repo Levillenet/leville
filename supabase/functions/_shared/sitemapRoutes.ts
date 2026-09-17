@@ -29,6 +29,8 @@ export const SITEMAP_ROUTES: SitemapRoute[] = [
   { path: "/vuokramokit/hiihtajankuja-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "hub-hiihtajankuja-levi" },
   { path: "/vuokramokit/skimbaajankuja-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "hub-skimbaajankuja-levi" },
   { path: "/vuokramokit/glacier-apartments-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "hub-glacier-apartments-levi" },
+  { path: "/glacier", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "building-glacier" },
+  { path: "/en/glacier", lang: "en", priority: 0.7, changefreq: "monthly", altGroup: "building-glacier" },
   { path: "/vuokramokit/postintie-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "hub-postintie-levi" },
   { path: "/vuokramokit/hiihtajankuja-2-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "hub-hiihtajankuja-2-levi" },
   { path: "/vuokramokit/skimbaajankuja-4-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "hub-skimbaajankuja-4-levi" },
