@@ -127,6 +127,12 @@ export const buildingPages: BuildingPage[] = [
       formHeading: "Pyydä tarjous ryhmälle",
       formIntro:
         "Kerro ajankohta ja ryhmän koko, niin lähetämme tarjouksen. Hinta muodostuu ajankohdan, ryhmän koon ja varattavien huoneistojen mukaan.",
+      crossLink: {
+        heading: "Toinen vaihtoehto ryhmälle",
+        text: "Jos ryhmä haluaa enemmän yksityisyyttä pienemmissä majoitusyksiköissä, Skistar-talo Levin ydinkeskustassa tarjoaa eri kokoisia huoneistoja – kaksion, yksiöitä ja studioita – samasta modernista talosta.",
+        linkLabel: "Katso Skistar-talon ryhmämajoitus",
+        href: "/skistar",
+      },
     },
     en: {
       metaTitle: "Training Camp & Group Accommodation in Levi – Glacier Apartments | Leville.net",
