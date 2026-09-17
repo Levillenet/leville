@@ -676,6 +676,51 @@ export type Database = {
         }
         Relationships: []
       }
+      group_inquiries: {
+        Row: {
+          arrival: string | null
+          building: string
+          created_at: string
+          departure: string | null
+          email: string
+          group_size: string
+          group_type: string
+          id: string
+          language: string
+          message: string | null
+          name: string
+          phone: string | null
+        }
+        Insert: {
+          arrival?: string | null
+          building: string
+          created_at?: string
+          departure?: string | null
+          email: string
+          group_size: string
+          group_type: string
+          id?: string
+          language?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+        }
+        Update: {
+          arrival?: string | null
+          building?: string
+          created_at?: string
+          departure?: string | null
+          email?: string
+          group_size?: string
+          group_type?: string
+          id?: string
+          language?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
       guide_images: {
         Row: {
           caption: string | null
