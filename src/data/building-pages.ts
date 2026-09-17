@@ -131,7 +131,7 @@ export const buildingPages: BuildingPage[] = [
         "Kerro ajankohta ja ryhmän koko, niin lähetämme tarjouksen. Hinta muodostuu ajankohdan, ryhmän koon ja varattavien huoneistojen mukaan.",
       crossLink: {
         heading: "Toinen vaihtoehto ryhmälle",
-        text: "Jos ryhmä haluaa enemmän yksityisyyttä pienemmissä majoitusyksiköissä, Skistar-talo Levin ydinkeskustassa tarjoaa eri kokoisia huoneistoja – kaksion, yksiöitä ja studioita – samasta modernista talosta.",
+        text: "Jos ryhmä haluaa enemmän yksityisyyttä pienemmissä majoitusyksiköissä, Skistar-talo Levin ydinkeskustassa tarjoaa eri kokoisia huoneistoja – kahden ja yhden makuuhuoneen huoneistoja sekä studioita – samasta modernista talosta.",
         linkLabel: "Katso Skistar-talon ryhmämajoitus",
         href: "/skistar",
       },
