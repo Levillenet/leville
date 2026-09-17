@@ -201,6 +201,170 @@ export const buildingPages: BuildingPage[] = [
       formHeading: "Request a group quote",
       formIntro:
         "Tell us the dates and the size of the group and we will send a quote. The price depends on the season, group size and the number of apartments booked.",
+      crossLink: {
+        heading: "Another option for a group",
+        text: "If your group wants more privacy in smaller units, the Skistar building in central Levi offers apartments of different sizes – two-bedroom and one-bedroom apartments as well as studios – in the same modern building.",
+        linkLabel: "See group accommodation at the Skistar building",
+        href: "/en/skistar",
+      },
+    },
+  },
+  {
+    slug: "skistar",
+    path: { fi: "/skistar", en: "/en/skistar" },
+    name: "Skistar-talo, Postintie 3",
+    address: "Postintie 3, 99130 Sirkka",
+    postal: { street: "Postintie 3", postalCode: "99130", locality: "Sirkka" },
+    units: 10,
+    geo: { lat: 67.8048, lng: 24.8085 },
+    images: [
+      { src: "/skistar/exterior.webp", alt: "Skistar-talo Levin keskustassa, Postintie 3" },
+      { src: "/skistar/kaksio/05.webp", alt: "Skistar-talon huoneiston olohuone Levillä" },
+      { src: "/skistar/studio-102/01.webp", alt: "Skistar-talon moderni studio Levin keskustassa" },
+    ],
+    fi: {
+      metaTitle: "Ryhmämajoitus Levin keskustassa – Skistar-talo, Postintie 3 | Leville.net",
+      metaDescription:
+        "Treenileirit ja yritysryhmät Levin ydinkeskustassa: Skistar-talossa 10 huoneistoa – kahden ja yhden makuuhuoneen huoneistoja sekä studioita. Suksien huoltotila. Pyydä tarjous.",
+      h1: "Ryhmämajoitus Levin keskustassa – Skistar-talo",
+      lead: "Moderni talo Levin ydinkeskustassa, jossa on eri kokoisia huoneistoja. Ryhmä majoittuu samaan osoitteeseen, mutta jokainen pienemmässä omassa yksikössään – juuri silloin kun halutaan yhteinen tukikohta ja silti oma rauha.",
+      facts: [
+        { label: "Huoneistoja", value: "10 (yhdessä talossa)" },
+        { label: "Makuupaikkoja yhteensä", value: "39" },
+        { label: "Levin keskustaan", value: "askelmatka" },
+        { label: "Hisseille", value: "n. 700 m (8–10 min)" },
+      ],
+      sections: [
+        {
+          heading: "Eri kokoisia huoneistoja samasta talosta",
+          paragraphs: [
+            "Skistar-talo sijaitsee osoitteessa Postintie 3 aivan Levin ydinkeskustassa. Leville.netillä on talossa kymmenen huoneistoa: kaksi kahden makuuhuoneen huoneistoa kuudelle hengelle, kolme yhden makuuhuoneen huoneistoa neljälle hengelle ja viisi studiota kolmelle hengelle. Makuupaikkoja on yhteensä 39.",
+            "Talo on uudehko ja moderni, ja lähes jokaisessa huoneistossa on oma sauna. Kaikissa on täysin varusteltu keittiö ja WiFi. Ryhmä voi valita kokoonpanon tarpeen mukaan: valmentajille ja ohjaajille studiot, perheille ja kimppakämppäläisille isommat huoneistot.",
+          ],
+        },
+      ],
+      groupHeading: "Ryhmille, jotka haluavat yksityisyyttä pienemmissä yksiköissä",
+      groupBullets: [
+        "Useamman huoneiston voi varata kerralla samasta talosta – koko ryhmä majoittuu yhteen osoitteeseen.",
+        "Pienemmät majoitusyksiköt tuovat yksityisyyttä: oma keittiö, oma sauna ja oma rauha jokaiselle porukan osalle.",
+        "Suksien huoltotila talossa hiihto- ja slalomjoukkueille sekä välineiden säilytys.",
+        "Ydinkeskustan sijainti: ruokakauppa noin 150 metrin päässä ja ravintolat askelten päässä, ei kuljetuksia iltaisin.",
+        "Laskutus yritykselle tai urheiluseuralle sovitaan tarjouksen yhteydessä.",
+        "Joustava kokoonpano eri kokoisista huoneistoista – tarjous räätälöidään ryhmän koon mukaan.",
+      ],
+      locationHeading: "Sijainti Levin ydinkeskustassa",
+      locationParagraphs: [
+        "Postintie 3 on keskellä Levin palveluita: K-Market on noin 150 metrin päässä ja keskustan ravintolat sekä kaupat kävelymatkan päässä. Hisseille ja rinteille on noin 700 metriä eli 8–10 minuutin kävely – ei suoraan ovelta rinteeseen, mutta kaikki palvelut ovat lähellä. Talossa ei ole hissiä.",
+        "Kittilän lentoasemalle on noin 15 minuutin ajomatka ja Levin linja-autoasemalle muutama minuutti.",
+      ],
+      faqHeading: "Usein kysyttyä ryhmistä ja leireistä",
+      faqs: [
+        {
+          q: "Voiko useamman huoneiston varata kerralla samalle ryhmälle?",
+          a: "Kyllä. Talon kaikki kymmenen huoneistoa voidaan varata yhdelle ryhmälle tai niistä voidaan koota juuri ryhmän kokoinen kokonaisuus.",
+        },
+        {
+          q: "Montako henkeä taloon mahtuu?",
+          a: "Yhteensä 39 henkeä: kaksi kahden makuuhuoneen huoneistoa kuudelle, kolme yhden makuuhuoneen huoneistoa neljälle ja viisi studiota kolmelle hengelle.",
+        },
+        {
+          q: "Onko talossa suksien huoltotila?",
+          a: "Kyllä. Talossa on suksien huoltotila ja välineiden säilytys, mikä palvelee etenkin hiihto- ja slalomjoukkueita.",
+        },
+        {
+          q: "Kuinka kaukana rinteet ovat?",
+          a: "Hisseille ja rinteille on noin 700 metriä, eli 8–10 minuutin kävely. Keskustan palvelut ovat aivan vieressä.",
+        },
+        {
+          q: "Voiko majoituksen laskuttaa yritykseltä tai seuralta?",
+          a: "Kyllä. Laskutus yritykselle tai urheiluseuralle sovitaan tarjouksen yhteydessä.",
+        },
+        {
+          q: "Mitä eroa on Skistar-talolla ja Glacier Apartmentsilla?",
+          a: "Skistar-talo sopii ryhmälle, joka haluaa yksityisyyttä pienemmissä huoneistoissa keskustan palveluiden äärellä. Glacier Apartments taas sopii, kun halutaan vuokrata kokonainen alppitalo isoille perhehuoneistoille aivan eturinteen kupeeseen.",
+        },
+      ],
+      formHeading: "Pyydä tarjous ryhmälle",
+      formIntro:
+        "Kerro ajankohta ja ryhmän koko, niin kokoamme sopivan huoneistokokonaisuuden ja lähetämme tarjouksen.",
+      crossLink: {
+        heading: "Toinen vaihtoehto ryhmälle",
+        text: "Jos haluatte vuokrata koko talon leirille aivan eturinteen kupeesta, Glacier Apartmentsin kaksi alppitaloa tarjoavat isoja perhehuoneistoja ja jopa 78 makuupaikkaa.",
+        linkLabel: "Katso Glacier Apartmentsin ryhmämajoitus",
+        href: "/glacier",
+      },
+    },
+    en: {
+      metaTitle: "Group Accommodation in Levi Centre – Skistar Building | Leville.net",
+      metaDescription:
+        "Training camps and corporate groups in central Levi: the Skistar building has 10 apartments – two-bedroom, one-bedroom and studios. Ski service room. Request a quote.",
+      h1: "Group Accommodation in Levi Centre – the Skistar Building",
+      lead: "A modern building in the heart of Levi with apartments of different sizes. The group stays at one address while each part of it has its own smaller unit – a shared base with privacy for everyone.",
+      facts: [
+        { label: "Apartments", value: "10 (one building)" },
+        { label: "Total beds", value: "39" },
+        { label: "To Levi centre", value: "a few steps" },
+        { label: "To the lifts", value: "approx. 700 m (8–10 min)" },
+      ],
+      sections: [
+        {
+          heading: "Apartments of different sizes in one building",
+          paragraphs: [
+            "The Skistar building is at Postintie 3 in the heart of Levi. Leville.net has ten apartments there: two two-bedroom apartments for six guests, three one-bedroom apartments for four guests and five studios for three guests. In total there are 39 beds.",
+            "The building is modern and almost every apartment has a private sauna. All have a fully equipped kitchen and WiFi. A group can pick the combination it needs: studios for coaches and leaders, larger apartments for families and groups of friends.",
+          ],
+        },
+      ],
+      groupHeading: "For groups that want privacy in smaller units",
+      groupBullets: [
+        "Several apartments can be booked at once in the same building – the whole group stays at one address.",
+        "Smaller units mean privacy: a private kitchen, a private sauna and quiet space for each part of the group.",
+        "Ski service room in the building for cross-country and slalom teams, plus equipment storage.",
+        "Central location: a grocery store about 150 m away and restaurants a few steps away, no evening transfers needed.",
+        "Invoicing to a company or sports club is agreed together with the quote.",
+        "A flexible mix of apartment sizes – the quote is tailored to the size of the group.",
+      ],
+      locationHeading: "Location in the heart of Levi",
+      locationParagraphs: [
+        "Postintie 3 sits among Levi's services: a K-Market is about 150 metres away and the centre's restaurants and shops are within walking distance. The lifts and slopes are about 700 metres away, an 8–10 minute walk – not ski-in, ski-out, but everything else is next door. The building has no elevator.",
+        "Kittilä Airport is about a 15-minute drive away and the Levi bus station only a few minutes.",
+      ],
+      faqHeading: "Frequently asked questions about groups and camps",
+      faqs: [
+        {
+          q: "Can several apartments be booked for one group?",
+          a: "Yes. All ten apartments can be booked for a single group, or a combination matching the size of the group can be put together.",
+        },
+        {
+          q: "How many people fit in the building?",
+          a: "39 in total: two two-bedroom apartments for six, three one-bedroom apartments for four and five studios for three guests.",
+        },
+        {
+          q: "Is there a ski service room?",
+          a: "Yes. The building has a ski service room and equipment storage, which serves cross-country and slalom teams especially well.",
+        },
+        {
+          q: "How far are the slopes?",
+          a: "The lifts and slopes are about 700 metres away, an 8–10 minute walk. The town centre services are right next door.",
+        },
+        {
+          q: "Can the stay be invoiced to a company or club?",
+          a: "Yes. Invoicing to a company or sports club is agreed together with the quote.",
+        },
+        {
+          q: "What is the difference between the Skistar building and Glacier Apartments?",
+          a: "The Skistar building suits a group that wants privacy in smaller apartments next to the centre's services. Glacier Apartments suits groups that want to rent a whole alpine building with large family apartments right beside the front slope.",
+        },
+      ],
+      formHeading: "Request a group quote",
+      formIntro:
+        "Tell us the dates and the size of the group and we will put together a suitable set of apartments and send a quote.",
+      crossLink: {
+        heading: "Another option for a group",
+        text: "If you want to rent a whole building for a camp right beside the front slope, the two alpine buildings of Glacier Apartments offer large family apartments and up to 78 beds.",
+        linkLabel: "See group accommodation at Glacier Apartments",
+        href: "/en/glacier",
+      },
     },
   },
 ];
