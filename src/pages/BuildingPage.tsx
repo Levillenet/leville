@@ -178,6 +178,18 @@ const BuildingPage = ({ slug, lang = "fi" }: Props) => {
               </section>
             </ScrollReveal>
 
+            {c.crossLink && (
+              <ScrollReveal>
+                <section className="mb-12 max-w-3xl glass-card border border-border/30 rounded-xl p-5 sm:p-6">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">{c.crossLink.heading}</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-3">{c.crossLink.text}</p>
+                  <Link to={c.crossLink.href} className="text-primary font-semibold hover:underline">
+                    {c.crossLink.linkLabel} →
+                  </Link>
+                </section>
+              </ScrollReveal>
+            )}
+
             <ScrollReveal>
               <section className="mb-14">
                 <GroupInquiryForm
