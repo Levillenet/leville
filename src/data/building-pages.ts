@@ -44,6 +44,7 @@ export interface BuildingPage {
   address: string;
   postal: { street: string; postalCode: string; locality: string };
   units: number;
+  amenities: { fi: string; en: string }[];
   images: { src: string; alt: string }[];
   geo: { lat: number; lng: number };
   fi: BuildingLangContent;
