@@ -276,6 +276,10 @@ const App = () => {
               <Route path="/sauna" element={<Navigate to="/guide/finnish-sauna-in-levi" replace />} />
               <Route path="/tietovisa" element={<Tietovisa />} />
               <Route path="/akkilahdot" element={<Akkilahdot />} />
+
+              {/* Talokohtaiset ryhmäsivut (ei navigaatiossa) */}
+              <Route path="/glacier" element={<BuildingPage slug="glacier" lang="fi" />} />
+              <Route path="/en/glacier" element={<BuildingPage slug="glacier" lang="en" />} />
               
               {/* English routes */}
               <Route path="/en" element={<IndexEN />} />
