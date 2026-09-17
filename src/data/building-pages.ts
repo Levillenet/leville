@@ -42,6 +42,8 @@ export interface BuildingPage {
   path: { fi: string; en: string };
   name: string;
   address: string;
+  postal: { street: string; postalCode: string; locality: string };
+  units: number;
   images: { src: string; alt: string }[];
   geo: { lat: number; lng: number };
   fi: BuildingLangContent;
