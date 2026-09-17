@@ -98,7 +98,7 @@ const BuildingPage = ({ slug, lang = "fi" }: Props) => {
         <SubpageBackground />
         <Header />
 
-        <main id="main-content" className="pt-8 pb-20">
+        <main id="main-content" className="pt-28 pb-20">
           <div className="container mx-auto px-4 max-w-5xl">
             <ScrollReveal>
               <header className="mb-8">
