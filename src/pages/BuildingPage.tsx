@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { MapPin, Check } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -45,13 +45,13 @@ const BuildingPage = ({ slug, lang = "fi" }: Props) => {
     name: building.name,
     description: c.metaDescription,
     url: canonical,
-    numberOfAccommodationUnits: 10,
+    numberOfAccommodationUnits: building.units,
     image: building.images.map((i) => `${BASE_URL}${i.src}`),
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Ratsastajankuja 2",
-      postalCode: "99130",
-      addressLocality: "Sirkka",
+      streetAddress: building.postal.street,
+      postalCode: building.postal.postalCode,
+      addressLocality: building.postal.locality,
       addressRegion: "Lappi",
       addressCountry: "FI",
     },
@@ -60,11 +60,11 @@ const BuildingPage = ({ slug, lang = "fi" }: Props) => {
       latitude: building.geo.lat,
       longitude: building.geo.lng,
     },
-    amenityFeature: [
-      { "@type": "LocationFeatureSpecification", name: lang === "fi" ? "Suksien huoltotila" : "Ski service room", value: true },
-      { "@type": "LocationFeatureSpecification", name: lang === "fi" ? "Lasten pelihuone" : "Children's games room", value: true },
-      { "@type": "LocationFeatureSpecification", name: lang === "fi" ? "Sauna joka huoneistossa" : "Sauna in every apartment", value: true },
-    ],
+    amenityFeature: building.amenities.map((a) => ({
+      "@type": "LocationFeatureSpecification",
+      name: a[lang],
+      value: true,
+    })),
   };
 
   const breadcrumbSchema = {
@@ -177,6 +177,18 @@ const BuildingPage = ({ slug, lang = "fi" }: Props) => {
                 </div>
               </section>
             </ScrollReveal>
+
+            {c.crossLink && (
+              <ScrollReveal>
+                <section className="mb-12 max-w-3xl glass-card border border-border/30 rounded-xl p-5 sm:p-6">
+                  <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">{c.crossLink.heading}</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-3">{c.crossLink.text}</p>
+                  <Link to={c.crossLink.href} className="text-primary font-semibold hover:underline">
+                    {c.crossLink.linkLabel} →
+                  </Link>
+                </section>
+              </ScrollReveal>
+            )}
 
             <ScrollReveal>
               <section className="mb-14">
