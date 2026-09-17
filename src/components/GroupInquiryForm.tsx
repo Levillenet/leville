@@ -204,7 +204,7 @@ const GroupInquiryForm = ({ lang, buildingName, heading, intro }: Props) => {
           <a href="https://wa.me/35844131313" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:underline">
             <WhatsAppIcon className="w-4 h-4" /> WhatsApp +358 44 13 13 13
           </a>
-          <a href="tel:+358441313131" className="inline-flex items-center gap-2 text-primary hover:underline">
+          <a href="tel:+35844131313" className="inline-flex items-center gap-2 text-primary hover:underline">
             <Phone className="w-4 h-4" /> +358 44 13 13 13
           </a>
         </div>
