@@ -280,6 +280,8 @@ const App = () => {
               {/* Talokohtaiset ryhmäsivut (ei navigaatiossa) */}
               <Route path="/glacier" element={<BuildingPage slug="glacier" lang="fi" />} />
               <Route path="/en/glacier" element={<BuildingPage slug="glacier" lang="en" />} />
+              <Route path="/skistar" element={<BuildingPage slug="skistar" lang="fi" />} />
+              <Route path="/en/skistar" element={<BuildingPage slug="skistar" lang="en" />} />
               
               {/* English routes */}
               <Route path="/en" element={<IndexEN />} />
