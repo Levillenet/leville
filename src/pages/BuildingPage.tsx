@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import { MapPin, Check } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
