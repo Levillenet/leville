@@ -43,6 +43,7 @@ const Latuinfo = lazy(() => import("./pages/Latuinfo"));
 const MyyLomaAsuntosi = lazy(() => import("./pages/MyyLomaAsuntosi"));
 const Seuratuki = lazy(() => import("./pages/Seuratuki"));
 const ClubSupport = lazy(() => import("./pages/en/ClubSupport"));
+const BuildingPage = lazy(() => import("./pages/BuildingPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // SEO Landing Pages
