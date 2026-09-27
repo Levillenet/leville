@@ -148,6 +148,7 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
     queryFn: async (): Promise<DevicesResponse> => {
       const { data, error } = await supabase.functions.invoke('melcloud-api', {
         method: 'GET',
+        headers: { 'x-admin-password': getAdminToken() || '' },
       });
       
       if (error) {
@@ -170,6 +171,7 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
     }) => {
       const { data, error } = await supabase.functions.invoke('melcloud-api', {
         method: 'POST',
+        headers: { 'x-admin-password': getAdminToken() || '' },
         body: {
           action: 'setProhibitFlags',
           ...params,
@@ -209,6 +211,7 @@ const HeatPumpAdmin = ({ isViewer = false }: HeatPumpAdminProps) => {
     }) => {
       const { data, error } = await supabase.functions.invoke('melcloud-api', {
         method: 'POST',
+        headers: { 'x-admin-password': getAdminToken() || '' },
         body: {
           action: 'updateSettings',
           ...params,
