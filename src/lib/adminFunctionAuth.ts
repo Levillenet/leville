@@ -13,20 +13,21 @@ export function installAdminFunctionAuth() {
   if (patched) return;
   patched = true;
 
-  const functionsClient = supabase.functions as unknown as {
-    invoke: (name: string, options?: Record<string, unknown>) => Promise<unknown>;
-  };
-  const originalInvoke = functionsClient.invoke.bind(functionsClient);
+  // `supabase.functions` is a getter that returns a NEW FunctionsClient on every
+  // access, so patching the instance is lost immediately. Patch the prototype.
+  type InvokeFn = (name: string, options?: Record<string, unknown>) => Promise<unknown>;
+  const proto = Object.getPrototypeOf(supabase.functions) as { invoke: InvokeFn };
+  const originalInvoke = proto.invoke;
 
-  functionsClient.invoke = (name: string, options: Record<string, unknown> = {}) => {
+  proto.invoke = function (this: unknown, name: string, options: Record<string, unknown> = {}) {
     const token = getAdminToken();
-    if (!token) return originalInvoke(name, options);
+    if (!token) return originalInvoke.call(this, name, options);
 
     const headers = {
       ...((options.headers as Record<string, string>) || {}),
       "x-admin-password": token,
     };
 
-    return originalInvoke(name, { ...options, headers });
+    return originalInvoke.call(this, name, { ...options, headers });
   };
 }

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { getAdminToken } from "@/lib/adminSession";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -78,7 +79,7 @@ const HeatPumpHistory = ({ deviceId, deviceName, open, onOpenChange }: HeatPumpH
       
       const response = await supabase.functions.invoke(
         `melcloud-api?action=getHistory&deviceId=${deviceId}&period=${period}&aggregation=${aggregation}`, 
-        { method: 'GET' }
+        { method: 'GET', headers: { 'x-admin-password': getAdminToken() || '' } }
       );
       
       if (response.error) {
