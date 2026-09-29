@@ -46,7 +46,7 @@ import niliporoHampurilainen from "@/assets/restaurants/poroHampurilainen ja ran
 import coloradoRibs from "@/assets/restaurants/BBQ-ribsit laudalla - ravintola colorado.jpg";
 import coloradoFajitas from "@/assets/restaurants/Kana fajitas - Colorado Bar and Grill (Levi).jpg";
 import coloradoFajitas2 from "@/assets/restaurants/Kanafajitas lisukkeineen -  ravintola colorado.jpg";
-import coloradoNachot from "@/assets/restaurants/Nachot guacamolella - Colorado Bar and Grill (Levi).jpg";
+import coloradoNachotAsset from "@/assets/restaurants/colorado-nachot-upright.webp.asset.json";
 import coloradoNyhtoliha from "@/assets/restaurants/Nyhtöliha jalapenolla - Colorado Bar and Grill (Levi).jpg";
 
 // Pannukakkutalo
@@ -229,7 +229,7 @@ const translations: Record<"fi" | "en", {
           { src: coloradoRibs, alt: "BBQ-ribsit laudalla – Colorado Bar & Grill, Levi" },
           { src: coloradoFajitas, alt: "Kana fajitas – Colorado Bar & Grill, Levi" },
           { src: coloradoFajitas2, alt: "Kanafajitas lisukkeineen – Colorado Bar & Grill, Levi" },
-          { src: coloradoNachot, alt: "Nachot guacamolella – Colorado Bar & Grill, Levi" },
+          { src: coloradoNachotAsset.url, alt: "Nachot guacamolella – Colorado Bar & Grill, Levi" },
           { src: coloradoNyhtoliha, alt: "Nyhtöliha jalapenolla – Colorado Bar & Grill, Levi" },
         ],
       },
@@ -467,7 +467,7 @@ const translations: Record<"fi" | "en", {
           { src: coloradoRibs, alt: "BBQ ribs on a board – Colorado Bar & Grill, Levi" },
           { src: coloradoFajitas, alt: "Chicken fajitas – Colorado Bar & Grill, Levi" },
           { src: coloradoFajitas2, alt: "Chicken fajitas with sides – Colorado Bar & Grill, Levi" },
-          { src: coloradoNachot, alt: "Nachos with guacamole – Colorado Bar & Grill, Levi" },
+          { src: coloradoNachotAsset.url, alt: "Nachos with guacamole – Colorado Bar & Grill, Levi" },
           { src: coloradoNyhtoliha, alt: "Pulled pork with jalapeño – Colorado Bar & Grill, Levi" },
         ],
       },
