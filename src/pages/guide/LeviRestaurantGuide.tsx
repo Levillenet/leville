@@ -59,9 +59,9 @@ import myllynPihvi from "@/assets/restaurants/Pippuripihvi perunagratiinilla - M
 import rennaPizza from "@/assets/restaurants/Pizza prosciutto e rucola - restaurant Renna.jpg";
 import rennaPizza2 from "@/assets/restaurants/Pizza prosciutto rucola - ravintola renna.jpg";
 import rennaPizza3 from "@/assets/restaurants/Pizza prosciutto rucola take-away - ristorante renna.jpg";
-import rennaAnanasAsset from "@/assets/restaurants/pizza-kinkku-sinihomejuusto-ananas-pizzeria-renna-levi.jpg.asset.json";
-import rennaMeloniAsset from "@/assets/restaurants/pizza-meloni-rucola-pinjansiemen-pizzeria-renna-levi.jpg.asset.json";
-import rennaAntipastoAsset from "@/assets/restaurants/antipasto-leikkelelautanen-pizzeria-renna-levi.jpg.asset.json";
+import rennaAnanasAsset from "@/assets/restaurants/pizza-kinkku-sinihomejuusto-ananas-pizzeria-renna-levi.webp.asset.json";
+import rennaMeloniAsset from "@/assets/restaurants/pizza-meloni-rucola-pinjansiemen-pizzeria-renna-levi.webp.asset.json";
+import rennaAntipastoAsset from "@/assets/restaurants/antipasto-leikkelelautanen-pizzeria-renna-levi.webp.asset.json";
 
 // Salteriet
 import salterietLeike from "@/assets/restaurants/Leike ranskalaisilla ja remouladella - Levi Salteriet.jpg";
