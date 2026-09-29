@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
+import { ZoomIn } from "lucide-react";
+import ImageLightbox from "@/components/guide/ImageLightbox";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageCTA from "@/components/PageCTA";
@@ -603,6 +606,7 @@ const translations: Record<"fi" | "en", {
 const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
   const location = useLocation();
   const t = lang === "en" ? translations.en : translations.fi;
+  const [lightbox, setLightbox] = useState<{ images: { src: string; alt: string }[]; index: number } | null>(null);
 
   const hreflangUrls = {
     fi: "https://leville.net/opas/levin-ravintolat-ja-annokset",
@@ -693,12 +697,25 @@ const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
                   const isFirstImage = idx === 0 && imgIdx === 0;
                   return (
                     <div key={imgIdx} className="rounded-lg overflow-hidden">
-                      <OptimizedImage
-                        src={img.src}
-                        alt={img.alt}
-                        className="w-full h-48 sm:h-56 md:h-64"
-                        priority={isFirstImage}
-                      />
+                      <button
+                        type="button"
+                        onClick={() => setLightbox({ images: restaurant.images, index: imgIdx })}
+                        aria-label={img.alt}
+                        className="group relative block w-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                      >
+                        <OptimizedImage
+                          src={img.src}
+                          alt={img.alt}
+                          className="w-full h-48 sm:h-56 md:h-64"
+                          priority={isFirstImage}
+                        />
+                        <span
+                          aria-hidden="true"
+                          className="absolute top-2 right-2 rounded-full bg-black/50 text-white p-1.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <ZoomIn className="w-4 h-4" />
+                        </span>
+                      </button>
                     </div>
                   );
                 })}
@@ -720,6 +737,16 @@ const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
+
+      {lightbox && (
+        <ImageLightbox
+          key={`${lightbox.images[0]?.src}-${lightbox.index}`}
+          images={lightbox.images}
+          startIndex={lightbox.index}
+          onClose={() => setLightbox(null)}
+          lang={lang}
+        />
+      )}
     </div>
   );
 };
