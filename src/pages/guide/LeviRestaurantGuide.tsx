@@ -248,12 +248,15 @@ const translations: Record<"fi" | "en", {
         subtitle: "Ohutpohjaiset pizzat ja pastat",
         description: [
           "Renna on yksi Levin suosituimmista pizzerioista. Pizzat tarjoillaan näyttävästi puulevyiltä, ja pohja on mukavan ohut ja rapea.",
-          "Lisäksi tarjolla on laadukkaita pasta-annoksia. Helppo ja varma valinta, kun tekee mieli hyvää pizzaa.",
+          "Lisäksi tarjolla on laadukkaita pasta-annoksia ja runsaita antipasto-lautasia alkuun. Helppo ja varma valinta, kun tekee mieli hyvää pizzaa Levin keskustassa.",
         ],
         images: [
           { src: rennaPizza, alt: "Pizza prosciutto e rucola – Ravintola Renna, Levi" },
           { src: rennaPizza2, alt: "Pizza prosciutto rucola – Ravintola Renna, Levi" },
           { src: rennaPizza3, alt: "Pizza prosciutto rucola take-away – Ravintola Renna, Levi" },
+          { src: rennaAnanasAsset.url, alt: "Ohutpohjainen pizza kinkulla, sinihomejuustolla ja ananaksella – Pizzeria Renna, Levi" },
+          { src: rennaMeloniAsset.url, alt: "Pizza melonilla, rucolalla ja pinjansiemenillä – Pizzeria Renna, Levi" },
+          { src: rennaAntipastoAsset.url, alt: "Antipasto-leikkelelautanen salamilla, juustoilla ja oliiveilla – Pizzeria Renna, Levi" },
         ],
       },
       {
