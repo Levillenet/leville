@@ -59,6 +59,9 @@ import myllynPihvi from "@/assets/restaurants/Pippuripihvi perunagratiinilla - M
 import rennaPizza from "@/assets/restaurants/Pizza prosciutto e rucola - restaurant Renna.jpg";
 import rennaPizza2 from "@/assets/restaurants/Pizza prosciutto rucola - ravintola renna.jpg";
 import rennaPizza3 from "@/assets/restaurants/Pizza prosciutto rucola take-away - ristorante renna.jpg";
+import rennaAnanasAsset from "@/assets/restaurants/pizza-kinkku-sinihomejuusto-ananas-pizzeria-renna-levi.jpg.asset.json";
+import rennaMeloniAsset from "@/assets/restaurants/pizza-meloni-rucola-pinjansiemen-pizzeria-renna-levi.jpg.asset.json";
+import rennaAntipastoAsset from "@/assets/restaurants/antipasto-leikkelelautanen-pizzeria-renna-levi.jpg.asset.json";
 
 // Salteriet
 import salterietLeike from "@/assets/restaurants/Leike ranskalaisilla ja remouladella - Levi Salteriet.jpg";
@@ -245,12 +248,15 @@ const translations: Record<"fi" | "en", {
         subtitle: "Ohutpohjaiset pizzat ja pastat",
         description: [
           "Renna on yksi Levin suosituimmista pizzerioista. Pizzat tarjoillaan näyttävästi puulevyiltä, ja pohja on mukavan ohut ja rapea.",
-          "Lisäksi tarjolla on laadukkaita pasta-annoksia. Helppo ja varma valinta, kun tekee mieli hyvää pizzaa.",
+          "Lisäksi tarjolla on laadukkaita pasta-annoksia ja runsaita antipasto-lautasia alkuun. Helppo ja varma valinta, kun tekee mieli hyvää pizzaa Levin keskustassa.",
         ],
         images: [
           { src: rennaPizza, alt: "Pizza prosciutto e rucola – Ravintola Renna, Levi" },
           { src: rennaPizza2, alt: "Pizza prosciutto rucola – Ravintola Renna, Levi" },
           { src: rennaPizza3, alt: "Pizza prosciutto rucola take-away – Ravintola Renna, Levi" },
+          { src: rennaAnanasAsset.url, alt: "Ohutpohjainen pizza kinkulla, sinihomejuustolla ja ananaksella – Pizzeria Renna, Levi" },
+          { src: rennaMeloniAsset.url, alt: "Pizza melonilla, rucolalla ja pinjansiemenillä – Pizzeria Renna, Levi" },
+          { src: rennaAntipastoAsset.url, alt: "Antipasto-leikkelelautanen salamilla, juustoilla ja oliiveilla – Pizzeria Renna, Levi" },
         ],
       },
       {
@@ -435,12 +441,15 @@ const translations: Record<"fi" | "en", {
         subtitle: "Thin-crust pizzas and pastas",
         description: [
           "Renna is one of Levi's most popular pizzerias. The pizzas are served on wooden boards with a pleasantly thin and crispy crust.",
-          "They also offer quality pasta dishes. An easy and reliable choice when you are in the mood for good pizza.",
+          "They also offer quality pasta dishes and generous antipasto platters to start. An easy and reliable choice when you are in the mood for good pizza in the centre of Levi.",
         ],
         images: [
           { src: rennaPizza, alt: "Pizza prosciutto e rucola – Ravintola Renna, Levi" },
           { src: rennaPizza2, alt: "Pizza prosciutto rucola – Ravintola Renna, Levi" },
           { src: rennaPizza3, alt: "Pizza prosciutto rucola take-away – Ravintola Renna, Levi" },
+          { src: rennaAnanasAsset.url, alt: "Thin-crust pizza with ham, blue cheese and pineapple – Pizzeria Renna, Levi" },
+          { src: rennaMeloniAsset.url, alt: "Pizza with melon, rocket and pine nuts – Pizzeria Renna, Levi" },
+          { src: rennaAntipastoAsset.url, alt: "Antipasto platter with salami, cheeses and olives – Pizzeria Renna, Levi" },
         ],
       },
       {
