@@ -512,6 +512,22 @@ const translations: Record<"fi" | "en", {
           { src: pihvipirttiKala, alt: "Fish buffet starters – Ravintola Pihvipirtti, Levi" },
         ],
       },
+      {
+        emoji: "🥩",
+        name: "Grill it!",
+        subtitle: "Steaks and grilled food in Levi centre",
+        description: [
+          "Grill it! is a steak restaurant in the centre of Levi, focused on grilled meat dishes and carefully made sauces.",
+          "Steaks are served with a rich wild mushroom sauce or a classic green peppercorn sauce, with grilled vegetables and potato gratin on the side. To start, try snails in garlic butter or a velvety soup.",
+          "A solid choice when you want a proper steak dinner in a relaxed, warm atmosphere right next to the centre's services.",
+        ],
+        images: [
+          { src: grillItPihviPippuri.url, alt: "Grilled steak with green peppercorn sauce, broccolini and potato gratin – Grill it!, Levi" },
+          { src: grillItPihviSieni.url, alt: "Grilled steak with wild mushroom sauce and brussels sprouts – Grill it!, Levi" },
+          { src: grillItEtanat.url, alt: "Snails in garlic butter with grilled bread – Grill it!, Levi" },
+          { src: grillItKeitto.url, alt: "Velvety soup with seeded crispbread – Grill it!, Levi" },
+        ],
+      },
     ],
   },
 };
