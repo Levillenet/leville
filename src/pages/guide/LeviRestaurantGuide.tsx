@@ -46,7 +46,7 @@ import niliporoHampurilainen from "@/assets/restaurants/poroHampurilainen ja ran
 import coloradoRibs from "@/assets/restaurants/BBQ-ribsit laudalla - ravintola colorado.jpg";
 import coloradoFajitas from "@/assets/restaurants/Kana fajitas - Colorado Bar and Grill (Levi).jpg";
 import coloradoFajitas2 from "@/assets/restaurants/Kanafajitas lisukkeineen -  ravintola colorado.jpg";
-import coloradoNachot from "@/assets/restaurants/Nachot guacamolella - Colorado Bar and Grill (Levi).jpg";
+import coloradoNachotAsset from "@/assets/restaurants/colorado-nachot-upright.webp.asset.json";
 import coloradoNyhtoliha from "@/assets/restaurants/Nyhtöliha jalapenolla - Colorado Bar and Grill (Levi).jpg";
 
 // Pannukakkutalo
@@ -91,6 +91,7 @@ import kingCrabDessert from "@/assets/restaurants/king-crab-house-jalkiruoka.web
 import stefansSteak from "@/assets/restaurants/stefans-steakhouse-pihvi.webp.asset.json";
 import stefansStarter from "@/assets/restaurants/stefans-steakhouse-alkuruoka.webp.asset.json";
 import stefansDessert from "@/assets/restaurants/stefans-steakhouse-jalkiruoka.webp.asset.json";
+import kammiBuffetAsset from "@/assets/restaurants/ravintola-kammi-buffet-levi.webp.asset.json";
 import MajoitusCallout from "@/components/MajoitusCallout";
 
 interface LeviRestaurantGuideProps {
@@ -133,7 +134,7 @@ const translations: Record<"fi" | "en", {
     },
     title: "Levin ravintolat ja annokset",
     subtitle: "Aitoja annoskuvia ja esittelyjä Levin ravintoloista",
-    intro: "Tällä sivulla esittelemme kolmetoista Levin ravintolaa aitojen annoskuvien kautta. Jokainen ravintola on erilainen – löydät aasialaista fuusiota, perinteistä poronkäristystä, grillattuja pihvejä, texmex-herkkuja ja paljon muuta.",
+    intro: "Tällä sivulla esittelemme neljätoista Levin ravintolaa aitojen annoskuvien kautta. Jokainen ravintola on erilainen – löydät aasialaista fuusiota, perinteistä poronkäristystä, grillattuja pihvejä, texmex-herkkuja ja paljon muuta.",
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Matkaopas", href: "/opas/matkaopas-levi" },
@@ -229,7 +230,7 @@ const translations: Record<"fi" | "en", {
           { src: coloradoRibs, alt: "BBQ-ribsit laudalla – Colorado Bar & Grill, Levi" },
           { src: coloradoFajitas, alt: "Kana fajitas – Colorado Bar & Grill, Levi" },
           { src: coloradoFajitas2, alt: "Kanafajitas lisukkeineen – Colorado Bar & Grill, Levi" },
-          { src: coloradoNachot, alt: "Nachot guacamolella – Colorado Bar & Grill, Levi" },
+          { src: coloradoNachotAsset.url, alt: "Nachot guacamolella – Colorado Bar & Grill, Levi" },
           { src: coloradoNyhtoliha, alt: "Nyhtöliha jalapenolla – Colorado Bar & Grill, Levi" },
         ],
       },
@@ -361,6 +362,18 @@ const translations: Record<"fi" | "en", {
           { src: stefansDessert.url, alt: "Jälkiruoka ja jäätelöpallo – Stefan’s Steakhouse, Levi" },
         ],
       },
+      {
+        emoji: "🦌",
+        name: "Ravintola Kammi",
+        subtitle: "Perinteinen poroillallinen buffetista",
+        description: [
+          "Kammi on perinteinen pororavintola Levillä. Illallinen on buffet-tyyppinen, joten ruokailu sopii kiireettömään iltaan lappilaisten makujen äärellä.",
+          "Kuvassa näkyy ravintolan avotuli ja buffet-ympäristö – tunnelma on osa Kammin illalliskokemusta.",
+        ],
+        images: [
+          { src: kammiBuffetAsset.url, alt: "Avotuli ja buffet-ympäristö – Ravintola Kammi, Levi" },
+        ],
+      },
     ],
   },
   en: {
@@ -371,7 +384,7 @@ const translations: Record<"fi" | "en", {
     },
     title: "Levi Restaurants and Dishes",
     subtitle: "Real dish photos and reviews from Levi restaurants",
-    intro: "On this page we present thirteen Levi restaurants through real dish photos. Each restaurant is unique – you will find Asian fusion, traditional reindeer dishes, grilled steaks, Tex-Mex treats and much more.",
+    intro: "On this page we present fourteen Levi restaurants through real photos. Each restaurant is unique – you will find Asian fusion, traditional reindeer dishes, grilled steaks, Tex-Mex treats and much more.",
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Travel Guide", href: "/guide/travel-to-levi" },
@@ -467,7 +480,7 @@ const translations: Record<"fi" | "en", {
           { src: coloradoRibs, alt: "BBQ ribs on a board – Colorado Bar & Grill, Levi" },
           { src: coloradoFajitas, alt: "Chicken fajitas – Colorado Bar & Grill, Levi" },
           { src: coloradoFajitas2, alt: "Chicken fajitas with sides – Colorado Bar & Grill, Levi" },
-          { src: coloradoNachot, alt: "Nachos with guacamole – Colorado Bar & Grill, Levi" },
+          { src: coloradoNachotAsset.url, alt: "Nachos with guacamole – Colorado Bar & Grill, Levi" },
           { src: coloradoNyhtoliha, alt: "Pulled pork with jalapeño – Colorado Bar & Grill, Levi" },
         ],
       },
@@ -597,6 +610,18 @@ const translations: Record<"fi" | "en", {
           { src: stefansSteak.url, alt: "Steak and sauce on a plate – Stefan’s Steakhouse, Levi" },
           { src: stefansStarter.url, alt: "Plated starter on a dark dish – Stefan’s Steakhouse, Levi" },
           { src: stefansDessert.url, alt: "Dessert with a scoop of ice cream – Stefan’s Steakhouse, Levi" },
+        ],
+      },
+      {
+        emoji: "🦌",
+        name: "Ravintola Kammi",
+        subtitle: "Traditional reindeer dinner served buffet-style",
+        description: [
+          "Kammi is a traditional reindeer restaurant in Levi. Dinner is served buffet-style, making it a place to enjoy Lapland flavours at an unhurried pace.",
+          "The photo shows the restaurant's open fire and buffet setting – the atmosphere is part of the dinner experience at Kammi.",
+        ],
+        images: [
+          { src: kammiBuffetAsset.url, alt: "Open fire and buffet setting – Ravintola Kammi, Levi" },
         ],
       },
     ],
