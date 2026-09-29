@@ -350,12 +350,12 @@ const translations: Record<"fi" | "en", {
         subtitle: "Pihvi-illallinen Levillä",
         description: [
           "Stefan’s Steakhouse on pihviravintola, jossa illallinen rakentuu liha-annosten ympärille. Kuvissa pihvi tarjoillaan kastikkeen kanssa.",
-          "Illalliseen kuuluvista annoksista näet myös huolella asetellun alkuruoan ja jälkiruoan. Kolme kuvaa antavat tuntumaa ravintolan annosten tyyliin.",
+          "Kuvissa on myös huolella aseteltu alkuruoka ja jälkiruoka. Kolme kuvaa antavat tuntumaa ravintolan annosten tyyliin.",
         ],
         images: [
           { src: stefansSteak.url, alt: "Pihvi ja kastike lautasella – Stefan’s Steakhouse, Levi" },
           { src: stefansStarter.url, alt: "Viimeistelty alkuruoka tummalla lautasella – Stefan’s Steakhouse, Levi" },
-          { src: stefansDessert.url, alt: "Paahdettu jälkiruoka ja sorbetti – Stefan’s Steakhouse, Levi" },
+          { src: stefansDessert.url, alt: "Jälkiruoka ja jäätelöpallo – Stefan’s Steakhouse, Levi" },
         ],
       },
     ],
@@ -588,12 +588,12 @@ const translations: Record<"fi" | "en", {
         subtitle: "A steak dinner in Levi",
         description: [
           "Stefan’s Steakhouse is a steak restaurant where meat dishes take centre stage. In these photos a steak is served with a sauce.",
-          "The meal also includes a carefully plated starter and a dessert. These three photos offer a glimpse of the restaurant's style of presentation.",
+          "The photos also show a carefully plated starter and a dessert. They offer a glimpse of the restaurant's style of presentation.",
         ],
         images: [
           { src: stefansSteak.url, alt: "Steak and sauce on a plate – Stefan’s Steakhouse, Levi" },
           { src: stefansStarter.url, alt: "Plated starter on a dark dish – Stefan’s Steakhouse, Levi" },
-          { src: stefansDessert.url, alt: "Torched dessert with sorbet – Stefan’s Steakhouse, Levi" },
+          { src: stefansDessert.url, alt: "Dessert with a scoop of ice cream – Stefan’s Steakhouse, Levi" },
         ],
       },
     ],
