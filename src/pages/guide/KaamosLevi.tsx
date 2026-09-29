@@ -308,7 +308,17 @@ const KaamosLevi = ({ lang = "fi" }: KaamosLeviProps) => {
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.title}</h1>
               <p className="text-lg text-primary font-medium mb-4">{t.subtitle}</p>
               <p className="text-muted-foreground max-w-2xl mx-auto mb-3">{t.intro}</p>
-              <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro2}</p>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                {t.intro2}
+                {lang === "fi" && (
+                  <> Kaamoksen sinisinä tunteina on mukava palata lämpimään ja omaan saunaan — katso{" "}
+                    <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levillä</Link>.</>
+                )}
+                {lang === "en" && (
+                  <> After the blue hours of polar night it is good to return to a warm place with your own sauna — see{" "}
+                    <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi</Link>.</>
+                )}
+              </p>
               <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-left">
                 {t.introBooking.text}
                 <a

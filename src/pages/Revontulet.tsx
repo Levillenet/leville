@@ -376,6 +376,14 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
             <ScrollReveal>
               <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-4xl mx-auto text-center">
                 {t.intro}
+                {lang === "fi" && (
+                  <> Revontulet näkyvät parhaiten keskellä yötä, kun lähtö omalta ovelta on helppo — katso{" "}
+                    <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levillä</Link>.</>
+                )}
+                {lang === "en" && (
+                  <> The Northern Lights are often best in the middle of the night, when it helps to step straight out of your own door — see{" "}
+                    <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi</Link>.</>
+                )}
               </p>
               <div className="max-w-4xl mx-auto">
                 <InlineBookingLink variant="tip" intent="auroraStay" lang={lang === "fi" ? "fi" : "en"} />

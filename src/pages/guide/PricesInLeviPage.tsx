@@ -173,7 +173,8 @@ const PricesInLeviPage = () => {
             Prices in Levi – What Does a Lapland Holiday Cost?
           </h1>
           <p className="text-muted-foreground text-lg">
-            A complete price guide from ski passes to restaurants, activities to groceries. Plan your Levi holiday budget before you go. Finland uses the euro (€) and card payments are accepted virtually everywhere — you rarely need cash. Tipping is not customary in Finland.
+            A complete price guide from ski passes to restaurants, activities to groceries. Plan your Levi holiday budget before you go. Finland uses the euro (€) and card payments are accepted virtually everywhere — you rarely need cash. Tipping is not customary in Finland. Your biggest single cost is usually where you stay — see{" "}
+            <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi</Link>.
           </p>
           <InlineBookingLink variant="tip" intent="directNoFees" lang="en" />
           <InlineBookingLink variant="tip" intent="stayCentre" lang="en" />

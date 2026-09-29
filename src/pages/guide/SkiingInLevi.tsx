@@ -487,6 +487,18 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
             <section className="mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-4">{t.sections.lifts.title}</h2>
                <p className="text-muted-foreground">{t.sections.lifts.content}</p>
+              {lang === "fi" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Rinteiden vieressä majoittuminen säästää aamun ruuhkat — katso{" "}
+                  <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levillä</Link>.
+                </p>
+              )}
+              {lang === "nl" && (
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  Wie naast de pistes verblijft, vermijdt de ochtenddrukte — bekijk{" "}
+                  <Link to="/nl/accommodaties" className="text-primary underline underline-offset-4 font-medium">accommodatie in Levi</Link>.
+                </p>
+              )}
               {lang === "en" && (
                 <p className="text-muted-foreground leading-relaxed mt-4">
                   Staying next to the lifts saves the most time on a ski holiday. See{" "}
