@@ -325,7 +325,7 @@ const WorldCupLevi = ({ lang = "fi" }: WorldCupLeviProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 {t.intro}
                 {lang === "fi" && (
-                  <> Kisapäivinä autoa ei tarvita, kun valitset{" "}
+                  <> Kisapäivinä autoa ei tarvita — katso{" "}
                     <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levin keskustassa</Link>.</>
                 )}
                 {lang === "en" && (
