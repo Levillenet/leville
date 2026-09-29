@@ -303,6 +303,22 @@ const translations: Record<"fi" | "en", {
           { src: pihvipirttiKala, alt: "Kalapöytä alkupalat – Ravintola Pihvipirtti, Levi" },
         ],
       },
+      {
+        emoji: "🥩",
+        name: "Grill it!",
+        subtitle: "Pihvit ja grilliruoka Levin keskustassa",
+        description: [
+          "Grill it! on Levin keskustan pihviravintola, jossa pääosassa ovat grillatut liha-annokset ja huolella viimeistellyt kastikkeet.",
+          "Pihvit tarjoillaan esimerkiksi täyteläisen metsäsienikastikkeen tai klassisen viherpippurikastikkeen kanssa, lisukkeina grillattuja kasviksia ja perunagratiinia. Alkuun saa etanoita valkosipulivoissa tai samettisen keiton.",
+          "Hyvä valinta, kun haluat kunnollisen pihvi-illallisen rennossa ja lämpimässä tunnelmassa aivan keskustan palveluiden vieressä.",
+        ],
+        images: [
+          { src: grillItPihviPippuri.url, alt: "Grillattu pihvi viherpippurikastikkeella, parsakaalilla ja perunagratiinilla – Grill it!, Levi" },
+          { src: grillItPihviSieni.url, alt: "Grillattu pihvi metsäsienikastikkeella ja ruusukaalilla – Grill it!, Levi" },
+          { src: grillItEtanat.url, alt: "Etanat valkosipulivoissa ja grillattu leipä alkuruokana – Grill it!, Levi" },
+          { src: grillItKeitto.url, alt: "Samettinen keitto ja siemennäkkileipä – Grill it!, Levi" },
+        ],
+      },
     ],
   },
   en: {
