@@ -461,7 +461,7 @@ const LeviIn3Days = ({ lang = "fi" }: LeviIn3DaysProps) => {
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 {t.intro}
                 {lang === "fi" && (
-                  <> Ohjelma sujuu kävellen, kun valitset{" "}
+                  <> Ohjelma sujuu kävellen — katso{" "}
                     <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levin keskustassa</Link>.</>
                 )}
                 {lang === "en" && (
