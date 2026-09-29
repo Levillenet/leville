@@ -441,12 +441,15 @@ const translations: Record<"fi" | "en", {
         subtitle: "Thin-crust pizzas and pastas",
         description: [
           "Renna is one of Levi's most popular pizzerias. The pizzas are served on wooden boards with a pleasantly thin and crispy crust.",
-          "They also offer quality pasta dishes. An easy and reliable choice when you are in the mood for good pizza.",
+          "They also offer quality pasta dishes and generous antipasto platters to start. An easy and reliable choice when you are in the mood for good pizza in the centre of Levi.",
         ],
         images: [
           { src: rennaPizza, alt: "Pizza prosciutto e rucola – Ravintola Renna, Levi" },
           { src: rennaPizza2, alt: "Pizza prosciutto rucola – Ravintola Renna, Levi" },
           { src: rennaPizza3, alt: "Pizza prosciutto rucola take-away – Ravintola Renna, Levi" },
+          { src: rennaAnanasAsset.url, alt: "Thin-crust pizza with ham, blue cheese and pineapple – Pizzeria Renna, Levi" },
+          { src: rennaMeloniAsset.url, alt: "Pizza with melon, rocket and pine nuts – Pizzeria Renna, Levi" },
+          { src: rennaAntipastoAsset.url, alt: "Antipasto platter with salami, cheeses and olives – Pizzeria Renna, Levi" },
         ],
       },
       {
