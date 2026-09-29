@@ -329,7 +329,7 @@ const translations: Record<"fi" | "en", {
     },
     title: "Levi Restaurants and Dishes",
     subtitle: "Real dish photos and reviews from Levi restaurants",
-    intro: "On this page we present ten Levi restaurants through real dish photos. Each restaurant is unique – you will find Asian fusion, traditional reindeer dishes, Tex-Mex treats and much more.",
+    intro: "On this page we present eleven Levi restaurants through real dish photos. Each restaurant is unique – you will find Asian fusion, traditional reindeer dishes, grilled steaks, Tex-Mex treats and much more.",
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Travel Guide", href: "/guide/travel-to-levi" },
