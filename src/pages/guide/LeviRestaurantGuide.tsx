@@ -78,6 +78,16 @@ import grillItPihviPippuri from "@/assets/restaurants/grill-it-levi-pihvi-pippur
 import grillItPihviSieni from "@/assets/restaurants/grill-it-levi-pihvi-metsasienikastike.webp.asset.json";
 import grillItEtanat from "@/assets/restaurants/grill-it-levi-etanat-valkosipulivoissa.webp.asset.json";
 import grillItKeitto from "@/assets/restaurants/grill-it-levi-keitto-siemennakkileipa.webp.asset.json";
+// King Crab House
+import kingCrabPlatter from "@/assets/restaurants/king-crab-house-merenelavavati.webp.asset.json";
+import kingCrabMussels from "@/assets/restaurants/king-crab-house-simpukka-annos.webp.asset.json";
+import kingCrabStarter from "@/assets/restaurants/king-crab-house-friteerattu-alkuruoka.webp.asset.json";
+import kingCrabDessert from "@/assets/restaurants/king-crab-house-jalkiruoka.webp.asset.json";
+
+// Stefan’s Steakhouse
+import stefansSteak from "@/assets/restaurants/stefans-steakhouse-pihvi.webp.asset.json";
+import stefansStarter from "@/assets/restaurants/stefans-steakhouse-alkuruoka.webp.asset.json";
+import stefansDessert from "@/assets/restaurants/stefans-steakhouse-jalkiruoka.webp.asset.json";
 import MajoitusCallout from "@/components/MajoitusCallout";
 
 interface LeviRestaurantGuideProps {
@@ -120,7 +130,7 @@ const translations: Record<"fi" | "en", {
     },
     title: "Levin ravintolat ja annokset",
     subtitle: "Aitoja annoskuvia ja esittelyjä Levin ravintoloista",
-    intro: "Tällä sivulla esittelemme yksitoista Levin ravintolaa aitojen annoskuvien kautta. Jokainen ravintola on erilainen – löydät aasialaista fuusiota, perinteistä poronkäristystä, grillattuja pihvejä, texmex-herkkuja ja paljon muuta.",
+    intro: "Tällä sivulla esittelemme kolmetoista Levin ravintolaa aitojen annoskuvien kautta. Jokainen ravintola on erilainen – löydät aasialaista fuusiota, perinteistä poronkäristystä, grillattuja pihvejä, texmex-herkkuja ja paljon muuta.",
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Matkaopas", href: "/opas/matkaopas-levi" },
@@ -319,6 +329,35 @@ const translations: Record<"fi" | "en", {
           { src: grillItKeitto.url, alt: "Samettinen keitto ja siemennäkkileipä – Grill it!, Levi" },
         ],
       },
+      {
+        emoji: "🦀",
+        name: "King Crab House",
+        subtitle: "Mereneläviä Levin kävelykeskustassa",
+        description: [
+          "King Crab House on Levin kävelykeskustan mereneläviin erikoistunut ravintola. Sen tunnetuin erikoisuus on Pohjois-Norjan rannikolta tuleva kuningasrapu.",
+          "Annoksissa näkyvät myös simpukat ja muut merenelävät. Kuvissa on merenelävävati, simpukka-annos, rapea alkuruoka ja jälkiruoka – vaihtoehto erityiselle illalliselle Levillä.",
+        ],
+        images: [
+          { src: kingCrabPlatter.url, alt: "Merenelävävati ja simpukoita – King Crab House, Levi" },
+          { src: kingCrabMussels.url, alt: "Simpukka-annos tomaattisessa liemessä – King Crab House, Levi" },
+          { src: kingCrabStarter.url, alt: "Rapea alkuruoka kulhossa – King Crab House, Levi" },
+          { src: kingCrabDessert.url, alt: "Jälkiruoka tummassa kulhossa – King Crab House, Levi" },
+        ],
+      },
+      {
+        emoji: "🥩",
+        name: "Stefan’s Steakhouse",
+        subtitle: "Pihvi-illallinen Levillä",
+        description: [
+          "Stefan’s Steakhouse on pihviravintola, jossa illallinen rakentuu liha-annosten ympärille. Kuvissa pihvi tarjoillaan kastikkeen kanssa.",
+          "Kuvissa on myös huolella aseteltu alkuruoka ja jälkiruoka. Kolme kuvaa antavat tuntumaa ravintolan annosten tyyliin.",
+        ],
+        images: [
+          { src: stefansSteak.url, alt: "Pihvi ja kastike lautasella – Stefan’s Steakhouse, Levi" },
+          { src: stefansStarter.url, alt: "Viimeistelty alkuruoka tummalla lautasella – Stefan’s Steakhouse, Levi" },
+          { src: stefansDessert.url, alt: "Jälkiruoka ja jäätelöpallo – Stefan’s Steakhouse, Levi" },
+        ],
+      },
     ],
   },
   en: {
@@ -329,7 +368,7 @@ const translations: Record<"fi" | "en", {
     },
     title: "Levi Restaurants and Dishes",
     subtitle: "Real dish photos and reviews from Levi restaurants",
-    intro: "On this page we present eleven Levi restaurants through real dish photos. Each restaurant is unique – you will find Asian fusion, traditional reindeer dishes, grilled steaks, Tex-Mex treats and much more.",
+    intro: "On this page we present thirteen Levi restaurants through real dish photos. Each restaurant is unique – you will find Asian fusion, traditional reindeer dishes, grilled steaks, Tex-Mex treats and much more.",
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Travel Guide", href: "/guide/travel-to-levi" },
@@ -526,6 +565,35 @@ const translations: Record<"fi" | "en", {
           { src: grillItPihviSieni.url, alt: "Grilled steak with wild mushroom sauce and brussels sprouts – Grill it!, Levi" },
           { src: grillItEtanat.url, alt: "Snails in garlic butter with grilled bread – Grill it!, Levi" },
           { src: grillItKeitto.url, alt: "Velvety soup with seeded crispbread – Grill it!, Levi" },
+        ],
+      },
+      {
+        emoji: "🦀",
+        name: "King Crab House",
+        subtitle: "Seafood in Levi's pedestrian centre",
+        description: [
+          "King Crab House specialises in seafood in the pedestrian centre of Levi. Its best-known speciality is king crab sourced from the northern Norwegian coast.",
+          "Mussels and other seafood are also part of the experience. These photos show a seafood platter, a mussel dish, a crispy starter and a dessert – an option for a special dinner in Levi.",
+        ],
+        images: [
+          { src: kingCrabPlatter.url, alt: "Seafood platter with mussels – King Crab House, Levi" },
+          { src: kingCrabMussels.url, alt: "Mussels in a tomato-based broth – King Crab House, Levi" },
+          { src: kingCrabStarter.url, alt: "Crispy starter served in a bowl – King Crab House, Levi" },
+          { src: kingCrabDessert.url, alt: "Dessert in a dark bowl – King Crab House, Levi" },
+        ],
+      },
+      {
+        emoji: "🥩",
+        name: "Stefan’s Steakhouse",
+        subtitle: "A steak dinner in Levi",
+        description: [
+          "Stefan’s Steakhouse is a steak restaurant where meat dishes take centre stage. In these photos a steak is served with a sauce.",
+          "The photos also show a carefully plated starter and a dessert. They offer a glimpse of the restaurant's style of presentation.",
+        ],
+        images: [
+          { src: stefansSteak.url, alt: "Steak and sauce on a plate – Stefan’s Steakhouse, Levi" },
+          { src: stefansStarter.url, alt: "Plated starter on a dark dish – Stefan’s Steakhouse, Levi" },
+          { src: stefansDessert.url, alt: "Dessert with a scoop of ice cream – Stefan’s Steakhouse, Levi" },
         ],
       },
     ],
