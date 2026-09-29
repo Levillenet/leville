@@ -458,7 +458,17 @@ const LeviIn3Days = ({ lang = "fi" }: LeviIn3DaysProps) => {
                 </span>
               </p>
 
-              <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                {t.intro}
+                {lang === "fi" && (
+                  <> Ohjelma sujuu kävellen, kun valitset{" "}
+                    <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levin keskustassa</Link>.</>
+                )}
+                {lang === "en" && (
+                  <> The plan works on foot when you choose{" "}
+                    <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi center</Link>.</>
+                )}
+              </p>
 
               <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-left">
                 {t.introBooking.text}

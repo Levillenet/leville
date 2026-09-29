@@ -322,7 +322,17 @@ const WorldCupLevi = ({ lang = "fi" }: WorldCupLeviProps) => {
             <section className="text-center mb-10">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.title}</h1>
               <p className="text-lg text-primary font-medium mb-4">{t.subtitle}</p>
-              <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                {t.intro}
+                {lang === "fi" && (
+                  <> Kisapäivinä autoa ei tarvita, kun valitset{" "}
+                    <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levin keskustassa</Link>.</>
+                )}
+                {lang === "en" && (
+                  <> On race days you won't need a car if you choose{" "}
+                    <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi center</Link>.</>
+                )}
+              </p>
 
               {(eventPassed || !WORLD_CUP.confirmed) && (
                 <p className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground bg-muted/40 border border-border/30 rounded-lg px-4 py-2">

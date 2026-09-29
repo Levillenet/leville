@@ -466,6 +466,18 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
             <section className="text-center mb-12">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t.h1}</h1>
               <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+              {lang === "fi" && (
+                <p className="text-muted-foreground max-w-2xl mx-auto mt-3">
+                  Gondolihissille pääsee kävellen keskustasta, joten retki sopii hyvin lapsiperheille — katso{" "}
+                  <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levillä</Link>.
+                </p>
+              )}
+              {lang === "en" && (
+                <p className="text-muted-foreground max-w-2xl mx-auto mt-3">
+                  The gondola is within walking distance of the village centre, which makes the trip easy for families — see{" "}
+                  <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi</Link>.
+                </p>
+              )}
             </section>
 
             {/* Santa's Cabin — landmark */}

@@ -251,7 +251,17 @@ const ApresSkiLevi = ({ lang = "fi" }: ApresSkiLeviProps) => {
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
                 {t.h1}
               </h1>
-              <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                {t.intro}
+                {lang === "fi" && (
+                  <> Illan jälkeen kotimatka on lyhyt, kun majoitus on keskustassa — katso{" "}
+                    <Link to="/majoitukset" className="text-primary underline underline-offset-4 font-medium">majoitus Levillä</Link>.</>
+                )}
+                {lang === "en" && (
+                  <> The walk home is short when you stay in the centre — see{" "}
+                    <Link to="/en/accommodations" className="text-primary underline underline-offset-4 font-medium">accommodation in Levi</Link>.</>
+                )}
+              </p>
             </section>
 
             {/* Culture */}
