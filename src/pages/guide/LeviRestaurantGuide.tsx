@@ -72,6 +72,12 @@ import hookWings from "@/assets/restaurants/Buffalo wings - Ravintola Hook.jpeg"
 
 // Pihvipirtti
 import pihvipirttiKala from "@/assets/restaurants/kalapöytä alkupalat ravintola pihvipirtti.jpg";
+
+// Grill it!
+import grillItPihviPippuri from "@/assets/restaurants/grill-it-levi-pihvi-pippurikastike.webp.asset.json";
+import grillItPihviSieni from "@/assets/restaurants/grill-it-levi-pihvi-metsasienikastike.webp.asset.json";
+import grillItEtanat from "@/assets/restaurants/grill-it-levi-etanat-valkosipulivoissa.webp.asset.json";
+import grillItKeitto from "@/assets/restaurants/grill-it-levi-keitto-siemennakkileipa.webp.asset.json";
 import MajoitusCallout from "@/components/MajoitusCallout";
 
 interface LeviRestaurantGuideProps {
@@ -114,7 +120,7 @@ const translations: Record<"fi" | "en", {
     },
     title: "Levin ravintolat ja annokset",
     subtitle: "Aitoja annoskuvia ja esittelyjä Levin ravintoloista",
-    intro: "Tällä sivulla esittelemme kymmenen Levin ravintolaa aitojen annoskuvien kautta. Jokainen ravintola on erilainen – löydät aasialaista fuusiota, perinteistä poronkäristystä, texmex-herkkuja ja paljon muuta.",
+    intro: "Tällä sivulla esittelemme yksitoista Levin ravintolaa aitojen annoskuvien kautta. Jokainen ravintola on erilainen – löydät aasialaista fuusiota, perinteistä poronkäristystä, grillattuja pihvejä, texmex-herkkuja ja paljon muuta.",
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Matkaopas", href: "/opas/matkaopas-levi" },
@@ -297,6 +303,22 @@ const translations: Record<"fi" | "en", {
           { src: pihvipirttiKala, alt: "Kalapöytä alkupalat – Ravintola Pihvipirtti, Levi" },
         ],
       },
+      {
+        emoji: "🥩",
+        name: "Grill it!",
+        subtitle: "Pihvit ja grilliruoka Levin keskustassa",
+        description: [
+          "Grill it! on Levin keskustan pihviravintola, jossa pääosassa ovat grillatut liha-annokset ja huolella viimeistellyt kastikkeet.",
+          "Pihvit tarjoillaan esimerkiksi täyteläisen metsäsienikastikkeen tai klassisen viherpippurikastikkeen kanssa, lisukkeina grillattuja kasviksia ja perunagratiinia. Alkuun saa etanoita valkosipulivoissa tai samettisen keiton.",
+          "Hyvä valinta, kun haluat kunnollisen pihvi-illallisen rennossa ja lämpimässä tunnelmassa aivan keskustan palveluiden vieressä.",
+        ],
+        images: [
+          { src: grillItPihviPippuri.url, alt: "Grillattu pihvi viherpippurikastikkeella, parsakaalilla ja perunagratiinilla – Grill it!, Levi" },
+          { src: grillItPihviSieni.url, alt: "Grillattu pihvi metsäsienikastikkeella ja ruusukaalilla – Grill it!, Levi" },
+          { src: grillItEtanat.url, alt: "Etanat valkosipulivoissa ja grillattu leipä alkuruokana – Grill it!, Levi" },
+          { src: grillItKeitto.url, alt: "Samettinen keitto ja siemennäkkileipä – Grill it!, Levi" },
+        ],
+      },
     ],
   },
   en: {
@@ -307,7 +329,7 @@ const translations: Record<"fi" | "en", {
     },
     title: "Levi Restaurants and Dishes",
     subtitle: "Real dish photos and reviews from Levi restaurants",
-    intro: "On this page we present ten Levi restaurants through real dish photos. Each restaurant is unique – you will find Asian fusion, traditional reindeer dishes, Tex-Mex treats and much more.",
+    intro: "On this page we present eleven Levi restaurants through real dish photos. Each restaurant is unique – you will find Asian fusion, traditional reindeer dishes, grilled steaks, Tex-Mex treats and much more.",
     breadcrumbs: [
       { label: "Home", href: "/en" },
       { label: "Travel Guide", href: "/guide/travel-to-levi" },
@@ -488,6 +510,22 @@ const translations: Record<"fi" | "en", {
         ],
         images: [
           { src: pihvipirttiKala, alt: "Fish buffet starters – Ravintola Pihvipirtti, Levi" },
+        ],
+      },
+      {
+        emoji: "🥩",
+        name: "Grill it!",
+        subtitle: "Steaks and grilled food in Levi centre",
+        description: [
+          "Grill it! is a steak restaurant in the centre of Levi, focused on grilled meat dishes and carefully made sauces.",
+          "Steaks are served with a rich wild mushroom sauce or a classic green peppercorn sauce, with grilled vegetables and potato gratin on the side. To start, try snails in garlic butter or a velvety soup.",
+          "A solid choice when you want a proper steak dinner in a relaxed, warm atmosphere right next to the centre's services.",
+        ],
+        images: [
+          { src: grillItPihviPippuri.url, alt: "Grilled steak with green peppercorn sauce, broccolini and potato gratin – Grill it!, Levi" },
+          { src: grillItPihviSieni.url, alt: "Grilled steak with wild mushroom sauce and brussels sprouts – Grill it!, Levi" },
+          { src: grillItEtanat.url, alt: "Snails in garlic butter with grilled bread – Grill it!, Levi" },
+          { src: grillItKeitto.url, alt: "Velvety soup with seeded crispbread – Grill it!, Levi" },
         ],
       },
     ],
