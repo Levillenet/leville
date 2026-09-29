@@ -120,7 +120,7 @@ const translations: Record<"fi" | "en", {
     },
     title: "Levin ravintolat ja annokset",
     subtitle: "Aitoja annoskuvia ja esittelyjä Levin ravintoloista",
-    intro: "Tällä sivulla esittelemme kymmenen Levin ravintolaa aitojen annoskuvien kautta. Jokainen ravintola on erilainen – löydät aasialaista fuusiota, perinteistä poronkäristystä, texmex-herkkuja ja paljon muuta.",
+    intro: "Tällä sivulla esittelemme yksitoista Levin ravintolaa aitojen annoskuvien kautta. Jokainen ravintola on erilainen – löydät aasialaista fuusiota, perinteistä poronkäristystä, grillattuja pihvejä, texmex-herkkuja ja paljon muuta.",
     breadcrumbs: [
       { label: "Etusivu", href: "/" },
       { label: "Matkaopas", href: "/opas/matkaopas-levi" },
