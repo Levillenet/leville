@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
+import { ZoomIn } from "lucide-react";
+import ImageLightbox from "@/components/guide/ImageLightbox";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageCTA from "@/components/PageCTA";
@@ -603,6 +606,7 @@ const translations: Record<"fi" | "en", {
 const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
   const location = useLocation();
   const t = lang === "en" ? translations.en : translations.fi;
+  const [lightbox, setLightbox] = useState<{ images: { src: string; alt: string }[]; index: number } | null>(null);
 
   const hreflangUrls = {
     fi: "https://leville.net/opas/levin-ravintolat-ja-annokset",
