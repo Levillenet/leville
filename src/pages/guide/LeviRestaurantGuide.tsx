@@ -72,6 +72,12 @@ import hookWings from "@/assets/restaurants/Buffalo wings - Ravintola Hook.jpeg"
 
 // Pihvipirtti
 import pihvipirttiKala from "@/assets/restaurants/kalapöytä alkupalat ravintola pihvipirtti.jpg";
+
+// Grill it!
+import grillItPihviPippuri from "@/assets/restaurants/grill-it-levi-pihvi-pippurikastike.webp.asset.json";
+import grillItPihviSieni from "@/assets/restaurants/grill-it-levi-pihvi-metsasienikastike.webp.asset.json";
+import grillItEtanat from "@/assets/restaurants/grill-it-levi-etanat-valkosipulivoissa.webp.asset.json";
+import grillItKeitto from "@/assets/restaurants/grill-it-levi-keitto-siemennakkileipa.webp.asset.json";
 import MajoitusCallout from "@/components/MajoitusCallout";
 
 interface LeviRestaurantGuideProps {
