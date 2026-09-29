@@ -737,6 +737,16 @@ const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
       <Footer lang={lang} />
       <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
+
+      {lightbox && (
+        <ImageLightbox
+          key={`${lightbox.images[0]?.src}-${lightbox.index}`}
+          images={lightbox.images}
+          startIndex={lightbox.index}
+          onClose={() => setLightbox(null)}
+          lang={lang}
+        />
+      )}
     </div>
   );
 };
