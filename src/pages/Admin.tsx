@@ -97,10 +97,13 @@ const Admin = () => {
       });
 
       if (error || !data?.success) {
-        setAuthError(data?.error || 'Kirjautuminen epäonnistui');
+        const loginError = data?.error === 'Too many requests. Please try again later.'
+          ? 'Liian monta kirjautumisyritystä. Yritä uudelleen 15 minuutin kuluttua.'
+          : data?.error || 'Kirjautuminen epäonnistui';
+        setAuthError(loginError);
         toast({
           title: "Virhe",
-          description: data?.error || "Väärä salasana",
+          description: loginError,
           variant: "destructive"
         });
         return;

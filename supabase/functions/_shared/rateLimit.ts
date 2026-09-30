@@ -37,6 +37,20 @@ export function rateLimit(
   return null;
 }
 
+/** Returns the remaining lockout without incrementing the counter. */
+export function checkRateLimit(key: string, limit: number): number | null {
+  const existing = buckets.get(key);
+  if (!existing) return null;
+  const now = Date.now();
+  if (existing.resetAt <= now) {
+    buckets.delete(key);
+    return null;
+  }
+  return existing.count >= limit
+    ? Math.max(1, Math.ceil((existing.resetAt - now) / 1000))
+    : null;
+}
+
 /** Clears the counter for a key (e.g. after a successful login). */
 export function resetRateLimit(key: string) {
   buckets.delete(key);
