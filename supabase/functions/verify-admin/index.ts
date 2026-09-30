@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createAdminToken } from "../_shared/adminCredential.ts";
-import { clientIp, rateLimit, resetRateLimit, tooManyRequests } from "../_shared/rateLimit.ts";
+import { checkRateLimit, clientIp, rateLimit, resetRateLimit, tooManyRequests } from "../_shared/rateLimit.ts";
 import { checkLimit, clearFailures, recordFailure } from "../_shared/persistentRateLimit.ts";
 
 const LOGIN_WINDOW_SECONDS = 15 * 60;
@@ -37,7 +37,7 @@ serve(async (req) => {
   // Throttle credential guessing: 5 failed attempts per IP / 15 minutes.
   const ip = clientIp(req);
   const rlKey = `verify-admin:${ip}`;
-  const retryAfter = rateLimit(rlKey, LOGIN_MAX_FAILURES, LOGIN_WINDOW_SECONDS);
+  const retryAfter = checkRateLimit(rlKey, LOGIN_MAX_FAILURES);
   if (retryAfter !== null) return tooManyRequests(retryAfter, corsHeaders);
   const persistedRetry = await checkLimit("verify-admin", ip, LOGIN_MAX_FAILURES, LOGIN_WINDOW_SECONDS);
   if (persistedRetry !== null) return tooManyRequests(persistedRetry, corsHeaders);
@@ -54,9 +54,9 @@ serve(async (req) => {
       );
     }
 
-    const role = password === adminPassword
+    const role = password === adminPassword.trim()
       ? 'admin'
-      : password === viewerPassword
+      : password === viewerPassword.trim()
         ? 'viewer'
         : null;
 
@@ -70,6 +70,7 @@ serve(async (req) => {
       );
     }
 
+    rateLimit(rlKey, LOGIN_MAX_FAILURES, LOGIN_WINDOW_SECONDS);
     await recordFailure("verify-admin", ip, LOGIN_WINDOW_SECONDS);
     return new Response(
       JSON.stringify({ success: false, error: 'Väärä salasana' }),

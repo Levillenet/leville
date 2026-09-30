@@ -229,6 +229,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
   const [csvLoading, setCsvLoading] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [period, setPeriod] = useState<Period>("30days");
   const [liveUsers, setLiveUsers] = useState<{ activeUsers: number; topPages: Array<{ path: string; count: number }> } | null>(null);
 
@@ -250,14 +251,17 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
 
   const fetchStats = async (p: Period = period) => {
     setLoading(true);
+    setLoadError(null);
     try {
       const password = getAdminToken();
       if (!password) { setLoading(false); return; }
 
       const { data, error } = await supabase.functions.invoke("get-page-view-stats", { body: { password, period: p } });
-      if (!error && data) setStats(data);
+      if (error) throw error;
+      if (data) setStats(data);
     } catch (e) {
       console.error("Failed to fetch page view stats:", e);
+      setLoadError("Tilastojen lataus epäonnistui. Yritä hetken kuluttua uudelleen.");
     } finally {
       setLoading(false);
     }
@@ -316,7 +320,7 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
     return (
       <Card>
         <CardContent className="py-8 text-center text-muted-foreground">
-          Tilastoja ei voitu ladata. Varmista admin-salasana.
+          {loadError || "Tilastoja ei voitu ladata."}
         </CardContent>
       </Card>
     );

@@ -1,11 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { isAdminCredential } from "../_shared/adminCredential.ts";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "https://leville.net",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
-};
+import { corsFor, isAdminRequest, readJsonBody } from "../_shared/authGuard.ts";
 
 // Helsinki UTC offset helper (handles DST)
 const getHelsinkiOffset = (date: Date): string => {
@@ -70,14 +64,16 @@ const isDevReferrer = (referrer: string | null | undefined): boolean =>
   !!referrer && (referrer.includes("lovable.app") || referrer.includes("lovable.dev") || referrer.includes("lovableproject.com") || referrer.includes("localhost"));
 
 Deno.serve(async (req) => {
+  const corsHeaders = corsFor(req);
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { password, format, period, action } = await req.json();
+    const body = await readJsonBody(req);
+    const { format, period, action } = body;
 
-    if (!(await isAdminCredential(password))) {
+    if (!(await isAdminRequest(req, body))) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
