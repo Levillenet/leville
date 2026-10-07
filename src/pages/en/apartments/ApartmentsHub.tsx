@@ -74,8 +74,8 @@ const categories = [
 const faqs: { q: string; a: React.ReactNode; schemaText?: string }[] = [
   {
     q: "How far are the apartments from the ski lifts?",
-    schemaText: "Levi Glacier Apartments and the Front Slope Chalets (Hiihtäjänkuja 5A2, 5B2, 5B5) are under 200 m from the front slope. The Bearlodge Karhupirtti log villa is 300 m away and the Skistar Apartments on Postintie are 750 m away.",
-    a: "Levi Glacier Apartments and the Front Slope Chalets (Hiihtäjänkuja 5A2, 5B2, 5B5) are under 200 m from the front slope. The Bearlodge Karhupirtti log villa is 300 m away and the Skistar Apartments on Postintie are 750 m away.",
+    schemaText: "Levi Glacier Apartments and the Front Slope Chalets are under 200 m from the front slope and its lifts, Karhupirtti 300 m and the Skistar apartments 750 m.",
+    a: "Levi Glacier Apartments and the Front Slope Chalets are under 200 m from the front slope and its lifts, Karhupirtti 300 m and the Skistar apartments 750 m.",
   },
   {
     q: "Do Levi apartments have a sauna?",
