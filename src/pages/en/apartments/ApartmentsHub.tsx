@@ -102,7 +102,7 @@ const faqs: { q: string; a: React.ReactNode; schemaText?: string }[] = [
   },
   {
     q: "Can I bring my dog or cat?",
-    schemaText: "Some apartments allow pets and some don"t. The Hiihtäjänkuja apartments (5A2, 5B2, 5B5), all Glacier apartments, Karhunvartija 3 and Bear Lodge accept pets. The Skistar studios, Superior suites, Platinum A2 and Moonlight 415 do not allow pets.",
+    schemaText: "Some apartments allow pets and some don't. The Hiihtäjänkuja apartments (5A2, 5B2, 5B5), all Glacier apartments, Karhunvartija 3 and Bear Lodge accept pets. The Skistar studios, Superior suites, Platinum A2 and Moonlight 415 do not allow pets.",
     a: (
       <>
         Some apartments allow pets and some don't. The Hiihtäjänkuja apartments ({linkProperty("5A2", "5a2")}, {linkProperty("5B2", "5b2")}, {linkProperty("5B5", "5b5")}), all Glacier apartments, {linkProperty("Karhunvartija 3", "karhunvartija3")}, and {linkProperty("Bear Lodge", "karhupirtti")} accept pets. The Skistar studios, Superior suites, {linkProperty("Platinum A2", "platinum-a2")}, and {linkProperty("Moonlight 415", "moonlight-415")} do not allow pets.
