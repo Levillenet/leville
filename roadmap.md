@@ -5,3 +5,7 @@
 - [x] Lisää King Crab House: suomen- ja englanninkielinen esittely sekä neljä optimoitua kuvaa.
 - [x] Lisää Stefan’s Steakhouse: suomen- ja englanninkielinen esittely sekä kolme optimoitua kuvaa.
 - [x] Tarkista molemmat sivut ja kuvien lataus.
+
+## EN accommodation optimization (Oct 2026)
+- [ ] Phase 1 validate /en/accommodations, /en/apartments, EN guide links — present texts
+- [ ] Phase 2 implement after approval (A–E)
