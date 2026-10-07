@@ -69,9 +69,7 @@ export const buildVacationRentalSchema = ({
     name,
     occupancy: {
       "@type": "QuantitativeValue",
-      minValue: 1,
-      maxValue: property.maxGuests,
-      unitCode: "C62",
+      value: property.maxGuests,
     },
     amenityFeature: amenities,
   };
@@ -195,9 +193,7 @@ export const buildApartmentComplexSchema = ({
       ? {
           occupancy: {
             "@type": "QuantitativeValue",
-            minValue: 1,
-            maxValue: u.maxGuests,
-            unitCode: "C62",
+            value: u.maxGuests,
           },
         }
       : {}),
