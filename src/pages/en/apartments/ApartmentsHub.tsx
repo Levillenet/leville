@@ -1,3 +1,4 @@
+import type React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageCTA from "@/components/PageCTA";
@@ -70,9 +71,20 @@ const categories = [
   },
 ];
 
-const faqs = [
+const faqs: { q: string; a: React.ReactNode; schemaText?: string }[] = [
+  {
+    q: "How far are the apartments from the ski lifts?",
+    schemaText: "Levi Glacier Apartments and the Front Slope Chalets (Hiihtäjänkuja 5A2, 5B2, 5B5) are under 200 m from the front slope. The Bearlodge Karhupirtti log villa is 300 m away and the Skistar Apartments on Postintie are 750 m away.",
+    a: "Levi Glacier Apartments and the Front Slope Chalets (Hiihtäjänkuja 5A2, 5B2, 5B5) are under 200 m from the front slope. The Bearlodge Karhupirtti log villa is 300 m away and the Skistar Apartments on Postintie are 750 m away.",
+  },
+  {
+    q: "Do Levi apartments have a sauna?",
+    schemaText: "Nearly all — 26 of our 27 properties have a private sauna.",
+    a: "Nearly all — 26 of our 27 properties have a private sauna.",
+  },
   {
     q: "Which apartments are closest to the ski slopes?",
+    schemaText: "The Glacier apartments are right at the foot of the front slope. The Hiihtäjänkuja apartments (5A2, 5B2, 5B5) are also close to the slopes and the Zero Point area. All our center apartments are within a short walk of the lifts.",
     a: (
       <>
         The Glacier apartments are right at the foot of the front slope – you reach the newest chairlift in a few steps, and the ski track is just tens of meters from the door. The Hiihtäjänkuja apartments ({linkProperty("5A2", "5a2")}, {linkProperty("5B2", "5b2")}, {linkProperty("5B5", "5b5")}) are also close to the slopes and the Zero Point area. All our center apartments are within a short walk of the lifts.
@@ -81,6 +93,7 @@ const faqs = [
   },
   {
     q: "Do all apartments have a sauna?",
+    schemaText: "Almost all of them. The only exception is Studio 102, which has a shower but no sauna. All other studios, Superior suites, Glacier apartments, Karhunvartija 3 and Bear Lodge have their own private sauna.",
     a: (
       <>
         Almost all of them. The only exception is {linkProperty("Studio 102", "102")}, which has a shower but no sauna. All other studios, Superior suites, Glacier apartments, {linkProperty("Karhunvartija 3", "karhunvartija3")}, and {linkProperty("Bear Lodge", "karhupirtti")} have their own private sauna. The penthouse {linkProperty("5B5", "5b5")} even has a sauna with a window overlooking the front slope.
@@ -89,6 +102,7 @@ const faqs = [
   },
   {
     q: "Can I bring my dog or cat?",
+    schemaText: "Some apartments allow pets and some don't. The Hiihtäjänkuja apartments (5A2, 5B2, 5B5), all Glacier apartments, Karhunvartija 3 and Bear Lodge accept pets. The Skistar studios, Superior suites, Platinum A2 and Moonlight 415 do not allow pets.",
     a: (
       <>
         Some apartments allow pets and some don't. The Hiihtäjänkuja apartments ({linkProperty("5A2", "5a2")}, {linkProperty("5B2", "5b2")}, {linkProperty("5B5", "5b5")}), all Glacier apartments, {linkProperty("Karhunvartija 3", "karhunvartija3")}, and {linkProperty("Bear Lodge", "karhupirtti")} accept pets. The Skistar studios, Superior suites, {linkProperty("Platinum A2", "platinum-a2")}, and {linkProperty("Moonlight 415", "moonlight-415")} do not allow pets.
@@ -101,6 +115,7 @@ const faqs = [
   },
   {
     q: "Can I book multiple apartments for a large group?",
+    schemaText: "Yes. The Glacier building has apartments from 67 to 105 m². Book several next to each other for larger groups. For the biggest groups, Bear Lodge sleeps 14 under one roof. Contact us directly for group arrangements.",
     a: (
       <>
         Yes. The Glacier building has apartments from 67 to 105 m². Book several next to each other for groups of 15–40+. The building has a shared children's game room. For the biggest groups, {linkProperty("Bear Lodge", "karhupirtti")} sleeps 14 under one roof. Contact us directly for group arrangements.
@@ -109,6 +124,7 @@ const faqs = [
   },
   {
     q: "Is final cleaning included?",
+    schemaText: "Final cleaning is an optional add-on that you can book during reservation. Check property-specific terms in your booking confirmation. Firewood is included at Karhunvartija 3, Bear Lodge and the Hiihtäjänkuja apartments.",
     a: (
       <>
         Final cleaning is an optional add-on – you can book it during reservation. Check property-specific terms in your booking confirmation. At {linkProperty("Karhunvartija 3", "karhunvartija3")}, {linkProperty("Bear Lodge", "karhupirtti")}, and the Hiihtäjänkuja apartments ({linkProperty("5A2", "5a2")}, {linkProperty("5B2", "5b2")}, {linkProperty("5B5", "5b5")}), firewood is included.
@@ -165,7 +181,7 @@ const ApartmentsHub = () => {
       acceptedAnswer: {
         "@type": "Answer",
         // For JSX answers, provide a plain-text version for schema
-        text: typeof f.a === "string" ? f.a : f.q,
+        text: typeof f.a === "string" ? f.a : f.schemaText ?? f.q,
       },
     })),
   };
@@ -173,8 +189,8 @@ const ApartmentsHub = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <SeoMeta
-        title="Apartments in Levi – Find Your Perfect Holiday Home | Leville.net"
-        description="Browse all apartment types in Levi ski resort: studios, family apartments, penthouses, and large group accommodation. Book directly for the best price."
+        title="Apartments in Levi, Finland – Ski Apartments in Levi Center | Leville.net"
+        description="Apartments in Levi center with private sauna, a short walk to the slopes. Studios to 5-bedroom apartments — book directly from the owner."
         canonicalUrl={`${BASE}/en/apartments`}
         lang="en"
       />
@@ -196,8 +212,9 @@ const ApartmentsHub = () => {
         {/* Hero / Intro */}
         <section className="container mx-auto px-4 pb-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-            Apartments in Levi – Find the Right Size for Your Group
+            Apartments in Levi, Finland
           </h1>
+          <p className="text-xl sm:text-2xl font-semibold text-muted-foreground mb-6">Find the right size for your group</p>
           <div className="max-w-3xl text-muted-foreground leading-relaxed space-y-4">
             <p>
               Choosing the right apartment in Levi depends on your group size. A couple on a ski weekend needs something very different from a family of six or a corporate team of twelve. We've organized all our apartments by group size so you can go straight to what fits.
@@ -207,6 +224,24 @@ const ApartmentsHub = () => {
             </p>
             <p>
               Book directly through us and you're dealing with the owner, not a booking platform.
+            </p>
+          </div>
+        </section>
+
+        {/* Where to stay */}
+        <section className="container mx-auto px-4 pb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Where to stay in Levi</h2>
+          <div className="max-w-3xl text-muted-foreground leading-relaxed space-y-4">
+            <p>
+              <strong className="text-foreground">Front slope.</strong> Levi Glacier Apartments and the Front Slope Chalets on Hiihtäjänkuja are under 200 m from the front slope – the easiest choice if you want to be on the snow first thing in the morning.
+            </p>
+            <p>
+              <strong className="text-foreground">Village center.</strong> The Skistar Apartments on Postintie are 750 m from the front slope, right among the restaurants, shops and village services. For a group that wants a whole log building, the Bearlodge Karhupirtti villa is 300 m from the front slope.
+            </p>
+            <p>
+              <Link to="/en/accommodations" className="text-primary hover:underline font-medium">See all accommodation in Levi</Link>
+              {" "}or browse our{" "}
+              <Link to="/en/log-cabins-levi" className="text-primary hover:underline">log cabins in Levi</Link>.
             </p>
           </div>
         </section>
