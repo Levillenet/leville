@@ -394,6 +394,12 @@ const NorthernLightsSeasonLevi = ({ lang = "fi" }: Props) => {
             </section>
             <InlineBookingLink variant="tip" intent="auroraStay" lang={lang} />
             <InlineBookingLink variant="tip" intent="stayCentre" lang={lang} />
+            {lang === "en" && (
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                For dark skies close to the village, see our{" "}
+                <Link to="/en/accommodations" className="text-primary hover:underline">accommodation in Levi</Link>.
+              </p>
+            )}
             {t.sections.map((section, idx) => (
               <section key={idx} className="mb-12">
                 <h2 className="text-2xl font-bold text-foreground mb-4">{section.title}</h2>
