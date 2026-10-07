@@ -106,7 +106,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
     const groups: { id: string; name: string; slugPrefix: (slug: string) => boolean; description: string; descriptionEn: string }[] = [
       { id: "zero-point", name: "Zero Point (Hiihtäjänkuja 5)", slugPrefix: (s) => s.startsWith("zero-point"), description: "Saunalliset 2 makuuhuoneen alppihuoneistot Levin ydinkeskustassa, kävelymatka rinteille ja keskustaan.", descriptionEn: "Two-bedroom alpine apartments with private sauna in the heart of Levi centre, walking distance to the slopes." },
       { id: "karhupirtti", name: "Karhupirtti (Skimbaajankuja 3)", slugPrefix: (s) => s === "karhupirtti", description: "Tilava hirsihuvila isoille ryhmille – oma sauna, takka ja paljulle varattu piha.", descriptionEn: "Spacious log villa for large groups — private sauna, fireplace and a yard prepared for a hot tub." },
-      { id: "skistar", name: "Skistar Levi Centre (Postintie 3)", slugPrefix: (s) => s.startsWith("skistar"), description: "Modernit huoneistot ja studiot Levin keskustassa – palvelut askelmatkan päässä, hisseille n. 700 m.", descriptionEn: "Modern apartments and studios in Levi centre — services next door, about 700 m to the ski lifts." },
+      { id: "skistar", name: "Skistar Levi Centre (Postintie 3)", slugPrefix: (s) => s.startsWith("skistar"), description: "Modernit huoneistot ja studiot Levin keskustassa – palvelut askelmatkan päässä, eturinteeseen 750 m.", descriptionEn: "Modern apartments and studios in Levi centre — services next door, 750 m to the front slope." },
       { id: "karhunvartija", name: "Karhunvartija 3 (Skimbaajankuja 4)", slugPrefix: (s) => s === "karhunvartija-3", description: "Tilava perhehuoneisto Levin keskustassa, oma sauna ja takka.", descriptionEn: "Spacious family apartment in Levi centre with private sauna and fireplace." },
       { id: "levi-platinum", name: "Levi Platinum A2 (Hiihtäjänkuja 2)", slugPrefix: (s) => s === "levi-platinum-a2", description: "Edustava studio Levin keskustassa – kävelymatka rinteille, ravintoloihin ja palveluihin.", descriptionEn: "Stylish studio in Levi centre — walking distance to the slopes, restaurants and services." },
       { id: "moonlight", name: "Moonlight 415 (Leviraitti)", slugPrefix: (s) => s === "moonlight-415", description: "Tunnelmallinen studio Levin sydämessä – nopea pääsy rinteille ja Levin palveluihin.", descriptionEn: "Cosy studio in the heart of Levi — quick access to the slopes and all Levi services." },
@@ -803,43 +803,53 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
             <ScrollReveal delay={0.2}>
               <section className="mb-16 md:mb-20 max-w-3xl mx-auto">
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
-                  {isEnglish ? "How to choose your accommodation in Levi" : "Miten valita majoitus Levillä"}
+                  {isEnglish ? "How to Choose Accommodation in Levi" : "Miten valita majoitus Levillä"}
                 </h2>
                 {isEnglish ? (
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
                     <p>
-                      <strong className="text-foreground">Location.</strong> All our properties are
-                      within walking distance of Levi centre. The front-slope alpine apartments
-                      (Zero Point and Glacier) are about 150–200 metres from the nearest lift, while
-                      the Skistar building on Postintie sits among the shops and restaurants, about
-                      700 metres from the slopes. Both work without a car.
+                      <strong className="text-foreground">Location.</strong> Levi Glacier Apartments
+                      and the Front Slope Chalets are under 200 m from the front slope, the
+                      Karhupirtti log villa is 300 m away, and the Skistar apartments on Postintie
+                      are 750 m away, in the middle of the village services. Everything works
+                      without a car.
                     </p>
                     <p>
-                      <strong className="text-foreground">Group size.</strong> Studios suit two or
-                      three guests, one- and two-bedroom apartments suit families, and larger groups
-                      have 3–5 bedroom apartments as well as Bear Lodge, a log villa for 14. If you
-                      are specifically after a log building, see{" "}
-                      <Link to="/en/guides/cabins-in-levi" className="text-primary hover:underline">
-                        cabin rental in Levi
-                      </Link>
+                      <strong className="text-foreground">Group size.</strong> Studios suit 2–3
+                      guests, one- and two-bedroom apartments suit families, and larger groups can
+                      choose 3–5 bedroom apartments or our 14-guest{" "}
+                      <Link to="/en/accommodations/karhupirtti" className="text-primary hover:underline">
+                        log villa
+                      </Link>{" "}
+                      Karhupirtti with a private outdoor hot tub. Browse all{" "}
+                      <Link to="/en/apartments" className="text-primary hover:underline">
+                        apartments in Levi
+                      </Link>{" "}
+                      by group size.
+                    </p>
+                    <p>
+                      <strong className="text-foreground">Timing and price.</strong> Christmas, ski
+                      holiday weeks (late February to early March) and Easter are the most popular
+                      and priciest times. Early winter and spring are quieter and better value, and
+                      longer stays cost less per night.{" "}
+                      <a
+                        href="https://app.moder.fi/levillenet?lang=en"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline"
+                      >
+                        See availability and book direct
+                      </a>
                       .
-                    </p>
-                    <p>
-                      <strong className="text-foreground">Timing and price.</strong> Rates depend on
-                      the season and the length of your stay: Christmas, Finnish ski holiday weeks
-                      and Easter are the busiest and priciest, while early winter and spring are
-                      quieter and cheaper. A longer stay always costs less per night. The current
-                      price is shown in the booking calendar once you pick your dates.
                     </p>
                   </div>
                 ) : (
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
                     <p>
-                      <strong className="text-foreground">Sijainti.</strong> Kaikki kohteemme ovat
-                      kävelymatkan päässä Levin keskustasta. Eturinteen alppihuoneistot (Zero Point
-                      ja Glacier) ovat noin 150–200 metriä lähimmältä hissiltä, Skistar-talon
-                      huoneistot Postintiellä ovat keskellä palveluita ja noin 700 metriä rinteille.
-                      Kumpikin toimii ilman autoa.
+                      <strong className="text-foreground">Sijainti.</strong> Levi Glacier -huoneistot ja
+                      eturinteen chaletit ovat alle 200 metrin päässä eturinteestä, Karhupirtti 300
+                      metrin ja Skistar-huoneistot 750 metrin päässä keskellä kylän palveluita.
+                      Kaikki toimii ilman autoa.
                     </p>
                     <p>
                       <strong className="text-foreground">Seurueen koko.</strong> Studiot sopivat
