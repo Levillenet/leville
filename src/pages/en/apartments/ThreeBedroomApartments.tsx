@@ -86,6 +86,7 @@ const ThreeBedroomApartments = () => {
       <Header />
       <main id="main-content">
         <Breadcrumbs lang="en" items={breadcrumbItems} />
+        <div className="container mx-auto px-4 pb-2"><Link to="/en/apartments" className="text-sm text-primary hover:underline">← All apartments in Levi</Link></div>
 
         <section className="container mx-auto px-4 pb-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 leading-tight">3-Bedroom Apartments in Levi</h1>
