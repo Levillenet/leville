@@ -106,7 +106,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
     const groups: { id: string; name: string; slugPrefix: (slug: string) => boolean; description: string; descriptionEn: string }[] = [
       { id: "zero-point", name: "Zero Point (Hiihtäjänkuja 5)", slugPrefix: (s) => s.startsWith("zero-point"), description: "Saunalliset 2 makuuhuoneen alppihuoneistot Levin ydinkeskustassa, kävelymatka rinteille ja keskustaan.", descriptionEn: "Two-bedroom alpine apartments with private sauna in the heart of Levi centre, walking distance to the slopes." },
       { id: "karhupirtti", name: "Karhupirtti (Skimbaajankuja 3)", slugPrefix: (s) => s === "karhupirtti", description: "Tilava hirsihuvila isoille ryhmille – oma sauna, takka ja paljulle varattu piha.", descriptionEn: "Spacious log villa for large groups — private sauna, fireplace and a yard prepared for a hot tub." },
-      { id: "skistar", name: "Skistar Levi Centre (Postintie 3)", slugPrefix: (s) => s.startsWith("skistar"), description: "Modernit huoneistot ja studiot Levin keskustassa – palvelut askelmatkan päässä, hisseille n. 700 m.", descriptionEn: "Modern apartments and studios in Levi centre — services next door, 750 m to the front slope." },
+      { id: "skistar", name: "Skistar Levi Centre (Postintie 3)", slugPrefix: (s) => s.startsWith("skistar"), description: "Modernit huoneistot ja studiot Levin keskustassa – palvelut askelmatkan päässä, hisseille n. 750 m.", descriptionEn: "Modern apartments and studios in Levi centre — services next door, 750 m to the front slope." },
       { id: "karhunvartija", name: "Karhunvartija 3 (Skimbaajankuja 4)", slugPrefix: (s) => s === "karhunvartija-3", description: "Tilava perhehuoneisto Levin keskustassa, oma sauna ja takka.", descriptionEn: "Spacious family apartment in Levi centre with private sauna and fireplace." },
       { id: "levi-platinum", name: "Levi Platinum A2 (Hiihtäjänkuja 2)", slugPrefix: (s) => s === "levi-platinum-a2", description: "Edustava studio Levin keskustassa – kävelymatka rinteille, ravintoloihin ja palveluihin.", descriptionEn: "Stylish studio in Levi centre — walking distance to the slopes, restaurants and services." },
       { id: "moonlight", name: "Moonlight 415 (Leviraitti)", slugPrefix: (s) => s === "moonlight-415", description: "Tunnelmallinen studio Levin sydämessä – nopea pääsy rinteille ja Levin palveluihin.", descriptionEn: "Cosy studio in the heart of Levi — quick access to the slopes and all Levi services." },
@@ -722,7 +722,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                       Skistar-talon huoneistot Postintiellä
                     </Link>{" "}
                     ovat aivan keskustan palveluiden vieressä, K-Market on ovelta muutaman askeleen päässä ja
-                    hisseille on noin 700 metriä.{" "}
+                    hisseille on noin 750 metriä.{" "}
                     <Link to="/vuokramokit/glacier-apartments-levi" className="text-primary hover:underline">
                       Glacier Apartments
                     </Link>{" "}
