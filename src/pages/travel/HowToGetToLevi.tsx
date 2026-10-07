@@ -633,6 +633,13 @@ const HowToGetToLevi = ({ lang = "fi" }: HowToGetToLeviProps) => {
           {/* Introduction */}
           <p className="text-lg text-foreground/90 mb-10 leading-relaxed">
             {t.intro}
+            {lang === "en" && (
+              <>
+                {" "}Once you've arrived, all our{" "}
+                <Link to="/en/accommodations" className="text-primary hover:underline">accommodation in Levi</Link>{" "}
+                is within walking distance of the village center.
+              </>
+            )}
           </p>
 
           {/* Flying Section */}

@@ -7,5 +7,5 @@
 - [x] Tarkista molemmat sivut ja kuvien lataus.
 
 ## EN accommodation optimization (Oct 2026)
-- [ ] Phase 1 validate /en/accommodations, /en/apartments, EN guide links — present texts
-- [ ] Phase 2 implement after approval (A–E)
+- [x] Phase 1 validate /en/accommodations, /en/apartments, EN guide links — present texts
+- [x] Phase 2 implement after approval (A–E)
