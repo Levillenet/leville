@@ -100,7 +100,6 @@ const readNext: ReadNextLink[] = [
 
 const LomaLapissa = () => {
   const breadcrumbItems = [
-    { label: "Etusivu", href: "/" },
     { label: "Levi", href: "/levi" },
     { label: "Loma Lapissa", href: "" },
   ];
