@@ -51,6 +51,7 @@ const content: Record<Language, {
     bookCta: "Varaa Levin lomasi tästä!",
     accommodationsLink: "/majoitukset",
     guides: [
+      { id: "loma-lapissa", title: "Loma Lapissa", description: "Mihin Lapissa kannattaa lähteä ja milloin? Kohteet ja sesongit yhdellä sivulla.", href: "/opas/loma-lapissa", iconKey: "mapPin" },
       { id: "yllas-ruka", title: "Levi vs Ylläs vs Ruka", description: "Suomen kolmen suurimman hiihtokeskuksen rinteet, hissit, ladut ja palvelut vertailussa.", href: "/opas/levi-vs-yllas-vs-ruka", iconKey: "mountain" },
       { id: "rovaniemi", title: "Levi vs Rovaniemi", description: "Kumpi sopii sinulle paremmin lomakohteeksi? Rinteet, sijainti, palvelut ja tunnelma.", href: "/opas/levi-vs-rovaniemi", iconKey: "mapPin" },
       { id: "saariselka", title: "Levi vs Saariselkä", description: "Vilkkaampi tunturikylä vai rauhaisaa hiljaista oleilua? Vertailemme molempia.", href: "/opas/levi-vs-saariselka", iconKey: "mapPin" },
