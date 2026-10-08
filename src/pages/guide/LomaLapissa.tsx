@@ -153,9 +153,9 @@ const LomaLapissa = () => {
                 <Smile className="w-6 h-6 text-primary shrink-0 mt-0.5" />
                 <p className="text-muted-foreground">
                   <strong className="text-foreground">Rehellisyyden nimissä:</strong> olemme leviläinen toimija, joten
-                  saatamme olla tässä vertailussa <em>hieman puolueellisia</em>. Vedämme kotiin päin, mutta yritämme
-                  silti olla reiluja. Jos haet erämaan hiljaisuutta tai Joulupukin Pajakylää, kerromme suoraan, mihin
-                  kannattaa suunnata.
+                  saatamme olla tässä vertailussa <em>hieman puolueellisia</em> <span aria-hidden="true">😉</span>.
+                  Vedämme kotiin päin, mutta yritämme silti olla reiluja. Jos haet erämaan hiljaisuutta tai Joulupukin
+                  Pajakylää, kerromme suoraan, mihin kannattaa suunnata.
                 </p>
               </CardContent>
             </Card>
