@@ -57,6 +57,7 @@ const TopWinterActivities = lazy(() => import("./pages/activities/TopWinterActiv
 const SkiingInLevi = lazy(() => import("./pages/guide/SkiingInLevi"));
 const WorldCupLevi = lazy(() => import("./pages/guide/WorldCupLevi"));
 const KaamosLevi = lazy(() => import("./pages/guide/KaamosLevi"));
+const LomaLapissa = lazy(() => import("./pages/guide/LomaLapissa"));
 const LeviIn3Days = lazy(() => import("./pages/guide/LeviIn3Days"));
 const CrossCountrySkiingInLevi = lazy(() => import("./pages/guide/CrossCountrySkiingInLevi"));
 const WinterInLevi = lazy(() => import("./pages/guide/WinterInLevi"));
@@ -423,6 +424,7 @@ const App = () => {
               <Route path="/opas/laskettelu-levi" element={<SkiingInLevi />} />
               <Route path="/opas/world-cup-levi" element={<WorldCupLevi />} />
               <Route path="/opas/kaamos-levi" element={<KaamosLevi />} />
+              <Route path="/opas/loma-lapissa" element={<LomaLapissa />} />
               <Route path="/opas/levi-3-paivassa" element={<LeviIn3Days />} />
               <Route path="/opas/hiihtoladut-levi" element={<CrossCountrySkiingInLevi />} />
               <Route path="/opas/talvi-levi" element={<WinterInLevi />} />

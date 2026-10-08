@@ -69,6 +69,7 @@ const basePages: SearchPage[] = [
   { title: "Levi ilman autoa", description: "Miten pärjää Levillä ilman autoa", path: "/opas/levi-ilman-autoa", lang: "fi", category: "travel" },
   { title: "Lämmitysjärjestelmät", description: "Ilmalämpöpumput ja lämmitys Levillä", path: "/opas/lammitysjarjestelmat-levi", lang: "fi", category: "guide" },
   { title: "Levi vs Ylläs vs Ruka", description: "Vertailu: Levi, Ylläs vai Ruka?", path: "/opas/levi-vs-yllas-vs-ruka", lang: "fi", category: "comparison" },
+  { title: "Loma Lapissa", description: "Kohteen valinta, sesongit ja vinkit Lapin lomalle", path: "/opas/loma-lapissa", lang: "fi", category: "guide", keywords: ["lappi", "lapin loma", "loma lapissa", "ylläs", "saariselkä", "rovaniemi"] },
   { title: "Levi vs Rovaniemi", description: "Vertailu: Levi vai Rovaniemi?", path: "/opas/levi-vs-rovaniemi", lang: "fi", category: "comparison" },
   { title: "Sauna Levillä", description: "Saunaopas ja saunakulttuuri", path: "/opas/sauna-levilla", lang: "fi", category: "guide", keywords: ["sauna", "savusauna", "palju", "kylpytynnyri", "avantouinti", "saunakulttuuri", "hot tub"] },
   { title: "Levi UKK", description: "Usein kysytyt kysymykset Levistä — 60+ vastausta", path: "/levi/ukk", lang: "fi", category: "guide", keywords: ["ukk", "faq", "kysymys", "vastaus", "kysy", "info"] },
