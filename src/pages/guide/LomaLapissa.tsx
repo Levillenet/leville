@@ -92,7 +92,7 @@ const faq = [
 ];
 
 const readNext: ReadNextLink[] = [
-  { title: "Vertailut", desc: "Levi muihin kohteisiin verrattuna", href: "/opas/vertailut" },
+  { title: "Vertailut", desc: "Levi muihin kohteisiin verrattuna", href: "/opas/miksi-valita-levi" },
   { title: "Paras aika matkustaa Leville", desc: "Kuukausi kuukaudelta", href: "/opas/paras-aika-matkustaa-leville" },
   { title: "Miten pääsee Leville", desc: "Lento, juna ja auto", href: "/matka/miten-paasee-leville-helsingista" },
   { title: "Majoitus Levillä", desc: "Huoneistot suoraan omistajalta", href: "/majoitukset" },
@@ -184,7 +184,7 @@ const LomaLapissa = () => {
               </div>
               <p className="text-muted-foreground mt-4">
                 Kaikki vertailut löydät{" "}
-                <Link to="/opas/vertailut" className="text-primary underline underline-offset-4">vertailusivulta</Link>.
+                <Link to="/opas/miksi-valita-levi" className="text-primary underline underline-offset-4">vertailusivulta</Link>.
               </p>
             </section>
 
