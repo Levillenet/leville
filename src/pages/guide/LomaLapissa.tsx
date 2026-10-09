@@ -170,7 +170,7 @@ const content = {
       "You can reach Levi by flying to Kittilä, by night train to Kolari or Rovaniemi, or by car. Kittilä Airport is about 15 km from the village.",
     travelLink: "How to get to Levi",
     faqH: "Frequently asked questions",
-    chooseH: "Chose Levi?",
+    chooseH: "Decided on Levi?",
     chooseP:
       "Our apartments are in Levi centre, close to the slopes. You book directly from the owner with no booking fees.",
     ctaStay: "See accommodation",
