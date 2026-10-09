@@ -148,16 +148,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://leville.net/joulu</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://leville.net/xmas</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://leville.net/levi/saatieto-levilta</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -2073,23 +2063,11 @@
     <loc>https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
   </url>
   <url>
     <loc>https://leville.net/guide/levi-vs-rovaniemi-comparison</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
   </url>
   <url>
     <loc>https://leville.net/guide/levi-vs-saariselka-comparison</loc>
@@ -2108,94 +2086,6 @@
     <loc>https://leville.net/guide/prices-in-levi</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://leville.net/nl/gids/levi-vs-yllas-vs-ruka</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
-  </url>
-  <url>
-    <loc>https://leville.net/nl/gids/levi-vs-rovaniemi</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
-  </url>
-  <url>
-    <loc>https://leville.net/de/guide/levi-vs-yllas-vs-ruka</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
-  </url>
-  <url>
-    <loc>https://leville.net/de/guide/levi-vs-rovaniemi</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
-  </url>
-  <url>
-    <loc>https://leville.net/fr/guide/levi-vs-yllas-vs-ruka</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
-  </url>
-  <url>
-    <loc>https://leville.net/fr/guide/levi-vs-rovaniemi</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
-  </url>
-  <url>
-    <loc>https://leville.net/es/guia/levi-vs-yllas-vs-ruka</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-yllas-vs-ruka"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-yllas-vs-ruka-comparison"/>
-  </url>
-  <url>
-    <loc>https://leville.net/es/guia/levi-vs-rovaniemi</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://leville.net/nl/gids/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://leville.net/de/guide/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://leville.net/fr/guide/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://leville.net/es/guia/levi-vs-rovaniemi"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/guide/levi-vs-rovaniemi-comparison"/>
   </url>
   <url>
     <loc>https://leville.net/sv/guide/why-choose-levi</loc>
