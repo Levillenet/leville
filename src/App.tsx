@@ -5,7 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { supabase } from "@/integrations/supabase/client";
 import ScrollToTop from "./components/ScrollToTop";
 import PathNormalizer from "./components/PathNormalizer";
 
@@ -197,19 +196,46 @@ const App = () => {
   const [dynamicRoutes, setDynamicRoutes] = useState<SeoPageRoute[]>([]);
 
   useEffect(() => {
+    // Published SEO pages are only needed for dynamic routes, not for first paint.
+    // Plain fetch (no backend client) keeps the client chunk off the startup path;
+    // run when the browser is idle.
+    let cancelled = false;
     const fetchPublishedPages = async () => {
       try {
-        const { data, error } = await supabase.functions.invoke('manage-seo-pages', {
-          body: { action: 'get_published' }
+        const base = import.meta.env.VITE_SUPABASE_URL;
+        const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+        const res = await fetch(`${base}/functions/v1/manage-seo-pages`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            apikey: key,
+            Authorization: `Bearer ${key}`,
+          },
+          body: JSON.stringify({ action: "get_published" }),
         });
-        if (!error && data) {
-          setDynamicRoutes(data);
-        }
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled && Array.isArray(data)) setDynamicRoutes(data);
       } catch (e) {
         console.error('Failed to fetch SEO pages:', e);
       }
     };
-    fetchPublishedPages();
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let idleId: number | undefined;
+    let timeoutId: number | undefined;
+    if (w.requestIdleCallback) {
+      idleId = w.requestIdleCallback(fetchPublishedPages, { timeout: 1000 });
+    } else {
+      timeoutId = window.setTimeout(fetchPublishedPages, 500);
+    }
+    return () => {
+      cancelled = true;
+      if (idleId !== undefined) w.cancelIdleCallback?.(idleId);
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
