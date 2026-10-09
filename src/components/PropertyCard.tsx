@@ -44,6 +44,11 @@ const PropertyCard = ({
     : property.location;
   const displayYear = lang === "fi" ? translateYearFi(property.yearBuiltOrRenovated) : property.yearBuiltOrRenovated;
   const L = LABELS[lang];
+  // Hero images have pre-generated -480w / -800w WebP variants in public/ (see AGENTS.md).
+  const heroSrcSet = (src: string) =>
+    src === property.heroImage && src.endsWith(".webp")
+      ? `${src.replace(/\.webp$/, "-480w.webp")} 480w, ${src.replace(/\.webp$/, "-800w.webp")} 800w, ${src} 1200w`
+      : undefined;
 
   const baseImages = property.images && property.images.length > 0
     ? property.images
@@ -102,6 +107,10 @@ const PropertyCard = ({
           >
             <OptimizedImage
               src={gallery[imgIdx]}
+              srcSet={heroSrcSet(gallery[imgIdx])}
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              width={800}
+              height={500}
               alt={`${displayName}${hasMultiple ? ` – ${imgIdx + 1}/${gallery.length}` : ""}`}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />

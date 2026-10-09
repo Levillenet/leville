@@ -202,7 +202,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
         <main className="pt-8 pb-20">
           <div className="container mx-auto px-4">
             {/* Hero Section */}
-            <ScrollReveal>
+            <div>
               <section className="text-center mb-6 md:mb-8 px-2">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 md:mb-6">
                   {t.title}
@@ -211,10 +211,10 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                   {t.subtitle}
                 </p>
               </section>
-            </ScrollReveal>
+            </div>
 
             {lang === "fi" && (
-              <ScrollReveal>
+              <div>
                 <section className="max-w-3xl mx-auto mb-10 md:mb-12 px-2 text-center">
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     Etsitkö <strong className="text-foreground">majoitusta Levillä</strong>? Tarjoamme{" "}
@@ -248,11 +248,11 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     .
                   </p>
                 </section>
-              </ScrollReveal>
+              </div>
             )}
 
             {lang === "en" && (
-              <ScrollReveal>
+              <div>
                 <section className="max-w-3xl mx-auto mb-10 md:mb-12 px-2 text-center">
                   <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     Looking for <strong className="text-foreground">accommodation in Levi</strong>?
@@ -281,7 +281,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     .
                   </p>
                 </section>
-              </ScrollReveal>
+              </div>
             )}
 
 
