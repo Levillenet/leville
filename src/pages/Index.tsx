@@ -156,8 +156,6 @@ const Index = ({ lang = "fi" }: IndexProps) => {
           </Suspense>
         </main>
         <Footer lang={lang} />
-        <Suspense fallback={null}>
-        </Suspense>
         <ModerBookingWidget lang={lang} />
       </div>
     </>

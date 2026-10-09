@@ -69,8 +69,6 @@ const IndexEN = () => {
           </Suspense>
         </main>
         <Footer lang="en" />
-        <Suspense fallback={null}>
-        </Suspense>
         <ModerBookingWidget lang="en" />
 
       </div>
