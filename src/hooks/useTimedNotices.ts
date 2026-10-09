@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabase } from "@/lib/getSupabase";
 
 interface TimedNotice {
   id: string;
@@ -23,6 +23,7 @@ export const useTimedNotices = (pageId: string, lang: string = "fi") => {
   const { data: notices = [] } = useQuery({
     queryKey: ["timed-notices", pageId],
     queryFn: async () => {
+      const supabase = await getSupabase();
       const { data, error } = await supabase
         .from("timed_notices" as any)
         .select("*")
