@@ -74,7 +74,6 @@ Deno.serve(async (req) => {
     return [
       "  <url>",
       `    <loc>${esc(BASE_URL + r.path)}</loc>`,
-      `    <lastmod>${lastmod}</lastmod>`,
       `    <changefreq>${r.changefreq}</changefreq>`,
       `    <priority>${r.priority.toFixed(1)}</priority>`,
       altLines,
