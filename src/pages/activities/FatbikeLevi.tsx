@@ -17,7 +17,6 @@ import { Language } from "@/translations";
 import OptimizedImage from "@/components/OptimizedImage";
 import fatbikeSnow from "@/assets/seasons/fatbike-snow.jpg";
 import fatbikeSummerLake from "@/assets/summer/fatbike-summer-lake.jpg";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Accordion,
@@ -217,7 +216,6 @@ const FatbikeLevi = ({ lang = "fi" }: FatbikeLeviProps) => {
         <PageCTA lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

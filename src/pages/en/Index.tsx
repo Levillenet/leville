@@ -12,7 +12,6 @@ import { getWebsiteSchema, getLodgingBusinessSchema } from "@/utils/structuredDa
 const About = lazy(() => import("@/components/About"));
 const Features = lazy(() => import("@/components/Features"));
 const NewsHighlight = lazy(() => import("@/components/NewsHighlight"));
-const WhatsAppChat = lazy(() => import("@/components/WhatsAppChat"));
 const GuideLinksSection = lazy(() => import("@/components/GuideLinksSection"));
 const ActivitiesLinksSection = lazy(() => import("@/components/ActivitiesLinksSection"));
 const PromoBanner = lazy(() => import("@/components/PromoBanner"));
@@ -70,9 +69,6 @@ const IndexEN = () => {
           </Suspense>
         </main>
         <Footer lang="en" />
-        <Suspense fallback={null}>
-          <WhatsAppChat lang="en" />
-        </Suspense>
         <ModerBookingWidget lang="en" />
 
       </div>

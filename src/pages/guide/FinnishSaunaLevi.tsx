@@ -32,7 +32,6 @@ import {
   Timer,
   ShowerHead,
 } from "lucide-react";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Accordion,
@@ -487,7 +486,6 @@ const FinnishSaunaLevi = () => {
       <PageCTA lang="en" />
 
       <Footer lang="en" />
-      <WhatsAppChat lang="en" />
       <StickyBookingBar lang="en" />
     </div>
   );

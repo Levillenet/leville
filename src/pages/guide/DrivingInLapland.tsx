@@ -13,7 +13,6 @@ import {
   getBreadcrumbSchema,
   getFAQSchema,
 } from "@/utils/structuredData";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
@@ -579,7 +578,6 @@ const DrivingInLapland = ({ lang = "fi" }: Props) => {
 
       <PageCTA lang={lang} />
       <Footer lang={lang} />
-      <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </div>
   );

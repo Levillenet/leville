@@ -6,7 +6,6 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import PropertyCard from "@/components/PropertyCard";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import PageCTA from "@/components/PageCTA";
 import { ArrowRight, MapPin } from "lucide-react";
@@ -285,7 +284,6 @@ const LevinKeskustahuoneistot = () => {
       </main>
       <PageCTA lang="fi" />
       <Footer lang="fi" />
-      <WhatsAppChat lang="fi" />
       <StickyBookingBar lang="fi" />
     </div>
   );

@@ -20,7 +20,6 @@ import { Calendar, Clock, ExternalLink, ArrowRight, MessageCircle, Sparkles, Tic
 
 import { Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { supabase } from "@/integrations/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -1529,7 +1528,6 @@ const Akkilahdot = ({ lang = "fi" }: AkkilahdotProps) => {
 
         <PageCTA lang={lang} />
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

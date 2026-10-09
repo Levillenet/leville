@@ -7,7 +7,6 @@ import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
 import PageCTA from "@/components/PageCTA";
 import StickyBookingBar from "@/components/StickyBookingBar";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import {
   Clock, Phone, Mail, Wifi, Droplets, Car, ShieldCheck,
   WashingMachine, Thermometer, Download, ArrowRight, Home, Users,
@@ -501,7 +500,6 @@ const FrontslopeGuide = () => {
 
       <PageCTA lang="en" />
       <Footer lang="en" />
-      <WhatsAppChat lang="en" />
       <StickyBookingBar lang="en" />
     </div>
   );

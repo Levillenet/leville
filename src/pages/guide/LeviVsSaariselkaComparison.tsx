@@ -18,7 +18,6 @@ import {
   Mountain, ArrowRight, Check, Heart, Lightbulb, MapPin,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 
@@ -473,7 +472,6 @@ const LeviVsSaariselkaComparison = ({ lang = "en" }: LeviVsSaariselkaComparisonP
         <PageCTA lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

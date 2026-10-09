@@ -12,7 +12,6 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Snowflake, Sun, CloudRain, Thermometer, ArrowRight, Star, TreeDeciduous, Cloud, Mountain, Calendar } from "lucide-react";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import MajoitusCallout from "@/components/MajoitusCallout";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ReadNextSection from "@/components/guide/ReadNextSection";
@@ -761,7 +760,6 @@ const WeatherInLevi = ({ lang = "fi" }: WeatherInLeviProps) => {
         <PageCTA lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

@@ -15,7 +15,6 @@ const HomeFaq = lazy(() => import("@/components/HomeFaq"));
 // GuideTeaser replaced by GuideLinksSection + ActivitiesLinksSection for all languages
 const GuideLinksSection = lazy(() => import("@/components/GuideLinksSection"));
 const ActivitiesLinksSection = lazy(() => import("@/components/ActivitiesLinksSection"));
-const WhatsAppChat = lazy(() => import("@/components/WhatsAppChat"));
 import HreflangTags from "@/components/HreflangTags";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
 import MajoitusCallout from "@/components/MajoitusCallout";
@@ -157,9 +156,6 @@ const Index = ({ lang = "fi" }: IndexProps) => {
           </Suspense>
         </main>
         <Footer lang={lang} />
-        <Suspense fallback={null}>
-          <WhatsAppChat lang={lang} />
-        </Suspense>
         <ModerBookingWidget lang={lang} />
       </div>
     </>

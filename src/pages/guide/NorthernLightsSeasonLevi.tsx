@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import InlineBookingLink from "@/components/InlineBookingLink";
 import {
@@ -435,7 +434,6 @@ const NorthernLightsSeasonLevi = ({ lang = "fi" }: Props) => {
 
         <PageCTA lang={lang} />
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

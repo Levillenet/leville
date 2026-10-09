@@ -6,7 +6,6 @@ import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import PageCTA from "@/components/PageCTA";
 import { Card } from "@/components/ui/card";
@@ -279,7 +278,6 @@ const VuokraMokitLevi = ({ lang = "fi" }: Props) => {
 
       <PageCTA lang={lang} />
       <Footer lang={lang} />
-      <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </div>
   );

@@ -7,7 +7,6 @@ import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
 import PageCTA from "@/components/PageCTA";
 import StickyBookingBar from "@/components/StickyBookingBar";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import {
@@ -738,7 +737,6 @@ const VappuLevilla = () => {
       <PageCTA lang={lang} />
       <Footer lang={lang} />
       <StickyBookingBar lang={lang} />
-      <WhatsAppChat lang={lang} />
     </>
   );
 };

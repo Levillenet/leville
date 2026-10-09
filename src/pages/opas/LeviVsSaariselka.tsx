@@ -17,7 +17,6 @@ import {
 import {
   Mountain, ArrowRight, Check, Plane, Heart, MapPin, Snowflake, BookOpen,
 } from "lucide-react";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 
 const LeviVsSaariselka = () => {
@@ -442,7 +441,6 @@ const LeviVsSaariselka = () => {
         <PageCTA lang="fi" />
 
         <Footer lang="fi" />
-        <WhatsAppChat lang="fi" />
         <StickyBookingBar lang="fi" />
       </div>
     </>

@@ -28,7 +28,6 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import ReadNextSection from "@/components/guide/ReadNextSection";
@@ -1236,7 +1235,6 @@ const JouluLapissa = ({ lang = "fi" }: JouluLapissakProps) => {
         <PageCTA lang={lang} />
         
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

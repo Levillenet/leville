@@ -7,7 +7,6 @@ import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
 import PageCTA from "@/components/PageCTA";
 import StickyBookingBar from "@/components/StickyBookingBar";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import {
   Clock, Phone, Mail, Wifi, Droplets, Car, ShieldCheck,
   WashingMachine, Thermometer, Download, ArrowRight, Home, Users,
@@ -692,7 +691,6 @@ const SkistarGuide = ({ lang = "en" }: SkistarGuideProps) => {
 
       <PageCTA lang={lang} />
       <Footer lang={lang} />
-      <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </div>
   );

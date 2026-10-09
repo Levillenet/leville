@@ -14,7 +14,6 @@ import { ArrowRight, Sun, Snowflake, Mountain, ThermometerSun, Star, Clock, Euro
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Accordion,
@@ -235,7 +234,6 @@ const SpringSkiingLevi = ({ lang = "fi" }: SpringSkiingLeviProps) => {
         <PageCTA lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

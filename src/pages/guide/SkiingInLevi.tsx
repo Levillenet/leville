@@ -19,7 +19,6 @@ import springSlopesWind from "@/assets/seasons/spring-slopes-wind.jpg";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { skiingInLeviTranslations } from "./skiingInLeviTranslations";
 import MajoitusCallout from "@/components/MajoitusCallout";
@@ -558,7 +557,6 @@ const SkiingInLevi = ({ lang = "fi" }: SkiingInLeviProps) => {
 <MajoitusCallout lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

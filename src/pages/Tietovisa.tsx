@@ -12,7 +12,6 @@ import QuizStart from "@/components/quiz/QuizStart";
 import QuizQuestion from "@/components/quiz/QuizQuestion";
 import QuizResult from "@/components/quiz/QuizResult";
 import { quizQuestions } from "@/data/quizQuestions";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Language } from "@/translations";
 import { AnimatePresence } from "framer-motion";
@@ -192,7 +191,6 @@ const Tietovisa = ({ lang = "fi" }: TietovisaProps) => {
           </div>
         </main>
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

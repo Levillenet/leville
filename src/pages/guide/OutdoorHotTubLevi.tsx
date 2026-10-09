@@ -9,7 +9,6 @@ import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import { getArticleSchema, getBreadcrumbSchema } from "@/utils/structuredData";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Thermometer, ShieldCheck, ShowerHead, Clock, Droplets, Info } from "lucide-react";
 
@@ -244,7 +243,6 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
 
       <PageCTA lang={lang} />
       <Footer lang={lang} />
-      <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </>
   );

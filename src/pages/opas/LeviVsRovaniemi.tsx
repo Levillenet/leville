@@ -18,7 +18,6 @@ import {
   Mountain, ArrowRight, Check, Plane, Heart, Lightbulb, MapPin,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 
 
@@ -545,7 +544,6 @@ const LeviVsRovaniemi = () => {
         <PageCTA lang="fi" />
 
         <Footer lang="fi" />
-        <WhatsAppChat lang="fi" />
         <StickyBookingBar lang="fi" />
       </div>
     </>

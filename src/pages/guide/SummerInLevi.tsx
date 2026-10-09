@@ -23,7 +23,6 @@ import storedSnow from "@/assets/summer/stored-snow.jpg";
 import hikingTrailSummer from "@/assets/summer/hiking-trail-summer.jpg";
 import palovartijaSummer from "@/assets/summer/palovartija-summer.jpg";
 import adventureParkRopes from "@/assets/summer/adventure-park-ropes.jpg";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import MajoitusCallout from "@/components/MajoitusCallout";
 import InlineBookingLink from "@/components/InlineBookingLink";
@@ -720,7 +719,6 @@ const SummerInLevi = ({ lang = "fi" }: SummerInLeviProps) => {
 <MajoitusCallout lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

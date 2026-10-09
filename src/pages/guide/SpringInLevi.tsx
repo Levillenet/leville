@@ -23,7 +23,6 @@ import apresSkiTuikku from "@/assets/seasons/apres-ski-tuikku.jpg";
 import bistroWestSummit from "@/assets/seasons/bistro-west-summit.jpg";
 import fellSpringView from "@/assets/seasons/fell-spring-view.jpg";
 import kidsSkiingSpring from "@/assets/seasons/kids-skiing-spring.jpg";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import MajoitusCallout from "@/components/MajoitusCallout";
 import {
@@ -553,7 +552,6 @@ const SpringInLevi = ({ lang = "fi" }: SpringInLeviProps) => {
 <MajoitusCallout lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

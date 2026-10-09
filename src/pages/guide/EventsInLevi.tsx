@@ -15,7 +15,6 @@ import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import EventTimeline from "@/components/guide/EventTimeline";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import MajoitusCallout from "@/components/MajoitusCallout";
 import {
@@ -351,7 +350,6 @@ const EventsInLevi = ({ lang = "fi" }: EventsInLeviProps) => {
         </div>
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

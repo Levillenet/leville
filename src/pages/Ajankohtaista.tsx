@@ -12,7 +12,6 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Sparkles, Clock, Flame, ArrowRight } from "lucide-react";
 import { getTranslations, Language, routeConfig } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import PageCTA from "@/components/PageCTA";
 import { Link } from "react-router-dom";
@@ -134,7 +133,6 @@ const Ajankohtaista = ({ lang = "fi" }: AjankohtaistaProps) => {
         </main>
         <PageCTA lang={lang} />
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

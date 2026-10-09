@@ -15,7 +15,6 @@ import OptimizedImage from "@/components/OptimizedImage";
 import reindeerStewPots from "@/assets/seasons/reindeer-stew-pots.jpg";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import MajoitusCallout from "@/components/MajoitusCallout";
 import {
@@ -237,7 +236,6 @@ const ChristmasDinnerLeviFI = () => {
 <MajoitusCallout />
 
         <Footer lang="fi" />
-        <WhatsAppChat lang="fi" />
         <StickyBookingBar lang="fi" />
       </div>
     </>

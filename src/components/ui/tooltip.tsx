@@ -5,7 +5,13 @@ import { cn } from "@/lib/utils";
 
 const TooltipProvider = TooltipPrimitive.Provider;
 
-const Tooltip = TooltipPrimitive.Root;
+// Self-providing: the app root no longer mounts a global TooltipProvider (keeps Radix tooltip
+// out of the startup path). Nested providers are valid, so existing explicit providers still work.
+const Tooltip = (props: React.ComponentProps<typeof TooltipPrimitive.Root>) => (
+  <TooltipPrimitive.Provider>
+    <TooltipPrimitive.Root {...props} />
+  </TooltipPrimitive.Provider>
+);
 
 const TooltipTrigger = TooltipPrimitive.Trigger;
 

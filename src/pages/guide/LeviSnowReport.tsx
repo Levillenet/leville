@@ -11,7 +11,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Snowflake, Mountain, ExternalLink, MapPin, TrendingUp, Calendar } from "lucide-react";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import SnowDepthChart from "@/components/SnowDepthChart";
 
@@ -417,7 +416,6 @@ const LeviSnowReport = ({ lang = "fi" }: LeviSnowReportProps) => {
       </div>
 
       <Footer lang={lang} />
-      <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </div>
   );

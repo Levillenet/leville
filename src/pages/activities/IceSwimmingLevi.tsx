@@ -14,7 +14,6 @@ import { ArrowRight, Heart, Info, Star, Snowflake, Thermometer, MapPin, Calendar
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
@@ -176,7 +175,6 @@ const IceSwimmingLevi = ({ lang = "fi" }: Props) => {
         <PageCTA lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>
