@@ -8,7 +8,6 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Accordion,
@@ -631,7 +630,6 @@ const LeviFAQ = ({ lang = "fi" }: LeviFAQProps) => {
 
       <Footer lang={lang} />
       <StickyBookingBar lang={lang} />
-      <WhatsAppChat lang={lang} />
     </>
   );
 };

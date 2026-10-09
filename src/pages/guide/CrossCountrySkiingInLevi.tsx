@@ -18,7 +18,6 @@ import { Language } from "@/translations";
 import OptimizedImage from "@/components/OptimizedImage";
 import springCrossCountry from "@/assets/seasons/spring-cross-country.jpg";
 import crossCountrySunny from "@/assets/seasons/cross-country-sunny.jpg";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import TimedNotice from "@/components/TimedNotice";
 import InlineBookingLink from "@/components/InlineBookingLink";
@@ -309,7 +308,6 @@ const CrossCountrySkiingInLevi = ({ lang = "fi" }: CrossCountrySkiingProps) => {
         <PageCTA lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

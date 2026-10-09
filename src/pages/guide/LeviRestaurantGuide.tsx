@@ -11,7 +11,6 @@ import HreflangTags from "@/components/HreflangTags";
 import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema } from "@/utils/structuredData";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@/components/ui/table";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -760,7 +759,6 @@ const LeviRestaurantGuide = ({ lang = "fi" }: LeviRestaurantGuideProps) => {
         <MajoitusCallout lang={lang} />
       </div>
       <Footer lang={lang} />
-      <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
 
       {lightbox && (

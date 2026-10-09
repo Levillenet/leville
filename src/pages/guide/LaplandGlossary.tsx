@@ -10,7 +10,6 @@ import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Snowflake,
@@ -394,7 +393,6 @@ const LaplandGlossary = ({ lang = "fi" }: { lang?: Language }) => {
       <PageCTA lang={lang} />
 
       <Footer lang={lang} />
-      <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </div>
   );

@@ -14,7 +14,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getTranslations, Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import PageCTA from "@/components/PageCTA";
 
@@ -115,7 +114,6 @@ const UKK = ({ lang = "fi" }: UKKProps) => {
         </main>
         <PageCTA lang={lang} />
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

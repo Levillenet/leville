@@ -15,7 +15,6 @@ import ReadNextSection from "@/components/guide/ReadNextSection";
 import TimedNotice from "@/components/TimedNotice";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import MajoitusCallout from "@/components/MajoitusCallout";
 import {
@@ -397,7 +396,6 @@ const SkiHolidayLevi = ({ lang = "fi" }: SkiHolidayLeviProps) => {
 <MajoitusCallout lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

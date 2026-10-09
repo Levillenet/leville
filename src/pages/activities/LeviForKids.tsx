@@ -21,7 +21,6 @@ import childTykkyTree from "@/assets/seasons/child-tykky-tree.jpg";
 import kotaFire from "@/assets/seasons/kota-fire.jpg";
 import childSkiingTykky from "@/assets/seasons/child-skiing-tykky.jpg";
 import snowmanVillage from "@/assets/seasons/snowman-village.jpg";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Accordion,
@@ -440,7 +439,6 @@ const LeviForKids = ({ lang = "fi" }: LeviForKidsProps) => {
         <PageCTA lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

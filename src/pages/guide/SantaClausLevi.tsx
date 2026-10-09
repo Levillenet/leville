@@ -15,7 +15,6 @@ import { ArrowRight, Star, Gift, Mountain, Users, MapPin, Info, Camera, Heart, D
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import santaCabinImage from "@/assets/santa-cabin-fell.jpg";
 import santaCabinWinter from "@/assets/seasons/santa-cabin-winter.jpg";
@@ -796,7 +795,6 @@ const SantaClausLevi = ({ lang = "fi" }: SantaClausLeviProps) => {
         <PageCTA lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

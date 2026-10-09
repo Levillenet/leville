@@ -14,7 +14,6 @@ import { Sparkles, MapPin, Clock, Eye, Home, ExternalLink, Smartphone, Video } f
 import AuroraForecast from "@/components/AuroraForecast";
 import { AuroraAlertSubscribe } from "@/components/AuroraAlertSubscribe";
 import ScrollReveal from "@/components/ScrollReveal";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import OptimizedImage from "@/components/OptimizedImage";
@@ -634,7 +633,6 @@ const Revontulet = ({ lang = "fi" }: RevontuletProps) => {
 
         <PageCTA lang={lang} />
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

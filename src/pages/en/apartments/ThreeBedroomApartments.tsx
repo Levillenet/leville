@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageCTA from "@/components/PageCTA";
 import StickyBookingBar from "@/components/StickyBookingBar";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import SeoMeta from "@/components/SeoMeta";
 import JsonLd from "@/components/JsonLd";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -144,7 +143,6 @@ const ThreeBedroomApartments = () => {
         </section>
       </main>
       <Footer lang="en" />
-      <WhatsAppChat lang="en" />
       <StickyBookingBar lang="en" />
     </div>
   );

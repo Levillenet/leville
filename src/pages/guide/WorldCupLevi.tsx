@@ -14,7 +14,6 @@ import { ArrowRight, CalendarDays, Ticket, MapPin, Music, Info } from "lucide-re
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import MajoitusCallout from "@/components/MajoitusCallout";
 import {
@@ -524,7 +523,6 @@ const WorldCupLevi = ({ lang = "fi" }: WorldCupLeviProps) => {
         <PageCTA lang={lang} />
         <MajoitusCallout lang={lang} />
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

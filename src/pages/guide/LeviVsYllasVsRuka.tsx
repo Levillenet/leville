@@ -20,7 +20,6 @@ import {
   Mountain, ArrowRight, Check, Plane, Heart,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 
@@ -478,7 +477,6 @@ const LeviVsYllasVsRuka = () => {
         <PageCTA lang="fi" />
 
         <Footer lang="fi" />
-        <WhatsAppChat lang="fi" />
         <StickyBookingBar lang="fi" />
       </div>
     </>

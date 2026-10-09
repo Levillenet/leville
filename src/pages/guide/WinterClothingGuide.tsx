@@ -23,7 +23,6 @@ import {
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import {
   Accordion,
@@ -916,7 +915,6 @@ const WinterClothingGuide = ({ lang = "fi" }: WinterClothingGuideProps) => {
       <PageCTA lang={lang} />
 
       <Footer lang={lang} />
-      <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </div>
   );

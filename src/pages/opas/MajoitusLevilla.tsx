@@ -7,7 +7,6 @@ import JsonLd from "@/components/JsonLd";
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import PageCTA from "@/components/PageCTA";
 import { Button } from "@/components/ui/button";
@@ -396,7 +395,6 @@ const MajoitusLevilla = () => {
 
       <PageCTA lang="fi" />
       <Footer lang="fi" />
-      <WhatsAppChat lang="fi" />
       <StickyBookingBar lang="fi" />
     </div>
   );

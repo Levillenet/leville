@@ -8,7 +8,6 @@ import SubpageBackground from "@/components/SubpageBackground";
 import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ScrollReveal from "@/components/ScrollReveal";
 import { Card, CardContent } from "@/components/ui/card";
@@ -578,7 +577,6 @@ const LeviWithoutCar = ({ lang = "fi" }: LeviWithoutCarProps) => {
 <MajoitusCallout lang={lang} />
         
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

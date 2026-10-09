@@ -16,7 +16,6 @@ import { getTranslations, Language } from "@/translations";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
 import AnimatedCounter from "@/components/AnimatedCounter";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import ownerPhoto from "@/assets/sami-aavikko.jpg?w=800&format=webp&quality=80";
 import signatureImage from "@/assets/signature-sami-white.png?w=400&format=webp&quality=80";
@@ -453,7 +452,6 @@ const Yritys = ({ lang = "fi" }: YritysProps) => {
 
         <PageCTA lang={lang} />
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

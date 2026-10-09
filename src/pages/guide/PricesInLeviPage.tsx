@@ -9,7 +9,6 @@ import HreflangTags from "@/components/HreflangTags";
 import JsonLd from "@/components/JsonLd";
 import SeoMeta from "@/components/SeoMeta";
 import { getWebsiteSchema, getArticleSchema, getBreadcrumbSchema, getFAQSchema } from "@/utils/structuredData";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -501,7 +500,6 @@ const PricesInLeviPage = () => {
       <PageCTA lang="en" />
 
       <Footer lang="en" />
-      <WhatsAppChat lang="en" />
       <StickyBookingBar lang="en" />
     </div>
   );

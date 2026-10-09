@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Mountain, Plane, ArrowRight, Brain, Gift, Star, Snowflake, Flame, Video, Volume2, CloudSun, Sparkles, Scale } from "lucide-react";
 import { routeConfig } from "@/translations";
 import { getTranslations, Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import PageCTA from "@/components/PageCTA";
@@ -825,7 +824,6 @@ const Levi = ({ lang = "fi" }: LeviProps) => {
         <PageCTA lang={lang} />
 <MajoitusCallout lang={lang} />
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>

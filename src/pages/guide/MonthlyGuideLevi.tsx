@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import { Thermometer, Sun, Snowflake, Users, Calendar, ArrowRight, Mountain, Star } from "lucide-react";
 import ReadNextSection, { ReadNextLink } from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import type { Language } from "@/translations";
 import {
@@ -1479,7 +1478,6 @@ const MonthlyGuideLevi = ({ lang = "fi" }: MonthlyGuideLeviProps) => {
       <PageCTA lang={lang} />
 
       <Footer lang={lang} />
-      <WhatsAppChat lang={lang} />
       <StickyBookingBar lang={lang} />
     </div>
   );

@@ -14,7 +14,6 @@ import { ArrowRight, Snowflake, Smartphone, Baby, XCircle, Sun, CheckCircle } fr
 import ReadNextSection from "@/components/guide/ReadNextSection";
 import GuideDisclaimer from "@/components/guide/GuideDisclaimer";
 import { Language } from "@/translations";
-import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import MajoitusCallout from "@/components/MajoitusCallout";
 import {
@@ -338,7 +337,6 @@ const PackingListLapland = ({ lang = "fi" }: PackingListLaplandProps) => {
 <MajoitusCallout lang={lang} />
 
         <Footer lang={lang} />
-        <WhatsAppChat lang={lang} />
         <StickyBookingBar lang={lang} />
       </div>
     </>
