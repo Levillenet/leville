@@ -465,3 +465,15 @@ body > [id*="moder"]:not(#moder-embed),
 .moder-portal-layer {
   z-index: 2147483647 !important;
 }
+
+/* Respect reduced-motion: no aurora / snow / twinkle animation */
+@media (prefers-reduced-motion: reduce) {
+  .animate-aurora-curtain-1,
+  .animate-aurora-curtain-2,
+  .animate-aurora-curtain-3,
+  .animate-aurora-curtain-4,
+  .animate-aurora-curtain-5,
+  .animate-subpage-twinkle {
+    animation: none !important;
+  }
+}
