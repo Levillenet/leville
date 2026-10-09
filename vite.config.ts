@@ -28,6 +28,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    // Needed by scripts/generate-route-preloads.mjs (removed from dist afterwards).
+    manifest: true,
     rollupOptions: {
       output: {
         assetFileNames: 'assets/[hash][extname]',
