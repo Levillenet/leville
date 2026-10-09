@@ -9,6 +9,8 @@ interface OptimizedImageProps {
   objectPosition?: string;
   width?: number;
   height?: number;
+  srcSet?: string;
+  sizes?: string;
 }
 
 const OptimizedImage = ({ 
@@ -20,6 +22,8 @@ const OptimizedImage = ({
   objectPosition = "center",
   width,
   height,
+  srcSet,
+  sizes,
 }: OptimizedImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority);
@@ -57,6 +61,8 @@ const OptimizedImage = ({
       {isInView && (
         <img
           src={src}
+          srcSet={srcSet}
+          sizes={srcSet ? sizes : undefined}
           alt={alt}
           loading={priority ? "eager" : "lazy"}
           decoding={priority ? "sync" : "async"}

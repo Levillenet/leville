@@ -7,3 +7,5 @@
 - Build runs scripts/generate-route-preloads.mjs after vite build to write per-route HTML with page-chunk modulepreloads; `#root` stays empty in those files because static shells caused CLS regressions.
 - Toasters are mounted via DeferredToasters (idle) and `Tooltip` wraps its own provider, so neither belongs in the startup bundle.
 - The catch-all route (SeoCatchAll) must render a neutral shell, never NotFound, until the seo_pages lookup has resolved, so crawlers never snapshot a transient 404; unmatched URLs start the lookup immediately, matched ones at idle.
+- Property hero images in public/ have pre-generated `-480w`/`-800w` WebP siblings used via srcset in PropertyCard; regenerate them when a heroImage changes, so mobile cards stay under ~60 kB.
+- Above-the-fold text on landing pages is not wrapped in ScrollReveal, because its opacity-0 start delayed LCP.
