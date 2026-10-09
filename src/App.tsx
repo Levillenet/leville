@@ -493,15 +493,7 @@ const App = () => {
               <Route path="/guide/levi-vs-saariselka-comparison" element={<LeviVsSaariselkaComparison />} />
               <Route path="/guide/lapland-glossary" element={<LaplandGlossary lang="en" />} />
               <Route path="/guide/prices-in-levi" element={<PricesInLeviPage />} />
-              {/* Comparison pages - NL/DE/FR/ES */}
-              <Route path="/nl/gids/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="nl" />} />
-              <Route path="/nl/gids/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="nl" />} />
-              <Route path="/de/guide/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="de" />} />
-              <Route path="/de/guide/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="de" />} />
-              <Route path="/fr/guide/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="fr" />} />
-              <Route path="/fr/guide/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="fr" />} />
-              <Route path="/es/guia/levi-vs-yllas-vs-ruka" element={<LeviVsYllasVsRukaEN lang="es" />} />
-              <Route path="/es/guia/levi-vs-rovaniemi" element={<LeviVsRovaniemiComparison lang="es" />} />
+              {/* NL/ES/FR/DE comparison routes removed 10/2026 until translations exist – re-add under /de/ratgeber/ for German */}
               {/* Comparison HUB - other languages */}
               <Route path="/sv/guide/why-choose-levi" element={<ComparisonHub lang="sv" />} />
               <Route path="/de/guide/why-choose-levi" element={<ComparisonHub lang="de" />} />
