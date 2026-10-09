@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Menu, X, Search } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,21 @@ const Header = () => {
     if (open) setSearchMounted(true);
     setIsSearchOpenState(open);
   };
+
+  // Ctrl/Cmd+K before the search chunk has loaded: mount and open it.
+  // Once mounted, SiteSearch handles the shortcut itself.
+  useEffect(() => {
+    if (searchMounted) return;
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setSearchMounted(true);
+        setIsSearchOpenState(true);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, [searchMounted]);
   const location = useLocation();
   const currentLang = detectLanguageFromPath(location.pathname);
 
