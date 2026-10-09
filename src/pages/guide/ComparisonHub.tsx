@@ -71,6 +71,7 @@ const content: Record<Language, {
     bookCta: "Book your Levi holiday here!",
     accommodationsLink: "/en/accommodations",
     guides: [
+      { id: "loma-lapissa", title: "Lapland Holiday", description: "Where to go in Lapland and when? Destinations and seasons on one page.", href: "/guide/lapland-holiday", iconKey: "mapPin" },
       { id: "yllas-ruka", title: "Levi vs Ylläs vs Ruka", description: "Finland's three biggest ski resorts compared: slopes, lifts, trails and services.", href: "/guide/levi-vs-yllas-vs-ruka-comparison", iconKey: "mountain" },
       { id: "rovaniemi", title: "Levi vs Rovaniemi", description: "Which one suits you better? Slopes, location, services and atmosphere.", href: "/guide/levi-vs-rovaniemi-comparison", iconKey: "mapPin" },
       { id: "saariselka", title: "Levi vs Saariselkä", description: "A lively fell village or peaceful quiet retreat? We compare both.", href: "/guide/levi-vs-saariselka-comparison", iconKey: "mapPin" },

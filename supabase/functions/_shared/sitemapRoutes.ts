@@ -168,6 +168,8 @@ export const SITEMAP_ROUTES: SitemapRoute[] = [
   { path: "/opas/talvivarusteet-leville", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "opas-talvivarusteet-leville" },
   { path: "/opas/laskettelu-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "opas-laskettelu-levi" },
   { path: "/opas/world-cup-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "world-cup-levi" },
+  { path: "/opas/loma-lapissa", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "loma-lapissa" },
+  { path: "/guide/lapland-holiday", lang: "en", priority: 0.7, changefreq: "monthly", altGroup: "loma-lapissa" },
   { path: "/opas/kaamos-levi", lang: "fi", priority: 0.7, changefreq: "monthly", altGroup: "kaamos-levi" },
   { path: "/guide/polar-night-levi", lang: "en", priority: 0.7, changefreq: "monthly", altGroup: "kaamos-levi" },
   { path: "/opas/levi-3-paivassa", lang: "fi", priority: 0.8, changefreq: "monthly", altGroup: "levi-3-days" },

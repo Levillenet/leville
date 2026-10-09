@@ -425,6 +425,7 @@ const App = () => {
               <Route path="/opas/world-cup-levi" element={<WorldCupLevi />} />
               <Route path="/opas/kaamos-levi" element={<KaamosLevi />} />
               <Route path="/opas/loma-lapissa" element={<LomaLapissa />} />
+              <Route path="/guide/lapland-holiday" element={<LomaLapissa lang="en" />} />
               <Route path="/opas/levi-3-paivassa" element={<LeviIn3Days />} />
               <Route path="/opas/hiihtoladut-levi" element={<CrossCountrySkiingInLevi />} />
               <Route path="/opas/talvi-levi" element={<WinterInLevi />} />
