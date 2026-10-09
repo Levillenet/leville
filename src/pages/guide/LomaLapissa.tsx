@@ -39,7 +39,7 @@ const destinations = [
   },
   {
     name: "Saariselkä",
-    p: "Rauhallinen tunturikylä Inarissa, Urho Kekkosen kansallispuiston kupeessa. Sopii hiljaisuutta ja erämaata etsivälle.",
+    p: "Rauhallinen tunturikylä vähän muita hiihtokeskuksia pohjoisempana Inarissa, Urho Kekkosen kansallispuiston kupeessa. Sopii hiljaisuutta ja erämaata etsivälle.",
     link: { t: "Levi vs Saariselkä", h: "/opas/levi-vs-saariselka" },
   },
 ];
