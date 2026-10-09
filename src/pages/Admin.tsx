@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
+import { installAdminFunctionAuth } from "@/lib/adminFunctionAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -39,6 +40,9 @@ import {
   LineChart,
   Line
 } from "recharts";
+
+// Make sure admin function calls carry the session token (idempotent).
+installAdminFunctionAuth();
 
 interface DownloadStats {
   total: number;

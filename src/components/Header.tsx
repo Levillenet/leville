@@ -1,16 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Menu, X, Search } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import levilleLogo from "@/assets/leville-logo.png";
 import WeatherWidget from "@/components/WeatherWidget";
 import LanguageSelector from "@/components/LanguageSelector";
-import SiteSearch from "@/components/SiteSearch";
 import { detectLanguageFromPath, routeConfig } from "@/translations";
+
+// Search dialog + search index are loaded only when the user opens search.
+const SiteSearch = lazy(() => import("@/components/SiteSearch"));
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpenState] = useState(false);
+  const [searchMounted, setSearchMounted] = useState(false);
+  const setIsSearchOpen = (open: boolean) => {
+    if (open) setSearchMounted(true);
+    setIsSearchOpenState(open);
+  };
+
+  // Ctrl/Cmd+K before the search chunk has loaded: mount and open it.
+  // Once mounted, SiteSearch handles the shortcut itself.
+  useEffect(() => {
+    if (searchMounted) return;
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setSearchMounted(true);
+        setIsSearchOpenState(true);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, [searchMounted]);
   const location = useLocation();
   const currentLang = detectLanguageFromPath(location.pathname);
 
@@ -212,7 +234,11 @@ const Header = () => {
           </nav>
         )}
       </div>
-      <SiteSearch open={isSearchOpen} onOpenChange={setIsSearchOpen} />
+      {searchMounted && (
+        <Suspense fallback={null}>
+          <SiteSearch open={isSearchOpen} onOpenChange={setIsSearchOpen} />
+        </Suspense>
+      )}
     </header>
   );
 };

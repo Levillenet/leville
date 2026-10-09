@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabase } from "@/lib/getSupabase";
 import { Language, routeConfig } from "@/translations";
 
 export type BannerPlacement = "hero" | "below_hero";
@@ -47,6 +47,7 @@ export function usePromoBanner(
 
   useEffect(() => {
     const fetch = async () => {
+      const supabase = await getSupabase();
       const { data } = await supabase
         .from("promo_banners" as any)
         .select("*")

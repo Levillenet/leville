@@ -18,7 +18,7 @@ import WhatsAppChat from "@/components/WhatsAppChat";
 import StickyBookingBar from "@/components/StickyBookingBar";
 import PageCTA from "@/components/PageCTA";
 import OptimizedImage from "@/components/OptimizedImage";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabase } from "@/lib/getSupabase";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyFilters from "@/components/PropertyFilters";
 import ModerBookingWidget from "@/components/ModerBookingWidget";
@@ -77,6 +77,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
 
   const trackDownload = async () => {
     try {
+      const supabase = await getSupabase();
       await supabase.functions.invoke('log-download', {
         body: { document_type: 'welcome_letter', language: lang }
       });

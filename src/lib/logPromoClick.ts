@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabase } from "@/lib/getSupabase";
 
 export interface PromoClickPayload {
   banner_id: string | null;
@@ -24,11 +24,13 @@ export function logPromoClick(payload: PromoClickPayload) {
     const referrer = typeof document !== "undefined" ? document.referrer || null : null;
 
     // Fire-and-forget — don't await
-    void supabase.from("promo_banner_clicks" as any).insert({
-      ...payload,
-      session_id,
-      referrer,
-    });
+    void getSupabase().then((supabase) =>
+      supabase.from("promo_banner_clicks" as any).insert({
+        ...payload,
+        session_id,
+        referrer,
+      })
+    ).catch(() => {});
   } catch {
     // ignore
   }

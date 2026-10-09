@@ -32,10 +32,22 @@ export default defineConfig(({ mode }) => ({
       output: {
         assetFileNames: 'assets/[hash][extname]',
         manualChunks: (id) => {
+          // Rollup's CJS interop helper is needed by many chunks; keep it in the
+          // always-loaded vendor chunk so charts (recharts) is not pulled in at startup.
+          if (id.includes('commonjsHelpers')) return 'react-vendor';
           if (!id.includes('node_modules') && !id.includes('/src/')) return;
 
           // App-side chunks (data + translations isolated from page code)
           if (id.includes('/src/translations/')) return 'translations';
+
+          // Shared layout components: one chunk (one request) instead of ~15 small ones.
+          if (
+            /\/src\/components\/(Header|Footer|Breadcrumbs|SubpageBackground|HreflangTags|SeoMeta|JsonLd|PageCTA|StickyBookingBar|InlineBookingLink)\.tsx$/.test(id) ||
+            /\/src\/components\/guide\/(ReadNextSection|GuideDisclaimer)\.tsx$/.test(id) ||
+            /\/src\/utils\/structuredData\.ts$/.test(id)
+          ) {
+            return 'layout';
+          }
           if (
             id.includes('/src/data/properties.ts') ||
             id.includes('/src/data/propertyTranslationsFi') ||
@@ -51,19 +63,22 @@ export default defineConfig(({ mode }) => ({
               id.includes('/react/') ||
               id.includes('/react-dom/') ||
               id.includes('/react-router') ||
-              id.includes('/scheduler/')
+              id.includes('/scheduler/') ||
+              id.includes('/node_modules/clsx/') ||
+              id.includes('/node_modules/tailwind-merge/') ||
+              id.includes('/node_modules/class-variance-authority/')
             ) {
               return 'react-vendor';
             }
             if (id.includes('/@supabase/')) return 'supabase';
             if (id.includes('/lucide-react/')) return 'icons';
-            if (
-              id.includes('/framer-motion/') ||
-              id.includes('/recharts/') ||
-              id.includes('/@radix-ui/')
-            ) {
-              return 'ui-vendor';
+            if (id.includes('/framer-motion/') || id.includes('/motion-dom/') || id.includes('/motion-utils/')) {
+              return 'motion';
             }
+            if (id.includes('/recharts/') || id.includes('/d3-') || id.includes('/victory-vendor/')) {
+              return 'charts';
+            }
+            if (id.includes('/@radix-ui/')) return 'radix';
           }
         },
       },

@@ -64,10 +64,24 @@ const WeatherWidget = ({ compact = false }: WeatherWidgetProps) => {
       }
     };
 
-    fetchWeather();
-    // Refresh every 15 minutes
+    // First fetch after first paint (idle), then refresh every 15 minutes
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let idleId: number | undefined;
+    let timeoutId: number | undefined;
+    if (w.requestIdleCallback) {
+      idleId = w.requestIdleCallback(fetchWeather, { timeout: 3000 });
+    } else {
+      timeoutId = window.setTimeout(fetchWeather, 1500);
+    }
     const interval = setInterval(fetchWeather, 15 * 60 * 1000);
-    return () => clearInterval(interval);
+    return () => {
+      if (idleId !== undefined) w.cancelIdleCallback?.(idleId);
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+      clearInterval(interval);
+    };
   }, []);
 
   if (loading || !weather) {
