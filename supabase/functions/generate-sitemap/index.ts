@@ -16,7 +16,6 @@ function esc(s: string) {
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
-  const lastmod = new Date().toISOString().slice(0, 10);
   const routes: SitemapRoute[] = [...SITEMAP_ROUTES];
   const seen = new Set(routes.map((r) => r.path));
 
