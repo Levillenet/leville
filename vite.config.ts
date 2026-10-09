@@ -36,6 +36,15 @@ export default defineConfig(({ mode }) => ({
 
           // App-side chunks (data + translations isolated from page code)
           if (id.includes('/src/translations/')) return 'translations';
+
+          // Shared layout components: one chunk (one request) instead of ~15 small ones.
+          if (
+            /\/src\/components\/(Header|Footer|Breadcrumbs|SubpageBackground|HreflangTags|SeoMeta|JsonLd|PageCTA|StickyBookingBar|InlineBookingLink)\.tsx$/.test(id) ||
+            /\/src\/components\/guide\/(ReadNextSection|GuideDisclaimer)\.tsx$/.test(id) ||
+            /\/src\/utils\/structuredData\.ts$/.test(id)
+          ) {
+            return 'layout';
+          }
           if (
             id.includes('/src/data/properties.ts') ||
             id.includes('/src/data/propertyTranslationsFi') ||
@@ -57,13 +66,13 @@ export default defineConfig(({ mode }) => ({
             }
             if (id.includes('/@supabase/')) return 'supabase';
             if (id.includes('/lucide-react/')) return 'icons';
-            if (
-              id.includes('/framer-motion/') ||
-              id.includes('/recharts/') ||
-              id.includes('/@radix-ui/')
-            ) {
-              return 'ui-vendor';
+            if (id.includes('/framer-motion/') || id.includes('/motion-dom/') || id.includes('/motion-utils/')) {
+              return 'motion';
             }
+            if (id.includes('/recharts/') || id.includes('/d3-') || id.includes('/victory-vendor/')) {
+              return 'charts';
+            }
+            if (id.includes('/@radix-ui/')) return 'radix';
           }
         },
       },
