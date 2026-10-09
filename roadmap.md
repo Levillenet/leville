@@ -21,3 +21,4 @@
 - [x] Toaster/Sonner mounted lazily after idle; Tooltip self-provides its provider; Cormorant preload removed
 - [x] WhatsApp chat widget removed from all pages (owner decision: never receives messages)
 - [ ] Language-split translations: skipped (global sync `translations` used widely; risky)
+- [x] seo_pages race: neutral shell until lookup resolves, immediate fetch for unmatched URLs (SeoCatchAll)
