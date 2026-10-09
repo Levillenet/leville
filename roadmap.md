@@ -17,3 +17,7 @@
 - [x] B: shared layout components in one `layout` chunk (preloaded automatically by Vite)
 - [x] C: backend client loaded on first use (getSupabase); SEO pages fetched with plain fetch at idle
 - [x] Before/after throttled mobile measurement
+- [x] Per-route modulepreload HTML (scripts/generate-route-preloads.mjs, runs after vite build)
+- [x] Toaster/Sonner mounted lazily after idle; Tooltip self-provides its provider; Cormorant preload removed
+- [x] WhatsApp chat widget removed from all pages (owner decision: never receives messages)
+- [ ] Language-split translations: skipped (global sync `translations` used widely; risky)
