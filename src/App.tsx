@@ -1,10 +1,11 @@
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useCallback, useEffect, useRef, useState, lazy, Suspense } from "react";
 import DeferredToasters from "./components/DeferredToasters";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "./components/ScrollToTop";
 import PathNormalizer from "./components/PathNormalizer";
+import SeoCatchAll from "./components/SeoCatchAll";
 
 
 // Deferred — these don't affect first paint, lazy-load them off the critical path
@@ -41,7 +42,6 @@ const MyyLomaAsuntosi = lazy(() => import("./pages/MyyLomaAsuntosi"));
 const Seuratuki = lazy(() => import("./pages/Seuratuki"));
 const ClubSupport = lazy(() => import("./pages/en/ClubSupport"));
 const BuildingPage = lazy(() => import("./pages/BuildingPage"));
-const NotFound = lazy(() => import("./pages/NotFound"));
 
 // SEO Landing Pages
 const WinterClothingGuide = lazy(() => import("./pages/guide/WinterClothingGuide"));
@@ -191,19 +191,28 @@ interface SeoPageRoute {
 }
 
 const App = () => {
-  const [dynamicRoutes, setDynamicRoutes] = useState<SeoPageRoute[]>([]);
+  const [lookup, setLookup] = useState<{ routes: SeoPageRoute[]; resolved: boolean }>({
+    routes: [],
+    resolved: false,
+  });
+  const lookupStarted = useRef(false);
+  const mounted = useRef(true);
 
-  useEffect(() => {
-    // Published SEO pages are only needed for dynamic routes, not for first paint.
-    // Plain fetch (no backend client) keeps the client chunk off the startup path;
-    // run when the browser is idle.
-    let cancelled = false;
-    const fetchPublishedPages = async () => {
+  // De-duplicated seo_pages lookup. Plain fetch (no backend client) keeps the client chunk
+  // off the startup path. Always resolves (even on failure) so the catch-all never stays blank.
+  const startLookup = useCallback(() => {
+    if (lookupStarted.current) return;
+    lookupStarted.current = true;
+    const run = async () => {
+      let routes: SeoPageRoute[] = [];
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 8000);
       try {
         const base = import.meta.env.VITE_SUPABASE_URL;
         const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
         const res = await fetch(`${base}/functions/v1/manage-seo-pages`, {
           method: "POST",
+          signal: controller.signal,
           headers: {
             "Content-Type": "application/json",
             apikey: key,
@@ -211,13 +220,26 @@ const App = () => {
           },
           body: JSON.stringify({ action: "get_published" }),
         });
-        if (!res.ok) return;
-        const data = await res.json();
-        if (!cancelled && Array.isArray(data)) setDynamicRoutes(data);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data)) routes = data;
+        }
       } catch (e) {
         console.error('Failed to fetch SEO pages:', e);
+      } finally {
+        window.clearTimeout(timeout);
       }
+      // routes + resolved are set together so a matching dynamic route replaces the
+      // catch-all without an intermediate NotFound render.
+      if (mounted.current) setLookup({ routes, resolved: true });
     };
+    void run();
+  }, []);
+
+  useEffect(() => {
+    mounted.current = true;
+    // When the URL matched a static route the lookup is not urgent: run at idle.
+    // Unmatched URLs start it immediately from SeoCatchAll (shares the same lookup).
     const w = window as Window & {
       requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
       cancelIdleCallback?: (id: number) => void;
@@ -225,16 +247,16 @@ const App = () => {
     let idleId: number | undefined;
     let timeoutId: number | undefined;
     if (w.requestIdleCallback) {
-      idleId = w.requestIdleCallback(fetchPublishedPages, { timeout: 1000 });
+      idleId = w.requestIdleCallback(startLookup, { timeout: 1000 });
     } else {
-      timeoutId = window.setTimeout(fetchPublishedPages, 500);
+      timeoutId = window.setTimeout(startLookup, 500);
     }
     return () => {
-      cancelled = true;
+      mounted.current = false;
       if (idleId !== undefined) w.cancelIdleCallback?.(idleId);
       if (timeoutId !== undefined) window.clearTimeout(timeoutId);
     };
-  }, []);
+  }, [startLookup]);
 
   return (
   <HelmetProvider>
@@ -605,7 +627,7 @@ const App = () => {
               <Route path="/activities/canoeing-and-sup-levi" element={<CanoeingAndSUPLevi lang="en" />} />
 
               {/* Dynamic SEO pages from database */}
-              {dynamicRoutes.map((route) => {
+              {lookup.routes.map((route) => {
                 const Component = seoComponentMap[route.component_name];
                 if (!Component) return null;
                 return (
@@ -987,7 +1009,7 @@ const App = () => {
               <Route path="/es/alojamiento" element={<Navigate to="/es/alojamientos" replace />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
+              <Route path="*" element={<SeoCatchAll resolved={lookup.resolved} startLookup={startLookup} />} />
             </Routes>
             </Suspense>
           
