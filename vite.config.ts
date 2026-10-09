@@ -1,33 +1,8 @@
-import { defineConfig, type Plugin } from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { imagetools } from "vite-imagetools";
-
-// Injects <link rel="modulepreload"> for the shared `layout` chunk so the browser
-// fetches it in parallel with the entry instead of after the page JS has run.
-const preloadLayoutChunk = (): Plugin => ({
-  name: "preload-layout-chunk",
-  apply: "build",
-  transformIndexHtml: {
-    order: "post",
-    handler(_html, ctx) {
-      const bundle = ctx.bundle;
-      if (!bundle) return;
-      const layout = Object.values(bundle).find(
-        (c) => c.type === "chunk" && c.name === "layout",
-      );
-      if (!layout) return;
-      return [
-        {
-          tag: "link",
-          attrs: { rel: "modulepreload", crossorigin: true, href: `/${layout.fileName}` },
-          injectTo: "head",
-        },
-      ];
-    },
-  },
-});
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -45,7 +20,6 @@ export default defineConfig(({ mode }) => ({
         return new URLSearchParams();
       },
     }),
-    preloadLayoutChunk(),
     mode === "development" && componentTagger(),
   ].filter(Boolean),
   resolve: {
@@ -58,6 +32,9 @@ export default defineConfig(({ mode }) => ({
       output: {
         assetFileNames: 'assets/[hash][extname]',
         manualChunks: (id) => {
+          // Rollup's CJS interop helper is needed by many chunks; keep it in the
+          // always-loaded vendor chunk so charts (recharts) is not pulled in at startup.
+          if (id.includes('commonjsHelpers')) return 'react-vendor';
           if (!id.includes('node_modules') && !id.includes('/src/')) return;
 
           // App-side chunks (data + translations isolated from page code)
@@ -86,7 +63,10 @@ export default defineConfig(({ mode }) => ({
               id.includes('/react/') ||
               id.includes('/react-dom/') ||
               id.includes('/react-router') ||
-              id.includes('/scheduler/')
+              id.includes('/scheduler/') ||
+              id.includes('/node_modules/clsx/') ||
+              id.includes('/node_modules/tailwind-merge/') ||
+              id.includes('/node_modules/class-variance-authority/')
             ) {
               return 'react-vendor';
             }
