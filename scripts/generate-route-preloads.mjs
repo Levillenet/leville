@@ -6,7 +6,7 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
-const DIST = resolve("dist");
+const DIST = resolve(process.env.DIST_DIR || "dist");
 const manifestPath = resolve(DIST, ".vite/manifest.json");
 if (!existsSync(manifestPath)) {
   console.log("generate-route-preloads: no manifest, skipping.");
