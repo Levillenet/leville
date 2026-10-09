@@ -26,7 +26,12 @@ LCP on teksti, joten ratkaisevaa on, kuinka nopeasti React saa piirrettyä sivun
    - Tarkistetaan, mitä `index`-chunkissa (48 KB) on, ja siirretään pois kaikki, mitä ensimmäinen piirto ei tarvitse.
 4. Fontit
    - Poistetaan Cormorant Garamond -preload (koriste, 38 KB kilpailee JS:n kanssa); DM Sans -preload jää. `font-display: swap` jo käytössä.
-5. Mittaus
+5. WhatsApp-chat-widget poistetaan (käyttäjän kysymys: ei koskaan viestejä)
+   - Koodia on vähän (noin 2-3 KB gzip), mutta widget vetää mukanaan framer-motionin (animaatiokirjasto, kymmeniä KB gzip). Julkaistussa versiossa se ladataan heti sivun mukana (111 sivua käyttää sitä); esikatselussa vasta idlessä.
+   - LCP-vaikutus esikatselun versiossa on pieni, mutta se vie kaistaa ja suoritinaikaa heti piirron jälkeen (TBT/INP) ja pitää framer-motionin ladattavana.
+   - Suositus: poistetaan widgetin renderöinti kaikilta sivuilta. Puhelinnumero, sähköposti ja Moder-varauslinkit säilyvät. Vaihtoehto: kevyt wa.me-linkkinappi ilman framer-motionia (alle 1 KB).
+6. Mittaus
+
    - Tuotantobuild, hidastettu mobiili (1,6 Mbps, 150 ms, CPU 4x): /, /opas/hinnat-levilla, /majoitukset, /opas/levi-vs-rovaniemi. Ennen/jälkeen-taulukko ja LCP-elementin tunnistus.
 
 Odotus: lab-LCP putoaa nykyisestä noin 6 s:sta arviolta 3–3,5 s:iin; todellisilla käyttäjillä (nopeampi verkko kuin labrassa) kenttä-LCP voi mennä alle 2,5 s. GSC käyttää 28 päivän kenttädataa, joten "Validate fix" -tulos näkyy viiveellä.
