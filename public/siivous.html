@@ -104,7 +104,7 @@ button:disabled{opacity:.5}
       .then(function(r){ return r.json(); }).then(cb).catch(function(){ cb({ status: 'error' }); });
   }
   if (!slug && !admin) { $('notfound').hidden = false; return; }
-  if (admin) { $('unitLabelHdr').textContent = 'Leville · hallinta'; $('main').hidden = false; }
+  if (admin) { $('unitLabelHdr').textContent = 'Leville · hallinta'; $('main').hidden = false; api('adminOpen', {}, function(){}); }
   else {
     api('unitLabel', { slug: slug }, function(r){
       if (!r.label) { $('notfound').hidden = false; return; }
