@@ -154,7 +154,12 @@ button:disabled{opacity:.5}
     clearStatus();
     if (r.status==='none'){
       var c0=$('checklist'); c0.innerHTML='';
-      c0.appendChild(rowEl('Saapuvat · Arrivals','Ei saapuvia seuraavan 3 päivän aikana tällä hetkellä. Varauksia voi tulla.\nNo arrivals in the next 3 days at the moment. Bookings may still come in.'));
+      var nd=r.days||30; c0.appendChild(rowEl('Saapuvat · Arrivals','Ei saapuvia seuraavan '+nd+' päivän aikana tällä hetkellä. Varauksia voi tulla.\nNo arrivals in the next '+nd+' days at the moment. Bookings may still come in.'));
+      $('confirmBtn').hidden = true; $('logBtn').hidden = false; showStep(2); return;
+    }
+    if (r.status==='later'){
+      var c1=$('checklist'); c1.innerHTML='';
+      c1.appendChild(rowEl('Seuraava saapuja · Next arrival', r.pvm + '\nTilanne nyt – uusia varauksia voi tulla. Tiedot näkyvät 3 päivää ennen saapumista.\nCurrent status – new bookings may come in. Details shown 3 days before arrival.'));
       $('confirmBtn').hidden = true; $('logBtn').hidden = false; showStep(2); return;
     }
     if (r.status==='already'){ hideAll(); status('ok','Jo lähetetty · Already sent','Vieraalle on lähetetty viesti jo '+r.at+'. Ei tarvitse tehdä mitään.'); return; }
