@@ -1,4 +1,5 @@
 # Tehtävät
+- [x] Lisää henkilökunnan /s/:unit ja /s-hallinta ohjauslinkit ilman näkyvää sivua; noindex/nofollow ja hakukonerajaukset.
 - [x] Korjaa admin-paneelin tilastojen lataus ja kirjautumisyritysten rajoitus.
 - [x] Käännä Coloradon nachokuva oikein päin ja tarkista molemmissa kielissä.
 - [x] Lisää Ravintola Kammi porobuffet-esittelyineen ja käyttäjän kuvineen suomeksi ja englanniksi.
