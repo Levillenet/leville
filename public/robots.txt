@@ -10,80 +10,124 @@ Disallow: /s-hallinta
 
 User-agent: Bingbot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 # --- OpenAI ---
 # GPTBot = model training, OAI-SearchBot = ChatGPT search index,
 # ChatGPT-User = live fetches on user request
 User-agent: GPTBot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 # --- Anthropic ---
 User-agent: ClaudeBot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: Claude-User
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: Claude-SearchBot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 # --- Google AI ---
 User-agent: Google-Extended
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 # --- Perplexity ---
 User-agent: PerplexityBot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: Perplexity-User
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 # --- Meta ---
 User-agent: Meta-ExternalAgent
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: facebookexternalhit
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 # --- Apple ---
 User-agent: Applebot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 # --- Muut AI ---
 User-agent: DuckAssistBot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: MistralAI-User
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: cohere-ai
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: CCBot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 # --- Social ---
 User-agent: Twitterbot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: LinkedInBot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: WhatsApp
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 # --- Default ---
 User-agent: *
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 Disallow: /admin
 Disallow: /admin/*
 
