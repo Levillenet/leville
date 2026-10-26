@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leville</title>
+<style>
+:root{--bg:#f3f5f4;--card:#fff;--fg:#17201d;--muted:#5d6b66;--line:#d7dedb;--accent:#0f6b5c;--accent-fg:#fff;
+ --ok-bg:#e3f3ec;--ok-fg:#0d5a3f;--warn-bg:#fdf1dc;--warn-fg:#7a4b00;--err-bg:#fbe5e3;--err-fg:#8a1f17}
+@media (prefers-color-scheme:dark){:root{--bg:#141917;--card:#1d2422;--fg:#e8edeb;--muted:#9aa8a3;--line:#33403b;--accent:#3fb79b;--accent-fg:#0d1a16;
+ --ok-bg:#163c30;--ok-fg:#8fe0c4;--warn-bg:#3f2f12;--warn-fg:#f2c56b;--err-bg:#45201c;--err-fg:#f3a19a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.45;padding:20px 16px}
+.wrap{max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.brand{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;display:flex;flex-direction:column;gap:18px}
+.label{font-size:13px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.name{font-family:ui-monospace,Menlo,monospace;font-size:44px;font-weight:600;line-height:1.1}
+h1{font-size:20px;font-weight:600;margin:0}
+p{margin:0}.sub{color:var(--muted);font-size:15px}
+input#pin{width:100%;font-family:ui-monospace,Menlo,monospace;font-size:30px;letter-spacing:.35em;text-align:center;padding:12px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg)}
+input#pin:focus,textarea:focus{outline:3px solid var(--accent);border-color:var(--accent)}
+select{width:100%;font:inherit;font-size:18px;padding:12px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg)}
+textarea{width:100%;font:inherit;font-size:16px;padding:10px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);min-height:90px}
+button{font:inherit;font-size:18px;font-weight:600;padding:16px;border:0;border-radius:12px;width:100%;cursor:pointer}
+button.go{background:var(--accent);color:var(--accent-fg)}
+button.alt{background:transparent;color:var(--fg);border:1.5px solid var(--line);font-size:16px;padding:12px}
+button:disabled{opacity:.5}
+.stack{display:flex;flex-direction:column;gap:10px}
+.check{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;flex-direction:column;gap:3px;padding:10px 12px;border:1px solid var(--line);border-radius:10px}
+.row .k{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.row .v{white-space:pre-wrap;font-size:16px}
+.row.empty .v{color:var(--muted)}
+.status{border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;font-size:16px}
+.status strong{font-weight:600}.status .meta{font-size:13px;opacity:.85}
+.ok{background:var(--ok-bg);color:var(--ok-fg)}.warn{background:var(--warn-bg);color:var(--warn-fg)}.err{background:var(--err-bg);color:var(--err-fg)}
+.foot{color:var(--muted);font-size:13px;text-align:center}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span>Leville.net</span><span id="clock"></span></div>
+  <div class="card">
+    <div id="main" hidden>
+    <div><div class="label" id="unitLabelHdr">Huoneisto · Apartment</div><div class="name" id="unitName"></div></div>
+
+    <!-- Vaihe 1: PIN -->
+    <div id="step1">
+      <div class="stack">
+        <label class="label" for="pin">PIN</label>
+        <input id="pin" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code">
+        <button class="go" id="verifyBtn" type="button">Jatka · Continue</button>
+      </div>
+    </div>
+
+    <!-- Admin: yksikön valinta -->
+    <div id="stepA" hidden>
+      <div class="stack">
+        <label class="label" for="unitSel">Huoneisto · Apartment</label>
+        <select id="unitSel"></select>
+        <button class="go" id="pickBtn" type="button">Näytä · Show</button>
+      </div>
+    </div>
+
+    <!-- Vaihe 2: tarkistuslista -->
+    <div id="step2" hidden>
+      <div class="check" id="checklist"></div>
+      <div class="stack" style="margin-top:14px">
+        <button class="go" id="confirmBtn" type="button">Kaikki kunnossa – Lähetä koodi · All good – Send code</button>
+        <button class="alt" id="logBtn" type="button" hidden>Siivous tehty · Cleaning done</button>
+        <button class="alt" id="reportBtn" type="button">Puute / huomio · Report an issue</button>
+      </div>
+    </div>
+
+    <!-- Huomio -->
+    <div id="step3" hidden>
+      <h1>Huomio · Issue</h1>
+      <p class="sub">Kerro lyhyesti, mikä puuttuu tai on vialla. Sami saa viestin heti; vieraalle ei lähde mitään.<br>Describe briefly what is missing or broken. Sami is notified; nothing is sent to the guest.</p>
+      <div class="stack" style="margin-top:12px">
+        <textarea id="note" maxlength="500"></textarea>
+        <button class="go" id="sendReportBtn" type="button">Lähetä Samille · Send</button>
+        <button class="alt" id="backBtn" type="button">Takaisin · Back</button>
+      </div>
+    </div>
+
+    <div id="status" class="status" hidden></div>
+    </div>
+    <div id="notfound" class="status warn" hidden><strong>Ei käytössä</strong></div>
+  </div>
+</div>
+<script>
+(function(){
+  var API = 'https://script.google.com/macros/s/AKfycbw5sMdbyDITwTJ28NDyexuCKGA1w8cjcDPnAW6XMgABA4UZYMSklZmEvp-EoybL6_imSQ/exec';
+  var q = new URLSearchParams(location.search);
+  var slug = String(q.get('unit') || '').toLowerCase().trim();
+  var admin = q.get('admin') === '1';
+  var pin = '';
+  function $(id){return document.getElementById(id)}
+  function api(action, data, cb){
+    fetch(API, { method: 'POST', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(Object.assign({ action: action }, data)) })
+      .then(function(r){ return r.json(); }).then(cb).catch(function(){ cb({ status: 'error' }); });
+  }
+  if (!slug && !admin) { $('notfound').hidden = false; return; }
+  if (admin) { $('unitLabelHdr').textContent = 'Leville · hallinta'; $('main').hidden = false; }
+  else {
+    api('unitLabel', { slug: slug }, function(r){
+      if (!r.label) { $('notfound').hidden = false; return; }
+      $('unitName').textContent = r.label; $('main').hidden = false;
+    });
+  }
+  function tick(){ $('clock').textContent = new Date().toLocaleTimeString('fi-FI',{hour:'2-digit',minute:'2-digit'}); }
+  tick(); setInterval(tick, 30000);
+  var STEPS = ['step1','step2','step3','stepA'];
+  function showStep(n){ STEPS.forEach(function(s,i){ $(s).hidden = (i+1)!==n; }); }
+  function hideAll(){ STEPS.forEach(function(s){ $(s).hidden = true; }); }
+  function onAdmin(r){
+    busy($('verifyBtn'), false, 'Jatka · Continue');
+    if (common(r)) return;
+    if (r.status==='noadmin'){ status('err','Ei oikeutta · Not allowed','Tällä PINillä ei ole hallintaoikeutta.'); showStep(1); $('pin').value=''; return; }
+    clearStatus();
+    var sel=$('unitSel'); sel.innerHTML='';
+    r.units.forEach(function(u){ var o=document.createElement('option'); o.value=u.slug; o.textContent=u.label + (u.next ? '  –  ' + u.next : ''); sel.appendChild(o); });
+    showStep(4);
+  }
+  function status(kind, title, body, meta){
+    var s=$('status'); s.className='status '+kind; s.hidden=false; s.innerHTML='';
+    var a=document.createElement('strong'); a.textContent=title; s.appendChild(a);
+    var b=document.createElement('span'); b.textContent=body; s.appendChild(b);
+    if(meta){var m=document.createElement('span'); m.className='meta'; m.textContent=meta; s.appendChild(m);}
+  }
+  function clearStatus(){ $('status').hidden=true; }
+  function busy(btn, on, label){ btn.disabled=on; btn.textContent = on ? 'Odota…' : label; }
+  function rowEl(k, v, emptyText){
+    var d=document.createElement('div'); d.className='row'+(v?'':' empty');
+    var kk=document.createElement('div'); kk.className='k'; kk.textContent=k;
+    var vv=document.createElement('div'); vv.className='v'; vv.textContent=v||emptyText;
+    d.appendChild(kk); d.appendChild(vv); return d;
+  }
+  function common(r){ // tulokset, jotka ovat yhteisiä kaikille vaiheille
+    switch(r.status){
+      case 'wrongpin': status('err','Väärä PIN · Wrong PIN','Yritys '+r.attempt+'/'+r.max+'. Tarkista PIN ja yritä uudelleen.'); showStep(1); $('pin').value=''; $('pin').focus(); return true;
+      case 'locked': status('err','Lukittu · Locked','Liian monta väärää PINiä. Yritä uudelleen '+r.minutes+' min kuluttua. Samille on ilmoitettu.'); showStep(1); return true;
+      case 'unknown': status('warn','Tuntematon huoneisto','Ota yhteys Samiin.'); hideAll(); return true;
+      case 'error': status('err','Virhe · Error','Jotain meni pieleen. Yritä uudelleen tai ota yhteys Samiin.'); return true;
+    }
+    return false;
+  }
+  function onVerify(r){
+    busy($('verifyBtn'), false, 'Jatka · Continue');
+    if (common(r)) return;
+    clearStatus();
+    if (r.status==='none'){
+      var c0=$('checklist'); c0.innerHTML='';
+      c0.appendChild(rowEl('Saapuvat · Arrivals','Ei saapuvia seuraavan 3 päivän aikana tällä hetkellä. Varauksia voi tulla.\nNo arrivals in the next 3 days at the moment. Bookings may still come in.'));
+      $('confirmBtn').hidden = true; $('logBtn').hidden = false; showStep(2); return;
+    }
+    if (r.status==='already'){ hideAll(); status('ok','Jo lähetetty · Already sent','Vieraalle on lähetetty viesti jo '+r.at+'. Ei tarvitse tehdä mitään.'); return; }
+    if (r.status==='next'){
+      var c2=$('checklist'); c2.innerHTML='';
+      c2.appendChild(rowEl('Seuraava saapuja · Next arrival', r.pvm + (r.eta ? ' klo '+r.eta : '')));
+      c2.appendChild(rowEl('Henkilöt · Guests', r.henkilot, 'ei tietoa'));
+      c2.appendChild(rowEl('Lisäpalvelut · Extras', r.lisapalvelut, 'ei lisäpalveluita'));
+      c2.appendChild(rowEl('Operatiiviset merkinnät · Notes', r.merkinnat, 'ei merkintöjä'));
+      $('confirmBtn').hidden = true; $('logBtn').hidden = false; showStep(2); return;
+    }
+    $('confirmBtn').hidden = false; $('logBtn').hidden = true;
+    var c=$('checklist'); c.innerHTML='';
+    c.appendChild(rowEl('Henkilöt · Guests', r.henkilot, 'ei tietoa'));
+    c.appendChild(rowEl('Saapuu · ETA', r.eta ? 'klo '+r.eta : '', 'ei tietoa'));
+    c.appendChild(rowEl('Lisäpalvelut · Extras', r.lisapalvelut, 'ei lisäpalveluita'));
+    c.appendChild(rowEl('Operatiiviset merkinnät · Notes', r.merkinnat, 'ei merkintöjä'));
+    showStep(2);
+  }
+  function onConfirm(r){
+    busy($('confirmBtn'), false, 'Kaikki kunnossa – Lähetä koodi · All good – Send code');
+    if (common(r)) return;
+    hideAll();
+    switch(r.status){
+      case 'sent': status('ok','Lähetetty · Sent','Vieraalle lähti viesti: huoneisto '+r.label+' on valmis + ovikoodi. Samille meni kuittaus.','Kirjattu klo '+r.at); break;
+      case 'already': status('ok','Jo lähetetty · Already sent','Vieraalle on lähetetty viesti jo '+r.at+'.'); break;
+      case 'none': status('ok','Kirjattu · Logged','Siivous kirjattu.'); break;
+      case 'noemail': status('warn','Kirjattu · Logged','Siivous kirjattu. Vieraalla ei ole sähköpostia, Sami lähettää koodin itse.'); break;
+      case 'nocode': status('warn','Kirjattu · Logged','Siivous kirjattu. Ovikoodi puuttuu, Samille on ilmoitettu.'); break;
+      case 'closed': status('warn','Ei käytössä nyt · Not available now','Kuittaus toimii klo '+r.from+'–'+r.to+'.'); showStep(2); break;
+    }
+  }
+  function onReport(r){
+    busy($('sendReportBtn'), false, 'Lähetä Samille · Send');
+    if (common(r)) return;
+    hideAll(); status('ok','Ilmoitettu · Reported','Sami sai viestisi. Vieraalle ei lähetetty mitään.');
+  }
+  var run = function(fn, cb, args){
+    var data = fn === 'adminUnits' ? { pin: args[0] } : fn === 'report' ? { slug: args[0], pin: args[1], text: args[2] } : { slug: args[0], pin: args[1] };
+    api(fn, data, cb);
+  };
+
+  $('verifyBtn').addEventListener('click', function(){ pin=$('pin').value.trim(); if(!pin){$('pin').focus();return;} busy($('verifyBtn'), true); if (admin && !slug) run('adminUnits', onAdmin, [pin]); else run('verify', onVerify, [slug, pin]); });
+  $('pickBtn').addEventListener('click', function(){ slug=$('unitSel').value; $('unitName').textContent=$('unitSel').options[$('unitSel').selectedIndex].textContent.split('  –  ')[0]; busy($('pickBtn'), true, ''); run('verify', function(r){ busy($('pickBtn'), false, 'Näytä · Show'); onVerify(r); }, [slug, pin]); });
+  $('pin').addEventListener('keydown', function(e){ if(e.key==='Enter') $('verifyBtn').click(); });
+  $('confirmBtn').addEventListener('click', function(){ busy($('confirmBtn'), true); run('confirm', onConfirm, [slug, pin]); });
+  $('logBtn').addEventListener('click', function(){ busy($('logBtn'), true); run('confirm', onConfirm, [slug, pin]); });
+  $('reportBtn').addEventListener('click', function(){ clearStatus(); showStep(3); $('note').focus(); });
+  $('backBtn').addEventListener('click', function(){ showStep(2); });
+  $('sendReportBtn').addEventListener('click', function(){ var t=$('note').value.trim(); if(!t){$('note').focus();return;} busy($('sendReportBtn'), true); run('report', onReport, [slug, pin, t]); });
+})();
+</script>
+</body>
+</html>

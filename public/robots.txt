@@ -7,11 +7,13 @@ User-agent: Googlebot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: Bingbot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 # --- OpenAI ---
 # GPTBot = model training, OAI-SearchBot = ChatGPT search index,
@@ -20,114 +22,135 @@ User-agent: GPTBot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 # --- Anthropic ---
 User-agent: ClaudeBot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: Claude-User
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: Claude-SearchBot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 # --- Google AI ---
 User-agent: Google-Extended
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 # --- Perplexity ---
 User-agent: PerplexityBot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: Perplexity-User
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 # --- Meta ---
 User-agent: Meta-ExternalAgent
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: facebookexternalhit
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 # --- Apple ---
 User-agent: Applebot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: Applebot-Extended
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 # --- Muut AI ---
 User-agent: DuckAssistBot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: MistralAI-User
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: cohere-ai
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: CCBot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 # --- Social ---
 User-agent: Twitterbot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: LinkedInBot
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 User-agent: WhatsApp
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 
 # --- Default ---
 User-agent: *
 Allow: /
 Disallow: /s/
 Disallow: /s-hallinta
+Disallow: /siivous.html
 Disallow: /admin
 Disallow: /admin/*
 
