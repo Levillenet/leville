@@ -1,6 +1,6 @@
 # Tehtävät
 - [x] Lisää henkilökunnan /s/:unit ja /s-hallinta ohjauslinkit ilman näkyvää sivua; noindex/nofollow ja hakukonerajaukset.
-- [x] Päivitä /siivous.html uuteen versioon (4-numeroinen PIN, automaattinen lähetys ja huoneistovalinta).
+- [x] Päivitä /siivous.html uuteen versioon (4-numeroinen PIN, automaattinen lähetys, huoneistovalinta, "seuraava saapuja" -tilanäkymä ja dynaaminen päivämäärä).
 - [x] Korjaa admin-paneelin tilastojen lataus ja kirjautumisyritysten rajoitus.
 - [x] Käännä Coloradon nachokuva oikein päin ja tarkista molemmissa kielissä.
 - [x] Lisää Ravintola Kammi porobuffet-esittelyineen ja käyttäjän kuvineen suomeksi ja englanniksi.
