@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { isStaffRedirectPath, staffRedirectUrl } from "./staffRedirect";
+import { isStaffRedirectPath, staffRedirectUrl } from "../src/lib/staffRedirect";
 
 const target = "https://script.google.com/macros/s/AKfycbw5sMdbyDITwTJ28NDyexuCKGA1w8cjcDPnAW6XMgABA4UZYMSklZmEvp-EoybL6_imSQ/exec";
 
