@@ -6,6 +6,8 @@ import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "./components/ScrollToTop";
 import PathNormalizer from "./components/PathNormalizer";
 import SeoCatchAll from "./components/SeoCatchAll";
+import StaffRedirect from "./components/StaffRedirect";
+import { isStaffRedirectPath } from "./lib/staffRedirect";
 
 
 // Deferred — these don't affect first paint, lazy-load them off the critical path
@@ -191,6 +193,7 @@ interface SeoPageRoute {
 }
 
 const App = () => {
+  const staffRedirect = isStaffRedirectPath(window.location.pathname);
   const [lookup, setLookup] = useState<{ routes: SeoPageRoute[]; resolved: boolean }>({
     routes: [],
     resolved: false,
@@ -238,6 +241,7 @@ const App = () => {
 
   useEffect(() => {
     mounted.current = true;
+    if (staffRedirect) return;
     // When the URL matched a static route the lookup is not urgent: run at idle.
     // Unmatched URLs start it immediately from SeoCatchAll (shares the same lookup).
     const w = window as Window & {
@@ -256,7 +260,19 @@ const App = () => {
       if (idleId !== undefined) w.cancelIdleCallback?.(idleId);
       if (timeoutId !== undefined) window.clearTimeout(timeoutId);
     };
-  }, [startLookup]);
+  }, [startLookup, staffRedirect]);
+
+  // Operational links bypass all visitor layout, tracking and path normalization.
+  if (staffRedirect) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/s/:unit" element={<StaffRedirect />} />
+          <Route path="/s-hallinta" element={<StaffRedirect admin />} />
+        </Routes>
+      </BrowserRouter>
+    );
+  }
 
   return (
   <HelmetProvider>

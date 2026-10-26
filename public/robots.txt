@@ -5,6 +5,8 @@
 # --- Search engines ---
 User-agent: Googlebot
 Allow: /
+Disallow: /s/
+Disallow: /s-hallinta
 
 User-agent: Bingbot
 Allow: /
