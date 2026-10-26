@@ -78,10 +78,10 @@ button:disabled{opacity:.5}
     <!-- Huomio -->
     <div id="step3" hidden>
       <h1>Huomio · Issue</h1>
-      <p class="sub">Kerro lyhyesti, mikä puuttuu tai on vialla. Sami saa viestin heti; vieraalle ei lähde mitään.<br>Describe briefly what is missing or broken. Sami is notified; nothing is sent to the guest.</p>
+      <p class="sub">Kerro lyhyesti, mikä puuttuu tai on vialla. Leville-tiimi saa viestin heti ja hoitaa asian; vieraalle ei lähde mitään.<br>Describe briefly what is missing or broken. The Leville team is notified and will handle it; nothing is sent to the guest.</p>
       <div class="stack" style="margin-top:12px">
         <textarea id="note" maxlength="500"></textarea>
-        <button class="go" id="sendReportBtn" type="button">Lähetä Samille · Send</button>
+        <button class="go" id="sendReportBtn" type="button">Lähetä tiimille · Send</button>
         <button class="alt" id="backBtn" type="button">Takaisin · Back</button>
       </div>
     </div>
@@ -142,9 +142,9 @@ button:disabled{opacity:.5}
   function common(r){ // tulokset, jotka ovat yhteisiä kaikille vaiheille
     switch(r.status){
       case 'wrongpin': status('err','Väärä PIN · Wrong PIN','Yritys '+r.attempt+'/'+r.max+'. Tarkista PIN ja yritä uudelleen.'); showStep(1); $('pin').value=''; $('pin').focus(); return true;
-      case 'locked': status('err','Lukittu · Locked','Liian monta väärää PINiä. Yritä uudelleen '+r.minutes+' min kuluttua. Samille on ilmoitettu.'); showStep(1); return true;
-      case 'unknown': status('warn','Tuntematon huoneisto','Ota yhteys Samiin.'); hideAll(); return true;
-      case 'error': status('err','Virhe · Error','Jotain meni pieleen. Yritä uudelleen tai ota yhteys Samiin.'); return true;
+      case 'locked': status('err','Lukittu · Locked','Liian monta väärää PINiä. Yritä uudelleen '+r.minutes+' min kuluttua. Leville-tiimille on ilmoitettu.'); showStep(1); return true;
+      case 'unknown': status('warn','Tuntematon huoneisto','Ota yhteys Leville-tiimiin.'); hideAll(); return true;
+      case 'error': status('err','Virhe · Error','Jotain meni pieleen. Yritä uudelleen tai ota yhteys Leville-tiimiin.'); return true;
     }
     return false;
   }
@@ -179,18 +179,18 @@ button:disabled{opacity:.5}
     if (common(r)) return;
     hideAll();
     switch(r.status){
-      case 'sent': status('ok','Lähetetty · Sent','Vieraalle lähti viesti: huoneisto '+r.label+' on valmis + ovikoodi. Samille meni kuittaus.','Kirjattu klo '+r.at); break;
+      case 'sent': status('ok','Lähetetty · Sent','Vieraalle lähti viesti: huoneisto '+r.label+' on valmis + ovikoodi. Leville-tiimi sai kuittauksen.','Kirjattu klo '+r.at); break;
       case 'already': status('ok','Jo lähetetty · Already sent','Vieraalle on lähetetty viesti jo '+r.at+'.'); break;
       case 'none': status('ok','Kirjattu · Logged','Siivous kirjattu.'); break;
-      case 'noemail': status('warn','Kirjattu · Logged','Siivous kirjattu. Vieraalla ei ole sähköpostia, Sami lähettää koodin itse.'); break;
-      case 'nocode': status('warn','Kirjattu · Logged','Siivous kirjattu. Ovikoodi puuttuu, Samille on ilmoitettu.'); break;
+      case 'noemail': status('warn','Kirjattu · Logged','Siivous kirjattu. Vieraalla ei ole sähköpostia, Leville-tiimi lähettää koodin.'); break;
+      case 'nocode': status('warn','Kirjattu · Logged','Siivous kirjattu. Ovikoodi puuttuu, Leville-tiimille on ilmoitettu.'); break;
       case 'closed': status('warn','Ei käytössä nyt · Not available now','Kuittaus toimii klo '+r.from+'–'+r.to+'.'); showStep(2); break;
     }
   }
   function onReport(r){
-    busy($('sendReportBtn'), false, 'Lähetä Samille · Send');
+    busy($('sendReportBtn'), false, 'Lähetä tiimille · Send');
     if (common(r)) return;
-    hideAll(); status('ok','Ilmoitettu · Reported','Sami sai viestisi. Vieraalle ei lähetetty mitään.');
+    hideAll(); status('ok','Ilmoitettu · Reported','Leville-tiimi sai viestisi ja hoitaa asian. Vieraalle ei lähetetty mitään.');
   }
   var run = function(fn, cb, args){
     var data = fn === 'adminUnits' ? { pin: args[0] } : fn === 'report' ? { slug: args[0], pin: args[1], text: args[2] } : { slug: args[0], pin: args[1] };
