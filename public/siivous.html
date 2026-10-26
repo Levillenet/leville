@@ -51,7 +51,7 @@ button:disabled{opacity:.5}
     <div id="step1">
       <div class="stack">
         <label class="label" for="pin">PIN</label>
-        <input id="pin" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code">
+        <input id="pin" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="one-time-code" autofocus>
         <button class="go" id="verifyBtn" type="button">Jatka · Continue</button>
       </div>
     </div>
@@ -200,6 +200,8 @@ button:disabled{opacity:.5}
   $('verifyBtn').addEventListener('click', function(){ pin=$('pin').value.trim(); if(!pin){$('pin').focus();return;} busy($('verifyBtn'), true); if (admin && !slug) run('adminUnits', onAdmin, [pin]); else run('verify', onVerify, [slug, pin]); });
   $('pickBtn').addEventListener('click', function(){ slug=$('unitSel').value; $('unitName').textContent=$('unitSel').options[$('unitSel').selectedIndex].textContent.split('  –  ')[0]; busy($('pickBtn'), true, ''); run('verify', function(r){ busy($('pickBtn'), false, 'Näytä · Show'); onVerify(r); }, [slug, pin]); });
   $('pin').addEventListener('keydown', function(e){ if(e.key==='Enter') $('verifyBtn').click(); });
+  $('pin').addEventListener('input', function(){ var v=$('pin').value.replace(/\D/g,''); $('pin').value=v; if(v.length===4 && !$('verifyBtn').disabled){ $('pin').blur(); $('verifyBtn').click(); } });
+  $('unitSel').addEventListener('change', function(){ $('pickBtn').click(); });
   $('confirmBtn').addEventListener('click', function(){ busy($('confirmBtn'), true); run('confirm', onConfirm, [slug, pin]); });
   $('logBtn').addEventListener('click', function(){ busy($('logBtn'), true); run('confirm', onConfirm, [slug, pin]); });
   $('reportBtn').addEventListener('click', function(){ clearStatus(); showStep(3); $('note').focus(); });
