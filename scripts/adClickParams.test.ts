@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect } from "bun:test";
 import { captureAdParams, appendAdParams } from "../src/lib/adClickParams";
 const M = "https://app.moder.fi/levillenet/303?step=1&lang=en#x";
 describe("adClickParams", () => {
