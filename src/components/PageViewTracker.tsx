@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { getAdParams, appendAdParams } from "@/lib/adClickParams";
 import { useLocation } from "react-router-dom";
 
 
@@ -284,6 +285,9 @@ const PageViewTracker = () => {
       }
 
       if (anchor?.href?.includes("app.moder.fi")) {
+        if (Object.keys(getAdParams()).length) {
+          anchor.href = appendAdParams(anchor.href);
+        }
         const src = anchor.getAttribute("data-booking-source");
         const eventPath =
           src === "page-cta"   ? "/event/booking-page-cta"   :
