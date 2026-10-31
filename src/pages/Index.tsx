@@ -34,8 +34,8 @@ const seoContent: Record<Language, {
   locale: string;
 }> = {
   fi: {
-    title: "Leville.net – 27 kohdetta Levin keskustassa, varaa suoraan omistajalta",
-    description: "Paikallinen perheyritys vuodesta 2012. 27 saunallista kohdetta Levin keskustassa – varaa suoraan omistajalta ilman välityspalkkioita. Katso kaikki kohteet ja saatavuus.",
+    title: "Majoitus Levillä – 27 kohdetta Levin keskustassa | Leville.net",
+    description: "Majoitus Levillä suoraan omistajalta: 27 saunallista kohdetta Levin keskustassa. Ei välityspalkkioita – katso vapaat kohteet ja varaa suoraan.",
 
     keywords: "Levi opas, Levi lumitilanne, Levi ladut, Levi rinteet, Levi hissiliput, Levi ravintolat, Levi revontulet",
     canonical: "https://leville.net",
