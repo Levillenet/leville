@@ -1,4 +1,5 @@
 # Tehtävät
+- [ ] Lisää GA4-tagi, verkkotunnusten linkitys, SPA-sivukäynnit ja varaus-/sähköpostiklikkaukset suostumuksen taakse; testaa.
 - [x] Lisää FI/EN-suostumusbanneri, Consent Mode v2, 12 kuukauden valinta, evästeseloste ja mittauksen suostumusrajaukset; testaa.
 - [x] Lisää henkilökunnan /s/:unit ja /s-hallinta ohjauslinkit ilman näkyvää sivua; noindex/nofollow ja hakukonerajaukset.
 - [x] Päivitä /siivous.html uuteen versioon (4-numeroinen PIN, automaattinen lähetys, huoneistovalinta, "seuraava saapuja" -tilanäkymä ja dynaaminen päivämäärä).
