@@ -1,3 +1,4 @@
+import "@/lib/shortCampaign";
 import { installModerLinkParams } from "@/lib/adClickParams";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
