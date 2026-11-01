@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { properties } from "@/data/properties";
-import { syncGoogleAnalytics, trackGooglePage, trackGoogleEvent, bookingClickParams } from "@/lib/googleAnalytics";
+import { syncGoogleAnalytics, trackGooglePage, trackGoogleEvent, bookingClickParams, searchEventParams, trackSearchThenNavigate } from "@/lib/googleAnalytics";
 
 export default function GoogleAnalyticsTracker() {
   const location = useLocation();
@@ -21,6 +21,13 @@ export default function GoogleAnalyticsTracker() {
       try { url = new URL(anchor.href); } catch { return; }
       if (url.hostname === "app.moder.fi") {
         trackGoogleEvent("varaa_click", bookingClickParams(anchor.href, properties, location.pathname));
+        const search = searchEventParams(anchor.href, location.pathname, properties);
+        if (search) {
+          const href = anchor.href;
+          const newTab = anchor.target === "_blank" || event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0;
+          if (newTab || event.defaultPrevented) trackSearchThenNavigate(search);
+          else if (trackSearchThenNavigate(search, () => window.location.assign(href))) event.preventDefault();
+        }
       } else if (url.protocol === "mailto:" && url.pathname.toLowerCase() === "info@leville.net") {
         trackGoogleEvent("tarjouspyynto_click");
       }
