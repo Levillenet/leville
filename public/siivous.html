@@ -51,7 +51,7 @@ button:disabled{opacity:.5}
     <div id="step1">
       <div class="stack">
         <label class="label" for="pin">PIN</label>
-        <input id="pin" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="one-time-code" autofocus>
+        <input id="pin" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" autofocus>
         <button class="go" id="verifyBtn" type="button">Jatka · Continue</button>
       </div>
     </div>
@@ -142,7 +142,7 @@ button:disabled{opacity:.5}
   function common(r){ // tulokset, jotka ovat yhteisiä kaikille vaiheille
     switch(r.status){
       case 'wrongpin': status('err','Väärä PIN · Wrong PIN','Yritys '+r.attempt+'/'+r.max+'. Tarkista PIN ja yritä uudelleen.'); showStep(1); $('pin').value=''; $('pin').focus(); return true;
-      case 'locked': status('err','Lukittu · Locked','Liian monta väärää PINiä. Yritä uudelleen '+r.minutes+' min kuluttua. Leville-tiimille on ilmoitettu.'); showStep(1); return true;
+      case 'locked': status('err','Lukittu · Locked', r.permanent ? 'Sivu on lukittu liian monen väärän PINin takia. Ota yhteys Leville-tiimiin.' : 'Liian monta väärää PINiä. Yritä uudelleen '+r.minutes+' min kuluttua. Leville-tiimille on ilmoitettu.'); showStep(1); return true;
       case 'unknown': status('warn','Tuntematon huoneisto','Ota yhteys Leville-tiimiin.'); hideAll(); return true;
       case 'error': status('err','Virhe · Error','Jotain meni pieleen. Yritä uudelleen tai ota yhteys Leville-tiimiin.'); return true;
     }
@@ -205,7 +205,10 @@ button:disabled{opacity:.5}
   $('verifyBtn').addEventListener('click', function(){ pin=$('pin').value.trim(); if(!pin){$('pin').focus();return;} busy($('verifyBtn'), true); if (admin && !slug) run('adminUnits', onAdmin, [pin]); else run('verify', onVerify, [slug, pin]); });
   $('pickBtn').addEventListener('click', function(){ slug=$('unitSel').value; $('unitName').textContent=$('unitSel').options[$('unitSel').selectedIndex].textContent.split('  –  ')[0]; busy($('pickBtn'), true, ''); run('verify', function(r){ busy($('pickBtn'), false, 'Näytä · Show'); onVerify(r); }, [slug, pin]); });
   $('pin').addEventListener('keydown', function(e){ if(e.key==='Enter') $('verifyBtn').click(); });
-  $('pin').addEventListener('input', function(){ var v=$('pin').value.replace(/\D/g,''); $('pin').value=v; if(v.length===4 && !$('verifyBtn').disabled){ $('pin').blur(); $('verifyBtn').click(); } });
+  // Huoneistosivu: 4-numeroinen PIN, kuittaus heti 4. numerosta. Hallintasivu: 6-numeroinen admin-PIN, kuittaus 6. numerosta.
+  var pinLen = (admin && !slug) ? 6 : 4;
+  $('pin').setAttribute('maxlength', String(pinLen));
+  $('pin').addEventListener('input', function(){ var v=$('pin').value.replace(/\D/g,'').slice(0, pinLen); $('pin').value=v; if(v.length===pinLen && !$('verifyBtn').disabled){ $('pin').blur(); $('verifyBtn').click(); } });
   $('unitSel').addEventListener('change', function(){ $('pickBtn').click(); });
   $('confirmBtn').addEventListener('click', function(){ busy($('confirmBtn'), true); run('confirm', onConfirm, [slug, pin]); });
   $('logBtn').addEventListener('click', function(){ busy($('logBtn'), true); run('confirm', onConfirm, [slug, pin]); });
