@@ -49,6 +49,8 @@ async def check(browser, consent, callback):
       });
       window.Moder.fromDate = '2027-03-08';
       window.Moder.toDate = '2027-03-15';
+      window.Moder.fromSelection = new Date('2027-03-08T12:00:00');
+      window.Moder.toSelection = new Date('2027-03-15T12:00:00');
       window.Moder.personsAdults = 2;
       window.Moder.personsChildren = 1;
     }""", {"consent": consent, "callback": callback})
