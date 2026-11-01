@@ -13,6 +13,7 @@ import { isStaffRedirectPath } from "./lib/staffRedirect";
 // Deferred — these don't affect first paint, lazy-load them off the critical path
 const PageViewTracker = lazy(() => import("./components/PageViewTracker"));
 const CookieConsent = lazy(() => import("./components/CookieConsent"));
+const GoogleAnalyticsTracker = lazy(() => import("./components/GoogleAnalyticsTracker"));
 const StructuredData = lazy(() => import("./components/StructuredData"));
 
 // Lazy-loaded page components
@@ -288,6 +289,7 @@ const App = () => {
           <Suspense fallback={null}>
             <PageViewTracker />
             <CookieConsent />
+            <GoogleAnalyticsTracker />
             <StructuredData />
           </Suspense>
           <Suspense fallback={<div className="min-h-screen" />}>

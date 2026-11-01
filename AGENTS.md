@@ -12,3 +12,4 @@
 - Staff operational redirects bypass visitor layout, tracking and path normalization; keep them out of sitemap discovery because they are external workflow links, not public content.
 - All Moder outbound navigation uses appendAdParams through the startup-installed link handler (including dynamic anchors, window.open and embed searches), so campaign attribution has one implementation independent of analytics.
 - Consent Mode defaults must be the first HTML script; the shared cookieConsent module gates statistics and advertising independently and preserves versioned choice evidence, so withdrawal stops reporting and propagation immediately.
+- GoogleAnalyticsTracker owns the single consent-gated GA4 installation, SPA page views and delegated booking/email click events; the initial config owns only the first page view to avoid duplicate app-generated reports.
