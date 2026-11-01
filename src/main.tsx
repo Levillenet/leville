@@ -3,7 +3,9 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { getAdminToken } from "@/lib/adminSession";
+import { initializeConsent } from "@/lib/cookieConsent";
 
+initializeConsent();
 installModerLinkParams();
 
 // Admin function-auth patch needs the backend client; only load it when an

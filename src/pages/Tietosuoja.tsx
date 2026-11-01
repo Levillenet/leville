@@ -41,7 +41,7 @@ const content: Record<Language, {
       },
       {
         heading: "Evästeet",
-        text: "Käytämme analytiikkaevästeitä (Google Analytics, Microsoft Clarity) sivuston kehittämiseksi. Voit estää evästeet selaimesi asetuksista."
+        text: "Tilastointisuostumuksella Leville.net mittaa sivukäyntejä, laitetta, kieltä, vieritystä ja sivustohakuja satunnaisella istuntotunnisteella Lovable Cloudissa. Google Analytics, kun se on määritetty, saa vastaavia mittaustietoja vain tilastointisuostumuksella. Markkinointisuostumuksella kampanja- ja mainosklikkaustunnisteita välitetään Moder-varauslinkkeihin mainonnan tuloksellisuuden mittaamiseksi. Suostumusvalinta, ajankohta ja näytetty seloste tallennetaan selaimeen; valinta on voimassa 12 kuukautta. Voit perua suostumuksen milloin tahansa Evästeasetukset-linkistä. Meta ei ole käytössä tässä toteutuksessa. Lisätiedot: /evasteet."
       },
       {
         heading: "Rekisteröidyn oikeudet",
@@ -72,7 +72,7 @@ const content: Record<Language, {
       },
       {
         heading: "Cookies",
-        text: "We use analytics cookies (Google Analytics, Microsoft Clarity) to improve the website. You can block cookies in your browser settings."
+        text: "With statistics consent, Leville.net measures page visits, device, language, scrolling and site searches using a random session identifier in Lovable Cloud. Google Analytics, when configured, receives similar measurement data only with statistics consent. With marketing consent, campaign and advertising click identifiers are forwarded to Moder booking links to measure advertising effectiveness. Your choices, timestamp and notice are stored in your browser; the choice is valid for 12 months. You can withdraw consent at any time through Cookie settings. Meta is not enabled in this implementation. Details: /en/cookies."
       },
       {
         heading: "Your Rights",

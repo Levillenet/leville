@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { hasConsent, readConsent } from "@/lib/cookieConsent";
 import { useLocation } from "react-router-dom";
 
 
@@ -32,6 +33,7 @@ const getSessionId = (): string => {
 
 // UTM: capture from URL and persist in sessionStorage
 const captureUtmParams = () => {
+  if (!hasConsent("marketing")) return;
   const params = new URLSearchParams(window.location.search);
   const utmKeys = ["utm_source", "utm_medium", "utm_campaign"] as const;
   for (const key of utmKeys) {
@@ -41,9 +43,9 @@ const captureUtmParams = () => {
 };
 
 const getUtmParams = () => ({
-  utm_source: sessionStorage.getItem("_lv_utm_source") || null,
-  utm_medium: sessionStorage.getItem("_lv_utm_medium") || null,
-  utm_campaign: sessionStorage.getItem("_lv_utm_campaign") || null,
+  utm_source: hasConsent("marketing") ? sessionStorage.getItem("_lv_utm_source") || null : null,
+  utm_medium: hasConsent("marketing") ? sessionStorage.getItem("_lv_utm_medium") || null : null,
+  utm_campaign: hasConsent("marketing") ? sessionStorage.getItem("_lv_utm_campaign") || null : null,
 });
 
 // Derive page language from URL prefix (matches site i18n routing)
@@ -78,6 +80,7 @@ const buildPayload = (path: string, referrer?: string | null, id?: string) => {
     device_type: getDeviceType(),
     language: getPageLanguage(path),
     session_id: getSessionId(),
+    consent: readConsent(),
     viewport_w: typeof window !== "undefined" ? window.innerWidth : null,
     utm_source: utm.utm_source,
     utm_medium: utm.utm_medium,
@@ -86,7 +89,7 @@ const buildPayload = (path: string, referrer?: string | null, id?: string) => {
 };
 
 const trackEvent = async (path: string, referrer?: string | null): Promise<string | null> => {
-  if (isLikelyBot()) return null;
+  if (!hasConsent("analytics") || isLikelyBot()) return null;
   try {
     const id = crypto.randomUUID();
     const res = await fetch(LOG_URL, {
@@ -108,7 +111,7 @@ const trackEvent = async (path: string, referrer?: string | null): Promise<strin
 
 // Fire-and-forget event (conversions) — keepalive fetch so it survives tab/window changes
 const trackEventNoId = (path: string, referrer?: string | null) => {
-  if (isLikelyBot()) return;
+  if (!hasConsent("analytics") || isLikelyBot()) return;
   try {
     fetch(LOG_URL, {
       method: "POST",
@@ -147,6 +150,7 @@ const getScrollPercent = (): number => {
 };
 
 const sendEngagement = (pageViewId: string, scrollDepth: number, timeOnPage: number) => {
+  if (!hasConsent("analytics")) return;
   const payload = JSON.stringify({
     page_view_id: pageViewId,
     session_id: getSessionId(),
@@ -171,6 +175,7 @@ const sendEngagement = (pageViewId: string, scrollDepth: number, timeOnPage: num
 
 const PageViewTracker = () => {
   const location = useLocation();
+  const [consentRevision, setConsentRevision] = useState(0);
   const lastPath = useRef<string>("");
   const lastEventRef = useRef<{ path: string; time: number }>({ path: "", time: 0 });
 
@@ -191,7 +196,7 @@ const PageViewTracker = () => {
 
   // Flush engagement data for current page
   const flushEngagement = () => {
-    if (!currentPageViewId.current) return;
+    if (!hasConsent("analytics") || !currentPageViewId.current) return;
 
     const timeOnPage = Math.round((Date.now() - pageEntryTime.current) / 1000);
     if (timeOnPage < 1) return;
@@ -204,11 +209,21 @@ const PageViewTracker = () => {
   // Capture UTM on first load
   useEffect(() => {
     captureUtmParams();
+    const changed = () => {
+      captureUtmParams();
+      currentPageViewId.current = null;
+      lastPath.current = "";
+      lastEventRef.current = { path: "", time: 0 };
+      setConsentRevision((value) => value + 1);
+    };
+    window.addEventListener("lv-consent-change", changed);
+    return () => window.removeEventListener("lv-consent-change", changed);
   }, []);
 
   // Track page views
   useEffect(() => {
     const path = location.pathname;
+    if (!hasConsent("analytics")) return;
     if (path === lastPath.current) return;
 
     // Flush previous page engagement before tracking new page
@@ -227,7 +242,7 @@ const PageViewTracker = () => {
     trackEvent(path, getExternalReferrer()).then((id) => {
       currentPageViewId.current = id;
     });
-  }, [location.pathname]);
+  }, [location.pathname, consentRevision]);
 
   // Scroll depth tracking
   useEffect(() => {

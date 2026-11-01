@@ -12,6 +12,7 @@ import { isStaffRedirectPath } from "./lib/staffRedirect";
 
 // Deferred — these don't affect first paint, lazy-load them off the critical path
 const PageViewTracker = lazy(() => import("./components/PageViewTracker"));
+const CookieConsent = lazy(() => import("./components/CookieConsent"));
 const StructuredData = lazy(() => import("./components/StructuredData"));
 
 // Lazy-loaded page components
@@ -30,6 +31,7 @@ const Yhteystiedot = lazy(() => import("./pages/Yhteystiedot"));
 const UKK = lazy(() => import("./pages/UKK"));
 const Varausehdot = lazy(() => import("./pages/Varausehdot"));
 const Tietosuoja = lazy(() => import("./pages/Tietosuoja"));
+const Evasteet = lazy(() => import("./pages/Evasteet"));
 const Yritys = lazy(() => import("./pages/Yritys"));
 const Sauna = lazy(() => import("./pages/Sauna"));
 const Tietovisa = lazy(() => import("./pages/Tietovisa"));
@@ -285,6 +287,7 @@ const App = () => {
 
           <Suspense fallback={null}>
             <PageViewTracker />
+            <CookieConsent />
             <StructuredData />
           </Suspense>
           <Suspense fallback={<div className="min-h-screen" />}>
@@ -334,6 +337,8 @@ const App = () => {
               <Route path="/ukk" element={<UKK />} />
               <Route path="/varausehdot" element={<Varausehdot lang="fi" />} />
               <Route path="/tietosuoja" element={<Tietosuoja lang="fi" />} />
+              <Route path="/evasteet" element={<Evasteet lang="fi" />} />
+              <Route path="/en/cookies" element={<Evasteet lang="en" />} />
               <Route path="/yritys" element={<Yritys />} />
               <Route path="/sauna" element={<Navigate to="/guide/finnish-sauna-in-levi" replace />} />
               <Route path="/tietovisa" element={<Tietovisa />} />
