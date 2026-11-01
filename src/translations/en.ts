@@ -78,8 +78,8 @@ export const en = {
         features: ["4–10 persons", "3–4 bedrooms", "Fully equipped kitchens", "Balconies in all apartments"]
       },
       {
-        title: "Bear Lodge",
-        description: "Atmospheric and traditional log cabin in Levi center. Full comfort for a large group.",
+        title: "Karhupirtti log villa (Bear Lodge)",
+        description: "Traditional log villa rental in Levi center for up to 14 guests, with sauna, fireplace and a private outdoor hot tub.",
         features: ["Up to 14 persons", "7 bedrooms", "Fireplace", "Kitchen", "Outdoor hot tub", "Private yard"]
       },
       {

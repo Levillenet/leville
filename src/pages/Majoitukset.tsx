@@ -105,7 +105,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
   const buildingGroups = useMemo(() => {
     const groups: { id: string; name: string; slugPrefix: (slug: string) => boolean; description: string; descriptionEn: string }[] = [
       { id: "zero-point", name: "Zero Point (Hiihtäjänkuja 5)", slugPrefix: (s) => s.startsWith("zero-point"), description: "Saunalliset 2 makuuhuoneen alppihuoneistot Levin ydinkeskustassa, kävelymatka rinteille ja keskustaan.", descriptionEn: "Two-bedroom alpine apartments with private sauna in the heart of Levi centre, walking distance to the slopes." },
-      { id: "karhupirtti", name: "Karhupirtti (Skimbaajankuja 3)", slugPrefix: (s) => s === "karhupirtti", description: "Tilava hirsihuvila isoille ryhmille – oma sauna, takka ja paljulle varattu piha.", descriptionEn: "Spacious log villa for large groups — private sauna, fireplace and a yard prepared for a hot tub." },
+      { id: "karhupirtti", name: "Karhupirtti (Skimbaajankuja 3)", slugPrefix: (s) => s === "karhupirtti", description: "Tilava hirsihuvila jopa 14 hengelle – oma sauna, takka ja ulkoporeallas omalla pihalla.", descriptionEn: "Spacious log villa for up to 14 guests — private sauna, fireplace and an outdoor hot tub on its own yard." },
       { id: "skistar", name: "Skistar Levi Centre (Postintie 3)", slugPrefix: (s) => s.startsWith("skistar"), description: "Modernit huoneistot ja studiot Levin keskustassa – palvelut askelmatkan päässä, hisseille n. 750 m.", descriptionEn: "Modern apartments and studios in Levi centre — services next door, 750 m to the front slope." },
       { id: "karhunvartija", name: "Karhunvartija 3 (Skimbaajankuja 4)", slugPrefix: (s) => s === "karhunvartija-3", description: "Tilava perhehuoneisto Levin keskustassa, oma sauna ja takka.", descriptionEn: "Spacious family apartment in Levi centre with private sauna and fireplace." },
       { id: "levi-platinum", name: "Levi Platinum A2 (Hiihtäjänkuja 2)", slugPrefix: (s) => s === "levi-platinum-a2", description: "Edustava studio Levin keskustassa – kävelymatka rinteille, ravintoloihin ja palveluihin.", descriptionEn: "Stylish studio in Levi centre — walking distance to the slopes, restaurants and services." },
@@ -872,6 +872,37 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                 )}
               </section>
             </ScrollReveal>
+
+            {isEnglish && (
+              <ScrollReveal delay={0.2}>
+                <section className="mb-16 md:mb-20 max-w-3xl mx-auto">
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6 text-center">
+                    Levi Villa Rental with Outdoor Hot Tub
+                  </h2>
+                  <div className="space-y-4 text-muted-foreground leading-relaxed">
+                    <p>
+                      Looking for Levi accommodation with a hot tub? Karhupirtti is a 220 m² traditional log villa in Levi center with seven bedrooms for up to 14 guests, a wood-heated fireplace, sauna and a private outdoor hot tub on its own fenced yard. Pets are welcome.
+                    </p>
+                    <p>
+                      See the{" "}
+                      <Link to="/en/accommodations/karhupirtti" className="text-primary hover:underline">
+                        Karhupirtti log villa
+                      </Link>{" "}
+                      or{" "}
+                      <a
+                        href="https://app.moder.fi/levillenet/303?step=1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline"
+                      >
+                        check free dates and book directly
+                      </a>{" "}
+                      — no booking fees.
+                    </p>
+                  </div>
+                </section>
+              </ScrollReveal>
+            )}
 
             {/* FAQ Section */}
             <ScrollReveal delay={0.2}>
