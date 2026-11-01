@@ -16,7 +16,8 @@ export default function GoogleAnalyticsTracker() {
     const clicked = (event: MouseEvent) => {
       if (!(event.target instanceof Element)) return;
       const anchor = event.target.closest<HTMLAnchorElement>("a[href]");
-      if (!anchor) return;
+      // Synthetic navigation anchors (search widget) already sent their events.
+      if (!anchor || anchor.hasAttribute("data-lv-nav")) return;
       let url: URL;
       try { url = new URL(anchor.href); } catch { return; }
       if (url.hostname === "app.moder.fi") {
