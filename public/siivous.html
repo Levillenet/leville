@@ -38,6 +38,10 @@ button:disabled{opacity:.5}
 .ok{background:var(--ok-bg);color:var(--ok-fg)}.warn{background:var(--warn-bg);color:var(--warn-fg)}.err{background:var(--err-bg);color:var(--err-fg)}
 .foot{color:var(--muted);font-size:13px;text-align:center}
 [hidden]{display:none!important}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.keypad button{background:var(--bg);color:var(--fg);border:1.5px solid var(--line);font-family:ui-monospace,Menlo,monospace;font-size:28px;font-weight:600;padding:14px 0;border-radius:14px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.keypad button:active{background:var(--line)}
+.keypad button.fn{font-family:inherit;font-size:20px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -51,8 +55,14 @@ button:disabled{opacity:.5}
     <div id="step1">
       <div class="stack">
         <label class="label" for="pin">PIN</label>
-        <input id="pin" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" autofocus>
-        <button class="go" id="verifyBtn" type="button">Jatka · Continue</button>
+        <input id="pin" inputmode="none" readonly maxlength="6" autocomplete="off" aria-label="PIN">
+        <div class="keypad" id="keypad">
+          <button type="button" data-k="1">1</button><button type="button" data-k="2">2</button><button type="button" data-k="3">3</button>
+          <button type="button" data-k="4">4</button><button type="button" data-k="5">5</button><button type="button" data-k="6">6</button>
+          <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button>
+          <button type="button" class="fn" data-k="C" aria-label="Tyhjennä">Tyhjennä</button><button type="button" data-k="0">0</button><button type="button" class="fn" data-k="B" aria-label="Poista">⌫</button>
+        </div>
+        <button class="go" id="verifyBtn" type="button" hidden>Jatka · Continue</button>
       </div>
     </div>
 
@@ -202,13 +212,19 @@ button:disabled{opacity:.5}
     api(fn, data, cb);
   };
 
-  $('verifyBtn').addEventListener('click', function(){ pin=$('pin').value.trim(); if(!pin){$('pin').focus();return;} busy($('verifyBtn'), true); if (admin && !slug) run('adminUnits', onAdmin, [pin]); else run('verify', onVerify, [slug, pin]); });
+  $('verifyBtn').addEventListener('click', function(){ pin=$('pin').value.trim(); if(!pin){$('pin').focus();return;} busy($('verifyBtn'), true); status('ok','Tarkistetaan… · Checking…',''); if (admin && !slug) run('adminUnits', onAdmin, [pin]); else run('verify', onVerify, [slug, pin]); });
   $('pickBtn').addEventListener('click', function(){ slug=$('unitSel').value; $('unitName').textContent=$('unitSel').options[$('unitSel').selectedIndex].textContent.split('  –  ')[0]; busy($('pickBtn'), true, ''); run('verify', function(r){ busy($('pickBtn'), false, 'Näytä · Show'); onVerify(r); }, [slug, pin]); });
-  $('pin').addEventListener('keydown', function(e){ if(e.key==='Enter') $('verifyBtn').click(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Enter' && !$('step1').hidden) $('verifyBtn').click(); });
   // Huoneistosivu: 4-numeroinen PIN, kuittaus heti 4. numerosta. Hallintasivu: 6-numeroinen admin-PIN, kuittaus 6. numerosta.
   var pinLen = (admin && !slug) ? 6 : 4;
   $('pin').setAttribute('maxlength', String(pinLen));
   $('pin').addEventListener('input', function(){ var v=$('pin').value.replace(/\D/g,'').slice(0, pinLen); $('pin').value=v; if(v.length===pinLen && !$('verifyBtn').disabled){ $('pin').blur(); $('verifyBtn').click(); } });
+  // Oma numeronäppäimistö: näkyy heti, puhelimen näppäimistöä ei tarvita. Tietokoneella toimii myös fyysinen näppäimistö.
+  function keyIn(k){ if ($('step1').hidden || $('verifyBtn').disabled) return; var p=$('pin');
+    if (k==='B') p.value=p.value.slice(0,-1); else if (k==='C') p.value=''; else if (p.value.length<pinLen) p.value+=k;
+    p.dispatchEvent(new Event('input')); }
+  $('keypad').addEventListener('click', function(e){ var b=e.target.closest('button'); if(b) keyIn(b.getAttribute('data-k')); });
+  document.addEventListener('keydown', function(e){ if ($('step1').hidden) return; if (/^[0-9]$/.test(e.key)) { keyIn(e.key); e.preventDefault(); } else if (e.key==='Backspace') { keyIn('B'); e.preventDefault(); } });
   $('unitSel').addEventListener('change', function(){ $('pickBtn').click(); });
   $('confirmBtn').addEventListener('click', function(){ busy($('confirmBtn'), true); run('confirm', onConfirm, [slug, pin]); });
   $('logBtn').addEventListener('click', function(){ busy($('logBtn'), true); run('confirm', onConfirm, [slug, pin]); });
