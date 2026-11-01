@@ -15,3 +15,4 @@
 - GoogleAnalyticsTracker owns the single consent-gated GA4 installation, SPA page views and delegated booking/email click events; the initial config owns only the first page view to avoid duplicate app-generated reports.
 - Dated Moder searches go through trackSearchThenNavigate (one event per search, deduped across handlers; navigation on event_callback or 150 ms), so link and embed-search paths never double-count.
 - Consented widget navigation dispatches mousedown on an attached data-lv-nav anchor before clicking its decorated href; both delegated Moder handlers skip this marker to preserve linker decoration without repeating tracking or delays.
+- Short social tags (?fb=/?ig=) are expanded to UTM parameters by src/lib/shortCampaign.ts, imported first in main.tsx, so every analytics and link-decoration path sees only standard UTMs.
