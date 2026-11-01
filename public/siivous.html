@@ -97,6 +97,7 @@ button:disabled{opacity:.5}
     </div>
 
     <div id="status" class="status" hidden></div>
+    <button class="alt" id="adminBack" type="button" style="margin-top:10px" hidden>← Kaikki huoneistot · All apartments</button>
     </div>
     <div id="notfound" class="status warn" hidden><strong>Ei käytössä</strong></div>
   </div>
@@ -213,7 +214,11 @@ button:disabled{opacity:.5}
   };
 
   $('verifyBtn').addEventListener('click', function(){ pin=$('pin').value.trim(); if(!pin){$('pin').focus();return;} busy($('verifyBtn'), true); status('ok','Tarkistetaan… · Checking…',''); if (admin && !slug) run('adminUnits', onAdmin, [pin]); else run('verify', onVerify, [slug, pin]); });
-  $('pickBtn').addEventListener('click', function(){ slug=$('unitSel').value; $('unitName').textContent=$('unitSel').options[$('unitSel').selectedIndex].textContent.split('  –  ')[0]; busy($('pickBtn'), true, ''); run('verify', function(r){ busy($('pickBtn'), false, 'Näytä · Show'); onVerify(r); }, [slug, pin]); });
+  // Hallinta: paluu huoneistolistaan (painike + puhelimen/selaimen takaisin-nappi)
+  function backToList(){ slug=''; $('unitName').textContent=''; clearStatus(); $('adminBack').hidden=true; showStep(4); }
+  $('adminBack').addEventListener('click', function(){ if (history.state && history.state.unit) history.back(); else backToList(); });
+  window.addEventListener('popstate', function(){ if (admin && slug) backToList(); });
+  $('pickBtn').addEventListener('click', function(){ slug=$('unitSel').value; $('adminBack').hidden=false; try { history.pushState({ unit: slug }, ''); } catch (e) {} $('unitName').textContent=$('unitSel').options[$('unitSel').selectedIndex].textContent.split('  –  ')[0]; busy($('pickBtn'), true, ''); run('verify', function(r){ busy($('pickBtn'), false, 'Näytä · Show'); onVerify(r); }, [slug, pin]); });
   document.addEventListener('keydown', function(e){ if(e.key==='Enter' && !$('step1').hidden) $('verifyBtn').click(); });
   // Huoneistosivu: 4-numeroinen PIN, kuittaus heti 4. numerosta. Hallintasivu: 6-numeroinen admin-PIN, kuittaus 6. numerosta.
   var pinLen = (admin && !slug) ? 6 : 4;
