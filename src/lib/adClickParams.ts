@@ -1,4 +1,5 @@
 import { hasConsent } from "./cookieConsent";
+import { searchEventParams, trackSearchThenNavigate } from "./googleAnalytics";
 
 // All Moder navigation paths share appendAdParams. Existing click IDs remain
 // in memory; campaign UTMs come from the current URL, then existing session data.
@@ -149,11 +150,17 @@ export function installModerLinkParams(): void {
     const room = moder.ModerSettings.roomTypeId ? `/${moder.ModerSettings.roomTypeId}` : "";
     const url = `${moder.baseUrl}/${moder.ModerSettings.property || "not-found"}${room}?start=${moder.fromDate}&end=${moder.toDate}&adults=${moder.personsAdults}&children=${moder.personsChildren}&lang=${moder.$locale}&flexible_date_search=${moder.flexibleDateSearch}`;
     const next = appendAdParams(url);
+    const search = searchEventParams(next, window.location.pathname);
+    const go = () => { window.location.assign(next); moder.close(); };
+    if (search && trackSearchThenNavigate(search, go)) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
     if (next === url) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    window.location.assign(next);
-    moder.close();
+    go();
   };
   document.addEventListener("click", handleNavigation, true);
   document.addEventListener("auxclick", handleNavigation, true);
