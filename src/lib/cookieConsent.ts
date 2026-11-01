@@ -21,6 +21,7 @@ type ConsentWindow = Window & { gtag?: (...args: unknown[]) => void };
 export function consentExpiry(now: Date): Date {
   const next = new Date(now);
   next.setUTCFullYear(next.getUTCFullYear() + 1);
+  if (next.getUTCMonth() !== now.getUTCMonth()) next.setUTCDate(0);
   return next;
 }
 export function validConsent(value: unknown, now = new Date()): value is ConsentRecord {
@@ -52,7 +53,7 @@ function applyConsent() {
   const record = readConsent();
   (window as ConsentWindow).gtag?.("consent", "update", googleConsent(record?.analytics === true, record?.marketing === true));
   if (!record?.analytics) {
-    sessionStorage.removeItem("_lv_sid");
+    try { sessionStorage.removeItem("_lv_sid"); sessionStorage.removeItem("session_id"); } catch { /* unavailable */ }
     for (const cookie of document.cookie.split(";")) {
       const name = cookie.split("=")[0].trim();
       if (!name.startsWith("_ga")) continue;
@@ -62,7 +63,9 @@ function applyConsent() {
     }
   }
   if (!record?.marketing) {
-    for (const key of ["utm_source", "utm_medium", "utm_campaign"]) sessionStorage.removeItem(`_lv_${key}`);
+    try {
+      for (const key of ["utm_source", "utm_medium", "utm_campaign"]) sessionStorage.removeItem(`_lv_${key}`);
+    } catch { /* unavailable */ }
   }
   window.dispatchEvent(new Event("lv-consent-change"));
 }
