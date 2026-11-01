@@ -14,3 +14,4 @@
 - Consent Mode defaults must be the first HTML script; the shared cookieConsent module gates statistics and advertising independently and preserves versioned choice evidence, so withdrawal stops reporting and propagation immediately.
 - GoogleAnalyticsTracker owns the single consent-gated GA4 installation, SPA page views and delegated booking/email click events; the initial config owns only the first page view to avoid duplicate app-generated reports.
 - Dated Moder searches go through trackSearchThenNavigate (one event per search, deduped across handlers; navigation on event_callback or 150 ms), so link and embed-search paths never double-count.
+- Consented widget navigation dispatches mousedown on an attached data-lv-nav anchor before clicking its decorated href; both delegated Moder handlers skip this marker to preserve linker decoration without repeating tracking or delays.

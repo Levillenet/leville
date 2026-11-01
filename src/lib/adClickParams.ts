@@ -140,6 +140,8 @@ export function installModerLinkParams(): void {
   const handleNavigation = (event: MouseEvent) => {
     if (!(event.target instanceof Element)) return;
     const anchor = event.target.closest<HTMLAnchorElement>("a[href]");
+    // This navigation already passed through tracking and its single delay.
+    if (anchor?.hasAttribute("data-lv-nav")) return;
     if (anchor) updateAnchor(anchor);
 
     if (event.type !== "click" || !event.target.closest(".moder-bar__search-button")) return;
@@ -153,8 +155,8 @@ export function installModerLinkParams(): void {
     const search = searchEventParams(next, window.location.pathname);
     const go = () => {
       moder.close();
-      // gtag's cross-domain linker decorates only clicked anchors, so with
-      // consent granted navigate via a temporary anchor click to get _gl.
+      // gtag's cross-domain linker decorates anchors on mousedown; click the
+      // same element afterward so navigation uses its updated href (with _gl).
       // data-lv-nav tells the delegated trackers to skip this synthetic click.
       if (hasConsent("analytics")) {
         const anchor = document.createElement("a");
@@ -162,6 +164,7 @@ export function installModerLinkParams(): void {
         anchor.setAttribute("data-lv-nav", "1");
         anchor.style.display = "none";
         document.body.appendChild(anchor);
+        anchor.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true, button: 0 }));
         anchor.click();
         anchor.remove();
         return;
