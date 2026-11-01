@@ -881,7 +881,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                   </h2>
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
                     <p>
-                      Looking for Levi accommodation with a hot tub? Karhupirtti is a 220 m² traditional log villa in Levi center with seven bedrooms for up to 14 guests, a wood-heated fireplace, sauna and a private outdoor hot tub on its own fenced yard. Pets are welcome.
+                      Looking for Levi accommodation with a hot tub? Karhupirtti is a 220 m² traditional log villa in Levi center with seven bedrooms and five bathrooms for up to 14 guests, a fireplace, sauna and a private outdoor hot tub on its own fenced yard. Upstairs, two large bedrooms each have a connecting kids' room – ideal for families travelling together. Pets are welcome.
                     </p>
                     <p>
                       See the{" "}
