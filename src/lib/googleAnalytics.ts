@@ -7,7 +7,7 @@ export const GA_CONFIG = {
 };
 type AnalyticsWindow = Window & {
   gtag?: (...args: unknown[]) => void;
-  [key: `ga-disable-${string}`]: boolean;
+  "ga-disable-G-4RSJCSBRRC"?: boolean;
 };
 let initialized = false;
 let lastPage = "";
