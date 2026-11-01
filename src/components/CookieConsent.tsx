@@ -26,7 +26,7 @@ export default function CookieConsent() {
   if (!visible || location.pathname.startsWith("/admin")) return null;
   const save = (stats: boolean, ads: boolean) => { saveConsent(stats, ads, lang); setVisible(false); setSettings(false); };
   return (
-    <section role="region" aria-label={fi ? "Evästeasetukset" : "Cookie settings"} className="fixed bottom-0 inset-x-0 z-[100] border-t border-border bg-card text-card-foreground shadow-elegant">
+    <section role="region" aria-label={fi ? "Evästeasetukset" : "Cookie settings"} className="fixed bottom-0 inset-x-0 z-[10000] border-t border-border bg-card text-card-foreground shadow-elegant">
       <div className="container mx-auto px-4 py-4 md:py-5 max-h-[70dvh] overflow-y-auto">
         <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
           <div className="flex-1">
@@ -34,8 +34,8 @@ export default function CookieConsent() {
             <a href={fi ? "/evasteet" : "/en/cookies"} className="text-primary text-xs underline underline-offset-4">{fi ? "Evästeseloste" : "Cookie policy"}</a>
           </div>
           <div className="grid grid-cols-2 gap-2 lg:flex lg:items-center lg:shrink-0">
-            <Button className="h-11 px-3" onClick={() => save(true, true)}>{fi ? "Hyväksy kaikki" : "Accept all"}</Button>
-            <Button variant="secondary" className="h-11 px-3 bg-foreground text-background hover:bg-foreground/90" onClick={() => save(false, false)}>{fi ? "Vain välttämättömät" : "Necessary only"}</Button>
+            <Button className="h-11 w-full lg:w-44 px-2 whitespace-normal leading-tight" onClick={() => save(true, true)}>{fi ? "Hyväksy kaikki" : "Accept all"}</Button>
+            <Button variant="secondary" className="h-11 w-full lg:w-44 px-2 whitespace-normal leading-tight bg-foreground text-background hover:bg-foreground/90" onClick={() => save(false, false)}>{fi ? "Vain välttämättömät" : "Necessary only"}</Button>
             <Button variant="link" className="col-span-2 h-8 lg:h-11" aria-expanded={settings} onClick={() => {
               const choice = readConsent(); setAnalytics(choice?.analytics ?? false); setMarketing(choice?.marketing ?? false); setSettings(!settings);
             }}>{fi ? "Asetukset" : "Settings"}</Button>
