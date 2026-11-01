@@ -28,7 +28,7 @@ async def check(browser, consent, callback):
       window.gtag = (...args) => {
         if (args[0] === 'event') {
           result.events.push(args[1]);
-          if (callback && args[1] === 'majoitushaku') args[2].event_callback();
+          if (callback && args[1] === 'majoitushaku') timeout.call(window, args[2].event_callback, 0);
         }
       };
       document.addEventListener('mousedown', event => {
