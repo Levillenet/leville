@@ -93,6 +93,16 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
             {t.intro}
           </p>
 
+          <div className="rounded-xl border border-primary/30 bg-primary/5 p-5 mb-10">
+            <p className="font-semibold text-foreground mb-1">{t.boxTitle}</p>
+            <p className="text-muted-foreground mb-3">{t.boxText}</p>
+            <p>
+              <Link to={t.boxLinkPageHref} className="text-primary hover:underline">{t.boxLinkPage}</Link>
+              {" · "}
+              <a href="https://app.moder.fi/levillenet/303?step=1" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">{t.boxLinkBook}</a>
+            </p>
+          </div>
+
           <img
             src={hotTubHero}
             alt={t.heroAlt}
@@ -251,6 +261,11 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
 const translations = {
   fi: {
     metaTitle: "Ulkoporealtaat Levillä – Opas mökkivieraalle | Leville.net",
+    boxTitle: "Majoitus Levillä omalla ulkoporealtaalla",
+    boxText: "Karhupirtti-hirsihuvilassa Levin keskustassa on tilaa jopa 14 hengelle, oma ulkoporeallas, sauna ja takka.",
+    boxLinkPage: "Katso hirsihuvila",
+    boxLinkPageHref: "/majoitukset/karhupirtti",
+    boxLinkBook: "Katso vapaat päivät",
     metaDescription: "Ulkoporeallas mökkimajoituksessa Levillä: veden lämpötila, kannen käyttö, suihkussa käynti ja vinkit talviseen kylpyyn. Käytännön opas vieraille.",
     metaKeywords: "poreallas mökissä Levi, ulkoporeallas mökkimajoitus, jacuzzi mökki Levi, poreallas Lappi",
     title: "Ulkoporealtaat Levillä – mitä mökkivieraan on hyvä tietää",
@@ -314,7 +329,12 @@ const translations = {
     ],
   },
   en: {
-    metaTitle: "Outdoor Hot Tubs in Levi – Guest Guide | Leville.net",
+    metaTitle: "Levi Accommodation with Outdoor Hot Tub – Guest Guide | Leville.net",
+    boxTitle: "Levi accommodation with a private outdoor hot tub",
+    boxText: "Our Karhupirtti log villa in Levi center sleeps up to 14 guests and has its own outdoor hot tub, sauna and fireplace.",
+    boxLinkPage: "See the log villa",
+    boxLinkPageHref: "/en/accommodations/karhupirtti",
+    boxLinkBook: "Check free dates",
     metaDescription: "Outdoor hot tubs in Levi cabin accommodation: water temperature, cover use, showering rules and tips for winter bathing — and where to find Levi accommodation with a private outdoor hot tub.",
     metaKeywords: "outdoor hot tub Levi cabin, jacuzzi cabin Finland, hot tub Lapland accommodation, poreallas Levi",
     title: "Outdoor hot tubs in Levi – what guests should know",
