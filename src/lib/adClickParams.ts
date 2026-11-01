@@ -151,7 +151,23 @@ export function installModerLinkParams(): void {
     const url = `${moder.baseUrl}/${moder.ModerSettings.property || "not-found"}${room}?start=${moder.fromDate}&end=${moder.toDate}&adults=${moder.personsAdults}&children=${moder.personsChildren}&lang=${moder.$locale}&flexible_date_search=${moder.flexibleDateSearch}`;
     const next = appendAdParams(url);
     const search = searchEventParams(next, window.location.pathname);
-    const go = () => { window.location.assign(next); moder.close(); };
+    const go = () => {
+      moder.close();
+      // gtag's cross-domain linker decorates only clicked anchors, so with
+      // consent granted navigate via a temporary anchor click to get _gl.
+      // data-lv-nav tells the delegated trackers to skip this synthetic click.
+      if (hasConsent("analytics")) {
+        const anchor = document.createElement("a");
+        anchor.href = next;
+        anchor.setAttribute("data-lv-nav", "1");
+        anchor.style.display = "none";
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        return;
+      }
+      window.location.assign(next);
+    };
     if (search && trackSearchThenNavigate(search, go)) {
       event.preventDefault();
       event.stopImmediatePropagation();
