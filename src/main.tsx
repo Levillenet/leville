@@ -1,8 +1,10 @@
-import { installWindowOpenPatch } from "@/lib/adClickParams";
+import { installModerLinkParams } from "@/lib/adClickParams";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { getAdminToken } from "@/lib/adminSession";
+
+installModerLinkParams();
 
 // Admin function-auth patch needs the backend client; only load it when an
 // admin session can exist (admin route or stored admin token).

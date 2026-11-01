@@ -1,11 +1,12 @@
-// Captures Google Ads click IDs / UTM params from the landing URL into memory only
-// (no cookies or web storage) and forwards them to app.moder.fi booking links.
+// All Moder navigation paths share appendAdParams. Existing click IDs remain
+// in memory; campaign UTMs come from the current URL, then existing session data.
 const KEYS = [
   "gclid", "gbraid", "wbraid",
   "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
 ] as const;
 
 const stored: Record<string, string> = {};
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign"] as const;
 
 export function captureAdParams(search: string): void {
   for (const k of Object.keys(stored)) delete stored[k];
@@ -23,7 +24,24 @@ export function getAdParams(): Record<string, string> {
 }
 
 export function appendAdParams(url: string): string {
-  const keys = Object.keys(stored);
+  const params = { ...stored };
+  const current = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
+  for (const key of UTM_KEYS) {
+    // Unlike click IDs, these must not fall back to a stale landing-URL value.
+    delete params[key];
+    let value = current.get(key);
+    if (!value && typeof window !== "undefined") {
+      try {
+        value = window.sessionStorage.getItem(`_lv_${key}`);
+      } catch {
+        // Storage can be unavailable; URL values still work.
+      }
+    }
+    if (value) params[key] = value;
+    // Preserve the existing pure-function API for non-browser callers/tests.
+    else if (typeof window === "undefined" && stored[key]) params[key] = stored[key];
+  }
+  const keys = Object.keys(params);
   if (!keys.length) return url;
   let u: URL;
   try {
@@ -34,8 +52,8 @@ export function appendAdParams(url: string): string {
   if (u.hostname !== "app.moder.fi") return url;
   let changed = false;
   for (const k of keys) {
-    if (!u.searchParams.has(k)) {
-      u.searchParams.append(k, stored[k]);
+    if (UTM_KEYS.some((key) => key === k) ? u.searchParams.get(k) !== params[k] : !u.searchParams.has(k)) {
+      u.searchParams.set(k, params[k]);
       changed = true;
     }
   }
@@ -48,7 +66,72 @@ export function installWindowOpenPatch(): void {
   patched = true;
   const original = window.open.bind(window);
   window.open = ((url?: string | URL, ...rest: unknown[]) => {
-    const next = typeof url === "string" ? appendAdParams(url) : url;
+    const next = typeof url === "string" || url instanceof URL ? appendAdParams(String(url)) : url;
     return (original as (...a: unknown[]) => Window | null)(next, ...rest);
   }) as typeof window.open;
+}
+
+interface ModerSearchState {
+  searchReady: boolean;
+  baseUrl: string;
+  ModerSettings: { internal?: boolean; property?: string; roomTypeId?: string | number };
+  fromDate: string;
+  toDate: string;
+  personsAdults: number;
+  personsChildren: number;
+  $locale: string;
+  flexibleDateSearch: number;
+  close: () => void;
+}
+
+let linksInstalled = false;
+export function installModerLinkParams(): void {
+  if (linksInstalled || typeof window === "undefined") return;
+  linksInstalled = true;
+  installWindowOpenPatch();
+
+  const updateAnchor = (anchor: HTMLAnchorElement) => {
+    const next = appendAdParams(anchor.href);
+    if (next !== anchor.href) anchor.href = next;
+  };
+  const updateLinks = (root: ParentNode) => {
+    root.querySelectorAll<HTMLAnchorElement>('a[href*="app.moder.fi"]').forEach(updateAnchor);
+  };
+  updateLinks(document);
+  // Covers React-rendered links, lazy pages and third-party/dynamic anchors.
+  new MutationObserver((records) => {
+    for (const record of records) {
+      if (record.type === "attributes" && record.target instanceof HTMLAnchorElement) {
+        updateAnchor(record.target);
+      }
+      for (const node of record.addedNodes) {
+        if (!(node instanceof Element)) continue;
+        if (node instanceof HTMLAnchorElement) updateAnchor(node);
+        updateLinks(node);
+      }
+    }
+  }).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ["href"] });
+
+  const handleNavigation = (event: MouseEvent) => {
+    if (!(event.target instanceof Element)) return;
+    const anchor = event.target.closest<HTMLAnchorElement>("a[href]");
+    if (anchor) updateAnchor(anchor);
+
+    if (event.type !== "click" || !event.target.closest(".moder-bar__search-button")) return;
+    const moder = (window as Window & { Moder?: ModerSearchState }).Moder;
+    if (!moder?.searchReady || moder.ModerSettings.internal) return;
+    // The embed uses location.assign, not an anchor or window.open. Preserve
+    // its exact search fields and only intercept when tracking changes the URL.
+    const room = moder.ModerSettings.roomTypeId ? `/${moder.ModerSettings.roomTypeId}` : "";
+    const url = `${moder.baseUrl}/${moder.ModerSettings.property || "not-found"}${room}?start=${moder.fromDate}&end=${moder.toDate}&adults=${moder.personsAdults}&children=${moder.personsChildren}&lang=${moder.$locale}&flexible_date_search=${moder.flexibleDateSearch}`;
+    const next = appendAdParams(url);
+    if (next === url) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    window.location.assign(next);
+    moder.close();
+  };
+  document.addEventListener("click", handleNavigation, true);
+  document.addEventListener("auxclick", handleNavigation, true);
+  document.addEventListener("contextmenu", handleNavigation, true);
 }
