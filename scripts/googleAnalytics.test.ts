@@ -33,7 +33,7 @@ describe("majoitushaku", () => {
     const g = globalThis as any;
     g.window = { gtag: (...a: unknown[]) => calls.push(a), location: { pathname: "/", search: "" } };
     g.document = { head: { appendChild() {} }, createElement: () => ({}) };
-    g.localStorage = { getItem: () => JSON.stringify({ version: 2, analytics: true, marketing: false, timestamp: Date.now(), expires: Date.now() + 1e9 }), setItem() {} };
+    g.localStorage = { getItem: () => JSON.stringify({ version: "2026-11-01", visitorId: "t", analytics: true, marketing: false, expiresAt: "2099-01-01T00:00:00Z" }), setItem() {} };
     const p = searchEventParams(base, "/")!;
     const first = trackSearchThenNavigate(p, () => {}, 1000);
     const second = trackSearchThenNavigate(p, () => {}, 1100);
