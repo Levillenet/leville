@@ -10,3 +10,4 @@
 - Property hero images in public/ have pre-generated `-480w`/`-800w` WebP siblings used via srcset in PropertyCard; regenerate them when a heroImage changes, so mobile cards stay under ~60 kB.
 - Above-the-fold text on landing pages is not wrapped in ScrollReveal, because its opacity-0 start delayed LCP.
 - Staff operational redirects bypass visitor layout, tracking and path normalization; keep them out of sitemap discovery because they are external workflow links, not public content.
+- All Moder outbound navigation uses appendAdParams through the startup-installed link handler (including dynamic anchors, window.open and embed searches), so campaign attribution has one implementation independent of analytics.
