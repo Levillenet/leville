@@ -1,12 +1,17 @@
 import { describe, it, expect, afterEach } from "bun:test";
 import { captureAdParams, appendAdParams } from "../src/lib/adClickParams";
+import { CONSENT_VERSION } from "../src/lib/cookieConsent";
 const M = "https://app.moder.fi/levillenet/303?step=1&lang=en#x";
 const originalWindow = Object.getOwnPropertyDescriptor(globalThis, "window");
+const originalStorage = Object.getOwnPropertyDescriptor(globalThis, "localStorage");
 afterEach(() => {
   if (originalWindow) Object.defineProperty(globalThis, "window", originalWindow);
   else Reflect.deleteProperty(globalThis, "window");
+  if (originalStorage) Object.defineProperty(globalThis, "localStorage", originalStorage);
+  else Reflect.deleteProperty(globalThis, "localStorage");
 });
 function browser(search: string, values: Record<string, string> = {}, blocked = false) {
+  Object.defineProperty(globalThis, "localStorage", { configurable: true, value: { getItem: () => JSON.stringify({ version: CONSENT_VERSION, visitorId: "test", analytics: true, marketing: true, expiresAt: "2099-01-01T00:00:00Z" }) } });
   Object.defineProperty(globalThis, "window", { configurable: true, value: {
     location: { search, href: `https://leville.net/en/accommodations${search}` },
     sessionStorage: { getItem: (key: string) => {
@@ -67,5 +72,10 @@ describe("adClickParams", () => {
     browser("?utm_source=google&utm_medium=cpc&utm_campaign=uk");
     const first = appendAdParams(M);
     expect(appendAdParams(first)).toBe(first);
+  });
+  it("blocks campaign propagation when marketing consent is refused", () => {
+    browser("?gclid=TEST&utm_source=google");
+    Object.defineProperty(globalThis, "localStorage", { configurable: true, value: { getItem: () => null } });
+    expect(appendAdParams("https://app.moder.fi/levillenet/303?step=1&utm_source=google&gclid=TEST&lang=en")).toBe("https://app.moder.fi/levillenet/303?step=1&lang=en");
   });
 });

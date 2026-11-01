@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/command";
 import { searchPages, categoryLabels, type SearchPage } from "@/data/searchIndex";
 import { detectLanguageFromPath, type Language } from "@/translations";
+import { hasConsent } from "@/lib/cookieConsent";
 
 const searchLabels: Record<Language, { placeholder: string; noResults: string; otherLang: string }> = {
   fi: { placeholder: "Hae sivuilta…", noResults: "Ei tuloksia.", otherLang: "Myös englanniksi" },
@@ -87,7 +88,7 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
   };
 
   const logSearch = useCallback((query: string, selectedPath: string) => {
-    if (isDevEnvironment() || !query.trim()) return;
+    if (!hasConsent("analytics") || isDevEnvironment() || !query.trim()) return;
     try {
       const sessionId = sessionStorage.getItem("_lv_sid") || "unknown";
       supabase.from("page_views").insert({
@@ -102,7 +103,7 @@ const SiteSearch = ({ open, onOpenChange }: SiteSearchProps) => {
   }, []);
 
   const logAbandon = useCallback((query: string) => {
-    if (isDevEnvironment() || !query.trim() || query.trim().length < 2) return;
+    if (!hasConsent("analytics") || isDevEnvironment() || !query.trim() || query.trim().length < 2) return;
     try {
       const sessionId = sessionStorage.getItem("_lv_sid") || "unknown";
       supabase.from("page_views").insert({

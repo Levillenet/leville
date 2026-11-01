@@ -1,4 +1,5 @@
 import { getSupabase } from "@/lib/getSupabase";
+import { hasConsent } from "./cookieConsent";
 
 export interface PromoClickPayload {
   banner_id: string | null;
@@ -13,6 +14,7 @@ export interface PromoClickPayload {
  * Never blocks navigation; failures are silent.
  */
 export function logPromoClick(payload: PromoClickPayload) {
+  if (!hasConsent("analytics")) return;
   try {
     const session_id =
       typeof sessionStorage !== "undefined"
@@ -25,11 +27,11 @@ export function logPromoClick(payload: PromoClickPayload) {
 
     // Fire-and-forget — don't await
     void getSupabase().then((supabase) =>
-      supabase.from("promo_banner_clicks" as any).insert({
+      hasConsent("analytics") ? supabase.from("promo_banner_clicks" as any).insert({
         ...payload,
         session_id,
         referrer,
-      })
+      }) : undefined
     ).catch(() => {});
   } catch {
     // ignore

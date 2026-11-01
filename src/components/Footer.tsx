@@ -6,6 +6,8 @@ import airbnbLogo from "@/assets/airbnb-logo.png";
 import leviPartnerLogo from "@/assets/levi-partner-logo.png";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
 import { Language, routeConfig } from "@/translations";
+import { Button } from "@/components/ui/button";
+import { openCookieSettings } from "@/lib/cookieConsent";
 
 interface FooterProps {
   lang?: Language;
@@ -315,7 +317,8 @@ const Footer = ({ lang = "fi" }: FooterProps) => {
           <p className="text-muted-foreground text-sm">
             {c.copyright}
           </p>
-          <div className="flex items-center gap-8 text-sm">
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm">
+            <Button variant="link" className="h-auto p-0 text-muted-foreground" onClick={openCookieSettings}>{lang === "fi" ? "Evästeasetukset" : "Cookie settings"}</Button>
             <Link to={c.privacyLink} className="text-muted-foreground hover:text-foreground transition-colors tracking-wide">
               {c.privacy}
             </Link>

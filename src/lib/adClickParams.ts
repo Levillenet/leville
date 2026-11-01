@@ -1,3 +1,5 @@
+import { hasConsent } from "./cookieConsent";
+
 // All Moder navigation paths share appendAdParams. Existing click IDs remain
 // in memory; campaign UTMs come from the current URL, then existing session data.
 const KEYS = [
@@ -10,6 +12,7 @@ const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign"] as const;
 
 export function captureAdParams(search: string): void {
   for (const k of Object.keys(stored)) delete stored[k];
+  if (typeof window !== "undefined" && !hasConsent("marketing")) return;
   const sp = new URLSearchParams(search);
   for (const k of KEYS) {
     const v = sp.get(k);
@@ -24,6 +27,17 @@ export function getAdParams(): Record<string, string> {
 }
 
 export function appendAdParams(url: string): string {
+  if (typeof window !== "undefined" && !hasConsent("marketing")) {
+    try {
+      const target = new URL(url, window.location.href);
+      if (target.hostname !== "app.moder.fi") return url;
+      let changed = false;
+      for (const key of KEYS) {
+        if (target.searchParams.has(key)) { target.searchParams.delete(key); changed = true; }
+      }
+      return changed ? target.toString() : url;
+    } catch { return url; }
+  }
   const params = { ...stored };
   const current = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "");
   for (const key of UTM_KEYS) {
@@ -98,6 +112,16 @@ export function installModerLinkParams(): void {
     root.querySelectorAll<HTMLAnchorElement>('a[href*="app.moder.fi"]').forEach(updateAnchor);
   };
   updateLinks(document);
+  window.addEventListener("lv-consent-change", () => {
+    captureAdParams(window.location.search);
+    if (hasConsent("marketing")) {
+      for (const key of UTM_KEYS) {
+        const value = new URLSearchParams(window.location.search).get(key);
+        try { if (value) sessionStorage.setItem(`_lv_${key}`, value); } catch { /* unavailable */ }
+      }
+    }
+    updateLinks(document);
+  });
   // Covers React-rendered links, lazy pages and third-party/dynamic anchors.
   new MutationObserver((records) => {
     for (const record of records) {
