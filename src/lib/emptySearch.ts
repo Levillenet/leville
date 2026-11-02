@@ -155,7 +155,7 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
   x.type = "button"; x.setAttribute("aria-label", texts(lang, "C", 0, 0).close); x.textContent = "×";
   x.className = "absolute right-3 top-3 h-9 w-9 rounded-full text-2xl leading-none text-muted-foreground hover:bg-accent";
   let closed = false;
-  const close = () => { closed = true; overlay.remove(); document.removeEventListener("keydown", onKey); };
+  const close = () => { logOpen("ei_tietoa", { tulos_vapaita: 0 }); closed = true; overlay.remove(); document.removeEventListener("keydown", onKey); };
   const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") close(); };
   x.addEventListener("click", close);
   overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });

@@ -1,6 +1,9 @@
 import { hasConsent } from "./cookieConsent";
 import { searchEventParams, trackSearchThenNavigate } from "./googleAnalytics";
-import { decideSearch, quickDecision, showEmptySearch, watchModerSelection } from "./emptySearch";
+import { decideSearch, precheckCount, quickDecision, showEmptySearch, watchModerSelection } from "./emptySearch";
+import { logSearch, newSearchId, type SearchFields } from "./searchLog";
+
+let lastLogKey = "", lastLogAt = 0;
 
 // All Moder navigation paths share appendAdParams. Existing click IDs remain
 // in memory; campaign UTMs come from the current URL, then existing session data.
@@ -173,6 +176,22 @@ export function installModerLinkParams(): void {
       window.location.assign(target);
     };
     const go = () => { moder.close(); navigate(next); };
+    // Own search analytics: one haku_id per Hae press (duplicate clicks within 2 s ignored).
+    let base: SearchFields | undefined;
+    const logKey = search ? JSON.stringify(search) : "";
+    if (search && !(logKey === lastLogKey && Date.now() - lastLogAt < 2000)) {
+      lastLogKey = logKey; lastLogAt = Date.now();
+      const jousto = Number(moder.flexibleDateSearch) || 0;
+      base = {
+        haku_id: newSearchId(), saapuminen: search.saapuminen, lahto: search.lahto, oita: search.oita,
+        aikuiset: search.aikuiset, lapset: search.lapset, henkiloita: search.henkiloita, jousto, kohde: search.kohde,
+      };
+    }
+    const logGo = () => {
+      if (!base) return;
+      const n = precheckCount(moder);
+      logSearch("haku", { ...base, tulos_vapaita: n, tilanne: n !== null && n > 0 ? "vapaita" : "ei_tietoa" });
+    };
     // Empty-search rescue: only available === 0 stops navigation; anything else behaves as before.
     const decision = search ? quickDecision(moder) : "go";
     if (search && decision !== "go") {
@@ -182,15 +201,17 @@ export function installModerLinkParams(): void {
         if (verdict === "empty") {
           trackSearchThenNavigate(search);
           moder.close();
-          try { showEmptySearch(search, Number(moder.flexibleDateSearch) || 0, (u) => navigate(appendAdParams(u))); } catch { go(); }
+          try { showEmptySearch(search, Number(moder.flexibleDateSearch) || 0, (u) => navigate(appendAdParams(u)), base); } catch { logGo(); go(); }
           return;
         }
+        logGo();
         if (!trackSearchThenNavigate(search, go)) go();
       };
       if (decision === "empty") finish("empty");
       else decideSearch(moder).then(finish, () => finish("go"));
       return;
     }
+    logGo();
     if (search && trackSearchThenNavigate(search, go)) {
       event.preventDefault();
       event.stopImmediatePropagation();
