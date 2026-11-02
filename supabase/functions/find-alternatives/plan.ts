@@ -72,7 +72,7 @@ export async function findAlternatives(i: Input, today: string, query: Query): P
   const n = nightsOf(i.start, i.end);
   const run = async (ps: Period[]) => (await pool(ps, 5, async (p) => {
     const r = await query(p);
-    return r && r.available > 0 ? { ...p, ...r } : null;
+    return r && r.available > 0 ? { ...p, available: r.available, minPrice: r.minPrice } : null;
   })).filter((x): x is Found => x !== null);
 
   // Minimum stay longer than the search: tell it first; rows = same arrival at the minimum,
