@@ -1,5 +1,6 @@
 import { hasConsent } from "./cookieConsent";
 import { trackGoogleEvent, type SearchEventParams } from "./googleAnalytics";
+import { logSearch, toTilanne, type SearchFields } from "./searchLog";
 import {
   UNPRICED, createPrecheck, fetchAlternatives, fetchAvailability, mailtoUrl, moderSearchUrl, periodLabel, selectionKey,
   situationOf, whatsappUrl, type Alternative, type Alternatives, type Lang, type Offer, type Selection, type Situation,
@@ -68,6 +69,15 @@ export async function decideSearch(m: ModerLike): Promise<"go" | "empty"> {
     return v === 0 || v === UNPRICED ? "empty" : "go";
   } catch { return "go"; }
 }
+/** Pre-check count for the current selection: number of free properties, -1 unpriced, null unknown/not checked. */
+export function precheckCount(m: ModerLike): number | null {
+  try {
+    const s = readSelection(m);
+    if (!s) return null;
+    const v = precheck.get(selectionKey(s));
+    return typeof v === "number" ? v : null;
+  } catch { return null; }
+}
 export function quickDecision(m: ModerLike): "go" | "empty" | "pending" {
   try {
     const s = readSelection(m);
@@ -111,7 +121,19 @@ function texts(lang: Lang, sit: Situation, guests: number, min: number, nights =
   };
 }
 
-export function showEmptySearch(params: SearchEventParams, flex: number, navigate: (url: string) => void): void {
+export function showEmptySearch(params: SearchEventParams, flex: number, navigate: (url: string) => void, base?: SearchFields): void {
+  // Own analytics: haku (with outcome) + haku_ikkuna once the window content is known.
+  let logged = false;
+  const logOpen = (sit: string, extra: Partial<SearchFields> = {}) => {
+    if (!base || logged) return;
+    logged = true;
+    const f = { ...base, tilanne: toTilanne(sit), ...extra };
+    logSearch("haku", f);
+    logSearch("haku_ikkuna", f);
+  };
+  const logClick = (type: "haku_vaihtoehto_click" | "haku_whatsapp_click" | "haku_email_click" | "haku_kalenteri_click", sit: string, extra: Partial<SearchFields> = {}) => {
+    if (base) logSearch(type, { ...base, tilanne: toTilanne(sit), ...extra });
+  };
   document.getElementById("lv-empty-search")?.remove();
   const lang = pageLang();
   const o: Offer = { start: params.saapuminen, end: params.lahto, adults: params.aikuiset, children: params.lapset };
@@ -154,6 +176,7 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
     if (closed) return;
     const sit: Situation = "ei_hinnoiteltu";
     track("haku_ei_tuloksia", { ...params, tilanne: sit });
+    logOpen(sit, { tulos_vapaita: 0 });
     const fi = lang === "fi";
     content.replaceChildren();
     const h = document.createElement("h2");
@@ -172,7 +195,10 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
       a.href = href; a.textContent = label; a.className = `${btnCls} flex-1 ${cls}`;
       a.setAttribute("data-lv-nav", "1");
       if (blank) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
-      a.addEventListener("click", () => track(ev, { ...params, tilanne: sit }));
+      a.addEventListener("click", () => {
+        track(ev, { ...params, tilanne: sit });
+        logClick(ev === "tarjous_whatsapp_click" ? "haku_whatsapp_click" : "haku_email_click", sit, { tulos_vapaita: 0 });
+      });
       return a;
     };
     btns.append(
@@ -189,6 +215,7 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
     const alts: Alternative[] = r?.alternatives ?? [];
     const min = r?.minimi_oita ?? 0;
     track("haku_ei_tuloksia", { ...params, vaihtoehtoja: alts.length, minimi_oita: sit === "B" ? min : 0, tilanne: sit });
+    logOpen(sit, { tulos_vapaita: 0, vaihtoehtoja: alts.length, minimi_oita: min || undefined });
     const t = texts(lang, sit, params.henkiloita, min, Number(params.oita) || 0);
     content.replaceChildren();
     const h = document.createElement("h2");
@@ -223,6 +250,10 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
             saapuminen: a.start, lahto: a.end, oita: a.nights, siirto_pv: a.shift,
             kohteita: a.available, alkaen_hinta: a.minPrice ?? 0, tilanne: sit,
           });
+          logClick("haku_vaihtoehto_click", sit, {
+            tulos_vapaita: 0, vaihtoehtoja: alts.length, minimi_oita: min || undefined,
+            valittu_saapuminen: a.start, valittu_lahto: a.end, siirto_pv: a.shift,
+          });
           close();
           navigate(moderSearchUrl({ ...o, start: a.start, end: a.end }, lang, 0));
         });
@@ -252,7 +283,10 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
       a.href = href; a.textContent = label; a.className = `${btnCls} flex-1 ${cls}`;
       a.setAttribute("data-lv-nav", "1");
       if (blank) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
-      a.addEventListener("click", () => track(ev, { ...params, tilanne: sit }));
+      a.addEventListener("click", () => {
+        track(ev, { ...params, tilanne: sit });
+        logClick(ev === "tarjous_whatsapp_click" ? "haku_whatsapp_click" : "haku_email_click", sit, { tulos_vapaita: 0 });
+      });
       return a;
     };
     btns.append(
@@ -267,6 +301,7 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
     cal.className = "mt-4 text-xs text-muted-foreground underline hover:text-foreground";
     cal.addEventListener("click", () => {
       track("kalenteri_click", { ...params, jousto: flex });
+      logClick("haku_kalenteri_click", sit, { tulos_vapaita: 0, vaihtoehtoja: alts.length });
       close();
       navigate(moderSearchUrl(o, lang, flex));
     });
