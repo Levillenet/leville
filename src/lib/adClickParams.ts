@@ -182,7 +182,7 @@ export function installModerLinkParams(): void {
         if (verdict === "empty") {
           trackSearchThenNavigate(search);
           moder.close();
-          try { showEmptySearch(search, (u) => navigate(appendAdParams(u))); } catch { go(); }
+          try { showEmptySearch(search, Number(moder.flexibleDateSearch) || 0, (u) => navigate(appendAdParams(u))); } catch { go(); }
           return;
         }
         if (!trackSearchThenNavigate(search, go)) go();
