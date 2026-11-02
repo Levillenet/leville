@@ -1,7 +1,7 @@
 // Reads Moder's api_query search HTML. Shared by check-availability and find-alternatives
 // so both count free properties exactly the same way.
 
-export type ModerResult = { available: number; minPrice: number | null; unpriced?: boolean };
+export type ModerResult = { available: number; minPrice: number | null; unpriced?: boolean; minStays?: number[] };
 
 // "Saatavilla joustavina päivinä" means only other dates are free, so it never counts.
 const FREE = /<span>\s*Saatavilla\s*<\/span>/;
@@ -19,8 +19,14 @@ export function analyzeResult(html: string): ModerResult | null {
   const cards = html.split(/room-card\b/).slice(1);
   let available = 0;
   let minPrice: number | null = null;
+  const minStays: number[] = [];
   for (const card of cards) {
-    if (!FREE.test(card)) continue;
+    if (!FREE.test(card)) {
+      // "Kohde on varattava vähintään N vuorokaudeksi" = minimum stay; the card is not free.
+      const ms = card.match(/vähintään\s+(\d+)\s+vuorokaudeksi/);
+      if (ms) minStays.push(Number(ms[1]));
+      continue;
+    }
     available++;
     const m = card.match(/(\d[\d\s\u00a0.]*)\s*€/);
     const price = m ? Number(m[1].replace(/[^\d]/g, "")) : NaN;
@@ -29,9 +35,15 @@ export function analyzeResult(html: string): ModerResult | null {
   // Unavailable cards use several reasons ("Kohde on varattu", "Ei varattavissa…",
   // "Checkin ei sallittu…", "Enintään N henkilöä", flexible-only); any of them marks a real result page.
   const resultLike = cards.length > 0 ||
-    /Kohde on varattu|Ei varattavissa|Checkin ei sallittu|Enintään \d+ henkilöä|Saatavilla joustavina/.test(html);
+    /Kohde on varattu|vuorokaudeksi|Ei varattavissa|Checkin ei sallittu|Enintään \d+ henkilöä|Saatavilla joustavina/.test(html);
   if (available === 0 && !resultLike) return null;
-  return { available, minPrice };
+  return { available, minPrice, minStays };
+}
+
+/** Smallest minimum stay longer than the searched nights; 0 when none. */
+export function minimumAbove(r: ModerResult | null, nights: number): number {
+  const xs = (r?.minStays ?? []).filter((n) => n > nights);
+  return xs.length ? Math.min(...xs) : 0;
 }
 
 export function moderQueryUrl(start: string, end: string, adults: number, children: number): string {

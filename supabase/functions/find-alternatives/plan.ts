@@ -61,7 +61,12 @@ export async function pool<T, R>(items: T[], limit: number, fn: (t: T) => Promis
   return out;
 }
 
-export type Query = (p: Period) => Promise<{ available: number; minPrice: number | null } | null>;
+export type Query = (p: Period) => Promise<{ available: number; minPrice: number | null; minStays?: number[] } | null>;
+
+const minAbove = (xs: number[] | undefined, n: number) => {
+  const m = (xs ?? []).filter((x) => x > n);
+  return m.length ? Math.min(...m) : 0;
+};
 
 export async function findAlternatives(i: Input, today: string, query: Query): Promise<{ alternatives: Found[]; minimi_oita: number }> {
   const n = nightsOf(i.start, i.end);
@@ -70,11 +75,24 @@ export async function findAlternatives(i: Input, today: string, query: Query): P
     return r && r.available > 0 ? { ...p, ...r } : null;
   })).filter((x): x is Found => x !== null);
 
+  // Minimum stay longer than the search: tell it first; rows = same arrival at the minimum,
+  // then the searched length shifted −7…+7, nearest arrival first. Max 3.
+  const orig = await query({ start: i.start, end: i.end, nights: n, shift: 0 });
+  const min = minAbove(orig?.minStays, n);
+  if (min > 0) {
+    const shifted = phase1(i, today).filter((p) => p.nights === n);
+    const [same, ...rest] = await run([period(i.start, i.start, min), ...shifted]);
+    const a = same && same.start === i.start && same.nights === min ? [same] : [];
+    const b = (a.length ? rest : [same, ...rest]).filter((f) => f && f.nights === n)
+      .sort((x, y) => Math.abs(x.shift) - Math.abs(y.shift) || x.shift - y.shift);
+    return { alternatives: [...a, ...b].slice(0, 3), minimi_oita: min };
+  }
+
   const first = await run(phase1(i, today));
   if (first.length) return { alternatives: pickTop(first, n), minimi_oita: 0 };
   for (let len = n + 1; len <= 7; len++) {
     const hits = await run(phase2(i, len, today));
-    if (hits.length) return { alternatives: pickTop(hits, n), minimi_oita: len };
+    if (hits.length) return { alternatives: pickTop(hits, n), minimi_oita: 0 };
   }
   return { alternatives: [], minimi_oita: 0 };
 }
