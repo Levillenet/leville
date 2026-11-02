@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Loader2, Eye, Monitor, Smartphone, Tablet, RefreshCw, MousePointerClick, Download, ClipboardCopy, Users, Clock, TrendingDown, TrendingUp, Radio, Bot } from "lucide-react";
 import { toast } from "sonner";
+import SearchDemandAdmin from "./SearchDemandAdmin";
 import {
   ResponsiveContainer,
   LineChart,
@@ -126,6 +127,11 @@ SARAKKEET:
 - viewport_w: Selainikkunan leveys pikseleinä (esim. 390, 768, 1440). Hyödyllinen responsiivisuusongelmien jäljitykseen — vertaa esim. mobiilibucket <640px konversioon. HUOM: Vanhoilla riveillä (ennen ~12.5.2026) tyhjä.
 - session_id: Istunnon tunniste (UUID). Sama käyttäjä samassa selainikkunassa/välilehdessä saa saman session_id:n. Uusi välilehti tai selaimen sulkeminen luo uuden istunnon. HUOM: Vanhoilla riveillä (ennen 13.3.2026) session_id on tyhjä.
 - ai_source: Tekoälyassistentti josta kävijä tuli, jos referrer tunnistetaan (ChatGPT, Perplexity, Copilot, Gemini, Claude, Muu AI). Tyhjä muilla riveillä. HUOM: arvo täyttyy vain jos käyttäjä klikkasi linkkiä assistentissa — kopioitu URL kirjautuu suorana liikenteenä, joten AI-liikenne on todellisuudessa suurempi.
+
+HAKUTAPAHTUMAT (type = haku, haku_ikkuna, haku_vaihtoehto_click, haku_whatsapp_click, haku_email_click, haku_kalenteri_click):
+- Tallentuvat evästevalinnasta riippumatta. path = sivu jolla haettiin; referrer, country ja ai_source tyhjiä.
+- haku = yksi Hae-painallus; haku_ikkuna = pelastusikkuna avautui; *_click = ikkunan painikkeet. Saman haun rivit jakavat haku_id:n.
+- Sarakkeet (tyhjiä muilla riveillä): haku_id, saapuminen, lahto, oita, aikuiset, lapset, henkiloita, jousto (0/1/3/7), kohde (slug / Moder-numero / kaikki), tulos_vapaita (tyhjä jos tarkistus ei valmistunut), tilanne (vapaita | A muut päivät | B minimiyöt | C ei vapaata | D ei vielä hintoja | ei_tietoa), minimi_oita, vaihtoehtoja, valittu_saapuminen, valittu_lahto, siirto_pv, kieli.
 
 SISÄÄNTULO- JA POISTUMISSIVUT (LASKETUT):
 - Eivät ole erillinen sarake CSV:ssä, vaan lasketaan istuntodatasta: ryhmittele rivit session_id:n mukaan, järjestä created_at-nousevasti, ja ensimmäisen pageview-rivin path on istunnon sisääntulosivu (landing), viimeisen pageview-rivin path on poistumissivu (exit).
@@ -501,6 +507,8 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
           </div>
         </CardContent>
       </Card>
+
+      <SearchDemandAdmin period={period} periodLabel={PERIOD_LABELS[period]} />
 
       {/* AI assistant referrals */}
       {stats.aiTraffic && stats.aiTraffic.totalSessions > 0 && (
