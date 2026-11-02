@@ -50,7 +50,7 @@ export function buildDemand(rows: SearchRow[], nowMs: number, range: RangeFilter
   const since = range === "all" ? -Infinity : nowMs - range * DAY;
   const start = mondayOf(Date.UTC(new Date(nowMs).getUTCFullYear(), new Date(nowMs).getUTCMonth(), new Date(nowMs).getUTCDate()));
   const weeks = new Map<number, { total: number; free: number; lost: number; g: number[]; n: number[]; contacts: number }>();
-  for (let i = 0; i <= 52; i++) weeks.set(start + i * 7 * DAY, { total: 0, free: 0, lost: 0, g: [], n: [], contacts: 0 });
+  for (let i = 0; i < 52; i++) weeks.set(start + i * 7 * DAY, { total: 0, free: 0, lost: 0, g: [], n: [], contacts: 0 });
   const searchWeeks = new Map<string, number[]>();
   for (const r of rows) {
     if (r.t !== "haku" || !r.s || !r.l || Date.parse(r.at) < since || !guestMatch(r.h, guests)) continue;
