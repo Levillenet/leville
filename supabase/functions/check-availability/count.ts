@@ -1,12 +1,8 @@
-/** Counts free properties in Moder's api_query HTML. Returns null when the response does not look like a search result. */
+import { analyzeResult } from "../_shared/moderResult.ts";
+
+/** Free properties on exact dates; null when the response is not a result page. */
 export function countAvailable(html: string): number | null {
-  if (typeof html !== "string" || html.length < 200) return null;
-  const free = html.match(/Saatavilla/g)?.length ?? 0;
-  // Unavailable cards use several reasons ("Kohde on varattu", "Ei varattavissa…",
-  // "Checkin ei sallittu…", "Enintään N henkilöä"); any of them marks a real result page.
-  const resultLike = /Kohde on varattu|Ei varattavissa|Checkin ei sallittu|Enintään \d+ henkilöä/.test(html);
-  if (free === 0 && !resultLike) return null;
-  return free;
+  return analyzeResult(html)?.available ?? null;
 }
 
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
