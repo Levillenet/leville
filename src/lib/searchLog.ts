@@ -4,7 +4,7 @@
 
 export type SearchRowType =
   | "haku" | "haku_ikkuna" | "haku_vaihtoehto_click" | "haku_whatsapp_click" | "haku_email_click" | "haku_kalenteri_click";
-export type SearchTilanne = "vapaita" | "A" | "B" | "C" | "D" | "ei_tietoa";
+export type SearchTilanne = "vapaita" | "A" | "B" | "C" | "D" | "ei_tietoa" | "kesken";
 
 export type SearchFields = {
   haku_id: string;
@@ -76,5 +76,17 @@ export function logSearch(type: SearchRowType, fields: SearchFields): void {
       headers: { "Content-Type": "application/json", apikey: key, Authorization: `Bearer ${key}` },
       body,
     }).catch(() => {});
+  } catch { /* never break search */ }
+}
+
+/** Unload-safe variant: sendBeacon (text/plain, no preflight) with keepalive fetch fallback. */
+export function beaconSearch(type: SearchRowType, fields: SearchFields): void {
+  try {
+    if (typeof window === "undefined" || isSkippedHost()) return;
+    if ((navigator as Navigator & { webdriver?: boolean }).webdriver) return;
+    const body = JSON.stringify(buildSearchPayload(type, fields, window.location.pathname, window.location.search));
+    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/log-page-view`;
+    if (navigator.sendBeacon?.(url, new Blob([body], { type: "text/plain;charset=UTF-8" }))) return;
+    fetch(url, { method: "POST", keepalive: true, headers: { "Content-Type": "text/plain" }, body }).catch(() => {});
   } catch { /* never break search */ }
 }

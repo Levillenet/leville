@@ -1,6 +1,6 @@
 import { hasConsent } from "./cookieConsent";
 import { trackGoogleEvent, type SearchEventParams } from "./googleAnalytics";
-import { logSearch, toTilanne, type SearchFields } from "./searchLog";
+import { beaconSearch, logSearch, toTilanne, type SearchFields } from "./searchLog";
 import {
   UNPRICED, createPrecheck, fetchAlternatives, fetchAvailability, mailtoUrl, moderSearchUrl, periodLabel, selectionKey,
   situationOf, whatsappUrl, type Alternative, type Alternatives, type Lang, type Offer, type Selection, type Situation,
@@ -124,9 +124,18 @@ function texts(lang: Lang, sit: Situation, guests: number, min: number, nights =
 export function showEmptySearch(params: SearchEventParams, flex: number, navigate: (url: string) => void, base?: SearchFields): void {
   // Own analytics: haku (with outcome) + haku_ikkuna once the window content is known.
   let logged = false;
+  // Visitor leaves before the outcome is known: save the search as 'kesken' via beacon.
+  const onHide = () => {
+    if (!base || logged) return;
+    logged = true;
+    window.removeEventListener("pagehide", onHide);
+    beaconSearch("haku", { ...base, tilanne: "kesken" });
+  };
+  if (base) window.addEventListener("pagehide", onHide);
   const logOpen = (sit: string, extra: Partial<SearchFields> = {}) => {
     if (!base || logged) return;
     logged = true;
+    window.removeEventListener("pagehide", onHide);
     const f = { ...base, tilanne: toTilanne(sit), ...extra };
     logSearch("haku", f);
     logSearch("haku_ikkuna", f);

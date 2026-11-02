@@ -11,7 +11,7 @@ const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
 
 const SEARCH_TYPES = new Set(["/event/haku", "/event/haku_ikkuna", "/event/haku_vaihtoehto_click", "/event/haku_whatsapp_click", "/event/haku_email_click", "/event/haku_kalenteri_click"]);
-const TILANNE = new Set(["vapaita", "A", "B", "C", "D", "ei_tietoa"]);
+const TILANNE = new Set(["vapaita", "A", "B", "C", "D", "ei_tietoa", "kesken"]);
 const bad = (error: string) => new Response(JSON.stringify({ error }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
 const BOT_RE =  /bot|crawl|spider|slurp|bingpreview|prerender|headless|lighthouse|pagespeed|gtmetrix|monitor|fetch|http\.?client|curl|wget|python-requests|node-fetch|axios|httpx|java\/|okhttp|facebookexternalhit|whatsapp|telegrambot|discordbot|embedly|quora link preview|outbrain|pinterest|skypeuripreview|nuzzel|bitlybot|w3c_validator|chrome-lighthouse|google-inspectiontool|googlestackdrivermonitoring/i;
