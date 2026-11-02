@@ -6,7 +6,7 @@ const NOW = Date.UTC(2026, 10, 3, 12); // 3.11.2026
 const row = (p: Partial<SearchRow>): SearchRow => ({ t: "haku", at: "2026-11-02T20:00:00Z", id: "x", s: null, l: null, n: null, h: null, ti: null, ...p });
 
 describe("search analytics", () => {
-  test("28.12.–4.1. counts once on week 53 and once on week 1", () => {
+  test("28.12.–4.1. is all on week 53; a stay spanning weeks counts each week once", () => {
     const ws = stayWeeks("2026-12-28", "2027-01-04");
     expect(ws.map(weekLabel)).toEqual(["vko 53 (28.12.–3.1.)"]);
     const ws2 = stayWeeks("2026-12-27", "2027-01-05");
