@@ -68,7 +68,7 @@ export type Lang = "fi" | "en";
 export type Offer = { start: string; end: string; adults: number; children: number };
 
 export type Situation = "A" | "B" | "C";
-const nightsBetween = (a: string, b: string) => Math.round((Date.UTC(...(parts(b) as [number, number, number])) - Date.UTC(...(parts(a) as [number, number, number]))) / 86400000);
+const nightsBetween = (a: string, b: string) => Math.round((Date.UTC(...ymd(b)) - Date.UTC(...ymd(a))) / 86400000);
 const ymd = (iso: string): [number, number, number] => { const [y, m, d] = parts(iso); return [y, m - 1, d]; };
 
 /** Ready-made offer message. "B" = the customer wants a shorter stay than is bookable. */
