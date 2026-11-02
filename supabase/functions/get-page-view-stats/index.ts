@@ -60,6 +60,8 @@ function classifyAiSource(referrer: string | null | undefined, utmSource?: strin
 }
 
 
+const SEARCH_COLS = "haku_id, saapuminen, lahto, oita, aikuiset, lapset, henkiloita, jousto, kohde, tulos_vapaita, tilanne, minimi_oita, vaihtoehtoja, valittu_saapuminen, valittu_lahto, siirto_pv, kieli".split(", ");
+
 const isDevReferrer = (referrer: string | null | undefined): boolean =>
   !!referrer && (referrer.includes("lovable.app") || referrer.includes("lovable.dev") || referrer.includes("lovableproject.com") || referrer.includes("localhost"));
 
@@ -133,6 +135,29 @@ Deno.serve(async (req) => {
       );
     }
 
+    // Search analytics rows (all time, newest first) for the search summary and demand view.
+    if (action === "searches") {
+      let rows: any[] = [];
+      for (let f = 0; f < 200000; f += 1000) {
+        const { data, error } = await supabase
+          .from("page_views")
+          .select("path, created_at, haku_id, saapuminen, lahto, oita, henkiloita, tilanne")
+          .like("path", "/event/haku%")
+          .order("created_at", { ascending: false })
+          .range(f, f + 999);
+        if (error) {
+          return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+        }
+        rows = rows.concat(data || []);
+        if (!data || data.length < 1000) break;
+      }
+      const compact = rows.map((r) => ({
+        t: r.path.replace("/event/", ""), at: r.created_at, id: r.haku_id, s: r.saapuminen, l: r.lahto,
+        n: r.oita, h: r.henkiloita, ti: r.tilanne,
+      }));
+      return new Response(JSON.stringify({ rows: compact }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
     const now = new Date();
     // Helsinki timezone for "today" calculation
     const helsinkiNow = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Helsinki" }));
@@ -176,7 +201,7 @@ Deno.serve(async (req) => {
     while (true) {
       const { data: batch, error: batchErr } = await supabase
         .from("page_views")
-        .select("path, referrer, device_type, language, country, viewport_w, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page")
+        .select("path, referrer, device_type, language, country, viewport_w, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page, haku_id, saapuminen, lahto, oita, aikuiset, lapset, henkiloita, jousto, kohde, tulos_vapaita, tilanne, minimi_oita, vaihtoehtoja, valittu_saapuminen, valittu_lahto, siirto_pv, kieli")
         .gte("created_at", since)
         .order("created_at", { ascending: false })
         .range(from, from + PAGE_SIZE - 1);
@@ -196,7 +221,7 @@ Deno.serve(async (req) => {
 
     // CSV format: return raw rows + aggregated booking-clicks-by-source block
     if (format === "csv") {
-      const csvHeader = "date,time,path,type,referrer,device_type,language,country,viewport_w,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page,ai_source";
+      const csvHeader = "date,time,path,type,referrer,device_type,language,country,viewport_w,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page,ai_source,haku_id,saapuminen,lahto,oita,aikuiset,lapset,henkiloita,jousto,kohde,tulos_vapaita,tilanne,minimi_oita,vaihtoehtoja,valittu_saapuminen,valittu_lahto,siirto_pv,kieli";
       const csvRows = (views || []).map((v: any) => {
         const dt = new Date(v.created_at);
         const date = dt.toISOString().split("T")[0];
@@ -217,7 +242,10 @@ Deno.serve(async (req) => {
         const timeP = v.time_on_page != null ? String(v.time_on_page) : "";
         const aiSrc = classifyAiSource(v.referrer, v.utm_source) || "";
         const esc = (s: string) => s.includes(",") || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s;
-        return [date, time, esc(path), type, esc(ref), device, lang, country, vw, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP, esc(aiSrc)].join(",");
+        const isSearch = v.path.startsWith("/event/haku");
+        const sc = SEARCH_COLS.map((c) => (v[c] == null ? "" : esc(String(v[c]))));
+        // Search rows: source page in path, referrer column left empty.
+        return [date, time, esc(isSearch ? (v.referrer || "") : path), type, esc(isSearch ? "" : ref), device, lang, isSearch ? "" : country, vw, sid, esc(utmSrc), esc(utmMed), esc(utmCamp), scrollD, timeP, esc(isSearch ? "" : aiSrc), ...sc].join(",");
       });
 
       // Aggregate booking clicks by source page (only /event/booking-* events).
@@ -375,6 +403,7 @@ Deno.serve(async (req) => {
         continue;
       }
 
+      if (v.path.startsWith("/event/haku")) continue; // shown in the search sections instead
       const isEvent = v.path.startsWith("/event/");
       const sid = v.session_id || null;
       const ts = new Date(v.created_at).getTime();

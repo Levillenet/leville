@@ -1414,51 +1414,102 @@ export type Database = {
       }
       page_views: {
         Row: {
+          aikuiset: number | null
           country: string | null
           created_at: string
           device_type: string | null
+          haku_id: string | null
+          henkiloita: number | null
           id: string
+          jousto: number | null
+          kieli: string | null
+          kohde: string | null
+          lahto: string | null
           language: string | null
+          lapset: number | null
+          minimi_oita: number | null
+          oita: number | null
           path: string
           referrer: string | null
+          saapuminen: string | null
           scroll_depth: number | null
           session_id: string | null
+          siirto_pv: number | null
+          tilanne: string | null
           time_on_page: number | null
+          tulos_vapaita: number | null
           utm_campaign: string | null
           utm_medium: string | null
           utm_source: string | null
+          vaihtoehtoja: number | null
+          valittu_lahto: string | null
+          valittu_saapuminen: string | null
           viewport_w: number | null
         }
         Insert: {
+          aikuiset?: number | null
           country?: string | null
           created_at?: string
           device_type?: string | null
+          haku_id?: string | null
+          henkiloita?: number | null
           id?: string
+          jousto?: number | null
+          kieli?: string | null
+          kohde?: string | null
+          lahto?: string | null
           language?: string | null
+          lapset?: number | null
+          minimi_oita?: number | null
+          oita?: number | null
           path: string
           referrer?: string | null
+          saapuminen?: string | null
           scroll_depth?: number | null
           session_id?: string | null
+          siirto_pv?: number | null
+          tilanne?: string | null
           time_on_page?: number | null
+          tulos_vapaita?: number | null
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
+          vaihtoehtoja?: number | null
+          valittu_lahto?: string | null
+          valittu_saapuminen?: string | null
           viewport_w?: number | null
         }
         Update: {
+          aikuiset?: number | null
           country?: string | null
           created_at?: string
           device_type?: string | null
+          haku_id?: string | null
+          henkiloita?: number | null
           id?: string
+          jousto?: number | null
+          kieli?: string | null
+          kohde?: string | null
+          lahto?: string | null
           language?: string | null
+          lapset?: number | null
+          minimi_oita?: number | null
+          oita?: number | null
           path?: string
           referrer?: string | null
+          saapuminen?: string | null
           scroll_depth?: number | null
           session_id?: string | null
+          siirto_pv?: number | null
+          tilanne?: string | null
           time_on_page?: number | null
+          tulos_vapaita?: number | null
           utm_campaign?: string | null
           utm_medium?: string | null
           utm_source?: string | null
+          vaihtoehtoja?: number | null
+          valittu_lahto?: string | null
+          valittu_saapuminen?: string | null
           viewport_w?: number | null
         }
         Relationships: []
