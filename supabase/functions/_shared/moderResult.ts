@@ -1,14 +1,21 @@
 // Reads Moder's api_query search HTML. Shared by check-availability and find-alternatives
 // so both count free properties exactly the same way.
 
-export type ModerResult = { available: number; minPrice: number | null };
+export type ModerResult = { available: number; minPrice: number | null; unpriced?: boolean };
 
 // "Saatavilla joustavina päivinä" means only other dates are free, so it never counts.
 const FREE = /<span>\s*Saatavilla\s*<\/span>/;
 
 /** Returns null when the response does not look like a search result page. */
 export function analyzeResult(html: string): ModerResult | null {
-  if (typeof html !== "string" || html.length < 200) return null;
+  if (typeof html !== "string") return null;
+  // Dates with no prices set yet: Moder returns only the empty grid div, no cards at all.
+  // (A fully booked period still lists every property with a reason.)
+  const bare = html.trim();
+  if (bare.length < 400 && /^<div class="[^"]*\bgrid\b[^"]*">\s*<\/div>$/.test(bare)) {
+    return { available: 0, minPrice: null, unpriced: true };
+  }
+  if (html.length < 200) return null;
   const cards = html.split(/room-card\b/).slice(1);
   let available = 0;
   let minPrice: number | null = null;

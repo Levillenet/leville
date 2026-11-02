@@ -7,8 +7,8 @@ const hits = new Map<string, { at: number; n: number }>();
 Deno.serve(async (req) => {
   const cors = { ...corsFor(req), "Content-Type": "application/json" };
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
-  const reply = (available: number | null, status = 200) =>
-    new Response(JSON.stringify({ available }), { status, headers: cors });
+  const reply = (available: number | null, unpriced = false) =>
+    new Response(JSON.stringify(unpriced ? { available, ei_hinnoiteltu: true } : { available }), { headers: cors });
 
   const q = parseQuery(await readJsonBody(req));
   if (!q) return new Response(JSON.stringify({ error: "invalid input" }), { status: 400, headers: cors });
@@ -21,5 +21,5 @@ Deno.serve(async (req) => {
 
   // Always exact dates: Moder's flexible result does not show the customer any dates.
   const r = await queryModer(q.start, q.end, q.adults, q.children);
-  return reply(r ? r.available : null);
+  return reply(r ? r.available : null, !!r?.unpriced);
 });
