@@ -9,7 +9,7 @@ Deno.test("zero free with other unavailable reasons", () => {
   assertEquals(countAvailable(pad + "Checkin ei sallittu valittuna päivänä Enintään 3 henkilöä Ei varattavissa valittuna ajankohtana"), 0);
 });
 Deno.test("counts Saatavilla", () => {
-  assertEquals(countAvailable(pad + "Saatavilla Kohde on varattu Saatavilla"), 2);
+  assertEquals(countAvailable(pad + "room-card <span>Saatavilla</span> 1 002 € room-card Kohde on varattu room-card <span>Saatavilla</span> 900 €"), 2);
 });
 Deno.test("non-result is null", () => {
   assertEquals(countAvailable(pad + "<html>error</html>"), null);
@@ -19,4 +19,11 @@ Deno.test("parseQuery validates", () => {
   assertEquals(parseQuery({ start: "2027-01-10", end: "2027-01-16", adults: 4, children: 0 })?.flex, 0);
   assertEquals(parseQuery({ start: "2027-01-16", end: "2027-01-10", adults: 4, children: 0 }), null);
   assertEquals(parseQuery({ start: "2027-01-10", end: "2027-01-16", adults: 0, children: 0 }), null);
+});
+Deno.test("flexible-only is not free", () => {
+  assertEquals(countAvailable(pad + "room-card <span>Saatavilla joustavina päivinä</span> 800 €"), 0);
+});
+Deno.test("cheapest free price", async () => {
+  const { analyzeResult } = await import("../_shared/moderResult.ts");
+  assertEquals(analyzeResult(pad + "room-card <span>Saatavilla</span> 2 583 € room-card x 500 € room-card <span>Saatavilla</span> 3 100 €"), { available: 2, minPrice: 2583 });
 });

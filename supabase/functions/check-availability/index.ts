@@ -1,8 +1,7 @@
 import { corsFor, readJsonBody } from "../_shared/authGuard.ts";
-import { countAvailable, parseQuery } from "./count.ts";
+import { parseQuery } from "./count.ts";
+import { queryModer } from "../_shared/moderResult.ts";
 
-const CACHE_MS = 5 * 60 * 1000;
-const cache = new Map<string, { at: number; available: number | null }>();
 const hits = new Map<string, { at: number; n: number }>();
 
 Deno.serve(async (req) => {
@@ -20,17 +19,7 @@ Deno.serve(async (req) => {
   const h = hits.get(ip);
   if (h && now - h.at < 60000) { if (++h.n > 60) return reply(null); } else hits.set(ip, { at: now, n: 1 });
 
-  const key = `${q.start}|${q.end}|${q.adults}|${q.children}|${q.flex}`;
-  const cached = cache.get(key);
-  if (cached && now - cached.at < CACHE_MS) return reply(cached.available);
-
-  const url = `https://app.moder.fi/levillenet?start=${q.start}&end=${q.end}&adults=${q.adults}&children=${q.children}&lang=fi&flexible_date_search=${q.flex}&api_query=1`;
-  let available: number | null = null;
-  try {
-    const res = await fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" }, signal: AbortSignal.timeout(3000) });
-    if (res.ok) available = countAvailable(await res.text());
-  } catch { available = null; }
-  if (available !== null) cache.set(key, { at: now, available });
-  if (cache.size > 500) for (const [k, v] of cache) if (now - v.at > CACHE_MS) cache.delete(k);
-  return reply(available);
+  // Always exact dates: Moder's flexible result does not show the customer any dates.
+  const r = await queryModer(q.start, q.end, q.adults, q.children);
+  return reply(r ? r.available : null);
 });
