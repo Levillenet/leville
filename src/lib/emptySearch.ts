@@ -1,7 +1,7 @@
 import { hasConsent } from "./cookieConsent";
 import { trackGoogleEvent, type SearchEventParams } from "./googleAnalytics";
 import {
-  createPrecheck, fetchAlternatives, fetchAvailability, mailtoUrl, moderSearchUrl, periodLabel, selectionKey,
+  UNPRICED, createPrecheck, fetchAlternatives, fetchAvailability, mailtoUrl, moderSearchUrl, periodLabel, selectionKey,
   situationOf, whatsappUrl, type Alternative, type Alternatives, type Lang, type Offer, type Selection, type Situation,
 } from "./availabilityPrecheck";
 
@@ -65,7 +65,7 @@ export async function decideSearch(m: ModerLike): Promise<"go" | "empty"> {
     const key = selectionKey(s);
     precheck.update(s);
     const v = await precheck.waitFor(key, 1000);
-    return v === 0 ? "empty" : "go";
+    return v === 0 || v === UNPRICED ? "empty" : "go";
   } catch { return "go"; }
 }
 export function quickDecision(m: ModerLike): "go" | "empty" | "pending" {
@@ -73,7 +73,7 @@ export function quickDecision(m: ModerLike): "go" | "empty" | "pending" {
     const s = readSelection(m);
     if (!s) return "go";
     const v = precheck.get(selectionKey(s));
-    return v === undefined ? "pending" : v === 0 ? "empty" : "go";
+    return v === undefined ? "pending" : v === 0 || v === UNPRICED ? "empty" : "go";
   } catch { return "go"; }
 }
 
@@ -115,7 +115,9 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
   document.getElementById("lv-empty-search")?.remove();
   const lang = pageLang();
   const o: Offer = { start: params.saapuminen, end: params.lahto, adults: params.aikuiset, children: params.lapset };
-  const altPromise = startAlternatives(o);
+  const unpriced = precheck.get(selectionKey({ ...o, flex: 0 })) === UNPRICED;
+  // Unpriced dates: no alternatives search, no period rows, no calendar link.
+  const altPromise: Promise<Alternatives | null> = unpriced ? Promise.resolve(null) : startAlternatives(o);
 
   const overlay = document.createElement("div");
   overlay.id = "lv-empty-search";
@@ -148,6 +150,39 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
   x.focus();
 
   const btnCls = "inline-flex items-center justify-center rounded-md h-11 px-4 text-sm font-medium transition-colors";
+  const renderUnpriced = () => {
+    if (closed) return;
+    const sit: Situation = "ei_hinnoiteltu";
+    track("haku_ei_tuloksia", { ...params, tilanne: sit });
+    const fi = lang === "fi";
+    content.replaceChildren();
+    const h = document.createElement("h2");
+    h.id = "lv-empty-search-title";
+    h.className = "text-lg font-semibold pr-8 mb-4";
+    h.textContent = fi ? "Kiitos kiinnostuksestasi!" : "Thank you for your interest!";
+    const p = document.createElement("p");
+    p.className = "text-sm text-muted-foreground mb-4";
+    p.textContent = fi
+      ? "Olet liikkeellä ajoissa: emme ole vielä asettaneet majoituksille hintoja valitsemallesi ajankohdalle. Teemme sinulle kuitenkin mielellämme tarjouksen jo nyt. Ole meihin yhteydessä WhatsAppilla tai sähköpostilla, niin palaamme asiaan saman päivän aikana."
+      : "You're planning ahead: we haven't set prices for your chosen dates yet. We'd still be happy to make you an offer right away. Contact us via WhatsApp or email and we'll get back to you the same day.";
+    const btns = document.createElement("div");
+    btns.className = "flex flex-col sm:flex-row gap-2";
+    const mk = (label: string, href: string, cls: string, ev: EmptyEvent, blank: boolean) => {
+      const a = document.createElement("a");
+      a.href = href; a.textContent = label; a.className = `${btnCls} flex-1 ${cls}`;
+      a.setAttribute("data-lv-nav", "1");
+      if (blank) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+      a.addEventListener("click", () => track(ev, { ...params, tilanne: sit }));
+      return a;
+    };
+    btns.append(
+      mk(fi ? "WhatsApp-viesti" : "WhatsApp", whatsappUrl(o, lang, sit), "bg-primary text-primary-foreground hover:bg-primary/90", "tarjous_whatsapp_click", true),
+      mk(fi ? "Sähköposti" : "Email", mailtoUrl(o, lang, sit), "border border-input bg-background hover:bg-accent", "tarjous_email_click", false),
+    );
+    content.append(h, p, btns);
+  };
+  if (unpriced) { renderUnpriced(); return; }
+
   const render = (r: Alternatives | null) => {
     if (closed) return;
     const sit = situationOf(r);

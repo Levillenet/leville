@@ -27,3 +27,10 @@ Deno.test("cheapest free price", async () => {
   const { analyzeResult } = await import("../_shared/moderResult.ts");
   assertEquals(analyzeResult(pad + "room-card <span>Saatavilla</span> 2 583 € room-card x 500 € room-card <span>Saatavilla</span> 3 100 €"), { available: 2, minPrice: 2583 });
 });
+
+import { analyzeResult as ar } from "../_shared/moderResult.ts";
+Deno.test("empty grid = unpriced, not error", () => {
+  const r = ar('<div class="max-w-screen-2xl mx-auto my-8 px-4 gap-6 grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 2xl:px-0">\n    </div>\n');
+  if (!r || r.available !== 0 || r.unpriced !== true) throw new Error("expected unpriced");
+  if (ar("") !== null || ar("<html>error</html>") !== null) throw new Error("garbage must be null");
+});
