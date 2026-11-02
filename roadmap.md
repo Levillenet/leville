@@ -27,3 +27,6 @@
 - [x] WhatsApp chat widget removed from all pages (owner decision: never receives messages)
 - [ ] Language-split translations: skipped (global sync `translations` used widely; risky)
 - [x] seo_pages race: neutral shell until lookup resolves, immediate fetch for unmatched URLs (SeoCatchAll)
+
+## Empty-search rescue (Nov 2026)
+- [x] check-availability function, pre-check on hero search, empty-search panel (FI/EN), GA events, tests
