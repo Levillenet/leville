@@ -59,7 +59,7 @@ describe("offer message", () => {
   });
   it("situation B message has original dates and nights", () => {
     const b = { start: "2026-12-28", end: "2027-01-01", adults: 4, children: 0 };
-    expect(offerMessage(b, "fi", "B")).toBe("Hei! Toivoisimme majoitusta Leviltä 28.12.2026–01.01.2027 (4 yötä) 4 hengelle. Voisitteko tarkistaa, onnistuuko lyhyempi jakso, ja tehdä meille tarjouksen?");
+    expect(offerMessage(b, "fi", "B")).toBe("Hei! Toivoisimme majoitusta Leviltä 28.12.2026–01.01.2027 (4 yötä) 4 hengelle. Voisitteko tarkistaa, onnistuuko tämä jakso, ja tehdä meille tarjouksen?");
     expect(offerMessage(b, "en", "B")).toContain("(4 nights), 4 guests.");
   });
   it("see link uses exact dates, calendar link keeps the customer's flex", () => {
@@ -77,6 +77,7 @@ describe("alternative rows", () => {
     expect(situationOf({ alternatives: [], minimi_oita: 0 })).toBe("C");
     expect(situationOf({ alternatives: [a], minimi_oita: 0 })).toBe("A");
     expect(situationOf({ alternatives: [a], minimi_oita: 7 })).toBe("B");
+    expect(situationOf({ alternatives: [], minimi_oita: 6 })).toBe("B");
   });
 });
 
