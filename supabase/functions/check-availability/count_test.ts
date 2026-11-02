@@ -5,6 +5,9 @@ const pad = "<div>" + "x".repeat(300) + "</div>";
 Deno.test("zero free when all booked", () => {
   assertEquals(countAvailable(pad + "Kohde on varattu Kohde on varattu"), 0);
 });
+Deno.test("zero free with other unavailable reasons", () => {
+  assertEquals(countAvailable(pad + "Checkin ei sallittu valittuna päivänä Enintään 3 henkilöä Ei varattavissa valittuna ajankohtana"), 0);
+});
 Deno.test("counts Saatavilla", () => {
   assertEquals(countAvailable(pad + "Saatavilla Kohde on varattu Saatavilla"), 2);
 });

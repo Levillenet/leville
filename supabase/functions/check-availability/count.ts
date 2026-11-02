@@ -2,8 +2,10 @@
 export function countAvailable(html: string): number | null {
   if (typeof html !== "string" || html.length < 200) return null;
   const free = html.match(/Saatavilla/g)?.length ?? 0;
-  const booked = html.match(/Kohde on varattu/g)?.length ?? 0;
-  if (free === 0 && booked === 0) return null;
+  // Unavailable cards use several reasons ("Kohde on varattu", "Ei varattavissa…",
+  // "Checkin ei sallittu…", "Enintään N henkilöä"); any of them marks a real result page.
+  const resultLike = /Kohde on varattu|Ei varattavissa|Checkin ei sallittu|Enintään \d+ henkilöä/.test(html);
+  if (free === 0 && !resultLike) return null;
   return free;
 }
 
