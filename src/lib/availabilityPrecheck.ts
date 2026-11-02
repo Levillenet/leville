@@ -97,8 +97,6 @@ export async function fetchAvailability(s: Selection, signal: AbortSignal): Prom
   const project = import.meta.env.VITE_SUPABASE_PROJECT_ID;
   const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
   if (!project || !key) return null;
-  const timeout = setTimeout(() => (signal as AbortSignal & { _c?: AbortController })._c?.abort(), 0);
-  clearTimeout(timeout);
   const res = await fetch(`https://${project}.supabase.co/functions/v1/check-availability`, {
     method: "POST",
     headers: { "Content-Type": "application/json", apikey: key, Authorization: `Bearer ${key}` },
