@@ -1,5 +1,6 @@
 import { hasConsent } from "./cookieConsent";
 import { searchEventParams, trackSearchThenNavigate } from "./googleAnalytics";
+import { decideSearch, quickDecision, showEmptySearch, watchModerSelection } from "./emptySearch";
 
 // All Moder navigation paths share appendAdParams. Existing click IDs remain
 // in memory; campaign UTMs come from the current URL, then existing session data.
@@ -104,6 +105,7 @@ export function installModerLinkParams(): void {
   if (linksInstalled || typeof window === "undefined") return;
   linksInstalled = true;
   installWindowOpenPatch();
+  watchModerSelection();
 
   const updateAnchor = (anchor: HTMLAnchorElement) => {
     const next = appendAdParams(anchor.href);
@@ -153,14 +155,13 @@ export function installModerLinkParams(): void {
     const url = `${moder.baseUrl}/${moder.ModerSettings.property || "not-found"}${room}?start=${moder.fromDate}&end=${moder.toDate}&adults=${moder.personsAdults}&children=${moder.personsChildren}&lang=${moder.$locale}&flexible_date_search=${moder.flexibleDateSearch}`;
     const next = appendAdParams(url);
     const search = searchEventParams(next, window.location.pathname);
-    const go = () => {
-      moder.close();
+    const navigate = (target: string) => {
       // gtag's cross-domain linker decorates anchors on mousedown; click the
       // same element afterward so navigation uses its updated href (with _gl).
       // data-lv-nav tells the delegated trackers to skip this synthetic click.
       if (hasConsent("analytics")) {
         const anchor = document.createElement("a");
-        anchor.href = next;
+        anchor.href = target;
         anchor.setAttribute("data-lv-nav", "1");
         anchor.style.display = "none";
         document.body.appendChild(anchor);
@@ -169,8 +170,27 @@ export function installModerLinkParams(): void {
         anchor.remove();
         return;
       }
-      window.location.assign(next);
+      window.location.assign(target);
     };
+    const go = () => { moder.close(); navigate(next); };
+    // Empty-search rescue: only available === 0 stops navigation; anything else behaves as before.
+    const decision = search ? quickDecision(moder) : "go";
+    if (search && decision !== "go") {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      const finish = (verdict: "go" | "empty") => {
+        if (verdict === "empty") {
+          trackSearchThenNavigate(search);
+          moder.close();
+          try { showEmptySearch(search, (u) => navigate(appendAdParams(u))); } catch { go(); }
+          return;
+        }
+        if (!trackSearchThenNavigate(search, go)) go();
+      };
+      if (decision === "empty") finish("empty");
+      else decideSearch(moder).then(finish, () => finish("go"));
+      return;
+    }
     if (search && trackSearchThenNavigate(search, go)) {
       event.preventDefault();
       event.stopImmediatePropagation();
