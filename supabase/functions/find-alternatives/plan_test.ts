@@ -22,15 +22,33 @@ Deno.test("ordering: same length, nearest, more free", () => {
   assertEquals(top.map((x) => x.start), ["d", "c", "b"]);
 });
 
-Deno.test("phase 2 extends until something is free and reports the minimum", async () => {
+Deno.test("phase 2 extends until something is free (no Moder minimum = situation A)", async () => {
   const r = await findAlternatives(I, "2026-11-01", async (p) =>
     p.nights >= 7 && p.start !== "2026-12-26" ? { available: 2, minPrice: 2583 } : { available: 0, minPrice: null });
-  assertEquals(r.minimi_oita, 7);
+  assertEquals(r.minimi_oita, 0);
   assertEquals(r.alternatives[0].start, "2026-12-28");
   assertEquals(r.alternatives.every((a) => a.nights === 7), true);
 });
 
 Deno.test("nothing found", async () => {
   const r = await findAlternatives(I, "2026-11-01", async () => ({ available: 0, minPrice: null }));
+  assertEquals(r, { alternatives: [], minimi_oita: 0 });
+});
+
+Deno.test("Moder minimum above the search: minimum reported, same arrival first, then nearest shifts", async () => {
+  const J = { start: "2026-12-29", end: "2027-01-01", adults: 1, children: 0 }; // 3 nights
+  const r = await findAlternatives(J, "2026-11-01", async (p) => {
+    if (p.start === J.start && p.nights === 3) return { available: 0, minPrice: null, minStays: [6, 6, 2] };
+    if (p.start === J.start && p.nights === 6) return { available: 3, minPrice: 2506 };
+    if (p.nights === 3 && (p.shift === 5 || p.shift === -2 || p.shift === 7)) return { available: 1, minPrice: 900 };
+    return { available: 0, minPrice: null };
+  });
+  assertEquals(r.minimi_oita, 6);
+  assertEquals(r.alternatives.map((a) => [a.nights, a.shift]), [[6, 0], [3, -2], [3, 5]]);
+});
+
+Deno.test("minimum not exceeded: unchanged behaviour", async () => {
+  const r = await findAlternatives(I, "2026-11-01", async (p) =>
+    p.shift === 0 ? { available: 0, minPrice: null, minStays: [3] } : { available: 0, minPrice: null });
   assertEquals(r, { alternatives: [], minimi_oita: 0 });
 });

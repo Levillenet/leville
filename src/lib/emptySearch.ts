@@ -86,26 +86,26 @@ const track = (name: EmptyEvent, p: Record<string, string | number>) => {
 const pageLang = (): Lang => (window.location.pathname === "/en" || window.location.pathname.startsWith("/en/") ? "en" : "fi");
 const MAX_WAIT_MS = 6000;
 
-function texts(lang: Lang, sit: Situation, guests: number, min: number) {
+function texts(lang: Lang, sit: Situation, guests: number, min: number, nights = 0) {
   if (lang === "fi") return {
     loading: "Etsitään vapaita päiviä…",
     title: sit === "A" ? `Valitsemillesi päiville ei ole vapaata kohdetta ${guests} hengelle. Näillä päivillä pääset tulemaan:`
-      : sit === "B" ? `Valitsemillesi päiville ei ole vapaata ${guests} hengelle. Näillä päivillä majoitus on saatavilla vähintään ${min} yön jaksoina:`
+      : sit === "B" ? `Valitsemallasi ajankohdalla minimiyöpyminen on ${min} vuorokautta.`
       : `Valitettavasti näille päiville ei löytynyt vapaata kohdetta ${guests} hengelle.`,
-    lead: sit === "B" ? "Toivotko lyhyempää lomaa?" : "",
+    lead: "", also: "Voit myös varata suoraan:",
     text: sit === "A" ? "Etkö löydä sopivaa? Lähetä meille viesti, niin teemme tarjouksen, jos löydämme sopivan kohteen. Vastaamme saman päivän aikana."
-      : sit === "B" ? "Kerro meille toivomasi päivät, niin tarkastelemme tilannetta tapauskohtaisesti ja teemme sinulle tarjouksen, jos voimme toteuttaa sen."
+      : sit === "B" ? `Hait ${nights} vuorokauden jaksoa. Ole meihin yhteydessä, niin tarkastelemme, voimmeko toteuttaa toiveesi, ja teemme sinulle tarjouksen.`
       : "Älä luovuta vielä. Voimme usein löytää ratkaisun yhdistämällä huoneistoja tai järjestelemällä varauksia. Lähetä meille viesti, niin selvitämme vaihtoehdot ja teemme sinulle tarjouksen, jos löydämme sopivan kohteen. Vastaamme saman päivän aikana.",
     see: "Katso", wa: "WhatsApp-viesti", email: "Sähköposti", calendar: "Katso kaikki vaihtoehdot varauskalenterissa", close: "Sulje",
   };
   return {
     loading: "Looking for available dates…",
     title: sit === "A" ? `There's nothing available for ${guests} guests on your dates. You can stay with us on these dates:`
-      : sit === "B" ? `There's nothing available for ${guests} guests on your dates. On these dates, accommodation is available for stays of at least ${min} nights:`
+      : sit === "B" ? `The minimum stay for your selected dates is ${min} nights.`
       : `Sorry, we couldn't find an available property for ${guests} guests on these dates.`,
-    lead: sit === "B" ? "Would you prefer a shorter stay?" : "",
+    lead: "", also: "You can also book directly:",
     text: sit === "A" ? "Can't find what you need? Send us a message and we'll send you an offer if we find a suitable place. We'll reply the same day."
-      : sit === "B" ? "Tell us your preferred dates and we'll look into it case by case and send you an offer if we can make it work."
+      : sit === "B" ? `You searched for ${nights} nights. Contact us and we'll see if we can make your wish come true and send you an offer.`
       : "Don't give up yet. We can often find a solution by combining apartments or rearranging bookings. Send us a message and we'll look into the options and send you an offer if we find a suitable place. We'll reply the same day.",
     see: "See", wa: "WhatsApp", email: "Email", calendar: "See all options in the booking calendar", close: "Close",
   };
@@ -188,8 +188,8 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
     const sit = situationOf(r);
     const alts: Alternative[] = r?.alternatives ?? [];
     const min = r?.minimi_oita ?? 0;
-    track("haku_ei_tuloksia", { ...params, vaihtoehtoja: alts.length, minimi_oita: sit === "B" ? min : 0 });
-    const t = texts(lang, sit, params.henkiloita, min);
+    track("haku_ei_tuloksia", { ...params, vaihtoehtoja: alts.length, minimi_oita: sit === "B" ? min : 0, tilanne: sit });
+    const t = texts(lang, sit, params.henkiloita, min, Number(params.oita) || 0);
     content.replaceChildren();
     const h = document.createElement("h2");
     h.id = "lv-empty-search-title";
@@ -197,7 +197,15 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
     h.textContent = t.title;
     content.append(h);
 
-    if (alts.length) {
+    const appendList = () => {
+    if (!alts.length) return;
+    if (sit === "B") {
+      const sub = document.createElement("h3");
+      sub.className = "text-sm font-semibold mt-6 mb-2";
+      sub.textContent = t.also;
+      content.append(sub);
+    }
+    {
       const list = document.createElement("ul");
       list.className = "flex flex-col gap-2 mb-5";
       for (const a of alts) {
@@ -213,7 +221,7 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
           track("vaihtoehto_click", {
             alkup_saapuminen: params.saapuminen, alkup_oita: params.oita,
             saapuminen: a.start, lahto: a.end, oita: a.nights, siirto_pv: a.shift,
-            kohteita: a.available, alkaen_hinta: a.minPrice ?? 0,
+            kohteita: a.available, alkaen_hinta: a.minPrice ?? 0, tilanne: sit,
           });
           close();
           navigate(moderSearchUrl({ ...o, start: a.start, end: a.end }, lang, 0));
@@ -223,6 +231,8 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
       }
       content.append(list);
     }
+    };
+    if (sit !== "B") appendList();
 
     const p = document.createElement("p");
     p.className = "text-sm text-muted-foreground mb-4";
@@ -246,10 +256,11 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
       return a;
     };
     btns.append(
-      mk(t.wa, whatsappUrl(o, lang, sit), alts.length ? "border border-input bg-background hover:bg-accent" : "bg-primary text-primary-foreground hover:bg-primary/90", "tarjous_whatsapp_click", true),
+      mk(t.wa, whatsappUrl(o, lang, sit), alts.length && sit !== "B" ? "border border-input bg-background hover:bg-accent" : "bg-primary text-primary-foreground hover:bg-primary/90", "tarjous_whatsapp_click", true),
       mk(t.email, mailtoUrl(o, lang, sit), "border border-input bg-background hover:bg-accent", "tarjous_email_click", false),
     );
     content.append(btns);
+    if (sit === "B") appendList();
 
     const cal = document.createElement("button");
     cal.type = "button"; cal.textContent = t.calendar;

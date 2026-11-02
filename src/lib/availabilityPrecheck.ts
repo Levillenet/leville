@@ -80,12 +80,12 @@ export function offerMessage(o: Offer, lang: Lang, situation: Situation = "A"): 
   if (lang === "fi") {
     const kids = o.children > 0 ? ` (joista ${o.children} lasta)` : "";
     if (situation === "ei_hinnoiteltu") return `Hei! Olemme kiinnostuneita majoituksesta Leviltä ${fiDate(o.start)}–${fiDate(o.end)} ${total} hengelle${kids}. Voisitteko tehdä meille tarjouksen?`;
-    if (situation === "B") return `Hei! Toivoisimme majoitusta Leviltä ${fiDate(o.start)}–${fiDate(o.end)} (${n} yötä) ${total} hengelle${kids}. Voisitteko tarkistaa, onnistuuko lyhyempi jakso, ja tehdä meille tarjouksen?`;
+    if (situation === "B") return `Hei! Toivoisimme majoitusta Leviltä ${fiDate(o.start)}–${fiDate(o.end)} (${n} yötä) ${total} hengelle${kids}. Voisitteko tarkistaa, onnistuuko tämä jakso, ja tehdä meille tarjouksen?`;
     return `Hei! Etsimme majoitusta Leviltä ${fiDate(o.start)}–${fiDate(o.end)} ${total} hengelle${kids}. Voisitteko tehdä meille tarjouksen, jos sopiva kohde löytyy?`;
   }
   const kids = o.children > 0 ? ` (including ${o.children} children)` : "";
   if (situation === "ei_hinnoiteltu") return `Hi! We're interested in staying in Levi from ${enDate(o.start)} to ${enDate(o.end)}, ${total} guests${kids}. Could you send us an offer?`;
-  if (situation === "B") return `Hi! We'd like to stay in Levi from ${enDate(o.start)} to ${enDate(o.end)} (${n} nights), ${total} guests${kids}. Could you check whether a shorter stay is possible and send us an offer?`;
+  if (situation === "B") return `Hi! We'd like to stay in Levi from ${enDate(o.start)} to ${enDate(o.end)} (${n} nights), ${total} guests${kids}. Could you check whether this stay is possible and send us an offer?`;
   return `Hi! We're looking for accommodation in Levi from ${enDate(o.start)} to ${enDate(o.end)} for ${total} guests${kids}. Could you send us an offer if you find a suitable place?`;
 }
 
@@ -128,7 +128,7 @@ export function periodLabel(a: Alternative, lang: Lang): string {
 }
 
 export const situationOf = (r: Alternatives | null): Situation =>
-  !r || r.alternatives.length === 0 ? "C" : r.minimi_oita > 0 ? "B" : "A";
+  r && r.minimi_oita > 0 ? "B" : !r || r.alternatives.length === 0 ? "C" : "A";
 
 async function callFunction<T>(name: string, body: unknown, signal: AbortSignal, ms: number): Promise<T | null> {
   const project = import.meta.env.VITE_SUPABASE_PROJECT_ID;
