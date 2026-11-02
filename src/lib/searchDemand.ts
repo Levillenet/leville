@@ -59,7 +59,7 @@ export function buildDemand(rows: SearchRow[], nowMs: number, range: RangeFilter
     for (const m of ws) {
       const w = weeks.get(m); if (!w) continue;
       w.total++;
-      if (r.ti === "vapaita") w.free++; else if (r.ti && r.ti !== "ei_tietoa") w.lost++;
+      if (r.ti === "vapaita") w.free++; else if (r.ti && r.ti !== "ei_tietoa" && r.ti !== "kesken") w.lost++;
       if (r.h != null) w.g.push(r.h);
       if (r.n != null) w.n.push(r.n);
     }
@@ -89,7 +89,7 @@ export function summarize(rows: SearchRow[], sinceMs: number): SearchSummary {
   const inRange = rows.filter((r) => Date.parse(r.at) >= sinceMs);
   const searches = inRange.filter((r) => r.t === "haku");
   const byDay: Record<string, number> = {};
-  const tilanne: Record<string, number> = { vapaita: 0, A: 0, B: 0, C: 0, D: 0, ei_tietoa: 0 };
+  const tilanne: Record<string, number> = { vapaita: 0, A: 0, B: 0, C: 0, D: 0, ei_tietoa: 0, kesken: 0 };
   for (const r of searches) {
     const d = r.at.slice(0, 10); byDay[d] = (byDay[d] || 0) + 1;
     tilanne[r.ti || "ei_tietoa"] = (tilanne[r.ti || "ei_tietoa"] || 0) + 1;
