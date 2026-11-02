@@ -10,7 +10,11 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
 
-const BOT_RE = /bot|crawl|spider|slurp|bingpreview|prerender|headless|lighthouse|pagespeed|gtmetrix|monitor|fetch|http\.?client|curl|wget|python-requests|node-fetch|axios|httpx|java\/|okhttp|facebookexternalhit|whatsapp|telegrambot|discordbot|embedly|quora link preview|outbrain|pinterest|skypeuripreview|nuzzel|bitlybot|w3c_validator|chrome-lighthouse|google-inspectiontool|googlestackdrivermonitoring/i;
+const SEARCH_TYPES = new Set(["/event/haku", "/event/haku_ikkuna", "/event/haku_vaihtoehto_click", "/event/haku_whatsapp_click", "/event/haku_email_click", "/event/haku_kalenteri_click"]);
+const TILANNE = new Set(["vapaita", "A", "B", "C", "D", "ei_tietoa"]);
+const bad = (error: string) => new Response(JSON.stringify({ error }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+
+const BOT_RE =  /bot|crawl|spider|slurp|bingpreview|prerender|headless|lighthouse|pagespeed|gtmetrix|monitor|fetch|http\.?client|curl|wget|python-requests|node-fetch|axios|httpx|java\/|okhttp|facebookexternalhit|whatsapp|telegrambot|discordbot|embedly|quora link preview|outbrain|pinterest|skypeuripreview|nuzzel|bitlybot|w3c_validator|chrome-lighthouse|google-inspectiontool|googlestackdrivermonitoring/i;
 
 function deriveCountry(req: Request): string | null {
   const h = req.headers;
@@ -82,6 +86,32 @@ Deno.serve(async (req) => {
     country,
   };
   if (typeof body.id === "string") row.id = body.id;
+
+  // Search-analytics rows (/event/haku*): whitelisted, validated fields only. No IP, no user agent.
+  if (path.startsWith("/event/haku")) {
+    if (!SEARCH_TYPES.has(path)) return bad("invalid search type");
+    const s = body.search && typeof body.search === "object" ? body.search : {};
+    const UUID = /^[0-9a-f-]{36}$/i, DATE = /^\d{4}-\d{2}-\d{2}$/;
+    const int = (v: unknown, min: number, max: number) =>
+      typeof v === "number" && Number.isInteger(v) && v >= min && v <= max ? v : null;
+    const date = (v: unknown) => (typeof v === "string" && DATE.test(v) ? v : null);
+    const str = (v: unknown, n: number) => (typeof v === "string" && v ? v.slice(0, n) : null);
+    if (typeof s.haku_id !== "string" || !UUID.test(s.haku_id)) return bad("haku_id required");
+    Object.assign(row, {
+      country: null,
+      haku_id: s.haku_id,
+      saapuminen: date(s.saapuminen), lahto: date(s.lahto),
+      oita: int(s.oita, 0, 365), aikuiset: int(s.aikuiset, 0, 100), lapset: int(s.lapset, 0, 100),
+      henkiloita: int(s.henkiloita, 0, 200), jousto: int(s.jousto, 0, 30),
+      kohde: str(s.kohde, 100),
+      tulos_vapaita: int(s.tulos_vapaita, -1, 100000),
+      tilanne: TILANNE.has(s.tilanne) ? s.tilanne : null,
+      minimi_oita: int(s.minimi_oita, 0, 365), vaihtoehtoja: int(s.vaihtoehtoja, 0, 100),
+      valittu_saapuminen: date(s.valittu_saapuminen), valittu_lahto: date(s.valittu_lahto),
+      siirto_pv: int(s.siirto_pv, -60, 60),
+      kieli: s.kieli === "en" ? "en" : "fi",
+    });
+  }
 
   const { data, error } = await supabase
     .from("page_views")
