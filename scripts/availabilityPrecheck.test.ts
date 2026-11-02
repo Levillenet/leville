@@ -1,5 +1,5 @@
 import { describe, it, expect } from "bun:test";
-import { createPrecheck, offerMessage, whatsappUrl, mailtoUrl, nearestDatesUrl, selectionKey, type Selection } from "../src/lib/availabilityPrecheck";
+import { createPrecheck, offerMessage, whatsappUrl, mailtoUrl, moderSearchUrl, periodLabel, situationOf, selectionKey, type Selection } from "../src/lib/availabilityPrecheck";
 
 const A: Selection = { start: "2026-12-28", end: "2027-01-04", adults: 8, children: 0, flex: 0 };
 const B: Selection = { start: "2027-01-10", end: "2027-01-16", adults: 4, children: 0, flex: 0 };
@@ -57,7 +57,25 @@ describe("offer message", () => {
     expect(mailtoUrl(o, "en")).toContain("subject=Offer%20request");
     expect(mailtoUrl(o, "fi").startsWith("mailto:info@leville.net?subject=Tarjouspyynt%C3%B6")).toBe(true);
   });
-  it("nearest dates uses ±3 days", () => {
-    expect(nearestDatesUrl(o, "fi")).toContain("flexible_date_search=3");
+  it("situation B message has original dates and nights", () => {
+    const b = { start: "2026-12-28", end: "2027-01-01", adults: 4, children: 0 };
+    expect(offerMessage(b, "fi", "B")).toBe("Hei! Toivoisimme majoitusta Leviltä 28.12.2026–01.01.2027 (4 yötä) 4 hengelle. Voisitteko tarkistaa, onnistuuko lyhyempi jakso, ja tehdä meille tarjouksen?");
+    expect(offerMessage(b, "en", "B")).toContain("(4 nights), 4 guests.");
+  });
+  it("see link uses exact dates, calendar link keeps the customer's flex", () => {
+    expect(moderSearchUrl(o, "fi")).toContain("flexible_date_search=0");
+    expect(moderSearchUrl(o, "en", 7)).toContain("flexible_date_search=7");
+  });
+});
+
+describe("alternative rows", () => {
+  const a = { start: "2026-12-26", end: "2027-01-02", nights: 7, shift: -2, available: 3, minPrice: 2583 };
+  it("FI row", () => expect(periodLabel(a, "fi")).toBe("la 26.12. – la 2.1. (7 yötä): 3 kohdetta, alkaen 2 583 €"));
+  it("EN row", () => expect(periodLabel(a, "en")).toBe("Sat 26 Dec – Sat 2 Jan (7 nights): 3 properties, from €2,583"));
+  it("situations", () => {
+    expect(situationOf(null)).toBe("C");
+    expect(situationOf({ alternatives: [], minimi_oita: 0 })).toBe("C");
+    expect(situationOf({ alternatives: [a], minimi_oita: 0 })).toBe("A");
+    expect(situationOf({ alternatives: [a], minimi_oita: 7 })).toBe("B");
   });
 });
