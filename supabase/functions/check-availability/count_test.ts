@@ -25,7 +25,7 @@ Deno.test("flexible-only is not free", () => {
 });
 Deno.test("cheapest free price", async () => {
   const { analyzeResult } = await import("../_shared/moderResult.ts");
-  assertEquals(analyzeResult(pad + "room-card <span>Saatavilla</span> 2 583 € room-card x 500 € room-card <span>Saatavilla</span> 3 100 €"), { available: 2, minPrice: 2583 });
+  assertEquals(analyzeResult(pad + "room-card <span>Saatavilla</span> 2 583 € room-card x 500 € room-card <span>Saatavilla</span> 3 100 €"), { available: 2, minPrice: 2583, minStays: [] });
 });
 
 import { analyzeResult as ar } from "../_shared/moderResult.ts";
