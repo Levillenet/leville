@@ -79,3 +79,16 @@ describe("alternative rows", () => {
     expect(situationOf({ alternatives: [a], minimi_oita: 7 })).toBe("B");
   });
 });
+
+describe("unpriced dates", () => {
+  it("FI message has dates and guests incl. children", () => {
+    expect(offerMessage({ start: "2027-05-08", end: "2027-05-12", adults: 2, children: 1 }, "fi", "ei_hinnoiteltu"))
+      .toBe("Hei! Olemme kiinnostuneita majoituksesta Leviltä 08.05.2027–12.05.2027 3 hengelle (joista 1 lasta). Voisitteko tehdä meille tarjouksen?");
+  });
+  it("precheck keeps the unpriced marker", async () => {
+    const { UNPRICED } = await import("../src/lib/availabilityPrecheck");
+    const p = createPrecheck(async () => UNPRICED, 0);
+    p.update(A); await sleep(20);
+    expect(p.get(selectionKey(A))).toBe(-1);
+  });
+});
