@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from "bun:test";
+import { describe, it, expect, afterEach, beforeEach } from "bun:test";
 import { captureAdParams, appendAdParams } from "../src/lib/adClickParams";
 import { CONSENT_VERSION } from "../src/lib/cookieConsent";
 const M = "https://app.moder.fi/levillenet/303?step=1&lang=en#x";
@@ -21,6 +21,8 @@ function browser(search: string, values: Record<string, string> = {}, blocked = 
   } });
 }
 describe("adClickParams", () => {
+  // Other test files may leave a global window; pure-API cases run without one.
+  beforeEach(() => { Reflect.deleteProperty(globalThis, "window"); });
   it("appends to moder links", () => {
     captureAdParams("?gclid=TEST123&utm_source=google&utm_campaign=uk&foo=1");
     expect(appendAdParams(M)).toBe("https://app.moder.fi/levillenet/303?step=1&lang=en&gclid=TEST123&utm_source=google&utm_campaign=uk#x");
