@@ -19,3 +19,5 @@
 - The empty-search rescue (src/lib/emptySearch.ts + check-availability function) may stop Moder navigation only when the pre-check returned exactly 0; pending (>1000 ms), null, errors or unreadable widget state always navigate as before, so search can never break. The pre-check and find-alternatives always query exact dates and share supabase/functions/_shared/moderResult.ts, so "free" means the same everywhere and flexible-only results never count.
 - Search-bar analytics are /event/haku* rows in page_views logged via src/lib/searchLog.ts regardless of consent (memory-only ids, no IP/UA/country); aggregation lives in src/lib/searchDemand.ts so the admin views stay testable.
 - Moder HTML stay totals are extracted only from the marked Rates section by the shared moderResult parser, because arbitrary euro text can be an add-on fee; ambiguous totals return null.
+
+- Large-group rescue combinations come only from the BUILDINGS table in supabase/functions/_shared/combos.ts (same building, 2–3 units, exact dates, adults=1 query); edit that table rather than the matching code, so building membership has one source.

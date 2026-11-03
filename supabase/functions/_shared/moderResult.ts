@@ -56,6 +56,44 @@ export function analyzeResult(html: string): ModerResult | null {
   return { available, minPrice, minStays };
 }
 
+/** Free ("Saatavilla") cards with name, Moder id, capacity ("1–X hlö") and stay total (no cleaning fee). */
+export function parseFreeUnits(html: string): { name: string; id: string | null; capacity: number; price: number | null }[] {
+  if (typeof html !== "string") return [];
+  const out: { name: string; id: string | null; capacity: number; price: number | null }[] = [];
+  for (const card of html.split(/room-card\b/).slice(1)) {
+    if (!FREE.test(card)) continue;
+    const title = card.match(/<h2\b[^>]*>\s*<a\b[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/i);
+    const cap = card.match(/\d+\s*[–-]\s*(\d+)\s*hlö/);
+    if (!title || !cap) continue;
+    out.push({
+      name: title[2].replace(/&amp;/g, "&").replace(/\s+/g, " ").trim(),
+      id: title[1].match(/levillenet\/(\d+)/)?.[1] ?? null,
+      capacity: Number(cap[1]),
+      price: extractTotalPrice(card),
+    });
+  }
+  return out;
+}
+
+/** Exact dates, adults=1: every unit free on those dates regardless of size. 3 s timeout, 5 min cache. */
+const unitCache = new Map<string, { at: number; value: ReturnType<typeof parseFreeUnits> }>();
+export async function queryFreeUnits(start: string, end: string) {
+  const key = `${start}|${end}`;
+  const now = Date.now();
+  const hit = unitCache.get(key);
+  if (hit && now - hit.at < CACHE_MS) return hit.value;
+  try {
+    const res = await fetch(moderQueryUrl(start, end, 1, 0), {
+      headers: { "X-Requested-With": "XMLHttpRequest" }, signal: AbortSignal.timeout(3000),
+    });
+    if (!res.ok) return [];
+    const value = parseFreeUnits(await res.text());
+    unitCache.set(key, { at: now, value });
+    if (unitCache.size > 500) for (const [k, v] of unitCache) if (now - v.at > CACHE_MS) unitCache.delete(k);
+    return value;
+  } catch { return []; }
+}
+
 /** Smallest minimum stay longer than the searched nights; 0 when none. */
 export function minimumAbove(r: ModerResult | null, nights: number): number {
   const xs = (r?.minStays ?? []).filter((n) => n > nights);

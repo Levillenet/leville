@@ -110,6 +110,10 @@ Deno.serve(async (req) => {
       valittu_saapuminen: date(s.valittu_saapuminen), valittu_lahto: date(s.valittu_lahto),
       siirto_pv: int(s.siirto_pv, -60, 60),
       kieli: s.kieli === "en" ? "en" : "fi",
+      yhdistelma_naytetty: typeof s.yhdistelma_naytetty === "boolean" ? s.yhdistelma_naytetty : null,
+      yhdistelma_talo: s.yhdistelma_talo === "skistar" || s.yhdistelma_talo === "glacier" ? s.yhdistelma_talo : null,
+      yhdistelma_kohteet: typeof s.yhdistelma_kohteet === "string" && /^[A-Z0-9]{1,4}(\+[A-Z0-9]{1,4}){1,2}$/.test(s.yhdistelma_kohteet) ? s.yhdistelma_kohteet : null,
+      yhdistelma_hinta: typeof s.yhdistelma_hinta === "number" && s.yhdistelma_hinta > 0 && s.yhdistelma_hinta < 100000 ? s.yhdistelma_hinta : null,
     });
   }
 

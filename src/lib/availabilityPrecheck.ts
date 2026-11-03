@@ -107,7 +107,9 @@ export function moderSearchUrl(o: Offer, lang: Lang, flex = 0): string {
 }
 
 export type Alternative = { start: string; end: string; nights: number; shift: number; available: number; minPrice: number | null };
-export type Alternatives = { alternatives: Alternative[]; minimi_oita: number };
+export type ComboUnit = { unit: string; id: string | null; capacity: number; price: number | null };
+export type Combo = { talo: string; label: string; units: ComboUnit[]; capacity: number; price: number | null };
+export type Alternatives = { alternatives: Alternative[]; minimi_oita: number; yhdistelmat?: Combo[] };
 
 const FI_DAYS = ["su", "ma", "ti", "ke", "to", "pe", "la"];
 const EN_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -151,7 +153,10 @@ async function callFunction<T>(name: string, body: unknown, signal: AbortSignal,
 export async function fetchAlternatives(o: Offer): Promise<Alternatives | null> {
   try {
     const d = await callFunction<Alternatives>("find-alternatives", o, new AbortController().signal, 15000);
-    return d && Array.isArray(d.alternatives) ? { alternatives: d.alternatives.slice(0, 3), minimi_oita: Number(d.minimi_oita) || 0 } : null;
+    return d && Array.isArray(d.alternatives) ? {
+      alternatives: d.alternatives.slice(0, 3), minimi_oita: Number(d.minimi_oita) || 0,
+      yhdistelmat: Array.isArray(d.yhdistelmat) ? d.yhdistelmat.slice(0, 2) : [],
+    } : null;
   } catch { return null; }
 }
 
@@ -160,4 +165,78 @@ export async function fetchAvailability(s: Selection, signal: AbortSignal): Prom
     { start: s.start, end: s.end, adults: s.adults, children: s.children, flex: 0 }, signal, 4000);
   if (data?.ei_hinnoiteltu === true && data.available === 0) return UNPRICED;
   return typeof data?.available === "number" ? data.available : null;
+}
+
+// ---- Same-building combinations for large groups ----
+
+/** Combinations are shown only for situations A and C with 5+ guests. */
+export const combosFor = (r: Alternatives | null, sit: Situation, guests: number): Combo[] =>
+  (sit === "A" || sit === "C") && guests >= 5 ? (r?.yhdistelmat ?? []).slice(0, 2) : [];
+
+export const comboUnits = (c: Combo) => c.units.map((u) => u.unit).join("+");
+
+const fiRange = (s: string, e: string) => {
+  const [ys, ms, ds] = parts(s), [ye, me, de] = parts(e);
+  if (ys === ye && ms === me) return `${ds}.–${de}.${me}.${ye}`;
+  if (ys === ye) return `${ds}.${ms}.–${de}.${me}.${ye}`;
+  return `${ds}.${ms}.${ys}–${de}.${me}.${ye}`;
+};
+const enRange = (s: string, e: string) => {
+  const [ys, ms, ds] = parts(s), [ye, me, de] = parts(e);
+  if (ys === ye && ms === me) return `${ds}–${de} ${EN_MON[me - 1]} ${ye}`;
+  if (ys === ye) return `${ds} ${EN_MON[ms - 1]} – ${de} ${EN_MON[me - 1]} ${ye}`;
+  return `${enDate(s)} – ${enDate(e)}`;
+};
+
+
+/** "Skistar: 2 saunallista huoneistoa (yht. 8 hlö) – 1 128 € / 3 yötä"; unknown totals are omitted. */
+export function comboLabel(c: Combo, o: Offer, lang: Lang): string {
+  const n = nightsBetween(o.start, o.end), k = c.units.length;
+  const hasPrice = typeof c.price === "number" && c.price > 0;
+  if (lang === "fi") {
+    const price = hasPrice ? ` – ${groupDigits(c.price as number, " ")} € / ${n} ${n === 1 ? "yö" : "yötä"}` : "";
+    return `${c.label}: ${k} saunallista huoneistoa (yht. ${c.capacity} hlö)${price}`;
+  }
+  const price = hasPrice ? ` – €${groupDigits(c.price as number, ",")} / ${n} ${n === 1 ? "night" : "nights"}` : "";
+  return `${c.label}: ${k} apartments with sauna (${c.capacity} guests total)${price}`;
+}
+
+export function comboTitle(combos: Combo[], lang: Lang): string {
+  const k = Math.min(...combos.map((c) => c.units.length));
+  if (lang === "fi") return `Ryhmällenne sopii ${k === 2 ? "kaksi" : "kolme"} huoneistoa samasta talosta`;
+  return `${k === 2 ? "Two" : "Three"} apartments in the same building fit your group`;
+}
+
+export function comboMessage(c: Combo, o: Offer, lang: Lang): string {
+  const total = o.adults + o.children;
+  const units = c.units.map((u) => u.unit).join(" + ");
+  if (lang === "fi") return `Hei, haluaisimme varata ${fiRange(o.start, o.end)} ${total} hengelle ${c.label}-huoneistot ${units}.`;
+  return `Hi, we'd like to book ${c.label} apartments ${units} for ${total} guests, ${enRange(o.start, o.end)}.`;
+}
+export const comboWhatsappUrl = (c: Combo, o: Offer, lang: Lang) =>
+  `https://wa.me/35844131313?text=${encodeURIComponent(comboMessage(c, o, lang))}`;
+export function comboMailtoUrl(c: Combo, o: Offer, lang: Lang): string {
+  const total = o.adults + o.children;
+  const subject = lang === "fi"
+    ? `Tarjouspyyntö ${c.label} ${c.units.map((u) => u.unit).join(" + ")}, ${fiRange(o.start, o.end)}, ${total} hlö`
+    : `Offer request ${c.label} ${c.units.map((u) => u.unit).join(" + ")}, ${enRange(o.start, o.end)}, ${total} guests`;
+  return `mailto:info@leville.net?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(comboMessage(c, o, lang))}`;
+}
+
+/** Splits the group across the units by capacity (adults first, then children). */
+export function comboShares(c: Combo, o: Offer): { adults: number; children: number }[] {
+  let a = o.adults, ch = o.children;
+  return c.units.map((u, i) => {
+    const last = i === c.units.length - 1;
+    let room = last ? Infinity : u.capacity;
+    const takeA = Math.min(a, room); a -= takeA; room -= takeA;
+    const takeC = Math.min(ch, room); ch -= takeC;
+    return { adults: Math.max(1, takeA), children: takeC };
+  });
+}
+
+/** Moder page of one unit for the exact dates and its share of the group. */
+export function comboUnitUrl(u: ComboUnit, share: { adults: number; children: number }, o: Offer, lang: Lang): string {
+  const base = u.id ? `https://app.moder.fi/levillenet/${u.id}` : "https://app.moder.fi/levillenet";
+  return `${base}?start=${o.start}&end=${o.end}&adults=${share.adults}&children=${share.children}&lang=${lang}&flexible_date_search=0`;
 }

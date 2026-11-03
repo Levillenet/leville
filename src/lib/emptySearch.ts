@@ -3,7 +3,7 @@ import { trackGoogleEvent, type SearchEventParams } from "./googleAnalytics";
 import { beaconSearch, logSearch, toTilanne, type SearchFields } from "./searchLog";
 import {
   UNPRICED, createPrecheck, fetchAlternatives, fetchAvailability, mailtoUrl, moderSearchUrl, periodLabel, selectionKey,
-  situationOf, whatsappUrl, type Alternative, type Alternatives, type Lang, type Offer, type Selection, type Situation,
+  situationOf, whatsappUrl, combosFor, comboUnits, comboLabel, comboTitle, comboWhatsappUrl, comboMailtoUrl, comboShares, comboUnitUrl, type Alternative, type Alternatives, type Lang, type Offer, type Selection, type Situation,
 } from "./availabilityPrecheck";
 
 type ModerLike = {
@@ -87,7 +87,7 @@ export function quickDecision(m: ModerLike): "go" | "empty" | "pending" {
   } catch { return "go"; }
 }
 
-type EmptyEvent = "haku_ei_tuloksia" | "tarjous_whatsapp_click" | "tarjous_email_click" | "vaihtoehto_click" | "kalenteri_click";
+type EmptyEvent = "haku_ei_tuloksia" | "tarjous_whatsapp_click" | "tarjous_email_click" | "vaihtoehto_click" | "kalenteri_click" | "yhdistelma_naytetty" | "yhdistelma_click";
 const track = (name: EmptyEvent, p: Record<string, string | number>) => {
   if (!hasConsent("analytics")) return;
   trackGoogleEvent(name, Object.fromEntries(Object.entries(p).map(([k, v]) => [k, String(v)])));
@@ -223,8 +223,17 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
     const sit = situationOf(r);
     const alts: Alternative[] = r?.alternatives ?? [];
     const min = r?.minimi_oita ?? 0;
+    const combos = combosFor(r, sit, params.henkiloita);
+    const first = combos[0];
+    const comboLog = (c = first): Partial<SearchFields> => c
+      ? { yhdistelma_naytetty: true, yhdistelma_talo: c.talo, yhdistelma_kohteet: comboUnits(c), yhdistelma_hinta: c.price ?? undefined }
+      : { yhdistelma_naytetty: false };
     track("haku_ei_tuloksia", { ...params, vaihtoehtoja: alts.length, minimi_oita: sit === "B" ? min : 0, tilanne: sit });
-    logOpen(sit, { tulos_vapaita: 0, vaihtoehtoja: alts.length, minimi_oita: min || undefined });
+    logOpen(sit, { tulos_vapaita: 0, vaihtoehtoja: alts.length, minimi_oita: min || undefined, ...comboLog() });
+    const comboGa = (c: typeof first) => ({
+      talo: c.talo, kohteet: comboUnits(c), henkiloita: params.henkiloita, oita: params.oita, saapuminen: params.saapuminen,
+    });
+    for (const c of combos) track("yhdistelma_naytetty", comboGa(c));
     const t = texts(lang, sit, params.henkiloita, min, Number(params.oita) || 0);
     content.replaceChildren();
     const h = document.createElement("h2");
@@ -232,6 +241,61 @@ export function showEmptySearch(params: SearchEventParams, flex: number, navigat
     h.className = "text-lg font-semibold pr-8 mb-4";
     h.textContent = t.title;
     content.append(h);
+
+    if (combos.length) {
+      const fi = lang === "fi";
+      const sec = document.createElement("section");
+      sec.className = "mb-5 rounded-lg border border-primary/40 bg-primary/5 p-4";
+      const h3 = document.createElement("h3");
+      h3.className = "text-base font-semibold mb-3";
+      h3.textContent = comboTitle(combos, lang);
+      sec.append(h3);
+      for (const c of combos) {
+        const card = document.createElement("div");
+        card.className = "mb-3 last:mb-0";
+        const row = document.createElement("p");
+        row.className = "text-sm font-medium mb-1";
+        row.textContent = comboLabel(c, o, lang);
+        const links = document.createElement("p");
+        links.className = "text-xs text-muted-foreground mb-2 flex flex-wrap gap-x-3";
+        const shares = comboShares(c, o);
+        c.units.forEach((u, i) => {
+          const a = document.createElement("a");
+          a.href = comboUnitUrl(u, shares[i], o, lang);
+          a.target = "_blank"; a.rel = "noopener noreferrer";
+          a.className = "underline hover:text-foreground";
+          a.textContent = `${t.see} ${u.unit}`;
+          a.addEventListener("click", () => {
+            track("yhdistelma_click", { ...comboGa(c), kanava: "katso" });
+            logClick("haku_vaihtoehto_click", sit, { tulos_vapaita: 0, ...comboLog(c) });
+          });
+          links.append(a);
+        });
+        const label = document.createElement("p");
+        label.className = "text-xs font-semibold mb-1";
+        label.textContent = fi ? "Pyydä tarjous yhdistelmästä" : "Request an offer for this combination";
+        const btns = document.createElement("div");
+        btns.className = "flex flex-col sm:flex-row gap-2";
+        const mkc = (txt: string, href: string, cls: string, kanava: "whatsapp" | "email", blank: boolean) => {
+          const a = document.createElement("a");
+          a.href = href; a.textContent = txt; a.className = `${btnCls} flex-1 ${cls}`;
+          a.setAttribute("data-lv-nav", "1");
+          if (blank) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+          a.addEventListener("click", () => {
+            track("yhdistelma_click", { ...comboGa(c), kanava });
+            logClick(kanava === "whatsapp" ? "haku_whatsapp_click" : "haku_email_click", sit, { tulos_vapaita: 0, ...comboLog(c) });
+          });
+          return a;
+        };
+        btns.append(
+          mkc(t.wa, comboWhatsappUrl(c, o, lang), "bg-primary text-primary-foreground hover:bg-primary/90", "whatsapp", true),
+          mkc(t.email, comboMailtoUrl(c, o, lang), "border border-input bg-background hover:bg-accent", "email", false),
+        );
+        card.append(row, links, label, btns);
+        sec.append(card);
+      }
+      content.append(sec);
+    }
 
     const appendList = () => {
     if (!alts.length) return;

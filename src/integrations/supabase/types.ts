@@ -1445,6 +1445,10 @@ export type Database = {
           valittu_lahto: string | null
           valittu_saapuminen: string | null
           viewport_w: number | null
+          yhdistelma_hinta: number | null
+          yhdistelma_kohteet: string | null
+          yhdistelma_naytetty: boolean | null
+          yhdistelma_talo: string | null
         }
         Insert: {
           aikuiset?: number | null
@@ -1478,6 +1482,10 @@ export type Database = {
           valittu_lahto?: string | null
           valittu_saapuminen?: string | null
           viewport_w?: number | null
+          yhdistelma_hinta?: number | null
+          yhdistelma_kohteet?: string | null
+          yhdistelma_naytetty?: boolean | null
+          yhdistelma_talo?: string | null
         }
         Update: {
           aikuiset?: number | null
@@ -1511,6 +1519,10 @@ export type Database = {
           valittu_lahto?: string | null
           valittu_saapuminen?: string | null
           viewport_w?: number | null
+          yhdistelma_hinta?: number | null
+          yhdistelma_kohteet?: string | null
+          yhdistelma_naytetty?: boolean | null
+          yhdistelma_talo?: string | null
         }
         Relationships: []
       }
