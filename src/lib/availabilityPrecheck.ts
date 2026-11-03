@@ -113,17 +113,21 @@ const FI_DAYS = ["su", "ma", "ti", "ke", "to", "pe", "la"];
 const EN_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const EN_MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const dow = (iso: string) => new Date(Date.UTC(...ymd(iso))).getUTCDay();
-const groupDigits = (n: number, sep: string) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+const groupDigits = (n: number, sep: string) => {
+  const [whole, fraction] = String(n).split(".");
+  return whole.replace(/\B(?=(\d{3})+(?!\d))/g, sep) + (fraction ? `${sep === " " ? "," : "."}${fraction}` : "");
+};
 
-/** "la 26.12. – la 2.1. (7 yötä): 3 kohdetta, alkaen 2 583 €" / "Sat 26 Dec – Sat 2 Jan (7 nights): 3 properties, from €2,583" */
+/** Prices are totals for the full stay; unknown or invalid totals are omitted. */
 export function periodLabel(a: Alternative, lang: Lang): string {
+  const hasPrice = typeof a.minPrice === "number" && Number.isFinite(a.minPrice) && a.minPrice > 0;
   if (lang === "fi") {
     const d = (iso: string) => { const [, m, day] = parts(iso); return `${FI_DAYS[dow(iso)]} ${day}.${m}.`; };
-    const price = a.minPrice ? `, alkaen ${groupDigits(a.minPrice, " ")} €` : "";
+    const price = hasPrice && a.minPrice !== null ? `, alkaen ${groupDigits(a.minPrice, " ")} € / ${a.nights} ${a.nights === 1 ? "yö" : "yötä"}` : "";
     return `${d(a.start)} – ${d(a.end)} (${a.nights} ${a.nights === 1 ? "yö" : "yötä"}): ${a.available} ${a.available === 1 ? "kohde" : "kohdetta"}${price}`;
   }
   const d = (iso: string) => { const [, m, day] = parts(iso); return `${EN_DAYS[dow(iso)]} ${day} ${EN_MON[m - 1]}`; };
-  const price = a.minPrice ? `, from €${groupDigits(a.minPrice, ",")}` : "";
+  const price = hasPrice && a.minPrice !== null ? `, from €${groupDigits(a.minPrice, ",")} / ${a.nights} ${a.nights === 1 ? "night" : "nights"}` : "";
   return `${d(a.start)} – ${d(a.end)} (${a.nights} ${a.nights === 1 ? "night" : "nights"}): ${a.available} ${a.available === 1 ? "property" : "properties"}${price}`;
 }
 

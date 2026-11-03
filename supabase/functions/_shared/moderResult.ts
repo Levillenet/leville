@@ -6,6 +6,23 @@ export type ModerResult = { available: number; minPrice: number | null; unpriced
 // "Saatavilla joustavina päivinä" means only other dates are free, so it never counts.
 const FREE = /<span>\s*Saatavilla\s*<\/span>/;
 
+/** Only Moder's marked Rates section is a trustworthy stay total, not arbitrary euro text. */
+export function extractTotalPrice(card: string): number | null {
+  const rates = card.match(/<!--\s*Rates\s*-->([\s\S]*?)<!--\s*Info\s*-->/i)?.[1];
+  if (!rates) return null;
+  const totals: number[] = [];
+  for (const match of rates.matchAll(/<span\b[^>]*>([^<]*)<\/span>/gi)) {
+    const text = match[1].replace(/&nbsp;|&#160;|&#xA0;/gi, " ").trim();
+    if (/Loppusiivous|lisätään hintaan/i.test(text)) continue;
+    const amount = text.match(/^(\d+(?:[ \u00a0\u202f.]\d{3})*)(?:[,.](\d{2}))?\s*(?:€|&euro;)$/);
+    if (!amount) continue;
+    const value = Number(amount[1].replace(/[ \u00a0\u202f.]/g, "") + (amount[2] ? `.${amount[2]}` : ""));
+    if (Number.isFinite(value) && value > 0) totals.push(value);
+  }
+  // Multiple price amounts (e.g. old/new rates) are ambiguous: do not guess.
+  return totals.length === 1 ? totals[0] : null;
+}
+
 /** Returns null when the response does not look like a search result page. */
 export function analyzeResult(html: string): ModerResult | null {
   if (typeof html !== "string") return null;
@@ -28,9 +45,8 @@ export function analyzeResult(html: string): ModerResult | null {
       continue;
     }
     available++;
-    const m = card.match(/(\d[\d\s\u00a0.]*)\s*€/);
-    const price = m ? Number(m[1].replace(/[^\d]/g, "")) : NaN;
-    if (Number.isFinite(price) && price > 0 && (minPrice === null || price < minPrice)) minPrice = price;
+    const price = extractTotalPrice(card);
+    if (price !== null && (minPrice === null || price < minPrice)) minPrice = price;
   }
   // Unavailable cards use several reasons ("Kohde on varattu", "Ei varattavissa…",
   // "Checkin ei sallittu…", "Enintään N henkilöä", flexible-only); any of them marks a real result page.
