@@ -1,3 +1,4 @@
+import { eventLanguage } from "@/lib/pageLang";
 import { useEffect, useRef, useState } from "react";
 import { hasConsent, readConsent } from "@/lib/cookieConsent";
 import { useLocation } from "react-router-dom";
@@ -49,13 +50,6 @@ const getUtmParams = () => ({
 });
 
 // Derive page language from URL prefix (matches site i18n routing)
-const SUPPORTED_LANGS = new Set(["en", "sv", "de", "fr", "es", "nl"]);
-const getPageLanguage = (path: string): string => {
-  const seg = path.split("/").filter(Boolean)[0]?.toLowerCase();
-  if (seg && SUPPORTED_LANGS.has(seg)) return seg;
-  return "fi";
-};
-
 // Bot detection on the client — drops headless browsers and known crawlers
 const BOT_RE = /bot|crawl|spider|slurp|bingpreview|prerender|headless|lighthouse|pagespeed|facebookexternalhit|whatsapp|telegrambot|discordbot|embedly|pinterest|skypeuripreview|node-fetch|axios|python-requests|curl|wget/i;
 const isLikelyBot = (): boolean => {
@@ -78,7 +72,7 @@ const buildPayload = (path: string, referrer?: string | null, id?: string) => {
     path,
     referrer: referrer ?? null,
     device_type: getDeviceType(),
-    language: getPageLanguage(path),
+    language: eventLanguage(path, referrer),
     session_id: getSessionId(),
     consent: readConsent(),
     viewport_w: typeof window !== "undefined" ? window.innerWidth : null,

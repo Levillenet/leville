@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from "bun:test";
+import { describe, it, expect, afterEach, beforeEach } from "bun:test";
 import { captureAdParams, appendAdParams } from "../src/lib/adClickParams";
 import { CONSENT_VERSION } from "../src/lib/cookieConsent";
 const M = "https://app.moder.fi/levillenet/303?step=1&lang=en#x";
@@ -13,7 +13,7 @@ afterEach(() => {
 function browser(search: string, values: Record<string, string> = {}, blocked = false) {
   Object.defineProperty(globalThis, "localStorage", { configurable: true, value: { getItem: () => JSON.stringify({ version: CONSENT_VERSION, visitorId: "test", analytics: true, marketing: true, expiresAt: "2099-01-01T00:00:00Z" }) } });
   Object.defineProperty(globalThis, "window", { configurable: true, value: {
-    location: { search, href: `https://leville.net/en/accommodations${search}` },
+    location: { search, pathname: "/en/accommodations", href: `https://leville.net/en/accommodations${search}` },
     sessionStorage: { getItem: (key: string) => {
       if (blocked) throw new Error("Storage blocked");
       return values[key] ?? null;
@@ -21,6 +21,8 @@ function browser(search: string, values: Record<string, string> = {}, blocked = 
   } });
 }
 describe("adClickParams", () => {
+  // Other test files may leave a global window; pure-API cases run without one.
+  beforeEach(() => { Reflect.deleteProperty(globalThis, "window"); });
   it("appends to moder links", () => {
     captureAdParams("?gclid=TEST123&utm_source=google&utm_campaign=uk&foo=1");
     expect(appendAdParams(M)).toBe("https://app.moder.fi/levillenet/303?step=1&lang=en&gclid=TEST123&utm_source=google&utm_campaign=uk#x");
