@@ -1,0 +1,1 @@
+ALTER TABLE public.page_views ADD COLUMN IF NOT EXISTS yhdistelma_naytetty boolean, ADD COLUMN IF NOT EXISTS yhdistelma_talo text, ADD COLUMN IF NOT EXISTS yhdistelma_kohteet text, ADD COLUMN IF NOT EXISTS yhdistelma_hinta numeric;
