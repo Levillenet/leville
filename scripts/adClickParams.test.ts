@@ -13,7 +13,7 @@ afterEach(() => {
 function browser(search: string, values: Record<string, string> = {}, blocked = false) {
   Object.defineProperty(globalThis, "localStorage", { configurable: true, value: { getItem: () => JSON.stringify({ version: CONSENT_VERSION, visitorId: "test", analytics: true, marketing: true, expiresAt: "2099-01-01T00:00:00Z" }) } });
   Object.defineProperty(globalThis, "window", { configurable: true, value: {
-    location: { search, href: `https://leville.net/en/accommodations${search}` },
+    location: { search, pathname: "/en/accommodations", href: `https://leville.net/en/accommodations${search}` },
     sessionStorage: { getItem: (key: string) => {
       if (blocked) throw new Error("Storage blocked");
       return values[key] ?? null;
