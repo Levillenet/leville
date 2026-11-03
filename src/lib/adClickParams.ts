@@ -34,8 +34,9 @@ export function getAdParams(): Record<string, string> {
 
 /** Moder URL with the current page's language and campaign/click parameters. */
 export function appendAdParams(url: string): string {
-  const path = typeof window !== "undefined" ? window.location.pathname : "/";
-  return appendAdParamsRaw(withModerLang(url, path));
+  // Language comes from the visitor's current page (browser only; pure callers keep their lang).
+  const path = typeof window !== "undefined" ? window.location?.pathname : undefined;
+  return appendAdParamsRaw(path ? withModerLang(url, path) : url);
 }
 
 function appendAdParamsRaw(url: string): string {
