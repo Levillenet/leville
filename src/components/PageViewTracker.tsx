@@ -50,7 +50,6 @@ const getUtmParams = () => ({
 });
 
 // Derive page language from URL prefix (matches site i18n routing)
-const SUPPORTED_LANGS = new Set(["en", "sv", "de", "fr", "es", "nl"]);
 // Bot detection on the client — drops headless browsers and known crawlers
 const BOT_RE = /bot|crawl|spider|slurp|bingpreview|prerender|headless|lighthouse|pagespeed|facebookexternalhit|whatsapp|telegrambot|discordbot|embedly|pinterest|skypeuripreview|node-fetch|axios|python-requests|curl|wget/i;
 const isLikelyBot = (): boolean => {
