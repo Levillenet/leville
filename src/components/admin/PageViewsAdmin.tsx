@@ -287,17 +287,27 @@ const PageViewsAdmin = ({ isViewer }: PageViewsAdminProps) => {
       const { data, error } = await supabase.functions.invoke("get-page-view-stats", {
         body: { password, format: "csv", period },
       });
-      if (error) throw error;
+      if (error) {
+        const status = (error as { context?: Response }).context?.status;
+        if (status === 401) {
+          toast.error("Kirjautuminen on vanhentunut. Kirjaudu uudelleen.");
+          expireAdminSession();
+          return;
+        }
+        throw error;
+      }
 
-      // data comes as string from text/csv response
-      const csvText = typeof data === "string" ? data : JSON.stringify(data);
+      // text/csv may arrive as a string or a Blob depending on the client version
+      const csvText = typeof data === "string" ? data : data instanceof Blob ? await data.text() : JSON.stringify(data);
       const blob = new Blob([csvText], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
       a.download = `leville-analytics-${new Date().toISOString().split("T")[0]}.csv`;
+      document.body.appendChild(a);
       a.click();
-      URL.revokeObjectURL(url);
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
       toast.success("CSV ladattu");
     } catch (e) {
       console.error("CSV download failed:", e);
