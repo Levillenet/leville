@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import { buildDemand, recentContacts, summarize, topWeeks, type GuestFilter, type RangeFilter, type SearchRow, type WeekDemand } from "@/lib/searchDemand";
+import { buildDemand, countImplausible, MAX_PLAUSIBLE_NIGHTS, recentContacts, summarize, topWeeks, type GuestFilter, type RangeFilter, type SearchRow, type WeekDemand } from "@/lib/searchDemand";
 
 type Period = "today" | "week" | "month" | "30days" | "90days" | "180days";
 const DAY = 86400000;
@@ -51,6 +51,7 @@ export default function SearchDemandAdmin({ period, periodLabel }: { period: Per
 
   const summary = useMemo(() => (rows ? summarize(rows, sinceOf(period)) : null), [rows, period]);
   const demand = useMemo(() => (rows ? buildDemand(rows, Date.now(), range, guests) : []), [rows, range, guests]);
+  const skipped = useMemo(() => (rows ? countImplausible(rows, Date.now(), range, guests) : 0), [rows, range, guests]);
   const contacts = useMemo(() => (rows ? recentContacts(rows) : []), [rows]);
   const top = useMemo(() => topWeeks(demand), [demand]);
 
@@ -174,6 +175,7 @@ export default function SearchDemandAdmin({ period, periodLabel }: { period: Per
               </div>
             )}
             <p className="text-xs text-muted-foreground mt-2">Napin painallukset: painoi WhatsApp- tai sähköpostinappia. Ei tarkoita, että viesti lähetettiin. Usean viikon haku näkyy jokaisella viikolla.</p>
+            {skipped > 0 && <p className="text-xs text-muted-foreground mt-1">Pois jätetty {skipped} epätodennäköisen pitkää hakua (yli {MAX_PLAUSIBLE_NIGHTS} yötä).</p>}
           </div>
           <div>
             <div className="text-sm font-medium mb-2">Viimeisimmät napin painallukset ({contacts.length})</div>
