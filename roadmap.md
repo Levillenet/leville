@@ -29,6 +29,6 @@
 - [x] seo_pages race: neutral shell until lookup resolves, immediate fetch for unmatched URLs (SeoCatchAll)
 
 ## Empty-search rescue (Nov 2026)
-- [ ] Correct Moder total-price extraction, show stay length, audit sibling paths, test and verify.
+- [x] Correct Moder total-price extraction, show stay length, audit sibling paths; 34 tests passed, live alternatives return 2419 and dialog display verified (direct invocation; widget-click flow unverified).
 - [x] check-availability function, pre-check on hero search, empty-search panel (FI/EN), GA events, tests
 - [x] Part 2: exact-date check, find-alternatives (same length ±7 + Sat–Sat week, then longer stays up to 7 nights), A/B/C panel with period rows, new GA events, tests
