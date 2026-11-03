@@ -46,6 +46,16 @@ export type WeekDemand = {
   avgGuests: number | null; commonNights: number | null; contacts: number;
 };
 
+/** Searches longer than this many nights are treated as calendar mis-clicks in weekly demand. */
+export const MAX_PLAUSIBLE_NIGHTS = 30;
+export const isImplausibleStay = (s: string, l: string) => (utc(l) - utc(s)) / DAY > MAX_PLAUSIBLE_NIGHTS;
+
+export function countImplausible(rows: SearchRow[], nowMs: number, range: RangeFilter, guests: GuestFilter): number {
+  const since = range === "all" ? -Infinity : nowMs - range * DAY;
+  return rows.filter((r) => r.t === "haku" && r.s && r.l && Date.parse(r.at) >= since && guestMatch(r.h, guests) && isImplausibleStay(r.s, r.l)).length;
+}
+
+
 export function buildDemand(rows: SearchRow[], nowMs: number, range: RangeFilter, guests: GuestFilter): WeekDemand[] {
   const since = range === "all" ? -Infinity : nowMs - range * DAY;
   const start = mondayOf(Date.UTC(new Date(nowMs).getUTCFullYear(), new Date(nowMs).getUTCMonth(), new Date(nowMs).getUTCDate()));
@@ -54,6 +64,7 @@ export function buildDemand(rows: SearchRow[], nowMs: number, range: RangeFilter
   const searchWeeks = new Map<string, number[]>();
   for (const r of rows) {
     if (r.t !== "haku" || !r.s || !r.l || Date.parse(r.at) < since || !guestMatch(r.h, guests)) continue;
+    if (isImplausibleStay(r.s, r.l)) continue;
     const ws = stayWeeks(r.s, r.l);
     if (r.id) searchWeeks.set(r.id, ws);
     for (const m of ws) {
