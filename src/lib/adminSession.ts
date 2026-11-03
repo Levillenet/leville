@@ -27,6 +27,25 @@ export function getAdminToken(): string {
   }
 }
 
+/** Session tokens look like `<role>.<expiryEpochSeconds>.<sig>`. */
+export function isAdminTokenExpired(token: string, now: number = Date.now()): boolean {
+  const exp = Number(token.split(".")[1]);
+  if (!Number.isFinite(exp)) return false; // unknown format: let the server decide
+  return exp * 1000 <= now;
+}
+
+export const ADMIN_SESSION_EXPIRED_EVENT = "admin-session-expired";
+
+/** Clears the session and tells the admin page to show the login form. */
+export function expireAdminSession() {
+  clearAdminSession();
+  try {
+    window.dispatchEvent(new Event(ADMIN_SESSION_EXPIRED_EVENT));
+  } catch {
+    /* ignore */
+  }
+}
+
 export function getAdminRole(): AdminRole | null {
   try {
     const role = sessionStorage.getItem(ROLE_KEY);

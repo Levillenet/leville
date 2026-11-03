@@ -25,7 +25,7 @@ import SearchConsoleAdmin from "@/components/admin/SearchConsoleAdmin";
 import TimedNoticesAdmin from "@/components/admin/TimedNoticesAdmin";
 import PromoBannerAdmin from "@/components/admin/PromoBannerAdmin";
 import TicketAdmin from "@/components/admin/TicketAdmin";
-import { getAdminToken, getAdminRole, setAdminSession, clearAdminSession, purgeLegacyAdminCredentials } from "@/lib/adminSession";
+import { getAdminToken, getAdminRole, setAdminSession, clearAdminSession, purgeLegacyAdminCredentials, isAdminTokenExpired, ADMIN_SESSION_EXPIRED_EVENT } from "@/lib/adminSession";
 import {
   BarChart,
   Bar,
@@ -78,7 +78,7 @@ const Admin = () => {
     const savedRole = getAdminRole();
     const token = getAdminToken();
 
-    if (savedRole && token) {
+    if (savedRole && token && !isAdminTokenExpired(token)) {
       setUserRole(savedRole);
       setIsAuthenticated(true);
       if (savedRole === 'admin') fetchStats();
@@ -86,6 +86,22 @@ const Admin = () => {
       clearAdminSession();
     }
     setIsLoading(false);
+  }, []);
+
+  // Session tokens last 8 h; when one expires, return to the login form.
+  useEffect(() => {
+    const onExpired = () => {
+      setIsAuthenticated(false);
+      setUserRole(null);
+      setStats(null);
+      setAuthError('Kirjautuminen on vanhentunut. Kirjaudu uudelleen.');
+    };
+    window.addEventListener(ADMIN_SESSION_EXPIRED_EVENT, onExpired);
+    const timer = window.setInterval(() => {
+      const t = getAdminToken();
+      if (t && isAdminTokenExpired(t)) { clearAdminSession(); onExpired(); }
+    }, 60_000);
+    return () => { window.removeEventListener(ADMIN_SESSION_EXPIRED_EVENT, onExpired); window.clearInterval(timer); };
   }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
