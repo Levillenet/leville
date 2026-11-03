@@ -1,3 +1,4 @@
+import { moderLang, withModerLang } from "./pageLang";
 import { hasConsent } from "./cookieConsent";
 import { searchEventParams, trackSearchThenNavigate } from "./googleAnalytics";
 import { decideSearch, precheckCount, quickDecision, showEmptySearch, watchModerSelection } from "./emptySearch";
@@ -30,8 +31,6 @@ if (typeof window !== "undefined") captureAdParams(window.location.search);
 export function getAdParams(): Record<string, string> {
   return { ...stored };
 }
-
-import { moderLang, withModerLang } from "./pageLang";
 
 /** Moder URL with the current page's language and campaign/click parameters. */
 export function appendAdParams(url: string): string {
