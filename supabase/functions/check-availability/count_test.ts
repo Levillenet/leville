@@ -25,7 +25,18 @@ Deno.test("flexible-only is not free", () => {
 });
 Deno.test("cheapest free price", async () => {
   const { analyzeResult } = await import("../_shared/moderResult.ts");
-  assertEquals(analyzeResult(pad + "room-card <span>Saatavilla</span> 2 583 € room-card x 500 € room-card <span>Saatavilla</span> 3 100 €"), { available: 2, minPrice: 2583, minStays: [] });
+  const rate = (n: string) => `<!-- Rates --><div><span class="whitespace-nowrap">${n} €</span></div><!-- Info -->`;
+  assertEquals(analyzeResult(pad + `room-card <span>Saatavilla</span> ${rate("2 583")} room-card x ${rate("500")} room-card <span>Saatavilla</span> ${rate("3 100")}`), { available: 2, minPrice: 2583, minStays: [] });
+});
+
+Deno.test("stay total is 2419, never the 59 euro cleaning fee", () => {
+  assertEquals(ar(pad + 'room-card <span>Saatavilla</span><p>Loppusiivous 59 € lisätään hintaan</p><!-- Rates --><div><span class="whitespace-nowrap">2419 €</span></div><!-- Info -->')?.minPrice, 2419);
+});
+Deno.test("unidentified or ambiguous totals are omitted", () => {
+  assertEquals(ar(pad + 'room-card <span>Saatavilla</span><p>Loppusiivous 59 € lisätään hintaan</p>2419 €')?.minPrice, null);
+  assertEquals(ar(pad + 'room-card <span>Saatavilla</span><!-- Rates --><span>Loppusiivous 59 € lisätään hintaan</span><!-- Info -->')?.minPrice, null);
+  assertEquals(ar(pad + 'room-card <span>Saatavilla</span><!-- Rates --><span>59 € lisätään hintaan</span><!-- Info -->')?.minPrice, null);
+  assertEquals(ar(pad + 'room-card <span>Saatavilla</span><!-- Rates --><span>3000 €</span><span>2419 €</span><!-- Info -->')?.minPrice, null);
 });
 
 import { analyzeResult as ar } from "../_shared/moderResult.ts";

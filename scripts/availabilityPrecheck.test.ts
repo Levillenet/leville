@@ -70,8 +70,11 @@ describe("offer message", () => {
 
 describe("alternative rows", () => {
   const a = { start: "2026-12-26", end: "2027-01-02", nights: 7, shift: -2, available: 3, minPrice: 2583 };
-  it("FI row", () => expect(periodLabel(a, "fi")).toBe("la 26.12. – la 2.1. (7 yötä): 3 kohdetta, alkaen 2 583 €"));
-  it("EN row", () => expect(periodLabel(a, "en")).toBe("Sat 26 Dec – Sat 2 Jan (7 nights): 3 properties, from €2,583"));
+  it("FI row", () => expect(periodLabel(a, "fi")).toBe("la 26.12. – la 2.1. (7 yötä): 3 kohdetta, alkaen 2 583 € / 7 yötä"));
+  it("EN row", () => expect(periodLabel(a, "en")).toBe("Sat 26 Dec – Sat 2 Jan (7 nights): 3 properties, from €2,583 / 7 nights"));
+  it("unknown price leaves the property count only", () => {
+    expect(periodLabel({ ...a, minPrice: null }, "fi")).toBe("la 26.12. – la 2.1. (7 yötä): 3 kohdetta");
+  });
   it("situations", () => {
     expect(situationOf(null)).toBe("C");
     expect(situationOf({ alternatives: [], minimi_oita: 0 })).toBe("C");
