@@ -12,6 +12,7 @@ export type SearchFields = {
   jousto?: number; kohde?: string; tulos_vapaita?: number | null; tilanne?: SearchTilanne;
   minimi_oita?: number; vaihtoehtoja?: number; valittu_saapuminen?: string; valittu_lahto?: string; siirto_pv?: number;
   kieli?: "fi" | "en";
+  yhdistelma_naytetty?: boolean; yhdistelma_talo?: string; yhdistelma_kohteet?: string; yhdistelma_hinta?: number;
 };
 
 const UTM = ["utm_source", "utm_medium", "utm_campaign"] as const;

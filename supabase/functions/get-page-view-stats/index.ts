@@ -60,7 +60,7 @@ function classifyAiSource(referrer: string | null | undefined, utmSource?: strin
 }
 
 
-const SEARCH_COLS = "haku_id, saapuminen, lahto, oita, aikuiset, lapset, henkiloita, jousto, kohde, tulos_vapaita, tilanne, minimi_oita, vaihtoehtoja, valittu_saapuminen, valittu_lahto, siirto_pv, kieli".split(", ");
+const SEARCH_COLS = "haku_id, saapuminen, lahto, oita, aikuiset, lapset, henkiloita, jousto, kohde, tulos_vapaita, tilanne, minimi_oita, vaihtoehtoja, valittu_saapuminen, valittu_lahto, siirto_pv, kieli, yhdistelma_naytetty, yhdistelma_talo, yhdistelma_kohteet, yhdistelma_hinta".split(", ");
 
 const isDevReferrer = (referrer: string | null | undefined): boolean =>
   !!referrer && (referrer.includes("lovable.app") || referrer.includes("lovable.dev") || referrer.includes("lovableproject.com") || referrer.includes("localhost"));
@@ -201,7 +201,7 @@ Deno.serve(async (req) => {
     while (true) {
       const { data: batch, error: batchErr } = await supabase
         .from("page_views")
-        .select("path, referrer, device_type, language, country, viewport_w, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page, haku_id, saapuminen, lahto, oita, aikuiset, lapset, henkiloita, jousto, kohde, tulos_vapaita, tilanne, minimi_oita, vaihtoehtoja, valittu_saapuminen, valittu_lahto, siirto_pv, kieli")
+        .select("path, referrer, device_type, language, country, viewport_w, created_at, session_id, utm_source, utm_medium, utm_campaign, scroll_depth, time_on_page, haku_id, saapuminen, lahto, oita, aikuiset, lapset, henkiloita, jousto, kohde, tulos_vapaita, tilanne, minimi_oita, vaihtoehtoja, valittu_saapuminen, valittu_lahto, siirto_pv, kieli, yhdistelma_naytetty, yhdistelma_talo, yhdistelma_kohteet, yhdistelma_hinta")
         .gte("created_at", since)
         .order("created_at", { ascending: false })
         .range(from, from + PAGE_SIZE - 1);
@@ -221,7 +221,7 @@ Deno.serve(async (req) => {
 
     // CSV format: return raw rows + aggregated booking-clicks-by-source block
     if (format === "csv") {
-      const csvHeader = "date,time,path,type,referrer,device_type,language,country,viewport_w,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page,ai_source,haku_id,saapuminen,lahto,oita,aikuiset,lapset,henkiloita,jousto,kohde,tulos_vapaita,tilanne,minimi_oita,vaihtoehtoja,valittu_saapuminen,valittu_lahto,siirto_pv,kieli";
+      const csvHeader = "date,time,path,type,referrer,device_type,language,country,viewport_w,session_id,utm_source,utm_medium,utm_campaign,scroll_depth,time_on_page,ai_source,haku_id,saapuminen,lahto,oita,aikuiset,lapset,henkiloita,jousto,kohde,tulos_vapaita,tilanne,minimi_oita,vaihtoehtoja,valittu_saapuminen,valittu_lahto,siirto_pv,kieli,yhdistelma_naytetty,yhdistelma_talo,yhdistelma_kohteet,yhdistelma_hinta";
       const csvRows = (views || []).map((v: any) => {
         const dt = new Date(v.created_at);
         const date = dt.toISOString().split("T")[0];
