@@ -111,3 +111,19 @@ export function summarize(rows: SearchRow[], sinceMs: number): SearchSummary {
     clickShare: { vaihtoehto: share("haku_vaihtoehto_click"), whatsapp: share("haku_whatsapp_click"), email: share("haku_email_click"), kalenteri: share("haku_kalenteri_click") },
   };
 }
+
+export type ContactClick = { at: string; channel: "whatsapp" | "email"; s: string | null; l: string | null; h: number | null };
+
+/** Contact-button presses (newest first), each once, with the dates of the search they came from. */
+export function recentContacts(rows: SearchRow[], n = 20): ContactClick[] {
+  const searches = new Map<string, SearchRow>();
+  for (const r of rows) if (r.t === "haku" && r.id) searches.set(r.id, r);
+  return rows
+    .filter((r) => r.t === "haku_whatsapp_click" || r.t === "haku_email_click")
+    .map((r) => {
+      const s = (r.id && searches.get(r.id)) || r;
+      return { at: r.at, channel: r.t === "haku_whatsapp_click" ? "whatsapp" as const : "email" as const, s: s.s, l: s.l, h: s.h };
+    })
+    .sort((a, b) => b.at.localeCompare(a.at))
+    .slice(0, n);
+}
