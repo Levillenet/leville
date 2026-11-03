@@ -1,5 +1,6 @@
 import { corsFor, readJsonBody } from "../_shared/authGuard.ts";
-import { queryModer } from "../_shared/moderResult.ts";
+import { queryFreeUnits, queryModer } from "../_shared/moderResult.ts";
+import { findCombos } from "../_shared/combos.ts";
 import { findAlternatives } from "./plan.ts";
 
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -33,9 +34,14 @@ Deno.serve(async (req) => {
   if (c && now - c.at < CACHE_MS) return new Response(c.body, { headers: cors });
 
   const today = new Date(now + 2 * 3600000).toISOString().slice(0, 10); // Finnish date (approx.)
-  const result = await findAlternatives({ start, end, adults, children }, today,
-    (p) => queryModer(p.start, p.end, adults, children));
-  const body = JSON.stringify(result);
+  const guests = adults + children;
+  // Groups of 5+: same-building combinations on the exact dates (not for minimum-stay cases).
+  const [result, free] = await Promise.all([
+    findAlternatives({ start, end, adults, children }, today, (p) => queryModer(p.start, p.end, adults, children)),
+    guests >= 5 ? queryFreeUnits(start, end) : Promise.resolve([]),
+  ]);
+  const yhdistelmat = result.minimi_oita > 0 ? [] : findCombos(free, guests);
+  const body = JSON.stringify({ ...result, yhdistelmat });
   cache.set(key, { at: now, body });
   if (cache.size > 300) for (const [k, v] of cache) if (now - v.at > CACHE_MS) cache.delete(k);
   return new Response(body, { headers: cors });
