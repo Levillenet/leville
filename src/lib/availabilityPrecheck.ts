@@ -188,11 +188,10 @@ const enRange = (s: string, e: string) => {
   return `${enDate(s)} – ${enDate(e)}`;
 };
 
-const nightsBetween = (o: Offer) => Math.round((Date.UTC(...ymd(o.end)) - Date.UTC(...ymd(o.start))) / 86400000);
 
 /** "Skistar: 2 saunallista huoneistoa (yht. 8 hlö) – 1 128 € / 3 yötä"; unknown totals are omitted. */
 export function comboLabel(c: Combo, o: Offer, lang: Lang): string {
-  const n = nightsBetween(o), k = c.units.length;
+  const n = nightsBetween(o.start, o.end), k = c.units.length;
   const hasPrice = typeof c.price === "number" && c.price > 0;
   if (lang === "fi") {
     const price = hasPrice ? ` – ${groupDigits(c.price as number, " ")} € / ${n} ${n === 1 ? "yö" : "yötä"}` : "";
