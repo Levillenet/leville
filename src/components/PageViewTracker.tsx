@@ -1,3 +1,4 @@
+import { eventLanguage } from "@/lib/pageLang";
 import { useEffect, useRef, useState } from "react";
 import { hasConsent, readConsent } from "@/lib/cookieConsent";
 import { useLocation } from "react-router-dom";
@@ -78,7 +79,7 @@ const buildPayload = (path: string, referrer?: string | null, id?: string) => {
     path,
     referrer: referrer ?? null,
     device_type: getDeviceType(),
-    language: getPageLanguage(path),
+    language: eventLanguage(path, referrer),
     session_id: getSessionId(),
     consent: readConsent(),
     viewport_w: typeof window !== "undefined" ? window.innerWidth : null,

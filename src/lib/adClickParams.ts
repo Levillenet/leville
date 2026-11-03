@@ -31,7 +31,15 @@ export function getAdParams(): Record<string, string> {
   return { ...stored };
 }
 
+import { moderLang, withModerLang } from "./pageLang";
+
+/** Moder URL with the current page's language and campaign/click parameters. */
 export function appendAdParams(url: string): string {
+  const path = typeof window !== "undefined" ? window.location.pathname : "/";
+  return appendAdParamsRaw(withModerLang(url, path));
+}
+
+function appendAdParamsRaw(url: string): string {
   if (typeof window !== "undefined" && !hasConsent("marketing")) {
     try {
       const target = new URL(url, window.location.href);
@@ -155,7 +163,7 @@ export function installModerLinkParams(): void {
     // The embed uses location.assign, not an anchor or window.open. Preserve
     // its exact search fields and only intercept when tracking changes the URL.
     const room = moder.ModerSettings.roomTypeId ? `/${moder.ModerSettings.roomTypeId}` : "";
-    const url = `${moder.baseUrl}/${moder.ModerSettings.property || "not-found"}${room}?start=${moder.fromDate}&end=${moder.toDate}&adults=${moder.personsAdults}&children=${moder.personsChildren}&lang=${moder.$locale}&flexible_date_search=${moder.flexibleDateSearch}`;
+    const url = `${moder.baseUrl}/${moder.ModerSettings.property || "not-found"}${room}?start=${moder.fromDate}&end=${moder.toDate}&adults=${moder.personsAdults}&children=${moder.personsChildren}&lang=${moderLang(window.location.pathname)}&flexible_date_search=${moder.flexibleDateSearch}`;
     const next = appendAdParams(url);
     const search = searchEventParams(next, window.location.pathname);
     const navigate = (target: string) => {
