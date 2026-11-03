@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import { buildDemand, summarize, topWeeks, type GuestFilter, type RangeFilter, type SearchRow, type WeekDemand } from "@/lib/searchDemand";
+import { buildDemand, recentContacts, summarize, topWeeks, type GuestFilter, type RangeFilter, type SearchRow, type WeekDemand } from "@/lib/searchDemand";
 
 type Period = "today" | "week" | "month" | "30days" | "90days" | "180days";
 const DAY = 86400000;
@@ -51,6 +51,7 @@ export default function SearchDemandAdmin({ period, periodLabel }: { period: Per
 
   const summary = useMemo(() => (rows ? summarize(rows, sinceOf(period)) : null), [rows, period]);
   const demand = useMemo(() => (rows ? buildDemand(rows, Date.now(), range, guests) : []), [rows, range, guests]);
+  const contacts = useMemo(() => (rows ? recentContacts(rows) : []), [rows]);
   const top = useMemo(() => topWeeks(demand), [demand]);
 
   if (error) return <Card><CardContent className="py-6 text-sm text-muted-foreground">Hakutilastojen lataus epäonnistui.</CardContent></Card>;
@@ -154,7 +155,7 @@ export default function SearchDemandAdmin({ period, periodLabel }: { period: Per
                   <thead>
                     <tr className="text-left text-muted-foreground border-b border-border">
                       <th className="py-1 pr-3">Viikko</th><th className="py-1 pr-3">Haut</th><th className="py-1 pr-3">Ei vapaata</th>
-                      <th className="py-1 pr-3">Keskim. henkilöt</th><th className="py-1 pr-3">Yleisin pituus</th><th className="py-1">Yhteydenotot</th>
+                      <th className="py-1 pr-3">Keskim. henkilöt</th><th className="py-1 pr-3">Yleisin pituus</th><th className="py-1" title="Painoi WhatsApp- tai sähköpostinappia. Ei tarkoita, että viesti lähetettiin.">Napin painallukset</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -171,6 +172,24 @@ export default function SearchDemandAdmin({ period, periodLabel }: { period: Per
                   </tbody>
                 </table>
               </div>
+            )}
+            <p className="text-xs text-muted-foreground mt-2">Napin painallukset: painoi WhatsApp- tai sähköpostinappia. Ei tarkoita, että viesti lähetettiin. Usean viikon haku näkyy jokaisella viikolla.</p>
+          </div>
+          <div>
+            <div className="text-sm font-medium mb-2">Viimeisimmät napin painallukset ({contacts.length})</div>
+            {contacts.length === 0 ? (
+              <p className="text-sm text-muted-foreground">Ei painalluksia.</p>
+            ) : (
+              <ul className="text-sm space-y-1">
+                {contacts.map((c, i) => (
+                  <li key={i}>
+                    {new Date(c.at).toLocaleString("fi-FI", { timeZone: "Europe/Helsinki", dateStyle: "short", timeStyle: "short" })}
+                    {" · "}{c.channel === "whatsapp" ? "WhatsApp" : "Sähköposti"}
+                    {c.s && c.l ? ` · ${c.s.split("-").reverse().join(".")}–${c.l.split("-").reverse().join(".")}` : ""}
+                    {c.h != null ? ` · ${c.h} hlö` : ""}
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
         </CardContent>
