@@ -11,7 +11,7 @@ const nights = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(
  * Longest sellable stay inside every free run between start and end (end = last
  * allowed departure). Respects arrival/departure bans and the arrival night's minimum stay.
  */
-export function sellableStays(days: Day[], start: string, end: string): { checkIn: string; checkOut: string; nights: number }[] {
+export function sellableStays(days: Day[], start: string, end: string, maxNights = 7): { checkIn: string; checkOut: string; nights: number }[] {
   const byDate = new Map(days.map((d) => [d.date, d]));
   const out: { checkIn: string; checkOut: string; nights: number }[] = [];
   let run: string[] = [];
@@ -25,6 +25,7 @@ export function sellableStays(days: Day[], start: string, end: string): { checkI
         for (let i = departures.length - 1; i >= 0; i--) {
           const dep = departures[i];
           const n = nights(a, dep);
+          if (n > maxNights) continue;
           if (n < Math.max(1, day.minNights)) break;
           if (!best || n > best.nights) best = { checkIn: a, checkOut: dep, nights: n };
           break;
@@ -41,4 +42,14 @@ export function sellableStays(days: Day[], start: string, end: string): { checkI
   }
   close();
   return out;
+}
+
+/** A fixed sub-period (e.g. Easter Thu–Mon) if every night is free and it is sellable. */
+export function fixedStay(days: Day[], checkIn: string, checkOut: string) {
+  const byDate = new Map(days.map((d) => [d.date, d]));
+  const first = byDate.get(checkIn);
+  const n = nights(checkIn, checkOut);
+  if (!first || first.checkinDenied || byDate.get(checkOut)?.checkoutDenied || n < first.minNights) return null;
+  for (let d = checkIn; d < checkOut; d = addDays(d, 1)) if (!byDate.get(d)?.isFree) return null;
+  return { checkIn, checkOut, nights: n };
 }

@@ -30,7 +30,7 @@ export default function SeasonQuickSearch({ lang }: { lang: string }) {
     if (data[key]) return;
     try {
       const sb = await getSupabase();
-      const { data: res, error } = await sb.functions.invoke("season-availability", { body: { start: s.start, end: s.end } });
+      const { data: res, error } = await sb.functions.invoke("season-availability", { body: { start: s.start, end: s.end, extra: s.extra ?? null } });
       if (error) throw error;
       setData((d) => ({ ...d, [key]: (res?.stays ?? []) as Stay[] }));
     } catch {
