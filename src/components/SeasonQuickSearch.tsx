@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ChevronDown, Snowflake, Users, Loader2, X } from "lucide-react";
 import { upcomingSeasons, formatRange, type Season } from "@/lib/seasons";
 import { getSupabase } from "@/lib/getSupabase";
