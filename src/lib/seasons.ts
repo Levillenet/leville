@@ -1,6 +1,6 @@
 /** Peak-season quick searches shown under the homepage search bar. */
 export type SeasonId = "christmas" | "newyear" | "ski8" | "ski9" | "ski10" | "easter";
-export interface Season { id: SeasonId; year: number; start: string; end: string; label: { fi: string; en: string } }
+export interface Season { id: SeasonId; year: number; start: string; end: string; extra?: { start: string; end: string }; label: { fi: string; en: string } }
 
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 const utc = (y: number, m: number, d: number) => new Date(Date.UTC(y, m - 1, d));
@@ -35,6 +35,12 @@ export function easterRange(year: number) {
   return { start: iso(add(s, -8)), end: iso(add(s, 1)) };
 }
 
+/** Easter core: Maundy Thursday → Easter Monday. */
+export function easterCore(year: number) {
+  const s = easterSunday(year);
+  return { start: iso(add(s, -3)), end: iso(add(s, 1)) };
+}
+
 function seasonsOfWinter(y: number): Season[] {
   // Winter season y/y+1: Christmas & New Year in y, the rest in y+1.
   const n = y + 1;
@@ -46,7 +52,7 @@ function seasonsOfWinter(y: number): Season[] {
     { id: "christmas", year: y, start: `${y}-12-19`, end: `${y}-12-27`, label: { fi: "Joulu", en: "Christmas" } },
     { id: "newyear", year: y, start: `${y}-12-26`, end: `${n}-01-04`, label: { fi: "Uusivuosi", en: "New Year" } },
     ski(8), ski(9), ski(10),
-    { id: "easter", year: n, ...easterRange(n), label: { fi: "Pääsiäinen", en: "Easter" } },
+    { id: "easter", year: n, ...easterRange(n), extra: easterCore(n), label: { fi: "Pääsiäinen", en: "Easter" } },
   ];
 }
 

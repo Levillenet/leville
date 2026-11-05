@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
-import { sellableStays, type Day } from "./stays.ts";
+import { sellableStays, fixedStay, type Day } from "./stays.ts";
 
 const BASES = ["https://app.moder.fi", "https://dev-app.moder.fi"];
 const json = (b: unknown, status = 200) => new Response(JSON.stringify(b), { status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
@@ -34,13 +34,15 @@ Deno.serve(async (req) => {
   try {
     const url = new URL(req.url);
     let start = url.searchParams.get("start") ?? "", end = url.searchParams.get("end") ?? "";
-    if (req.method === "POST") ({ start = "", end = "" } = await req.json().catch(() => ({})));
+    let extra: { start: string; end: string } | null = null;
+    if (req.method === "POST") ({ start = "", end = "", extra = null } = await req.json().catch(() => ({})));
+    if (extra && !(DATE.test(extra.start) && DATE.test(extra.end) && extra.start >= start && extra.end <= end && extra.start < extra.end)) extra = null;
     const span = (Date.parse(end) - Date.parse(start)) / 86400000;
     if (!DATE.test(start) || !DATE.test(end) || !(span >= 1 && span <= 14)) return json({ error: "invalid_range" }, 400);
 
     const token = (Deno.env.get("MODER_API_TOKEN") || "").trim();
     const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
-    const cacheId = `season_${start}_${end}`;
+    const cacheId = `season_${start}_${end}${extra ? `_${extra.start}_${extra.end}` : ""}_v2`;
     const { data: cache } = await sb.from("beds24_cache").select("data,fetched_at").eq("id", cacheId).maybeSingle();
     if (cache && Date.now() - Date.parse(cache.fetched_at) < 3600_000) return json(cache.data);
 
@@ -57,7 +59,13 @@ Deno.serve(async (req) => {
     if (Array.isArray(raw)) for (const e of raw) byRoom.set(Number(e?.room_type_id ?? e?.room_type ?? e?.id), daysOf(e));
     else for (const k of Object.keys(raw ?? {})) if (ids.includes(Number(k))) byRoom.set(Number(k), daysOf(raw[k]));
 
-    const stays = rows.flatMap((m) => sellableStays(byRoom.get(m.moder_room_type_id) ?? [], start, end).map((s) => ({ ...s, m })));
+    const stays = rows.flatMap((m) => {
+      const days = byRoom.get(m.moder_room_type_id) ?? [];
+      const list = sellableStays(days, start, end);
+      const x = extra && fixedStay(days, extra.start, extra.end);
+      if (x && !list.some((s) => s.checkIn === x.checkIn && s.checkOut === x.checkOut)) list.push(x);
+      return list.map((s) => ({ ...s, m }));
+    });
 
     // Price each exact stay; group by date pair so one /prices call covers many rooms.
     const groups = new Map<string, number[]>();
@@ -82,7 +90,7 @@ Deno.serve(async (req) => {
           checkIn: s.checkIn, checkOut: s.checkOut, nights: s.nights,
           price: stay != null ? Math.round(stay + (s.m.cleaning_fee ?? 0)) : null,
         };
-      }).sort((a, b) => b.nights - a.nights || (a.price ?? 1e9) - (b.price ?? 1e9)),
+      }).sort((a, b) => a.checkIn.localeCompare(b.checkIn) || b.nights - a.nights || (a.price ?? 1e9) - (b.price ?? 1e9)),
       generatedAt: new Date().toISOString(),
     };
     await sb.from("beds24_cache").upsert({ id: cacheId, data: result, fetched_at: result.generatedAt });
