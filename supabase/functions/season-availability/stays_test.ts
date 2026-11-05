@@ -11,7 +11,7 @@ Deno.test("whole free week gives the full 8-night stay", () => {
 
 Deno.test("booked middle splits into two stays", () => {
   const days = mk(feb(20, 28), { "2027-02-23": { isFree: false } });
-  assertEquals(sellableStays(days, "2027-02-20", "2027-02-28").map((s) => s.nights), [3, 5]);
+  assertEquals(sellableStays(days, "2027-02-20", "2027-02-28").map((s) => s.nights), [3, 4]);
 });
 
 Deno.test("arrival ban moves the start", () => {
