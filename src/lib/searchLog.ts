@@ -3,7 +3,7 @@
 // backend stores no IP or user agent. GA events are separate and stay consent-gated.
 
 export type SearchRowType =
-  | "haku" | "haku_ikkuna" | "haku_vaihtoehto_click" | "haku_whatsapp_click" | "haku_email_click" | "haku_kalenteri_click";
+  | "haku" | "haku_ikkuna" | "haku_vaihtoehto_click" | "haku_whatsapp_click" | "haku_email_click" | "haku_kalenteri_click" | "haku_sesonki" | "haku_sesonki_click";
 export type SearchTilanne = "vapaita" | "A" | "B" | "C" | "D" | "ei_tietoa" | "kesken";
 
 export type SearchFields = {

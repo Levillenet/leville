@@ -10,7 +10,7 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
 
-const SEARCH_TYPES = new Set(["/event/haku", "/event/haku_ikkuna", "/event/haku_vaihtoehto_click", "/event/haku_whatsapp_click", "/event/haku_email_click", "/event/haku_kalenteri_click"]);
+const SEARCH_TYPES = new Set(["/event/haku", "/event/haku_ikkuna", "/event/haku_vaihtoehto_click", "/event/haku_whatsapp_click", "/event/haku_email_click", "/event/haku_kalenteri_click", "/event/haku_sesonki", "/event/haku_sesonki_click"]);
 const TILANNE = new Set(["vapaita", "A", "B", "C", "D", "ei_tietoa", "kesken"]);
 const bad = (error: string) => new Response(JSON.stringify({ error }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
