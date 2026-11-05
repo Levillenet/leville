@@ -1,42 +1,37 @@
-# Projektikatsaus: Leville.net (marraskuu 2026)
+# Sesonkipikahaut etusivun hakupalkin alle
 
-## Arkkitehtuuri lyhyesti
-- React + Vite -sivusto, ~570 reittiä, 7 kieltä (pääpaino FI/EN). Ei palvelinrenderöintiä; hakukoneille esirenderöinti ja reittikohtaiset esilataus-HTML:t buildin jälkeen.
-- Lovable Cloud: tietokanta (page_views, seo_pages, group_inquiries ym.), ~30 taustafunktiota (admin, Beds24, MELCloud/Homey, chatbot, saatavuustarkistus, vaihtoehtohaut).
-- Varaukset Moderissa (vain saatavuus-/hakurajapinta), varausdata Beds24:ssä.
-- Mittaus: GA4 suostumuksen takana (Consent Mode v2), oma evästeetön hakutilasto, kampanjatunnisteet Moder-linkkeihin yhdestä paikasta.
-- Henkilökunnan työkalut: admin-paneeli (8 h istunto), /siivous.html + /s/-ohjauslinkit.
+## Mitä asiakas näkee
+- Hakupalkin alla pieni avattava painike **"Sesonkipikahaut"** (EN: "Peak season quick search"). Suljettuna vie yhden rivin.
+- Avattuna sesongit pieninä siruina/kortteina, esim.:
+  - Joulu 19.–27.12.
+  - Uusivuosi 26.12.–4.1.
+  - Hiihtoloma vko 8 / vko 9 / vko 10
+  - Pääsiäinen (la ennen pääsiäisviikkoa – 2. pääsiäispäivä)
+  - Ehdotetut lisät: Ruska (vko 37–38), Kaamos / joulun alusviikot (vko 49–50) ja Vappu – voidaan jättää pois, jos et halua.
+- Sirua painettaessa aukeaa lista **kaikista sillä välillä myytävissä olevista vapaista jaksoista**:
+  huoneiston nimi · max henkilömäärä · päivät ja yöt · hinta siivouksineen · **"Varaa tästä"** (suora Moder-linkki kyseiseen huoneistoon ja päiviin, avautuu uuteen välilehteen, kampanja- ja kieliparametrit mukana kuten muissakin varauslinkeissä).
+- Järjestys: pisimmät/koko jakson kattavat ensin, sitten halvin.
+- Menneet sesongit katoavat automaattisesti; seuraava vuosi tulee tilalle ilman käsityötä (päivät lasketaan kalenterista, pääsiäinen kaavalla).
+- Jos sesongilla ei ole yhtään vapaata: "Tämä sesonki on täynnä" + linkki tarjouspyyntöön/WhatsAppiin.
+- Suomeksi etusivulla ja englanniksi /en-etusivulla.
 
-## Keskeiset periaatteet
-- Nopeus ensin: raskaat kirjastot ja taustapalvelu pois aloituslatauksesta, tyhjä #root, kuvien mitat ja WebP-versiot.
-- SEO: vain käännetty sisältö sivukarttaan/hreflangiin, canonical leville.net ilman www:tä, ei "haamuosoitteita".
-- Hinnat: ei halvin hinta -lupauksia, ei euromääriä oppaissa; vain luotettavat kokonaishinnat (ei siivousmaksuja).
-- Haku ei saa koskaan rikkoutua: pelastusikkuna pysäyttää vain, kun tulos on varmasti 0.
-- Liiketoimintapainotus: englanninkieliset (UK/NL/DE) majoitushaut.
+## Päivämääräsäännöt
+- Hiihtolomaviikko N: lauantai ennen viikkoa N → lauantai viikolla N (7 yötä), sallitaan myös sunnuntaihin asti (8 yötä). Hakuväli siis la–su.
+- Joulu 19.–27.12., uusivuosi 26.12.–4.1. (kiinteät).
+- Pääsiäinen: lauantai viikkoa ennen pääsiäistä → 2. pääsiäispäivä (2027: 20.3.–29.3.).
+- Sesonki näkyy, kunnes sen viimeinen päivä on mennyt.
 
-## Vanhentunutta tai ristiriitaista (muistissa)
-1. WhatsApp-widget -muisti: widget on poistettu kaikilta sivuilta (omistajan päätös) — muisti pitäisi merkitä vanhentuneeksi tai poistaa.
-2. "Cookie-less Analytics" -muisti: nyt rinnalla on GA4 suostumuksella; muistin pitäisi kertoa, että vain hakutilasto on evästeetön.
-3. "Accommodation Names — 9 kohdetta" vs. etusivun "27 kohdetta": tarkennettava, että 9 on kiinteistö-/nimitaso, 27 yksiköt.
-4. Core-sääntö "Netlify Prerendering": tarkistettava, onko yhä käytössä vai korvattu Lovablen esirenderöinnillä.
-5. Muistissa on useita versioituja nimiä (v2–v29); sisällöt voivat olla osin päällekkäisiä (esim. kaksi hinta-pariteettimuistia, kaksi sivukarttamuistia).
-6. Custom domain www.leville.net on tilassa "drifted" — ei ristiriita koodissa, mutta kannattaa tarkistaa julkaisuasetuksista.
-7. Tehtävälistassa avoinna vain "kielikohtainen käännösten jako" (tietoisesti ohitettu).
+## Hinta
+- Näytetään jakson hinta **siivousmaksu mukaan lukien**, merkinnällä "sis. loppusiivouksen". Tämä on tietoinen poikkeus pelastusikkunan säännöstä (siellä siivous jätetään pois); kirjaan poikkeuksen muistiin.
+- Jos luotettavaa hintaa ei saada, hinta jätetään pois ja näytetään vain "Varaa tästä".
 
-## Kehitysprioriteetit (nykytila)
-1. Englanninkielinen majoitusnäkyvyys ja konversio (pelastusikkuna, ryhmäyhdistelmät, ryhmäsivut).
-2. Mobiilin LCP alle 2,5 s.
-3. Mittauksen luotettavuus (GA4, hakutilasto, kampanjat).
-4. Henkilökunnan työkalut (siivouslista, admin).
+## Tekninen toteutus
+- Uusi backend-funktio `season-availability`: ottaa sesongin alku/loppu, hakee Moderin päiväkalenterin (sama lähde kuin nykyinen `moder-availability`/äkkilähdöt: vapaat päivät, minimiyöt, check-in/out-kiellot, päivähinnat) ja muodostaa jokaiselle huoneistolle kaikki varattavissa olevat yhtenäiset jaksot välin sisällä (min-yöt ja saapumis/lähtökiellot huomioiden). Hinta = päivähintojen summa + kohteen `cleaning_fee` mappingista. Max henkilöt mappingista. Välimuisti 1 h.
+- `src/lib/seasons.ts`: sesonkimäärittelyt + päivälaskenta (ISO-viikot, pääsiäiskaava, menneiden suodatus). Testit: vko 8/2027 = 20.2.–28.2., pääsiäinen 2027 = 20.3.–29.3., mennyt sesonki ei näy, vuodenvaihde laskee seuraavan vuoden.
+- Testi jaksonmuodostukselle (deno): minimiyöt, saapumiskielto, hinta sisältää siivouksen.
+- UI-komponentti `SeasonQuickSearch` ladataan laiskasti (ei käynnistyspolulle, LCP-sääntö), ja data haetaan vasta kun sesonki avataan.
+- Varaa-linkit kulkevat nykyisen appendAdParams-/kielilogiikan kautta.
+- GA-tapahtumat: `season_quick_open`, `season_quick_book_click` (suostumuksen mukaan).
 
-## Ehdotetut muistiin tallennettavat (ei arkaluonteisia)
-- Englanninkieliset asiakkaat ensisijaisia; suomalaiset vähemmän maksukykyisiä.
-- WhatsApp-widget poistettu pysyvästi — älä lisää takaisin.
-- Karhupirtissä on ulkoporeallas; Glacier-huoneistoissa ei takkaa.
-- Joulu–uusivuosi (19.12.–3.1.) erillinen sesonki, ei mukaan hintatasoihin.
-- Admin-istunto 8 h on tarkoituksellinen.
-- Hakutilasto jättää yli 30 yön haut viikkotaulukosta pois.
-
-## Toteutus hyväksynnän jälkeen
-- Päivitetään/poistetaan kohdat 1–3 muistissa, tarkistetaan kohta 4, yhdistetään päällekkäiset muistit (5) ja lisätään hyväksytyt uudet muistit. Ei koodimuutoksia.
-- Kerro, mitkä ehdotukset hyväksyt tai jätät pois.
+## Ei muuteta
+Hakupalkkia itseään, pelastusikkunaa, muita sivuja tai tekstejä.
