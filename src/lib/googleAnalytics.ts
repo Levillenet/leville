@@ -40,7 +40,7 @@ export function trackGooglePage(path: string) {
     page_title: document.title,
   });
 }
-export function trackGoogleEvent(name: "varaa_click" | "tarjouspyynto_click" | "haku_ei_tuloksia" | "tarjous_whatsapp_click" | "tarjous_email_click" | "vaihtoehto_click" | "kalenteri_click" | "yhdistelma_naytetty" | "yhdistelma_click", params: Record<string, string> = {}) {
+export function trackGoogleEvent(name: "varaa_click" | "tarjouspyynto_click" | "haku_ei_tuloksia" | "tarjous_whatsapp_click" | "tarjous_email_click" | "vaihtoehto_click" | "kalenteri_click" | "yhdistelma_naytetty" | "yhdistelma_click" | "season_quick_open" | "season_quick_book_click", params: Record<string, string> = {}) {
   if (!syncGoogleAnalytics()) return;
   (window as AnalyticsWindow).gtag?.("event", name, { ...params, send_to: GA_MEASUREMENT_ID });
 }

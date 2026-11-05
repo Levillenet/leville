@@ -1,4 +1,5 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, lazy, Suspense } from "react";
+const SeasonQuickSearch = lazy(() => import("@/components/SeasonQuickSearch"));
 import { MapPin, CreditCard, Home } from "lucide-react";
 import { getTranslations, Language } from "@/translations";
 import HeroPromoBadge from "@/components/HeroPromoBadge";
@@ -311,6 +312,11 @@ const Hero = ({ lang = "fi" }: HeroProps) => {
              id="moder-embed"
              className="relative mx-auto max-w-3xl rounded-2xl shadow-2xl"
            />
+           {(lang === "fi" || lang === "en") && (
+             <Suspense fallback={<div className="h-10" />}>
+               <SeasonQuickSearch lang={lang} />
+             </Suspense>
+           )}
           </div>
         </div>
       </div>
