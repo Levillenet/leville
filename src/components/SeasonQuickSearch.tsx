@@ -46,9 +46,9 @@ export default function SeasonQuickSearch({ lang }: { lang: string }) {
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="mx-auto flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-4 py-1.5 text-sm font-medium text-foreground shadow-sm backdrop-blur transition hover:bg-background"
+        className="mx-auto flex items-center gap-2 rounded-full border border-border/60 bg-background/80 px-5 py-2 text-base sm:text-lg font-semibold text-foreground shadow-sm backdrop-blur transition hover:bg-background"
       >
-        <Snowflake className="h-4 w-4 text-primary" aria-hidden="true" />
+        <Snowflake className="h-5 w-5 text-primary" aria-hidden="true" />
         {t.title}
         <ChevronDown className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
       </button>
