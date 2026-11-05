@@ -3,6 +3,7 @@ import { ChevronDown, Snowflake, Users, Loader2, X } from "lucide-react";
 import { upcomingSeasons, formatRange, type Season } from "@/lib/seasons";
 import { getSupabase } from "@/lib/getSupabase";
 import { trackGoogleEvent } from "@/lib/googleAnalytics";
+import { logSearch, newSearchId } from "@/lib/searchLog";
 
 interface Stay { roomTypeId: number; name: string; maxGuests: number | null; checkIn: string; checkOut: string; nights: number; price: number | null }
 
@@ -19,6 +20,7 @@ export default function SeasonQuickSearch({ lang }: { lang: string }) {
   const seasons = useMemo(() => upcomingSeasons(), []);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<Season | null>(null);
+  const hakuIds = useRef<Record<string, string>>({});
   const [data, setData] = useState<Record<string, Stay[] | "error">>({});
 
   if (!seasons.length) return null;
@@ -27,13 +29,20 @@ export default function SeasonQuickSearch({ lang }: { lang: string }) {
     const key = `${s.start}_${s.end}`;
     setActive(active?.id === s.id && active.year === s.year ? null : s);
     trackGoogleEvent("season_quick_open", { season: `${s.id}_${s.year}` });
-    if (data[key]) return;
+    const hakuId = newSearchId();
+    hakuIds.current[key] = hakuId;
+    const log = (n: number | null) => logSearch("haku_sesonki", { haku_id: hakuId, kohde: `${s.id}_${s.year}`, saapuminen: s.start, lahto: s.end, tulos_vapaita: n, tilanne: n == null ? "ei_tietoa" : n > 0 ? "vapaita" : "A" });
+    const cached = data[key];
+    if (cached) { log(Array.isArray(cached) ? cached.length : null); return; }
     try {
       const sb = await getSupabase();
       const { data: res, error } = await sb.functions.invoke("season-availability", { body: { start: s.start, end: s.end, extra: s.extra ?? null } });
       if (error) throw error;
-      setData((d) => ({ ...d, [key]: (res?.stays ?? []) as Stay[] }));
+      const list = (res?.stays ?? []) as Stay[];
+      setData((d) => ({ ...d, [key]: list }));
+      log(list.length);
     } catch {
+      log(null);
       setData((d) => ({ ...d, [key]: "error" }));
     }
   };
@@ -113,7 +122,10 @@ export default function SeasonQuickSearch({ lang }: { lang: string }) {
                           href={href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={() => trackGoogleEvent("season_quick_book_click", { season: `${active.id}_${active.year}`, room: s.name })}
+                          onClick={() => {
+                            trackGoogleEvent("season_quick_book_click", { season: `${active.id}_${active.year}`, room: s.name });
+                            logSearch("haku_sesonki_click", { haku_id: hakuIds.current[`${active.start}_${active.end}`] ?? newSearchId(), kohde: `${active.id}_${active.year}: ${s.name}`.slice(0, 100), saapuminen: active.start, lahto: active.end, valittu_saapuminen: s.checkIn, valittu_lahto: s.checkOut, oita: s.nights });
+                          }}
                           className="rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition hover:bg-primary/90"
                         >
                           {t.book}
