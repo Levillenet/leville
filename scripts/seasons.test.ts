@@ -19,7 +19,7 @@ test("past seasons disappear and next winter appears", () => {
 test("Christmas and New Year use fixed dates", () => {
   const s = upcomingSeasons("2026-11-05");
   expect(s.find((x) => x.id === "christmas")).toMatchObject({ start: "2026-12-19", end: "2026-12-27" });
-  expect(s.find((x) => x.id === "newyear")).toMatchObject({ start: "2026-12-26", end: "2027-01-04" });
+  expect(s.find((x) => x.id === "newyear")).toMatchObject({ start: "2026-12-26", end: "2027-01-06" });
 });
 
 test("Easter 2027 core is Thursday to Easter Monday", () => {
