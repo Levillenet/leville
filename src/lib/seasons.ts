@@ -50,7 +50,7 @@ function seasonsOfWinter(y: number): Season[] {
   });
   return [
     { id: "christmas", year: y, start: `${y}-12-19`, end: `${y}-12-27`, label: { fi: "Joulu", en: "Christmas" } },
-    { id: "newyear", year: y, start: `${y}-12-26`, end: `${n}-01-04`, label: { fi: "Uusivuosi", en: "New Year" } },
+    { id: "newyear", year: y, start: `${y}-12-26`, end: `${n}-01-06`, label: { fi: "Uusivuosi", en: "New Year" } },
     ski(8), ski(9), ski(10),
     { id: "easter", year: n, ...easterRange(n), extra: easterCore(n), label: { fi: "Pääsiäinen", en: "Easter" } },
   ];
