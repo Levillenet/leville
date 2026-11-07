@@ -94,12 +94,12 @@ export const fi = {
     ],
     bookingTitle: "Varaaminen ja maksaminen – näin se toimii",
     bookingText: "Leville.netin kautta varaaminen on helppoa ja turvallista. Valitse päivämäärät ja henkilömäärä sivun yläosan hakukentästä, ja näet välittömästi saatavilla olevat kohteet hintoineen.\n\nMaksaminen tapahtuu turvallisesti Paytrailin kautta – Paytrail on Suomen suurin ja tunnetuin maksuvälittäjä. Voit maksaa kaikilla yleisimmillä luottokorteilla (Visa, Mastercard) sekä verkkopankkimaksuna. Varaus vahvistuu heti maksun jälkeen, ja saat varausvahvistuksen sähköpostiisi.",
-    cancellationNote: "Peruutusaikamme on 60 päivää ennen saapumista – varaat siis aina riskittömästi.",
+    cancellationNote: "Perusehtomme on 60 päivän peruutusaika ennen saapumista. 19.12.–3.1. majoitukset, Karhupirtti / Bear Lodge ja yli 3 000 € varaukset ovat sitovia perusehtojen mukaan. Jos tarvitsette poikkeavia ehtoja, ottakaa yhteyttä varausvaiheessa: olemme joustavia ja voimme sopia erityisistä ehdoista erikseen. Tarkista täydelliset varausehdot.",
     infoCards: [
       { icon: "ShieldCheck", title: "Turvallinen maksu", description: "Maksu Paytrailin kautta luottokortilla tai verkkopankissa. Suomen suurin maksuvälittäjä." },
-      { icon: "KeyRound", title: "Sisäänkirjautuminen", description: "Viimeistään klo 17:00. Avaintiedot ja ohjeet lähetetään sähköpostiin varauspäivänä." },
-      { icon: "LogOut", title: "Uloskirjautuminen", description: "Klo 11:00 mennessä." },
-      { icon: "Bed", title: "Liinavaatteet", description: "Liinavaatteet voi varata tarpeen mukaan varausprosessissa. Tarkista kohdekohtaisesti." },
+      { icon: "KeyRound", title: "Sisäänkirjautuminen", description: "Huoneisto on valmis viimeistään klo 17:00. Toimitamme ovikoodin aiemmin, mikäli huoneisto saadaan valmiiksi. Jos tarvitsette aikaisemman saapumisen, ottakaa yhteyttä, niin selvitämme mahdollisuuksia." },
+      { icon: "LogOut", title: "Uloskirjautuminen", description: "Uloskirjautuminen klo 11:00 mennessä. Joustamme mahdollisuuksien mukaan, kun otatte yhteyttä." },
+      { icon: "Bed", title: "Liinavaatteet", description: "Liinavaatteet ja pyyhkeet ovat lisämaksullinen valinta, 19–23 € kohteesta riippuen. Voitte varata ne varauksen yhteydessä tai tuoda omat." },
       { icon: "Car", title: "Pysäköinti", description: "Kaikissa kohteissamme ilmainen pysäköintipaikka. Useimmissa lämmitystolppa." }
     ],
     faqTitle: "Usein kysytyt kysymykset majoituksesta Levillä",
@@ -110,7 +110,7 @@ export const fi = {
       { question: "Miten pääsen Leville?", answer: "Leville pääsee lentämällä Kittilän lentokentälle (15 min bussilla) tai junalla Kolariin (1 h bussilla). Omalla autolla Helsinki–Levi on noin 1 100 km.", link: "/matka/miten-paasee-leville-helsingista", linkText: "Lue lisää Miten pääsee Leville -sivultamme" },
       { question: "Sopiiko Levi lapsiperheille?", answer: "Ehdottomasti. Levillä on omat lastenrinteet, hiihtokoulu, perheravintolat ja runsaasti lapsiystävällisiä aktiviteetteja.", link: "/opas/lapsiperheet-levilla", linkText: "Lue lisää Lapsiperheet Levillä -oppaastamme" },
       { question: "Onko maksaminen turvallista?", answer: "Kyllä. Kaikki maksut käsitellään Paytrailin kautta, joka on Suomen suurin maksuvälittäjä. Voit maksaa Visa- ja Mastercard-luottokortilla tai suomalaisella verkkopankkimaksulla. Emme käsittele tai tallenna korttitietojasi." },
-      { question: "Millaiset varausehtonne ovat?", answer: "Varausehtomme ovat joustavat ja asiakasystävälliset. Alle 3 000 € varaukset voi peruuttaa ilmaiseksi 60 päivää ennen saapumista. Yli 3 000 € arvoiset varaukset eivät ole peruutettavissa. Varaus vahvistuu maksun jälkeen ja saat varausvahvistuksen sähköpostiisi. Maksaminen tapahtuu turvallisesti Paytrailin kautta. Sisäänkirjautuminen viimeistään klo 17:00 ja uloskirjautuminen klo 11:00 mennessä.", link: "/varausehdot", linkText: "Lue kaikki varausehdot täältä" },
+      { question: "Millaiset varausehtonne ovat?", answer: "Perusehtomme on 60 päivän peruutusaika ennen saapumista. 19.12.–3.1. majoitukset, Karhupirtti / Bear Lodge ja yli 3 000 € varaukset ovat sitovia perusehtojen mukaan. Jos tarvitsette poikkeavia ehtoja, ottakaa yhteyttä varausvaiheessa: olemme joustavia ja voimme sopia erityisistä ehdoista erikseen. Tarkista täydelliset varausehdot. Huoneisto on valmis viimeistään klo 17:00. Toimitamme ovikoodin aiemmin, mikäli huoneisto saadaan valmiiksi. Jos tarvitsette aikaisemman saapumisen, ottakaa yhteyttä, niin selvitämme mahdollisuuksia. Uloskirjautuminen klo 11:00 mennessä. Joustamme mahdollisuuksien mukaan, kun otatte yhteyttä.", link: "/varausehdot", linkText: "Lue kaikki varausehdot täältä" },
       { question: "Oletteko luotettava yritys?", answer: "Kyllä. Olemme toimineet Levillä noin 15 vuotta ja olemme tunnettu majoitustoimija alueella. Kaikki kohteemme löytyvät myös Booking.com-palvelusta nimellämme, ja jokaisella kohteella on yleensä satoja asiakasarvioita. Olemme palvelleet vuosien saatossa tuhansia tyytyväisiä asiakkaita.", link: "/yritys", linkText: "Lue lisää yrityksestämme" }
     ]
   },
@@ -146,7 +146,7 @@ export const fi = {
     faqs: [
       {
         question: "Mihin aikaan voin saapua majoitukseen?",
-        answer: "Sisäänkirjautuminen on viimeistään klo 17:00 ja uloskirjautuminen klo 11:00. Mikäli tarvitset joustoa aikoihin, ota meihin yhteyttä etukäteen."
+        answer: "Huoneisto on valmis viimeistään klo 17:00. Toimitamme ovikoodin aiemmin, mikäli huoneisto saadaan valmiiksi. Jos tarvitsette aikaisemman saapumisen, ottakaa yhteyttä, niin selvitämme mahdollisuuksia. Uloskirjautuminen klo 11:00 mennessä. Joustamme mahdollisuuksien mukaan, kun otatte yhteyttä."
       },
       {
         question: "Onko majoituksissa WiFi?",
@@ -158,7 +158,7 @@ export const fi = {
       },
       {
         question: "Miten peruutus toimii?",
-        answer: "Ilmainen peruutus on mahdollista 60 vuorokautta ennen saapumista. Katso tarkemmat ehdot varausvahvistuksesta. Mikäli suunnitelmasi muuttuvat, ole meihin yhteydessä ja etsimme joustavan tavan hoitaa asia."
+        answer: "Perusehtomme on 60 päivän peruutusaika ennen saapumista. 19.12.–3.1. majoitukset, Karhupirtti / Bear Lodge ja yli 3 000 € varaukset ovat sitovia perusehtojen mukaan. Jos tarvitsette poikkeavia ehtoja, ottakaa yhteyttä varausvaiheessa: olemme joustavia ja voimme sopia erityisistä ehdoista erikseen. Tarkista täydelliset varausehdot."
       },
       {
         question: "Kuinka kaukana rinteet ovat majoituksista?",
@@ -174,7 +174,7 @@ export const fi = {
       },
       {
         question: "Miten saan avaimen majoitukseen?",
-        answer: "Lähetämme saapumisohjeet ja avainkoodin sähköpostitse ennen saapumistasi. Käytössä on avainboksit tai sähköiset lukot, joten avainten nouto ei ole tarpeen."
+        answer: "Huoneisto on valmis viimeistään klo 17:00. Toimitamme ovikoodin aiemmin, mikäli huoneisto saadaan valmiiksi. Jos tarvitsette aikaisemman saapumisen, ottakaa yhteyttä, niin selvitämme mahdollisuuksia."
       }
     ]
   },

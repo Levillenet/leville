@@ -95,12 +95,12 @@ export const nl = {
     ],
     bookingTitle: "Boeken & Betalen – Zo werkt het",
     bookingText: "Boeken via Leville.net is eenvoudig en veilig. Kies je data en groepsgrootte in de zoekbalk bovenaan de pagina en je ziet direct beschikbare accommodaties met prijzen.\n\nBetaling verloopt veilig via Paytrail – Finland's grootste en meest vertrouwde betaaldienst. Je kunt betalen met alle gangbare creditcards (Visa, Mastercard) of Finse internetbankieren. Je boeking wordt direct na betaling bevestigd.",
-    cancellationNote: "Ons annuleringsbeleid staat gratis annulering toe tot 60 dagen voor aankomst – je boekt dus altijd risicovrij.",
+    cancellationNote: "Onze standaard annuleringstermijn is 60 dagen vóór aankomst. Verblijven van 19 december tot 3 januari, Karhupirtti / Bear Lodge en boekingen boven €3.000 zijn volgens de standaardvoorwaarden bindend en niet restitueerbaar. Heeft u andere voorwaarden nodig, neem dan tijdens het boeken contact op: we zijn in die fase flexibel en kunnen afzonderlijk bijzondere voorwaarden afspreken. Lees de volledige boekingsvoorwaarden.",
     infoCards: [
       { icon: "ShieldCheck", title: "Veilig betalen", description: "Betaling via Paytrail met creditcard of internetbankieren. Finland's grootste betaaldienst." },
-      { icon: "KeyRound", title: "Inchecken", description: "Uiterlijk om 17:00 uur. Sleutelinformatie wordt per e-mail verstuurd op de boekingsdag." },
-      { icon: "LogOut", title: "Uitchecken", description: "Om 11:00 uur. Eindschoonmaak inbegrepen bij de meeste accommodaties." },
-      { icon: "Bed", title: "Beddengoed", description: "Beddengoed kan naar behoefte worden geboekt tijdens het boekingsproces. Controleer de accommodatiegegevens." },
+      { icon: "KeyRound", title: "Inchecken", description: "De accommodatie is uiterlijk om 17:00 klaar. We sturen de deurcode eerder als de accommodatie klaar is. Neem contact op voor een eerdere aankomst, zodat we de mogelijkheden kunnen bekijken." },
+      { icon: "LogOut", title: "Uitchecken", description: "Uitchecken uiterlijk om 11:00. Neem contact op als u flexibiliteit nodig heeft; we helpen waar mogelijk." },
+      { icon: "Bed", title: "Beddengoed", description: "Beddengoed en handdoeken zijn betaalde extra’s, €19–23 afhankelijk van de accommodatie. Boek ze tijdens de reservering of neem uw eigen mee." },
       { icon: "Car", title: "Parkeren", description: "Gratis parkeren bij al onze accommodaties. De meeste hebben een motorverwarmer." }
     ],
     faqTitle: "Veelgestelde vragen over accommodatie in Levi",
@@ -111,7 +111,7 @@ export const nl = {
       { question: "Hoe kom ik in Levi?", answer: "Je kunt vliegen naar Kittilä Airport (15 min per bus) of de trein nemen naar Kolari (1 uur per bus). Met de auto is Helsinki–Levi ongeveer 1.100 km.", link: "/en/travel/how-to-get-to-levi", linkText: "Lees meer op onze reispagina" },
       { question: "Is Levi geschikt voor gezinnen met kinderen?", answer: "Absoluut. Levi heeft speciale kinderpistes, skischool, familierestaurants en tal van kindvriendelijke activiteiten.", link: "/en/guide/levi-with-children", linkText: "Lees onze gezinsgids" },
       { question: "Is de betaling veilig?", answer: "Ja. Alle betalingen worden verwerkt via Paytrail, Finland's grootste betaaldienst. Je kunt betalen met Visa en Mastercard of Finse internetbankieren. Wij verwerken of bewaren nooit je kaartgegevens." },
-      { question: "Wat zijn jullie boekingsvoorwaarden?", answer: "Onze boekingsvoorwaarden zijn flexibel en klantvriendelijk. Boekingen onder €3.000 kunnen gratis geannuleerd worden tot 60 dagen voor aankomst. Boekingen boven €3.000 zijn niet restitueerbaar. De boeking wordt bevestigd na betaling. Betalingen worden veilig verwerkt via Paytrail. Eindschoonmaak is inbegrepen in de prijs. Inchecken uiterlijk om 17:00 uur en uitchecken uiterlijk om 11:00 uur.", link: "/nl/boekingsvoorwaarden", linkText: "Lees alle boekingsvoorwaarden" },
+      { question: "Wat zijn jullie boekingsvoorwaarden?", answer: "Onze standaard annuleringstermijn is 60 dagen vóór aankomst. Verblijven van 19 december tot 3 januari, Karhupirtti / Bear Lodge en boekingen boven €3.000 zijn volgens de standaardvoorwaarden bindend en niet restitueerbaar. Heeft u andere voorwaarden nodig, neem dan tijdens het boeken contact op: we zijn in die fase flexibel en kunnen afzonderlijk bijzondere voorwaarden afspreken. Lees de volledige boekingsvoorwaarden. De accommodatie is uiterlijk om 17:00 klaar. We sturen de deurcode eerder als de accommodatie klaar is. Neem contact op voor een eerdere aankomst, zodat we de mogelijkheden kunnen bekijken. Uitchecken uiterlijk om 11:00. Neem contact op als u flexibiliteit nodig heeft; we helpen waar mogelijk.", link: "/nl/boekingsvoorwaarden", linkText: "Lees alle boekingsvoorwaarden" },
       { question: "Zijn jullie een betrouwbaar bedrijf?", answer: "Ja. Wij zijn al ongeveer 15 jaar actief in Levi en zijn een bekende accommodatieverstrekker in het gebied. Al onze accommodaties staan ook op Booking.com onder onze naam, en elke accommodatie heeft doorgaans honderden gastbeoordelingen. Door de jaren heen hebben wij duizenden tevreden klanten bediend." }
     ]
   },
@@ -147,7 +147,7 @@ export const nl = {
     faqs: [
       {
         question: "Hoe laat kan ik inchecken?",
-        answer: "Inchecken is uiterlijk om 17:00 uur en uitchecken uiterlijk om 11:00 uur. Als u flexibiliteit nodig heeft met de tijden, neem dan van tevoren contact met ons op."
+        answer: "De accommodatie is uiterlijk om 17:00 klaar. We sturen de deurcode eerder als de accommodatie klaar is. Neem contact op voor een eerdere aankomst, zodat we de mogelijkheden kunnen bekijken. Uitchecken uiterlijk om 11:00. Neem contact op als u flexibiliteit nodig heeft; we helpen waar mogelijk."
       },
       {
         question: "Is er WiFi in de accommodaties?",
@@ -159,7 +159,7 @@ export const nl = {
       },
       {
         question: "Hoe werkt annulering?",
-        answer: "Gratis annulering is mogelijk tot 60 dagen voor aankomst. Zie de gedetailleerde voorwaarden in uw boekingsbevestiging. Als uw plannen veranderen, neem contact met ons op en we vinden een flexibele oplossing."
+        answer: "Onze standaard annuleringstermijn is 60 dagen vóór aankomst. Verblijven van 19 december tot 3 januari, Karhupirtti / Bear Lodge en boekingen boven €3.000 zijn volgens de standaardvoorwaarden bindend en niet restitueerbaar. Heeft u andere voorwaarden nodig, neem dan tijdens het boeken contact op: we zijn in die fase flexibel en kunnen afzonderlijk bijzondere voorwaarden afspreken. Lees de volledige boekingsvoorwaarden."
       },
       {
         question: "Hoe ver zijn de pistes van de accommodaties?",
@@ -175,7 +175,7 @@ export const nl = {
       },
       {
         question: "Hoe krijg ik de sleutel van de accommodatie?",
-        answer: "Wij sturen de aankomstinstructies en sleutelcode per e-mail vóór uw aankomst. We gebruiken sleutelkluisjes of elektronische sloten, dus het ophalen van sleutels is niet nodig."
+        answer: "De accommodatie is uiterlijk om 17:00 klaar. We sturen de deurcode eerder als de accommodatie klaar is. Neem contact op voor een eerdere aankomst, zodat we de mogelijkheden kunnen bekijken."
       }
     ]
   },

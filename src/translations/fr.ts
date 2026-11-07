@@ -95,12 +95,12 @@ export const fr = {
     ],
     bookingTitle: "Réservation & Paiement – Comment ça marche",
     bookingText: "Réserver via Leville.net est simple et sécurisé. Choisissez vos dates et la taille du groupe dans la barre de recherche en haut de la page, et vous verrez instantanément les hébergements disponibles avec les prix.\n\nLe paiement est traité de manière sécurisée via Paytrail – le plus grand prestataire de paiement de Finlande. Vous pouvez payer par carte de crédit (Visa, Mastercard) ou par banque en ligne finlandaise.",
-    cancellationNote: "Notre politique d'annulation permet une annulation gratuite jusqu'à 60 jours avant l'arrivée.",
+    cancellationNote: "Notre délai standard d’annulation est de 60 jours avant l’arrivée. Les séjours du 19 décembre au 3 janvier, Karhupirtti / Bear Lodge et les réservations de plus de 3 000 € sont fermes et non remboursables selon les conditions standard. Si vous avez besoin de conditions différentes, contactez-nous au moment de réserver : nous sommes flexibles à ce stade et pouvons convenir séparément de conditions particulières. Consultez les conditions complètes.",
     infoCards: [
       { icon: "ShieldCheck", title: "Paiement sécurisé", description: "Paiement via Paytrail par carte de crédit ou banque en ligne. Le plus grand prestataire de paiement de Finlande." },
-      { icon: "KeyRound", title: "Arrivée", description: "À 17h00 au plus tard. Les informations de clé sont envoyées par e-mail le jour de la réservation." },
-      { icon: "LogOut", title: "Départ", description: "À 11h00. Le nettoyage final est inclus dans la plupart des hébergements." },
-      { icon: "Bed", title: "Linge de lit", description: "Le linge de lit peut être réservé au besoin pendant le processus de réservation. Vérifiez les détails de l'hébergement." },
+      { icon: "KeyRound", title: "Arrivée", description: "Le logement est prêt au plus tard à 17h00. Nous envoyons le code de la porte plus tôt si le logement est prêt. Pour une arrivée anticipée, contactez-nous afin que nous puissions étudier les possibilités." },
+      { icon: "LogOut", title: "Départ", description: "Départ au plus tard à 11h00. Contactez-nous si vous avez besoin de flexibilité ; nous nous adaptons dans la mesure du possible." },
+      { icon: "Bed", title: "Linge de lit", description: "Le linge de lit et les serviettes sont des options payantes, de 19 à 23 € selon le logement. Réservez-les lors de la réservation ou apportez les vôtres." },
       { icon: "Car", title: "Stationnement", description: "Parking gratuit dans tous nos hébergements. La plupart disposent d'un réchauffeur de moteur." }
     ],
     faqTitle: "Questions fréquentes sur l'hébergement à Levi",
@@ -111,7 +111,7 @@ export const fr = {
       { question: "Comment se rendre à Levi ?", answer: "Vous pouvez voler jusqu'à l'aéroport de Kittilä (15 min en bus) ou prendre le train jusqu'à Kolari (1h en bus).", link: "/en/travel/how-to-get-to-levi", linkText: "En savoir plus sur notre guide de voyage" },
       { question: "Levi convient-il aux familles ?", answer: "Absolument. Levi dispose de pistes pour enfants, d'une école de ski, de restaurants familiaux et de nombreuses activités adaptées.", link: "/en/guide/levi-with-children", linkText: "Lire notre guide familles" },
       { question: "Le paiement est-il sécurisé ?", answer: "Oui. Tous les paiements sont traités via Paytrail, le plus grand prestataire de paiement de Finlande. Nous ne stockons jamais vos données de carte." },
-      { question: "Quelles sont vos conditions de réservation ?", answer: "Nos conditions sont flexibles et orientées client. Les réservations inférieures à 3 000 € peuvent être annulées gratuitement jusqu'à 60 jours avant l'arrivée. Les réservations supérieures à 3 000 € ne sont pas remboursables. La réservation est confirmée après paiement. Les paiements sont traités en toute sécurité via Paytrail. Le ménage final est inclus dans le prix. Enregistrement avant 17h00 et départ avant 11h00.", link: "/fr/conditions-de-reservation", linkText: "Lire toutes les conditions de réservation" },
+      { question: "Quelles sont vos conditions de réservation ?", answer: "Notre délai standard d’annulation est de 60 jours avant l’arrivée. Les séjours du 19 décembre au 3 janvier, Karhupirtti / Bear Lodge et les réservations de plus de 3 000 € sont fermes et non remboursables selon les conditions standard. Si vous avez besoin de conditions différentes, contactez-nous au moment de réserver : nous sommes flexibles à ce stade et pouvons convenir séparément de conditions particulières. Consultez les conditions complètes. Le logement est prêt au plus tard à 17h00. Nous envoyons le code de la porte plus tôt si le logement est prêt. Pour une arrivée anticipée, contactez-nous afin que nous puissions étudier les possibilités. Départ au plus tard à 11h00. Contactez-nous si vous avez besoin de flexibilité ; nous nous adaptons dans la mesure du possible.", link: "/fr/conditions-de-reservation", linkText: "Lire toutes les conditions de réservation" },
       { question: "Êtes-vous une entreprise fiable ?", answer: "Oui. Nous opérons à Levi depuis environ 15 ans et sommes un fournisseur d'hébergement reconnu dans la région. Tous nos hébergements sont également listés sur Booking.com sous notre nom, et chaque propriété compte généralement des centaines d'avis clients. Au fil des années, nous avons servi des milliers de clients satisfaits." }
     ]
   },
@@ -147,7 +147,7 @@ export const fr = {
     faqs: [
       {
         question: "À quelle heure puis-je m'enregistrer ?",
-        answer: "L'enregistrement s'effectue à 17h00 au plus tard et le départ avant 11h00. Si vous avez besoin de flexibilité avec les horaires, veuillez nous contacter à l'avance."
+        answer: "Le logement est prêt au plus tard à 17h00. Nous envoyons le code de la porte plus tôt si le logement est prêt. Pour une arrivée anticipée, contactez-nous afin que nous puissions étudier les possibilités. Départ au plus tard à 11h00. Contactez-nous si vous avez besoin de flexibilité ; nous nous adaptons dans la mesure du possible."
       },
       {
         question: "Y a-t-il le WiFi dans les hébergements ?",
@@ -159,7 +159,7 @@ export const fr = {
       },
       {
         question: "Comment fonctionne l'annulation ?",
-        answer: "L'annulation gratuite est possible jusqu'à 60 jours avant l'arrivée. Voir les conditions détaillées dans votre confirmation de réservation. Si vos plans changent, contactez-nous et nous trouverons une solution flexible."
+        answer: "Notre délai standard d’annulation est de 60 jours avant l’arrivée. Les séjours du 19 décembre au 3 janvier, Karhupirtti / Bear Lodge et les réservations de plus de 3 000 € sont fermes et non remboursables selon les conditions standard. Si vous avez besoin de conditions différentes, contactez-nous au moment de réserver : nous sommes flexibles à ce stade et pouvons convenir séparément de conditions particulières. Consultez les conditions complètes."
       },
       {
         question: "À quelle distance sont les pistes des hébergements ?",
@@ -175,7 +175,7 @@ export const fr = {
       },
       {
         question: "Comment obtenir la clé de l'hébergement ?",
-        answer: "Nous envoyons les instructions d'arrivée et le code de la clé par email avant votre arrivée. Nous utilisons des boîtes à clés ou des serrures électroniques, donc le retrait de clé n'est pas nécessaire."
+        answer: "Le logement est prêt au plus tard à 17h00. Nous envoyons le code de la porte plus tôt si le logement est prêt. Pour une arrivée anticipée, contactez-nous afin que nous puissions étudier les possibilités."
       }
     ]
   },
