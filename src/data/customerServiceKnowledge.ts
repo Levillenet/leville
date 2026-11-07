@@ -1,5 +1,6 @@
 // Leville.net asiakaspalvelu AI-botin tietopohja
-// Päivitetty: 30.12.2024
+// Päivitetty: 7.11.2026
+import { guestPolicies } from "./guestPolicies";
 
 export const customerServiceKnowledge = {
   // Majoituskohteet ja niiden erityispiirteet
@@ -115,29 +116,36 @@ Löyly:
 
   // Yleiset usein kysytyt kysymykset
   faq: {
+    cancellation: { question: "Mitkä ovat peruutusehdot?", answer: "Perusehtomme on 60 päivän peruutusaika ennen saapumista. Poikkeuksina 19.12.–3.1. majoitukset, Karhupirtti / Bear Lodge ja yli 3 000 € varaukset ovat sitovia eikä niitä palauteta perusehtojen mukaan. Tarkista täydelliset varausehdot. Jos tarvitsette poikkeavia ehtoja, ottakaa yhteyttä varausvaiheessa: olemme joustavia ja voimme sopia erityisistä ehdoista erikseen." },
+    deposit: { question: "Peritäänkö panttia tai vakuusmaksua?", answer: "Emme peri panttia tai vakuusmaksua." },
+    smoking: { question: "Saako kohteissa tupakoida?", answer: "Tupakointi, myös sähkötupakointi, on kielletty kaikissa kohteissamme." },
+    quietHours: { question: "Milloin on hiljaisuus?", answer: "Hiljaisuus on klo 22:00–08:00." },
+    vat: { question: "Mikä on majoituksen ALV?", answer: "Majoituksen ALV on 14 %." },
+    analytics: { question: "Onko Google Analytics käytössä?", answer: "Kyllä. Google Analytics on käytössä tilastointisuostumuksen perusteella. Lisäksi keräämme erillisiä evästeettömiä sivustotilastoja." },
+
     checkIn: {
       question: "Mihin aikaan huoneistoon pääsee sisään?",
-      answer: "Huoneistoon pääsee heti, kun se on siivottu ja valmis. Edelliset asiakkaat lähtevät viimeistään klo 11, minkä jälkeen siivous alkaa. Tyypillisesti huoneistot valmistuvat klo 14–15 välillä, mutta tarkkaa aikaa ei voida luvata etukäteen."
+      answer: "Huoneisto on valmis viimeistään klo 17:00. Toimitamme ovikoodin aiemmin, mikäli huoneisto saadaan valmiiksi. Jos tarvitsette aikaisemman saapumisen, ottakaa yhteyttä, niin selvitämme mahdollisuuksia."
     },
     earlyCheckIn: {
       question: "Voiko saada aikaisen check-inin?",
-      answer: "Aikainen check-in on mahdollinen vain, jos huoneisto saadaan siivottua aiemmin. Tätä ei voida luvata etukäteen. Lähetä viesti saapumispäivänä, niin ilmoitamme heti kun huoneisto on valmis."
+      answer: "Huoneisto on valmis viimeistään klo 17:00. Toimitamme ovikoodin aiemmin, mikäli huoneisto saadaan valmiiksi. Jos tarvitsette aikaisemman saapumisen, ottakaa yhteyttä, niin selvitämme mahdollisuuksia."
     },
     checkOut: {
       question: "Mihin aikaan check-out on?",
-      answer: "Check-out on klo 11."
+      answer: "Uloskirjautuminen on klo 11:00 mennessä. Joustamme mahdollisuuksien mukaan, kun otatte meihin yhteyttä."
     },
     lateCheckOut: {
       question: "Voiko check-outia myöhäistää?",
-      answer: "Sesonkiaikoina myöhäisempi check-out ei yleensä ole mahdollinen, koska kyseessä on usein vuoden kiireisimmät vaihtopäivät."
+      answer: "Uloskirjautuminen on klo 11:00 mennessä. Joustamme mahdollisuuksien mukaan, kun otatte meihin yhteyttä."
     },
     luggageStorage: {
       question: "Onko matkatavarasäilytystä?",
-      answer: "Kyllä. Rakennuksen kellaritiloissa on matkatavarasäilytys, jota voi käyttää vapaasti sekä saapuessa että lähtiessä. Opasteet löytyvät paikan päältä."
+      answer: "Kaikissa kohteissamme on matkatavarasäilytys. Tarkista kohdekohtainen sijainti oppaasta tai ota meihin yhteyttä."
     },
     linens: {
       question: "Sisältyvätkö liinavaatteet ja pyyhkeet hintaan?",
-      answer: "Kyllä. Hintaan sisältyvät peitot, tyynyt, lakanat, tyynyliinat ja pyyhkeet kaikille ilmoitetuille henkilöille."
+      answer: `Liinavaatteet ja pyyhkeet ovat lisämaksullinen valinta. Kohdekohtainen hinta on ${guestPolicies.linenPriceMin}–${guestPolicies.linenPriceMax} €. Voitte varata ne varauksen yhteydessä tai tuoda omat.`
     },
     privateKitchen: {
       question: "Onko keittiö ja kylpyhuone yksityiset?",
@@ -153,7 +161,7 @@ Löyly:
     },
     fireplace: {
       question: "Onko takka käytössä ja sisältyykö puita?",
-      answer: "Takka on käytettävissä tunnelmaa varten. Polttopuita sisältyy jonkin verran hintaan."
+      answer: "Takka on vain huoneistoissa 5A2, 5B2 ja 5B5 sekä Karhupirtissä / Bear Lodgessa ja Karhunvartijassa. Muissa kohteissa ei ole takkaa. Katso polttopuiden sijainti kohdeoppaasta."
     },
     saunaTimer: {
       question: "Miten saunan ajastin toimii?",
@@ -173,11 +181,11 @@ Löyly:
     },
     keys: {
       question: "Miten avaimet toimivat?",
-      answer: "Avaimia on kaksi, ja ne säilytetään lukollisessa avainboksissa huoneiston oven läheisyydessä. Koodi lähetetään tekstiviestillä saapumispäivänä."
+      answer: "Kohteisiin pääsee PIN-koodilla tai avainboksin koodilla. Ovikoodi toimitetaan aiemmin, jos huoneisto on valmis. Saapumisohjeet ovat kohdekohtaiset."
     },
     laundry: {
       question: "Missä pesukone ja kuivausrumpu ovat?",
-      answer: "Pesukone ja kuivausrumpu sijaitsevat kellarissa. Yksi pesukerta maksaa noin 2 euroa, maksu suoritetaan luottokortilla ja pesuaine sisältyy hintaan."
+      answer: "Skistarissa on pesula, jossa pyykkiä voi pestä omatoimisesti. Kaikissa muissa kohteissamme on pesukone."
     },
     sledges: {
       question: "Sisältyykö pulkkia majoitukseen?",
@@ -208,7 +216,7 @@ Löyly:
   // Yhteystiedot
   contact: {
     email: "info@leville.net",
-    phone: "+35844131313",
+    phone: "+358 44 13 13 13",
     whatsapp: "+35844131313",
     address: "Levi, Suomi",
     responseTime: "Vastaamme yleensä saman päivän aikana, myös lomien aikana."

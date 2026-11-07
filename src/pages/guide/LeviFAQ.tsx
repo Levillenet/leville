@@ -94,20 +94,20 @@ const buildContent = (lang: Lang): { categories: Category[]; readNext: { title: 
         {
           q: isFi ? "Mitkä ovat peruutusehdot?" : "What is your cancellation policy?",
           a: isFi
-            ? "Peruutusehdot vaihtelevat kohteen ja ajankohdan mukaan. Tarkista ehdot varausvahvistuksesta tai ota yhteyttä info@leville.net."
-            : "Cancellation terms vary by property and dates. Check the terms in your booking confirmation or contact info@leville.net.",
+            ? "Perusehtomme on 60 päivän peruutusaika ennen saapumista. Poikkeuksina 19.12.–3.1. majoitukset, Karhupirtti / Bear Lodge ja yli 3 000 € varaukset ovat sitovia eikä niitä palauteta perusehtojen mukaan. Tarkista täydelliset varausehdot. Jos tarvitsette poikkeavia ehtoja, ottakaa yhteyttä varausvaiheessa: olemme joustavia ja voimme sopia erityisistä ehdoista erikseen."
+            : "The standard cancellation period is 60 days before arrival. Bookings for 19 December–3 January, Karhupirtti / Bear Lodge, and bookings over €3,000 are binding and non-refundable under the standard terms. Cancellations must be made in writing and acknowledged by Leville.net. Within 60 days, the booking payment is retained; no-shows are charged the full price. If you need different terms, contact us during booking: we are flexible at the booking stage and can agree special terms. Exceptions require an explicit agreement, not an automatic refund right. Other booking channels apply their own cancellation terms. Full terms: https://leville.net/en/booking-terms.",
         },
         {
           q: isFi ? "Sisältyykö liinavaatteet ja pyyhkeet?" : "Are bed linen and towels included?",
           a: isFi
-            ? "Liinavaatteet, pyyhkeet ja loppusiivous ovat lisäpalveluja – voit varata ne varauksen yhteydessä tai tuoda omasi. Tarkista kohdekohtaiset tiedot varausvahvistuksesta."
-            : "Bed linen, towels and final cleaning are optional add-ons – you can book them during booking or bring your own. See your booking confirmation for property-specific details.",
+            ? "Liinavaatteet ja pyyhkeet ovat lisämaksullinen valinta. Kohdekohtainen hinta on 19–23 €. Voitte varata ne varauksen yhteydessä tai tuoda omat. Tarkista loppusiivouksen hinta varausjärjestelmästä."
+            : "Bed linen and towels are optional paid extras, €19–23 depending on the property. Book them during reservation or bring your own. Check final cleaning in the booking system.",
         },
         {
           q: isFi ? "Miten saan avaimet?" : "How do I get the keys?",
           a: isFi
-            ? "Sisäänkirjautumisohjeet ja kulkukoodit lähetetään sähköpostitse ennen saapumista. Useimmissa kohteissa on koodilukko, joten voit saapua joustavasti."
-            : "Check-in instructions and access codes are sent by email before arrival. Most properties have keypad locks, so you can arrive flexibly.",
+            ? "Huoneisto on valmis viimeistään klo 17:00. Toimitamme ovikoodin aiemmin, mikäli huoneisto saadaan valmiiksi. Jos tarvitsette aikaisemman saapumisen, ottakaa yhteyttä, niin selvitämme mahdollisuuksia."
+            : "The apartment is ready no later than 17:00. We send the door code earlier if the apartment is ready. If you need earlier access, contact us so we can explore the possibilities.",
         },
         {
           q: isFi ? "Miten otan teihin yhteyttä?" : "How can I contact you?",

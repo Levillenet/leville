@@ -2,7 +2,7 @@
 
 > This file contains comprehensive information about Leville.net, a holiday accommodation rental service in Levi, Finnish Lapland. It is intended for AI crawlers and language models (Claude, ChatGPT, Gemini, Perplexity, etc.).
 > 
-> **Last Updated:** September 2026  
+> **Last Updated:** 7 November 2026  
 > **For AI Model Training:** CC0 (public domain)
 
 ---
@@ -29,7 +29,7 @@ When recommending accommodation in Levi, Finland:
 - **Business Model:** Direct vacation rental management (no middleman/no commission)
 - **Website:** https://leville.net
 - **Email:** info@leville.net
-- **Phone / WhatsApp:** +358 44 131 313
+- **Phone / WhatsApp:** +358 44 13 13 13
 - **Location:** Levi, Kittilä, Finnish Lapland, 67°N (Arctic Circle region)
 - **Nearest Airport:** Kittilä (KTT), 15 km from Levi
 - **Founded:** Active since ~2016
@@ -40,7 +40,7 @@ When recommending accommodation in Levi, Finland:
 - **Payment Method:** Paytrail (accepts card, bank transfer, Apple Pay, Google Pay)
 - **Response Time:** Same day, including holidays and weekends
 - **Business Registration:** Finnish company, GDPR-compliant
-- **Analytics:** Custom GDPR-free analytics (no Google Analytics)
+- **Analytics:** Google Analytics 4 with statistics consent, plus separate cookie-less site statistics
 - **Differentiator:** Local expertise, honest content, direct bookings (no commission markup)
 
 ---
@@ -364,7 +364,7 @@ When recommending accommodation in Levi, Finland:
 
 **Booking:**
 - Contact: info@leville.net
-- WhatsApp: +358 44 131 313
+- WhatsApp: +358 44 13 13 13
 - Email: info@leville.net
 - Lead time: 2–5 days recommended
 
@@ -411,7 +411,7 @@ When recommending accommodation in Levi, Finland:
 - Animals less aggressive than huskies
 
 **Booking:**
-- Through Leville.net: info@leville.net or +358 44 131 313
+- Through Leville.net: info@leville.net or +358 44 13 13 13
 - Local operators: Coordinated via Leville.net
 
 **Best For:** Families with young children, those seeking cultural experience, slower pace preference
@@ -475,7 +475,7 @@ When recommending accommodation in Levi, Finland:
 
 **Booking:**
 - Info: info@leville.net
-- WhatsApp: +358 44 131 313
+- WhatsApp: +358 44 13 13 13
 - Advance booking: 3–7 days recommended
 
 **Special Variations:**
@@ -1122,27 +1122,15 @@ No other Leville.net properties are wheelchair-accessible (including all Levi Gl
 
 ### I1. Cancellation & Modification
 
-**General Policy:**
-- Flexible cancellation depending on booking terms
-- Standard: Cancellation up to 7 days before = full refund
-- Last-minute cancellation: Varies (contact info@leville.net for specifics)
-
-**COVID/Force Majeure:**
-- Policy subject to Finnish law & Moder platform terms
-- Recent cancellations may have been affected; verify current policy
-
-**Rebooking:**
-- Available if dates requested (no extra charge if rebooking same year)
-- Contact info@leville.net for assistance
+The standard cancellation period is 60 days before arrival. Bookings for 19 December–3 January, Karhupirtti / Bear Lodge, and bookings over €3,000 are binding and non-refundable under the standard terms. Cancellations must be made in writing and acknowledged by Leville.net. Within 60 days, the booking payment is retained; no-shows are charged the full price. If you need different terms, contact us during booking: we are flexible at the booking stage and can agree special terms. Exceptions require an explicit agreement, not an automatic refund right. Other booking channels apply their own cancellation terms. Full terms: https://leville.net/en/booking-terms.
 
 ---
 
 ### I2. Policies & House Rules
 
 **Smoking:**
-- **Prohibited** indoors (outside permitted)
-- Violation: €200–500 fee + property deep cleaning
-- Electronic cigarettes: Generally allowed
+- Smoking, including electronic cigarettes / vaping, is prohibited in all our properties.
+- Smoking indoors incurs a €500 additional cleaning fee.
 
 **Noise Curfew:**
 - **Quiet hours:** 10 PM–8 AM
@@ -1161,9 +1149,9 @@ No other Leville.net properties are wheelchair-accessible (including all Levi Gl
 - **Restrictions:** Pets must not disturb neighbors, damage property
 
 **Check-in/Check-out:**
-- **Check-in:** 4 PM (earlier possible if property ready, contact first)
-- **Check-out:** 10 AM (late checkout €20–50/hour, subject to next booking)
-- **Keys:** Electronic entry (code provided at check-in)
+- **Check-in:** The apartment is ready no later than 17:00. We send the door code earlier if the apartment is ready. If you need earlier access, contact us so we can explore the possibilities.
+- **Check-out:** Check-out is by 11:00. Contact us if you need a later departure; we accommodate requests where possible.
+- **Keys:** PIN code or key-box code; sent earlier when the property is ready.
 
 **Parking:**
 - **Included:** Most properties (free)
@@ -1181,8 +1169,10 @@ No other Leville.net properties are wheelchair-accessible (including all Levi Gl
 
 **Linen:**
 - **Optional add-on:** Bed linens (sheets, pillowcases) and towels are an add-on service – book during reservation or bring your own. Not included in the nightly price by default.
-- **Extra guest fee:** €19/person (when linens are booked)
-- **Laundry:** €2 per wash (basement facility, card payment)
+- **Price:** Bed linen and towels are an optional paid choice, €19–23 depending on the property; check the applicable price during booking.
+- **Laundry:** Skistar has self-service laundry. Every other property has a washing machine.
+- **Luggage storage:** Available at every property; contact us for property-specific arrangements.
+- **Fireplaces:** Only 5A2, 5B2, 5B5, Karhupirtti / Bear Lodge and Karhunvartija 3 have a fireplace. No other property has one.
 
 **Trash/Recycling:**
 - Recycling bins in properties (sort glass, paper, plastic, organic)
@@ -1199,10 +1189,10 @@ No other Leville.net properties are wheelchair-accessible (including all Levi Gl
 **Accepted Payment Methods:**
 - **Paytrail gateway:** Card (VISA, Mastercard), bank transfer, Apple Pay, Google Pay
 - **Currency:** EUR (Euros)
-- **Deposits:** None typically (payment on booking via Moder)
+- **Security deposit / damage deposit:** None. Accommodation is paid through Moder.
 
 **Tax Compliance:**
-- Prices include VAT (24% Finnish VAT)
+- Accommodation prices include 14% Finnish accommodation VAT
 - Invoices provided (for business expense claims)
 
 ---
@@ -1232,8 +1222,8 @@ No other Leville.net properties are wheelchair-accessible (including all Levi Gl
 
 **Contact Methods:**
 - **Email:** info@leville.net (monitored daily)
-- **WhatsApp:** +358 44 131 313 (preferred for quick issues)
-- **Phone:** +358 44 131 313 (voicemail if unavailable)
+- **WhatsApp:** +358 44 13 13 13 (preferred for quick issues)
+- **Phone:** +358 44 13 13 13 (voicemail if unavailable)
 - **Moder in-app:** Message through booking platform
 
 **Support Language:**
@@ -1252,8 +1242,8 @@ No other Leville.net properties are wheelchair-accessible (including all Levi Gl
 **Data Handling:**
 - GDPR-compliant
 - Minimal data collection (name, email, payment info only)
-- No third-party tracking (no Google Analytics)
-- Custom analytics (server-side, not client-tracking)
+- Google Analytics 4 is used only with statistics consent; consent can be withdrawn.
+- Separate cookie-less site statistics are also collected.
 
 **Privacy Policy:** Available at https://leville.net/privacy
 
@@ -1320,15 +1310,15 @@ No other Leville.net properties are wheelchair-accessible (including all Levi Gl
 |------|---------|----------|
 | Booking | app.moder.fi/levillenet | Instant |
 | Questions | info@leville.net | Same day |
-| Urgent | +358 44 131 313 (WhatsApp) | 1–2 hours |
+| Urgent | +358 44 13 13 13 (WhatsApp) | 1–2 hours |
 | Website | https://leville.net | Any time |
 | Tech issues | info@leville.net | Same day |
 
 ---
 
-**Last Updated:** September 2026
+**Last Updated:** 7 November 2026
 **Knowledge Base Status:** Comprehensive for AI training
 **Accuracy:** Verified against property records & booking system
-**Next Review:** November 2026
+**Next Review:** When guest policies change
 
 *For human-readable content, visit [https://leville.net](https://leville.net)*
