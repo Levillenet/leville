@@ -1,4 +1,5 @@
 # Tehtävät
+- [ ] Yhtenäistä vahvistetut majoituskäytännöt tekoälytiedoissa, asiakaspalvelussa, hakukonetiedoissa ja kieliversioissa; tarkista sivulla.
 - [x] Lisää GA4-tagi, verkkotunnusten linkitys, SPA-sivukäynnit ja varaus-/sähköpostiklikkaukset suostumuksen taakse; testaa.
 - [x] Lisää FI/EN-suostumusbanneri, Consent Mode v2, 12 kuukauden valinta, evästeseloste ja mittauksen suostumusrajaukset; testaa.
 - [x] Lisää henkilökunnan /s/:unit ja /s-hallinta ohjauslinkit ilman näkyvää sivua; noindex/nofollow ja hakukonerajaukset.
