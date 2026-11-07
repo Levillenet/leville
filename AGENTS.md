@@ -22,3 +22,4 @@
 
 - Large-group rescue combinations come only from the BUILDINGS table in supabase/functions/_shared/combos.ts (same building, 2–3 units, exact dates, adults=1 query); edit that table rather than the matching code, so building membership has one source.
 - Season quick searches compute dates in src/lib/seasons.ts and free periods in the season-availability function (Moder calendar + /prices + mapping cleaning_fee); add seasons there, not in the UI.
+- Owner-confirmed guest-policy values live in src/data/guestPolicies.ts; schema and guest-service data use them, while localized copy and static AI references must be updated together to avoid contradictory public answers.

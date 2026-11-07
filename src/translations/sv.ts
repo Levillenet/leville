@@ -95,12 +95,12 @@ export const sv = {
     ],
     bookingTitle: "Bokning & Betalning – Så fungerar det",
     bookingText: "Att boka via Leville.net är enkelt och säkert. Välj datum och gruppstorlek i sökfältet högst upp på sidan, så ser du direkt tillgängliga boenden med priser.\n\nBetalningen sker säkert via Paytrail – Finlands största och mest betrodda betalningsleverantör. Du kan betala med alla vanliga kreditkort (Visa, Mastercard) eller finsk nätbank. Din bokning bekräftas direkt efter betalningen och du får en bekräftelse via e-post.",
-    cancellationNote: "Vår avbokningspolicy tillåter gratis avbokning upp till 60 dagar före ankomst – du bokar alltid riskfritt.",
+    cancellationNote: "Vår standardregel är 60 dagars avbokningsfrist före ankomst. Vistelser 19 december–3 januari, Karhupirtti / Bear Lodge och bokningar över 3 000 € är bindande och återbetalas inte enligt standardvillkoren. Behöver ni andra villkor, kontakta oss vid bokningen: vi är flexibla i bokningsskedet och kan avtala särskilda villkor separat. Läs de fullständiga bokningsvillkoren.",
     infoCards: [
       { icon: "ShieldCheck", title: "Säker betalning", description: "Betalning via Paytrail med kreditkort eller nätbank. Finlands största betalningsleverantör." },
-      { icon: "KeyRound", title: "Incheckning", description: "Senast kl. 17:00. Nyckelinformation skickas till din e-post på bokningsdagen." },
-      { icon: "LogOut", title: "Utcheckning", description: "Kl. 11:00. Slutstädning ingår i de flesta boenden." },
-      { icon: "Bed", title: "Sängkläder", description: "Sängkläder kan bokas vid behov under bokningsprocessen. Kontrollera boendets detaljer." },
+      { icon: "KeyRound", title: "Incheckning", description: "Lägenheten är klar senast kl. 17:00. Vi skickar dörrkoden tidigare om lägenheten är klar. Kontakta oss om ni behöver komma tidigare, så undersöker vi möjligheterna." },
+      { icon: "LogOut", title: "Utcheckning", description: "Utcheckning senast kl. 11:00. Kontakta oss om ni behöver flexibilitet; vi försöker hjälpa till när det är möjligt." },
+      { icon: "Bed", title: "Sängkläder", description: "Sängkläder och handdukar är ett tillval mot avgift, 19–23 € beroende på boendet. Boka dem vid bokningen eller ta med egna." },
       { icon: "Car", title: "Parkering", description: "Gratis parkering vid alla våra boenden. De flesta har motorvärmare." }
     ],
     faqTitle: "Vanliga frågor om boende i Levi",
@@ -111,7 +111,7 @@ export const sv = {
       { question: "Hur tar jag mig till Levi?", answer: "Du kan flyga till Kittilä flygplats (15 min med buss) eller ta tåg till Kolari (1 h med buss). Med bil är Helsinki–Levi ca 1 100 km.", link: "/en/travel/how-to-get-to-levi", linkText: "Läs mer på vår reseguide" },
       { question: "Passar Levi för barnfamiljer?", answer: "Absolut. Levi har egna barnbackar, skidskola, familjerestauranger och massor av barnvänliga aktiviteter.", link: "/en/guide/levi-with-children", linkText: "Läs vår guide för familjer" },
       { question: "Är betalningen säker?", answer: "Ja. Alla betalningar hanteras via Paytrail, Finlands största betalningsleverantör. Du kan betala med Visa och Mastercard eller finsk nätbank. Vi lagrar aldrig dina kortuppgifter." },
-      { question: "Vilka är era bokningsvillkor?", answer: "Våra bokningsvillkor är flexibla och kundvänliga. Bokningar under 3 000 € kan avbokas gratis upp till 60 dagar före ankomst. Bokningar över 3 000 € är ej återbetalningsbara. Bokningen bekräftas efter betalning. Betalningar hanteras säkert via Paytrail. Slutstädning ingår i priset. Incheckning senast kl. 17:00 och utcheckning senast kl. 11:00.", link: "/sv/bokningsvillkor", linkText: "Läs alla bokningsvillkor här" },
+      { question: "Vilka är era bokningsvillkor?", answer: "Vår standardregel är 60 dagars avbokningsfrist före ankomst. Vistelser 19 december–3 januari, Karhupirtti / Bear Lodge och bokningar över 3 000 € är bindande och återbetalas inte enligt standardvillkoren. Behöver ni andra villkor, kontakta oss vid bokningen: vi är flexibla i bokningsskedet och kan avtala särskilda villkor separat. Läs de fullständiga bokningsvillkoren. Lägenheten är klar senast kl. 17:00. Vi skickar dörrkoden tidigare om lägenheten är klar. Kontakta oss om ni behöver komma tidigare, så undersöker vi möjligheterna. Utcheckning senast kl. 11:00. Kontakta oss om ni behöver flexibilitet; vi försöker hjälpa till när det är möjligt.", link: "/sv/bokningsvillkor", linkText: "Läs alla bokningsvillkor här" },
       { question: "Är ni ett pålitligt företag?", answer: "Ja. Vi har varit verksamma i Levi i cirka 15 år och är en välkänd boendeleverantör i området. Alla våra boenden finns också på Booking.com under vårt namn, och varje boende har vanligtvis hundratals gästrecensioner. Under åren har vi betjänat tusentals nöjda kunder." }
     ]
   },
@@ -147,7 +147,7 @@ export const sv = {
     faqs: [
       {
         question: "Vilken tid kan jag checka in?",
-        answer: "Incheckning är senast kl. 17:00 och utcheckning kl. 11:00. Om du behöver flexibilitet med tiderna, kontakta oss i förväg."
+        answer: "Lägenheten är klar senast kl. 17:00. Vi skickar dörrkoden tidigare om lägenheten är klar. Kontakta oss om ni behöver komma tidigare, så undersöker vi möjligheterna. Utcheckning senast kl. 11:00. Kontakta oss om ni behöver flexibilitet; vi försöker hjälpa till när det är möjligt."
       },
       {
         question: "Finns det WiFi i boendena?",
@@ -159,7 +159,7 @@ export const sv = {
       },
       {
         question: "Hur fungerar avbokning?",
-        answer: "Gratis avbokning är möjlig upp till 60 dagar före ankomst. Se detaljerade villkor i din bokningsbekräftelse. Om dina planer ändras, kontakta oss så hittar vi en flexibel lösning."
+        answer: "Vår standardregel är 60 dagars avbokningsfrist före ankomst. Vistelser 19 december–3 januari, Karhupirtti / Bear Lodge och bokningar över 3 000 € är bindande och återbetalas inte enligt standardvillkoren. Behöver ni andra villkor, kontakta oss vid bokningen: vi är flexibla i bokningsskedet och kan avtala särskilda villkor separat. Läs de fullständiga bokningsvillkoren."
       },
       {
         question: "Hur långt är det till backarna från boendena?",
@@ -175,7 +175,7 @@ export const sv = {
       },
       {
         question: "Hur får jag nyckeln till boendet?",
-        answer: "Vi skickar ankomstinstruktioner och nyckelkod via e-post före din ankomst. Vi använder nyckelboxar eller elektroniska lås, så nyckelupphämtning behövs inte."
+        answer: "Lägenheten är klar senast kl. 17:00. Vi skickar dörrkoden tidigare om lägenheten är klar. Kontakta oss om ni behöver komma tidigare, så undersöker vi möjligheterna."
       }
     ]
   },

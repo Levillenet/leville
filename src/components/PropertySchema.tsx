@@ -1,11 +1,12 @@
 import JsonLd from "@/components/JsonLd";
 import type { Property } from "@/data/properties";
+import { guestPolicies, hasGuestFireplace } from "@/data/guestPolicies";
 
 const BASE_URL = "https://leville.net";
 
-/** House rules verified in public/llms.txt (Check-in 4 PM, Check-out 10 AM). */
-const CHECKIN_TIME = "16:00";
-const CHECKOUT_TIME = "10:00";
+/** Owner-confirmed arrival readiness and departure deadlines. */
+const CHECKIN_TIME = guestPolicies.checkInReadyBy;
+const CHECKOUT_TIME = guestPolicies.checkOutBy;
 
 const abs = (src: string) => (src.startsWith("http") ? src : `${BASE_URL}${src}`);
 
@@ -55,7 +56,7 @@ export const buildVacationRentalSchema = ({
 
   const amenities = [
     property.sauna ? feature("Sauna") : null,
-    property.fireplace ? feature("Fireplace") : null,
+    hasGuestFireplace(property.slug) ? feature("Fireplace") : null,
     property.hotTub ? feature("Outdoor hot tub") : null,
     property.accessible ? feature("Wheelchair accessible") : null,
     feature("WiFi"),

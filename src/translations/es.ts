@@ -95,12 +95,12 @@ export const es = {
     ],
     bookingTitle: "Reserva y Pago – Cómo funciona",
     bookingText: "Reservar a través de Leville.net es fácil y seguro. Selecciona tus fechas y tamaño del grupo en la barra de búsqueda en la parte superior de la página, y verás instantáneamente los alojamientos disponibles con precios.\n\nEl pago se procesa de forma segura a través de Paytrail – el mayor proveedor de pagos de Finlandia. Puedes pagar con las principales tarjetas de crédito (Visa, Mastercard) o banca online finlandesa.",
-    cancellationNote: "Nuestra política de cancelación permite cancelación gratuita hasta 60 días antes de la llegada.",
+    cancellationNote: "Nuestro plazo estándar de cancelación es de 60 días antes de la llegada. Las estancias del 19 de diciembre al 3 de enero, Karhupirtti / Bear Lodge y las reservas superiores a 3.000 € son vinculantes y no reembolsables según las condiciones estándar. Si necesitan otras condiciones, contáctennos al reservar: somos flexibles en esa fase y podemos acordar condiciones especiales por separado. Consulten las condiciones completas.",
     infoCards: [
       { icon: "ShieldCheck", title: "Pago seguro", description: "Pago vía Paytrail con tarjeta de crédito o banca online. El mayor proveedor de pagos de Finlandia." },
-      { icon: "KeyRound", title: "Check-in", description: "A las 17:00 a más tardar. La información de la llave se envía por correo electrónico el día de la reserva." },
-      { icon: "LogOut", title: "Check-out", description: "A las 11:00. La limpieza final está incluida en la mayoría de los alojamientos." },
-      { icon: "Bed", title: "Ropa de cama", description: "La ropa de cama se puede reservar según sea necesario durante el proceso de reserva. Consulta los detalles del alojamiento." },
+      { icon: "KeyRound", title: "Check-in", description: "El alojamiento está listo a más tardar a las 17:00. Enviamos el código de la puerta antes si está listo. Si necesitan llegar antes, contáctennos para estudiar las posibilidades." },
+      { icon: "LogOut", title: "Check-out", description: "Salida antes de las 11:00. Contáctennos si necesitan flexibilidad; nos adaptamos cuando es posible." },
+      { icon: "Bed", title: "Ropa de cama", description: "La ropa de cama y las toallas son extras de pago, de 19 a 23 € según el alojamiento. Resérvenlas al reservar o traigan las suyas." },
       { icon: "Car", title: "Aparcamiento", description: "Aparcamiento gratuito en todos nuestros alojamientos. La mayoría tienen calentador de motor." }
     ],
     faqTitle: "Preguntas frecuentes sobre alojamiento en Levi",
@@ -111,7 +111,7 @@ export const es = {
       { question: "¿Cómo llego a Levi?", answer: "Puedes volar al aeropuerto de Kittilä (15 min en autobús) o tomar el tren a Kolari (1 h en autobús).", link: "/en/travel/how-to-get-to-levi", linkText: "Lee más en nuestra guía de viaje" },
       { question: "¿Es Levi adecuado para familias?", answer: "Absolutamente. Levi tiene pistas para niños, escuela de esquí, restaurantes familiares y muchas actividades para niños.", link: "/en/guide/levi-with-children", linkText: "Lee nuestra guía para familias" },
       { question: "¿Es seguro el pago?", answer: "Sí. Todos los pagos se procesan a través de Paytrail, el mayor proveedor de pagos de Finlandia. Nunca almacenamos tus datos de tarjeta." },
-      { question: "¿Cuáles son sus condiciones de reserva?", answer: "Nuestras condiciones son flexibles y orientadas al cliente. Las reservas inferiores a 3.000 € se pueden cancelar gratuitamente hasta 60 días antes de la llegada. Las reservas superiores a 3.000 € no son reembolsables. La reserva se confirma tras el pago. Los pagos se procesan de forma segura a través de Paytrail. La limpieza final está incluida en el precio. Check-in hasta las 17:00 y check-out hasta las 11:00.", link: "/es/terminos-de-reserva", linkText: "Lee todas las condiciones de reserva" },
+      { question: "¿Cuáles son sus condiciones de reserva?", answer: "Nuestro plazo estándar de cancelación es de 60 días antes de la llegada. Las estancias del 19 de diciembre al 3 de enero, Karhupirtti / Bear Lodge y las reservas superiores a 3.000 € son vinculantes y no reembolsables según las condiciones estándar. Si necesitan otras condiciones, contáctennos al reservar: somos flexibles en esa fase y podemos acordar condiciones especiales por separado. Consulten las condiciones completas. El alojamiento está listo a más tardar a las 17:00. Enviamos el código de la puerta antes si está listo. Si necesitan llegar antes, contáctennos para estudiar las posibilidades. Salida antes de las 11:00. Contáctennos si necesitan flexibilidad; nos adaptamos cuando es posible.", link: "/es/terminos-de-reserva", linkText: "Lee todas las condiciones de reserva" },
       { question: "¿Son una empresa de confianza?", answer: "Sí. Llevamos aproximadamente 15 años operando en Levi y somos un proveedor de alojamiento reconocido en la zona. Todos nuestros alojamientos también están listados en Booking.com bajo nuestro nombre, y cada propiedad suele tener cientos de reseñas de huéspedes. A lo largo de los años, hemos atendido a miles de clientes satisfechos." }
     ]
   },
@@ -147,7 +147,7 @@ export const es = {
     faqs: [
       {
         question: "¿A qué hora puedo hacer el check-in?",
-        answer: "El check-in es a las 17:00 a más tardar y el check-out antes de las 11:00. Si necesitas flexibilidad con los horarios, contáctanos con antelación."
+        answer: "El alojamiento está listo a más tardar a las 17:00. Enviamos el código de la puerta antes si está listo. Si necesitan llegar antes, contáctennos para estudiar las posibilidades. Salida antes de las 11:00. Contáctennos si necesitan flexibilidad; nos adaptamos cuando es posible."
       },
       {
         question: "¿Hay WiFi en los alojamientos?",
@@ -159,7 +159,7 @@ export const es = {
       },
       {
         question: "¿Cómo funciona la cancelación?",
-        answer: "La cancelación gratuita es posible hasta 60 días antes de la llegada. Consulta los términos detallados en tu confirmación de reserva. Si tus planes cambian, contáctanos y encontraremos una solución flexible."
+        answer: "Nuestro plazo estándar de cancelación es de 60 días antes de la llegada. Las estancias del 19 de diciembre al 3 de enero, Karhupirtti / Bear Lodge y las reservas superiores a 3.000 € son vinculantes y no reembolsables según las condiciones estándar. Si necesitan otras condiciones, contáctennos al reservar: somos flexibles en esa fase y podemos acordar condiciones especiales por separado. Consulten las condiciones completas."
       },
       {
         question: "¿Qué tan lejos están las pistas de los alojamientos?",
@@ -175,7 +175,7 @@ export const es = {
       },
       {
         question: "¿Cómo consigo la llave del alojamiento?",
-        answer: "Enviamos instrucciones de llegada y el código de la llave por correo electrónico antes de tu llegada. Usamos cajas de llaves o cerraduras electrónicas, por lo que no es necesario recoger las llaves."
+        answer: "El alojamiento está listo a más tardar a las 17:00. Enviamos el código de la puerta antes si está listo. Si necesitan llegar antes, contáctennos para estudiar las posibilidades."
       }
     ]
   },

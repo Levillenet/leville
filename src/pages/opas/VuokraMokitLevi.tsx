@@ -56,7 +56,7 @@ const content = {
     whyDirect: [
       "Ei välityspalkkioita – maksat vain mökistä, et kolmannelle osapuolelle",
       "Suora yhteys omistajaan – kysymyksiin saa nopean vastauksen",
-      "Joustavammat peruutusehdot kuin monilla välitysportaaleilla (60 päivää)",
+      "Perusehtomme on 60 päivän peruutusaika ennen saapumista. Poikkeuksina 19.12.–3.1. majoitukset, Karhupirtti / Bear Lodge ja yli 3 000 € varaukset ovat sitovia eikä niitä palauteta perusehtojen mukaan. Tarkista täydelliset varausehdot. Jos tarvitsette poikkeavia ehtoja, ottakaa yhteyttä varausvaiheessa: olemme joustavia ja voimme sopia erityisistä ehdoista erikseen.",
       "Maksu suomalaisen Paytrailin kautta – turvallista ja tuttua",
     ],
     locationTitle: "Sijainti: kaikki kohteet Levin keskustassa",
@@ -69,7 +69,7 @@ const content = {
       },
       {
         q: "Mitä vuokramökin hinta sisältää?",
-        a: "Hintaan kuuluu yleensä mökki, sähkö, vesi, lämmitys ja peruskalusteet. Liinavaatteet, pyyhkeet ja loppusiivous voivat olla lisämaksullisia – tarkista kohteen varausehdot. Pantti (100–300 €) palautetaan, kun mökki jätetään siistinä.",
+        a: "Hintaan kuuluu yleensä mökki, sähkö, vesi, lämmitys ja peruskalusteet. Liinavaatteet ja pyyhkeet ovat lisämaksullinen valinta. Kohdekohtainen hinta on 19–23 €. Voitte varata ne varauksen yhteydessä tai tuoda omat. Tarkista loppusiivouksen hinta varausjärjestelmästä. Panttia tai vakuusmaksua ei peritä.",
       },
       {
         q: "Onko mökeissä saunat?",
@@ -117,7 +117,7 @@ const content = {
     whyDirect: [
       "No booking fees – you pay only for the cabin, not a third party",
       "Direct contact with the owner – fast answers to your questions",
-      "Flexible cancellation policy compared to many booking portals (60 days)",
+      "The standard cancellation period is 60 days before arrival. Bookings for 19 December–3 January, Karhupirtti / Bear Lodge, and bookings over €3,000 are binding and non-refundable under the standard terms. Cancellations must be made in writing and acknowledged by Leville.net. Within 60 days, the booking payment is retained; no-shows are charged the full price. If you need different terms, contact us during booking: we are flexible at the booking stage and can agree special terms. Exceptions require an explicit agreement, not an automatic refund right. Other booking channels apply their own cancellation terms. Full terms: https://leville.net/en/booking-terms.",
       "Payment via Finnish Paytrail – safe and familiar",
     ],
     locationTitle: "Location: all properties in Levi centre",
@@ -130,7 +130,7 @@ const content = {
       },
       {
         q: "What does the cabin price include?",
-        a: "The price normally covers the cabin, electricity, water, heating and basic furnishings. Linens, towels and final cleaning may cost extra – check the property terms. A deposit (€100–300) is refunded when the cabin is left clean.",
+        a: "The price normally covers the cabin, electricity, water, heating and basic furnishings. Bed linen and towels are optional paid extras, €19–23 depending on the property. Book them during reservation or bring your own. Check the final cleaning price in the booking system. No security deposit is charged.",
       },
       {
         q: "Do the cabins have saunas?",

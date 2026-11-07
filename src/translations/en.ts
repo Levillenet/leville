@@ -96,12 +96,12 @@ export const en = {
     ],
     bookingTitle: "Booking & Payment – How It Works",
     bookingText: "Booking through Leville.net is easy and secure. Select your dates and group size in the search bar at the top of the page, and you'll instantly see available properties with prices.\n\nPayment is processed securely through Paytrail – Finland's largest and most trusted payment provider. You can pay with all major credit cards (Visa, Mastercard) or Finnish online banking. Your booking is confirmed immediately after payment, and you'll receive a confirmation email.",
-    cancellationNote: "Our cancellation policy allows free cancellation up to 60 days before arrival – so you always book risk-free.",
+    cancellationNote: "Our standard cancellation period is 60 days before arrival. Stays during 19 December–3 January, Karhupirtti / Bear Lodge and bookings over €3,000 are binding and non-refundable under the standard terms. If you need different terms, contact us during booking: we are flexible at the booking stage and can agree special terms separately. Please read the full booking terms.",
     infoCards: [
       { icon: "ShieldCheck", title: "Secure Payment", description: "Payment via Paytrail by credit card or online banking. Finland's largest payment provider." },
-      { icon: "KeyRound", title: "Check-in", description: "By 5:00 PM at the latest. Key info and instructions sent to your email on booking day." },
-      { icon: "LogOut", title: "Check-out", description: "At 11:00 AM." },
-      { icon: "Bed", title: "Bed Linen", description: "Bed linen can be booked as needed during the booking process. Check property details." },
+      { icon: "KeyRound", title: "Check-in", description: "The apartment is ready no later than 17:00. We send the door code earlier if the apartment is ready. If you need earlier access, contact us so we can explore the possibilities." },
+      { icon: "LogOut", title: "Check-out", description: "Check-out is by 11:00. Contact us if you need flexibility; we accommodate requests where possible." },
+      { icon: "Bed", title: "Bed Linen", description: "Bed linen and towels are optional paid extras, €19–23 depending on the property. Book them during reservation or bring your own." },
       { icon: "Car", title: "Parking", description: "Free parking at all our properties. Most have engine block heaters." }
     ],
     faqTitle: "Frequently Asked Questions About Accommodation in Levi",
@@ -112,7 +112,7 @@ export const en = {
       { question: "How do I get to Levi?", answer: "You can fly to Kittilä Airport (15 min by bus) or take a train to Kolari (1 h by bus). By car, Helsinki–Levi is about 1,100 km.", link: "/en/travel/how-to-get-to-levi", linkText: "Read more on our How to Get to Levi page" },
       { question: "Is Levi suitable for families with children?", answer: "Absolutely. Levi has dedicated children's slopes, ski school, family restaurants and plenty of child-friendly activities.", link: "/en/guide/levi-with-children", linkText: "Read our Levi with Children guide" },
       { question: "Is the payment secure?", answer: "Yes. All payments are processed through Paytrail, Finland's largest payment provider. You can pay with Visa and Mastercard credit cards or Finnish online banking. We never process or store your card details." },
-      { question: "What are your booking terms?", answer: "Our booking terms are flexible and customer-friendly. Bookings under €3,000 can be cancelled free of charge up to 60 days before arrival. Bookings over €3,000 are non-refundable. Your booking is confirmed after payment and you'll receive a confirmation email. Payments are processed securely through Paytrail. Check-in by 17:00 and check-out by 11:00.", link: "/en/booking-terms", linkText: "Read full booking terms here" },
+      { question: "What are your booking terms?", answer: "Our standard cancellation period is 60 days before arrival. Stays during 19 December–3 January, Karhupirtti / Bear Lodge and bookings over €3,000 are binding and non-refundable under the standard terms. If you need different terms, contact us during booking: we are flexible at the booking stage and can agree special terms separately. Please read the full booking terms. The apartment is ready no later than 17:00. We send the door code earlier if the apartment is ready. If you need earlier access, contact us so we can explore the possibilities. Check-out is by 11:00. Contact us if you need flexibility; we accommodate requests where possible.", link: "/en/booking-terms", linkText: "Read full booking terms here" },
       { question: "Are you a trustworthy company?", answer: "Yes. We have been operating in Levi for approximately 15 years and are a well-known accommodation provider in the area. All our properties are also listed on Booking.com under our name, and each property typically has hundreds of guest reviews. Over the years, we have served thousands of satisfied customers.", link: "/en/about", linkText: "Read more about us" }
     ]
   },
@@ -148,7 +148,7 @@ export const en = {
     faqs: [
       {
         question: "What time can I check in?",
-        answer: "Check-in is by 5:00 PM at the latest and check-out at 11:00 AM. If you need flexibility with times, please contact us in advance."
+        answer: "The apartment is ready no later than 17:00. We send the door code earlier if the apartment is ready. If you need earlier access, contact us so we can explore the possibilities. Check-out is by 11:00. Contact us if you need flexibility; we accommodate requests where possible."
       },
       {
         question: "Is there WiFi in the accommodations?",
@@ -160,7 +160,7 @@ export const en = {
       },
       {
         question: "How does cancellation work?",
-        answer: "Free cancellation is possible up to 60 days before arrival. See detailed terms in your booking confirmation. If your plans change, contact us and we will find a flexible solution."
+        answer: "Our standard cancellation period is 60 days before arrival. Stays during 19 December–3 January, Karhupirtti / Bear Lodge and bookings over €3,000 are binding and non-refundable under the standard terms. If you need different terms, contact us during booking: we are flexible at the booking stage and can agree special terms separately. Please read the full booking terms."
       },
       {
         question: "How far are the slopes from the accommodations?",
@@ -176,7 +176,7 @@ export const en = {
       },
       {
         question: "How do I get the key to the accommodation?",
-        answer: "We send arrival instructions and key code by email before your arrival. We use key boxes or electronic locks, so key pickup is not necessary."
+        answer: "The apartment is ready no later than 17:00. We send the door code earlier if the apartment is ready. If you need earlier access, contact us so we can explore the possibilities."
       }
     ]
   },

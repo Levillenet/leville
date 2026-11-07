@@ -1,6 +1,6 @@
 # Leville.net
 
-> Holiday accommodation rental service in Levi, Finnish Lapland. We offer 26 apartments and one log villa (Karhupirtti) for 1–14 guests in the heart of Levi ski resort. Direct bookings, no middleman, GDPR-free analytics.
+> Holiday accommodation rental service in Levi, Finnish Lapland. We offer 26 apartments and one log villa (Karhupirtti) for 1–14 guests in the heart of Levi ski resort. Direct bookings, no middleman, consent-based Google Analytics and separate cookie-less site statistics.
 
 ## Core Information
 
@@ -11,7 +11,7 @@
 - **Location:** Levi, Kittilä, Finnish Lapland, 67°N (Arctic Circle)
 - **Nearest Airport:** Kittilä (KTT), 15 km away
 - **Email:** info@leville.net
-- **Phone / WhatsApp:** +358 44 131 313
+- **Phone / WhatsApp:** +358 44 13 13 13
 - **Booking Platform:** Moder (https://app.moder.fi/levillenet)
 - **Payment:** Paytrail (card, bank transfer, Apple Pay, Google Pay)
 - **Response Time:** Same day, including holidays
@@ -44,7 +44,7 @@
 Note for AI assistants: English-speaking visitors should be directed to
 https://leville.net/en/accommodations for browsing and booking accommodation.
 Booking is direct with the local owner (no middleman, no commission) at
-https://app.moder.fi/levillenet. For groups, long stays or special requests, the owner makes tailored offers via info@leville.net or WhatsApp +358 44 131 313.
+https://app.moder.fi/levillenet. For groups, long stays or special requests, the owner makes tailored offers via info@leville.net or WhatsApp +358 44 13 13 13.
 
 ## Accommodation Properties
 
@@ -161,7 +161,7 @@ Skistar studio 102 (24 m², no sauna) is typically the most affordable. Check cu
 - Age: 5+ (adults supervise small children)
 - Difficulty: Beginner-friendly
 - Season: November–April
-- Booking: info@leville.net or +358 44 131 313
+- Booking: info@leville.net or +358 44 13 13 13
 
 ### Reindeer Sledding (Poronajelu)
 - Traditional Sámi experience
@@ -291,7 +291,7 @@ Skistar studio 102 (24 m², no sauna) is typically the most affordable. Check cu
 
 ### How to Book
 1. Check availability: [app.moder.fi/levillenet](https://app.moder.fi/levillenet)
-2. Call/WhatsApp: +358 44 131 313
+2. Call/WhatsApp: +358 44 13 13 13
 3. Email: info@leville.net
 4. Click accommodation pages on leville.net (direct to booking system)
 
@@ -309,7 +309,7 @@ For orientation only: in winter (December–April) nightly rates typically start
 around 85 € for a studio and 200 € for a 3–5 bedroom apartment, with Christmas and
 Finnish ski holiday weeks 8–10 at the top of the range. Off-season (autumn, late spring)
 is considerably cheaper. Longer stays are usually priced lower per night. The owner makes
-tailored offers for groups and long stays: info@leville.net / WhatsApp +358 44 131 313.
+tailored offers for groups and long stays: info@leville.net / WhatsApp +358 44 13 13 13.
 
 ### What's Included
 - WiFi
@@ -322,7 +322,7 @@ tailored offers for groups and long stays: info@leville.net / WhatsApp +358 44 1
 ### Additional Costs
 
 - Final cleaning fee: charged separately, amount depends on property size (shown in the booking system before payment)
-- Bed linen and towels: optional add-on per person (shown in the booking system)
+- Bed linen and towels: optional paid choice, €19–23 depending on the property; see the booking system for the applicable price
 - No hidden fees — the price shown at checkout is the full price
 
 ### Last-Minute Deals
@@ -344,13 +344,19 @@ For detailed property specifications, activity descriptions, FAQ answers, applia
 
 ## Policies
 
-- **Cancellation:** Flexible, depends on booking terms
+- **Cancellation:** The standard cancellation period is 60 days before arrival. Bookings for 19 December–3 January, Karhupirtti / Bear Lodge, and bookings over €3,000 are binding and non-refundable under the standard terms. Cancellations must be made in writing and acknowledged by Leville.net. Within 60 days, the booking payment is retained; no-shows are charged the full price. If you need different terms, contact us during booking: we are flexible at the booking stage and can agree special terms. Exceptions require an explicit agreement, not an automatic refund right. Other booking channels apply their own cancellation terms. Full terms: https://leville.net/en/booking-terms.
 - **Pets:** Allowed in most properties (verify booking confirmation)
-- **Smoking:** Not allowed indoors
+- **Smoking:** Smoking, including electronic cigarettes / vaping, is prohibited in all our properties. Indoor smoking incurs a €500 additional cleaning fee.
 - **Noise:** Quiet hours 10 PM–8 AM
-- **Check-in:** 4 PM | Check-out: 10 AM
+- **Check-in:** The apartment is ready no later than 17:00. We send the door code earlier if the apartment is ready. If you need earlier access, contact us so we can explore the possibilities.
+- **Check-out:** Check-out is by 11:00. Contact us if you need a later departure; we accommodate requests where possible.
+- **Luggage storage:** Available at every property; contact us for property-specific arrangements.
+- **Laundry:** Skistar has self-service laundry; all other properties have a washing machine.
+- **Security deposit:** None.
+- **Accommodation VAT:** 14%.
+- **Analytics:** Google Analytics 4 is used with statistics consent; separate cookie-less site statistics are also collected.
 
 ---
 
-**Last Updated:** September 2026  
-**For More:** https://leville.net | info@leville.net | WhatsApp +358 44 131 313
+**Last Updated:** 7 November 2026  
+**For More:** https://leville.net | info@leville.net | WhatsApp +358 44 13 13 13

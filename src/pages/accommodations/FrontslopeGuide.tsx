@@ -138,7 +138,7 @@ const FrontslopeGuide = () => {
 
   const houseRules = [
     { icon: Cigarette, title: "No Smoking", desc: "No smoking or vaping inside the apartments. Please smoke outside and use the ashtray provided." },
-    { icon: Volume2, title: "Quiet Time from 11 PM", desc: "Quiet hours begin at 11:00 PM. Please — no excessive noise, loud music or rowdy behaviour. Disturbances to neighbours will not be tolerated." },
+    { icon: Volume2, title: "Quiet Hours 10 PM–8 AM", desc: "Quiet hours are 10:00 PM–8:00 AM. Please — no excessive noise, loud music or rowdy behaviour. Disturbances to neighbours will not be tolerated." },
     { icon: ShieldCheck, title: "Damage", desc: "Please report any damage or malfunction to us right away so we can repair or replace items quickly." },
     { icon: Phone, title: "Emergencies", desc: "In case of emergency, call 112 (Finnish emergency number). Fire extinguishers are located in the hallway. For non-urgent issues, contact us at +358 44 13 13 13 or info@leville.net." },
   ];
@@ -324,11 +324,11 @@ const FrontslopeGuide = () => {
                 </div>
                 <div>
                   <p className="text-xs font-semibold tracking-wider" style={{ color: "#B8860B" }}>CHECK-IN</p>
-                  <p className="text-lg font-bold" style={{ color: "#2D2D2D" }}>From 5:00 PM</p>
+                  <p className="text-lg font-bold" style={{ color: "#2D2D2D" }}>Ready by 5:00 PM</p>
                 </div>
               </div>
               <p className="text-sm leading-relaxed" style={{ color: "#555" }}>
-                We prepare the apartment so that everything is ready from 5:00 PM onwards. You can arrive anytime during the evening. You will receive the door lock code by text message on the day of arrival.
+                The apartment is ready no later than 17:00. We send the door code earlier if the apartment is ready. If you need earlier access, contact us so we can explore the possibilities.
               </p>
             </div>
 
@@ -343,7 +343,7 @@ const FrontslopeGuide = () => {
                 </div>
               </div>
               <p className="text-sm leading-relaxed" style={{ color: "#555" }}>
-                Please follow the checkout instructions posted on the hallway wall.
+                Please follow the checkout instructions posted on the hallway wall. Check-out is by 11:00. Contact us if you need a later departure; we accommodate requests where possible.
               </p>
             </div>
           </div>

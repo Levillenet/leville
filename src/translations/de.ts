@@ -95,12 +95,12 @@ export const de = {
     ],
     bookingTitle: "Buchung & Bezahlung – So funktioniert es",
     bookingText: "Buchen über Leville.net ist einfach und sicher. Wählen Sie Ihre Daten und Gruppengröße in der Suchleiste oben auf der Seite, und Sie sehen sofort verfügbare Unterkünfte mit Preisen.\n\nDie Zahlung erfolgt sicher über Paytrail – Finnlands größten und vertrauenswürdigsten Zahlungsanbieter. Sie können mit allen gängigen Kreditkarten (Visa, Mastercard) oder finnischem Online-Banking bezahlen.",
-    cancellationNote: "Unsere Stornierungsrichtlinie erlaubt kostenlose Stornierung bis 60 Tage vor Anreise.",
+    cancellationNote: "Unsere reguläre Stornierungsfrist beträgt 60 Tage vor Anreise. Aufenthalte vom 19. Dezember bis 3. Januar, Karhupirtti / Bear Lodge und Buchungen über 3.000 € sind nach den Standardbedingungen verbindlich und nicht erstattungsfähig. Benötigen Sie andere Bedingungen, kontaktieren Sie uns während der Buchung: Wir sind in dieser Phase flexibel und können besondere Bedingungen gesondert vereinbaren. Bitte lesen Sie die vollständigen Buchungsbedingungen.",
     infoCards: [
       { icon: "ShieldCheck", title: "Sichere Zahlung", description: "Zahlung über Paytrail per Kreditkarte oder Online-Banking. Finnlands größter Zahlungsanbieter." },
-      { icon: "KeyRound", title: "Check-in", description: "Spätestens um 17:00 Uhr. Schlüsselinformationen werden am Buchungstag per E-Mail gesendet." },
-      { icon: "LogOut", title: "Check-out", description: "Um 11:00 Uhr. Endreinigung ist bei den meisten Unterkünften enthalten." },
-      { icon: "Bed", title: "Bettwäsche", description: "Bettwäsche kann bei Bedarf während des Buchungsvorgangs gebucht werden. Prüfen Sie die Unterkunftsdetails." },
+      { icon: "KeyRound", title: "Check-in", description: "Die Unterkunft ist spätestens um 17:00 Uhr bereit. Wir senden den Türcode früher, wenn die Unterkunft fertig ist. Für eine frühere Anreise kontaktieren Sie uns, damit wir die Möglichkeiten prüfen können." },
+      { icon: "LogOut", title: "Check-out", description: "Check-out bis 11:00 Uhr. Kontaktieren Sie uns bei Bedarf; wir sind nach Möglichkeit flexibel." },
+      { icon: "Bed", title: "Bettwäsche", description: "Bettwäsche und Handtücher sind kostenpflichtige Extras, je nach Unterkunft 19–23 €. Buchen Sie diese bei der Reservierung oder bringen Sie eigene mit." },
       { icon: "Car", title: "Parkplatz", description: "Kostenloser Parkplatz bei allen Unterkünften. Die meisten haben eine Motorvorwärmung." }
     ],
     faqTitle: "Häufig gestellte Fragen zur Unterkunft in Levi",
@@ -111,7 +111,7 @@ export const de = {
       { question: "Wie komme ich nach Levi?", answer: "Sie können zum Flughafen Kittilä fliegen (15 Min. mit dem Bus) oder den Zug nach Kolari nehmen (1 Std. mit dem Bus).", link: "/en/travel/how-to-get-to-levi", linkText: "Mehr auf unserer Reiseseite" },
       { question: "Ist Levi für Familien geeignet?", answer: "Absolut. Levi hat eigene Kinderpisten, Skischule, Familienrestaurants und viele kinderfreundliche Aktivitäten.", link: "/en/guide/levi-with-children", linkText: "Lesen Sie unseren Familienguide" },
       { question: "Ist die Bezahlung sicher?", answer: "Ja. Alle Zahlungen werden über Paytrail abgewickelt, Finnlands größten Zahlungsanbieter. Wir speichern niemals Ihre Kartendaten." },
-      { question: "Wie lauten Ihre Buchungsbedingungen?", answer: "Unsere Buchungsbedingungen sind flexibel und kundenfreundlich. Buchungen unter 3.000 € können bis 60 Tage vor Anreise kostenlos storniert werden. Buchungen über 3.000 € sind nicht erstattungsfähig. Die Buchung wird nach Zahlung bestätigt. Zahlungen werden sicher über Paytrail abgewickelt. Endreinigung ist im Preis inbegriffen. Check-in bis 17:00 Uhr und Check-out bis 11:00 Uhr.", link: "/de/buchungsbedingungen", linkText: "Alle Buchungsbedingungen lesen" },
+      { question: "Wie lauten Ihre Buchungsbedingungen?", answer: "Unsere reguläre Stornierungsfrist beträgt 60 Tage vor Anreise. Aufenthalte vom 19. Dezember bis 3. Januar, Karhupirtti / Bear Lodge und Buchungen über 3.000 € sind nach den Standardbedingungen verbindlich und nicht erstattungsfähig. Benötigen Sie andere Bedingungen, kontaktieren Sie uns während der Buchung: Wir sind in dieser Phase flexibel und können besondere Bedingungen gesondert vereinbaren. Bitte lesen Sie die vollständigen Buchungsbedingungen. Die Unterkunft ist spätestens um 17:00 Uhr bereit. Wir senden den Türcode früher, wenn die Unterkunft fertig ist. Für eine frühere Anreise kontaktieren Sie uns, damit wir die Möglichkeiten prüfen können. Check-out bis 11:00 Uhr. Kontaktieren Sie uns bei Bedarf; wir sind nach Möglichkeit flexibel.", link: "/de/buchungsbedingungen", linkText: "Alle Buchungsbedingungen lesen" },
       { question: "Sind Sie ein vertrauenswürdiges Unternehmen?", answer: "Ja. Wir sind seit etwa 15 Jahren in Levi tätig und ein bekannter Unterkunftsanbieter in der Region. Alle unsere Unterkünfte sind auch auf Booking.com unter unserem Namen gelistet, und jede Unterkunft hat in der Regel Hunderte von Gästebewertungen. Im Laufe der Jahre haben wir Tausende zufriedener Kunden bedient." }
     ]
   },
@@ -147,7 +147,7 @@ export const de = {
     faqs: [
       {
         question: "Um wie viel Uhr kann ich einchecken?",
-        answer: "Check-in ist spätestens um 17:00 Uhr und Check-out bis 11:00 Uhr. Wenn Sie Flexibilität bei den Zeiten benötigen, kontaktieren Sie uns im Voraus."
+        answer: "Die Unterkunft ist spätestens um 17:00 Uhr bereit. Wir senden den Türcode früher, wenn die Unterkunft fertig ist. Für eine frühere Anreise kontaktieren Sie uns, damit wir die Möglichkeiten prüfen können. Check-out bis 11:00 Uhr. Kontaktieren Sie uns bei Bedarf; wir sind nach Möglichkeit flexibel."
       },
       {
         question: "Gibt es WLAN in den Unterkünften?",
@@ -159,7 +159,7 @@ export const de = {
       },
       {
         question: "Wie funktioniert die Stornierung?",
-        answer: "Kostenlose Stornierung ist bis 60 Tage vor Ankunft möglich. Siehe detaillierte Bedingungen in Ihrer Buchungsbestätigung. Wenn sich Ihre Pläne ändern, kontaktieren Sie uns und wir finden eine flexible Lösung."
+        answer: "Unsere reguläre Stornierungsfrist beträgt 60 Tage vor Anreise. Aufenthalte vom 19. Dezember bis 3. Januar, Karhupirtti / Bear Lodge und Buchungen über 3.000 € sind nach den Standardbedingungen verbindlich und nicht erstattungsfähig. Benötigen Sie andere Bedingungen, kontaktieren Sie uns während der Buchung: Wir sind in dieser Phase flexibel und können besondere Bedingungen gesondert vereinbaren. Bitte lesen Sie die vollständigen Buchungsbedingungen."
       },
       {
         question: "Wie weit sind die Pisten von den Unterkünften entfernt?",
@@ -175,7 +175,7 @@ export const de = {
       },
       {
         question: "Wie bekomme ich den Schlüssel zur Unterkunft?",
-        answer: "Wir senden Anreiseanweisungen und Schlüsselcode per E-Mail vor Ihrer Ankunft. Wir verwenden Schlüsselboxen oder elektronische Schlösser, sodass keine Schlüsselabholung erforderlich ist."
+        answer: "Die Unterkunft ist spätestens um 17:00 Uhr bereit. Wir senden den Türcode früher, wenn die Unterkunft fertig ist. Für eine frühere Anreise kontaktieren Sie uns, damit wir die Möglichkeiten prüfen können."
       }
     ]
   },

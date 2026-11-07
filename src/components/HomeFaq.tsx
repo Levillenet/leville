@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: "Mitä hyötyä on varata suoraan Leville.netiltä?",
-    a: "Varaat suoraan kohteen omistajalta ilman välittäjää – saat henkilökohtaista palvelua, joustavammat tulo- ja lähtöajat sekä yhteyden suoraan ihmiseen, joka tuntee kohteen. Maksaminen tapahtuu turvallisesti Paytrailin kautta ja peruutusaika on 60 päivää ennen saapumista.",
+    a: "Varaat suoraan kohteen omistajalta ilman välittäjää – saat henkilökohtaista palvelua ja yhteyden suoraan ihmiseen, joka tuntee kohteen. Maksaminen tapahtuu turvallisesti Paytrailin kautta. Perusehtomme on 60 päivän peruutusaika ennen saapumista. Poikkeuksina 19.12.–3.1. majoitukset, Karhupirtti / Bear Lodge ja yli 3 000 € varaukset ovat sitovia eikä niitä palauteta perusehtojen mukaan. Tarkista täydelliset varausehdot. Jos tarvitsette poikkeavia ehtoja, ottakaa yhteyttä varausvaiheessa: olemme joustavia ja voimme sopia erityisistä ehdoista erikseen. Tulo- ja lähtöajoissa joustamme mahdollisuuksien mukaan, kun otatte yhteyttä.",
   },
 ];
 
