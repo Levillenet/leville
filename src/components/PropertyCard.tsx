@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import OptimizedImage from "@/components/OptimizedImage";
 import type { Property } from "@/data/properties";
-import { propertyFi, locationFi, locationFiBySlug, translateYearFi } from "@/data/propertyTranslationsFi";
+import { propertyFi, locationFi, locationFiBySlug, translateYearFi, highlightFi } from "@/data/propertyTranslationsFi";
 
 interface PropertyCardProps {
   property: Property;
@@ -201,7 +201,7 @@ const PropertyCard = ({
         <div className="flex flex-wrap gap-1.5">
           {property.highlights?.map((h) => (
             <Badge key={h} variant="secondary" className="bg-primary/15 text-primary border-primary/30 text-xs">
-              {h}
+              {lang === "fi" ? (highlightFi[h] ?? h) : h}
             </Badge>
           ))}
           {property.sauna && (

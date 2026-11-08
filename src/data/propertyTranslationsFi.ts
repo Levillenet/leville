@@ -586,3 +586,13 @@ export const translateYearFi = (s: string): string => {
     .replace(/November/gi, "marraskuu")
     .replace(/December/gi, "joulukuu");
 };
+
+/** Finnish versions of English highlight badges in properties.ts. */
+export const highlightFi: Record<string, string> = {
+  "Built 2020 – modern apartment in Levi center": "Rakennettu 2020 – moderni huoneisto Levin keskustassa",
+  "In-house laundry room – professional washing machine at low cost": "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu",
+  "Top-tier alpine apartment in the heart of Levi": "Erittäin hieno alppihuoneisto Levin ytimessä",
+  "Unique – the only log cabin in Levi center": "Ainutlaatuinen – ainoa Levin keskustan hirsimökki",
+  "Prime location right in Levi center": "Erinomainen sijainti aivan Levin keskustassa",
+  "Spacious family apartment": "Tilava perheasunto",
+};

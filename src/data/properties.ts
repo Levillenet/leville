@@ -19,7 +19,7 @@ export interface Property {
   fireplace: boolean;
   hotTub?: boolean;
   yearBuiltOrRenovated: string;
-  /** Short Finnish marketing badges shown on listings + detail page (e.g. "Tilava perheasunto"). */
+  /** Short Finnish marketing badges shown on listings + detail page (e.g. "Spacious family apartment"). */
   highlights?: string[];
   shortDescription: string;
   slug: string;
@@ -65,7 +65,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: true,
     yearBuiltOrRenovated: "Renovated 2024",
-    highlights: ["Erittäin hieno alppihuoneisto Levin ytimessä"],
+    highlights: ["Top-tier alpine apartment in the heart of Levi"],
     shortDescription: "Fully renovated (June 2024) 2-bedroom alpine apartment in Levi center. Heat-storing fireplace, two renewed bathrooms, drying room, and balcony. Air source heat pump. Pets allowed."
   },
   {
@@ -103,7 +103,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: true,
     yearBuiltOrRenovated: "Renovated 2024",
-    highlights: ["Erittäin hieno alppihuoneisto Levin ytimessä"],
+    highlights: ["Top-tier alpine apartment in the heart of Levi"],
     shortDescription: "65 m² alpine apartment near front slopes and Zero Point. Fully renovated 2024. Downstairs living room with PlayStation and 150cm sofa bed. Private sauna, drying room, and heat-storing fireplace. Pets allowed."
   },
   {
@@ -148,7 +148,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: true,
     yearBuiltOrRenovated: "Renovated 2024",
-    highlights: ["Erittäin hieno alppihuoneisto Levin ytimessä"],
+    highlights: ["Top-tier alpine apartment in the heart of Levi"],
     shortDescription: "100 m² penthouse with 4 bedrooms, 3 balconies, and slope-view sauna. Heat-storing fireplace, 10-person dining table. Renovated 2021. Pets allowed."
   },
   {
@@ -190,7 +190,7 @@ export const properties: Property[] = [
     fireplace: true,
     hotTub: true,
     yearBuiltOrRenovated: "Built 1989, fully renovated 2022",
-    highlights: ["Ainutlaatuinen – ainoa Levin keskustan hirsimökki"],
+    highlights: ["Unique – the only log cabin in Levi center"],
     shortDescription: "220 m² traditional log cabin in Levi center with 7 bedrooms, outdoor hot tub, private yard, and fireplace. 3 ensuite bedrooms downstairs (private shower + WC), 5 bathrooms with shower in total, plus a separate WC upstairs. Fully renovated 2022. Pets allowed."
   },
   {
@@ -234,7 +234,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
+    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
     shortDescription: "54 m² Superior suite with 2 bedrooms, sauna, and balcony. End apartment with forest views. Accessible. Ski storage with rack and ventilation. Pets not allowed."
   },
   {
@@ -278,7 +278,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
+    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
     shortDescription: "54 m² Superior suite with 2 bedrooms, sauna, balcony, and underfloor heating. Walking distance to all Levi services. Pets not allowed."
   },
   {
@@ -322,7 +322,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
+    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
     shortDescription: "43 m² renovated 1-bedroom Superior apartment with sauna. Accessible (no stairs). Carefully designed interior. Pets not allowed."
   },
   {
@@ -366,7 +366,7 @@ export const properties: Property[] = [
     accessible: true,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
+    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
     shortDescription: "44 m² renovated 1-bedroom Superior apartment with sauna. Accessible (no stairs). Luggage drop-off available. Pets not allowed."
   },
   {
@@ -410,8 +410,8 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
-    shortDescription: "43 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla, 3. kerroksessa Skistar-talossa. Huolellisesti suunniteltu sisustus. Ei lemmikkejä."
+    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
+    shortDescription: "43 m² renovated 1-bedroom Superior apartment with sauna on the 3rd floor of the Skistar building. Carefully designed interior. Pets not allowed."
   },
   {
     id: "102",
@@ -443,7 +443,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
+    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
     shortDescription: "24 m² studio on Postintie in Levi center. Built 2020. The most compact option – no sauna, but affordable and accessible (no stairs). Just steps from K-Market. Pets not allowed."
   },
   {
@@ -486,7 +486,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
+    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
     shortDescription: "28 m² Superior studio with private sauna on Postintie. Built 2020. Tiled feature wall, underfloor heating. Fully equipped kitchen with dishwasher. Accessible. Pets not allowed."
   },
   {
@@ -529,7 +529,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
+    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
     shortDescription: "28 m² Superior studio with private sauna in Skistar building on Postintie. Washing machine in apartment, drying cabinet. Steps from K-Market. About 700 m to lifts. Pets not allowed."
   },
   {
@@ -572,7 +572,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
+    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
     shortDescription: "28 m² studio with sauna in Skistar building on Postintie. Underfloor heating. Steps from K-Market. Pets not allowed."
   },
   {
@@ -615,7 +615,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Rakennettu 2020 – moderni huoneisto Levin keskustassa", "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu"],
+    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
     shortDescription: "28 m² studio with sauna in Skistar building on Postintie. Underfloor heating. Steps from K-Market. About 700 m to lifts. Pets not allowed."
   },
   {
@@ -766,7 +766,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "",
-    highlights: ["Erinomainen sijainti aivan Levin keskustassa", "Tilava perheasunto"],
+    highlights: ["Prime location right in Levi center", "Spacious family apartment"],
     shortDescription: "92 m² traditional alpine apartment at the foot of Eturinne, Zero Point area. 4 bedrooms. Street level + basement with easy outdoor access. Warm ski storage. Children's playroom in building. Pets allowed."
   },
   {
@@ -804,7 +804,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "",
-    highlights: ["Erinomainen sijainti aivan Levin keskustassa", "Tilava perheasunto"],
+    highlights: ["Prime location right in Levi center", "Spacious family apartment"],
     shortDescription: "67 m² apartment with 3 bedrooms at the foot of Eturinne, Zero Point area. Full-width balcony. 5 beds + sofa bed. Pets allowed."
   },
   {
@@ -846,7 +846,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "",
-    highlights: ["Erinomainen sijainti aivan Levin keskustassa", "Tilava perheasunto"],
+    highlights: ["Prime location right in Levi center", "Spacious family apartment"],
     shortDescription: "92 m² alpine apartment with 4 bedrooms. Same building as A1. Street level + basement. Steps from the chairlift. Children's playroom. Pets allowed."
   },
   {
@@ -888,7 +888,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "",
-    highlights: ["Erinomainen sijainti aivan Levin keskustassa", "Tilava perheasunto"],
+    highlights: ["Prime location right in Levi center", "Spacious family apartment"],
     shortDescription: "72 m² second-floor apartment with 2 bedrooms + 2 alcove beds upstairs. Balcony facing Eturinne. At the foot of the front slope. Pets allowed."
   },
   {
@@ -926,7 +926,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "",
-    highlights: ["Erinomainen sijainti aivan Levin keskustassa", "Tilava perheasunto"],
+    highlights: ["Prime location right in Levi center", "Spacious family apartment"],
     shortDescription: "84 m² penthouse with 4 bedrooms. Second floor with balcony + upstairs bedroom balcony. At the foot of the front slope. Children's playroom. Pets allowed."
   },
   {
@@ -968,7 +968,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "",
-    highlights: ["Erinomainen sijainti aivan Levin keskustassa", "Tilava perheasunto"],
+    highlights: ["Prime location right in Levi center", "Spacious family apartment"],
     shortDescription: "72 m² second-floor apartment with 2 bedrooms + 2 alcove beds upstairs. Balcony facing street. Same layout as A4. Pets allowed."
   },
   {
@@ -1007,7 +1007,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "",
-    highlights: ["Erinomainen sijainti aivan Levin keskustassa", "Tilava perheasunto"],
+    highlights: ["Prime location right in Levi center", "Spacious family apartment"],
     shortDescription: "105 m² first-floor apartment with 5 bedrooms (2 beds each). Full-width balcony with Eturinne view. Children's playroom. Bed linen available as extra service. Pets allowed."
   },
   {
@@ -1046,7 +1046,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "",
-    highlights: ["Erinomainen sijainti aivan Levin keskustassa", "Tilava perheasunto"],
+    highlights: ["Prime location right in Levi center", "Spacious family apartment"],
     shortDescription: "105 m² first-floor apartment with 5 bedrooms. Twin of B1 – book both for up to 20 guests. Full-width balcony, Eturinne view. Pets allowed."
   },
   {
@@ -1086,7 +1086,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "",
-    highlights: ["Erinomainen sijainti aivan Levin keskustassa", "Tilava perheasunto"],
+    highlights: ["Prime location right in Levi center", "Spacious family apartment"],
     shortDescription: "87 m² penthouse with 3 bedrooms + 2 alcove beds upstairs. Balcony on both floors, upper facing Eturinne. Children's playroom. Pets allowed."
   },
   {
@@ -1126,7 +1126,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "",
-    highlights: ["Erinomainen sijainti aivan Levin keskustassa", "Tilava perheasunto"],
+    highlights: ["Prime location right in Levi center", "Spacious family apartment"],
     shortDescription: "87 m² penthouse – mirror layout of B3. Both floors have balconies. Children's playroom. Pets allowed."
   }
 ];
