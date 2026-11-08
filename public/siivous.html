@@ -49,7 +49,7 @@ button:disabled{opacity:.5}
   <div class="brand"><span>Leville.net</span><span id="clock"></span></div>
   <div class="card">
     <div id="main" hidden>
-    <div><div class="label" id="unitLabelHdr">Huoneisto · Apartment</div><div class="name" id="unitName"></div></div>
+    <div><div class="label" id="unitLabelHdr">Huoneisto</div><div class="name" id="unitName"></div></div>
 
     <!-- Vaihe 1: PIN -->
     <div id="step1">
@@ -62,16 +62,18 @@ button:disabled{opacity:.5}
           <button type="button" data-k="7">7</button><button type="button" data-k="8">8</button><button type="button" data-k="9">9</button>
           <button type="button" class="fn" data-k="C" aria-label="Tyhjennä">Tyhjennä</button><button type="button" data-k="0">0</button><button type="button" class="fn" data-k="B" aria-label="Poista">⌫</button>
         </div>
-        <button class="go" id="verifyBtn" type="button" hidden>Jatka · Continue</button>
+        <button class="go" id="verifyBtn" type="button" hidden>Jatka</button>
       </div>
     </div>
 
     <!-- Admin: yksikön valinta -->
     <div id="stepA" hidden>
       <div class="stack">
-        <label class="label" for="unitSel">Huoneisto · Apartment</label>
+        <label class="label" for="unitSel">Huoneisto</label>
         <select id="unitSel"></select>
-        <button class="go" id="pickBtn" type="button">Näytä · Show</button>
+        <button class="go" id="pickBtn" type="button">Näytä</button>
+        <button class="alt" id="syncBtn" type="button" style="margin-top:14px">Päivitä tiedot Moderista nyt</button>
+        <p class="sub">Tiedot päivittyvät automaattisesti aamulla ja päivällä. Käytä nappia, jos muutit Moderissa jotain (esim. siirsit varauksen toiseen huoneistoon tai vaihdoit ovikoodin) ja haluat muutoksen heti siivoussivulle.</p>
       </div>
     </div>
 
@@ -79,25 +81,25 @@ button:disabled{opacity:.5}
     <div id="step2" hidden>
       <div class="check" id="checklist"></div>
       <div class="stack" style="margin-top:14px">
-        <button class="go" id="confirmBtn" type="button">Kaikki kunnossa – Lähetä koodi · All good – Send code</button>
-        <button class="alt" id="logBtn" type="button" hidden>Siivous tehty · Cleaning done</button>
-        <button class="alt" id="reportBtn" type="button">Puute / huomio · Report an issue</button>
+        <button class="go" id="confirmBtn" type="button">Kaikki kunnossa – Lähetä koodi</button>
+        <button class="alt" id="logBtn" type="button" hidden>Siivous tehty</button>
+        <button class="alt" id="reportBtn" type="button">Puute / huomio</button>
       </div>
     </div>
 
     <!-- Huomio -->
     <div id="step3" hidden>
-      <h1>Huomio · Issue</h1>
-      <p class="sub">Kerro lyhyesti, mikä puuttuu tai on vialla. Leville-tiimi saa viestin heti ja hoitaa asian; vieraalle ei lähde mitään.<br>Describe briefly what is missing or broken. The Leville team is notified and will handle it; nothing is sent to the guest.</p>
+      <h1>Huomio</h1>
+      <p class="sub">Kerro lyhyesti, mikä puuttuu tai on vialla. Leville-tiimi saa viestin heti ja hoitaa asian; vieraalle ei lähde mitään.</p>
       <div class="stack" style="margin-top:12px">
         <textarea id="note" maxlength="500"></textarea>
-        <button class="go" id="sendReportBtn" type="button">Lähetä tiimille · Send</button>
-        <button class="alt" id="backBtn" type="button">Takaisin · Back</button>
+        <button class="go" id="sendReportBtn" type="button">Lähetä tiimille</button>
+        <button class="alt" id="backBtn" type="button">Takaisin</button>
       </div>
     </div>
 
     <div id="status" class="status" hidden></div>
-    <button class="alt" id="adminBack" type="button" style="margin-top:10px" hidden>← Kaikki huoneistot · All apartments</button>
+    <button class="alt" id="adminBack" type="button" style="margin-top:10px" hidden>← Kaikki huoneistot</button>
     </div>
     <div id="notfound" class="status warn" hidden><strong>Ei käytössä</strong></div>
   </div>
@@ -128,9 +130,9 @@ button:disabled{opacity:.5}
   function showStep(n){ STEPS.forEach(function(s,i){ $(s).hidden = (i+1)!==n; }); }
   function hideAll(){ STEPS.forEach(function(s){ $(s).hidden = true; }); }
   function onAdmin(r){
-    busy($('verifyBtn'), false, 'Jatka · Continue');
+    busy($('verifyBtn'), false, 'Jatka');
     if (common(r)) return;
-    if (r.status==='noadmin'){ status('err','Ei oikeutta · Not allowed','Tällä PINillä ei ole hallintaoikeutta.'); showStep(1); $('pin').value=''; return; }
+    if (r.status==='noadmin'){ status('err','Ei oikeutta','Tällä PINillä ei ole hallintaoikeutta.'); showStep(1); $('pin').value=''; return; }
     clearStatus();
     var sel=$('unitSel'); sel.innerHTML='';
     r.units.forEach(function(u){ var o=document.createElement('option'); o.value=u.slug; o.textContent=u.label + (u.next ? '  –  ' + u.next : ''); sel.appendChild(o); });
@@ -152,73 +154,73 @@ button:disabled{opacity:.5}
   }
   function common(r){ // tulokset, jotka ovat yhteisiä kaikille vaiheille
     switch(r.status){
-      case 'wrongpin': status('err','Väärä PIN · Wrong PIN','Yritys '+r.attempt+'/'+r.max+'. Tarkista PIN ja yritä uudelleen.'); showStep(1); $('pin').value=''; $('pin').focus(); return true;
-      case 'locked': status('err','Lukittu · Locked', r.permanent ? 'Sivu on lukittu liian monen väärän PINin takia. Ota yhteys Leville-tiimiin.' : 'Liian monta väärää PINiä. Yritä uudelleen '+r.minutes+' min kuluttua. Leville-tiimille on ilmoitettu.'); showStep(1); return true;
+      case 'wrongpin': status('err','Väärä PIN','Yritys '+r.attempt+'/'+r.max+'. Tarkista PIN ja yritä uudelleen.'); showStep(1); $('pin').value=''; $('pin').focus(); return true;
+      case 'locked': status('err','Lukittu', r.permanent ? 'Sivu on lukittu liian monen väärän PINin takia. Ota yhteys Leville-tiimiin.' : 'Liian monta väärää PINiä. Yritä uudelleen '+r.minutes+' min kuluttua. Leville-tiimille on ilmoitettu.'); showStep(1); return true;
       case 'unknown': status('warn','Tuntematon huoneisto','Ota yhteys Leville-tiimiin.'); hideAll(); return true;
-      case 'error': status('err','Virhe · Error','Jotain meni pieleen. Yritä uudelleen tai ota yhteys Leville-tiimiin.'); return true;
+      case 'error': status('err','Virhe','Jotain meni pieleen. Yritä uudelleen tai ota yhteys Leville-tiimiin.'); return true;
     }
     return false;
   }
   function onVerify(r){
-    busy($('verifyBtn'), false, 'Jatka · Continue');
+    busy($('verifyBtn'), false, 'Jatka');
     if (common(r)) return;
     clearStatus();
     if (r.status==='none'){
       var c0=$('checklist'); c0.innerHTML='';
-      var nd=r.days||30; c0.appendChild(rowEl('Saapuvat · Arrivals','Ei saapuvia seuraavan '+nd+' päivän aikana tällä hetkellä. Varauksia voi tulla.\nNo arrivals in the next '+nd+' days at the moment. Bookings may still come in.'));
+      var nd=r.days||30; c0.appendChild(rowEl('Saapuvat','Ei saapuvia seuraavan '+nd+' päivän aikana tällä hetkellä. Varauksia voi tulla.'));
       $('confirmBtn').hidden = true; $('logBtn').hidden = false; showStep(2); return;
     }
     if (r.status==='later'){
       var c1=$('checklist'); c1.innerHTML='';
-      c1.appendChild(rowEl('Seuraava saapuja · Next arrival', r.pvm + '\nTilanne nyt – uusia varauksia voi tulla. Tiedot näkyvät 3 päivää ennen saapumista.\nCurrent status – new bookings may come in. Details shown 3 days before arrival.'));
+      c1.appendChild(rowEl('Seuraava saapuja', r.pvm + '\nTilanne nyt – uusia varauksia voi tulla. Tiedot näkyvät 3 päivää ennen saapumista.'));
       $('confirmBtn').hidden = true; $('logBtn').hidden = false; showStep(2); return;
     }
-    if (r.status==='already'){ hideAll(); status('ok','Jo lähetetty · Already sent','Vieraalle on lähetetty viesti jo '+r.at+'. Ei tarvitse tehdä mitään.'); return; }
+    if (r.status==='already'){ hideAll(); status('ok','Jo lähetetty','Vieraalle on lähetetty viesti jo '+r.at+'. Ei tarvitse tehdä mitään.'); return; }
     if (r.status==='next'){
       var c2=$('checklist'); c2.innerHTML='';
-      c2.appendChild(rowEl('Seuraava saapuja · Next arrival', r.pvm + (r.eta ? ' klo '+r.eta : '')));
-      c2.appendChild(rowEl('Henkilöt · Guests', r.henkilot, 'ei tietoa'));
-      c2.appendChild(rowEl('Lisäpalvelut · Extras', r.lisapalvelut, 'ei lisäpalveluita'));
-      c2.appendChild(rowEl('Operatiiviset merkinnät · Notes', r.merkinnat, 'ei merkintöjä'));
+      c2.appendChild(rowEl('Seuraava saapuja', r.pvm + (r.eta ? ' klo '+r.eta : '')));
+      c2.appendChild(rowEl('Henkilöt', r.henkilot, 'ei tietoa'));
+      c2.appendChild(rowEl('Lisäpalvelut', r.lisapalvelut, 'ei lisäpalveluita'));
+      c2.appendChild(rowEl('Operatiiviset merkinnät', r.merkinnat, 'ei merkintöjä'));
       $('confirmBtn').hidden = true; $('logBtn').hidden = false; showStep(2); return;
     }
     $('confirmBtn').hidden = false; $('logBtn').hidden = true;
     var c=$('checklist'); c.innerHTML='';
-    c.appendChild(rowEl('Henkilöt · Guests', r.henkilot, 'ei tietoa'));
-    c.appendChild(rowEl('Saapuu · ETA', r.eta ? 'klo '+r.eta : '', 'ei tietoa'));
-    c.appendChild(rowEl('Lisäpalvelut · Extras', r.lisapalvelut, 'ei lisäpalveluita'));
-    c.appendChild(rowEl('Operatiiviset merkinnät · Notes', r.merkinnat, 'ei merkintöjä'));
+    c.appendChild(rowEl('Henkilöt', r.henkilot, 'ei tietoa'));
+    c.appendChild(rowEl('Saapuu', r.eta ? 'klo '+r.eta : '', 'ei tietoa'));
+    c.appendChild(rowEl('Lisäpalvelut', r.lisapalvelut, 'ei lisäpalveluita'));
+    c.appendChild(rowEl('Operatiiviset merkinnät', r.merkinnat, 'ei merkintöjä'));
     showStep(2);
   }
   function onConfirm(r){
-    busy($('confirmBtn'), false, 'Kaikki kunnossa – Lähetä koodi · All good – Send code');
+    busy($('confirmBtn'), false, 'Kaikki kunnossa – Lähetä koodi');
     if (common(r)) return;
     hideAll();
     switch(r.status){
-      case 'sent': status('ok','Lähetetty · Sent','Vieraalle lähti viesti: huoneisto '+r.label+' on valmis + ovikoodi. Leville-tiimi sai kuittauksen.','Kirjattu klo '+r.at); break;
-      case 'already': status('ok','Jo lähetetty · Already sent','Vieraalle on lähetetty viesti jo '+r.at+'.'); break;
-      case 'none': status('ok','Kirjattu · Logged','Siivous kirjattu.'); break;
-      case 'noemail': status('warn','Kirjattu · Logged','Siivous kirjattu. Vieraalla ei ole sähköpostia, Leville-tiimi lähettää koodin.'); break;
-      case 'nocode': status('warn','Kirjattu · Logged','Siivous kirjattu. Ovikoodi puuttuu, Leville-tiimille on ilmoitettu.'); break;
-      case 'closed': status('warn','Ei käytössä nyt · Not available now','Kuittaus toimii klo '+r.from+'–'+r.to+'.'); showStep(2); break;
+      case 'sent': status('ok','Lähetetty','Vieraalle lähti viesti: huoneisto '+r.label+' on valmis + ovikoodi. Leville-tiimi sai kuittauksen.','Kirjattu klo '+r.at); break;
+      case 'already': status('ok','Jo lähetetty','Vieraalle on lähetetty viesti jo '+r.at+'.'); break;
+      case 'none': status('ok','Kirjattu','Siivous kirjattu.'); break;
+      case 'noemail': status('warn','Kirjattu','Siivous kirjattu. Vieraalla ei ole sähköpostia, Leville-tiimi lähettää koodin.'); break;
+      case 'nocode': status('warn','Kirjattu','Siivous kirjattu. Ovikoodi puuttuu, Leville-tiimille on ilmoitettu.'); break;
+      case 'closed': status('warn','Ei käytössä nyt','Kuittaus toimii klo '+r.from+'–'+r.to+'.'); showStep(2); break;
     }
   }
   function onReport(r){
-    busy($('sendReportBtn'), false, 'Lähetä tiimille · Send');
+    busy($('sendReportBtn'), false, 'Lähetä tiimille');
     if (common(r)) return;
-    hideAll(); status('ok','Ilmoitettu · Reported','Leville-tiimi sai viestisi ja hoitaa asian. Vieraalle ei lähetetty mitään.');
+    hideAll(); status('ok','Ilmoitettu','Leville-tiimi sai viestisi ja hoitaa asian. Vieraalle ei lähetetty mitään.');
   }
   var run = function(fn, cb, args){
     var data = fn === 'adminUnits' ? { pin: args[0] } : fn === 'report' ? { slug: args[0], pin: args[1], text: args[2] } : { slug: args[0], pin: args[1] };
     api(fn, data, cb);
   };
 
-  $('verifyBtn').addEventListener('click', function(){ pin=$('pin').value.trim(); if(!pin){$('pin').focus();return;} busy($('verifyBtn'), true); status('ok','Tarkistetaan… · Checking…',''); if (admin && !slug) run('adminUnits', onAdmin, [pin]); else run('verify', onVerify, [slug, pin]); });
+  $('verifyBtn').addEventListener('click', function(){ pin=$('pin').value.trim(); if(!pin){$('pin').focus();return;} busy($('verifyBtn'), true); status('ok','Tarkistetaan…',''); if (admin && !slug) run('adminUnits', onAdmin, [pin]); else run('verify', onVerify, [slug, pin]); });
   // Hallinta: paluu huoneistolistaan (painike + puhelimen/selaimen takaisin-nappi)
   function backToList(){ slug=''; $('unitName').textContent=''; clearStatus(); $('adminBack').hidden=true; showStep(4); }
   $('adminBack').addEventListener('click', function(){ if (history.state && history.state.unit) history.back(); else backToList(); });
   window.addEventListener('popstate', function(){ if (admin && slug) backToList(); });
-  $('pickBtn').addEventListener('click', function(){ slug=$('unitSel').value; $('adminBack').hidden=false; try { history.pushState({ unit: slug }, ''); } catch (e) {} $('unitName').textContent=$('unitSel').options[$('unitSel').selectedIndex].textContent.split('  –  ')[0]; busy($('pickBtn'), true, ''); run('verify', function(r){ busy($('pickBtn'), false, 'Näytä · Show'); onVerify(r); }, [slug, pin]); });
+  $('pickBtn').addEventListener('click', function(){ slug=$('unitSel').value; $('adminBack').hidden=false; try { history.pushState({ unit: slug }, ''); } catch (e) {} $('unitName').textContent=$('unitSel').options[$('unitSel').selectedIndex].textContent.split('  –  ')[0]; busy($('pickBtn'), true, ''); run('verify', function(r){ busy($('pickBtn'), false, 'Näytä'); onVerify(r); }, [slug, pin]); });
   document.addEventListener('keydown', function(e){ if(e.key==='Enter' && !$('step1').hidden) $('verifyBtn').click(); });
   // Huoneistosivu: 4-numeroinen PIN, kuittaus heti 4. numerosta. Hallintasivu: 6-numeroinen admin-PIN, kuittaus 6. numerosta.
   var pinLen = (admin && !slug) ? 6 : 4;
@@ -231,6 +233,21 @@ button:disabled{opacity:.5}
   $('keypad').addEventListener('click', function(e){ var b=e.target.closest('button'); if(b) keyIn(b.getAttribute('data-k')); });
   document.addEventListener('keydown', function(e){ if ($('step1').hidden) return; if (/^[0-9]$/.test(e.key)) { keyIn(e.key); e.preventDefault(); } else if (e.key==='Backspace') { keyIn('B'); e.preventDefault(); } });
   $('unitSel').addEventListener('change', function(){ $('pickBtn').click(); });
+  // Hallinta: Moder → siivoussivu heti (sama tieto kuin ajastetussa päivityksessä)
+  $('syncBtn').addEventListener('click', function(){
+    var btn=$('syncBtn'), label='Päivitä tiedot Moderista nyt';
+    busy(btn, true); status('ok','Päivitetään…','Haetaan tiedot Moderista. Tämä kestää noin 15–30 sekuntia.');
+    api('adminSync', { pin: pin }, function(r){
+      busy(btn, false, label);
+      if (common(r)) return;
+      if (r.status==='ok') {
+        var msg='Siivoussivun tiedot on päivitetty Moderista ('+r.count+' saapujaa seuraavalta 7 päivältä).';
+        if (r.unmapped && r.unmapped.length) msg+=' Huom: '+r.unmapped.length+' varausta tuntemattomassa kohteessa, Samille ilmoitettu.';
+        api('adminUnits', { pin: pin }, function(x){ if (x && x.units) onAdmin(x); status('ok','Päivitetty', msg, 'Klo '+r.at); });
+      } else if (r.status==='busy') status('warn','Päivitys on jo käynnissä','Yritä uudelleen hetken kuluttua.');
+      else status('err','Päivitys epäonnistui', (r.error || 'Tuntematon virhe') + '. Tarkista tarvittaessa tiedot suoraan Moderista.');
+    });
+  });
   $('confirmBtn').addEventListener('click', function(){ busy($('confirmBtn'), true); run('confirm', onConfirm, [slug, pin]); });
   $('logBtn').addEventListener('click', function(){ busy($('logBtn'), true); run('confirm', onConfirm, [slug, pin]); });
   $('reportBtn').addEventListener('click', function(){ clearStatus(); showStep(3); $('note').focus(); });
