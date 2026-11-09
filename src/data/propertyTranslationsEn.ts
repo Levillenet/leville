@@ -424,7 +424,7 @@ A cosy apartment in the Karhunvartija building right in Levi Center, at Skimbaaj
 ${LEVI_VILLAGE}
 
 **Layout**
-The 42 m² apartment is on one level and sleeps four. It has a hallway, an open-plan kitchen and living room, two bedrooms (one with a sofa bed for two), a bathroom, a separate WC, a private sauna and a washing machine. The natural stone fireplace makes for cosy evenings, and firewood is included.
+The 42 m² apartment is on one level and sleeps four. It has a hallway, an open-plan kitchen and living room, two bedrooms with two beds each, a bathroom, a separate WC, a private sauna and a washing machine. The natural stone fireplace makes for cosy evenings, and firewood is included.
 
 **Easy with children**
 The apartment's own entrance is from Ratsastajankuja, and from there it is easy to get to the building's private courtyard, where children can play in the snowdrifts. Playgrounds are close by.`,

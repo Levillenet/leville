@@ -26,7 +26,7 @@ const glacier = properties.filter(p => ["glacier-a4", "glacier-a6"].includes(p.i
 const faqs = [
   {
     q: "What are the bed arrangements?",
-    a: (<>It varies. {linkProp("5A2", "5a2")} and {linkProp("5B2", "5b2")}: each bedroom has 2 separate beds, plus sofa bed downstairs. {linkProp("Superior 211", "211")}/{linkProp("212", "212")}: 2 bedrooms with beds + sofa bed in living room. {linkProp("Karhunvartija 3", "karhunvartija3")}: one bedroom with bed, second bedroom with sofa bed for two. {linkProp("Glacier A4", "glacier-a4")}/{linkProp("A6", "glacier-a6")}: 2 bedrooms plus 2 beds in open alcoves upstairs.</>),
+    a: (<>It varies. {linkProp("5A2", "5a2")} and {linkProp("5B2", "5b2")}: each bedroom has 2 separate beds, plus sofa bed downstairs. {linkProp("Superior 211", "211")}/{linkProp("212", "212")}: 2 bedrooms with beds + sofa bed in living room. {linkProp("Karhunvartija 3", "karhunvartija3")}: both bedrooms have two beds. {linkProp("Glacier A4", "glacier-a4")}/{linkProp("A6", "glacier-a6")}: 2 bedrooms plus 2 beds in open alcoves upstairs.</>),
   },
   {
     q: "Which has been most recently renovated?",

@@ -424,7 +424,7 @@ Viihtyisä huoneisto Karhunvartija-talossa aivan Levin keskustassa, osoitteessa 
 ${LEVIN_KYLA}
 
 **Pohjaratkaisu**
-42 m²:n huoneisto on yhdessä tasossa, ja siihen mahtuu neljä henkeä. Huoneistossa on eteinen, avoin keittiö ja olohuone, kaksi makuuhuonetta, joista toisessa on vuodesohva kahdelle, kylpyhuone, erillinen WC, oma sauna ja oma pesukone. Luonnonkivitakka tekee illoista tunnelmallisia, ja takkapuut sisältyvät hintaan.
+42 m²:n huoneisto on yhdessä tasossa, ja siihen mahtuu neljä henkeä. Huoneistossa on eteinen, avoin keittiö ja olohuone, kaksi makuuhuonetta, joissa kummassakin on kaksi vuodetta, kylpyhuone, erillinen WC, oma sauna ja oma pesukone. Luonnonkivitakka tekee illoista tunnelmallisia, ja takkapuut sisältyvät hintaan.
 
 **Helppo lapsiperheelle**
 Huoneiston oma sisäänkäynti on Ratsastajankujalta, ja sieltä pääsee helposti talon yksityiselle sisäpihalle, jossa lapset voivat leikkiä lumikasoissa. Leikkipuistot ovat lähellä.`,
