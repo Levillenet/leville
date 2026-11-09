@@ -177,7 +177,7 @@ export const streetHubs: StreetHub[] = [
       "Levi Platinum -talo Hiihtäjänkuja 2:ssa – Eturinteen juurella, kävelymatka keskustaan.",
     intro: [
       "Hiihtäjänkuja 2 sijaitsee Levin Eturinteen juurella, samalla kadulla kuin Front Slope -alppihuoneistot. Osoite on yksi Levin käytännöllisimmistä: rinteille ja hisseille on lyhyt matka, ja Levin keskustan ravintolat ja kaupat ovat kävelyetäisyydellä.",
-      "Leville.netillä on Hiihtäjänkuja 2:ssa Levi Platinum Superior Studio A2 – 37 neliön studio, joka avattiin vuonna 2023 ja on kohteistamme uusin. Studiossa on oma sauna, lattialämmitys, pyykinpesukone ja kuivauskaappi. Se sopii pariskunnille sekä pienelle perheelle, majoitusta enintään neljälle hengelle. Lemmikkejä kohteeseen ei valitettavasti voi ottaa.",
+      "Leville.netillä on Hiihtäjänkuja 2:ssa Levi Platinum Superior Studio A2 – 37 neliön studio vuonna 2021 valmistuneessa talossa. Studiossa on oma sauna, lattialämmitys, pyykinpesukone ja kuivauskaappi. Se sopii pariskunnille sekä pienelle perheelle, majoitusta enintään neljälle hengelle. Lemmikkejä kohteeseen ei valitettavasti voi ottaa.",
       "Varaus tapahtuu suoraan meiltä ilman välityspalkkioita, ja vapaat ajat näkyvät reaaliaikaisesti.",
     ],
     propertySlugs: ["levi-platinum-a2"],
@@ -195,7 +195,7 @@ export const streetHubs: StreetHub[] = [
     h1: "Karhunvartija 3, Skimbaajankuja 4 – perhehuoneisto Levin keskustassa",
     metaTitle: "Karhunvartija 3, Skimbaajankuja 4 Levi – perhehuoneisto | Leville.net",
     metaDescription:
-      "Karhunvartija 3 Skimbaajankuja 4:ssä Levin keskustassa: 42 m², 2 makuuhuonetta, oma sauna, takka ja aidattu piha. Lemmikit sallittu. Varaa suoraan omistajalta.",
+      "Karhunvartija 3 Skimbaajankuja 4:ssä Levin keskustassa: 42 m², 2 makuuhuonetta, oma sauna ja takka, oma sisäänkäynti talon pihalle. Lemmikit sallittu. Varaa suoraan omistajalta.",
     brandNames: ["Karhunvartija 3", "Karhunvartija Levi", "Skimbaajankuja 4 Levi"],
     locationLabel: "Levin keskusta, Skimbaajankuja 4",
     capacityLabel: "1–4 hlö",
@@ -203,7 +203,7 @@ export const streetHubs: StreetHub[] = [
       "Karhunvartija 3 – kahden makuuhuoneen huoneisto omalla saunalla ja takalla Levin keskustassa.",
     intro: [
       "Skimbaajankuja 4 sijaitsee Levin keskustan tuntumassa, samalla alueella kuin Karhupirtti-hirsihuvila. Alue on rauhallinen mutta silti kävelymatkan päässä Levin palveluista ja rinnealueesta.",
-      "Osoitteessa on Karhunvartija 3 -huoneistomme: 42 neliötä, kaksi makuuhuonetta, luonnonkivitakka, oma sauna ja aidattu piha. Oma sisäänkäynti on Ratsastajankujan puolelta. Huoneisto majoittaa neljä henkeä ja sopii erityisen hyvin perheille – lemmikit ovat tervetulleita.",
+      "Osoitteessa on Karhunvartija 3 -huoneistomme: 42 neliötä, kaksi makuuhuonetta, luonnonkivitakka ja oma sauna. Oma sisäänkäynti on Ratsastajankujan puolelta suoraan talon pihalle. Huoneisto majoittaa neljä henkeä ja sopii erityisen hyvin perheille – lemmikit ovat tervetulleita.",
       "Kohteen voi varata suoraan Leville.netin kautta ilman välityspalkkioita, ja saatavuus näkyy reaaliaikaisesti.",
     ],
     propertySlugs: ["karhunvartija-3"],

@@ -97,7 +97,7 @@ Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and ice ma
     metaDescription:
       "100 m² penthouse for 9 at Hiihtäjänkuja 5, Levi. Four bedrooms, three balconies and a sauna with a slope view, 200 m to the Front Slope. Pets allowed.",
     shortDescription:
-      "100 m² penthouse in Levi Center, Zero Point area, about 200 m from the Front Slope. Four bedrooms for 9, three balconies, sauna with a slope view and heat-retaining fireplace. Dining table for ten. Fully renovated 2021. Pets allowed.",
+      "100 m² penthouse in Levi Center, Zero Point area, about 200 m from the Front Slope. Four bedrooms for 9, three balconies, sauna with a slope view and heat-retaining fireplace. Dining table for ten. Fully renovated 2024. Pets allowed.",
     longDescription: `**100 m² penthouse with a view of the Front Slope**
 
 The top apartment of the building at Hiihtäjänkuja 5 is in the Zero Point area, about 200 m from the Front Slope. With four bedrooms and three balconies it is one of the most spacious holiday homes in Levi Center. It sleeps nine.
@@ -113,8 +113,8 @@ The balconies off the living room and one bedroom look towards the Front Slope. 
 **Sauna and fireplace**
 The sauna window faces the Front Slope. The heat-retaining fireplace in the living room warms the winter evenings, and firewood is included.
 
-**Fully renovated in 2021**
-The apartment was fully renovated in 2021 with new furniture and interior. The air source heat pump heats in winter and cools in summer. The building has private parking and a ski storage and maintenance room in the basement.
+**Fully renovated in 2024**
+The apartment was fully renovated in 2024 with new furniture and interior. The air source heat pump heats in winter and cools in summer. The building has private parking and a ski storage and maintenance room in the basement.
 
 **Location**
 The Front Slope and Zero Point are about 200 m away, cross-country trails start nearby, and restaurants, shops and other services are within walking distance.
@@ -401,12 +401,12 @@ The private entrance from Ratsastajankuja opens straight into the building's yar
   "levi-platinum-a2": {
     name: "Levi Platinum Superior Studio A2",
     metaDescription:
-      "37 m² Platinum studio for 4 at the foot of the Front Slope, Hiihtäjänkuja 2, Levi. Opened 2023, private sauna, washing machine and own parking space.",
+      "37 m² Platinum studio for 4 at the foot of the Front Slope, Hiihtäjänkuja 2, Levi. Completed 2021, private sauna, washing machine and own parking space.",
     shortDescription:
-      "37 m² Platinum studio at the foot of the Front Slope, opened 2023. Our newest apartment. Private sauna, washing machine, drying cabinet and underfloor heating. Own parking space. No pets.",
-    longDescription: `**Our newest apartment at the foot of the Front Slope**
+      "37 m² Platinum studio at the foot of the Front Slope, completed in 2021. Private sauna, washing machine, drying cabinet and underfloor heating. Own parking space. No pets.",
+    longDescription: `**Nearly new studio at the foot of the Front Slope**
 
-The Levi Platinum studio is at Hiihtäjänkuja 2 in Levi Center, at the foot of the Front Slope, and everything in the village is a short walk away. It opened in 2023 and is our newest apartment. The studio sleeps four, and there is a private parking space in the yard.
+The Levi Platinum studio is at Hiihtäjänkuja 2 in Levi Center, at the foot of the Front Slope, and everything in the village is a short walk away. The building was completed in 2021, so the apartment is nearly new. The studio sleeps four, and there is a private parking space in the yard.
 
 ${LEVI_VILLAGE}
 

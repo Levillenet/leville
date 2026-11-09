@@ -97,13 +97,13 @@ const ApartmentsFor4 = () => {
               An apartment for 4 is the sweet spot for couples traveling together or a small family with one or two children. You get more space than a studio – typically a separate bedroom, a proper kitchen, and room to settle in for the week.
             </p>
             <p>
-              Our 4-person apartments range from 37 to 44 m², all in Levi center. The standout is {linkProp("Karhunvartija 3", "karhunvartija3")} – the only 4-person apartment with 2 proper bedrooms, a natural stone fireplace, private sauna, enclosed yard with its own entrance from Ratsastajankuja street, and firewood included. It's especially good for families with small children because the private entrance leads directly to a yard where kids can play in the snow.
+              Our 4-person apartments range from 37 to 44 m², all in Levi center. The standout is {linkProp("Karhunvartija 3", "karhunvartija3")} – the only 4-person apartment with 2 proper bedrooms, a natural stone fireplace, private sauna, own entrance to the yard with its own entrance from Ratsastajankuja street, and firewood included. It's especially good for families with small children because the private entrance leads directly to a yard where kids can play in the snow.
             </p>
             <p>
               The Superior apartments ({linkProp("209", "209")}, {linkProp("210", "210")}) offer 1-bedroom layouts with a sofa bed in the living room. Both are accessible without stairs, which is practical with a stroller or for guests with mobility needs.
             </p>
             <p>
-              The larger studios – {linkProp("Platinum A2", "platinum-a2")} (37 m², opened 2023) and {linkProp("Moonlight 415", "moonlight-415")} (28 m² with a sleeping loft) – also fit 4 guests and are good options if you're budget-conscious.
+              The larger studios – {linkProp("Platinum A2", "platinum-a2")} (37 m², completed in 2021) and {linkProp("Moonlight 415", "moonlight-415")} (28 m² with a sleeping loft) – also fit 4 guests and are good options if you're budget-conscious.
             </p>
           </div>
         </section>
@@ -118,8 +118,8 @@ const ApartmentsFor4 = () => {
         <section className="container mx-auto px-4 pb-16">
           <h2 className="text-2xl sm:text-3xl font-bold mb-6">How to Choose</h2>
           <div className="max-w-3xl space-y-4 text-muted-foreground leading-relaxed">
-            <p><strong className="text-foreground">Need separate bedrooms?</strong> {linkProp("Karhunvartija 3", "karhunvartija3")} – the only 4-person apartment with 2 bedrooms and its own enclosed yard.</p>
-            <p><strong className="text-foreground">Want the newest apartment?</strong> {linkProp("Platinum A2", "platinum-a2")} – opened 2023, at the foot of the front slope.</p>
+            <p><strong className="text-foreground">Need separate bedrooms?</strong> {linkProp("Karhunvartija 3", "karhunvartija3")} – the only 4-person apartment with 2 bedrooms and its own entrance to the yard.</p>
+            <p><strong className="text-foreground">Want a nearly new apartment?</strong> {linkProp("Platinum A2", "platinum-a2")}, completed in 2021, at the foot of the front slope.</p>
             <p><strong className="text-foreground">Traveling with small children?</strong> {linkProp("Karhunvartija 3", "karhunvartija3")} – private yard, fireplace, all on one level, pets allowed. Or {linkProp("Superior 209", "209")}/{linkProp("210", "210")} – accessible without stairs.</p>
             <p><strong className="text-foreground">Best for a loft experience?</strong> {linkProp("Moonlight 415", "moonlight-415")} – sleeping loft for 3 upstairs. Note: steep stairs, not suitable for toddlers.</p>
           </div>

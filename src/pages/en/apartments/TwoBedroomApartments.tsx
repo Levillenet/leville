@@ -30,7 +30,7 @@ const faqs = [
   },
   {
     q: "Which has been most recently renovated?",
-    a: (<>{linkProp("5A2", "5a2")} and {linkProp("5B2", "5b2")} were both fully renovated in 2024 – new bathrooms, surfaces, and heat-storing fireplaces. {linkProp("Platinum A2", "platinum-a2")} (a studio, not 2-bedroom) opened 2023 as new build.</>),
+    a: (<>{linkProp("5A2", "5a2")} and {linkProp("5B2", "5b2")} were both fully renovated in 2024 – new bathrooms, surfaces, and heat-storing fireplaces. {linkProp("Platinum A2", "platinum-a2")} (a studio, not 2-bedroom) is in a building completed in 2021.</>),
   },
   {
     q: "Which have a fireplace?",
@@ -98,7 +98,7 @@ const TwoBedroomApartments = () => {
               Our 2-bedroom apartments range from the compact 42 m² {linkProp("Karhunvartija 3", "karhunvartija3")} to spacious 72 m² Glacier units. What they share: two separate sleeping spaces with doors, a living area, full kitchen, and bathroom with sauna.
             </p>
             <p>
-              The location choice matters. <strong className="text-foreground">Hiihtäjänkuja apartments</strong> ({linkProp("5A2", "5a2")}, {linkProp("5B2", "5b2")}) are 65 m² alpine apartments near the front slopes with heat-storing fireplaces and drying rooms – both fully renovated in 2024. <strong className="text-foreground">Center Superior Suites</strong> ({linkProp("211", "211")}, {linkProp("212", "212")}) are in the Skistar building in Levi center, within walking distance of restaurants and shops. {linkProp("Karhunvartija 3", "karhunvartija3")} has a natural stone fireplace, enclosed yard, and its own entrance. {linkProp("Glacier A4", "glacier-a4")} and {linkProp("A6", "glacier-a6")} (72 m²) are right at the foot of the front slope, with 2 bedrooms plus 2 alcove beds on the upper level.
+              The location choice matters. <strong className="text-foreground">Hiihtäjänkuja apartments</strong> ({linkProp("5A2", "5a2")}, {linkProp("5B2", "5b2")}) are 65 m² alpine apartments near the front slopes with heat-storing fireplaces and drying rooms – both fully renovated in 2024. <strong className="text-foreground">Center Superior Suites</strong> ({linkProp("211", "211")}, {linkProp("212", "212")}) are in the Skistar building in Levi center, within walking distance of restaurants and shops. {linkProp("Karhunvartija 3", "karhunvartija3")} has a natural stone fireplace, own entrance to the yard, and its own entrance. {linkProp("Glacier A4", "glacier-a4")} and {linkProp("A6", "glacier-a6")} (72 m²) are right at the foot of the front slope, with 2 bedrooms plus 2 alcove beds on the upper level.
             </p>
           </div>
         </section>

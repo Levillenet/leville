@@ -248,7 +248,7 @@ const FrontslopeGuide = () => {
             </div>
             <div className="space-y-4" style={{ color: "#2D2D2D" }}>
               <p className="leading-relaxed">
-                Our Front Slope apartments are located on Hiihtäjänkuja in the heart of Levi, directly adjacent to the front slopes and the Zero Point area. The building was completed in 2003 and has been continuously renovated — apartment 5A2 underwent a full renovation in June 2024, and the penthouse 5B5 was fully updated in 2021.
+                Our Front Slope apartments are located on Hiihtäjänkuja in the heart of Levi, directly adjacent to the front slopes and the Zero Point area. The building was completed in 2003 and has been continuously renovated — apartment 5A2 underwent a full renovation in June 2024, and the penthouse 5B5 was fully renovated in 2024.
               </p>
               <p className="leading-relaxed">
                 We offer two apartment types: spacious 65m² two-bedroom apartments ideal for families or groups of up to 6, and an impressive 100m² penthouse with 4 bedrooms that comfortably fits up to 8 guests. All apartments feature a private sauna, a fireplace, a balcony, and a fully equipped kitchen.

@@ -149,7 +149,7 @@ export const properties: Property[] = [
     fireplace: true,
     yearBuiltOrRenovated: "Fully renovated 2024",
     highlights: ["Top-tier alpine apartment in the heart of Levi"],
-    shortDescription: "100 m² penthouse with 4 bedrooms, 3 balconies, and slope-view sauna. Heat-storing fireplace, 10-person dining table. Renovated 2021. Pets allowed."
+    shortDescription: "100 m² penthouse with 4 bedrooms, 3 balconies, and slope-view sauna. Heat-storing fireplace, 10-person dining table. Fully renovated 2024. Pets allowed."
   },
   {
     id: "karhupirtti",
@@ -323,7 +323,7 @@ export const properties: Property[] = [
     fireplace: false,
     yearBuiltOrRenovated: "Built 2021",
     highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
-    shortDescription: "43 m² renovated 1-bedroom Superior apartment with sauna. Accessible (no stairs). Carefully designed interior. Pets not allowed."
+    shortDescription: "43 m² 1-bedroom Superior apartment with sauna, completed in 2021. Accessible (no stairs). Carefully designed interior. Pets not allowed."
   },
   {
     id: "210",
@@ -367,7 +367,7 @@ export const properties: Property[] = [
     fireplace: false,
     yearBuiltOrRenovated: "Built 2021",
     highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
-    shortDescription: "44 m² renovated 1-bedroom Superior apartment with sauna. Accessible (no stairs). Luggage drop-off available. Pets not allowed."
+    shortDescription: "43 m² 1-bedroom Superior apartment with sauna, completed in 2021. Accessible (no stairs). Luggage drop-off available. Pets not allowed."
   },
   {
     id: "310",
@@ -411,7 +411,7 @@ export const properties: Property[] = [
     fireplace: false,
     yearBuiltOrRenovated: "Built 2021",
     highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
-    shortDescription: "43 m² renovated 1-bedroom Superior apartment with sauna on the 3rd floor of the Skistar building. Carefully designed interior. Pets not allowed."
+    shortDescription: "43 m² 1-bedroom Superior apartment with sauna, completed in 2021 on the 3rd floor of the Skistar building. Carefully designed interior. Pets not allowed."
   },
   {
     id: "102",
@@ -688,8 +688,8 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: false,
-    yearBuiltOrRenovated: "Opened 2023",
-    shortDescription: "37 m² Platinum-grade studio opened 2023 – the newest apartment. At the foot of the front slope. Washing machine, drying cabinet, underfloor heating. Pets not allowed."
+    yearBuiltOrRenovated: "Built 2021",
+    shortDescription: "37 m² Platinum-grade studio completed in 2021, at the foot of the Front Slope. Washing machine, drying cabinet, underfloor heating. Pets not allowed."
   },
   {
     id: "moonlight-415",

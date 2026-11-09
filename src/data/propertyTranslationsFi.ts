@@ -97,7 +97,7 @@ Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvink
     metaDescription:
       "100 m² penthouse 9 hengelle, Hiihtäjänkuja 5, Levi. Neljä makuuhuonetta, kolme parveketta ja sauna rinnenäkymällä. Lemmikit sallittu.",
     shortDescription:
-      "100 m² penthouse Levin keskustassa Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Neljä makuuhuonetta yhdeksälle, kolme parveketta, sauna rinnenäkymällä ja varaava takka. Ruokapöytä kymmenelle. Täysin remontoitu 2021. Lemmikit sallittu.",
+      "100 m² penthouse Levin keskustassa Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Neljä makuuhuonetta yhdeksälle, kolme parveketta, sauna rinnenäkymällä ja varaava takka. Ruokapöytä kymmenelle. Täysin remontoitu 2024. Lemmikit sallittu.",
     longDescription: `**100 m² penthouse ja näkymä Eturinteeseen**
 
 Hiihtäjänkuja 5:n talon ylin huoneisto on Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Neljä makuuhuonetta ja kolme parveketta tekevät siitä yhden Levin keskustan tilavimmista loma-asunnoista. Huoneistoon mahtuu yhdeksän henkeä.
@@ -113,8 +113,8 @@ Olohuoneen ja yhden makuuhuoneen parvekkeilta näkyy Eturinteeseen. Illalla vala
 **Sauna ja takka**
 Saunan ikkunasta näkyy Eturinteen suuntaan. Olohuoneen varaava takka lämmittää talvi-illat, ja polttopuut sisältyvät hintaan.
 
-**Täysin remontoitu 2021**
-Huoneisto remontoitiin kokonaan vuonna 2021, ja kalusteet ja sisustus uusittiin samalla. Ilmalämpöpumppu lämmittää talvella ja viilentää kesällä. Talossa on oma pysäköinti sekä kellarissa suksivarasto ja suksienhuoltotila.
+**Täysin remontoitu 2024**
+Huoneisto remontoitiin kokonaan vuonna 2024, ja kalusteet ja sisustus uusittiin samalla. Ilmalämpöpumppu lämmittää talvella ja viilentää kesällä. Talossa on oma pysäköinti sekä kellarissa suksivarasto ja suksienhuoltotila.
 
 **Sijainti**
 Eturinne ja Zero Point ovat noin 200 metrin päässä, ladut alkavat läheltä, ja ravintolat, kaupat ja muut palvelut ovat kävelymatkan päässä.
@@ -401,12 +401,12 @@ Oma sisäänkäynti Ratsastajankujalta johtaa suoraan talon pihalle, jossa lapse
   "levi-platinum-a2": {
     name: "Levi Platinum Superior Studio A2",
     metaDescription:
-      "37 m² Platinum-studio 4 hengelle Eturinteen juurella, Hiihtäjänkuja 2, Levi. Avattu 2023, oma sauna, pesukone ja oma pysäköintipaikka.",
+      "37 m² Platinum-studio 4 hengelle Eturinteen juurella, Hiihtäjänkuja 2, Levi. Valmistunut 2021, oma sauna, pesukone ja oma pysäköintipaikka.",
     shortDescription:
-      "37 m² Platinum-tason studio Eturinteen juurella, avattu 2023. Uusin huoneistomme. Oma sauna, pesukone, kuivauskaappi ja lattialämmitys. Oma pysäköintipaikka. Ei lemmikkejä.",
-    longDescription: `**Uusin huoneistomme Eturinteen juurella**
+      "37 m² Platinum-tason studio Eturinteen juurella, valmistunut 2021. Oma sauna, pesukone, kuivauskaappi ja lattialämmitys. Oma pysäköintipaikka. Ei lemmikkejä.",
+    longDescription: `**Lähes uusi studio Eturinteen juurella**
 
-Levi Platinum -studio on osoitteessa Hiihtäjänkuja 2 Levin keskustassa, Eturinteen juurella, ja kaikkialle kylässä on lyhyt matka. Huoneisto avattiin vuonna 2023, ja se on uusin kohteemme. Studioon mahtuu neljä henkeä, ja pihalla on oma pysäköintipaikka.
+Levi Platinum -studio on osoitteessa Hiihtäjänkuja 2 Levin keskustassa, Eturinteen juurella, ja kaikkialle kylässä on lyhyt matka. Talo valmistui vuonna 2021, joten huoneisto on lähes uusi. Studioon mahtuu neljä henkeä, ja pihalla on oma pysäköintipaikka.
 
 ${LEVIN_KYLA}
 

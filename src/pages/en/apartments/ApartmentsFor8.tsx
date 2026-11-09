@@ -26,7 +26,7 @@ const glacierProps = for8.filter(p => p.id.startsWith("glacier-"));
 const faqs = [
   {
     q: "What's the difference between the Front Slope penthouse and Glacier apartments?",
-    a: (<>The {linkProp("Front Slope Penthouse 5B5", "5b5")} is 100 m² with 3 balconies, a heat-storing fireplace, and a sauna with a window overlooking the slope. Renovated 2021. Glacier apartments are traditional alpine-style, built in 2000, located right at the foot of the front slope with the chairlift steps away. All have ski storage and access to a children's playroom.</>),
+    a: (<>The {linkProp("Front Slope Penthouse 5B5", "5b5")} is 100 m² with 3 balconies, a heat-storing fireplace, and a sauna with a window overlooking the slope. Fully renovated 2024. Glacier apartments are traditional alpine-style, built in 2000, located right at the foot of the front slope with the chairlift steps away. All have ski storage and access to a children's playroom.</>),
   },
   {
     q: "Can I book multiple apartments for a group larger than 8?",
