@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     q: "Which is best for a family with small children?",
-    a: (<>{linkProp("Karhunvartija 3", "karhunvartija3")} – the private entrance leads to an enclosed yard for snow play. It's on one level with a fireplace. Firewood and cleaning are included. {linkProp("Superior 209", "209")}/{linkProp("210", "210")} are also accessible without stairs, practical with a stroller.</>),
+    a: (<>{linkProp("Karhunvartija 3", "karhunvartija3")} – the private entrance leads straight to the yard for snow play. It's on one level with a fireplace. Firewood and cleaning are included. {linkProp("Superior 209", "209")}/{linkProp("210", "210")} are also accessible without stairs, practical with a stroller.</>),
   },
 ];
 

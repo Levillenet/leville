@@ -124,7 +124,7 @@ const OutdoorHotTubLevi = ({ lang: langProp }: Props) => {
                   <Link to="/en/accommodations/karhupirtti" className="text-primary underline hover:no-underline">
                     Bear Lodge (Karhupirtti)
                   </Link>{" "}
-                  is a 220 m² log villa in Levi Center with its own outdoor hot tub on a private fenced yard — heated year-round, with room for up to 14 guests.
+                  is a 220 m² log villa in Levi Center with its own outdoor hot tub in a private yard — heated year-round, with room for up to 14 guests.
                 </p>
               )}
             </div>
