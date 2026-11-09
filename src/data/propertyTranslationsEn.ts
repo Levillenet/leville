@@ -12,11 +12,11 @@ export interface PropertyEnTranslation {
 }
 
 /* ------------------------------------------------------------------ */
+/* Shared copy blocks                                                  */
+/* ------------------------------------------------------------------ */
 
 const LEVI_VILLAGE = `**Everything within walking distance in Levi village**
 You stay in Levi village, right in the heart of Levi Center. The slopes, trails, restaurants, shops and après-ski venues are all within walking distance, so you will not need a car. Getting to activities is easy too, as most safari and excursion transfers depart from or pick up in Levi Center.`;
-/* Shared copy blocks                                                  */
-/* ------------------------------------------------------------------ */
 
 const GLACIER_LOCATION = `**Location**
 The Front Slope lifts are about 200 m away, and the cross-country trails run right past the building. Parking is free.`;
@@ -43,6 +43,15 @@ Fully equipped kitchen with dishwasher, oven, microwave and coffee maker. Privat
 
 /* ------------------------------------------------------------------ */
 
+const MATKATAVARAT_KELLARI = `**Luggage storage**
+There is luggage storage in the basement of the building. You can drop off and collect your bags at any time, so your holiday can start before check-in and continue after check-out.`;
+
+const MATKATAVARAT_GLACIER = `**Luggage storage**
+There is luggage storage in the basement of Glacier building B. You can drop off and collect your bags at any time, so your holiday can start before check-in and continue after check-out.`;
+
+const MATKATAVARAT_KYSY = `**Luggage storage**
+Ask us about storing your luggage before check-in or after check-out.`;
+
 export const propertyEn: Record<string, PropertyEnTranslation> = {
   "zero-point-5a2": {
     name: "Apartment 5A2, Hiihtäjänkuja",
@@ -66,7 +75,9 @@ The apartment was thoroughly renovated in June 2024. Both bathrooms were complet
 The downstairs entrance leads straight into the drying room: leave your skis and wet clothes to dry and go straight to the sauna. The heat-retaining fireplace in the living room keeps the apartment warm for hours. The air source heat pump keeps the temperature even in winter and cools in summer.
 
 **Easy arrival**
-There is only one low step up to the front door.`,
+There is only one low step up to the front door.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "zero-point-5b2": {
     name: "Apartment 5B2, Hiihtäjänkuja",
@@ -90,7 +101,9 @@ The apartment has its own electric sauna and a fireplace. You enter the downstai
 The Front Slope and Zero Point are about 200 m away, and restaurants, shops and après-ski venues are a short walk away. Cross-country trails start nearby. Parking is free, with an engine heater socket.
 
 **Amenities**
-Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and ice maker. Private sauna, fireplace, drying room, drying cabinet, balcony, free WiFi and TV. High chair and safety gates for families.`,
+Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and ice maker. Private sauna, fireplace, drying room, drying cabinet, balcony, free WiFi and TV. High chair and safety gates for families.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "zero-point-5b5-penthouse": {
     name: "Penthouse 5B5, Hiihtäjänkuja",
@@ -120,7 +133,9 @@ The apartment was fully renovated in 2024 with new furniture and interior. The a
 The Front Slope and Zero Point are about 200 m away, cross-country trails start nearby, and restaurants, shops and other services are within walking distance.
 
 **Amenities**
-Fully equipped kitchen with dishwasher, oven, microwave and coffee maker. Sauna, fireplace with firewood, three balconies, air source heat pump, free WiFi, TV and sound system. Cot, high chair, safety gates, children's books and toys.`,
+Fully equipped kitchen with dishwasher, oven, microwave and coffee maker. Sauna, fireplace with firewood, three balconies, air source heat pump, free WiFi, TV and sound system. Cot, high chair, safety gates, children's books and toys.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "karhupirtti": {
     name: "Karhupirtti, log villa in Levi Center",
@@ -149,7 +164,9 @@ The villa was fully renovated in 2023 with high-quality materials: Pukkila tiles
 The Front Slope, the Lastenmaa children's area, a grocery store, restaurants and après-ski venues are a short walk away. The nearest snowmobile trail is about 250 m away. There is plenty of parking. The villa has a ski storage and maintenance room and a utility room for laundry.
 
 **Amenities**
-Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and freezer. Electric sauna, designer fireplace, outdoor hot tub and barbecue. Air source heat pump, free WiFi, TV and sound system. Cot and safety gates available.`,
+Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and freezer. Electric sauna, designer fireplace, outdoor hot tub and barbecue. Air source heat pump, free WiFi, TV and sound system. Cot and safety gates available.
+
+${MATKATAVARAT_KYSY}`,
   },
   "skistar-211": {
     name: "Superior Suite 211, Postintie",
@@ -171,7 +188,9 @@ Your own electric sauna for the end of a ski day. Wet gear and outdoor clothes d
 
 ${SKISTAR_LOCATION} The apartment has step-free access, although it is not certified as fully accessible.
 
-${SKISTAR_2BR_AMENITIES}`,
+${SKISTAR_2BR_AMENITIES}
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-212": {
     name: "Superior Suite 212, Postintie",
@@ -193,7 +212,9 @@ Your own electric sauna for the end of a ski day. Wet gear and outdoor clothes d
 
 ${SKISTAR_LOCATION} The apartment has step-free access, although it is not certified as fully accessible.
 
-${SKISTAR_2BR_AMENITIES}`,
+${SKISTAR_2BR_AMENITIES}
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-209": {
     name: "Superior 209, Levi Center",
@@ -214,7 +235,9 @@ Your own electric sauna after a day on the slopes, and a drying cabinet that has
 
 ${SKISTAR_LOCATION}
 
-${SKISTAR_1BR_AMENITIES}`,
+${SKISTAR_1BR_AMENITIES}
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-210": {
     name: "Superior 210, Levi Center",
@@ -235,7 +258,9 @@ Your own electric sauna after a day on the slopes, and a drying cabinet that has
 
 ${SKISTAR_LOCATION}
 
-${SKISTAR_1BR_AMENITIES}`,
+${SKISTAR_1BR_AMENITIES}
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-310": {
     name: "Superior 310, Levi Center",
@@ -256,7 +281,9 @@ Your own electric sauna after a day on the slopes, and a drying cabinet that has
 
 ${SKISTAR_LOCATION}
 
-${SKISTAR_1BR_AMENITIES}`,
+${SKISTAR_1BR_AMENITIES}
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-102": {
     name: "Studio 102, Postintie",
@@ -281,7 +308,9 @@ ${SKISTAR_LOCATION}
 Fully equipped kitchen, drying cabinet, bathroom with shower, free WiFi and TV. Shampoo and shower gel provided. Cot on request.
 
 **Please note**
-This studio has no sauna. If a private sauna matters to you, choose one of our 28 m² studios with a sauna, for example Studio 104. The building has several similar studios with small differences in the interior, and some have a washing machine.`,
+This studio has no sauna. If a private sauna matters to you, choose one of our 28 m² studios with a sauna, for example Studio 104. The building has several similar studios with small differences in the interior, and some have a washing machine.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-104": {
     name: "Superior Studio 104 with sauna, Postintie",
@@ -306,7 +335,9 @@ ${SKISTAR_LOCATION}
 Fully equipped kitchen, private sauna, drying cabinet, underfloor heating, free WiFi and TV. Shampoo and shower gel provided. Cot on request.
 
 **Please note**
-The building has several similar studios with small differences in the interior. Some also have a washing machine.`,
+The building has several similar studios with small differences in the interior. Some also have a washing machine.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-319": {
     name: "Superior Studio 319, Levi Center",
@@ -328,7 +359,9 @@ Your own electric sauna is the best way to end a day on the slopes or trails. Th
 ${SKISTAR_LOCATION}
 
 **Amenities**
-Fully equipped kitchen, private sauna, washing machine, drying cabinet, free WiFi and TV. Cot on request.`,
+Fully equipped kitchen, private sauna, washing machine, drying cabinet, free WiFi and TV. Cot on request.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-320": {
     name: "Studio 320 with sauna, Levi Center",
@@ -353,7 +386,9 @@ ${SKISTAR_LOCATION}
 Fully equipped kitchen, private sauna, drying cabinet, underfloor heating, free WiFi and TV. Shampoo and shower gel provided. Cot on request.
 
 **Please note**
-The building has several similar studios with small differences in the interior. Some also have a washing machine.`,
+The building has several similar studios with small differences in the interior. Some also have a washing machine.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-321": {
     name: "Studio 321 with sauna, Levi Center",
@@ -378,7 +413,9 @@ ${SKISTAR_LOCATION}
 Fully equipped kitchen, private sauna, drying cabinet, underfloor heating, free WiFi and TV. Shampoo and shower gel provided. Cot on request.
 
 **Please note**
-The building has several similar studios with small differences in the interior. Some also have a washing machine.`,
+The building has several similar studios with small differences in the interior. Some also have a washing machine.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "karhunvartija-3": {
     name: "Karhunvartija 3, Levi Center",
@@ -463,7 +500,9 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, washing machine, drying cabinet, ski locker, WiFi, TV and radio. Pets allowed. The same building has an identical apartment, A3.`,
+Fully equipped kitchen, private sauna, washing machine, drying cabinet, ski locker, WiFi, TV and radio. Pets allowed. The same building has an identical apartment, A3.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-a2": {
     name: "Levi Glacier A2",
@@ -491,7 +530,9 @@ ${GLACIER_BUILDING}
 Fully equipped kitchen, private sauna, washing machine, drying cabinet, ski locker, full-width balcony, WiFi and TV. Pets allowed.
 
 **Need more space?**
-The same building also has the 92 m² four-bedroom apartments A1 and A3 for eight guests.`,
+The same building also has the 92 m² four-bedroom apartments A1 and A3 for eight guests.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-a3": {
     name: "Levi Glacier A3",
@@ -516,7 +557,9 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, washing machine, drying cabinet, ski locker, WiFi, TV and radio. Pets allowed. The same building has an identical apartment, A1.`,
+Fully equipped kitchen, private sauna, washing machine, drying cabinet, ski locker, WiFi, TV and radio. Pets allowed. The same building has an identical apartment, A1.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-a4": {
     name: "Levi Glacier A4",
@@ -541,7 +584,9 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed. The same building has an identical apartment, A6, and the 67 m² three-bedroom apartment A2.`,
+Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed. The same building has an identical apartment, A6, and the 67 m² three-bedroom apartment A2.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-a5-penthouse": {
     name: "Levi Glacier Penthouse A5",
@@ -566,7 +611,9 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed.`,
+Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-a6": {
     name: "Levi Glacier A6",
@@ -591,7 +638,9 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed. The same building has an identical apartment, A4, and the 67 m² three-bedroom apartment A2.`,
+Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed. The same building has an identical apartment, A4, and the 67 m² three-bedroom apartment A2.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-b1": {
     name: "Levi Glacier B1",
@@ -619,7 +668,9 @@ ${GLACIER_BUILDING}
 Fully equipped kitchen, private sauna, ski locker, full-width balcony with a slope view, WiFi and TV. Bed linen can be ordered as an extra, or bring your own. Pets allowed.
 
 **For a bigger group**
-The same building has an identical apartment, B2. If B1 is booked, check B2, or book both for a group of 20.`,
+The same building has an identical apartment, B2. If B1 is booked, check B2, or book both for a group of 20.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-b2": {
     name: "Levi Glacier B2",
@@ -647,7 +698,9 @@ ${GLACIER_BUILDING}
 Fully equipped kitchen, private sauna, ski locker, full-width balcony with a slope view, WiFi and TV. Bed linen can be ordered as an extra, or bring your own. Pets allowed.
 
 **For a bigger group**
-The same building has an identical apartment, B1. If B2 is booked, check B1, or book both for a group of 20.`,
+The same building has an identical apartment, B1. If B2 is booked, check B1, or book both for a group of 20.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-b3-penthouse": {
     name: "Levi Glacier Penthouse B3",
@@ -675,7 +728,9 @@ ${GLACIER_BUILDING}
 Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed.
 
 **For a bigger group**
-The same building has an identical penthouse, B4. If B3 is booked, check B4, or book both for a group of 16.`,
+The same building has an identical penthouse, B4. If B3 is booked, check B4, or book both for a group of 16.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-b4-penthouse": {
     name: "Levi Glacier Penthouse B4",
@@ -703,7 +758,9 @@ ${GLACIER_BUILDING}
 Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed.
 
 **For a bigger group**
-The same building has an identical penthouse, B3. If B4 is booked, check B3, or book both for a group of 16.`,
+The same building has an identical penthouse, B3. If B4 is booked, check B3, or book both for a group of 16.
+
+${MATKATAVARAT_GLACIER}`,
   },
 };
 

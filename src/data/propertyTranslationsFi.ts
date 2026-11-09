@@ -12,11 +12,11 @@ export interface PropertyFiTranslation {
 }
 
 /* ------------------------------------------------------------------ */
+/* Yhteiset tekstilohkot                                               */
+/* ------------------------------------------------------------------ */
 
 const LEVIN_KYLA = `**Kaikki kävelymatkan päässä Levin kylässä**
 Asut Levin kylässä, aivan Levi-keskuksen ytimessä. Rinteet, ladut, ravintolat, kaupat ja afterski-paikat ovat kävelymatkan päässä, joten autoa ei loman aikana tarvita. Myös aktiviteetteihin on helppo lähteä, sillä useimmat safari- ja retkikuljetukset lähtevät Levin keskustasta tai hakevat asiakkaat sieltä.`;
-/* Yhteiset tekstilohkot                                               */
-/* ------------------------------------------------------------------ */
 
 const GLACIER_SIJAINTI = `**Sijainti**
 Eturinteen hissit ovat noin 200 metrin päässä, ja ladut kulkevat aivan talon vierestä. Pysäköinti on ilmainen.`;
@@ -43,6 +43,15 @@ Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvi
 
 /* ------------------------------------------------------------------ */
 
+const MATKATAVARAT_KELLARI = `**Matkatavarasäilytys**
+Talon kellarissa on matkatavarasäilytys. Laukut voi jättää ja hakea milloin tahansa, joten loman voi aloittaa jo ennen sisäänkirjautumista ja jatkaa uloskirjautumisen jälkeen.`;
+
+const MATKATAVARAT_GLACIER = `**Matkatavarasäilytys**
+Glacierin B-talon kellarissa on matkatavarasäilytys. Laukut voi jättää ja hakea milloin tahansa, joten loman voi aloittaa jo ennen sisäänkirjautumista ja jatkaa uloskirjautumisen jälkeen.`;
+
+const MATKATAVARAT_KYSY = `**Matkatavarasäilytys**
+Kysy meiltä mahdollisuutta matkatavaroiden säilytykseen ennen sisäänkirjautumista tai uloskirjautumisen jälkeen.`;
+
 export const propertyFi: Record<string, PropertyFiTranslation> = {
   "zero-point-5a2": {
     name: "Huoneisto 5A2, Hiihtäjänkuja",
@@ -66,7 +75,9 @@ Kesäkuussa 2024 huoneisto remontoitiin perusteellisesti. Molemmat kylpyhuoneet 
 Alakerran sisäänkäynnistä tullaan suoraan kuivaushuoneeseen: sukset ja märät vaatteet jäävät kuivumaan, ja saunaan pääsee saman tien. Olohuoneen varaava takka pitää asunnon lämpimänä pitkään. Ilmalämpöpumppu tasaa lämpöä talvella ja viilentää kesällä.
 
 **Helppo saapua**
-Ulko-ovelle on vain yksi matala porras.`,
+Ulko-ovelle on vain yksi matala porras.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "zero-point-5b2": {
     name: "Huoneisto 5B2, Hiihtäjänkuja",
@@ -90,7 +101,9 @@ Huoneistossa on oma sähkösauna ja takka. Alakerran kuivaushuoneeseen tullaan s
 Eturinne ja Zero Point ovat noin 200 metrin päässä, ja ravintolat, kaupat ja afterski-paikat lyhyen kävelyn päässä. Ladut alkavat läheltä. Pysäköinti on ilmainen, ja paikalla on lämmitystolppa.
 
 **Varustelu**
-Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja jääpalakone. Oma sauna, takka, kuivaushuone, kuivauskaappi, parveke, ilmainen WiFi ja TV. Lapsiperheille syöttötuoli ja turvaportit.`,
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja jääpalakone. Oma sauna, takka, kuivaushuone, kuivauskaappi, parveke, ilmainen WiFi ja TV. Lapsiperheille syöttötuoli ja turvaportit.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "zero-point-5b5-penthouse": {
     name: "Penthouse 5B5, Hiihtäjänkuja",
@@ -120,7 +133,9 @@ Huoneisto remontoitiin kokonaan vuonna 2024, ja kalusteet ja sisustus uusittiin 
 Eturinne ja Zero Point ovat noin 200 metrin päässä, ladut alkavat läheltä, ja ravintolat, kaupat ja muut palvelut ovat kävelymatkan päässä.
 
 **Varustelu**
-Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Sauna, takka ja polttopuut, kolme parveketta, ilmalämpöpumppu, ilmainen WiFi, TV ja äänentoisto. Lapsiperheille pinnasänky, syöttötuoli, turvaportit sekä lastenkirjoja ja leluja.`,
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Sauna, takka ja polttopuut, kolme parveketta, ilmalämpöpumppu, ilmainen WiFi, TV ja äänentoisto. Lapsiperheille pinnasänky, syöttötuoli, turvaportit sekä lastenkirjoja ja leluja.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "karhupirtti": {
     name: "Karhupirtti, hirsihuvila Levin keskustassa",
@@ -149,7 +164,9 @@ Huvila remontoitiin kokonaan vuonna 2023 laadukkain materiaalein: Pukkilan laata
 Eturinteet, Lastenmaa, ruokakauppa, ravintolat ja afterski-paikat ovat lyhyen kävelyn päässä. Lähimmälle moottorikelkkareitille on noin 250 metriä. Pysäköintitilaa on runsaasti. Huvilassa on suksivarasto ja suksienhuoltotila sekä kodinhoitohuone pyykinpesua varten.
 
 **Varustelu**
-Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja pakastin. Sähkösauna, designtakka, ulkoporeallas ja grilli. Ilmalämpöpumppu, ilmainen WiFi, TV ja äänentoisto. Pinnasänky ja turvaportit saatavilla.`,
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja pakastin. Sähkösauna, designtakka, ulkoporeallas ja grilli. Ilmalämpöpumppu, ilmainen WiFi, TV ja äänentoisto. Pinnasänky ja turvaportit saatavilla.
+
+${MATKATAVARAT_KYSY}`,
   },
   "skistar-211": {
     name: "Superior Suite 211, Postintie",
@@ -171,7 +188,9 @@ Oma sähkösauna rinnepäivän päätteeksi. Kuivauskaapissa märät varusteet j
 
 ${SKISTAR_SIJAINTI} Huoneistoon on esteetön kulku, vaikka sitä ei ole sertifioitu esteettömäksi.
 
-${SKISTAR_2MH_VARUSTELU}`,
+${SKISTAR_2MH_VARUSTELU}
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-212": {
     name: "Superior Suite 212, Postintie",
@@ -193,7 +212,9 @@ Oma sähkösauna rinnepäivän päätteeksi. Kuivauskaapissa märät varusteet j
 
 ${SKISTAR_SIJAINTI} Huoneistoon on esteetön kulku, vaikka sitä ei ole sertifioitu esteettömäksi.
 
-${SKISTAR_2MH_VARUSTELU}`,
+${SKISTAR_2MH_VARUSTELU}
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-209": {
     name: "Superior 209, Levin keskusta",
@@ -214,7 +235,9 @@ Oma sähkösauna rinnepäivän päätteeksi, ja kuivauskaapissa varusteet kuivuv
 
 ${SKISTAR_SIJAINTI}
 
-${SKISTAR_1MH_VARUSTELU}`,
+${SKISTAR_1MH_VARUSTELU}
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-210": {
     name: "Superior 210, Levin keskusta",
@@ -235,7 +258,9 @@ Oma sähkösauna rinnepäivän päätteeksi, ja kuivauskaapissa varusteet kuivuv
 
 ${SKISTAR_SIJAINTI}
 
-${SKISTAR_1MH_VARUSTELU}`,
+${SKISTAR_1MH_VARUSTELU}
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-310": {
     name: "Superior 310, Levin keskusta",
@@ -256,7 +281,9 @@ Oma sähkösauna rinnepäivän päätteeksi, ja kuivauskaapissa varusteet kuivuv
 
 ${SKISTAR_SIJAINTI}
 
-${SKISTAR_1MH_VARUSTELU}`,
+${SKISTAR_1MH_VARUSTELU}
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-102": {
     name: "Studio 102, Postintie",
@@ -281,7 +308,9 @@ ${SKISTAR_SIJAINTI}
 Täysin varusteltu keittiö, kuivauskaappi, kylpyhuone suihkulla, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
 
 **Huomaathan**
-Tässä studiossa ei ole saunaa. Jos oma sauna on sinulle tärkeä, valitse jokin 28 m²:n saunallisista studioistamme, esimerkiksi Studio 104. Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja, ja osassa on pesukone.`,
+Tässä studiossa ei ole saunaa. Jos oma sauna on sinulle tärkeä, valitse jokin 28 m²:n saunallisista studioistamme, esimerkiksi Studio 104. Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja, ja osassa on pesukone.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-104": {
     name: "Superior Studio 104 saunalla, Postintie",
@@ -306,7 +335,9 @@ ${SKISTAR_SIJAINTI}
 Täysin varusteltu keittiö, oma sauna, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
 
 **Huomaathan**
-Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.`,
+Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-319": {
     name: "Superior Studio 319, Levin keskusta",
@@ -328,7 +359,9 @@ Oma sähkösauna on paras tapa päättää päivä rinteessä tai ladulla. Studi
 ${SKISTAR_SIJAINTI}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, ilmainen WiFi ja TV. Pinnasänky pyynnöstä.`,
+Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, ilmainen WiFi ja TV. Pinnasänky pyynnöstä.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-320": {
     name: "Studio 320 saunalla, Levin keskusta",
@@ -353,7 +386,9 @@ ${SKISTAR_SIJAINTI}
 Täysin varusteltu keittiö, oma sauna, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
 
 **Huomaathan**
-Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.`,
+Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-321": {
     name: "Studio 321 saunalla, Levin keskusta",
@@ -378,7 +413,9 @@ ${SKISTAR_SIJAINTI}
 Täysin varusteltu keittiö, oma sauna, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
 
 **Huomaathan**
-Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.`,
+Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.
+
+${MATKATAVARAT_KELLARI}`,
   },
   "karhunvartija-3": {
     name: "Karhunvartija 3, Levin keskusta",
@@ -463,7 +500,9 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, suksivarasto, WiFi, TV ja radio. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A3.`,
+Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, suksivarasto, WiFi, TV ja radio. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A3.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-a2": {
     name: "Levi Glacier A2",
@@ -491,7 +530,9 @@ ${GLACIER_TALO}
 Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, suksivarasto, koko huoneiston levyinen parveke, WiFi ja TV. Lemmikit sallittu.
 
 **Tarvitsetko enemmän tilaa?**
-Samassa talossa ovat myös 92 m²:n neljän makuuhuoneen huoneistot A1 ja A3 kahdeksalle hengelle.`,
+Samassa talossa ovat myös 92 m²:n neljän makuuhuoneen huoneistot A1 ja A3 kahdeksalle hengelle.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-a3": {
     name: "Levi Glacier A3",
@@ -516,7 +557,9 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, suksivarasto, WiFi, TV ja radio. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A1.`,
+Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, suksivarasto, WiFi, TV ja radio. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A1.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-a4": {
     name: "Levi Glacier A4",
@@ -541,7 +584,9 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A6 sekä 67 m²:n kolmen makuuhuoneen huoneisto A2.`,
+Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A6 sekä 67 m²:n kolmen makuuhuoneen huoneisto A2.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-a5-penthouse": {
     name: "Levi Glacier Penthouse A5",
@@ -566,7 +611,9 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.`,
+Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-a6": {
     name: "Levi Glacier A6",
@@ -591,7 +638,9 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A4 sekä 67 m²:n kolmen makuuhuoneen huoneisto A2.`,
+Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A4 sekä 67 m²:n kolmen makuuhuoneen huoneisto A2.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-b1": {
     name: "Levi Glacier B1",
@@ -619,7 +668,9 @@ ${GLACIER_TALO}
 Täysin varusteltu keittiö, oma sauna, suksivarasto, koko huoneiston levyinen parveke rinnenäkymällä, WiFi ja TV. Liinavaatteet voi tilata lisäpalveluna tai tuoda omat. Lemmikit sallittu.
 
 **Isommalle ryhmälle**
-Samassa talossa on samanlainen huoneisto B2. Jos B1 on varattu, katso B2:n saatavuus, tai varaa molemmat, jolloin majoitusta on 20 hengelle.`,
+Samassa talossa on samanlainen huoneisto B2. Jos B1 on varattu, katso B2:n saatavuus, tai varaa molemmat, jolloin majoitusta on 20 hengelle.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-b2": {
     name: "Levi Glacier B2",
@@ -647,7 +698,9 @@ ${GLACIER_TALO}
 Täysin varusteltu keittiö, oma sauna, suksivarasto, koko huoneiston levyinen parveke rinnenäkymällä, WiFi ja TV. Liinavaatteet voi tilata lisäpalveluna tai tuoda omat. Lemmikit sallittu.
 
 **Isommalle ryhmälle**
-Samassa talossa on samanlainen huoneisto B1. Jos B2 on varattu, katso B1:n saatavuus, tai varaa molemmat, jolloin majoitusta on 20 hengelle.`,
+Samassa talossa on samanlainen huoneisto B1. Jos B2 on varattu, katso B1:n saatavuus, tai varaa molemmat, jolloin majoitusta on 20 hengelle.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-b3-penthouse": {
     name: "Levi Glacier Penthouse B3",
@@ -675,7 +728,9 @@ ${GLACIER_TALO}
 Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
 
 **Isommalle ryhmälle**
-Samassa talossa on samanlainen penthouse B4. Jos B3 on varattu, katso B4:n saatavuus, tai varaa molemmat, jolloin majoitusta on 16 hengelle.`,
+Samassa talossa on samanlainen penthouse B4. Jos B3 on varattu, katso B4:n saatavuus, tai varaa molemmat, jolloin majoitusta on 16 hengelle.
+
+${MATKATAVARAT_GLACIER}`,
   },
   "glacier-b4-penthouse": {
     name: "Levi Glacier Penthouse B4",
@@ -703,7 +758,9 @@ ${GLACIER_TALO}
 Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
 
 **Isommalle ryhmälle**
-Samassa talossa on samanlainen penthouse B3. Jos B4 on varattu, katso B3:n saatavuus, tai varaa molemmat, jolloin majoitusta on 16 hengelle.`,
+Samassa talossa on samanlainen penthouse B3. Jos B4 on varattu, katso B3:n saatavuus, tai varaa molemmat, jolloin majoitusta on 16 hengelle.
+
+${MATKATAVARAT_GLACIER}`,
   },
 };
 

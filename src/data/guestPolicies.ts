@@ -10,7 +10,8 @@ export const guestPolicies = {
   securityDeposit: 0,
   smokingAllowed: false,
   vapingAllowed: false,
-  luggageStorageAllProperties: true,
+  /** Matkatavarasäilytys: SkiStar ja Hiihtäjänkuja 5 talon kellarissa, Glacier B-talon kellarissa, Karhupirtti kysyttäessä; Karhunvartija 3, Platinum A2 ja Moonlight 415 ei. Laukut voi jättää ja hakea milloin tahansa. */
+  luggageStorageAllProperties: false,
   accommodationVatPercent: 14,
   fireplaceSlugs: ["zero-point-5a2", "zero-point-5b2", "zero-point-5b5-penthouse", "karhupirtti", "karhunvartija-3"],
 } as const;
