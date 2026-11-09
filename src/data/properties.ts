@@ -64,7 +64,7 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: true,
-    yearBuiltOrRenovated: "Renovated 2024",
+    yearBuiltOrRenovated: "Fully renovated 2024",
     highlights: ["Top-tier alpine apartment in the heart of Levi"],
     shortDescription: "Fully renovated (June 2024) 2-bedroom alpine apartment in Levi center. Heat-storing fireplace, two renewed bathrooms, drying room, and balcony. Air source heat pump. Pets allowed."
   },
@@ -102,7 +102,7 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: true,
-    yearBuiltOrRenovated: "Renovated 2024",
+    yearBuiltOrRenovated: "Fully renovated 2024",
     highlights: ["Top-tier alpine apartment in the heart of Levi"],
     shortDescription: "65 m² alpine apartment near front slopes and Zero Point. Fully renovated 2024. Downstairs living room with PlayStation and 150cm sofa bed. Private sauna, drying room, and heat-storing fireplace. Pets allowed."
   },
@@ -147,7 +147,7 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: true,
-    yearBuiltOrRenovated: "Renovated 2024",
+    yearBuiltOrRenovated: "Fully renovated 2024",
     highlights: ["Top-tier alpine apartment in the heart of Levi"],
     shortDescription: "100 m² penthouse with 4 bedrooms, 3 balconies, and slope-view sauna. Heat-storing fireplace, 10-person dining table. Renovated 2021. Pets allowed."
   },
@@ -189,8 +189,8 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: true,
     hotTub: true,
-    yearBuiltOrRenovated: "Built 1989, fully renovated 2022",
-    highlights: ["Unique – the only log cabin in Levi center"],
+    yearBuiltOrRenovated: "Built 1989, fully renovated 2023",
+    highlights: ["Unique: the only log cabin in Levi center"],
     shortDescription: "220 m² traditional log cabin in Levi center with 7 bedrooms, outdoor hot tub, private yard, and fireplace. 3 ensuite bedrooms downstairs (private shower + WC), 5 bathrooms with shower in total, plus a separate WC upstairs. Fully renovated 2022. Pets allowed."
   },
   {
@@ -233,8 +233,8 @@ export const properties: Property[] = [
     sauna: true,
     accessible: true,
     fireplace: false,
-    yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
+    yearBuiltOrRenovated: "Built 2021",
+    highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
     shortDescription: "54 m² Superior suite with 2 bedrooms, sauna, and balcony. End apartment with forest views. Accessible. Ski storage with rack and ventilation. Pets not allowed."
   },
   {
@@ -277,8 +277,8 @@ export const properties: Property[] = [
     sauna: true,
     accessible: true,
     fireplace: false,
-    yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
+    yearBuiltOrRenovated: "Built 2021",
+    highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
     shortDescription: "54 m² Superior suite with 2 bedrooms, sauna, balcony, and underfloor heating. Walking distance to all Levi services. Pets not allowed."
   },
   {
@@ -321,8 +321,8 @@ export const properties: Property[] = [
     sauna: true,
     accessible: true,
     fireplace: false,
-    yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
+    yearBuiltOrRenovated: "Built 2021",
+    highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
     shortDescription: "43 m² renovated 1-bedroom Superior apartment with sauna. Accessible (no stairs). Carefully designed interior. Pets not allowed."
   },
   {
@@ -365,8 +365,8 @@ export const properties: Property[] = [
     sauna: true,
     accessible: true,
     fireplace: false,
-    yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
+    yearBuiltOrRenovated: "Built 2021",
+    highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
     shortDescription: "44 m² renovated 1-bedroom Superior apartment with sauna. Accessible (no stairs). Luggage drop-off available. Pets not allowed."
   },
   {
@@ -409,8 +409,8 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: false,
-    yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
+    yearBuiltOrRenovated: "Built 2021",
+    highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
     shortDescription: "43 m² renovated 1-bedroom Superior apartment with sauna on the 3rd floor of the Skistar building. Carefully designed interior. Pets not allowed."
   },
   {
@@ -442,9 +442,9 @@ export const properties: Property[] = [
     sauna: false,
     accessible: false,
     fireplace: false,
-    yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
-    shortDescription: "24 m² studio on Postintie in Levi center. Built 2020. The most compact option – no sauna, but affordable and accessible (no stairs). Just steps from K-Market. Pets not allowed."
+    yearBuiltOrRenovated: "Built 2021",
+    highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
+    shortDescription: "24 m² studio on Postintie in Levi center. Built 2021. The most compact option – no sauna, but affordable and accessible (no stairs). Just steps from K-Market. Pets not allowed."
   },
   {
     id: "104",
@@ -485,9 +485,9 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: false,
-    yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
-    shortDescription: "28 m² Superior studio with private sauna on Postintie. Built 2020. Tiled feature wall, underfloor heating. Fully equipped kitchen with dishwasher. Accessible. Pets not allowed."
+    yearBuiltOrRenovated: "Built 2021",
+    highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
+    shortDescription: "28 m² Superior studio with private sauna on Postintie. Built 2021. Tiled feature wall, underfloor heating. Fully equipped kitchen with dishwasher. Accessible. Pets not allowed."
   },
   {
     id: "319",
@@ -528,8 +528,8 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: false,
-    yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
+    yearBuiltOrRenovated: "Built 2021",
+    highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
     shortDescription: "28 m² Superior studio with private sauna in Skistar building on Postintie. Washing machine in apartment, drying cabinet. Steps from K-Market. About 700 m to lifts. Pets not allowed."
   },
   {
@@ -571,8 +571,8 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: false,
-    yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
+    yearBuiltOrRenovated: "Built 2021",
+    highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
     shortDescription: "28 m² studio with sauna in Skistar building on Postintie. Underfloor heating. Steps from K-Market. Pets not allowed."
   },
   {
@@ -614,8 +614,8 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: false,
-    yearBuiltOrRenovated: "Built 2020",
-    highlights: ["Built 2020 – modern apartment in Levi center", "In-house laundry room – professional washing machine at low cost"],
+    yearBuiltOrRenovated: "Built 2021",
+    highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
     shortDescription: "28 m² studio with sauna in Skistar building on Postintie. Underfloor heating. Steps from K-Market. About 700 m to lifts. Pets not allowed."
   },
   {
@@ -724,7 +724,7 @@ export const properties: Property[] = [
     sauna: true,
     accessible: false,
     fireplace: false,
-    yearBuiltOrRenovated: "",
+    yearBuiltOrRenovated: "Largely renovated 2026",
     shortDescription: "28 m² loft studio next to Hullu Poro hotel. Loft beds for 3 upstairs (steep stairs) + sofa bed. Private sauna. About 400m to slopes and ski track. 150m to store. Pets not allowed."
   },
   {

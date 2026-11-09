@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     q: "What's the difference between the studios?",
-    a: (<>{linkProp("Studio 102", "102")} (24 m²) is the most compact and the only one without a sauna. Studios {linkProp("104", "104")}, {linkProp("319", "319")}, {linkProp("320", "320")}, {linkProp("321", "321")} (28 m²) are all in the Skistar building on Postintie, built in 2020 – modern and well-equipped with private sauna and underfloor heating. {linkProp("Platinum A2", "platinum-a2")} (37 m²) is the newest (2023) and largest, located on Hiihtäjänkuja at the foot of the front slope. {linkProp("Moonlight 415", "moonlight-415")} (28 m²) has a unique sleeping loft for 3 – note the stairs are steep.</>),
+    a: (<>{linkProp("Studio 102", "102")} (24 m²) is the most compact and the only one without a sauna. Studios {linkProp("104", "104")}, {linkProp("319", "319")}, {linkProp("320", "320")}, {linkProp("321", "321")} (28 m²) are all in the Skistar building on Postintie, completed in 2021, modern and well-equipped with private sauna and underfloor heating. {linkProp("Platinum A2", "platinum-a2")} (37 m²) is the newest (2023) and largest, located on Hiihtäjänkuja at the foot of the front slope. {linkProp("Moonlight 415", "moonlight-415")} (28 m²) has a unique sleeping loft for 3 – note the stairs are steep.</>),
   },
 ];
 
@@ -124,7 +124,7 @@ const StudioApartments = () => {
           <h2 className="text-2xl sm:text-3xl font-bold mb-6">Which Studio Should You Choose?</h2>
           <div className="max-w-3xl space-y-4 text-muted-foreground leading-relaxed">
             <p><strong className="text-foreground">Best premium studio:</strong> {linkProp("Levi Platinum Superior Studio A2", "platinum-a2")} – 37 m², opened 2023, the newest and most spacious option. At the foot of the front slope.</p>
-            <p><strong className="text-foreground">Best studios with sauna:</strong> All Skistar studios ({linkProp("104", "104")}, {linkProp("319", "319")}, {linkProp("320", "320")}, {linkProp("321", "321")}) have a private sauna, underfloor heating, and modern interiors. Built 2020.</p>
+            <p><strong className="text-foreground">Best studios with sauna:</strong> All Skistar studios ({linkProp("104", "104")}, {linkProp("319", "319")}, {linkProp("320", "320")}, {linkProp("321", "321")}) have a private sauna, underfloor heating, and modern interiors. Completed in 2021.</p>
             <p><strong className="text-foreground">Most affordable:</strong> {linkProp("Levi Center Studio 102", "102")} – 24 m², the only studio without a sauna, but well-located and accessible without stairs.</p>
             <p><strong className="text-foreground">Best for a small family:</strong> {linkProp("Moonlight 415", "moonlight-415")} – the loft gives sleeping space for 3 upstairs plus a sofa bed below. Note: the stairs to the loft are steep, so this works for older children but not toddlers.</p>
           </div>

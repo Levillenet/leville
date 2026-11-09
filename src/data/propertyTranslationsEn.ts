@@ -47,10 +47,10 @@ export const propertyEn: Record<string, PropertyEnTranslation> = {
   "zero-point-5a2": {
     name: "Apartment 5A2, Hiihtäjänkuja",
     metaDescription:
-      "Renovated two-bedroom apartment for 6 at Hiihtäjänkuja 5, Levi. Private sauna, fireplace and drying room, 200 m to the Front Slope. Pets allowed.",
+      "Fully renovated two-bedroom apartment for 6 at Hiihtäjänkuja 5, Levi. Private sauna, fireplace and drying room, 200 m to the Front Slope. Pets allowed.",
     shortDescription:
       "Two-bedroom apartment in Levi Center, Zero Point area, about 200 m from the Front Slope, fully renovated in June 2024. Private sauna, heat-retaining fireplace, two new bathrooms, drying room, balcony and air source heat pump. Pets allowed.",
-    longDescription: `**Renovated two-bedroom apartment in Levi Center**
+    longDescription: `**Fully renovated two-bedroom apartment in Levi Center**
 
 The apartment is at Hiihtäjänkuja 5 in the Zero Point area, about 200 m from the Front Slope. The apartment sleeps six.
 
@@ -71,7 +71,7 @@ There is only one low step up to the front door.`,
   "zero-point-5b2": {
     name: "Apartment 5B2, Hiihtäjänkuja",
     metaDescription:
-      "65 m² apartment for 6 at Hiihtäjänkuja 5, Levi. Renovated 2024, private sauna, fireplace and drying room, 200 m to the Front Slope. Pets allowed.",
+      "65 m² apartment for 6 at Hiihtäjänkuja 5, Levi. Fully renovated 2024, private sauna, fireplace and drying room, 200 m to the Front Slope. Pets allowed.",
     shortDescription:
       "65 m² two-bedroom apartment in Levi Center, Zero Point area, about 200 m from the Front Slope. Fully renovated 2024. Private sauna, heat-retaining fireplace and drying room. Downstairs lounge with PlayStation and 150 cm sofa bed. Pets allowed.",
     longDescription: `**65 m², two bedrooms and a downstairs lounge**
@@ -97,7 +97,7 @@ Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and ice ma
     metaDescription:
       "100 m² penthouse for 9 at Hiihtäjänkuja 5, Levi. Four bedrooms, three balconies and a sauna with a slope view, 200 m to the Front Slope. Pets allowed.",
     shortDescription:
-      "100 m² penthouse in Levi Center, Zero Point area, about 200 m from the Front Slope. Four bedrooms for 9, three balconies, sauna with a slope view and heat-retaining fireplace. Dining table for ten. Renovated 2021. Pets allowed.",
+      "100 m² penthouse in Levi Center, Zero Point area, about 200 m from the Front Slope. Four bedrooms for 9, three balconies, sauna with a slope view and heat-retaining fireplace. Dining table for ten. Fully renovated 2021. Pets allowed.",
     longDescription: `**100 m² penthouse with a view of the Front Slope**
 
 The top apartment of the building at Hiihtäjänkuja 5 is in the Zero Point area, about 200 m from the Front Slope. With four bedrooms and three balconies it is one of the most spacious holiday homes in Levi Center. It sleeps nine.
@@ -113,8 +113,8 @@ The balconies off the living room and one bedroom look towards the Front Slope. 
 **Sauna and fireplace**
 The sauna window faces the Front Slope. The heat-retaining fireplace in the living room warms the winter evenings, and firewood is included.
 
-**Renovated in 2021**
-The apartment was thoroughly renovated in 2021 with new furniture and interior. The air source heat pump heats in winter and cools in summer. The building has private parking and a ski storage and maintenance room in the basement.
+**Fully renovated in 2021**
+The apartment was fully renovated in 2021 with new furniture and interior. The air source heat pump heats in winter and cools in summer. The building has private parking and a ski storage and maintenance room in the basement.
 
 **Location**
 The Front Slope and Zero Point are about 200 m away, cross-country trails start nearby, and restaurants, shops and other services are within walking distance.
@@ -142,8 +142,8 @@ There are five bathrooms with showers in total and a separate WC upstairs, so ev
 **Outdoor hot tub and barbecue**
 The hot tub is in the villa's own large yard. On clear nights you can watch the Northern Lights from the tub. There is also a barbecue area in the yard.
 
-**Renovated in 2023**
-The villa was renovated in 2023 with high-quality materials: Pukkila tiles, Kährs floors, walnut ceilings, a black kitchen and Miele appliances. The result combines the feel of a log villa with modern comfort. A designer fireplace adds warmth and atmosphere.
+**Fully renovated in 2023**
+The villa was fully renovated in 2023 with high-quality materials: Pukkila tiles, Kährs floors, walnut ceilings, a black kitchen and Miele appliances. The result combines the feel of a log villa with modern comfort. A designer fireplace adds warmth and atmosphere.
 
 **Location**
 The Front Slope, the Lastenmaa children's area, a grocery store, restaurants and après-ski venues are a short walk away. The nearest snowmobile trail is about 250 m away. There is plenty of parking. The villa has a ski storage and maintenance room and a utility room for laundry.
@@ -200,10 +200,10 @@ ${SKISTAR_2BR_AMENITIES}`,
     metaDescription:
       "43 m² one-bedroom apartment for 4 at Postintie 3, Levi Center. Private sauna and balcony, step-free access. Book directly at Leville.net.",
     shortDescription:
-      "43 m² renovated one-bedroom Superior apartment with private sauna in the SkiStar building. Step-free, no stairs. Carefully designed interior. No pets.",
+      "43 m² one-bedroom Superior apartment completed in 2021, with private sauna in the SkiStar building. Step-free, no stairs. Carefully designed interior. No pets.",
     longDescription: `**43 m², one bedroom and a private sauna**
 
-A renovated one-bedroom apartment in the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
+A one-bedroom apartment completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -221,10 +221,10 @@ ${SKISTAR_1BR_AMENITIES}`,
     metaDescription:
       "43 m² one-bedroom apartment for 4 at Postintie 3, Levi Center. Private sauna and balcony, step-free access. Book directly at Leville.net.",
     shortDescription:
-      "43 m² renovated one-bedroom Superior apartment with private sauna in the SkiStar building. Step-free, no stairs. Luggage storage available. No pets.",
+      "43 m² one-bedroom Superior apartment completed in 2021, with private sauna in the SkiStar building. Step-free, no stairs. Luggage storage available. No pets.",
     longDescription: `**43 m², one bedroom and a private sauna**
 
-A renovated one-bedroom apartment in the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
+A one-bedroom apartment completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -242,10 +242,10 @@ ${SKISTAR_1BR_AMENITIES}`,
     metaDescription:
       "43 m² one-bedroom apartment for 4 at Postintie 3, Levi Center. Private sauna and balcony. About 700 m to the main slopes.",
     shortDescription:
-      "43 m² renovated one-bedroom Superior apartment with private sauna on the third floor of the SkiStar building. Carefully designed interior. No lift in the building. No pets.",
+      "43 m² one-bedroom Superior apartment completed in 2021, with private sauna on the third floor of the SkiStar building. Carefully designed interior. No lift in the building. No pets.",
     longDescription: `**43 m², one bedroom and a private sauna**
 
-A renovated one-bedroom apartment on the third floor of the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
+A one-bedroom apartment completed in 2021 on the third floor of the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -261,12 +261,12 @@ ${SKISTAR_1BR_AMENITIES}`,
   "skistar-studio-102": {
     name: "Studio 102, Postintie",
     metaDescription:
-      "24 m² studio in Levi Center at Postintie 3. Built 2020, step-free access, next to the K-Market. No sauna, our most compact apartment.",
+      "24 m² studio in Levi Center at Postintie 3. Built 2021, step-free access, next to the K-Market. No sauna, our most compact apartment.",
     shortDescription:
-      "24 m² studio in the SkiStar building at Postintie 3, Levi Center. Built 2020. Our most compact apartment: no sauna, but step-free access with no stairs. A few steps from the K-Market. No pets.",
+      "24 m² studio in the SkiStar building at Postintie 3, Levi Center. Built 2021. Our most compact apartment: no sauna, but step-free access with no stairs. A few steps from the K-Market. No pets.",
     longDescription: `**Modern studio in Levi Center**
 
-A 24 m² studio completed in 2020 in the SkiStar building at Postintie 3. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+A 24 m² studio completed in 2021 in the SkiStar building at Postintie 3. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -286,12 +286,12 @@ This studio has no sauna. If a private sauna matters to you, choose one of our 2
   "skistar-studio-104": {
     name: "Superior Studio 104 with sauna, Postintie",
     metaDescription:
-      "28 m² studio with private sauna at Postintie 3, Levi Center. Built 2020, underfloor heating, step-free access. Sleeps 3 adults or a family of 4.",
+      "28 m² studio with private sauna at Postintie 3, Levi Center. Built 2021, underfloor heating, step-free access. Sleeps 3 adults or a family of 4.",
     shortDescription:
-      "28 m² Superior studio with private sauna in the SkiStar building at Postintie 3. Built 2020. Tiled feature wall and underfloor heating. Fully equipped kitchen with dishwasher. Step-free access. No pets.",
+      "28 m² Superior studio with private sauna in the SkiStar building at Postintie 3. Built 2021. Tiled feature wall and underfloor heating. Fully equipped kitchen with dishwasher. Step-free access. No pets.",
     longDescription: `**28 m² studio with a private sauna**
 
-A modern studio completed in 2020 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+A modern studio completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -338,7 +338,7 @@ Fully equipped kitchen, private sauna, washing machine, drying cabinet, free WiF
       "28 m² studio with private sauna in the SkiStar building at Postintie 3. Underfloor heating. A few steps from the K-Market. No pets.",
     longDescription: `**28 m² studio with a private sauna**
 
-A modern studio completed in 2020 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+A modern studio completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -363,7 +363,7 @@ The building has several similar studios with small differences in the interior.
       "28 m² studio with private sauna in the SkiStar building at Postintie 3. Underfloor heating. A few steps from the K-Market, about 700 m to the lifts. No pets.",
     longDescription: `**28 m² studio with a private sauna**
 
-A modern studio completed in 2020 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+A modern studio completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -419,12 +419,12 @@ Fully equipped kitchen, private sauna, washing machine, drying cabinet, underflo
   "moonlight-415": {
     name: "Moonlight 415, loft studio",
     metaDescription:
-      "28 m² loft studio for 4 next to Hullu Poro, Leviraitti, Levi Center. Renovated 2026, private sauna, washing machine and drying cabinet.",
+      "28 m² loft studio for 4 next to Hullu Poro, Leviraitti, Levi Center. Largely renovated 2026, private sauna, washing machine and drying cabinet.",
     shortDescription:
-      "28 m² loft studio next to Hullu Poro in Levi Center, renovated 2026. Three beds in the loft (steep stairs) and a sofa bed downstairs. Private sauna, washing machine and drying cabinet. About 400 m to slopes and trails, 150 m to the shop. No pets.",
+      "28 m² loft studio next to Hullu Poro in Levi Center, largely renovated 2026. Three beds in the loft (steep stairs) and a sofa bed downstairs. Private sauna, washing machine and drying cabinet. About 400 m to slopes and trails, 150 m to the shop. No pets.",
     longDescription: `**Loft studio with sauna next to Hullu Poro**
 
-The studio is on Leviraitti in Levi Center, right next to Hullu Poro. The 28 m² apartment sleeps four: three beds in the loft and a sofa bed downstairs. It was fully renovated and refurnished in 2026, and the exposed log wall gives it real Lapland warmth.
+The studio is on Leviraitti in Levi Center, right next to Hullu Poro. The 28 m² apartment sleeps four: three beds in the loft and a sofa bed downstairs. It was largely renovated and renewed in 2026, and the exposed log wall gives it real Lapland warmth.
 
 ${LEVI_VILLAGE}
 

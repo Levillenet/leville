@@ -47,10 +47,10 @@ export const propertyFi: Record<string, PropertyFiTranslation> = {
   "zero-point-5a2": {
     name: "Huoneisto 5A2, Hiihtäjänkuja",
     metaDescription:
-      "Remontoitu kahden makuuhuoneen huoneisto 6 hengelle, Hiihtäjänkuja 5, Levi. Oma sauna, takka ja kuivaushuone, Eturinteelle 200 m. Lemmikit sallittu.",
+      "Täysin remontoitu kahden makuuhuoneen huoneisto 6 hengelle, Hiihtäjänkuja 5, Levi. Oma sauna, takka ja kuivaushuone, Eturinteelle 200 m. Lemmikit sallittu.",
     shortDescription:
       "Kesäkuussa 2024 täysin remontoitu kahden makuuhuoneen huoneisto Levin keskustassa Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Oma sauna, varaava takka, kaksi uutta kylpyhuonetta, kuivaushuone, parveke ja ilmalämpöpumppu. Lemmikit sallittu.",
-    longDescription: `**Remontoitu kahden makuuhuoneen huoneisto Levin keskustassa**
+    longDescription: `**Täysin remontoitu kahden makuuhuoneen huoneisto Levin keskustassa**
 
 Huoneisto on osoitteessa Hiihtäjänkuja 5 Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Huoneistoon mahtuu kuusi henkeä.
 
@@ -71,7 +71,7 @@ Ulko-ovelle on vain yksi matala porras.`,
   "zero-point-5b2": {
     name: "Huoneisto 5B2, Hiihtäjänkuja",
     metaDescription:
-      "65 m² huoneisto 6 hengelle, Hiihtäjänkuja 5, Levi. Remontoitu 2024, oma sauna, takka ja kuivaushuone, Eturinteelle 200 m. Lemmikit sallittu.",
+      "65 m² huoneisto 6 hengelle, Hiihtäjänkuja 5, Levi. Täysin remontoitu 2024, oma sauna, takka ja kuivaushuone, Eturinteelle 200 m. Lemmikit sallittu.",
     shortDescription:
       "65 m² kahden makuuhuoneen huoneisto Levin keskustassa Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Täysin remontoitu 2024. Oma sauna, varaava takka ja kuivaushuone. Alakerran oleskelutilassa PlayStation ja 150 cm vuodesohva. Lemmikit sallittu.",
     longDescription: `**65 m², kaksi makuuhuonetta ja alakerran oleskelutila**
@@ -97,7 +97,7 @@ Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvink
     metaDescription:
       "100 m² penthouse 9 hengelle, Hiihtäjänkuja 5, Levi. Neljä makuuhuonetta, kolme parveketta ja sauna rinnenäkymällä. Lemmikit sallittu.",
     shortDescription:
-      "100 m² penthouse Levin keskustassa Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Neljä makuuhuonetta yhdeksälle, kolme parveketta, sauna rinnenäkymällä ja varaava takka. Ruokapöytä kymmenelle. Remontoitu 2021. Lemmikit sallittu.",
+      "100 m² penthouse Levin keskustassa Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Neljä makuuhuonetta yhdeksälle, kolme parveketta, sauna rinnenäkymällä ja varaava takka. Ruokapöytä kymmenelle. Täysin remontoitu 2021. Lemmikit sallittu.",
     longDescription: `**100 m² penthouse ja näkymä Eturinteeseen**
 
 Hiihtäjänkuja 5:n talon ylin huoneisto on Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Neljä makuuhuonetta ja kolme parveketta tekevät siitä yhden Levin keskustan tilavimmista loma-asunnoista. Huoneistoon mahtuu yhdeksän henkeä.
@@ -113,8 +113,8 @@ Olohuoneen ja yhden makuuhuoneen parvekkeilta näkyy Eturinteeseen. Illalla vala
 **Sauna ja takka**
 Saunan ikkunasta näkyy Eturinteen suuntaan. Olohuoneen varaava takka lämmittää talvi-illat, ja polttopuut sisältyvät hintaan.
 
-**Remontoitu 2021**
-Huoneisto remontoitiin perusteellisesti vuonna 2021, ja kalusteet ja sisustus uusittiin samalla. Ilmalämpöpumppu lämmittää talvella ja viilentää kesällä. Talossa on oma pysäköinti sekä kellarissa suksivarasto ja suksienhuoltotila.
+**Täysin remontoitu 2021**
+Huoneisto remontoitiin kokonaan vuonna 2021, ja kalusteet ja sisustus uusittiin samalla. Ilmalämpöpumppu lämmittää talvella ja viilentää kesällä. Talossa on oma pysäköinti sekä kellarissa suksivarasto ja suksienhuoltotila.
 
 **Sijainti**
 Eturinne ja Zero Point ovat noin 200 metrin päässä, ladut alkavat läheltä, ja ravintolat, kaupat ja muut palvelut ovat kävelymatkan päässä.
@@ -142,8 +142,8 @@ Suihkullisia kylpyhuoneita on kaikkiaan viisi, ja yläkerrassa on lisäksi erill
 **Ulkoporeallas ja grillipaikka**
 Poreallas on huvilan omalla isolla pihalla. Kirkkaina iltoina revontulia voi katsella suoraan altaasta. Pihalla on myös grillipaikka.
 
-**Remontoitu 2023**
-Huvila remontoitiin vuonna 2023 laadukkain materiaalein: Pukkilan laatat, Kährsin lattiat, pähkinäpuiset katot, musta keittiö ja Mielen kodinkoneet. Lopputulos yhdistää hirsihuvilan tunnelman ja nykyaikaisen mukavuuden. Designtakka tuo lämpöä ja tunnelmaa.
+**Täysin remontoitu 2023**
+Huvila remontoitiin kokonaan vuonna 2023 laadukkain materiaalein: Pukkilan laatat, Kährsin lattiat, pähkinäpuiset katot, musta keittiö ja Mielen kodinkoneet. Lopputulos yhdistää hirsihuvilan tunnelman ja nykyaikaisen mukavuuden. Designtakka tuo lämpöä ja tunnelmaa.
 
 **Sijainti**
 Eturinteet, Lastenmaa, ruokakauppa, ravintolat ja afterski-paikat ovat lyhyen kävelyn päässä. Lähimmälle moottorikelkkareitille on noin 250 metriä. Pysäköintitilaa on runsaasti. Huvilassa on suksivarasto ja suksienhuoltotila sekä kodinhoitohuone pyykinpesua varten.
@@ -200,10 +200,10 @@ ${SKISTAR_2MH_VARUSTELU}`,
     metaDescription:
       "43 m² yhden makuuhuoneen huoneisto 4 hengelle, Postintie 3, Levin keskusta. Oma sauna ja parveke, esteetön kulku. Varaa suoraan.",
     shortDescription:
-      "43 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talossa. Esteetön, ei portaita. Huolella suunniteltu sisustus. Ei lemmikkejä.",
+      "43 m² vuonna 2021 valmistunut yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talossa. Esteetön, ei portaita. Huolella suunniteltu sisustus. Ei lemmikkejä.",
     longDescription: `**43 m², makuuhuone ja oma sauna**
 
-Remontoitu yhden makuuhuoneen huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+Vuonna 2021 valmistunut yhden makuuhuoneen huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
 ${LEVIN_KYLA}
 
@@ -221,10 +221,10 @@ ${SKISTAR_1MH_VARUSTELU}`,
     metaDescription:
       "43 m² yhden makuuhuoneen huoneisto 4 hengelle, Postintie 3, Levin keskusta. Oma sauna ja parveke, esteetön kulku. Varaa suoraan.",
     shortDescription:
-      "43 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talossa. Esteetön, ei portaita. Matkatavarat voi jättää säilytykseen. Ei lemmikkejä.",
+      "43 m² vuonna 2021 valmistunut yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talossa. Esteetön, ei portaita. Matkatavarat voi jättää säilytykseen. Ei lemmikkejä.",
     longDescription: `**43 m², makuuhuone ja oma sauna**
 
-Remontoitu yhden makuuhuoneen huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+Vuonna 2021 valmistunut yhden makuuhuoneen huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
 ${LEVIN_KYLA}
 
@@ -242,10 +242,10 @@ ${SKISTAR_1MH_VARUSTELU}`,
     metaDescription:
       "43 m² yhden makuuhuoneen huoneisto 4 hengelle, Postintie 3, Levin keskusta. Oma sauna ja parveke. Päärinteille noin 700 m.",
     shortDescription:
-      "43 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talon kolmannessa kerroksessa. Huolella suunniteltu sisustus. Talossa ei ole hissiä. Ei lemmikkejä.",
+      "43 m² vuonna 2021 valmistunut yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talon kolmannessa kerroksessa. Huolella suunniteltu sisustus. Talossa ei ole hissiä. Ei lemmikkejä.",
     longDescription: `**43 m², makuuhuone ja oma sauna**
 
-Remontoitu yhden makuuhuoneen huoneisto SkiStar-talon kolmannessa kerroksessa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+Vuonna 2021 valmistunut yhden makuuhuoneen huoneisto SkiStar-talon kolmannessa kerroksessa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
 ${LEVIN_KYLA}
 
@@ -261,12 +261,12 @@ ${SKISTAR_1MH_VARUSTELU}`,
   "skistar-studio-102": {
     name: "Studio 102, Postintie",
     metaDescription:
-      "24 m² studio Levin keskustassa, Postintie 3. Valmistunut 2020, esteetön kulku, K-Market vieressä. Ei saunaa, kompaktein huoneistomme.",
+      "24 m² studio Levin keskustassa, Postintie 3. Valmistunut 2021, esteetön kulku, K-Market vieressä. Ei saunaa, kompaktein huoneistomme.",
     shortDescription:
-      "24 m² studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Valmistunut 2020. Kompaktein huoneistomme: ei saunaa, mutta esteetön kulku ilman portaita. K-Market muutaman askeleen päässä. Ei lemmikkejä.",
+      "24 m² studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Valmistunut 2021. Kompaktein huoneistomme: ei saunaa, mutta esteetön kulku ilman portaita. K-Market muutaman askeleen päässä. Ei lemmikkejä.",
     longDescription: `**Moderni studio Levin keskustassa**
 
-Vuonna 2020 valmistunut 24 m²:n studio SkiStar-talossa osoitteessa Postintie 3. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+Vuonna 2021 valmistunut 24 m²:n studio SkiStar-talossa osoitteessa Postintie 3. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
 ${LEVIN_KYLA}
 
@@ -286,12 +286,12 @@ Tässä studiossa ei ole saunaa. Jos oma sauna on sinulle tärkeä, valitse joki
   "skistar-studio-104": {
     name: "Superior Studio 104 saunalla, Postintie",
     metaDescription:
-      "28 m² studio omalla saunalla, Postintie 3, Levin keskusta. Valmistunut 2020, lattialämmitys, esteetön kulku. 3 aikuista tai perhe 2+2.",
+      "28 m² studio omalla saunalla, Postintie 3, Levin keskusta. Valmistunut 2021, lattialämmitys, esteetön kulku. 3 aikuista tai perhe 2+2.",
     shortDescription:
-      "28 m² Superior-studio omalla saunalla SkiStar-talossa osoitteessa Postintie 3. Valmistunut 2020. Laatoitettu tehosteseinä ja lattialämmitys. Täysin varusteltu keittiö astianpesukoneella. Esteetön kulku. Ei lemmikkejä.",
+      "28 m² Superior-studio omalla saunalla SkiStar-talossa osoitteessa Postintie 3. Valmistunut 2021. Laatoitettu tehosteseinä ja lattialämmitys. Täysin varusteltu keittiö astianpesukoneella. Esteetön kulku. Ei lemmikkejä.",
     longDescription: `**28 m² studio omalla saunalla**
 
-Moderni, vuonna 2020 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+Moderni, vuonna 2021 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
 ${LEVIN_KYLA}
 
@@ -338,7 +338,7 @@ Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, ilmainen WiFi j
       "28 m² studio omalla saunalla SkiStar-talossa osoitteessa Postintie 3. Lattialämmitys. K-Market muutaman askeleen päässä. Ei lemmikkejä.",
     longDescription: `**28 m² studio omalla saunalla**
 
-Moderni, vuonna 2020 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+Moderni, vuonna 2021 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
 ${LEVIN_KYLA}
 
@@ -363,7 +363,7 @@ Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. 
       "28 m² studio omalla saunalla SkiStar-talossa osoitteessa Postintie 3. Lattialämmitys. K-Market muutaman askeleen päässä, hisseille noin 700 m. Ei lemmikkejä.",
     longDescription: `**28 m² studio omalla saunalla**
 
-Moderni, vuonna 2020 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+Moderni, vuonna 2021 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
 ${LEVIN_KYLA}
 
@@ -419,12 +419,12 @@ Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, lattialämmitys
   "moonlight-415": {
     name: "Moonlight 415, parvistudio",
     metaDescription:
-      "28 m² parvistudio 4 hengelle Hullu Poron vieressä, Leviraitti, Levin keskusta. Remontoitu 2026, oma sauna, pesukone ja kuivauskaappi.",
+      "28 m² parvistudio 4 hengelle Hullu Poron vieressä, Leviraitti, Levin keskusta. Suurelta osin remontoitu 2026, oma sauna, pesukone ja kuivauskaappi.",
     shortDescription:
-      "28 m² parvistudio Hullu Poron vieressä Levin keskustassa, remontoitu 2026. Parvella kolme vuodetta (jyrkät portaat) ja alakerrassa vuodesohva. Oma sauna, pesukone ja kuivauskaappi. Rinteille ja laduille noin 400 m, kauppaan 150 m. Ei lemmikkejä.",
+      "28 m² parvistudio Hullu Poron vieressä Levin keskustassa, suurelta osin remontoitu 2026. Parvella kolme vuodetta (jyrkät portaat) ja alakerrassa vuodesohva. Oma sauna, pesukone ja kuivauskaappi. Rinteille ja laduille noin 400 m, kauppaan 150 m. Ei lemmikkejä.",
     longDescription: `**Parvistudio saunalla Hullu Poron vieressä**
 
-Studio on Leviraitin varrella Levin keskustassa, aivan Hullu Poron vieressä. 28 m²:n huoneistoon mahtuu neljä henkeä: parvella on kolme vuodetta ja alakerrassa vuodesohva. Huoneisto remontoitiin ja kalustettiin kokonaan uudelleen vuonna 2026, ja paljas hirsiseinä tuo siihen lappilaista lämpöä.
+Studio on Leviraitin varrella Levin keskustassa, aivan Hullu Poron vieressä. 28 m²:n huoneistoon mahtuu neljä henkeä: parvella on kolme vuodetta ja alakerrassa vuodesohva. Huoneisto remontoitiin suurelta osin ja uudistettiin vuonna 2026, ja paljas hirsiseinä tuo siihen lappilaista lämpöä.
 
 ${LEVIN_KYLA}
 
@@ -744,10 +744,10 @@ export const translateYearFi = (s: string): string => {
 
 /** Finnish versions of English highlight badges in properties.ts. */
 export const highlightFi: Record<string, string> = {
-  "Built 2020 – modern apartment in Levi center": "Valmistunut 2020, moderni huoneisto Levin keskustassa",
-  "In-house laundry room – professional washing machine at low cost": "Talossa pesutupa ja ammattitason pesukone",
+  "Built 2021, modern apartment in Levi center": "Valmistunut 2021, moderni huoneisto Levin keskustassa",
+  "In-house laundry room with a professional washing machine": "Talossa pesutupa ja ammattitason pesukone",
   "Top-tier alpine apartment in the heart of Levi": "Tasokas huoneisto Levin ytimessä",
-  "Unique – the only log cabin in Levi center": "Levin keskustan ainoa hirsihuvila",
+  "Unique: the only log cabin in Levi center": "Levin keskustan ainoa hirsihuvila",
   "Prime location right in Levi center": "Erinomainen sijainti aivan Levin keskustassa",
   "Spacious family apartment": "Tilava perheasunto",
 };
