@@ -653,7 +653,7 @@ export const properties: Property[] = [
     accessible: false,
     fireplace: true,
     yearBuiltOrRenovated: "",
-    shortDescription: "42 m² apartment with 2 bedrooms, natural stone fireplace, and private sauna. Own entrance from Ratsastajankuja to the yard. Pets allowed."
+    shortDescription: "42 m² apartment with 2 bedrooms, natural stone fireplace, and private sauna. Own entrance from Ratsastajankuja, easy access to the private courtyard. Pets allowed."
   },
   {
     id: "platinum-a2",

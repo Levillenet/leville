@@ -123,10 +123,10 @@ const faqs: { q: string; a: React.ReactNode; schemaText?: string }[] = [
   },
   {
     q: "Is final cleaning included?",
-    schemaText: "Final cleaning is an optional add-on that you can book during reservation. Check property-specific terms in your booking confirmation. Firewood is included at Karhunvartija 3, Bear Lodge and the Hiihtäjänkuja apartments.",
+    schemaText: "The final cleaning fee is always added to the booking; self-cleaning is not possible. Bed linen and towels are an optional extra. Firewood is included at Karhunvartija 3, Bear Lodge and the Hiihtäjänkuja apartments.",
     a: (
       <>
-        Final cleaning is an optional add-on – you can book it during reservation. Check property-specific terms in your booking confirmation. At {linkProperty("Karhunvartija 3", "karhunvartija3")}, {linkProperty("Bear Lodge", "karhupirtti")}, and the Hiihtäjänkuja apartments ({linkProperty("5A2", "5a2")}, {linkProperty("5B2", "5b2")}, {linkProperty("5B5", "5b5")}), firewood is included.
+        The final cleaning fee is always added to the booking; self-cleaning is not possible. Bed linen and towels are an optional extra. At {linkProperty("Karhunvartija 3", "karhunvartija3")}, {linkProperty("Bear Lodge", "karhupirtti")}, and the Hiihtäjänkuja apartments ({linkProperty("5A2", "5a2")}, {linkProperty("5B2", "5b2")}, {linkProperty("5B5", "5b5")}), firewood is included.
       </>
     ),
   },

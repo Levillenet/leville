@@ -416,7 +416,7 @@ ${MATKATAVARAT_KELLARI}`,
     metaDescription:
       "42 m² apartment for 4 in Levi Center at Skimbaajankuja 4. Two bedrooms, private sauna and natural stone fireplace. Pets allowed.",
     shortDescription:
-      "42 m² single-level apartment in Levi Center: two bedrooms, private sauna and natural stone fireplace. Own entrance from Ratsastajankuja straight into the building's yard. Firewood included. Pets allowed.",
+      "42 m² single-level apartment in Levi Center: two bedrooms, private sauna and natural stone fireplace. Own entrance from Ratsastajankuja, with easy access to the building's private courtyard. Firewood included. Pets allowed.",
     longDescription: `**Single-level apartment with fireplace and sauna**
 
 A cosy apartment in the Karhunvartija building right in Levi Center, at Skimbaajankuja 4. Restaurants, shops and activities are within walking distance, and the slopes and trails start a short walk from the door. Pets are welcome.
@@ -427,7 +427,7 @@ ${LEVI_VILLAGE}
 The 42 m² apartment is on one level and sleeps four. It has a hallway, an open-plan kitchen and living room, two bedrooms (one with a sofa bed for two), a bathroom, a separate WC, a private sauna and a washing machine. The natural stone fireplace makes for cosy evenings, and firewood is included.
 
 **Easy with children**
-The private entrance from Ratsastajankuja opens straight into the building's yard, where children can play in the snow. Playgrounds are close by.`,
+The apartment's own entrance is from Ratsastajankuja, and from there it is easy to get to the building's private courtyard, where children can play in the snowdrifts. Playgrounds are close by.`,
   },
   "levi-platinum-a2": {
     name: "Levi Platinum Superior Studio A2",

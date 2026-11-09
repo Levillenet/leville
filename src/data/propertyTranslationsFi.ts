@@ -416,7 +416,7 @@ ${MATKATAVARAT_KELLARI}`,
     metaDescription:
       "42 m² huoneisto 4 hengelle Levin keskustassa, Skimbaajankuja 4. Kaksi makuuhuonetta, oma sauna ja luonnonkivitakka. Lemmikit sallittu.",
     shortDescription:
-      "42 m² yksitasoinen huoneisto Levin keskustassa: kaksi makuuhuonetta, oma sauna ja luonnonkivitakka. Oma sisäänkäynti Ratsastajankujalta suoraan talon pihalle. Takkapuut sisältyvät. Lemmikit sallittu.",
+      "42 m² yksitasoinen huoneisto Levin keskustassa: kaksi makuuhuonetta, oma sauna ja luonnonkivitakka. Oma sisäänkäynti Ratsastajankujalta, josta pääsee helposti talon yksityiselle sisäpihalle. Takkapuut sisältyvät. Lemmikit sallittu.",
     longDescription: `**Yksitasoinen huoneisto takalla ja saunalla**
 
 Viihtyisä huoneisto Karhunvartija-talossa aivan Levin keskustassa, osoitteessa Skimbaajankuja 4. Ravintolat, kaupat ja aktiviteetit ovat kävelymatkan päässä, ja rinteet ja ladut alkavat lyhyen kävelyn päästä. Lemmikit ovat tervetulleita.
@@ -427,7 +427,7 @@ ${LEVIN_KYLA}
 42 m²:n huoneisto on yhdessä tasossa, ja siihen mahtuu neljä henkeä. Huoneistossa on eteinen, avoin keittiö ja olohuone, kaksi makuuhuonetta, joista toisessa on vuodesohva kahdelle, kylpyhuone, erillinen WC, oma sauna ja oma pesukone. Luonnonkivitakka tekee illoista tunnelmallisia, ja takkapuut sisältyvät hintaan.
 
 **Helppo lapsiperheelle**
-Oma sisäänkäynti Ratsastajankujalta johtaa suoraan talon pihalle, jossa lapset voivat leikkiä lumessa. Leikkipuistot ovat lähellä.`,
+Huoneiston oma sisäänkäynti on Ratsastajankujalta, ja sieltä pääsee helposti talon yksityiselle sisäpihalle, jossa lapset voivat leikkiä lumikasoissa. Leikkipuistot ovat lähellä.`,
   },
   "levi-platinum-a2": {
     name: "Levi Platinum Superior Studio A2",

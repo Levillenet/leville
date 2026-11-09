@@ -36,7 +36,7 @@ const faqs = [
   },
   {
     q: "Which is best for a family with small children?",
-    a: (<>{linkProp("Karhunvartija 3", "karhunvartija3")} – the private entrance leads straight to the yard for snow play. It's on one level with a fireplace. Firewood and cleaning are included. {linkProp("Superior 209", "209")}/{linkProp("210", "210")} are also accessible without stairs, practical with a stroller.</>),
+    a: (<>{linkProp("Karhunvartija 3", "karhunvartija3")} – its own entrance is from Ratsastajankuja, a short walk from the private courtyard where kids can play in the snow. It's on one level with a fireplace. Firewood is included. {linkProp("Superior 209", "209")}/{linkProp("210", "210")} are also accessible without stairs, practical with a stroller.</>),
   },
 ];
 
@@ -97,7 +97,7 @@ const ApartmentsFor4 = () => {
               An apartment for 4 is the sweet spot for couples traveling together or a small family with one or two children. You get more space than a studio – typically a separate bedroom, a proper kitchen, and room to settle in for the week.
             </p>
             <p>
-              Our 4-person apartments range from 37 to 44 m², all in Levi center. The standout is {linkProp("Karhunvartija 3", "karhunvartija3")} – the only 4-person apartment with 2 proper bedrooms, a natural stone fireplace, private sauna, own entrance to the yard with its own entrance from Ratsastajankuja street, and firewood included. It's especially good for families with small children because the private entrance leads directly to a yard where kids can play in the snow.
+              Our 4-person apartments range from 37 to 44 m², all in Levi center. The standout is {linkProp("Karhunvartija 3", "karhunvartija3")} – the only 4-person apartment with 2 proper bedrooms, a natural stone fireplace, private sauna, its own entrance from Ratsastajankuja and firewood included. It's especially good for families with small children because the building has a private courtyard where kids can play in the snow.
             </p>
             <p>
               The Superior apartments ({linkProp("209", "209")}, {linkProp("210", "210")}) offer 1-bedroom layouts with a sofa bed in the living room. Both are accessible without stairs, which is practical with a stroller or for guests with mobility needs.
@@ -118,7 +118,7 @@ const ApartmentsFor4 = () => {
         <section className="container mx-auto px-4 pb-16">
           <h2 className="text-2xl sm:text-3xl font-bold mb-6">How to Choose</h2>
           <div className="max-w-3xl space-y-4 text-muted-foreground leading-relaxed">
-            <p><strong className="text-foreground">Need separate bedrooms?</strong> {linkProp("Karhunvartija 3", "karhunvartija3")} – the only 4-person apartment with 2 bedrooms and its own entrance to the yard.</p>
+            <p><strong className="text-foreground">Need separate bedrooms?</strong> {linkProp("Karhunvartija 3", "karhunvartija3")} – the only 4-person apartment with 2 bedrooms and its own entrance.</p>
             <p><strong className="text-foreground">Want a nearly new apartment?</strong> {linkProp("Platinum A2", "platinum-a2")}, completed in 2021, at the foot of the front slope.</p>
             <p><strong className="text-foreground">Traveling with small children?</strong> {linkProp("Karhunvartija 3", "karhunvartija3")} – private yard, fireplace, all on one level, pets allowed. Or {linkProp("Superior 209", "209")}/{linkProp("210", "210")} – accessible without stairs.</p>
             <p><strong className="text-foreground">Best for a loft experience?</strong> {linkProp("Moonlight 415", "moonlight-415")} – sleeping loft for 3 upstairs. Note: steep stairs, not suitable for toddlers.</p>
