@@ -1,554 +1,652 @@
 // Finnish translations for property landing pages (/majoitukset/:slug).
 // Keyed by property slug. properties.ts itself stays in English for other consumers.
+// Tekstisäännöt: ei ajatusviivoja (– tai —), ei emojeja, ei hintalupauksia kuten "edullinen hinta".
 
 export interface PropertyFiTranslation {
   name?: string;
   shortDescription: string;
+  /** Hakukoneen kuvaus (meta description), enintään 155 merkkiä. Jos puuttuu, käytetään lyhennettyä shortDescriptionia. */
+  metaDescription?: string;
   /** Optional long-form description (Markdown-lite: paragraphs separated by blank lines, **bold**, bullets with "- "). */
   longDescription?: string;
 }
 
+/* ------------------------------------------------------------------ */
+/* Yhteiset tekstilohkot                                               */
+/* ------------------------------------------------------------------ */
+
+const GLACIER_SIJAINTI = `**Sijainti**
+Eturinteen hissit ovat noin 200 metrin päässä, ja ladut kulkevat aivan talon vierestä. Ravintolat, kaupat ja palvelut ovat kävelymatkan päässä, joten autoa ei loman aikana tarvita. Pysäköinti on ilmainen.`;
+
+const GLACIER_TALO = `**Talo**
+Eturinteen Alppikylän talot on rakennettu vuonna 2000, ja niitä on kunnostettu vuosien varrella. Jokaisella huoneistolla on oma suksivarasto ulko-oven vieressä, ja talossa on yhteinen lämmin suksienhuoltotila sekä lasten leikki- ja pelihuone, jossa on muun muassa ilmakiekkopeli.`;
+
+const SKISTAR_SIJAINTI = `**Sijainti**
+SkiStar-talo on osoitteessa Postintie 3 Levin keskustassa, ja K-Market on aivan vieressä. Päärinteille ja Eturinteen hisseille on noin 700 metriä, jonka kävelee helposti. Ladut alkavat läheltä, ja ravintolat, kaupat ja afterski-paikat ovat lyhyen kävelyn päässä. Pysäköinti on ilmainen, ja paikalla on lämmitystolppa.`;
+
+const SKISTAR_TALO = `Talossa on yhteinen pesutupa kuivausrumpuineen ja tuuletettu suksivarasto huoltotelineineen.`;
+
+const SKISTAR_STUDIO_POHJA = `**Pohjaratkaisu**
+Studiossa on kaksi sänkyä ja vuodesohva, joka sopii lapsille tai kolmannelle aikuiselle. Kahden aikuisen ja kahden lapsen perheelle ratkaisu toimii hyvin: lapset nukkuvat vuodesohvalla ja vanhemmat sängyissä. Keittiössä on kaikki tarvittava kotiruoan laittamiseen: astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Laatoitettu tehosteseinä tuo sisustukseen lappilaista tunnelmaa.`;
+
+const SKISTAR_1MH_POHJA = `**Pohjaratkaisu**
+Makuuhuoneessa on kaksi erillistä sänkyä, ja olohuoneen vuodesohvalle mahtuu yksi tai kaksi lisävierasta. Avoin keittiö ja olohuone ovat valoisat, ja niissä on hyvä laittaa ruokaa, levätä ja suunnitella seuraavaa päivää.`;
+
+const SKISTAR_1MH_VARUSTELU = `**Varustelu**
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Oma sauna, kylpyhuone, kuivauskaappi, parveke, ilmainen WiFi ja TV (HDMI-liitäntä). Syöttötuoli saatavilla.`;
+
+const SKISTAR_2MH_VARUSTELU = `**Varustelu**
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Oma sauna, kylpyhuone, kuivauskaappi, parveke, ilmainen WiFi ja TV. Pinnasänky ja syöttötuoli saatavilla.`;
+
+/* ------------------------------------------------------------------ */
+
 export const propertyFi: Record<string, PropertyFiTranslation> = {
   "zero-point-5a2": {
-    name: "Alppihuoneisto 5A2 – Hiihtäjänkuja",
+    name: "Huoneisto 5A2, Hiihtäjänkuja",
+    metaDescription:
+      "Remontoitu kahden makuuhuoneen huoneisto 6 hengelle, Hiihtäjänkuja 5, Levi. Oma sauna, takka ja kuivaushuone, Eturinteelle 200 m. Lemmikit sallittu.",
     shortDescription:
-      "Täysin remontoitu (kesäkuu 2024) kahden makuuhuoneen alppityylinen huoneisto Levin keskustassa Zero Point -alueella, n. 200 m Eturinteeltä. Varaava takka, kaksi uusittua kylpyhuonetta, kuivaushuone ja parveke. Ilmalämpöpumppu. Lemmikit sallittu.",
-    longDescription: `**Tilava ja tyylikäs huoneisto Levin sydämessä – Täydellinen kuudelle vieraalle**
+      "Kesäkuussa 2024 täysin remontoitu kahden makuuhuoneen huoneisto Levin keskustassa Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Oma sauna, varaava takka, kaksi uutta kylpyhuonetta, kuivaushuone, parveke ja ilmalämpöpumppu. Lemmikit sallittu.",
+    longDescription: `**Remontoitu kahden makuuhuoneen huoneisto Levin keskustassa**
 
-Tervetuloa unelmiesi lomanviettopaikkaan Leville! Tämä **täysin remontoitu 2 makuuhuoneen huoneisto** sijaitsee aivan Levin keskustassa, vain muutaman askeleen päässä laskettelurinteistä, hiihtoladuista, ravintoloista ja kaupoista. Täydellinen tukikohta stressittömälle Lapin lomalle.
+Huoneisto on osoitteessa Hiihtäjänkuja 5 Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Rinteet, ladut, ravintolat ja kaupat ovat kävelymatkan päässä, joten autoa ei loman aikana tarvita. Huoneistoon mahtuu kuusi henkeä.
 
-**Mukava pohjaratkaisu ja modernit mukavuudet**
-Huoneistossa on kaksi makuuhuonetta, kummassakin kaksi erillistä sänkyä, sekä laadukas vuodesohva alakerran oleskelutilassa – majoittaen mukavasti jopa kuusi vierasta. Olohuoneesta pääsee suoraan parvekkeelle nauttimaan raikkaasta ulkoilmasta.
+**Pohjaratkaisu**
+Molemmissa makuuhuoneissa on kaksi erillistä sänkyä, ja alakerran oleskelutilassa on laadukas vuodesohva. Olohuoneesta on käynti parvekkeelle.
 
-Kesäkuussa 2024 tehty suuri remontti on antanut huoneistolle raikkaan ja modernin ilmeen. **Molemmat kylpyhuoneet** on uusittu täysin, ja lähes kaikki pinnat on uusittu, varmistaen korkean laadun lomallesi.
+**Remontti 2024**
+Kesäkuussa 2024 huoneisto remontoitiin perusteellisesti. Molemmat kylpyhuoneet uusittiin kokonaan, ja lähes kaikki pinnat ovat uudet.
 
-**Oma sauna, kuivaushuone ja takka**
-Päivän rinteillä vietetyn päivän jälkeen rentoudu omassa saunassa. Erillinen kuivaushuone tekee talvivarusteiden hoidosta vaivatonta – voit tulla sisään alakerran sisäänkäynnistä, jättää sukset ja märät vaatteet kuivumaan ja siirtyä suoraan saunaan. Olohuoneen **varaava takka** luo lämpimän, kodikkaan tunnelman ja pitää asunnon miellyttävästi lämpimänä tuntikausia.
+**Sauna, kuivaushuone ja takka**
+Alakerran sisäänkäynnistä tullaan suoraan kuivaushuoneeseen: sukset ja märät vaatteet jäävät kuivumaan, ja saunaan pääsee saman tien. Olohuoneen varaava takka pitää asunnon lämpimänä pitkään. Ilmalämpöpumppu tasaa lämpöä talvella ja viilentää kesällä.
 
-Ilmalämpöpumppu tasaiseen lämpöön talvella ja viilennykseen kesällä.
-
-**Erinomainen sijainti Levillä**
-Kun kaikki on lähellä, lomastasi tulee helpompi ja nautinnollisempi. Laskettelurinteet, hiihtoladut, kaupat ja ravintolat ovat kaikki kävelyetäisyydellä. Saapuminen on myös helppoa – huoneistoon pääsee vain yhden matalan portaan kautta.`,
+**Helppo saapua**
+Ulko-ovelle on vain yksi matala porras.`,
   },
   "zero-point-5b2": {
-    name: "Alppihuoneisto 5B2 – Hiihtäjänkuja",
+    name: "Huoneisto 5B2, Hiihtäjänkuja",
+    metaDescription:
+      "65 m² huoneisto 6 hengelle, Hiihtäjänkuja 5, Levi. Remontoitu 2024, oma sauna, takka ja kuivaushuone, Eturinteelle 200 m. Lemmikit sallittu.",
     shortDescription:
-      "65 m² alppityylinen huoneisto Levin keskustassa Zero Point -alueella, n. 200 m Eturinteeltä. Täysin remontoitu 2024. Alakerran olohuoneessa PlayStation ja 150 cm vuodesohva. Oma sauna, kuivaushuone ja varaava takka. Lemmikit sallittu.",
-    longDescription: `**Viehättävä alppihuoneisto Levin sydämessä – 2 makuuhuonetta + alakerran oleskelutila**
+      "65 m² kahden makuuhuoneen huoneisto Levin keskustassa Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Täysin remontoitu 2024. Oma sauna, varaava takka ja kuivaushuone. Alakerran oleskelutilassa PlayStation ja 150 cm vuodesohva. Lemmikit sallittu.",
+    longDescription: `**65 m², kaksi makuuhuonetta ja alakerran oleskelutila**
 
-Harvinainen löytö Levin keskustasta: tämä tilava 65 m²:n alppityylinen huoneisto tarjoaa kaksi makuuhuonetta sekä erillisen alakerran oleskelutilan, majoittaen mukavasti jopa 6 vierasta. Sijainti vain 200 metrin päässä eturinteiltä ja Zero Pointista tekee tästä ihanteellisen tukikohdan perheille, ystäväporukoille tai kenelle tahansa, joka etsii aitoa Levin lomakokemusta.
+Tilava kaksikerroksinen huoneisto osoitteessa Hiihtäjänkuja 5 Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Huoneisto remontoitiin kokonaan vuonna 2024. Siihen mahtuu kuusi henkeä, ja se sopii hyvin perheille ja kaveriporukoille.
 
-**Kaksi kerrosta mukavaa asumista** Yläkerrassa on avoin keittiö-olohuone ja kaksi makuuhuonetta, joissa kummassakin on kaksi erillistä sänkyä. Alakerrasta löydät erillisen oleskelutilan, jossa on suuri TV ja mukava 150 cm vuodesohva – täydellinen oleskelutila lapsille tai yksityinen pakopaikka lisävieraille.
+**Kaksi kerrosta**
+Yläkerrassa on avoin keittiö ja olohuone sekä kaksi makuuhuonetta, joissa kummassakin on kaksi erillistä sänkyä. Alakerran oleskelutilassa on iso televisio, PlayStation ja 150 cm leveä vuodesohva. Tila toimii lasten omana olohuoneena tai lisävieraiden makuupaikkana.
 
-**Oma sauna, takka ja kuivaushuone** Huoneistossa on oma sähkösauna ja viihtyisä takka, joka luo oikean tunnelman ulkoilupäivän jälkeen. Erillinen kuivaushuone alakerrassa on käytännöllinen lisä: tule sisään ulkoa, jätä sukset ja märät varusteet kuivumaan ja suuntaa suoraan saunaan.
+**Sauna, takka ja kuivaushuone**
+Huoneistossa on oma sähkösauna ja takka. Alakerran kuivaushuoneeseen tullaan suoraan ulkoa: sukset ja märät varusteet jäävät kuivumaan, ja saunaan pääsee saman tien.
 
-**Erinomainen sijainti rinteiden vieressä** Vain 200 metriä eturinteille ja Zero Pointiin – olet käytännössä hiihtotoiminnan kynnyksellä. Ravintolat, kaupat ja after ski -paikat ovat kaikki lyhyen kävelymatkan päässä. Hiihtoladut alkavat lähistöltä. Ilmainen pysäköinti sähköpistokkeella on saatavilla paikan päällä.
+**Sijainti**
+Eturinne ja Zero Point ovat noin 200 metrin päässä, ja ravintolat, kaupat ja afterski-paikat lyhyen kävelyn päässä. Ladut alkavat läheltä. Pysäköinti on ilmainen, ja paikalla on lämmitystolppa.
 
-**Kaikki mukavan oleskelun takaamiseksi sisältyy hintaan** Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja jääpalakone. Oma sauna ja takka. Oma kuivaushuone ja kuivauskaappi. Parveke. Ilmainen WiFi ja TV. Syöttötuoli ja vauvan turvaportit saatavilla perheille.`,
-  
+**Varustelu**
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja jääpalakone. Oma sauna, takka, kuivaushuone, kuivauskaappi, parveke, ilmainen WiFi ja TV. Lapsiperheille syöttötuoli ja turvaportit.`,
   },
   "zero-point-5b5-penthouse": {
-    name: "Penthouse 5B5 – Hiihtäjänkuja",
+    name: "Penthouse 5B5, Hiihtäjänkuja",
+    metaDescription:
+      "100 m² penthouse 9 hengelle, Hiihtäjänkuja 5, Levi. Neljä makuuhuonetta, kolme parveketta ja sauna rinnenäkymällä. Lemmikit sallittu.",
     shortDescription:
-      "100 m² penthouse alppityylisessä talossa Levin keskustassa Zero Point -alueella, n. 200 m Eturinteeltä. 4 makuuhuonetta, 3 parveketta ja sauna. Varaava takka, 10 hengen ruokapöytä. Remontoitu 2021. Lemmikit sallittu.",
-    longDescription: `**Upea alppihuvila eturinneteemalla – 100 m², 4 makuuhuonetta**
+      "100 m² penthouse Levin keskustassa Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Neljä makuuhuonetta yhdeksälle, kolme parveketta, sauna rinnenäkymällä ja varaava takka. Ruokapöytä kymmenelle. Remontoitu 2021. Lemmikit sallittu.",
+    longDescription: `**100 m² penthouse ja näkymä Eturinteeseen**
 
-Tämä 100 m²:n kattohuoneisto sijaitsee Levin sydämessä, vain 200 metrin päässä eturinteistä ja Zero Pointista. Neljän makuuhuoneen, kolmen parvekkeen ja jopa 8 hengen tilojensa ansiosta tämä on yksi Levin keskustan upeimmista loma-asunnoista.
+Hiihtäjänkuja 5:n talon ylin huoneisto on Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Neljä makuuhuonetta ja kolme parveketta tekevät siitä yhden Levin keskustan tilavimmista loma-asunnoista. Huoneistoon mahtuu yhdeksän henkeä.
 
-**Tilavat asuintilat jopa 8 vieraalle** Neljä makuuhuonetta, joissa on yhteensä 9 vuodepaikkaa, sekä vuodesohva olohuoneessa tarjoavat joustavat nukkumisjärjestelyt perheille tai suuremmille ryhmille. Suuressa ruokapöydässä on tilaa 10 henkilölle – ihanteellinen yhteisille aterioille ja iltatilaisuuksille. Avoimessa olohuoneessa on mukava sohva, suuri televisio ja äänentoistojärjestelmä.
+**Tilaa isollekin porukalle**
+Makuuhuoneissa on yhteensä yhdeksän vuodepaikkaa, ja olohuoneessa on lisäksi vuodesohva. Ruokapöydän ääreen mahtuu kymmenen henkeä. Olohuoneessa on sohva, iso televisio ja äänentoistojärjestelmä.
 
-**Eturinneteemat kolmelta parvekkeelta** Olohuoneesta ja yhdestä makuuhuoneesta avautuvat parvekkeet näkymillä Levin eturinteelle. Katsele illan rinnevalaistusta sisätiloista käsin.
+**Kolme parveketta**
+Olohuoneen ja yhden makuuhuoneen parvekkeilta näkyy Eturinteeseen. Illalla valaistua rinnettä voi katsella myös sisältä.
 
-**Yksityinen sauna rinneteemoin ja takka** Saunasta on ikkuna eturinteen suuntaan – nauti näkymistä rentoutuessasi päivän rinteillä vietetyn päivän jälkeen. Olohuoneen varaava takka luo lämpimän, kodikkaan tunnelman talvi-iltoina. Polttopuut sisältyvät hintaan.
+**Sauna ja takka**
+Saunan ikkunasta näkyy Eturinteen suuntaan. Olohuoneen varaava takka lämmittää talvi-illat, ja polttopuut sisältyvät hintaan.
 
-**Remontoitu ja hyvin varusteltu** Huoneisto remontoitiin perusteellisesti vuonna 2021 kaikki uusine kalusteineen ja moderneine sisustuksineen. Ilmastointi ja lämpöpumppu pitävät asunnon miellyttävänä kaikkina vuodenaikoina. Rakennuksessa on yksityinen pysäköinti, suksivarasto ja suksienhuoltotila kellarissa.
+**Remontoitu 2021**
+Huoneisto remontoitiin perusteellisesti vuonna 2021, ja kalusteet ja sisustus uusittiin samalla. Ilmalämpöpumppu lämmittää talvella ja viilentää kesällä. Talossa on oma pysäköinti sekä kellarissa suksivarasto ja suksienhuoltotila.
 
-**Erinomainen sijainti rinteiden äärellä** Vain 200 metrin päässä Levin eturinteistä ja Zero Pointista. Ravintolat, kaupat ja kaikki palvelut ovat kävelyetäisyydellä. Ladut alkavat läheltä. Kaikki, mitä tarvitset täydelliseen Levin lomaan, on aivan ovellasi.
+**Sijainti**
+Eturinne ja Zero Point ovat noin 200 metrin päässä, ladut alkavat läheltä, ja ravintolat, kaupat ja muut palvelut ovat kävelymatkan päässä.
 
-**Kaikki sisältyy mukavaan oleskeluun** Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Yksityinen sauna rinnetemoin. Takka polttopuineen sisältyy hintaan. 3 parveketta. Ilmastointi. Ilmainen WiFi, TV ja äänentoistojärjestelmä. Pinnasänky, syöttötuoli, lastenkirjoja ja -leluja sekä lasten turvaportit saatavilla.`,
-  
+**Varustelu**
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Sauna, takka ja polttopuut, kolme parveketta, ilmalämpöpumppu, ilmainen WiFi, TV ja äänentoisto. Lapsiperheille pinnasänky, syöttötuoli, turvaportit sekä lastenkirjoja ja leluja.`,
   },
   "karhupirtti": {
-    name: "Karhupirtti – hirsihuvila Levin keskustassa",
+    name: "Karhupirtti, hirsihuvila Levin keskustassa",
+    metaDescription:
+      "Karhupirtti: 220 m² hirsihuvila 14 hengelle Levin keskustassa, Skimbaajankuja 3. Seitsemän makuuhuonetta, ulkoporeallas ja takka. Lemmikit sallittu.",
     shortDescription:
-      "220 m² perinteinen hirsihuvila Levin keskustassa: 7 makuuhuonetta, ulkoporeallas, oma piha ja takka. 3 ensuite-makuuhuonetta alakerrassa (oma suihku + WC), yhteensä 5 suihkullista kylpyhuonetta sekä erillinen WC yläkerrassa. Täysin remontoitu 2022. Takkapuut sisältyvät. Lemmikit sallittu.",
-    longDescription: `**Karhupirtti – Ainutlaatuinen 220 m² hirsihuvila Levin sydämessä**
+      "220 m² hirsihuvila Levin keskustassa 14 hengelle: seitsemän makuuhuonetta, ulkoporeallas, oma piha ja takka. Alakerran kolmessa makuuhuoneessa oma suihku ja WC, kaikkiaan viisi suihkullista kylpyhuonetta ja yläkerrassa erillinen WC. Täysin remontoitu 2023. Takkapuut sisältyvät. Lemmikit sallittu.",
+    longDescription: `**220 m² hirsihuvila Levin keskustassa**
 
-Levin majoitusvaihtoehdoista Karhupirtti on vertaansa vailla. Tämä perinteinen pyöröhirsihuvila sijaitsee aivan Levin keskustassa, vain kolmen minuutin kävelymatkan päässä eturinteistä, ravintoloista ja kaupoista. Sen 220 m² asuintilalla, seitsemällä makuuhuoneella ja ulkoporeammeella, se majoittaa jopa 14 vierasta, mikä tekee siitä täydellisen tukikohdan ryhmämatkailuun Lapissa. Lemmikit ovat tervetulleita.
+Karhupirtti on pyöröhirsinen huvila aivan Levin keskustassa, osoitteessa Skimbaajankuja 3. Eturinteet, ravintolat ja kaupat ovat noin kolmen minuutin kävelyn päässä. Seitsemään makuuhuoneeseen mahtuu 14 henkeä, joten huvila sopii isoille perheille, sukulomille ja kaveriporukoille. Lemmikit ovat tervetulleita.
 
-**Tilaa jopa 14 vieraalle 7 makuuhuoneessa** Alakerrassa on kolme omalla kylpyhuoneella varustettua makuuhuonetta, jokaisessa oma suihku ja WC – täydellistä yksityisyyttä arvostaville. Yläkerrassa on kaksi todella isoa makuuhuonetta, joissa kummassakin on kaksi sänkyä, TV ja runsaasti tilaa esimerkiksi lasten leikeille – toisessa on lisäksi vuodesohva tarvittaessa. Kummankin yhteydessä on pienempi makuuhuone kahdella täysikokoisella sängyllä, ihanteellinen lapsille: perhe on lähekkäin, mutta jokaisella on oma tilansa. Ensuite-kylpyhuoneiden lisäksi huvilassa on kaksi muuta suihkullista kylpyhuonetta sekä **erillinen WC yläkerrassa** yläkerran makuuhuoneiden käyttöön – ruuhkaa ei pääse syntymään isonkaan ryhmän kanssa. Yhteensä **5 suihkullista kylpyhuonetta** + 1 erillinen WC. Tilava olohuone ja ruokailutila istuttavat koko ryhmän mukavasti, tehden yhteisistä aterioista ja illoista loman kohokohtia.
+**Seitsemän makuuhuonetta**
+Alakerrassa on kolme makuuhuonetta, joissa jokaisessa on oma suihku ja WC. Yläkerrassa on kaksi tosi isoa makuuhuonetta, kummassakin kaksi sänkyä, televisio ja runsaasti tilaa vaikka lasten leikeille. Toisessa on lisäksi vuodesohva. Kummankin yhteydessä on pienempi makuuhuone kahdella täysikokoisella sängyllä, mikä sopii hyvin lapsille: perhe on lähellä toisiaan, mutta jokaisella on oma rauhansa.
 
-**Ulkoporeamme** Astu ulkoporeammeeseen omalla suurella yksityisellä pihallasi. Selkeinä iltoina voit jopa bongata revontulet poreammeesta käsin. Pihalla on myös grillipaikka iltoja varten avotulen äärellä.
+Suihkullisia kylpyhuoneita on kaikkiaan viisi, ja yläkerrassa on lisäksi erillinen WC, joten isokaan porukka ei joudu jonottamaan. Olohuoneeseen ja ruokailutilaan mahtuu koko seurue yhteisille aterioille.
 
-**Täysin saneerattu 2023 laadukkailla materiaaleilla** Karhupirtti on kokenut mittavan remontin vuonna 2023, jossa on käytetty huippulaadukkaita materiaaleja: Pukkilan laatat, Kährsin lattiat, pähkinäpuiset katot, näyttävä musta keittiö ja Mielen kodinkoneet. Lopputuloksena on perinteisen hirsihuvilan tunnelman ja modernin mukavuuden täydellinen yhdistelmä. Design-takka luo lämpöä ja tunnelmaa.
+**Ulkoporeallas ja grillipaikka**
+Poreallas on huvilan omalla isolla pihalla. Kirkkaina iltoina revontulia voi katsella suoraan altaasta. Pihalla on myös grillipaikka.
 
-**Lyömätön keskeinen sijainti** Levin aivan keskeisellä paikalla kaikki on lyhyen kävelymatkan päässä: eturinteet, Lastenmaa, supermarket, matkamuistomyymälät, ravintolat ja after-ski-paikat. Lähin moottorikelkkareitti on noin 250 metrin päässä. Paikan päällä on runsaasti parkkipaikkoja. Huvilassa on suksivarasto ja -huoltotila sekä kodinhoitohuone pyykinpesutiloineen.
+**Remontoitu 2023**
+Huvila remontoitiin vuonna 2023 laadukkain materiaalein: Pukkilan laatat, Kährsin lattiat, pähkinäpuiset katot, musta keittiö ja Mielen kodinkoneet. Lopputulos yhdistää hirsihuvilan tunnelman ja nykyaikaisen mukavuuden. Designtakka tuo lämpöä ja tunnelmaa.
 
-**Kaikki mitä tarvitset ikimuistoiseen ryhmälomaan** Täysin varusteltu keittiö astianpesukoneella, uunilla, mikroaaltouunilla, kahvinkeittimellä, pakastimella. Sähkösauna. Design-takka. Ulkoporeamme ja grilli. Ilmastointi ja lämpöpumppu. Ilmainen WiFi, TV ja äänentoistojärjestelmä. Vauvansänky ja turvaportit saatavilla.`,
-  
+**Sijainti**
+Eturinteet, Lastenmaa, ruokakauppa, ravintolat ja afterski-paikat ovat lyhyen kävelyn päässä. Lähimmälle moottorikelkkareitille on noin 250 metriä. Pysäköintitilaa on runsaasti. Huvilassa on suksivarasto ja suksienhuoltotila sekä kodinhoitohuone pyykinpesua varten.
+
+**Varustelu**
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja pakastin. Sähkösauna, designtakka, ulkoporeallas ja grilli. Ilmalämpöpumppu, ilmainen WiFi, TV ja äänentoisto. Pinnasänky ja turvaportit saatavilla.`,
   },
   "skistar-211": {
-    name: "Superior Suite 211 – Postintie",
+    name: "Superior Suite 211, Postintie",
+    metaDescription:
+      "54 m² kahden makuuhuoneen huoneisto 6 hengelle, Postintie 3, Levin keskusta. Oma sauna, parveke, päätyhuoneisto metsänäkymällä.",
     shortDescription:
-      "54 m² Superior-huoneisto kahdella makuuhuoneella, saunalla ja parvekkeella. Päätyhuoneisto metsänäkymin. Esteetön. Suksivarasto telineellä ja ilmastoinnilla. Ei lemmikkejä.",
-    longDescription: `**Tilava ja moderni 2 makuuhuoneen huoneisto Levin keskustassa – SkiStar-rakennus**
+      "54 m² kahden makuuhuoneen Superior-huoneisto SkiStar-talossa Levin keskustassa. Oma sauna ja parveke. Päätyhuoneisto, ikkunoista metsänäkymä. Esteetön kulku. Ei lemmikkejä.",
+    longDescription: `**54 m², kaksi makuuhuonetta ja oma sauna**
 
-Tervetuloa viihtyisään lomakodin tunnelmaan Levin sydämeen! Tämä moderni 54 m²:n huoneisto suositussa SkiStar-rakennuksessa majoittaa jopa 6 vierasta ja sopii ihanteellisesti perheille tai ystäväporukoille. Ravintolat, kaupat ja palvelut ovat kävelyetäisyydellä, ja päärinteet ovat noin 700 metrin päässä.
+Moderni huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu kuusi henkeä, ja se sopii perheille ja kaveriporukoille. Ravintolat, kaupat ja palvelut ovat kävelymatkan päässä, ja päärinteille on noin 700 metriä.
 
-**Viihtyisää asumista jopa 6 vieraalle** Huoneistossa on kaksi makuuhuonetta, joissa kummassakin on kaksi erillistä sänkyä, sekä vuodesohva oleskelutilassa lisämajoitusta varten. Avoimen pohjaratkaisun keittiö-olohuone tarjoaa viihtyisän tilan yhdessä kokkailuun ja rentoutumiseen laskupäivän jälkeen. Päätyhuoneistot tarjoavat metsänäkymiä ja lisää yksityisyyttä.
+**Pohjaratkaisu**
+Kummassakin makuuhuoneessa on kaksi erillistä sänkyä, ja olohuoneessa on vuodesohva. Avoimessa keittiössä ja olohuoneessa on hyvin tilaa laittaa ruokaa ja olla yhdessä rinnepäivän jälkeen. Päätyhuoneistona 211:n ikkunoista näkyy metsään, ja rauhaa on tavallista enemmän.
 
-**Oma sauna ja käytännölliset mukavuudet** Rentoudu omassa sähkösaunassa hiihtopäivän jälkeen. Jokaisessa huoneistossa on oma kuivauskaappi, joten märät lasketteluvarusteet ja ulkoiluvaatteet ovat kuivia ja lämpimiä seuraavana aamuna. Rakennuksessa on myös jaettu pesutupa ja erillinen suksivarasto huoltotelineellä ja tuuletuksella – kaikki mitä tarvitset huolettomaan talvilomaan.
+**Sauna ja kuivauskaappi**
+Oma sähkösauna rinnepäivän päätteeksi. Kuivauskaapissa märät varusteet ja ulkovaatteet kuivuvat yön aikana. ${SKISTAR_TALO}
 
-**SkiStar-rakennus — keskeinen sijainti Levillä** SkiStar-rakennus sijaitsee Levin keskustassa. Päärinteet ja eturinteen hissit ovat noin 700 metrin päässä – helppo kävelymatka tai nopea hiihto latua pitkin. Murtomaahiihdon ladut alkavat läheltä, ja kaikki ravintolat, kaupat ja after-ski-paikat ovat lyhyen kävelymatkan päässä. Paikan päällä on ilmainen pysäköinti sähköpistokkeella. Huoneistossa on esteetön kulku, mutta sitä ei ole sertifioitu täysin esteettömäksi.
+${SKISTAR_SIJAINTI} Huoneistoon on esteetön kulku, vaikka sitä ei ole sertifioitu esteettömäksi.
 
-**Kaikki mukana mukavaan oleskeluun** Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Oma sauna ja kylpyhuone. Oma kuivauskaappi. Parveke. Ilmainen WiFi ja TV. Vauvansänky ja syöttötuoli saatavilla perheille.`,
-  
+${SKISTAR_2MH_VARUSTELU}`,
   },
   "skistar-212": {
-    name: "Superior Suite 212 – Postintie",
+    name: "Superior Suite 212, Postintie",
+    metaDescription:
+      "54 m² kahden makuuhuoneen huoneisto 6 hengelle, Postintie 3, Levin keskusta. Oma sauna, parveke, lattialämmitys, päätyhuoneisto.",
     shortDescription:
-      "54 m² Superior-huoneisto: kaksi makuuhuonetta, sauna, parveke ja lattialämmitys. Kävelymatka kaikkiin Levin palveluihin. Ei lemmikkejä.",
-    longDescription: `**Tilava ja moderni 2 makuuhuoneen huoneisto Levin keskustassa – SkiStar-rakennus**
+      "54 m² kahden makuuhuoneen Superior-huoneisto SkiStar-talossa Levin keskustassa. Oma sauna, parveke ja lattialämmitys. Päätyhuoneisto, ikkunoista metsänäkymä. Palvelut kävelymatkan päässä. Ei lemmikkejä.",
+    longDescription: `**54 m², kaksi makuuhuonetta ja oma sauna**
 
-Tervetuloa viihtyisään loma-asuntoon Levin sydämessä! Tämä moderni 54 m²:n huoneisto suositussa SkiStar-rakennuksessa majoittaa jopa 6 vierasta ja on ihanteellinen perheille tai kaveriporukoille. Ravintolat, kaupat ja palvelut ovat kävelyetäisyydellä, ja päärinteet sijaitsevat noin 700 metrin päässä.
+Moderni huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu kuusi henkeä, ja se sopii perheille ja kaveriporukoille. Ravintolat, kaupat ja palvelut ovat kävelymatkan päässä, ja päärinteille on noin 700 metriä.
 
-**Mukavaa asumista jopa 6 vieraalle** Huoneistossa on kaksi makuuhuonetta, joissa kummassakin on kaksi erillistä sänkyä, sekä vuodesohva oleskelutilassa lisämajoitusta varten. Avara keittiö-olohuone tarjoaa viihtyisän tilan yhdessä kokkailuun ja rentoutumiseen rinteessä vietetyn päivän jälkeen. Päätyhuoneistot tarjoavat metsänäkymän ja lisäyksityisyyttä.
+**Pohjaratkaisu**
+Kummassakin makuuhuoneessa on kaksi erillistä sänkyä, ja olohuoneessa on vuodesohva. Avoimessa keittiössä ja olohuoneessa on hyvin tilaa laittaa ruokaa ja olla yhdessä rinnepäivän jälkeen. Lattialämmitys pitää lattiat lämpiminä. Päätyhuoneistona 212:n ikkunoista näkyy metsään, ja rauhaa on tavallista enemmän.
 
-**Oma sauna ja käytännölliset mukavuudet** Rentoudu omassa sähkösaunassasi laskettelupäivän jälkeen. Jokaisessa huoneistossa on oma kuivauskaappi, joten märät lasketteluvarusteet ja ulkoiluvaatteet ovat kuivia ja lämpimiä seuraavana aamuna. Rakennuksessa on myös yhteinen pyykkitupa ja erillinen suksivarasto huoltotelineineen ja ilmanvaihtoineen – kaikki mitä tarvitset vaivattomaan talvilomaan.
+**Sauna ja kuivauskaappi**
+Oma sähkösauna rinnepäivän päätteeksi. Kuivauskaapissa märät varusteet ja ulkovaatteet kuivuvat yön aikana. ${SKISTAR_TALO}
 
-**SkiStar-rakennus – keskeinen sijainti Levillä** SkiStar-rakennus sijaitsee keskeisellä paikalla Levillä. Päärinteet ja eturinteiden hissit ovat noin 700 metrin päässä – helppo kävelymatka tai nopea hiihtomatka latua pitkin. Latukävelyreitit alkavat lähistöltä, ja kaikki ravintolat, kaupat ja after ski -paikat ovat lyhyen kävelymatkan päässä. Paikan päällä on ilmainen pysäköinti sähköpistokkeellä. Huoneistossa on esteetön kulku, vaikka sitä ei olekaan sertifioitu täysin esteettömäksi.
+${SKISTAR_SIJAINTI} Huoneistoon on esteetön kulku, vaikka sitä ei ole sertifioitu esteettömäksi.
 
-**Kaikki mukana mukavaan oleskeluun** Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Oma sauna ja kylpyhuone. Oma kuivauskaappi. Parveke. Ilmainen WiFi ja TV. Vauvansänky ja syöttötuoli saatavilla perheille.`,
-  
+${SKISTAR_2MH_VARUSTELU}`,
   },
   "skistar-209": {
-    name: "Levin keskusta Superior 209",
+    name: "Superior 209, Levin keskusta",
+    metaDescription:
+      "43 m² yhden makuuhuoneen huoneisto 4 hengelle, Postintie 3, Levin keskusta. Oma sauna ja parveke, esteetön kulku. Varaa suoraan.",
     shortDescription:
-      "43 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla. Esteetön (ei portaita). Huolellisesti suunniteltu sisustus. Ei lemmikkejä.",
-    longDescription: `**Viihtyisä yhden makuuhuoneen huoneisto Levin keskustassa – SkiStar-rakennus**
+      "43 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talossa. Esteetön, ei portaita. Huolella suunniteltu sisustus. Ei lemmikkejä.",
+    longDescription: `**43 m², makuuhuone ja oma sauna**
 
-Mukava ja kompakti tukikohta Levin-lomallesi. Tämä 43 m²:n huoneisto suositussa SkiStar-rakennuksessa sopii erinomaisesti pariskunnille tai pienille perheille, majoittaen jopa 4 vierasta. Sijaitsee Levin keskustassa, päähiihtorinteet ovat noin 700 metrin päässä ja kaikki palvelut kävelyetäisyydellä.
+Remontoitu yhden makuuhuoneen huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
-**Nykyaikainen pohjaratkaisu jopa 4 vieraalle** Tilavassa makuuhuoneessa on kaksi erillistä sänkyä, ja olohuoneessa on mukava vuodesohva 1–2 lisävieraalle. Avokeittiö-olohuone on valoisa ja kutsuva – loistava tila ruoanlaittoon, rentoutumiseen ja seuraavan päivän seikkailujen suunnitteluun.
+${SKISTAR_1MH_POHJA}
 
-**Oma sauna ja käytännölliset mukavuudet** Rentoudu omassa sähkösaunassa rinteillä vietetyn päivän jälkeen. Rakennuksessa on jaettu pyykkitupa ja erillinen suksivarasto huoltotelineellä ja tuuletuksella. Asunnossa on oma kuivauskaappi. Huoneistoon on esteetön kulku, vaikka sitä ei ole sertifioitu täysin esteettömäksi.
+**Sauna ja kuivauskaappi**
+Oma sähkösauna rinnepäivän päätteeksi, ja kuivauskaapissa varusteet kuivuvat aamuksi. ${SKISTAR_TALO} Huoneistoon on esteetön kulku ilman portaita, vaikka sitä ei ole sertifioitu esteettömäksi.
 
-**SkiStar-rakennus – keskeinen sijainti Levillä** SkiStar-rakennus sijaitsee Levin keskustassa. Päähiihtorinteet ovat noin 700 metrin päässä – helppo kävely tai nopea hiihto latua pitkin. Murtomaahiihtoladut, ravintolat, kaupat ja after ski -paikat ovat kaikki lähistöllä. Ilmainen pysäköinti sähköpistokkeella on saatavilla paikan päällä.
+${SKISTAR_SIJAINTI}
 
-**Kaikki sisältyy mukavaan oleskeluun** Täysin varusteltu keittiö astianpesukoneella, uunilla, mikroaaltouunilla, kahvinkeittimellä ja leivänpaahtimella. Oma sauna ja kylpyhuone. Parveke. Ilmainen WiFi ja televisio HDMI-liitännällä. Syöttötuoli saatavilla perheille.`,
-  
+${SKISTAR_1MH_VARUSTELU}`,
   },
   "skistar-210": {
-    name: "Levin keskusta Superior 210",
+    name: "Superior 210, Levin keskusta",
+    metaDescription:
+      "43 m² yhden makuuhuoneen huoneisto 4 hengelle, Postintie 3, Levin keskusta. Oma sauna ja parveke, esteetön kulku. Varaa suoraan.",
     shortDescription:
-      "44 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla. Esteetön (ei portaita). Matkatavaroiden jättömahdollisuus. Ei lemmikkejä.",
-    longDescription: `**Viihtyisä yhden makuuhuoneen huoneisto Levin keskustassa – SkiStar-rakennus**
+      "43 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talossa. Esteetön, ei portaita. Matkatavarat voi jättää säilytykseen. Ei lemmikkejä.",
+    longDescription: `**43 m², makuuhuone ja oma sauna**
 
-Mukava ja kompakti tukikohta Levillä lomailuun. Tämä 43 m²:n huoneisto suositussa SkiStar-rakennuksessa sopii mainiosti pariskunnille tai pienille perheille, majoittaen jopa 4 vierasta. Huoneisto sijaitsee Levin keskustassa, noin 700 metrin päässä päärinteistä ja kaikki palvelut ovat kävelyetäisyydellä.
+Remontoitu yhden makuuhuoneen huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
-**Nykyaikainen pohjaratkaisu jopa 4 hengelle** Tilavassa makuuhuoneessa on kaksi erillistä sänkyä, ja olohuoneessa on mukava vuodesohva 1–2 lisävieraalle. Avokeittiö-olohuone on valoisa ja kutsuva – loistava tila ruoanlaittoon, rentoutumiseen ja seuraavan päivän seikkailujen suunnitteluun.
+${SKISTAR_1MH_POHJA}
 
-**Oma sauna ja käytännölliset mukavuudet** Rentoudu omassa sähkösaunassasi päivän rinteillä vietetyn päivän jälkeen. Rakennuksessa on jaettu pesutupa ja erillinen lukollinen suksivarasto, josta löytyy myös huoltoteline ja ilmastointi. Huoneistossa on oma kuivauskaappi. Huoneistoon on esteetön kulku, vaikka se ei olekaan sertifioitu täysin esteettömäksi.
+**Sauna ja kuivauskaappi**
+Oma sähkösauna rinnepäivän päätteeksi, ja kuivauskaapissa varusteet kuivuvat aamuksi. Talossa on yhteinen pesutupa ja lukittava, tuuletettu suksivarasto huoltotelineineen. Huoneistoon on esteetön kulku ilman portaita, vaikka sitä ei ole sertifioitu esteettömäksi.
 
-**SkiStar-rakennus – keskeinen sijainti Levillä** SkiStar-rakennus sijaitsee Levin keskustassa. Päärinteet ovat noin 700 metrin päässä – helppo kävelymatka tai nopea hiihto latua pitkin. Murtomaahiihdon reitit, ravintolat, kaupat ja après-ski-paikat ovat kaikki lähistöllä. Ilmainen pysäköinti pistorasialla on saatavilla paikan päällä.
+${SKISTAR_SIJAINTI}
 
-**Kaikki mukavan oleskelun takaamiseksi** Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Oma sauna ja kylpyhuone. Parveke. Ilmainen WiFi ja televisio HDMI-liitännällä. Syöttötuoli saatavilla perheille.`,
-  
+${SKISTAR_1MH_VARUSTELU}`,
   },
   "skistar-310": {
-    name: "Levin keskusta Superior 310",
+    name: "Superior 310, Levin keskusta",
+    metaDescription:
+      "43 m² yhden makuuhuoneen huoneisto 4 hengelle, Postintie 3, Levin keskusta. Oma sauna ja parveke. Päärinteille noin 700 m.",
     shortDescription:
-      "43 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla, 3. kerroksessa Skistar-talossa. Huolellisesti suunniteltu sisustus. Ei lemmikkejä.",
-    longDescription: `**Viihtyisä yhden makuuhuoneen huoneisto Levin keskustassa – SkiStar-rakennus**
+      "43 m² remontoitu yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talon kolmannessa kerroksessa. Huolella suunniteltu sisustus. Talossa ei ole hissiä. Ei lemmikkejä.",
+    longDescription: `**43 m², makuuhuone ja oma sauna**
 
-Mukava ja kompakti tukikohta Levin-lomallesi. Tämä 43 m²:n huoneisto suositussa SkiStar-rakennuksessa sopii erinomaisesti pariskunnille tai pienille perheille, majoittaen jopa 4 vierasta. Huoneisto sijaitsee talon 3. kerroksessa, ja rakennus on Levin keskustassa: päähiihtorinteet ovat noin 700 metrin päässä ja kaikki palvelut kävelyetäisyydellä.
+Remontoitu yhden makuuhuoneen huoneisto SkiStar-talon kolmannessa kerroksessa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
-**Nykyaikainen pohjaratkaisu jopa 4 vieraalle** Tilavassa makuuhuoneessa on kaksi erillistä sänkyä, ja olohuoneessa on mukava vuodesohva 1–2 lisävieraalle. Avokeittiö-olohuone on valoisa ja kutsuva – loistava tila ruoanlaittoon, rentoutumiseen ja seuraavan päivän seikkailujen suunnitteluun.
+${SKISTAR_1MH_POHJA}
 
-**Oma sauna ja käytännölliset mukavuudet** Rentoudu omassa sähkösaunassa rinteillä vietetyn päivän jälkeen. Rakennuksessa on jaettu pyykkitupa ja erillinen suksivarasto huoltotelineellä ja tuuletuksella. Asunnossa on oma kuivauskaappi. Huomaathan, että huoneisto sijaitsee 3. kerroksessa eikä talossa ole hissiä.
+**Sauna ja kuivauskaappi**
+Oma sähkösauna rinnepäivän päätteeksi, ja kuivauskaapissa varusteet kuivuvat aamuksi. ${SKISTAR_TALO} Huomaathan, että huoneisto on kolmannessa kerroksessa eikä talossa ole hissiä.
 
-**SkiStar-rakennus – keskeinen sijainti Levillä** SkiStar-rakennus sijaitsee Levin keskustassa. Päähiihtorinteet ovat noin 700 metrin päässä – helppo kävely tai nopea hiihto latua pitkin. Murtomaahiihtoladut, ravintolat, kaupat ja after ski -paikat ovat kaikki lähistöllä. Ilmainen pysäköinti sähköpistokkeella on saatavilla paikan päällä.
+${SKISTAR_SIJAINTI}
 
-**Kaikki sisältyy mukavaan oleskeluun** Täysin varusteltu keittiö astianpesukoneella, uunilla, mikroaaltouunilla, kahvinkeittimellä ja leivänpaahtimella. Oma sauna ja kylpyhuone. Parveke. Ilmainen WiFi ja televisio HDMI-liitännällä. Syöttötuoli saatavilla perheille.`,
-
+${SKISTAR_1MH_VARUSTELU}`,
   },
   "skistar-studio-102": {
-    name: "Levin keskusta Studio 102 – Postintie",
+    name: "Studio 102, Postintie",
+    metaDescription:
+      "24 m² studio Levin keskustassa, Postintie 3. Valmistunut 2020, esteetön kulku, K-Market vieressä. Ei saunaa, kompaktein huoneistomme.",
     shortDescription:
-      "24 m² studio Postintiellä Levin keskustassa. Rakennettu 2020. Kompaktein vaihtoehto – ei saunaa, mutta edullinen ja esteetön (ei portaita). Askelten päässä K-Marketista. Ei lemmikkejä.",
-    longDescription: `**Moderni studiohuoneisto Levin keskustassa – SkiStar-rakennus**
+      "24 m² studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Valmistunut 2020. Kompaktein huoneistomme: ei saunaa, mutta esteetön kulku ilman portaita. K-Market muutaman askeleen päässä. Ei lemmikkejä.",
+    longDescription: `**Moderni studio Levin keskustassa**
 
-Näppärä, tyylikäs ja täydellisellä sijainnilla. Tämä moderni 24 m²:n studio SkiStar-rakennuksessa valmistui vuonna 2020 ja tarjoaa kaiken, mitä tarvitset mukavaan Levin lomaan. Studioon majoittuu mukavasti jopa 3 aikuista tai 2 aikuisen ja 2 lapsen perhe – tehden siitä erinomaisen valinnan niin pariskunnille kuin pienille perheillekin. Päärinteet ovat noin 700 metrin päässä ja kaikki palvelut kävelyetäisyydellä.
+Vuonna 2020 valmistunut 24 m²:n studio SkiStar-talossa osoitteessa Postintie 3. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
-**Kompakti ja ovelasti suunniteltu** Studiossa on kaksi sänkyä ja vuodesohva. Vuodesohva toimii hyvin nukkumapaikkana lapsille tai kolmannelle aikuiselle. 2 aikuisen ja 2 lapsen perheelle pohjaratkaisu on ihanteellinen – lapset vuodesohvalla, vanhemmat pääsängyissä. Täysin varustellussa keittiössä on kaikki kotityyliseen ruoanlaittoon: astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Huolellisesti valittu sisustus upeine laatoitettuine tehosteseinineen tuo ripauksen Lapin tunnelmaa lomaanne.
+${SKISTAR_STUDIO_POHJA}
 
-**Kuivauskaappi ja käytännölliset tilat** Huoneistossa on oma kuivauskaappi talvivaatteita ja suksivarusteita varten – kaikki on kuivaa ja lämmintä aamuun mennessä. Rakennuksessa on myös jaettu pesutupa kuivausrummulla sekä erillinen suksivarasto huoltotelineineen ja ilmanvaihdolla. Huoneistoon on esteetön kulku, vaikka sitä ei ole sertifioitu täysin esteettömäksi.
+**Kuivauskaappi ja talon tilat**
+Kuivauskaapissa talvivaatteet ja varusteet kuivuvat aamuksi. ${SKISTAR_TALO} Huoneistoon on esteetön kulku, vaikka sitä ei ole sertifioitu esteettömäksi.
 
-**SkiStar-rakennus – keskeinen sijainti Levillä** SkiStar-rakennus sijaitsee Levin keskustassa. Päärinteet ovat noin 700 metrin päässä – helppo kävelymatka tai nopea hiihto latua pitkin. Murtomaahiihdon ladut, ravintolat, kaupat ja afterski-paikat ovat kaikki lähistöllä. Ilmainen pysäköinti sähköpistokkeella on saatavilla paikan päällä.
+${SKISTAR_SIJAINTI}
 
-**Kaikki mukavaan oleskeluun sisältyy** Täysin varusteltu keittiö astianpesukoneella, uunilla, mikroaaltouunilla, kahvinkeittimellä ja leivänpaahtimella. Oma kuivauskaappi. Suihku ja kylpyhuone. Ilmainen WiFi ja TV. Tarjolla shampoo ja vartalosaippua. Pinnasänky saatavilla pyynnöstä.
+**Varustelu**
+Täysin varusteltu keittiö, kuivauskaappi, kylpyhuone suihkulla, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
 
-**Huomaathan:** Tässä huoneistossa ei ole omaa saunaa. Jos oma sauna on tärkeä lomallesi, tutustu 28 m²:n studiohuoneistoihimme, joissa on sauna – esimerkiksi Studio 104 saunalla.
-
-Useat rakennuksen studiohuoneistoista ovat samankaltaisia ​​pienin sisustuseroin. Joissakin huoneistoissa on pyykinpesukone.`,
-  
+**Huomaathan**
+Tässä studiossa ei ole saunaa. Jos oma sauna on sinulle tärkeä, valitse jokin 28 m²:n saunallisista studioistamme, esimerkiksi Studio 104. Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja, ja osassa on pesukone.`,
   },
   "skistar-studio-104": {
-    name: "Skistar Superior Studio 104 saunalla",
+    name: "Superior Studio 104 saunalla, Postintie",
+    metaDescription:
+      "28 m² studio omalla saunalla, Postintie 3, Levin keskusta. Valmistunut 2020, lattialämmitys, esteetön kulku. 3 aikuista tai perhe 2+2.",
     shortDescription:
-      "28 m² Superior-studio omalla saunalla Postintiellä. Rakennettu 2020. Laatoitettu tehosteseinä, lattialämmitys. Täysin varusteltu keittiö astianpesukoneella. Esteetön. Ei lemmikkejä.",
-    longDescription: `**Moderni yksiö saunalla Levin keskustassa – SkiStar-rakennus**
+      "28 m² Superior-studio omalla saunalla SkiStar-talossa osoitteessa Postintie 3. Valmistunut 2020. Laatoitettu tehosteseinä ja lattialämmitys. Täysin varusteltu keittiö astianpesukoneella. Esteetön kulku. Ei lemmikkejä.",
+    longDescription: `**28 m² studio omalla saunalla**
 
-Fiksu, tyylikäs ja täydellisellä sijainnilla. Tämä moderni, vuonna 2020 valmistunut 28 m²:n yksiö SkiStar-rakennuksessa tarjoaa kaiken, mitä tarvitset mukavaan Levin-lomaan. Yksiöön majoittuu mukavasti jopa 3 aikuista tai 2 aikuisen ja 2 lapsen perhe – erinomainen valinta niin pariskunnille kuin pienille perheillekin. Päärinteet ovat noin 700 metrin päässä, ja kaikki palvelut ovat kävelyetäisyydellä.
+Moderni, vuonna 2020 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
-**Kompakti ja nerokkaasti suunniteltu** Yksiössä on kaksi sänkyä ja vuodesohva. Vuodesohva sopii hyvin lasten tai kolmannen aikuisen nukkumapaikaksi. Kahden aikuisen ja kahden lapsen perheelle pohjaratkaisu on ihanteellinen — lapset vuodesohvalla, vanhemmat pääsängyissä. Täysin varustellussa keittiössä on kaikki kodinomaiseen ruoanlaittoon: astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Huolellisesti valittu sisustus upeine laatoitettuine tehosteseinineen tuo ripauksen Lapin tunnelmaa lomaasi.
+${SKISTAR_STUDIO_POHJA}
 
-**Oma sauna, kuivauskaappi ja käytännölliset tilat** Oman sähkösaunan lämmössä on täydellistä rentoutua päivän päätteeksi rinteiden tai reittien jälkeen. Asunnossa on oma kuivauskaappi talvivaatteita ja suksivarusteita varten — kaikki on kuivaa ja lämmintä aamuksi. Rakennuksessa on myös jaettu pesutupa kuivausrummun kera sekä erillinen suksivarasto huoltotelineineen ja ilmanvaihdolla.
+**Sauna ja kuivauskaappi**
+Oma sähkösauna on paras tapa päättää päivä rinteessä tai ladulla. Kuivauskaapissa talvivaatteet ja varusteet kuivuvat aamuksi, ja lattialämmitys pitää lattiat lämpiminä. ${SKISTAR_TALO} Huoneistoon on esteetön kulku, vaikka sitä ei ole sertifioitu esteettömäksi.
 
-**SkiStar-rakennus – keskeinen sijainti Levillä** SkiStar-rakennus sijaitsee keskeisellä paikalla Levillä. Päärinteet ovat noin 700 metrin päässä — helppo lyhyt kävelymatka tai nopea hiihto reittiä pitkin. Murtomaahiihtoladut, ravintolat, kaupat ja after ski -paikat ovat kaikki lähistöllä. Ilmainen pysäköinti sähköpistokkeella on saatavilla paikan päällä.
+${SKISTAR_SIJAINTI}
 
-**Kaikki sisältyy mukavaan oleskeluun** Täysin varusteltu keittiö astianpesukoneella, uunilla, mikroaaltouunilla, kahvinkeittimellä ja leivänpaahtimella. Oma sauna. Oma kuivauskaappi. Ilmainen WiFi ja TV. Shampoo ja vartalosaippua sisältyvät. Lastensänky saatavilla pyynnöstä.
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
 
-**Huomaa:** Rakennuksessa on useita samanlaisia yksiöitä, joissa on pieniä eroja sisustuksessa. Joissakin huoneistoissa on pyykinpesukone.`,
-  
+**Huomaathan**
+Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.`,
   },
   "skistar-studio-319": {
-    name: "Levin keskusta Superior Studio 319",
+    name: "Superior Studio 319, Levin keskusta",
+    metaDescription:
+      "28 m² studio omalla saunalla ja pesukoneella, Postintie 3, Levin keskusta. 3 aikuista tai perhe 2+2, K-Market vieressä.",
     shortDescription:
-      "28 m² Superior-studio omalla saunalla Skistar-rakennuksessa Postintiellä. Pesukone huoneistossa, kuivauskaappi. Askelten päässä K-Marketista. Noin 700 m hisseille. Ei lemmikkejä.",
-    longDescription: `**Majoitus ja pohjaratkaisu**
-Jokaisessa studiossa on yhdistetty oleskelu- ja makuutila:
+      "28 m² Superior-studio omalla saunalla SkiStar-talossa osoitteessa Postintie 3. Oma pesukone ja kuivauskaappi. K-Market muutaman askeleen päässä, hisseille noin 700 m. Ei lemmikkejä.",
+    longDescription: `**28 m² studio omalla saunalla ja pesukoneella**
 
-**Varustelu ja mukavuudet**
-Huoneistot on täysin varustettu huoletonta lomaa varten: keittiö kodinkoneineen ja astioineen, peitot ja tyynyt kaikille asukkaille sekä tietysti oma sauna – Lapin loman kohokohta.
+Moderni studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
-**Sisustus ja tunnelma**
-Sisustus on suunniteltu mukavuutta ja käytännöllisyyttä silmällä pitäen. Valaistus ja materiaalit luovat lämpimän ja kodikkaan tunnelman – täydellinen rentouttavaan iltaan toiminnantäyteisen päivän jälkeen.
+${SKISTAR_STUDIO_POHJA}
 
-**Paras sijainti Levin keskustassa**
-Kaikki Levin ravintolat, kahvilat, kaupat, laskettelurinteet ja hiihtoladut ovat kävelyetäisyydellä. Keskeisestä sijainnista huolimatta huoneistot tarjoavat rauhallisen ja mukavan ympäristön.
+**Sauna, pesukone ja kuivauskaappi**
+Oma sähkösauna on paras tapa päättää päivä rinteessä tai ladulla. Studiossa on oma pesukone, ja kuivauskaapissa talvivaatteet ja varusteet kuivuvat aamuksi. Peitot ja tyynyt ovat valmiina kaikille vieraille. ${SKISTAR_TALO}
 
-**Tervetuloa Skistar Studiosiin** – täydellinen valinta pariskunnille tai pienille ryhmille, jotka haluavat kaikki tarvittavat palvelut sekä oman saunan Levin parhaalla paikalla.`,
-  
+${SKISTAR_SIJAINTI}
+
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, ilmainen WiFi ja TV. Pinnasänky pyynnöstä.`,
   },
   "skistar-studio-320": {
-    name: "Levin keskusta Studio 320",
+    name: "Studio 320 saunalla, Levin keskusta",
+    metaDescription:
+      "28 m² studio omalla saunalla, Postintie 3, Levin keskusta. Lattialämmitys, kuivauskaappi, K-Market vieressä. 3 aikuista tai perhe 2+2.",
     shortDescription:
-      "28 m² studio saunalla Skistar-rakennuksessa Postintiellä. Lattialämmitys. Askelten päässä K-Marketista. Ei lemmikkejä.",
-    longDescription: `**Moderni yksiö saunalla Levin keskustassa – SkiStar-rakennus**
+      "28 m² studio omalla saunalla SkiStar-talossa osoitteessa Postintie 3. Lattialämmitys. K-Market muutaman askeleen päässä. Ei lemmikkejä.",
+    longDescription: `**28 m² studio omalla saunalla**
 
-Näppärä, tyylikäs ja täydellisellä sijainnilla. Tämä moderni 28 m²:n yksiö SkiStar-talossa on valmistunut vuonna 2020 ja tarjoaa kaiken, mitä tarvitset mukavaan Levin-lomaan. Yksiöön mahtuu mukavasti jopa 3 aikuista tai 2 aikuisen ja 2 lapsen perhe – tehden siitä erinomaisen valinnan niin pariskunnille kuin pienille perheillekin. Päärinteet ovat noin 700 metrin päässä ja kaikki palvelut ovat kävelyetäisyydellä.
+Moderni, vuonna 2020 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
-**Kompakti ja älykkäästi suunniteltu** Yksiössä on kaksi sänkyä ja vuodesohva. Vuodesohva toimii hyvin nukkumispaikkana lapsille tai kolmannelle aikuiselle. 2 aikuisen ja 2 lapsen perheelle pohjaratkaisu on ihanteellinen – lapset vuodesohvalla, vanhemmat parisängyissä. Täysin varustellussa keittiössä on kaikki kotityyliseen ruoanlaittoon: astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Huolellisesti valittu sisustus upealla laattaseinällä tuo ripauksen Lapin tunnelmaa lomaanne.
+${SKISTAR_STUDIO_POHJA}
 
-**Oma sauna, kuivauskaappi ja käytännölliset mukavuudet** Oma sähkösauna on täydellinen tapa päättää päivä rinteillä tai laduilla. Huoneistossa on oma kuivauskaappi talvivaatteille ja suksivarusteille – kaikki on kuivaa ja lämmintä aamuun mennessä. Rakennuksessa on myös jaettu pesutupa kuivausrummulla sekä erillinen suksivarasto huoltotelineellä ja tuuletuksella.
+**Sauna ja kuivauskaappi**
+Oma sähkösauna on paras tapa päättää päivä rinteessä tai ladulla. Kuivauskaapissa talvivaatteet ja varusteet kuivuvat aamuksi, ja lattialämmitys pitää lattiat lämpiminä. ${SKISTAR_TALO}
 
-**SkiStar-rakennus – keskeinen sijainti Levillä** SkiStar-rakennus sijaitsee keskeisellä paikalla Levillä. Päärinteet ovat noin 700 metrin päässä – helppo kävelymatka tai nopea hiihto ladun varrella. Hiihtoladut, ravintolat, kaupat ja after ski -paikat ovat kaikki lähistöllä. Ilmainen pysäköinti sähköpistokkeella on saatavilla paikan päällä.
+${SKISTAR_SIJAINTI}
 
-**Kaikki mukavan loman takaamiseksi** Täysin varusteltu keittiö astianpesukoneella, uunilla, mikroaaltouunilla, kahvinkeittimellä ja leivänpaahtimella. Oma sauna. Oma kuivauskaappi. Ilmainen WiFi ja TV. Shampoo ja vartalosaippua tarjolla. Pinnasänky saatavilla pyynnöstä.
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
 
-**Huom:** Rakennuksessa on useita samanlaisia studiohuoneistoja pienin sisustuksellisin eroavaisuuksin. Joidenkin huoneistojen varustukseen kuuluu myös pesukone.`,
-  
+**Huomaathan**
+Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.`,
   },
   "skistar-studio-321": {
-    name: "Levin keskusta Studio 321",
+    name: "Studio 321 saunalla, Levin keskusta",
+    metaDescription:
+      "28 m² studio omalla saunalla, Postintie 3, Levin keskusta. Lattialämmitys, kuivauskaappi, K-Market vieressä. 3 aikuista tai perhe 2+2.",
     shortDescription:
-      "28 m² studio saunalla Skistar-rakennuksessa Postintiellä. Lattialämmitys. Askelten päässä K-Marketista. Noin 700 m hisseille. Ei lemmikkejä.",
-    longDescription: `**Moderni yksiö saunalla Levin keskustassa – SkiStar-rakennus**
+      "28 m² studio omalla saunalla SkiStar-talossa osoitteessa Postintie 3. Lattialämmitys. K-Market muutaman askeleen päässä, hisseille noin 700 m. Ei lemmikkejä.",
+    longDescription: `**28 m² studio omalla saunalla**
 
-Älykäs, tyylikäs ja täydellisellä sijainnilla. Tämä moderni 28 m²:n yksiö SkiStar-rakennuksessa valmistui vuonna 2020 ja tarjoaa kaiken, mitä tarvitset mukavaan Levin lomaan. Yksiöön mahtuu mukavasti jopa 3 aikuista tai perhe, jossa on 2 aikuista ja 2 lasta – mikä tekee siitä erinomaisen valinnan niin pariskunnille kuin pienille perheillekin. Päärinteet ovat noin 700 metrin päässä ja kaikki palvelut kävelyetäisyydellä.
+Moderni, vuonna 2020 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
-**Kompakti ja nerokkaasti suunniteltu** Yksiössä on kaksi sänkyä ja vuodesohva. Vuodesohva toimii hyvin lasten tai kolmannen aikuisen nukkumapaikkana. 2 aikuisen ja 2 lapsen perheelle pohjaratkaisu on ihanteellinen – lapset vuodesohvalla, vanhemmat parisängyissä. Täysin varustellussa keittiössä on kaikki kotikokkaamiseen: astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Huolella valittu sisustus upeine laatoitettuine tehosteseinäineen tuo ripaus Lapin tunnelmaa lomaanne.
+${SKISTAR_STUDIO_POHJA}
 
-**Oma sauna, kuivauskaappi ja käytännölliset tilat** Oman sähkösaunan löylyt ovat täydellinen tapa päättää päivä rinteillä tai poluilla. Asunnossa on oma kuivauskaappi talvivaatteita ja suksivarusteita varten – kaikki on kuivaa ja lämmintä aamuun mennessä. Rakennuksessa on myös jaettu pesutupa kuivausrummulla sekä erillinen suksivarasto huoltotelineineen ja ilmanvaihdolla.
+**Sauna ja kuivauskaappi**
+Oma sähkösauna on paras tapa päättää päivä rinteessä tai ladulla. Kuivauskaapissa talvivaatteet ja varusteet kuivuvat aamuksi, ja lattialämmitys pitää lattiat lämpiminä. ${SKISTAR_TALO}
 
-**SkiStar-rakennus – keskeinen sijainti Levillä** SkiStar-rakennus sijaitsee keskeisellä paikalla Levillä. Päärinteet ovat noin 700 metrin päässä – helppo kävely tai nopea hiihto latua pitkin. Murtomaahiihtoladut, ravintolat, kaupat ja after ski -paikat ovat kaikki lähistöllä. Ilmainen pysäköinti sähköpistokkeella on saatavilla paikan päällä.
+${SKISTAR_SIJAINTI}
 
-**Kaikki sisältyy mukavaan oleskeluun** Täysin varusteltu keittiö astianpesukoneella, uunilla, mikroaaltouunilla, kahvinkeittimellä ja leivänpaahtimella. Oma sauna. Oma kuivauskaappi. Ilmainen WiFi ja TV. Shampoo ja suihkusaippua tarjolla. Lastensänky saatavilla pyynnöstä.
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
 
-**Huomaa:** Rakennuksessa on useita samanlaisia yksiöitä pienillä eroilla sisustuksessa. Joissakin asunnoissa on pesukone.`,
-  
+**Huomaathan**
+Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.`,
   },
   "karhunvartija-3": {
-    name: "Karhunvartija 3 – keskustahuoneisto",
+    name: "Karhunvartija 3, Levin keskusta",
+    metaDescription:
+      "42 m² huoneisto 4 hengelle Levin keskustassa, Skimbaajankuja 4. Kaksi makuuhuonetta, oma sauna ja luonnonkivitakka. Lemmikit sallittu.",
     shortDescription:
-      "42 m² huoneisto kahdella makuuhuoneella, luonnonkivitakalla, omalla saunalla ja aidatulla pihalla. Oma sisäänkäynti Ratsastajankujalta. Takkapuut sisältyvät. Lemmikit sallittu.",
-    longDescription: `Tämä viihtyisä ja hyvin varusteltu huoneisto sijaitsee aivan Levin keskustassa, arkkitehtonisesti vaikuttavan Karhunvartija-rakennuksen 2B puolella. Sijainti ei voisi olla parempi – kaikki Levin ravintolat, kaupat ja aktiviteetit ovat kävelyetäisyydellä, ja niin laskettelurinteet kuin hiihtoladutkin alkavat vain lyhyen kävelymatkan päästä ovelta.
+      "42 m² yksitasoinen huoneisto Levin keskustassa: kaksi makuuhuonetta, oma sauna ja luonnonkivitakka. Oma sisäänkäynti Ratsastajankujalta suoraan talon pihalle. Takkapuut sisältyvät. Lemmikit sallittu.",
+    longDescription: `**Yksitasoinen huoneisto takalla ja saunalla**
 
-42 m²:n huoneisto on yhdessä tasossa ja tarjoaa miellyttävät puitteet jopa neljälle vieraalle. Siinä on eteinen, avoin oleskelutila keittiöllä, kaksi makuuhuonetta (toisessa makuuhuoneessa vuodesohva kahdelle), kylpyhuone, erillinen wc ja oma sauna. Luonnonkivitakka luo lämpimän ja kutsuvan tunnelman, ja huoneistolla on oma sisäänkäynti Ratsastajankujalta.
+Viihtyisä huoneisto Karhunvartija-talossa aivan Levin keskustassa, osoitteessa Skimbaajankuja 4. Ravintolat, kaupat ja aktiviteetit ovat kävelymatkan päässä, ja rinteet ja ladut alkavat lyhyen kävelyn päästä. Lemmikit ovat tervetulleita.
 
-Täällä majoittuminen on erityisen helppoa lasten kanssa – sisäänkäynti johtaa suoraan ulos, ja talolla on oma piha, jossa lapset voivat turvallisesti leikkiä lumessa. Kaikki on lähellä: laskettelurinteet, ladut, leikkikentät ja kaikki Levin keskustan palvelut. Autoa ei tarvita loman aikana, sillä koko perhe voi helposti kävellä kaikkialle, päiväsaikaan aktiviteeteista iltamenoon.
+**Pohjaratkaisu**
+42 m²:n huoneisto on yhdessä tasossa, ja siihen mahtuu neljä henkeä. Huoneistossa on eteinen, avoin keittiö ja olohuone, kaksi makuuhuonetta, joista toisessa on vuodesohva kahdelle, kylpyhuone, erillinen WC ja oma sauna. Luonnonkivitakka tekee illoista tunnelmallisia, ja takkapuut sisältyvät hintaan.
 
-Tässä huoneistossa yhdistyvät Lapin tunnelma, Levin keskustan mukavuudet ja vaivaton viihtyisyys – täydellinen valinta rentoon lomaan Levin parhaalla paikalla.`,
-  
+**Helppo lapsiperheelle**
+Oma sisäänkäynti Ratsastajankujalta johtaa suoraan talon pihalle, jossa lapset voivat leikkiä lumessa. Rinteet, ladut, leikkipuistot ja keskustan palvelut ovat lähellä, joten autoa ei loman aikana tarvita.`,
   },
   "levi-platinum-a2": {
     name: "Levi Platinum Superior Studio A2",
+    metaDescription:
+      "37 m² Platinum-studio 4 hengelle Eturinteen juurella, Hiihtäjänkuja 2, Levi. Avattu 2023, oma sauna, pesukone ja oma pysäköintipaikka.",
     shortDescription:
-      "37 m² Platinum-tason studio, avattu 2023 – uusin huoneistomme. Etelärinteen juurella. Pesukone, kuivauskaappi, lattialämmitys. Ei lemmikkejä.",
-    longDescription: `Upea Levi Platinum Studio -huoneisto sijaitsee aivan Levin keskustassa, eturinteen juurella. Asunnosta on lyhyt matka kaikkialle Leville ja pihalla on oma pysäköintipaikka. Huoneisto on uusi (avattu 2023) ja hyvin varusteltu onnistunutta lomaanne varten.
+      "37 m² Platinum-tason studio Eturinteen juurella, avattu 2023. Uusin huoneistomme. Oma sauna, pesukone, kuivauskaappi ja lattialämmitys. Oma pysäköintipaikka. Ei lemmikkejä.",
+    longDescription: `**Uusin huoneistomme Eturinteen juurella**
 
-Asunnossa on täysi kodinomainen varustus, ruoanlaitto ja oleskelu onnistuu aivan kuten kotonakin.`,
-  
+Levi Platinum -studio on osoitteessa Hiihtäjänkuja 2 Levin keskustassa, Eturinteen juurella, ja kaikkialle kylässä on lyhyt matka. Huoneisto avattiin vuonna 2023, ja se on uusin kohteemme. Studioon mahtuu neljä henkeä, ja pihalla on oma pysäköintipaikka.
+
+**Kodinomainen varustelu**
+Täysin varustellussa keittiössä ruoka valmistuu kuin kotona. Lattialämmitys pitää lattiat lämpiminä, ja kylpyhuoneessa on pesukone ja kuivauskaappi laskettelu- ja ulkoiluvarusteille. Päivän päätteeksi voit rentoutua omassa saunassa.
+
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Oma pysäköintipaikka pihalla.`,
   },
   "moonlight-415": {
-    name: "Moonlight 415 – studiohuoneisto",
+    name: "Moonlight 415, parvistudio",
+    metaDescription:
+      "28 m² parvistudio 4 hengelle Hullu Poron vieressä, Leviraitti, Levin keskusta. Remontoitu 2026, oma sauna, pesukone ja kuivauskaappi.",
     shortDescription:
-      "28 m² loft-studio Hullu Poro -hotellin vieressä. Yläkerrassa 3 loft-vuodetta (jyrkät portaat) + vuodesohva. Oma sauna. Noin 400 m rinteille ja latuverkostolle. 150 m kauppaan. Ei lemmikkejä.",
-    longDescription: `**Moonlight Studio saunalla ja parvilla – Hullu Poron vieressä Levin keskustassa**
+      "28 m² parvistudio Hullu Poron vieressä Levin keskustassa, remontoitu 2026. Parvella kolme vuodetta (jyrkät portaat) ja alakerrassa vuodesohva. Oma sauna, pesukone ja kuivauskaappi. Rinteille ja laduille noin 400 m, kauppaan 150 m. Ei lemmikkejä.",
+    longDescription: `**Parvistudio saunalla Hullu Poron vieressä**
 
-Ainutlaatuinen yksiö yhdessä Levin parhaista sijainneista – aivan legendaarisen Hullu Poro -hotellin vieressä, kylän sydämessä. Tämä 28 m²:n huoneisto tarjoaa parven kolmelle pedille ja vuodesohvan alakerrassa, majoittaen jopa 4 vierasta. Täysin remontoitu ja uudelleen kalustettu vuonna 2026 näyttävällä hirsiseinällä, joka antaa asunnolle lämpimän, aidon lappilaisen luonteen. Laskettelurinteet, hiihtoladut ja pulkkamäki ovat kaikki vain muutaman askeleen päässä, ja lähin kauppa on vain 150 metrin päässä ovelta. Katso kuvat saadaksesi tarkemman kuvan sisustuksesta.
+Studio on Leviraitin varrella Levin keskustassa, aivan Hullu Poron vieressä. 28 m²:n huoneistoon mahtuu neljä henkeä: parvella on kolme vuodetta ja alakerrassa vuodesohva. Huoneisto remontoitiin ja kalustettiin kokonaan uudelleen vuonna 2026, ja paljas hirsiseinä tuo siihen lappilaista lämpöä.
 
-**Parvivuoteet ja viihtyisä oleskelutila** Asunnossa on nerokas pohjaratkaisu, jossa on makuuparvi kolmelle hengelle ja vuodesohva oleskelutilassa lisävierasta varten. Alakerrasta löydät ruokapöydän, sohvan ja hyvin varustellun minikeittiön, jossa on astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Vuoden 2026 remontti toi kaikki uudet huonekalut ja raikkaan, modernin ilmeen – täydennettynä kauniilla paljaalla hirsiseinällä, joka luo tunnelmaa. Huomaa, että portaat parvelle ovat jyrkät. Lapsille on asennettu turvaportti. Portaat voivat olla haastavat ikääntyneille vieraille.
+**Pohjaratkaisu**
+Alakerrassa on ruokapöytä, sohva ja minikeittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Parven portaat ovat jyrkät. Lapsia varten portaissa on turvaportti, mutta iäkkäämmille vieraille portaat voivat olla hankalat.
 
-**Oma sauna, pesukone ja kuivauskaappi** Asunnossa on oma sauna, pesukone ja kuivauskaappi – kaikki yhdessä kompaktissa paketissa. Päivän rinteillä vietetyn jälkeen kuivaa varusteesi yön yli ja pidä kaikki lämpimänä ja valmiina aamuksi. Rakennuksessa on myös suksivarasto ja huoltotila.
+**Sauna, pesukone ja kuivauskaappi**
+Huoneistossa on oma sauna, pesukone ja kuivauskaappi, joten varusteet kuivuvat yön aikana. Talossa on lisäksi suksivarasto ja huoltotila.
 
-**Erinomainen sijainti Levin sydämessä** Et voisi olla keskeisemmällä paikalla. Hullu Poro, Levin tunnetuin viihdepaikka, on aivan vieressä. Laskettelurinteet ja hiihtoladut alkavat kävelymatkan päästä, ja pulkkamäki kulkee rakennuksen ohi. Kauppa on 150 metrin päässä. Yksi pysäköintipaikka lämmityspistokkeella sisältyy hintaan.
+**Sijainti**
+Rinteille ja laduille on noin 400 metriä, ja pulkkamäki kulkee talon ohi. Lähin kauppa on 150 metrin päässä. Hintaan sisältyy yksi pysäköintipaikka lämmitystolpalla.
 
-**Kaikki mukavan oleskelun edellytykset sisältyvät hintaan** Minikeittiö astianpesukoneella, uunilla, mikroaaltouunilla, kahvinkeittimellä ja leivänpaahtimella. Oma sauna. Oma pesukone ja kuivauskaappi. Ilmainen WiFi ja TV. Liinavaatteet ja pyyhkeet saatavilla lisäpalveluna, tai voit tuoda omasi.`,
-  
+**Varustelu**
+Minikeittiö, oma sauna, pesukone, kuivauskaappi, ilmainen WiFi ja TV. Liinavaatteet ja pyyhkeet voi tilata lisäpalveluna tai tuoda omat.`,
   },
   "glacier-a1": {
-    name: "Levi Glacier A1 – alppihuoneisto",
+    name: "Levi Glacier A1",
+    metaDescription:
+      "92 m² huoneisto 8 hengelle Eturinteen juurella, Ratsastajankuja 2, Levi. Neljä makuuhuonetta, oma sauna, hisseille 200 m. Lemmikit sallittu.",
     shortDescription:
-      "92 m² perinteinen alppihuoneisto Eturinteen juurella, Zero Point -alueella. 4 makuuhuonetta. Katutaso + kellari helpolla ulkoyhteydellä. Lämmin suksivarasto. Lasten leikkihuone rakennuksessa. Lemmikit sallittu.",
-    longDescription: `**Tilava 92 m² tunturihuoneisto Levin eturinteellä – 4 makuuhuonetta**
+      "92 m² huoneisto Eturinteen juurella Zero Point -alueella. Neljä makuuhuonetta kahdeksalle. Kaksi kerrosta: katutaso ja alakerta, josta suora uloskäynti. Oma sauna, lämmin suksivarasto ja talossa lasten leikkihuone. Lemmikit sallittu.",
+    longDescription: `**92 m² ja neljä makuuhuonetta Eturinteen juurella**
 
-Yksi kokoelmamme suurimmista ja rinteiden lähellä sijaitsevista huoneistoista. Tämä klassinen 92 m²:n tunturihuoneisto sijaitsee Levin eturinteen juurella, vain 200 m Glacier Express -tuolihissiltä. 4 makuuhuonetta jopa 8 hengelle – ihanteellinen perheille, kaveriporukoille tai urheilujoukkueille. Lemmikit ovat tervetulleita.
+Yksi suurimmista huoneistoistamme ja lähimpänä rinteitä. Huoneisto on Eturinteen Alppikylässä osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Neljään makuuhuoneeseen mahtuu kahdeksan henkeä, joten huoneisto sopii perheille, kaveriporukoille ja urheilujoukkueille. Lemmikit ovat tervetulleita.
 
-**Tilaa 8 vieraalle kahdessa kerroksessa** Neljä makuuhuonetta kahdeksalla vuoteella. Huoneisto jakautuu kahteen kerrokseen: pääasialliset asuintilat katutasossa, alakerta suoralla uloskäynnillä ja suksihuoltotilalla. Ovelle on vain yksi askelma. Tilava keittiö-olohuone yhteisiä aterioita ja iltoja varten.
+**Kaksi kerrosta**
+Neljässä makuuhuoneessa on yhteensä kahdeksan vuodetta. Oleskelutilat ovat katutasossa, ja alakerrasta on suora uloskäynti ja yhteys suksienhuoltotilaan. Ulko-ovelle on vain yksi askelma. Tilavassa keittiössä ja olohuoneessa koko porukka mahtuu syömään ja viettämään iltaa yhdessä.
 
-**Sauna, suksivarasto ja täydelliset mukavuudet** Oma sauna, pesukone ja kuivauskaappi sisältyvät hintaan. Jokaisessa huoneistossa on oma suksivarasto etuoven vieressä sekä pääsy jaettuun lämmitettyyn suksihuoltotilaan. Täysin varusteltu keittiö kattaen kaiken mukavaan asumiseen.
+**Sauna ja kuivauskaappi**
+Huoneistossa on oma sauna, pesukone ja kuivauskaappi. Tilava huoneisto sopii hyvin myös pidemmille lomille.
 
-**200 m rinteistä** Eturinne ja Glacier Express -hissi ovat aivan vieressäsi. Hiihtoladut kulkevat läheltä. Kaikki ravintolat, kaupat ja palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
+${GLACIER_SIJAINTI}
 
-**Tunturitunnelmaa edulliseen hintaan** Rakennettu vuonna 2000 ja päivitetty vuosien varrella. Perinteinen tunturihuoneisto Levin parhaalla paikalla ilman lisähintaa. Mainio pidempiin oleskeluihin.
+${GLACIER_TALO}
 
-**Mukavuudet:** Täysin varusteltu keittiö, pesukone, oma sauna, kuivauskaappi, suksisäilytys, WiFi, TV, radio. Lemmikit ovat tervetulleita.
-
-**Lisää huoneistoja** **Leville.net** **-sivustolta** **:** 🏔 100 m² Penthouse – rinnesäkymät, 4 makuuhuonetta 🏔 65 m² Tunturihuoneisto – takka, kuivaushuone 🏢 54 m² SkiStar 2-h – moderni, keskeinen 🏢 28 m² Studio saunalla 🏡 220 m² Bear Lodge – hirsimökki, poreallas, 14 henkeä
-
-Suunnittele lomasi: Hiihto | Reitit | Revontulet | Matkaopas`,
-  
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, suksivarasto, WiFi, TV ja radio. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A3.`,
   },
   "glacier-a2": {
-    name: "Levi Glacier A2 – alppihuoneisto",
+    name: "Levi Glacier A2",
+    metaDescription:
+      "67 m² kolmen makuuhuoneen huoneisto 5 hengelle Eturinteen juurella, Ratsastajankuja 2, Levi. Oma sauna, iso parveke. Lemmikit sallittu.",
     shortDescription:
-      "67 m² huoneisto kolmella makuuhuoneella Eturinteen juurella, Zero Point -alueella. Koko huoneiston levyinen parveke. 5 vuodetta + vuodesohva. Lemmikit sallittu.",
-    longDescription: `**Levi Glacier Apartments – Perinteinen 67 m²:n alppihuoneisto eturinteellä**
+      "67 m² kolmen makuuhuoneen huoneisto Eturinteen juurella Zero Point -alueella. Viisi vuodetta viidelle hengelle. Koko huoneiston levyinen parveke. Oma sauna. Lemmikit sallittu.",
+    longDescription: `**67 m² ja kolme makuuhuonetta Eturinteen juurella**
 
-Klassista alppioloa aivan tapahtumien ytimessä. Tämä 67 m²:n huoneisto sijaitsee Levin eturinteen juurella, vain 200 metrin päässä Glacier Express -tuolihissistä. Kolmella makuuhuoneella ja tilalla jopa 6 hengelle se on loistava keskikokoinen vaihtoehto perheille tai ryhmille, jotka haluavat olla mahdollisimman lähellä rinteitä. Lemmikit ovat tervetulleita.
+Huoneisto on Eturinteen Alppikylässä osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kolmeen makuuhuoneeseen mahtuu viisi henkeä, ja huoneisto sopii hyvin perheille ja pienille porukoille, jotka haluavat asua mahdollisimman lähellä rinteitä. Lemmikit ovat tervetulleita.
 
-**3 makuuhuonetta kahdessa tasossa** Viisi vuodetta kolmessa makuuhuoneessa sekä vuodesohva, joka sopii yhdelle aikuiselle tai kahdelle lapselle. Huoneisto jakautuu kahteen tasoon: päätasolla asuintilat katutasolla, alakerrassa suora pääsy ulos ja reitti suksihuoltotilaan. Oven edessä on vain yksi askelma. Täysleveä parveke avautuu kadulle, tarjoten sinulle eturivin paikan Levin kylän elämään.
+**Kolme makuuhuonetta kahdessa tasossa**
+Makuuhuoneissa on yhteensä viisi vuodetta. Oleskelutilat ovat katutasossa, ja alakerrasta on suora uloskäynti ja yhteys suksienhuoltotilaan. Ulko-ovelle on vain yksi askelma. Koko huoneiston levyiseltä parvekkeelta näkee kylän elämän.
 
-**Sauna, suksivarasto ja täydet mukavuudet** Oma sauna rentoutumiseen päivän laskettelun jälkeen. Jokaisessa huoneistossa on oma suksivarasto etuoven vieressä, sekä pääsy jaettuun lämpimään suksihuoltotilaan. Pesukone ja kuivauskaappi sisältyvät hintaan. Täysin varusteltu keittiö, jossa kaikki tarvittava mukavaan oleskeluun.
+**Sauna ja kuivauskaappi**
+Oma sauna rinnepäivän jälkeen. Pesukone ja kuivauskaappi kuuluvat varusteluun.
 
-**200 m rinteiltä** Eturinne ja Glacier Express -hissi ovat käytännössä oven edessä. Latupolut kulkevat läheltä. Kaikki ravintolat, kaupat ja palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
+${GLACIER_SIJAINTI}
 
-**Alppitunnelmaa, edullinen hinta** Rakennettu vuonna 2000 ja vuosien varrella päivitetty. Perinteinen alppihuoneisto Levin parhaalla paikalla ilman korkeaa hintalappua. Täydellinen perheille ja ryhmille, jotka haluavat tilaa ja aidon hiihtolomailmapiirin.
+${GLACIER_TALO}
 
-**Mukavuudet:** Täysin varusteltu keittiö, pesukone, oma sauna, kuivauskaappi, suksivarasto, täysleveä parveke, WiFi, TV. Lemmikit ovat tervetulleita.
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, suksivarasto, koko huoneiston levyinen parveke, WiFi ja TV. Lemmikit sallittu.
 
-**Tarvitsetko lisää tilaa?** Tutustu 92 m²:n Glacier-huoneistoon, jossa on 4 makuuhuonetta 8 vieraalle samassa rakennuksessa.
-
-**Lisää huoneistoja osoitteesta** **Leville.net** **:** 🏔 100 m² Penthouse — rinne näkymät, 4 makuuhuonetta 🏔 65 m² Alpine — takka, kuivaushuone 🏢 54 m² SkiStar 2 makuuhuonetta — moderni, keskeinen 🏢 28 m² Studio saunalla 🏡 220 m² Bear Lodge — hirsimökki, poreallas, 14 henkeä
-
-Suunnittele lomasi: Laskettelu | Reitit | Revontulet | Matkaopas`,
-  
+**Tarvitsetko enemmän tilaa?**
+Samassa talossa ovat myös 92 m²:n neljän makuuhuoneen huoneistot A1 ja A3 kahdeksalle hengelle.`,
   },
   "glacier-a3": {
-    name: "Levi Glacier A3 – alppihuoneisto",
+    name: "Levi Glacier A3",
+    metaDescription:
+      "92 m² huoneisto 8 hengelle Eturinteen juurella, Ratsastajankuja 2, Levi. Neljä makuuhuonetta, oma sauna, hisseille 200 m. Lemmikit sallittu.",
     shortDescription:
-      "92 m² alppihuoneisto neljällä makuuhuoneella. Sama rakennus kuin A1. Katutaso + kellari. Askelten päässä tuolihissistä. Lasten leikkihuone. Lemmikit sallittu.",
-    longDescription: `**Tilava 92 m² alppihuoneisto Levin eturinteessä – 4 makuuhuonetta**
+      "92 m² huoneisto neljällä makuuhuoneella Eturinteen juurella, samassa talossa kuin A1. Kaksi kerrosta: katutaso ja alakerta. Muutaman askeleen päässä rinteistä. Oma sauna ja talossa lasten leikkihuone. Lemmikit sallittu.",
+    longDescription: `**92 m² ja neljä makuuhuonetta Eturinteen juurella**
 
-Yksi kokoelmamme suurimmista ja rinteitä lähinnä sijaitsevista huoneistoista. Tämä klassinen 92 m² alppihuoneisto sijaitsee Levin eturinteen juurella, vain 200 metrin päässä Glacier Express -tuolihissistä. Neljä makuuhuonetta jopa kahdeksalle vieraalle – ihanteellinen perheille, kaveriporukoille tai urheilujoukkueille. Lemmikit ovat tervetulleita.
+Yksi suurimmista huoneistoistamme ja lähimpänä rinteitä. Huoneisto on Eturinteen Alppikylässä osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Neljään makuuhuoneeseen mahtuu kahdeksan henkeä, joten huoneisto sopii perheille, kaveriporukoille ja urheilujoukkueille. Lemmikit ovat tervetulleita.
 
-**Tilaa kahdeksalle hengelle kahdessa kerroksessa** Neljä makuuhuonetta kahdeksalla vuoteella. Huoneisto jakautuu kahteen tasoon: oleskelutilat katutasossa, alakerrassa suora uloskäynti ja suksihuoltotila. Vain yksi askel ovesta sisään. Tilava keittiö-olohuone yhteisille aterioille ja iltojenviettoon.
+**Kaksi kerrosta**
+Neljässä makuuhuoneessa on yhteensä kahdeksan vuodetta. Oleskelutilat ovat katutasossa, ja alakerrasta on suora uloskäynti ja yhteys suksienhuoltotilaan. Ulko-ovelle on vain yksi askelma. Tilavassa keittiössä ja olohuoneessa koko porukka mahtuu syömään ja viettämään iltaa yhdessä.
 
-**Sauna, suksivarasto ja täydelliset mukavuudet** Huoneistoon kuuluu oma sauna, pesukone ja kuivauskaappi. Jokaisella huoneistolla on oma suksivarasto etuoven vieressä sekä pääsy jaettuun lämmitettyyn suksihuoltotilaan. Täysin varusteltu keittiö kaikella, mitä tarvitset mukavaan asumiseen.
+**Sauna ja kuivauskaappi**
+Huoneistossa on oma sauna, pesukone ja kuivauskaappi. Tilava huoneisto sopii hyvin myös pidemmille lomille.
 
-**200 m rinteistä** Eturinne ja Glacier Express -hissi ovat aivan nurkan takana. Hiihtoladut kulkevat lähistöltä. Kaikki ravintolat, kaupat ja palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
+${GLACIER_SIJAINTI}
 
-**Alppitunnelmaa edulliseen hintaan** Rakennettu vuonna 2000 ja vuosien varrella päivitetty. Perinteinen alppihuoneisto Levin parhaalla paikalla ilman korkeampaa hintaa. Sopii erinomaisesti pidempiin oleskeluihin.
+${GLACIER_TALO}
 
-**Mukavuudet:** Täysin varusteltu keittiö, pesukone, oma sauna, kuivauskaappi, suksisäilytys, WiFi, TV, radio. Lemmikit ovat tervetulleita.
-
-**Lisää huoneistoja osoitteesta ** **Leville.net** **:** 🏔 100 m² Penthouse – rinnesäkymät, 4 makuuhuonetta 🏔 65 m² Alppihuoneisto – takka, kuivaushuone 🏢 54 m² SkiStar 2 makuuhuonetta – moderni, keskeinen 🏢 28 m² Studio saunalla 🏡 220 m² Bear Lodge – hirsimökki, poreallas, 14 henkeä
-
-Suunnittele lomasi: Hiihto | Reitit | Revontulet | Matkaopas`,
-  
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, suksivarasto, WiFi, TV ja radio. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A1.`,
   },
   "glacier-a4": {
-    name: "Levi Glacier A4 – alppihuoneisto",
+    name: "Levi Glacier A4",
+    metaDescription:
+      "72 m² huoneisto 6 hengelle Eturinteen juurella, Ratsastajankuja 2, Levi. Kaksi makuuhuonetta ja alkovit, oma sauna. Lemmikit sallittu.",
     shortDescription:
-      "72 m² toisen kerroksen huoneisto, 2 makuuhuonetta + 2 alkovipaikkaa yläkerrassa. Parveke Eturinteelle päin. Etelärinteen juurella. Lemmikit sallittu.",
-    longDescription: `**Levi Glacier Apartments – 72 m² Alppihuoneisto parvellisilla makuualkoveilla ja areenanäköalalla**
+      "72 m² huoneisto toisessa kerroksessa Eturinteen juurella. Kaksi makuuhuonetta ja yläkerrassa kaksi alkovivuodetta, yhteensä kuudelle. Parvekkeet molemmissa kerroksissa. Oma sauna. Lemmikit sallittu.",
+    longDescription: `**72 m², kaksi makuuhuonetta ja alkovit yläkerrassa**
 
-Toisen kerroksen alppihuoneisto uniikilla pohjaratkaisulla ja näkymällä Hullu Poro Areenalle päin. Tässä 72 m² huoneistossa Levin eturinteen juurella on 2 makuuhuonetta sekä avonaiset parve-makuualkovit yläkerrassa, majoittaen jopa 6 vierasta. Vain 200 m Glacier Express -tuolihissiltä. Lemmikit ovat tervetulleita.
+Huoneisto on Eturinteen Alppikylän (Ratsastajankuja 2) talon toisessa kerroksessa Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kahdessa makuuhuoneessa on neljä vuodetta, ja yläkerran avoimissa alkoveissa on kaksi lisävuodetta, joten huoneistoon mahtuu kuusi henkeä. Lapset tykkäävät alkoveista. Lemmikit ovat tervetulleita.
 
-**2 makuuhuonetta + parve-makuualkovit 6 vieraalle** Kaksi makuuhuonetta alakerrassa neljällä sängyllä, plus kaksi lisäsänkyä avoimissa alkovipaikoissa yläkerrassa – pohjaratkaisu, josta perheet ja lapset pitävät. Täysleveä parveke avautuu kadulle ja Hullu Poro Areenalle, ja yläkerran makuuhuoneessa on oma parveke samaan suuntaan. Erinomainen paikka seurata Levin iltaelämää yläilmoista.
+**Parvekkeet kahdessa kerroksessa**
+Koko huoneiston levyinen parveke avautuu kadulle ja Hullu Poro Areenan suuntaan, ja yläkerrassa on toinen parveke samaan suuntaan. Parvekkeelta näkee Levin iltaelämän.
 
-**Sauna, suksivarasto ja pelihuone** Oma sauna rentoutumiseen laskettelun jälkeen. Jokaisessa huoneistossa on oma suksikaappi oven vieressä, sekä pääsy jaettuun lämpimään suksenhuoltotilaan. Rakennuksessa on myös yhteiskäytössä oleva pelihuone ilmakiekkopöydällä – hitti perheille ja ryhmille lumisina iltoina.
+**Sauna**
+Oma sauna rinnepäivän jälkeen.
 
-**200 m rinteistä** Eturinne ja Glacier Express -hissi ovat käytännöllisesti katsoen kotiovella. Maastohiihtoladut kulkevat lähistöllä. Kaikki ravintolat, kaupat ja palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
+${GLACIER_SIJAINTI}
 
-**Alppitunnelmaa, edulliseen hintaan** Rakennettu vuonna 2000 ja päivitetty vuosien varrella. Perinteinen alppihuoneisto Levin parhaalla sijainnilla ilman korkeaa hintaa.
+${GLACIER_TALO}
 
-**Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone ilmakiekolla, parvekkeet kahdessa tasossa, WiFi, TV. Lemmikit sallittuja.
-
-67 m² ja 3 makuuhuonetta 6 vieraalle — samankokoinen, erilainen pohjaratkaisu
-
-**Lisää huoneistoja osoitteesta ** **Leville.net** **:** 🏔 100 m² Kattohuoneisto — rinne-näkymät, 3 parveketta 🏢 54 m² SkiStar 2-makuuhuonetta — moderni, keskeisellä paikalla 🏡 220 m² Bear Lodge — hirsitalo, poreallas, 14 henkeä
-
-Suunnittele lomasi: Laskettelu | Reitit | Revontulet | Matkaopas`,
-  
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A6 sekä 67 m²:n kolmen makuuhuoneen huoneisto A2.`,
   },
   "glacier-a5-penthouse": {
     name: "Levi Glacier Penthouse A5",
+    metaDescription:
+      "84 m² penthouse 8 hengelle Eturinteen juurella, Ratsastajankuja 2, Levi. Neljä makuuhuonetta, oma sauna, kaksi parveketta. Lemmikit sallittu.",
     shortDescription:
-      "84 m² penthouse neljällä makuuhuoneella. Toinen kerros parvekkeella + yläkerran makuuhuoneen parveke. Etelärinteen juurella. Lasten leikkihuone. Lemmikit sallittu.",
-    longDescription: `**Levi Glacier Penthouse – Tilava 84 m²:n kattohuoneisto**
+      "84 m² penthouse ylimmässä kerroksessa Eturinteen juurella. Neljä makuuhuonetta kahdeksalle. Parvekkeet kahdessa kerroksessa. Oma sauna ja talossa lasten leikkihuone. Lemmikit sallittu.",
+    longDescription: `**84 m² penthouse ja neljä makuuhuonetta**
 
-Glacier-rakennuksen suurin kattohuoneisto. Tämä 84 m²:n penthouse sijaitsee ylimmässä kerroksessa ja sen parvekkeilta avautuu näkymä Hullu Poro Arenalle, vain 200 metrin päässä eturinteestä ja Glacier Express -tuolihissistä. Neljä makuuhuonetta kahdeksalla vuoteella tekevät siitä ihanteellisen suuremmille perheille, kahdelle perheelle tai ystäväporukoille. Myös lemmikit ovat tervetulleita.
+Penthouse on Eturinteen Alppikylän (Ratsastajankuja 2) talon ylimmässä kerroksessa Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Parvekkeilta näkyy Hullu Poro Areenan suuntaan. Neljään makuuhuoneeseen mahtuu kahdeksan henkeä, joten huoneisto sopii isoille perheille, kahdelle perheelle yhdessä tai kaveriporukoille. Lemmikit ovat tervetulleita.
 
-**4 makuuhuonetta jopa 8 hengelle** Kaikissa neljässä makuuhuoneessa on kaksi vuodetta, jotka voidaan erottaa tai työntää yhteen tarpeidesi mukaan – joustavaa pariskunnille, perheille tai ryhmille. Ylemmän kerroksen sijainti antaa asunnolle tilavan, ilmavan tunteen. Kaksi parveketta avautuu kadulle ja Hullu Poro Arenan suuntaan, tarjoten näkymän Levin kylän vilkkaalle elämälle.
+**Neljä makuuhuonetta**
+Jokaisessa makuuhuoneessa on kaksi vuodetta, jotka voi pitää erillään tai siirtää yhteen. Ylin kerros tekee huoneistosta valoisan ja avaran. Kaksi parveketta avautuu kadulle ja Hullu Poro Areenan suuntaan.
 
-**Sauna, suksivarasto ja pelihuone** Oma sauna päättääksesi päivän täydellisesti. Jokaisella huoneistolla on oma suksivarasto oven vieressä, sekä pääsy jaetulle lämpimälle suksihuoltotilalle. Rakennuksessa on yhteinen pelihuone, jossa on ilmakiekko ja muita aktiviteetteja – loistavaa viihdettä perheille ja ryhmille talvi-iltana.
+**Sauna**
+Oma sauna rinnepäivän päätteeksi.
 
-**200 m rinteistä** Eturinne ja Glacier Express -hissi ovat aivan kotiovellasi. Maastohiihtoladut ovat lähellä. Kaikki ravintolat, kaupat ja après-ski ovat kävelymatkan päässä. Ilmainen pysäköinti paikan päällä.
+${GLACIER_SIJAINTI}
 
-**Alppitunnelmaa, kohtuulliseen hintaan** Rakennettu vuonna 2000 ja vuosien mittaan päivitetty. Perinteistä alppielämää Levin parhaalla paikalla rehelliseen hintaan.
+${GLACIER_TALO}
 
-**Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone, parvekkeet kahdessa tasossa, WiFi, TV. Lemmikit ovat tervetulleita.
-
-**Lisää asuntoja ** **Leville.net** **:** 🏔 100 m² Penthouse – rinnetärnäköala, 3 parveketta 🏢 54 m² SkiStar 2-h – moderni, 700 m rinteistä 🏡 220 m²
-
-Suunnittele lomasi: Hiihto | Reitit | Revontulet | Matkaopas`,
-  
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.`,
   },
   "glacier-a6": {
-    name: "Levi Glacier A6 – alppihuoneisto",
+    name: "Levi Glacier A6",
+    metaDescription:
+      "72 m² huoneisto 6 hengelle Eturinteen juurella, Ratsastajankuja 2, Levi. Kaksi makuuhuonetta ja alkovit, oma sauna. Lemmikit sallittu.",
     shortDescription:
-      "72 m² toisen kerroksen huoneisto, 2 makuuhuonetta + 2 alkovipaikkaa yläkerrassa. Parveke kadulle. Sama pohjaratkaisu kuin A4. Lemmikit sallittu.",
-    longDescription: `**Levi Glacier Apartments – 72 m² alppiasunto parvellisilla alkovilla ja näkymillä Areenalle**
+      "72 m² huoneisto toisessa kerroksessa Eturinteen juurella. Kaksi makuuhuonetta ja yläkerrassa kaksi alkovivuodetta, yhteensä kuudelle. Parvekkeet kadulle. Sama pohjaratkaisu kuin A4. Lemmikit sallittu.",
+    longDescription: `**72 m², kaksi makuuhuonetta ja alkovit yläkerrassa**
 
-Toisen kerroksen alppiasunto ainutlaatuisella pohjaratkaisulla ja näkymällä Hullu Poro Areenalle päin. Tässä 72 m² asunnossa Levin eturinteen juurella on 2 makuuhuonetta ja avoimet parvelliset alkovit yläkerrassa, ja se sopii jopa 6 hengelle. Vain 200 m Glacier Express -tuolihissistä. Lemmikkieläimet ovat tervetulleita.
+Huoneisto on Eturinteen Alppikylän (Ratsastajankuja 2) talon toisessa kerroksessa Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kahdessa makuuhuoneessa on neljä vuodetta, ja yläkerran avoimissa alkoveissa on kaksi lisävuodetta, joten huoneistoon mahtuu kuusi henkeä. Lapset tykkäävät alkoveista. Lemmikit ovat tervetulleita.
 
-**2 makuuhuonetta + parvelliset alkovit 6 hengelle** Kaksi makuuhuonetta alakerrassa 4 vuoteella, sekä kaksi lisävuodetta avoimissa alkovissa yläkerrassa – pohjaratkaisu, josta lapset pitävät. Täyskorkea parveke avautuu kadulle ja Hullu Poro Areenalle, ja yläkerran makuuhuoneessa on oma parveke samaan suuntaan. Erinomainen paikka seurata Levin iltaelämää ylhäältä.
+**Parvekkeet kahdessa kerroksessa**
+Koko huoneiston levyinen parveke avautuu kadulle ja Hullu Poro Areenan suuntaan, ja yläkerrassa on toinen parveke samaan suuntaan. Parvekkeelta näkee Levin iltaelämän.
 
-**Sauna, suksivarasto ja pelihuone** Yksityinen sauna rentoutumiseen hiihtopäivän jälkeen. Jokaisessa asunnossa on oma suksivarasto oven vieressä, sekä pääsy jaettuun lämmitettyyn suksihuoltotilaan. Rakennuksessa on myös yhteinen pelihuone ilmakiekkopöydällä – hitti perheiden ja ryhmien keskuudessa lumisina iltoina.
+**Sauna**
+Oma sauna rinnepäivän jälkeen.
 
-**200 m rinteistä** Eturinne ja Glacier Express -hissi ovat käytännössä oven edessä. Hiihtoladut kulkevat lähistöllä. Kaikki ravintolat, kaupat ja palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
+${GLACIER_SIJAINTI}
 
-**Alppitunnelmaa edulliseen hintaan** Rakennettu vuonna 2000 ja vuosien mittaan päivitetty. Perinteinen alppiasunto Levin parhaalla paikalla ilman premium-hintaa.
+${GLACIER_TALO}
 
-**Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone ilmakiekkopöydällä, parvekkeet kahdessa kerroksessa, WiFi, TV. Lemmikkieläimet ovat tervetulleita.
-
-67 m² ja 3 makuuhuonetta 6 hengelle – samankokoinen, erilainen pohjaratkaisu.
-
-**Lisää asuntoja osoitteesta** **Leville.net** **:** 🏔 100 m² Kattohuoneisto – rinnekuvat, 3 parveketta 🏢 54 m² SkiStar 2 makuuhuonetta – moderni, keskeinen 🏡 220 m² Bear Lodge – hirsimökki, poreallas, 14 henkeä
-
-Suunnittele lomasi: Hiihto | Reitit | Revontulet | Matkaopas`,
-  
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A4 sekä 67 m²:n kolmen makuuhuoneen huoneisto A2.`,
   },
   "glacier-b1": {
-    name: "Levi Glacier B1 – alppihuoneisto",
+    name: "Levi Glacier B1",
+    metaDescription:
+      "105 m² huoneisto 10 hengelle Eturinteen juurella, Ratsastajankuja 2, Levi. Viisi makuuhuonetta, oma sauna, rinnenäkymä. Lemmikit sallittu.",
     shortDescription:
-      "105 m² ensimmäisen kerroksen huoneisto viidellä makuuhuoneella (kussakin 2 vuodetta). Koko huoneiston levyinen parveke Eturinteelle. Lasten leikkihuone. Liinavaatteet lisäpalveluna. Lemmikit sallittu.",
-    longDescription: `**Levi Glacier Apartments B1 – 105 m², 5 makuuhuonetta 10 vieraalle Eturinteellä**
+      "105 m² huoneisto ensimmäisessä kerroksessa: viisi makuuhuonetta, kussakin kaksi vuodetta. Koko huoneiston levyinen parveke, näkymä Eturinteeseen. Talossa lasten leikkihuone. Liinavaatteet lisäpalveluna. Lemmikit sallittu.",
+    longDescription: `**105 m² ja viisi makuuhuonetta kymmenelle**
 
-Suurin huoneisto Glacier-rakennuksessa ja yksi parhaista ryhmämajoituksista Levin rinteiden lähellä. Tässä 105 m²:n huoneistossa on 5 makuuhuonetta 10 vuoteella, täysleveä parveke, ja se sijaitsee vain 200 m Glacier Express -tuolihissiltä. Täydellinen suurille perheille, urheilujoukkueille tai kaveriporukoille, jotka haluavat tilaa, mukavuutta ja parhaan mahdollisen sijainnin. Lemmikit ovat tervetulleita.
+Glacier-talojen suurin huoneisto ja yksi Levin parhaista ryhmämajoituksista rinteiden vieressä. Huoneisto on Eturinteen Alppikylässä osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Se sopii isoille perheille, urheilujoukkueille ja kaveriporukoille, jotka haluavat tilaa ja sijainnin rinteiden vieressä. Lemmikit ovat tervetulleita.
 
-**Huomaa:** Meillä on kaksi identtistä 105 m²:n huoneistoa (B1 ja B2) samassa rakennuksessa. Jos tämä on varattu, tarkista saatavuus huoneisto B2:lle – tai varaa molemmat jopa 20 hengen ryhmälle!
+**Viisi makuuhuonetta**
+Jokaisessa viidessä makuuhuoneessa on kaksi vuodetta, joten jokaisella on oma rauhansa. Huoneisto on ensimmäisessä kerroksessa, ja koko huoneiston levyiseltä parvekkeelta sivukadun puolelta näkyy Eturinteeseen. Tilava oleskelutila sopii yhteisille aterioille, peli-illoille ja rentoutumiseen rinnepäivän jälkeen.
 
-**5 makuuhuonetta jopa 10 vieraalle** Viisi erillistä makuuhuonetta, jokaisessa kaksi vuodetta – jokainen saa oman tilansa ja yksityisyytensä. Huoneisto sijaitsee ensimmäisessä kerroksessa ja siinä on täysleveä parveke sivukadun puolella, josta on selkeät näkymät Levin eturinteeseen. Tilava oleskelutila on ihanteellinen ryhmäruokailuihin, peli-iltoihin tai yksinkertaisesti rentoutumiseen päivän jälkeen rinteillä.
+**Sauna**
+Oma sauna koko porukalle.
 
-**Sauna, suksivarasto ja pelihuone** Yksityinen sauna koko ryhmälle. Jokaisella huoneistolla on oma suksivarasto oven vieressä sekä pääsy yhteiseen lämmitettyyn suksienhuoltotilaan. Rakennuksessa on yhteinen pelihuone, jossa on ilmakiekko ja aktiviteetteja – täydellinen lapsiperheille tai kaikille, jotka haluavat pitää hauskaa myös sisätiloissa.
+${GLACIER_SIJAINTI}
 
-**200 m rinteiltä** Eturinne ja Glacier Express -hissi ovat aivan ulkopuolella. Maastohiihtoladut lähellä. Ravintolat, kaupat ja kaikki palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
+${GLACIER_TALO}
 
-**Suuren ryhmän mukavuutta edulliseen hintaan** Rakennettu vuonna 2000 ja huollettu vuosien varrella. 10 vuodetta 5 huoneessa rinteiden juurella – vaikea löytää näin paljon tilaa tällä sijainnilla ja hinnalla mistään Levilta. Liinavaatteet saatavilla lisäpalveluna, tai voit tuoda omasi.
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, suksivarasto, koko huoneiston levyinen parveke rinnenäkymällä, WiFi ja TV. Liinavaatteet voi tilata lisäpalveluna tai tuoda omat. Lemmikit sallittu.
 
-**Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone, täysleveä parveke rinne näkymin, WiFi, TV. Lemmikit ovat tervetulleita.
-
-**Lisää kohteita Leville.net-sivustolta:** 🏡 220 m² Bear Lodge – 14 vierasta, poreallas 🏢 54 m² SkiStar – moderni, 700 m rinteiltä
-
-Hiihto | Reitit | Revontulet | Kaikki huoneistot osoitteessa leville.net`,
-  
+**Isommalle ryhmälle**
+Samassa talossa on samanlainen huoneisto B2. Jos B1 on varattu, katso B2:n saatavuus, tai varaa molemmat, jolloin majoitusta on 20 hengelle.`,
   },
   "glacier-b2": {
-    name: "Levi Glacier B2 – alppihuoneisto",
+    name: "Levi Glacier B2",
+    metaDescription:
+      "105 m² huoneisto 10 hengelle Eturinteen juurella, Ratsastajankuja 2, Levi. Viisi makuuhuonetta, oma sauna, rinnenäkymä. Lemmikit sallittu.",
     shortDescription:
-      "105 m² ensimmäisen kerroksen huoneisto viidellä makuuhuoneella. B1:n kaksonen – varaa molemmat jopa 20 hengelle. Koko huoneiston levyinen parveke, näkymä Eturinteelle. Lemmikit sallittu.",
-    longDescription: `**Levi Glacier Apartments B2 – 105 m², 5 makuuhuonetta 10 vieraalle Eturinteessä**
+      "105 m² huoneisto ensimmäisessä kerroksessa viidellä makuuhuoneella. B1:n kaksoshuoneisto, molemmat yhdessä 20 hengelle. Koko huoneiston levyinen parveke, näkymä Eturinteeseen. Lemmikit sallittu.",
+    longDescription: `**105 m² ja viisi makuuhuonetta kymmenelle**
 
-Toinen kahdesta identtisestä suuresta huoneistosta Glacier-rakennuksessa – ja yksi parhaista ryhmämajoituksista Levin rinteiden lähellä. Tässä 105 m² huoneistossa on 5 makuuhuonetta 10 vuoteella, täysleveä parveke eturinteidenäkymillä, ja se on vain 200 metrin päässä Glacier Express -tuolihissiltä. Ihanteellinen suurille perheille, urheilujoukkueille tai kaveriporukoille. Lemmikit ovat tervetulleita.
+Toinen Glacier-talojen kahdesta suurimmasta huoneistosta ja yksi Levin parhaista ryhmämajoituksista rinteiden vieressä. Huoneisto on Eturinteen Alppikylässä osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Se sopii isoille perheille, urheilujoukkueille ja kaveriporukoille. Lemmikit ovat tervetulleita.
 
-**Huomaa:** Meillä on kaksi identtistä 105 m² huoneistoa (B1 ja B2) samassa rakennuksessa. Jos tämä on varattu, tarkista huoneiston B1 saatavuus – tai varaa molemmat jopa 20 hengen ryhmälle!
+**Viisi makuuhuonetta**
+Jokaisessa viidessä makuuhuoneessa on kaksi vuodetta. Huoneisto on ensimmäisessä kerroksessa, ja koko huoneiston levyiseltä parvekkeelta sivukadun puolelta näkyy Eturinteeseen. Tilavaan oleskelutilaan mahtuu koko porukka yhteisille aterioille.
 
-**5 makuuhuonetta jopa 10 vieraalle** Viisi erillistä makuuhuonetta, jokaisessa kaksi vuodetta. Huoneisto sijaitsee ensimmäisessä kerroksessa ja siinä on täysleveä parveke sivukadun puolella, josta on selkeät näkymät eturinteeseen. Tilava oleskelutila ryhmäaterioille ja yhdessäoloon.
+**Sauna**
+Oma sauna koko porukalle.
 
-**Sauna, suksivarasto ja pelihuone** Yksityinen sauna koko ryhmälle. Oma suksisäilö oven vieressä, sekä yhteinen lämmitetty suksienhuoltotila. Rakennuksessa yhteinen pelihuone, jossa on air hockey ja muita aktiviteetteja.
+${GLACIER_SIJAINTI}
 
-**200 m rinteistä** Eturinne ja Glacier Express -hissi aivan ulko-oven edessä. Hiihtoladut lähellä. Kaikki ravintolat, kaupat ja palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
+${GLACIER_TALO}
 
-**Suuren ryhmän mukavuutta edulliseen hintaan** Rakennettu vuonna 2000 ja ylläpidetty vuosien varrella. 10 vuodetta 5 huoneessa rinteiden juurella – poikkeuksellinen hinta-laatusuhde. Liinavaatteet saatavilla lisäpalveluna.
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, suksivarasto, koko huoneiston levyinen parveke rinnenäkymällä, WiFi ja TV. Liinavaatteet voi tilata lisäpalveluna tai tuoda omat. Lemmikit sallittu.
 
-**Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksisäilö, pelihuone, täysleveä parveke rinne näkymillä, WiFi, TV. Lemmikit ovat tervetulleita.
-
-**Lisää kohteita Leville.netistä:** 🏡 220 m² Bear Lodge – 14 vierasta, poreallas 🏢 54 m² SkiStar – moderni, 700 m rinteistä
-
-Hiihto | Ladut | Revontulet | Kaikki huoneistot leville.netissä`,
-  
+**Isommalle ryhmälle**
+Samassa talossa on samanlainen huoneisto B1. Jos B2 on varattu, katso B1:n saatavuus, tai varaa molemmat, jolloin majoitusta on 20 hengelle.`,
   },
   "glacier-b3-penthouse": {
     name: "Levi Glacier Penthouse B3",
+    metaDescription:
+      "87 m² penthouse 8 hengelle Eturinteen juurella, Ratsastajankuja 2, Levi. Kolme makuuhuonetta ja alkovit, sauna, rinneparveke.",
     shortDescription:
-      "87 m² penthouse, 3 makuuhuonetta + 2 alkovipaikkaa yläkerrassa. Parveke molemmissa kerroksissa, ylempi Eturinteelle. Lasten leikkihuone. Lemmikit sallittu.",
-    longDescription: `**Levi Glacier Penthouse B3 – 87 m², parven makuualkovit ja eturinteen parveke**
+      "87 m² penthouse Eturinteen juurella. Kolme makuuhuonetta ja yläkerrassa kaksi alkovivuodetta, yhteensä kahdeksalle. Parvekkeet molemmissa kerroksissa, yläparvekkeelta näkymä Eturinteeseen. Talossa lasten leikkihuone. Lemmikit sallittu.",
+    longDescription: `**87 m² penthouse ja parveke Eturinteen puolelle**
 
-Tilava kattohuoneisto Glacier-rakennuksen ylimmässä kerroksessa, aivan Levin eturinteen juurella. Tämä 87 m²:n huoneisto tarjoaa kolme makuuhuonetta sekä avoimet parven makuualkovit kahdella lisävuoteella yläkerrassa, majoittaen mukavasti jopa kahdeksan vierasta. Yläkerran parvekkeelta avautuu näkymä eturinteeseen – voit katsella illan rinnevalaistusta omalta yksityiseltä näköalapaikaltasi. Vain 200 metrin päässä Glacier Express -tuolihissistä. Lemmikit ovat tervetulleita.
+Tilava penthouse Eturinteen Alppikylän (Ratsastajankuja 2) talon ylimmässä kerroksessa Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kolmessa makuuhuoneessa ja yläkerran avoimissa alkoveissa on tilaa kahdeksalle. Yläparvekkeelta näkyy Eturinteeseen, ja illalla valaistua rinnettä voi katsella omalta parvekkeelta. Lemmikit ovat tervetulleita.
 
-**Huomaa:** Meillä on kaksi identtistä 87 m²:n kattohuoneistoa (B3 ja B4) tässä rakennuksessa. Jos tämä on varattu, tarkista asunto B4 – tai varaa molemmat jopa 16 hengen ryhmälle!
+**Kolme makuuhuonetta ja alkovit**
+Pääkerroksessa on kolme makuuhuonetta, ja yläkerran avoimissa alkoveissa on kaksi vuodetta, joista lapset tykkäävät. Pääkerroksen koko huoneiston levyinen parveke avautuu kadulle, yläkerran parveke Eturinteeseen.
 
-**Kolme makuuhuonetta + parven alkovit kahdeksalle vieraalle** Kolme makuuhuonetta pääkerroksessa sekä kaksi vuodetta avoimissa parven alkovissa yläkerrassa – pohjaratkaisu, josta lapset pitävät. Pääkerroksen täysileveä parveke avautuu kadulle, kun taas yläkerran parveke avautuu eturinteelle upein näkymin.
+**Sauna**
+Oma sauna rinnepäivän päätteeksi.
 
-**Sauna, suksivarasto ja pelihuone** Yksityinen sauna. Oma suksivarasto oven vieressä sekä jaettu lämmitetty huoltotila. Rakennuksessa yhteinen pelihuone, jossa ilmakiekko ja muita aktiviteetteja.
+${GLACIER_SIJAINTI}
 
-**200 m rinteistä** Eturinne ja Glacier Express -hissi aivan oven edessä. Latupolut lähistöllä. Kaikki palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
+${GLACIER_TALO}
 
-**Kattohuoneistoa edulliseen hintaan** Rakennettu vuonna 2000, huollettu vuosien varrella. Ylimmän kerroksen sijainti rinne-maisemapalkoineen, perinteisen Alppi-talon asunnon hintatasoa.
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
 
-**Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone, parvekkeet kahdessa kerroksessa, WiFi, TV. Lemmikit ovat tervetulleita.
-
-**Lisää kohteita Leville.net :istä:** 🏡 220 m² Bear Lodge – 14 vierasta, jacuzzi 🏢 54 m² SkiStar – moderni, 700 m rinteistä
-
-Hiihto | Reitit | Revontulet | Kaikki asunnot osoitteessa leville.net`,
-  
+**Isommalle ryhmälle**
+Samassa talossa on samanlainen penthouse B4. Jos B3 on varattu, katso B4:n saatavuus, tai varaa molemmat, jolloin majoitusta on 16 hengelle.`,
   },
   "glacier-b4-penthouse": {
     name: "Levi Glacier Penthouse B4",
+    metaDescription:
+      "87 m² penthouse 8 hengelle Eturinteen juurella, Ratsastajankuja 2, Levi. Kolme makuuhuonetta ja alkovit, sauna, rinneparveke.",
     shortDescription:
-      "87 m² penthouse – B3:n peilikuva. Parvekkeet molemmissa kerroksissa. Lasten leikkihuone. Lemmikit sallittu.",
-    longDescription: `**Levi Glacier Penthouse B4 – 87 m², parvelliset alkovit ja parveke eturinteen puolelle**
+      "87 m² penthouse Eturinteen juurella, B3:n peilikuva. Kolme makuuhuonetta ja yläkerrassa kaksi alkovivuodetta, yhteensä kahdeksalle. Parvekkeet molemmissa kerroksissa, yläparvekkeelta näkymä Eturinteeseen. Talossa lasten leikkihuone. Lemmikit sallittu.",
+    longDescription: `**87 m² penthouse ja parveke Eturinteen puolelle**
 
-Toinen kahdesta samanlaisesta kattohuoneistosta Glacier-rakennuksen yläkerrassa, aivan Levin eturinteen juurella. Tämä 87 m²:n huoneisto tarjoaa 3 makuuhuonetta sekä avoimet parvelliset alkovit, joissa on 2 lisävuodetta, majoittaen jopa 8 henkeä. Yläparveke on eturinteelle päin – nauti iltarinteen valaistuksesta omasta näköalapaikastasi. Vain 200 metrin päässä Glacier Express -tuolihissistä. Lemmikit tervetulleita.
+Toinen talon kahdesta samanlaisesta penthousesta Eturinteen Alppikylän (Ratsastajankuja 2) talon ylimmässä kerroksessa Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kolmessa makuuhuoneessa ja yläkerran avoimissa alkoveissa on tilaa kahdeksalle. Yläparvekkeelta näkyy Eturinteeseen, ja illalla valaistua rinnettä voi katsella omalta parvekkeelta. Lemmikit ovat tervetulleita.
 
-**Huomaa:** Meillä on tässä rakennuksessa kaksi identtistä 87 m²:n kattohuoneistoa (B3 ja B4). Jos tämä on varattu, tarkista huoneisto B3 – tai varaa molemmat jopa 16 hengen ryhmälle!
+**Kolme makuuhuonetta ja alkovit**
+Alakerrassa on kolme makuuhuonetta, ja yläkerran avoimissa alkoveissa on kaksi vuodetta, joista lapset tykkäävät. Alakerran koko huoneiston levyinen parveke avautuu kadulle, yläkerran parveke Eturinteeseen.
 
-**3 makuuhuonetta + parvelliset alkovit 8 hengelle** Kolme makuuhuonetta alakerrassa, sekä kaksi vuodetta yläkerran avoimissa parvellisissa alkovissa – pohjaratkaisu, josta perheen pienimmät pitävät. Koko huoneiston levyinen parveke alakerrassa on kadun puolelle, kun taas yläparveke avautuu eturinteelle.
+**Sauna**
+Oma sauna rinnepäivän päätteeksi.
 
-**Sauna, suksivarasto ja pelihuone** Yksityinen sauna. Oma suksisäilytystila oven vieressä, sekä jaettu lämmitetty huoltotila. Rakennuksessa on yhteinen pelihuone, jossa on ilmakiekkoa ja muuta puuhaa.
+${GLACIER_SIJAINTI}
 
-**200 m rinteistä** Eturinne ja Glacier Express -hissi aivan ovesi edessä. Hiihtoladut lähellä. Kaikki palvelut kävelyetäisyydellä. Ilmainen pysäköinti paikan päällä.
+${GLACIER_TALO}
 
-**Kattohuoneistotasoinen asuminen edulliseen hintaan** Rakennettu vuonna 2000, huollettu vuosien varrella. Yläkerran sijainti rinteeseen päin avautuvalla parvekkeella, perinteisellä alppiasuntojen hinnoittelulla.
+**Varustelu**
+Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
 
-**Mukavuudet:** Täysin varusteltu keittiö, oma sauna, suksivarasto, pelihuone, parvekkeet kahdessa kerroksessa, WiFi, TV. Lemmikit tervetulleita.
-
-**Lisää kohteita osoitteesta** **Leville.net** **:** 🏡 220 m² Bear Lodge – 14 henkeä, poreallas 🏢 54 m² SkiStar – moderni, 700 m rinteistä`,
-  
+**Isommalle ryhmälle**
+Samassa talossa on samanlainen penthouse B3. Jos B4 on varattu, katso B3:n saatavuus, tai varaa molemmat, jolloin majoitusta on 16 hengelle.`,
   },
 };
 
@@ -589,10 +687,10 @@ export const translateYearFi = (s: string): string => {
 
 /** Finnish versions of English highlight badges in properties.ts. */
 export const highlightFi: Record<string, string> = {
-  "Built 2020 – modern apartment in Levi center": "Rakennettu 2020 – moderni huoneisto Levin keskustassa",
-  "In-house laundry room – professional washing machine at low cost": "Talossa pesutupa – ammattitason pesukoneella edullinen pyykinpesu",
-  "Top-tier alpine apartment in the heart of Levi": "Erittäin hieno alppihuoneisto Levin ytimessä",
-  "Unique – the only log cabin in Levi center": "Ainutlaatuinen – ainoa Levin keskustan hirsimökki",
+  "Built 2020 – modern apartment in Levi center": "Valmistunut 2020, moderni huoneisto Levin keskustassa",
+  "In-house laundry room – professional washing machine at low cost": "Talossa pesutupa ja ammattitason pesukone",
+  "Top-tier alpine apartment in the heart of Levi": "Tasokas huoneisto Levin ytimessä",
+  "Unique – the only log cabin in Levi center": "Levin keskustan ainoa hirsihuvila",
   "Prime location right in Levi center": "Erinomainen sijainti aivan Levin keskustassa",
   "Spacious family apartment": "Tilava perheasunto",
 };

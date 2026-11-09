@@ -484,8 +484,8 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
   const titleSuffix = streetShort
     ? `${streetShort}, Levi · ${capacityPart}`
     : `Levi · ${capacityPart}`;
-  const title = `${displayName} — ${titleSuffix} | Leville.net`;
-  const description = truncate(displayDescription);
+  const title = `${displayName} · ${titleSuffix} | Leville.net`;
+  const description = truncate(tr?.metaDescription ?? displayDescription);
 
 
   // Build gallery images: hero first (if set), then the rest, deduped

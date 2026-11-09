@@ -794,7 +794,7 @@ export const properties: Property[] = [
     extraBeds: 1,
     bathrooms: "1",
     wc: "1",
-    maxGuests: 6,
+    maxGuests: 5,
     guestRange: "1-6",
     location: "Glacier",
     type: "3-bedroom",
