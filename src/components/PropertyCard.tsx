@@ -49,6 +49,11 @@ const PropertyCard = ({
     src === property.heroImage && src.endsWith(".webp")
       ? `${src.replace(/\.webp$/, "-480w.webp")} 480w, ${src.replace(/\.webp$/, "-800w.webp")} 800w, ${src} 1200w`
       : undefined;
+  // Non-hero gallery images have a pre-generated -800w sibling for the card view.
+  const cardSrc = (src: string) =>
+    src !== property.heroImage && src.startsWith("/") && src.endsWith(".webp")
+      ? src.replace(/\.webp$/, "-800w.webp")
+      : src;
 
   const baseImages = property.images && property.images.length > 0
     ? property.images
@@ -77,6 +82,30 @@ const PropertyCard = ({
     setLightboxOpen(true);
   };
   const closeLightbox = () => setLightboxOpen(false);
+  const [fullLoaded, setFullLoaded] = useState(false);
+  useEffect(() => { setFullLoaded(false); }, [imgIdx]);
+  const touchX = useRef<number | null>(null);
+  const swiped = useRef(false);
+  const onTouchStart = (e: React.TouchEvent) => { touchX.current = e.touches[0].clientX; swiped.current = false; };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchX.current === null || !hasMultiple) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    touchX.current = null;
+    if (Math.abs(dx) < 40) return;
+    swiped.current = true;
+    setImgIdx((i) => (dx < 0 ? (i + 1) % gallery.length : (i - 1 + gallery.length) % gallery.length));
+  };
+  // Preload neighbours (card size always; full size when lightbox is open).
+  const [interacted, setInteracted] = useState(false);
+  useEffect(() => {
+    if (!hasMultiple || (!interacted && !lightboxOpen)) return;
+    const n = gallery.length;
+    [(imgIdx + 1) % n, (imgIdx - 1 + n) % n].forEach((j) => {
+      const im = new Image();
+      im.src = lightboxOpen ? gallery[j] : cardSrc(gallery[j]);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imgIdx, lightboxOpen, interacted]);
 
   useEffect(() => {
     if (!lightboxOpen) return;
