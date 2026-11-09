@@ -12,11 +12,14 @@ export interface PropertyEnTranslation {
 }
 
 /* ------------------------------------------------------------------ */
+
+const LEVI_VILLAGE = `**Everything within walking distance in Levi village**
+You stay in Levi village, right in the heart of Levi Center. The slopes, trails, restaurants, shops and après-ski venues are all within walking distance, so you will not need a car. Getting to activities is easy too, as most safari and excursion transfers depart from or pick up in Levi Center.`;
 /* Shared copy blocks                                                  */
 /* ------------------------------------------------------------------ */
 
 const GLACIER_LOCATION = `**Location**
-The Front Slope lifts are about 200 m away, and the cross-country trails run right past the building. Restaurants, shops and services are within walking distance, so you will not need a car during your stay. Parking is free.`;
+The Front Slope lifts are about 200 m away, and the cross-country trails run right past the building. Parking is free.`;
 
 const GLACIER_BUILDING = `**The building**
 The Eturinteen Alppikylä buildings were built in 2000 and have been updated over the years. Every apartment has its own ski locker by the front door, and the building has a shared heated ski maintenance room and a children's play and games room with air hockey.`;
@@ -49,7 +52,9 @@ export const propertyEn: Record<string, PropertyEnTranslation> = {
       "Two-bedroom apartment in Levi Center, Zero Point area, about 200 m from the Front Slope, fully renovated in June 2024. Private sauna, heat-retaining fireplace, two new bathrooms, drying room, balcony and air source heat pump. Pets allowed.",
     longDescription: `**Renovated two-bedroom apartment in Levi Center**
 
-The apartment is at Hiihtäjänkuja 5 in the Zero Point area, about 200 m from the Front Slope. Slopes, trails, restaurants and shops are all within walking distance, so you will not need a car. The apartment sleeps six.
+The apartment is at Hiihtäjänkuja 5 in the Zero Point area, about 200 m from the Front Slope. The apartment sleeps six.
+
+${LEVI_VILLAGE}
 
 **Layout**
 Both bedrooms have two single beds, and the downstairs lounge has a good quality sofa bed. The living room opens onto the balcony.
@@ -73,6 +78,8 @@ There is only one low step up to the front door.`,
 
 A spacious two-floor apartment at Hiihtäjänkuja 5 in the Zero Point area, about 200 m from the Front Slope. It was fully renovated in 2024, sleeps six and suits families and groups of friends.
 
+${LEVI_VILLAGE}
+
 **Two floors**
 Upstairs there is an open-plan kitchen and living room and two bedrooms, each with two single beds. The downstairs lounge has a large TV, a PlayStation and a 150 cm sofa bed. It works as the children's own living room or as extra sleeping space.
 
@@ -94,6 +101,8 @@ Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and ice ma
     longDescription: `**100 m² penthouse with a view of the Front Slope**
 
 The top apartment of the building at Hiihtäjänkuja 5 is in the Zero Point area, about 200 m from the Front Slope. With four bedrooms and three balconies it is one of the most spacious holiday homes in Levi Center. It sleeps nine.
+
+${LEVI_VILLAGE}
 
 **Room for a big group**
 The bedrooms have nine beds in total, and there is also a sofa bed in the living room. The dining table seats ten. The living room has a sofa, a large TV and a sound system.
@@ -123,6 +132,8 @@ Fully equipped kitchen with dishwasher, oven, microwave and coffee maker. Sauna,
 
 Karhupirtti, the Bear Lodge, is a round-log villa right in Levi Center at Skimbaajankuja 3. The Front Slope, restaurants and shops are about a three-minute walk away. The seven bedrooms sleep 14, which makes the villa a good fit for large families, family reunions and groups of friends. Pets are welcome.
 
+${LEVI_VILLAGE}
+
 **Seven bedrooms**
 Downstairs there are three bedrooms, each with its own shower and WC. Upstairs there are two very large bedrooms, each with two beds, a TV and plenty of room for children to play. One of them also has a sofa bed. Next to each is a smaller bedroom with two full-size beds, which suits children well: the family stays close, but everyone has their own space.
 
@@ -150,6 +161,8 @@ Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and freeze
 
 A modern apartment in the SkiStar building at Postintie 3, Levi Center. It sleeps six and suits families and groups of friends. Restaurants, shops and services are within walking distance, and the main slopes are about 700 m away.
 
+${LEVI_VILLAGE}
+
 **Layout**
 Both bedrooms have two single beds, and the living room has a sofa bed. The open-plan kitchen and living room has plenty of space for cooking and spending time together after a day on the slopes. As an end unit, 211 has windows facing the forest and more privacy than usual.
 
@@ -169,6 +182,8 @@ ${SKISTAR_2BR_AMENITIES}`,
     longDescription: `**54 m², two bedrooms and a private sauna**
 
 A modern apartment in the SkiStar building at Postintie 3, Levi Center. It sleeps six and suits families and groups of friends. Restaurants, shops and services are within walking distance, and the main slopes are about 700 m away.
+
+${LEVI_VILLAGE}
 
 **Layout**
 Both bedrooms have two single beds, and the living room has a sofa bed. The open-plan kitchen and living room has plenty of space for cooking and spending time together after a day on the slopes. Underfloor heating keeps the floors warm. As an end unit, 212 has windows facing the forest and more privacy than usual.
@@ -190,6 +205,8 @@ ${SKISTAR_2BR_AMENITIES}`,
 
 A renovated one-bedroom apartment in the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
 
+${LEVI_VILLAGE}
+
 ${SKISTAR_1BR_LAYOUT}
 
 **Sauna and drying cabinet**
@@ -208,6 +225,8 @@ ${SKISTAR_1BR_AMENITIES}`,
     longDescription: `**43 m², one bedroom and a private sauna**
 
 A renovated one-bedroom apartment in the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
+
+${LEVI_VILLAGE}
 
 ${SKISTAR_1BR_LAYOUT}
 
@@ -228,6 +247,8 @@ ${SKISTAR_1BR_AMENITIES}`,
 
 A renovated one-bedroom apartment on the third floor of the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
 
+${LEVI_VILLAGE}
+
 ${SKISTAR_1BR_LAYOUT}
 
 **Sauna and drying cabinet**
@@ -246,6 +267,8 @@ ${SKISTAR_1BR_AMENITIES}`,
     longDescription: `**Modern studio in Levi Center**
 
 A 24 m² studio completed in 2020 in the SkiStar building at Postintie 3. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+
+${LEVI_VILLAGE}
 
 ${SKISTAR_STUDIO_LAYOUT}
 
@@ -270,6 +293,8 @@ This studio has no sauna. If a private sauna matters to you, choose one of our 2
 
 A modern studio completed in 2020 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
+${LEVI_VILLAGE}
+
 ${SKISTAR_STUDIO_LAYOUT}
 
 **Sauna and drying cabinet**
@@ -293,6 +318,8 @@ The building has several similar studios with small differences in the interior.
 
 A modern studio in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
+${LEVI_VILLAGE}
+
 ${SKISTAR_STUDIO_LAYOUT}
 
 **Sauna, washing machine and drying cabinet**
@@ -312,6 +339,8 @@ Fully equipped kitchen, private sauna, washing machine, drying cabinet, free WiF
     longDescription: `**28 m² studio with a private sauna**
 
 A modern studio completed in 2020 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+
+${LEVI_VILLAGE}
 
 ${SKISTAR_STUDIO_LAYOUT}
 
@@ -336,6 +365,8 @@ The building has several similar studios with small differences in the interior.
 
 A modern studio completed in 2020 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
+${LEVI_VILLAGE}
+
 ${SKISTAR_STUDIO_LAYOUT}
 
 **Sauna and drying cabinet**
@@ -359,11 +390,13 @@ The building has several similar studios with small differences in the interior.
 
 A cosy apartment in the Karhunvartija building right in Levi Center, at Skimbaajankuja 4. Restaurants, shops and activities are within walking distance, and the slopes and trails start a short walk from the door. Pets are welcome.
 
+${LEVI_VILLAGE}
+
 **Layout**
 The 42 m² apartment is on one level and sleeps four. It has a hallway, an open-plan kitchen and living room, two bedrooms (one with a sofa bed for two), a bathroom, a separate WC and a private sauna. The natural stone fireplace makes for cosy evenings, and firewood is included.
 
 **Easy with children**
-The private entrance from Ratsastajankuja opens straight into the building's yard, where children can play in the snow. Slopes, trails, playgrounds and all the services of Levi Center are close by, so you will not need a car.`,
+The private entrance from Ratsastajankuja opens straight into the building's yard, where children can play in the snow. Playgrounds are close by.`,
   },
   "levi-platinum-a2": {
     name: "Levi Platinum Superior Studio A2",
@@ -374,6 +407,8 @@ The private entrance from Ratsastajankuja opens straight into the building's yar
     longDescription: `**Our newest apartment at the foot of the Front Slope**
 
 The Levi Platinum studio is at Hiihtäjänkuja 2 in Levi Center, at the foot of the Front Slope, and everything in the village is a short walk away. It opened in 2023 and is our newest apartment. The studio sleeps four, and there is a private parking space in the yard.
+
+${LEVI_VILLAGE}
 
 **Home-like comfort**
 The fully equipped kitchen lets you cook just as you would at home. Underfloor heating keeps the floors warm, and the bathroom has a washing machine and a drying cabinet for ski and outdoor gear. At the end of the day you can relax in your own sauna.
@@ -390,6 +425,8 @@ Fully equipped kitchen, private sauna, washing machine, drying cabinet, underflo
     longDescription: `**Loft studio with sauna next to Hullu Poro**
 
 The studio is on Leviraitti in Levi Center, right next to Hullu Poro. The 28 m² apartment sleeps four: three beds in the loft and a sofa bed downstairs. It was fully renovated and refurnished in 2026, and the exposed log wall gives it real Lapland warmth.
+
+${LEVI_VILLAGE}
 
 **Layout**
 Downstairs there is a dining table, a sofa and a kitchenette with dishwasher, oven, microwave, coffee maker and toaster. The stairs to the loft are steep. There is a safety gate for children, but the stairs may be difficult for older guests.
@@ -413,6 +450,8 @@ Kitchenette, private sauna, washing machine, drying cabinet, free WiFi and TV. B
 
 One of our largest apartments and one of the closest to the slopes. The apartment is in Eturinteen Alppikylä at Ratsastajankuja 2, Zero Point area, about 200 m from the Front Slope lifts. The four bedrooms sleep eight, so it suits families, groups of friends and sports teams. Pets are welcome.
 
+${LEVI_VILLAGE}
+
 **Two floors**
 The four bedrooms have eight beds in total. The living areas are on street level, and the lower floor has its own exit and access to the ski maintenance room. There is only one step up to the front door. The spacious kitchen and living room fits the whole group for meals and evenings together.
 
@@ -435,6 +474,8 @@ Fully equipped kitchen, private sauna, washing machine, drying cabinet, ski lock
     longDescription: `**67 m² and three bedrooms at the foot of the Front Slope**
 
 The apartment is in Eturinteen Alppikylä at Ratsastajankuja 2, Zero Point area, about 200 m from the Front Slope lifts. The three bedrooms sleep five, and the apartment suits families and small groups who want to stay as close to the slopes as possible. Pets are welcome.
+
+${LEVI_VILLAGE}
 
 **Three bedrooms on two levels**
 The bedrooms have five beds in total. The living areas are on street level, and the lower floor has its own exit and access to the ski maintenance room. There is only one step up to the front door. The full-width balcony gives you a view of village life.
@@ -462,6 +503,8 @@ The same building also has the 92 m² four-bedroom apartments A1 and A3 for eigh
 
 One of our largest apartments and one of the closest to the slopes. The apartment is in Eturinteen Alppikylä at Ratsastajankuja 2, Zero Point area, about 200 m from the Front Slope lifts. The four bedrooms sleep eight, so it suits families, groups of friends and sports teams. Pets are welcome.
 
+${LEVI_VILLAGE}
+
 **Two floors**
 The four bedrooms have eight beds in total. The living areas are on street level, and the lower floor has its own exit and access to the ski maintenance room. There is only one step up to the front door. The spacious kitchen and living room fits the whole group for meals and evenings together.
 
@@ -484,6 +527,8 @@ Fully equipped kitchen, private sauna, washing machine, drying cabinet, ski lock
     longDescription: `**72 m², two bedrooms and alcoves upstairs**
 
 The apartment is on the second floor of the Eturinteen Alppikylä building at Ratsastajankuja 2, Zero Point area, about 200 m from the Front Slope lifts. The two bedrooms have four beds, and the open alcoves upstairs have two more, so the apartment sleeps six. Children love the alcoves. Pets are welcome.
+
+${LEVI_VILLAGE}
 
 **Balconies on two levels**
 The full-width balcony faces the street and Hullu Poro Arena, and there is a second balcony upstairs facing the same way. From the balcony you can follow Levi's evening life.
@@ -508,6 +553,8 @@ Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi
 
 The penthouse is on the top floor of the Eturinteen Alppikylä building at Ratsastajankuja 2, Zero Point area, about 200 m from the Front Slope lifts. The balconies face Hullu Poro Arena. The four bedrooms sleep eight, so it suits large families, two families together or groups of friends. Pets are welcome.
 
+${LEVI_VILLAGE}
+
 **Four bedrooms**
 Each bedroom has two beds that can be kept apart or pushed together. The top-floor position makes the apartment bright and airy. Two balconies face the street and Hullu Poro Arena.
 
@@ -531,6 +578,8 @@ Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi
 
 The apartment is on the second floor of the Eturinteen Alppikylä building at Ratsastajankuja 2, Zero Point area, about 200 m from the Front Slope lifts. The two bedrooms have four beds, and the open alcoves upstairs have two more, so the apartment sleeps six. Children love the alcoves. Pets are welcome.
 
+${LEVI_VILLAGE}
+
 **Balconies on two levels**
 The full-width balcony faces the street and Hullu Poro Arena, and there is a second balcony upstairs facing the same way. From the balcony you can follow Levi's evening life.
 
@@ -553,6 +602,8 @@ Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi
     longDescription: `**105 m² and five bedrooms for ten**
 
 The largest apartment in the Glacier buildings and one of the best group stays next to the Levi slopes. It is in Eturinteen Alppikylä at Ratsastajankuja 2, Zero Point area, about 200 m from the Front Slope lifts. It suits large families, sports teams and groups of friends who want space and a location right by the slopes. Pets are welcome.
+
+${LEVI_VILLAGE}
 
 **Five bedrooms**
 Each of the five bedrooms has two beds, so everyone has their own space. The apartment is on the first floor, and the full-width balcony on the side street looks towards the Front Slope. The spacious living area is good for shared meals, game nights and relaxing after a day on the slopes.
@@ -580,6 +631,8 @@ The same building has an identical apartment, B2. If B1 is booked, check B2, or 
 
 One of the two largest apartments in the Glacier buildings and one of the best group stays next to the Levi slopes. It is in Eturinteen Alppikylä at Ratsastajankuja 2, Zero Point area, about 200 m from the Front Slope lifts. It suits large families, sports teams and groups of friends. Pets are welcome.
 
+${LEVI_VILLAGE}
+
 **Five bedrooms**
 Each of the five bedrooms has two beds. The apartment is on the first floor, and the full-width balcony on the side street looks towards the Front Slope. The spacious living area fits the whole group for shared meals.
 
@@ -606,6 +659,8 @@ The same building has an identical apartment, B1. If B2 is booked, check B1, or 
 
 A spacious penthouse on the top floor of the Eturinteen Alppikylä building at Ratsastajankuja 2, Zero Point area, about 200 m from the Front Slope lifts. The three bedrooms and the open alcoves upstairs sleep eight. The upper balcony faces the Front Slope, so you can watch the floodlit slope from your own balcony in the evening. Pets are welcome.
 
+${LEVI_VILLAGE}
+
 **Three bedrooms and alcoves**
 The main floor has three bedrooms, and the open alcoves upstairs have two beds that children love. The full-width balcony on the main floor faces the street, and the upper balcony faces the Front Slope.
 
@@ -631,6 +686,8 @@ The same building has an identical penthouse, B4. If B3 is booked, check B4, or 
     longDescription: `**87 m² penthouse with a balcony facing the Front Slope**
 
 One of two identical penthouses on the top floor of the Eturinteen Alppikylä building at Ratsastajankuja 2, Zero Point area, about 200 m from the Front Slope lifts. The three bedrooms and the open alcoves upstairs sleep eight. The upper balcony faces the Front Slope, so you can watch the floodlit slope from your own balcony in the evening. Pets are welcome.
+
+${LEVI_VILLAGE}
 
 **Three bedrooms and alcoves**
 Downstairs there are three bedrooms, and the open alcoves upstairs have two beds that children love. The full-width balcony downstairs faces the street, and the upper balcony faces the Front Slope.

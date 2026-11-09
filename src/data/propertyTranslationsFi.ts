@@ -12,11 +12,14 @@ export interface PropertyFiTranslation {
 }
 
 /* ------------------------------------------------------------------ */
+
+const LEVIN_KYLA = `**Kaikki kävelymatkan päässä Levin kylässä**
+Asut Levin kylässä, aivan Levi-keskuksen ytimessä. Rinteet, ladut, ravintolat, kaupat ja afterski-paikat ovat kävelymatkan päässä, joten autoa ei loman aikana tarvita. Myös aktiviteetteihin on helppo lähteä, sillä useimmat safari- ja retkikuljetukset lähtevät Levin keskustasta tai hakevat asiakkaat sieltä.`;
 /* Yhteiset tekstilohkot                                               */
 /* ------------------------------------------------------------------ */
 
 const GLACIER_SIJAINTI = `**Sijainti**
-Eturinteen hissit ovat noin 200 metrin päässä, ja ladut kulkevat aivan talon vierestä. Ravintolat, kaupat ja palvelut ovat kävelymatkan päässä, joten autoa ei loman aikana tarvita. Pysäköinti on ilmainen.`;
+Eturinteen hissit ovat noin 200 metrin päässä, ja ladut kulkevat aivan talon vierestä. Pysäköinti on ilmainen.`;
 
 const GLACIER_TALO = `**Talo**
 Eturinteen Alppikylän talot on rakennettu vuonna 2000, ja niitä on kunnostettu vuosien varrella. Jokaisella huoneistolla on oma suksivarasto ulko-oven vieressä, ja talossa on yhteinen lämmin suksienhuoltotila sekä lasten leikki- ja pelihuone, jossa on muun muassa ilmakiekkopeli.`;
@@ -49,7 +52,9 @@ export const propertyFi: Record<string, PropertyFiTranslation> = {
       "Kesäkuussa 2024 täysin remontoitu kahden makuuhuoneen huoneisto Levin keskustassa Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Oma sauna, varaava takka, kaksi uutta kylpyhuonetta, kuivaushuone, parveke ja ilmalämpöpumppu. Lemmikit sallittu.",
     longDescription: `**Remontoitu kahden makuuhuoneen huoneisto Levin keskustassa**
 
-Huoneisto on osoitteessa Hiihtäjänkuja 5 Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Rinteet, ladut, ravintolat ja kaupat ovat kävelymatkan päässä, joten autoa ei loman aikana tarvita. Huoneistoon mahtuu kuusi henkeä.
+Huoneisto on osoitteessa Hiihtäjänkuja 5 Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Huoneistoon mahtuu kuusi henkeä.
+
+${LEVIN_KYLA}
 
 **Pohjaratkaisu**
 Molemmissa makuuhuoneissa on kaksi erillistä sänkyä, ja alakerran oleskelutilassa on laadukas vuodesohva. Olohuoneesta on käynti parvekkeelle.
@@ -73,6 +78,8 @@ Ulko-ovelle on vain yksi matala porras.`,
 
 Tilava kaksikerroksinen huoneisto osoitteessa Hiihtäjänkuja 5 Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Huoneisto remontoitiin kokonaan vuonna 2024. Siihen mahtuu kuusi henkeä, ja se sopii hyvin perheille ja kaveriporukoille.
 
+${LEVIN_KYLA}
+
 **Kaksi kerrosta**
 Yläkerrassa on avoin keittiö ja olohuone sekä kaksi makuuhuonetta, joissa kummassakin on kaksi erillistä sänkyä. Alakerran oleskelutilassa on iso televisio, PlayStation ja 150 cm leveä vuodesohva. Tila toimii lasten omana olohuoneena tai lisävieraiden makuupaikkana.
 
@@ -94,6 +101,8 @@ Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvink
     longDescription: `**100 m² penthouse ja näkymä Eturinteeseen**
 
 Hiihtäjänkuja 5:n talon ylin huoneisto on Zero Point -alueella, noin 200 metrin päässä Eturinteestä. Neljä makuuhuonetta ja kolme parveketta tekevät siitä yhden Levin keskustan tilavimmista loma-asunnoista. Huoneistoon mahtuu yhdeksän henkeä.
+
+${LEVIN_KYLA}
 
 **Tilaa isollekin porukalle**
 Makuuhuoneissa on yhteensä yhdeksän vuodepaikkaa, ja olohuoneessa on lisäksi vuodesohva. Ruokapöydän ääreen mahtuu kymmenen henkeä. Olohuoneessa on sohva, iso televisio ja äänentoistojärjestelmä.
@@ -123,6 +132,8 @@ Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvi
 
 Karhupirtti on pyöröhirsinen huvila aivan Levin keskustassa, osoitteessa Skimbaajankuja 3. Eturinteet, ravintolat ja kaupat ovat noin kolmen minuutin kävelyn päässä. Seitsemään makuuhuoneeseen mahtuu 14 henkeä, joten huvila sopii isoille perheille, sukulomille ja kaveriporukoille. Lemmikit ovat tervetulleita.
 
+${LEVIN_KYLA}
+
 **Seitsemän makuuhuonetta**
 Alakerrassa on kolme makuuhuonetta, joissa jokaisessa on oma suihku ja WC. Yläkerrassa on kaksi tosi isoa makuuhuonetta, kummassakin kaksi sänkyä, televisio ja runsaasti tilaa vaikka lasten leikeille. Toisessa on lisäksi vuodesohva. Kummankin yhteydessä on pienempi makuuhuone kahdella täysikokoisella sängyllä, mikä sopii hyvin lapsille: perhe on lähellä toisiaan, mutta jokaisella on oma rauhansa.
 
@@ -150,6 +161,8 @@ Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvink
 
 Moderni huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu kuusi henkeä, ja se sopii perheille ja kaveriporukoille. Ravintolat, kaupat ja palvelut ovat kävelymatkan päässä, ja päärinteille on noin 700 metriä.
 
+${LEVIN_KYLA}
+
 **Pohjaratkaisu**
 Kummassakin makuuhuoneessa on kaksi erillistä sänkyä, ja olohuoneessa on vuodesohva. Avoimessa keittiössä ja olohuoneessa on hyvin tilaa laittaa ruokaa ja olla yhdessä rinnepäivän jälkeen. Päätyhuoneistona 211:n ikkunoista näkyy metsään, ja rauhaa on tavallista enemmän.
 
@@ -169,6 +182,8 @@ ${SKISTAR_2MH_VARUSTELU}`,
     longDescription: `**54 m², kaksi makuuhuonetta ja oma sauna**
 
 Moderni huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu kuusi henkeä, ja se sopii perheille ja kaveriporukoille. Ravintolat, kaupat ja palvelut ovat kävelymatkan päässä, ja päärinteille on noin 700 metriä.
+
+${LEVIN_KYLA}
 
 **Pohjaratkaisu**
 Kummassakin makuuhuoneessa on kaksi erillistä sänkyä, ja olohuoneessa on vuodesohva. Avoimessa keittiössä ja olohuoneessa on hyvin tilaa laittaa ruokaa ja olla yhdessä rinnepäivän jälkeen. Lattialämmitys pitää lattiat lämpiminä. Päätyhuoneistona 212:n ikkunoista näkyy metsään, ja rauhaa on tavallista enemmän.
@@ -190,6 +205,8 @@ ${SKISTAR_2MH_VARUSTELU}`,
 
 Remontoitu yhden makuuhuoneen huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
+${LEVIN_KYLA}
+
 ${SKISTAR_1MH_POHJA}
 
 **Sauna ja kuivauskaappi**
@@ -208,6 +225,8 @@ ${SKISTAR_1MH_VARUSTELU}`,
     longDescription: `**43 m², makuuhuone ja oma sauna**
 
 Remontoitu yhden makuuhuoneen huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+
+${LEVIN_KYLA}
 
 ${SKISTAR_1MH_POHJA}
 
@@ -228,6 +247,8 @@ ${SKISTAR_1MH_VARUSTELU}`,
 
 Remontoitu yhden makuuhuoneen huoneisto SkiStar-talon kolmannessa kerroksessa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
+${LEVIN_KYLA}
+
 ${SKISTAR_1MH_POHJA}
 
 **Sauna ja kuivauskaappi**
@@ -246,6 +267,8 @@ ${SKISTAR_1MH_VARUSTELU}`,
     longDescription: `**Moderni studio Levin keskustassa**
 
 Vuonna 2020 valmistunut 24 m²:n studio SkiStar-talossa osoitteessa Postintie 3. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+
+${LEVIN_KYLA}
 
 ${SKISTAR_STUDIO_POHJA}
 
@@ -270,6 +293,8 @@ Tässä studiossa ei ole saunaa. Jos oma sauna on sinulle tärkeä, valitse joki
 
 Moderni, vuonna 2020 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
+${LEVIN_KYLA}
+
 ${SKISTAR_STUDIO_POHJA}
 
 **Sauna ja kuivauskaappi**
@@ -293,6 +318,8 @@ Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. 
 
 Moderni studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
+${LEVIN_KYLA}
+
 ${SKISTAR_STUDIO_POHJA}
 
 **Sauna, pesukone ja kuivauskaappi**
@@ -312,6 +339,8 @@ Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, ilmainen WiFi j
     longDescription: `**28 m² studio omalla saunalla**
 
 Moderni, vuonna 2020 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+
+${LEVIN_KYLA}
 
 ${SKISTAR_STUDIO_POHJA}
 
@@ -336,6 +365,8 @@ Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. 
 
 Moderni, vuonna 2020 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
+${LEVIN_KYLA}
+
 ${SKISTAR_STUDIO_POHJA}
 
 **Sauna ja kuivauskaappi**
@@ -359,11 +390,13 @@ Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. 
 
 Viihtyisä huoneisto Karhunvartija-talossa aivan Levin keskustassa, osoitteessa Skimbaajankuja 4. Ravintolat, kaupat ja aktiviteetit ovat kävelymatkan päässä, ja rinteet ja ladut alkavat lyhyen kävelyn päästä. Lemmikit ovat tervetulleita.
 
+${LEVIN_KYLA}
+
 **Pohjaratkaisu**
 42 m²:n huoneisto on yhdessä tasossa, ja siihen mahtuu neljä henkeä. Huoneistossa on eteinen, avoin keittiö ja olohuone, kaksi makuuhuonetta, joista toisessa on vuodesohva kahdelle, kylpyhuone, erillinen WC ja oma sauna. Luonnonkivitakka tekee illoista tunnelmallisia, ja takkapuut sisältyvät hintaan.
 
 **Helppo lapsiperheelle**
-Oma sisäänkäynti Ratsastajankujalta johtaa suoraan talon pihalle, jossa lapset voivat leikkiä lumessa. Rinteet, ladut, leikkipuistot ja keskustan palvelut ovat lähellä, joten autoa ei loman aikana tarvita.`,
+Oma sisäänkäynti Ratsastajankujalta johtaa suoraan talon pihalle, jossa lapset voivat leikkiä lumessa. Leikkipuistot ovat lähellä.`,
   },
   "levi-platinum-a2": {
     name: "Levi Platinum Superior Studio A2",
@@ -374,6 +407,8 @@ Oma sisäänkäynti Ratsastajankujalta johtaa suoraan talon pihalle, jossa lapse
     longDescription: `**Uusin huoneistomme Eturinteen juurella**
 
 Levi Platinum -studio on osoitteessa Hiihtäjänkuja 2 Levin keskustassa, Eturinteen juurella, ja kaikkialle kylässä on lyhyt matka. Huoneisto avattiin vuonna 2023, ja se on uusin kohteemme. Studioon mahtuu neljä henkeä, ja pihalla on oma pysäköintipaikka.
+
+${LEVIN_KYLA}
 
 **Kodinomainen varustelu**
 Täysin varustellussa keittiössä ruoka valmistuu kuin kotona. Lattialämmitys pitää lattiat lämpiminä, ja kylpyhuoneessa on pesukone ja kuivauskaappi laskettelu- ja ulkoiluvarusteille. Päivän päätteeksi voit rentoutua omassa saunassa.
@@ -390,6 +425,8 @@ Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, lattialämmitys
     longDescription: `**Parvistudio saunalla Hullu Poron vieressä**
 
 Studio on Leviraitin varrella Levin keskustassa, aivan Hullu Poron vieressä. 28 m²:n huoneistoon mahtuu neljä henkeä: parvella on kolme vuodetta ja alakerrassa vuodesohva. Huoneisto remontoitiin ja kalustettiin kokonaan uudelleen vuonna 2026, ja paljas hirsiseinä tuo siihen lappilaista lämpöä.
+
+${LEVIN_KYLA}
 
 **Pohjaratkaisu**
 Alakerrassa on ruokapöytä, sohva ja minikeittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Parven portaat ovat jyrkät. Lapsia varten portaissa on turvaportti, mutta iäkkäämmille vieraille portaat voivat olla hankalat.
@@ -413,6 +450,8 @@ Minikeittiö, oma sauna, pesukone, kuivauskaappi, ilmainen WiFi ja TV. Liinavaat
 
 Yksi suurimmista huoneistoistamme ja lähimpänä rinteitä. Huoneisto on Eturinteen Alppikylässä osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Neljään makuuhuoneeseen mahtuu kahdeksan henkeä, joten huoneisto sopii perheille, kaveriporukoille ja urheilujoukkueille. Lemmikit ovat tervetulleita.
 
+${LEVIN_KYLA}
+
 **Kaksi kerrosta**
 Neljässä makuuhuoneessa on yhteensä kahdeksan vuodetta. Oleskelutilat ovat katutasossa, ja alakerrasta on suora uloskäynti ja yhteys suksienhuoltotilaan. Ulko-ovelle on vain yksi askelma. Tilavassa keittiössä ja olohuoneessa koko porukka mahtuu syömään ja viettämään iltaa yhdessä.
 
@@ -435,6 +474,8 @@ Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, suksivarasto, W
     longDescription: `**67 m² ja kolme makuuhuonetta Eturinteen juurella**
 
 Huoneisto on Eturinteen Alppikylässä osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kolmeen makuuhuoneeseen mahtuu viisi henkeä, ja huoneisto sopii hyvin perheille ja pienille porukoille, jotka haluavat asua mahdollisimman lähellä rinteitä. Lemmikit ovat tervetulleita.
+
+${LEVIN_KYLA}
 
 **Kolme makuuhuonetta kahdessa tasossa**
 Makuuhuoneissa on yhteensä viisi vuodetta. Oleskelutilat ovat katutasossa, ja alakerrasta on suora uloskäynti ja yhteys suksienhuoltotilaan. Ulko-ovelle on vain yksi askelma. Koko huoneiston levyiseltä parvekkeelta näkee kylän elämän.
@@ -462,6 +503,8 @@ Samassa talossa ovat myös 92 m²:n neljän makuuhuoneen huoneistot A1 ja A3 kah
 
 Yksi suurimmista huoneistoistamme ja lähimpänä rinteitä. Huoneisto on Eturinteen Alppikylässä osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Neljään makuuhuoneeseen mahtuu kahdeksan henkeä, joten huoneisto sopii perheille, kaveriporukoille ja urheilujoukkueille. Lemmikit ovat tervetulleita.
 
+${LEVIN_KYLA}
+
 **Kaksi kerrosta**
 Neljässä makuuhuoneessa on yhteensä kahdeksan vuodetta. Oleskelutilat ovat katutasossa, ja alakerrasta on suora uloskäynti ja yhteys suksienhuoltotilaan. Ulko-ovelle on vain yksi askelma. Tilavassa keittiössä ja olohuoneessa koko porukka mahtuu syömään ja viettämään iltaa yhdessä.
 
@@ -483,7 +526,9 @@ Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, suksivarasto, W
       "72 m² huoneisto toisessa kerroksessa Eturinteen juurella. Kaksi makuuhuonetta ja yläkerrassa kaksi alkovivuodetta, yhteensä kuudelle. Parvekkeet molemmissa kerroksissa. Oma sauna. Lemmikit sallittu.",
     longDescription: `**72 m², kaksi makuuhuonetta ja alkovit yläkerrassa**
 
-Huoneisto on Eturinteen Alppikylän (Ratsastajankuja 2) talon toisessa kerroksessa Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kahdessa makuuhuoneessa on neljä vuodetta, ja yläkerran avoimissa alkoveissa on kaksi lisävuodetta, joten huoneistoon mahtuu kuusi henkeä. Lapset tykkäävät alkoveista. Lemmikit ovat tervetulleita.
+Huoneisto on Eturinteen Alppikylän talon toisessa kerroksessa osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kahdessa makuuhuoneessa on neljä vuodetta, ja yläkerran avoimissa alkoveissa on kaksi lisävuodetta, joten huoneistoon mahtuu kuusi henkeä. Lapset tykkäävät alkoveista. Lemmikit ovat tervetulleita.
+
+${LEVIN_KYLA}
 
 **Parvekkeet kahdessa kerroksessa**
 Koko huoneiston levyinen parveke avautuu kadulle ja Hullu Poro Areenan suuntaan, ja yläkerrassa on toinen parveke samaan suuntaan. Parvekkeelta näkee Levin iltaelämän.
@@ -506,7 +551,9 @@ Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerrok
       "84 m² penthouse ylimmässä kerroksessa Eturinteen juurella. Neljä makuuhuonetta kahdeksalle. Parvekkeet kahdessa kerroksessa. Oma sauna ja talossa lasten leikkihuone. Lemmikit sallittu.",
     longDescription: `**84 m² penthouse ja neljä makuuhuonetta**
 
-Penthouse on Eturinteen Alppikylän (Ratsastajankuja 2) talon ylimmässä kerroksessa Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Parvekkeilta näkyy Hullu Poro Areenan suuntaan. Neljään makuuhuoneeseen mahtuu kahdeksan henkeä, joten huoneisto sopii isoille perheille, kahdelle perheelle yhdessä tai kaveriporukoille. Lemmikit ovat tervetulleita.
+Penthouse on Eturinteen Alppikylän talon ylimmässä kerroksessa osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Parvekkeilta näkyy Hullu Poro Areenan suuntaan. Neljään makuuhuoneeseen mahtuu kahdeksan henkeä, joten huoneisto sopii isoille perheille, kahdelle perheelle yhdessä tai kaveriporukoille. Lemmikit ovat tervetulleita.
+
+${LEVIN_KYLA}
 
 **Neljä makuuhuonetta**
 Jokaisessa makuuhuoneessa on kaksi vuodetta, jotka voi pitää erillään tai siirtää yhteen. Ylin kerros tekee huoneistosta valoisan ja avaran. Kaksi parveketta avautuu kadulle ja Hullu Poro Areenan suuntaan.
@@ -529,7 +576,9 @@ Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerrok
       "72 m² huoneisto toisessa kerroksessa Eturinteen juurella. Kaksi makuuhuonetta ja yläkerrassa kaksi alkovivuodetta, yhteensä kuudelle. Parvekkeet kadulle. Sama pohjaratkaisu kuin A4. Lemmikit sallittu.",
     longDescription: `**72 m², kaksi makuuhuonetta ja alkovit yläkerrassa**
 
-Huoneisto on Eturinteen Alppikylän (Ratsastajankuja 2) talon toisessa kerroksessa Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kahdessa makuuhuoneessa on neljä vuodetta, ja yläkerran avoimissa alkoveissa on kaksi lisävuodetta, joten huoneistoon mahtuu kuusi henkeä. Lapset tykkäävät alkoveista. Lemmikit ovat tervetulleita.
+Huoneisto on Eturinteen Alppikylän talon toisessa kerroksessa osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kahdessa makuuhuoneessa on neljä vuodetta, ja yläkerran avoimissa alkoveissa on kaksi lisävuodetta, joten huoneistoon mahtuu kuusi henkeä. Lapset tykkäävät alkoveista. Lemmikit ovat tervetulleita.
+
+${LEVIN_KYLA}
 
 **Parvekkeet kahdessa kerroksessa**
 Koko huoneiston levyinen parveke avautuu kadulle ja Hullu Poro Areenan suuntaan, ja yläkerrassa on toinen parveke samaan suuntaan. Parvekkeelta näkee Levin iltaelämän.
@@ -553,6 +602,8 @@ Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerrok
     longDescription: `**105 m² ja viisi makuuhuonetta kymmenelle**
 
 Glacier-talojen suurin huoneisto ja yksi Levin parhaista ryhmämajoituksista rinteiden vieressä. Huoneisto on Eturinteen Alppikylässä osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Se sopii isoille perheille, urheilujoukkueille ja kaveriporukoille, jotka haluavat tilaa ja sijainnin rinteiden vieressä. Lemmikit ovat tervetulleita.
+
+${LEVIN_KYLA}
 
 **Viisi makuuhuonetta**
 Jokaisessa viidessä makuuhuoneessa on kaksi vuodetta, joten jokaisella on oma rauhansa. Huoneisto on ensimmäisessä kerroksessa, ja koko huoneiston levyiseltä parvekkeelta sivukadun puolelta näkyy Eturinteeseen. Tilava oleskelutila sopii yhteisille aterioille, peli-illoille ja rentoutumiseen rinnepäivän jälkeen.
@@ -580,6 +631,8 @@ Samassa talossa on samanlainen huoneisto B2. Jos B1 on varattu, katso B2:n saata
 
 Toinen Glacier-talojen kahdesta suurimmasta huoneistosta ja yksi Levin parhaista ryhmämajoituksista rinteiden vieressä. Huoneisto on Eturinteen Alppikylässä osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Se sopii isoille perheille, urheilujoukkueille ja kaveriporukoille. Lemmikit ovat tervetulleita.
 
+${LEVIN_KYLA}
+
 **Viisi makuuhuonetta**
 Jokaisessa viidessä makuuhuoneessa on kaksi vuodetta. Huoneisto on ensimmäisessä kerroksessa, ja koko huoneiston levyiseltä parvekkeelta sivukadun puolelta näkyy Eturinteeseen. Tilavaan oleskelutilaan mahtuu koko porukka yhteisille aterioille.
 
@@ -604,7 +657,9 @@ Samassa talossa on samanlainen huoneisto B1. Jos B2 on varattu, katso B1:n saata
       "87 m² penthouse Eturinteen juurella. Kolme makuuhuonetta ja yläkerrassa kaksi alkovivuodetta, yhteensä kahdeksalle. Parvekkeet molemmissa kerroksissa, yläparvekkeelta näkymä Eturinteeseen. Talossa lasten leikkihuone. Lemmikit sallittu.",
     longDescription: `**87 m² penthouse ja parveke Eturinteen puolelle**
 
-Tilava penthouse Eturinteen Alppikylän (Ratsastajankuja 2) talon ylimmässä kerroksessa Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kolmessa makuuhuoneessa ja yläkerran avoimissa alkoveissa on tilaa kahdeksalle. Yläparvekkeelta näkyy Eturinteeseen, ja illalla valaistua rinnettä voi katsella omalta parvekkeelta. Lemmikit ovat tervetulleita.
+Tilava penthouse Eturinteen Alppikylän talon ylimmässä kerroksessa osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kolmessa makuuhuoneessa ja yläkerran avoimissa alkoveissa on tilaa kahdeksalle. Yläparvekkeelta näkyy Eturinteeseen, ja illalla valaistua rinnettä voi katsella omalta parvekkeelta. Lemmikit ovat tervetulleita.
+
+${LEVIN_KYLA}
 
 **Kolme makuuhuonetta ja alkovit**
 Pääkerroksessa on kolme makuuhuonetta, ja yläkerran avoimissa alkoveissa on kaksi vuodetta, joista lapset tykkäävät. Pääkerroksen koko huoneiston levyinen parveke avautuu kadulle, yläkerran parveke Eturinteeseen.
@@ -630,7 +685,9 @@ Samassa talossa on samanlainen penthouse B4. Jos B3 on varattu, katso B4:n saata
       "87 m² penthouse Eturinteen juurella, B3:n peilikuva. Kolme makuuhuonetta ja yläkerrassa kaksi alkovivuodetta, yhteensä kahdeksalle. Parvekkeet molemmissa kerroksissa, yläparvekkeelta näkymä Eturinteeseen. Talossa lasten leikkihuone. Lemmikit sallittu.",
     longDescription: `**87 m² penthouse ja parveke Eturinteen puolelle**
 
-Toinen talon kahdesta samanlaisesta penthousesta Eturinteen Alppikylän (Ratsastajankuja 2) talon ylimmässä kerroksessa Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kolmessa makuuhuoneessa ja yläkerran avoimissa alkoveissa on tilaa kahdeksalle. Yläparvekkeelta näkyy Eturinteeseen, ja illalla valaistua rinnettä voi katsella omalta parvekkeelta. Lemmikit ovat tervetulleita.
+Toinen kahdesta samanlaisesta penthousesta Eturinteen Alppikylän talon ylimmässä kerroksessa osoitteessa Ratsastajankuja 2, Zero Point -alueella, noin 200 metrin päässä Eturinteen hisseistä. Kolmessa makuuhuoneessa ja yläkerran avoimissa alkoveissa on tilaa kahdeksalle. Yläparvekkeelta näkyy Eturinteeseen, ja illalla valaistua rinnettä voi katsella omalta parvekkeelta. Lemmikit ovat tervetulleita.
+
+${LEVIN_KYLA}
 
 **Kolme makuuhuonetta ja alkovit**
 Alakerrassa on kolme makuuhuonetta, ja yläkerran avoimissa alkoveissa on kaksi vuodetta, joista lapset tykkäävät. Alakerran koko huoneiston levyinen parveke avautuu kadulle, yläkerran parveke Eturinteeseen.

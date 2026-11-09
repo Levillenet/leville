@@ -48,7 +48,7 @@ const uiStrings = {
     readMore: "Lue lisää",
     bookHere: "Varaa tästä",
     openBookingNewTab: "Avaa varaus uudessa välilehdessä",
-    openInMaps: (label: string) => `Avaa ${label} Google Mapsissa`,
+    openInMaps: (label: string) => `Tarkista sijainti kartalta: ${label}`,
     // Spec labels
     sqm: "Pinta-ala",
     bedrooms: "Makuuhuoneet",
@@ -89,7 +89,7 @@ const uiStrings = {
     readMore: "Read more",
     bookHere: "Book now",
     openBookingNewTab: "Open booking in a new tab",
-    openInMaps: (label: string) => `Open ${label} in Google Maps`,
+    openInMaps: (label: string) => `Check the location on the map: ${label}`,
     // Spec labels
     sqm: "Floor area",
     bedrooms: "Bedrooms",
@@ -498,9 +498,16 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
     }
     return list;
   })();
-  const mapsHref = groupAddress[group]
-    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(groupAddress[group].query)}`
-    : null;
+  // Karttalinkki kohteen omaan rakennukseen (koordinaatit buildingGeo.ts:stä), varalla osoitehaku.
+  const buildingGeo = getBuildingGeo(streetAddress);
+  const mapsLabel = streetShort ? `${streetShort}, Levi` : groupAddress[group]?.label ?? "";
+  const mapsHref = buildingGeo
+    ? `https://www.google.com/maps/search/?api=1&query=${buildingGeo.latitude},${buildingGeo.longitude}`
+    : streetShort
+      ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${streetShort}, ${postalCode} Levi`)}`
+      : groupAddress[group]
+        ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(groupAddress[group].query)}`
+        : null;
 
   const related = properties
     .filter((p) => groupOf(p) === group && p.id !== property.id)
@@ -523,6 +530,8 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
       addressCountry: "FI",
     },
     telephone: PHONE,
+    ...(mapsHref ? { hasMap: mapsHref } : {}),
+    ...(buildingGeo ? { geo: { "@type": "GeoCoordinates", latitude: buildingGeo.latitude, longitude: buildingGeo.longitude } } : {}),
     image: property.heroImage ? `https://leville.net${property.heroImage}` : "https://leville.net/og-image.png",
     numberOfRooms: property.bedrooms || undefined,
     ...(property.bedrooms ? { numberOfBedrooms: property.bedrooms } : {}),
@@ -585,7 +594,7 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
         name={displayName}
         description={description}
         streetAddress={streetAddress}
-        geo={getBuildingGeo(streetAddress)}
+        geo={buildingGeo}
       />
       <JsonLd data={breadcrumbSchema} />
 
@@ -638,14 +647,10 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
                     <Phone className="w-4 h-4" /> {PHONE_DISPLAY}
                   </a>
                 </Button>
-                {groupAddress[group] && (
+                {mapsHref && (
                   <Button asChild size="lg" variant="outline" className="gap-2">
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(groupAddress[group].query)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MapPin className="w-4 h-4" /> {groupAddress[group].label}
+                    <a href={mapsHref} target="_blank" rel="noopener noreferrer">
+                      <MapPin className="w-4 h-4" /> {mapsLabel}
                     </a>
                   </Button>
                 )}
@@ -704,7 +709,7 @@ const PropertyDetail = ({ lang = "fi" }: PropertyDetailProps) => {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
                       >
-                        <MapPin className="w-4 h-4" /> {t.openInMaps(groupAddress[group].label)} <ArrowRight className="w-4 h-4" />
+                        <MapPin className="w-4 h-4" /> {t.openInMaps(mapsLabel)} <ArrowRight className="w-4 h-4" />
                       </a>
                     </div>
                   )}
