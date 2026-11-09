@@ -633,6 +633,7 @@ export const properties: Property[] = [
       "/karhunvartija/07-wc.webp",
       "/karhunvartija/08-shower.webp",
       "/karhunvartija/09-sauna.webp",
+      "/karhunvartija/10-floorplan.webp",
     ],
     heroImage: "/karhunvartija/exterior.webp",
     name: "Karhunvartija 3",
