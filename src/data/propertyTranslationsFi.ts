@@ -72,7 +72,7 @@ Molemmissa makuuhuoneissa on kaksi erillistä sänkyä, ja alakerran oleskelutil
 Kesäkuussa 2024 huoneisto remontoitiin perusteellisesti. Molemmat kylpyhuoneet uusittiin kokonaan, ja lähes kaikki pinnat ovat uudet.
 
 **Sauna, kuivaushuone ja takka**
-Alakerran sisäänkäynnistä tullaan suoraan kuivaushuoneeseen: sukset ja märät vaatteet jäävät kuivumaan, ja saunaan pääsee saman tien. Olohuoneen varaava takka pitää asunnon lämpimänä pitkään. Ilmalämpöpumppu tasaa lämpöä talvella ja viilentää kesällä.
+Alakerran sisäänkäynnistä tullaan suoraan kuivaushuoneeseen: sukset ja märät vaatteet jäävät kuivumaan, ja saunaan pääsee saman tien. Olohuoneen varaava takka pitää asunnon lämpimänä pitkään. Ilmalämpöpumppu tasaa lämpöä talvella ja viilentää kesällä, ja huoneistossa on oma pesukone.
 
 **Helppo saapua**
 Ulko-ovelle on vain yksi matala porras.
@@ -101,7 +101,7 @@ Huoneistossa on oma sähkösauna ja takka. Alakerran kuivaushuoneeseen tullaan s
 Eturinne ja Zero Point ovat noin 200 metrin päässä, ja ravintolat, kaupat ja afterski-paikat lyhyen kävelyn päässä. Ladut alkavat läheltä. Pysäköinti on ilmainen, ja paikalla on lämmitystolppa.
 
 **Varustelu**
-Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja jääpalakone. Oma sauna, takka, kuivaushuone, kuivauskaappi, parveke, ilmainen WiFi ja TV. Lapsiperheille syöttötuoli ja turvaportit.
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja jääpalakone. Oma sauna, takka, pesukone, kuivaushuone, kuivauskaappi, parveke, ilmainen WiFi ja TV. Lapsiperheille syöttötuoli ja turvaportit.
 
 ${MATKATAVARAT_KELLARI}`,
   },
@@ -133,7 +133,7 @@ Huoneisto remontoitiin kokonaan vuonna 2024, ja kalusteet ja sisustus uusittiin 
 Eturinne ja Zero Point ovat noin 200 metrin päässä, ladut alkavat läheltä, ja ravintolat, kaupat ja muut palvelut ovat kävelymatkan päässä.
 
 **Varustelu**
-Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Sauna, takka ja polttopuut, kolme parveketta, ilmalämpöpumppu, ilmainen WiFi, TV ja äänentoisto. Lapsiperheille pinnasänky, syöttötuoli, turvaportit sekä lastenkirjoja ja leluja.
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Sauna, takka ja polttopuut, pesukone, kolme parveketta, ilmalämpöpumppu, ilmainen WiFi, TV ja äänentoisto. Lapsiperheille pinnasänky, syöttötuoli, turvaportit sekä lastenkirjoja ja leluja.
 
 ${MATKATAVARAT_KELLARI}`,
   },
@@ -164,7 +164,7 @@ Huvila remontoitiin kokonaan vuonna 2023 laadukkain materiaalein: Pukkilan laata
 Eturinteet, Lastenmaa, ruokakauppa, ravintolat ja afterski-paikat ovat lyhyen kävelyn päässä. Lähimmälle moottorikelkkareitille on noin 250 metriä. Pysäköintitilaa on runsaasti. Huvilassa on suksivarasto ja suksienhuoltotila sekä kodinhoitohuone pyykinpesua varten.
 
 **Varustelu**
-Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja pakastin. Sähkösauna, designtakka, ulkoporeallas ja grilli. Ilmalämpöpumppu, ilmainen WiFi, TV ja äänentoisto. Pinnasänky ja turvaportit saatavilla.
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja pakastin. Sähkösauna, designtakka, pesukone, ulkoporeallas ja grilli. Ilmalämpöpumppu, ilmainen WiFi, TV ja äänentoisto. Pinnasänky ja turvaportit saatavilla.
 
 ${MATKATAVARAT_KYSY}`,
   },
@@ -366,9 +366,9 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-studio-320": {
     name: "Studio 320 saunalla, Levin keskusta",
     metaDescription:
-      "28 m² studio omalla saunalla, Postintie 3, Levin keskusta. Lattialämmitys, kuivauskaappi, K-Market vieressä. 3 aikuista tai perhe 2+2.",
+      "28 m² studio omalla saunalla ja pesukoneella, Postintie 3, Levin keskusta. Lattialämmitys, K-Market vieressä. 3 aikuista tai perhe 2+2.",
     shortDescription:
-      "28 m² studio omalla saunalla SkiStar-talossa osoitteessa Postintie 3. Lattialämmitys. K-Market muutaman askeleen päässä. Ei lemmikkejä.",
+      "28 m² studio omalla saunalla ja pesukoneella SkiStar-talossa osoitteessa Postintie 3. Lattialämmitys. K-Market muutaman askeleen päässä. Ei lemmikkejä.",
     longDescription: `**28 m² studio omalla saunalla**
 
 Moderni, vuonna 2021 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
@@ -377,25 +377,22 @@ ${LEVIN_KYLA}
 
 ${SKISTAR_STUDIO_POHJA}
 
-**Sauna ja kuivauskaappi**
-Oma sähkösauna on paras tapa päättää päivä rinteessä tai ladulla. Kuivauskaapissa talvivaatteet ja varusteet kuivuvat aamuksi, ja lattialämmitys pitää lattiat lämpiminä. ${SKISTAR_TALO}
+**Sauna, pesukone ja kuivauskaappi**
+Oma sähkösauna on paras tapa päättää päivä rinteessä tai ladulla. Studiossa on oma pesukone, ja kuivauskaapissa talvivaatteet ja varusteet kuivuvat aamuksi, ja lattialämmitys pitää lattiat lämpiminä. ${SKISTAR_TALO}
 
 ${SKISTAR_SIJAINTI}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
-
-**Huomaathan**
-Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.
+Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
 
 ${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-321": {
     name: "Studio 321 saunalla, Levin keskusta",
     metaDescription:
-      "28 m² studio omalla saunalla, Postintie 3, Levin keskusta. Lattialämmitys, kuivauskaappi, K-Market vieressä. 3 aikuista tai perhe 2+2.",
+      "28 m² studio omalla saunalla ja pesukoneella, Postintie 3, Levin keskusta. Lattialämmitys, K-Market vieressä. 3 aikuista tai perhe 2+2.",
     shortDescription:
-      "28 m² studio omalla saunalla SkiStar-talossa osoitteessa Postintie 3. Lattialämmitys. K-Market muutaman askeleen päässä, hisseille noin 700 m. Ei lemmikkejä.",
+      "28 m² studio omalla saunalla ja pesukoneella SkiStar-talossa osoitteessa Postintie 3. Lattialämmitys. K-Market muutaman askeleen päässä, hisseille noin 700 m. Ei lemmikkejä.",
     longDescription: `**28 m² studio omalla saunalla**
 
 Moderni, vuonna 2021 valmistunut studio SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Studioon mahtuu kolme aikuista tai kahden aikuisen ja kahden lapsen perhe. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
@@ -404,16 +401,13 @@ ${LEVIN_KYLA}
 
 ${SKISTAR_STUDIO_POHJA}
 
-**Sauna ja kuivauskaappi**
-Oma sähkösauna on paras tapa päättää päivä rinteessä tai ladulla. Kuivauskaapissa talvivaatteet ja varusteet kuivuvat aamuksi, ja lattialämmitys pitää lattiat lämpiminä. ${SKISTAR_TALO}
+**Sauna, pesukone ja kuivauskaappi**
+Oma sähkösauna on paras tapa päättää päivä rinteessä tai ladulla. Studiossa on oma pesukone, ja kuivauskaapissa talvivaatteet ja varusteet kuivuvat aamuksi, ja lattialämmitys pitää lattiat lämpiminä. ${SKISTAR_TALO}
 
 ${SKISTAR_SIJAINTI}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
-
-**Huomaathan**
-Talossa on useita samanlaisia studioita, joiden sisustuksessa on pieniä eroja. Osassa on myös pesukone.
+Täysin varusteltu keittiö, oma sauna, pesukone, kuivauskaappi, lattialämmitys, ilmainen WiFi ja TV. Shampoo ja suihkusaippua kuuluvat varusteluun. Pinnasänky pyynnöstä.
 
 ${MATKATAVARAT_KELLARI}`,
   },
@@ -430,7 +424,7 @@ Viihtyisä huoneisto Karhunvartija-talossa aivan Levin keskustassa, osoitteessa 
 ${LEVIN_KYLA}
 
 **Pohjaratkaisu**
-42 m²:n huoneisto on yhdessä tasossa, ja siihen mahtuu neljä henkeä. Huoneistossa on eteinen, avoin keittiö ja olohuone, kaksi makuuhuonetta, joista toisessa on vuodesohva kahdelle, kylpyhuone, erillinen WC ja oma sauna. Luonnonkivitakka tekee illoista tunnelmallisia, ja takkapuut sisältyvät hintaan.
+42 m²:n huoneisto on yhdessä tasossa, ja siihen mahtuu neljä henkeä. Huoneistossa on eteinen, avoin keittiö ja olohuone, kaksi makuuhuonetta, joista toisessa on vuodesohva kahdelle, kylpyhuone, erillinen WC, oma sauna ja oma pesukone. Luonnonkivitakka tekee illoista tunnelmallisia, ja takkapuut sisältyvät hintaan.
 
 **Helppo lapsiperheelle**
 Oma sisäänkäynti Ratsastajankujalta johtaa suoraan talon pihalle, jossa lapset voivat leikkiä lumessa. Leikkipuistot ovat lähellä.`,
@@ -584,7 +578,7 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A6 sekä 67 m²:n kolmen makuuhuoneen huoneisto A2.
+Täysin varusteltu keittiö, oma sauna, pesukone, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A6 sekä 67 m²:n kolmen makuuhuoneen huoneisto A2.
 
 ${MATKATAVARAT_GLACIER}`,
   },
@@ -611,7 +605,7 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
+Täysin varusteltu keittiö, oma sauna, pesukone, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
 
 ${MATKATAVARAT_GLACIER}`,
   },
@@ -638,7 +632,7 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A4 sekä 67 m²:n kolmen makuuhuoneen huoneisto A2.
+Täysin varusteltu keittiö, oma sauna, pesukone, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu. Samassa talossa on samanlainen huoneisto A4 sekä 67 m²:n kolmen makuuhuoneen huoneisto A2.
 
 ${MATKATAVARAT_GLACIER}`,
   },
@@ -665,7 +659,7 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, suksivarasto, koko huoneiston levyinen parveke rinnenäkymällä, WiFi ja TV. Liinavaatteet voi tilata lisäpalveluna tai tuoda omat. Lemmikit sallittu.
+Täysin varusteltu keittiö, oma sauna, pesukone, suksivarasto, koko huoneiston levyinen parveke rinnenäkymällä, WiFi ja TV. Liinavaatteet voi tilata lisäpalveluna tai tuoda omat. Lemmikit sallittu.
 
 **Isommalle ryhmälle**
 Samassa talossa on samanlainen huoneisto B2. Jos B1 on varattu, katso B2:n saatavuus, tai varaa molemmat, jolloin majoitusta on 20 hengelle.
@@ -695,7 +689,7 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, suksivarasto, koko huoneiston levyinen parveke rinnenäkymällä, WiFi ja TV. Liinavaatteet voi tilata lisäpalveluna tai tuoda omat. Lemmikit sallittu.
+Täysin varusteltu keittiö, oma sauna, pesukone, suksivarasto, koko huoneiston levyinen parveke rinnenäkymällä, WiFi ja TV. Liinavaatteet voi tilata lisäpalveluna tai tuoda omat. Lemmikit sallittu.
 
 **Isommalle ryhmälle**
 Samassa talossa on samanlainen huoneisto B1. Jos B2 on varattu, katso B1:n saatavuus, tai varaa molemmat, jolloin majoitusta on 20 hengelle.
@@ -725,7 +719,7 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
+Täysin varusteltu keittiö, oma sauna, pesukone, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
 
 **Isommalle ryhmälle**
 Samassa talossa on samanlainen penthouse B4. Jos B3 on varattu, katso B4:n saatavuus, tai varaa molemmat, jolloin majoitusta on 16 hengelle.
@@ -755,7 +749,7 @@ ${GLACIER_SIJAINTI}
 ${GLACIER_TALO}
 
 **Varustelu**
-Täysin varusteltu keittiö, oma sauna, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
+Täysin varusteltu keittiö, oma sauna, pesukone, suksivarasto, parvekkeet kahdessa kerroksessa, WiFi ja TV. Lemmikit sallittu.
 
 **Isommalle ryhmälle**
 Samassa talossa on samanlainen penthouse B3. Jos B4 on varattu, katso B3:n saatavuus, tai varaa molemmat, jolloin majoitusta on 16 hengelle.

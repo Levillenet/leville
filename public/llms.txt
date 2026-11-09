@@ -351,7 +351,7 @@ For detailed property specifications, activity descriptions, FAQ answers, applia
 - **Check-in:** The apartment is ready no later than 17:00. We send the door code earlier if the apartment is ready. If you need earlier access, contact us so we can explore the possibilities.
 - **Check-out:** Check-out is by 11:00. Contact us if you need a later departure; we accommodate requests where possible.
 - **Luggage storage:** SkiStar (Postintie 3) and Hiihtäjänkuja 5 have luggage storage in the building's basement; Glacier apartments use the basement of Glacier building B. Bags can be dropped off and collected at any time, including before check-in and after check-out. For Karhupirtti / Bear Lodge, ask us about luggage storage. Karhunvartija 3, Platinum A2 and Moonlight 415 have no separate luggage storage.
-- **Laundry:** Skistar has self-service laundry; all other properties have a washing machine.
+- **Laundry:** Skistar has a self-service laundry room, and Skistar studios 319, 320 and 321 also have their own washing machine. The other properties have a washing machine.
 - **Security deposit:** None.
 - **Accommodation VAT:** 14%.
 - **Analytics:** Google Analytics 4 is used with statistics consent; separate cookie-less site statistics are also collected.

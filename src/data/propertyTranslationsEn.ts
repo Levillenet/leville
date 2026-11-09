@@ -72,7 +72,7 @@ Both bedrooms have two single beds, and the downstairs lounge has a good quality
 The apartment was thoroughly renovated in June 2024. Both bathrooms were completely rebuilt, and almost every surface is new.
 
 **Sauna, drying room and fireplace**
-The downstairs entrance leads straight into the drying room: leave your skis and wet clothes to dry and go straight to the sauna. The heat-retaining fireplace in the living room keeps the apartment warm for hours. The air source heat pump keeps the temperature even in winter and cools in summer.
+The downstairs entrance leads straight into the drying room: leave your skis and wet clothes to dry and go straight to the sauna. The heat-retaining fireplace in the living room keeps the apartment warm for hours. The air source heat pump keeps the temperature even in winter and cools in summer, and the apartment has its own washing machine.
 
 **Easy arrival**
 There is only one low step up to the front door.
@@ -101,7 +101,7 @@ The apartment has its own electric sauna and a fireplace. You enter the downstai
 The Front Slope and Zero Point are about 200 m away, and restaurants, shops and après-ski venues are a short walk away. Cross-country trails start nearby. Parking is free, with an engine heater socket.
 
 **Amenities**
-Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and ice maker. Private sauna, fireplace, drying room, drying cabinet, balcony, free WiFi and TV. High chair and safety gates for families.
+Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and ice maker. Private sauna, fireplace, washing machine, drying room, drying cabinet, balcony, free WiFi and TV. High chair and safety gates for families.
 
 ${MATKATAVARAT_KELLARI}`,
   },
@@ -133,7 +133,7 @@ The apartment was fully renovated in 2024 with new furniture and interior. The a
 The Front Slope and Zero Point are about 200 m away, cross-country trails start nearby, and restaurants, shops and other services are within walking distance.
 
 **Amenities**
-Fully equipped kitchen with dishwasher, oven, microwave and coffee maker. Sauna, fireplace with firewood, three balconies, air source heat pump, free WiFi, TV and sound system. Cot, high chair, safety gates, children's books and toys.
+Fully equipped kitchen with dishwasher, oven, microwave and coffee maker. Sauna, fireplace with firewood, washing machine, three balconies, air source heat pump, free WiFi, TV and sound system. Cot, high chair, safety gates, children's books and toys.
 
 ${MATKATAVARAT_KELLARI}`,
   },
@@ -164,7 +164,7 @@ The villa was fully renovated in 2023 with high-quality materials: Pukkila tiles
 The Front Slope, the Lastenmaa children's area, a grocery store, restaurants and après-ski venues are a short walk away. The nearest snowmobile trail is about 250 m away. There is plenty of parking. The villa has a ski storage and maintenance room and a utility room for laundry.
 
 **Amenities**
-Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and freezer. Electric sauna, designer fireplace, outdoor hot tub and barbecue. Air source heat pump, free WiFi, TV and sound system. Cot and safety gates available.
+Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and freezer. Electric sauna, designer fireplace, washing machine, outdoor hot tub and barbecue. Air source heat pump, free WiFi, TV and sound system. Cot and safety gates available.
 
 ${MATKATAVARAT_KYSY}`,
   },
@@ -366,9 +366,9 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-studio-320": {
     name: "Studio 320 with sauna, Levi Center",
     metaDescription:
-      "28 m² studio with private sauna at Postintie 3, Levi Center. Underfloor heating, drying cabinet, next to the K-Market. Sleeps 3 adults or a family of 4.",
+      "28 m² studio with private sauna and washing machine at Postintie 3, Levi Center. Underfloor heating, next to the K-Market. Sleeps 3 adults or a family of 4.",
     shortDescription:
-      "28 m² studio with private sauna in the SkiStar building at Postintie 3. Underfloor heating. A few steps from the K-Market. No pets.",
+      "28 m² studio with private sauna and washing machine in the SkiStar building at Postintie 3. Underfloor heating. A few steps from the K-Market. No pets.",
     longDescription: `**28 m² studio with a private sauna**
 
 A modern studio completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
@@ -377,25 +377,22 @@ ${LEVI_VILLAGE}
 
 ${SKISTAR_STUDIO_LAYOUT}
 
-**Sauna and drying cabinet**
-Your own electric sauna is the best way to end a day on the slopes or trails. Winter clothes and gear dry overnight in the drying cabinet, and underfloor heating keeps the floors warm. ${SKISTAR_BUILDING}
+**Sauna, washing machine and drying cabinet**
+Your own electric sauna is the best way to end a day on the slopes or trails. The studio has its own washing machine, and winter clothes and gear dry overnight in the drying cabinet, and underfloor heating keeps the floors warm. ${SKISTAR_BUILDING}
 
 ${SKISTAR_LOCATION}
 
 **Amenities**
-Fully equipped kitchen, private sauna, drying cabinet, underfloor heating, free WiFi and TV. Shampoo and shower gel provided. Cot on request.
-
-**Please note**
-The building has several similar studios with small differences in the interior. Some also have a washing machine.
+Fully equipped kitchen, private sauna, washing machine, drying cabinet, underfloor heating, free WiFi and TV. Shampoo and shower gel provided. Cot on request.
 
 ${MATKATAVARAT_KELLARI}`,
   },
   "skistar-studio-321": {
     name: "Studio 321 with sauna, Levi Center",
     metaDescription:
-      "28 m² studio with private sauna at Postintie 3, Levi Center. Underfloor heating, drying cabinet, next to the K-Market. Sleeps 3 adults or a family of 4.",
+      "28 m² studio with private sauna and washing machine at Postintie 3, Levi Center. Underfloor heating, next to the K-Market. Sleeps 3 adults or a family of 4.",
     shortDescription:
-      "28 m² studio with private sauna in the SkiStar building at Postintie 3. Underfloor heating. A few steps from the K-Market, about 700 m to the lifts. No pets.",
+      "28 m² studio with private sauna and washing machine in the SkiStar building at Postintie 3. Underfloor heating. A few steps from the K-Market, about 700 m to the lifts. No pets.",
     longDescription: `**28 m² studio with a private sauna**
 
 A modern studio completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
@@ -404,16 +401,13 @@ ${LEVI_VILLAGE}
 
 ${SKISTAR_STUDIO_LAYOUT}
 
-**Sauna and drying cabinet**
-Your own electric sauna is the best way to end a day on the slopes or trails. Winter clothes and gear dry overnight in the drying cabinet, and underfloor heating keeps the floors warm. ${SKISTAR_BUILDING}
+**Sauna, washing machine and drying cabinet**
+Your own electric sauna is the best way to end a day on the slopes or trails. The studio has its own washing machine, and winter clothes and gear dry overnight in the drying cabinet, and underfloor heating keeps the floors warm. ${SKISTAR_BUILDING}
 
 ${SKISTAR_LOCATION}
 
 **Amenities**
-Fully equipped kitchen, private sauna, drying cabinet, underfloor heating, free WiFi and TV. Shampoo and shower gel provided. Cot on request.
-
-**Please note**
-The building has several similar studios with small differences in the interior. Some also have a washing machine.
+Fully equipped kitchen, private sauna, washing machine, drying cabinet, underfloor heating, free WiFi and TV. Shampoo and shower gel provided. Cot on request.
 
 ${MATKATAVARAT_KELLARI}`,
   },
@@ -430,7 +424,7 @@ A cosy apartment in the Karhunvartija building right in Levi Center, at Skimbaaj
 ${LEVI_VILLAGE}
 
 **Layout**
-The 42 m² apartment is on one level and sleeps four. It has a hallway, an open-plan kitchen and living room, two bedrooms (one with a sofa bed for two), a bathroom, a separate WC and a private sauna. The natural stone fireplace makes for cosy evenings, and firewood is included.
+The 42 m² apartment is on one level and sleeps four. It has a hallway, an open-plan kitchen and living room, two bedrooms (one with a sofa bed for two), a bathroom, a separate WC, a private sauna and a washing machine. The natural stone fireplace makes for cosy evenings, and firewood is included.
 
 **Easy with children**
 The private entrance from Ratsastajankuja opens straight into the building's yard, where children can play in the snow. Playgrounds are close by.`,
@@ -584,7 +578,7 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed. The same building has an identical apartment, A6, and the 67 m² three-bedroom apartment A2.
+Fully equipped kitchen, private sauna, washing machine, ski locker, balconies on two levels, WiFi and TV. Pets allowed. The same building has an identical apartment, A6, and the 67 m² three-bedroom apartment A2.
 
 ${MATKATAVARAT_GLACIER}`,
   },
@@ -611,7 +605,7 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed.
+Fully equipped kitchen, private sauna, washing machine, ski locker, balconies on two levels, WiFi and TV. Pets allowed.
 
 ${MATKATAVARAT_GLACIER}`,
   },
@@ -638,7 +632,7 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed. The same building has an identical apartment, A4, and the 67 m² three-bedroom apartment A2.
+Fully equipped kitchen, private sauna, washing machine, ski locker, balconies on two levels, WiFi and TV. Pets allowed. The same building has an identical apartment, A4, and the 67 m² three-bedroom apartment A2.
 
 ${MATKATAVARAT_GLACIER}`,
   },
@@ -665,7 +659,7 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, ski locker, full-width balcony with a slope view, WiFi and TV. Bed linen can be ordered as an extra, or bring your own. Pets allowed.
+Fully equipped kitchen, private sauna, washing machine, ski locker, full-width balcony with a slope view, WiFi and TV. Bed linen can be ordered as an extra, or bring your own. Pets allowed.
 
 **For a bigger group**
 The same building has an identical apartment, B2. If B1 is booked, check B2, or book both for a group of 20.
@@ -695,7 +689,7 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, ski locker, full-width balcony with a slope view, WiFi and TV. Bed linen can be ordered as an extra, or bring your own. Pets allowed.
+Fully equipped kitchen, private sauna, washing machine, ski locker, full-width balcony with a slope view, WiFi and TV. Bed linen can be ordered as an extra, or bring your own. Pets allowed.
 
 **For a bigger group**
 The same building has an identical apartment, B1. If B2 is booked, check B1, or book both for a group of 20.
@@ -725,7 +719,7 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed.
+Fully equipped kitchen, private sauna, washing machine, ski locker, balconies on two levels, WiFi and TV. Pets allowed.
 
 **For a bigger group**
 The same building has an identical penthouse, B4. If B3 is booked, check B4, or book both for a group of 16.
@@ -755,7 +749,7 @@ ${GLACIER_LOCATION}
 ${GLACIER_BUILDING}
 
 **Amenities**
-Fully equipped kitchen, private sauna, ski locker, balconies on two levels, WiFi and TV. Pets allowed.
+Fully equipped kitchen, private sauna, washing machine, ski locker, balconies on two levels, WiFi and TV. Pets allowed.
 
 **For a bigger group**
 The same building has an identical penthouse, B3. If B4 is booked, check B3, or book both for a group of 16.

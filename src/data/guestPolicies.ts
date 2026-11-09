@@ -19,5 +19,8 @@ export const guestPolicies = {
 export const hasGuestFireplace = (slug: string): boolean =>
   guestPolicies.fireplaceSlugs.some((allowed) => allowed === slug);
 
+/** SkiStar: kaikissa talon pesutupa; studioissa 319, 320 ja 321 lisäksi oma pesukone. */
 export const guestLaundry = (slug: string): "self-service-laundry" | "washing-machine" =>
-  slug.startsWith("skistar-") ? "self-service-laundry" : "washing-machine";
+  ["skistar-studio-319", "skistar-studio-320", "skistar-studio-321"].includes(slug)
+    ? "washing-machine"
+    : slug.startsWith("skistar-") ? "self-service-laundry" : "washing-machine";
