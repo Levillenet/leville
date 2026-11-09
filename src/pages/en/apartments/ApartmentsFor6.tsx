@@ -99,7 +99,7 @@ const ApartmentsFor6 = () => {
               Six is the most common group size we see in Levi. Two families traveling together. Three couples on a ski trip. A family of four with grandparents. You have three areas to choose from:
             </p>
             <p>
-              <strong className="text-foreground">Hiihtäjänkuja apartments</strong> ({linkProp("5A2", "5a2")} and {linkProp("5B2", "5b2")}) are 65 m² alpine apartments near the front slopes and Zero Point. Both were fully renovated in 2024 with heat-storing fireplaces, renewed bathrooms, and air source heat pumps. {linkProp("5B2", "5b2")} also has a downstairs living room with PlayStation and a 150 cm sofa bed. Both have private sauna and drying room. Pets allowed.
+              <strong className="text-foreground">Hiihtäjänkuja apartments</strong> ({linkProp("5A2", "5a2")} and {linkProp("5B2", "5b2")}) are 65 m² alpine apartments near the front slopes and Zero Point. Both were fully renovated in 2024 with heat-storing fireplaces, renewed bathrooms, and air source heat pumps. {linkProp("5B2", "5b2")} also has a downstairs living room with PlayStation and a 140 cm sofa bed. Both have private sauna and drying room. Pets allowed.
             </p>
             <p>
               <strong className="text-foreground">Center Superior Suites</strong> ({linkProp("211", "211")} and {linkProp("212", "212")}) are in the Skistar building in Levi center, within walking distance of restaurants, shops, and the slopes. At 54 m² they're the most compact option for 6, but well-located. Both have sauna and balcony. {linkProp("Suite 211", "211")} is an end apartment with forest views. Pets not allowed.

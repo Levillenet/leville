@@ -104,7 +104,7 @@ export const properties: Property[] = [
     fireplace: true,
     yearBuiltOrRenovated: "Fully renovated 2024",
     highlights: ["Top-tier alpine apartment in the heart of Levi"],
-    shortDescription: "65 m² alpine apartment near front slopes and Zero Point. Fully renovated 2024. Downstairs living room with PlayStation and 150cm sofa bed. Private sauna, drying room, and heat-storing fireplace. Pets allowed."
+    shortDescription: "65 m² alpine apartment near front slopes and Zero Point. Fully renovated 2024. Downstairs living room with PlayStation and 140 cm sofa bed. Private sauna, drying room, and heat-storing fireplace. Pets allowed."
   },
   {
     id: "5b5",
@@ -487,7 +487,7 @@ export const properties: Property[] = [
     fireplace: false,
     yearBuiltOrRenovated: "Built 2021",
     highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
-    shortDescription: "28 m² Superior studio with private sauna on Postintie. Built 2021. Tiled feature wall, underfloor heating. Fully equipped kitchen with dishwasher. Accessible. Pets not allowed."
+    shortDescription: "28 m² Superior studio with private sauna on Postintie. Built 2021. Underfloor heating. Fully equipped kitchen with dishwasher. Accessible. Pets not allowed."
   },
   {
     id: "319",
