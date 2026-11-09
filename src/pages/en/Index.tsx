@@ -30,7 +30,7 @@ const IndexEN = () => {
         <title>Leville.net – Accommodation in Levi Centre, Book Direct</title>
         <meta 
           name="description" 
-          content="A local, trusted Levi accommodation company since 2012. Apartments and cabins in Levi centre – book directly from the owner, no middleman fees." 
+          content="A local, trusted Levi accommodation company since 2011. Apartments and cabins in Levi centre – book directly from the owner, no middleman fees." 
         />
         <meta name="keywords" content="Levi accommodation, Levi apartment, Levi cabin, Levi center, Levi holiday, Lapland" />
         <link rel="canonical" href="https://leville.net/en" />
@@ -39,7 +39,7 @@ const IndexEN = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://leville.net/en" />
         <meta property="og:title" content="Leville.net – Accommodation in Levi Centre, Book Direct" />
-        <meta property="og:description" content="A local, trusted Levi accommodation company since 2012. Apartments and cabins in Levi centre – book directly from the owner, no middleman fees." />
+        <meta property="og:description" content="A local, trusted Levi accommodation company since 2011. Apartments and cabins in Levi centre – book directly from the owner, no middleman fees." />
         <meta property="og:locale" content="en_US" />
         <meta property="og:site_name" content="Leville.net" />
         <meta property="og:image" content="https://leville.net/og-image.png" />
@@ -50,7 +50,7 @@ const IndexEN = () => {
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Leville.net – Accommodation in Levi Centre, Book Direct" />
-        <meta name="twitter:description" content="A local, trusted Levi accommodation company since 2012. Apartments and cabins in Levi centre." />
+        <meta name="twitter:description" content="A local, trusted Levi accommodation company since 2011. Apartments and cabins in Levi centre." />
         <meta name="twitter:image" content="https://leville.net/og-image.png" />
         <meta name="twitter:image:alt" content="Levi ski resort in Finnish Lapland" />
       </Helmet>

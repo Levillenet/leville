@@ -130,9 +130,9 @@ export function getLodgingBusinessSchema(lang: string) {
     "@type": "LodgingBusiness",
     "name": "Leville.net",
     "description": isFi
-      ? "Paikallinen majoitusyritys Levin keskustassa vuodesta 2012. Huoneistot ja mökit suoraan omistajalta ilman välityspalkkioita."
-      : "Local accommodation company in Levi centre since 2012. Apartments and cabins booked directly from the owner, no middleman fees.",
-    "foundingDate": "2012",
+      ? "Paikallinen majoitusyritys Levin keskustassa vuodesta 2011. Huoneistot ja mökit suoraan omistajalta ilman välityspalkkioita."
+      : "Local accommodation company in Levi centre since 2011. Apartments and cabins booked directly from the owner, no middleman fees.",
+    "foundingDate": "2011",
     "url": isFi ? `${BASE_URL}/majoitukset` : `${BASE_URL}/en/accommodations`,
     "telephone": "+358 44 13 13 13",
     "email": "info@leville.net",

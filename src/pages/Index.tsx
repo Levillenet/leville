@@ -43,7 +43,7 @@ const seoContent: Record<Language, {
   },
   en: {
     title: "Leville.net – Accommodation in Levi Centre, Book Direct",
-    description: "A local, trusted Levi accommodation company since 2012. Apartments and cabins in Levi centre – book directly from the owner, no middleman fees.",
+    description: "A local, trusted Levi accommodation company since 2011. Apartments and cabins in Levi centre – book directly from the owner, no middleman fees.",
     keywords: "Levi guide, Levi snow report, Levi trails, Levi slopes, Levi lift tickets, Levi restaurants, northern lights Levi",
     canonical: "https://leville.net/en",
     locale: "en_US"

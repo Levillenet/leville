@@ -21,8 +21,8 @@ function getLodgingBusiness() {
     name: "Leville.net",
     url: BASE_URL,
     description:
-      "Local accommodation company in Levi centre since 2012. Apartments and cabins in the best locations, booked directly from the owner.",
-    foundingDate: "2012",
+      "Local accommodation company in Levi centre since 2011. Apartments and cabins in the best locations, booked directly from the owner.",
+    foundingDate: "2011",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Levin keskusta",
