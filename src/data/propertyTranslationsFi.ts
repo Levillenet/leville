@@ -267,7 +267,7 @@ ${MATKATAVARAT_KELLARI}`,
     metaDescription:
       "43 m² yhden makuuhuoneen huoneisto 4 hengelle, Postintie 3, Levin keskusta. Oma sauna ja parveke. Päärinteille noin 700 m.",
     shortDescription:
-      "43 m² vuonna 2021 valmistunut yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talossa. Huoneistoon on yhdet portaat, sillä rinnetalossa se on maan tasalta toisessa kerroksessa. Huolella suunniteltu sisustus. Ei lemmikkejä.",
+      "43 m² vuonna 2021 valmistunut yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talossa. Huoneisto on maan tasalta laskien toisessa kerroksessa, yhdet portaat. Huolella suunniteltu sisustus. Ei lemmikkejä.",
     longDescription: `**43 m², makuuhuone ja oma sauna**
 
 Vuonna 2021 valmistunut yhden makuuhuoneen huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
@@ -277,7 +277,7 @@ ${LEVIN_KYLA}
 ${SKISTAR_1MH_POHJA}
 
 **Sauna ja kuivauskaappi**
-Oma sähkösauna rinnepäivän päätteeksi, ja kuivauskaapissa varusteet kuivuvat aamuksi. ${SKISTAR_TALO} Huoneistoon kuljetaan yhdet portaat: talo on rinnetalo, joten 310 on maan tasalta katsottuna toisessa kerroksessa. Talossa ei ole hissiä.
+Oma sähkösauna rinnepäivän päätteeksi, ja kuivauskaapissa varusteet kuivuvat aamuksi. ${SKISTAR_TALO} Huoneisto on maan tasalta laskien toisessa kerroksessa, ja sinne kuljetaan yhdet portaat. Talossa ei ole hissiä.
 
 ${SKISTAR_SIJAINTI}
 

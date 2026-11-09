@@ -267,7 +267,7 @@ ${MATKATAVARAT_KELLARI}`,
     metaDescription:
       "43 m² one-bedroom apartment for 4 at Postintie 3, Levi Center. Private sauna and balcony. About 700 m to the main slopes.",
     shortDescription:
-      "43 m² one-bedroom Superior apartment completed in 2021, with private sauna in the SkiStar building. One flight of stairs up, as the building sits on a slope. Carefully designed interior. No pets.",
+      "43 m² one-bedroom Superior apartment completed in 2021, with private sauna in the SkiStar building. Second floor counting from ground level, one flight of stairs up. Carefully designed interior. No pets.",
     longDescription: `**43 m², one bedroom and a private sauna**
 
 A one-bedroom apartment completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
@@ -277,7 +277,7 @@ ${LEVI_VILLAGE}
 ${SKISTAR_1BR_LAYOUT}
 
 **Sauna and drying cabinet**
-Your own electric sauna after a day on the slopes, and a drying cabinet that has your gear dry by morning. ${SKISTAR_BUILDING} The apartment is one flight of stairs up: the building sits on a slope, so 310 is on the second floor from ground level. There is no lift.
+Your own electric sauna after a day on the slopes, and a drying cabinet that has your gear dry by morning. ${SKISTAR_BUILDING} The apartment is on the second floor counting from ground level, one flight of stairs up. There is no lift.
 
 ${SKISTAR_LOCATION}
 

@@ -411,7 +411,7 @@ export const properties: Property[] = [
     fireplace: false,
     yearBuiltOrRenovated: "Built 2021",
     highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
-    shortDescription: "43 m² 1-bedroom Superior apartment with sauna, completed in 2021 in the Skistar building, one flight of stairs up. Carefully designed interior. Pets not allowed."
+    shortDescription: "43 m² 1-bedroom Superior apartment with sauna, completed in 2021 in the Skistar building, on the second floor counting from ground level (one flight of stairs). Carefully designed interior. Pets not allowed."
   },
   {
     id: "102",
