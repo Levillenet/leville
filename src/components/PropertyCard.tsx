@@ -1,6 +1,7 @@
-import { Maximize, DoorOpen, Bed, Users, MapPin, ExternalLink, PawPrint, Flame, Accessibility, Droplets, ArrowRight, Mountain, Waves, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Maximize, DoorOpen, Bed, Users, MapPin, ExternalLink, PawPrint, Flame, Accessibility, Droplets, ArrowRight, Mountain, Waves, ChevronLeft, ChevronRight, X, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -49,6 +50,11 @@ const PropertyCard = ({
     src === property.heroImage && src.endsWith(".webp")
       ? `${src.replace(/\.webp$/, "-480w.webp")} 480w, ${src.replace(/\.webp$/, "-800w.webp")} 800w, ${src} 1200w`
       : undefined;
+  // Non-hero gallery images have a pre-generated -800w sibling for the card view.
+  const cardSrc = (src: string) =>
+    src !== property.heroImage && src.startsWith("/") && src.endsWith(".webp")
+      ? src.replace(/\.webp$/, "-800w.webp")
+      : src;
 
   const baseImages = property.images && property.images.length > 0
     ? property.images
@@ -77,6 +83,30 @@ const PropertyCard = ({
     setLightboxOpen(true);
   };
   const closeLightbox = () => setLightboxOpen(false);
+  const [fullLoaded, setFullLoaded] = useState(false);
+  useEffect(() => { setFullLoaded(false); }, [imgIdx]);
+  const touchX = useRef<number | null>(null);
+  const swiped = useRef(false);
+  const onTouchStart = (e: React.TouchEvent) => { touchX.current = e.touches[0].clientX; swiped.current = false; };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchX.current === null || !hasMultiple) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    touchX.current = null;
+    if (Math.abs(dx) < 40) return;
+    swiped.current = true;
+    setImgIdx((i) => (dx < 0 ? (i + 1) % gallery.length : (i - 1 + gallery.length) % gallery.length));
+  };
+  // Preload neighbours (card size always; full size when lightbox is open).
+  const [interacted, setInteracted] = useState(false);
+  useEffect(() => {
+    if (!hasMultiple || (!interacted && !lightboxOpen)) return;
+    const n = gallery.length;
+    [(imgIdx + 1) % n, (imgIdx - 1 + n) % n].forEach((j) => {
+      const im = new Image();
+      im.src = lightboxOpen ? gallery[j] : cardSrc(gallery[j]);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imgIdx, lightboxOpen, interacted]);
 
   useEffect(() => {
     if (!lightboxOpen) return;
@@ -97,16 +127,16 @@ const PropertyCard = ({
   return (
     <Card className="group relative overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/10 border-border/60 flex flex-col">
       {/* Hero image / gallery */}
-      <div className="relative w-full aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/15 via-muted to-secondary/15">
+      <div onTouchStart={(e) => { setInteracted(true); onTouchStart(e); }} onTouchEnd={onTouchEnd} onMouseEnter={() => setInteracted(true)} className="relative w-full aspect-[16/10] overflow-hidden bg-gradient-to-br from-primary/15 via-muted to-secondary/15">
         {gallery.length > 0 ? (
           <button
             type="button"
-            onClick={openLightbox}
+            onClick={(e) => { if (swiped.current) { e.preventDefault(); swiped.current = false; return; } openLightbox(e); }}
             aria-label={L.openGallery}
             className="block w-full h-full cursor-zoom-in focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
             <OptimizedImage
-              src={gallery[imgIdx]}
+              src={cardSrc(gallery[imgIdx])}
               srcSet={heroSrcSet(gallery[imgIdx])}
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               width={800}
@@ -129,7 +159,7 @@ const PropertyCard = ({
               type="button"
               onClick={goPrev}
               aria-label={L.prev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-background/85 text-foreground backdrop-blur hover:bg-background transition-opacity opacity-0 group-hover:opacity-100 focus:opacity-100"
+              className="absolute left-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/85 text-foreground backdrop-blur hover:bg-background transition-opacity opacity-100 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -137,7 +167,7 @@ const PropertyCard = ({
               type="button"
               onClick={goNext}
               aria-label={L.next}
-              className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-8 h-8 rounded-full bg-background/85 text-foreground backdrop-blur hover:bg-background transition-opacity opacity-0 group-hover:opacity-100 focus:opacity-100"
+              className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-10 h-10 rounded-full bg-background/85 text-foreground backdrop-blur hover:bg-background transition-opacity opacity-100 md:opacity-0 md:group-hover:opacity-100 focus:opacity-100"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -246,8 +276,10 @@ const PropertyCard = ({
           )}
         </div>
       </CardContent>
-      {lightboxOpen && gallery.length > 0 && (
+      {lightboxOpen && gallery.length > 0 && createPortal(
         <div
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
           className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center"
           onClick={closeLightbox}
           role="dialog"
@@ -285,13 +317,19 @@ const PropertyCard = ({
               </span>
             </>
           )}
+          {!fullLoaded && (
+            <Loader2 className="absolute w-10 h-10 text-white/80 animate-spin" aria-hidden="true" />
+          )}
           <img
+            key={gallery[imgIdx]}
             src={gallery[imgIdx]}
             alt={`${displayName} – ${imgIdx + 1}/${gallery.length}`}
+            onLoad={() => setFullLoaded(true)}
             onClick={(e) => e.stopPropagation()}
-            className="max-w-[95vw] max-h-[90vh] object-contain select-none"
+            className={`max-w-[95vw] max-h-[90vh] object-contain select-none transition-opacity duration-200 ${fullLoaded ? "opacity-100" : "opacity-40"}`}
           />
-        </div>
+        </div>,
+        document.body
       )}
     </Card>
   );
