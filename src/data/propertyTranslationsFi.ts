@@ -36,10 +36,10 @@ const SKISTAR_1MH_POHJA = `**Pohjaratkaisu**
 Makuuhuoneessa on kaksi erillistä sänkyä, ja olohuoneen vuodesohvalle mahtuu yksi tai kaksi lisävierasta. Avoin keittiö ja olohuone ovat valoisat, ja niissä on hyvä laittaa ruokaa, levätä ja suunnitella seuraavaa päivää.`;
 
 const SKISTAR_1MH_VARUSTELU = `**Varustelu**
-Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Oma sauna, kylpyhuone, kuivauskaappi, parveke, ilmainen WiFi ja TV (HDMI-liitäntä). Syöttötuoli saatavilla.`;
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni, kahvinkeitin ja leivänpaahdin. Oma sauna, kylpyhuone, kuivauskaappi, parveke, vesikiertoinen lattialämmitys, ilmainen WiFi ja TV (HDMI-liitäntä). Pinnasänky ja syöttötuoli saatavilla.`;
 
 const SKISTAR_2MH_VARUSTELU = `**Varustelu**
-Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Oma sauna, kylpyhuone, kuivauskaappi, parveke, ilmainen WiFi ja TV. Pinnasänky ja syöttötuoli saatavilla.`;
+Täysin varusteltu keittiö, jossa astianpesukone, uuni, mikroaaltouuni ja kahvinkeitin. Oma sauna, kylpyhuone, kuivauskaappi, parveke, vesikiertoinen lattialämmitys, ilmainen WiFi ja TV. Pinnasänky ja syöttötuoli saatavilla.`;
 
 /* ------------------------------------------------------------------ */
 
@@ -267,17 +267,17 @@ ${MATKATAVARAT_KELLARI}`,
     metaDescription:
       "43 m² yhden makuuhuoneen huoneisto 4 hengelle, Postintie 3, Levin keskusta. Oma sauna ja parveke. Päärinteille noin 700 m.",
     shortDescription:
-      "43 m² vuonna 2021 valmistunut yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talon kolmannessa kerroksessa. Huolella suunniteltu sisustus. Talossa ei ole hissiä. Ei lemmikkejä.",
+      "43 m² vuonna 2021 valmistunut yhden makuuhuoneen Superior-huoneisto saunalla SkiStar-talossa. Huoneistoon on yhdet portaat, sillä rinnetalossa se on maan tasalta toisessa kerroksessa. Huolella suunniteltu sisustus. Ei lemmikkejä.",
     longDescription: `**43 m², makuuhuone ja oma sauna**
 
-Vuonna 2021 valmistunut yhden makuuhuoneen huoneisto SkiStar-talon kolmannessa kerroksessa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
+Vuonna 2021 valmistunut yhden makuuhuoneen huoneisto SkiStar-talossa osoitteessa Postintie 3, Levin keskustassa. Huoneistoon mahtuu neljä henkeä, joten se sopii pariskunnille ja pienille perheille. Päärinteille on noin 700 metriä, ja palvelut ovat kävelymatkan päässä.
 
 ${LEVIN_KYLA}
 
 ${SKISTAR_1MH_POHJA}
 
 **Sauna ja kuivauskaappi**
-Oma sähkösauna rinnepäivän päätteeksi, ja kuivauskaapissa varusteet kuivuvat aamuksi. ${SKISTAR_TALO} Huomaathan, että huoneisto on kolmannessa kerroksessa eikä talossa ole hissiä.
+Oma sähkösauna rinnepäivän päätteeksi, ja kuivauskaapissa varusteet kuivuvat aamuksi. ${SKISTAR_TALO} Huoneistoon kuljetaan yhdet portaat: talo on rinnetalo, joten 310 on maan tasalta katsottuna toisessa kerroksessa. Talossa ei ole hissiä.
 
 ${SKISTAR_SIJAINTI}
 
