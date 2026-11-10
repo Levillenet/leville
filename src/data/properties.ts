@@ -196,7 +196,7 @@ export const properties: Property[] = [
   {
     id: "211",
     slug: "skistar-211",
-    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
+    address: { street: "Postintie 3B", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.webp",
       "/skistar/kolmio/01.webp",
@@ -231,16 +231,16 @@ export const properties: Property[] = [
     tags: ["superior", "family", "for-6", "2-bedroom", "center"],
     petsAllowed: false,
     sauna: true,
-    accessible: true,
+    accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2021",
     highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
-    shortDescription: "54 m² Superior suite with 2 bedrooms, sauna, and balcony. End apartment with forest views. Accessible. Ski storage with rack and ventilation. Pets not allowed."
+    shortDescription: "54 m² Superior suite with 2 bedrooms and sauna. End apartment with forest views. Second floor from the yard, one flight of stairs. Ski storage with rack and ventilation. Pets not allowed."
   },
   {
     id: "212",
     slug: "skistar-212",
-    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
+    address: { street: "Postintie 3B", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.webp",
       "/skistar/kolmio/01.webp",
@@ -275,7 +275,7 @@ export const properties: Property[] = [
     tags: ["superior", "family", "for-6", "2-bedroom", "center"],
     petsAllowed: false,
     sauna: true,
-    accessible: true,
+    accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2021",
     highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
@@ -284,7 +284,7 @@ export const properties: Property[] = [
   {
     id: "209",
     slug: "skistar-209",
-    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
+    address: { street: "Postintie 3B", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.webp",
       "/skistar/kaksio/01.webp",
@@ -319,16 +319,16 @@ export const properties: Property[] = [
     tags: ["superior", "couples", "for-4", "center"],
     petsAllowed: false,
     sauna: true,
-    accessible: true,
+    accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2021",
     highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
-    shortDescription: "43 m² 1-bedroom Superior apartment with sauna, completed in 2021. Accessible (no stairs). Carefully designed interior. Pets not allowed."
+    shortDescription: "43 m² 1-bedroom Superior apartment with sauna, completed in 2021. Second floor from the yard, one flight of stairs. Carefully designed interior. Pets not allowed."
   },
   {
     id: "210",
     slug: "skistar-210",
-    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
+    address: { street: "Postintie 3B", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.webp",
       "/skistar/kaksio/01.webp",
@@ -363,16 +363,16 @@ export const properties: Property[] = [
     tags: ["superior", "couples", "for-4", "center"],
     petsAllowed: false,
     sauna: true,
-    accessible: true,
+    accessible: false,
     fireplace: false,
     yearBuiltOrRenovated: "Built 2021",
     highlights: ["Built 2021, modern apartment in Levi center", "In-house laundry room with a professional washing machine"],
-    shortDescription: "43 m² 1-bedroom Superior apartment with sauna, completed in 2021. Accessible (no stairs). Luggage drop-off available. Pets not allowed."
+    shortDescription: "43 m² 1-bedroom Superior apartment with sauna, completed in 2021. Second floor from the yard, one flight of stairs. Luggage drop-off available. Pets not allowed."
   },
   {
     id: "310",
     slug: "skistar-310",
-    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
+    address: { street: "Postintie 3B", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.webp",
       "/skistar/kaksio/01.webp",
@@ -416,7 +416,7 @@ export const properties: Property[] = [
   {
     id: "102",
     slug: "skistar-studio-102",
-    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
+    address: { street: "Postintie 3B", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.webp",
       "/skistar/studio-102/01.webp",
@@ -449,7 +449,7 @@ export const properties: Property[] = [
   {
     id: "104",
     slug: "skistar-studio-104",
-    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
+    address: { street: "Postintie 3B", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.webp",
       "/skistar/yksio/01.webp",
@@ -492,7 +492,7 @@ export const properties: Property[] = [
   {
     id: "319",
     slug: "skistar-studio-319",
-    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
+    address: { street: "Postintie 3B", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.webp",
       "/skistar/yksio/01.webp",
@@ -535,7 +535,7 @@ export const properties: Property[] = [
   {
     id: "320",
     slug: "skistar-studio-320",
-    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
+    address: { street: "Postintie 3B", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.webp",
       "/skistar/yksio/01.webp",
@@ -578,7 +578,7 @@ export const properties: Property[] = [
   {
     id: "321",
     slug: "skistar-studio-321",
-    address: { street: "Postintie 3", postalCode: "99130", city: "Sirkka" },
+    address: { street: "Postintie 3B", postalCode: "99130", city: "Sirkka" },
     images: [
       "/skistar/exterior.webp",
       "/skistar/yksio/01.webp",

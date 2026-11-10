@@ -141,7 +141,7 @@ Löyly:
     },
     luggageStorage: {
       question: "Onko matkatavarasäilytystä?",
-      answer: "SkiStar-talossa (Postintie 3) ja Hiihtäjänkuja 5:n talossa on matkatavarasäilytys talon kellarissa, Glacier-huoneistoissa B-talon kellarissa. Laukut voi jättää ja hakea milloin tahansa, myös ennen sisäänkirjautumista ja uloskirjautumisen jälkeen. Karhupirtin osalta säilytysmahdollisuutta voi tiedustella meiltä. Karhunvartija 3:ssa, Platinum A2:ssa ja Moonlight 415:ssä ei ole erillistä matkatavarasäilytystä."
+      answer: "SkiStar-talossa (Postintie 3B) ja Hiihtäjänkuja 5:n talossa on matkatavarasäilytys talon kellarissa, Glacier-huoneistoissa B-talon kellarissa. Laukut voi jättää ja hakea milloin tahansa, myös ennen sisäänkirjautumista ja uloskirjautumisen jälkeen. Karhupirtin osalta säilytysmahdollisuutta voi tiedustella meiltä. Karhunvartija 3:ssa, Platinum A2:ssa ja Moonlight 415:ssä ei ole erillistä matkatavarasäilytystä."
     },
     linens: {
       question: "Sisältyvätkö liinavaatteet ja pyyhkeet hintaan?",

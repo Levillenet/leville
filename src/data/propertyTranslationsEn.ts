@@ -25,7 +25,7 @@ const GLACIER_BUILDING = `**The building**
 The Eturinteen Alppikylä buildings were built in 2000 and have been updated over the years. Every apartment has its own ski locker by the front door, and the building has a shared heated ski maintenance room and a children's play and games room with air hockey.`;
 
 const SKISTAR_LOCATION = `**Location**
-The SkiStar building is at Postintie 3 in Levi Center, right next to the K-Market grocery store. The main slopes and the Front Slope lifts are about 700 m away, an easy walk. Cross-country trails start nearby, and restaurants, shops and après-ski venues are a short walk away. Parking is free, with an engine heater socket.`;
+The SkiStar building is at Postintie 3B in Levi Center, right next to the K-Market grocery store. The main slopes and the Front Slope lifts are about 700 m away, an easy walk. Cross-country trails start nearby, and restaurants, shops and après-ski venues are a short walk away. Parking is free, with an engine heater socket.`;
 
 const SKISTAR_BUILDING = `The building has a shared laundry room with a tumble dryer and a ventilated ski storage room with a ski maintenance rack.`;
 
@@ -36,10 +36,10 @@ const SKISTAR_1BR_LAYOUT = `**Layout**
 The bedroom has two single beds, and the sofa bed in the living room sleeps one or two more. The open-plan kitchen and living room is bright and a good place to cook, relax and plan the next day.`;
 
 const SKISTAR_1BR_AMENITIES = `**Amenities**
-Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and toaster. Private sauna, bathroom, drying cabinet, balcony, water-based underfloor heating, free WiFi and TV with HDMI. Cot and high chair available.`;
+Fully equipped kitchen with dishwasher, oven, microwave, coffee maker and toaster. Private sauna, bathroom, drying cabinet, water-based underfloor heating, free WiFi and TV with HDMI. Cot and high chair available.`;
 
 const SKISTAR_2BR_AMENITIES = `**Amenities**
-Fully equipped kitchen with dishwasher, oven, microwave and coffee maker. Private sauna, bathroom, drying cabinet, balcony, water-based underfloor heating, free WiFi and TV. Cot and high chair available.`;
+Fully equipped kitchen with dishwasher, oven, microwave and coffee maker. Private sauna, bathroom, drying cabinet, water-based underfloor heating, free WiFi and TV. Cot and high chair available.`;
 
 /* ------------------------------------------------------------------ */
 
@@ -171,12 +171,12 @@ ${MATKATAVARAT_KYSY}`,
   "skistar-211": {
     name: "Superior Suite 211, Postintie",
     metaDescription:
-      "54 m² two-bedroom apartment for 6 at Postintie 3, Levi Center. Private sauna, balcony, end unit with a forest view. Step-free access.",
+      "54 m² two-bedroom apartment for 6 at Postintie 3B, Levi Center. Private sauna, end unit with a forest view. One flight of stairs.",
     shortDescription:
-      "54 m² two-bedroom Superior apartment in the SkiStar building in Levi Center. Private sauna and balcony. End unit with a forest view. Step-free access. No pets.",
+      "54 m² two-bedroom Superior apartment in the SkiStar building in Levi Center. Private sauna. End unit with a forest view. Second floor from the yard, one flight of stairs. No pets.",
     longDescription: `**54 m², two bedrooms and a private sauna**
 
-A modern apartment in the SkiStar building at Postintie 3, Levi Center. It sleeps six and suits families and groups of friends. Restaurants, shops and services are within walking distance, and the main slopes are about 700 m away.
+A modern apartment in the SkiStar building at Postintie 3B, Levi Center. It sleeps six and suits families and groups of friends. Restaurants, shops and services are within walking distance, and the main slopes are about 700 m away.
 
 ${LEVI_VILLAGE}
 
@@ -186,7 +186,7 @@ Both bedrooms have two single beds, and the living room has a sofa bed. The open
 **Sauna and drying cabinet**
 Your own electric sauna for the end of a ski day. Wet gear and outdoor clothes dry overnight in the drying cabinet. ${SKISTAR_BUILDING}
 
-${SKISTAR_LOCATION} The apartment has step-free access, although it is not certified as fully accessible.
+${SKISTAR_LOCATION} The building is built on a slope, and the apartment is on the second floor seen from the yard, up one flight of stairs.
 
 ${SKISTAR_2BR_AMENITIES}
 
@@ -195,22 +195,22 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-212": {
     name: "Superior Suite 212, Postintie",
     metaDescription:
-      "54 m² two-bedroom apartment for 6 at Postintie 3, Levi Center. Private sauna, balcony, underfloor heating, end unit with a forest view.",
+      "54 m² two-bedroom apartment for 6 at Postintie 3B, Levi Center. Private sauna, balcony, underfloor heating, end unit with a forest view.",
     shortDescription:
       "54 m² two-bedroom Superior apartment in the SkiStar building in Levi Center. Private sauna, balcony and underfloor heating. End unit with a forest view. No pets.",
     longDescription: `**54 m², two bedrooms and a private sauna**
 
-A modern apartment in the SkiStar building at Postintie 3, Levi Center. It sleeps six and suits families and groups of friends. Restaurants, shops and services are within walking distance, and the main slopes are about 700 m away.
+A modern apartment in the SkiStar building at Postintie 3B, Levi Center. It sleeps six and suits families and groups of friends. Restaurants, shops and services are within walking distance, and the main slopes are about 700 m away.
 
 ${LEVI_VILLAGE}
 
 **Layout**
-Both bedrooms have two single beds, and the living room has a sofa bed. The open-plan kitchen and living room has plenty of space for cooking and spending time together after a day on the slopes. Underfloor heating keeps the floors warm. As an end unit, 212 has windows facing the forest and more privacy than usual.
+Both bedrooms have two single beds, and the living room has a sofa bed. The open-plan kitchen and living room has plenty of space for cooking and spending time together after a day on the slopes. Underfloor heating keeps the floors warm, and 212 is the only one of our SkiStar apartments with its own balcony. As an end unit, 212 has windows facing the forest and more privacy than usual.
 
 **Sauna and drying cabinet**
 Your own electric sauna for the end of a ski day. Wet gear and outdoor clothes dry overnight in the drying cabinet. ${SKISTAR_BUILDING}
 
-${SKISTAR_LOCATION} The apartment has step-free access, although it is not certified as fully accessible.
+${SKISTAR_LOCATION} The building is built on a slope, and the apartment is on the second floor seen from the yard, up one flight of stairs.
 
 ${SKISTAR_2BR_AMENITIES}
 
@@ -219,19 +219,19 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-209": {
     name: "Superior 209, Levi Center",
     metaDescription:
-      "43 m² one-bedroom apartment for 4 at Postintie 3, Levi Center. Private sauna and balcony, step-free access. Book directly at Leville.net.",
+      "43 m² one-bedroom apartment for 4 at Postintie 3B, Levi Center. Private sauna and drying cabinet. Book directly at Leville.net.",
     shortDescription:
-      "43 m² one-bedroom Superior apartment completed in 2021, with private sauna in the SkiStar building. Step-free, no stairs. Carefully designed interior. No pets.",
+      "43 m² one-bedroom Superior apartment completed in 2021, with private sauna in the SkiStar building. Second floor from the yard, one flight of stairs. Carefully designed interior. No pets.",
     longDescription: `**43 m², one bedroom and a private sauna**
 
-A one-bedroom apartment completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
+A one-bedroom apartment completed in 2021 in the SkiStar building at Postintie 3B, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
 ${SKISTAR_1BR_LAYOUT}
 
 **Sauna and drying cabinet**
-Your own electric sauna after a day on the slopes, and a drying cabinet that has your gear dry by morning. ${SKISTAR_BUILDING} The apartment has step-free access with no stairs, although it is not certified as fully accessible.
+Your own electric sauna after a day on the slopes, and a drying cabinet that has your gear dry by morning. ${SKISTAR_BUILDING} The building is built on a slope, and the apartment is on the second floor seen from the yard, up one flight of stairs.
 
 ${SKISTAR_LOCATION}
 
@@ -242,19 +242,19 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-210": {
     name: "Superior 210, Levi Center",
     metaDescription:
-      "43 m² one-bedroom apartment for 4 at Postintie 3, Levi Center. Private sauna and balcony, step-free access. Book directly at Leville.net.",
+      "43 m² one-bedroom apartment for 4 at Postintie 3B, Levi Center. Private sauna and drying cabinet. Book directly at Leville.net.",
     shortDescription:
-      "43 m² one-bedroom Superior apartment completed in 2021, with private sauna in the SkiStar building. Step-free, no stairs. Luggage storage available. No pets.",
+      "43 m² one-bedroom Superior apartment completed in 2021, with private sauna in the SkiStar building. Second floor from the yard, one flight of stairs. Luggage storage available. No pets.",
     longDescription: `**43 m², one bedroom and a private sauna**
 
-A one-bedroom apartment completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
+A one-bedroom apartment completed in 2021 in the SkiStar building at Postintie 3B, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
 ${SKISTAR_1BR_LAYOUT}
 
 **Sauna and drying cabinet**
-Your own electric sauna after a day on the slopes, and a drying cabinet that has your gear dry by morning. The building has a shared laundry room and a lockable, ventilated ski storage room with a maintenance rack. The apartment has step-free access with no stairs, although it is not certified as fully accessible.
+Your own electric sauna after a day on the slopes, and a drying cabinet that has your gear dry by morning. The building has a shared laundry room and a lockable, ventilated ski storage room with a maintenance rack. The building is built on a slope, and the apartment is on the second floor seen from the yard, up one flight of stairs.
 
 ${SKISTAR_LOCATION}
 
@@ -265,12 +265,12 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-310": {
     name: "Superior 310, Levi Center",
     metaDescription:
-      "43 m² one-bedroom apartment for 4 at Postintie 3, Levi Center. Private sauna and balcony. About 700 m to the main slopes.",
+      "43 m² one-bedroom apartment for 4 at Postintie 3B, Levi Center. Private sauna and drying cabinet. About 700 m to the main slopes.",
     shortDescription:
       "43 m² one-bedroom Superior apartment completed in 2021, with private sauna in the SkiStar building. Second floor counting from ground level, one flight of stairs up. Carefully designed interior. No pets.",
     longDescription: `**43 m², one bedroom and a private sauna**
 
-A one-bedroom apartment completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
+A one-bedroom apartment completed in 2021 in the SkiStar building at Postintie 3B, Levi Center. It sleeps four, so it suits couples and small families. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -288,12 +288,12 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-studio-102": {
     name: "Studio 102, Postintie",
     metaDescription:
-      "24 m² studio in Levi Center at Postintie 3. Built 2021, step-free access, next to the K-Market. No sauna, see studios 104, 319, 320 and 321.",
+      "24 m² studio in Levi Center at Postintie 3B. Built 2021, step-free access, next to the K-Market. No sauna, see studios 104, 319, 320 and 321.",
     shortDescription:
-      "24 m² studio in the SkiStar building at Postintie 3, Levi Center. Built 2021. Our most compact apartment. Please note: no sauna, our studios with a sauna are 104, 319, 320 and 321. Step-free access. A few steps from the K-Market. No pets.",
+      "24 m² studio in the SkiStar building at Postintie 3B, Levi Center. Built 2021. Our most compact apartment. Please note: no sauna, our studios with a sauna are 104, 319, 320 and 321. Step-free access. A few steps from the K-Market. No pets.",
     longDescription: `**Modern studio in Levi Center**
 
-A 24 m² studio completed in 2021 in the SkiStar building at Postintie 3. Please note that this studio has no sauna; our studios with a sauna are 104, 319, 320 and 321. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+A 24 m² studio completed in 2021 in the SkiStar building at Postintie 3B. Please note that this studio has no sauna; our studios with a sauna are 104, 319, 320 and 321. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -315,12 +315,12 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-studio-104": {
     name: "Superior Studio 104 with sauna, Postintie",
     metaDescription:
-      "28 m² studio with private sauna at Postintie 3, Levi Center. Built 2021, underfloor heating, step-free access. Sleeps 3 adults or a family of 4.",
+      "28 m² studio with private sauna at Postintie 3B, Levi Center. Built 2021, underfloor heating, step-free access. Sleeps 3 adults or a family of 4.",
     shortDescription:
-      "28 m² Superior studio with private sauna in the SkiStar building at Postintie 3. Built 2021. Underfloor heating. Fully equipped kitchen with dishwasher. Step-free access. No pets.",
+      "28 m² Superior studio with private sauna in the SkiStar building at Postintie 3B. Built 2021. Underfloor heating. Fully equipped kitchen with dishwasher. Step-free access. No pets.",
     longDescription: `**28 m² studio with a private sauna**
 
-A modern studio completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+A modern studio completed in 2021 in the SkiStar building at Postintie 3B, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -342,12 +342,12 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-studio-319": {
     name: "Superior Studio 319, Levi Center",
     metaDescription:
-      "28 m² studio with private sauna and washing machine at Postintie 3, Levi Center. Sleeps 3 adults or a family of 4, next to the K-Market.",
+      "28 m² studio with private sauna and washing machine at Postintie 3B, Levi Center. Sleeps 3 adults or a family of 4, next to the K-Market.",
     shortDescription:
-      "28 m² Superior studio with private sauna in the SkiStar building at Postintie 3. Own washing machine and drying cabinet. A few steps from the K-Market, about 700 m to the lifts. No pets.",
+      "28 m² Superior studio with private sauna in the SkiStar building at Postintie 3B. Own washing machine and drying cabinet. A few steps from the K-Market, about 700 m to the lifts. No pets.",
     longDescription: `**28 m² studio with a private sauna and washing machine**
 
-A modern studio in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+A modern studio in the SkiStar building at Postintie 3B, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -366,12 +366,12 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-studio-320": {
     name: "Studio 320 with sauna, Levi Center",
     metaDescription:
-      "28 m² studio with private sauna and washing machine at Postintie 3, Levi Center. Next to the K-Market. Sleeps 3 adults or a family of 4.",
+      "28 m² studio with private sauna and washing machine at Postintie 3B, Levi Center. Next to the K-Market. Sleeps 3 adults or a family of 4.",
     shortDescription:
-      "28 m² studio with private sauna and washing machine in the SkiStar building at Postintie 3. Underfloor heating. A few steps from the K-Market. No pets.",
+      "28 m² studio with private sauna and washing machine in the SkiStar building at Postintie 3B. Underfloor heating. A few steps from the K-Market. No pets.",
     longDescription: `**28 m² studio with a private sauna**
 
-A modern studio completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+A modern studio completed in 2021 in the SkiStar building at Postintie 3B, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 
@@ -390,12 +390,12 @@ ${MATKATAVARAT_KELLARI}`,
   "skistar-studio-321": {
     name: "Studio 321 with sauna, Levi Center",
     metaDescription:
-      "28 m² studio with private sauna and washing machine at Postintie 3, Levi Center. Next to the K-Market. Sleeps 3 adults or a family of 4.",
+      "28 m² studio with private sauna and washing machine at Postintie 3B, Levi Center. Next to the K-Market. Sleeps 3 adults or a family of 4.",
     shortDescription:
-      "28 m² studio with private sauna and washing machine in the SkiStar building at Postintie 3. Underfloor heating. A few steps from the K-Market, about 700 m to the lifts. No pets.",
+      "28 m² studio with private sauna and washing machine in the SkiStar building at Postintie 3B. Underfloor heating. A few steps from the K-Market, about 700 m to the lifts. No pets.",
     longDescription: `**28 m² studio with a private sauna**
 
-A modern studio completed in 2021 in the SkiStar building at Postintie 3, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
+A modern studio completed in 2021 in the SkiStar building at Postintie 3B, Levi Center. It sleeps three adults or a family of two adults and two children. The main slopes are about 700 m away, and services are within walking distance.
 
 ${LEVI_VILLAGE}
 

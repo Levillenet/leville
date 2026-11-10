@@ -35,7 +35,7 @@ const ui = {
     hubByLocation: {
       "Front Slope": { label: "Hiihtäjänkuja — alueen majoitukset", href: "/vuokramokit/hiihtajankuja-levi" },
       "Glacier": { label: "Glacier Apartments — Levin keskustan suurin alppitalo", href: "/vuokramokit/glacier-apartments-levi" },
-      "Levi Center": { label: "Postintie 3 — Skistar-talon huoneistot", href: "/vuokramokit/postintie-levi" },
+      "Levi Center": { label: "Postintie 3B — Skistar-talon huoneistot", href: "/vuokramokit/postintie-levi" },
     },
     similarTitle: "Vastaava huoneisto",
   },

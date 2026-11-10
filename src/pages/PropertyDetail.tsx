@@ -323,7 +323,7 @@ const groupOf = (p: Property): string => {
 
 const groupAddress: Record<string, { label: string; query: string }> = {
   "front-slope": { label: "Hiihtäjänkuja 5, Levi", query: "Hiihtäjänkuja 5, 99130 Levi" },
-  "skistar": { label: "Postintie 3 B, Levi", query: "Postintie 3 B, 99130 Levi" },
+  "skistar": { label: "Postintie 3B, Levi", query: "Postintie 3B, 99130 Levi" },
   "glacier": { label: "Ratsastajankuja 2, Levi", query: "Ratsastajankuja 2, 99130 Levi" },
   "karhupirtti": { label: "Skimbaajankuja 3, Levi", query: "Skimbaajankuja 3, 99130 Levi" },
 };

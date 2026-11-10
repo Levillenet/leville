@@ -66,11 +66,11 @@ Modern building in Levi center, steps from K-Market & restaurants, 600m to lifts
   - **319** — [Details](https://leville.net/en/accommodations/skistar-studio-319) · [Book](https://app.moder.fi/levillenet/8440?step=1)
   - **320** — [Details](https://leville.net/en/accommodations/skistar-studio-320) · [Book](https://app.moder.fi/levillenet/452?step=1)
   - **321** — [Details](https://leville.net/en/accommodations/skistar-studio-321) · [Book](https://app.moder.fi/levillenet/1435?step=1)
-- **1-Bedroom** (209, 210, 310) — 43–44m², sleeps 4 | Sauna | 209 & 210 wheelchair-accessible (no stairs) | 310 on the second floor counting from ground level (one flight of stairs), not accessible | No pets
+- **1-Bedroom** (209, 210, 310) — 43–44m², sleeps 4 | Sauna | All on the second floor seen from the yard (one flight of stairs), not wheelchair-accessible | No pets
   - **209** — [Details](https://leville.net/en/accommodations/skistar-209) · [Book](https://app.moder.fi/levillenet/450?step=1)
   - **210** — [Details](https://leville.net/en/accommodations/skistar-210) · [Book](https://app.moder.fi/levillenet/307?step=1)
   - **310** — [Details](https://leville.net/en/accommodations/skistar-310) · [Book](https://app.moder.fi/levillenet/11960?step=1)
-- **2-Bedroom** (211, 212) — 54m², sleeps 6 | Sauna, balcony | Wheelchair-accessible | No pets
+- **2-Bedroom** (211, 212) — 54m², sleeps 6 | Sauna | Balcony only in 212 | Second floor seen from the yard (one flight of stairs) | No pets
   - **211** — [Details](https://leville.net/en/accommodations/skistar-211) · [Book](https://app.moder.fi/levillenet/308?step=1)
   - **212** — [Details](https://leville.net/en/accommodations/skistar-212) · [Book](https://app.moder.fi/levillenet/451?step=1)
 - All built 2020, underfloor heating, Candy Trio kitchen appliances
@@ -128,7 +128,7 @@ Skistar Superior studios 104, 319, 320, 321 (private sauna, Levi center), Platin
 Front Slope 5A2, 5B2, 5B5; all 10 Levi Glacier apartments; Bear Lodge / Karhupirtti; Karhunvartija 3. Not allowed in Skistar, Platinum A2 or Moonlight 415.
 
 **Which apartments are wheelchair-accessible?**
-Skistar 209, 210 (1-bedroom) and 211, 212 (2-bedroom) only.
+None is certified wheelchair-accessible. Skistar studios 102 and 104 are on the ground floor with no stairs; the other Skistar apartments have one flight of stairs.
 
 **Which apartments have a private sauna?**
 All except Skistar studio 102.
@@ -140,7 +140,7 @@ Front Slope 5A2, 5B2, 5B5; Bear Lodge / Karhupirtti; Karhunvartija 3.
 Bear Lodge / Karhupirtti.
 
 **Closest to grocery store and restaurants?**
-Skistar apartments (Postintie 3) — steps from K-Market and Levi center restaurants.
+Skistar apartments (Postintie 3B) — steps from K-Market and Levi center restaurants.
 
 **Cheapest option?**
 Skistar studio 102 (24 m², no sauna) is typically the most affordable. Check current rates at https://app.moder.fi/levillenet.
@@ -339,7 +339,7 @@ For detailed property specifications, activity descriptions, FAQ answers, applia
 
 ## Accessibility & Special Needs
 
-- **Wheelchair-accessible apartments:** Skistar 209, 210 (1-bedroom) and 211, 212 (2-bedroom) — no stairs, accessible bathrooms. No other Leville.net properties are wheelchair-accessible.
+- **Step-free apartments:** Skistar studios 102 and 104 are on the ground floor with no stairs. Skistar 209, 210, 211, 212 and the 3xx apartments are on the second floor seen from the yard (one flight of stairs). No Leville.net property is certified wheelchair-accessible.
 - **Contact:** info@leville.net to discuss specific needs
 
 ## Policies
@@ -350,7 +350,7 @@ For detailed property specifications, activity descriptions, FAQ answers, applia
 - **Noise:** Quiet hours 10 PM–8 AM
 - **Check-in:** The apartment is ready no later than 17:00. We send the door code earlier if the apartment is ready. If you need earlier access, contact us so we can explore the possibilities.
 - **Check-out:** Check-out is by 11:00. Contact us if you need a later departure; we accommodate requests where possible.
-- **Luggage storage:** SkiStar (Postintie 3) and Hiihtäjänkuja 5 have luggage storage in the building's basement; Glacier apartments use the basement of Glacier building B. Bags can be dropped off and collected at any time, including before check-in and after check-out. For Karhupirtti / Bear Lodge, ask us about luggage storage. Karhunvartija 3, Platinum A2 and Moonlight 415 have no separate luggage storage.
+- **Luggage storage:** SkiStar (Postintie 3B) and Hiihtäjänkuja 5 have luggage storage in the building's basement; Glacier apartments use the basement of Glacier building B. Bags can be dropped off and collected at any time, including before check-in and after check-out. For Karhupirtti / Bear Lodge, ask us about luggage storage. Karhunvartija 3, Platinum A2 and Moonlight 415 have no separate luggage storage.
 - **Laundry:** Skistar has a self-service laundry room, and Skistar studios 319, 320 and 321 also have their own washing machine. The other properties have a washing machine.
 - **Security deposit:** None.
 - **Accommodation VAT:** 14%.

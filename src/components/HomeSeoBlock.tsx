@@ -11,7 +11,7 @@ const HomeSeoBlock = () => {
     { href: "/vuokramokit/glacier-apartments-levi", label: "Glacier Apartments – 4–5 mh perhehuoneistot Zero Pointissa" },
     { href: "/vuokramokit/skimbaajankuja-levi", label: "Bear Lodge / Karhupirtti – 14 hengen hirsihuvila" },
     { href: "/vuokramokit/hiihtajankuja-levi", label: "Front Slope Apartments – Hiihtäjänkujan alppihuoneistot" },
-    { href: "/vuokramokit/postintie-levi", label: "Skistar-talo – Postintie 3 keskustassa" },
+    { href: "/vuokramokit/postintie-levi", label: "Skistar-talo – Postintie 3B keskustassa" },
     { href: "/vuokramokit/ratsastajankuja-levi", label: "Ratsastajankuja 2 – Glacier-alppitalo" },
     { href: "/majoitukset", label: "Majoitus Levillä – kaikki 27 kohdetta" },
     { href: "/opas/majoitus-levilla", label: "Missä yöpyä Levillä – alueiden vertailu" },

@@ -218,9 +218,9 @@ export const buildingPages: BuildingPage[] = [
   {
     slug: "skistar",
     path: { fi: "/skistar", en: "/en/skistar" },
-    name: "Skistar-talo, Postintie 3",
-    address: "Postintie 3, 99130 Sirkka",
-    postal: { street: "Postintie 3", postalCode: "99130", locality: "Sirkka" },
+    name: "Skistar-talo, Postintie 3B",
+    address: "Postintie 3B, 99130 Sirkka",
+    postal: { street: "Postintie 3B", postalCode: "99130", locality: "Sirkka" },
     units: 10,
     amenities: [
       { fi: "Suksien huoltotila", en: "Ski service room" },
@@ -229,12 +229,12 @@ export const buildingPages: BuildingPage[] = [
     ],
     geo: { lat: 67.8048, lng: 24.8085 },
     images: [
-      { src: "/skistar/exterior.webp", alt: "Skistar-talo Levin keskustassa, Postintie 3" },
+      { src: "/skistar/exterior.webp", alt: "Skistar-talo Levin keskustassa, Postintie 3B" },
       { src: "/skistar/kaksio/05.webp", alt: "Skistar-talon huoneiston olohuone Levillä" },
       { src: "/skistar/studio-102/01.webp", alt: "Skistar-talon moderni studio Levin keskustassa" },
     ],
     fi: {
-      metaTitle: "Ryhmämajoitus Levin keskustassa – Skistar-talo, Postintie 3 | Leville.net",
+      metaTitle: "Ryhmämajoitus Levin keskustassa – Skistar-talo, Postintie 3B | Leville.net",
       metaDescription:
         "Treenileirit ja yritysryhmät Levin ydinkeskustassa: Skistar-talossa 10 huoneistoa – kahden ja yhden makuuhuoneen huoneistoja sekä studioita. Suksien huoltotila. Pyydä tarjous.",
       h1: "Ryhmämajoitus Levin keskustassa – Skistar-talo",
@@ -249,7 +249,7 @@ export const buildingPages: BuildingPage[] = [
         {
           heading: "Eri kokoisia huoneistoja samasta talosta",
           paragraphs: [
-            "Skistar-talo sijaitsee osoitteessa Postintie 3 aivan Levin ydinkeskustassa. Leville.netillä on talossa kymmenen huoneistoa: kaksi kahden makuuhuoneen huoneistoa kuudelle hengelle, kolme yhden makuuhuoneen huoneistoa neljälle hengelle ja viisi studiota kolmelle hengelle. Makuupaikkoja on yhteensä 39.",
+            "Skistar-talo sijaitsee osoitteessa Postintie 3B aivan Levin ydinkeskustassa. Leville.netillä on talossa kymmenen huoneistoa: kaksi kahden makuuhuoneen huoneistoa kuudelle hengelle, kolme yhden makuuhuoneen huoneistoa neljälle hengelle ja viisi studiota kolmelle hengelle. Makuupaikkoja on yhteensä 39.",
             "Talo on uudehko ja moderni, ja lähes jokaisessa huoneistossa on oma sauna. Kaikissa on täysin varusteltu keittiö ja WiFi. Ryhmä voi valita kokoonpanon tarpeen mukaan: valmentajille ja ohjaajille studiot, perheille ja kimppakämppäläisille isommat huoneistot.",
           ],
         },
@@ -265,7 +265,7 @@ export const buildingPages: BuildingPage[] = [
       ],
       locationHeading: "Sijainti Levin ydinkeskustassa",
       locationParagraphs: [
-        "Postintie 3 on keskellä Levin palveluita: K-Market on noin 150 metrin päässä ja keskustan ravintolat sekä kaupat kävelymatkan päässä. Hisseille ja rinteille on noin 700 metriä eli 8–10 minuutin kävely – ei suoraan ovelta rinteeseen, mutta kaikki palvelut ovat lähellä. Talossa ei ole hissiä.",
+        "Postintie 3B on keskellä Levin palveluita: K-Market on noin 150 metrin päässä ja keskustan ravintolat sekä kaupat kävelymatkan päässä. Hisseille ja rinteille on noin 700 metriä eli 8–10 minuutin kävely – ei suoraan ovelta rinteeseen, mutta kaikki palvelut ovat lähellä. Talossa ei ole hissiä.",
         "Kittilän lentoasemalle on noin 15 minuutin ajomatka ja Levin linja-autoasemalle muutama minuutti.",
       ],
       faqHeading: "Usein kysyttyä ryhmistä ja leireistä",
@@ -321,7 +321,7 @@ export const buildingPages: BuildingPage[] = [
         {
           heading: "Apartments of different sizes in one building",
           paragraphs: [
-            "The Skistar building is at Postintie 3 in the heart of Levi. Leville.net has ten apartments there: two two-bedroom apartments for six guests, three one-bedroom apartments for four guests and five studios for three guests. In total there are 39 beds.",
+            "The Skistar building is at Postintie 3B in the heart of Levi. Leville.net has ten apartments there: two two-bedroom apartments for six guests, three one-bedroom apartments for four guests and five studios for three guests. In total there are 39 beds.",
             "The building is modern and almost every apartment has a private sauna. All have a fully equipped kitchen and WiFi. A group can pick the combination it needs: studios for coaches and leaders, larger apartments for families and groups of friends.",
           ],
         },
@@ -337,7 +337,7 @@ export const buildingPages: BuildingPage[] = [
       ],
       locationHeading: "Location in the heart of Levi",
       locationParagraphs: [
-        "Postintie 3 sits among Levi's services: a K-Market is about 150 metres away and the centre's restaurants and shops are within walking distance. The lifts and slopes are about 700 metres away, an 8–10 minute walk – not ski-in, ski-out, but everything else is next door. The building has no elevator.",
+        "Postintie 3B sits among Levi's services: a K-Market is about 150 metres away and the centre's restaurants and shops are within walking distance. The lifts and slopes are about 700 metres away, an 8–10 minute walk – not ski-in, ski-out, but everything else is next door. The building has no elevator.",
         "Kittilä Airport is about a 15-minute drive away and the Levi bus station only a few minutes.",
       ],
       faqHeading: "Frequently asked questions about groups and camps",

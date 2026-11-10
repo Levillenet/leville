@@ -7,7 +7,7 @@ const faqs = [
   },
   {
     q: "Mikä on paras sijainti majoitukselle Levillä?",
-    a: "Levin keskusta on käytännöllisin sijainti: rinteet, ladut, ravintolat ja kaupat ovat kävelyetäisyydellä, etkä tarvitse autoa. Leville.netin kaikki kohteet sijaitsevat keskustassa tai sen välittömässä läheisyydessä – Skistar-talossa Postintie 3:lla, Glacier-alppihuoneistoissa eturinteen vieressä sekä Karhupirtissä keskustan tuntumassa.",
+    a: "Levin keskusta on käytännöllisin sijainti: rinteet, ladut, ravintolat ja kaupat ovat kävelyetäisyydellä, etkä tarvitse autoa. Leville.netin kaikki kohteet sijaitsevat keskustassa tai sen välittömässä läheisyydessä – Skistar-talossa Postintie 3B:lla, Glacier-alppihuoneistoissa eturinteen vieressä sekä Karhupirtissä keskustan tuntumassa.",
   },
   {
     q: "Kannattaako Levillä valita mökki vai huoneisto?",

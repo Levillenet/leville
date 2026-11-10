@@ -128,20 +128,20 @@ export const streetHubs: StreetHub[] = [
   {
     slug: "postintie-levi",
     street: "Postintie",
-    address: "Postintie 3",
-    h1: "Skistar-talon huoneistot Levi – Postintie 3 keskustassa",
-    metaTitle: "Skistar-talon huoneistot Levi – Postintie 3 keskustassa | Leville.net",
+    address: "Postintie 3B",
+    h1: "Skistar-talon huoneistot Levi – Postintie 3B keskustassa",
+    metaTitle: "Skistar-talon huoneistot Levi – Postintie 3B keskustassa | Leville.net",
     metaDescription:
-      "Skistar-talon vuokrahuoneistot Levin keskustassa Postintie 3:ssa: saunallisia kämppiä 2–6 hengelle, kylpylän vieressä. Varaa suoraan ilman välityspalkkioita.",
-    brandNames: ["Skistar-talo", "Skistar-talo Levi", "Skistar Levi", "Postintie 3 Levi"],
+      "Skistar-talon vuokrahuoneistot Levin keskustassa Postintie 3B:ssa: saunallisia kämppiä 2–6 hengelle, kylpylän vieressä. Varaa suoraan ilman välityspalkkioita.",
+    brandNames: ["Skistar-talo", "Skistar-talo Levi", "Skistar Levi", "Postintie 3B Levi"],
     locationLabel: "Ydinkeskusta",
     capacityLabel: "2–6 hlö",
     subtitle:
       "Skistar-talo Levin keskustassa – 10 huoneistoa kävelymatkan päässä rinteistä ja palveluista.",
     intro: [
-      "Postintie 3 sijaitsee aivan Levin ydinkeskustassa, askelten päässä K-Marketista, ravintoloista ja Levin pääkadun palveluista. Osoitteessa sijaitsee Skistar-talo, jossa Leville.netillä on yhteensä 10 huoneistoa: viisi kaksiota (kerrokset 2 ja 3) ja viisi studiota (kerrokset 1 ja 3).",
+      "Postintie 3B sijaitsee aivan Levin ydinkeskustassa, askelten päässä K-Marketista, ravintoloista ja Levin pääkadun palveluista. Osoitteessa sijaitsee Skistar-talo, jossa Leville.netillä on yhteensä 10 huoneistoa: viisi kaksiota (kerrokset 2 ja 3) ja viisi studiota (kerrokset 1 ja 3).",
       "Skistar-talon kaksiot sopivat perheille ja pienille kaveriporukoille, kun taas modernit studiot ovat erinomainen valinta pariskunnille tai yksin matkustaville Leville. Jokaisessa huoneistossa on täysin varusteltu keittiö ja WiFi. Talossa ei ole hissiä. Sijainti on Levin keskustassa palveluiden ja kauppojen lähistöllä – hisseille on noin 700 metrin kävelymatka (n. 8–10 min), joten ei ihan ovelta rinteeseen, mutta kuitenkin lähistöllä.",
-      "Kun haluat ryhmämajoitusta keskustassa, voit varata useamman Skistar-huoneiston samasta talosta yhdellä kertaa. Kaikki Postintie 3:n huoneistot voi varata suoraan Leville.netin kautta – ilman välityspalkkioita ja samat hinnat kuin Booking.comissa.",
+      "Kun haluat ryhmämajoitusta keskustassa, voit varata useamman Skistar-huoneiston samasta talosta yhdellä kertaa. Kaikki Postintie 3B:n huoneistot voi varata suoraan Leville.netin kautta – ilman välityspalkkioita ja samat hinnat kuin Booking.comissa.",
     ],
     propertySlugs: [
       "skistar-211",
