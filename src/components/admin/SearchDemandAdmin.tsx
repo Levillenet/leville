@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
+import { DailyChart, Sparkline } from "./TrendCharts";
 import { getAdminToken } from "@/lib/adminSession";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
-import { buildDemand, countImplausible, MAX_PLAUSIBLE_NIGHTS, recentContacts, summarize, topWeeks, type GuestFilter, type RangeFilter, type SearchRow, type WeekDemand } from "@/lib/searchDemand";
+import { buildDemand, countImplausible, MAX_PLAUSIBLE_NIGHTS, recentContacts, summarize, topWeeks, weekTrend, dailySeries, trendScore, type WeekTrend, type GuestFilter, type RangeFilter, type SearchRow, type WeekDemand } from "@/lib/searchDemand";
 
 type Period = "today" | "week" | "month" | "30days" | "90days" | "180days";
 const DAY = 86400000;
@@ -53,7 +54,15 @@ export default function SearchDemandAdmin({ period, periodLabel }: { period: Per
   const demand = useMemo(() => (rows ? buildDemand(rows, Date.now(), range, guests) : []), [rows, range, guests]);
   const skipped = useMemo(() => (rows ? countImplausible(rows, Date.now(), range, guests) : 0), [rows, range, guests]);
   const contacts = useMemo(() => (rows ? recentContacts(rows) : []), [rows]);
-  const top = useMemo(() => topWeeks(demand), [demand]);
+  const trends = useMemo(() => (rows ? weekTrend(rows, Date.now(), guests) : new Map<number, WeekTrend>()), [rows, guests]);
+  const [sortBy, setSortBy] = useState<"total" | "hot">("hot");
+  const [open, setOpen] = useState<number | null>(null);
+  const top = useMemo(() => sortBy === "total" ? topWeeks(demand)
+    : demand.filter((w) => trends.has(w.monday)).sort((a, b) => trendScore(trends.get(b.monday)) - trendScore(trends.get(a.monday)) || b.total - a.total).slice(0, 15),
+    [demand, trends, sortBy]);
+  const chartDays = range === 7 ? 14 : range === 90 || range === "all" ? 90 : 30;
+  const overall = useMemo(() => (rows ? dailySeries(rows, null, chartDays, Date.now(), guests) : []), [rows, chartDays, guests]);
+  const openSeries = useMemo(() => (rows && open != null ? dailySeries(rows, open, chartDays, Date.now(), guests) : []), [rows, open, chartDays, guests]);
 
   if (error) return <Card><CardContent className="py-6 text-sm text-muted-foreground">Hakutilastojen lataus epäonnistui.</CardContent></Card>;
   if (!rows || !summary) return <Card><CardContent className="py-6 flex justify-center"><Loader2 className="w-5 h-5 animate-spin" /></CardContent></Card>;
@@ -147,7 +156,12 @@ export default function SearchDemandAdmin({ period, periodLabel }: { period: Per
             </div>
           </div>
           <div>
-            <div className="text-sm font-medium mb-2">Eniten haetut viikot</div>
+            {overall.length > 0 && <div className="mb-4"><DailyChart data={overall} title={`Kaikki haut päivittäin (${chartDays} pv)`} /></div>}
+            <div className="flex flex-wrap items-center gap-2 mb-2">
+              <div className="text-sm font-medium">Viikot</div>
+              <Button size="sm" variant={sortBy === "hot" ? "default" : "outline"} onClick={() => setSortBy("hot")}>Kuumenevat nyt</Button>
+              <Button size="sm" variant={sortBy === "total" ? "default" : "outline"} onClick={() => setSortBy("total")}>Eniten hakuja</Button>
+            </div>
             {top.length === 0 ? (
               <p className="text-sm text-muted-foreground">Ei hakuja valituilla suodattimilla.</p>
             ) : (
@@ -155,26 +169,38 @@ export default function SearchDemandAdmin({ period, periodLabel }: { period: Per
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="text-left text-muted-foreground border-b border-border">
-                      <th className="py-1 pr-3">Viikko</th><th className="py-1 pr-3">Haut</th><th className="py-1 pr-3">Ei vapaata</th>
+                      <th className="py-1 pr-3">Viikko</th><th className="py-1 pr-3" title="Viimeiset 3 pv keskiarvo vs edeltävät 7 pv">Trendi nyt</th><th className="py-1 pr-3">14 pv</th><th className="py-1 pr-3">Tänään / eilen</th><th className="py-1 pr-3">Haut</th><th className="py-1 pr-3">Ei vapaata</th>
                       <th className="py-1 pr-3">Keskim. henkilöt</th><th className="py-1 pr-3">Yleisin pituus</th><th className="py-1" title="Painoi WhatsApp- tai sähköpostinappia. Ei tarkoita, että viesti lähetettiin.">Napin painallukset</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {top.map((w) => (
-                      <tr key={w.monday} className="border-b border-border/50">
-                        <td className="py-1 pr-3 whitespace-nowrap">{w.label}</td>
+                    {top.map((w) => { const t = trends.get(w.monday); return (
+                      <Fragment key={w.monday}>
+                      <tr className="border-b border-border/50 cursor-pointer hover:bg-muted/50" onClick={() => setOpen(open === w.monday ? null : w.monday)}>
+                        <td className="py-1 pr-3 whitespace-nowrap">{open === w.monday ? "▾ " : "▸ "}{w.label}</td>
+                        <td className="py-1 pr-3 whitespace-nowrap">{!t ? "–" : !t.enough ? <span className="text-muted-foreground">vähän dataa</span> : (
+                          <span className={t.changePct == null || t.changePct > 0 ? "text-primary font-medium" : t.changePct < 0 ? "text-destructive font-medium" : ""}>
+                            {t.changePct == null ? "↑ uusi" : `${t.changePct > 0 ? "↑ +" : t.changePct < 0 ? "↓ " : "→ "}${t.changePct} %`}
+                            <span className="text-muted-foreground font-normal"> ({t.recentAvg}/pv vs {t.prevAvg}/pv)</span>
+                          </span>)}</td>
+                        <td className="py-1 pr-3">{t ? <Sparkline data={t.daily} /> : "–"}</td>
+                        <td className="py-1 pr-3">{t ? `${t.today} / ${t.yesterday}` : "0 / 0"}</td>
                         <td className="py-1 pr-3">{w.total}</td>
                         <td className="py-1 pr-3">{w.lost} ({Math.round((w.lost / w.total) * 100)} %)</td>
                         <td className="py-1 pr-3">{w.avgGuests ?? "–"}</td>
                         <td className="py-1 pr-3">{w.commonNights != null ? `${w.commonNights} yötä` : "–"}</td>
                         <td className="py-1">{w.contacts}</td>
                       </tr>
-                    ))}
+                      {open === w.monday && openSeries.length > 0 && (
+                        <tr><td colSpan={10} className="py-2"><DailyChart data={openSeries} title={`Haut ${w.label} päivittäin (${chartDays} pv)`} /></td></tr>
+                      )}
+                      </Fragment>
+                    ); })}
                   </tbody>
                 </table>
               </div>
             )}
-            <p className="text-xs text-muted-foreground mt-2">Napin painallukset: painoi WhatsApp- tai sähköpostinappia. Ei tarkoita, että viesti lähetettiin. Usean viikon haku näkyy jokaisella viikolla.</p>
+            <p className="text-xs text-muted-foreground mt-2">Napin painallukset: painoi WhatsApp- tai sähköpostinappia. Ei tarkoita, että viesti lähetettiin. Usean viikon haku näkyy jokaisella viikolla. Trendi nyt: viimeisen 3 päivän hakujen päiväkeskiarvo verrattuna sitä edeltävään 7 päivään (Suomen aikaa). Klikkaa viikkoa nähdäksesi sen päiväkäyrän.</p>
             {skipped > 0 && <p className="text-xs text-muted-foreground mt-1">Pois jätetty {skipped} epätodennäköisen pitkää hakua (yli {MAX_PLAUSIBLE_NIGHTS} yötä).</p>}
           </div>
           <div>
