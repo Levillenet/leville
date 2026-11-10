@@ -138,3 +138,71 @@ export function recentContacts(rows: SearchRow[], n = 20): ContactClick[] {
     .sort((a, b) => b.at.localeCompare(a.at))
     .slice(0, n);
 }
+
+// ---------- Day-level trends (Helsinki calendar days) ----------
+const hkiFmt = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Helsinki", year: "numeric", month: "2-digit", day: "2-digit" });
+/** Helsinki calendar day of a timestamp as "YYYY-MM-DD". */
+export const helsinkiDay = (ms: number) => hkiFmt.format(new Date(ms));
+/** Day keys oldest → newest, ending with today's Helsinki day. */
+export function lastDays(nowMs: number, days: number): string[] {
+  const today = utc(helsinkiDay(nowMs));
+  return Array.from({ length: days }, (_, i) => new Date(today - (days - 1 - i) * DAY).toISOString().slice(0, 10));
+}
+
+const countable = (r: SearchRow, guests: GuestFilter) =>
+  r.t === "haku" && !!r.s && !!r.l && guestMatch(r.h, guests) && !isImplausibleStay(r.s, r.l);
+
+export type WeekTrend = {
+  daily: number[]; today: number; yesterday: number;
+  recentAvg: number; prevAvg: number; changePct: number | null; enough: boolean;
+};
+/** Minimum searches in the 10-day comparison window before an up/down arrow is shown. */
+export const MIN_TREND_SEARCHES = 3;
+
+/** Per stay-week: daily searches for the last 14 days; last 3 days' average vs the 7 days before. */
+export function weekTrend(rows: SearchRow[], nowMs: number, guests: GuestFilter): Map<number, WeekTrend> {
+  const keys = lastDays(nowMs, 14);
+  const idx = new Map(keys.map((k, i) => [k, i]));
+  const counts = new Map<number, number[]>();
+  for (const r of rows) {
+    if (!countable(r, guests)) continue;
+    const i = idx.get(helsinkiDay(Date.parse(r.at)));
+    if (i == null) continue;
+    for (const m of stayWeeks(r.s!, r.l!)) {
+      let a = counts.get(m); if (!a) { a = new Array(14).fill(0); counts.set(m, a); }
+      a[i]++;
+    }
+  }
+  const out = new Map<number, WeekTrend>();
+  const sum = (a: number[]) => a.reduce((x, y) => x + y, 0);
+  for (const [m, d] of counts) {
+    const r3 = sum(d.slice(11, 14)), p7 = sum(d.slice(4, 11));
+    const recentAvg = Math.round((r3 / 3) * 10) / 10, prevAvg = Math.round((p7 / 7) * 10) / 10;
+    const enough = r3 + p7 >= MIN_TREND_SEARCHES;
+    const changePct = enough && p7 > 0 ? Math.round(((r3 / 3 - p7 / 7) / (p7 / 7)) * 100) : null;
+    out.set(m, { daily: d, today: d[13], yesterday: d[12], recentAvg, prevAvg, changePct, enough });
+  }
+  return out;
+}
+
+/** Trend score for "heating up now" sorting: new demand ranks by recent average. */
+export const trendScore = (t: WeekTrend | undefined) =>
+  !t || !t.enough ? -Infinity : t.changePct ?? 1000 + t.recentAvg;
+
+export type DailyPoint = { date: string; count: number; avg7: number };
+/** Daily searches (optionally only those touching one stay-week) with a trailing 7-day average. */
+export function dailySeries(rows: SearchRow[], weekMonday: number | null, days: number, nowMs: number, guests: GuestFilter): DailyPoint[] {
+  const keys = lastDays(nowMs, days + 6);
+  const idx = new Map(keys.map((k, i) => [k, i]));
+  const c = new Array(keys.length).fill(0);
+  for (const r of rows) {
+    if (!countable(r, guests)) continue;
+    if (weekMonday != null && !stayWeeks(r.s!, r.l!).includes(weekMonday)) continue;
+    const i = idx.get(helsinkiDay(Date.parse(r.at)));
+    if (i != null) c[i]++;
+  }
+  return keys.slice(6).map((date, j) => {
+    const w = c.slice(j, j + 7);
+    return { date, count: c[j + 6], avg7: Math.round((w.reduce((a, b) => a + b, 0) / 7) * 10) / 10 };
+  });
+}
