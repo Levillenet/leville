@@ -361,7 +361,7 @@ const VappuLevilla = () => {
     { title: "Ravintolat ja palvelut", desc: "Ruoka ja palvelut Levillä", href: "/opas/ravintolat-ja-palvelut-levilla" },
     { title: "Huhtikuu Levillä", desc: "Kevään parhaat kelitiedot", href: "/opas/levi-huhtikuussa" },
     { title: "Toukokuu Levillä", desc: "Kauden päätös", href: "/opas/levi-toukokuussa" },
-    { title: "Majoitusopas", desc: "Mökki vai huoneisto?", href: "/majoitukset" },
+    { title: "Majoitusopas", desc: "Mökki vai huoneisto?", href: "/opas/mokki-vai-huoneisto-levi" },
   ];
 
   return (

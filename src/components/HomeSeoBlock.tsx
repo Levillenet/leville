@@ -14,7 +14,6 @@ const HomeSeoBlock = () => {
     { href: "/vuokramokit/postintie-levi", label: "Skistar-talo – Postintie 3B keskustassa" },
     { href: "/vuokramokit/ratsastajankuja-levi", label: "Ratsastajankuja 2 – Glacier-alppitalo" },
     { href: "/majoitukset", label: "Majoitus Levillä – kaikki 27 kohdetta" },
-    { href: "/majoitukset", label: "Missä yöpyä Levillä – alueiden vertailu" },
     { href: "/mokit-levilla", label: "Vuokramökit Levillä – kokoluokat 2–14 hengelle" },
     { href: "/opas/levi-vs-rovaniemi", label: "Levi vs Rovaniemi – missä yöpyä Lapissa" },
     { href: "/opas/levi-vs-saariselka", label: "Levi vs Saariselkä – vertailu" },
