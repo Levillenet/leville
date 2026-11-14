@@ -5211,24 +5211,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/privacy" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/privacy" />
   </url>
-  <url>
-    <loc>https://leville.net/opas/vuokramokit-levi</loc>
-    <lastmod>2026-08-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuokramokit-levi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/guides/cabins-in-levi" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/guides/cabins-in-levi" />
-  </url>
-  <url>
-    <loc>https://leville.net/en/guides/cabins-in-levi</loc>
-    <lastmod>2026-08-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="fi" href="https://leville.net/opas/vuokramokit-levi" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://leville.net/en/guides/cabins-in-levi" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://leville.net/en/guides/cabins-in-levi" />
-  </url>
 
   <url>
     <loc>https://leville.net/nl/gids/levi-in-januari</loc>
@@ -5911,13 +5893,6 @@
 
   <url>
     <loc>https://leville.net/opas/levin-alueet</loc>
-    <lastmod>2026-08-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://leville.net/opas/majoitus-levilla</loc>
     <lastmod>2026-08-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

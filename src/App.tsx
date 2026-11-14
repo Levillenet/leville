@@ -93,8 +93,6 @@ const LeviVsSaariselka = lazy(() => import("./pages/opas/LeviVsSaariselka"));
 const LeviVsSaariselkaComparison = lazy(() => import("./pages/guide/LeviVsSaariselkaComparison"));
 const SaunaLevilla = lazy(() => import("./pages/opas/SaunaLevilla"));
 const LeviAreasGuide = lazy(() => import("./pages/opas/LeviAreasGuide"));
-const MajoitusLevilla = lazy(() => import("./pages/opas/MajoitusLevilla"));
-const VuokraMokitLevi = lazy(() => import("./pages/opas/VuokraMokitLevi"));
 const LeviFAQ = lazy(() => import("./pages/guide/LeviFAQ"));
 const VappuLevilla = lazy(() => import("./pages/opas/VappuLevilla"));
 const FinnishSaunaLevi = lazy(() => import("./pages/guide/FinnishSaunaLevi"));
@@ -540,9 +538,9 @@ const App = () => {
               <Route path="/opas/sauna-levilla" element={<SaunaLevilla />} />
               <Route path="/opas/levin-alueet" element={<LeviAreasGuide lang="fi" />} />
               <Route path="/guide/levi-areas" element={<LeviAreasGuide lang="en" />} />
-              <Route path="/opas/majoitus-levilla" element={<MajoitusLevilla />} />
-              <Route path="/opas/vuokramokit-levi" element={<VuokraMokitLevi lang="fi" />} />
-              <Route path="/en/guides/cabins-in-levi" element={<VuokraMokitLevi lang="en" />} />
+              <Route path="/opas/majoitus-levilla" element={<Navigate to="/majoitukset" replace />} />
+              <Route path="/opas/vuokramokit-levi" element={<Navigate to="/mokit-levilla" replace />} />
+              <Route path="/en/guides/cabins-in-levi" element={<Navigate to="/en/log-cabins-levi" replace />} />
               <Route path="/levi/ukk" element={<LeviFAQ lang="fi" />} />
               <Route path="/en/levi/faq" element={<Navigate to="/levi/ukk" replace />} />
               <Route path="/opas/lapin-sanasto" element={<LaplandGlossary />} />

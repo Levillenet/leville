@@ -242,7 +242,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                     </Link>
 
                     . Lue myös oppaamme{" "}
-                    <Link to="/opas/vuokramokit-levi" className="text-primary hover:underline">
+                    <Link to="/mokit-levilla" className="text-primary hover:underline">
                       vuokramökeistä Levillä
                     </Link>
                     .
@@ -856,7 +856,7 @@ const Majoitukset = ({ lang = "fi" }: MajoituksetProps) => {
                       kahdelle tai kolmelle, yhden ja kahden makuuhuoneen huoneistot perheelle, ja
                       isoille ryhmille on 3–5 makuuhuoneen huoneistoja sekä 14 hengen hirsihuvila
                       Karhupirtti. Jos etsit nimenomaan hirsirakennusta, katso{" "}
-                      <Link to="/opas/vuokramokit-levi" className="text-primary hover:underline">
+                      <Link to="/mokit-levilla" className="text-primary hover:underline">
                         vuokramökit Levillä
                       </Link>
                       .
