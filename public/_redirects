@@ -86,4 +86,9 @@
 /nl   /en   301
 
 # SPA fallback — MUST be the last rule
+# Cannibalization fix 2026-11: consolidate generic accommodation/cabin pages
+/opas/majoitus-levilla      /majoitukset          301
+/opas/vuokramokit-levi      /mokit-levilla        301
+/en/guides/cabins-in-levi   /en/log-cabins-levi   301
+
 /*                          /index.html           200

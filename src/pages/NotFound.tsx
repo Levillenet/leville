@@ -16,7 +16,7 @@ const CONTENT = {
       { to: "/", label: "Etusivu" },
       { to: "/majoitukset", label: "Majoitukset" },
       { to: "/mokit-levilla", label: "Mökit" },
-      { to: "/opas/majoitus-levilla", label: "Levi-opas" },
+      { to: "/majoitukset", label: "Levi-opas" },
       { to: "/yhteystiedot", label: "Yhteystiedot" },
     ],
   },
