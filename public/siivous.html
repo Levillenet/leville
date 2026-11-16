@@ -99,6 +99,7 @@ button:disabled{opacity:.5}
     </div>
 
     <div id="status" class="status" hidden></div>
+    <div id="askBox" class="stack" style="margin-top:10px" hidden></div>
     <button class="alt" id="adminBack" type="button" style="margin-top:10px" hidden>← Kaikki huoneistot</button>
     </div>
     <div id="notfound" class="status warn" hidden><strong>Ei käytössä</strong></div>
@@ -194,9 +195,21 @@ button:disabled{opacity:.5}
   }
   function onConfirm(r){
     busy($('confirmBtn'), false, 'Kaikki kunnossa – Lähetä koodi');
+    $('askBox').hidden = true; $('askBox').innerHTML = '';
     if (common(r)) return;
     hideAll();
     switch(r.status){
+      case 'askTime': {
+        status('warn','Lähetysaika','Siivous valmis ennen klo 12. Lähetetäänkö ovikoodi vieraalle nyt vai ajastetaanko klo ' + r.at + '?');
+        var box=$('askBox'), bNow=document.createElement('button'), bLater=document.createElement('button');
+        bNow.className='go'; bNow.type='button'; bNow.textContent='Lähetä koodi nyt';
+        bLater.className='go'; bLater.type='button'; bLater.textContent='Ajasta klo ' + r.at;
+        function pick(btn, mode){ bNow.disabled=true; bLater.disabled=true; btn.textContent='Odota…'; run('confirm', onConfirm, [slug, pin, mode]); }
+        bNow.addEventListener('click', function(){ pick(bNow,'now'); });
+        bLater.addEventListener('click', function(){ pick(bLater,'later'); });
+        box.appendChild(bNow); box.appendChild(bLater); box.hidden=false; break;
+      }
+      case 'scheduled': status('ok','Ajastettu · Scheduled','Siivous kirjattu. Ovikoodi lähtee vieraalle automaattisesti klo ' + r.at + '.'); break;
       case 'sent': status('ok','Lähetetty','Vieraalle lähti viesti: huoneisto '+r.label+' on valmis + ovikoodi. Leville-tiimi sai kuittauksen.','Kirjattu klo '+r.at); break;
       case 'already': status('ok','Jo lähetetty','Vieraalle on lähetetty viesti jo '+r.at+'.'); break;
       case 'none': status('ok','Kirjattu','Siivous kirjattu.'); break;
@@ -212,6 +225,7 @@ button:disabled{opacity:.5}
   }
   var run = function(fn, cb, args){
     var data = fn === 'adminUnits' ? { pin: args[0] } : fn === 'report' ? { slug: args[0], pin: args[1], text: args[2] } : { slug: args[0], pin: args[1] };
+    if (fn === 'confirm') { data.ask = true; if (args[2] === 'now' || args[2] === 'later') data.mode = args[2]; }
     api(fn, data, cb);
   };
 
