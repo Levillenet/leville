@@ -212,7 +212,7 @@ button:disabled{opacity:.5}
       case 'scheduled': status('ok','Ajastettu · Scheduled','Siivous kirjattu. Ovikoodi lähtee vieraalle automaattisesti klo ' + r.at + '.'); break;
       case 'sent': status('ok','Lähetetty','Vieraalle lähti viesti: huoneisto '+r.label+' on valmis + ovikoodi. Leville-tiimi sai kuittauksen.','Kirjattu klo '+r.at); break;
       case 'already': status('ok','Jo lähetetty','Vieraalle on lähetetty viesti jo '+r.at+'.'); break;
-      case 'none': status('ok','Kirjattu','Siivous kirjattu.'); break;
+      case 'none': status('ok','Kirjattu', r.viesti || 'Siivous kirjattu.'); break;
       case 'noemail': status('warn','Kirjattu','Siivous kirjattu. Vieraalla ei ole sähköpostia, Leville-tiimi lähettää koodin.'); break;
       case 'nocode': status('warn','Kirjattu','Siivous kirjattu. Ovikoodi puuttuu, Leville-tiimille on ilmoitettu.'); break;
       case 'closed': status('warn','Ei käytössä nyt','Kuittaus toimii klo '+r.from+'–'+r.to+'.'); showStep(2); break;
