@@ -13,11 +13,13 @@
   h1{font-size:30px;margin:6px 0 2px}
   .unit{font-size:17px;color:#3c4b50;margin-bottom:22px}
   .card{background:#fff;border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-  .lbl{font-size:14px;color:#5b6b70;margin:0 0 8px}
-  .day{font-size:17px;font-weight:600;margin:0 0 14px}
+  .q{font-size:16px;font-weight:600;margin:0 0 12px;line-height:1.35}
   .times{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
   .times button{padding:12px 0;border:1px solid #c9d4da;background:#fff;border-radius:10px;font-size:16px;color:#16201d}
   .times button.on{background:#1d5a7a;border-color:#1d5a7a;color:#fff}
+  .other{margin-top:14px}
+  .other button.link{background:none;border:0;padding:0;color:#1d5a7a;font-size:15px;text-decoration:underline}
+  select{width:100%;margin-top:10px;padding:12px;font-size:17px;border:1px solid #c9d4da;border-radius:10px;background:#fff;color:#16201d}
   .go{width:100%;padding:16px;font-size:18px;font-weight:600;border:0;border-radius:14px;background:#1d5a7a;color:#fff;margin-top:16px}
   .go:disabled{opacity:.5}
   .now{width:100%;padding:16px;font-size:17px;font-weight:600;border:2px solid #1d5a7a;border-radius:14px;background:#fff;color:#1d5a7a}
@@ -37,9 +39,12 @@
     <div class="unit" id="unitName"></div>
 
     <div class="card">
-      <p class="day" id="dayTxt"></p>
-      <p class="lbl">Planned departure time · Suunniteltu lähtöaika</p>
+      <p class="q">We will leave on the departure morning at · Lähdemme lähtöpäivän aamuna klo</p>
       <div class="times" id="times"></div>
+      <div class="other">
+        <button class="link" id="otherBtn" type="button">Other departure time (e.g. the evening before) · Muu lähtöaika (esim. edellisenä iltana)</button>
+        <select id="otherSel" hidden></select>
+      </div>
       <button class="go" id="send" type="button" disabled>Send · Lähetä</button>
       <p class="hint">Check-out at 11:00. We always like to start cleaning as early as possible, so we are grateful to know your planned departure time – ideally the evening before.<br>
         Luovutus klo 11. Aloitamme siivoukset aina mahdollisimman aikaisin, joten olemme kiitollisia, kun kerrotte suunnitellun lähtöaikanne – mieluiten jo edellisenä iltana.</p>
@@ -66,26 +71,38 @@
   var API = 'https://script.google.com/macros/s/AKfycbw5sMdbyDITwTJ28NDyexuCKGA1w8cjcDPnAW6XMgABA4UZYMSklZmEvp-EoybL6_imSQ/exec';
   var q = new URLSearchParams(location.search);
   var slug = String(q.get('unit') || '').toLowerCase().trim();
-  var time = '', minTime = '', dayKind = 'tomorrow';
+  var time = '';
   function $(id) { return document.getElementById(id); }
+  function pad(h) { return (h < 10 ? '0' : '') + h; }
   function api(data, cb) {
     fetch(API, { method: 'POST', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
       .then(function (r) { return r.json(); }).then(cb).catch(function () { cb({ status: 'error' }); });
   }
+  function clearChips() { Array.prototype.forEach.call($('times').children, function (x) { x.className = ''; }); }
   function buildTimes() {
     var box = $('times');
     for (var h = 6; h <= 11; h++) ['00', '30'].forEach(function (m) {
       if (h === 11 && m === '30') return;
-      var v = (h < 10 ? '0' : '') + h + ':' + m, b = document.createElement('button');
-      if (minTime && v <= minTime) return;
+      var v = pad(h) + ':' + m, b = document.createElement('button');
       b.type = 'button'; b.textContent = v;
       b.onclick = function () {
-        time = v;
-        Array.prototype.forEach.call(box.children, function (x) { x.className = x === b ? 'on' : ''; });
+        time = v; clearChips(); b.className = 'on';
+        $('otherSel').value = '';
         $('send').disabled = false;
       };
       box.appendChild(b);
     });
+    var sel = $('otherSel'), o = document.createElement('option');
+    o.value = ''; o.textContent = 'Choose time · Valitse aika'; sel.appendChild(o);
+    var hours = [];
+    for (var h2 = 12; h2 <= 23; h2++) hours.push(h2);
+    for (var h3 = 0; h3 <= 5; h3++) hours.push(h3);
+    hours.forEach(function (h) {
+      ['00', '30'].forEach(function (m) {
+        var op = document.createElement('option'); op.value = pad(h) + ':' + m; op.textContent = pad(h) + ':' + m; sel.appendChild(op);
+      });
+    });
+    sel.onchange = function () { time = sel.value; clearChips(); $('send').disabled = !time; };
   }
   function busy(on) { ['send', 'nowBtn'].forEach(function (id) { $(id).disabled = on || (id === 'send' && !time); }); }
   function submit(mode) {
@@ -95,14 +112,12 @@
         busy(false);
         $('err').textContent = r.status === 'limit'
           ? 'Too many attempts, please try again later. · Liian monta yritystä, yrittäkää myöhemmin uudelleen.'
-          : r.status === 'past'
-          ? 'That time has already passed – please choose a later time. · Aika on jo mennyt – valitkaa myöhäisempi aika.'
           : 'Sending failed, please try again. · Lähetys epäonnistui, yrittäkää uudelleen.';
         return;
       }
       $('doneMsg').textContent = r.tila === 'lähdössä nyt'
         ? 'Departure registered ' + r.aika + ' · Lähtö kirjattu klo ' + r.aika
-        : (r.pvm === 'today' ? 'Today · Tänään' : 'Tomorrow · Huomenna') + ' ' + r.aika;
+        : 'Departure time ' + r.aika + ' · Lähtöaika klo ' + r.aika;
       $('form').hidden = true; $('done').hidden = false;
     });
   }
@@ -111,12 +126,8 @@
     $('loading').hidden = true;
     if (r.status !== 'ok') { $('notfound').hidden = false; return; }
     $('unitName').textContent = 'Levi ' + r.label;
-    minTime = r.minTime || ''; dayKind = r.day;
-    $('dayTxt').textContent = r.day === 'today'
-      ? 'Departure this morning · Lähtö tänä aamuna (' + r.date + ')'
-      : 'Departure tomorrow morning · Lähtö huomisaamuna (' + r.date + ')';
     buildTimes();
-    if (!$('times').children.length) $('times').innerHTML = '<p class="hint" style="grid-column:1/-1;margin:0">No times left this morning – please use the button below. · Aamun ajat ovat jo menneet – käyttäkää alla olevaa painiketta.</p>';
+    $('otherBtn').onclick = function () { $('otherSel').hidden = false; $('otherBtn').hidden = true; };
     $('send').onclick = function () { submit('planned'); };
     $('nowBtn').onclick = function () { submit('now'); };
     $('form').hidden = false;
