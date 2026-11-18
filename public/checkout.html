@@ -17,12 +17,11 @@
   .times{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
   .times button{padding:12px 0;border:1px solid #c9d4da;background:#fff;border-radius:10px;font-size:16px;color:#16201d}
   .times button.on{background:#1d5a7a;border-color:#1d5a7a;color:#fff}
-  .other{margin-top:14px}
-  .other button.link{background:none;border:0;padding:0;color:#1d5a7a;font-size:15px;text-decoration:underline}
-  select{width:100%;margin-top:10px;padding:12px;font-size:17px;border:1px solid #c9d4da;border-radius:10px;background:#fff;color:#16201d}
+  .eve{width:100%;margin-top:8px;padding:12px 10px;border:1px solid #c9d4da;background:#fff;border-radius:10px;font-size:15px;color:#16201d}
+  .eve.on{background:#1d5a7a;border-color:#1d5a7a;color:#fff}
   .go{width:100%;padding:16px;font-size:18px;font-weight:600;border:0;border-radius:14px;background:#1d5a7a;color:#fff;margin-top:16px}
   .go:disabled{opacity:.5}
-  .now{width:100%;padding:16px;font-size:17px;font-weight:600;border:2px solid #1d5a7a;border-radius:14px;background:#fff;color:#1d5a7a}
+  .now{width:100%;margin-top:10px;padding:16px;font-size:17px;font-weight:600;border:2px solid #1d5a7a;border-radius:14px;background:#fff;color:#1d5a7a}
   .hint{font-size:13px;color:#5b6b70;line-height:1.45;margin:12px 0 0}
   .done{text-align:center;padding-top:40px}
   .tick{width:72px;height:72px;border-radius:50%;background:#1d5a7a;color:#fff;font-size:40px;line-height:72px;margin:0 auto 14px}
@@ -41,17 +40,11 @@
     <div class="card">
       <p class="q">We will leave on the departure morning at · Lähdemme lähtöpäivän aamuna klo</p>
       <div class="times" id="times"></div>
-      <div class="other">
-        <button class="link" id="otherBtn" type="button">Other departure time (e.g. the evening before) · Muu lähtöaika (esim. edellisenä iltana)</button>
-        <select id="otherSel" hidden></select>
-      </div>
+      <button class="eve" id="eveBtn" type="button">We will leave already the evening before · Lähdemme jo edellisenä iltana</button>
       <button class="go" id="send" type="button" disabled>Send · Lähetä</button>
+      <button class="now" id="nowBtn" type="button">We are leaving now · Lähdemme nyt</button>
       <p class="hint">Check-out at 11:00. We always like to start cleaning as early as possible, so we are grateful to know your planned departure time – ideally the evening before.<br>
         Luovutus klo 11. Aloitamme siivoukset aina mahdollisimman aikaisin, joten olemme kiitollisia, kun kerrotte suunnitellun lähtöaikanne – mieluiten jo edellisenä iltana.</p>
-    </div>
-
-    <div class="card">
-      <button class="now" id="nowBtn" type="button">We are leaving now · Lähdemme nyt</button>
     </div>
     <div class="err" id="err"></div>
   </div>
@@ -71,14 +64,14 @@
   var API = 'https://script.google.com/macros/s/AKfycbw5sMdbyDITwTJ28NDyexuCKGA1w8cjcDPnAW6XMgABA4UZYMSklZmEvp-EoybL6_imSQ/exec';
   var q = new URLSearchParams(location.search);
   var slug = String(q.get('unit') || '').toLowerCase().trim();
-  var time = '';
+  var time = '', mode = 'planned';
   function $(id) { return document.getElementById(id); }
   function pad(h) { return (h < 10 ? '0' : '') + h; }
   function api(data, cb) {
     fetch(API, { method: 'POST', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
       .then(function (r) { return r.json(); }).then(cb).catch(function () { cb({ status: 'error' }); });
   }
-  function clearChips() { Array.prototype.forEach.call($('times').children, function (x) { x.className = ''; }); }
+  function clearChips() { Array.prototype.forEach.call($('times').children, function (x) { x.className = ''; }); $('eveBtn').className = 'eve'; }
   function buildTimes() {
     var box = $('times');
     for (var h = 6; h <= 11; h++) ['00', '30'].forEach(function (m) {
@@ -86,28 +79,20 @@
       var v = pad(h) + ':' + m, b = document.createElement('button');
       b.type = 'button'; b.textContent = v;
       b.onclick = function () {
-        time = v; clearChips(); b.className = 'on';
-        $('otherSel').value = '';
+        time = v; mode = 'planned'; clearChips(); b.className = 'on';
         $('send').disabled = false;
       };
       box.appendChild(b);
     });
-    var sel = $('otherSel'), o = document.createElement('option');
-    o.value = ''; o.textContent = 'Choose time · Valitse aika'; sel.appendChild(o);
-    var hours = [];
-    for (var h2 = 12; h2 <= 23; h2++) hours.push(h2);
-    for (var h3 = 0; h3 <= 5; h3++) hours.push(h3);
-    hours.forEach(function (h) {
-      ['00', '30'].forEach(function (m) {
-        var op = document.createElement('option'); op.value = pad(h) + ':' + m; op.textContent = pad(h) + ':' + m; sel.appendChild(op);
-      });
-    });
-    sel.onchange = function () { time = sel.value; clearChips(); $('send').disabled = !time; };
+    $('eveBtn').onclick = function () {
+      time = ''; mode = 'evening'; clearChips(); $('eveBtn').className = 'eve on';
+      $('send').disabled = false;
+    };
   }
-  function busy(on) { ['send', 'nowBtn'].forEach(function (id) { $(id).disabled = on || (id === 'send' && !time); }); }
-  function submit(mode) {
+  function busy(on) { ['send', 'nowBtn'].forEach(function (id) { $(id).disabled = on || (id === 'send' && !time && mode !== 'evening'); }); }
+  function submit(m) {
     $('err').textContent = ''; busy(true);
-    api({ action: 'checkoutSubmit', slug: slug, mode: mode, time: time }, function (r) {
+    api({ action: 'checkoutSubmit', slug: slug, mode: m, time: time }, function (r) {
       if (r.status !== 'ok') {
         busy(false);
         $('err').textContent = r.status === 'limit'
@@ -117,6 +102,8 @@
       }
       $('doneMsg').textContent = r.tila === 'lähdössä nyt'
         ? 'Departure registered ' + r.aika + ' · Lähtö kirjattu klo ' + r.aika
+        : r.tila === 'illalla'
+        ? 'Departure this evening · Lähtö tänä iltana'
         : 'Departure time ' + r.aika + ' · Lähtöaika klo ' + r.aika;
       $('form').hidden = true; $('done').hidden = false;
     });
@@ -127,8 +114,7 @@
     if (r.status !== 'ok') { $('notfound').hidden = false; return; }
     $('unitName').textContent = 'Levi ' + r.label;
     buildTimes();
-    $('otherBtn').onclick = function () { $('otherSel').hidden = false; $('otherBtn').hidden = true; };
-    $('send').onclick = function () { submit('planned'); };
+    $('send').onclick = function () { submit(mode); };
     $('nowBtn').onclick = function () { submit('now'); };
     $('form').hidden = false;
   });
