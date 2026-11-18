@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Check out · Leville.net</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#eef3f6;color:#16201d}
+  .wrap{max-width:440px;margin:0 auto;padding:28px 18px 40px}
+  .brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#5b6b70}
+  h1{font-size:30px;margin:6px 0 2px}
+  .unit{font-size:17px;color:#3c4b50;margin-bottom:22px}
+  .card{background:#fff;border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .lbl{font-size:14px;color:#5b6b70;margin:0 0 8px}
+  .seg{display:flex;gap:8px;margin-bottom:16px}
+  .seg button{flex:1;padding:13px 8px;border:1px solid #c9d4da;background:#fff;border-radius:12px;font-size:15px;color:#16201d}
+  .seg button.on{background:#1d5a7a;border-color:#1d5a7a;color:#fff}
+  .times{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .times button{padding:12px 0;border:1px solid #c9d4da;background:#fff;border-radius:10px;font-size:16px;color:#16201d}
+  .times button.on{background:#1d5a7a;border-color:#1d5a7a;color:#fff}
+  .go{width:100%;padding:16px;font-size:18px;font-weight:600;border:0;border-radius:14px;background:#1d5a7a;color:#fff;margin-top:16px}
+  .go:disabled{opacity:.5}
+  .now{width:100%;padding:16px;font-size:17px;font-weight:600;border:2px solid #1d5a7a;border-radius:14px;background:#fff;color:#1d5a7a}
+  .hint{font-size:13px;color:#5b6b70;line-height:1.45;margin:12px 0 0}
+  .done{text-align:center;padding-top:40px}
+  .tick{width:72px;height:72px;border-radius:50%;background:#1d5a7a;color:#fff;font-size:40px;line-height:72px;margin:0 auto 14px}
+  .err{color:#a31f1f;font-size:14px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="loading" class="hint">Loading… / Ladataan…</div>
+
+  <div id="form" hidden>
+    <div class="brand">Leville.net</div>
+    <h1>Check out</h1>
+    <div class="unit" id="unitName"></div>
+
+    <div class="card">
+      <p class="lbl">Departure day · Lähtöpäivä</p>
+      <div class="seg">
+        <button type="button" id="d-today">Today · Tänään</button>
+        <button type="button" id="d-tomorrow">Tomorrow · Huomenna</button>
+      </div>
+      <p class="lbl">Departure time · Lähtöaika</p>
+      <div class="times" id="times"></div>
+      <button class="go" id="send" type="button" disabled>Send · Lähetä</button>
+      <p class="hint">Check out by 11:00. Please let us know already the evening before – it helps us plan the cleaning order.<br>
+        Luovutus klo 11. Ilmoitathan mieluiten jo edellisenä iltana, niin voimme suunnitella siivousjärjestyksen.</p>
+    </div>
+
+    <div class="card">
+      <button class="now" id="nowBtn" type="button">We are leaving now · Lähdemme nyt</button>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div id="done" class="done" hidden>
+    <div class="tick">✓</div>
+    <h1 style="font-size:24px">Thank you! · Kiitos!</h1>
+    <p id="doneMsg" style="font-size:17px"></p>
+    <p class="hint">If your plans change, you can send again. · Jos aikataulu muuttuu, voit lähettää uudelleen.</p>
+    <p class="hint">Have a safe trip! · Hyvää kotimatkaa!</p>
+  </div>
+
+  <div id="notfound" class="hint" hidden>Not in use · Ei käytössä</div>
+</div>
+<script>
+(function () {
+  var API = 'https://script.google.com/macros/s/AKfycbw5sMdbyDITwTJ28NDyexuCKGA1w8cjcDPnAW6XMgABA4UZYMSklZmEvp-EoybL6_imSQ/exec';
+  var q = new URLSearchParams(location.search);
+  var slug = String(q.get('unit') || '').toLowerCase().trim();
+  var day = 'tomorrow', time = '';
+  function $(id) { return document.getElementById(id); }
+  function api(data, cb) {
+    fetch(API, { method: 'POST', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json(); }).then(cb).catch(function () { cb({ status: 'error' }); });
+  }
+  function pickDay(d) {
+    day = d;
+    $('d-today').className = d === 'today' ? 'on' : '';
+    $('d-tomorrow').className = d === 'tomorrow' ? 'on' : '';
+  }
+  function buildTimes() {
+    var box = $('times');
+    for (var h = 6; h <= 11; h++) ['00', '30'].forEach(function (m) {
+      if (h === 11 && m === '30') return;
+      var v = (h < 10 ? '0' : '') + h + ':' + m, b = document.createElement('button');
+      b.type = 'button'; b.textContent = v;
+      b.onclick = function () {
+        time = v;
+        Array.prototype.forEach.call(box.children, function (x) { x.className = x === b ? 'on' : ''; });
+        $('send').disabled = false;
+      };
+      box.appendChild(b);
+    });
+  }
+  function busy(on) { ['send', 'nowBtn'].forEach(function (id) { $(id).disabled = on || (id === 'send' && !time); }); }
+  function submit(mode) {
+    $('err').textContent = ''; busy(true);
+    api({ action: 'checkoutSubmit', slug: slug, mode: mode, day: day, time: time }, function (r) {
+      if (r.status !== 'ok') {
+        busy(false);
+        $('err').textContent = r.status === 'limit'
+          ? 'Too many attempts, please try again later. · Liian monta yritystä, yritä myöhemmin uudelleen.'
+          : 'Sending failed, please try again. · Lähetys epäonnistui, yritä uudelleen.';
+        return;
+      }
+      $('doneMsg').textContent = r.tila === 'lähdössä nyt'
+        ? 'Departure registered ' + r.aika + ' · Lähtö kirjattu klo ' + r.aika
+        : (r.pvm === 'today' ? 'Today · Tänään' : 'Tomorrow · Huomenna') + ' ' + r.aika;
+      $('form').hidden = true; $('done').hidden = false;
+    });
+  }
+  if (!slug) { $('loading').hidden = true; $('notfound').hidden = false; return; }
+  api({ action: 'checkoutInfo', slug: slug }, function (r) {
+    $('loading').hidden = true;
+    if (r.status !== 'ok') { $('notfound').hidden = false; return; }
+    $('unitName').textContent = 'Levi ' + r.label;
+    buildTimes(); pickDay(r.defaultDay || 'tomorrow');
+    $('d-today').onclick = function () { pickDay('today'); };
+    $('d-tomorrow').onclick = function () { pickDay('tomorrow'); };
+    $('send').onclick = function () { submit('planned'); };
+    $('nowBtn').onclick = function () { submit('now'); };
+    $('form').hidden = false;
+  });
+})();
+</script>
+</body>
+</html>
