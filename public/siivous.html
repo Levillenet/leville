@@ -120,8 +120,16 @@ button:disabled{opacity:.5}
   if (!slug && !admin) { $('notfound').hidden = false; return; }
   if (admin) { $('unitLabelHdr').textContent = 'Leville · hallinta'; $('main').hidden = false; api('adminOpen', {}, function(){}); }
   else {
+    // Nimet sivulla valmiina: näppäimistö näkyy heti. Taustakutsu kirjaa avauksen ja herättää Apps Scriptin valmiiksi.
+    var LABELS = {'sk-102':'102','sk-104':'104','sk-209':'209','sk-210':'210','sk-211':'211','sk-212':'212','sk-310':'310',
+      'ss-319':'319','ss-320':'320','ss-321':'321','ml-415':'415','g-a1':'Glacier A1','g-a2':'Glacier A2','g-a3':'Glacier A3',
+      'g-a4':'Glacier A4','g-a5':'Glacier A5','g-a6':'Glacier A6','g-b1':'Glacier B1','g-b2':'Glacier B2','g-b3':'Glacier B3',
+      'g-b4':'Glacier B4','hk-5a2':'5A2','hk-5b2':'5B2','hk-5b5':'5B5','pl-a2':'Platinum A2','pl-2mh':'Platinum 2mh',
+      'karhupirtti':'Karhupirtti','karhunvartija-3':'Karhunvartija 3'};
+    if (LABELS[slug]) { $('unitName').textContent = LABELS[slug]; $('main').hidden = false; }
     api('unitLabel', { slug: slug }, function(r){
-      if (!r.label) { $('notfound').hidden = false; return; }
+      if (r.status === 'error') return;   // verkkovirhe: sivu toimii silti nimillä
+      if (!r.label) { $('main').hidden = true; $('notfound').hidden = false; return; }
       $('unitName').textContent = r.label; $('main').hidden = false;
     });
   }
