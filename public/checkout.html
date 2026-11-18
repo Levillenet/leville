@@ -14,9 +14,7 @@
   .unit{font-size:17px;color:#3c4b50;margin-bottom:22px}
   .card{background:#fff;border-radius:16px;padding:18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
   .lbl{font-size:14px;color:#5b6b70;margin:0 0 8px}
-  .seg{display:flex;gap:8px;margin-bottom:16px}
-  .seg button{flex:1;padding:13px 8px;border:1px solid #c9d4da;background:#fff;border-radius:12px;font-size:15px;color:#16201d}
-  .seg button.on{background:#1d5a7a;border-color:#1d5a7a;color:#fff}
+  .day{font-size:17px;font-weight:600;margin:0 0 14px}
   .times{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
   .times button{padding:12px 0;border:1px solid #c9d4da;background:#fff;border-radius:10px;font-size:16px;color:#16201d}
   .times button.on{background:#1d5a7a;border-color:#1d5a7a;color:#fff}
@@ -39,16 +37,12 @@
     <div class="unit" id="unitName"></div>
 
     <div class="card">
-      <p class="lbl">Departure day · Lähtöpäivä</p>
-      <div class="seg">
-        <button type="button" id="d-today">Today · Tänään</button>
-        <button type="button" id="d-tomorrow">Tomorrow · Huomenna</button>
-      </div>
-      <p class="lbl">Departure time · Lähtöaika</p>
+      <p class="day" id="dayTxt"></p>
+      <p class="lbl">Planned departure time · Suunniteltu lähtöaika</p>
       <div class="times" id="times"></div>
       <button class="go" id="send" type="button" disabled>Send · Lähetä</button>
-      <p class="hint">Check out by 11:00. Please let us know already the evening before – it helps us plan the cleaning order.<br>
-        Luovutus klo 11. Ilmoitathan mieluiten jo edellisenä iltana, niin voimme suunnitella siivousjärjestyksen.</p>
+      <p class="hint">Check-out at 11:00. We always like to start cleaning as early as possible, so we are grateful to know your planned departure time – ideally the evening before.<br>
+        Luovutus klo 11. Aloitamme siivoukset aina mahdollisimman aikaisin, joten olemme kiitollisia, kun kerrotte suunnitellun lähtöaikanne – mieluiten jo edellisenä iltana.</p>
     </div>
 
     <div class="card">
@@ -61,7 +55,7 @@
     <div class="tick">✓</div>
     <h1 style="font-size:24px">Thank you! · Kiitos!</h1>
     <p id="doneMsg" style="font-size:17px"></p>
-    <p class="hint">If your plans change, you can send again. · Jos aikataulu muuttuu, voit lähettää uudelleen.</p>
+    <p class="hint">If your plans change, you can send again. · Jos aikataulu muuttuu, voitte lähettää uudelleen.</p>
     <p class="hint">Have a safe trip! · Hyvää kotimatkaa!</p>
   </div>
 
@@ -72,22 +66,18 @@
   var API = 'https://script.google.com/macros/s/AKfycbw5sMdbyDITwTJ28NDyexuCKGA1w8cjcDPnAW6XMgABA4UZYMSklZmEvp-EoybL6_imSQ/exec';
   var q = new URLSearchParams(location.search);
   var slug = String(q.get('unit') || '').toLowerCase().trim();
-  var day = 'tomorrow', time = '';
+  var time = '', minTime = '', dayKind = 'tomorrow';
   function $(id) { return document.getElementById(id); }
   function api(data, cb) {
     fetch(API, { method: 'POST', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
       .then(function (r) { return r.json(); }).then(cb).catch(function () { cb({ status: 'error' }); });
-  }
-  function pickDay(d) {
-    day = d;
-    $('d-today').className = d === 'today' ? 'on' : '';
-    $('d-tomorrow').className = d === 'tomorrow' ? 'on' : '';
   }
   function buildTimes() {
     var box = $('times');
     for (var h = 6; h <= 11; h++) ['00', '30'].forEach(function (m) {
       if (h === 11 && m === '30') return;
       var v = (h < 10 ? '0' : '') + h + ':' + m, b = document.createElement('button');
+      if (minTime && v <= minTime) return;
       b.type = 'button'; b.textContent = v;
       b.onclick = function () {
         time = v;
@@ -100,12 +90,14 @@
   function busy(on) { ['send', 'nowBtn'].forEach(function (id) { $(id).disabled = on || (id === 'send' && !time); }); }
   function submit(mode) {
     $('err').textContent = ''; busy(true);
-    api({ action: 'checkoutSubmit', slug: slug, mode: mode, day: day, time: time }, function (r) {
+    api({ action: 'checkoutSubmit', slug: slug, mode: mode, time: time }, function (r) {
       if (r.status !== 'ok') {
         busy(false);
         $('err').textContent = r.status === 'limit'
-          ? 'Too many attempts, please try again later. · Liian monta yritystä, yritä myöhemmin uudelleen.'
-          : 'Sending failed, please try again. · Lähetys epäonnistui, yritä uudelleen.';
+          ? 'Too many attempts, please try again later. · Liian monta yritystä, yrittäkää myöhemmin uudelleen.'
+          : r.status === 'past'
+          ? 'That time has already passed – please choose a later time. · Aika on jo mennyt – valitkaa myöhäisempi aika.'
+          : 'Sending failed, please try again. · Lähetys epäonnistui, yrittäkää uudelleen.';
         return;
       }
       $('doneMsg').textContent = r.tila === 'lähdössä nyt'
@@ -119,9 +111,12 @@
     $('loading').hidden = true;
     if (r.status !== 'ok') { $('notfound').hidden = false; return; }
     $('unitName').textContent = 'Levi ' + r.label;
-    buildTimes(); pickDay(r.defaultDay || 'tomorrow');
-    $('d-today').onclick = function () { pickDay('today'); };
-    $('d-tomorrow').onclick = function () { pickDay('tomorrow'); };
+    minTime = r.minTime || ''; dayKind = r.day;
+    $('dayTxt').textContent = r.day === 'today'
+      ? 'Departure this morning · Lähtö tänä aamuna (' + r.date + ')'
+      : 'Departure tomorrow morning · Lähtö huomisaamuna (' + r.date + ')';
+    buildTimes();
+    if (!$('times').children.length) $('times').innerHTML = '<p class="hint" style="grid-column:1/-1;margin:0">No times left this morning – please use the button below. · Aamun ajat ovat jo menneet – käyttäkää alla olevaa painiketta.</p>';
     $('send').onclick = function () { submit('planned'); };
     $('nowBtn').onclick = function () { submit('now'); };
     $('form').hidden = false;
