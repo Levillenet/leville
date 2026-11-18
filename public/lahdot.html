@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lähdöt · Leville.net</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#eef3f6;color:#16201d}
+  .wrap{max-width:520px;margin:0 auto;padding:22px 16px 40px}
+  .brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#5b6b70}
+  h1{font-size:22px;margin:6px 0 14px}
+  .card{background:#fff;border-radius:14px;padding:6px 14px 10px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  h2{font-size:16px;margin:12px 0 4px}
+  table{width:100%;border-collapse:collapse}
+  td{padding:11px 4px;border-bottom:1px solid #e8edf0;font-size:17px}
+  tr:last-child td{border-bottom:0}
+  td.t{width:70px;text-align:right;font-variant-numeric:tabular-nums}
+  td.s{width:70px;text-align:right;color:#5b6b70;font-size:14px}
+  .m{color:#7a878b}
+  .foot{font-size:13px;color:#7a878b;display:flex;justify-content:space-between;align-items:center}
+  button{padding:8px 14px;border:1px solid #c9d4da;background:#fff;border-radius:10px;font-size:14px;color:#16201d}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">Leville.net</div>
+  <h1 id="title">Lähdöt</h1>
+  <div id="out"><p class="m">Ladataan…</p></div>
+  <div class="foot"><span id="upd"></span><button id="refresh" type="button">Päivitä</button></div>
+</div>
+<script>
+(function () {
+  var API = 'https://script.google.com/macros/s/AKfycbw5sMdbyDITwTJ28NDyexuCKGA1w8cjcDPnAW6XMgABA4UZYMSklZmEvp-EoybL6_imSQ/exec';
+  var q = new URLSearchParams(location.search), g = q.get('g') || '', k = q.get('k') || '';
+  var out = document.getElementById('out');
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function load() {
+    fetch(API, { method: 'POST', redirect: 'follow', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'checkoutList', g: g, k: k }) })
+      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        if (r.status !== 'ok') { out.innerHTML = '<p class="m">Ei oikeutta. Tarkista linkki.</p>'; return; }
+        document.getElementById('title').textContent = r.title;
+        document.title = r.title;
+        out.innerHTML = r.days.map(function (d) {
+          var rows = d.rows.length ? d.rows.map(function (x) {
+            return '<tr><td><b>' + esc(x.name) + '</b></td><td class="t">' + esc(x.aika) + '</td><td class="s">' + esc(x.tila) + '</td></tr>';
+          }).join('') : '<tr><td class="m">Ei ilmoituksia</td></tr>';
+          return '<div class="card"><h2>' + esc(d.title) + '</h2><table>' + rows + '</table></div>';
+        }).join('');
+        document.getElementById('upd').textContent = 'Päivitetty ' + r.updated + ' · järjestys lähtöajan mukaan';
+      })
+      .catch(function () { out.innerHTML = '<p class="m">Lataus epäonnistui. Yritä uudelleen.</p>'; });
+  }
+  document.getElementById('refresh').onclick = load;
+  load();
+  setInterval(load, 120000);
+})();
+</script>
+</body>
+</html>
